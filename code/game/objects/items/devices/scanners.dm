@@ -245,7 +245,7 @@ SLIME SCANNER
 	if(brain)
 		if(brain.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_CRITICAL)) // 100
 			msgs += "<span class='warning'>Subject is brain dead.</span>"
-		else if(brain.damage >= (brain.max_damage * 6 / 12)) // 60
+		else if(brain.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_MODERATE)) // 60
 			msgs += "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>"
 		else if(brain.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_MINOR)) // 10
 			msgs += "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>"

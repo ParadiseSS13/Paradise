@@ -183,7 +183,7 @@
 * * set_owner - The antagonist datum of the mindflayer you want to add the spell to
 * * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, datum/antagonist/mindflayer/set_owner = null, upgrade_type)
+/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, datum/antagonist/mindflayer/set_owner, upgrade_type)
 	if(!to_add)
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
@@ -213,7 +213,7 @@
 * * to_add - The spell datum you want to add to the flayer
 * * set_owner - if the spells owner needs to be manually set, mostly for innate spells.
 */
-/datum/antagonist/mindflayer/proc/force_add_ability(datum/spell/flayer/to_add, set_owner = null)
+/datum/antagonist/mindflayer/proc/force_add_ability(datum/spell/flayer/to_add, set_owner = FALSE)
 	if(!to_add)
 		return
 	if(set_owner)

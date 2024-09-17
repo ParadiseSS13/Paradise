@@ -30,7 +30,7 @@
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		if(changeling.current.client.prefs.active_character.species in species_to_mindflayer)
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += changeling
 			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue

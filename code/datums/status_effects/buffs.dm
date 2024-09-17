@@ -1054,7 +1054,7 @@
 		qdel(src)
 	stacks += 1
 	if(stacks == danger_stack_amount)
-		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!")
+		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!</span>")
 
 /atom/movable/screen/alert/status_effect/overclock
 	name = "Overclocked"

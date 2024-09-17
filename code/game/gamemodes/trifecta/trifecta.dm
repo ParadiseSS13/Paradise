@@ -58,7 +58,7 @@
 		if(changeling.special_role == SPECIAL_ROLE_VAMPIRE || changeling.special_role == SPECIAL_ROLE_MIND_FLAYER)
 			continue
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		if(changeling.current.client.prefs.active_character.species in species_to_mindflayer)
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += changeling
 			amount_cling -= 1
 			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER

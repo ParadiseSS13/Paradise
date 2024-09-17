@@ -96,15 +96,15 @@
 	desc = "A small droplet of a shimmering metallic slurry."
 	camera_tag = "Surveillance Unit"
 	is_sticky = FALSE
-	///Reference to the creator's antag datum
+	/// Reference to the creator's antag datum
 	var/datum/antagonist/mindflayer/flayer
 	COOLDOWN_DECLARE(alert_cooldown)
 
 /obj/item/wall_bug/computer_bug/Destroy()
 	flayer = null
-	. = ..()
+	return ..()
 
-/obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum = null)
+/obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum)
 	..()
 	if(flayer_datum)
 		flayer = flayer_datum

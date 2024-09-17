@@ -182,7 +182,7 @@
 		return try_upgrade_spell(existing_spell)
 
 	if(to_add.current_cost > get_swarms())
-		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
+		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarm\s for this...")
 		return FALSE
 
 	if(category_stage[to_add.category] < to_add.stage)
@@ -260,7 +260,7 @@
  */
 /datum/spell/flayer/proc/on_purchase(mob/user, datum/path)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!user || !user.mind || !flayer)
+	if(!istype(user) || !user.mind || !flayer)
 		qdel(src)
 		return FALSE
 	if(flayer.is_path_spell(path))
