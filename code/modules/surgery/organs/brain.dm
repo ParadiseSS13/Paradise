@@ -134,8 +134,7 @@
 /obj/item/organ/internal/brain/on_life()
 	if(decoy_brain)
 		return
-	if(ismonkeybasic(owner))
-		return
+
 	var/ratio = damage / max_damage // Get our damage as a percentage of max HP
 	if(ratio < BRAIN_DAMAGE_RATIO_LIGHT)
 		return
