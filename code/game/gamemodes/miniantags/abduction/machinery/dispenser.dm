@@ -82,7 +82,7 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
+/obj/machinery/abductor/gland_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/organ/internal/heart/gland))
 		if(!user.drop_item())
 			return

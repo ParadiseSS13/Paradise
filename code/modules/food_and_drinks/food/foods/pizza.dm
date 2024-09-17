@@ -351,7 +351,7 @@
 	open = !open
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/pizzabox/attack_self(mob/user)
+/obj/item/pizzabox/attack_self__legacy__attackchain(mob/user)
 	if(length(boxes) > 0)
 		return
 	open = !open
@@ -359,7 +359,7 @@
 		is_messy = TRUE
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pizzabox/))
 		var/obj/item/pizzabox/box = I
 		if(!box.open && !open)
@@ -475,9 +475,9 @@
 	return ..()
 
 /obj/item/pizzabox/pizza_bomb/AltClick(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
-/obj/item/pizzabox/pizza_bomb/attack_self(mob/user)
+/obj/item/pizzabox/pizza_bomb/attack_self__legacy__attackchain(mob/user)
 	if(disarmed)
 		to_chat(user, "<span class='notice'>[src] is disarmed.</span>")
 		return
@@ -542,7 +542,7 @@
 		to_chat(user, "<span class='notice'>You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce.</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
-/obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/pizza_bomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)

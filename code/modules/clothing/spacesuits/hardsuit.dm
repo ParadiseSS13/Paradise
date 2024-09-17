@@ -50,7 +50,7 @@
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/attack_self__legacy__attackchain(mob/user)
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
@@ -192,11 +192,11 @@
 		W.suit = src
 		helmet = W
 
-/obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
+/obj/item/clothing/suit/space/hardsuit/attack_self__legacy__attackchain(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
 
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		if(jetpack)
 			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
@@ -280,7 +280,7 @@
 	linkedsuit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self__legacy__attackchain(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot toggle your helmet while in this [user.loc]!</span>" )
 		return

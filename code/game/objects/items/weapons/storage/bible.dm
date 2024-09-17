@@ -74,7 +74,7 @@
 				H.UpdateDamageIcon()
 	return
 
-/obj/item/storage/bible/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bible/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -112,7 +112,7 @@
 		playsound(src.loc, "punch", 25, TRUE, -1)
 
 
-/obj/item/storage/bible/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/storage/bible/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -140,7 +140,7 @@
 			target.reagents.del_reagent("unholywater")
 			target.reagents.add_reagent("holywater", unholy2clean)
 
-/obj/item/storage/bible/attack_self(mob/user)
+/obj/item/storage/bible/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(!customisable || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return

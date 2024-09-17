@@ -177,7 +177,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
+/obj/machinery/smartfridge/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(istype(O, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)

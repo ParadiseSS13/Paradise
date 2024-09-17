@@ -337,7 +337,7 @@
 	A.friends += user
 	A.faction = user.faction.Copy()
 
-/obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
+/obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/LivingUser = user

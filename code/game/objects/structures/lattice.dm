@@ -29,7 +29,7 @@
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+/obj/structure/lattice/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	if(istype(C, /obj/item/wirecutters))
@@ -39,7 +39,7 @@
 		deconstruct()
 	else
 		var/turf/T = get_turf(src)
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+		return T.attackby__legacy__attackchain(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		. += "A coil of power cables."
 
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/M, mob/user)
+/obj/item/stack/cable_coil/attack__legacy__attackchain(mob/M, mob/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
-/obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
+/obj/item/stack/cable_coil/attackby__legacy__attackchain(obj/item/W, mob/user)
 	. = ..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/cyborg/update_icon_state()
 	return // icon_state should always be a full cable
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
+/obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	color = cablecolor
 	update_icon()

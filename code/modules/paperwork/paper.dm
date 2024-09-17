@@ -125,7 +125,7 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-/obj/item/paper/attack_self(mob/living/user as mob)
+/obj/item/paper/attack_self__legacy__attackchain(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(!spam_flag)
@@ -147,7 +147,7 @@
 	else
 		show_content(user, forcestars = 1)
 
-/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+/obj/item/paper/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
@@ -378,7 +378,7 @@
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
+/obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
 
 	if(resistance_flags & ON_FIRE)

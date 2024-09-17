@@ -183,7 +183,7 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/ed209/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)

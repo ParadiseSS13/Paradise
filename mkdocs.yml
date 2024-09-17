@@ -36,6 +36,7 @@ plugins:
   - social:
       cards_layout_options:
         background_color: '#861f41'
+  - glightbox
 
 markdown_extensions:
   - admonition
@@ -92,3 +93,4 @@ nav:
       - 'Autodoc Guide': './references/autodoc.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
+      - 'Attack Chain Refactoring': './references/attack_chain_refactor.md'

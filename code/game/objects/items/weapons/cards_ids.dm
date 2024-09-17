@@ -38,10 +38,10 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/card/emag/attack()
+/obj/item/card/emag/attack__legacy__attackchain()
 	return
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/emag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	var/atom/A = target
 	if(!proximity)
 		return
@@ -53,7 +53,7 @@
 	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
-/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!isairlock(target))
 		return
 	var/obj/machinery/door/D = target
@@ -75,10 +75,10 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
-/obj/item/card/cmag/attack()
+/obj/item/card/cmag/attack__legacy__attackchain()
 	return
 
-/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/cmag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	target.cmag_act(user)
@@ -151,7 +151,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/card/id/attack_self(mob/user as mob)
+/obj/item/card/id/attack_self__legacy__attackchain(mob/user as mob)
 	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
@@ -236,7 +236,7 @@
 /obj/item/card/id/proc/get_departments()
 	return get_departments_from_job(rank)
 
-/obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/card/id/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(istype(W, /obj/item/id_decal/))
@@ -370,7 +370,7 @@
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"
 
-/obj/item/card/id/syndicate/afterattack(obj/item/O as obj, mob/user as mob, proximity)
+/obj/item/card/id/syndicate/afterattack__legacy__attackchain(obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
@@ -380,7 +380,7 @@
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
-/obj/item/card/id/syndicate/attack_self(mob/user as mob)
+/obj/item/card/id/syndicate/attack_self__legacy__attackchain(mob/user as mob)
 	if(!src.registered_name)
 		var/t = reject_bad_name(tgui_input_text(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
 		if(!t)
@@ -650,7 +650,7 @@
 	if(isAntag(user))
 		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
 
-/obj/item/card/id/syndi_scan_only/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/card/id/syndi_scan_only/afterattack__legacy__attackchain(obj/item/O, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
@@ -1062,7 +1062,7 @@
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
-/obj/item/card/id/golem/attack_self(mob/user as mob)
+/obj/item/card/id/golem/attack_self__legacy__attackchain(mob/user as mob)
 	if(!registered && ishuman(user))
 		registered_name = user.real_name
 		SetOwnerInfo(user)

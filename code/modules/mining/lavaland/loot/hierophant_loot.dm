@@ -48,7 +48,7 @@
 	return OBLITERATION
 
 
-/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_club/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(world.time < timer)
 		return

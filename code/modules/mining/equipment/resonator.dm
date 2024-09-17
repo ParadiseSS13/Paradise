@@ -22,7 +22,7 @@
 	fieldlimit = 6
 	quick_burst_mod = 1
 
-/obj/item/resonator/attack_self(mob/user)
+/obj/item/resonator/attack_self__legacy__attackchain(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='notice'>You set the resonator's fields to detonate after 3 seconds.</span>")
@@ -42,6 +42,9 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/item/resonator/pre_attack(atom/target, mob/user, params)
+	if(..())
+		return TRUE
+
 	if(check_allowed_items(target, 1))
 		CreateResonance(target, user)
 	return TRUE

@@ -87,7 +87,7 @@
 	radiate()
 	..()
 
-/turf/simulated/wall/mineral/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
+/turf/simulated/wall/mineral/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -106,7 +106,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
-/turf/simulated/wall/mineral/plasma/attackby(obj/item/W, mob/user)
+/turf/simulated/wall/mineral/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
@@ -171,7 +171,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
-/turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
+/turf/simulated/wall/mineral/wood/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.sharp && W.force)
 		var/duration = (48 / W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))

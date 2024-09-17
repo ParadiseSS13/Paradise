@@ -47,7 +47,7 @@
 	buffer = null
 	return ..()
 
-/obj/item/multitool/attack_self(mob/user)
+/obj/item/multitool/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
 		return
 	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)

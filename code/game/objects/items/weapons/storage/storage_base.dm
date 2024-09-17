@@ -75,6 +75,41 @@
 
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
+/obj/item/storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/tape_roll) && can_be_inserted(used))
+		handle_item_insertion(used, user)
+		// Don't tape the bag if we can put the duct tape inside it instead
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/storage/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(use_to_pickup)
+		if(pickup_all_on_tile) // Mode is set to collect all items on a tile and we clicked on a valid one.
+			if(isturf(interacting_with.loc))
+				var/list/rejections = list()
+				var/success = 0
+				var/failure = 0
+
+				for(var/obj/item/IT in interacting_with.loc)
+					if(IT.type in rejections) // To limit bag spamming: any given type only complains once
+						continue
+					if(!can_be_inserted(IT))	// Note can_be_inserted still makes noise when the answer is no
+						rejections += IT.type	// therefore full bags are still a little spammy
+						failure = 1
+						continue
+					success = 1
+					handle_item_insertion(IT, user, TRUE)	// The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
+				if(success && !failure)
+					to_chat(user, "<span class='notice'>You put everything in [src].</span>")
+				else if(success)
+					to_chat(user, "<span class='notice'>You put some things in [src].</span>")
+				else
+					to_chat(user, "<span class='notice'>You fail to pick anything up with [src].</span>")
+
+		else if(can_be_inserted(interacting_with))
+			handle_item_insertion(interacting_with, user)
+
+		return ITEM_INTERACT_SUCCESS
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -547,7 +582,7 @@
 	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
@@ -638,7 +673,7 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/storage/attack_self(mob/user)
+/obj/item/storage/attack_self__legacy__attackchain(mob/user)
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)

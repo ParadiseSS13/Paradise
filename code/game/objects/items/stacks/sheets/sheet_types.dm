@@ -487,7 +487,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		)),
 ))
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
@@ -569,7 +569,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 	recipes = GLOB.cult_recipes
 
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
+/obj/item/stack/sheet/runed_metal/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return

@@ -11,7 +11,7 @@
 	origin_tech = "bluespace=2"
 	slot_flags = SLOT_FLAG_BELT
 
-/obj/item/wormhole_jaunter/attack_self(mob/user)
+/obj/item/wormhole_jaunter/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
 	activate(user, TRUE)
 
@@ -127,7 +127,7 @@
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/attack_self__legacy__attackchain(mob/user) // message is later down
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
@@ -193,7 +193,7 @@
 	thrower = null
 	return ..()
 
-/obj/item/grenade/jaunter_grenade/attack_self(mob/user)
+/obj/item/grenade/jaunter_grenade/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	thrower = user
 

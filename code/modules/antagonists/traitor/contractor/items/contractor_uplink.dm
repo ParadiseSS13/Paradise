@@ -19,7 +19,7 @@
 	QDEL_NULL(hub)
 	return ..()
 
-/obj/item/contractor_uplink/attack_self(mob/user)
+/obj/item/contractor_uplink/attack_self__legacy__attackchain(mob/user)
 	hub.ui_interact(user)
 
 /**

@@ -563,7 +563,7 @@
 
 	var/obj/item/clothing/ears/headphones/P = r_ear
 	if(istype(P))
-		P.attack_self(H) // activate them, display musical notes effect
+		P.attack_self__legacy__attackchain(H) // activate them, display musical notes effect
 
 // Soviet Military
 

@@ -16,7 +16,7 @@
 	maximum_cards = 5
 	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
 
-/obj/item/tarot_generator/attack_self(mob/user)
+/obj/item/tarot_generator/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
 		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!</span>")
 		return
@@ -50,7 +50,7 @@
 	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
 	var/cards = 3
 
-/obj/item/tarot_card_pack/attack_self(mob/user)
+/obj/item/tarot_card_pack/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
 						"<span class='hierophant'>You tear open [src]!</span>")
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
@@ -92,7 +92,7 @@
 	else
 		. += "<span class='hierophant'>We have the Ink... Could you provide your Vision instead?</span>"
 
-/obj/item/blank_tarot_card/attack_self(mob/user)
+/obj/item/blank_tarot_card/attack_self__legacy__attackchain(mob/user)
 	if(!ishuman(user))
 		return
 	if(!let_people_choose)
@@ -181,7 +181,7 @@
 	if(!face_down)
 		. += "<span class='hierophant'>[src] [our_tarot.extended_desc]</span>"
 
-/obj/item/magic_tarot_card/attack_self(mob/user)
+/obj/item/magic_tarot_card/attack_self__legacy__attackchain(mob/user)
 	poof()
 	if(has_been_activated)
 		return

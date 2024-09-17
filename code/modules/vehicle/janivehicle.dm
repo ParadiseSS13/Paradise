@@ -90,7 +90,7 @@
 	if(buffer_installed)
 		. += "It has been upgraded with a floor buffer."
 
-/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/janicart/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
 	if(istype(I, /obj/item/storage/bag/trash))
@@ -118,7 +118,7 @@
 		vehicle_move_delay -= buffer_delay
 		return ..() //VTEC installation is handled in parent attackby, so we're returning to it early
 	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
-		mybag.attackby(I, user)
+		mybag.attackby__legacy__attackchain(I, user)
 	else
 		return ..()
 

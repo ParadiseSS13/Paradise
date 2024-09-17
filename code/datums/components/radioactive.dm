@@ -22,8 +22,8 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
 	RegisterSignal(parent, COMSIG_ADMIN_DECONTAMINATE, PROC_REF(admin_decontaminate))
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(rad_attack))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(rad_attack))
+		RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(rad_attack))
+		RegisterSignal(parent, COMSIG_ATTACK_OBJ, PROC_REF(rad_attack))
 	if(strength > RAD_MINIMUM_CONTAMINATION)
 		SSradiation.warn(src)
 	//Let's make er glow

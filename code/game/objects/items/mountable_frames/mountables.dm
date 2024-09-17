@@ -5,7 +5,7 @@
 	)
 
 
-/obj/item/mounted/afterattack(atom/A, mob/user, proximity_flag)
+/obj/item/mounted/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
 	var/found_type = 0
 	for(var/turf_type in src.buildon_types)
 		if(istype(A, turf_type))

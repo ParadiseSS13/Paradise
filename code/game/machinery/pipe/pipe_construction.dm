@@ -336,7 +336,7 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)

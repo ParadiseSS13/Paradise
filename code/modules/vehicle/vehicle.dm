@@ -58,7 +58,7 @@
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 
-/obj/vehicle/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
 		if(user.drop_item())
 			I.forceMove(src)

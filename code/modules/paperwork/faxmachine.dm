@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
+/obj/machinery/photocopier/faxmachine/attackby__legacy__attackchain(obj/item/item, mob/user, params)
 	if(istype(item,/obj/item/card/id) && !scan)
 		scan(item)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))

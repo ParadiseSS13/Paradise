@@ -253,7 +253,7 @@ Pipelines + Other Objects -> Pipe network
 	deconstruct(TRUE)
 
 //(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+/obj/machinery/atmospherics/attackby__legacy__attackchain(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")

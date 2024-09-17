@@ -128,7 +128,7 @@
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
 	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
-		P.attackby(user.get_inactive_hand(), user)
+		P.attackby__legacy__attackchain(user.get_inactive_hand(), user)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
@@ -197,7 +197,7 @@
 
 // TGUI stuff
 
-/obj/item/rpd/attack_self(mob/user)
+/obj/item/rpd/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/rpd/ui_state(mob/user)
@@ -287,7 +287,7 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rpd/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(isstorage(target))
 		var/obj/item/storage/S = target
@@ -335,7 +335,7 @@
 
 	T.rpd_act(user, src)
 
-/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+/obj/item/rpd/attack_obj__legacy__attackchain(obj/O, mob/living/user)
 	if(user.a_intent != INTENT_HARM)
 		if(istype(O, /obj/machinery/atmospherics/pipe))
 			return

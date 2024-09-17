@@ -384,7 +384,7 @@
 /obj/machinery/computer/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/pandemic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return

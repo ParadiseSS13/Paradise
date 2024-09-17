@@ -139,7 +139,7 @@
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
-	chainsaw.attack_self(victim)
+	chainsaw.attack_self__legacy__attackchain(victim)
 	victim.reagents.add_reagent("adminordrazine", 25)
 
 	victim.flash_screen_color(red_splash, 10)

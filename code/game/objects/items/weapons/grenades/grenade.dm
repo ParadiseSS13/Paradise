@@ -29,7 +29,7 @@
 		. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
 	else
 		. += "<span class='warning'>[src] is set for instant detonation.</span>"
-	
+
 	if(modifiable_timer)
 		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
 	else
@@ -54,7 +54,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/grenade/attack_self(mob/user as mob)
+/obj/item/grenade/attack_self__legacy__attackchain(mob/user as mob)
 	if(active)
 		return
 	if(!clown_check(user))

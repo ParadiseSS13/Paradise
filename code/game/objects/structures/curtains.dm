@@ -39,7 +39,7 @@
 		icon_state = "open"
 		layer = SHOWER_OPEN_LAYER
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
+/obj/structure/curtain/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/toy/crayon))
 		color = input(user, "Choose Color") as color
 		return

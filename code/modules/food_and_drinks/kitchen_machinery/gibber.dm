@@ -93,7 +93,7 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
+/obj/machinery/gibber/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/grab))
 		var/obj/item/grab/G = P
 		if(G.state < 2)

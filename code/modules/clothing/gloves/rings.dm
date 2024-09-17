@@ -25,7 +25,7 @@
 	if(stud)
 		. += "It is adorned with a single gem."
 
-/obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/ring/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)

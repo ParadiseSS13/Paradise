@@ -353,7 +353,7 @@
 
 
 
-/mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/slime/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(stat == DEAD && length(surgeries))
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)

@@ -98,7 +98,7 @@
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
-/obj/effect/decal/attackby(obj/item/I, mob/user)
+/obj/effect/decal/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))
 		scoop(I, user)
 	else if(issimulatedturf(loc))

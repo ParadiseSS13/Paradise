@@ -7,7 +7,7 @@
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/bodybag/attack_self(mob/user)
+/obj/item/bodybag/attack_self__legacy__attackchain(mob/user)
 	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
@@ -28,7 +28,7 @@
 	var/item_path = /obj/item/bodybag
 
 
-/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/body_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(isnull(t))

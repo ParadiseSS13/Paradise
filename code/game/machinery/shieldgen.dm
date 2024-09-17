@@ -232,7 +232,7 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/shieldgen/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/card/emag))
 		malfunction = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -427,7 +427,7 @@
 	var/list/L = active_shields["[direction]"]
 	L -= SW
 
-/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shieldwallgen/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
@@ -583,7 +583,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldwall/syndicate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	phaseout()
 	return ..()
 

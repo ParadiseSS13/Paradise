@@ -577,7 +577,7 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/lazarus/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
@@ -610,7 +610,7 @@
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "bandolier_[min(length(contents), 8)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/bandolier/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/amount = length(contents)
 	..()
 	if(amount != length(contents))
@@ -896,7 +896,7 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M, mob/user, def_zone)
+/obj/item/storage/belt/bluespace/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	return
 
 /obj/item/storage/belt/bluespace/admin
