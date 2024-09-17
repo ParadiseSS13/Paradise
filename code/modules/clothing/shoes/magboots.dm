@@ -81,7 +81,7 @@
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse_equipping(mob/user)
-	!ishuman(user)
+	if(!ishuman(user))
 		return
 	if(magpulse)
 		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
