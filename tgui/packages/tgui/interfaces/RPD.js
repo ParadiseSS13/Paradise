@@ -101,11 +101,11 @@ const AtmosPipeContent = (props, context) => {
             <Section fill>
               <Grid>
                 <Grid.Column>
+                  <ActionButtons />
                   {pipelist
                     .filter((p) => p.pipe_type === 1 && p.pipe_id === whatpipe && p.orientations !== 1)
                     .map((p) => (
                       <Box key={p.pipe_id}>
-                        <ActionButtons />
                         {p.bendy ? (
                           <>
                             <Grid>
@@ -257,11 +257,11 @@ const DisposalPipeContent = (props, context) => {
           <Section fill>
             <Grid>
               <Grid.Column>
+                <ActionButtons />
                 {pipelist
                   .filter((p) => p.pipe_type === 2 && p.pipe_id === whatdpipe && p.orientations !== 1)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
-                      <ActionButtons />
                       <Grid>
                         <Grid.Column>
                           <Button
@@ -432,6 +432,7 @@ const TransitTubeContent = (props, context) => {
           <Section fill>
             <Grid>
               <Grid.Column>
+                <ActionButtons />
                 {pipelist
                   .filter((p) => p.pipe_type === transit_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
                   .map((p) => (
