@@ -109,8 +109,8 @@
 		var/mob/user = flayer.owner
 		var/mob/living/creature = target
 		creature.visible_message(
-			"<span class = 'notice'>[user] uses [creature] to pull [user.p_themselves()] over!</span>",
-			"<span class = 'danger'>You feel a strong tug as [user] yanks [user.p_themselves()] over to you!</span>")
+			"<span class='notice'>[user] uses [creature] to pull [user.p_themselves()] over!</span>",
+			"<span class='danger'>You feel a strong tug as [user] yanks [user.p_themselves()] over to you!</span>")
 		creature.KnockDown(1 SECONDS)
 
 /datum/spell/flayer/grapple_arm/create_new_targeting()
