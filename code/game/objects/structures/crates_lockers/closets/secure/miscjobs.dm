@@ -2,8 +2,6 @@
 	name = "clown's locker"
 	req_access = list(ACCESS_CLOWN)
 	icon_state = "clown"
-	opened_door_sprite = "clown"
-	closed_door_sprite = "clown"
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
@@ -29,8 +27,6 @@
 	name = "mime's locker"
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
-	opened_door_sprite = "mime"
-	closed_door_sprite = "mime"
 	// It's silent!
 	open_sound = null
 	close_sound = null

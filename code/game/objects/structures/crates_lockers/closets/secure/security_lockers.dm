@@ -2,8 +2,6 @@
 	name = "captain's locker"
 	req_access = list(ACCESS_CAPTAIN)
 	icon_state = "cap"
-	opened_door_sprite = "cap"
-	closed_door_sprite = "cap"
 
 /obj/structure/closet/secure_closet/captains/populate_contents()
 	if(prob(50))
@@ -26,8 +24,6 @@
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
-	opened_door_sprite = "hop"
-	closed_door_sprite = "hop"
 
 /obj/structure/closet/secure_closet/hop/populate_contents()
 	new /obj/item/cartridge/hop(src)
@@ -45,8 +41,6 @@
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
-	opened_door_sprite = "hos"
-	closed_door_sprite = "hos"
 
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
@@ -76,7 +70,6 @@
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "warden"
 	opened_door_sprite = "sec"
-	closed_door_sprite = "warden"
 
 /obj/structure/closet/secure_closet/warden/populate_contents()
 	if(prob(50))
@@ -98,8 +91,6 @@
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "sec"
-	opened_door_sprite = "sec"
-	closed_door_sprite = "sec"
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
@@ -129,7 +120,6 @@
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
 	icon_state = "hop"
-	opened_door_sprite = "hop"
 	closed_door_sprite = "bs"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
@@ -151,7 +141,6 @@
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
 	icon_state = "hop"
-	opened_door_sprite = "hop"
 	closed_door_sprite = "ntr"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
@@ -193,8 +182,6 @@
 	name = "detective's cabinet"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinet"
-	opened_door_sprite = "cabinet"
-	closed_door_sprite = "cabinet"
 	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
@@ -313,7 +300,6 @@
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magi"
 	opened_door_sprite = "chaplain"
-	closed_door_sprite = "magi"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)

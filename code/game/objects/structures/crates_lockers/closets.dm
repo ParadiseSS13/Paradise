@@ -26,6 +26,7 @@
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 	var/transparent
+	var/secure = FALSE
 
 		/// The overlay for the closet's door
 	var/obj/effect/overlay/closet_door/door_obj
@@ -56,6 +57,83 @@
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
+
+/obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
+	. = new_overlays
+	if(enable_door_overlay && !is_animating_door)
+		if(opened && has_opened_overlay)
+			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[opened_door_sprite || icon_state]_opened", alpha = src.alpha)
+			. += door_overlay
+			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+		else if(!opened && has_closed_overlay)
+			. += "[closed_door_sprite || icon_state]_closed"
+	if(opened)
+		return
+
+	if(welded)
+		. += "welded"
+
+	if(broken || !locked || !secure)
+		return
+
+	//Overlay is similar enough for both that we can use the same mask for both
+	. += emissive_appearance(icon, "locked", alpha = src.alpha)
+	. += locked ? "locked" : "unlocked"
+
+/// Animates the closet door opening and closing
+/obj/structure/closet/proc/animate_door(closing = FALSE)
+	if(!door_anim_time)
+		return
+	if(!door_obj)
+		door_obj = new
+	var/default_door_icon = "[closed_door_sprite || icon_state]_closed"
+	vis_contents += door_obj
+	door_obj.icon = icon
+	door_obj.icon_state = default_door_icon
+	is_animating_door = TRUE
+	var/num_steps = door_anim_time / world.tick_lag
+
+	for(var/step in 0 to num_steps)
+		var/angle = door_anim_angle * (closing ? 1 - (step/num_steps) : (step/num_steps))
+		var/matrix/door_transform = get_door_transform(angle)
+		var/door_state
+		var/door_layer
+
+		if (angle >= 90)
+			door_state = "[opened_door_sprite || icon_state]_back"
+			door_layer = FLOAT_LAYER
+		else
+			door_state = "[closed_door_sprite || icon_state]_closed"
+			door_layer = ABOVE_MOB_LAYER
+
+		if(step == 0)
+			door_obj.transform = door_transform
+			door_obj.icon_state = door_state
+			door_obj.layer = door_layer
+		else if(step == 1)
+			animate(door_obj, transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
+		else
+			animate(transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag)
+	addtimer(CALLBACK(src, .proc/end_door_animation), door_anim_time, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/// Ends the door animation and removes the animated overlay
+/obj/structure/closet/proc/end_door_animation()
+	is_animating_door = FALSE
+	vis_contents -= door_obj
+	update_icon()
+	COMPILE_OVERLAYS(src)
+
+/// Calculates the matrix to be applied to the animated door overlay
+/obj/structure/closet/proc/get_door_transform(angle)
+	var/matrix/door_matrix = matrix()
+	door_matrix.Translate(-door_hinge_x, 0)
+	door_matrix.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
+	door_matrix.Translate(door_hinge_x, 0)
+	return door_matrix
+
+/obj/structure/closet/update_icon()
+	. = ..()
+	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
@@ -110,20 +188,26 @@
 	for(var/atom/A in contents)
 		A.extinguish_light(force)
 
-// /obj/structure/closet/proc/open()
-// 	if(opened)
-// 		return FALSE
+/obj/structure/closet/proc/open(mob/user)
+	if(!can_open())
+		return
+	if(opened)
+		return
+	welded = FALSE
+	locked = FALSE
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
+	opened = TRUE
+	// if(!dense_when_open)
+	// 	set_density(FALSE)
+	density = FALSE
+	dump_contents()
+	animate_door(FALSE)
+	update_appearance()
+	after_open(user, force)
+	return TRUE
 
-// 	if(!can_open())
-// 		return FALSE
-
-// 	dump_contents()
-
-// 	opened = TRUE
-// 	update_icon()
-// 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
-// 	density = FALSE
-// 	return TRUE
+/obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
+	return
 
 /obj/structure/closet/proc/close()
 	if(!opened)
@@ -167,7 +251,7 @@
 	update_appearance()
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE
-	
+
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -417,117 +501,11 @@
 
 	return ..()
 
-
-
-/obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
-	. = new_overlays
-	if(enable_door_overlay && !is_animating_door)
-		if(opened && has_opened_overlay)
-			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[opened_door_sprite || icon_state]_opened", alpha = src.alpha)
-			. += door_overlay
-			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
-		else if(!opened && has_closed_overlay)
-			// . += "[icon_door || icon_state]_door"	
-			. += "[closed_door_sprite || icon_state]_closed"
-	if(opened)
-		return
-
-	if(welded)
-		. += "welded"
-
-	if(broken || !locked)
-		return
-	//Overlay is similar enough for both that we can use the same mask for both
-	. += emissive_appearance(icon, "locked", alpha = src.alpha)
-	. += locked ? "locked" : "unlocked"
-
-
-
-/// Animates the closet door opening and closing
-/obj/structure/closet/proc/animate_door(closing = FALSE)
-	if(!door_anim_time)
-		return
-	if(!door_obj)
-		door_obj = new
-	var/default_door_icon = "[closed_door_sprite || icon_state]_closed"
-	vis_contents += door_obj
-	door_obj.icon = icon
-	door_obj.icon_state = default_door_icon
-	is_animating_door = TRUE
-	var/num_steps = door_anim_time / world.tick_lag
-
-	for(var/step in 0 to num_steps)
-		var/angle = door_anim_angle * (closing ? 1 - (step/num_steps) : (step/num_steps))
-		var/matrix/door_transform = get_door_transform(angle)
-		var/door_state
-		var/door_layer
-
-		if (angle >= 90)
-			door_state = "[opened_door_sprite || icon_state]_back"
-			door_layer = FLOAT_LAYER
-		else
-			door_state = "[closed_door_sprite || icon_state]_closed"
-			door_layer = ABOVE_MOB_LAYER
-
-		if(step == 0)
-			door_obj.transform = door_transform
-			door_obj.icon_state = door_state
-			door_obj.layer = door_layer
-		else if(step == 1)
-			animate(door_obj, transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
-		else
-			animate(transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src, .proc/end_door_animation), door_anim_time, TIMER_UNIQUE|TIMER_OVERRIDE)
-
-/// Ends the door animation and removes the animated overlay
-/obj/structure/closet/proc/end_door_animation()
-	is_animating_door = FALSE
-	vis_contents -= door_obj
-	update_icon()
-	COMPILE_OVERLAYS(src)
-
-/// Calculates the matrix to be applied to the animated door overlay
-/obj/structure/closet/proc/get_door_transform(angle)
-	var/matrix/door_matrix = matrix()
-	door_matrix.Translate(-door_hinge_x, 0)
-	door_matrix.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
-	door_matrix.Translate(door_hinge_x, 0)
-	return door_matrix
-
-/obj/structure/closet/proc/open(mob/user)
-	if(!can_open())
-		return
-	if(opened)
-		return
-	welded = FALSE
-	locked = FALSE
-	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
-	opened = TRUE
-	// if(!dense_when_open)
-	// 	set_density(FALSE)
-	dump_contents()
-	animate_door(FALSE)
-	update_appearance()
-	after_open(user, force)
-	return TRUE
-
-/obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
-	return
-
-/obj/structure/closet/update_icon()
-	. = ..()
-	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
-
-
-
-
-
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
 	density = FALSE
 	icon_state = "bluespace"
-	opened_door_sprite = "bluespace_door"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 

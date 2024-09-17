@@ -2,7 +2,6 @@
 	name = "wardrobe"
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
 	icon_state = "generic"
-	opened_door_sprite = "generic"
 	closed_door_sprite = "blue"
 
 

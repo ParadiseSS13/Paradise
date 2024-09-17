@@ -2,8 +2,6 @@
 	name = "cabinet"
 	desc = "Old will forever be in fashion."
 	icon_state = "cabinet"
-	opened_door_sprite = "cabinet"
-	closed_door_sprite = "cabinet"
 	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -31,15 +29,11 @@
 	name = "strange closet"
 	desc = "It looks alien!"
 	icon_state = "alien"
-	opened_door_sprite = "alien"
-	closed_door_sprite = "alien"
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
 	desc = "It's a storage unit for things that have no right being here."
 	icon_state = "syndicate1"
-	opened_door_sprite = "syndicate1"
-	closed_door_sprite = "syndicate1"
 	anchored = FALSE
 
 /obj/structure/closet/gimmick/russian

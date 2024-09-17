@@ -16,8 +16,6 @@
 	name = "emergency closet"
 	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
 	icon_state = "emergency"
-	opened_door_sprite = "emergency"
-	closed_door_sprite = "emergency"
 
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
@@ -61,8 +59,6 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "fire"
-	opened_door_sprite = "fire"
-	closed_door_sprite = "fire"
 
 /obj/structure/closet/firecloset/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -87,7 +83,6 @@
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
 	icon_state = "eng"
-	opened_door_sprite = "eng"
 	closed_door_sprite = "eng_tool"
 
 /obj/structure/closet/toolcloset/populate_contents()
@@ -130,7 +125,6 @@
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
 	icon_state = "eng"
-	opened_door_sprite = "eng"
 	closed_door_sprite = "eng_rad"
 
 /obj/structure/closet/radiation/populate_contents()
@@ -145,8 +139,6 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	opened_door_sprite = "bomb"
-	closed_door_sprite = "bomb"
 
 /obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
@@ -159,8 +151,6 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	opened_door_sprite = "bomb"
-	closed_door_sprite = "bomb"
 
 /obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )

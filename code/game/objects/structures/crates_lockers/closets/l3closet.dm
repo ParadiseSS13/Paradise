@@ -2,8 +2,6 @@
 	name = "level-3 biohazard suit closet"
 	desc = "It's a storage unit for level-3 biohazard gear."
 	icon_state = "bio"
-	opened_door_sprite = "bio"
-	closed_door_sprite = "bio"
 
 /obj/structure/closet/l3closet/populate_contents()
 	new /obj/item/storage/bag/bio( src )
@@ -18,8 +16,6 @@
 
 /obj/structure/closet/l3closet/virology
 	icon_state = "bio_viro"
-	opened_door_sprite = "bio_viro"
-	closed_door_sprite = "bio_viro"
 
 /obj/structure/closet/l3closet/virology/populate_contents()
 	new /obj/item/storage/bag/bio( src )
@@ -30,8 +26,6 @@
 
 /obj/structure/closet/l3closet/security
 	icon_state = "bio_sec"
-	opened_door_sprite = "bio_sec"
-	closed_door_sprite = "bio_sec"
 
 /obj/structure/closet/l3closet/security/populate_contents()
 	new /obj/item/clothing/suit/bio_suit/security( src )
@@ -39,8 +33,6 @@
 
 /obj/structure/closet/l3closet/janitor
 	icon_state = "bio_jan"
-	opened_door_sprite = "bio_jan"
-	closed_door_sprite = "bio_jan"
 
 /obj/structure/closet/l3closet/janitor/populate_contents()
 	new /obj/item/clothing/suit/bio_suit/janitor( src )

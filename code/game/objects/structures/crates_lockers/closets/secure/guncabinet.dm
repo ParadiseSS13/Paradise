@@ -3,8 +3,6 @@
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "base"
-	opened_door_sprite = "base"
-	closed_door_sprite = "base"
 	anchored = TRUE
 
 /obj/structure/closet/secure_closet/guncabinet/toggle()

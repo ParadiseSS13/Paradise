@@ -3,7 +3,6 @@
 	req_access = list(ACCESS_CE)
 	icon_state = "ce"
 	opened_door_sprite = "white_secure"
-	closed_door_sprite = "ce"
 
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents()
 	if(prob(50))
@@ -38,7 +37,6 @@
 	name = "electrical supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng"
-	opened_door_sprite = "eng"
 	closed_door_sprite = "eng_elec"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
@@ -60,7 +58,6 @@
 	name = "welding supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng"
-	opened_door_sprite = "eng"
 	closed_door_sprite = "eng_weld"
 
 /obj/structure/closet/secure_closet/engineering_welding/populate_contents()
@@ -76,7 +73,6 @@
 	name = "engineer's locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng"
-	opened_door_sprite = "eng"
 	closed_door_sprite = "eng_elec"
 
 /obj/structure/closet/secure_closet/engineering_personal/populate_contents()
@@ -103,7 +99,6 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	icon_state = "atmos"
 	opened_door_sprite = "eng_secure"
-	closed_door_sprite = "atmos"
 
 /obj/structure/closet/secure_closet/atmos_personal/populate_contents()
 	new /obj/item/radio/headset/headset_eng(src)

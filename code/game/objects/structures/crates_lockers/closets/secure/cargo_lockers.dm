@@ -3,7 +3,6 @@
 	req_access = list(ACCESS_CARGO)
 	icon_state = "cargo"
 	opened_door_sprite = "mining"
-	closed_door_sprite = "cargo"
 
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
 	new /obj/item/clothing/under/rank/cargo/tech(src)
@@ -19,7 +18,6 @@
 	req_access = list(ACCESS_EXPEDITION)
 	icon_state = "explorer"
 	opened_door_sprite = "mining"
-	closed_door_sprite = "explorer"
 
 
 /obj/structure/closet/secure_closet/explorer/populate_contents()
@@ -39,7 +37,6 @@
 	req_access = list(ACCESS_QM)
 	icon_state = "qm"
 	opened_door_sprite = "mining"
-	closed_door_sprite = "qm"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/radio/headset/heads/qm(src)

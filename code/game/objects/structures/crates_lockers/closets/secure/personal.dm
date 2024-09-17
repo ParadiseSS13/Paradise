@@ -23,8 +23,6 @@
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinet"
-	opened_door_sprite = "cabinet"
-	closed_door_sprite = "cabinet"
 	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70

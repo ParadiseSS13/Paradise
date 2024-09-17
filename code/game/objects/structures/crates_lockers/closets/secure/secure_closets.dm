@@ -3,10 +3,9 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	opened_door_sprite = "secure"
-	closed_door_sprite = "secure"
 	opened = FALSE
 	locked = TRUE
+	secure = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -92,7 +91,7 @@
 
 
 	spawn(0)
-		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE)) 
+		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 

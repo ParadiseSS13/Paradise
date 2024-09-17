@@ -3,7 +3,6 @@
 	req_access = list(ACCESS_TOX_STORAGE)
 	icon_state = "science"
 	opened_door_sprite = "white_secure"
-	closed_door_sprite = "science"
 
 /obj/structure/closet/secure_closet/scientist/populate_contents()
 	new /obj/item/storage/backpack/science(src)
@@ -23,8 +22,6 @@
 	name = "roboticist's locker"
 	req_access = list(ACCESS_ROBOTICS)
 	icon_state = "robotics"
-	opened_door_sprite = "robotics"
-	closed_door_sprite = "robotics"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
 	new /obj/item/mod/core/standard(src)
@@ -45,8 +42,6 @@
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
-	opened_door_sprite = "rd"
-	closed_door_sprite = "rd"
 
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
@@ -70,7 +65,6 @@
 	name = "research chemical storage closet"
 	desc = "Store dangerous chemicals in here."
 	icon_state = "med"
-	opened_door_sprite = "med"
 	closed_door_sprite = "rchemical"
 	req_access = list(ACCESS_TOX_STORAGE)
 
