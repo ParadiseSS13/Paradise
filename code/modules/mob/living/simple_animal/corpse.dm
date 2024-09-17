@@ -115,16 +115,16 @@
 	name = "Corpse of a Ranged Russian"
 	head = /obj/item/clothing/head/ushanka
 
-/obj/effect/mob_spawn/human/corpse/russiannian
-	name = "Russian Nian"
-	mob_name = "Russian Nian"
+/obj/effect/mob_spawn/human/corpse/sovietnian
+	name = "Soviet Nian"
+	mob_name = "Soviet Nian"
 	mob_species = /datum/species/moth
 	hair_style = "bald"
 	facial_hair_style = "shaved"
-	outfit = /datum/outfit/russiannian
+	outfit = /datum/outfit/sovietnian
 
-/datum/outfit/russiannian
-	name = "Russian Nian"
+/datum/outfit/sovietnian
+	name = "Soviet Nian"
 	uniform = /obj/item/clothing/under/new_soviet
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
