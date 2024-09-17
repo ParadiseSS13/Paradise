@@ -68,7 +68,7 @@
 			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
-	if(!user)
+	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) != src)
@@ -81,7 +81,7 @@
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse_equipping(mob/user)
-	if(!user)
+	!ishuman(user)
 		return
 	if(magpulse)
 		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
