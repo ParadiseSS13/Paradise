@@ -55,9 +55,9 @@
 	if(!flayer_datum)
 		return FALSE
 
-	if(user.stat >= DEAD) // TODO check if needed
+	if(user.stat == DEAD)
 		if(show_message)
-			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+			flayer_datum.send_swarm_message("You can't cast this while you are dead...")
 		return FALSE
 
 	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
@@ -169,10 +169,7 @@
 
 // Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
 /datum/antagonist/mindflayer/proc/is_path_spell(path)
-	var/spell = new path() //No need to give it an owner since we're just checking the type
-	var/return_value = isspell(spell)
-	qdel(spell)
-	return return_value
+	return ispath(path, /datum/spell)
 
 /*
 * Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.

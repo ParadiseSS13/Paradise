@@ -11,7 +11,9 @@
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
 	base_cost = 75 // Upgrading this past the base form costs a ton but is very rewarding
+	/// Any extra duration we get from upgrading the spell.
 	var/extra_duration = 0 // The base spell is 5 brute/burn healing a second for 5 seconds
+	/// Any extra healing we get per second from upgrading the spell
 	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)

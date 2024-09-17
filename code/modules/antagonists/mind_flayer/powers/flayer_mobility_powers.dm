@@ -11,10 +11,15 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	centcom_cancast = FALSE
-	var/obj/machinery/computer/marked_computer = null
 	stage = 2
 	base_cost = 150
 	static_upgrade_increase = 25
+	/// The console we currently have a mark on
+	var/obj/machinery/computer/marked_computer
+
+/datum/spell/flayer/computer_recall/Destroy(force, ...)
+	marked_computer = null
+	return ..()
 
 /datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -38,8 +43,9 @@
 	if(!is_teleport_allowed(end_turf.z))
 		return
 	user.visible_message(
-		"<span class='warning'>[user] de-materializes and jumps through the screen of [target]!</span>",
-		"<span class='notice'>You de-materialize and jump into [target]!")
+		"<span class='danger'>[user] de-materializes and jumps through the screen of [target]!</span>",
+		"<span class='warning'>You de-materialize and jump into [target]!")
+
 	var/matrix/previous = user.transform
 	var/matrix/shrank = user.transform.Scale(0.25)
 	var/direction = get_dir(user, target)
