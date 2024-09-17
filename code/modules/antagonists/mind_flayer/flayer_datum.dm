@@ -276,11 +276,7 @@
 	for(var/datum/mindflayer_passive/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
-/*
-/datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
-	static_inventory -= vampire_blood_display
-	QDEL_NULL(vampire_blood_display)
-*/
+
 // This is the proc that gets called every tick of life(), use this for updating something that should update every few seconds
 /datum/antagonist/mindflayer/proc/handle_mindflayer()
 	if(owner.current.hud_used)
