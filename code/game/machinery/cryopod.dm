@@ -501,7 +501,7 @@
 
 			icon_state = occupied_icon_state
 
-			M.throw_alert("cryopod", /atom/movable/screen/alert/ghost)
+			M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 
@@ -586,7 +586,7 @@
 	icon_state = occupied_icon_state
 	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
 	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-	E.throw_alert("cryopod", /atom/movable/screen/alert/ghost)
+	E.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 	occupant = E
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
