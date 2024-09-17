@@ -477,7 +477,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks),  cache_key)), use_default_checks, allow_moving_target)
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)), use_default_checks, allow_moving_target)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
