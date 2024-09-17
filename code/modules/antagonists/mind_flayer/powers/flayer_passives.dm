@@ -263,6 +263,7 @@
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
 	qdel(user_eyes.GetComponent(/datum/component/scope))
+	user_eyes = null // I made sure this doesn't accidentally delete the user's eyes
 
 /datum/mindflayer_passive/ultimate_drain
 	name = "Perfect Symbiosis"
