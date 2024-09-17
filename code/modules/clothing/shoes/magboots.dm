@@ -71,22 +71,22 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) != src)
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, UID())
 		return
 	if(magpulse)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		ADD_TRAIT(user, TRAIT_MAGPULSE, UID())
 		return
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, UID())
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse_equipping(mob/user)
 	if(!ishuman(user))
 		return
 	if(magpulse)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		ADD_TRAIT(user, TRAIT_MAGPULSE, UID())
 		return
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, UID())
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -325,17 +325,6 @@
 		return
 	if(slot == SLOT_HUD_SHOES && cell && core)
 		style.teach(user, TRUE)
-
-/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
-		style.remove(H)
-		if(magpulse)
-			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_SHOES)
