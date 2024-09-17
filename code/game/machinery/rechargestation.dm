@@ -206,7 +206,7 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(ismodcontrol(H.back) || H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismodcontrol(H.back) || ismachineperson(H))
 			can_accept_user = TRUE
 
 	if(!can_accept_user)
