@@ -9,7 +9,7 @@
 	action_icon_state = "pd_cablehop"
 	upgrade_info = "Halve the time it takes to recharge."
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	centcom_cancast = FALSE
 	stage = 2
 	base_cost = 150
@@ -81,7 +81,7 @@
 	action_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	action_icon_state = "flayer_claw"
 	base_cooldown = 25 SECONDS
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	stage = 2
 	max_level = 3

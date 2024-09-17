@@ -19,8 +19,8 @@
 	var/current_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
-	/// The class that this spell is for or CATEGORY_GENERAL to make it unrelated to a specific tree
-	var/category = CATEGORY_GENERAL
+	/// The class that this spell is for or FLAYER_CATEGORY_GENERAL to make it unrelated to a specific tree
+	var/category = FLAYER_CATEGORY_GENERAL
 	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
 	var/stage = 1
 	/// A brief description of what the spell's upgrades do

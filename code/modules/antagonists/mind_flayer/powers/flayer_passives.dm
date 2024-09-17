@@ -21,8 +21,8 @@
 	var/base_cost = 30
 	///How much it will cost to upgrade this passive.
 	var/current_cost
-	///If the passive is for a specific class, or CATEGORY_GENERAL if not
-	var/category = CATEGORY_GENERAL
+	///If the passive is for a specific class, or FLAYER_CATEGORY_GENERAL if not
+	var/category = FLAYER_CATEGORY_GENERAL
 	///If the passive requires prerequisites, currently only important for badass.
 	var/stage = 0
 	///A brief description of what the ability's upgrades do
@@ -104,7 +104,7 @@
 	purchase_text = "Make yourself more badass, allowing you to dual wield guns with no penalty, alongside other benefits."
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	base_cost = 100
 	stage = 2
 
@@ -272,7 +272,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
 	stage = 4
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 
 /datum/mindflayer_passive/ultimate_drain/on_apply()
 	..()
@@ -289,7 +289,7 @@
 	base_cost = 75
 	max_level = 3
 	stage = 3
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	var/melee_bonus_holder
 
 /datum/mindflayer_passive/torque_enhancer/on_apply()

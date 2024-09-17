@@ -3,7 +3,7 @@
 	name = "Camfecting Bug"
 	desc = "Cast on a computer to hack its webcam, then alt-click the spell to access all your hacked cameras."
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "camera_bug"
@@ -22,6 +22,7 @@
 /datum/spell/flayer/surveillance_monitor/Destroy(force, ...)
 	. = ..()
 	active_bugs = null
+	internal_camera = null
 
 /datum/spell/flayer/surveillance_monitor/AltClick(mob/user)
 	if(!internal_camera)
@@ -64,7 +65,7 @@
 	action_icon = 'icons/obj/clothing/masks.dmi'
 	action_icon_state = "voice_modulator"
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 	base_cost = 60
 
@@ -91,7 +92,7 @@
 	upgrade_info = "5 extra plumes of steam and 5 less seconds between casts."
 	action_icon_state = "smoke"
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 30 SECONDS
 	base_cost = 80
 	stage = 3
@@ -113,7 +114,7 @@
 	desc = "Choose someone we see, and rearrange our surface to resemble theirs."
 	action_icon_state = "genetic_poly"
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS // Debug blah blah blah
 	base_cost = 100
 	static_upgrade_increase = 50
@@ -143,7 +144,7 @@
 	desc = "Charge your hand with a mass of nanites that can hijack the lawsets of cyborgs."
 	action_icon_state = "magnet" // Uhhhhhhhhhhhhhhhhhhhhhhhhhhh
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = CATEGORY_INTRUDER
+	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 2 SECONDS //The cast time is going to be the main limiting factor, not cooldown
 	base_cost = 200
 	stage = 3

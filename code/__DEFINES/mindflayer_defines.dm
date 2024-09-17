@@ -9,14 +9,13 @@
 #define BRAIN_DRAIN_LIMIT 120
 #define DRAIN_TIME 1/4 SECONDS
 
-#define isspell(A)			(istype(A, /datum/spell))
-#define ispassive(A)		(istype(A, /datum/mindflayer_passive))
+#define isflayerpassive(A)		(istype(A, /datum/mindflayer_passive))
 
 //For organizing what spells are available for what trees
-#define CATEGORY_GENERAL "general"
-#define CATEGORY_DESTROYER "destroyer"
-#define CATEGORY_INTRUDER "intruder"
-#define CATEGORY_SWARMER "swarmer"
+#define FLAYER_CATEGORY_GENERAL "general"
+#define FLAYER_CATEGORY_DESTROYER "destroyer"
+#define FLAYER_CATEGORY_INTRUDER "intruder"
+#define FLAYER_CATEGORY_SWARMER "swarmer"
 
 #define POWER_LEVEL_ZERO	0
 #define POWER_LEVEL_ONE		1

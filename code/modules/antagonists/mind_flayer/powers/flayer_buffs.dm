@@ -31,7 +31,7 @@
 	action_icon_state = "blink"
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime at base
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	stage = 2
 	base_cost = 100
 	max_level = 3
@@ -57,7 +57,7 @@
 	desc = "Put extra strain on your motors to move and attack faster, at the cost of heating up a dangerous amount."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 15 SECONDS
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	action_icon_state = "strained_muscles"
 	stage = 3
 	max_level = 3
@@ -80,7 +80,7 @@
 	desc = "For a short time, transcend your limits and pursue your target through hell."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 5 MINUTES // Base uptime is 20%
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	stage = CAPSTONE_STAGE
 	action_icon = "mutate"
 	base_cost = 250

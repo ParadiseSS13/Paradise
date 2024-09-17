@@ -12,6 +12,10 @@
 	///The object that stores a retracted weapon
 	var/obj/weapon_holder
 
+/datum/spell/flayer/self/weapon/Destroy(force, ...)
+	. = ..()
+	weapon_ref = null
+	weapon_holder = null
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
@@ -70,7 +74,7 @@
 	action_icon_state = "laser"
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	base_cost = 100
 	max_level = 3
 	upgrade_info = "The internal power cell recharges faster."
@@ -88,7 +92,7 @@
 	action_icon_state = "pneumaticCannon"
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
-	category = CATEGORY_DESTROYER
+	category = FLAYER_CATEGORY_DESTROYER
 	base_cost = 75
 	max_level = 3
 	upgrade_info = "Reduces the time needed for us to recycle scrap into ammo."
