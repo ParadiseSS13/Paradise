@@ -32,7 +32,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/completed = FALSE
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
-
+	/// List of jobs that the objective will target if possible, any crew if not.
+	var/list/target_jobs = list()
+	/// The department that'll be targeted by this objective. If set, fills target_jobs with jobs from that department.
+	var/target_department
+	/// If set, steal targets will be pulled from this list
+	var/list/steal_list = list()
+	/// Contains the flags needed to meet the conditions of a valid target, such as mindshielded or syndicate agent.
+	var/flags_target
 	var/datum/objective_holder/holder
 
 	/// What is the text we show when our objective is delayed?
@@ -46,6 +53,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(target_department)
+		target_jobs = setup_target_jobs()
 	if(_owner)
 		owner = _owner
 
@@ -122,8 +131,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-
+		if((flags_target & MINDSHIELDED_TARGET) && !ismindshielded(possible_target.current))
+			continue
+		if((flags_target & UNMINDSHIELDED_TARGET) && ismindshielded(possible_target.current))
+			continue
+		if((flags_target & SYNDICATE_TARGET) && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+			continue
+		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
+			continue
 		possible_targets += possible_target
+
+	if(!length(possible_targets)) // If we can't find anyone, try with less restrictions
+		for(var/datum/mind/possible_target in SSticker.minds)
+			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+				continue
+			possible_targets += possible_target
 
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
@@ -160,6 +182,27 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(check_silicon && issilicon(target_current))
 		return TRUE
 	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
+
+// Setup and return the objective target jobs list based on target department
+/datum/objective/proc/setup_target_jobs()
+	if(!target_department)
+		return
+	. = list()
+	switch(target_department)
+		if(DEPARTMENT_COMMAND)
+			. = GLOB.command_head_positions.Copy()
+		if(DEPARTMENT_MEDICAL)
+			. = GLOB.medical_positions.Copy()
+		if(DEPARTMENT_ENGINEERING)
+			. = GLOB.engineering_positions.Copy()
+		if(DEPARTMENT_SCIENCE)
+			. = GLOB.science_positions.Copy()
+		if(DEPARTMENT_SECURITY)
+			. = GLOB.active_security_positions.Copy()
+		if(DEPARTMENT_SUPPLY)
+			. = GLOB.supply_positions.Copy()
+		if(DEPARTMENT_SERVICE)
+			. = GLOB.service_positions.Copy()
 
 /datum/objective/assassinate
 	name = "Assassinate"
@@ -210,7 +253,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(won)
 		return
 	return ..()
-
 
 /datum/objective/mutiny
 	name = "Mutiny"
@@ -545,7 +587,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target(list/target_blacklist)
-	var/potential = GLOB.potential_theft_objectives.Copy()
+	var/potential
+	if(length(steal_list))
+		potential = steal_list.Copy()
+	else
+		potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		if(locate(thefttype) in target_blacklist)
@@ -850,4 +896,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/delayed/proc/reveal_objective()
-	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner))
+	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner), target_department, steal_list)

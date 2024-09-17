@@ -29,6 +29,8 @@
 	var/canister_burn_duration = 10 SECONDS
 	/// How many firestacks will our reagent apply
 	var/canister_fire_applications = 1
+	/// How much ammo do we use per tile?
+	var/ammo_usage = 2
 	/// Is this a syndicate flamethrower
 	var/syndicate = FALSE
 
@@ -138,7 +140,7 @@
 	for(var/turf/simulated/T in turflist)
 		if(iswallturf(T)) // No going through walls
 			break
-		if(!use_ammo(3))
+		if(!use_ammo(ammo_usage))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
 			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 			break // Whoops! No ammo!
