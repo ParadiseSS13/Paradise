@@ -367,3 +367,10 @@
 	name = "Abandoned Security Shuttle"
 	description = "A security shuttle that has been floating in space."
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/freighter
+	id = "freighter"
+	suffix = "freighter.dmm"
+	name = "Voidhopper of Nexus"
+	description = "A cargo ship headed to a nearby system."
+	allow_duplicates = FALSE
