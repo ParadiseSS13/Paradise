@@ -47,7 +47,7 @@
 				/obj/item/salvage/loot/russian)
 	casingtype = /obj/item/ammo_casing/a762
 
-/mob/living/simple_animal/hostile/russiannian
+/mob/living/simple_animal/hostile/sovietnian
 	name = "Soviet Nian"
 	desc = "Buzz!"
 	icon = 'icons/mob/simple_human.dmi'
