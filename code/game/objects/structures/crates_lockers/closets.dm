@@ -73,7 +73,7 @@
 	if(welded)
 		. += "welded"
 
-	if(broken || !locked || !secure)
+	if(broken || !secure || is_animating_door)
 		return
 
 	//Overlay is similar enough for both that we can use the same mask for both
