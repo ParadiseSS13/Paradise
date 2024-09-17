@@ -184,6 +184,7 @@
 	if(borg.hud_used)
 		borg.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 	borg.disconnect_from_ai()
+	add_attack_logs(user, borg, "assimilated with flayer powers")
 	log_game("[key_name(user)] assimilated cyborg [key_name(borg)].  Laws overridden.")
 	borg.clear_supplied_laws()
 	borg.clear_inherent_laws()
