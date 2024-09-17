@@ -115,6 +115,22 @@
 	name = "Corpse of a Ranged Russian"
 	head = /obj/item/clothing/head/ushanka
 
+/obj/effect/mob_spawn/human/corpse/russiannian
+	name = "Russian Nian"
+	mob_name = "Russian Nian"
+	mob_species = /datum/species/moth
+	hair_style = "bald"
+	facial_hair_style = "shaved"
+	outfit = /datum/outfit/russiannian
+
+/datum/outfit/russiannian
+	name = "Russian Nian"
+	uniform = /obj/item/clothing/under/new_soviet
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = /obj/item/clothing/head/ushanka
+	r_pocket = /obj/item/reagent_containers/drinks/drinkingglass/shotglass
+	l_pocket = /obj/item/reagent_containers/drinks/bottle/vodka
 
 /obj/effect/mob_spawn/human/corpse/wizard
 	name = "Corpse of a Space Wizard"
