@@ -9,6 +9,7 @@
 	amount = 6
 	max_amount = 6
 	toolspeed = 1
+	merge_type = /obj/item/stack/nanopaste
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
