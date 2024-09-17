@@ -34,8 +34,8 @@
 /obj/item/clothing/suit/fire/firefighter
 	icon = 'icons/obj/clothing/suits/utility.dmi'
 	icon_override = 'icons/mob/clothing/suits/utility.dmi'
-	icon_state = "firesuit"
-	item_state = "firesuit"
+	icon_state = "firefighter"
+	item_state = "firefighter"
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
@@ -57,8 +57,8 @@
 /obj/item/clothing/suit/fire/firefighter/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
-	icon_state = "atmos_firesuit"
-	item_state = "atmos_firesuit"
+	icon_state = "firefighter_atmos"
+	item_state = "firefighter_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /*

@@ -91,11 +91,10 @@
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	icon = 'icons/obj/clothing/head/utility.dmi'
+	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "hardhat0_atmos"
-	item_state = "hardhat0_atmos"
 	item_color = "atmos"
 	item_state = 'icons/mob/clothing/head/utility.dmi'
-	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
