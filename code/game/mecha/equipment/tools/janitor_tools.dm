@@ -65,7 +65,7 @@
 			if(do_after(chassis.occupant, mop_speed, target = target))
 				for(var/turf/current_target_turf in view(1, target))
 					current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
-				to_chat(chassis.occupant, "<span class='notice'>You mop \the [target].</span>")
+				chassis.occupant_message("You mop \the [target].")
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -123,14 +123,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/replaceLight(obj/machinery/light/target)
 	if(target.status != LIGHT_OK)
-		to_chat(chassis.occupant, "<span class='notice'>You replace [target.fitting] with [src].</span>")
+		chassis.occupant_message("You replace [target.fitting] with [src].")
 		target.status = LIGHT_OK
 		target.switchcount = 0
 		target.rigged = emagged
 		target.on = target.has_power()
 		target.update(TRUE, TRUE, FALSE)
 	else
-		to_chat(chassis.occupant, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		chassis.occupant_message("There is a working [target.fitting] already inserted!")
 		return
 
 // Mecha spray
@@ -262,7 +262,7 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/item/I in cargo)
 		I.forceMove(T)
-		cargo.Cut()
+	cargo.Cut()
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/get_equip_info()
@@ -291,7 +291,7 @@
 		)
 		for(var/obj/item/I in cargo)
 			I.forceMove(target)
-			cargo.Cut()
+		cargo.Cut()
 		return
 	var/turf/target_turf
 	if(iswallturf(target))
@@ -312,13 +312,13 @@
 				if(can_be_inserted(I))
 					cargo += I
 					I.forceMove(chassis)
-		to_chat(chassis.occupant, "<span class='notice'>You pick up all the items with [src]. Cargo compartment capacity: [cargo_max_weight - length(cargo)]</span>")
+		chassis.occupant_message("You pick up all the items with [src]. Cargo compartment capacity: [cargo_max_weight - length(cargo)]")
 
 	else // Dumping
 		for(var/obj/item/I in cargo)
 			I.forceMove(target_turf)
-			cargo.Cut()
-		to_chat(chassis.occupant, "<span class='notice'>You dump everything out of [src].</span>")
+		cargo.Cut()
+		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
 	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/proc/can_be_inserted(obj/item/I, stop_messages = FALSE)
@@ -333,12 +333,12 @@
 
 	if(length(contents) >= cargo_slots)
 		if(!stop_messages)
-			to_chat(chassis.occupant, "<span class='warning'>[I] won't fit in [src], make some space!</span>")
+			chassis.occupant_message("[I] won't fit in [src], make some space!")
 		return FALSE // Storage item is full
 
 	if(is_type_in_typecache(I, cant_hold)) // Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(chassis.occupant, "<span class='warning'>[src] cannot hold [I].</span>")
+			chassis.occupant_message("[src] cannot hold [I].")
 		return FALSE
 
 	if(length(cant_hold) && isstorage(I)) // Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
@@ -346,12 +346,12 @@
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
 				if(!stop_messages)
-					to_chat(chassis.occupant, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+					chassis.occupant_message("[src] rejects [I] because of its contents.")
 				return FALSE
 
 	if(I.w_class > max_weight_class)
 		if(!stop_messages)
-			to_chat(chassis.occupant, "<span class='warning'>[I] is too big for [src].</span>")
+			chassis.occupant_message("[I] is too big for [src].")
 		return FALSE
 
 	var/sum_w_class = I.w_class
@@ -360,6 +360,6 @@
 
 	if(sum_w_class > cargo_max_weight)
 		if(!stop_messages)
-			to_chat(chassis.occupant, "<span class='warning'>[src] is full, make some space.</span>")
+			chassis.occupant_message("[src] is full, make some space.")
 		return FALSE
 	return TRUE
