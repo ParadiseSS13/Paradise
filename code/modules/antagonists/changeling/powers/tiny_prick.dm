@@ -80,7 +80,7 @@
 	name = "Extract DNA Sting"
 	desc = "We stealthily sting a target and extract their DNA. Costs 25 chemicals."
 	helptext = "Will give you the DNA of your target, allowing you to transform into them."
-	button_icon_state = "sting_extract"
+	button_overlay_icon_state = "sting_extract"
 	sting_icon = "sting_extract"
 	chemical_cost = 25
 	power_type = CHANGELING_INNATE_POWER
@@ -100,7 +100,7 @@
 	name = "Mute Sting"
 	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
-	button_icon_state = "sting_mute"
+	button_overlay_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
 	chemical_cost = 20
 	dna_cost = 4
@@ -116,7 +116,7 @@
 	name = "Blind Sting"
 	desc = "We temporarily blind our victim. Costs 25 chemicals."
 	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
-	button_icon_state = "sting_blind"
+	button_overlay_icon_state = "sting_blind"
 	sting_icon = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 2
@@ -136,7 +136,7 @@
 	name = "Cryogenic Sting"
 	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
-	button_icon_state = "sting_cryo"
+	button_overlay_icon_state = "sting_cryo"
 	sting_icon = "sting_cryo"
 	chemical_cost = 15
 	dna_cost = 4
@@ -154,7 +154,7 @@
 	name = "Lethargic Sting"
 	desc = "We silently sting our victim with a chemical that will gradually drain their stamina. Costs 50 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will quickly realize they have been poisoned."
-	button_icon_state = "sting_lethargic"
+	button_overlay_icon_state = "sting_lethargic"
 	sting_icon = "sting_lethargic"
 	chemical_cost = 50
 	dna_cost = 4

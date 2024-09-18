@@ -57,7 +57,7 @@
 			return ..()
 
 	if(length(contents))
-		var/obj/item/food/snacks/toEat = contents[1]
+		var/obj/item/food/toEat = contents[1]
 		if(istype(toEat))
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)

@@ -443,4 +443,4 @@
 		return
 	if(thing && equipped_item.can_be_inserted(thing)) // put thing in belt or bag
 		equipped_item.handle_item_insertion(thing, src)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)

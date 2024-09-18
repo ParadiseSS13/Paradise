@@ -154,3 +154,28 @@
 			continue // same object, continue
 		if(cable.d1 == other_cable.d1 && cable.d2 == other_cable.d2)
 			Fail(T, "tile has duplicated cables.")
+
+/datum/map_per_tile_test/missing_pipe_connection
+
+/datum/map_per_tile_test/missing_pipe_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/pipe/simple/pipe = locate() in T.contents
+	if(isnull(pipe))
+		return
+	if(!pipe.node1 && !pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing both nodes.")
+		return
+	if(istype(pipe, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) && (pipe.node1 || pipe.node2))
+		return // H/E pipes only need one end, because they don't always become full loops
+	if(!pipe.node1)
+		Fail(T, "[pipe] ([pipe.type]) missing node1. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node2))))])")
+	if(!pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing node2. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node1))))])")
+
+/datum/map_per_tile_test/unary_device_connection
+
+/datum/map_per_tile_test/unary_device_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/unary/unary_device = locate() in T.contents
+	if(isnull(unary_device))
+		return
+	if(!unary_device.node)
+		Fail(T, "[unary_device] ([unary_device.type]) missing node. ([uppertext(dir2text(unary_device.dir))])")

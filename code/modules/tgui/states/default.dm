@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 
 /mob/living/silicon/pai/default_can_use_topic(src_object)
 	// pAIs can only use themselves and the owner's radio.
-	if((src_object == src || src_object == radio) && !stat)
+	if((src_object == src || src_object == radio) && stat == CONSCIOUS)
 		return UI_INTERACTIVE
 	else
 		return ..()

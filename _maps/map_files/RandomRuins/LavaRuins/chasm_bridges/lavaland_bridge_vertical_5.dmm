@@ -3,26 +3,14 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/turf/simulated/floor/wood/lavaland_air{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"q" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
-/area/lavaland/surface/outdoors/unexplored/danger)
 "y" = (
 /turf/simulated/wall/mineral/wood,
-/area/lavaland/surface/outdoors/unexplored/danger)
-"S" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
 /area/lavaland/surface/outdoors/unexplored/danger)
 
 (1,1,1) = {"
@@ -40,11 +28,11 @@ c
 y
 "}
 (3,1,1) = {"
-q
+b
 a
 b
 a
-S
+b
 "}
 (4,1,1) = {"
 y

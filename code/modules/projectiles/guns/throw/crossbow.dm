@@ -46,7 +46,7 @@
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
-	. += "<span class='info'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -157,7 +157,7 @@
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
-	valid_projectile_type = /obj/item/food/snacks/baguette
+	valid_projectile_type = /obj/item/food/baguette
 
 /obj/item/gun/throw/crossbow/french/modify_projectile(obj/item/I, on_chamber = 0)
 	return

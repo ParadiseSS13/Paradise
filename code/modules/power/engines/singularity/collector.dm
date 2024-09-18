@@ -47,6 +47,24 @@
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 
+/obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(loaded_tank)
+		to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
+		return TRUE
+	var/turf/T = get_turf(src)
+	for(var/obj/machinery/power/rad_collector/can_wrench in T.contents)
+		if(can_wrench.anchored && !anchored)
+			to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
+			return
+	I.play_tool_sound(src)
+	anchored = !anchored
+	user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the [name].", "You [anchored ? "secure" : "undo"] the external bolts.", "You hear a ratchet")
+	if(anchored)
+		connect_to_network()
+	else
+		disconnect_from_network()
+
 
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/internals/plasma))
@@ -64,22 +82,6 @@
 		if(loaded_tank && !locked)
 			eject()
 			return TRUE
-	else if(iswrench(I))
-		if(loaded_tank)
-			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
-			return TRUE
-		var/turf/T = get_turf(src)
-		for(var/obj/machinery/power/rad_collector/can_wrench in T.contents)
-			if(can_wrench.anchored && !anchored)
-				to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
-				return
-		playsound(loc, I.usesound, 75, TRUE)
-		anchored = !anchored
-		user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the [name].", "You [anchored ? "secure" : "undo"] the external bolts.", "You hear a ratchet")
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			if(active)

@@ -152,7 +152,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")

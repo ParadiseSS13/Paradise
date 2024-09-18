@@ -51,7 +51,7 @@
 /area/ruin/space/methlab)
 "l" = (
 /obj/structure/table,
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "m" = (

@@ -24,7 +24,7 @@
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/drinks/bottle/rum(src)
-			new /obj/item/food/snacks/grown/ambrosia/deus(src)
+			new /obj/item/food/grown/ambrosia/deus(src)
 			new /obj/item/reagent_containers/drinks/bottle/whiskey(src)
 			new /obj/item/lighter(src)
 		if(6 to 10)

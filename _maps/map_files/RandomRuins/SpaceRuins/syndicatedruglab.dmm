@@ -59,7 +59,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "mA" = (
-/obj/machinery/power/apc/syndicate/off/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	cell_type = 10000
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "mO" = (

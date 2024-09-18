@@ -92,17 +92,28 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
+
+	if(opacity && istype(T))
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if(old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -528,10 +539,11 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(mover in buckled_mobs)
+/atom/movable/CanPass(atom/movable/mover, turf/target)
+	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
+	if(!density)
 		return TRUE
-	return ..()
+	return LAZYIN(buckled_mobs, mover)
 
 /atom/movable/proc/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
@@ -760,7 +772,7 @@
 
 	var/has_tried_to_move = FALSE
 
-	if(is_blocked_turf(target_turf, TRUE, excluded_objs=list(src)))
+	if(is_blocked_turf(target_turf, TRUE, excluded_objs = list(src)))
 		has_tried_to_move = TRUE
 		if(!Move(target_turf, crush_dir))
 			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.
@@ -786,6 +798,9 @@
 
 		if(isliving(target))
 			var/mob/living/L = target
+
+			if(L.incorporeal_move)
+				continue
 
 			if(crit_case)
 				damage_to_deal *= crit_damage_factor

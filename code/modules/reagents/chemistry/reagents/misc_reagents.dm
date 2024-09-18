@@ -436,7 +436,7 @@
 					continue
 				if(!C.stat)
 					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
-					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 					break
 	return ..()
 

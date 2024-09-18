@@ -61,7 +61,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/grenade/clusterbuster/inferno(src)
+			new /obj/item/reagent_containers/drinks/everfull(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
@@ -463,7 +463,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
+			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
 			return FALSE
 	return ..()
 

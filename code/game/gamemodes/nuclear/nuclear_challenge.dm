@@ -2,7 +2,7 @@
 #define CHALLENGE_TIME_LIMIT 10 MINUTES
 #define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
 #define CHALLENGE_SCALE_BONUS 10 // How many TC per scaling bonus
-#define CHALLENGE_MIN_PLAYERS 50
+#define CHALLENGE_MIN_PLAYERS 30
 #define CHALLENGE_SHUTTLE_DELAY 30 MINUTES // So the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
 /obj/item/nuclear_challenge

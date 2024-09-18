@@ -13,7 +13,7 @@
 
 
 /obj/item/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(user, 'sound/weapons/blade1.ogg', 50, 1, -1)
+	playsound(user, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	return ..()
 
 /obj/item/katana/energy/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

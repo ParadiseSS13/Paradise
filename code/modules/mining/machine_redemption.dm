@@ -181,8 +181,9 @@
 
 // Interactions
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
+	if(istype(I, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(!has_power())
 		return ..()
 
@@ -202,18 +203,20 @@
 		add_fingerprint(usr)
 		return
 
-	else if(istype(I, /obj/item/disk/design_disk))
+	if(istype(I, /obj/item/disk/design_disk))
 		if(!user.drop_item())
 			return
 		I.forceMove(src)
 		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-							"<span class='notice'>You insert [I] into [src].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] inserts [I] into [src].</span>",
+			"<span class='notice'>You insert [I] into [src].</span>"
+		)
 		return
 
-	else if(istype(I, /obj/item/gripper))
+	if(istype(I, /obj/item/gripper))
 		if(!try_refill_storage(user))
 			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
 		return
@@ -468,7 +471,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_NORMALPRIORITY)
+			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_LOWPRIORITY)
 
 /obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
 	. = FALSE

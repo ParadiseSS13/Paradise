@@ -153,7 +153,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				user.update_action_buttons_icon()
 				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
-				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!</span>\n\
+				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any of your allies to it at any time! Beware! The Horrors of Lavaland can still be teleported with you.</span>\n\
 				<span class='notice'>You can remove the beacon to place it again by striking it with the club.</span>")
 			else
 				timer = world.time

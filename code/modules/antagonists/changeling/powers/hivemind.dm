@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	name = "Hivemind Access"
 	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind using :g. Costs 10 chemicals."
 	helptext = "Tunes our chemical receptors for hivemind communication, which passively grants us access to the Changeling Hivemind."
-	button_icon_state = "hive_absorb"
+	button_overlay_icon_state = "hive_absorb"
 	chemical_cost = 10
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER

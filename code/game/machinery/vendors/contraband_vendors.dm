@@ -70,10 +70,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/food/snacks/chips = 6,
-					/obj/item/food/snacks/sosjerky = 6,
-					/obj/item/food/snacks/syndicake = 6,
-					/obj/item/food/snacks/cheesiehonkers = 6)
+	products = list(/obj/item/food/chips = 6,
+					/obj/item/food/sosjerky = 6,
+					/obj/item/food/syndicake = 6,
+					/obj/item/food/cheesiehonkers = 6)
 
 /obj/machinery/economy/vending/hydroseeds/syndicate_druglab
 	products = list(/obj/item/seeds/ambrosia/deus = 2,

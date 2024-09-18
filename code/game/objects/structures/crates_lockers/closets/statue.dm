@@ -82,10 +82,6 @@
 /obj/structure/closet/statue/open()
 	return
 
-/obj/structure/closet/statue/open()
-	return
-
-
 /obj/structure/closet/statue/close()
 	return
 

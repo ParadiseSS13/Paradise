@@ -631,8 +631,8 @@
 	name = "Flower Crown"
 	result = list(/obj/item/clothing/head/flower_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/poppy = 3,
-				/obj/item/food/snacks/grown/lily = 3,
+	reqs = list(/obj/item/food/grown/poppy = 3,
+				/obj/item/food/grown/lily = 3,
 				/obj/item/grown/sunflower = 3)
 	category = CAT_CLOTHING
 
@@ -647,21 +647,21 @@
 	name = "Poppy Crown"
 	result = list(/obj/item/clothing/head/poppy_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/poppy = 5)
+	reqs = list(/obj/item/food/grown/poppy = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/lily_crown
 	name = "Lily Crown"
 	result = list(/obj/item/clothing/head/lily_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/lily = 5)
+	reqs = list(/obj/item/food/grown/lily = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/geranium_crown
 	name = "Geranium Crown"
 	result = list(/obj/item/clothing/head/geranium_crown)
 	time = 2 SECONDS
-	reqs = list(/obj/item/food/snacks/grown/geranium = 5)
+	reqs = list(/obj/item/food/grown/geranium = 5)
 	category = CAT_CLOTHING
 
 #undef ALLOWED_INGREDIENT_SUNGLASSES

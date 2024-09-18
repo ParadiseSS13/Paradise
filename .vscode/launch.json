@@ -1,18 +1,26 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-	  {
+	{
 		"type": "byond",
 		"request": "launch",
 		"name": "Build & DS Debug",
 		"preLaunchTask": "dm: build - ${command:CurrentDME}",
 		"dmb": "${workspaceFolder}/${command:CurrentDMB}"
-	  },
-	  {
+	},
+	{
+		"type": "byond",
+		"request": "launch",
+		"name": "Build & DD Debug",
+		"preLaunchTask": "dm: build - ${command:CurrentDME}",
+		"dmb": "${workspaceFolder}/${command:CurrentDMB}",
+		"dreamDaemon": true
+	},
+	{
 		"type": "byond",
 		"request": "launch",
 		"name": "DS Debug",
 		"dmb": "${workspaceFolder}/${command:CurrentDMB}"
-	  }
+	}
 	]
-  }
+}

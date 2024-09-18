@@ -141,7 +141,7 @@
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='notice'>[desc]</span>")
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)

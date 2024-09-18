@@ -20,11 +20,16 @@ LINEN BINS
 	item_color = "white"
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_FLAG_BACK
-
 	dog_fashion = /datum/dog_fashion/head/ghost
+	dyeing_key = DYE_REGISTRY_BEDSHEET
+
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
+
+/obj/item/bedsheet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.45)  // honestly, not bad.
 
 /obj/item/bedsheet/attack_hand(mob/user)
 	if(isturf(loc) && user.Move_Pulled(src)) // make sure its on the ground first, prevents a speed exploit
@@ -45,8 +50,8 @@ LINEN BINS
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
-		qdel(src)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		qdel(src)
 	else
 		return ..()
 

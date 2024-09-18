@@ -9,7 +9,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "hits"

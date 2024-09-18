@@ -19,6 +19,6 @@
 	setme.desc = "[name.desc] It has been [thiscooktype]"
 
 /obj/machinery/cooker/cerealmaker/gettype()
-	var/obj/item/food/snacks/cereal/type = new(get_turf(src))
+	var/obj/item/food/cereal/type = new(get_turf(src))
 	return type
 

@@ -20,6 +20,7 @@
 # - event_configuration
 # - gamemode_configuration
 # - general_configuration
+# - lighting_effects_configuration
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
@@ -65,6 +66,8 @@ enable_localhost_autoadmin = true
 # +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
 # +PROCCALL = Access to call procs on anything. Be careful who you grant this too!
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
+# +MAINTAINER = Access to super dangerous debug verbs that can break an entire round. Use sparingly.
+# +DEV_TEAM = Access to dev team chat
 admin_ranks = [
 	# Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
 	{ name = "Mentor", rights = [
@@ -100,6 +103,9 @@ admin_ranks = [
 	{ name = "Maintainers", rights = [
 		"+EVERYTHING",
 	] },
+	{ name = "Developer", rights = [
+		"+DEV_TEAM",
+	] },
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
@@ -115,7 +121,7 @@ admin_rank_colour_map = [
 	{ name = "Community Manager", colour = "#e91e63" },
 	{ name = "Game Admin", colour = "#238afa" },
 	{ name = "Trial Admin", colour = "#7fb6fc" },
-	{ name = "PR Reviewer", colour = "#c27c0e" },
+	{ name = "Developer", colour = "#61b413" },
 	{ name = "Mentor", colour = "#f1c40f" },
 ]
 # Map of common CIDs that should not be banned, plus their reasons
@@ -175,7 +181,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 57
+sql_version = 59
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -210,7 +216,7 @@ mentor_webhook_urls = [
 # List of all webhook URLs for the admin feed (round alerts, ahelps, etc)
 admin_webhook_urls = ["https://admin.webhook.one", "https://admin.webhook.two"]
 # Role ID for the admin role on the discord. Set to "" to disable.
-# THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
+# THESE MUST BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
 # Role ID for the mentor role on the discord. Set to "" to disable.
 mentor_role_id = ""
@@ -254,7 +260,7 @@ antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
-	{ gamemode = "changeling", probability = 3 },
+	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 3 },
 	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
 	{ gamemode = "extended", probability = 3 },
@@ -264,6 +270,7 @@ gamemode_probabilities = [
 	{ gamemode = "traitor", probability = 2 },
 	{ gamemode = "traitorchan", probability = 3 },
 	{ gamemode = "traitorvamp", probability = 3 },
+	{ gamemode = "vampchan", probability = 3},
 	{ gamemode = "vampire", probability = 3 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 3 },
@@ -373,6 +380,30 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
+
+
+################################################################
+
+
+[lighting_effects_configuration]
+# Settings that allow you to change light effects (bloom / exposure intensity)
+
+# Brightness of bloom effect independent of light_power
+glow_brightness_base = 0
+# Brightness of bloom effect that depends on light_power
+glow_brightness_power = -0.25
+# Contrast of bloom effect independent of light_power
+glow_contrast_base = 0
+# Contrast of bloom effect that depends on light_power
+glow_contrast_power = 0.5
+# Brightness of exposure effect independent of light_power
+exposure_brightness_base = 0.01
+# Brightness of exposure effect that depends on light_power
+exposure_brightness_power = 0
+# Contrast of exposure effect independent of light_power
+exposure_contrast_base = 9.5
+# Contrast of exposure effect that depends on light_power
+exposure_contrast_power = 0
 
 
 ################################################################
@@ -569,7 +600,7 @@ crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs
-robot_delay = 2.5
+robot_delay = 1.5
 # Move delay for xenomorphs
 alien_delay = 1.5
 # Move delay for slimes (xenobio, not slimepeople)
@@ -654,8 +685,10 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

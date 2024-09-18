@@ -1,7 +1,7 @@
 /datum/action/changeling/revive
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
-	button_icon_state = "revive"
+	button_overlay_icon_state = "revive"
 	req_dna = 1
 	req_stat = DEAD
 	bypass_fake_death = TRUE
@@ -21,7 +21,7 @@
 		user.visible_message("<span class='warning'>[user] suddenly hits [M] in the face and slips out of their grab!</span>")
 		M.Stun(2 SECONDS) //Drops the grab
 		M.apply_damage(5, BRUTE, "head", M.run_armor_check("head", "melee"))
-		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
+		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	user.revive()
 	user.updatehealth("revive sting")
 	user.update_blind_effects()

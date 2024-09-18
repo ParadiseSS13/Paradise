@@ -14,7 +14,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	faction = list("hostile", "jungle")
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"

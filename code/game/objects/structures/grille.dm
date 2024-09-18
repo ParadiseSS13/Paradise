@@ -25,7 +25,10 @@
 	. = ..()
 	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
 	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
-
+	if(anchored)
+		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+	else
+		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/fence
 	var/width = 3
@@ -63,13 +66,6 @@
 	if(ratio > 0.5)
 		return
 	icon_state = "grille50_[rand(0,3)]"
-
-/obj/structure/grille/examine(mob/user)
-	. = ..()
-	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
-	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
@@ -117,20 +113,17 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
 	. = !density
-	if(height==0)
-		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
 	if(isprojectile(mover))
 		return (prob(30) || !density)
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/grille/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSGRILLE
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

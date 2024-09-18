@@ -5,14 +5,19 @@
  */
 
 import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { createVNode, InfernoNode } from 'inferno';
+import { createVNode, InfernoNode, Inferno } from 'inferno';
 import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
 
 export interface BoxProps {
   [key: string]: any;
   as?: string;
-  className?: string | BooleanLike;
+  /*
+    Temporarily removed as it causes a cascade of type issues.
+    Can be restored in Inferno v8.
+    TODO: Revert in 516
+   */
+  className?: string /* | BooleanLike */;
   children?: InfernoNode;
   position?: string | BooleanLike;
   overflow?: string | BooleanLike;
@@ -194,7 +199,7 @@ const styleMapperByPropName = {
 };
 
 export const computeBoxProps = (props: BoxProps) => {
-  const computedProps: HTMLAttributes<any> = {};
+  const computedProps: Inferno.HTMLAttributes<any> = {};
   const computedStyles = {};
   // Compute props
   for (let propName of Object.keys(props)) {

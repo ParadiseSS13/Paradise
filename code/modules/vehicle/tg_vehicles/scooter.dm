@@ -33,6 +33,11 @@
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
+		if(istype(get_turf(src), /turf/simulated/floor/plating/asteroid)) //Rocks are bad for wheels mkay?
+			if(!HAS_TRAIT(src, TRAIT_NO_BREAK_GLASS_TABLES))
+				buckled_mob.adjustStaminaLoss(2)
+				if(prob(7)) //Not to much spam.
+					to_chat(buckled_mob, "<span class='warning'>The rocky terrain you are riding on is tiring you out!</span>")
 
 /obj/tgvehicle/scooter/skateboard
 	name = "skateboard"
@@ -51,6 +56,8 @@
 	var/instability = 10
 	///If true, riding the skateboard with walk intent on will prevent crashing.
 	var/can_slow_down = TRUE
+	///Is this board cursed, preventing the cheeser from picking it up right away and using it again. Can not get on it while cursed either.
+	var/cursed = FALSE
 
 /obj/tgvehicle/scooter/skateboard/Initialize(mapload)
 	. = ..()
@@ -117,13 +124,13 @@
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [bumped_thing], sending [rider] flying!</span>")
-		rider.Weaken(8 SECONDS)
+		rider.Weaken(6 SECONDS)
 		if(iscarbon(bumped_thing))
 			var/mob/living/carbon/victim = bumped_thing
 			var/grinding_mulitipler = 1
 			if(grinding)
 				grinding_mulitipler = 2
-			victim.Weaken(2 * grinding_mulitipler SECONDS)
+				victim.Weaken(2.5 SECONDS) // This is easier said than done, so probably fine. If officers or crew weaponize it I'll kill it fully.
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
 		var/backdir = REVERSE_DIR(dir)
@@ -191,6 +198,9 @@
 /obj/tgvehicle/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
 	if(skater.incapacitated() || !Adjacent(skater))
 		return
+	if(cursed)
+		to_chat(skater, "<span class='danger'>Some magic burns your hands whenever you go to pick [src] up!</span>")
+		return
 	if(has_buckled_mobs())
 		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
 		return
@@ -214,6 +224,7 @@
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	var/mutable_appearance/curse_overlay
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
 	. = ..()
@@ -221,6 +232,27 @@
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/necropolis_curse()
+	cursed = TRUE
+	can_buckle = FALSE
+	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	curse_overlay.pixel_y = -10
+
+	add_overlay(curse_overlay)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/remove_rider()
+	visible_message("<span class='warning'>The boosters on [src] burn out as the magic extinguishes it!</span>")
+	if(has_buckled_mobs())
+		var/mob/living/carbon/skaterboy = buckled_mobs[1]
+		unbuckle_mob(skaterboy)
+	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS,TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/clear_curse()
+	can_buckle = TRUE
+	cursed = FALSE
+	cut_overlay(curse_overlay)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"
@@ -246,11 +278,14 @@
 /obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
 		return ..()
-	if(!I.tool_start_check(user, amount = 5))
+	var/obj/item/stack/S = I
+	if(S.get_amount() < 5)
 		return
 	to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
-	if(!I.use_tool(src, user, 80, volume = 50, amount = 5))
-		return
+	if(do_after(user, 5 SECONDS, target = src))
+		if(!loc || !S || S.get_amount() < 2)
+			return
+	S.use(2)
 	to_chat(user, "<span class='notice'>You finish making wheels for [src].</span>")
 	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
 	qdel(src)
@@ -269,11 +304,13 @@
 /obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
-	if(!I.tool_start_check(user, amount = 2))
+	var/obj/item/stack/S = I
+	if(S.get_amount() < 2)
 		return
 	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
-	if(!I.use_tool(src, user, 25, volume = 50, amount = 2))
-		return
+	if(do_after(user, 2.5 SECONDS, target = src))
+		if(!loc || !S || S.get_amount() < 2 || !S.use(2))
+			return
 	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
 	if(has_buckled_mobs())
@@ -308,7 +345,8 @@
 	item_state = "skateboard"
 	force = 12
 	throwforce = 4
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_FLAG_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
@@ -333,6 +371,7 @@
 /obj/item/melee/skateboard/hoverboard
 	name = "hoverboard"
 	desc = "A blast from the past, so retro!"
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hoverboard_red_held"
 	item_state = "hoverboard_red"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard

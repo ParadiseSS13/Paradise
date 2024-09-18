@@ -120,7 +120,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
+		if((H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)) && !HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -136,7 +136,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		else
 			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
 			break
-		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
 			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
@@ -232,11 +232,11 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
 		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100)

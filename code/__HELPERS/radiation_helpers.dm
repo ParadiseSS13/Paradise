@@ -21,6 +21,10 @@
 		. += thing
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
+		if(ishuman(thing))
+			var/mob/living/carbon/human/H = thing
+			if(H.get_rad_protection() >= 0.99) // I would do exactly equal to 1, but you will never hit anything between 1 and .975, and byond seems to output 0.99999
+				continue
 		processing_list += thing.contents
 
 /proc/radiation_pulse(atom/source, intensity, range_modifier, log = FALSE, can_contaminate = TRUE)

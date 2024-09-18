@@ -47,8 +47,17 @@
 		new /obj/item/stack/sheet/animalhide/armor_plate(get_turf(src))
 	for(var/i in 1 to drake_hides)
 		new /obj/item/stack/sheet/animalhide/ashdrake(get_turf(src))
+	for(var/mob/M in src)
+		if(M == occupant)
+			continue
+		M.loc = get_turf(src)
+		M.loc.Entered(M)
+		step_rand(M)
 	for(var/atom/movable/A in cargo)
-		A.forceMove(get_turf(src))
+		A.loc = get_turf(src)
+		var/turf/T = get_turf(A)
+		if(T)
+			T.Entered(A)
 		step_rand(A)
 	cargo.Cut()
 	return ..()
@@ -114,6 +123,8 @@
 //drake hides
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			underlays.Cut()
+			underlays += emissive_appearance(emissive_appearance_icon, occupant ? "ripley-d-full_lightmask" : "ripley-d-full-open_lightmask")
 			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
 		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
@@ -236,8 +247,6 @@
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
 	return
 
-
-
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
@@ -248,21 +257,6 @@
 		output += "Nothing"
 	output += "</div>"
 	return output
-
-/obj/mecha/working/ripley/Destroy()
-	for(var/mob/M in src)
-		if(M == occupant)
-			continue
-		M.loc = get_turf(src)
-		M.loc.Entered(M)
-		step_rand(M)
-	for(var/atom/movable/A in cargo)
-		A.loc = get_turf(src)
-		var/turf/T = get_turf(A)
-		if(T)
-			T.Entered(A)
-		step_rand(A)
-	return ..()
 
 /obj/mecha/working/ripley/ex_act(severity)
 	..()

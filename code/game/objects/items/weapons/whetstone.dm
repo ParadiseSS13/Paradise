@@ -31,15 +31,6 @@
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (I.force > initial(I.force) && !(signal_out & COMPONENT_SHARPEN_APPLIED))) //No sharpening stuff twice
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
-	if(istype(I, /obj/item/melee/energy))
-		var/obj/item/melee/energy/E = I
-		if(E.force_on > initial(E.force_on))
-			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
-			return
-		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
-		E.throwforce_off = clamp(E.throwforce_off + increment, 0, max)
-		E.force_on = clamp(E.force_on + increment, 0, max)
-		E.force_off = clamp(E.force_off + increment, 0, max)
 
 	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
 		I.force = clamp(I.force + increment, 0, max)
@@ -49,7 +40,7 @@
 		set_sharpness(TRUE)
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
-	playsound(get_turf(src), usesound, 50, 1)
+	playsound(get_turf(src), usesound, 50, TRUE)
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
 	used = TRUE

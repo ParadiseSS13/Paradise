@@ -97,7 +97,7 @@
 			qdel(I)
 	else
 		user.visible_message(
-			"<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
+			"<span class='notice'>[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
 			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)

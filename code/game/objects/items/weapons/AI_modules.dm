@@ -64,6 +64,7 @@ AI MODULES
 					to_chat(R, "These are your laws now:")
 					R.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
+			return TRUE
 
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
@@ -133,7 +134,7 @@ AI MODULES
 	..()
 	var/law = "Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated.'"
 	to_chat(target, law)
-	target.add_supplied_law(4, law)
+	target.add_inherent_law(law)
 	GLOB.lawchanges.Add("The law specified [targetName]")
 
 /******************** oneCrewMember ********************/
@@ -184,7 +185,7 @@ AI MODULES
 	..()
 	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
 	to_chat(target, law)
-	target.add_supplied_law(5, law)
+	target.add_inherent_law(law)
 
 /******************** OxygenIsToxicToCrew ********************/
 /obj/item/aiModule/oxygen
@@ -483,16 +484,16 @@ AI MODULES
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
 	origin_tech = "programming=6;materials=5;syndicate=6"
-	laws = list("")
+	var/ion_law = ""
 
 /obj/item/aiModule/toyAI/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//..()
 	to_chat(target, "<span class='warning'>KRZZZT</span>")
-	target.add_ion_law(laws[1])
-	return laws[1]
+	target.add_ion_law(ion_law)
+	return ion_law
 
 /obj/item/aiModule/toyAI/attack_self(mob/user)
-	laws[1] = generate_ion_law()
+	ion_law = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	src.loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	visible_message("<span class='warning'>[bicon(src)] [ion_law]</span>")

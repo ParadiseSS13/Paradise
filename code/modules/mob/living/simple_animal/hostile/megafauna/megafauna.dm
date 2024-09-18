@@ -52,9 +52,11 @@
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(hoverboard_deactivation))
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
+	UnregisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET)
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
@@ -158,10 +160,25 @@
 		C.density = FALSE //I hate it.
 		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
+/mob/living/simple_animal/hostile/megafauna/proc/hoverboard_deactivation(source, target)
+	SIGNAL_HANDLER // COMSIG_HOSTILE_FOUND_TARGET
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(!L.buckled)
+		return
+	if(!istype(L.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
+		return
+	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
+	// Not a visible message, as walls or such may be in the way
+	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
+	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
+	cursed_board.necropolis_curse()
+
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = ""
+	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_overlay_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

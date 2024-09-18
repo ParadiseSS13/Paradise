@@ -19,3 +19,9 @@ $bg-map: colors.$bg-map !default;
     background-color: $color-value !important;
   }
 }
+
+@each $color-name, $color-value in $fg-map {
+  .color-border-#{$color-name} {
+    border-color: $color-value !important;
+  }
+}

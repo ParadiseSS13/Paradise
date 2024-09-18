@@ -103,7 +103,7 @@
 	return
 
 /turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
@@ -209,7 +209,7 @@
 	nofun = TRUE
 
 /datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/structure/spacevine/holder)
-	if(explosion_severity < 3)
+	if(explosion_severity < EXPLODE_LIGHT)
 		qdel(holder)
 	else
 		addtimer(CALLBACK(holder, TYPE_PROC_REF(/obj/structure/spacevine, wither)), 5)
@@ -538,6 +538,7 @@
 	var/spread_multiplier = 5
 	var/spread_cap = 30
 	var/mutativeness = 1
+	var/list/protected_areas = list(/area/shuttle/arrival/station)
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
@@ -680,7 +681,7 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!isspaceturf(stepturf) && stepturf.Enter(src))
+			if(!isspaceturf(stepturf) && !is_type_in_list(get_area(stepturf), master.protected_areas) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
@@ -704,7 +705,7 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target)
 	if(isvineimmune(mover))
 		. = TRUE
 	else

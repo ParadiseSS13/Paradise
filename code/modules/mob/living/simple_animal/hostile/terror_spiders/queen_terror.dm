@@ -136,7 +136,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_special_action()
-	if(!stat && !ckey)
+	if(stat == CONSCIOUS && !ckey)
 		switch(neststep)
 			if(0)
 				// No nest. If current location is eligible for nesting, advance to step 1.

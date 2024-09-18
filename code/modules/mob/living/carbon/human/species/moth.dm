@@ -101,10 +101,6 @@
 
 	return ..()
 
-/datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E ? E.eye_color : flesh_color
-
 /datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
@@ -158,8 +154,8 @@
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner

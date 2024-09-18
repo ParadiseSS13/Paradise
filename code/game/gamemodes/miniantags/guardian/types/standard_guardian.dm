@@ -21,10 +21,10 @@
 			visible_message("<span class='danger'>[src] punches [target]!</span>")
 		else
 			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

@@ -372,9 +372,6 @@
 /datum/status_effect/action_status_effect/remove_handcuffs
 	id = "remove_handcuffs"
 
-/datum/status_effect/action_status_effect/break_handcuffs
-	id = "break_handcuffs"
-
 /datum/status_effect/action_status_effect/remove_muzzle
 	id = "remove_muzzle"
 

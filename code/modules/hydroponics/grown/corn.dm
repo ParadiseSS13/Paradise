@@ -5,7 +5,7 @@
 	icon_state = "seed-corn"
 	species = "corn"
 	plantname = "Corn Stalks"
-	product = /obj/item/food/snacks/grown/corn
+	product = /obj/item/food/grown/corn
 	maturation = 8
 	potency = 20
 	growthstages = 3
@@ -15,12 +15,12 @@
 	mutatelist = list(/obj/item/seeds/corn/snapcorn)
 	reagents_add = list("cornoil" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 
-/obj/item/food/snacks/grown/corn
+/obj/item/food/grown/corn
 	seed = /obj/item/seeds/corn
 	name = "ear of corn"
 	desc = "Needs some butter!"
 	icon_state = "corn"
-	cooked_type = /obj/item/food/snacks/popcorn
+	cooked_type = /obj/item/food/popcorn
 	filling_color = "#FFFF00"
 	trash = /obj/item/grown/corncob
 	bitesize_mod = 2

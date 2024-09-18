@@ -23,7 +23,7 @@
 "q" = (
 /obj/structure/safe/floor,
 /obj/item/golden_record,
-/turf/simulated/satellite,
+/turf/simulated/wall/satellite,
 /area/template_noop)
 "O" = (
 /obj/structure/target_stake{

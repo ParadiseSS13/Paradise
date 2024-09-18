@@ -49,19 +49,16 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return FALSE
 	return ..()
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/blob/CanPass(atom/movable/mover, turf/target)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
-/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = 0
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSBLOB)
+/obj/structure/blob/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	. = FALSE
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSBLOB
 
 /obj/structure/blob/process()
 	Life()

@@ -92,29 +92,29 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now blinking to your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Chaser Swarm"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "hierophant_squares_indefinite"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "hierophant_squares_indefinite"
 	chosen_message = "<span class='colossus'>You are firing a chaser swarm at your target.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Cross Blasts"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "hierophant_blast_indefinite"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "hierophant_blast_indefinite"
 	chosen_message = "<span class='colossus'>You are now firing cross blasts at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Blink Chase"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
-	button_icon_state = "hierophant_club_ready_beacon"
+	button_overlay_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_overlay_icon_state = "hierophant_club_ready_beacon"
 	chosen_message = "<span class='colossus'>You are now repeatedly blinking at your target.</span>"
 	chosen_attack_num = 4
 
@@ -529,7 +529,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Moved(oldLoc, movement_dir)
 	. = ..()
-	if(!stat && .)
+	if(stat == CONSCIOUS && .)
 		var/obj/effect/temp_visual/hierophant/squares/HS = new(oldLoc)
 		HS.setDir(movement_dir)
 		playsound(src, 'sound/mecha/mechmove04.ogg', 65, TRUE, -4)

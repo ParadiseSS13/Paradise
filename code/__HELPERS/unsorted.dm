@@ -1037,19 +1037,25 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 /proc/parse_zone(zone)
-	if(zone == "r_hand") return "right hand"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "l_arm") return "left arm"
-	else if(zone == "r_arm") return "right arm"
-	else if(zone == "l_leg") return "left leg"
-	else if(zone == "r_leg") return "right leg"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "r_hand") return "right hand"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else return zone
+	switch(zone)
+		if("r_hand")
+			return "right hand"
+		if("l_hand")
+			return "left hand"
+		if("r_arm")
+			return "right arm"
+		if("l_arm")
+			return "left arm"
+		if("r_foot")
+			return "right foot"
+		if("l_foot")
+			return "left foot"
+		if("r_leg")
+			return "right leg"
+		if("l_leg")
+			return "left leg"
+		else
+			return zone
 
 /*
 
@@ -1921,9 +1927,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :result, :server_id)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, INET_ATON(:ip), :cid, :result, :server_id)", list(
 		"ckey" = ckey,
-		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
+		"ip" = "[ip ? ip : "127.0.0.1"]",
 		"cid" = cid,
 		"result" = connection_type,
 		"server_id" = GLOB.configuration.system.instance_id

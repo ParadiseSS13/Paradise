@@ -18,9 +18,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "em" = (
-/obj/effect/spawner/airlock/w_to_e/long/square{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "eo" = (
@@ -95,9 +93,7 @@
 /area/shuttle/abandoned)
 "nC" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "oh" = (

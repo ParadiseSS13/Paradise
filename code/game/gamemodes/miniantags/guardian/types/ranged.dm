@@ -77,6 +77,11 @@
 
 	to_chat(src, "<span class='notice'>[msg]</span>")
 
+/mob/living/simple_animal/hostile/guardian/ranged/blob_act(obj/structure/blob/B)
+	if(toggle)
+		return // we don't want blob tiles to hurt us when we fly over them and trigger /Crossed(), this prevents ranged scouts from being insta killed
+	return ..() // otherwise do normal damage!
+
 /obj/item/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"

@@ -117,8 +117,7 @@
 		var/mob/living/silicon/S = target
 		//20% chance to actually hit the sensors
 		if(prob(effectchance * diode.rating))
-			S.flash_eyes(affect_silicon = 1)
-			S.Weaken(rand(10 SECONDS, 20 SECONDS))
+			S.flash_eyes(affect_silicon = TRUE)
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 
@@ -130,14 +129,14 @@
 	else if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/C = target
 		if(prob(effectchance * diode.rating))
-			C.emp_act(1)
+			C.emp_act(EMP_HEAVY)
 			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
+			outmsg = "<span class='notice'>You missed the lens of [C] with [src].</span>"
 
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
@@ -159,7 +158,7 @@
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
+		to_chat(user, "<span class='notice'>You point [src] at [target].</span>")
 
 	energy -= 1
 	if(energy <= max_energy)

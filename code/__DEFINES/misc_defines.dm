@@ -104,6 +104,9 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 0
+
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -182,22 +185,26 @@
 #define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		44
-#define WING_LAYER				43
-#define WING_UNDERLIMBS_LAYER	42
-#define MUTANTRACE_LAYER		41
-#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
-#define LIMBS_LAYER				39
-#define MARKINGS_LAYER			38
-#define INTORGAN_LAYER			37
-#define UNDERWEAR_LAYER			36
-#define MUTATIONS_LAYER			35
-#define H_DAMAGE_LAYER			34
-#define UNIFORM_LAYER			33
-#define ID_LAYER				32
-#define HANDS_LAYER				31	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				30
-#define GLOVES_LAYER			29
+#define EYES_OVERLAY_LAYER		48
+#define WING_LAYER				47
+#define WING_UNDERLIMBS_LAYER	46
+#define MUTANTRACE_LAYER		45
+#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
+#define LIMBS_LAYER				43
+#define MARKINGS_LAYER			42
+#define INTORGAN_LAYER			41
+#define UNDERWEAR_LAYER			40
+#define MUTATIONS_LAYER			39
+#define H_DAMAGE_LAYER			38
+#define UNIFORM_LAYER			37
+#define ID_LAYER				36
+#define HANDS_LAYER				35	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				34
+#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
+#define GLOVES_LAYER			31
+#define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
+#define R_HAND_BLOOD_LAYER		29	// Blood overlay separation Right-Hand
 #define LEFT_EAR_LAYER			28
 #define RIGHT_EAR_LAYER			27
 #define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
@@ -226,7 +233,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			44
+#define TOTAL_LAYERS			48
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -416,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 57
+#define SQL_VERSION 59
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -596,8 +603,9 @@
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
-#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
+#define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
 /**
  * Reading books can help with brain damage!
@@ -620,11 +628,17 @@
 #define ROUND_END_CREW_TRANSFER 2
 #define ROUND_END_FORCED 3
 
-#define TS_INFESTATION_GREEN_SPIDER 1
-#define TS_INFESTATION_PRINCE_SPIDER 2
-#define TS_INFESTATION_WHITE_SPIDER 3
-#define TS_INFESTATION_PRINCESS_SPIDER 4
-#define TS_INFESTATION_QUEEN_SPIDER 5
+// These used to be integer values but they were never used numerically or even
+// stored in SSblackbox using their numeric values, and constantly converting
+// them to the actual terror name was redundant and annoying
+#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
+#define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
+#define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
+#define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
+#define TS_INFESTATION_QUEEN_SPIDER		"Queen Terrors"
+
+#define BIOHAZARD_BLOB	"Blob"
+#define BIOHAZARD_XENO	"Xenomorphs"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 

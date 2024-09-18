@@ -110,8 +110,8 @@
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "greenglow"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -126,8 +126,8 @@
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "greenglow"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner

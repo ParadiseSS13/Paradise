@@ -8,7 +8,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/snacks/carpmeat = 1)
+	butcher_results = list(/obj/item/food/carpmeat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "hits"
@@ -68,7 +68,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	speak_emote = list("blurps")
-	butcher_results = list(/obj/item/food/snacks/salmonmeat = 1)
+	butcher_results = list(/obj/item/food/salmonmeat = 1)
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

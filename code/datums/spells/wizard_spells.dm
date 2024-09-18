@@ -362,7 +362,7 @@
 /datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
-	action.button_icon_state = "fireball[active]"
+	action.button_overlay_icon_state = "fireball[active]"
 	action.UpdateButtons()
 
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)

@@ -346,7 +346,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] [ADMIN_OBS(M, "OBS")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()

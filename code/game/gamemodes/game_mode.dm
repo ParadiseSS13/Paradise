@@ -40,6 +40,7 @@
 	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	var/list/secondary_goal_grab_bags = null // Once initialized, contains an associative list of department_name -> list(secondary_goal_type). When a goal is requested, a type will be pulled out of the department's grab bag. When the bag is empty, it will be refilled from the list of all goals in that department, with the amount of each set to the type's weight, max 10.
 	var/list/datum/station_goal/secondary/secondary_goals = list() // A list of all secondary goals issued
 
 	/// Each item in this list can only be rolled once on average.
@@ -104,23 +105,17 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
+		if((player.client) && (player.ready))
 			playerC++
 
 	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
-		return 1
-	return 0
-
-//pre_pre_setup() For when you really don't want certain jobs ingame.
-/datum/game_mode/proc/pre_pre_setup()
-
-	return 1
+		return TRUE
+	return FALSE
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
-
-	return 1
+	return TRUE
 
 
 ///post_setup()
@@ -137,12 +132,12 @@
 
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
-	return 1
+	return TRUE
 
 ///process()
 ///Called by the gameticker
 /datum/game_mode/process()
-	return 0
+	return FALSE
 
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
@@ -264,11 +259,9 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
-	//var/list/drafted = list()
-	//var/datum/mind/applicant = null
 
 	var/roletext = get_roletext(role)
 
@@ -290,31 +283,58 @@
 				candidates += player.mind
 				players -= player
 
-	// Remove candidates who want to be antagonist but have a job that precludes it
+	// Remove candidates who want to be antagonist but have a job (or other antag datum) that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
+			if((player.assigned_role in restricted_jobs) || player.special_role)
+				candidates -= player
 
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+// Just the above proc but for alive players
+/// Gets all alive players for a specific role. Disables offstation roles by default
+/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
+	var/list/players = list()
+	var/list/candidates = list()
+
+	var/roletext = get_roletext(role)
+
+	// Assemble a list of active players without jobbans.
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(!player.client || (locate(player) in SSafk.afk_players))
+			continue
+		if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+			players += player
+
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species, and those who are already antagonists
+	for(var/mob/living/carbon/human/player in players)
+		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
+			continue
+
+		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in protected_species))
+			continue
+
+		player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+		candidates += player.mind
+		players -= player
+
+	// Remove candidates who want to be antagonist but have a job that precludes it
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			if(player.assigned_role in restricted_jobs)
+				candidates -= player
+	return candidates
 
 /datum/game_mode/proc/latespawn(mob)
 	if(rev_team)
 		rev_team.update_team_objectives()
 		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
-
-
-/*
-/datum/game_mode/proc/check_player_role_pref(role, mob/player)
-	if(player.preferences.be_special & role)
-		return 1
-	return 0
-*/
 
 /datum/game_mode/proc/num_players()
 	. = 0
@@ -606,3 +626,34 @@
 	. += auto_declare_completion_revolution()
 	. += auto_declare_completion_abduction()
 	listclearnulls(.)
+
+/// Returns how many traitors should be added to the round
+/datum/game_mode/proc/traitors_to_add()
+	return 0
+
+/datum/game_mode/proc/fill_antag_slots()
+	var/traitors_to_add = 0
+
+	traitors_to_add += traitors_to_add()
+
+	if(length(traitors) < traitors_to_add())
+		traitors_to_add += (traitors_to_add() - length(traitors))
+
+	if(!traitors_to_add)
+		return
+
+	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+	for(var/datum/mind/candidate as anything in potential_recruits)
+		if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
+			potential_recruits.Remove(candidate)
+
+	if(!length(potential_recruits))
+		return
+
+	log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+
+	for(var/i in 1 to traitors_to_add)
+		var/datum/mind/traitor = pick_n_take(potential_recruits)
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
+		traitor.restricted_roles = restricted_jobs
+		traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective

@@ -178,7 +178,7 @@
 		return
 
 	if(!bot_move(last_target_location, move_speed = 6))
-		var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
+		var/last_target_pos_path = get_path_to(src, last_target_location, access = access_card.access, skip_first = TRUE)
 		if(length(last_target_pos_path) == 0)
 			frustration = 10
 			return
@@ -363,7 +363,7 @@
 	user.do_attack_animation(src)
 	apply_damage(rand(15,30), BRUTE)
 	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
-	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -656,7 +656,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	access_card.access = get_all_accesses() // Give the bot temporary all access
 
-	set_path(get_path_to(src, waypoint, 200, id = access_card))
+	set_path(get_path_to(src, waypoint, 200, access = access_card.access))
 	calling_ai = caller // Link the AI to the bot!
 	ai_waypoint = waypoint
 
@@ -880,12 +880,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 // Given an optional turf to avoid
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, patrol_target, 120, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, patrol_target, 120, access = access_card.access, exclude=avoid))
 
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	set waitfor = FALSE
 	check_bot_access()
-	set_path(get_path_to(src, summon_target, 150, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, summon_target, 150, access = access_card.access, exclude=avoid))
 	if(!length(path)) // Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.",radio_channel)
 		bot_reset()

@@ -315,6 +315,57 @@
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
 
+/obj/item/storage/box/large/rnd_parts
+	name = "\improper R&D components box"
+	desc = "A full set of labelled components for assembling an R&D setup with. There are wordless picrographs of how to assemble everything on the back."
+
+/obj/item/storage/box/large/rnd_parts/populate_contents()
+	new /obj/item/circuitboard/rdconsole(src)
+	new /obj/item/circuitboard/protolathe(src)
+	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/circuit_imprinter(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/scanning_module(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/stack/sheet/glass/fifty(src)
+	new /obj/item/stack/sheet/metal/fifty(src)
+	new /obj/item/stack/cable_coil(src)
+
+/obj/item/storage/box/large/glowstick/emergency
+	name = "emergency glowstick box"
+	desc = "A large box filled to the brim with cheap emergency glowsticks."
+
+/obj/item/storage/box/large/glowstick/emergency/populate_contents()
+	for(var/i in 1 to 15)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/glowstick/premium
+	name = "premium glowstick box"
+	desc = "A box filled with high-quality military surplus glowsticks."
+
+/obj/item/storage/box/glowstick/premium/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/flashlight/flare/glowstick(src)
+
+/obj/item/storage/box/flares
+	name = "emergency flare box"
+	desc = "A box full of magnesium signal flares."
+
+/obj/item/storage/box/flares/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/flashlight/flare(src)
+
+
 //////////////////
 /* Monkey Boxes */
 //////////////////
@@ -323,8 +374,8 @@
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon_state = "monkey_box"
 	storage_slots = 7
-	can_hold = list(/obj/item/food/snacks/monkeycube)
-	var/monkey_cube_type = /obj/item/food/snacks/monkeycube
+	can_hold = list(/obj/item/food/monkeycube)
+	var/monkey_cube_type = /obj/item/food/monkeycube
 
 /obj/item/storage/box/monkeycubes/populate_contents()
 	for(var/I in 1 to 5)
@@ -332,37 +383,37 @@
 
 /obj/item/storage/box/monkeycubes/syndicate
 	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/syndicate
+	monkey_cube_type = /obj/item/food/monkeycube/syndicate
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
 	icon_state = "farwa_box"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/farwacube
+	monkey_cube_type = /obj/item/food/monkeycube/farwacube
 
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
 	icon_state = "stok_box"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/stokcube
+	monkey_cube_type = /obj/item/food/monkeycube/stokcube
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
 	icon_state = "neaera_box"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/neaeracube
+	monkey_cube_type = /obj/item/food/monkeycube/neaeracube
 
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	icon_state = "wolpin_box"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
+	monkey_cube_type = /obj/item/food/monkeycube/wolpincube
 
 /obj/item/storage/box/monkeycubes/nian_worme_cubes
 	name = "nian worme cube box"
 	desc = "Nian Trade Guild brand worme cubes. Just add water!"
 	icon_state = "nian_worme_box"
-	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
+	monkey_cube_type = /obj/item/food/monkeycube/nian_wormecube
 
 ///////////////////
 /* Medical Boxes */
@@ -723,14 +774,14 @@
 	icon_state = "donk_box"
 	storage_slots = 6
 	can_hold = list(
-		/obj/item/food/snacks/donkpocket,
-		/obj/item/food/snacks/warmdonkpocket,
-		/obj/item/food/snacks/warmdonkpocket_weak,
-		/obj/item/food/snacks/syndidonkpocket)
+		/obj/item/food/donkpocket,
+		/obj/item/food/warmdonkpocket,
+		/obj/item/food/warmdonkpocket_weak,
+		/obj/item/food/syndidonkpocket)
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/food/snacks/donkpocket(src)
+		new /obj/item/food/donkpocket(src)
 
 /obj/item/storage/box/donkpockets/empty/populate_contents()
 	return
@@ -742,7 +793,7 @@
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/food/snacks/syndidonkpocket(src)
+		new /obj/item/food/syndidonkpocket(src)
 
 ////////////////
 /* Misc Boxes */
@@ -1062,6 +1113,7 @@
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/circuitboard/rnd_network_controller(src)
 
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
@@ -1104,7 +1156,7 @@
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
 /obj/item/storage/box/wizard

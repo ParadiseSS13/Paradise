@@ -122,7 +122,7 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
 		return
 	return ..()
 
@@ -374,26 +374,26 @@
 	. = ..()
 	if(myseed)
 		if(myseed.variant)
-			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
 		else
-			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if(dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if(harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
+			. += "<span class='notice'>It's ready to harvest.</span>"
 		else if(plant_health <= (myseed.endurance / 2))
 			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		. += "<span class='info'>[src] is empty.</span>"
+		. += "<span class='notice'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
+		. += "<span class='notice'>Water: [waterlevel]/[maxwater]</span>"
+		. += "<span class='notice'>Nutrient: [nutrilevel]/[maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += "<span class='notice'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+		. += "<span class='notice'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"
@@ -857,7 +857,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
 		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, user, TRUE)
@@ -988,10 +988,7 @@
 	update_state()
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
-	if(height==0)
-		return 1
-
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target) //So nymphs can climb over top of trays.
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else

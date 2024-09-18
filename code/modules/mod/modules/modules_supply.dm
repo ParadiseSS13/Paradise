@@ -312,16 +312,6 @@
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
 	armor_mod_2 = new armor_mod_1
-
-/obj/item/mod/module/ash_accretion/Destroy()
-	QDEL_NULL(armor_mod_2)
-	return ..()
-
-/obj/item/mod/armor/mod_ash_accretion
-	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)
-
-/obj/item/mod/module/ash_accretion/Initialize(mapload)
-	. = ..()
 	if(!accretion_turfs)
 		accretion_turfs = typecacheof(list(
 			/turf/simulated/floor/plating/asteroid
@@ -332,6 +322,13 @@
 			/turf/simulated/floor/indestructible/hierophant,
 			/turf/simulated/floor/indestructible/necropolis
 			))
+
+/obj/item/mod/module/ash_accretion/Destroy()
+	QDEL_NULL(armor_mod_2)
+	return ..()
+
+/obj/item/mod/armor/mod_ash_accretion
+	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/ash_accretion/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -499,6 +496,11 @@
 	light_power = 1
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
+
+/obj/item/projectile/bullet/reusable/mining_bomb/handle_drop()
+	if(!dropped)
+		new ammo_type(loc, firer)
+		dropped = TRUE
 
 /obj/structure/mining_bomb
 	name = "mining bomb"

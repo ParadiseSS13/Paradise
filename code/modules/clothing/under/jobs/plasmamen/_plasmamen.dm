@@ -4,15 +4,18 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 80
-	var/next_extinguish = 0
-	var/extinguish_cooldown = 100
-	var/extinguishes_left = 5
 	icon = 'icons/obj/clothing/species/plasmaman/uniform.dmi'
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/uniform.dmi')
 	icon_state = "plasmaman"
 	item_state = "plasmaman"
 	item_color = "plasmaman"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_PLASMAMEN
+
+	var/next_extinguish = 0
+	var/extinguish_cooldown = 10 SECONDS
+	var/extinguishes_left = 5
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
@@ -31,7 +34,7 @@
 			H.visible_message("<span class='warning'>[H]'s suit automatically extinguishes [H.p_them()]!</span>","<span class='warning'>Your suit automatically extinguishes you.</span>")
 			if(!extinguishes_left)
 				to_chat(H, "<span class='warning'>Onboard auto-extinguisher depleted, refill with a cartridge.</span>")
-			playsound(H.loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			playsound(H.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE

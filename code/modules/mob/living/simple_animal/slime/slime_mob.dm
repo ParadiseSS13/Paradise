@@ -103,9 +103,11 @@
 	add_language("Bubblish")
 
 /mob/living/simple_animal/slime/Destroy()
+	walk_to(src, 0)
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+		qdel(AC)
 	Target = null
 	return ..()
 
@@ -133,7 +135,7 @@
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
 		icon_state = icon_text
-		if(mood && !stat)
+		if(mood && stat == CONSCIOUS)
 			add_overlay("aslime-[mood]")
 	else
 		icon_state = icon_dead
@@ -357,7 +359,7 @@
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -390,7 +392,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>This is [bicon(src)] \a <EM>[src]</EM>!"
+	. += "<span class='notice'>This is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else

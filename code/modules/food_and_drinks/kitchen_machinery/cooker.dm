@@ -34,13 +34,13 @@
 	return ..()
 
 // checks if the snack has been cooked in a certain way
-/obj/machinery/cooker/proc/checkCooked(obj/item/food/snacks/D)
+/obj/machinery/cooker/proc/checkCooked(obj/item/food/D)
 	if(D.cooktype[thiscooktype])
 		return 1
 	return 0
 
 // Sets the new snack's cooktype list to the same as the old one - no more cooking something in the same machine more than once!
-/obj/machinery/cooker/proc/setCooked(obj/item/food/snacks/oldtypes, obj/item/food/snacks/newtypes)
+/obj/machinery/cooker/proc/setCooked(obj/item/food/oldtypes, obj/item/food/newtypes)
 	var/ct
 	for(ct in oldtypes.cooktype)
 		newtypes.cooktype[ct] = oldtypes.cooktype[ct]
@@ -115,7 +115,7 @@
 		return FALSE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	if(istype(check, /obj/item/food/snacks) || emagged)
+	if(istype(check, /obj/item/food) || emagged)
 		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
 			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
 			return FALSE
@@ -147,7 +147,7 @@
 // if burns = FALSE then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
-	var/obj/item/food/snacks/badrecipe/burnt = new(get_turf(src))
+	var/obj/item/food/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
@@ -177,7 +177,7 @@
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
-	var/obj/item/food/snacks/type = new(get_turf(src))
+	var/obj/item/food/type = new(get_turf(src))
 	return type
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
@@ -197,7 +197,7 @@
 	if(!checkValid(I, user))
 		return
 	if(!burns)
-		if(istype(I, /obj/item/food/snacks))
+		if(istype(I, /obj/item/food))
 			if(checkCooked(I))
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
 				return
@@ -226,17 +226,17 @@
 				cookSpecial(special)			//Handle cooking the item as appropriate
 				turnoff(I)						//Shut off the machine and qdel the original item
 				return
-		if(istype(I, /obj/item/food/snacks))
+		if(istype(I, /obj/item/food))
 			if(checkCooked(I))
 				burn_food(user, I)
 				turnoff(I)
 				return
-		var/obj/item/food/snacks/newfood = gettype()
+		var/obj/item/food/newfood = gettype()
 		setIcon(I, newfood)
 		changename(I, newfood)
 		if(istype(I, /obj/item/reagent_containers))
 			setRegents(I, newfood)
-		if(istype(I, /obj/item/food/snacks))
+		if(istype(I, /obj/item/food))
 			setCooked(I, newfood)
 		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)

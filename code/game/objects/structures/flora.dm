@@ -36,9 +36,6 @@
 /obj/structure/flora/tree/dead/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/largetransparency, 0, 1, 0, 0)
-
-/obj/structure/flora/tree/dead/Initialize(mapload)
-	. = ..()
 	icon_state = "tree_[rand(1, 6)]"
 
 /obj/structure/flora/tree/palm
@@ -48,7 +45,6 @@
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
 	icon_state = pick("palm1","palm2")
-	pixel_x = 0
 
 /obj/structure/flora/tree/jungle
 	name = "tree"

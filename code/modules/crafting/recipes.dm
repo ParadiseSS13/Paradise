@@ -91,10 +91,10 @@
 /datum/crafting_recipe/throwing_croissant
 	name = "Throwing croissant"
 	reqs = list(
-		/obj/item/food/snacks/croissant = 1,
+		/obj/item/food/croissant = 1,
 		/obj/item/stack/rods = 1
 	)
-	result = list(/obj/item/food/snacks/croissant/throwing)
+	result = list(/obj/item/food/croissant/throwing)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_available = FALSE
@@ -296,6 +296,18 @@
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/disabler)
 
+/datum/crafting_recipe/flamethrower_extended
+	name = "Extended Chemical Flamethrower"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/chemical_flamethrower/extended)
+	reqs = list(/obj/item/chemical_flamethrower = 1,
+			/obj/item/stack/cable_coil = 5,
+			/obj/item/weaponcrafting/gunkit/chemical_flamethrower = 1)
+	time = 10 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = list(/mob/living/simple_animal/bot/ed209)
@@ -492,15 +504,6 @@
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/skateboard
-	name = "Skateboard"
-	result = list(/obj/tgvehicle/scooter/skateboard/improvised)
-	time = 1.5 SECONDS
-	reqs = list(/obj/item/stack/sheet/metal = 5,
-				/obj/item/stack/rods = 10)
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
-	category = CAT_MISC
 
 /datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
 	name = "Spear"
@@ -933,7 +936,7 @@
 	name = "Snowman"
 	result = list(/obj/structure/snowman/built)
 	reqs = list(/obj/item/snowball = 10,
-				/obj/item/food/snacks/grown/carrot = 1,
+				/obj/item/food/grown/carrot = 1,
 				/obj/item/grown/log = 2)
 	time = 50
 	category = CAT_MISC
