@@ -17,6 +17,10 @@
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
 
+/obj/item/organ/internal/cyberimp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It looks like it belongs in the [parse_zone(parent_organ)].</span>"
+
 //[[[[BRAIN]]]]
 
 /obj/item/organ/internal/cyberimp/brain
