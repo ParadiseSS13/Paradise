@@ -53,7 +53,6 @@
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
-	update_health_hud()
 	RegisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_health_hud))
 
 /mob/living/simple_animal/hostile/guardian/can_buckle()
