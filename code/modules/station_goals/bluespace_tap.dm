@@ -357,9 +357,9 @@
 		stabilizer_power = \
 		clamp(\
 		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), \
-		 0, \
-		 mining_power / 2) \
-		 * (stabilizers && !emagged)
+		0, \
+		mining_power / 2) \
+		* (stabilizers && !emagged)
 	else
 		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
 		stabilizer_power = \
