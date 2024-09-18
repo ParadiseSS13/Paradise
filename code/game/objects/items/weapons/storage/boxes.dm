@@ -382,12 +382,9 @@
 		new monkey_cube_type(src)
 
 /obj/item/storage/box/monkeycubes/obj_destruction(damage_flag)
-	if(damage_flag == ACID)
+	if(damage_flag == ACID || damage_flag == FIRE)
 		for(var/obj/item/food/monkeycube/mkc in contents)
-			mkc.obj_destruction(ACID)
-	else if(damage_flag == FIRE)
-		for(var/obj/item/food/monkeycube/mkc in contents)
-			mkc.obj_destruction(FIRE)
+			mkc.obj_destruction(damage_flag)
 	. = ..()
 
 /obj/item/storage/box/monkeycubes/syndicate
