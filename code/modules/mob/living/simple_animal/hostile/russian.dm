@@ -69,7 +69,7 @@
 	minbodytemp = 0
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
-	faction = list("russian")
+	faction = list("soviet")
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/sovietnian,
 		/obj/item/melee/energy/sword/pirate,
