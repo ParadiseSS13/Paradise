@@ -7,7 +7,7 @@
 #define FLAYER_UNOBTAINABLE_POWER	3
 
 #define BRAIN_DRAIN_LIMIT 120
-#define DRAIN_TIME 1/4 SECONDS
+#define DRAIN_TIME (1/4 SECONDS)
 
 #define isflayerpassive(A)		(istype(A, /datum/mindflayer_passive))
 
