@@ -148,7 +148,7 @@
 	if(!density)
 		return ..()
 	if(heat_proof)
-		return ZERO_HEAT_TRANSFER_COEFFICIENT
+		return 0 //ZERO_HEAT_TRANSFER_COEFFICIENT not used here as DM did not like "0.0" as a direction
 	return superconductivity
 
 /obj/machinery/door/proc/bumpopen(mob/user)
