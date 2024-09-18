@@ -142,7 +142,7 @@
 				M.death()
 				M.splat()
 				movement_target = null
-				walk(src, 0)
+				walk_to(src, 0)
 				stop_automated_movement = FALSE
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
@@ -165,6 +165,7 @@
 	if(!movement_target || !(movement_target.loc in oview(src, 3)))
 		movement_target = null
 		stop_automated_movement = FALSE
+		walk_to(src, 0)
 		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
