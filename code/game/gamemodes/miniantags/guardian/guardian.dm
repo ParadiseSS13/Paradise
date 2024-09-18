@@ -143,7 +143,7 @@
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
+			resulthealth = round(((summoner.health - HEALTH_THRESHOLD_CRIT) / abs(HEALTH_THRESHOLD_CRIT - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / (summoner.maxHealth/2)) * 100)
 		if(hud_used)
