@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Tabs, Input } from '../components';
+import { Stack, Button, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
@@ -7,11 +7,11 @@ import { createSearch, capitalize } from 'common/string';
 
 export const AugmentMenu = (props, context) => {
   return (
-    <Window width={700} height={700} theme="malfunction">
+    <Window width={700} height={660} theme="malfunction">
       <Window.Content>
-        <Box scrollable>
+        <Stack vertical>
           <Abilities />
-        </Box>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -20,59 +20,38 @@ export const AugmentMenu = (props, context) => {
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
   const { usable_swarms, ability_tabs } = data;
-
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [abilities, setAbilities] = useLocalState(context, 'abilities', selectedTab.abilities);
 
-  const selectAbilities = (abilities, searchText = '') => {
-    if (!abilities || abilities.length === 0) {
-      return [];
-    }
-
-    const AbilitySearch = createSearch(searchText, (ability) => {
-      return ability.name + '|' + ability.desc;
-    });
-
-    return flow([filter((ability) => ability?.name), filter(AbilitySearch), sortBy((ability) => ability?.name)])(
-      abilities
-    );
+  const selectAbilities = (abilities) => {
+    if (!abilities) return [];
+    return flow([filter((ability) => ability?.name), sortBy((ability) => ability?.name)])(abilities);
   };
 
   const handleSearch = (value) => {
     setSearchText(value);
-    if (value === '') {
-      return setAbilities(selectedTab.abilities);
-    }
-    setAbilities(selectAbilities(ability_tabs.map((ability_entry) => ability_entry.abilities).flat(), value));
+    const abilitiesToDisplay = value
+      ? selectAbilities(
+          ability_tabs
+            .flatMap((tab) => tab.abilities)
+            .filter((ability) => ability.name.toLowerCase().includes(value.toLowerCase()))
+        )
+      : selectedTab.abilities;
+    setAbilities(abilitiesToDisplay);
   };
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
-    if (tab.category_name === 'Upgrades') {
-      setSearchText('');
-      return;
-    }
-    const abilitiesToDisplay = tab.abilities.filter((ability) => ability.stage <= tab.category_stage);
-    setAbilities(abilitiesToDisplay);
     setSearchText('');
-  };
-
-  const handlePurchase = (ability) => {
-    const result = act('purchase', { ability_path: ability.ability_path });
-
-    // Check if result is a Promise
-    if (result && typeof result.then === 'function') {
-      result.then(() => {
-        // Refresh abilities after purchase
-        handleTabChange(selectedTab);
-      });
-    }
+    const abilitiesToDisplay =
+      tab.category_name === 'Upgrades' ? [] : tab.abilities.filter((ability) => ability.stage <= tab.category_stage);
+    setAbilities(abilitiesToDisplay);
   };
 
   return (
     <Section
-      title={'Swarms: ' + usable_swarms}
+      title={`Swarms: ${usable_swarms}`}
       buttons={
         <Input
           width="200px"
@@ -82,9 +61,13 @@ const Abilities = (props, context) => {
         />
       }
     >
-      <Tabs mb={2}>
+      <Tabs>
         {ability_tabs.map((tab) => (
-          <Tabs.Tab key={tab.category_name} selected={selectedTab === tab} onClick={() => handleTabChange(tab)}>
+          <Tabs.Tab
+            key={tab.category_name}
+            selected={selectedTab.category_name === tab.category_name}
+            onClick={() => handleTabChange(tab)}
+          >
             {capitalize(tab.category_name)}
           </Tabs.Tab>
         ))}
@@ -99,31 +82,31 @@ const Abilities = (props, context) => {
       {selectedTab.category_name === 'Upgrades' ? (
         <Upgrades />
       ) : (
-        abilities.map((ability) => (
-          <Box key={ability.name} direction="row" align="left">
-            <Box>
-              <Button
-                height="20px"
-                width="35px"
-                mb={1}
-                mr="1rem"
-                textAlign="center"
-                content={ability.cost}
-                disabled={ability.cost > usable_swarms}
-                tooltip="Purchase this ability?"
-                onClick={() => handlePurchase(ability)}
-              />
-              <Box as="span" fontSize="1.4rem">
-                {ability.name}
-              </Box>
-              <br />
-              <Box as="span" fontSize="1.1rem">
-                {ability.desc}
-              </Box>
-              <hr color="gray" />
-            </Box>
-          </Box>
-        ))
+        <Stack vertical>
+          {abilities.map((ability) => (
+            <Stack.Item key={ability.name} direction="row">
+              <Stack>
+                <Button
+                  height="20px"
+                  width="35px"
+                  mb={1}
+                  textAlign="center"
+                  content={ability.cost}
+                  disabled={ability.cost > usable_swarms}
+                  tooltip="Purchase this ability?"
+                  onClick={() => act('purchase', { ability_path: ability.ability_path })}
+                />
+                <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
+              </Stack>
+              <Stack.Item>
+                <Stack vertical>
+                  <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
+                  <Stack.Divider />
+                </Stack>
+              </Stack.Item>
+            </Stack.Item>
+          ))}
+        </Stack>
       )}
     </Section>
   );
@@ -134,35 +117,36 @@ const Upgrades = (props, context) => {
   const { usable_swarms, known_abilities } = data;
 
   return (
-    <Box>
+    <Stack vertical>
       {known_abilities.map(
-        (ability, i) =>
+        (ability) =>
           ability.current_level < ability.max_level && (
-            <Box key={ability.name} direction="row" align="left">
-              <Button
-                height="20px"
-                width="35px"
-                mb={1}
-                mr="1rem"
-                content={ability.cost}
-                disabled={ability.cost > usable_swarms}
-                tooltip="Upgrade this ability?"
-                onClick={() => act('purchase', { ability_path: ability.ability_path })}
-              />
-              <Box as="span" fontSize="1.4rem">
-                {ability.name}
-              </Box>
-              <br />
-              <Box as="span" fontSize="1.1rem">
-                {ability.upgrade_text}
-              </Box>
-              <Box color="green">
-                Level: {ability.current_level} / {ability.max_level}
-              </Box>
-              <hr color="gray" />
-            </Box>
+            <Stack.Item key={ability.name} direction="row">
+              <Stack>
+                <Button
+                  height="20px"
+                  width="35px"
+                  mb={1}
+                  textAlign="center"
+                  content={ability.cost}
+                  disabled={ability.cost > usable_swarms}
+                  tooltip="Upgrade this ability?"
+                  onClick={() => act('purchase', { ability_path: ability.ability_path })}
+                />
+                <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
+              </Stack>
+              <Stack.Item>
+                <Stack vertical>
+                  <Stack.Item fontSize="13px">{ability.upgrade_text}</Stack.Item>
+                  <Stack.Item color="green" fontSize="13px">
+                    Level: {ability.current_level} / {ability.max_level}
+                  </Stack.Item>
+                  <Stack.Divider />
+                </Stack>
+              </Stack.Item>
+            </Stack.Item>
           )
       )}
-    </Box>
+    </Stack>
   );
 };
