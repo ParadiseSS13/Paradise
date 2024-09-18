@@ -2,8 +2,6 @@
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players,
-	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -219,6 +217,8 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
