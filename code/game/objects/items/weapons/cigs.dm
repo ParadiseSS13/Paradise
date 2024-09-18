@@ -582,6 +582,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 			qdel(O)
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		return
+	
+	return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
