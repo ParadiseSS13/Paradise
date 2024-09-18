@@ -448,7 +448,6 @@
 				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
-					var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 					C.mechfabs += UID()
 					network_manager_uid = C.UID()
 					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
