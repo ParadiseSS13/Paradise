@@ -74,10 +74,7 @@
 	reagents.remove_any(1)	// reaction() doesn't use up the reagents
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/can_clean()
-	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
-		return TRUE
-	else
-		return FALSE
+	return reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1)
 
 // Auto-regeneration of water. Takes energy.
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/process()
@@ -91,7 +88,7 @@
 	if(output)
 		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
 
-/obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Topic(href,href_list)
+/obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Topic(href, href_list)
 	..()
 	var/datum/topic_input/afilter = new (href, href_list)
 	if(afilter.get("toggle_mode"))
@@ -122,9 +119,9 @@
 	if(istype(target, /obj/machinery/light))
 		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		ReplaceLight(target)
+		replaceLight(target)
 
-/obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/ReplaceLight(obj/machinery/light/target)
+/obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/replaceLight(obj/machinery/light/target)
 	if(target.status != LIGHT_OK)
 		to_chat(chassis.occupant, "<span class='notice'>You replace [target.fitting] with [src].</span>")
 		target.status = LIGHT_OK
@@ -255,7 +252,11 @@
 	/// Largest weight class that can fit in the bag
 	var/max_weight_class = WEIGHT_CLASS_NORMAL
 	/// List of items the bag cannot hold
-	var/cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel, /obj/item/storage/bag)
+	var/list/cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel, /obj/item/storage/bag)
+
+/obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/Initialize(mapload)
+	. = ..()
+	cant_hold = typecacheof(cant_hold)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/deconstruct()
 	var/turf/T = get_turf(src)
@@ -298,7 +299,7 @@
 	if(isturf(target))
 		target_turf = target
 	else
-		target_turf = target.loc
+		target_turf = get_turf(target)
 	if(bagging) // If picking up
 		if(extended) // If extended reach
 			for(var/turf/current_target_turf in view(1, target_turf))
@@ -312,6 +313,7 @@
 					cargo += I
 					I.forceMove(chassis)
 		to_chat(chassis.occupant, "<span class='notice'>You pick up all the items with [src]. Cargo compartment capacity: [cargo_max_weight - length(cargo)]</span>")
+
 	else // Dumping
 		for(var/obj/item/I in cargo)
 			I.forceMove(target_turf)
