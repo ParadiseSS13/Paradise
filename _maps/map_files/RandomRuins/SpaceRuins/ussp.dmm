@@ -5065,9 +5065,9 @@
 /area/ruin/space/derelict/arrival)
 "mx" = (
 /obj/structure/closet/crate/can,
-/obj/item/clothing/under/costume/mankini{
-	desc = "No honest Russian would wear this abomination";
-	name = "lucky underwear"
+/obj/item/clothing/under/costume/officeruniform{
+	desc = "The uniform looks a little... silly. Not quite the USSP standard.";
+	name = "odd officer's uniform"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;

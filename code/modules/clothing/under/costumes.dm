@@ -68,12 +68,6 @@
 	icon_state = "jester"
 	item_color = "jester"
 
-/obj/item/clothing/under/costume/mankini
-	name = "the mankini"
-	desc = "No honest man would wear this abomination"
-	icon_state = "mankini"
-	item_color = "mankini"
-
 /obj/item/clothing/under/costume/maid
 	name = "maid costume"
 	desc = "Maid in China."

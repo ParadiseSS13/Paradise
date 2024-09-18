@@ -433,8 +433,8 @@
 /datum/outfit/admin/mime_assassin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
-		suit = /obj/item/clothing/mask/gas/sexymime
+		uniform = /obj/item/clothing/under/rank/civilian/mime/flamboyant
+		suit = /obj/item/clothing/mask/gas/flamboyantmime
 
 /datum/outfit/admin/mime_assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -1395,8 +1395,8 @@
 /datum/outfit/admin/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
-		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+		uniform = /obj/item/clothing/under/rank/civilian/clown/flamboyant
+		mask = /obj/item/clothing/mask/gas/clown_hat/flamboyant
 
 	if(prob(50))
 		// You have to do it like this to make it work with assoc lists without a runtime.

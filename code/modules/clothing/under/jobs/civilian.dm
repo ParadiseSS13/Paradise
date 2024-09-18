@@ -99,12 +99,12 @@
 	item_state = "clown_skirt"
 	item_color = "clown_skirt"
 
-/obj/item/clothing/under/rank/civilian/clown/sexy
-	name = "sexy-clown suit"
+/obj/item/clothing/under/rank/civilian/clown/flamboyant
+	name = "flamboyant-clown suit"
 	desc = "It makes you want to practice clown law."
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	item_color = "sexyclown"
+	icon_state = "flamboyantclown"
+	item_state = "flamboyantclown"
+	item_color = "flamboyantclown"
 
 /obj/item/clothing/under/rank/civilian/clown/nodrop
 	flags = NODROP
@@ -125,12 +125,12 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
-/obj/item/clothing/under/rank/civilian/mime/sexy
-	name = "sexy mime outfit"
+/obj/item/clothing/under/rank/civilian/mime/flamboyant
+	name = "flamboyant mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
-	icon_state = "sexymime"
-	item_state = "sexymime"
-	item_color = "sexymime"
+	icon_state = "flamboyantmime"
+	item_state = "flamboyantmime"
+	item_color = "flamboyantmime"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/rank/civilian/hydroponics

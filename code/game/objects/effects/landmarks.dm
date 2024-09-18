@@ -242,7 +242,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
 	spawner_list = GLOB.roundstart_observer_start
 	return ..()
-	
+
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
@@ -579,16 +579,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/staff/(src.loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/costume/sexyclown/Initialize(mapload)
+/obj/effect/landmark/costume/flamboyantclown/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
-	new /obj/item/clothing/under/rank/civilian/clown/sexy(loc)
+	new /obj/item/clothing/mask/gas/clown_hat/flamboyant(loc)
+	new /obj/item/clothing/under/rank/civilian/clown/flamboyant(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/costume/sexymime/Initialize(mapload)
+/obj/effect/landmark/costume/flamboyantmime/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/sexymime(src.loc)
-	new /obj/item/clothing/under/rank/civilian/mime/sexy(src.loc)
+	new /obj/item/clothing/mask/gas/flamboyantmime(src.loc)
+	new /obj/item/clothing/under/rank/civilian/mime/flamboyant(src.loc)
 	qdel(src)
 
 /obj/effect/landmark/ruin

@@ -138,11 +138,11 @@
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
-							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
+							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/flamboyant,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
 							"The Rainbow Color" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
 	var/list/mask_icons = list("True Form" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
-							"The Feminist" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
+							"The Feminist" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "flamboyantclown"),
 							"The Madman" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
 							"The Rainbow Color" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
@@ -158,11 +158,11 @@
 	to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
 	return TRUE
 
-/obj/item/clothing/mask/gas/clown_hat/sexy
-	name = "sexy-clown wig and mask"
+/obj/item/clothing/mask/gas/clown_hat/flamboyant
+	name = "flamboyant-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers. Its form can be changed by using it in your hand."
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
+	icon_state = "flamboyantclown"
+	item_state = "flamboyantclown"
 
 /obj/item/clothing/mask/gas/clown_hat/joker
 	name = "deranged clown wig and mask"
@@ -211,11 +211,11 @@
 	item_state = "monkeymask"
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/sexymime
-	name = "sexy mime mask"
+/obj/item/clothing/mask/gas/flamboyantmime
+	name = "flamboyant mime mask"
 	desc = "A traditional female mime's mask."
-	icon_state = "sexymime"
-	item_state = "sexymime"
+	icon_state = "flamboyantmime"
+	item_state = "flamboyantmime"
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg

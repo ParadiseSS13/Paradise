@@ -365,8 +365,8 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
 		backpack_contents += /obj/item/stack/sheet/mineral/bananium/fifty
 	if(H.gender == FEMALE)
-		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
-		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
+		mask = /obj/item/clothing/mask/gas/clown_hat/flamboyant
+		uniform = /obj/item/clothing/under/rank/civilian/clown/flamboyant
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -452,8 +452,8 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRANQUILITE_SHIPMENTS))
 		backpack_contents += /obj/item/stack/sheet/mineral/tranquillite/fifty
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
-		suit = /obj/item/clothing/mask/gas/sexymime
+		uniform = /obj/item/clothing/under/rank/civilian/mime/flamboyant
+		suit = /obj/item/clothing/mask/gas/flamboyantmime
 
 	if(visualsOnly)
 		return

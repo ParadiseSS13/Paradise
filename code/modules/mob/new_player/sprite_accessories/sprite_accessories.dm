@@ -228,13 +228,6 @@
 	name = "Mens Hearts"
 	icon_state = "male_hearts"
 
-/datum/sprite_accessory/underwear/male/male_kinky
-	name = "Mens Kinky"
-	icon_state = "male_kinky"
-
-/datum/sprite_accessory/underwear/male/male_mankini
-	name = "Mankini"
-	icon_state = "male_mankini"
 
 /datum/sprite_accessory/underwear/female
 	body_type = FEMALE
@@ -282,13 +275,6 @@
 	name = "Ladies Black Alt"
 	icon_state = "female_blackalt"
 
-/datum/sprite_accessory/underwear/female/female_kinky
-	name = "Ladies Kinky"
-	icon_state = "female_kinky"
-
-/datum/sprite_accessory/underwear/female/female_babydoll
-	name = "Ladies Full Grey"
-	icon_state = "female_babydoll"
 
 /datum/sprite_accessory/underwear/female/female_pink
 	name = "Ladies Pink"
