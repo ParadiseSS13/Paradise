@@ -11,7 +11,7 @@
 		<li>1 banhammer</li>
 		<li>1 exosuit mining scanner</li>
 		<li>1 diamond-tipped exosuit drill</li>
-		<li>1 "LittleBoy" Mining Grenade Launcher</li>
+		<li>1 'LittleBoy' Mining Grenade Launcher</li>
 		<li>1 mecha voice modification kit: Honk</li>
 		<li>20 plastitanium glass</li>
 		<li>50 uranium sheets</li>
