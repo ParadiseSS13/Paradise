@@ -142,6 +142,7 @@
 				M.death()
 				M.splat()
 				movement_target = null
+				walk(src, 0)
 				stop_automated_movement = FALSE
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
