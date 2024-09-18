@@ -384,6 +384,7 @@
 		ACCESS_RESEARCH,
 		ACCESS_SEC_DOORS,
 		ACCESS_THEATRE,
+		ACCESS_INTERNAL_AFFAIRS,
 		ACCESS_TRAINER
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
@@ -408,6 +409,7 @@
 	backpack_contents = list(
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/book/manual/sop_ntinstructor,
 		/obj/item/laser_pointer/blue = 1
 	)
 

@@ -24332,9 +24332,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"bxK" = (
-/turf/space,
-/area/station/ai_monitored/storage/eva)
 "bxL" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/botanist,
@@ -120055,7 +120052,7 @@ bbL
 bdy
 bgN
 bhU
-bxK
+aSC
 cJA
 daf
 fCa

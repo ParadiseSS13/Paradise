@@ -872,6 +872,8 @@
 		/obj/item/clothing/shoes/black = 2,
 		/obj/item/clothing/shoes/brown = 2,
 		/obj/item/clothing/head/drilltrainer = 2,
+		/obj/item/clothing/under/rank/procedure/nct = 2,
+		/obj/item/clothing/suit/storage/nct,
 		/obj/item/clothing/head/beret/nct/green = 2,
 		/obj/item/clothing/head/beret/nct/black = 2,
 		/obj/item/clothing/head/beret/sec = 2,

@@ -176,4 +176,4 @@
 /obj/item/encryptionkey/headset_nct
 	name = "NCT Radio Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Procedure" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
+	channels = list("Procedure" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
