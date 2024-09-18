@@ -381,6 +381,15 @@
 	for(var/I in 1 to 5)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/obj_destruction(damage_flag)
+	if(damage_flag == ACID)
+		for(var/obj/item/food/monkeycube/mkc in contents)
+			mkc.obj_destruction(ACID)
+	else if(damage_flag == FIRE)
+		for(var/obj/item/food/monkeycube/mkc in contents)
+			mkc.obj_destruction(FIRE)
+	. = ..()
+
 /obj/item/storage/box/monkeycubes/syndicate
 	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
 	monkey_cube_type = /obj/item/food/monkeycube/syndicate
