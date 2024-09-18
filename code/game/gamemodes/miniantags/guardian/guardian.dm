@@ -54,7 +54,7 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 	update_health_hud()
-	RegisterSignal(summoner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(update_health_hud))
+	RegisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_health_hud))
 
 /mob/living/simple_animal/hostile/guardian/can_buckle()
 	return FALSE
@@ -135,7 +135,7 @@
 	if(!.)
 		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
-	UnregisterSignal(summoner, COMSIG_MOB_APPLY_DAMAGE)
+	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
 	summoner.death()
 
 
