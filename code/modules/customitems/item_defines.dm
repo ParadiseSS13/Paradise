@@ -1510,7 +1510,7 @@
 	options["Healer"] = "healer_witch"
 	options["Cute"] = "cutie_witch"
 	options["Shy"] = "shy_witch"
-	options["Sexy"] ="sexy_witch"
+	options["Flamboyant"] ="flamboyant_witch"
 	options["Bunny"] = "bunny_witch"
 	options["Potions"] = "potions_witch"
 	options["Syndicate"] = "syndie_witch"
