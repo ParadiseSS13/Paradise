@@ -20,7 +20,8 @@
 	var/feedback
 	/// The desired outcome of the cloning process.
 	var/datum/cloning_data/desired_data
-
+	/// Is the scanner currently scanning someone?
+	var/currently_scanning = FALSE
 	COOLDOWN_DECLARE(scancooldown)
 
 /obj/machinery/computer/cloning/Initialize(mapload)
@@ -157,6 +158,7 @@
 
 	if(scanner)
 		data["has_scanned"] = scanner.has_scanned
+		data["currently_scanning"] = currently_scanning
 	else
 		data["has_scanned"] = FALSE
 
@@ -231,7 +233,6 @@
 			switch(text2num(params["tab"]))
 				if(TAB_MAIN)
 					tab = TAB_MAIN
-					scanner?.update_scan_status()
 					return TRUE
 				if(TAB_DAMAGES_BREAKDOWN)
 					tab = TAB_DAMAGES_BREAKDOWN
@@ -256,6 +257,7 @@
 			if(!scanner.occupant)
 				return FALSE
 
+			currently_scanning = TRUE
 			scanner.occupant.notify_ghost_cloning()
 			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
 			COOLDOWN_START(src, scancooldown, 10 SECONDS)
@@ -318,6 +320,7 @@
 		if("eject")
 			if(scanner?.occupant)
 				scanner.remove_mob(scanner.occupant)
+				currently_scanning = FALSE
 			return TRUE
 
 
@@ -352,5 +355,6 @@
 			feedback = list("text" = "Successfully scanned the patient.", "color" = "good", "scan_succeeded" = TRUE)
 			desired_data = generate_healthy_data(scan)
 
+	currently_scanning = FALSE
 #undef TAB_MAIN
 #undef TAB_DAMAGES_BREAKDOWN
