@@ -282,7 +282,7 @@
 //undeconstructable type for derelict
 //these walls are undeconstructable/unthermitable
 /turf/simulated/wall/mineral/titanium/nodecon
-	name = "russian wall"
+	name = "soviet wall"
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
 	can_dismantle_with_welder = FALSE
 
