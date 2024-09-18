@@ -122,16 +122,7 @@
 		replaceLight(target)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/replaceLight(obj/machinery/light/target)
-	if(target.status != LIGHT_OK)
-		chassis.occupant_message("You replace [target.fitting] with [src].")
-		target.status = LIGHT_OK
-		target.switchcount = 0
-		target.rigged = emagged
-		target.on = target.has_power()
-		target.update(TRUE, TRUE, FALSE)
-	else
-		chassis.occupant_message("There is a working [target.fitting] already inserted!")
-		return
+	target.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray

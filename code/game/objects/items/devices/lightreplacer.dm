@@ -191,21 +191,10 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
-
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
 				target.status = LIGHT_EMPTY
-
-			var/obj/item/light/replacement = target.light_type
-			target.status = LIGHT_OK
-			target.switchcount = 0
-			target.rigged = emagged
-			target.brightness_range = initial(replacement.brightness_range)
-			target.brightness_power = initial(replacement.brightness_power)
-			target.brightness_color = initial(replacement.brightness_color)
-			target.on = target.has_power()
-			target.update(TRUE, TRUE, FALSE)
+			target.fix(U, src, emagged)
 
 		else
 			to_chat(U, "[src]'s refill light blinks red.")

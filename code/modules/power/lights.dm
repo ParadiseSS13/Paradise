@@ -334,6 +334,17 @@
 	else
 		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
+/obj/machinery/light/fix(mob/user, obj/used_tool, emagged = FALSE)
+	if(status != LIGHT_OK)
+		to_chat(user, "<span class='notice'>You replace the [fitting] with [used_tool].</span>")
+		status = LIGHT_OK
+		switchcount = 0
+		rigged = emagged
+		on = has_power()
+		update(TRUE, TRUE, FALSE)
+	else
+		to_chat(user, "<span class='notice'>There is a working [fitting] already inserted!</span>")
+		return
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
   *
