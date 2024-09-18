@@ -91,11 +91,7 @@
 			return TRUE
 
 	else if(istype(I, /obj/item/storage/bag/ore))
-<<<<<<< HEAD
 		attempt_ore_pickup(I, user, params)
-=======
-		attempt_ore_pickup(I, user)
->>>>>>> origin/master
 
 	else if(istype(I, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = I
