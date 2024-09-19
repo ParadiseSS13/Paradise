@@ -172,7 +172,7 @@
 				break
 	if(movement_target)
 		stop_automated_movement = TRUE
-		walk(src,movement_target,0,3)
+		walk(src, movement_target, 0, 3)
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
