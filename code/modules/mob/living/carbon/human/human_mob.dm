@@ -2056,7 +2056,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
  * optional_source - use this to get the alpha of an exact source. This is unsafe, only use if you 100% know it will be in the list. For the best safety, only call this as get_alpha(src)
  */
 /mob/living/carbon/human/proc/get_alpha(datum/optional_source)
-	if(optional_key)
+	if(optional_source)
 		return alpha_sources[optional_source.UID()]
 	. = ALPHA_VISIBLE
 	for(var/source in alpha_sources)
