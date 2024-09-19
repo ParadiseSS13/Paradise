@@ -5,11 +5,11 @@
 	return
 
 /datum/proc/key_loop(client/C)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. The subsystem sets waitfor=FALSE, which works around this, but we'd rather avoid the sleeps in the first place.
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /client/key_loop()
-	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. The subsystem sets waitfor=FALSE, which works around this, but we'd rather avoid the sleeps in the first place.
-	SHOULD_NOT_SLEEP(TRUE)
 	mob.input_focus?.key_loop(src)
 
 /// This proc sets the built in BYOND macros for keypresses to pass inputs on to the rebindable input system or the legacy system
