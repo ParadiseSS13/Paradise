@@ -74141,7 +74141,7 @@
 /area/station/hallway/primary/aft/east)
 "pRl" = (
 /obj/structure/disposaloutlet{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
