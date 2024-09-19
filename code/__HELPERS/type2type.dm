@@ -152,6 +152,7 @@
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
+	if(rights & R_DEV_TEAM)		. += "[seperator]+DEV_TEAM"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
