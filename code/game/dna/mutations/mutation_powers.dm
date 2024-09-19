@@ -213,7 +213,7 @@
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.set_alpha_tracking(ALPHA_VISIBLE, /datum/mutation/stealth/darkcloak)
+		H.set_alpha_tracking(ALPHA_VISIBLE, src)
 
 /datum/mutation/stealth/darkcloak/on_life(mob/M)
 	var/turf/simulated/T = get_turf(M)
@@ -223,10 +223,10 @@
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
 		if(H.invisibility != INVISIBILITY_LEVEL_TWO)
-			H.set_alpha_tracking(H.get_alpha() * 0.8, /datum/mutation/stealth/darkcloak)
+			H.set_alpha_tracking(H.get_alpha() * 0.8, src)
 	else
 		H.reset_visibility()
-		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, /datum/mutation/stealth/darkcloak)
+		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, src)
 	if(H.get_alpha(/datum/mutation/stealth/darkcloak) == 0)
 		H.make_invisible()
 
@@ -245,7 +245,7 @@
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.set_alpha_tracking(ALPHA_VISIBLE, /datum/mutation/stealth/chameleon)
+		H.set_alpha_tracking(ALPHA_VISIBLE, src)
 
 /datum/mutation/stealth/chameleon/on_life(mob/living/M)
 	if(!ishuman(M))
@@ -253,10 +253,10 @@
 	var/mob/living/carbon/human/H = M
 	if((world.time - H.last_movement) >= 30 && !H.stat && (H.mobility_flags & MOBILITY_STAND) && !H.restrained())
 		if(H.invisibility != INVISIBILITY_LEVEL_TWO)
-			H.set_alpha_tracking(H.get_alpha() - 25, /datum/mutation/stealth/chameleon)
+			H.set_alpha_tracking(H.get_alpha() - 25, src)
 	else
 		H.reset_visibility()
-		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, /datum/mutation/stealth/chameleon)
+		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, src)
 	if(H.get_alpha(/datum/mutation/stealth/chameleon) == 0)
 		H.make_invisible()
 

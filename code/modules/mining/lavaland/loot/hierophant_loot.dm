@@ -244,7 +244,7 @@
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.set_alpha_tracking(0, /obj/item/hierophant_club, update_alpha = FALSE)
+		H.set_alpha_tracking(0, src, update_alpha = FALSE)
 	animate(M, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	sleep(1)
 	if(!M)
@@ -260,7 +260,7 @@
 	var/our_alpha = 255
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.set_alpha_tracking(ALPHA_VISIBLE, /obj/item/hierophant_club, update_alpha = FALSE)
+		H.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
 		our_alpha = H.get_alpha()
 	animate(M, alpha = our_alpha, time = 2, easing = EASE_IN) //fade IN
 	sleep(1)

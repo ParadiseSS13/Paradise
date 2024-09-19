@@ -294,7 +294,7 @@
 	user.add_overlay(mob_overlay)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.set_alpha_tracking(0, /obj/item/kirbyplants)
+		H.set_alpha_tracking(0, src)
 	else
 		user.alpha = 0
 
@@ -305,7 +305,7 @@
 	user.alpha = initial(user.alpha)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.set_alpha_tracking(ALPHA_VISIBLE, /obj/item/kirbyplants)
+		H.set_alpha_tracking(ALPHA_VISIBLE, src)
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.

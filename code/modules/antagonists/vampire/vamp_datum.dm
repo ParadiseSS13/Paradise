@@ -44,7 +44,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/human_owner = owner.current
-		human_owner.set_alpha_tracking(ALPHA_VISIBLE, /datum/antagonist/vampire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
@@ -272,17 +272,17 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		return
 
 	if(!iscloaking || human_owner.on_fire)
-		human_owner.set_alpha_tracking(ALPHA_VISIBLE, /datum/antagonist/vampire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
 		REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	if(light_available <= 2)
-		human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.15, /datum/antagonist/vampire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.15, src)
 		ADD_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.80, /datum/antagonist/vampire)
+	human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.80, src)
 
 /**
  * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
