@@ -574,7 +574,7 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/burned_fuel = 0
-		burned_fuel = (1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent
+		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent, private_sleeping_agent)
 		private_sleeping_agent -= burned_fuel
 
 		if(burned_fuel)
