@@ -1666,6 +1666,7 @@
 #include "code\modules\buildmode\submodes\forcemove.dm"
 #include "code\modules\buildmode\submodes\link.dm"
 #include "code\modules\buildmode\submodes\mapgen.dm"
+#include "code\modules\buildmode\submodes\offer.dm"
 #include "code\modules\buildmode\submodes\save.dm"
 #include "code\modules\buildmode\submodes\throwing.dm"
 #include "code\modules\buildmode\submodes\tilt.dm"
