@@ -39,11 +39,10 @@
 		icon_state = "open"
 		layer = SHOWER_OPEN_LAYER
 
-/obj/structure/curtain/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(istype(W, /obj/item/toy/crayon))
+/obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/toy/crayon))
 		color = input(user, "Choose Color") as color
-		return
-	return ..()
+		return ITEM_INTERACT_SUCCESS
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
