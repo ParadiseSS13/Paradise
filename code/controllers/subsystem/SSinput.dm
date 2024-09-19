@@ -22,6 +22,9 @@ SUBSYSTEM_DEF(input)
 	return "P: [length(processing)]"
 
 /datum/controller/subsystem/input/fire(resumed = FALSE)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. SHOULD_NOT_SLEEP helps, but doesn't catch everything, so we also waitfor=FALSE, as using INVOKE_ASYNC here is very unperformant.
+	SHOULD_NOT_SLEEP(TRUE)
+	set waitfor = FALSE
 	var/list/to_cull
 	for(var/client/C in processing)
 		if(processing[C] + AUTO_CULL_TIME < world.time)
@@ -29,7 +32,7 @@ SUBSYSTEM_DEF(input)
 				LAZYADD(to_cull, C)
 			else
 				continue // they fell asleep on their keyboard or w/e, let them
-		INVOKE_ASYNC(C, TYPE_PROC_REF(/datum, key_loop))
+		C.key_loop()
 
 	if(to_cull)
 		processing -= to_cull
