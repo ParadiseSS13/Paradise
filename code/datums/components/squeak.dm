@@ -78,7 +78,7 @@
 	else
 		steps++
 
-/datum/component/squeak/proc/play_squeak_crossed(datum/source, atom/movable/enterer, old_loc)
+/datum/component/squeak/proc/play_squeak_crossed(atom/source, atom/movable/enterer, old_loc)
 	if(!isturf(enterer.loc) || !isturf(source.loc))
 		return
 	if(istype(enterer, /obj/effect))
