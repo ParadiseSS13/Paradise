@@ -12,6 +12,7 @@
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/fake
+	origin_tech = "materials=3;magnets=4;syndicate=1" // no clown, this bomb not exactly the same
 
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
 	. = ..()

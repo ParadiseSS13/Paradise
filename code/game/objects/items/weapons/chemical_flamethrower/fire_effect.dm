@@ -78,7 +78,8 @@ GLOBAL_LIST_EMPTY(flame_effects)
 /obj/effect/fire/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(isliving(AM))
-		damage_mob(AM)
+		if(!damage_mob(AM))
+			return
 		to_chat(AM, "<span class='warning'>[src] burns you!</span>")
 		return
 
@@ -104,7 +105,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		var/mob/living/carbon/human/human_to_burn = mob_to_burn
 		var/fire_armour = human_to_burn.get_thermal_protection()
 		if(fire_armour >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-			return
+			return FALSE
 
 		if(fire_armour == FIRE_SUIT_MAX_TEMP_PROTECT) // Good protection but you won't survive infinitely in it
 			fire_damage /= 4
