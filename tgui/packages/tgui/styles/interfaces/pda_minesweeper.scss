@@ -1,0 +1,38 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.Minesweeper__closed {
+  vertical-align: middle;
+  border: 3px outset #fcfcfc;
+  font-size: 11px;
+}
+
+.Minesweeper__open {
+  vertical-align: middle;
+  text-align: center;
+  font-size: medium;
+  background-color: rgb(178, 178, 178) !important;
+}
+
+.Minesweeper__message {
+  font-size: medium;
+}
+
+.Minesweeper__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    transition: background-color 50ms;
+    &:hover,
+    &:focus {
+      background-color: rgba(base.$color-bg, 1);
+    }
+  }
+}
