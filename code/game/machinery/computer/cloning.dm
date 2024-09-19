@@ -262,7 +262,7 @@
 			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
 			COOLDOWN_START(src, scancooldown, 10 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(do_scan), patient_data), 5 SECONDS)
-			addtimer(VARSET_CALLBACK(src, currently_scanning, FALSE) // ABSOLUTELY make sure this is false at the end of this.
+			addtimer(VARSET_CALLBACK(src, currently_scanning, FALSE), 5 SECONDS) // ABSOLUTELY make sure this is false at the end of this.
 			return TRUE
 
 		if("fix_all")
