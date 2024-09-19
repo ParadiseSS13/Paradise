@@ -203,7 +203,13 @@
 	if(auto_wrench_toggle)
 		if(mode != RPD_TRANSIT_MODE)
 			target.wrench_act(user, src)
+			playsound(src, 'sound/items/ratchet.ogg', 15, TRUE)
+			return
+		if(whatttube in list(PIPE_TRANSIT_TUBE_DISPENSER_STATION, PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER, PIPE_TRANSIT_TUBE_STATION))
+			to_chat(user, "<span class='warning'>The [target] needs to be installed manually")
+			return
 		target.screwdriver_act(user, src)
+		playsound(src, 'sound/items/ratchet.ogg', 15, TRUE)
 
 // TGUI stuff
 
@@ -338,20 +344,17 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(!T.density)
-			var/turf_list = get_line(user, T) //Line of Sight check, throws a warning if it hits a wall.
-			for(var/turf/simulated/wall/W in turf_list)
-				to_chat(user, "<span class ='warning'>The [src] needs full visibility to determine the dispensing location.</span>")
-				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				return
-		
-		if(get_dist(src, T) <= (user.client.maxview() + 2))
-			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-		else
+		if(get_dist(src, T) >= (user.client.maxview() + 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
+
+		if(!(user in viewers(12, T)))
+			to_chat(user, "<span class ='warning'>The [src] needs full visibility to determine the dispensing location.</span>")
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			return
+		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
