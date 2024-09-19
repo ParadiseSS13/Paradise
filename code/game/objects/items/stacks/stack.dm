@@ -37,7 +37,6 @@
 	var/parent_stack = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
 	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
 		item_state = initial(icon_state)
 
@@ -51,13 +50,14 @@
 	if(!merge_type)
 		merge_type = type
 
-	if(merge && !(amount >= max_amount))
+	. = ..()
+	if(merge)
 		for(var/obj/item/stack/item_stack in loc)
 			if(item_stack == src)
 				continue
-			if(item_stack.merge_type == merge_type)
+			if(can_merge(item_stack))
 				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
-				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack
+				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack and let the hint handle deletion
 				if(is_zero_amount(FALSE))
 					return INITIALIZE_HINT_QDEL
 
@@ -76,17 +76,20 @@
 	icon_state = "[initial(icon_state)]_[state]"
 
 /obj/item/stack/Crossed(obj/O, oldloc)
+	if(O == src)
+		return
+
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 
-	if(istype(O, merge_type) && !O.throwing)
-		merge(O)
+	if(!O.throwing && can_merge(O))
+		INVOKE_ASYNC(src, PROC_REF(merge), O)
 
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(istype(AM, merge_type) && !(amount >= max_amount))
-		merge(AM)
+/obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(can_merge(hitting, inhand = TRUE))
+		merge(hitting)
 	. = ..()
 
 /obj/item/stack/examine(mob/user)
@@ -113,6 +116,24 @@
 	else
 		amount += newamount
 	update_icon(UPDATE_ICON_STATE)
+
+/** Checks whether this stack can merge itself into another stack.
+ *
+ * Arguments:
+ * - [check][/obj/item/stack]: The stack to check for mergeability.
+ * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
+ */
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack
+	if(!istype(check, merge_type) || check.merge_type != merge_type)
+		return FALSE
+	if(amount <= 0 || check.amount <= 0) // no merging empty stacks that are in the process of being qdel'd
+		return FALSE
+	if(is_cyborg) // No merging cyborg stacks into other stacks
+		return FALSE
+	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+		return FALSE
+	return TRUE
 
 /obj/item/stack/attack_self(mob/user)
 	ui_interact(user)
@@ -144,12 +165,12 @@
 		ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if((!parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
+	if(!can_merge(thing, TRUE))
 		return ..()
 
 	var/obj/item/stack/material = thing
-	merge(material)
-	to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
+	if(merge(material))
+		to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
 
 /obj/item/stack/use(used, check = TRUE)
 	if(check && is_zero_amount(TRUE))
@@ -162,8 +183,8 @@
 		return FALSE
 
 	amount -= used
-	if(check)
-		is_zero_amount(TRUE)
+	if(check && is_zero_amount(TRUE))
+		return TRUE
 
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
@@ -305,9 +326,6 @@
 		return source.amount < cost
 
 	if(amount < 1)
-		if(ismob(loc))
-			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
-			L.unEquip(src, TRUE)
 		if(delete_if_zero)
 			qdel(src)
 		return TRUE
