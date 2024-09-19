@@ -476,6 +476,9 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+						if(!length(valid_markings)) // Some IPC head models do have head markings, some don't; This is here to prevent us from attempting to open an empty TGUI list
+							tgui_alert(user, "No head markings available for this head!", "Character Preference")
+							return
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
