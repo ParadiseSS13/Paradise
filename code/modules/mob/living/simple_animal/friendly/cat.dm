@@ -157,7 +157,7 @@
 
 	turns_since_scan++
 	if(turns_since_scan > 5)
-		walk(src,0)
+		walk(src, 0)
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
