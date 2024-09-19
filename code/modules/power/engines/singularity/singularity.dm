@@ -336,7 +336,7 @@
 
 	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
 
-	if(!target || get_dist(src, target) <= 2 || get_turf(src) == target)
+	if(!target || get_dist(src, target) <= 2)
 		assign_target()
 	if(force_move)
 		movement_dir = force_move
