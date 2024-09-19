@@ -99,7 +99,7 @@
 		var/door_state
 		var/door_layer
 
-		if (angle >= 90)
+		if(angle >= 90)
 			door_state = "[opened_door_sprite || icon_state]_back"
 			door_layer = FLOAT_LAYER
 		else
@@ -114,7 +114,7 @@
 			animate(door_obj, transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = door_transform, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src, .proc/end_door_animation), door_anim_time, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(end_door_animation)), door_anim_time, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /// Ends the door animation and removes the animated overlay
 /obj/structure/closet/proc/end_door_animation()
