@@ -498,7 +498,11 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard
 	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand."
+	var/has_implanted = FALSE
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
+	if(has_implanted)
+		return
 	user.drop_item()
 	insert(user)
+	has_implanted = TRUE
