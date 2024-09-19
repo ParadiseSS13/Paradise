@@ -14830,11 +14830,11 @@
 "iOx" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/box,
-/obj/item/autosurgeon,
-/obj/item/autosurgeon,
-/obj/item/autosurgeon,
-/obj/item/autosurgeon,
-/obj/item/autosurgeon,
+/obj/item/autosurgeon/organ,
+/obj/item/autosurgeon/organ,
+/obj/item/autosurgeon/organ,
+/obj/item/autosurgeon/organ,
+/obj/item/autosurgeon/organ,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "iOD" = (
