@@ -666,9 +666,6 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
-		"BORGS BAD",
-		"Soup sensors"
-		"You're telling me a Kentucky fried this vox?",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
