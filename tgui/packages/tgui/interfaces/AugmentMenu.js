@@ -1,9 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Button, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
-import { createSearch, capitalize } from 'common/string';
+import { capitalize } from 'common/string';
 
 export const AugmentMenu = (props, context) => {
   return (
@@ -22,32 +20,28 @@ const Abilities = (props, context) => {
   const { usable_swarms, ability_tabs } = data;
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [abilities, setAbilities] = useLocalState(context, 'abilities', selectedTab.abilities);
 
-  const selectAbilities = (abilities) => {
-    if (!abilities) return [];
-    return flow([filter((ability) => ability?.name), sortBy((ability) => ability?.name)])(abilities);
+  const getFilteredAbilities = () => {
+    const currentTab = ability_tabs.find((tab) => tab.category_name === selectedTab.category_name);
+    if (!currentTab) return [];
+
+    return currentTab.abilities.filter(
+      (ability) =>
+        ability.stage <= currentTab.category_stage &&
+        (!searchText || ability.name.toLowerCase().includes(searchText.toLowerCase()))
+    );
   };
 
   const handleSearch = (value) => {
     setSearchText(value);
-    const abilitiesToDisplay = value
-      ? selectAbilities(
-          ability_tabs
-            .flatMap((tab) => tab.abilities)
-            .filter((ability) => ability.name.toLowerCase().includes(value.toLowerCase()))
-        )
-      : selectedTab.abilities;
-    setAbilities(abilitiesToDisplay);
   };
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
     setSearchText('');
-    const abilitiesToDisplay =
-      tab.category_name === 'Upgrades' ? [] : tab.abilities.filter((ability) => ability.stage <= tab.category_stage);
-    setAbilities(abilitiesToDisplay);
   };
+
+  const abilities = getFilteredAbilities();
 
   return (
     <Section
@@ -94,7 +88,11 @@ const Abilities = (props, context) => {
                   content={ability.cost}
                   disabled={ability.cost > usable_swarms}
                   tooltip="Purchase this ability?"
-                  onClick={() => act('purchase', { ability_path: ability.ability_path })}
+                  onClick={() => {
+                    act('purchase', { ability_path: ability.ability_path });
+                    // Refresh abilities after purchase
+                    setSelectedTab(selectedTab);
+                  }}
                 />
                 <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
               </Stack>
