@@ -227,7 +227,7 @@
 	else
 		H.reset_visibility()
 		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, src)
-	if(H.get_alpha(/datum/mutation/stealth/darkcloak) == 0)
+	if(H.get_alpha(src) == 0)
 		H.make_invisible()
 
 //WAS: /datum/bioEffect/chameleon
@@ -257,7 +257,7 @@
 	else
 		H.reset_visibility()
 		H.set_alpha_tracking(ALPHA_VISIBLE * 0.8, src)
-	if(H.get_alpha(/datum/mutation/stealth/chameleon) == 0)
+	if(H.get_alpha(src) == 0)
 		H.make_invisible()
 
 /////////////////////////////////////////////////////////////////////////////////////////
