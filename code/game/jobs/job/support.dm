@@ -256,7 +256,10 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_KITCHEN,
+		ACCESS_MAINT_TUNNELS
+	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 
@@ -296,7 +299,11 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MORGUE
+	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
 
@@ -330,7 +337,11 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_CLOWN,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_THEATRE
+	)
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
@@ -421,7 +432,11 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MIME,
+		ACCESS_THEATRE
+	)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
@@ -476,7 +491,10 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_JANITOR,
+		ACCESS_MAINT_TUNNELS
+	)
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
 
@@ -508,7 +526,10 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_LIBRARY,
+		ACCESS_MAINT_TUNNELS
+	)
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
 
