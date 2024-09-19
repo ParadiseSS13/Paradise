@@ -5,7 +5,6 @@
 	anchored = FALSE
 	movable = TRUE
 	buildstackamount = 15
-	density = FALSE
 
 	var/move_delay = null
 
@@ -17,6 +16,7 @@
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(dir)
+
 /obj/structure/chair/wheelchair/post_buckle_mob(mob/living/M)
 	. = ..()
 	handle_layer()
