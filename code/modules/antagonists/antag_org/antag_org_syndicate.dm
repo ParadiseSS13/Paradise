@@ -34,13 +34,13 @@
 		Clean kills, clean thefts, clean getaway. Get it done, operative."
 	focus = 50 // Don't bully sec too hard
 	targeted_departments = list(DEPARTMENT_COMMAND, DEPARTMENT_SECURITY)
-	theft_targets = list(  
-		/datum/theft_objective/antique_laser_gun, 
-		/datum/theft_objective/nukedisc, 
-		/datum/theft_objective/hoslaser,  
-		/datum/theft_objective/captains_sabre, 
+	theft_targets = list(
+		/datum/theft_objective/antique_laser_gun,
+		/datum/theft_objective/nukedisc,
+		/datum/theft_objective/hoslaser,
+		/datum/theft_objective/captains_saber,
 		/datum/theft_objective/capmedal
-	)  
+	)
 
 /datum/antag_org/syndicate/interdyne // Mostly target Medical
 	name = "Interdyne Pharmaceuticals"
