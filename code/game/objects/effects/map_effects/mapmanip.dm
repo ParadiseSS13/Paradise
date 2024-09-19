@@ -1,5 +1,6 @@
 /obj/effect/map_effect/marker/mapmanip
 	name = "mapmanip marker"
+	layer = POINT_LAYER
 
 /obj/effect/map_effect/marker/mapmanip/Initialize(mapload)
 	. = ..()
