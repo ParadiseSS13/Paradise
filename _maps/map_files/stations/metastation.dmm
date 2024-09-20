@@ -2133,7 +2133,7 @@
 "aqh" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
@@ -9555,7 +9555,6 @@
 /area/station/engineering/engine/supermatter)
 "aSp" = (
 /obj/structure/reflector/box{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15738,6 +15737,8 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19557,9 +19558,6 @@
 	},
 /area/station/command/bridge)
 "bub" = (
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 3
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -19577,6 +19575,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/computer/rnd_backup/station,
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -41741,7 +41741,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/target/alien,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable,
@@ -52596,7 +52596,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "hdR" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
@@ -52604,6 +52603,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "heq" = (
@@ -54012,9 +54012,6 @@
 	},
 /area/station/service/hydroponics)
 "hGS" = (
-/obj/machinery/computer/rdservercontrol{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -54023,6 +54020,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/directional/west,
+/obj/machinery/computer/rnd_network_controller/station{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56179,13 +56179,11 @@
 	},
 /area/station/medical/medbay)
 "iAO" = (
-/obj/machinery/mecha_part_fabricator{
-	output_dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "iAS" = (
@@ -57293,7 +57291,6 @@
 /area/station/service/clown)
 "jbk" = (
 /obj/structure/reflector/double{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -66843,7 +66840,6 @@
 /area/station/legal/courtroom/gallery)
 "mZJ" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -69406,7 +69402,7 @@
 	},
 /area/station/legal/magistrate)
 "oco" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -74738,13 +74734,13 @@
 	},
 /area/station/aisat)
 "qub" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
 /obj/effect/turf_decal/siding{
 	dir = 4
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "quh" = (
@@ -84734,7 +84730,6 @@
 /area/station/medical/chemistry)
 "uLE" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -85446,6 +85441,9 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -134896,7 +134894,7 @@ abq
 amk
 anl
 aoJ
-aqh
+ann
 aGt
 nHi
 avR
@@ -135153,7 +135151,7 @@ abq
 amk
 apJ
 ank
-aoJ
+aqh
 ccM
 asQ
 avV

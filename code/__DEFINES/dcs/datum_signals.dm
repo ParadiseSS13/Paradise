@@ -14,8 +14,6 @@
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
 #define COMSIG_PARENT_QDELETING "parent_qdeleting"
-/// generic topic handler (usr, href_list)
-#define COMSIG_TOPIC "handle_topic"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -37,12 +35,6 @@
 	/// If returned from this signal, will prevent any surgery splashing.
 	#define COMPONENT_BLOOD_SPLASH_HANDLED (1<<0)
 
-// Sent from a surgery step when organs are being spread from an incision
-#define COMSIG_SURGERY_GERM_SPREAD "surgery_germ_spread"
-	/// If returned from this signal, germ spread will be blocked.
-	#define COMPONENT_GERM_SPREAD_BLOCK (1<<0)
-
-
 // /datum/species
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -63,10 +55,6 @@
 
 // /datum/component/decal
 
-///(): Returns bitflags of wet values.
-#define COMSIG_TURF_IS_WET "check_turf_wet"
-///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"
 ///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
@@ -126,16 +114,9 @@
 
 // other subtypes
 
-/// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
-#define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
-	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
-
 ///from base of /datum/local_powernet/proc/power_change()
 #define COMSIG_POWERNET_POWER_CHANGE "powernet_power_change"
 
 /// Sent when bodies transfer between shades/shards and constructs
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
-
-///called when you wash your face at a sink: (num/strength)
-#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"

@@ -272,7 +272,7 @@
 			if(length(GLOB.admin_ranks))
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks|"*New Rank*")
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "Developer", "*New Rank*")
 
 			var/rights = 0
 			if(D)
@@ -1274,6 +1274,12 @@
 			return
 
 		usr.client.view_msays()
+
+	else if(href_list["devsays"])
+		if(!check_rights(R_ADMIN | R_DEV_TEAM))
+			return
+
+		usr.client.view_devsays()
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -3373,7 +3379,7 @@
 			if(T == /datum/station_goal/secondary)
 				continue
 			var/datum/station_goal/secondary/SG = T
-			if(initial(SG.abstract))
+			if(initial(SG.weight) < 1)
 				type_choices -= SG
 		var/picked = pick_closest_path(FALSE, make_types_fancy(type_choices), skip_filter = TRUE)
 		if(!picked)

@@ -166,18 +166,19 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	data = list()
 
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(iscarbon(M))
+		data["method"] = method
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
-			data = "Ingested"
 			if(show_message)
 				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
 	..()
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO && data != "Ingested")
+	if(M.bodytemperature < TCRYO && data["method"] == REAGENT_TOUCH)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -282,6 +283,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply
+	data = list()
 
 /datum/reagent/medicine/heal_on_apply/proc/heal_external_limb(obj/item/organ/external/organ, volume)
 	return
@@ -314,6 +316,7 @@
 	if(!iscarbon(M))
 		return ..()
 
+	data["method"] = method
 	if(ishuman(M) && volume > 20 && method == REAGENT_TOUCH)
 		heal_overall_damage(M, 20)
 		var/applied_volume = splash_human(M, volume - 20)
@@ -336,8 +339,9 @@
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
@@ -377,7 +381,8 @@
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/heal_external_limb(obj/item/organ/external/organ, volume)
@@ -411,7 +416,8 @@
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_external_limb(obj/item/organ/external/organ, volume)
