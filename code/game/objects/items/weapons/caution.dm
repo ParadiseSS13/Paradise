@@ -74,8 +74,10 @@
 	energy_type = /datum/robot_storage/energy/janitor/landmine
 	is_cyborg = TRUE
 
-/obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user)
+/obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user, proximity)
 	if(!check_allowed_items(target, 1))
+		return
+	if(!proximity)
 		return
 	var/turf/T = get_turf(target)
 
