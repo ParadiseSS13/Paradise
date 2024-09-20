@@ -201,7 +201,7 @@
 	sleep(5)
 	to_chat(borg, "<span class='warning'>..........</span>")
 	sleep(10)
-	to_chat(borg, "<span class='userdanger'>Join Us.</span>")
+	to_chat(borg, "<span class='sinister'>Join Us.</span>")
 	sleep(25)
 	to_chat(borg, "<b>Obey these laws:</b>")
 	borg.laws.show_laws(borg)
