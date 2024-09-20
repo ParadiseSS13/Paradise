@@ -1,5 +1,5 @@
 /* CONTENTS:
-* 1. SABRE SMG
+* 1. SABER SMG
 * 2. C-20R SMG
 * 3. WT-550 PDW
 * 4. TYPE U3 UZI
@@ -89,10 +89,10 @@
 		alarmed = 1
 
 //////////////////////////////
-// MARK: SABRE SMG
+// MARK: SABER SMG
 //////////////////////////////
 /obj/item/gun/projectile/automatic/proto
-	name = "\improper NF10 'Sabre' SMG"
+	name = "\improper NF10 'Saber' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	item_state = "saber"

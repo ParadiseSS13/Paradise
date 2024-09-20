@@ -53,8 +53,6 @@
 		U.accessories += M
 		M.on_attached(U)
 
-
-
 /datum/job/hop
 	title = "Head of Personnel"
 	flag = JOB_HOP
@@ -125,8 +123,6 @@
 	)
 
 	bio_chips = list()
-
-
 
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"
@@ -202,8 +198,6 @@
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
-
-
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
@@ -259,7 +253,6 @@
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
-
 /datum/job/judge
 	title = "Magistrate"
 	flag = JOB_JUDGE
@@ -310,7 +303,6 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-
 
 /datum/job/iaa
 	title = "Internal Affairs Agent"
