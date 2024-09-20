@@ -86,6 +86,8 @@
 
 /datum/data/pda/app/game/minesweeper/update_ui(mob/user, list/data)
 	data["matrix"] = minesweeper_matrix
+	data["flags"] = setted_flags
+	data["bombs"] = generation_bombs
 	data["leaderboard"] = leaderboard
 
 
@@ -231,46 +233,48 @@
 	for(var/list/coordinates in list_for_update)
 		var/this_x = coordinates[1]
 		var/this_y = coordinates[2]
+		var/num_x = text2num(coordinates[1])
+		var/num_y = text2num(coordinates[2])
 		var/new_x
 		var/new_y
 
-		if(this_x != "1")
-			new_x = "[text2num(this_x)-1]"
+		if(num_x != 1)
+			new_x = "[num_x-1]"
 			list_for_update += open_cell(new_x, this_y)
 
-		if(this_y != "1")
-			new_y = "[text2num(this_y)-1]"
+		if(num_y != 1)
+			new_y = "[num_y-1]"
 			list_for_update += open_cell(this_x, new_y)
 
-		if(this_x != "[generation_rows]")
-			new_x = "[text2num(this_x)+1]"
+		if(num_x != generation_rows)
+			new_x = "[num_x+1]"
 			list_for_update += open_cell(new_x, this_y)
 
-		if(this_y != "[generation_columns]")
-			new_y = "[text2num(this_y)+1]"
+		if(num_y != generation_columns)
+			new_y = "[num_y+1]"
 			list_for_update += open_cell(this_x, new_y)
 
-		if(this_x != "1" && this_y != "1")
-			new_x = "[text2num(this_x)-1]"
-			new_y = "[text2num(this_y)-1]"
+		if(num_x != 1 && num_y != 1)
+			new_x = "[num_x-1]"
+			new_y = "[num_y-1]"
 			if(minesweeper_matrix[new_x][this_y]["open"] && minesweeper_matrix[this_x][new_y]["open"])
 				list_for_update += open_cell(new_x, new_y)
 
-		if(this_x != "[generation_rows]" && this_y != "[generation_columns]")
-			new_x = "[text2num(this_x)+1]"
-			new_y = "[text2num(this_y)+1]"
+		if(num_x != generation_rows && num_y != generation_columns)
+			new_x = "[num_x+1]"
+			new_y = "[num_y+1]"
 			if(minesweeper_matrix[new_x][this_y]["open"] && minesweeper_matrix[this_x][new_y]["open"])
 				list_for_update += open_cell(new_x, new_y)
 
-		if(this_x != "1" && this_y != "[generation_columns]")
-			new_x = "[text2num(this_x)-1]"
-			new_y = "[text2num(this_y)+1]"
+		if(num_x != 1 && num_y != generation_columns)
+			new_x = "[num_x-1]"
+			new_y = "[num_y+1]"
 			if(minesweeper_matrix[new_x][this_y]["open"] && minesweeper_matrix[this_x][new_y]["open"])
 				list_for_update += open_cell(new_x, new_y)
 
-		if(this_x != "[generation_rows]" && this_y != "1")
-			new_x = "[text2num(this_x)+1]"
-			new_y = "[text2num(this_y)-1]"
+		if(num_x != generation_rows && num_y != 1)
+			new_x = "[num_x+1]"
+			new_y = "[num_y-1]"
 			if(minesweeper_matrix[new_x][this_y]["open"] && minesweeper_matrix[this_x][new_y]["open"])
 				list_for_update += open_cell(new_x, new_y)
 

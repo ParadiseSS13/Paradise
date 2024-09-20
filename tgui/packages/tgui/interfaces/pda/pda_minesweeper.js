@@ -17,6 +17,7 @@ export const pda_minesweeper = (props, context) => {
       <Box height="90%">{currentWindow === 'Game' ? <MineSweeperGame /> : <MineSweeperLeaderboard />}</Box>
       <Button height="10%" translucent onClick={() => setWindow(AltWindow[currentWindow])}>
         <Box mt="14px" fontSize="24px" verticalAlign="middle">
+          <Icon name={currentWindow === 'Game' ? 'book' : 'gamepad'} />
           {AltWindow[currentWindow]}
         </Box>
       </Button>
@@ -26,7 +27,7 @@ export const pda_minesweeper = (props, context) => {
 
 export const MineSweeperGame = (props, context) => {
   const { act, data } = useBackend(context);
-  const { matrix } = data;
+  const { matrix, flags, bombs } = data;
 
   const NumColor = {
     1: 'blue',
@@ -52,46 +53,57 @@ export const MineSweeperGame = (props, context) => {
   };
 
   return (
-    <>
-      {Object.keys(matrix).map((row) => (
-        <Box key={row}>
-          {Object.keys(matrix[row]).map((cell) => (
-            <Button
-              key={cell}
-              m="1px"
-              height="25px"
-              width="25px"
-              className={matrix[row][cell]['open'] ? 'Minesweeper__open' : 'Minesweeper__closed'}
-              bold
-              color="transparent"
-              icon={
-                matrix[row][cell]['open']
-                  ? matrix[row][cell]['bomb']
-                    ? 'bomb'
-                    : ''
-                  : matrix[row][cell]['flag']
-                    ? 'flag'
-                    : ''
-              }
-              textColor={
-                matrix[row][cell]['open']
-                  ? matrix[row][cell]['bomb']
-                    ? 'black'
-                    : NumColor[matrix[row][cell]['around']]
-                  : matrix[row][cell]['flag']
-                    ? 'red'
-                    : 'gray'
-              }
-              onMouseDown={(e) => handleClick(e, row, cell)}
-            >
-              {!!matrix[row][cell]['open'] && !matrix[row][cell]['bomb'] && matrix[row][cell]['around']
-                ? matrix[row][cell]['around']
-                : ' '}
-            </Button>
-          ))}
-        </Box>
-      ))}
-    </>
+    <Stack>
+      <Stack.Item>
+        {Object.keys(matrix).map((row) => (
+          <Box key={row}>
+            {Object.keys(matrix[row]).map((cell) => (
+              <Button
+                key={cell}
+                m="1px"
+                height="25px"
+                width="25px"
+                className={matrix[row][cell]['open'] ? 'Minesweeper__open' : 'Minesweeper__closed'}
+                bold
+                color="transparent"
+                icon={
+                  matrix[row][cell]['open']
+                    ? matrix[row][cell]['bomb']
+                      ? 'bomb'
+                      : ''
+                    : matrix[row][cell]['flag']
+                      ? 'flag'
+                      : ''
+                }
+                textColor={
+                  matrix[row][cell]['open']
+                    ? matrix[row][cell]['bomb']
+                      ? 'black'
+                      : NumColor[matrix[row][cell]['around']]
+                    : matrix[row][cell]['flag']
+                      ? 'red'
+                      : 'gray'
+                }
+                onMouseDown={(e) => handleClick(e, row, cell)}
+              >
+                {!!matrix[row][cell]['open'] && !matrix[row][cell]['bomb'] && matrix[row][cell]['around']
+                  ? matrix[row][cell]['around']
+                  : ' '}
+              </Button>
+            ))}
+          </Box>
+        ))}
+      </Stack.Item>
+      <Stack.Item ml="15px" mt="10px" grow>
+        <Section className="Minesweeper__infobox" width="100%">
+          <Box>
+            <Icon name="bomb" color="gray" />: {bombs}
+            <br />
+            <Icon name="flag" color="red" />: {flags}
+          </Box>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -123,7 +135,7 @@ export const MineSweeperLeaderboard = (props, context) => {
 
 const SortButton = (properties, context) => {
   const [sortId, setSortId] = useLocalState(context, 'sortId', 'time');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', false);
   const { id, children } = properties;
   return (
     <Table.Cell>
