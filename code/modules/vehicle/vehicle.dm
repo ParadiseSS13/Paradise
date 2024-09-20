@@ -34,7 +34,7 @@
 	return ..()
 
 // So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+/obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSMOB))
 		return TRUE
 	else

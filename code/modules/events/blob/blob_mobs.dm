@@ -74,7 +74,7 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()
