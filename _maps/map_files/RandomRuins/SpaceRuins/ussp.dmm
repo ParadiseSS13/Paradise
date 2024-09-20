@@ -1278,7 +1278,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "dl" = (
-/obj/effect/spawner/random_spawners/fungus_frequent,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "dm" = (
@@ -2515,7 +2515,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ge" = (
-/obj/effect/spawner/random_spawners/fungus_frequent,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "gf" = (
@@ -2743,7 +2743,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gJ" = (
-/obj/effect/spawner/random_spawners/fungus_frequent,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "gK" = (
