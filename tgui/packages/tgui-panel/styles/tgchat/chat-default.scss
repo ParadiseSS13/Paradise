@@ -654,10 +654,6 @@ span.body .coderesponses {
   text-align: center;
 }
 
-.boxed_message.left_align_text {
-  text-align: left;
-}
-
 .boxed_message.red_border {
   background: hsl(0, 20%, 10%);
   border-color: hsla(0, 100%, 50%, 0.5);
@@ -680,4 +676,8 @@ span.body .coderesponses {
 
 .boxed_message.thick_border {
   border-width: 0.5em;
+}
+
+.boxed_message.left_align_text {
+  text-align: left;
 }

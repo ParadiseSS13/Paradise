@@ -13,10 +13,12 @@
 
 .boxed_message.red_border {
   background: hsla(0, 75%, 5%, 0.25);
+  border-color: hsla(0, 100%, 50%, 0.5);
 }
 
 .boxed_message.green_border {
   background: hsla(140, 75%, 5%, 0.25);
+  border-color: hsla(120, 100%, 50%, 0.5);
 }
 
 .boxed_message.purple_border {
@@ -26,4 +28,5 @@
 
 .boxed_message.notice_border {
   background: hsla(220, 75%, 5%, 0.25);
+  border-color: hsla(225, 90%, 65%, 0.5);
 }
