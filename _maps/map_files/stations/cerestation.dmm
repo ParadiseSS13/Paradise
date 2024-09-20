@@ -28271,6 +28271,10 @@
 	},
 /area/station/medical/patients_rooms)
 "dlp" = (
+/obj/structure/railing/corner{
+	dir = 1;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -74137,7 +74141,7 @@
 /area/station/hallway/primary/aft/east)
 "pRl" = (
 /obj/structure/disposaloutlet{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4

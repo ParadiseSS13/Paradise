@@ -64,7 +64,6 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
-
 /datum/job/scientist
 	title = "Scientist"
 	flag = JOB_SCIENTIST
