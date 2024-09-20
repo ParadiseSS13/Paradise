@@ -45,13 +45,13 @@
 	refill_cost = 50
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/action(atom/target)
+	if(get_dist(chassis, target) > 2)
+		return
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
 		occupant_message("<span class='notice'>Mop refilled.</span>")
 		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
-		return
-	if(get_dist(chassis, target) > 2)
 		return
 	if(reagents.total_volume > 0)
 		if(COOLDOWN_FINISHED(src, mop_sound_cooldown))
