@@ -16182,7 +16182,7 @@
 	},
 /area/station/supply/qm)
 "aZE" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/medical/storage)
 "aZG" = (
@@ -82792,7 +82792,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "oJY" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "oKa" = (
@@ -87716,7 +87716,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "ryp" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "ryz" = (
@@ -98338,7 +98338,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "xtZ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "xuv" = (
@@ -98731,7 +98731,7 @@
 	},
 /area/station/medical/medbay)
 "xFW" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "xFZ" = (

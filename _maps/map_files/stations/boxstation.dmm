@@ -2912,7 +2912,7 @@
 	},
 /area/station/security/main)
 "als" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint2)
 "alt" = (
@@ -10098,7 +10098,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aHi" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aHj" = (
@@ -11194,7 +11194,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aKW" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "aKX" = (
@@ -12078,7 +12078,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "aNw" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
 "aNx" = (
@@ -12298,7 +12298,7 @@
 	},
 /area/station/maintenance/fpmaint)
 "aOr" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint)
 "aOs" = (
@@ -19301,7 +19301,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "biL" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
 "biM" = (
@@ -20486,7 +20486,7 @@
 /turf/simulated/wall,
 /area/station/public/storage/emergency/port)
 "blT" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/public/storage/emergency/port)
 "blV" = (
@@ -23756,7 +23756,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "bvq" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/public/locker)
 "bvr" = (
@@ -27841,7 +27841,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
 "bLJ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/public/storage/tools/auxiliary)
 "bLK" = (
@@ -34399,7 +34399,7 @@
 	},
 /area/station/medical/virology)
 "ckM" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/supply/miningdock)
 "ckO" = (
@@ -37172,7 +37172,7 @@
 /area/station/maintenance/asmaint2)
 "cuS" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint2)
 "cuZ" = (
@@ -39587,7 +39587,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "cDm" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "cDo" = (
@@ -39995,7 +39995,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cEx" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "cEy" = (
@@ -42674,7 +42674,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "cOr" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/assembly_line)
 "cOu" = (
@@ -51906,7 +51906,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dSu" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "dSD" = (
@@ -55668,7 +55668,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "fBj" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/public/toilet/lockerroom)
 "fBk" = (
@@ -58740,7 +58740,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "gYs" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "gYu" = (
@@ -59282,7 +59282,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "hoJ" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "hpI" = (
@@ -67292,7 +67292,7 @@
 	},
 /area/station/engineering/control)
 "lnV" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "lom" = (
@@ -68482,7 +68482,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "lQx" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/legal/courtroom)
 "lQz" = (
@@ -69684,7 +69684,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "mwL" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/supply/storage)
 "mxy" = (
@@ -69814,7 +69814,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "mBl" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "mBv" = (
@@ -77165,7 +77165,7 @@
 	},
 /area/station/service/chapel/office)
 "qgj" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/public/construction)
 "qgC" = (
@@ -77926,7 +77926,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "qtx" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/legal/courtroom/gallery)
 "qup" = (
@@ -80452,7 +80452,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "rCg" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "rCH" = (
@@ -80789,7 +80789,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "rMq" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint2)
 "rME" = (
@@ -83035,7 +83035,7 @@
 	},
 /area/station/medical/medbay)
 "sTX" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/medical/coldroom)
 "sWc" = (
@@ -86409,7 +86409,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uIf" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint2)
 "uIn" = (
@@ -87160,7 +87160,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "vdx" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "vdD" = (
@@ -89112,7 +89112,7 @@
 	},
 /area/station/security/execution)
 "wcG" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/apmaint2)
 "wcQ" = (
@@ -90715,7 +90715,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wTp" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "wTH" = (
@@ -90760,7 +90760,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "wWn" = (

@@ -839,7 +839,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "cM" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
@@ -2031,7 +2031,7 @@
 /area/mine/outpost/production)
 "fa" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "fb" = (
@@ -8081,7 +8081,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "KD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "KH" = (
@@ -9023,7 +9023,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "QG" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
 "QO" = (

@@ -393,7 +393,7 @@
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
 "gv" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/computer)
 "gG" = (
@@ -814,7 +814,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "ob" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/computer)
 "oe" = (
@@ -988,7 +988,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "qD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/powercontrol)
 "qE" = (
@@ -1433,7 +1433,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "wX" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms)
 "wY" = (
@@ -1587,7 +1587,7 @@
 	},
 /area/ruin/space/telecomms/foyer)
 "yG" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "yJ" = (
@@ -2341,7 +2341,7 @@
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
 "Jb" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/foyer)
 "Jm" = (
@@ -3259,7 +3259,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "XJ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/tele)
 "XP" = (
