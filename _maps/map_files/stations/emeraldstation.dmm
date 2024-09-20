@@ -3083,10 +3083,6 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/computer)
-"aGa" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint)
 "aGb" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway North";
@@ -16819,10 +16815,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
-"dhk" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/security/fore)
 "dht" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -35606,11 +35598,6 @@
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
-"gFS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "gFW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -138918,7 +138905,7 @@ oQf
 oQf
 oQf
 oQf
-aGa
+oQf
 oQf
 oQf
 oQf
@@ -171197,7 +171184,7 @@ qNS
 qNS
 qNS
 cwI
-dhk
+cwI
 iOR
 dOx
 cjO
@@ -171969,7 +171956,7 @@ vYn
 jIn
 lFR
 fGR
-dhk
+cwI
 cwI
 qmg
 fXf
@@ -182318,7 +182305,7 @@ aZh
 aZh
 mXw
 sAp
-gFS
+cGm
 xTH
 mwB
 jcy
@@ -184404,7 +184391,7 @@ aAN
 bMX
 iWS
 nFo
-gFS
+cGm
 iEK
 caq
 jnP

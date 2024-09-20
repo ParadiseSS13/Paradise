@@ -4983,10 +4983,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
-"arR" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "arS" = (
 /obj/item/toy/pet_rock,
 /obj/machinery/door_control{
@@ -57642,10 +57638,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
-"gzz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "gzA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -130380,7 +130372,7 @@ aqI
 aqI
 atG
 awl
-arR
+awl
 awl
 ifp
 aqc
@@ -131414,7 +131406,7 @@ ava
 awE
 ayf
 azn
-arR
+awl
 tbC
 tbC
 tbC
@@ -131923,7 +131915,7 @@ aaa
 atG
 aqc
 aqc
-arR
+awl
 avb
 aAQ
 aNH
@@ -143837,8 +143829,8 @@ cLb
 cLb
 ePp
 jPx
-gzz
-gzz
+ciY
+ciY
 dSu
 hWs
 mtx

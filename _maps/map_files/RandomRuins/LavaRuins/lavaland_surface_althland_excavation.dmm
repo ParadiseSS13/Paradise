@@ -865,11 +865,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
-"sp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_excavation)
 "sA" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -1694,7 +1689,7 @@ oh
 Mm
 Mm
 TN
-sp
+TN
 aU
 Lt
 am
@@ -1820,7 +1815,7 @@ Ei
 (9,1,1) = {"
 Mm
 TN
-sp
+TN
 bC
 zw
 TN

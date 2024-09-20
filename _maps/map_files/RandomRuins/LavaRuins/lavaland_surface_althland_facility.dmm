@@ -768,11 +768,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"BO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_processing)
 "BV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -2573,7 +2568,7 @@ af
 af
 ui
 ui
-BO
+ui
 ho
 ui
 bT
