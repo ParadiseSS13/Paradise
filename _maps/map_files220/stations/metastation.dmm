@@ -9880,10 +9880,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
-"aTc" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "aTd" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
@@ -32448,10 +32444,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"cli" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/supply/qm)
 "cll" = (
 /obj/structure/sign/poster/random{
 	pixel_y = -32
@@ -87824,10 +87816,6 @@
 	icon_state = "white"
 	},
 /area/station/science/explab)
-"xPL" = (
-/obj/effect/decal/snow,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint)
 "xPO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
@@ -106174,7 +106162,7 @@ cCk
 dbA
 crG
 bZP
-xPL
+bZP
 dtE
 kMZ
 bUY
@@ -107905,7 +107893,7 @@ atk
 adY
 fuy
 fuy
-cli
+aVl
 aLQ
 aNY
 dmr
@@ -127189,7 +127177,7 @@ rIT
 aXr
 ucy
 fUf
-aTc
+aLl
 dCJ
 aLl
 aqM

@@ -2350,12 +2350,6 @@
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
-"wi" = (
-/obj/effect/decal/cleanable/blood/drip{
-	icon_state = "5"
-	},
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wildwest/wildwest_mines)
 "wk" = (
 /obj/item/reagent_containers/drinks/oilcan,
 /obj/effect/decal/cleanable/blood/oil,
@@ -2862,10 +2856,6 @@
 	icon_state = "cultdamage3"
 	},
 /area/awaymission/wildwest/wildwest_vault)
-"Bd" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wildwest/wildwest_mines)
 "Be" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -4120,10 +4110,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wildwest/wildwest_refine)
-"Oh" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wildwest/wildwest_mines)
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/corpse/miner,
@@ -10429,7 +10415,7 @@ xy
 mW
 to
 oy
-wi
+hk
 hk
 hk
 hk
@@ -10566,8 +10552,8 @@ hk
 ED
 hk
 hk
-Oh
-Oh
+hk
+hk
 Os
 JS
 wK
@@ -13688,7 +13674,7 @@ CG
 hk
 Pt
 JS
-Bd
+hk
 xo
 rN
 hk
@@ -14246,7 +14232,7 @@ JS
 wK
 hk
 hk
-Bd
+hk
 hk
 JS
 JS
@@ -15243,7 +15229,7 @@ Kb
 kO
 hk
 ld
-Bd
+hk
 YK
 hk
 Ff

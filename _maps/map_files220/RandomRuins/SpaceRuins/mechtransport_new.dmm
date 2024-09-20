@@ -156,10 +156,6 @@
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
-"cJ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
-/area/ruin/space/powered)
 "cK" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/scavengers/gun/spacegun,
@@ -556,11 +552,8 @@
 /area/ruin/space/powered)
 "ng" = (
 /obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/rollie,
 /obj/item/clothing/mask/cigarette/rollie{
-	list_reagents = list("thc" = 40, "cbd" = 20)
-	},
-/obj/item/clothing/mask/cigarette/rollie{
-	list_reagents = list("thc" = 40, "cbd" = 20);
 	pixel_y = 3
 	},
 /obj/item/storage/fancy/rollingpapers{
@@ -568,7 +561,6 @@
 	pixel_x = 6
 	},
 /obj/item/clothing/mask/cigarette/rollie{
-	list_reagents = list("thc" = 40, "cbd" = 20);
 	pixel_y = 3;
 	pixel_x = -4
 	},
@@ -1032,7 +1024,6 @@
 	amount = 1
 	},
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1933,7 +1924,6 @@
 "Nm" = (
 /obj/structure/computerframe,
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/glass,
@@ -3060,7 +3050,7 @@ Kb
 PT
 PT
 PT
-cJ
+Kb
 Cm
 Jr
 sD

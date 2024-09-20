@@ -4617,10 +4617,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/admin1)
-"cTi" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/ss220/supply)
 "cTP" = (
 /obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
@@ -5284,10 +5280,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/bar)
-"dnp" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/opsglass,
-/area/syndicate_mothership)
 "dnK" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/beach/away/water{
@@ -8285,12 +8277,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
-"eZe" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/syndicate{
-	smoothing_flags = 2
-	},
-/area/syndicate_mothership)
 "eZF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51106,7 +51092,7 @@ fnU
 ios
 nrC
 fnU
-eZe
+fnU
 fnU
 bnr
 bnr
@@ -52725,7 +52711,7 @@ adJ
 adJ
 rzI
 rzI
-cTi
+rzI
 rzI
 syo
 rzI
@@ -59322,7 +59308,7 @@ fnU
 fnU
 fnU
 pUk
-dnp
+pUk
 mUz
 ovP
 mzs

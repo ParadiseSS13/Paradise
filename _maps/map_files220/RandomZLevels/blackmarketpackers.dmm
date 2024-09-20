@@ -1329,10 +1329,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
-"ea" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
-/area/awaymission/BMPship/Kitchen)
 "eb" = (
 /obj/machinery/door/window/classic/reversed{
 	color = "green"
@@ -1552,11 +1548,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
-"eK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/awaymission/BMPship/Containment)
 "eL" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -1566,10 +1557,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Engines)
-"eM" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/awaymission/BMPship/Containment)
 "eN" = (
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -5734,13 +5721,6 @@
 "HV" = (
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/TurretsSouth)
-"HW" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
-	},
-/turf/simulated/wall/indestructible/whiteshuttle,
-/area/awaymission/BMPship/MedBay)
 "HZ" = (
 /obj/structure/alien/weeds,
 /obj/item/shard{
@@ -6828,7 +6808,6 @@
 "Vn" = (
 /obj/structure/closet/secure_closet{
 	color = "gold";
-	layer = 2.9;
 	req_access = list(111)
 	},
 /obj/item/tank/internals/oxygen,
@@ -15000,7 +14979,7 @@ LT
 cU
 Pu
 Yh
-eM
+er
 zX
 LC
 CJ
@@ -15387,7 +15366,7 @@ XJ
 ch
 Gy
 Dy
-eM
+er
 Ds
 BI
 er
@@ -15647,7 +15626,7 @@ fE
 WO
 Gy
 Dy
-eK
+er
 Dp
 pV
 er
@@ -15767,7 +15746,7 @@ vr
 ZB
 dw
 Rn
-eM
+er
 er
 er
 er
@@ -15777,7 +15756,7 @@ Ll
 BL
 NZ
 gH
-eM
+er
 er
 er
 TJ
@@ -15907,7 +15886,7 @@ Lu
 FT
 Gs
 LT
-eM
+er
 fD
 lK
 er
@@ -16297,7 +16276,7 @@ MN
 MN
 kn
 nO
-eM
+er
 er
 er
 er
@@ -16427,7 +16406,7 @@ bU
 LT
 kn
 kn
-eM
+er
 At
 MY
 er
@@ -16673,7 +16652,7 @@ aa
 ve
 aT
 Si
-HW
+ve
 Xb
 ZN
 ve
@@ -16817,7 +16796,7 @@ Ll
 ks
 kn
 fx
-eM
+er
 er
 er
 er
@@ -16947,7 +16926,7 @@ Ue
 ku
 kn
 kn
-eM
+er
 fD
 fP
 er
@@ -17197,7 +17176,7 @@ Si
 Si
 ji
 ve
-eM
+er
 el
 xW
 er
@@ -17207,7 +17186,7 @@ Ck
 Ue
 ej
 Qk
-eM
+er
 Zg
 fP
 er
@@ -19408,9 +19387,9 @@ cs
 TU
 aN
 aQ
-ea
+EL
 hw
-ea
+EL
 tA
 kK
 EL

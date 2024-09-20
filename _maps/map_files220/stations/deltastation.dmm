@@ -3805,11 +3805,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/maintenance/fore)
-"atq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "atr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -4273,10 +4268,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/fore)
-"auO" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fore2)
 "auP" = (
 /obj/structure/rack,
 /obj/machinery/light/small/directional/north,
@@ -26519,7 +26510,6 @@
 /area/space/nearstation)
 "cbB" = (
 /obj/structure/sign/poster/official/random/north,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "cbE" = (
@@ -44214,10 +44204,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft)
-"dBo" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "dBp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
@@ -66978,10 +66964,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/control)
-"joi" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/security/permabrig)
 "jol" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -68810,10 +68792,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/permabrig)
-"jRa" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "jRf" = (
 /obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -149072,7 +149050,7 @@ apM
 aqJ
 arB
 aoo
-atq
+aVK
 aVK
 azb
 hGO
@@ -157544,7 +157522,7 @@ axm
 auu
 cnx
 auu
-auO
+axm
 jvC
 auu
 rPv
@@ -162199,7 +162177,7 @@ eNt
 eNt
 wyT
 bwA
-jRa
+eNt
 rDp
 rDp
 rDp
@@ -167931,7 +167909,7 @@ gnn
 kVr
 ixf
 ixf
-dBo
+ixf
 ixf
 itT
 hhF
@@ -168184,7 +168162,7 @@ rTt
 tyI
 tOf
 oNd
-dBo
+ixf
 ixf
 ixf
 oRB
@@ -175310,7 +175288,7 @@ eoX
 eoX
 rlS
 wJO
-joi
+rRb
 bNH
 ioR
 qzZ
