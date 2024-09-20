@@ -7,26 +7,23 @@
 }
 
 .boxed_message {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid #a3b9d9;
+  background: hsla(0, 0%, 0%, 0.25);
+  border-color: hsla(20, 50%, 75%, 0.25);
 }
 
 .boxed_message.red_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #aa0000;
+  background: hsla(0, 75%, 5%, 0.25);
 }
 
 .boxed_message.green_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #00ff00;
+  background: hsla(140, 75%, 5%, 0.25);
 }
 
 .boxed_message.purple_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #8000ff;
+  background: hsla(260, 75%, 5%, 0.25);
+  border-color: hsla(260, 100%, 65%, 0.5);
 }
 
 .boxed_message.notice_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #6685f5;
+  background: hsla(220, 75%, 5%, 0.25);
 }

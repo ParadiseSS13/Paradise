@@ -302,6 +302,11 @@ h2.alert {
   font-weight: bold;
 }
 
+.warning {
+  color: #c51e1e;
+  font-style: italic;
+}
+
 .boldwarning {
   color: #c51e1e;
   font-style: italic;
@@ -323,11 +328,6 @@ h2.alert {
   color: #c51e1e;
   font-weight: bold;
   font-size: 120%;
-}
-
-.warning {
-  color: #c51e1e;
-  font-style: italic;
 }
 
 .disarm {
@@ -684,5 +684,5 @@ span.body .coderesponses {
 }
 
 .boxed_message.thick_border {
-  border-width: thick;
+  border-width: 0.5em;
 }

@@ -43,21 +43,11 @@ h2.alert {
   color: #638500;
 }
 
-/* OUTPUT COLORS */
-.darkmblue {
-  color: #0000ff;
-}
+// MARK: General colors
+
 
 .looc {
   color: #6699cc;
-}
-
-.mentorhelp {
-  color: #0077bb;
-}
-
-.adminhelp {
-  color: #aa0000;
 }
 
 .discordpm {
@@ -70,6 +60,51 @@ h2.alert {
 
 .deadsay {
   color: #5c00e6;
+}
+
+.darkmblue {
+  color: #0000ff;
+}
+
+// MARK: Admin/Mentor
+.mentorhelp {
+  color: #0077bb;
+}
+
+.mentor_channel {
+  color: #775bff;
+}
+
+.mentor_channel_admin {
+  color: #a35cff;
+}
+
+.adminhelp {
+  color: #aa0000;
+}
+
+.adminticket {
+  color: #3e7336;
+}
+
+.adminticketalt {
+  color: #014c8a;
+}
+
+.admin_channel {
+  color: #9a04d1;
+}
+
+.all_admin_ping {
+  color: #12a5f4;
+}
+
+.dev_channel {
+  color: #126719;
+}
+
+.dev_channel_admin {
+  color: #26a419;
 }
 
 // MARK: Radio
@@ -129,30 +164,7 @@ h2.alert {
   color: #e3027a;
 }
 
-.admin_channel {
-  color: #9a04d1;
-}
-
-.all_admin_ping {
-  color: #12a5f4;
-}
-
-.mentor_channel {
-  color: #775bff;
-}
-
-.mentor_channel_admin {
-  color: #a35cff;
-}
-
-.dev_channel {
-  color: #126719;
-}
-
-.dev_channel_admin {
-  color: #26a419;
-}
-
+// MARK: Alerts
 .alert {
   color: #ff0000;
 }
@@ -190,8 +202,10 @@ h2.alert {
   color: #000099;
 }
 
-.pr_announce {
-  color: #228b22;
+// MARK: Announcements
+.announcement h1,
+.announcement h2 {
+  color: #000;
 }
 
 .boldannounceic {
@@ -202,10 +216,15 @@ h2.alert {
   color: #ff0000;
 }
 
+.pr_announce {
+  color: #228b22;
+}
+
 .greenannounce {
   color: #00ff00;
 }
 
+// MARK: Antagonist
 .alien {
   color: #543354;
 }
@@ -218,8 +237,12 @@ h2.alert {
   color: #6a2148;
 }
 
-.rose {
-  color: #ff5050;
+.revennotice {
+  color: #1d2953;
+}
+
+.revenbignotice {
+  color: #1d2953;
 }
 
 .changeling {
@@ -238,6 +261,11 @@ h2.alert {
   color: #960000;
 }
 
+// MARK: Other colors
+.rose {
+  color: #ff5050;
+}
+
 .interface {
   color: #330033;
 }
@@ -254,29 +282,12 @@ h2.alert {
   color: #0074bd;
 }
 
-.revennotice {
-  color: #1d2953;
-}
-
-.revenbignotice {
-  color: #1d2953;
-}
-
 .specialnotice {
   color: #36525e;
 }
 
 .whisper {
   color: #333333;
-}
-
-/* ADMIN TICKETS */
-.adminticket {
-  color: #3e7336;
-}
-
-.adminticketalt {
-  color: #014c8a;
 }
 
 /* Syndicate codewords */
@@ -311,12 +322,6 @@ span.body .coderesponses {
 
 .agent_b {
   color: #004d4d;
-}
-
-// MARK: Announcements
-.announcement h1,
-.announcement h2 {
-  color: #000;
 }
 
 // MARK: Boxed messages

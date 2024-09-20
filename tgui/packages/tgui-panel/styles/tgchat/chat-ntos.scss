@@ -1,24 +1,19 @@
 .boxed_message {
-  background: #1c242e;
-  border: 1px solid #a3b9d9;
+  background: hsl(220, 25%, 15%);
 }
 
 .boxed_message.red_border {
-  background: #2e1c1c;
-  border-color: #aa0000;
+  background: hsl(0, 25%, 15%);
 }
 
 .boxed_message.green_border {
-  background: #1c2e22;
-  border-color: #00ff00;
+  background: hsl(140, 25%, 15%);
 }
 
 .boxed_message.purple_border {
-  background: #221c2e;
-  border-color: #8000ff;
+  background: hsl(260, 25%, 15%);
 }
 
 .boxed_message.notice_border {
-  background: #1f2633;
-  border-color: #6685f5;
+  background: hsl(220, 35%, 15%);
 }
