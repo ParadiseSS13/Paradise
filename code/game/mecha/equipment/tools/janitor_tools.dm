@@ -108,7 +108,7 @@
 	icon_state = "mecha_light_replacer"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
-	range = MECHA_MELEE | 15
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/emag_act(mob/user)
 	. = ..()
