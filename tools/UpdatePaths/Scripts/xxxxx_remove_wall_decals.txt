@@ -1,0 +1,1 @@
+/obj/effect/decal/cleanable/fungus : /obj/effect/spawner/random_spawners/fungus_frequent

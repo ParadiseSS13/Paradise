@@ -113,6 +113,14 @@
 	/datum/nothing = 7,
 	/obj/effect/decal/cleanable/dirt = 1)
 
+/obj/effect/spawner/random_spawners/fungus_frequent
+	name = "fungus frequent"
+	icon_state = "fungus"
+	color = "#D5820B"
+	result = list(
+		/datum/nothing = 1,
+		/obj/effect/decal/cleanable/fungus = 1)
+
 /obj/effect/spawner/random_spawners/fungus_maybe
 	name = "fungus maybe"
 	icon_state = "fungus"

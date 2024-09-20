@@ -8676,7 +8676,7 @@
 	},
 /area/station/maintenance/abandonedbar)
 "aCN" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
 "aCO" = (
@@ -9793,7 +9793,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aGd" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
@@ -10305,7 +10305,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aHP" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
 "aHQ" = (
@@ -10431,7 +10431,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aIq" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "aIr" = (
@@ -12576,7 +12576,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
 "aPc" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "aPd" = (
@@ -12611,7 +12611,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aPj" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint)
 "aPk" = (
@@ -14509,7 +14509,7 @@
 	},
 /area/station/service/chapel)
 "aUY" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
 "aUZ" = (
@@ -14536,7 +14536,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aVg" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/public/storage/tools)
 "aVh" = (
@@ -19537,7 +19537,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjl" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/public/dorms)
 "bjm" = (
@@ -19598,7 +19598,7 @@
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "bjz" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/service/clown)
 "bjA" = (
@@ -24451,7 +24451,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "bym" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/public/toilet/lockerroom)
 "byn" = (
@@ -36921,7 +36921,7 @@
 	},
 /area/station/hallway/primary/aft/north)
 "cuc" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "cud" = (
@@ -41696,7 +41696,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "cKE" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "cKF" = (
@@ -45849,7 +45849,7 @@
 	},
 /area/station/science/rnd)
 "cZF" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/smes)
 "cZG" = (
@@ -53568,7 +53568,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/supermatter)
 "eDB" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall/r_wall,
 /area/station/ai_monitored/storage/eva)
 "eDL" = (
@@ -79653,7 +79653,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
 "rgs" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "rgv" = (
@@ -91710,7 +91710,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "xsP" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random_spawners/fungus_frequent,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
 "xsZ" = (
