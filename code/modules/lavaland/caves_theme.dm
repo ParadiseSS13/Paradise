@@ -5,6 +5,9 @@
 
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
+/// Effective probability modifier for spawning flora and fauna in oases.
+#define OASIS_SPAWNER_PROB_MODIFIER 43
+
 GLOBAL_LIST_INIT(megafauna_spawn_list, list(
 	/mob/living/simple_animal/hostile/megafauna/dragon = 4,
 	/mob/living/simple_animal/hostile/megafauna/colossus = 2,
@@ -148,7 +151,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	oasis_centroids |= T
 	var/new_scan_range = rand(4, 7)
 	var/tempradius = rand(10, 15)
-	var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
+	var/probmodifer = OASIS_SPAWNER_PROB_MODIFIER * tempradius
 	for(var/turf/NT in circlerangeturfs(T, tempradius))
 		var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 		if(safe_replace(NT) && prob(min(probmodifer / distance, 100)))
@@ -192,6 +195,8 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	else if(prob(2))
 		lavaland_caves_spawn_mob(T)
 
+
+#undef OASIS_SPAWNER_PROB_MODIFIER
 #undef SPAWN_MEGAFAUNA
 
 #undef LAVALAND_MIN_CAVE_Y
