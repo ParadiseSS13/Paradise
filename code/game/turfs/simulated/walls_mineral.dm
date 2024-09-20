@@ -279,6 +279,7 @@
 
 /turf/simulated/wall/mineral/titanium/survival/pod
 
+
 //undeconstructable type for derelict
 //these walls are undeconstructable/unthermitable
 /turf/simulated/wall/mineral/titanium/nodecon
@@ -316,6 +317,8 @@
 
 /turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
 	return
+
+
 
 /////////////////////Plastitanium walls/////////////////////
 

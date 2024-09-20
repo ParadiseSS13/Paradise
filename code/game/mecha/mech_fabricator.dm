@@ -83,6 +83,7 @@
 		"Misc"
 	)
 
+	output_dir = dir
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/mecha_part_fabricator/LateInitialize()
@@ -211,6 +212,11 @@
 		return
 	if(stat & NOPOWER)
 		atom_say("Error: Insufficient power!")
+		return
+
+	var/turf_to_print_on = get_step(src, output_dir)
+	if(iswallturf(turf_to_print_on))
+		atom_say("Error: Output blocked by a wall!")
 		return
 
 	// Subtract the materials from the holder

@@ -88333,7 +88333,7 @@
 /area/station/hallway/secondary/exit)
 "vGu" = (
 /obj/machinery/camera{
-	c_tag = "Blueshield's Office";
+	c_tag = "Nanotrasen Representative's Office";
 	dir = 1
 	},
 /turf/simulated/floor/wood,
