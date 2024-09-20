@@ -32,6 +32,7 @@
 	technical_name = "EmeraldStation"
 	map_path = "_maps/map_files/stations/emeraldstation.dmm"
 	webmap_url = "https://affectedarc07.co.uk/emerald.html"
+	welcome_sound = 'sound/AI/welcome_diagoras.ogg'
 
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
