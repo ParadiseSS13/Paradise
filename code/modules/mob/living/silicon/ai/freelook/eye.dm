@@ -42,6 +42,10 @@
 /mob/camera/aiEye/Move()
 	return 0
 
+/mob/camera/aiEye/Process_Spacemove(movement_dir)
+	// Nothing in space can stop us from moving.
+	return 1
+
 /mob/camera/aiEye/proc/GetViewerClient()
 	if(ai)
 		return ai.client
