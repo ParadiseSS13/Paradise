@@ -6946,8 +6946,14 @@
 /area/station/legal/magistrate)
 "aAN" = (
 /obj/structure/table,
-/obj/item/taperecorder,
-/obj/item/megaphone,
+/obj/item/taperecorder{
+	pixel_x = -7;
+	pixel_y = -5
+	},
+/obj/item/megaphone{
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /obj/machinery/button/windowtint/east{
 	id = "Magistrate";
 	pixel_y = 6;
@@ -7387,14 +7393,29 @@
 /area/station/maintenance/fore)
 "aCi" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/pen/multi/gold,
-/obj/item/stamp/magistrate,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -9;
+	pixel_y = 6
+	},
+/obj/item/pen/multi/gold{
+	pixel_x = -22;
+	pixel_y = 8
+	},
+/obj/item/clothing/head/helmet/skull/Yorick{
+	pixel_x = 7;
+	pixel_y = 9
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aCj" = (
 /obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 4
+	},
+/obj/item/stamp/magistrate{
+	pixel_y = 7;
+	pixel_x = -7
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aCl" = (
@@ -8301,7 +8322,10 @@
 /area/station/legal/courtroom)
 "aFm" = (
 /obj/structure/table,
-/obj/item/gavelblock,
+/obj/item/gavelblock{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /obj/item/gavelhammer,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -8311,6 +8335,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aFn" = (
@@ -8325,7 +8350,6 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aFp" = (
-/obj/structure/table,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8334,19 +8358,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/pen/multi,
-/obj/effect/spawner/lootdrop/officetoys,
-/obj/item/clothing/head/helmet/skull/Yorick,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aFq" = (
 /obj/structure/table,
 /obj/item/folder/blue{
-	pixel_x = 10;
-	pixel_y = 4
+	pixel_x = 7;
+	pixel_y = 1
 	},
 /obj/item/paper_bin{
-	pixel_x = -4;
+	pixel_x = -6;
 	pixel_y = 4
 	},
 /obj/structure/cable{
@@ -8358,8 +8380,12 @@
 	dir = 4
 	},
 /obj/item/folder/yellow{
-	pixel_x = 14;
-	pixel_y = 4
+	pixel_x = 10;
+	pixel_y = 1
+	},
+/obj/item/pen/multi{
+	pixel_x = -6;
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
