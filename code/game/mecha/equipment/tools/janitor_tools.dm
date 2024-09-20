@@ -7,8 +7,8 @@
 		return TRUE
 
 // Mop
-
-#define MOP_SOUND_CD 2 SECONDS //! How many seconds before the mopping sound triggers again
+//! How many seconds before the mopping sound triggers again
+#define MOP_SOUND_CD 2 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop
 	name = "\improper WLLY mega mop"
