@@ -26,7 +26,7 @@
 	. = ..()
 	if(slot != SLOT_HUD_SHOES || !ishuman(user))
 		return
-	check_mag_pulse_equipping(user)
+	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
@@ -70,10 +70,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) != src)
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, UID())
-		return
-	if(magpulse)
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src && magpulse)
 		ADD_TRAIT(user, TRAIT_MAGPULSE, UID())
 		return
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
