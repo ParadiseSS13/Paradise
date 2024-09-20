@@ -1,9 +1,11 @@
-/obj/mecha/janitor/nkarrdem
+/obj/mecha/nkarrdem
 	desc = "A heavy duty sanitation exosuit; optimized for the removal of mass amounts of dirt, grime, and grease."
 	name = "Nkarrdem"
 	icon_state = "nkarrdem"
 	initial_icon = "nkarrdem"
 	step_in = 3
+	turnsound = 'sound/mecha/mechmove01.ogg'
+	stepsound = 'sound/mecha/mechstep.ogg'
 	max_temperature = 10000
 	max_integrity = 110
 	max_equip = 4
@@ -14,8 +16,10 @@
 	normal_step_energy_drain = 6
 	/// Is the janihud on?
 	var/builtin_hud_user = FALSE
+	/// Action that controls the floor buffer
+	var/datum/action/innate/mecha/mech_toggle_floorbuffer/floorbuffer_action = new
 
-/obj/mecha/janitor/nkarrdem/examine_more(mob/user)
+/obj/mecha/nkarrdem/examine_more(mob/user)
 	..()
 	. = list()
 	. += "<i>The Nkarrdem is an older-generation CBRN mech developed jointly by Interdyne and Shellguard for rapid decontamination during a period where biological weapons are frequently used, though it suffered from several \
@@ -24,7 +28,7 @@
 	. += "<i>The name 'Nkarrdem' comes from Skrellian legend, meaning 'Turquoise Fields'. The Turquoise Fields are an algae plataeu, where the kings of old would go to their final rest.</i>"
 
 
-/obj/mecha/janitor/nkarrdem/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/nkarrdem/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
@@ -34,7 +38,7 @@
 			jani_hud.add_hud_to(H)
 			builtin_hud_user = TRUE
 
-/obj/mecha/janitor/nkarrdem/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
+/obj/mecha/nkarrdem/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
 	if(.)
 		if(occupant.client)
@@ -42,7 +46,7 @@
 			jani_hud.add_hud_to(occupant)
 			builtin_hud_user = TRUE
 
-/obj/mecha/janitor/nkarrdem/go_out()
+/obj/mecha/nkarrdem/go_out()
 	if(ishuman(occupant) && builtin_hud_user)
 		var/mob/living/carbon/human/H = occupant
 		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
@@ -55,16 +59,16 @@
 		builtin_hud_user = FALSE
 	return ..()
 
-/obj/mecha/janitor/nkarrdem/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/nkarrdem/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
 	floorbuffer_action.Grant(user, src)
 
-/obj/mecha/janitor/nkarrdem/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/nkarrdem/RemoveActions(mob/living/user, human_occupant = 0)
 	. = ..()
 	floorbuffer_action.Remove(user)
 
 // Moving has to clean floors if the buffer is active
-/obj/mecha/janitor/nkarrdem/Move()
+/obj/mecha/nkarrdem/Move()
 	. = ..()
 	if(!floor_buffer)
 		return
@@ -76,7 +80,7 @@
 		if(E.is_cleanable())
 			qdel(E)
 
-/obj/mecha/janitor/nkarrdem/loaded/Initialize(mapload)
+/obj/mecha/nkarrdem/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
 	ME.attach(src)

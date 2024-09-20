@@ -127,7 +127,6 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
-	var/datum/action/innate/mecha/mech_toggle_floorbuffer/floorbuffer_action = new
 	var/list/select_actions = list()
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
