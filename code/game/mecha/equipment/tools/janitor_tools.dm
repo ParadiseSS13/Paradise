@@ -50,22 +50,22 @@
 		WT.reagents.trans_to(src, 1000)
 		occupant_message("<span class='notice'>Mop refilled.</span>")
 		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
-	else
-		if(get_dist(chassis, target) > 2)
+		return
+	if(get_dist(chassis, target) > 2)
+		return
+	if(reagents.total_volume > 0)
+		if(COOLDOWN_FINISHED(src, mop_sound_cooldown))
+			playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
+			COOLDOWN_START(src, mop_sound_cooldown, MOP_SOUND_CD)
+		// 3x3 mopping area
+		var/turf/target_turf = get_turf(target)
+		if(!istype(target_turf) || iswallturf(target_turf))
 			return
-		if(reagents.total_volume > 0)
-			if(COOLDOWN_FINISHED(src, mop_sound_cooldown))
-				playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
-				COOLDOWN_START(src, mop_sound_cooldown, MOP_SOUND_CD)
-			// 3x3 mopping area
-			var/turf/target_turf = get_turf(target)
-			if(!istype(target_turf) || iswallturf(target_turf))
-				return
-			chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
-			if(do_after(chassis.occupant, mop_speed, target = target))
-				for(var/turf/current_target_turf in view(1, target))
-					current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
-				chassis.occupant_message("You mop \the [target].")
+		chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
+		if(do_after(chassis.occupant, mop_speed, target = target))
+			for(var/turf/current_target_turf in view(1, target))
+				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
+			chassis.occupant_message("You mop \the [target].")
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
