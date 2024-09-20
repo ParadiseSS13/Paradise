@@ -174,9 +174,9 @@
 		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-///Points generated per cycle for each Watt of power consumption
+/// Points generated per cycle for each Watt of power consumption
 #define POINTS_PER_W 4e-6
-/// amount of points generated per cycle per 50KW for the first 500KW
+/// Amount of points generated per cycle per 50KW for the first 500KW
 #define BASE_POINTS 2
 
 /**
@@ -348,10 +348,12 @@
 	if(emagged)
 		desired_mining_power = mining_power
 
-	// Stabilizers activate above 15MW of mining power
-	// Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15 and 30MW of mining power
-	// If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
-	// emagging disables stabilizers
+	/*
+	* Stabilizers activate above 15MW of mining power
+	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15 and 30MW of mining power
+	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
+	* Emagging disables stabilizers
+	*/
 	if(stabilizer_priority)
 		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
 		stabilizer_power = \
@@ -376,11 +378,13 @@
 	// 2 points per 50 KW up to 20 and 4 points per MW (or 5 when emmaged).
 	mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
 	points += mined_points
-	total_points += mined_points
-	update_icon()
-	// Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
-	// This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
-	// And about every 3:20 minutes for a 10MW difference
+	/*
+	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
+	* This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
+	* And about every 3:20 minutes for a 10MW difference
+	* Emagging guarantees a chance of at least 5%
+	* Prob treats values less than 0 as 0.
+	*/
 	// Emagging garuantees a chance of at least 5%.
 	// Prob treats values less than 0 as 0.
 	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW)) + (emagged * 5))
