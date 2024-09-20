@@ -64,7 +64,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src && magpulse)
 		to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-		attack_self(user, TRUE)
+		toggle_magpulse(user, FALSE)
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
 	if(!ishuman(user))
