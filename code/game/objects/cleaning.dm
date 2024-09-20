@@ -13,7 +13,7 @@
 //Can normally be left alone, but needs to be defined if the thing being cleaned isn't necessarily the thing being clicked on,
 //such as /obj/effect/rune/cleaning_act() bouncing to turf/simulated/cleaning_act().
 
-// skip_do_after defaults to FALSE. When TRUE, it does not use the do_after or the visible message.
+// skip_do_after - When TRUE, do after and visible messages are disabled
 
 /atom/proc/cleaning_act(mob/user, atom/cleaner, cleanspeed = 5 SECONDS, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name, skip_do_after = FALSE)
 	var/is_cmagged = FALSE
