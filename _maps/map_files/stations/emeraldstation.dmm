@@ -4636,10 +4636,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
-"aVo" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/science/server)
 "aVp" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
@@ -23272,11 +23268,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/engineering/atmos/storage)
-"etY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/abandonedbar)
 "eue" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -23635,11 +23626,6 @@
 	},
 /turf/simulated/wall,
 /area/station/engineering/equipmentstorage)
-"ewY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/abandonedbar)
 "exr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -23757,11 +23743,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
-"eyn" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/security/aft_starboard)
 "eyo" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -53045,10 +53026,6 @@
 /obj/structure/sign/explosives,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/test)
-"jPB" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "jPE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -89949,10 +89926,6 @@
 "qKo" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/north)
-"qKt" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/asmaint)
 "qKE" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -127280,10 +127253,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
 /area/station/public/dorms)
-"xCE" = (
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "xCI" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/machinery/light{
@@ -138948,7 +138917,7 @@ oQf
 oQf
 oQf
 oQf
-aGa
+oQf
 aGa
 oQf
 oQf
@@ -169981,7 +169950,7 @@ oPy
 avl
 jIe
 ubU
-xCE
+gdv
 tLi
 mvJ
 kAO
@@ -171227,7 +171196,7 @@ qNS
 qNS
 qNS
 qNS
-dhk
+cwI
 dhk
 iOR
 dOx
@@ -175434,7 +175403,7 @@ mlm
 rqT
 jCt
 txo
-jPB
+caq
 bXh
 nQD
 bsO
@@ -178043,7 +178012,7 @@ ahk
 cXx
 nZP
 iLJ
-aVo
+xGq
 fOz
 nuJ
 fEa
@@ -180064,7 +180033,7 @@ cAv
 wSV
 nrP
 ekk
-gFS
+cGm
 fIk
 stp
 caq
@@ -183963,7 +183932,7 @@ kTf
 pSv
 adX
 lGk
-qKt
+qsn
 qsn
 eak
 tbq
@@ -185402,7 +185371,7 @@ kcF
 wYs
 alJ
 ipU
-eyn
+xNN
 ohZ
 cJE
 qKm
@@ -186020,7 +185989,7 @@ vkZ
 ybH
 wTf
 het
-etY
+kdx
 kdx
 hST
 euu
@@ -186277,7 +186246,7 @@ bAR
 hST
 hST
 lKD
-ewY
+euu
 wqs
 lpW
 hfF

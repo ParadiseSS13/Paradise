@@ -83781,10 +83781,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/civilian)
-"sCn" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "sCr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -150808,7 +150804,7 @@ aXn
 aXn
 wLr
 vpJ
-sCn
+vpJ
 vpJ
 vRX
 rao

@@ -1870,11 +1870,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"eI" = (
-/obj/structure/sign/securearea,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ruslocksec";
@@ -6533,10 +6528,6 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"qq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "qr" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -8714,7 +8705,7 @@ aW
 dO
 ed
 en
-eI
+cM
 fg
 fB
 fX
@@ -9394,7 +9385,7 @@ mS
 oc
 oS
 qg
-qq
+bn
 aW
 ac
 ac

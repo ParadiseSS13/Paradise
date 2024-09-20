@@ -7109,11 +7109,6 @@
 	icon_state = "red"
 	},
 /area/station/security/lobby)
-"aya" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "ayb" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -10132,10 +10127,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
-/area/station/maintenance/fpmaint2)
-"aHn" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "aHo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -35451,10 +35442,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
-"coT" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/command/office/blueshield)
 "coU" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -40687,10 +40674,6 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"cHe" = (
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/wall,
-/area/station/maintenance/aft)
 "cHf" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -42718,10 +42701,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
-"cOz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint2)
 "cOA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -52401,10 +52380,6 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
-"ecZ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/asmaint)
 "edf" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -87317,10 +87292,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
-"vhD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/port)
 "vhH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -110376,7 +110347,7 @@ aGn
 aGn
 aKW
 neo
-aHn
+aGn
 gxu
 aGn
 aLu
@@ -114266,7 +114237,7 @@ fkr
 cqQ
 rVV
 jnc
-vhD
+blQ
 fea
 bxb
 xKE
@@ -117130,7 +117101,7 @@ cgQ
 cqL
 cZw
 cUh
-cOz
+cLi
 ykF
 ogh
 weq
@@ -119169,8 +119140,8 @@ cfi
 cgS
 cgS
 cgS
-coT
-coT
+cgS
+cgS
 cgS
 lNb
 cyg
@@ -129132,7 +129103,7 @@ axY
 avq
 avq
 aBu
-arR
+awl
 awl
 awl
 aLP
@@ -129389,7 +129360,7 @@ axX
 avq
 avq
 aBu
-arR
+awl
 avq
 ayb
 aLP
@@ -130413,7 +130384,7 @@ arR
 awl
 ifp
 aqc
-aya
+aqc
 awl
 avq
 aBz
@@ -135644,7 +135615,7 @@ mCO
 cED
 xmj
 tAb
-cHe
+chf
 chf
 chf
 chf
@@ -139769,7 +139740,7 @@ cBR
 yfJ
 hQe
 yfJ
-ecZ
+oJr
 kMc
 kdc
 csL
@@ -140797,7 +140768,7 @@ cBR
 yfJ
 nKg
 yfJ
-ecZ
+oJr
 bUx
 dFe
 csL
@@ -142838,7 +142809,7 @@ cLb
 cLb
 eKC
 mhW
-gzz
+ciY
 ciY
 ciY
 csL
