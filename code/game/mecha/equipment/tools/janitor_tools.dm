@@ -119,10 +119,7 @@
 	if(istype(target, /obj/machinery/light))
 		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		replaceLight(target)
-
-/obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/replaceLight(obj/machinery/light/target)
-	target.fix(chassis.occupant, src, emagged)
+		target.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
