@@ -203,13 +203,11 @@
 	if(auto_wrench_toggle)
 		if(mode != RPD_TRANSIT_MODE)
 			target.wrench_act(user, src)
-			playsound(src, 'sound/items/ratchet.ogg', 15, TRUE)
 			return
-		if(whatttube in list(PIPE_TRANSIT_TUBE_DISPENSER_STATION, PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER, PIPE_TRANSIT_TUBE_STATION))
-			to_chat(user, "<span class='warning'>The [target] needs to be installed manually")
+		if(whatttube in list(PIPE_TRANSIT_TUBE_STATION, PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER, PIPE_TRANSIT_TUBE_DISPENSER_STATION))
+			to_chat(user, "<span class='warning'>[target] needs to be installed manually.</span>") //prevents fortnite gaming with transit stations
 			return
 		target.screwdriver_act(user, src)
-		playsound(src, 'sound/items/ratchet.ogg', 15, TRUE)
 
 // TGUI stuff
 
@@ -350,7 +348,7 @@
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
 
-		if(!(user in viewers(12, T)))
+		if(!(user in viewers(12, T))) // Checks if the user can see the target turf
 			to_chat(user, "<span class ='warning'>The [src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			return

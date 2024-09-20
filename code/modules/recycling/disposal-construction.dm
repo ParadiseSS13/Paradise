@@ -141,7 +141,8 @@
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
 	var/turf/T = get_turf(src)
-
+	var/mainhand = user.get_active_hand()
+	
 	if(T.intact)
 		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
 		return
@@ -149,18 +150,18 @@
 	if(ispipe)
 		anchored = !anchored
 		level = anchored ? 1 : 2
-		I.play_tool_sound(src, I.tool_volume)
 		to_chat(user, anchored ? "You attach the [nicetype] to the underfloor." : "You detach the [nicetype] from the underfloor.")
-		return
-	
-	var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
-	if(!CT)
-		to_chat(user, "The [nicetype] requires a constructed trunk in order to be anchored.")
-		return
-	anchored = !anchored
-	density = anchored
-	to_chat(user, anchored ? "You attach the [nicetype] to the trunk." : "You detach the [nicetype] from the trunk.")
+	else
+		var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
+		if(!CT)
+			to_chat(user, "The [nicetype] requires a constructed trunk in order to be anchored.")
+			return
+		anchored = !anchored
+		density = anchored
+		to_chat(user, anchored ? "You attach the [nicetype] to the trunk." : "You detach the [nicetype] from the trunk.")
 
+	if(istype(mainhand, /obj/item/rpd)) // RPD auto-wrench sound
+		playsound(user, 'sound/items/impactwrench.ogg', 50)
 	I.play_tool_sound(src, I.tool_volume)
 	update()
 	return TRUE

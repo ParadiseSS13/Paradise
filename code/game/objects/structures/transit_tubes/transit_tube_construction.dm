@@ -42,6 +42,7 @@
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
+	var/mainhand = user.get_active_hand()
 	if(!isfloorturf(T) && !isspaceturf(T))
 		to_chat(user, "<span class='notice'>You cannot install [src] here.</span>")
 		return
@@ -56,6 +57,9 @@
 	installed.dir = dir
 	user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
+	if(istype(mainhand, /obj/item/rpd)) // RPD auto-wrench sound
+		playsound(user, 'sound/items/impactwrench.ogg', 50)
+	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
