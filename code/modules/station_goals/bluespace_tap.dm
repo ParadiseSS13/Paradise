@@ -378,6 +378,8 @@
 	// 2 points per 50 KW up to 20 and 4 points per MW (or 5 when emmaged).
 	mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
 	points += mined_points
+	total_points += mined_points
+	update_icon()
 	/*
 	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
 	* This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
