@@ -7,12 +7,10 @@
 	product = /obj/item/food/grown/plum
 	lifespan = 55
 	endurance = 35
-	growthstages = 6
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "plum-grow"
 	icon_dead = "plum-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = null
 	reagents_add = list("nutriment" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.1)
 
 /obj/item/food/grown/plum
