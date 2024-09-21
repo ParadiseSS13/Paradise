@@ -137,6 +137,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MOB TRAITS *****//
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
+#define TRAIT_BEING_OFFERED     "offered"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
