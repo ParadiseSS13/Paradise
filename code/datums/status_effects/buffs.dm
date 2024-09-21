@@ -946,6 +946,7 @@
 	owner.SetConfused(0)
 	owner.adjustStaminaLoss(-100)
 	owner.stand_up(TRUE)
+	SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
 	return ..()
 
 /datum/status_effect/flayer_rejuv/tick()
