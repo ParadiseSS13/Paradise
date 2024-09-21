@@ -81,28 +81,31 @@
 	switch(dir)
 		if(NORTH)
 			pixel_x = -64
+			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			oldmap?.Destroy()
 			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 0, 			1,			1, 0),
+				list(0, 0, 			0,			1, 0),
 				list(0, 0, 			1,			1, 1),
-				list(0, 0, 		MACH_CENTER, 	1, 0),
+				list(0, 0, 		MACH_CENTER, 	1, 1),
 				list(0, 0, 			0, 			0, 0),
 				list(0, 0, 			0, 			0, 0),
 			))
 		if(SOUTH)
 			pixel_x = 0
+			pixel_y = -64
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			oldmap?.Destroy()
 			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 1, 			1,			0, 0),
-				list(1, 1, 			1,			0, 0),
-				list(0, 1, 		MACH_CENTER, 	0, 0),
-				list(0, 0, 			0, 			0, 0),
-				list(0, 0, 			0, 			0, 0),
+				list(0, 0, 			0,			0, 0),
+				list(0, 0, 			0,			0, 0),
+				list(1, 1, 		MACH_CENTER, 	0, 0),
+				list(1, 1, 			1, 			0, 0),
+				list(0, 1, 			0, 			0, 0),
 			))
 		if(WEST)
 			pixel_x = -64
+			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			oldmap?.Destroy()
 			AddComponent(/datum/component/multitile, 2, list(
@@ -114,6 +117,7 @@
 			))
 		if(EAST)
 			pixel_x = 0
+			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			oldmap?.Destroy()
 			AddComponent(/datum/component/multitile, 2, list(
