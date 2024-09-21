@@ -419,7 +419,7 @@
 	addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade/chem_grenade/cleaner, prime)), det_time)
 	do_after_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/can_attach(obj/mecha/janitor/nkarrdem/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/can_attach(obj/mecha/nkarrdem/M as obj)
 	return ..() && istype(M)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar

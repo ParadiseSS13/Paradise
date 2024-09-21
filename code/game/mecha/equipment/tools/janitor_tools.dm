@@ -2,7 +2,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor
 
-/obj/item/mecha_parts/mecha_equipment/janitor/can_attach(obj/mecha/janitor/M)
+/obj/item/mecha_parts/mecha_equipment/janitor/can_attach(obj/mecha/nkarrdem/M)
 	if(..() && istype(M))
 		return TRUE
 
@@ -119,7 +119,8 @@
 	if(istype(target, /obj/machinery/light))
 		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		target.fix(chassis.occupant, src, emagged)
+		var/obj/machinery/light/light_to_fix = target
+		light_to_fix.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
@@ -139,24 +140,30 @@
 	var/refill_reagent = "cleaner"
 	/// The range of tiles the sprayer will reach.
 	var/spray_range = 4
+	/// Internal sprayer object
+	var/obj/item/reagent_containers/spray/spray_controller = new /obj/item/reagent_containers/spray
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
-	reagents.add_reagent("cleaner", 100)
+	// Setup spray controller
+	spray_controller.loc = src
+	spray_controller.spray_maxrange = spray_range
+	spray_controller.spray_currentrange = spray_range
+	spray_controller.volume = 100
+	spray_controller.reagents.add_reagent("cleaner", 100)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
 	to_chat(user, "<span class='warning'>You short out the automatic watering system on [src].</span>")
-	reagents.clear_reagents()
+	spray_controller.reagents.clear_reagents()
 	refill_reagent = "lube"
 	refill_cost = 50
 	refill_rate = 5
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/action(atom/target)
-	if(reagents.total_volume < 15) // Needs at least enough reagents to apply the full spray
+	if(spray_controller.reagents.total_volume < 15) // Needs at least enough reagents to apply the full spray
 		to_chat(chassis.occupant, "<span class='danger'>*click*</span>")
 		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return
@@ -170,42 +177,43 @@
 		INVOKE_ASYNC(src, PROC_REF(spray), target_turf)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/proc/spray(turf/target)
-	var/obj/effect/decal/chempuff/spray = new /obj/effect/decal/chempuff(get_turf(chassis))
-	var/datum/reagents/R = new/datum/reagents(5)
-	spray.reagents = R
-	R.my_atom = spray
-	reagents.trans_to(spray, 5)
-	spray.icon += mix_color_from_reagents(spray.reagents.reagent_list)
-	for(var/B in 1 to 4)
-		if(QDELETED(spray))
-			return
-		if(spray.reagents.total_volume == 0)
-			qdel(spray)
-			return
-		step_towards(spray, target)
-		if(QDELETED(spray))
-			return
-		var/turf/spray_turf = get_turf(spray)
-		spray.reagents.reaction(spray_turf)
-		for(var/atom/atm in spray_turf)
-			spray.reagents.reaction(atm)
-		if(spray.loc == target)
-			qdel(spray)
-			return
-		sleep(2)
-	qdel(spray)
+	spray_controller.spray(target)
+// 	var/obj/effect/decal/chempuff/spray = new /obj/effect/decal/chempuff(get_turf(chassis))
+// 	var/datum/reagents/R = new/datum/reagents(5)
+// 	spray.reagents = R
+// 	R.my_atom = spray
+// 	reagents.trans_to(spray, 5)
+// 	spray.icon += mix_color_from_reagents(spray.reagents.reagent_list)
+// 	for(var/B in 1 to 4)
+// 		if(QDELETED(spray))
+// 			return
+// 		if(spray.reagents.total_volume == 0)
+// 			qdel(spray)
+// 			return
+// 		step_towards(spray, target)
+// 		if(QDELETED(spray))
+// 			return
+// 		var/turf/spray_turf = get_turf(spray)
+// 		spray.reagents.reaction(spray_turf)
+// 		for(var/atom/atm in spray_turf)
+// 			spray.reagents.reaction(atm)
+// 		if(spray.loc == target)
+// 			qdel(spray)
+// 			return
+	// 	sleep(2)
+	// qdel(spray)
 
 // Auto-regeneration of space cleaner. Takes energy.
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/process()
-	if(reagents.total_volume < 100)
-		reagents.add_reagent(refill_reagent, refill_rate)
+	if(spray_controller.reagents.total_volume < 100)
+		spray_controller.reagents.add_reagent(refill_reagent, refill_rate)
 		chassis.use_power(refill_cost)
 		update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
+		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[spray_controller.reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Topic(href,href_list)
 	..()
