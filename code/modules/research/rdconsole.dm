@@ -478,6 +478,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/user_pass = input(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
+					C.consoles += UID()
 					network_manager_uid = C.UID()
 					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
 				else
@@ -708,6 +709,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return TRUE // update uis
 
 /obj/machinery/computer/rdconsole/proc/unlink()
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.consoles -= UID()
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
