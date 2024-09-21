@@ -1725,7 +1725,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Aj" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/engine,
 /area/ruin/space/telecomms/computer)
 "Ay" = (

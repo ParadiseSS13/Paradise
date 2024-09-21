@@ -2697,7 +2697,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "gu" = (
@@ -6170,7 +6170,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "yR" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plating,
@@ -7005,7 +7005,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/airlock)
 "DA" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
@@ -8085,7 +8085,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "KH" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "KI" = (

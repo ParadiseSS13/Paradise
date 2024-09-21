@@ -69,6 +69,8 @@
 		var/loot_spawned = 0
 		var/pixel_divider = FLOOR(spawn_random_offset_max_pixels / spawn_loot_split_pixel_offsets, 1)
 		while((spawn_loot_count-loot_spawned) && length(loot))
+			loot_spawned++
+
 			var/lootspawn = pick_weight_recursive(loot)
 			if(!spawn_loot_double)
 				loot.Remove(lootspawn)
@@ -76,6 +78,10 @@
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))
 					spawn_loc = pick(spawn_locations)
+
+				if(ispath(lootspawn, /turf))
+					spawn_loc.ChangeTurf(lootspawn)
+					continue
 
 				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
 				spawned_loot.setDir(dir)
@@ -93,7 +99,6 @@
 						var/column = FLOOR(loot_spawned / pixel_divider, 1)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
-			loot_spawned++
 
 /**
  *  Makes the actual item related to our spawner.

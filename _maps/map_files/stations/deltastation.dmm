@@ -5954,7 +5954,7 @@
 	},
 /area/station/maintenance/fore)
 "ayr" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ays" = (
@@ -10780,7 +10780,7 @@
 /area/station/maintenance/fore)
 "aLC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -16499,7 +16499,7 @@
 	},
 /area/station/maintenance/fore)
 "baD" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -30960,7 +30960,7 @@
 /turf/space,
 /area/space/nearstation)
 "bLN" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bLO" = (
@@ -31701,7 +31701,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bNI" = (
@@ -35439,7 +35439,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "bYa" = (
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -65658,7 +65658,7 @@
 	},
 /area/station/medical/surgery/primary)
 "eHp" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "eHD" = (
@@ -68827,8 +68827,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "gyp" = (
@@ -70350,7 +70350,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "huq" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "huN" = (
@@ -73284,7 +73284,7 @@
 	},
 /area/station/engineering/atmos)
 "jhk" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jhr" = (
@@ -75031,7 +75031,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kju" = (
@@ -76677,7 +76677,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "llm" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -77280,7 +77280,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "lAG" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lAO" = (
@@ -77615,7 +77615,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "lMM" = (
-/obj/effect/spawner/random_barrier/wall_probably,
+/obj/effect/spawner/random/barrier/wall_probably,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lNF" = (
@@ -77716,7 +77716,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "lQl" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "lQs" = (
@@ -79051,7 +79051,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "mHK" = (
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
@@ -82227,7 +82227,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "osF" = (
@@ -92852,7 +92852,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
 "ugI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "ugQ" = (
