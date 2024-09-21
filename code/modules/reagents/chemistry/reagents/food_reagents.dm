@@ -687,13 +687,13 @@
 	color = "#FFFF00"
 	taste_description = "salty cheese"
 
-/datum/reagent/consumable/yoghurt
-	name = "yoghurt"
-	id = "yoghurt"
-	description = "Some yoghurt, produced by bacterial fermentation of milk. Yum."
+/datum/reagent/consumable/yogurt
+	name = "yogurt"
+	id = "yogurt"
+	description = "Some yogurt, produced by bacterial fermentation of milk. Yum."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
-	taste_description = "yoghurt"
+	taste_description = "yogurt"
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"

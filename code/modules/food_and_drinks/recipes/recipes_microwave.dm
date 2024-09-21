@@ -1394,7 +1394,7 @@
 	result = /obj/item/food/cheese_balls
 
 /datum/recipe/microwave/red_porridge
-	reagents = list("vanilla" = 5, "sugar" = 5, "yoghurt" = 10)
+	reagents = list("vanilla" = 5, "sugar" = 5, "yogurt" = 10)
 	items = list(
 		/obj/item/food/grown/redbeet
 	)

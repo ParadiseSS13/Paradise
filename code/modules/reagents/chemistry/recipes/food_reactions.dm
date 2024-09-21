@@ -90,10 +90,10 @@
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/food/cheese_curds(location)
 
-/datum/chemical_reaction/yoghurt
-	name = "Yoghurt"
-	id = "yoghurt"
-	result = "yoghurt"
+/datum/chemical_reaction/yogurt
+	name = "Yogurt"
+	id = "yogurt"
+	result = "yogurt"
 	required_reagents = list("milk" = 10, "virusfood" = 2)
 	result_amount = 10
 
