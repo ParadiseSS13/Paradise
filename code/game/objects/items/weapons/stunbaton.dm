@@ -212,7 +212,7 @@
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
 
-	if(cell.charge < hitcost)
+	if(hitcost > 0 && cell?.charge < hitcost)
 		to_chat(user, "<span class='warning'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
 		return FALSE
 
