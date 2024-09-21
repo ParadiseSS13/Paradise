@@ -8359,13 +8359,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "bej" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
-	pixel_x = 8;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -51164,12 +51158,19 @@
 	pixel_x = -5
 	},
 /obj/item/pen{
-	pixel_x = 8;
-	pixel_y = 5
+	pixel_x = 6;
+	pixel_y = 7
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "nct";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access_txt = "80";
+	pixel_y = -2;
+	pixel_x = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -52459,6 +52460,15 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/cargocom)
+"jBw" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable/orange,
+/obj/item/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkgreen"
+	},
+/area/station/procedure/trainer_office)
 "jBJ" = (
 /obj/machinery/door_control{
 	id = "aieva";
@@ -58429,7 +58439,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/nanotrasen_career_trainer,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -66282,14 +66292,22 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "nCm" = (
-/obj/machinery/power/apc/directional/south,
-/obj/item/kirbyplants,
 /obj/structure/cable/orange{
+	d1 = 2;
 	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "2-4"
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
@@ -66389,6 +66407,13 @@
 /area/shuttle/arrival/station)
 "nEu" = (
 /obj/machinery/alarm/directional/west,
+/obj/machinery/camera{
+	c_tag = "Career Trainer's Office";
+	dir = 4;
+	pixel_y = -10
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreen"
@@ -77334,9 +77359,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northwest)
 "qEk" = (
-/obj/machinery/photocopier,
+/obj/structure/closet,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
@@ -90578,7 +90602,8 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Trainer's Office"
+	name = "Trainer's Office";
+	id_tag = "nct"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NCT"
@@ -99625,6 +99650,12 @@
 	pixel_y = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -100986,13 +101017,10 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "xfq" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_y = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -135999,8 +136027,8 @@ bqg
 bqg
 bqg
 bqg
-abE
-abE
+bqg
+bqg
 abE
 abE
 rNK
@@ -136256,7 +136284,7 @@ ker
 nPf
 nEu
 nCm
-bqg
+jBw
 bqg
 abE
 rNK

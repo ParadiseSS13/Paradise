@@ -11696,12 +11696,8 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "cfS" = (
-/obj/machinery/button/windowtint{
-	id = "NCT";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
@@ -18766,6 +18762,13 @@
 	icon_state = "cult"
 	},
 /area/station/service/chapel/office)
+"dzM" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkgreen"
+	},
+/area/station/procedure/trainer_office)
 "dzR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20337,7 +20340,16 @@
 	dir = 10
 	},
 /obj/item/flashlight/lamp/green{
-	pixel_y = 8
+	pixel_y = 8;
+	pixel_x = 5
+	},
+/obj/machinery/door_control{
+	id = "nct";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access_txt = "80";
+	pixel_y = -2;
+	pixel_x = -7
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -28390,17 +28402,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
-"fop" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/corgisuit,
-/obj/item/clothing/head/corgi{
-	pixel_y = 7
-	},
-/obj/structure/sign/poster/official/love_ian{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "fot" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -32267,6 +32268,23 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/brig)
+"fZt" = (
+/obj/machinery/button/windowtint{
+	id = "NCT";
+	pixel_y = 24;
+	pixel_x = 5
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump";
+	pixel_x = -5
+	},
+/obj/structure/closet,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkgreen"
+	},
+/area/station/procedure/trainer_office)
 "fZK" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -34320,6 +34338,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/office)
+"gsr" = (
+/obj/item/flag/ian,
+/turf/simulated/floor/wood,
+/area/station/maintenance/fpmaint)
 "gsu" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/organ/internal/liver/nian,
@@ -38068,15 +38090,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"hde" = (
-/obj/item/kitchen/sushimat{
-	name = "Prayer Mat"
-	},
-/obj/item/clothing/suit/ianshirt{
-	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in. This one in particular looks like it wasnt washed in months"
-	},
-/turf/simulated/floor/wood,
-/area/station/maintenance/fpmaint)
 "hdi" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -40287,6 +40300,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"hxK" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/corgisuit,
+/obj/item/clothing/head/corgi{
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/fpmaint)
 "hxL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42502,10 +42523,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint2)
-"hTO" = (
-/obj/item/flag/ian,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "hUe" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/structure/cable{
@@ -52619,7 +52636,7 @@
 	},
 /obj/machinery/economy/vending/traindrobe,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
@@ -76030,13 +76047,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
-"ofC" = (
-/obj/structure/closet,
-/obj/item/toy/plushie/girly_corgi,
-/obj/item/toy/plushie/robo_corgi,
-/obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "ofE" = (
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -76079,6 +76089,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
+"ogi" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
+/obj/item/toy/plushie/robo_corgi,
+/obj/item/toy/plushie/girly_corgi,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "ogs" = (
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -81364,10 +81381,10 @@
 	},
 /area/station/science/storage)
 "pck" = (
-/obj/effect/spawner/random/maintenance,
 /obj/structure/sign/poster/official/ian{
 	pixel_y = -32
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "pcr" = (
@@ -94174,13 +94191,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "rwZ" = (
-/obj/machinery/door/window/reinforced{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer{
 	dir = 8
 	},
 /obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT";
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -96055,6 +96073,9 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "rNN" = (
@@ -96850,7 +96871,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command/glass{
-	name = "Trainer's Office"
+	name = "Trainer's Office";
+	id_tag = "nct"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -106065,7 +106087,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "tDQ" = (
-/obj/effect/spawner/random/maintenance,
+/obj/structure/sign/poster/official/love_ian{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tDY" = (
@@ -108028,6 +108052,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "tXh" = (
@@ -109273,6 +109298,12 @@
 	pixel_y = -32
 	},
 /obj/effect/landmark/damageturf,
+/obj/item/kitchen/sushimat{
+	name = "Prayer Mat"
+	},
+/obj/item/clothing/suit/ianshirt{
+	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in. This one in particular looks like it wasnt washed in months"
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "uiT" = (
@@ -122850,6 +122881,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
+"wKN" = (
+/obj/structure/lattice,
+/turf/simulated/wall,
+/area/station/maintenance/fpmaint)
 "wKP" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
@@ -157181,17 +157216,17 @@ jnP
 jnP
 jnP
 jnP
-aZS
+wKN
 sik
 sik
 sik
 rtG
 rvy
-sik
-sik
-sik
-sik
-hjW
+iPs
+iPs
+iPs
+iPs
+iPs
 slw
 pRV
 ttR
@@ -157438,14 +157473,14 @@ jnP
 jnP
 jnP
 jnP
-aZS
 sik
 bah
 vqr
-hTO
+gsr
+aSK
 tDQ
-fop
 iPs
+dzM
 jLq
 pXA
 iPs
@@ -157695,14 +157730,14 @@ jnP
 jnP
 jnP
 jnP
-jnP
 sik
 vgB
 iOz
-vtq
 seW
-ofC
+vtq
+hxK
 iPs
+fZt
 cfS
 mNf
 iPs
@@ -157952,12 +157987,12 @@ jnP
 jnP
 jnP
 jnP
-jnP
 sik
 toV
 fdc
-hde
-aSK
+seW
+iOz
+pXZ
 iPs
 rNI
 rwZ
@@ -158209,10 +158244,10 @@ jnP
 jnP
 jnP
 jnP
-jnP
 sik
 iWm
 fdc
+aSK
 cnZ
 pck
 iPs
@@ -158466,11 +158501,11 @@ jnP
 jnP
 jnP
 jnP
-jnP
 sik
 qXC
 oNy
-pXZ
+cnZ
+aSK
 uiJ
 iPs
 chI
@@ -158723,10 +158758,10 @@ aZS
 aZS
 aZS
 jnP
-jnP
 sik
 vEd
 fck
+ogi
 lLd
 pUl
 iPs

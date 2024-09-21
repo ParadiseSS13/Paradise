@@ -518,6 +518,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "agi" = (
@@ -14905,7 +14906,8 @@
 /area/station/service/janitor)
 "bhr" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Trainer's Office"
+	name = "Trainer's Office";
+	id_tag = "nct"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -15068,6 +15070,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Career Trainer's Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -16227,23 +16232,27 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "bkM" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "bkN" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -16254,11 +16263,8 @@
 	name = "Central Emergency Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "NCT"
-	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
+/area/station/procedure/trainer_office)
 "bkQ" = (
 /obj/item/flashlight{
 	pixel_x = 1;
@@ -16938,18 +16944,22 @@
 	},
 /area/station/procedure/trainer_office)
 "bmD" = (
-/obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	pixel_y = 8
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+	pixel_y = 15
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door_control{
+	id = "nct";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access_txt = "80";
+	pixel_y = -1
+	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17724,6 +17734,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/closet,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "boQ" = (
@@ -18110,11 +18121,18 @@
 /obj/machinery/button/windowtint{
 	id = "NCT";
 	pixel_x = 24;
-	dir = 8
+	dir = 8;
+	pixel_y = 5
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
 /obj/machinery/door/window/reinforced/normal{
 	name = "NCT"
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69789,6 +69807,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plating,
 /area/station/service/janitor)
 "oob" = (
@@ -82062,7 +82081,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "tub" = (
-/obj/machinery/requests_console/directional/west,
 /obj/machinery/camera{
 	c_tag = "Custodial Closet";
 	dir = 4
@@ -84898,9 +84916,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/science/explab)
-"uMM" = (
-/turf/simulated/wall,
-/area/station/hallway/primary/starboard)
 "uMR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -89939,15 +89954,14 @@
 /area/station/public/arcade)
 "xbS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = -6
-	},
 /obj/structure/closet/l3closet/janitor,
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_y = 30
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
@@ -127088,7 +127102,7 @@ bhq
 bhq
 bhq
 bhq
-bez
+bhq
 bni
 dnS
 wwo
@@ -127859,7 +127873,7 @@ bhq
 hQS
 lga
 iQu
-uMM
+bhq
 wnn
 bcP
 bqA
