@@ -1,9 +1,9 @@
 /datum/antagonist/mindflayer
-	name = "Mind Flayer"
+	name = "Mindflayer"
 	antag_hud_type = ANTAG_HUD_MIND_FLAYER
 	antag_hud_name = "hudflayer"
 	special_role = SPECIAL_ROLE_MIND_FLAYER
-	wiki_page_name = "Mind Flayer"
+	wiki_page_name = "Mindflayer"
 	/// The current amount of swarms the mind flayer has access to purchase with
 	var/usable_swarms = 0
 	/// The total points of brain damage the flayer has harvested, only used for logging purposes.

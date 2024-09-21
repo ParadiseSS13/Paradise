@@ -274,7 +274,7 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE, species_exclusive = null)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -287,22 +287,29 @@
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, roletext))
+			continue
+		if(player_old_enough_antag(player.client, role))
+			players += player
+
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
-
 	// Get a list of all the people who want to be the antagonist for this round
-	for(var/mob/new_player/player in players)
-		if(!player.client.skip_antag)
-			if(role in player.client.prefs.be_special)
-				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-				candidates += player.mind
-				players -= player
+	for(var/mob/eligible_player in players)
+		if(!eligible_player.client.skip_antag)
+			if(species_exclusive && (eligible_player.client.prefs.active_character.species != species_exclusive))
+				continue
+			if(role in eligible_player.client.prefs.be_special)
+				player_draft_log += "[eligible_player.key] had [roletext] enabled, so we are drafting them."
+				candidates += eligible_player.mind
+				players -= eligible_player
 
 	// Remove candidates who want to be antagonist but have a job (or other antag datum) that precludes it
 	if(restricted_jobs)
-		for(var/datum/mind/player in candidates)
-			if((player.assigned_role in restricted_jobs) || player.special_role)
-				candidates -= player
+		for(var/datum/mind/player_mind in candidates)
+			if((player_mind.assigned_role in restricted_jobs) || player_mind.special_role)
+				candidates -= player_mind
 
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
