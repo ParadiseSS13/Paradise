@@ -1,4 +1,5 @@
 #define MINIMUM_POWER 1 MW
+
 /obj/machinery/power/transmission_laser
 	name = "power transmission laser"
 	desc = "Sends power over a giant laser beam to an NT power processing facility."
@@ -49,7 +50,7 @@
 	/// How much energy have we sold in total (Joules)
 	var/total_energy = 0
 	/// How much energy do you have to sell in order to get an announcement
-	var/announcement_treshold = 1 MJ
+	var/announcement_threshold = 1 MJ
 
 	/// How much credits we have earned in total
 	var/total_earnings = 0
@@ -151,16 +152,16 @@
 	/// The message we send
 	var/message
 	var/flavor_text
-	if(announcement_treshold == 1 MJ)
+	if(announcement_threshold == 1 MJ)
 		message = "PTL account successfully made"
 		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
 		announcement_threshold = 100 MJ
 
-	message = "New milestone reached!\n[DisplayJoules(total_energy)]\n[flavor_text]"
+	message = "New milestone reached!\n[DisplayJoules(announcement_threshold)]\n[flavor_text]"
 
 	announcer.Announce(message)
 
-	announcement_treshold *= 50
+	announcement_threshold *= 50
 
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
@@ -242,7 +243,7 @@
 	if((stat & BROKEN))
 		return
 
-	if(total_energy >= announcement_treshold)
+	if(total_energy >= announcement_threshold)
 		send_ptl_announcement()
 
 	var/last_disp = return_charge()
