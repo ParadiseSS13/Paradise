@@ -27,6 +27,9 @@
 /area/ruin/space/powered)
 "fp" = (
 /obj/effect/turf_decal/delivery/partial,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "fL" = (
@@ -165,6 +168,11 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered)
+"oy" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/ruin/space/powered)
 "rK" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
@@ -225,6 +233,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"vc" = (
+/obj/effect/turf_decal/delivery/partial,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "vN" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -488,10 +503,16 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Md" = (
-/obj/structure/railing{
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
 	dir = 6
 	},
-/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"Mm" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/powered)
 "Mu" = (
 /obj/machinery/light,
@@ -645,9 +666,10 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Zc" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 1
+/obj/structure/railing{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/powered)
 "Zt" = (
 /obj/machinery/sleeper{
@@ -1010,8 +1032,8 @@ xJ
 xJ
 Br
 La
-st
-LX
+oy
+jY
 LX
 BN
 jQ
@@ -1030,8 +1052,8 @@ xJ
 xJ
 La
 La
-st
-LX
+oy
+jY
 Mu
 LW
 LW
@@ -1051,7 +1073,7 @@ ls
 La
 La
 Md
-LX
+jY
 hM
 BN
 jQ
@@ -1090,8 +1112,8 @@ xJ
 Fl
 La
 Ob
-Zc
-fp
+Mm
+vc
 Tf
 LW
 LW
