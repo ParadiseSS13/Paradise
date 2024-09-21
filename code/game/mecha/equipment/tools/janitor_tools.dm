@@ -215,32 +215,33 @@
 	var/bagging = TRUE
 	/// Toggle for wide area or single tile pickups
 	var/extended = FALSE
-	/// List of items currently in the bag
-	var/list/cargo = list()
-	/// How many different items can be in the bag?
-	var/cargo_slots = 100
-	/// How much weight is the maximum for the bag?
-	var/cargo_max_weight = 100
-	/// Largest weight class that can fit in the bag
-	var/max_weight_class = WEIGHT_CLASS_NORMAL
+	/// Garbage magnet range
+	var/max_range = 3
 	/// List of items the bag cannot hold
 	var/list/cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel, /obj/item/storage/bag)
+	/// Handles controlling the storage of items
+	var/obj/item/storage/bag/trash/storage_controller = new /obj/item/storage/bag/trash
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/Initialize(mapload)
 	. = ..()
-	cant_hold = typecacheof(cant_hold)
+	storage_controller.loc = src
+	storage_controller.storage_slots = 100
+	storage_controller.max_combined_w_class = 100
+	storage_controller.max_w_class = WEIGHT_CLASS_NORMAL
+	storage_controller.w_class = WEIGHT_CLASS_NORMAL
+	storage_controller.allow_same_size = TRUE // This needs to be true or it won't be able to pick up smaller storages like boxes
+	storage_controller.cant_hold = typecacheof(cant_hold)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/deconstruct()
 	var/turf/T = get_turf(src)
-	for(var/obj/item/I in cargo)
+	for(var/obj/item/I in storage_controller.contents)
 		I.forceMove(T)
-	cargo.Cut()
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[<a href='byond://?src=[UID()];toggle_bagging=1'>[bagging? "Filling" : "Dumping"]</a>\] \[<a href='byond://?src=[UID()];toggle_extended=1'>Area [extended? "Extended" : "Focused"]</a>\] \[Cargo: [length(cargo)]/[cargo_max_weight]</a>\]\]"
+		return "[output] \[<a href='byond://?src=[UID()];toggle_bagging=1'>[bagging? "Filling" : "Dumping"]</a>\] \[<a href='byond://?src=[UID()];toggle_extended=1'>Area [extended? "Extended" : "Focused"]</a>\] \[Cargo: [length(storage_controller.contents)]/[storage_controller.max_combined_w_class]</a>\]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/Topic(href,href_list)
 	..()
@@ -255,15 +256,16 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/action(atom/target)
+	if(get_dist(chassis, target) > max_range)
+		return
 	if(istype(target, /obj/machinery/disposal)) // Emptying stuff into disposals
 		chassis.occupant.visible_message(
 			"<span class='notice'>[chassis.occupant] empties [src] into the disposal unit.</span>",
 			"<span class='notice'>You empty [src] into disposal unit.</span>",
 			"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
 		)
-		for(var/obj/item/I in cargo)
+		for(var/obj/item/I in storage_controller.contents)
 			I.forceMove(target)
-		cargo.Cut()
 		return
 	var/turf/target_turf
 	if(iswallturf(target))
@@ -276,62 +278,16 @@
 		if(extended) // If extended reach
 			for(var/turf/current_target_turf in view(1, target_turf))
 				for(var/obj/item/I in current_target_turf.contents)
-					if(can_be_inserted(I))
-						cargo += I
-						I.forceMove(chassis)
+					if(storage_controller.can_be_inserted(I))
+						I.forceMove(storage_controller)
 		else // Single turf
 			for(var/obj/item/I in target_turf.contents)
-				if(can_be_inserted(I))
-					cargo += I
-					I.forceMove(chassis)
-		chassis.occupant_message("You pick up all the items with [src]. Cargo compartment capacity: [cargo_max_weight - length(cargo)]")
+				if(storage_controller.can_be_inserted(I))
+					I.forceMove(storage_controller)
+		chassis.occupant_message("You pick up all the items with [src]. Remaining cargo compartment capacity: [storage_controller.max_combined_w_class - length(storage_controller.contents)]")
 
 	else // Dumping
-		for(var/obj/item/I in cargo)
+		for(var/obj/item/I in storage_controller.contents)
 			I.forceMove(target_turf)
-		cargo.Cut()
 		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
 	update_equip_info()
-
-/obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/proc/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(!istype(I) || (I.flags & ABSTRACT)) // Not an item
-		return
-
-	if(loc == I)
-		return FALSE // Means the item is already in the storage item
-
-	if(!I.can_enter_storage(src, usr))
-		return FALSE
-
-	if(length(contents) >= cargo_slots)
-		if(!stop_messages)
-			chassis.occupant_message("[I] won't fit in [src], make some space!")
-		return FALSE // Storage item is full
-
-	if(is_type_in_typecache(I, cant_hold)) // Check for specific items which this container can't hold.
-		if(!stop_messages)
-			chassis.occupant_message("[src] cannot hold [I].")
-		return FALSE
-
-	if(length(cant_hold) && isstorage(I)) // Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
-		var/obj/item/storage/S = I
-		for(var/obj/A as anything in S.return_inv())
-			if(is_type_in_typecache(A, cant_hold))
-				if(!stop_messages)
-					chassis.occupant_message("[src] rejects [I] because of its contents.")
-				return FALSE
-
-	if(I.w_class > max_weight_class)
-		if(!stop_messages)
-			chassis.occupant_message("[I] is too big for [src].")
-		return FALSE
-
-	var/sum_w_class = I.w_class
-	for(var/obj/item/item in contents)
-		sum_w_class += item.w_class // Adds up the combined w_classes which will be in the storage item if the item is added to it.
-
-	if(sum_w_class > cargo_max_weight)
-		if(!stop_messages)
-			chassis.occupant_message("[src] is full, make some space.")
-		return FALSE
-	return TRUE
