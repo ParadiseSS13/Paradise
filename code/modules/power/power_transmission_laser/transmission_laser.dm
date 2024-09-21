@@ -69,19 +69,58 @@
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
-
 	range = get_dist(get_step(get_front_turf(), dir), get_edge_target_turf(get_front_turf(), dir))
-	AddComponent(/datum/component/multitile, 1, list(
-		list(0, 0, 			1,			1, 1),
-		list(0, 0, 			1,			1, 1),
-		list(0, 0, 		MACH_CENTER, 	1, 1),
-		list(0, 0, 			0, 			0, 0),
-		list(0, 0, 			0, 			0, 0),
-	))
+	handle_offset()
 	if(!powernet)
 		connect_to_network()
 	update_icon()
 
+/obj/machinery/power/transmission_laser/proc/handle_offset()
+	switch(dir)
+		if(NORTH)
+			pixel_x = -64
+			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
+			oldmap?.Destroy()
+			AddComponent(/datum/component/multitile, 2, list(
+				list(0, 0, 			1,			1, 0),
+				list(0, 0, 			1,			1, 1),
+				list(0, 0, 		MACH_CENTER, 	1, 0),
+				list(0, 0, 			0, 			0, 0),
+				list(0, 0, 			0, 			0, 0),
+			))
+		if(SOUTH)
+			pixel_x = 0
+			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
+			oldmap?.Destroy()
+			AddComponent(/datum/component/multitile, 2, list(
+				list(0, 1, 			1,			0, 0),
+				list(1, 1, 			1,			0, 0),
+				list(0, 1, 		MACH_CENTER, 	0, 0),
+				list(0, 0, 			0, 			0, 0),
+				list(0, 0, 			0, 			0, 0),
+			))
+		if(WEST)
+			pixel_x = -64
+			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
+			oldmap?.Destroy()
+			AddComponent(/datum/component/multitile, 2, list(
+				list(0, 0, 			1,			1, 0),
+				list(0, 0, 			1,			1, 1),
+				list(0, 0, 		MACH_CENTER, 	1, 0),
+				list(0, 0, 			0, 			0, 0),
+				list(0, 0, 			0, 			0, 0),
+			))
+		if(EAST)
+			pixel_x = 0
+			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
+			oldmap?.Destroy()
+			AddComponent(/datum/component/multitile, 2, list(
+				list(0, 1, 			1,			0, 0),
+				list(1, 1, 			1,			0, 0),
+				list(0, 1, 		MACH_CENTER, 	0, 0),
+				list(0, 0, 			0, 			0, 0),
+				list(0, 0, 			0, 			0, 0),
+			))
 
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
@@ -289,40 +328,35 @@
 			qdel(listed_atom)
 
 	else
-		sell_power(output_level)
+		sell_power(output_level * WATT_TICK_TO_JOULE)
 
 	charge -= output_level
 
 //// Selling defines are here
-#define MINIMUM_BAR 25
+#define MINIMUM_BAR 1
 #define PROCESS_CAP 5000000 - MINIMUM_BAR
 
-#define A1_CURVE 70
+#define A1_CURVE 20
 
-/obj/machinery/power/transmission_laser/proc/sell_power(power_amount)
-	var/mw_power = power_amount / (1 MW)
+/obj/machinery/power/transmission_laser/proc/sell_power(joules)
+	var/mega_joules = joules / (1 MW)
 
-	var/generated_cash = (2 * mw_power * PROCESS_CAP) / (2 * mw_power + PROCESS_CAP * A1_CURVE)
-	generated_cash += (4 * mw_power * MINIMUM_BAR) / (4 * mw_power + MINIMUM_BAR)
+	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / (2 * mega_joules + PROCESS_CAP * A1_CURVE)
+	generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
 	generated_cash = round(generated_cash)
 	if(generated_cash < 0)
 		return
 
-	total_energy += WATT_TICK_TO_JOULE * power_amount
+	total_energy += mega_joules
 	total_earnings += generated_cash
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
 
 	var/datum/money_account/engineering_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_ENGINEERING)
 	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
-	var/datum/money_account/security_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SECURITY)
 
 	var/medium_cut = generated_cash * 0.25
-	var/high_cut = generated_cash * 0.50
-
-	/// The other 25% will be sent to engineers in the future but for now its stored inside
-	security_bank_account.deposit_credits(medium_cut, "Transmission Laser Payout")
-	unsent_earnings -= medium_cut
+	var/high_cut = generated_cash * 0.75
 
 	cargo_bank_account.deposit_credits(medium_cut, "Transmission Laser Payout")
 	unsent_earnings -= medium_cut
