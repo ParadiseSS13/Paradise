@@ -65,14 +65,16 @@
 	var/input_pulling = 0
 	/// Announcement configuration for updates
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/ptl)
+	/// Last direction the laser was pointing. So offset doesn't get handles when it doesn't need to
+	var/last_dir = 0
 
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
 	range = get_dist(get_step(get_front_turf(), dir), get_edge_target_turf(get_front_turf(), dir))
-	handle_offset()
 	if(!powernet)
 		connect_to_network()
+	handle_offset()
 	update_icon()
 
 /obj/machinery/power/transmission_laser/proc/handle_offset()
@@ -146,7 +148,7 @@
 	// x-x-x
 	// o-x-x
 	//which would mean finding the true front turf would require centering than taking a step in the primary direction
-	var/turf/center = locate(x + 1, y + 1, z)
+	var/turf/center = locate(x + 1 + round(pixel_x / 32), y + 1 + round(pixel_y / 32), z)
 	if(!center)///what
 		return
 	return get_step(center, dir)
