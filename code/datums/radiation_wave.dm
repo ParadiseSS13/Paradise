@@ -52,8 +52,8 @@
 	var/list/atoms = get_rad_atoms()
 
 	var/strength
-	if(steps > radius + 1)
-		strength = INVERSE_SQUARE(intensity, max(range_modifier * (steps - radius), 1), 1)
+	if(steps > source_radius + 1)
+		strength = INVERSE_SQUARE(intensity, max(range_modifier * (steps - source_radius), 1), 1)
 	else
 		strength = intensity
 
