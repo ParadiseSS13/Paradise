@@ -20,6 +20,7 @@
 		<a href='byond://?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -286,6 +287,23 @@
 
 		return 1
 	return 0
+
+/datum/admins/proc/makeMindflayers()
+	var/datum/game_mode/vampire/temp = new
+	var/input_num = input(owner, "How many vampires you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!input_num || input_num <= 0)
+		return FALSE
+	log_admin("[key_name(owner)] tried making [input_num] Mindflayers with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [input_num] Mindflayers with One-Click-Antag")
+	var/list/possible_mindflayers = temp.get_players_for_role(ROLE_MIND_FLAYER, FALSE, "Machine")
+	var/num_mindflayers = min(length(possible_mindflayers), input_num)
+	if(!num_mindflayers)
+		return FALSE
+	for(var/i = 0, i < num_mindflayers, i++)
+		var/datum/mind/flayer = pick_n_take(possible_mindflayers)
+		flayer.make_mind_flayer()
+	temp = null
+	return TRUE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 	var/max_thunderdome_players = 10
