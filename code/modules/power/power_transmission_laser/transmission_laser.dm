@@ -70,11 +70,12 @@
 	. = ..()
 
 	range = get_dist(get_step(get_front_turf(), dir), get_edge_target_turf(get_front_turf(), dir))
-	var/turf/back_turf = get_step(get_back_turf(), turn(dir, 180))
 	AddComponent(/datum/component/multitile, 1, list(
-		list(1, 	1,			1),
-		list(1, 	1,			1),
-		list(1, MACH_CENTER, 	1),
+		list(0, 0, 			1,			1, 1),
+		list(0, 0, 			1,			1, 1),
+		list(0, 0, 		MACH_CENTER, 	1, 1),
+		list(0, 0, 			0, 			0, 0),
+		list(0, 0, 			0, 			0, 0),
 	))
 	if(!powernet)
 		connect_to_network()
@@ -153,12 +154,13 @@
 	if(announcement_treshold == 1 MJ)
 		message = "PTL account successfully made"
 		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
+		announcement_threshold = 100 MJ
 
-	message = "New milestone reached!\n[message]\n[flavor_text]"
+	message = "New milestone reached!\n[DisplayJoules(total_energy)]\n[flavor_text]"
 
 	announcer.Announce(message)
 
-	announcement_treshold *= 10
+	announcement_treshold *= 50
 
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
@@ -207,6 +209,8 @@
 			update_icon()
 		if("toggle_output")
 			firing = !firing
+			if(!firing)
+				destroy_lasers()
 			update_icon()
 
 		if("set_input")
@@ -235,7 +239,7 @@
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = get_surplus()
 	input_available = get_surplus()
-	if((stat & BROKEN) || !turned_on)
+	if((stat & BROKEN))
 		return
 
 	if(total_energy >= announcement_treshold)
@@ -248,7 +252,7 @@
 	if(last_disp != return_charge() || last_chrg != inputting || last_fire != firing)
 		update_icon()
 
-	if(powernet && input_attempt)
+	if(powernet && input_attempt && turned_on)
 		input_pulling = min(input_available , input_number * power_format_multi)
 
 		if(inputting)
@@ -303,7 +307,7 @@
 	if(generated_cash < 0)
 		return
 
-	total_energy += power_amount
+	total_energy += WATT_TICK_TO_JOULE * power_amount
 	total_earnings += generated_cash
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
@@ -343,8 +347,6 @@
 		last_step = get_step(last_step, dir)
 
 /obj/machinery/power/transmission_laser/proc/destroy_lasers()
-	if(firing) // This is incase we turn the laser back on manually
-		return
 	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
 		laser_effects -= listed_beam
 		qdel(listed_beam)

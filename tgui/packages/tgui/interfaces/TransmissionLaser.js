@@ -10,8 +10,8 @@ import { Box, Button, Knob, LabeledList, NoticeBox, ProgressBar, Section } from 
 import { formatMoney, formatSiUnit, formatPower } from '../format';
 import { Window } from '../layouts';
 
-export const TransmissionLaser = (props) => {
-  const { data } = useBackend();
+export const TransmissionLaser = (props, context) => {
+  const { data } = useBackend(context);
   const { total_earnings, name = 'Power Transmission Laser' } = data;
   return (
     <Window title="Power Transmission Laser" width="310" height="485">
@@ -25,15 +25,15 @@ export const TransmissionLaser = (props) => {
   );
 };
 
-const Status = (props) => {
-  const { data } = useBackend();
+const Status = (props, context) => {
+  const { data } = useBackend(context);
   const { max_capacity, held_power, output_total, max_grid_load } = data;
 
   return (
     <Section title="Status">
       <LabeledList>
-        <LabeledList.Item label="Reserve Power">
-          {held_power ? formatSiUnit(held_power, 0, 'W') : '0 J'}
+        <LabeledList.Item label="Reserve energy">
+          {held_power ? formatSiUnit(held_power, 0, 'J') : '0 J'}
         </LabeledList.Item>
       </LabeledList>
       <ProgressBar
@@ -62,8 +62,8 @@ const Status = (props) => {
   );
 };
 
-const InputControls = (props) => {
-  const { act, data } = useBackend();
+const InputControls = (props, context) => {
+  const { act, data } = useBackend(context);
   const { input_total, accepting_power, sucking_power, input_number, power_format } = data;
 
   return (
@@ -108,8 +108,8 @@ const InputControls = (props) => {
   );
 };
 
-const OutputControls = (props) => {
-  const { act, data } = useBackend();
+const OutputControls = (props, context) => {
+  const { act, data } = useBackend(context);
   const { output_total, firing, accepting_power, output_number, output_multiplier } = data;
 
   return (
