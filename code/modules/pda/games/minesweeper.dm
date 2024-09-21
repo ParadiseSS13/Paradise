@@ -57,6 +57,7 @@
 
 					if(minesweeper_matrix[params["X"]][params["Y"]]["bomb"])
 						on_loose(ui.user)
+						SStgui.update_uis(pda)
 						return
 
 				if("flag")
@@ -75,6 +76,7 @@
 							flagged_bombs += 1
 
 			check_win(ui.user)
+			SStgui.update_uis(pda)
 
 /datum/data/pda/app/game/minesweeper/proc/check_win(mob/user)
 	if(flagged_bombs == generation_bombs && \
