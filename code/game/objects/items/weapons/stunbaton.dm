@@ -366,7 +366,7 @@
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
 		disable_radio(L)
-		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), radio_disable_time)
+		L.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), L), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE |TIMER_STOPPABLE | TIMER_DELETE_ME)
 		return TRUE
 	return FALSE
 
