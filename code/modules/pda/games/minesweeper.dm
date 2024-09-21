@@ -86,7 +86,8 @@
 
 /datum/data/pda/app/game/minesweeper/proc/on_win(mob/user)
 	ignore_touches = TRUE
-	playsound(get_turf(pda), 'sound/machines/ping.ogg', 20, 1)
+	if(!pda.silent)
+		playsound(get_turf(pda), 'sound/machines/ping.ogg', 20, 1)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 	add_into_leaders(user, world.time - start_time)
 
@@ -99,8 +100,9 @@
 
 /datum/data/pda/app/game/minesweeper/proc/on_loose(mob/user)
 	ignore_touches = TRUE
-	playsound(get_turf(pda), 'sound/effects/explosionfar.ogg', 50, 1)
-	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
+	if(!pda.silent)
+		playsound(get_turf(pda), 'sound/effects/explosionfar.ogg', 50, 1)
+	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 3 SECONDS)
 
 /datum/data/pda/app/game/minesweeper/proc/make_empty_matr(pay = TRUE)
 	minesweeper_matrix = list()
