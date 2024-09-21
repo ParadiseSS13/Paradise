@@ -3,7 +3,7 @@
 	name = "power transmission laser"
 	desc = "Sends power over a giant laser beam to an NT power processing facility."
 
-	icon = 'icons/obj/pt_laser.dmi'
+	icon = 'icons/obj/machines/pt_laser.dmi'
 	icon_state = "ptl"
 
 	max_integrity = 10000
@@ -11,12 +11,7 @@
 	density = TRUE
 	anchored = TRUE
 
-	/// 3x3 tiles
-	pixel_y = -96
-
 	/// Variables go below here
-	/// The terminal this is connected to
-	var/obj/machinery/power/terminal/terminal = null
 	/// The range we have this basically determines how far the beam goes its redone on creation so its set to a small number here
 	var/range = 5
 	/// Amount of power we are outputting
@@ -76,19 +71,13 @@
 
 	range = get_dist(get_step(get_front_turf(), dir), get_edge_target_turf(get_front_turf(), dir))
 	var/turf/back_turf = get_step(get_back_turf(), turn(dir, 180))
-	terminal = locate(/obj/machinery/power/terminal) in back_turf
-
-	if(!terminal)
-		machine_stat |= BROKEN
-		return
-	terminal.master = src
 	AddComponent(/datum/component/multitile, 1, list(
-		list(0, 1, 1,			1, 0),
-		list(0, 1, 1,			1, 0),
-		list(0, 1, MACH_CENTER, 1, 0),
-		list(0, 0, 0,		   	0, 0),
-		list(0, 0, 0,		   	0, 0),
+		list(1, 	1,			1),
+		list(1, 	1,			1),
+		list(1, MACH_CENTER, 	1),
 	))
+	if(!powernet)
+		connect_to_network()
 	update_icon()
 
 
@@ -123,14 +112,14 @@
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
-	. += span_notice("Laser currently has [unsent_earnings] unsent credits.")
-	. += span_notice("Laser has generated [total_earnings] credits.")
-	. += span_notice("Laser has sold [total_energy] Watts")
+	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.<span/>"
+	. += "<span class='notice'>Laser has generated [total_earnings] credits.<span/>"
+	. += "<span class='notice'>Laser has sold [total_energy] Joules<span/>"
 ///appearance changes are here
 
 /obj/machinery/power/transmission_laser/update_overlays()
 	. = ..()
-	if((machine_stat & BROKEN) || !charge)
+	if((stat & BROKEN) || !charge)
 		. += "unpowered"
 		return
 	if(input_available > 0)
@@ -165,11 +154,14 @@
 		message = "PTL account successfully made"
 		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
 
-	message = "New milestone reached!\n[message]"
+	message = "New milestone reached!\n[message]\n[flavor_text]"
 
 	announcer.Announce(message)
 
 	announcement_treshold *= 10
+
+/obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+	ui_interact(user)
 
 /obj/machinery/power/transmission_laser/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -241,9 +233,9 @@
 			power_format_multi_output = 1 GW
 
 /obj/machinery/power/transmission_laser/process()
-	max_grid_load = terminal.surplus()
-	input_available = terminal.surplus()
-	if((machine_stat & BROKEN) || !turned_on)
+	max_grid_load = get_surplus()
+	input_available = get_surplus()
+	if((stat & BROKEN) || !turned_on)
 		return
 
 	if(total_energy >= announcement_treshold)
@@ -256,12 +248,12 @@
 	if(last_disp != return_charge() || last_chrg != inputting || last_fire != firing)
 		update_icon()
 
-	if(terminal && input_attempt)
+	if(powernet && input_attempt)
 		input_pulling = min(input_available , input_number * power_format_multi)
 
 		if(inputting)
 			if(input_pulling > 0)
-				terminal.add_load(input_pulling)
+				consume_direct_power(input_pulling)
 				charge += input_pulling
 			else
 				inputting = FALSE
@@ -287,7 +279,7 @@
 	if(length(blocked_objects))
 		var/atom/listed_atom = blocked_objects[1]
 		if(prob(max((abs(output_level) * 0.1) / 500 KW, 1))) ///increased by a single % per 500 KW
-			listed_atom.visible_message(span_danger("[listed_atom] is melted away by the [src]!"))
+			listed_atom.visible_message("<span class='danger'>[listed_atom] is melted away by the [src]!<span/>")
 			blocked_objects -= listed_atom
 			qdel(listed_atom)
 
@@ -316,21 +308,21 @@
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
 
-	var/datum/bank_account/department/engineering_bank_account = SSeconomy.get_dep_account(ACCOUNT_ENG)
-	var/datum/bank_account/department/cargo_bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	var/datum/bank_account/department/security_bank_account = SSeconomy.get_dep_account(ACCOUNT_SEC)
+	var/datum/money_account/engineering_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_ENGINEERING)
+	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
+	var/datum/money_account/security_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SECURITY)
 
 	var/medium_cut = generated_cash * 0.25
 	var/high_cut = generated_cash * 0.50
 
 	/// The other 25% will be sent to engineers in the future but for now its stored inside
-	security_bank_account.adjust_money(medium_cut, "Transmission Laser Payout")
+	security_bank_account.deposit_credits(medium_cut, "Transmission Laser Payout")
 	unsent_earnings -= medium_cut
 
-	cargo_bank_account.adjust_money(medium_cut, "Transmission Laser Payout")
+	cargo_bank_account.deposit_credits(medium_cut, "Transmission Laser Payout")
 	unsent_earnings -= medium_cut
 
-	engineering_bank_account.adjust_money(high_cut, "Transmission Laser Payout")
+	engineering_bank_account.deposit_credits(high_cut, "Transmission Laser Payout")
 	unsent_earnings -= high_cut
 
 #undef A1_CURVE
@@ -377,7 +369,7 @@
 
 /obj/effect/transmission_beam
 	name = "Shimmering beam"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/machines/pt_beam.dmi'
 	icon_state = "ptl_beam"
 	anchored = TRUE
 
