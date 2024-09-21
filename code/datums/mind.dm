@@ -1127,11 +1127,10 @@
 					log_admin("[key_name(usr)] has de-flayer'd [key_name(current)].")
 					message_admins("[key_name(usr)] has de-flayer'd [key_name(current)].")
 			if("mind_flayer")
-				if(!has_antag_datum(/datum/antagonist/mindflayer))
-					add_antag_datum(/datum/antagonist/mindflayer)
-					log_admin("[key_name(usr)] has flayer'd [key_name(current)].")
-					to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>")
-					message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
+				make_mind_flayer()
+				log_admin("[key_name(usr)] has flayer'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>")
+				message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
 			if("edit_total_swarms")
 				var/new_swarms = input(usr, "Select a new value:", "Modify swarms") as null|num
 				if(isnull(new_swarms) || new_swarms < 0)
@@ -1726,6 +1725,7 @@
 /datum/mind/proc/make_mind_flayer()
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
+		SSticker.mode.mindflayers |= src
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
