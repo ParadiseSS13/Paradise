@@ -17,7 +17,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
-	origin_tech = "magnets=3;bluespace=4"
+	origin_tech = null
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/icon_state_inactive = "hand_tele_inactive"

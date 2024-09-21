@@ -84,6 +84,7 @@
 		"Misc"
 	)
 
+	output_dir = dir
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/mecha_part_fabricator/LateInitialize()
@@ -212,6 +213,11 @@
 		return
 	if(stat & NOPOWER)
 		atom_say("Error: Insufficient power!")
+		return
+
+	var/turf_to_print_on = get_step(src, output_dir)
+	if(iswallturf(turf_to_print_on))
+		atom_say("Error: Output blocked by a wall!")
 		return
 
 	// Subtract the materials from the holder
@@ -449,6 +455,7 @@
 				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
+					C.mechfabs += UID()
 					network_manager_uid = C.UID()
 					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
 				else
@@ -531,6 +538,8 @@
 	add_fingerprint(usr)
 
 /obj/machinery/mecha_part_fabricator/proc/unlink()
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.mechfabs -= UID()
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
