@@ -160,7 +160,7 @@
 
 	announcement_treshold *= 10
 
-/obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+/obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/transmission_laser/ui_interact(mob/user, datum/tgui/ui)
