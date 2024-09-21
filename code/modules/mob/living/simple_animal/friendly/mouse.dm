@@ -1,13 +1,3 @@
-#define MOUSE_SNIFF 	"idle1"
-#define MOUSE_SHAKE 	"idle2"
-#define MOUSE_SCRATCH 	"idle3"
-#define MOUSE_WASHUP 	"idle4"
-#define MOUSE_FLOWER 	"flower"
-#define MOUSE_SMOKE 	"smoke"
-#define MOUSE_THUMB 	"thumb_up"
-#define MOUSE_DANCE 	"dance"
-#define MOUSE_SHAKEASS 	"ass"
-
 /mob/living/simple_animal/mouse
 	name = "mouse"
 	real_name = "mouse"
@@ -83,7 +73,7 @@
 	if(IS_HORIZONTAL(src))
 		if(prob(1))
 			stand_up()
-			do_idle_animation(pick(MOUSE_SNIFF, MOUSE_SCRATCH, MOUSE_SHAKE, MOUSE_WASHUP))
+			do_idle_animation(pick("idle1", "idle2", "idle3", "idle4"))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))

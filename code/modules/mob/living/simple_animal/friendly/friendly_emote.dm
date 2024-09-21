@@ -71,7 +71,7 @@
 	cooldown = 20 SECONDS
 	audio_cooldown = 20 SECONDS
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
-	var/anim_type = MOUSE_SNIFF
+	var/anim_type = "idle1"
 	var/duration = 2 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
@@ -85,53 +85,53 @@
 	key = "mshake"
 	key_third_person = "mshakes"
 	message = "shakes!"
-	anim_type = MOUSE_SHAKE
+	anim_type = "idle2"
 
 /datum/emote/living/simple_animal/mouse/idle/scratch
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "scratches itseld!"
-	anim_type = MOUSE_SCRATCH
+	anim_type = "idle2"
 
 /datum/emote/living/simple_animal/mouse/idle/washup
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "washes up itself!"
-	anim_type = MOUSE_WASHUP
+	anim_type = "idle3"
 
 /datum/emote/living/simple_animal/mouse/idle/flower
 	key = "mshowflower"
 	key_third_person = "mshowsflower"
 	message = "shows a flower!"
-	anim_type = MOUSE_FLOWER
+	anim_type = "flower"
 	duration = 4 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/smoke
 	key = "msmoke"
 	key_third_person = "msmokes"
 	message = "smokes!"
-	anim_type = MOUSE_SMOKE
+	anim_type = "smoke"
 	duration = 7 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/thumb_up
 	key = "mthumbup"
 	key_third_person = "mthumbup"
 	message = "gives a thumbs-up!"
-	anim_type = MOUSE_THUMB
+	anim_type = "thumb_up"
 	duration = 4 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/dance
 	key = "mdance"
 	key_third_person = "mdances"
 	message = "dances!"
-	anim_type = MOUSE_DANCE
+	anim_type = "dance"
 	duration = 7 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/shakeass
 	key = "mshakeass"
 	key_third_person = "mshakesass"
 	message = "shakes ass!"
-	anim_type = MOUSE_SHAKEASS
+	anim_type = "ass"
 
 // cat
 
