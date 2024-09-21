@@ -14,13 +14,19 @@ export const pda_minesweeper = (props, context) => {
 
   return (
     <Stack fill vertical textAlign="center">
-      <Box height="90%">{currentWindow === 'Game' ? <MineSweeperGame /> : <MineSweeperLeaderboard />}</Box>
-      <Button height="10%" translucent onClick={() => setWindow(AltWindow[currentWindow])}>
-        <Box mt="14px" fontSize="24px" verticalAlign="middle">
-          <Icon name={currentWindow === 'Game' ? 'book' : 'gamepad'} />
+      <Stack.Item grow>{currentWindow === 'Game' ? <MineSweeperGame /> : <MineSweeperLeaderboard />}</Stack.Item>
+      <Stack.Item>
+        <Button
+          fluid
+          translucent
+          fontSize={2}
+          lineHeight={1.75}
+          icon={currentWindow === 'Game' ? 'book' : 'gamepad'}
+          onClick={() => setWindow(AltWindow[currentWindow])}
+        >
           {AltWindow[currentWindow]}
-        </Box>
-      </Button>
+        </Button>
+      </Stack.Item>
     </Stack>
   );
 };
@@ -40,15 +46,11 @@ export const MineSweeperGame = (props, context) => {
     8: 'white',
   };
 
-  document.addEventListener('contextmenu', (event) => event.preventDefault());
-  const handleClick = (e, row, cell) => {
-    if (e.button !== 0 && e.button !== 2) {
-      return;
-    }
+  const handleClick = (row, cell, mode) => {
     act('Square', {
       'X': row,
       'Y': cell,
-      'mode': e.button === 2 ? 'flag' : 'bomb',
+      'mode': mode,
     });
   };
 
@@ -60,9 +62,9 @@ export const MineSweeperGame = (props, context) => {
             {Object.keys(matrix[row]).map((cell) => (
               <Button
                 key={cell}
-                m="1px"
-                height="25px"
-                width="25px"
+                m={0.25}
+                height={2}
+                width={2}
                 className={matrix[row][cell]['open'] ? 'Minesweeper__open' : 'Minesweeper__closed'}
                 bold
                 color="transparent"
@@ -84,7 +86,11 @@ export const MineSweeperGame = (props, context) => {
                       ? 'red'
                       : 'gray'
                 }
-                onMouseDown={(e) => handleClick(e, row, cell)}
+                onClick={(e) => handleClick(row, cell, 'bomb')}
+                onContextMenu={(e) => {
+                  event.preventDefault();
+                  handleClick(row, cell, 'flag');
+                }}
               >
                 {!!matrix[row][cell]['open'] && !matrix[row][cell]['bomb'] && matrix[row][cell]['around']
                   ? matrix[row][cell]['around']
@@ -94,14 +100,16 @@ export const MineSweeperGame = (props, context) => {
           </Box>
         ))}
       </Stack.Item>
-      <Stack.Item ml="15px" mt="10px" grow>
-        <Section className="Minesweeper__infobox" width="100%">
-          <Box>
-            <Icon name="bomb" color="gray" />: {bombs}
-            <br />
-            <Icon name="flag" color="red" />: {flags}
-          </Box>
-        </Section>
+      <Stack.Item grow className="Minesweeper__infobox">
+        <Stack vertical textAlign="left" pt={1}>
+          <Stack.Item pl={2} fontSize={2}>
+            <Icon name="bomb" color="gray" /> : {bombs}
+          </Stack.Item>
+          <Stack.Divider />
+          <Stack.Item pl={2} fontSize={2}>
+            <Icon name="flag" color="red" /> : {flags}
+          </Stack.Item>
+        </Stack>
       </Stack.Item>
     </Stack>
   );
