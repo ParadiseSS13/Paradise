@@ -63,8 +63,8 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/melee/saber/attack(mob/living/target, mob/living/user)
-	if (user.a_intent == INTENT_HELP && ishuman(target))
-		if (!slap_on_cooldown)
+	if(user.a_intent == INTENT_HELP && ishuman(target))
+		if(!slap_on_cooldown)
 			var/mob/living/carbon/human/H = target
 			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 				user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
