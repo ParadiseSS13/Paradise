@@ -26,6 +26,7 @@
 		return FALSE
 	if(!weapon_ref)
 		weapon_ref = new weapon_type(user, src)
+		weapon_ref.flags |= ABSTRACT | NODROP
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
 	weapon_ref.flags |= NODROP
