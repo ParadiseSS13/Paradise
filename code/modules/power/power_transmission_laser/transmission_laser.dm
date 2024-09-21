@@ -11,62 +11,65 @@
 	density = TRUE
 	anchored = TRUE
 
-	///3x3 tiles
+	/// 3x3 tiles
 	pixel_y = -96
 
-	///variables go below here
-	///the terminal this is connected to
+	/// Variables go below here
+	/// The terminal this is connected to
 	var/obj/machinery/power/terminal/terminal = null
-	///the range we have this basically determines how far the beam goes its redone on creation so its set to a small number here
+	/// The range we have this basically determines how far the beam goes its redone on creation so its set to a small number here
 	var/range = 5
-	///amount of power we are outputting
+	/// Amount of power we are outputting
 	var/output_level = 0
-	///the total capacity of the laser
+	/// The total capacity of the laser
 	var/capacity = INFINITY
-	///our current charge
+	/// Our current charge
 	var/charge = 0
-	///should we try to input charge paired with the var below to check if its fully inputing
+	/// Should we try to input charge paired with the var below to check if its fully inputing
 	var/input_attempt = TRUE
-	///are we currently inputting
+	/// Are we currently inputting
 	var/inputting = TRUE
-	///the amount of charge coming in from the inputs last tick
+	/// The amount of charge coming in from the inputs last tick
 	var/input_available = 0
-	///have we been switched on?
+	/// Have we been switched on?
 	var/turned_on = FALSE
-	///are we attempting to fire the laser currently?
+	/// Are we attempting to fire the laser currently?
 	var/firing = FALSE
-	///we need to create a list of all lasers we are creating so we can delete them in the end
+	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	///list of all blocking turfs or objects
+	/// List of all blocking turfs or objects
 	var/list/blocked_objects = list()
-	///our max load we can set
+	/// Our max load we can set
 	var/max_grid_load = 0
-	///our current grid load
+	/// Our current grid load
 	var/current_grid_load = 0
-	///out power formatting multiplier used inside tgui to convert to things like mW gW to watts for ease of setting
+	/// Out power formatting multiplier used inside tgui to convert to things like mW gW to watts for ease of setting
 	var/power_format_multi = 1
-	///same as above but for output
+	/// Same as above but for output
 	var/power_format_multi_output = 1
 
-	/// Are we selling the power or just sending it into the ether
-	var/selling_power = FALSE
+	/// Are we selling the energy or just sending it into the ether
+	var/selling_energy = FALSE
 
-	/// How much power have we sold in total
-	var/total_power = 0
-	/// How much power do you have to sell in order to get an announcement
-	var/announcement_treshold = 1 MW
+	/// How much energy have we sold in total (Joules)
+	var/total_energy = 0
+	/// How much energy do you have to sell in order to get an announcement
+	var/announcement_treshold = 1 MJ
 
 	/// How much credits we have earned in total
 	var/total_earnings = 0
 	/// The amount of money we haven't sent to cargo yet
 	var/unsent_earnings = 0
 
-	///how much we are inputing pre multiplier
+	/// How much we are inputing pre multiplier
 	var/input_number = 0
-	///how much we are outputting pre multiplier
+	/// How much we are outputting pre multiplier
 	var/output_number = 0
-	///our set input pulling
+	/// Our set input pulling
 	var/input_pulling = 0
+	/// Announcement configuration for updates
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/ptl)
+
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
@@ -122,7 +125,7 @@
 	. = ..()
 	. += span_notice("Laser currently has [unsent_earnings] unsent credits.")
 	. += span_notice("Laser has generated [total_earnings] credits.")
-	. += span_notice("Laser has sold [total_power] Watts")
+	. += span_notice("Laser has sold [total_energy] Watts")
 ///appearance changes are here
 
 /obj/machinery/power/transmission_laser/update_overlays()
@@ -154,6 +157,19 @@
 		return 0
 	return min(round((charge / abs(output_level)) * 6), 6)
 
+/obj/machinery/power/transmission_laser/proc/send_ptl_announcement()
+	/// The message we send
+	var/message
+	var/flavor_text
+	if(announcement_treshold == 1 MJ)
+		message = "PTL account successfully made"
+		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
+
+	message = "New milestone reached!\n[message]"
+
+	announcer.Announce(message)
+
+	announcement_treshold *= 10
 
 /obj/machinery/power/transmission_laser/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -171,7 +187,7 @@
 	data["total_earnings"] = total_earnings
 	data["unsent_earnings"] = unsent_earnings
 	data["held_power"] = charge
-	data["selling_power"] = selling_power
+	data["selling_energy"] = selling_energy
 	data["max_capacity"] = capacity
 	data["max_grid_load"] = max_grid_load
 
@@ -214,20 +230,6 @@
 			power_format_multi = 1 MW
 		if("inputGW")
 			power_format_multi = 1 GW
-		if("inputTW")
-			power_format_multi = 1 TW
-		if("inputPW")
-			power_format_multi = 1 PW
-		if("inputEW")
-			power_format_multi = 1 EW
-		if("inputZW")
-			power_format_multi = 1 ZW
-		if("inputYW")
-			power_format_multi = 1 YW
-		if("inputRW")
-			power_format_multi = 1 RW
-		if("inputQW")
-			power_format_multi = 1 QW
 
 		if("outputW")
 			power_format_multi_output = 1
@@ -237,20 +239,6 @@
 			power_format_multi_output = 1 MW
 		if("outputGW")
 			power_format_multi_output = 1 GW
-		if("outputTW")
-			power_format_multi_output = 1 TW
-		if("outputPW")
-			power_format_multi_output = 1 PW
-		if("outputEW")
-			power_format_multi_output = 1 EW
-		if("outputZW")
-			power_format_multi_output = 1 ZW
-		if("outputYW")
-			power_format_multi_output = 1 YW
-		if("outputRW")
-			power_format_multi_output = 1 RW
-		if("outputQW")
-			power_format_multi_output = 1 QW
 
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = terminal.surplus()
@@ -258,7 +246,7 @@
 	if((machine_stat & BROKEN) || !turned_on)
 		return
 
-	if(total_power >= announcement_treshold)
+	if(total_energy >= announcement_treshold)
 		send_ptl_announcement()
 
 	var/last_disp = return_charge()
@@ -308,7 +296,7 @@
 
 	charge -= output_level
 
-////selling defines are here
+//// Selling defines are here
 #define MINIMUM_BAR 25
 #define PROCESS_CAP 5000000 - MINIMUM_BAR
 
@@ -323,7 +311,7 @@
 	if(generated_cash < 0)
 		return
 
-	total_power += power_amount
+	total_energy += power_amount
 	total_earnings += generated_cash
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
@@ -335,7 +323,7 @@
 	var/medium_cut = generated_cash * 0.25
 	var/high_cut = generated_cash * 0.50
 
-	///the other 25% will be sent to engineers in the future but for now its stored inside
+	/// The other 25% will be sent to engineers in the future but for now its stored inside
 	security_bank_account.adjust_money(medium_cut, "Transmission Laser Payout")
 	unsent_earnings -= medium_cut
 
@@ -352,7 +340,7 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
-	///this is why we set the range we did
+	/// This is why we set the range we did
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	for(var/num = 1 to range + 1)
 		var/obj/effect/transmission_beam/new_beam = new(last_step)
@@ -363,13 +351,13 @@
 		last_step = get_step(last_step, dir)
 
 /obj/machinery/power/transmission_laser/proc/destroy_lasers()
-	if(firing) // this is incase we turn the laser back on manually
+	if(firing) // This is incase we turn the laser back on manually
 		return
 	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
 		laser_effects -= listed_beam
 		qdel(listed_beam)
 
-///this is called every time something enters our beams
+/// This is called every time something enters our beams
 /obj/machinery/power/transmission_laser/proc/atom_entered_beam(obj/effect/transmission_beam/triggered, atom/movable/potential_victim)
 	var/mw_power = (output_number * power_format_multi_output) / (1 MW)
 	if(!isliving(potential_victim))
@@ -384,3 +372,36 @@
 		else
 			explosion(victim, 3, 2, 2)
 			victim.gib(FALSE)
+
+// Beam
+
+/obj/effect/transmission_beam
+	name = "Shimmering beam"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "ptl_beam"
+	anchored = TRUE
+
+	/// Used to deal with atoms stepping on us while firing
+	var/obj/machinery/power/transmission_laser/host
+
+/obj/effect/transmission_beam/Initialize(mapload, obj/machinery/power/transmission_laser/creator)
+	. = ..()
+	var/turf/source_turf = get_turf(src)
+	if(source_turf)
+		RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
+	update_appearance()
+
+/obj/effect/transmission_beam/Destroy(force)
+	. = ..()
+	var/turf/source_turf = get_turf(src)
+	if(source_turf)
+		UnregisterSignal(source_turf, COMSIG_ATOM_ENTERED)
+
+/obj/effect/transmission_beam/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "ptl_beam", src)
+
+/obj/effect/transmission_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	host.atom_entered_beam(src, arrived)
