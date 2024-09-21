@@ -91,13 +91,13 @@
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "scratches itseld!"
-	anim_type = "idle2"
+	anim_type = "idle3"
 
 /datum/emote/living/simple_animal/mouse/idle/washup
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "washes up itself!"
-	anim_type = "idle3"
+	anim_type = "idle4"
 
 /datum/emote/living/simple_animal/mouse/idle/flower
 	key = "mshowflower"
