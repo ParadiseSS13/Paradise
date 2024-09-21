@@ -151,7 +151,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light("<span class='warning'>[src] is lit by the flames!</span>")
+		visible_message("<span class='warning'>[src] is lit by the flames!</span>")
+		light()
 
 /obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -581,6 +582,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 			qdel(O)
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		return
+	
+	return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"

@@ -28,7 +28,6 @@
 	bitesize = 100
 	distill_reagent = "vodka"
 
-
 /obj/item/food/grown/potato/wedges
 	name = "potato wedges"
 	desc = "Slices of neatly cut potato."

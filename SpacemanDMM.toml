@@ -34,3 +34,5 @@ hide_invisible = [
 
 [map_renderer.render_passes]
 smart-cables = false
+# With the multitile component and the removal of the gravity gen parts, the gravity generator will fail the render passes
+gravity-gen = false
