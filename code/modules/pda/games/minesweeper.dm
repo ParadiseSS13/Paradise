@@ -57,7 +57,6 @@
 
 					if(minesweeper_matrix[params["X"]][params["Y"]]["bomb"])
 						on_loose(ui.user)
-						SStgui.update_uis(pda)
 						return
 
 				if("flag")
@@ -76,7 +75,6 @@
 							flagged_bombs += 1
 
 			check_win(ui.user)
-			SStgui.update_uis(pda)
 
 /datum/data/pda/app/game/minesweeper/proc/check_win(mob/user)
 	if(flagged_bombs == generation_bombs && \
@@ -95,8 +93,8 @@
 	var/nickname = tgui_input_text(user, "You finished the game into [game_time/10] seconds.\n Write a nickname to save your result in leaderboard.\n", "Minesweeper", "", 10)
 	if(!nickname)
 		return
-	else
-		leaderboard += list(list("name" = nickname, "time" = "[game_time/10]"))
+
+	leaderboard += list(list("name" = nickname, "time" = "[game_time/10]"))
 
 /datum/data/pda/app/game/minesweeper/proc/on_loose(mob/user)
 	ignore_touches = TRUE

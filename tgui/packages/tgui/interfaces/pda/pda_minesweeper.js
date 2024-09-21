@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../../backend';
 import { Box, Button, Stack, Section, Table, Icon } from '../../components';
 

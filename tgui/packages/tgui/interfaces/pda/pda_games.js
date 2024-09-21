@@ -4,7 +4,6 @@ import { Icon, IconStack } from '../../components/Icon';
 
 export const pda_games = (props, context) => {
   const { act, data } = useBackend(context);
-
   const { games } = data;
 
   const GetAppImage = (AppName) => {
