@@ -1,7 +1,18 @@
+#define MOUSE_SNIFF 	"idle1"
+#define MOUSE_SHAKE 	"idle2"
+#define MOUSE_SCRATCH 	"idle3"
+#define MOUSE_WASHUP 	"idle4"
+#define MOUSE_FLOWER 	"flower"
+#define MOUSE_SMOKE 	"smoke"
+#define MOUSE_THUMB 	"thumb_up"
+#define MOUSE_DANCE 	"dance"
+#define MOUSE_SHAKEASS 	"ass"
+
 /mob/living/simple_animal/mouse
 	name = "mouse"
 	real_name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
+	icon = 'icons/mob/mouse.dmi'
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
@@ -37,6 +48,8 @@
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	/// Is our mouse smart?
+	var/sentient = FALSE
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -70,6 +83,7 @@
 	if(IS_HORIZONTAL(src))
 		if(prob(1))
 			stand_up()
+			do_idle_animation(pick(MOUSE_SNIFF, MOUSE_SCRATCH, MOUSE_SHAKE, MOUSE_WASHUP))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
@@ -83,7 +97,29 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
+	give_idle_verbs()
 	update_appearance(UPDATE_DESC)
+
+/mob/living/simple_animal/mouse/proc/give_idle_verbs()
+	add_verb(src, list(
+		/mob/living/simple_animal/mouse/proc/sniff,
+		/mob/living/simple_animal/mouse/proc/shake,
+		/mob/living/simple_animal/mouse/proc/scratch,
+		/mob/living/simple_animal/mouse/proc/washup,
+		/mob/living/simple_animal/mouse/proc/shakeass,
+		))
+	if(sentient)
+		add_verb(src, list(
+			/mob/living/simple_animal/mouse/proc/flower,
+			/mob/living/simple_animal/mouse/proc/smoke,
+			/mob/living/simple_animal/mouse/proc/thumb_up,
+			/mob/living/simple_animal/mouse/proc/dance,
+			))
+
+/mob/living/simple_animal/mouse/sentience_act()
+	. = ..()
+	sentient = TRUE
+	give_idle_verbs()
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -231,3 +267,156 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/* IDLE ANIMATION THING */
+
+/mob/living/simple_animal/mouse/proc/do_idle_animation(anim, duration = 2 SECONDS)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+	flick("mouse_[mouse_color]_[anim]",src)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), duration)
+
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+
+/mob/living/simple_animal/mouse/proc/sniff()
+	set name = "Sniff"
+	set desc = "Sniff around"
+	set category = "Mouse"
+
+	emote("msniff", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shake()
+	set name = "Shake"
+	set desc = "Shake yourself"
+	set category = "Mouse"
+
+	emote("mshake", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/scratch()
+	set name = "Scratch"
+	set desc = "Scratch yourself"
+	set category = "Mouse"
+
+	emote("mscratch", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/washup()
+	set name = "Wash Up"
+	set desc = "Wash up yourself"
+	set category = "Mouse"
+
+	emote("mwashup", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/flower()
+	set name = "Show a Flower"
+	set desc = "Show a flower"
+	set category = "Mouse"
+
+	emote("mshowflower", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/smoke()
+	set name = "Smoke"
+	set desc = "Smoke a cigarette"
+	set category = "Mouse"
+
+	emote("msmoke", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/thumb_up()
+	set name = "Thumb Up"
+	set desc = "Give a thumb up"
+	set category = "Mouse"
+
+	emote("mthumbup", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/dance()
+	set name = "Dance"
+	set desc = "Dance with a pair of maracas"
+	set category = "Mouse"
+
+	emote("mdance", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shakeass()
+	set name = "Shake Ass"
+	set desc = "Shake your ass"
+	set category = "Mouse"
+
+	emote("mshakeass", intentional = TRUE)
+
+/datum/emote/living/simple_animal/mouse/idle
+	key = "msniff"
+	key_third_person = "msniffs"
+	message = "sniffs!"
+	emote_type = EMOTE_VISIBLE
+	cooldown = 20 SECONDS
+	audio_cooldown = 20 SECONDS
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
+	var/anim_type = MOUSE_SNIFF
+	var/duration = 2 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type, duration)
+	return ..()
+
+/datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
+	return user.squeak_sound
+
+/datum/emote/living/simple_animal/mouse/idle/shake
+	key = "mshake"
+	key_third_person = "mshakes"
+	message = "shakes!"
+	anim_type = MOUSE_SHAKE
+
+/datum/emote/living/simple_animal/mouse/idle/scratch
+	key = "mscratch"
+	key_third_person = "mscratches"
+	message = "scratches itseld!"
+	anim_type = MOUSE_SCRATCH
+
+/datum/emote/living/simple_animal/mouse/idle/washup
+	key = "mwashup"
+	key_third_person = "mwashesup"
+	message = "washes up itself!"
+	anim_type = MOUSE_WASHUP
+
+/datum/emote/living/simple_animal/mouse/idle/flower
+	key = "mshowflower"
+	key_third_person = "mshowsflower"
+	message = "shows a flower!"
+	anim_type = MOUSE_FLOWER
+	duration = 4 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/smoke
+	key = "msmoke"
+	key_third_person = "msmokes"
+	message = "smokes!"
+	anim_type = MOUSE_SMOKE
+	duration = 7 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/thumb_up
+	key = "mthumbup"
+	key_third_person = "mthumbup"
+	message = "gives a thumbs-up!"
+	anim_type = MOUSE_THUMB
+	duration = 4 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/dance
+	key = "mdance"
+	key_third_person = "mdances"
+	message = "dances!"
+	anim_type = MOUSE_DANCE
+	duration = 7 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/shakeass
+	key = "mshakeass"
+	key_third_person = "mshakesass"
+	message = "shakes ass!"
+	anim_type = MOUSE_SHAKEASS
+
+#undef MOUSE_SNIFF
+#undef MOUSE_SHAKE
+#undef MOUSE_SCRATCH
+#undef MOUSE_WASHUP
+#undef MOUSE_FLOWER
+#undef MOUSE_SMOKE
+#undef MOUSE_THUMB
+#undef MOUSE_DANCE
+#undef MOUSE_SHAKEASS
