@@ -178,30 +178,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/proc/spray(turf/target)
 	spray_controller.spray(target)
-// 	var/obj/effect/decal/chempuff/spray = new /obj/effect/decal/chempuff(get_turf(chassis))
-// 	var/datum/reagents/R = new/datum/reagents(5)
-// 	spray.reagents = R
-// 	R.my_atom = spray
-// 	reagents.trans_to(spray, 5)
-// 	spray.icon += mix_color_from_reagents(spray.reagents.reagent_list)
-// 	for(var/B in 1 to 4)
-// 		if(QDELETED(spray))
-// 			return
-// 		if(spray.reagents.total_volume == 0)
-// 			qdel(spray)
-// 			return
-// 		step_towards(spray, target)
-// 		if(QDELETED(spray))
-// 			return
-// 		var/turf/spray_turf = get_turf(spray)
-// 		spray.reagents.reaction(spray_turf)
-// 		for(var/atom/atm in spray_turf)
-// 			spray.reagents.reaction(atm)
-// 		if(spray.loc == target)
-// 			qdel(spray)
-// 			return
-	// 	sleep(2)
-	// qdel(spray)
 
 // Auto-regeneration of space cleaner. Takes energy.
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/process()
