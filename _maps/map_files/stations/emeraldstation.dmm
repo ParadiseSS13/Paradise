@@ -122881,10 +122881,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
-"wKN" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/maintenance/fpmaint)
 "wKP" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
@@ -157216,7 +157212,7 @@ jnP
 jnP
 jnP
 jnP
-wKN
+sik
 sik
 sik
 sik
