@@ -39,6 +39,10 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+	// values for slapping
+	var/slap_sound = 'sound/effects/woodhit.ogg'
+	var/slap_cooldown = (4 SECONDS)
+	var/slap_on_cooldown = FALSE
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
@@ -57,6 +61,32 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/melee/saber/attack(mob/living/target, mob/living/user)
+	if (user.a_intent == INTENT_HELP && ishuman(target))
+		if (!slap_on_cooldown)
+			var/mob/living/carbon/human/H = target
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+				user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
+									"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+				slap(user, user)
+			else
+				user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
+									"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+				slap(target, user)
+		return
+	else
+		return ..()
+
+/obj/item/melee/saber/proc/slap(mob/living/target, mob/living/user)
+	var/mob/living/carbon/human/H = target
+	user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+	playsound(loc, slap_sound, 50, TRUE, -1)
+	H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	H.apply_damage(10, STAMINA)
+	add_attack_logs(user, H, "Slapped by [src]", ATKLOG_ALL)
+	slap_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, slap_on_cooldown, FALSE), slap_cooldown)
 
 // Traitor Sword
 /obj/item/melee/snakesfang
