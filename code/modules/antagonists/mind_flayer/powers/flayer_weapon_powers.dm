@@ -18,24 +18,26 @@
 	weapon_holder = null
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
-	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
+	if(weapon_ref && user.get_active_hand() == weapon_ref)
 		retract(user, TRUE)
 		return
+
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand!")
 		return FALSE
+
 	if(!weapon_ref)
 		weapon_ref = new weapon_type(user, src)
+		weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these
+
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
-	weapon_ref.flags |= NODROP
 	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
-	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
 	return weapon_ref
 
 /datum/spell/flayer/self/weapon/proc/retract(mob/owner, any_hand = TRUE)
-	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
+	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
@@ -44,7 +46,6 @@
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
-	UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 
 /**
 	START OF INDIVIDUAL WEAPONS
@@ -68,7 +69,7 @@
 	cell.chargerate += 200
 
 /datum/spell/flayer/self/weapon/laser
-	name = "Laser Arm Augementation"
+	name = "Laser Arm Augmentation"
 	desc = "Our hand melts away, replaced with the barrel of a laser gun."
 	action_icon = 'icons/obj/guns/energy.dmi'
 	action_icon_state = "laser"

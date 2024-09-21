@@ -61,13 +61,16 @@
 	usable_swarms = amount
 	if(update_total)
 		var/difference = usable_swarms - old_swarm_amount
+		if(difference < 0)
+			// Otherwise buying an ability can reduce your `total_swarms_gathered`
+			return
 		total_swarms_gathered += difference
 
 /*
 * amount - The positive or negative number to adjust the swarm count by, result clamped above 0
 */
 /datum/antagonist/mindflayer/proc/adjust_swarms(amount, bound_lower = 0, bound_upper = INFINITY)
-	set_swarms(directional_bounded_sum(usable_swarms, amount, bound_lower, bound_upper), TRUE)
+	set_swarms(clamp((usable_swarms + amount), bound_lower, bound_upper), TRUE)
 
 //This is mostly for flavor, for framing messages as coming from the swarm itself. The other reason is so I can type "span" less.
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
