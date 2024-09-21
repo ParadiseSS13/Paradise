@@ -115,7 +115,7 @@
 	ignore_touches = FALSE
 	SStgui.update_uis(pda)
 
-/datum/data/pda/app/game/minesweeper/proc/generate_matrix(var/x, var/y)
+/datum/data/pda/app/game/minesweeper/proc/generate_matrix(x, y)
 	flagged_bombs = 0
 	setted_flags = 0
 	opened_cells = 0
