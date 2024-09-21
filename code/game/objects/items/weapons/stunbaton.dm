@@ -349,7 +349,7 @@
 	turned_on = TRUE
 	cell = /obj/item/stock_parts/cell/flayerprod
 	/// The duration that stunning someone will disable their radio for
-	var/radio_disable_time = 6 SECONDS
+	var/radio_disable_time = 8 SECONDS
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
