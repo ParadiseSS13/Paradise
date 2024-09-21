@@ -228,7 +228,7 @@
 	list_reagents = list("mayonnaise" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/condiment/yoghurt
+/obj/item/reagent_containers/condiment/yogurt
 	name = "yoghurt tub"
 	desc = "Some yoghurt, produced by bacterial fermentation of milk. Yum."
 	icon_state = "yoghurt"
