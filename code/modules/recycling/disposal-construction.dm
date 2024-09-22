@@ -144,7 +144,6 @@
 	
 	if(T.intact)
 		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
-		. = ..()
 		return
 	
 	if(ispipe)

@@ -350,7 +350,7 @@
 
 	var/pipe_dir = get_pipe_dir()
 	var/turf/T = get_turf(loc)
-	
+
 	for(var/obj/machinery/atmospherics/M in loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M, src))	// matches at least one direction on either type of pipe
 			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
