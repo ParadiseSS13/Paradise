@@ -42,7 +42,7 @@
 	. = ..()
 	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target)
 	return
 
 /obj/structure/inflatable/CanAtmosPass(direction)
@@ -116,7 +116,7 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

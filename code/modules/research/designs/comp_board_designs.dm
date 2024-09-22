@@ -243,13 +243,23 @@
 	category = list("Computer Boards")
 
 /datum/design/rdservercontrol
-	name = "Console Board (R&D Server Control Console)"
-	desc = "The circuit board for a R&D Server Control Console"
-	id = "rdservercontrol"
+	name = "Console Board (R&D Network Controller)"
+	desc = "The circuit board for a R&D Network Controller Console"
+	id = "rdnetworkcontrol"
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdservercontrol
+	build_path = /obj/item/circuitboard/rnd_network_controller
+	category = list("Computer Boards")
+
+/datum/design/rdbackup
+	name = "Console Board (R&D Backup)"
+	desc = "The circuit board for a R&D Backup Console"
+	id = "rdbackup"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/rnd_backup_console
 	category = list("Computer Boards")
 
 /datum/design/robocontrol

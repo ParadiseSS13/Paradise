@@ -157,6 +157,7 @@
 
 		I.item_state = initial(picked_item.item_state)
 		I.item_color = initial(picked_item.item_color)
+		I.color = initial(picked_item.color)
 
 		I.icon_override = initial(picked_item.icon_override)
 		if(initial(picked_item.sprite_sheets))
@@ -289,7 +290,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon
-	name = "Optical Meson Scanner"
+	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"
