@@ -359,7 +359,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/proc/create_wormhole(used_turf, turf/destination)
 	new /obj/effect/portal/jaunt_tunnel(used_turf, get_turf(destination), src, 100)
-	do_sparks(5, 0, used_turf)
+	do_sparks(5, FALSE, used_turf)
 
 // overridden because we don't need this
 /obj/item/wormhole_jaunter/wormhole_weaver/chasm_react(mob/user)
