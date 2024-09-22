@@ -83,7 +83,8 @@
 			pixel_x = -64
 			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			oldmap?.Destroy()
+			if(oldmap)
+				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
 				list(0, 0, 			0,			1, 0),
 				list(0, 0, 			1,			1, 1),
@@ -95,7 +96,8 @@
 			pixel_x = 0
 			pixel_y = -64
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			oldmap?.Destroy()
+			if(oldmap)
+				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
 				list(0, 0, 			0,			0, 0),
 				list(0, 0, 			0,			0, 0),
@@ -107,7 +109,8 @@
 			pixel_x = -64
 			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			oldmap?.Destroy()
+			if(oldmap)
+				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
 				list(0, 0, 			1,			1, 0),
 				list(0, 0, 			1,			1, 1),
@@ -119,7 +122,8 @@
 			pixel_x = 0
 			pixel_y = 0
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			oldmap?.Destroy()
+			if(oldmap)
+				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
 				list(0, 1, 			1,			0, 0),
 				list(1, 1, 			1,			0, 0),
@@ -340,14 +344,14 @@
 
 //// Selling defines are here
 #define MINIMUM_BAR 1
-#define PROCESS_CAP 5000000 - MINIMUM_BAR
+#define PROCESS_CAP (20 - MINIMUM_BAR)
 
 #define A1_CURVE 20
 
 /obj/machinery/power/transmission_laser/proc/sell_power(joules)
 	var/mega_joules = joules / (1 MW)
 
-	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / (2 * mega_joules + PROCESS_CAP * A1_CURVE)
+	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / ((2 * mega_joules) + (PROCESS_CAP * A1_CURVE))
 	generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
 	generated_cash = round(generated_cash)
 	if(generated_cash < 0)
