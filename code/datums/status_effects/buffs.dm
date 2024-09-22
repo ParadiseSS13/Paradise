@@ -1023,6 +1023,7 @@
 
 #define COMBUSTION_TEMPERATURE 500
 /datum/status_effect/overclock
+	id = "overclock"
 	duration = -1
 	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
