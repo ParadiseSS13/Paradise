@@ -40,27 +40,27 @@
 	update_icon_state()
 
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
 	var/turf/T = get_turf(src)
-	var/mainhand = user.get_active_hand()
 	if(!isfloorturf(T) && !isspaceturf(T))
-		to_chat(user, "<span class='notice'>You cannot install [src] here.</span>")
+		to_chat(user, "<span class='warning'>You cannot install [src] here.</span>")
 		return
 	for(var/obj/turf_contents in T)
 		// It's okay for tube parts to be installed over existing pods.
 		if(!istype(turf_contents, /obj/structure/transit_tube_pod) && turf_contents.density)
-			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
+			to_chat(user, "<span class='warning'>There is not enough space to install [src] here.</span>")
 			return
+	if(!user.can_reach(src) && (istype(src, /obj/structure/transit_tube_construction/terminus) || istype(src, /obj/structure/transit_tube_construction/station)))
+		to_chat(user, "<span class='warning'>[src] must be installed manually.</span>")
+		return
 
 	var/install_type = flipped ? installed_type_flipped : installed_type
 	var/atom/installed = new install_type(T)
 	installed.dir = dir
 	user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
-	if(istype(mainhand, /obj/item/rpd)) // RPD auto-wrench sound
-		playsound(user, 'sound/items/impactwrench.ogg', 50)
 	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
+	return TRUE
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -97,7 +97,7 @@
 
 			qdel(src)
 
-	to_chat(user, "<span class='notice'>[src] can only be installed in a transit tube!</span>")
+	to_chat(user, "<span class='warning'>[src] can only be installed in a transit tube!</span>")
 
 /obj/structure/transit_tube_construction/straight
 	installed_type = /obj/structure/transit_tube

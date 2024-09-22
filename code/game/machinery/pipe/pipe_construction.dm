@@ -340,8 +340,6 @@
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -352,7 +350,6 @@
 
 	var/pipe_dir = get_pipe_dir()
 	var/turf/T = get_turf(loc)
-	var/mainhand = user.get_active_hand()
 	
 	for(var/obj/machinery/atmospherics/M in loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M, src))	// matches at least one direction on either type of pipe
@@ -528,9 +525,8 @@
 		"<span class='notice'>[user] fastens [src].</span>",
 		"<span class='notice'>You fasten [src].</span>",
 		"<span class='notice'>You hear a ratchet.</span>")
-	if(istype(mainhand, /obj/item/rpd))
-		playsound(user, 'sound/items/impactwrench.ogg', 50)
 	qdel(src)	// remove the pipe item
+	return TRUE
 
 /obj/item/pipe_meter
 	name = "meter"
@@ -541,14 +537,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
-	var/mainhand = user.get_active_hand()
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
-		return TRUE
+		return
 
 	new /obj/machinery/atmospherics/meter(loc)
-	if(istype(mainhand, /obj/item/rpd))
-		playsound(user, 'sound/items/impactwrench.ogg', 50)
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
@@ -571,10 +564,7 @@
 
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
-	var/mainhand = user.get_active_hand()
 	AS.bolts = FALSE
-	if(istype(mainhand, /obj/item/rpd))
-		playsound(user, 'sound/items/impactwrench.ogg', 50)
 	I.play_tool_sound(src, 50)
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
