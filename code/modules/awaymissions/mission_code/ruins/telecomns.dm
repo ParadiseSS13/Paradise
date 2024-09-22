@@ -430,7 +430,10 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	var/datum/component/proximity_monitor/monitor = GetComponent(/datum/component/proximity_monitor)
+	if(monitor)
+		monitor.RemoveComponent()
+
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))

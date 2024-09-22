@@ -458,7 +458,7 @@
 /**
   * Removes the component from parent, ends up with a null parent
   */
-/datum/component/proc/RemoveComponent()
+/datum/component/proc/UnlinkComponent()
 	if(!parent)
 		return
 	var/datum/old_parent = parent
@@ -466,6 +466,12 @@
 	_RemoveFromParent()
 	parent = null
 	SEND_SIGNAL(old_parent, COMSIG_COMPONENT_REMOVING, src)
+
+/**
+  * Deletes the component and removes it from parent.
+  */
+/datum/component/proc/RemoveComponent() // This really is just a wrapper to pretend that we're using sane procs to fully remove a component
+	qdel(src)
 
 /**
   * Transfer this component to another parent
@@ -479,7 +485,7 @@
 	if(!target || target.parent == src)
 		return
 	if(target.parent)
-		target.RemoveComponent()
+		target.UnlinkComponent()
 	target.parent = src
 	var/result = target.PostTransfer()
 	switch(result)

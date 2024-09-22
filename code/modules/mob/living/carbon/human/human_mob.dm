@@ -21,7 +21,9 @@
 	if(!mind)
 		return FALSE
 	if(mind.miming)
-		qdel(GetComponent(/datum/component/footstep))
+		var/datum/component/footstep/step_sound = GetComponent(/datum/component/footstep)
+		if(step_sound)
+			step_sound.RemoveComponent()
 	return TRUE
 
 /**

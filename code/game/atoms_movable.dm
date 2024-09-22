@@ -678,7 +678,7 @@
 /atom/movable/proc/stop_deadchat_plays()
 	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
 	if(!QDELETED(comp))
-		qdel(comp)
+		comp.RemoveComponent()
 
 /atom/movable/vv_get_dropdown()
 	. = ..()

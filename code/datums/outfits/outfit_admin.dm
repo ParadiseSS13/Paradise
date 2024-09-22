@@ -1572,7 +1572,10 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
 
-	qdel(H.GetComponent(/datum/component/footstep)) // they're literally stealth
+	var/datum/component/footstep/step_sound = H.GetComponent(/datum/component/footstep)
+	if(step_sound)
+		step_sound.RemoveComponent()
+
 	var/datum/martial_art/cqc/CQC = new()
 	CQC.teach(H)
 

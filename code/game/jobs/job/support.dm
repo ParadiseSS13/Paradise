@@ -473,7 +473,9 @@
 	if(visualsOnly)
 		return
 
-	qdel(H.GetComponent(/datum/component/footstep))
+	var/datum/component/footstep/step_sound = H.GetComponent(/datum/component/footstep)
+	if(step_sound)
+		step_sound.RemoveComponent()
 
 /datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

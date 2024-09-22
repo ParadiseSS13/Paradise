@@ -510,8 +510,10 @@
 	if(M.mind?.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
-	qdel(M.GetComponent(/datum/component/squeak))
 
+	var/datum/component/squeak/squeak = M.GetComponent(/datum/component/squeak)
+	if(squeak)
+		squeak.RemoveComponent()
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
