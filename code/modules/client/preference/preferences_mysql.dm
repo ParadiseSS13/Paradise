@@ -110,7 +110,8 @@
 		keybindings=:keybindings,
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
-		viewrange=:viewrange
+		viewrange=:viewrange,
+		fptp_vote_list=:fptp_vote_list
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,

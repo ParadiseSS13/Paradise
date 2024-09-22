@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(maprotate)
 		log_startup_progress("There is no special rotation defined for this day")
 
 /datum/controller/subsystem/maprotate/proc/decide_next_map()
-	var/list/potential_maps = list() //unfinished naturally sorry for the debug console warning
+	var/list/potential_maps = list()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x
 		if(!initial(M.voteable))
@@ -83,3 +83,39 @@ SUBSYSTEM_DEF(maprotate)
 			// And of course, if the current map is the same
 		if(istype(SSmapping.map_datum, M))
 			continue
+			// Or the map from last round
+		if(istype(SSmapping.last_map, M))
+			continue
+		potential_maps[M] = 1
+	// We now have 3 maps. We then pick your highest priority map in the list. Does this mean votes 4 and 5 don't matter? Yeah, with this current system only your top 3 votes will ever be used. 4 and 5 are good info to know however!
+	for(var/mob/player in GLOB.player_list)
+		if(player.client)
+			var/placed_vote = FALSE
+			for(var/this_map as anything in player.client.prefs.fptp_vote_list)
+				for(var/datum/god_I_hate as anything in potential_maps)
+					if("[god_I_hate]" == "[this_map]")
+						placed_vote = TRUE
+						potential_maps[god_I_hate] ++ // We give it an assigned value that increases
+						break // We found the right map
+					continue
+				if(placed_vote)
+					break
+	var/returned_text = "Map Preference Vote Results:"
+	for(var/maps in potential_maps)
+		returned_text += "\n"
+		var/votes = potential_maps[maps]
+		var/percentage_text = ""
+		if(votes > 1)
+			var/actual_percentage = round(((votes - 1) / length(GLOB.clients)) * 100, 0.1) // Note: Some players will not have this filled out. Too bad. We subtract 1 from votes as they have 1 in them by default
+			var/text = "[actual_percentage]"
+			var/spaces_needed = 5 - length(text)
+			for(var/_ in 1 to spaces_needed)
+				returned_text += " "
+			percentage_text += "[text]%"
+		else
+			percentage_text = "    0%"
+		returned_text += "[percentage_text] | <b>[maps]</b>: [potential_maps[maps] - 1]"
+	var/datum/map/winner = pickweight(potential_maps)
+	to_chat(world, "[returned_text]")
+	SSmapping.next_map = new winner
+	to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")

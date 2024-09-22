@@ -31,7 +31,8 @@
 		keybindings,
 		server_region,
 		muted_adminsounds_ckeys,
-		viewrange
+		viewrange,
+		fptp_vote_list
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

@@ -941,7 +941,6 @@
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
-					sound ^= SOUND_ADMINHELP
 				if("map_pick")
 					var/list/potential_maps = list()
 					fptp_vote_list = list() //Clear it out
