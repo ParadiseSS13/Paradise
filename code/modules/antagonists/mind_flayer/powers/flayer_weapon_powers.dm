@@ -18,7 +18,7 @@
 	weapon_holder = null
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
-	if(weapon_ref && user.get_active_hand() == weapon_ref)
+	if(weapon_ref && (user.l_hand == weapon_ref || user.r_hand == weapon_ref))
 		retract(user, TRUE)
 		return
 
