@@ -344,8 +344,10 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	wormhole_loc = get_turf(src)
 	new /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver(wormhole_loc)
 	destination = L[desc]
-	user.visible_message("<span class='notice'>[user] pulls out a black colored device and points it to the floor.</span>",\
-						"<span class='notice'>You activate the wormhole weaver, it will take some time until device assembles a wormhole link.</span>")
+	user.visible_message(
+			"<span class='notice'>[user] pulls out a black colored device and points it to the floor.</span>",
+			"<span class='notice'>You activate the wormhole weaver, it will take some time until device assembles a wormhole link.</span>"
+	)
 	wcell.use(chargecost)
 	icon_state = icon_state_inactive
 	inactive = TRUE
