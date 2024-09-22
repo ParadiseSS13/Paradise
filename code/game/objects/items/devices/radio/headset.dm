@@ -90,7 +90,7 @@
 	instant = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/alt/deathsquad/Initialize()
+/obj/item/radio/headset/alt/deathsquad/Initialize(mapload)
 	. = ..()
 	set_frequency(DTH_FREQ)
 

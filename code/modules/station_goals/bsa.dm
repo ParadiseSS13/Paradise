@@ -275,7 +275,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 
-/obj/machinery/computer/bsa_control/admin/Initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()

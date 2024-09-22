@@ -177,7 +177,7 @@
 	icon_state = "flare-contractor-on"
 	duration = 5.1 SECONDS // Needs to be slightly longer then the callback to make the portal
 
-/obj/effect/temp_visual/getaway_flare/Initialize()
+/obj/effect/temp_visual/getaway_flare/Initialize(mapload)
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")

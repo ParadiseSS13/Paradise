@@ -1346,7 +1346,7 @@
 	icon_state = "rift"
 	color = "red"
 
-/obj/effect/bubblegum_warning/Initialize()
+/obj/effect/bubblegum_warning/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
 
