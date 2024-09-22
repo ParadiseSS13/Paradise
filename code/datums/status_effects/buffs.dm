@@ -957,6 +957,7 @@
 		flayer.updatehealth()
 
 /datum/status_effect/quicksilver_form
+	id = "quicksilver_form"
 	duration = 10 SECONDS
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REFRESH
@@ -992,6 +993,7 @@
 	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
 
 /datum/status_effect/terminator_form
+	id = "terminator_form"
 	duration = 1 MINUTES
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REFRESH
