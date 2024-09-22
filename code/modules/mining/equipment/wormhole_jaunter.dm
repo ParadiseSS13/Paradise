@@ -272,7 +272,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		if(E)
 			qdel(E)
 			visible_message("<span class='warning'>Wormhole marker disappears!</span>")
-			do_sparks(5, 0, wormhole_loc)
+			do_sparks(5, FALSE, wormhole_loc)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/proc/prepare_foractivation(mob/user)
 	if(do_after(user, 3 SECONDS, target = src))
