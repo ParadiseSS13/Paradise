@@ -943,7 +943,7 @@
 						H.remake_hud()
 				if("map_pick")
 					var/list/potential_maps = list()
-					fptp_vote_list = list() //Clear it out
+					map_vote_pref_json = list() //Clear it out
 					for(var/x in subtypesof(/datum/map))
 						var/datum/map/M = x
 						if(!initial(M.voteable))
@@ -955,8 +955,8 @@
 						var/their_pick = input("Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps") as null|anything in potential_maps
 						loops++
 						potential_maps -= their_pick
-						fptp_vote_list += their_pick
-						fptp_vote_list[their_pick] = loops
+						map_vote_pref_json += their_pick
+						map_vote_pref_json[their_pick] = loops
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 

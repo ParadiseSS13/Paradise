@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
 	/// Map preferences for the first past the post system
-	var/list/fptp_vote_list = list()
+	var/list/map_vote_pref_json = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C

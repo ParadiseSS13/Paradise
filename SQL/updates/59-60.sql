@@ -3,4 +3,4 @@
 
 # Adds the table for it.
 ALTER TABLE `player`
-	ADD COLUMN `fptp_vote_list` MEDIUMTEXT NULL DEFAULT NULL AFTER `viewrange`;
+	ADD COLUMN `map_vote_pref_json` MEDIUMTEXT NULL DEFAULT NULL AFTER `viewrange`;

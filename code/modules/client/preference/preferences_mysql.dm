@@ -64,9 +64,9 @@
 			admin_sound_ckey_ignore = list() // Invalid JSON, handle safely please
 	if(length(raw_fptp))
 		try
-			fptp_vote_list = json_decode(raw_fptp)
+			map_vote_pref_json = json_decode(raw_fptp)
 		catch
-			fptp_vote_list = list()
+			map_vote_pref_json = list()
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
 		server_region = null // This region doesnt exist anymore
@@ -111,7 +111,7 @@
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
 		viewrange=:viewrange,
-		fptp_vote_list=:fptp_vote_list
+		map_vote_pref_json=:map_vote_pref_json
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -141,7 +141,7 @@
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
 			"viewrange" = viewrange,
-			"fptp_vote_list" = json_encode(fptp_vote_list)
+			"map_vote_pref_json" = json_encode(map_vote_pref_json)
 		))
 
 	if(!query.warn_execute())

@@ -32,7 +32,7 @@
 		server_region,
 		muted_adminsounds_ckeys,
 		viewrange,
-		fptp_vote_list
+		map_vote_pref_json
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

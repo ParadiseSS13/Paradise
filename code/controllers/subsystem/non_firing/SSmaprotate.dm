@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(maprotate)
 	for(var/mob/player in GLOB.player_list)
 		if(player.client)
 			var/placed_vote = FALSE
-			for(var/this_map as anything in player.client.prefs.fptp_vote_list)
+			for(var/this_map as anything in player.client.prefs.map_vote_pref_json)
 				for(var/datum/god_I_hate as anything in potential_maps)
 					if("[god_I_hate]" == "[this_map]")
 						placed_vote = TRUE
@@ -100,9 +100,9 @@ SUBSYSTEM_DEF(maprotate)
 					continue
 				if(placed_vote)
 					break
-	var/returned_text = "Map Preference Vote Results:"
+	var/list/returned_text = list()
+	returned_text += "Map Preference Vote Results:"
 	for(var/maps in potential_maps)
-		returned_text += "\n"
 		var/votes = potential_maps[maps]
 		var/percentage_text = ""
 		if(votes > 1)
@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(maprotate)
 		else
 			percentage_text = "    0%"
 		returned_text += "[percentage_text] | <b>[maps]</b>: [potential_maps[maps] - 1]"
-	var/datum/map/winner = pickweight(potential_maps)
-	to_chat(world, "[returned_text]")
+	var/datum/map/winner = pickweight(potential_maps) //Other note: Weighted random sets 0 to 1 to some ungodly reason, so uh, a map that no one votes on (should never happen hopefully), will have 1 vote in it.
+	to_chat(world, "[returned_text.Join("\n")]")
 	SSmapping.next_map = new winner
 	to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
