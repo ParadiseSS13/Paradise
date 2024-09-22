@@ -24,6 +24,7 @@ SUBSYSTEM_DEF(maprotate)
 	rotation_descs[MAPROTATION_MODE_NORMAL_VOTE] = "there is normal map voting."
 	rotation_descs[MAPROTATION_MODE_NO_DUPLICATES] = "map votes will not include the current map."
 	rotation_descs[MAPROTATION_MODE_FULL_RANDOM] = "the map for next round is randomised."
+	rotation_descs[MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES] = "the map for next round is weighted off your preferences and past maps"
 
 	// Yes. I am using the DB server to get a numerical weekday
 	// 0 = Monday
@@ -60,7 +61,7 @@ SUBSYSTEM_DEF(maprotate)
 	if(dindex_str in GLOB.configuration.vote.map_vote_day_types)
 		var/vote_type = GLOB.configuration.vote.map_vote_day_types[dindex_str]
 		// We have an index, but is it valid
-		if(vote_type in list(MAPROTATION_MODE_NORMAL_VOTE, MAPROTATION_MODE_NO_DUPLICATES, MAPROTATION_MODE_FULL_RANDOM))
+		if(vote_type in list(MAPROTATION_MODE_NORMAL_VOTE, MAPROTATION_MODE_NO_DUPLICATES, MAPROTATION_MODE_FULL_RANDOM, MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES))
 			log_startup_progress("It is [days[day_index]], which means [rotation_descs[vote_type]]")
 			rotation_mode = vote_type
 			setup_done = TRUE
@@ -73,4 +74,12 @@ SUBSYSTEM_DEF(maprotate)
 	else
 		log_startup_progress("There is no special rotation defined for this day")
 
-
+/datum/controller/subsystem/maprotate/proc/decide_next_map()
+	var/list/potential_maps = list() //unfinished naturally sorry for the debug console warning
+	for(var/x in subtypesof(/datum/map))
+		var/datum/map/M = x
+		if(!initial(M.voteable))
+			continue
+			// And of course, if the current map is the same
+		if(istype(SSmapping.map_datum, M))
+			continue

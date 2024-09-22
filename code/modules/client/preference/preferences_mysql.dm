@@ -4,6 +4,7 @@
 
 	//general preferences
 	var/raw_muted_admins
+	var/raw_fptp
 	while(query.NextRow())
 		ooccolor = query.item[1]
 		UI_style = query.item[2]
@@ -32,6 +33,7 @@
 		server_region = query.item[25]
 		raw_muted_admins = query.item[26]
 		viewrange = query.item[27]
+		raw_fptp = query.item[28]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -60,7 +62,11 @@
 			admin_sound_ckey_ignore = json_decode(raw_muted_admins)
 		catch
 			admin_sound_ckey_ignore = list() // Invalid JSON, handle safely please
-
+	if(length(raw_fptp))
+		try
+			fptp_vote_list = json_decode(raw_fptp)
+		catch
+			fptp_vote_list = list()
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
 		server_region = null // This region doesnt exist anymore
@@ -133,7 +139,8 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
-			"viewrange" = viewrange
+			"viewrange" = viewrange,
+			"fptp_vote_list" = json_encode(fptp_vote_list)
 		))
 
 	if(!query.warn_execute())
