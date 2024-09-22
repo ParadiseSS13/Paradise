@@ -384,7 +384,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	return ..()
 
 // below here is recharge code for wormhole weaver, taken from rcs code
-
 /obj/item/wormhole_jaunter/wormhole_weaver/get_cell()
 	return wcell
 
