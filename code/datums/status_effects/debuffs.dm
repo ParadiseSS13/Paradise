@@ -523,6 +523,7 @@
 	id = "cult_slurring"
 
 /datum/status_effect/incapacitating
+	id = "incapacitating"
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
