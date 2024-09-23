@@ -2599,7 +2599,7 @@
 #include "code\modules\power\powernets\local_powernet.dm"
 #include "code\modules\power\powernets\powernet_helpers.dm"
 #include "code\modules\power\powernets\regional_powernet.dm"
-#include "code\modules\power\power_transmission_laser\transmission_laser.dm"
+#include "code\goonstation\modules\power\power_transmission_laser\transmission_laser.dm"
 #include "code\modules\procedural_mapping\mapGenerator.dm"
 #include "code\modules\procedural_mapping\mapGeneratorModule.dm"
 #include "code\modules\procedural_mapping\mapGeneratorReadme.dm"

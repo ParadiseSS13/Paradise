@@ -6,4 +6,4 @@
 #define ANNOUNCE_KIND_MAJOR		"NAS Trurl Update"
 #define ANNOUNCE_KIND_EVENT		"NAS Trurl Update"  // Intentionally the same as above
 #define ANNOUNCE_KIND_AI		"A.I. Announcement"
-#define ANNOUNCE_KIND_PTL		"Regular Power Transmission Laser report"
+#define ANNOUNCE_KIND_PTL		"Power Transmission Laser report"
