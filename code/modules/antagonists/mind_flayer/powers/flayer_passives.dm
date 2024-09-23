@@ -214,7 +214,7 @@
 	to_enhance.update_sight()
 
 /datum/mindflayer_passive/drain_speed
-	name = "Swarm Absorbtion Efficiency"
+	name = "Swarm Absorption Efficiency"
 	purchase_text = "Adds a multiplier to the amount of swarms you drain per second."
 	gain_text = "Our mental siphons grow stronger."
 	upgrade_text = "Energy transfer rate increased by 100%"
