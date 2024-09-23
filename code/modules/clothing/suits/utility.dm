@@ -46,14 +46,6 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
 	)
 
-/obj/item/clothing/suit/fire/heavy
-	name = "firesuit"
-	desc = "A suit that protects against extreme fire and heat."
-	//icon_state = "thermal"
-	item_state = "ro_suit"
-	w_class = WEIGHT_CLASS_BULKY
-	slowdown = 1.5
-
 /obj/item/clothing/suit/fire/firefighter/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
