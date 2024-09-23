@@ -17,6 +17,7 @@
 /datum/status_effect/New(list/arguments)
 	if(!id)
 		stack_trace("[src] was created but did not have an unique ID. Deleting.")
+		qdel(src)
 		return
 
 	on_creation(arglist(arguments))
