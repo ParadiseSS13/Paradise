@@ -44,6 +44,7 @@
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	if(iswizard(user))
+		REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")
 		animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
 		animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 		animate(user)
