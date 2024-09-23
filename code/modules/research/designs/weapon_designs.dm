@@ -360,6 +360,7 @@
 	desc = "Parts for a flamethrower that accepts two chemical cartridges to create lasting fires."
 	id = "chem_flamethrower_extended"
 	req_tech = list("combat" = 6, "engineering" = 7, "plasmatech" = 5)
+	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
 	build_path = /obj/item/weaponcrafting/gunkit/chemical_flamethrower
 	category = list("Weapons")

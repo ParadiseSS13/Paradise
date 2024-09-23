@@ -245,8 +245,9 @@
 	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
 	heart_attack_probability = 10
+	origin_tech = null
 	/// To prevent spam from the emagging message on the advanced defibrillator.
-	var/next_emp_message 
+	var/next_emp_message
 
 /obj/item/defibrillator/compact/advanced/examine(mob/user)
 	. = ..()
