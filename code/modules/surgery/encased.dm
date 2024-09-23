@@ -24,7 +24,7 @@
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
 	)
 
-	success_sound = 'sound/surgery/organ2.ogg'f
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 5.4 SECONDS
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
