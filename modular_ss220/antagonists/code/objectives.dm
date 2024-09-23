@@ -1,3 +1,12 @@
+/datum/objective/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	if(team)
+		for(var/datum/antagonist/target_datum in possible_target.antag_datums)
+			if(team == target_datum.get_team())
+				return TARGET_INVALID_SAME_TEAM
+
 /datum/objective/raider_steal
 	name = "Raider theft"
 	needs_target = FALSE
