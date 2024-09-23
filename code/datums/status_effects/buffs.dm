@@ -829,7 +829,7 @@
 	. = ..()
 
 /datum/status_effect/bookwyrm
-	id = "bookworm"
+	id = "bookwyrm"
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
 
