@@ -275,7 +275,7 @@
 	owner.adjustFireLoss(-5)
 
 /datum/status_effect/blood_rush
-	id = "bloodrush"
+	id = "blood_rush"
 	alert_type = null
 	duration = 10 SECONDS
 
