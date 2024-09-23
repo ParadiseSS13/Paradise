@@ -414,9 +414,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
 
-
+//***** PROC WRAPPERS *****//
+/// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_add_trait(datum/target, trait, source)
     ADD_TRAIT(target, trait, source)
 
+/// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_remove_trait(datum/target, trait, source)
     REMOVE_TRAIT(target, trait, source)
