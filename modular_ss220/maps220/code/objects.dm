@@ -88,11 +88,27 @@
 // Structure
 /obj/structure/shuttle/engine
 	icon = 'modular_ss220/maps220/icons/shuttle.dmi'
-	resistance_flags = INDESTRUCTIBLE // То что у нас двигатели ломаются от пары пуль - бред
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/arbitraryatmosblockingvar = 1
 
+// Engines provide atmos blocking, for they move to locations with different atmos
 /obj/structure/shuttle/engine/Initialize(mapload)
 	. = ..()
 	set_light(2)
+	recalculate_atmos_connectivity()
+
+/obj/structure/shuttle/engine/Destroy()
+	arbitraryatmosblockingvar = 0
+	recalculate_atmos_connectivity()
+	return ..()
+
+// Copy-pastes tiny fans
+/obj/structure/shuttle/engine/CanAtmosPass(direction)
+	return !arbitraryatmosblockingvar
+
+/obj/structure/shuttle/engine/get_superconductivity(direction)
+	// Mostly for stuff on Lavaland.
+	return ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/shuttle/engine/huge
 	icon = 'modular_ss220/maps220/icons/3x3.dmi'
