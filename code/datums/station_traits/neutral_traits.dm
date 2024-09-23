@@ -18,7 +18,8 @@
 	weight = 15
 	show_in_report = TRUE
 	report_message = "For experimental purposes, this station AI might show divergence from default lawset. Do not meddle with this experiment, we've removed \
-		access to your set of alternative upload modules because we know you're already thinking about meddling with this experiment."
+		access to your set of alternative upload modules because we know you're already thinking about meddling with this experiment. If the lawset proves \
+		dangerous, or impedes station efficiency, fax or message Central Command to request permission to alter it."
 	trait_to_give = STATION_TRAIT_UNIQUE_AI
 	blacklist = list(/datum/station_trait/random_event_weight_modifier/ion_storms)
 
