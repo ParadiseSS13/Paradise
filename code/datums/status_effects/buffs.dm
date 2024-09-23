@@ -927,7 +927,7 @@
 
 /atom/movable/screen/alert/status_effect/flayer_rejuv
 	name = "Regenerating"
-	desc = "A ray of hope beyond dispair."
+	desc = "A ray of hope beyond disrepair."
 	icon_state = "drunk2"
 
 /datum/status_effect/flayer_rejuv/on_creation(mob/living/new_owner, extra_duration, extra_heal_amount)
@@ -1062,7 +1062,7 @@
 
 /atom/movable/screen/alert/status_effect/overclock
 	name = "Overclocked"
-	desc = "You feel ontop of the world."
+	desc = "You feel energized, and hot."
 	icon_state = "high"
 
 #undef COMBUSTION_TEMPERATURE

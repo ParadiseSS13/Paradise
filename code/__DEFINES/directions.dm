@@ -32,20 +32,6 @@
 /// Inverse direction, taking into account UP|DOWN if necessary.
 #define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
 /// returns TRUE if the direction is EAST or WEST
-#define DIR_JUST_HORIZONTAL(dir) (dir & (EAST | WEST))
+#define DIR_JUST_HORIZONTAL(dir) ((dir == EAST) || (dir == WEST))
 /// returns TRUE if the direction is NORTH or SOUTH
-#define DIR_JUST_VERTICAL(dir) (dir & (NORTH | SOUTH))
-/*
-* For getting coordinate signs from a direction define. I.E. NORTHWEST is (-1,1), SOUTH is (0,-1)
-* Returns a length 2 list where the first value is the sign of x, and the second is the sign of y
-*/
-/proc/get_signs_from_direction(direction)
-	var/x_sign = 1
-	var/y_sign = 1
-	x_sign = ((direction & EAST) ? 1 : -1)
-	y_sign = ((direction & NORTH) ? 1 : -1)
-	if(DIR_JUST_VERTICAL(direction))
-		x_sign = 0
-	if(DIR_JUST_HORIZONTAL(direction))
-		y_sign = 0
-	return list(x_sign, y_sign)
+#define DIR_JUST_VERTICAL(dir) ((dir == NORTH) || (dir == SOUTH))

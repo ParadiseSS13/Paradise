@@ -148,6 +148,23 @@
 	base_cooldown = 2 SECONDS //The cast time is going to be the main limiting factor, not cooldown
 	base_cost = 200
 	stage = 3
+	var/hand_type = /obj/item/melee/swarm_hand
+
+/datum/spell/flayer/self/override_key/cast(list/targets, mob/user)
+	if(istype(user.l_hand, hand_type))
+		qdel(user.l_hand)
+		flayer.send_swarm_message("We dissipate the nanites.")
+		return FALSE
+	if(istype(user.r_hand, hand_type))
+		qdel(user.r_hand)
+		flayer.send_swarm_message("We dissipate the nanites.")
+		return FALSE
+
+	var/obj/item/melee/swarm_hand/funny_hand = new hand_type
+	if(!user.put_in_hands(funny_hand))
+		flayer.send_swarm_message("Our hands are currently full.")
+		qdel(funny_hand)
+		return FALSE
 
 /obj/item/melee/swarm_hand
 	name = "Nanite Mass"
@@ -220,10 +237,3 @@
 	borg.update_icons()
 	qdel(src)
 	return TRUE
-
-/datum/spell/flayer/self/override_key/cast(list/targets, mob/user)
-	var/obj/item/melee/swarm_hand/funny_hand = new /obj/item/melee/swarm_hand
-	if(!user.put_in_any_hand_if_possible(funny_hand))
-		flayer.send_swarm_message("Our hands are currently full.")
-		return FALSE
-
