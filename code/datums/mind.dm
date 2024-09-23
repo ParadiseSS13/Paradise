@@ -396,6 +396,8 @@
 	if(flayer)
 		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='byond://?src=[UID()];mind_flayer=clear'>no</a>"
 		. += " | Usable swarms: <a href='byond://?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
+		. += " | Total swarms gathered: [flayer.total_swarms_gathered]"
+		. += " | List of purchased powers: [json_encode(flayer.powers)]"
 		if(!flayer.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
 	else
