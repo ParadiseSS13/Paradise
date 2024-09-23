@@ -94,18 +94,21 @@ menu "menu"
 		can-check = true
 		is-checked = true
 		group = "scale"
+		saved-params = "is-checked"
 	elem "PS"
 		name = "&Точечный отбор"
 		command = ".winset \"paramapwindow.map.zoom-mode=normal\""
 		category = "&Масштабирование"
 		can-check = true
 		group = "scale"
+		saved-params = "is-checked"
 	elem "BL"
 		name = "&Билинейное"
 		command = ".winset \"paramapwindow.map.zoom-mode=blur\""
 		category = "&Масштабирование"
 		can-check = true
 		group = "scale"
+		saved-params = "is-checked"
 	elem "textmode"
 		name = "&Текстовый режим"
 		command = ".winset \"menu.textmode.is-checked=true?paramapwindow.map.text-mode=true:paramapwindow.map.text-mode=false\""
