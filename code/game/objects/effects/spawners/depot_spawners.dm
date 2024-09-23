@@ -39,7 +39,6 @@
 	loot = list(
 		/obj/item/pizzabox/pepperoni = 7, // Higher weight as a pizza bomb looks like pepperoni by default
 		/obj/item/pizzabox/pizza_bomb/autoarm = 7,
-
 		/obj/item/pizzabox/firecracker = 1,
 		/obj/item/pizzabox/garlic = 1,
 		/obj/item/pizzabox/hawaiian = 1,

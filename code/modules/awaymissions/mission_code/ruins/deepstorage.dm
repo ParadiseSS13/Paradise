@@ -382,7 +382,6 @@
 	loot = list(
 		/obj/item/rod_of_asclepius = 3,
 		/obj/item/storage/box/syndie_kit/chameleon = 3,
-
 		/obj/item/storage/belt/champion/wrestling = 1,
 		/obj/item/storage/box/telescience = 1,
 	)
