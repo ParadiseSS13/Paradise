@@ -204,3 +204,5 @@
 
 /// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+/// called when something needs to force a mindflayer to retract their weapon implants
+#define COMSIG_FLAYER_RETRACT_IMPLANTS "flayer_retract_implants"
