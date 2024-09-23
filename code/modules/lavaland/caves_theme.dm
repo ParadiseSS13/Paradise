@@ -163,12 +163,12 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 
 	if(prob(50))
 		tempradius = round(tempradius / 3)
-		var/turf/oasis_lake = pickweight(lake_weights)
-		if(oasis_lake == /turf/simulated/floor/plating/asteroid)
+		var/oasis_laketype = pickweight(lake_weights)
+		if(oasis_laketype == /turf/simulated/floor/plating/asteroid)
 			new /obj/effect/spawner/oasisrock(T, tempradius)
 		for(var/turf/oasis in circlerangeturfs(T, tempradius))
 			if(safe_replace(oasis))
-				oasis.ChangeTurf(oasis_lake)
+				oasis.ChangeTurf(oasis_laketype)
 
 	return T
 
