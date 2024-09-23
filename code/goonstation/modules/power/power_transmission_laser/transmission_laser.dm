@@ -4,7 +4,7 @@
 	name = "power transmission laser"
 	desc = "Sends power over a giant laser beam to an NT power processing facility."
 
-	icon = 'icons/obj/machines/pt_laser.dmi'
+	icon = 'icons/goonstation/objects/pt_laser.dmi'
 	icon_state = "ptl"
 
 	max_integrity = 10000
@@ -219,7 +219,7 @@
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TransmissionLaser")
+		ui = new(user, src, "goonstation_TDL")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
@@ -416,7 +416,7 @@
 
 /obj/effect/transmission_beam
 	name = "Shimmering beam"
-	icon = 'icons/obj/machines/pt_beam.dmi'
+	icon = 'icons/goonstation/effects/pt_beam.dmi'
 	icon_state = "ptl_beam"
 	anchored = TRUE
 

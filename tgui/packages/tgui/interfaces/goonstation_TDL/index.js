@@ -5,12 +5,12 @@
  * @license ISC
  */
 
-import { useBackend } from '../backend';
-import { Box, Button, Knob, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
-import { formatMoney, formatSiUnit, formatPower } from '../format';
-import { Window } from '../layouts';
+import { useBackend } from '../../backend';
+import { Box, Button, Knob, LabeledList, NoticeBox, ProgressBar, Section } from '../../components';
+import { formatMoney, formatSiUnit, formatPower } from '../../format';
+import { Window } from '../../layouts';
 
-export const TransmissionLaser = (props, context) => {
+export const goonstation_TDL = (props, context) => {
   const { data } = useBackend(context);
   const { total_earnings, name = 'Power Transmission Laser' } = data;
   return (
