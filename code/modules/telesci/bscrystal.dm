@@ -2,17 +2,32 @@
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
-	icon = 'icons/obj/telescience.dmi'
-	icon_state = "bluespace_crystal"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "bluespace_crystal" //This is the raw ore from lavaland, so should look like the ore.
 	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
-	refined_type = /obj/item/stack/sheet/bluespace_crystal
+	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	dynamic_icon_state = TRUE
+
+/obj/item/stack/ore/bluespace_crystal/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can crush this to randomly teleport a short distance.</span>"
+	. += "<span class='notice'>If you throw this at someone, they'll be randomly teleported a short distance away.</span>"
+
+/obj/item/stack/ore/bluespace_crystal/examine_more(mob/user)
+	. = ..()
+	. += "Bluespace crystals are a form of exotic matter that is very poorly understood. The process of their creation is not known, nor how they end up in the places they do."
+	. += ""
+	. += "They are instrumental in the creation of new experimental bluespace-manipulative technologies, unlocking previously impossible feats or trivialising ones that less advanced technologies struggle with. \
+	As plasma-based technologies become more mature and new radical innovations taper off, bluespece research is becoming new technological frontier."
+	. += ""
+	. += "Nanotrasen and many of its rivals are scrambling to be the first to develop practical mass-producible bluespace technologies so they they can become the hegemon of a new market monopoly."
 
 /obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
 	..()
@@ -38,15 +53,17 @@
 		blink_mob(hit_atom)
 	qdel(src)
 
-// Bluespace crystal fragments (stops point farming)
+// Refined Bluespace crystal fragments (stops point farming)
 /obj/item/stack/ore/bluespace_crystal/refined
 	name = "refined bluespace crystal"
+	icon_state = "refined_bluespace_crystal"
 	points = 0
 	refined_type = null
 
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
+	icon_state = "synthetic_bluespace_crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=3;plasmatech=4"
 	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
@@ -54,26 +71,12 @@
 	points = 0 // nice try
 	refined_type = null
 
-// Polycrystals, aka stacks
-
-GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/stack/ore/bluespace_crystal/refined, 1)))
-
-/obj/item/stack/sheet/bluespace_crystal
-	name = "bluespace polycrystal"
-	icon = 'icons/obj/telescience.dmi'
-	icon_state = "polycrystal"
-	item_state = "polycrystal"
-	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
-	origin_tech = "bluespace=6;materials=3"
-	merge_type = /obj/item/stack/sheet/bluespace_crystal
-	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
-	point_value = 30
-
-/obj/item/stack/sheet/bluespace_crystal/New()
+/obj/item/stack/ore/bluespace_crystal/artificial/examine_more(mob/user)
 	..()
-	recipes = GLOB.bluespace_crystal_recipes
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+	. = list()
+	. += "The successful development of a process to create synthetic bluespace crystals was nothing short of a miracle. \
+	Natural bluespace crystals are excruciatingly rare, an issue exacerbated by their tendency to blink out of existence if mishandled."
+	. += ""
+	. += "Whilst the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticable loss in performance."
+	. += ""
+	. += "The manufacturing process is one of Nanotrasen's most closely guarded trade secrets, were it ever to get out, it would have severe consequences for the company."

@@ -72,7 +72,7 @@
 	icon_state = "clown_recorder"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
 	throwforce = 0

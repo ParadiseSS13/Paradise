@@ -13,7 +13,7 @@
 	var/floor = 0
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
-/obj/structure/glowshroom/extinguish_light()
+/obj/structure/glowshroom/extinguish_light(force = FALSE)
 	visible_message("<span class='warning'>[src] withers away!</span>")
 	qdel(src)
 
@@ -29,7 +29,7 @@
 	icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
-/obj/structure/glowshroom/shadowshroom/extinguish_light()
+/obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
 	return
 
 /obj/structure/glowshroom/Destroy()
@@ -91,7 +91,7 @@
 		if(direction & i)
 			dirList += i
 
-	if(dirList.len)
+	if(length(dirList))
 		var/newDir = pick(dirList)
 		if(newDir == 16)
 			floor = 1

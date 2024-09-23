@@ -15,10 +15,13 @@
 /obj/machinery/computer/mecha/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/mecha/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/mecha/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MechaControlConsole", name, 420, 500, master_ui, state)
+		ui = new(user, src, "MechaControlConsole", name)
 		ui.open()
 
 /obj/machinery/computer/mecha/ui_data(mob/user)
@@ -97,7 +100,7 @@
 	else
 		answer["cell"] = 0
 	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
-	answer["airtank"] = M.return_pressure()
+	answer["airtank"] = M.internal_tank.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
 	answer["location"] = "[sanitize(area.name)||"Unknown"]"
@@ -118,7 +121,7 @@
 	var/answer = {"<b>Name:</b> [M.name]
 						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
-						<b>Airtank:</b> [M.return_pressure()]kPa
+						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
 						<b>Location:</b> [sanitize(A.name)||"Unknown"]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
@@ -141,8 +144,8 @@
 	data["cell"] = M.cell
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
-		data["cellMaxCharge"] = M.cell.charge
-	data["airtank"] = M.return_pressure()
+		data["cellMaxCharge"] = M.cell.maxcharge
+	data["airtank"] = M.internal_tank.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
 	data["active"] = M.selected

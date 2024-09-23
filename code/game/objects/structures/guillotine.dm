@@ -32,6 +32,11 @@
 	LAZYINITLIST(buckled_mobs)
 	return ..()
 
+/obj/structure/guillotine/Destroy()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs()
+	return ..()
+
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
 
@@ -108,7 +113,7 @@
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 
-		if(QDELETED(head))
+		if(QDELETED(head) || !istype(head))
 			blade_status = GUILLOTINE_BLADE_DROPPED
 			icon_state = "guillotine"
 			return

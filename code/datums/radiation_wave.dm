@@ -90,7 +90,7 @@
 		width--
 	width = 1 + (2 * width)
 
-	for(var/k in 1 to atoms.len)
+	for(var/k in 1 to length(atoms))
 		var/atom/thing = atoms[k]
 		if(!thing)
 			continue
@@ -119,7 +119,7 @@
 			/obj/structure/cable,
 			/obj/machinery/atmospherics,
 			/obj/item/ammo_casing,
-			/obj/item/implant,
+			/obj/item/bio_chip,
 			/obj/singularity,
 			))
 		if(!can_contaminate || !can_contam || blacklisted[thing.type])

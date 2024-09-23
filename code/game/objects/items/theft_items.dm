@@ -36,10 +36,11 @@
 		radiation_pulse(src, 400, 2)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
-/obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/// The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/obj/item/nuke_core/plutonium
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
@@ -157,11 +158,23 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
+	layer = ABOVE_MOB_LAYER + 0.02
+
+/obj/item/nuke_core/supermatter_sliver/process()
+	. = ..()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
 
-/obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
+/obj/item/nuke_core/supermatter_sliver/can_be_pulled(mob/user) // no drag memes
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		return TRUE
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
@@ -175,9 +188,16 @@
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
+	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
 		return
 	else
+		if(issilicon(user))
+			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
+			radiation_pulse(user, 500, 2)
+			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+			user.dust()
+			qdel(src)
+			return
 		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -188,10 +208,10 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || victim.status_flags & GODMODE || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
-	if(throwingdatum?.thrower)
-		var/mob/user = throwingdatum.thrower
+	var/mob/user = throwingdatum?.get_thrower()
+	if(user)
 		add_attack_logs(user, victim, "[victim] consumed by [src] thrown by [user] ")
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
 		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", "supermatter")
@@ -208,6 +228,8 @@
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		return TRUE //yay sliver throwing memes!
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
 	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
@@ -368,6 +390,8 @@
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()
+		icon_state = "supermatter_tongs"
+		item_state = "supermatter_tongs"
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)

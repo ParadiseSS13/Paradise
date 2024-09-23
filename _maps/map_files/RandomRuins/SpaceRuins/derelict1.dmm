@@ -11,7 +11,7 @@
 /area/ruin/space/unpowered)
 "d" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin/membrane,
+/obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "e" = (
@@ -47,10 +47,6 @@
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"l" = (
-/obj/structure/alien/resin/membrane,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
 "m" = (
 /obj/structure/alien/weeds,
 /obj/structure/table,
@@ -77,6 +73,25 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/remains/xeno,
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"F" = (
+/obj/structure/alien/weeds/node,
+/mob/living/simple_animal/hostile/alien/maid,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"G" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"S" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/decal/remains/human,
+/mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
@@ -684,7 +699,7 @@ b
 b
 k
 f
-i
+G
 f
 c
 m
@@ -814,12 +829,12 @@ c
 f
 c
 f
-j
+S
 f
 c
 f
 f
-l
+k
 b
 b
 a
@@ -862,7 +877,7 @@ f
 f
 f
 f
-l
+k
 q
 b
 a
@@ -1019,7 +1034,7 @@ b
 c
 i
 f
-h
+F
 f
 f
 c
@@ -1229,8 +1244,8 @@ a
 a
 b
 b
-l
-l
+k
+k
 p
 p
 a

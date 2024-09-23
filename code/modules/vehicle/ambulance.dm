@@ -19,14 +19,14 @@
 
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
-	icon_icon = 'icons/obj/vehicles.dmi'
-	button_icon_state = "docwagon2"
+	button_overlay_icon = 'icons/obj/vehicles.dmi'
+	button_overlay_icon_state = "docwagon2"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
 
-/datum/action/ambulance_alarm/Trigger()
+/datum/action/ambulance_alarm/Trigger(left_click)
 	if(!..())
 		return FALSE
 
@@ -49,18 +49,18 @@
 
 
 /datum/looping_sound/ambulance_alarm
-    start_length = 0
-    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
-    mid_length = 14
-    volume = 100
+	start_length = 0
+	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
+	mid_length = 14
+	volume = 100
 
 
 /obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
-    . = ..()
-    if(has_buckled_mobs())
-        AA.Grant(M)
-    else
-        AA.Remove(M)
+	. = ..()
+	if(has_buckled_mobs())
+		AA.Grant(M)
+	else
+		AA.Remove(M)
 
 /obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
 	AA.Remove(M)

@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_TIME 120
-
+#define EGG_INCUBATION_DEAD_CYCLE 120
+#define EGG_INCUBATION_LIVING_CYCLE 200
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
@@ -7,11 +7,12 @@
 	icon_living = "headslug"
 	icon_dead = "headslug_dead"
 	icon = 'icons/mob/mob.dmi'
-	health = 50
-	maxHealth = 50
-	melee_damage_lower = 5
-	melee_damage_upper = 5
-	attacktext = "chomps"
+	health = 60
+	maxHealth = 60
+	melee_damage_lower = 30
+	melee_damage_upper = 35
+	melee_damage_type = STAMINA
+	attacktext = "gnaws"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	robust_searching = TRUE
@@ -20,17 +21,16 @@
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
+	speed = 0.3
+	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	var/datum/mind/origin
-	var/egg_lain = 0
+	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
-
-/mob/living/simple_animal/hostile/headslug/examine(mob/user)
-	. = ..()
-	if(stat == DEAD)
-		. += "It appears to be dead."
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
@@ -43,32 +43,45 @@
 		I.forceMove(egg)
 	visible_message("<span class='warning'>[src] plants something in [victim]'s flesh!</span>", \
 					"<span class='danger'>We inject our egg into [victim]'s body!</span>")
-	egg_lain = 1
+	egg_layed = TRUE
 
-/mob/living/simple_animal/hostile/headslug/AttackingTarget()
-	. = ..()
-	if(. && !egg_lain && iscarbon(target) && !issmall(target))
-		// Changeling egg can survive in aliens!
-		var/mob/living/carbon/C = target
-		if(C.stat == DEAD)
-			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
-				return
-			Infect(target)
-			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
+/mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
+	if(egg_layed || !istype(carbon_target) || !Adjacent(carbon_target) || ismachineperson(carbon_target))
+		return ..()
+	if(carbon_target.stat != DEAD && !do_mob(src, carbon_target, 5 SECONDS))
+		return
+	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
+		to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
+		return
+	if(!carbon_target.get_int_organ_datum(ORGAN_DATUM_HEART))
+		to_chat(src, "<span class='userdanger'>There's no heart for us to infest!</span>")
+		return
+	Infect(carbon_target)
+	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
+	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
+
+/mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
+	return (stat || FALSE)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
 	origin_tech = "biotech=7" // You need to be really lucky to obtain it.
 	var/datum/mind/origin
-	var/time
+	var/time = 0
 
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
-	// Changeling eggs grow in dead people
+	// Changeling eggs grow in everyone
 	time++
-	if(time >= EGG_INCUBATION_TIME)
+	if(time >= 30 && prob(40))
+		owner.bleed(5)
+	if(time >= 60 && prob(10))
+		to_chat(owner, pick("<span class='danger'>We feel great!</span>", "<span class='danger'>Something hurts for a moment but it's gone now.</span>", "<span class='danger'>You feel like you should go to a dark place.</span>", "<span class='danger'>You feel really tired.</span>"))
+		owner.adjustToxLoss(30)
+	if(time >= 90 && prob(15))
+		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
+		owner.apply_damage(50, STAMINA)
+	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)
 		qdel(src)
@@ -82,7 +95,7 @@
 
 	if(origin && origin.current && (origin.current.stat == DEAD))
 		origin.transfer_to(M)
-		var/datum/antagonist/changeling/cling = M.mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/changeling/cling = IS_CHANGELING(M)
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 
@@ -102,6 +115,19 @@
 
 		cling.give_power(new /datum/action/changeling/humanform)
 		M.key = origin.key
-	owner.gib()
+		M.revive() // better make sure some weird shit doesn't happen, because it has in the pas
+		M.forceMove(get_turf(owner)) // So that they are not stuck inside
+	if(!ishuman(owner))
+		owner.gib()
+		return
 
-#undef EGG_INCUBATION_TIME
+	owner.bleed(BLOOD_VOLUME_NORMAL)
+	var/datum/organ/our_heart_datum = owner.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/obj/item/organ/internal/our_heart = our_heart_datum.linked_organ
+	var/obj/item/organ/external/heart_location = owner.get_organ(our_heart.parent_organ)
+	owner.apply_damage(300, BRUTE, our_heart.parent_organ)
+	heart_location.fracture()
+	heart_location.disembowel(our_heart.parent_organ)
+
+#undef EGG_INCUBATION_DEAD_CYCLE
+#undef EGG_INCUBATION_LIVING_CYCLE

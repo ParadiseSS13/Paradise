@@ -1,6 +1,6 @@
 /obj/machinery/economy/merch
 	name = "Nanotrasen Merchandise Vendor"
-	desc = "The one-stop-shop for all your Nanotrasen Swag"
+	desc = "The one-stop-shop for all your Nanotrasen swag."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "nt_merch"
 	light_color = LIGHT_COLOR_GREEN
@@ -17,6 +17,9 @@
 	return attack_hand(user)
 
 /obj/machinery/economy/merch/attack_hand(mob/user)
+	ui_interact(user)
+
+/obj/machinery/economy/merch/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/economy/merch/Initialize(mapload)
@@ -49,7 +52,7 @@
 	return TRUE
 
 /obj/machinery/economy/merch/proc/attempt_transaction(datum/merch_item/merch, mob/user)
-	if(cash_stored >= merch.cost)
+	if(cash_transaction >= merch.cost)
 		if(pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account))
 			give_change(user)
 			return TRUE
@@ -74,10 +77,13 @@
 	user.put_in_hands(D)
 	SSeconomy.total_vendor_transactions++
 
-/obj/machinery/economy/merch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/merch/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/merch/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MerchVendor", name, 450, 500, master_ui, state)
+		ui = new(user, src, "MerchVendor", name)
 		ui.open()
 
 /obj/machinery/economy/merch/ui_data(mob/user)

@@ -19,8 +19,10 @@
 
 	if(updating)
 		update_sight()
-		update_blind_effects()
+		update_blind_effects(TRUE)
 		set_typing_indicator(FALSE)
+		if(hud_used && client)
+			hud_used.show_hud(HUD_STYLE_ACTIONHUD)
 
 	return TRUE
 
@@ -40,7 +42,9 @@
 
 	if(updating)
 		update_sight()
-		update_blind_effects()
+		update_blind_effects(force_clear_sleeping = TRUE)
+		if(hud_used && client)
+			hud_used.show_hud(HUD_STYLE_STANDARD)
 
 	return TRUE
 
@@ -57,25 +61,28 @@
 	set_stat(UNCONSCIOUS) // this is done as `WakeUp` early returns if they are `stat = DEAD`
 	WakeUp()
 
+	if(suiciding)
+		message_admins("[key_name(src)] was revived after having committed suicide. This is likely a bug.")
+
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list |= src
+	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
-	if(mind)
-		remove_from_respawnable_list()
-
+	last_words = null
 	timeofdeath = null
+
 	if(updating)
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
-		hud_used?.reload_fullscreen()
+		reload_fullscreen()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 
 	if(mind)
 		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
-			spell.updateButtonIcon()
+			var/datum/spell/spell = S
+			spell.UpdateButtons()
 
 	return TRUE
 

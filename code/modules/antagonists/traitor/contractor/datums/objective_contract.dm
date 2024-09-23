@@ -91,7 +91,7 @@
 			"Security Checkpoint",
 			"Technical Storage",
 			"Teleporter",
-			"Toxins Storage",
+			"Science Toxins Storage",
 			"Vacant Office",
 			"Research Testing Lab",
 			"Xenobiology Lab",
@@ -118,7 +118,7 @@
 			"Engineering Equipment Storage",
 			"Engineering Foyer",
 			"EVA Storage",
-			"Gateway",
+			"Expedition",
 			"Genetics Lab",
 			"Gravity Generator",
 			"Head of Personnel's Office",
@@ -202,6 +202,9 @@
 		return
 	// We pick the target ourselves so we don't want the default behaviour.
 	owning_contract.invalidate()
+
+/datum/objective/contract/update_explanation_text()
+	return
 
 /**
   * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.

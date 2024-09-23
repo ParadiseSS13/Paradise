@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/mindslave)
 
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
@@ -13,6 +14,8 @@
 	var/datum/mind/master
 	/// Custom greeting text if you don't want to use the basic greeting. Specify this when making a new mindslave datum with `New()`.
 	var/greet_text
+	///The hudicon for the mindslaves master
+	var/master_hud_name = "master"
 
 /datum/antagonist/mindslave/New(datum/mind/_master, _greet_text)
 	if(!_master)
@@ -27,8 +30,11 @@
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
-	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
-	master = "[master.current.real_name]"
+	// Remove the master reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
+	if(master.current)
+		master = "[master.current.real_name]"
+	else
+		master = "[master]"
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
@@ -42,8 +48,8 @@
 	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(master.current)
-	set_antag_hud(master.current, "hudmaster")
-	slaved.add_serv_hud(master, "master")
+	set_antag_hud(master.current, "hud[master_hud_name]")
+	slaved.add_serv_hud(master, master_hud_name)
 	return ..()
 
 /datum/antagonist/mindslave/add_owner_to_gamemode()
@@ -55,16 +61,15 @@
 
 /datum/antagonist/mindslave/give_objectives()
 	var/explanation_text = "Obey every order from and protect [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
-	add_objective(/datum/objective/protect/mindslave, explanation_text, master)
+	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
 
 /datum/antagonist/mindslave/greet()
-	var/mob/living/carbon/human/mindslave = owner.current
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
-		to_chat(mindslave, "<span class='biggerdanger'>[greet_text]</span>")
+		return "<span class='biggerdanger'>[greet_text]</span>"
 	else // Default greeting text if nothing is given.
-		to_chat(mindslave, "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
-							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
+		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
+							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)
@@ -85,7 +90,3 @@
 	slaved.serv -= owner
 	slaved.leave_serv_hud(owner)
 	owner.som = null
-
-// Helper proc that determines if a mob is a mindslave.
-/proc/ismindslave(mob/living/carbon/human/H)
-	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)

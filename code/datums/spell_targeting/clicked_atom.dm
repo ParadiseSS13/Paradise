@@ -4,9 +4,13 @@
 /datum/spell_targeting/clicked_atom
 	use_intercept_click = TRUE
 
-/datum/spell_targeting/clicked_atom/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/clicked_atom/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	if(clicked_atom)
 		return list(clicked_atom)
-	else
-		return null
 
+/datum/spell_targeting/clicked_atom/external/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
+	. = ..()
+	if(!.)
+		return list()
+	if(!isturf(clicked_atom.loc) && !isturf(clicked_atom))
+		return list()

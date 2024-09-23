@@ -6,6 +6,11 @@
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL
+	var/obj/item/shared_storage/red
+	var/obj/item/shared_storage/blue
+
+/obj/item/storage/backpack/shared/Adjacent(atom/neighbor, recurse = 1)
+	return red?.Adjacent(neighbor, recurse) || blue?.Adjacent(neighbor, recurse)
 
 //External
 /obj/item/shared_storage
@@ -13,9 +18,13 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
+
+/obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	bag?.update_viewers()
 
 /obj/item/shared_storage/red
 	name = "paradox bag"
@@ -29,19 +38,27 @@
 
 		bag = S
 		blue.bag = S
+		bag.red = src
+		bag.blue = blue
+
+/obj/item/shared_storage/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
-	if(bag)
-		bag.loc = user
-		bag.attackby(W, user, params)
+	bag?.attackby(W, user, params)
+
+/obj/item/shared_storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		bag?.show_to(user)
+	return ..()
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(src == user.l_hand || src == user.r_hand)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
+	if(user.is_holding(src))
+		bag?.open(user)
 	else
 		..()
 
@@ -49,11 +66,16 @@
 	if(!iscarbon(user))
 		return
 	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
+		bag?.open(user)
 	else
 		..()
+
+/obj/item/shared_storage/AltClick(mob/user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag?.open(user)
+		add_fingerprint(user)
+	else if(isobserver(user))
+		bag?.show_to(user)
 
 /obj/item/shared_storage/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -66,15 +88,14 @@
 			return
 
 		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 
-			if(istype(over_object, /obj/screen/inventory/hand))
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				if(!M.unEquip(src))
 					return
 				M.put_in_active_hand(src)
-			else if(bag)
-				bag.loc = usr
-				bag.attack_hand(usr)
+			else
+				bag?.open(usr)
 
 			add_fingerprint(M)
 
@@ -93,70 +114,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
-//Potion of Flight: as we do not have the "Angel" species this currently does not work.
-
-/obj/item/reagent_containers/glass/bottle/potion
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "potionflask"
-
-/obj/item/reagent_containers/glass/bottle/potion/flight
-	name = "strange elixir"
-	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
-	list_reagents = list("flightpotion" = 5)
-
-/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
-	if(reagents.total_volume)
-		icon_state = "potionflask"
-	else
-		icon_state = "potionflask_empty"
-
-/datum/reagent/flightpotion
-	name = "Flight Potion"
-	id = "flightpotion"
-	description = "Strange mutagenic compound of unknown origins."
-	reagent_state = LIQUID
-	color = "#FFEBEB"
-
-/datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)
-	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
-	/*if(ishuman(M) && M.stat != DEAD)
-		var/mob/living/carbon/human/H = M
-		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
-			if(method == INGEST && show_message)
-				to_chat(H, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
-			return ..()
-
-		to_chat(H, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		H.set_species(/datum/species/angel)
-		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		H.adjustBruteLoss(20)
-		H.emote("scream")
-	..()*/
-
-/obj/item/jacobs_ladder
-	name = "jacob's ladder"
-	desc = "A celestial ladder that violates the laws of physics."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder00"
-
-/obj/item/jacobs_ladder/attack_self(mob/user)
-	var/turf/T = get_turf(src)
-	var/ladder_x = T.x
-	var/ladder_y = T.y
-	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
-	var/last_ladder = null
-	for(var/i in 1 to world.maxz)
-		if(is_admin_level(i) || is_away_level(i))
-			continue
-		var/turf/T2 = locate(ladder_x, ladder_y, i)
-		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
-	qdel(src)
-
-// Inherit from unbreakable but don't set ID, to suppress the default Z linkage
-/obj/structure/ladder/unbreakable/jacob
-	name = "jacob's ladder"
-	desc = "An indestructible celestial ladder that violates the laws of physics."
-
 //Boat
 
 /obj/vehicle/lavaboat
@@ -173,7 +130,7 @@
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/lava) || istype(current, /turf/simulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		if(last_message_time + 1 SECONDS < world.time)
@@ -428,6 +385,7 @@
 	desc = "A dread talisman that can render you completely invulnerable."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	var/cooldown = 0
@@ -445,7 +403,7 @@
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
-		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
+		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
 		Z.name = "hole in reality"
 		Z.desc = "It's shaped an awful lot like [user.name]."
@@ -467,6 +425,10 @@
 	icon_state = "blank"
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
+
+/obj/effect/immortality_talisman/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
 /obj/effect/immortality_talisman/attackby()
 	return

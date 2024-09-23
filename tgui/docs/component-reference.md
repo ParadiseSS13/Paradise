@@ -8,48 +8,55 @@ This table of contents must be manually maintained.
 Make sure to add new items to this list if you document new components.
 -->
 
-- [General Concepts](#general-concepts)
-- [`tgui/components`](#tguicomponents)
-  - [`AnimatedNumber`](#animatednumber)
-  - [`BlockQuote`](#blockquote)
-  - [`Box`](#box)
-  - [`Button`](#button)
-  - [`Button.Checkbox`](#buttoncheckbox)
-  - [`Button.Confirm`](#buttonconfirm)
-  - [`Button.Input`](#buttoninput)
-  - [`ByondUi`](#byondui)
-  - [`Collapsible`](#collapsible)
-  - [`ColorBox`](#colorbox)
-  - [`Dimmer`](#dimmer)
-  - [`Divider`](#divider)
-  - [`Dropdown`](#dropdown)
-  - [`Flex`](#flex)
-  - [`Flex.Item`](#flexitem)
-  - [`Grid`](#grid)
-  - [`Grid.Column`](#gridcolumn)
-  - [`Icon`](#icon)
-  - [`Input`](#input)
-  - [`Knob`](#knob)
-  - [`LabeledControls`](#labeledcontrols)
-  - [`LabeledControls.Item`](#labeledcontrolsitem)
-  - [`LabeledList`](#labeledlist)
-  - [`LabeledList.Item`](#labeledlistitem)
-  - [`LabeledList.Divider`](#labeledlistdivider)
-  - [`Modal`](#modal)
-  - [`NoticeBox`](#noticebox)
-  - [`NumberInput`](#numberinput)
-  - [`ProgressBar`](#progressbar)
-  - [`Section`](#section)
-  - [`Slider`](#slider)
-  - [`Table`](#table)
-  - [`Table.Row`](#tablerow)
-  - [`Table.Cell`](#tablecell)
-  - [`Tabs`](#tabs)
-  - [`Tabs.Tab`](#tabstab)
-  - [`Tooltip`](#tooltip)
-- [`tgui/layouts`](#tguilayouts)
-  - [`Window`](#window)
-  - [`Window.Content`](#windowcontent)
+- [Component Reference](#component-reference)
+  - [General Concepts](#general-concepts)
+  - [`tgui/components`](#tguicomponents)
+    - [`AnimatedNumber`](#animatednumber)
+    - [`BlockQuote`](#blockquote)
+    - [`Box`](#box)
+    - [`Button`](#button)
+    - [`Button.Checkbox`](#buttoncheckbox)
+    - [`Button.Confirm`](#buttonconfirm)
+    - [`Button.Input`](#buttoninput)
+    - [`ByondUi`](#byondui)
+    - [`Collapsible`](#collapsible)
+    - [`ColorBox`](#colorbox)
+    - [`Dimmer`](#dimmer)
+    - [`Divider`](#divider)
+    - [`Dropdown`](#dropdown)
+    - [`Flex`](#flex)
+    - [`Flex.Item`](#flexitem)
+    - [`Grid`](#grid)
+    - [`Grid.Column`](#gridcolumn)
+    - [`Icon`](#icon)
+    - [`Icon.Stack`](#iconstack)
+    - [`ImageButton`](#imagebutton)
+    - [`Input`](#input)
+    - [`Knob`](#knob)
+    - [`Popper`](#popper)
+    - [`LabeledControls`](#labeledcontrols)
+    - [`LabeledControls.Item`](#labeledcontrolsitem)
+    - [`LabeledList`](#labeledlist)
+    - [`LabeledList.Item`](#labeledlistitem)
+    - [`LabeledList.Divider`](#labeledlistdivider)
+    - [`Modal`](#modal)
+    - [`NoticeBox`](#noticebox)
+    - [`NumberInput`](#numberinput)
+    - [`ProgressBar`](#progressbar)
+    - [`RoundGauge`](#roundgauge)
+    - [`Section`](#section)
+    - [`Slider`](#slider)
+    - [`Stack`](#stack)
+    - [`Stack.Item`](#stackitem)
+    - [`Table`](#table)
+    - [`Table.Row`](#tablerow)
+    - [`Table.Cell`](#tablecell)
+    - [`Tabs`](#tabs)
+    - [`Tabs.Tab`](#tabstab)
+    - [`Tooltip`](#tooltip)
+  - [`tgui/layouts`](#tguilayouts)
+    - [`Window`](#window)
+    - [`Window.Content`](#windowcontent)
 
 ## General Concepts
 
@@ -217,17 +224,13 @@ Buttons allow users to take actions, and make choices, with a single click.
 - `selected: boolean` - Activates the button (gives it a green color).
 - `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
 over the button.
-- `tooltipPosition: string` - Position of the tooltip.
-  - `top` - Show tooltip above the button.
-  - `bottom` (default) - Show tooltip below the button.
-  - `left` - Show tooltip on the left of the button.
-  - `right` - Show tooltip on the right of the button.
+- `tooltipPosition?: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
 - `ellipsis: boolean` - If button width is constrained, button text will
 be truncated with an ellipsis. Be careful however, because this prop breaks
 the baseline alignment.
 - `title: string` - A native browser tooltip, which appears when hovering
 over the button.
-- `content/children: any` - Content to render inside the button.
+- `children: any` - Content to render inside the button.
 - `onClick: function` - Called when element is clicked.
 
 ### `Button.Checkbox`
@@ -241,12 +244,12 @@ A ghetto checkbox, made entirely using existing Button API.
 
 ### `Button.Confirm`
 
-A button with a an extra confirmation step, using native button component.
+A button with an extra confirmation step, using native button component.
 
 **Props:**
 
 - See inherited props: [Button](#button)
-- `confirmMessage: string` - Text to display after first click; defaults to "Confirm?"
+- `confirmContent: string` - Text to display after first click; defaults to "Confirm?"
 - `confirmColor: string` - Color to display after first click; defaults to "bad"
 
 ### `Button.Input`
@@ -258,7 +261,7 @@ commit, while escape cancels.
 **Props:**
 
 - See inherited props: [Box](#box)
-- `fluid`: fill availible horizontal space
+- `fluid`: fill available horizontal space
 - `onCommit: (e, value) => void`: function that is called after the user
 defocuses the input or presses enter
 - `currentValue: string`: default string to display when the input is shown
@@ -279,7 +282,7 @@ Example (button):
 <ByondUi
   params={{
     id: 'test_button', // optional, can be auto-generated
-    parent: config.window,
+    parent: 'some_container', // optional, defaults to the current window
     type: 'button',
     text: 'Hello, world!',
   }} />
@@ -291,7 +294,6 @@ Example (map):
 <ByondUi
   params={{
     id: 'test_map',
-    parent: config.window,
     type: 'map',
   }} />
 ```
@@ -360,12 +362,15 @@ and displays selected entry.
 **Props:**
 
 - See inherited props: [Box](#box)
-- `options: string[]` - An array of strings which will be displayed in the
-dropdown when open
-- `selected: string` - Currently selected entry
-- `width: number` - Width of dropdown button and resulting menu
-- `over: boolean` - dropdown renders over instead of below
-- `color: string` - color of dropdown button
+- See inherited props: [Icon](#icon)
+- `options: string[] | DropdownEntry[]` - An array of strings which will be displayed in the
+dropdown when open. See Dropdown.tsx for more adcanced usage with DropdownEntry
+- `selected: any` - Currently selected entry
+- `width: string` - Width of dropdown button and resulting menu; css width value
+- `over: boolean` - Dropdown renders over instead of below
+- `color: string` - Color of dropdown button
+- `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
+- `displayText: string | number | InfernoNode` - Text to always display in place of the selected text
 - `onClick: (e) => void` - Called when dropdown button is clicked
 - `onSelected: (value) => void` - Called when a value is picked from the list, `value` is the value that was picked
 
@@ -385,26 +390,26 @@ to the left, and certain elements to the right:
 
 ```jsx
 <Flex>
-  <Flex.Item>
+  <Flex.Item grow={1}>
     Button description
   </Flex.Item>
-  <Flex.Item grow={1} />
   <Flex.Item>
-    <Button content="Perform an action" />
+    <Button>
+      Perform an action
+    </Button>
   </Flex.Item>
 </Flex>
 ```
 
-Flex item with `grow` property serves as a "filler", to separate the other
-two flex items as far as possible from each other.
+Flex item with `grow` property will grow to take all available empty space,
+while flex items without grow will take the minimum amount of space. This
+effectively places the last flex item to the very end of the flex container.
 
 **Props:**
 
 - See inherited props: [Box](#box)
-- `spacing: number` - Spacing between flex items, in integer units
-(1 unit - 0.5em). Does not directly relate to a flex css property
-(adds a modifier class under the hood), and only integer numbers are
-supported.
+- ~~`spacing: number`~~ - **Removed in tgui 4.3**,
+use [Stack](#stack) instead.
 - `inline: boolean` - Makes flexbox container inline, with similar behavior
 to an `inline` property on a `Box`.
 - `direction: string` - This establishes the main-axis, thus defining the
@@ -451,16 +456,16 @@ when they overflow the line.
 - `order: number` - By default, flex items are laid out in the source order.
 However, the order property controls the order in which they appear in the
 flex container.
-- `grow: number` - This defines the ability for a flex item to grow if
-necessary. It accepts a unitless value that serves as a proportion. It
+- `grow: number | boolean` - This defines the ability for a flex item to grow
+if necessary. It accepts a unitless value that serves as a proportion. It
 dictates what amount of the available space inside the flex container the
 item should take up. This number is unit-less and is relative to other
 siblings.
-- `shrink: number` - This defines the ability for a flex item to shrink
-if necessary. Inverse of `grow`.
-- `basis: string` - This defines the default size of an element before any
-flex-related calculations are done. Has to be a length (e.g. `20%`, `5rem`),
-an `auto` or `content` keyword.
+- `shrink: number | boolean` - This defines the ability for a flex item to
+shrink if necessary. Inverse of `grow`.
+- `basis: number | string` - This defines the default size of an element
+before any flex-related calculations are done. Has to be a length
+(e.g. `20%`, `5rem`), an `auto` or `content` keyword.
   - **Important:** IE11 flex is buggy, and auto width/height calculations
   can sometimes end up in a circular dependency. This usually happens, when
   working with tables inside flex (they have wacky internal widths and such).
@@ -528,6 +533,55 @@ Fractional numbers are supported.
 - `spin: boolean` - Whether an icon should be spinning. Good for load
 indicators.
 
+### `Icon.Stack`
+
+Renders children icons on top of each other in order to make your own icon.
+
+```jsx
+<Icon.Stack>
+  <Icon name="pen" />
+  <Icon name="slash" />
+</Icon.Stack>
+```
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `children: Icon` - Icons to stack.
+
+### `ImageButton`
+
+A Robust button is specifically for sticking a picture in it.
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `asset: string[]` - Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}`
+- `base64: string` - Classic way to put images. Example: `base64={thing.image}`
+- `buttons: any` - Special section for any component, or, content.
+  Quite a small area at the bottom of the image in non-fluid mode.
+  Has a style overrides, best to use [Button](#button) inside.
+- `buttonsAlt: boolean` - Enables alternative buttons layout.
+  With fluid, makes buttons like a humburger.
+  Without, moves it to top, and disables pointer-events.
+- `children: any` - Content under image.
+- `className: string` - Applies a CSS class to the element.
+- `color: string` - Color of the button, but without `transparent`; see [Button](#button)
+- `disabled: boolean` - Makes button disabled and dark red if true.
+  Also disables onClick & onRightClick.
+- `selected: boolean` - Makes button selected and green if true.
+- `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
+  Allows the use of `title`
+- `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".
+  Measured in pixels. `imageSize={64}` = 64px.
+- `imageSrc: string` - Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image)}`
+- `onClick: (e) => void` - Called when button is clicked with LMB.
+- `onRightClick: (e) => void` - Called when button is clicked with RMB.
+- `title: string` - Requires `fluid` for work. Bold text with divider betwen content.
+- `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
+over the button.
+- `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
+
 ### `Input`
 
 A basic text input, which allow users to enter text into a UI.
@@ -586,6 +640,16 @@ the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
 
+### `Popper`
+
+Popper lets you position elements so that they don't go out of the bounds of the window. See [popper.js](https://popper.js.org/) for more information.
+
+**Props:**
+
+- `popperContent: InfernoNode` - The content that will be put inside the popper.
+- `options?: { ... }` - An object of options to pass to `createPopper`. See [https://popper.js.org/docs/v2/constructors/#options], but the one you want most is `placement`. Valid placements are "bottom", "top", "left", and "right". You can affix "-start" and "-end" to achieve something like top left or top right respectively. You can also use "auto" (with an optional "-start" or "-end"), where a best fit will be chosen.
+- `additionalStyles: { ... }` - A map of CSS styles to add to the element that will contain the popper.
+
 ### `LabeledControls`
 
 LabeledControls is a horizontal grid, that is designed to hold various
@@ -626,7 +690,9 @@ to perform some sort of action), there is a way to do that:
   <LabeledList.Item
     label="Item"
     buttons={(
-      <Button content="Click me!" />
+      <Button>
+        Click me!
+      </Button>
     )}>
     Content
   </LabeledList.Item>
@@ -644,7 +710,7 @@ to perform some sort of action), there is a way to do that:
 - `label: string` - Item label.
 - `color: string` - Sets the color of the text.
 - `buttons: any` - Buttons to render aside the content.
-- `content/children: any` - Content of this labeled item.
+- `children: any` - Content of this labeled item.
 
 ### `LabeledList.Divider`
 
@@ -749,7 +815,39 @@ percentage and how filled the bar is.
 - `ranges: { color: [from, to] }` - Applies a `color` to the progress bar
 based on whether the value lands in the range between `from` and `to`.
 - `color: string` - Color of the progress bar.
-- `content/children: any` - Content to render inside the progress bar.
+- `children: any` - Content to render inside the progress bar.
+
+### `RoundGauge`
+
+The RoundGauge component provides a visual representation of a single metric, as well as being capable of showing informational or cautionary boundaries related to that metric.
+
+```jsx
+<RoundGauge
+  size={1.75}
+  value={tankPressure}
+  minValue={0}
+  maxValue={pressureLimit}
+  alertAfter={pressureLimit * 0.70}
+  ranges={{
+    "good": [0, pressureLimit * 0.70],
+    "average": [pressureLimit * 0.70, pressureLimit * 0.85],
+    "bad": [pressureLimit * 0.85, pressureLimit],
+  }}
+  format={formatPressure} />
+```
+
+The alert on the gauge is optional, and will only be shown if the `alertAfter` prop is defined. When defined, the alert will begin to flash the respective color upon which the needle currently rests, as defined in the `ranges` prop.
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `value: number` - The current value of the metric.
+- `minValue: number` (default: 0) - The lower bound of the guage.
+- `maxValue: number` (default: 1) - The upper bound of the guage.
+- `ranges: { color: [from, to] }` (default: `{ "good": [0, 1] }`) - Provide regions of the guage to color between two specified values of the metric.
+- `alertAfter: number` (optional) - When provided, will cause an alert symbol on the gauge to begin flashing in the color upon which the needle currently rest, as defined in `ranges`.
+- `format: function(value) => string` (optional) - When provided, will be used to format the value of the metric for display.
+- `size: number` (default: 1) - When provided scales the gauge.
 
 ### `Section`
 
@@ -774,7 +872,9 @@ If you want to have a button on the right side of an section title
 <Section
   title="Cargo"
   buttons={(
-    <Button content="Send shuttle" />
+    <Button>
+      Send shuttle
+    </Button>
   )}>
   Here you can order supply crates.
 </Section>
@@ -785,7 +885,10 @@ If you want to have a button on the right side of an section title
 - `level: number` - Section level in hierarchy. Default is 1, higher number
 means deeper level of nesting. Must be an integer number.
 - `buttons: any` - Buttons to render aside the section title.
-- `content/children: any` - Content of this section.
+- `fill: boolean` - If true, fills all available vertical space.
+- `fitted: boolean` - If true, removes all section padding.
+- `scrollable: boolean` - Shows or hides the scrollbar.
+- `children: any` - Content of this section.
 
 ### `Slider`
 
@@ -821,6 +924,76 @@ Default is about 250ms, increase it if you still see flickering.
 the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
+
+### `Stack`
+
+A higher-level component, that is based on [Flex](#flex). The main difference
+from `Flex`, is that this component automatically adds spacing between
+all stack items, reducing the boilerplate that you have to write!
+
+Consists of two elements: `<Stack>` and `<Stack.Item>`.
+
+Stacks can be vertical by adding a `vertical` property.
+
+**Example:**
+
+```jsx
+<Stack>
+  <Stack.Item grow>
+    Button description
+  </Stack.Item>
+  <Stack.Item>
+    <Button>
+      Perform an action
+    </Button>
+  </Stack.Item>
+</Stack>
+```
+
+**Example of a high-level window layout:**
+
+Stacks can be used for high level window layout.
+Make sure to use the `fill` property.
+
+```jsx
+<Window>
+  <Window.Content>
+    <Stack fill>
+      <Stack.Item>
+        <Section fill>
+          Sidebar
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <Stack fill vertical>
+          <Stack.Item grow>
+            <Section fill scrollable>
+              Main content
+            </Section>
+          </Stack.Item>
+          <Stack.Item>
+            <Section>
+              Bottom pane
+            </Section>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
+  </Window.Content>
+</Window>
+```
+
+**Props:**
+
+- See inherited props: [Flex](#flex)
+- `fill: boolean` - If set, stack will fill all available height.
+- `vertical: boolean` - If set, stack will work in vertical mode.
+
+### `Stack.Item`
+
+**Props:**
+
+- See inherited props: [Flex.Item](#flexitem)
 
 ### `Table`
 
@@ -943,18 +1116,17 @@ it is recommended to use that prop instead.
 Usage:
 
 ```jsx
-<Box position="relative">
-  Sample text.
-  <Tooltip
-    position="bottom"
-    content="Box tooltip" />
-</Box>
+<Tooltip position="bottom" content="Box tooltip">
+  <Box position="relative">
+    Sample text.
+  </Box>
+</Tooltip>
 ```
 
 **Props:**
 
-- `position: string` - Tooltip position.
-- `content/children: string` - Content of the tooltip. Must be a plain string.
+- `position?: string` - Tooltip position. See [`Popper`](#Popper) for valid options. Defaults to "auto".
+- `content: string` - Content of the tooltip. Must be a plain string.
 Fragments or other elements are **not** supported.
 
 ## `tgui/layouts`
@@ -968,9 +1140,7 @@ it in one way or another.
 Example:
 
 ```jsx
-<Window
-  theme="hackerman"
-  resizable>
+<Window theme="hackerman">
   <Window.Content scrollable>
     Hello, world!
   </Window.Content>
@@ -979,10 +1149,14 @@ Example:
 
 **Props:**
 
+- See inherited props: [Box](#box)
 - `className: string` - Applies a CSS class to the element.
 - `theme: string` - A name of the theme.
   - For a list of themes, see `packages/tgui/styles/themes`.
-- `resizable: boolean` - Controls resizability of the window.
+- `title: string` - Window title.
+- `width: number` - Window width.
+- `height: number` - Window height.
+- `noClose: boolean` - Controls the ability to close the window.
 - `children: any` - Child elements, which are rendered directly inside the
 window. If you use a [Dimmer](#dimmer) or [Modal](#modal) in your UI,
 they should be put as direct childs of a Window, otherwise you should be
@@ -995,6 +1169,8 @@ Can be scrollable.
 
 **Props:**
 
+- See inherited props: [Box](#box)
 - `className: string` - Applies a CSS class to the element.
+- `fitted: boolean` - If true, removes all padding.
 - `scrollable: boolean` - Shows or hides the scrollbar.
 - `children: any` - Main content of your window.

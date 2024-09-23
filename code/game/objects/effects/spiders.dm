@@ -38,16 +38,14 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
 	else if(isliving(mover))
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	else if(isprojectile(mover))
 		return prob(30)
 	return TRUE
 
@@ -57,8 +55,6 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = FALSE
-	///Was this egg laid by a xenobiology mob? Used for mob capping
-	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
 	flags_2 = CRITICAL_ATOM_2
 
@@ -80,7 +76,6 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.xenobiology_spawned = xenobiology_spawned
 			if(player_spiders)
 				S.player_spiders = TRUE
 		qdel(src)
@@ -108,7 +103,7 @@
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
-	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that... 
+	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that...
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -135,7 +130,7 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -185,7 +180,7 @@
 				qdel(src)
 				return
 			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider) - /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
@@ -201,6 +196,7 @@
 						var/mob/C = pick(candidates)
 						if(C)
 							S.key = C.key
+							dust_if_respawnable(C)
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
@@ -220,9 +216,9 @@
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
-		C.stored_comms["wood"] += 2
-		C.stored_comms["glass"] += 2
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		C.stored_comms["metal"] += 2
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

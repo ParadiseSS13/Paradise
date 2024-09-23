@@ -10,7 +10,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -21,9 +21,14 @@
 	var/shockcooldown = 0
 	var/my_shockcooldown = 2 SECONDS
 
-/obj/structure/grille/detailed_examine()
-	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
-			Wirecutters will turn the grille into metal rods instantly. Grilles are made with metal rods."
+/obj/structure/grille/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
+	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
+	if(anchored)
+		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+	else
+		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/fence
 	var/width = 3
@@ -62,13 +67,6 @@
 		return
 	icon_state = "grille50_[rand(0,3)]"
 
-/obj/structure/grille/examine(mob/user)
-	. = ..()
-	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
-	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
-
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))
@@ -76,10 +74,18 @@
 		shock(user, 70)
 		shockcooldown = world.time + my_shockcooldown
 
-/obj/structure/grille/attack_animal(mob/user)
+/obj/structure/grille/attack_animal(mob/living/simple_animal/user)
 	. = ..()
-	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, MELEE, 1)
+	if(!. || QDELETED(src) || shock(user, 70))
+		return
+
+	if(user.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		return
+
+	take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -107,22 +113,17 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return 1
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(30)
-		else
-			return !density
-
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(istype(mover) && mover.checkpass(PASSGRILLE))
+		return TRUE
+	if(isprojectile(mover))
+		return (prob(30) || !density)
+
+/obj/structure/grille/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	. = !density
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSGRILLE
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -197,7 +198,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
@@ -265,11 +266,12 @@
 				var/obj/structure/cable/C = T.get_cable_node()
 				if(C)
 					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-					tesla_zap(src, 3, C.newavail() * 0.01, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
-					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+					tesla_zap(src, 3, C.get_queued_available_power() * 0.01, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					C.add_queued_power_demand(C.get_queued_available_power() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
-/obj/structure/grille/broken // Pre-broken grilles for map placement
+/// Pre-broken grilles for map placement
+/obj/structure/grille/broken
 	icon_state = "brokengrille"
 	density = FALSE
 	obj_integrity = 20

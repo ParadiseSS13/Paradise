@@ -1,4 +1,5 @@
-/datum/supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
+/// Section header - use these to set default supply group and crate type for sections
+/datum/supply_packs/emergency
 	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SUPPLY_EMERGENCY
@@ -25,6 +26,36 @@
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
 	group = SUPPLY_EMERGENCY
+
+/datum/supply_packs/emergency/glowstick/emergency
+	name = "Emergency Glowstick Crate"
+	contains = list(/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency)
+	cost = 100
+	containertype = /obj/structure/closet/crate
+	containername = "emergency glowstick crate"
+
+/datum/supply_packs/emergency/glowstick/premium
+	name = "Premium Glowstick Crate"
+	contains = list(/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium)
+	cost = 200
+	containertype = /obj/structure/closet/crate
+	containername = "premium glowstick crate"
+
+/datum/supply_packs/emergency/flares
+	name = "Emergency Flare Crate"
+	contains = list(/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares)
+	cost = 150
+	containertype = /obj/structure/closet/crate
+	containername = "emergency flare crate"
 
 /datum/supply_packs/emergency/internals
 	name = "Internals Crate"
@@ -113,3 +144,10 @@
 	containertype = /obj/structure/closet/crate
 	containername = "special ops crate"
 	hidden = TRUE
+
+/datum/supply_packs/emergency/floodlight
+	name = "Emergency Flood Light"
+	contains = list(/obj/machinery/floodlight)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "emergency flood light"

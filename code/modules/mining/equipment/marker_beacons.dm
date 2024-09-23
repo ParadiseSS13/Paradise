@@ -19,17 +19,20 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	singular_name = "marker beacon"
 	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "marker"
-	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
+	icon_state = "markerrandom"
+	base_icon_state = "marker"
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
 	var/picked_color = "random"
 
-/obj/item/stack/marker_beacon/ten //miners start with 10 of these
+/// miners start with 10 of these
+/obj/item/stack/marker_beacon/ten
 	amount = 10
 
-/obj/item/stack/marker_beacon/thirty //and they're bought in stacks of 1, 10, or 30
+/// and they're bought in stacks of 1, 10, or 30
+/obj/item/stack/marker_beacon/thirty
 	amount = 30
 
 /obj/item/stack/marker_beacon/Initialize(mapload)
@@ -42,7 +45,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/item/stack/marker_beacon/update_icon_state()
-	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
+	icon_state = "[base_icon_state][lowertext(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -58,10 +61,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
@@ -73,7 +76,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
@@ -134,10 +137,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color

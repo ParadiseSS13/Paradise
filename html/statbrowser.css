@@ -1,0 +1,489 @@
+/**
+ * MARK: Main styles
+ */
+.light:root {
+	--scrollbar-base: #f2f2f2;
+	--scrollbar-thumb: #a7a7a7;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+	box-sizing: border-box;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 12px;
+	margin: 0 !important;
+	padding: 0 !important;
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
+}
+
+a {
+	cursor: pointer;
+	color: #003399;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #007fff;
+}
+
+h3 {
+	margin: 0 -0.5em 0.5em;
+	padding: 1em 0.66em 0.5em;
+	border-bottom: 0.1667em solid;
+}
+
+img {
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: pixelated;
+}
+
+table {
+	margin-top: -0.25em;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+#menu {
+	display: flex;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0.25em 0.25em 0;
+	background-color: #ffffff;
+}
+
+.menu-wrap {
+	flex-wrap: wrap-reverse;
+}
+
+#menu.tabs-classic {
+	padding: 0.15em;
+}
+
+#menu.tabs-classic .button {
+	min-width: 3em;
+	min-height: auto;
+	line-height: 1.667em;
+	margin: 0.1em;
+	border: 0;
+	border-radius: 0.16em;
+}
+
+#menu.tabs-classic .button.active {
+	background-color: #0668b8;
+	color: white;
+}
+
+#menu.tabs-classic ~ #under-menu {
+	height: 0;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	flex-shrink: 0;
+	cursor: pointer;
+	user-select: none;
+	-ms-user-select: none; /* Remove after Byond 516 */
+	text-align: center;
+	white-space: nowrap;
+	min-width: 4em;
+	min-height: 2.25em;
+	color: rgba(0, 0, 0, 0.5);
+	border-top: 0.1667em solid transparent;
+	border-bottom: 0.1667em solid transparent;
+	border-radius: 0.25em 0.25em 0 0;
+}
+
+.button-text {
+	flex-grow: 1;
+	margin: 0 0.5em;
+}
+
+.button:hover {
+	background-color: #ececec;
+}
+
+.button.active {
+	cursor: default;
+	background-color: #dfdfdf;
+	color: black;
+	border-bottom-color: #000000;
+}
+
+#under-menu {
+	height: 0.5em;
+	background-color: #eeeeee;
+}
+
+#under-content {
+	height: calc(0.5em - 4px);
+	background-color: #eeeeee;
+}
+
+#statcontent {
+	flex: 1;
+	padding: 0.5em;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.grid-container {
+	margin: -0.25em;
+}
+
+.grid-item {
+	display: inline-flex;
+	position: relative;
+	user-select: none;
+	-ms-user-select: none; /* Remove after Byond 516 */
+	width: 100%;
+	max-height: 1.85em;
+	text-decoration: none;
+	background-color: transparent;
+	color: black;
+}
+
+.grid-item:hover,
+.grid-item:active {
+	color: #003399;
+	z-index: 1;
+}
+
+.grid-item-text {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	pointer-events: none;
+	width: 100%;
+	padding: 0.33em 0.5em;
+	border-radius: 0.25em;
+}
+
+.grid-item:hover .grid-item-text,
+.grid-item:active .grid-item-text {
+	height: 100%;
+	overflow: visible;
+	white-space: normal;
+	background-color: #ececec;
+}
+
+@media only screen and (min-width: 300px) {
+	.grid-item {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 430px) {
+	.grid-item {
+		width: 33%;
+	}
+}
+
+@media only screen and (min-width: 560px) {
+	.grid-item {
+		width: 25%;
+	}
+}
+
+@media only screen and (min-width: 770px) {
+	.grid-item {
+		width: 20%;
+	}
+}
+
+.listedturf_link {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 0.25em;
+}
+
+.listedturf_link:hover {
+	background-color: #ececec;
+}
+
+/**
+ * MARK: Dark
+ */
+.dark:root {
+	--scrollbar-base: #181818;
+	--scrollbar-thumb: #363636;
+}
+
+body.dark {
+	background-color: #131313;
+	color: #b2c4dd;
+	scrollbar-base-color: #1c1c1c;
+	scrollbar-face-color: #3b3b3b;
+	scrollbar-3dlight-color: #252525;
+	scrollbar-highlight-color: #252525;
+	scrollbar-track-color: #1c1c1c;
+	scrollbar-arrow-color: #929292;
+	scrollbar-shadow-color: #3b3b3b;
+}
+
+.dark a {
+	color: #6699ff;
+}
+
+.dark a:hover,
+.dark .grid-item:hover,
+.dark .grid-item:active {
+	color: #80bfff;
+}
+
+.dark #menu {
+	background-color: #131313;
+}
+
+.dark #menu.tabs-classic .button.active {
+	background-color: #20b142;
+}
+
+.dark .button {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.dark .button:hover {
+	background-color: #252525;
+}
+
+.dark .button.active {
+	background-color: #313131;
+	color: #d4dfec;
+	border-bottom-color: #d4dfec;
+}
+
+.dark #under-menu,
+.dark #under-content {
+	background-color: #202020;
+}
+
+.dark .grid-item .grid-item-text {
+	color: #b2c4dd;
+}
+
+.dark .grid-item:hover .grid-item-text,
+.dark .grid-item:active .grid-item-text {
+	background-color: #252525;
+	color: #80bfff;
+}
+
+.dark .listedturf_link:hover {
+	background-color: #252525;
+}
+
+/**
+ * MARK: NTOS
+ */
+.ntos:root {
+	--scrollbar-base: #141d26;
+	--scrollbar-thumb: #2a3b4f;
+}
+
+body.ntos {
+	background-color: #121922;
+	color: #b2c4dd;
+	scrollbar-base-color: #141d26;
+	scrollbar-face-color: #2a3b4f;
+	scrollbar-track-color: #141d26;
+	scrollbar-arrow-color: #7290b4;
+	scrollbar-shadow-color: #2a3b4f;
+}
+
+.ntos a {
+	color: #6699ff;
+}
+
+.ntos a:hover,
+.ntos .grid-item:hover,
+.ntos .grid-item:active {
+	color: #80bfff;
+}
+
+.ntos #menu {
+	background-color: #121922;
+}
+
+.ntos #menu.tabs-classic .button.active {
+	background-color: #20b142;
+}
+
+.ntos .button {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.ntos .button:hover {
+	background-color: #242a32;
+}
+
+.ntos .button.active {
+	background-color: #30363e;
+	color: #d4dfec;
+	border-bottom-color: #d4dfec;
+}
+
+.ntos #under-menu,
+.ntos #under-content {
+	background-color: #1b2633;
+}
+
+.ntos .grid-item .grid-item-text {
+	color: #b2c4dd;
+}
+
+.ntos .grid-item:hover .grid-item-text,
+.ntos .grid-item:active .grid-item-text {
+	background-color: #242a32;
+	color: #80bfff;
+}
+
+.ntos .listedturf_link:hover {
+	background-color: #242a32;
+}
+
+/**
+ * MARK: Syndicate
+ */
+.syndicate:root {
+	--scrollbar-base: #3a0202;
+	--scrollbar-thumb: #770303;
+}
+
+body.syndicate {
+	background-color: #2b0101;
+	color: #debdbd;
+	scrollbar-base-color: #3a0202;
+	scrollbar-face-color: #770303;
+	scrollbar-track-color: #3a0202;
+	scrollbar-arrow-color: #fa2d2d;
+	scrollbar-shadow-color: #770303;
+}
+
+.syndicate a {
+	color: #6699ff;
+}
+
+.syndicate a:hover,
+.syndicate .grid-item:hover,
+.syndicate .grid-item:active {
+	color: #80bfff;
+}
+
+.syndicate #menu {
+	background-color: #2b0101;
+}
+
+.syndicate #menu.tabs-classic .button.active {
+	background-color: #9d0808;
+}
+
+.syndicate .button {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.syndicate .button:hover {
+	background-color: #3b1414;
+}
+
+.syndicate .button.active {
+	background-color: #462121;
+	color: #d4dfec;
+	border-bottom-color: #d4dfec;
+}
+
+.syndicate #under-menu,
+.syndicate #under-content {
+	background-color: #4d0202;
+}
+
+.syndicate .grid-item .grid-item-text {
+	color: #e4cdcd;
+}
+
+.syndicate .grid-item:hover .grid-item-text,
+.syndicate .grid-item:active .grid-item-text {
+	background-color: #3b1414;
+	color: #f5bcbc;
+}
+
+.syndicate .listedturf_link:hover {
+	background-color: #3b1414;
+}
+
+/**
+ * MARK: Paradise
+ */
+.paradise:root {
+	--scrollbar-base: #680b29;
+	--scrollbar-thumb: #cb1551;
+}
+
+body.paradise {
+	background-color: #400125;
+	color: #dec5bd;
+	scrollbar-base-color: #680b29;
+	scrollbar-face-color: #99103d;
+	scrollbar-track-color: #680b29;
+	scrollbar-arrow-color: #ea2e6c;
+	scrollbar-shadow-color: #99103d;
+}
+
+.paradise a {
+	color: #6699ff;
+}
+
+.paradise a:hover,
+.paradise .grid-item:hover,
+.paradise .grid-item:active {
+	color: #80bfff;
+}
+
+.paradise #menu {
+	background-color: #400025;
+}
+
+.paradise #menu.tabs-classic .button.active {
+	background-color: #bf6030;
+}
+
+.paradise .button {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.paradise .button:hover {
+	background-color: #4e1435;
+}
+
+.paradise .button.active {
+	background-color: #582140;
+	color: #d4dfec;
+	border-bottom-color: #d4dfec;
+}
+
+.paradise #under-menu,
+.paradise #under-content {
+	background-color: #800448;
+}
+
+.paradise .grid-item .grid-item-text {
+	color: #e4d7cd;
+}
+
+.paradise .grid-item:hover .grid-item-text,
+.paradise .grid-item:active .grid-item-text {
+	background-color: #4e1435;
+	color: #f5d5bc;
+}
+
+.paradise .listedturf_link:hover {
+	background-color: #4e1435;
+}

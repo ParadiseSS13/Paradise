@@ -2,11 +2,12 @@
 	name = "Mimic Voice"
 	desc = "We shape our vocal glands to sound like a desired voice."
 	helptext = "Will turn your voice into the name that you enter."
-	button_icon_state = "mimic_voice"
+	button_overlay_icon_state = "mimic_voice"
 	chemical_cost = 0
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
 
 
 // Fake Voice
@@ -16,7 +17,7 @@
 		to_chat(user, "<span class='notice'>We return our vocal glands to their original position.</span>")
 		return FALSE
 
-	var/mimic_voice = stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN)
+	var/mimic_voice = tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN)
 	if(!mimic_voice)
 		return FALSE
 

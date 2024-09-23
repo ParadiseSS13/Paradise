@@ -152,9 +152,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aB" = (
@@ -165,27 +163,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aC" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	pixel_x = 28
-	},
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+	pixel_y = -28
 	},
 /turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aD" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
-/turf/simulated/wall/cult,
 /area/shuttle/escape)
 "aE" = (
 /obj/docking_port/mobile/emergency{
@@ -272,12 +254,6 @@
 	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aU" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
-/turf/space,
 /area/shuttle/escape)
 "aV" = (
 /mob/living/simple_animal/hostile/construct/harvester,
@@ -457,9 +433,9 @@ an
 ab
 au
 aj
-aC
+au
 ab
-aj
+aA
 aj
 aj
 aF
@@ -484,7 +460,7 @@ ab
 ac
 ay
 ac
-ac
+ab
 aj
 aF
 aH
@@ -544,7 +520,7 @@ aM
 aI
 aQ
 aF
-ac
+ab
 aa
 aa
 aa
@@ -570,7 +546,7 @@ aI
 aV
 aH
 aS
-aU
+ab
 ab
 ab
 ab
@@ -664,7 +640,7 @@ aa
 aa
 ab
 aj
-aA
+aj
 aj
 aj
 aj
@@ -674,7 +650,7 @@ aj
 aj
 aj
 aj
-ac
+ab
 aZ
 aZ
 aZ
@@ -690,16 +666,16 @@ aa
 aa
 ab
 ab
-ab
-aD
-ab
-ab
+ac
+ac
+ac
+ac
 ab
 ac
 ac
 ac
-aD
 ac
+ab
 ab
 ab
 ab

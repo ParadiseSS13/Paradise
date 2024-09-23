@@ -10,6 +10,9 @@
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
 	if(!tool_behaviour)
 		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_TOOL_ATTACK, src, user) & COMPONENT_CANCEL_TOOLACT)
+		return FALSE
+
 	return target.tool_act(user, src, tool_behaviour)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
@@ -23,9 +26,17 @@
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
-	if(is_hot(src) && A.reagents && !ismob(A))
-		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-		A.reagents.temperature_reagents(is_hot(src))
+
+	if(SEND_SIGNAL(A, COMSIG_ITEM_BEING_ATTACKED, src, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
+	var/temperature = get_heat()
+	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
+		var/reagent_temp = A.reagents.chem_temp
+		var/time = (reagent_temp / 10) / (temperature / 1000)
+		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
+			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+			A.reagents.temperature_reagents(temperature)
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -50,12 +61,16 @@
 	if(flags & (NOBLUDGEON))
 		return FALSE
 
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(M) && M != user)
+		to_chat(user, "<span class='notice'>You don't want to harm the person you're trying to help!</span>")
+		return
+
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 
 	if(!force)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
 		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
@@ -69,7 +84,6 @@
 	. = M.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
-
 
 //the equivalent of the standard version of attack() but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user, params)
@@ -87,7 +101,12 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	var/damage = I.force
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message(
+			"<span class='danger'>[user] has hit [src] with [I]!</span>",
+			"<span class='danger'>You hit [src] with [I]!</span>",
+			"<span class='danger'>You hear something being struck by a weapon!</span>"
+		)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		damage += H.physiology.melee_bonus
@@ -111,18 +130,26 @@
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
-		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
-						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
+		user.visible_message(
+			"<span class='notice'>[user] gently taps [src] with [I].</span>",
+			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
+			"<span class='notice'>You hear a gentle tapping.</span>"
+		)
+
 	else if(I.force < force_threshold || I.damtype == STAMINA)
-		visible_message("<span class='warning'>[I] bounces harmlessly off of [src].</span>",\
-					"<span class='warning'>[I] bounces harmlessly off of [src]!</span>")
+		visible_message(
+			"<span class='warning'>[I] bounces harmlessly off of [src].</span>",
+			"<span class='warning'>[I] bounces harmlessly off of [src]!</span>",
+			"<span class='warning'>You hear something being struck by a weapon!</span>"
+		)
+
 	else
 		return ..()
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	return
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
@@ -135,7 +162,7 @@
 	if(I.discrete)
 		return
 	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
+	if(I.attack_verb && length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 	else if(!I.force)
 		return
@@ -145,6 +172,9 @@
 	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
 	if(user in viewers(src, null))
 		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
-	visible_message("<span class='combat danger'>[attack_message]</span>",\
-		"<span class='combat userdanger'>[attack_message]</span>")
-	return 1
+	visible_message(
+		"<span class='combat danger'>[attack_message]</span>",
+		"<span class='combat userdanger'>[attack_message]</span>",
+		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>"
+	)
+	return TRUE

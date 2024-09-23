@@ -2,10 +2,9 @@
  * Contents:
  *		Welding mask
  *		Cakehat
- *		Ushanka
+ *		Soviet Hats
  *		Pumpkin head
  *		Kitty ears
- *		Cardborg Disguise
  *		Head Mirror
  */
 
@@ -22,7 +21,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	can_toggle = TRUE
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 75)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
@@ -62,7 +61,7 @@
 	desc = "It's tasty looking!"
 	icon_state = "cake0"
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	var/onfire = FALSE
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
@@ -75,7 +74,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/living/carbon/human/M = location
-		if(M.l_hand == src || M.r_hand == src || M.head == src)
+		if(M.is_holding(src) || M.head == src)
 			location = M.loc
 
 	if(isturf(location))
@@ -97,7 +96,7 @@
 
 
 /*
- * Ushanka
+ * Soviet Hats
  */
 /obj/item/clothing/head/ushanka
 	name = "ushanka"
@@ -123,6 +122,21 @@
 		item_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
 
+/obj/item/clothing/head/sovietsidecap
+	name = "\improper Soviet side cap"
+	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
+	icon_state = "sovietsidecap"
+
+/obj/item/clothing/head/sovietofficerhat
+	name = "\improper Soviet officer hat"
+	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
+	icon_state = "sovietofficerhat"
+
+/obj/item/clothing/head/sovietadmiralhat
+	name = "\improper Soviet admiral hat"
+	desc = "This hat clearly belongs to someone very important."
+	icon_state = "sovietadmiralhat"
+
 /*
  * Pumpkin head
  */
@@ -137,7 +151,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	dog_fashion = null
 	light_color = "#fff2bf"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	brightness_on = 2 //luminosity when on
 
 /obj/item/clothing/head/hardhat/pumpkinhead/blumpkin
@@ -156,7 +170,7 @@
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
 	flags_inv = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	brightness_on = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
@@ -187,39 +201,13 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
-	if(ishuman(M) && slot == slot_head)
+	if(ishuman(M) && slot == SLOT_HUD_HEAD)
 		update_icon(NONE, M)
 
 /obj/item/clothing/head/kitty/mouse
 	name = "mouse ears"
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
-
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_disguise = "High-tech robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
-
-
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
-	if(ishuman(user) && slot == slot_head)
-		var/mob/living/carbon/human/H = user
-		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
-			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
-			CB.disguise(user, src)
-
-/obj/item/clothing/head/cardborg/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
 
 /*
  * Head Mirror

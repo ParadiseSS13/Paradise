@@ -7,7 +7,7 @@
 	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
-		S.always_availible = TRUE
+		S.always_available = TRUE
 		break
 	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
 	spawn(60 SECONDS)
@@ -34,7 +34,7 @@
 	var/cracked = 0
 
 /obj/item/toy/xmas_cracker/attack(mob/target, mob/user)
-	if( !cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_hand() )
+	if(!cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_hand())
 		target.visible_message("<span class='notice'>[user] and [target] pop \an [src]! *pop*</span>", "<span class='notice'>You pull \an [src] with [target]! *pop*</span>", "<span class='notice'>You hear a *pop*.</span>")
 		var/obj/item/paper/Joke = new /obj/item/paper(user.loc)
 		Joke.name = "[pick("awful","terrible","unfunny")] joke"
@@ -65,4 +65,4 @@
 	icon_state = "xmashat"
 	desc = "A crappy paper hat that you are REQUIRED to wear."
 	flags_inv = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)

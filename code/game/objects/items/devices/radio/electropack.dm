@@ -5,7 +5,7 @@
 	icon_state = "electropack0"
 	item_state = "electropack"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
@@ -74,25 +74,19 @@
 
 	if(isliving(loc))
 		var/mob/living/M = loc
-		var/turf/T = M.loc
-		if(isturf(T))
-			if(!M.moved_recently && M.last_move)
-				M.moved_recently = 1
-				step(M, M.last_move)
-				sleep(50)
-				if(M)
-					M.moved_recently = 0
-
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 
 		M.Weaken(10 SECONDS)
 
 // This should honestly just proxy the UI to the internal signaler
-/obj/item/electropack/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/electropack/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/electropack/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Electropack", name, 360, 150, master_ui, state)
+		ui = new(user, src, "Electropack", name)
 		ui.open()
 
 /obj/item/electropack/ui_data(mob/user)

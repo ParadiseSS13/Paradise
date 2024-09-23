@@ -12,19 +12,18 @@
  * - sound_out - The sound played at the destination turf
  * - bypass_area_flag - Whether is_teleport_allowed is skipped or not
  * - safe_turf_pick - Whether the chosen random turf from the variance is prefered to be a safe turf or not
+ * - do_effect - Whether to play the effect or not
  */
-/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = TRUE)
 	var/datum/teleport/instant/science/D = new // default here
-	if(isnull(effect_in) || isnull(effect_out)) // Set default effects
+	if((isnull(effect_in) || isnull(effect_out)) && do_effect) // Set default effects
 		var/datum/effect_system/spark_spread/effect = new
 		effect.set_up(5, 1, atom_to_teleport)
 		if(isnull(effect_in))
 			effect_in = effect
 		if(isnull(effect_out))
 			effect_out = effect
-	if(D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
-		return 1
-	return 0
+	return D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick, do_effect)
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
@@ -37,71 +36,73 @@
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
 	var/safe_turf_first = FALSE //If the teleport isn't precise and this is TRUE, only non-space, non-dense turfs will be selected, unless there's no other option for teleportation.
+	var/static/list/blacklisted = list(/obj/machinery/teleport/perma, /obj/machinery/teleport/hub) //List of objects that the destination turf cannot contain
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = FALSE)
 	if(!initTeleport(arglist(args)))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = FALSE)
 	if(!setTeleatom(ateleatom))
-		return 0
+		return FALSE
 	if(!setDestination(adestination))
-		return 0
+		return FALSE
 	safe_turf_first = safe_turf_pick //before precision for bag of holding interference
 	if(!setPrecision(aprecision))
-		return 0
-	setEffects(aeffectin,aeffectout)
+		return FALSE
+	if(do_effect)
+		setEffects(aeffectin, aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
 	ignore_area_flag = bypass_area_flag
-	return 1
+	return TRUE
 
 //must succeed
 /datum/teleport/proc/setPrecision(aprecision)
 	if(isnum(aprecision))
 		precision = aprecision
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //must succeed
 /datum/teleport/proc/setDestination(atom/adestination)
 	if(istype(adestination))
 		destination = adestination
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(iseffect(ateleatom) && !HAS_TRAIT(ateleatom, TRAIT_EFFECT_CAN_TELEPORT))
 		qdel(ateleatom)
-		return 0
+		return FALSE
 	if(istype(ateleatom))
 		teleatom = ateleatom
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //custom effects must be properly set up first for instant-type teleports
 //optional
 /datum/teleport/proc/setEffects(datum/effect_system/aeffectin=null,datum/effect_system/aeffectout=null)
 	effectin = istype(aeffectin) ? aeffectin : null
 	effectout = istype(aeffectout) ? aeffectout : null
-	return 1
+	return TRUE
 
 //optional
 /datum/teleport/proc/setForceTeleport(afteleport)
 	force_teleport = afteleport
-	return 1
+	return TRUE
 
 //optional
 /datum/teleport/proc/setSounds(asoundin=null,asoundout=null)
 	soundin = isfile(asoundin) ? asoundin : null
 	soundout = isfile(asoundout) ? asoundout : null
-	return 1
+	return TRUE
 
 //placeholder
 /datum/teleport/proc/teleportChecks()
-	return 1
+	return TRUE
 
 /datum/teleport/proc/playSpecials(atom/location,datum/effect_system/effect,sound)
 	if(location)
@@ -139,23 +140,39 @@
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
+	
+	// Make sure the target tile does not contain a teleporter on it
+	for(var/teleporter_type in blacklisted)
+		var/teleporters = destturf.search_contents_for(teleporter_type)
+		if(length(teleporters))
+			return FALSE
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
-		return 0
+		return FALSE
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
 	var/area/destarea = get_area(destturf)
 
 	if(!ignore_area_flag)
 		if(curarea.tele_proof)
-			return 0
+			return FALSE
 		if(destarea.tele_proof)
-			return 0
+			return FALSE
 
 	if(!destturf || !curturf)
-		return 0
+		return FALSE
 
 	playSpecials(curturf,effectin,soundin)
+
+	if(isliving(teleatom))
+		var/mob/living/target_mob = teleatom
+		if(target_mob.buckled)
+			target_mob.buckled.unbuckle_mob(target_mob, force = TRUE)
+		if(target_mob.has_buckled_mobs())
+			target_mob.unbuckle_all_mobs(force = TRUE)
+		if(ismachinery(target_mob.loc) || istype(target_mob.loc, /obj/item/mecha_parts/mecha_equipment/medical/sleeper))
+			var/obj/location = target_mob.loc
+			location.force_eject_occupant(target_mob)
 
 	if(force_teleport)
 		teleatom.forceMove(destturf)
@@ -164,27 +181,20 @@
 		if(teleatom.Move(destturf))
 			playSpecials(destturf,effectout,soundout)
 
-	if(isliving(teleatom))
-		var/mob/living/L = teleatom
-		if(L.buckled)
-			L.buckled.unbuckle_mob(L, force = TRUE)
-		if(L.has_buckled_mobs())
-			L.unbuckle_all_mobs(force = TRUE)
-
 	destarea.Entered(teleatom)
 
-	return 1
+	return TRUE
 
 /datum/teleport/proc/teleport()
 	if(teleportChecks())
 		return doTeleport()
-	return 0
+	return FALSE
 
 /datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	if(..())
 		if(teleport())
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /datum/teleport/instant/science
@@ -196,7 +206,7 @@
 			precision = rand(1, 100)
 
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
-		if(bagholding.len)
+		if(length(bagholding))
 			if(safe_turf_first) //If this is true, this is already a random teleport. Make it unsafe but do not touch the precision.
 				safe_turf_first = FALSE
 			else
@@ -205,7 +215,7 @@
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
-	return 1
+	return TRUE
 
 // Random safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels)

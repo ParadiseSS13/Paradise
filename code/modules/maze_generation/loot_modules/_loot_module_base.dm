@@ -13,4 +13,4 @@
   * * T - The turf loot will be spawned on
   */
 /obj/effect/mazegen/module_loot/proc/spawn_loot(turf/T)
-	CRASH("spawn_loot() not overriden for [type]")
+	CRASH("spawn_loot() not overridden for [type]")

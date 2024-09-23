@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/vampire)
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -17,35 +19,21 @@
 	/// Nullrods and holywater make their abilities cost more
 	var/nullified = 0
 	/// a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum
-	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-									/obj/effect/proc_holder/spell/vampire/glare = 0,
+	var/list/upgrade_tiers = list(/datum/spell/vampire/self/rejuvenate = 0,
+									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
-									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
-									/datum/vampire_passive/regen = 200)
+									/datum/spell/vampire/self/specialize = 150,
+									/datum/vampire_passive/regen = 200,
+									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
-
-/datum/antagonist/mindslave/thrall
-	name = "Vampire Thrall"
-	antag_hud_type = ANTAG_HUD_VAMPIRE
-	antag_hud_name = "vampthrall"
-
-/datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
-	SSticker.mode.vampire_enthralled += owner
-
-/datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
-	SSticker.mode.vampire_enthralled -= owner
-
-/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
-
-/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	blurb_text_color = COLOR_RED
+	blurb_text_outline_width = 0
+	blurb_r = 255
+	blurb_g = 221
+	blurb_b = 138
+	blurb_a = 1
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -65,14 +53,13 @@
 
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	powers += spell
+	if(istype(spell, /datum/spell))
 		owner.AddSpell(spell)
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
-	powers += spell
-	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/antagonist/vampire/proc/get_ability(path)
 	for(var/datum/power as anything in powers)
@@ -97,8 +84,7 @@
 	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
-	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
+	mob_override.dna?.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 
@@ -128,8 +114,7 @@
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-
-		if(H.stat < DEAD)
+		if((H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)) && !HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -139,13 +124,13 @@
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
 				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
-			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+			else if(H.blood_volume <= BLOOD_VOLUME_STABLE && blood_volume_warning > BLOOD_VOLUME_STABLE)
 				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
 			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
 			break
-		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
 			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
@@ -172,12 +157,12 @@
  * Remove and delete the vampire's current subclass and all associated abilities.
  *
  * Arguments:
- * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ * * give_specialize_power - if the [specialize][/datum/spell/vampire/self/specialize] power should be given back or not
  */
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+		upgrade_tiers[/datum/spell/vampire/self/specialize] = 150
 	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
@@ -215,8 +200,8 @@
 /datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell))
-				var/obj/effect/proc_holder/spell/power = p
+			if(istype(p, /datum/spell))
+				var/datum/spell/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
@@ -241,11 +226,11 @@
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
-		bloodusable -= 10
+		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
+		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100)
@@ -255,7 +240,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
@@ -265,7 +250,7 @@
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
 		check_sun()
-	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(get_area(owner.current), /area/station/service/chapel) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
@@ -292,6 +277,13 @@
 	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 	owner.current.alpha = 204 // 255 * 0.80
 
+/**
+ * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
+ *
+ * Arguments:
+ ** C: victim [/mob/living/carbon] that is being drained form.
+ ** blood_amount: amount of blood to add to vampire's usable and total pools.
+ */
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	if(C)
 		var/unique_suck_id = C.UID()
@@ -303,9 +295,18 @@
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
 	check_vampire_upgrade(TRUE)
-	for(var/obj/effect/proc_holder/spell/S in powers)
+	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
+
+/**
+ * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
+ *
+ * Arguments:
+ ** blood_amount: amount of blood to subtract.
+ */
+/datum/antagonist/vampire/proc/subtract_usable_blood(blood_amount)
+	bloodusable = clamp(bloodusable - blood_amount, 0, bloodtotal)
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
@@ -329,22 +330,22 @@
 	check_vampire_upgrade(TRUE)
 
 /datum/antagonist/vampire/give_objectives()
-	add_objective(/datum/objective/blood)
-	add_objective(/datum/objective/assassinate)
-	add_objective(/datum/objective/steal)
+	add_antag_objective(/datum/objective/blood)
+	add_antag_objective(/datum/objective/assassinate)
+	add_antag_objective(/datum/objective/steal)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
-		add_objective(/datum/objective/survive)
+		add_antag_objective(/datum/objective/survive)
 	else
-		add_objective(/datum/objective/escape)
+		add_antag_objective(/datum/objective/escape)
 
 /datum/antagonist/vampire/greet()
-	var/dat
+	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	dat = "<span class='danger'>You are a Vampire!</span><br>"
-	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
-	to_chat(owner.current, dat)
+	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
+	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
+		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+	return messages
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
 	mob_override = ..()
@@ -352,10 +353,10 @@
 		owner.som = new()
 		owner.som.masters += owner
 
-	mob_override.dna.species.hunger_type = "vampire"
-	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
+	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
-/datum/hud/proc/remove_vampire_hud()
-	static_inventory -= vampire_blood_display
-	QDEL_NULL(vampire_blood_display)
+
+
+/datum/antagonist/vampire/custom_blurb()
+	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."

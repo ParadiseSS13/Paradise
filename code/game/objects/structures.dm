@@ -3,9 +3,15 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.6
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
+	/// How long this takes to unbuckle yourself from.
+	var/unbuckle_time = 0 SECONDS
 
 /obj/structure/New()
 	..()
@@ -15,14 +21,14 @@
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		if(smoothing_flags & SMOOTH_CORNERS)
 			icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -32,22 +38,28 @@
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
 	REMOVE_FROM_SMOOTH_QUEUE(src)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/proc/climb_on()
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
 
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set category = null
-	set src in oview(1)
-
-	do_climb(usr)
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
 
 /obj/structure/MouseDrop_T(atom/movable/C, mob/user as mob)
 	if(..())
-		return
+		return TRUE
 	if(C == user)
-		do_climb(user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, do_climb), user)
+		return TRUE
 
 /obj/structure/proc/density_check()
 	for(var/obj/O in orange(0, src))
@@ -63,33 +75,32 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, "<span class='warning'>You cannot climb onto [src], as it is blocked by \a [blocking_object]!</span>")
 		return FALSE
 
-	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
-
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
-	climber = user
-	if(!do_after(user, 50, target = src))
-		climber = null
+	if(!isturf(loc))
 		return FALSE
+
+	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
+		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
+		if(!do_after(user, 0.5 SECONDS, target = src))
+			return FALSE
+	else
+		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
+		if(!do_after(user, 5 SECONDS, target = src))
+			return FALSE
 
 	if(!can_touch(user) || !climbable)
-		climber = null
 		return FALSE
 
-	var/old_loc = usr.loc
-	usr.loc = get_turf(src)
-	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
+	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
-
-	climber = null
-	return TRUE
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
+			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+		else
+			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 
 /obj/structure/proc/structure_shaken()
-
 	for(var/mob/living/M in get_turf(src))
 
 		if(IS_HORIZONTAL(M))
@@ -109,7 +120,7 @@
 
 			var/obj/item/organ/external/affecting
 
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
+			switch(pick("ankle","wrist","head","knee","elbow"))
 				if("ankle")
 					affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if("knee")
@@ -131,22 +142,24 @@
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
-	return
 
 /obj/structure/proc/can_touch(mob/living/user)
 	if(!istype(user))
-		return 0
+		return FALSE
 	if(!Adjacent(user))
-		return 0
+		return FALSE
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
-		return 0
+		return FALSE
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return 0
+		return FALSE
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
-		return 0
-	return 1
+		return FALSE
+	return TRUE
+
+/obj/structure/proc/get_climb_text()
+	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
 
 /obj/structure/examine(mob/user)
 	. = ..()
@@ -158,6 +171,8 @@
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
+	if(climbable)
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -178,3 +193,6 @@
 		take_damage(power / 8000, BURN, ENERGY)
 	power -= power / 2000 //walls take a lot out of ya
 	. = ..()
+
+/obj/structure/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable = TRUE, block_interactions_until_righted = FALSE)

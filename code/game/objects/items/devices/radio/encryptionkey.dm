@@ -13,9 +13,6 @@
 	var/change_voice = FALSE
 	var/list/channels = list()
 
-
-/obj/item/encryptionkey/attackby(obj/item/W as obj, mob/user as mob, params)
-
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
@@ -42,6 +39,12 @@
 	channels = list("SyndTeam" = 1, "Syndicate" = 1)
 	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
+
+/obj/item/encryptionkey/soviet
+	name = "soviet encryption key"
+	icon_state = "cypherkey"
+	channels = list("Special Ops" = 1)
+	origin_tech = "syndicate=4"
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
@@ -74,6 +77,11 @@
 	name = "Medical Radio Encryption Key"
 	icon_state = "med_cypherkey"
 	channels = list("Medical" = 1)
+
+/obj/item/encryptionkey/headset_med/para
+	name = "Paramedic Radio Encryption Key"
+	icon_state = "para_cypherkey"
+	channels = list("Medical" = 1, "Supply" = 0)
 
 /obj/item/encryptionkey/headset_sci
 	name = "Science Radio Encryption Key"
@@ -118,7 +126,12 @@
 /obj/item/encryptionkey/heads/hop
 	name = "Head of Personnel's Encryption Key"
 	icon_state = "hop_cypherkey"
-	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
+	channels = list("Service" = 1, "Security" = 0, "Command" = 1)
+
+/obj/item/encryptionkey/heads/qm
+	name = "Quartermaster's Encryption Key"
+	icon_state = "qm_cypherkey"
+	channels = list("Supply" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"
@@ -133,19 +146,8 @@
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1)
+	channels = list("Command" = 1, "Security" = 1)
 
-/*
-/obj/item/encryptionkey/headset_mine
-	name = "Mining Radio Encryption Key"
-	icon_state = "mine_cypherkey"
-	channels = list("Mining" = 1)
-
-/obj/item/encryptionkey/heads/qm
-	name = "Quartermaster's Encryption Key"
-	icon_state = "qm_cypherkey"
-	channels = list("Cargo" = 1, "Mining" = 1)
-*/
 /obj/item/encryptionkey/headset_cargo
 	name = "Supply Radio Encryption Key"
 	icon_state = "cargo_cypherkey"
@@ -164,7 +166,8 @@
 	name = "Centcom Radio Encryption Key"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1)
 
-/obj/item/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
+/// ported from bay, this goes 'inside' the AI.
+/obj/item/encryptionkey/heads/ai_integrated
 	name = "AI Integrated Encryption Key"
 	desc = "Integrated encryption key"
 	icon_state = "cap_cypherkey"

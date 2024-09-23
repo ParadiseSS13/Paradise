@@ -3,6 +3,9 @@
 
 #define CLICKCATCHER_PLANE -99
 
+#define GRAVITY_PULSE_PLANE -96 //Needs to be behind space, otherwise it blocks space, lol
+#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
+
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
@@ -13,9 +16,20 @@
 
 #define AREA_PLANE 1
 
-#define SPACE_LAYER 1.8
-#define GRASS_UNDER_LAYER 1.9
+#define SPACE_LAYER 1.5
+#define GRASS_UNDER_LAYER 1.6
+/// Which layer turfs appear on by default in the map editor. Should be unique!
+#define MAP_EDITOR_TURF_LAYER 1.6999
+#define PLATING_LAYER 1.7
+#define LATTICE_LAYER 1.701
+#define DISPOSAL_PIPE_LAYER 1.71
+#define GAS_PIPE_HIDDEN_LAYER 1.72
+#define WIRE_LAYER 1.73
+#define WIRE_TERMINAL_LAYER 1.75
+#define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
+#define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
+#define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
 #define TURF_PLATING_DECAL_LAYER 2.031
@@ -25,16 +39,12 @@
 #define BULLET_HOLE_LAYER 2.06
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define ABOVE_ICYOVERLAY_LAYER 2.11
-#define LATTICE_LAYER 2.2
-#define DISPOSAL_PIPE_LAYER 2.3
-#define GAS_PIPE_HIDDEN_LAYER 2.35
-#define WIRE_LAYER 2.4
-#define TRANSPARENT_TURF_LAYER 2.41
-#define WIRE_TERMINAL_LAYER 2.45
-#define GAS_SCRUBBER_LAYER 2.46
+#define GAS_SCRUBBER_OFFSET -0.001
 #define GAS_PIPE_VISIBLE_LAYER 2.47
-#define GAS_FILTER_LAYER 2.48
-#define GAS_PUMP_LAYER 2.49
+#define GAS_PIPE_SCRUB_OFFSET 0.001
+#define GAS_PIPE_SUPPLY_OFFSET 0.002
+#define GAS_FILTER_OFFSET 0.003
+#define GAS_PUMP_OFFSET 0.004
 #define HOLOPAD_LAYER 2.491
 #define CONVEYOR_LAYER 2.495
 #define LOW_OBJ_LAYER 2.5
@@ -65,6 +75,7 @@
 #define LYING_MOB_LAYER 3.8
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define ABOVE_MOB_LAYER 4.1
+#define HITSCAN_LAYER 4.2
 #define WALL_OBJ_LAYER 4.25
 #define EDGED_TURF_LAYER 4.3
 #define ON_EDGED_TURF_LAYER 4.35
@@ -83,7 +94,8 @@
 #define HIGH_LANDMARK_LAYER 9.2
 #define AREA_LAYER 10
 #define MASSIVE_OBJ_LAYER 11
-#define POINT_LAYER 12
+#define SMOKE_PLANE 12
+#define POINT_LAYER 13
 
 #define CHAT_LAYER 12.0001 // Do not insert layers between these two values
 #define CHAT_LAYER_MAX 12.9999
@@ -98,37 +110,44 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
-#define RAD_TEXT_LAYER 15.1
+#define LIGHTING_LAMPS_GLARE 16 // Light glare (optional setting)
+#define LIGHTING_EXPOSURE_PLANE 17 // Light sources "cones"
+#define LIGHTING_LAMPS_SELFGLOW 18 // Light sources glow (lamps, doors overlay, etc.)
+#define LIGHTING_LAMPS_PLANE 19 // Light sources themselves (lamps, screens, etc.)
 
-#define ABOVE_LIGHTING_PLANE 16
-#define ABOVE_LIGHTING_LAYER 16
+#define LIGHTING_LAMPS_RENDER_TARGET "*LIGHTING_LAMPS_RENDER_TARGET"
 
-#define FLOOR_OPENSPACE_PLANE 17
-#define OPENSPACE_LAYER 17
+#define RAD_TEXT_LAYER 19.1
 
-#define BYOND_LIGHTING_PLANE 18
-#define BYOND_LIGHTING_LAYER 18
+#define ABOVE_LIGHTING_PLANE 20
+#define ABOVE_LIGHTING_LAYER 20
 
-#define CAMERA_STATIC_PLANE 19
-#define CAMERA_STATIC_LAYER 19
+#define FLOOR_OPENSPACE_PLANE 21
+#define OPENSPACE_LAYER 21
+
+#define BYOND_LIGHTING_PLANE 22
+#define BYOND_LIGHTING_LAYER 22
+
+#define CAMERA_STATIC_PLANE 23
+#define CAMERA_STATIC_LAYER 23
 
 //HUD layer defines
 
-#define FULLSCREEN_PLANE 20
-#define FLASH_LAYER 20
-#define FULLSCREEN_LAYER 20.1
-#define UI_DAMAGE_LAYER 20.2
-#define BLIND_LAYER 20.3
-#define CRIT_LAYER 20.4
-#define CURSE_LAYER 20.5
+#define FULLSCREEN_PLANE 24
+#define FLASH_LAYER 24
+#define FULLSCREEN_LAYER 24.1
+#define UI_DAMAGE_LAYER 24.2
+#define BLIND_LAYER 24.3
+#define CRIT_LAYER 24.4
+#define CURSE_LAYER 24.5
 
-#define HUD_PLANE 21
-#define HUD_LAYER 21
-#define ABOVE_HUD_PLANE 22
-#define ABOVE_HUD_LAYER 22
+#define HUD_PLANE 25
+#define HUD_LAYER 25
+#define ABOVE_HUD_PLANE 26
+#define ABOVE_HUD_LAYER 26
 
-#define SPLASHSCREEN_LAYER 23
-#define SPLASHSCREEN_PLANE 23
+#define SPLASHSCREEN_LAYER 27
+#define SPLASHSCREEN_PLANE 27
 
 #define HUD_PLANE_BUILDMODE 30
 

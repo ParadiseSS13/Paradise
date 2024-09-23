@@ -1,7 +1,13 @@
-import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+import { clamp01, scale, keyOfMatchingRange, toFixed } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
-import { Component } from 'inferno';
 import { computeBoxClassName, computeBoxProps } from './Box';
+import { Component } from 'inferno';
 
 export const ProgressBar = (props) => {
   const {
@@ -17,8 +23,7 @@ export const ProgressBar = (props) => {
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
   const hasContent = children !== undefined;
-  const effectiveColor =
-    color || keyOfMatchingRange(value, ranges) || 'default';
+  const effectiveColor = color || keyOfMatchingRange(value, ranges) || 'default';
   return (
     <div
       className={classes([
@@ -36,9 +41,7 @@ export const ProgressBar = (props) => {
         }}
       />
       <div className="ProgressBar__content">
-        {hasContent
-          ? children
-          : toFixed(scaledValue * 100, fractionDigits) + '%'}
+        {hasContent ? children : toFixed(scaledValue * 100, fractionDigits) + '%'}
       </div>
     </div>
   );

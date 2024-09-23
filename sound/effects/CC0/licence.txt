@@ -1,0 +1,5 @@
+The sounds stored in this folder are licenced under CC0 1.0. https://creativecommons.org/publicdomain/zero/1.0/ https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+Credits:
+pillbottle1.ogg, pillbottle2.ogg, pillbottle3.ogg, pillbottle4.ogg are a derivative of https://freesound.org/people/Rudmer_Rotteveel/sounds/536419/.
+patchpack1.ogg, patchpack2.ogg, patchpack3.ogg, patchpack4.ogg, patchpack5.ogg are a derivative of https://freesound.org/people/SpliceSound/sounds/188189/

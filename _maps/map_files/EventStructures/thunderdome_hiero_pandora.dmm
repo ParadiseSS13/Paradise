@@ -1,0 +1,150 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"h" = (
+/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+/turf/simulated/floor/indestructible/hierophant/two/normal_air,
+/area/tdome/arena)
+"m" = (
+/turf/simulated/floor/indestructible/hierophant/two/normal_air,
+/area/tdome/arena)
+"F" = (
+/turf/simulated/wall/indestructible/hierophant,
+/area/tdome/arena)
+"R" = (
+/turf/simulated/floor/indestructible/hierophant/normal_air,
+/area/tdome/arena)
+
+(1,1,1) = {"
+R
+R
+R
+R
+R
+m
+R
+"}
+(2,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(3,1,1) = {"
+R
+R
+F
+F
+F
+R
+R
+"}
+(4,1,1) = {"
+R
+R
+m
+m
+m
+R
+R
+"}
+(5,1,1) = {"
+R
+R
+m
+m
+m
+R
+R
+"}
+(6,1,1) = {"
+R
+m
+m
+m
+m
+m
+R
+"}
+(7,1,1) = {"
+R
+m
+m
+m
+m
+m
+R
+"}
+(8,1,1) = {"
+F
+F
+m
+h
+m
+F
+F
+"}
+(9,1,1) = {"
+R
+m
+m
+m
+m
+m
+R
+"}
+(10,1,1) = {"
+R
+m
+m
+m
+m
+m
+R
+"}
+(11,1,1) = {"
+R
+R
+m
+m
+m
+R
+R
+"}
+(12,1,1) = {"
+R
+R
+m
+m
+m
+R
+R
+"}
+(13,1,1) = {"
+R
+R
+F
+F
+F
+R
+R
+"}
+(14,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(15,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}

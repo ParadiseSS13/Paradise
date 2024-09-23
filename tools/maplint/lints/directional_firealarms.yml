@@ -1,0 +1,10 @@
+help: 'Use the specific directional subtypes for this fire alarm.'
+/obj/machinery/firealarm:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - name
+=/obj/machinery/firealarm:
+  banned: true
+=/obj/machinery/firealarm/directional:
+  banned: true

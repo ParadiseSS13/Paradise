@@ -50,10 +50,21 @@
 	// Set the volume
 	volume = clamp(volume, 0, 100)
 	volume_mixer["[channel]"] = volume
-	// Update the sound channel
-	var/sound/S = sound(null, channel = channel, volume = volume)
-	S.status = SOUND_UPDATE
-	SEND_SOUND(parent, S)
+	var/sound/S
+	var/channel_already_updated = FALSE
+	// special handling for looping sounds, especially if they're decreasing
+	for(var/datum/looping_sound/D in GLOB.looping_sounds)
+		if(channel == D.channel)
+			S = sound(null, channel = channel, volume = D.volume * volume / 100)
+			S.status = SOUND_UPDATE
+			SEND_SOUND(parent, S)
+			channel_already_updated = TRUE
+
+	if(!channel_already_updated)
+		// Update the currently playing sound to update its volume
+		S = sound(null, channel = channel, volume = volume)
+		S.status = SOUND_UPDATE
+		SEND_SOUND(parent, S)
 	// Save it
 	if(debounce_save)
 		volume_mixer_saving = addtimer(CALLBACK(src, PROC_REF(save_volume_mixer)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
@@ -77,7 +88,7 @@
 
 /client/verb/volume_mixer()
 	set name = "Open Volume Mixer"
-	set category = "Preferences"
+	set category = null
 	set hidden = TRUE
 
 	var/datum/ui_module/volume_mixer/VM = new()

@@ -1,17 +1,18 @@
 /obj/item/gun/projectile/revolver
-	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	name = "\improper .357 magnum revolver"
+	desc = "A powerful revolver commonly used by the Syndicate. Uses .357 magnum ammo."
 	materials = list()
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
 	can_holster = TRUE
+	execution_speed = 5 SECONDS
 
-/obj/item/gun/projectile/revolver/Initialize(mapload)
+/obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	. += "[get_ammo(0, 0)] of those are live rounds."
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
@@ -57,24 +58,17 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
-/obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Spin Chamber"
-	set category = "Object"
-	set desc = "Click to spin your revolver's chamber."
-
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M,src))
+/obj/item/gun/projectile/revolver/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
-		C.spin()
-		chamber_round(0)
-		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
-		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
-	else
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
+		return ..()
+	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
+	C.spin()
+	chamber_round(0)
+	playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, TRUE)
+	user.visible_message("<span class='warning'>[user] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)
@@ -87,12 +81,37 @@
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
-/obj/item/gun/projectile/revolver/examine(mob/user)
-	. = ..()
-	. += "[get_ammo(0,0)] of those are live rounds."
+/obj/item/gun/projectile/revolver/fake
 
-/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
-	name = "\improper finger gun"
+/obj/item/gun/projectile/revolver/fake/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		. += "<span class='sans'>Its mechanism seems to shoot backwards.</span>"
+
+/obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+	var/zone = "chest"
+	if(user.has_organ("head"))
+		zone = "head"
+	add_fingerprint(user)
+	if(!chambered)
+		shoot_with_empty_chamber(user)
+		return
+	if(!chambered.fire(target = user, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone, spread = 0, firer_source_atom = src))
+		shoot_with_empty_chamber(user)
+		return
+	process_chamber()
+	update_icon()
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	user.visible_message("<span class='danger'>[src] goes off!</span>")
+	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
+	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	user.bleed(BLOOD_VOLUME_NORMAL)
+	user.death() // Just in case
+
+/// Summoned by the Finger Gun spell, from advanced mimery traitor item
+/obj/item/gun/projectile/revolver/fingergun
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	force = 0
@@ -108,14 +127,25 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
+	var/datum/spell/mime/fingergun/parent_spell
+
+/obj/item/gun/projectile/revolver/fingergun/Destroy()
+	if(parent_spell)
+		parent_spell.current_gun = null
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_spell = null
+	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	parent_spell = new_parent_spell
+
+/obj/item/gun/projectile/revolver/fingergun/AltClick(mob/user) // can't spin a barrel that doesn't exist!
+	return
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
 	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
@@ -149,12 +179,23 @@
 	recoil = 8
 
 /obj/item/gun/projectile/revolver/nagant
-	name = "nagant revolver"
-	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
+	name = "\improper Nagant revolver"
+	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+
+/obj/item/gun/projectile/revolver/overgrown
+	name = "overgrown revolver"
+	desc = "A bulky revolver that seems to be made out of a plant."
+	icon_state = "pea_shooter"
+	item_state = "peashooter"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	origin_tech = "combat=3;biotech=5"
+	mag_type = /obj/item/ammo_box/magazine/internal/overgrown
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
@@ -257,9 +298,8 @@
 /obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
 	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
-		return
+	SS.transfer_soul("FORCE", user)
+	user.death(FALSE)
 	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 
 /obj/item/gun/projectile/revolver/capgun
@@ -268,13 +308,21 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
+/obj/item/gun/projectile/revolver/capgun/chaosprank
+	name = "\improper .357 revolver"
+
+/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, "<span class='chaosbad'>[src] vanishes in a puff of smoke!</span>")
+	playsound(src, 'sound/items/bikehorn.ogg')
+	qdel(src)
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////
 
 /obj/item/gun/projectile/revolver/doublebarrel
-	name = "double-barreled shotgun"
-	desc = "A true classic."
+	name = "\improper CM150 double-barreled shotgun"
+	desc = "A true classic, by Starstrike Arms."
 	icon_state = "dbshotgun"
 	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
@@ -285,12 +333,13 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
+	var/can_sawoff = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
 	. = ..()
@@ -300,14 +349,15 @@
 	options["Faded Grey"] = "dbshotgun_g"
 	options["Maple"] = "dbshotgun_l"
 	options["Rosewood"] = "dbshotgun_p"
-	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
+	if(!can_sawoff)
+		return ..()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
-		if(W.active)
+		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 			item_state = icon_state
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
@@ -322,6 +372,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
+
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
@@ -331,10 +382,38 @@
 		CB.update_icon()
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
+
+	if(sleight_of_handling(user))
+		return
+
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, "<span class='notice'>You break open [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
+/obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
+	if(!istype(get_area(user), /area/station/service/bar))
+		return FALSE
+	if(!istype(user) || !HAS_MIND_TRAIT(user, TRAIT_SLEIGHT_OF_HAND))
+		return FALSE
+	if(!istype(user.belt, /obj/item/storage/belt/bandolier))
+		return FALSE
+	var/obj/item/storage/belt/bandolier/our_bandolier = user.belt
+
+	var/loaded_shells = 0
+	for(var/obj/item/ammo_casing/shotgun/shell in our_bandolier)
+		if(loaded_shells == magazine.max_ammo)
+			break
+
+		our_bandolier.remove_from_storage(shell)
+		magazine.give_round(shell)
+		chamber_round()
+
+		loaded_shells++
+
+	if(loaded_shells)
+		to_chat(user, "<span class='notice'>You quickly load [loaded_shells] shell\s from your bandolier into [src].</span>")
+	return TRUE
 
 // IMPROVISED SHOTGUN //
 
@@ -363,7 +442,7 @@
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
-			slot_flags = SLOT_BACK
+			slot_flags = SLOT_FLAG_BACK
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			sling = TRUE
 			update_icon()
@@ -371,8 +450,8 @@
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
-	icon_state = "ishotgun[sling ? "_sling" : ""]"
-	item_state = "ishotgun[sling ? "_sling" : ""]"
+	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
+	item_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -406,8 +485,8 @@
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
-	return 1
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficiency()
+	return 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return

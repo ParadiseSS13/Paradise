@@ -54,6 +54,7 @@ Difficulty: Very Hard
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
+	enraged_loot = /obj/item/disk/fauna_research/colossus
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,
@@ -61,31 +62,40 @@ Difficulty: Very Hard
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
+/mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/megafauna/colossus/LateInitialize()
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/megafauna/hierophant/H in GLOB.mob_list)
+		H.RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, easy_anti_cheese))
+
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "at_shield2"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "at_shield2"
 	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "shotgun"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "shotgun"
 	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "pistol"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "pistol"
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 
@@ -93,7 +103,15 @@ Difficulty: Very Hard
 	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 
-/mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
+/mob/living/simple_animal/hostile/megafauna/colossus/enrage()
+	. = ..()
+	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/megafauna/colossus/unrage()
+	. = ..()
+	move_to_delay = initial(move_to_delay)
+
+/mob/living/simple_animal/hostile/megafauna/colossus/OpenFire(atom/target_atom)
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
 
@@ -104,12 +122,12 @@ Difficulty: Very Hard
 			if(2)
 				random_shots()
 			if(3)
-				blast()
+				blast(target_atom)
 			if(4)
 				alternating_dir_shots()
 		return
 
-	if(enrage(target))
+	if(target_trying_to_cheese_us(target))
 		if(move_to_delay == initial(move_to_delay))
 			say("You can't dodge")
 		ranged_cooldown = world.time + 30
@@ -120,36 +138,42 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(health <= maxHealth / 10 && final_available) //One time use final attack
-		final_available = FALSE
-		final_attack()
+	if(health <= maxHealth / (enraged ? 10 : 9) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
+		final_attack(target_atom)
+		if(!enraged)
+			final_available = FALSE
 	else if(prob(20 + anger_modifier)) //Major attack
 		select_spiral_attack()
 	else if(prob(20))
 		random_shots()
 	else
 		if(prob(70))
-			blast()
+			blast(target_atom)
 		else
 			alternating_dir_shots()
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
-			return TRUE
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/target_trying_to_cheese_us(mob/living/L)
+	if(!ishuman(L))
+		return
+	var/mob/living/carbon/human/H = L
+	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+		return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
-	telegraph(DIR_SHOTS)
-	SLEEP_CHECK_DEATH(1.5 SECONDS)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)
+	var/rage = enraged ? 5 : 10
+	if(telegraphing)
+		ranged_cooldown = world.time + 4 SECONDS
+		telegraph(DIR_SHOTS)
+		SLEEP_CHECK_DEATH(1.5 SECONDS)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
+	if(telegraphing && enraged)
+		alternating_dir_shots(FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	if(health < maxHealth/3)
@@ -184,17 +208,25 @@ Difficulty: Very Hard
 		SLEEP_CHECK_DEATH(1)
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum(set_angle) && (!marker || marker == loc))
-		return
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(atom/target_atom, set_angle)
 	var/turf/startloc = get_turf(src)
+	var/turf/endloc = get_turf(target_atom)
+
+	if(!startloc || !endloc || endloc == loc)
+		return
+
 	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
-	P.preparePixelProjectile(marker, marker, startloc)
+	P.preparePixelProjectile(endloc, startloc)
 	P.firer = src
 	P.firer_source_atom = src
+
 	if(target)
-		P.original = target
-	P.fire(set_angle)
+		P.original = target_atom
+
+	if(isnum(set_angle))
+		P.fire(set_angle)
+	else
+		P.fire()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots(do_sleep = TRUE)
 	ranged_cooldown = world.time + 30
@@ -204,20 +236,23 @@ Difficulty: Very Hard
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
-		if(prob(5))
+		if(prob(enraged ? 10 : 5))
 			shoot_projectile(T)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle, do_sleep = TRUE)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(atom/target_atom, set_angle, do_sleep = TRUE)
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(1.5 SECONDS)
-	var/turf/target_turf = get_turf(target)
+		SLEEP_CHECK_DEATH(enraged ? 0.75 SECONDS : 1.5 SECONDS)
+
+	var/turf/target_turf = get_turf(target_atom)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
+
 	if(isnum(set_angle))
 		angle_to_target = set_angle
+
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/i in colossus_shotgun_shot_angles)
 		shoot_projectile(target_turf, angle_to_target + i)
@@ -238,7 +273,7 @@ Difficulty: Very Hard
 	if(mode)
 		say("[mode]")
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack(atom/target_atom)
 	icon_state = "eva_attack"
 	say("PERISH MORTAL!")
 	telegraph()
@@ -249,7 +284,7 @@ Difficulty: Very Hard
 	for(var/i in 1 to 20)
 		if(finale_counter > 4)
 			telegraph()
-			blast(do_sleep = FALSE)
+			blast(target_atom, do_sleep = FALSE)
 
 		if(finale_counter > 1)
 			finale_counter--
@@ -294,7 +329,7 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
-	if(!stat)
+	if(stat == CONSCIOUS)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
 		AT.pixel_x += random_x
@@ -306,10 +341,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
 	if(throwing)
 		return
-	if(on && !floating)
-		floating = TRUE
-	else if(!on && floating)
-		floating = FALSE
+	floating = on
 
 /obj/item/projectile/colossus
 	name ="death bolt"
@@ -324,7 +356,9 @@ Difficulty: Very Hard
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
+		for(var/obj/machinery/light/L in range(2, src))
+			L.break_light_tube(0, 1) //No leaving lights floating their as colossus breaks the station
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)

@@ -3,19 +3,6 @@
 #define UNCONSCIOUS	1
 #define DEAD		2
 
-// TGUI flags
-#define STATUS_INTERACTIVE 2 // GREEN Visability
-#define STATUS_UPDATE 1 // ORANGE Visability
-#define STATUS_DISABLED 0 // RED Visability
-#define STATUS_CLOSE -1 // Close the interface
-
-// bitflags for machine stat variable
-#define BROKEN		1
-#define NOPOWER		2
-#define POWEROFF	4		// tbd
-#define MAINT		8			// under maintaince
-#define EMPED		16		// temporary broken by EMP pulse
-
 /*
 	Shuttles
 */

@@ -1,10 +1,15 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section } from '../components';
+import { Button, LabeledList, Box, Section, Stack, Blink } from '../components';
 import { Window } from '../layouts';
+
+const RQ_NONEW_MESSAGES = 0;
+const RQ_LOWPRIORITY = 1;
+const RQ_NORMALPRIORITY = 2;
+const RQ_HIGHPRIORITY = 3;
 
 export const RequestConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { screen } = data;
+  const { screen, announcementConsole } = data;
 
   const pickPage = (index) => {
     switch (index) {
@@ -30,14 +35,20 @@ export const RequestConsole = (props, context) => {
         return <PrintShippingLabel />;
       case 10:
         return <MessageLog type="SHIPPING" />;
+      case 11:
+        return <SecondaryGoal />;
       default:
         return "WE SHOULDN'T BE HERE!";
     }
   };
 
   return (
-    <Window>
-      <Window.Content scrollable>{pickPage(screen)}</Window.Content>
+    <Window width={450} height={announcementConsole ? 425 : 385}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          {pickPage(screen)}
+        </Stack>
+      </Window.Content>
     </Window>
   );
 };
@@ -46,82 +57,124 @@ const MainMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { newmessagepriority, announcementConsole, silent } = data;
   let messageInfo;
-  if (newmessagepriority === 1) {
-    messageInfo = <Box color="red">There are new messages</Box>;
-  } else if (newmessagepriority === 2) {
+  if (newmessagepriority === RQ_HIGHPRIORITY) {
     messageInfo = (
-      <Box color="red" bold>
-        NEW PRIORITY MESSAGES
+      <Blink>
+        <Box color="red" bold mb={1}>
+          NEW PRIORITY MESSAGES
+        </Box>
+      </Blink>
+    );
+  } else if (newmessagepriority > RQ_NONEW_MESSAGES) {
+    messageInfo = (
+      <Box color="red" bold mb={1}>
+        There are new messages
+      </Box>
+    );
+  } else {
+    messageInfo = (
+      <Box color="label" mb={1}>
+        There are no new messages
       </Box>
     );
   }
   return (
-    <Section title="Main Menu">
-      {messageInfo}
-      <Box mt={2}>
-        <Button
-          content="View Messages"
-          icon={newmessagepriority > 0 ? 'envelope-open-text' : 'envelope'}
-          onClick={() => act('setScreen', { setScreen: 6 })}
-        />
-      </Box>
-      <Box mt={2}>
-        <Box>
+    <Stack.Item grow textAlign="center">
+      <Section
+        fill
+        scrollable
+        title="Main Menu"
+        buttons={
           <Button
+            width={9}
+            content={silent ? 'Speaker Off' : 'Speaker On'}
+            selected={!silent}
+            icon={silent ? 'volume-mute' : 'volume-up'}
+            onClick={() => act('toggleSilent')}
+          />
+        }
+      >
+        {messageInfo}
+        <Stack.Item>
+          <Button
+            fluid
+            translucent
+            lineHeight={3}
+            content="View Messages"
+            icon={newmessagepriority > RQ_NONEW_MESSAGES ? 'envelope-open-text' : 'envelope'}
+            onClick={() => act('setScreen', { setScreen: 6 })}
+          />
+        </Stack.Item>
+        <Stack.Item mt={1}>
+          <Button
+            fluid
+            translucent
+            lineHeight={3}
             content="Request Assistance"
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
           />
-        </Box>
-        <Box>
-          <Button
-            content="Request Supplies"
-            icon="box"
-            onClick={() => act('setScreen', { setScreen: 2 })}
-          />
-        </Box>
-        <Box>
-          <Button
-            content="Relay Anonymous Information"
-            icon="comment"
-            onClick={() => act('setScreen', { setScreen: 3 })}
-          />
-        </Box>
-      </Box>
-      <Box mt={2}>
-        <Box>
-          <Button
-            content="Print Shipping Label"
-            icon="tag"
-            onClick={() => act('setScreen', { setScreen: 9 })}
-          />
-        </Box>
-        <Box>
-          <Button
-            content="View Shipping Logs"
-            icon="clipboard-list"
-            onClick={() => act('setScreen', { setScreen: 10 })}
-          />
-        </Box>
-      </Box>
-      {!!announcementConsole && (
-        <Box mt={2}>
-          <Button
-            content="Send Station-Wide Announcement"
-            icon="bullhorn"
-            onClick={() => act('setScreen', { setScreen: 8 })}
-          />
-        </Box>
-      )}
-      <Box mt={2}>
-        <Button
-          content={silent ? 'Speaker Off' : 'Speaker On'}
-          selected={!silent}
-          icon={silent ? 'volume-mute' : 'volume-up'}
-          onClick={() => act('toggleSilent')}
-        />
-      </Box>
-    </Section>
+          <Stack.Item>
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="Request Supplies"
+              icon="box"
+              onClick={() => act('setScreen', { setScreen: 2 })}
+            />
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="Request Secondary Goal"
+              icon="clipboard-list"
+              onClick={() => act('setScreen', { setScreen: 11 })}
+            />
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="Relay Anonymous Information"
+              icon="comment"
+              onClick={() => act('setScreen', { setScreen: 3 })}
+            />
+          </Stack.Item>
+        </Stack.Item>
+        <Stack.Item mt={1}>
+          <Stack.Item>
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="Print Shipping Label"
+              icon="tag"
+              onClick={() => act('setScreen', { setScreen: 9 })}
+            />
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="View Shipping Logs"
+              icon="clipboard-list"
+              onClick={() => act('setScreen', { setScreen: 10 })}
+            />
+          </Stack.Item>
+        </Stack.Item>
+        {!!announcementConsole && (
+          <Stack.Item mt={1}>
+            <Button
+              fluid
+              translucent
+              lineHeight={3}
+              content="Send Station-Wide Announcement"
+              icon="bullhorn"
+              onClick={() => act('setScreen', { setScreen: 8 })}
+            />
+          </Stack.Item>
+        )}
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -146,35 +199,33 @@ const DepartmentList = (props, context) => {
       break;
   }
   return (
-    <Section
-      title={sectionTitle}
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
-    >
-      <LabeledList>
-        {list2iterate
-          .filter((d) => d !== department)
-          .map((d) => (
-            <LabeledList.Item key={d} label={d}>
-              <Button
-                content="Message"
-                icon="envelope"
-                onClick={() => act('writeInput', { write: d, priority: 1 })}
-              />
-              <Button
-                content="High Priority"
-                icon="exclamation-circle"
-                onClick={() => act('writeInput', { write: d, priority: 2 })}
-              />
-            </LabeledList.Item>
-          ))}
-      </LabeledList>
-    </Section>
+    <Stack.Item grow>
+      <Section
+        fill
+        scrollable
+        title={sectionTitle}
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
+      >
+        <LabeledList>
+          {list2iterate
+            .filter((d) => d !== department)
+            .map((d) => (
+              <LabeledList.Item key={d} label={d} textAlign="right" className="candystripe">
+                <Button
+                  content="Message"
+                  icon="envelope"
+                  onClick={() => act('writeInput', { write: d, priority: RQ_NORMALPRIORITY })}
+                />
+                <Button
+                  content="High Priority"
+                  icon="exclamation-circle"
+                  onClick={() => act('writeInput', { write: d, priority: RQ_HIGHPRIORITY })}
+                />
+              </LabeledList.Item>
+            ))}
+        </LabeledList>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -187,20 +238,15 @@ const MessageResponse = (props, context) => {
       sectionTitle = 'Message sent successfully';
       break;
     case 'FAIL':
-      sectionTitle = 'Request supplies from another department';
+      sectionTitle = 'Unable to contact messaging server';
       break;
   }
 
   return (
     <Section
+      fill
       title={sectionTitle}
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
+      buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
     />
   );
 };
@@ -220,27 +266,26 @@ const MessageLog = (props, context) => {
       sectionTitle = 'Shipping label print log';
       break;
   }
+  list2iterate.reverse();
 
   return (
-    <Section
-      title={sectionTitle}
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
-    >
-      {list2iterate.map((m) => (
-        <Box key={m}>
-          {m.map((i, key) => {
-            return <div key={key}>{i}</div>;
-          })}
-          <hr />
-        </Box>
-      ))}
-    </Section>
+    <Stack.Item grow textAlign="center">
+      <Section
+        fill
+        scrollable
+        title={sectionTitle}
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
+      >
+        {list2iterate.map((m) => (
+          <Box key={m} textAlign="left">
+            {m.map((i, key) => {
+              return <div key={key}>{i}</div>;
+            })}
+            <hr />
+          </Box>
+        ))}
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -249,35 +294,38 @@ const MessageAuth = (props, context) => {
   const { recipient, message, msgVerified, msgStamped } = data;
 
   return (
-    <Section
-      title="Message Authentication"
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
-    >
-      <LabeledList>
-        <LabeledList.Item label="Recipient">{recipient}</LabeledList.Item>
-        <LabeledList.Item label="Message">{message}</LabeledList.Item>
-        <LabeledList.Item label="Validated by" color="green">
-          {msgVerified}
-        </LabeledList.Item>
-        <LabeledList.Item label="Stamped by" color="blue">
-          {msgStamped}
-        </LabeledList.Item>
-      </LabeledList>
-      <Button
-        fluid
-        mt={1}
-        textAlign="center"
-        content="Send Message"
-        icon="envelope"
-        onClick={() => act('department', { department: recipient })}
-      />
-    </Section>
+    <>
+      <Stack.Item grow textAlign="center">
+        <Section
+          fill
+          scrollable
+          title="Message Authentication"
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
+        >
+          <LabeledList>
+            <LabeledList.Item label="Recipient">{recipient}</LabeledList.Item>
+            <LabeledList.Item label="Message">{message}</LabeledList.Item>
+            <LabeledList.Item label="Validated by" color="green">
+              {msgVerified}
+            </LabeledList.Item>
+            <LabeledList.Item label="Stamped by" color="blue">
+              {msgStamped}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section>
+          <Button
+            fluid
+            textAlign="center"
+            content="Send Message"
+            icon="envelope"
+            onClick={() => act('department', { department: recipient })}
+          />
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -286,38 +334,45 @@ const StationAnnouncement = (props, context) => {
   const { message, announceAuth } = data;
 
   return (
-    <Section
-      title="Station-Wide Announcement"
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
-    >
-      <Button
-        content={message ? message : 'Edit Message'}
-        icon="edit"
-        onClick={() => act('writeAnnouncement')}
-      />
-      {announceAuth ? (
-        <Box mt={1} color="green">
-          ID verified. Authentication accepted.
-        </Box>
-      ) : (
-        <Box mt={1}>Swipe your ID card to authenticate yourself.</Box>
-      )}
-      <Button
-        fluid
-        mt={1}
-        textAlign="center"
-        content="Send Announcement"
-        icon="bullhorn"
-        disabled={!(announceAuth && message)}
-        onClick={() => act('sendAnnouncement')}
-      />
-    </Section>
+    <>
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          title="Station-Wide Announcement"
+          buttons={
+            <>
+              <Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />
+              <Button content="Edit Message" icon="edit" onClick={() => act('writeAnnouncement')} />
+            </>
+          }
+        >
+          {message}
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section>
+          {announceAuth ? (
+            <Box textAlign="center" color="green">
+              ID verified. Authentication accepted.
+            </Box>
+          ) : (
+            <Box textAlign="center" color="label">
+              Swipe your ID card to authenticate yourself
+            </Box>
+          )}
+          <Button
+            fluid
+            mt={2}
+            textAlign="center"
+            content="Send Announcement"
+            icon="bullhorn"
+            disabled={!(announceAuth && message)}
+            onClick={() => act('sendAnnouncement')}
+          />
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -326,42 +381,88 @@ const PrintShippingLabel = (props, context) => {
   const { shipDest, msgVerified, ship_dept } = data;
 
   return (
-    <Section
-      title="Print Shipping Label"
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
+    <>
+      <Stack.Item textAlign="center">
+        <Section
+          title="Print Shipping Label"
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
+        >
+          <LabeledList>
+            <LabeledList.Item label="Destination">{shipDest}</LabeledList.Item>
+            <LabeledList.Item label="Validated by">{msgVerified}</LabeledList.Item>
+          </LabeledList>
+          <Button
+            fluid
+            mt={1}
+            textAlign="center"
+            content="Print Label"
+            icon="print"
+            disabled={!(shipDest && msgVerified)}
+            onClick={() => act('printLabel')}
+          />
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable title="Destinations">
+          <LabeledList>
+            {ship_dept.map((d) => (
+              <LabeledList.Item label={d} key={d} textAlign="right" className="candystripe">
+                <Button
+                  content={shipDest === d ? 'Selected' : 'Select'}
+                  selected={shipDest === d}
+                  onClick={() => act('shipSelect', { shipSelect: d })}
+                />
+              </LabeledList.Item>
+            ))}
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+    </>
+  );
+};
+
+const SecondaryGoal = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { secondaryGoalAuth, secondaryGoalEnabled } = data;
+
+  return (
+    <>
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          title="Request Secondary Goal"
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         />
-      }
-    >
-      <LabeledList>
-        <LabeledList.Item label="Destination">{shipDest}</LabeledList.Item>
-        <LabeledList.Item label="Validated by">{msgVerified}</LabeledList.Item>
-      </LabeledList>
-      <Button
-        fluid
-        mt={1}
-        textAlign="center"
-        content="Print Label"
-        icon="print"
-        disabled={!(shipDest && msgVerified)}
-        onClick={() => act('printLabel')}
-      />
-      <Section title="Destinations" mt={1}>
-        <LabeledList>
-          {ship_dept.map((d) => (
-            <LabeledList.Item label={d} key={d}>
-              <Button
-                content={shipDest === d ? 'Selected' : 'Select'}
-                selected={shipDest === d}
-                onClick={() => act('shipSelect', { shipSelect: d })}
-              />
-            </LabeledList.Item>
-          ))}
-        </LabeledList>
-      </Section>
-    </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section>
+          {secondaryGoalEnabled ? (
+            secondaryGoalAuth ? (
+              <Box textAlign="center" color="green">
+                ID verified. Authentication accepted.
+              </Box>
+            ) : (
+              <Box textAlign="center" color="label">
+                Swipe your ID card to authenticate yourself
+              </Box>
+            )
+          ) : (
+            <Box textAlign="center" color="label">
+              Complete your current goal first!
+            </Box>
+          )}
+          <Button
+            fluid
+            mt={2}
+            textAlign="center"
+            content="Request Secondary Goal"
+            icon="clipboard-list"
+            disabled={!(secondaryGoalAuth && secondaryGoalEnabled)}
+            onClick={() => act('requestSecondaryGoal')}
+          />
+        </Section>
+      </Stack.Item>
+    </>
   );
 };

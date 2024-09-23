@@ -38,23 +38,21 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-
-/obj/machinery/atmospherics/trinary/filter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
@@ -66,7 +64,7 @@
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
@@ -91,29 +89,27 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	..()
 	if(!on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
+	if(output_starting_pressure >= target_pressure || (filter_type != FILTER_NOTHING && air2.return_pressure() >= target_pressure))
 		//No need to mix if target is already full!
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV=nRT
 
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles
 
-	if(air1.temperature > 0)
-		transfer_moles = pressure_delta*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if(air1.temperature() > 0)
+		transfer_moles = pressure_delta * air3.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 	//Actually transfer the gas
 
@@ -123,31 +119,31 @@
 		if(!removed)
 			return
 		var/datum/gas_mixture/filtered_out = new
-		filtered_out.temperature = removed.temperature
+		filtered_out.set_temperature(removed.temperature())
 
 		switch(filter_type)
 			if(FILTER_TOXINS)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
 
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
 			if(FILTER_OXYGEN)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
 
 			if(FILTER_NITROGEN)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
 
 			if(FILTER_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
 			if(FILTER_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
 			else
 				filtered_out = null
 
@@ -155,17 +151,16 @@
 		air2.merge(filtered_out)
 		air3.merge(removed)
 
-	parent2.update = 1
+	if(!QDELETED(parent1))
+		parent1.update = 1
 
-	parent3.update = 1
+	if(!QDELETED(parent2))
+		parent2.update = 1
 
-	parent1.update = 1
+	if(!QDELETED(parent3))
+		parent3.update = 1
 
-	return 1
-
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
+	return TRUE
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
@@ -181,10 +176,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/trinary/filter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosFilter", name, 380, 140, master_ui, state)
+		ui = new(user, src, "AtmosFilter", name)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/filter/ui_data(mob/user)

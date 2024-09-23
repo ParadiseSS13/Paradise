@@ -1,0 +1,4 @@
+/obj/structure/transit_tube/diagonal/crossing : /obj/structure/transit_tube/diagonal {@OLD}
+/obj/structure/transit_tube/diagonal/crossing/topleft : /obj/structure/transit_tube/diagonal/topleft {@OLD}
+/obj/structure/transit_tube/crossing : /obj/structure/transit_tube {@OLD}
+/obj/structure/transit_tube/crossing/horizontal : /obj/structure/transit_tube/horizontal {@OLD}

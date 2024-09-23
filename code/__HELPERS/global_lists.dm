@@ -56,9 +56,6 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
-		if(IS_WHITELISTED in S.species_traits)
-			GLOB.whitelisted_species += S.name
-
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
 	//Pipe list building
@@ -113,10 +110,6 @@
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(!R.unavailable_at_chargen)
-			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
-				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
-					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
 			GLOB.selectable_robolimbs[R.company] = R
 
@@ -136,33 +129,7 @@
 		var/datum/client_login_processor/CLP = new processor_type
 		GLOB.client_login_processors += CLP
 	// Sort them by priority, lowest first
-	sortTim(GLOB.client_login_processors, /proc/cmp_login_processor_priority)
-
-	// Setup karma packages
-	// Package base type to do comparison stuff
-	var/datum/karma_package/basetype = new()
-	for(var/package_type in subtypesof(/datum/karma_package))
-		var/datum/karma_package/KP = new package_type()
-		if(KP.type in basetype.meta_packages)
-			// Skip this one
-			continue
-
-		if(KP.database_id == basetype.database_id)
-			stack_trace("[KP.type] has no DB ID set!")
-			continue
-		if(KP.category == basetype.category)
-			stack_trace("[KP.type] has no category set!")
-			continue
-		if(KP.friendly_name == basetype.friendly_name)
-			stack_trace("[KP.type] has no name set!")
-			continue
-
-		// Make sure its not already in there
-		if(KP.database_id in GLOB.karma_packages)
-			stack_trace("[KP.database_id] has already been registered! Skipping for [KP.type]")
-			continue
-
-		GLOB.karma_packages[KP.database_id] = KP
+	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
 
@@ -172,11 +139,27 @@
 		if(initial(D.name))
 			GLOB.keybindings += new path()
 
+	for(var/path in subtypesof(/datum/preference_toggle))
+		var/datum/preference_toggle/pref_toggle = path
+		if(initial(pref_toggle.name))
+			GLOB.preference_toggles[path] = new path()
+
 	for(var/path in subtypesof(/datum/objective))
 		var/datum/objective/O = path
 		if(isnull(initial(O.name)))
 			continue // These are not valid objectives to add.
 		GLOB.admin_objective_list[initial(O.name)] = path
+
+	for(var/path in subtypesof(/datum/tilt_crit))
+		var/datum/tilt_crit/crit = path
+		if(isnull(initial(crit.name)))
+			continue
+		crit = new path()
+		GLOB.tilt_crits[path] = crit
+
+	for(var/path in subtypesof(/datum/tech))
+		var/datum/tech/T = path
+		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

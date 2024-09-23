@@ -30,11 +30,24 @@
 	status_info["map_name"] = SSmapping.map_datum.fluff_name
 	status_info["round_id"] = GLOB.round_id
 
+	// Export performance metrics
+	status_info["perfmetrics"] = list(
+		"td" = list(
+			"time_dilation_current" = SStime_track.time_dilation_current,
+			"time_dilation_avg_fast" = SStime_track.time_dilation_avg_fast,
+			"time_dilation_avg" = SStime_track.time_dilation_avg,
+			"time_dilation_avg_slow" = SStime_track.time_dilation_avg_slow
+		),
+		"mcpu" = world.map_cpu,
+		"cpu" = world.cpu
+	)
+
+
 	// Add more info if we are authed
 	if(key_valid)
 		if(SSticker.mode)
 			status_info["real_mode"] = SSticker.mode.name
-			status_info["security_level"] = get_security_level()
+			status_info["security_level"] = SSsecurity_level.get_current_level_as_text()
 			status_info["ticker_state"] = SSticker.current_state
 
 		if(SSshuttle.emergency)

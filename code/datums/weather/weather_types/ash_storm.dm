@@ -12,7 +12,7 @@
 	weather_duration_upper = 1200
 	weather_overlay = "ash_storm"
 
-	end_message = "<span class='boldannounce'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
+	end_message = "<span class='boldannounceic'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
 	end_duration = 300
 	end_overlay = "light_ash"
 
@@ -32,9 +32,7 @@
 
 /datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	var/obj/docking_port/stationary/S = M.get_docked()
-
-	return S.id == dockId
+	return M && M.getDockedId() == dockId
 
 /datum/weather/ash_storm/proc/update_eligible_areas()
 	var/list/inside_areas = list()
@@ -52,13 +50,16 @@
 	if(!laborShuttleDocked)
 		eligible_areas -= get_areas(/area/shuttle/siberia)
 
-	for(var/i in 1 to eligible_areas.len)
+	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
+	if(!golemShuttleOnPlanet)
+		eligible_areas -= get_areas(/area/shuttle/freegolem)
+
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
 			outside_areas += place
 		else
 			inside_areas += place
-		CHECK_TICK
 
 	sound_ao.output_atoms = outside_areas
 	sound_ai.output_atoms = inside_areas
@@ -67,25 +68,25 @@
 
 /datum/weather/ash_storm/proc/update_audio()
 	switch(stage)
-		if(STARTUP_STAGE)
+		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
 			sound_wi.start()
 
-		if(MAIN_STAGE)
+		if(WEATHER_MAIN_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 
 			sound_ao.start()
 			sound_ai.start()
 
-		if(WIND_DOWN_STAGE)
+		if(WEATHER_WIND_DOWN_STAGE)
 			sound_ao.stop()
 			sound_ai.stop()
 
 			sound_wo.start()
 			sound_wi.start()
 
-		if(END_STAGE)
+		if(WEATHER_END_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 

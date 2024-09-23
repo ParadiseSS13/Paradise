@@ -16,12 +16,12 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
@@ -43,12 +43,15 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
+#ifdef UNIT_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
+	return
+#endif
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
-				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+				if(C.get_available_power() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 					toast() // mmmm toasty.
@@ -92,7 +95,7 @@
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+	if(istype(AM, /obj/item/food/cheesewedge))
 		return ..() // Get dem
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
@@ -100,7 +103,7 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
@@ -158,6 +161,17 @@
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
+/mob/living/simple_animal/mouse/white/Brain
+	name = "Brain"
+	real_name = "Brain"
+	response_harm = "splats"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/mouse/white/Brain/update_desc()
+	. = ..()
+	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
+
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
@@ -212,8 +226,8 @@
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-		C.stored_comms["wood"] += 2
-		C.stored_comms["glass"] += 2
+		C.stored_comms["metal"] += 2
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

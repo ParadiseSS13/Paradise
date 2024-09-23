@@ -12,8 +12,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 	name = "status display"
 	anchored = TRUE
 	density = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
@@ -37,6 +36,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 /obj/machinery/status_display/Initialize()
 	. = ..()
 	GLOB.status_displays |= src
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/status_display/Destroy()
 	GLOB.status_displays -= src
@@ -55,8 +55,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	underlays += emissive_appearance(icon, "lightmask")
 
 /obj/machinery/status_display/power_change()
-	..()
-
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -124,8 +124,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 				line1 = message1
 
 			else
-				line1 = copytext("[message1]|[message1]", index1, index1 + DISPLAY_CHARS_PER_LINE)
-				var/message1_len = length(message1)
+				line1 = copytext_char("[message1]|[message1]", index1, index1 + DISPLAY_CHARS_PER_LINE)
+				var/message1_len = length_char(message1)
 				index1 += DISPLAY_SCROLL_SPEED
 
 				if(index1 > message1_len)
@@ -136,8 +136,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 				line2 = message2
 
 			else
-				line2 = copytext("[message2]|[message2]", index2, index2 + DISPLAY_CHARS_PER_LINE)
-				var/message2_len = length(message2)
+				line2 = copytext_char("[message2]|[message2]", index2, index2 + DISPLAY_CHARS_PER_LINE)
+				var/message2_len = length_char(message2)
 				index2 += DISPLAY_SCROLL_SPEED
 
 				if(index2 > message2_len)
@@ -168,14 +168,14 @@ GLOBAL_LIST_EMPTY(status_displays)
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
-		index1 = (length(m1) > DISPLAY_CHARS_PER_LINE)
+		index1 = (length_char(m1) > DISPLAY_CHARS_PER_LINE)
 		message1 = m1
 	else
 		message1 = ""
 		index1 = 0
 
 	if(m2)
-		index2 = (length(m2) > DISPLAY_CHARS_PER_LINE)
+		index2 = (length_char(m2) > DISPLAY_CHARS_PER_LINE)
 		message2 = m2
 	else
 		message2 = ""
@@ -196,7 +196,6 @@ GLOBAL_LIST_EMPTY(status_displays)
 /obj/machinery/status_display/proc/remove_display()
 	picture_state = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /proc/post_status(mode, data1, data2)
 	if(usr && mode == STATUS_DISPLAY_MESSAGE)

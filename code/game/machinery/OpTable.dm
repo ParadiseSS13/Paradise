@@ -1,25 +1,27 @@
 /obj/machinery/optable
-	name = "Operating Table"
+	name = "operating table"
 	desc = "Used for advanced medical procedures."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 1
-	active_power_usage = 5
+	interact_offline = TRUE
+	idle_power_consumption = 1
+	active_power_consumption = 5
+	can_buckle = TRUE // you can buckle someone if they have cuffs
+	buckle_lying = TRUE
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
+
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
+	for(var/direction in list(NORTH,EAST,SOUTH,WEST))
+		computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
 		if(computer)
 			computer.table = src
 			break
@@ -31,94 +33,66 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/detailed_examine()
-	return "Click your target and drag them onto the table to place them onto it."
+/obj/machinery/optable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
-/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
-		qdel(src)
-		return TRUE
-
-/obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/machinery/optable/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
+	if(isliving(mover))
+		var/mob/living/our_mover = mover
+		if(IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	else
 		return FALSE
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
-	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
-		return
-	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
-		return
-	if(user.buckled || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
-		return
-	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
-		return
-	take_patient(O, user)
+	return take_patient(O, user)
 
-/**
-  * Updates the `patient` var to be the mob occupying the table
-  */
-/obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
-	if(C && IS_HORIZONTAL(C))
-		patient = C
-	else
-		patient = null
-	if(!no_icon_updates)
-		if(C && C.pulse)
-			icon_state = "table2-active"
-		else
-			icon_state = "table2-idle"
-
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
+/obj/machinery/optable/post_unbuckle_mob(mob/living/M)
 	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
-
-/obj/machinery/optable/process()
-	update_patient()
-	if(LAZYLEN(injected_reagents))
-		for(var/mob/living/carbon/C in get_turf(src))
-			var/datum/reagents/R = C.reagents
-			for(var/chemical in injected_reagents)
-				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+	if(M == patient)
+		patient = null
+		update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
-	if(new_patient == user)
-		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
-	else
-		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
-	new_patient.resting = TRUE
-	new_patient.lay_down()
-	new_patient.forceMove(loc)
-	if(user.pulling == new_patient)
-		user.stop_pulling()
-	if(new_patient.s_active) //Close the container opened
-		new_patient.s_active.close(new_patient)
-	add_fingerprint(user)
-	update_patient()
-
-/obj/machinery/optable/verb/climb_on()
-	set name = "Climb On Table"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
+	if((!ishuman(user) && !isrobot(user)) || !istype(new_patient))
 		return
-	take_patient(usr, usr)
+	if(patient in buckled_mobs)
+		to_chat(user, "<span class='notice'>The table is already occupied!</span>")
+		return
 
-/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(iscarbon(G.affecting))
-			take_patient(G.affecting, user)
-			qdel(G)
+	// Attempt to settle the patient in
+	if(!user_buckle_mob(new_patient, user, check_loc = FALSE))
+		return // User is incapacitated, patient is already buckled to something else, etc.
+
+	patient = new_patient
+
+	if(length(injected_reagents))
+		to_chat(new_patient, "<span class='danger'>You feel a series of tiny pricks!</span>")
+
+	update_appearance(UPDATE_ICON_STATE)
+
+	return TRUE
+
+/obj/machinery/optable/process()
+
+	if(!length(injected_reagents) || !patient || patient.stat == DEAD)
+		return
+
+	update_appearance(UPDATE_ICON_STATE)
+
+	for(var/chemical in injected_reagents)
+		patient.reagents.check_and_add(chemical, reagent_target_amount, inject_amount)
+
+/obj/machinery/optable/update_icon_state()
+	if(no_icon_updates)
+		return
+	if(patient?.pulse)
+		icon_state = "table2-active"
 	else
-		return ..()
+		icon_state = "table2-idle"
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -128,11 +102,3 @@
 		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
-
-/obj/machinery/optable/proc/check_table()
-	update_patient()
-	if(patient != null)
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
-		return FALSE
-	else
-		return TRUE

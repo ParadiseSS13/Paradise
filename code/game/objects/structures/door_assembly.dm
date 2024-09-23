@@ -19,10 +19,11 @@
 	var/glass = FALSE // FALSE = glass can be installed. TRUE = glass is already installed.
 	var/polarized_glass = FALSE
 	var/created_name
-	var/heat_proof_finished = FALSE //whether to heat-proof the finished airlock
+	var/reinforced_glass = FALSE // FALSE = rglass can be installed. TRUE = rglass is already installed.
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
+	var/heat_resistance = 1000
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
@@ -81,14 +82,16 @@
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
 		if(do_after(user, 40 * W.toolspeed, target = src))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+			var/obj/item/airlock_electronics/new_electronics = W
+			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS || new_electronics.is_installed)
 				return
 			user.drop_item()
-			W.forceMove(src)
+			new_electronics.forceMove(src)
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
-			electronics = W
+			electronics = new_electronics
+			electronics.is_installed = TRUE
 
 	else if(istype(W, /obj/item/stack/sheet) && (!glass || !mineral))
 		var/obj/item/stack/sheet/S = W
@@ -104,7 +107,7 @@
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
 									to_chat(user, "<span class='notice'>You install reinforced glass windows into the airlock assembly.</span>")
-									heat_proof_finished = TRUE //reinforced glass makes the airlock heat-proof
+									reinforced_glass = TRUE
 								else
 									to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
 								S.use(1)
@@ -118,7 +121,7 @@
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -136,10 +139,11 @@
 		ae = electronics
 		electronics = null
 		ae.forceMove(loc)
+		ae.is_installed = FALSE
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -151,7 +155,7 @@
 		return
 	to_chat(user, "<span class='notice'>You finish the airlock.</span>")
 	var/obj/machinery/door/airlock/door
-	if(glass)
+	if(glass || reinforced_glass)
 		door = new glass_type(loc)
 		door.polarized_glass = polarized_glass
 	else
@@ -159,7 +163,6 @@
 	door.setDir(dir)
 	door.electronics = electronics
 	door.unres_sides = electronics.unres_access_from
-	door.heat_proof = heat_proof_finished
 	if(electronics.one_access)
 		door.req_access = null
 		door.req_one_access = electronics.selected_accesses
@@ -214,9 +217,9 @@
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
-		if(heat_proof_finished)
+		if(reinforced_glass)
 			new /obj/item/stack/sheet/rglass(get_turf(src))
-			heat_proof_finished = FALSE
+			reinforced_glass = FALSE
 		else
 			new /obj/item/stack/sheet/glass(get_turf(src))
 		glass = FALSE
@@ -271,11 +274,11 @@
 			name = "wired "
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			name = "near finished "
-	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
+	name += "[reinforced_glass ? "window " : ""][glass ? "window " : ""][base_name] assembly"
 
 /obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
 	target.glass = source.glass
-	target.heat_proof_finished = source.heat_proof_finished
+	target.reinforced_glass = source.reinforced_glass
 	target.created_name = source.created_name
 	target.state = source.state
 	target.anchored = source.anchored
@@ -299,10 +302,15 @@
 		new to_spawn_type(T, material_amt)
 		if(glass)
 			if(disassembled)
-				if(heat_proof_finished)
+				if(reinforced_glass)
 					new /obj/item/stack/sheet/rglass(T)
 				else
 					new /obj/item/stack/sheet/glass(T)
 			else
 				new /obj/item/shard(T)
 	qdel(src)
+
+/obj/structure/door_assembly/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)

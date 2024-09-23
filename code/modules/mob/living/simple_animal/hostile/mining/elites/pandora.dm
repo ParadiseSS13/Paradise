@@ -54,25 +54,25 @@
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"
-	button_icon_state = "singular_shot"
+	button_overlay_icon_state = "singular_shot"
 	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Magic Box"
-	button_icon_state = "magic_box"
+	button_overlay_icon_state = "magic_box"
 	chosen_message = "<span class='boldwarning'>You are now attacking with a box of magic squares.</span>"
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
 	name = "Line Teleport"
-	button_icon_state = "pandora_teleport"
+	button_overlay_icon_state = "pandora_teleport"
 	chosen_message = "<span class='boldwarning'>You will now teleport to your target.</span>"
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
 	name = "AOE Blast"
-	button_icon_state = "aoe_squares"
+	button_overlay_icon_state = "aoe_squares"
 	chosen_message = "<span class='boldwarning'>Your attacks will spawn an AOE blast at your target location.</span>"
 	chosen_attack_num = AOE_SQUARES
 
@@ -206,32 +206,20 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/M = user
+	if(isliving(S.loc))
+		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
-	. = ..()
-	if(isliving(user))
-		var/mob/living/M = user
+	if(isliving(has_suit.loc))
+		var/mob/living/M = has_suit.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
-
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.remove_status_effect(STATUS_EFFECT_HOPE)
-	return ..()
-
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_equip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.apply_status_effect(STATUS_EFFECT_HOPE)
 	return ..()
 
 #undef CHASER_BURST

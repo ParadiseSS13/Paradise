@@ -11,5 +11,5 @@
 	if(Q.NextRow())
 		var/watchreason = Q.item[1]
 		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(C)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(C)] is on the watchlist and has just connected - Reason: [watchreason]")
+		GLOB.discord_manager.send2discord_simple_noadmins("**\[Watchlist]** [key_name(C)] is on the watchlist and has just connected - Reason: [watchreason]")
 		C.watchlisted = TRUE

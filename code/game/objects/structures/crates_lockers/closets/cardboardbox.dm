@@ -12,8 +12,10 @@
 	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
+	/// How fast a mob can move inside this box.
+	var/move_speed_multiplier = 1
 	var/amt = 4
-	var/move_delay = 0
+	var/move_delay = FALSE
 	var/egged = 0
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
@@ -22,8 +24,12 @@
 	move_delay = TRUE
 	var/oldloc = loc
 	step(src, direction)
+	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
+	var/delay = GLOB.configuration.movement.base_walk_speed * move_speed_multiplier
+	if(IS_DIR_DIAGONAL(direction))
+		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), GLOB.configuration.movement.base_walk_speed)
+		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), delay)
 	else
 		move_delay = FALSE
 
@@ -45,8 +51,8 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				alerted << sound('sound/machines/chime.ogg')
-	..()
+				SEND_SOUND(alerted, sound('sound/machines/chime.ogg'))
+	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I
@@ -72,10 +78,10 @@
 			qdel(src)
 			return
 		if(is_pen(W))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
+			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint Box", list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Assistant", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Medical", "Mime", "Mining", "NT Representative", "Paramedic",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
 				return
 			if(user.incapacitated())
@@ -84,7 +90,7 @@
 			if(W != user.get_active_hand())
 				to_chat(user, "You must be holding the pen to perform this action.")
 				return
-			if(! Adjacent(user))
+			if(!Adjacent(user))
 				to_chat(user, "You have moved too far away from the cardboard box.")
 				return
 			decalselection = replacetext(decalselection, " ", "_")

@@ -1,64 +1,39 @@
-<html>
-
-<head>
-  <title>Create $ATOM$</title>
-  <style type="text/css">
-    body
-    {
-      font-size: 9pt;
-      font-family: Verdana, sans-serif;
-    }
-
-    h1, h2, h3, h4, h5, h6
-    {
-      color: #00f;
-      font-family: Georgia, Arial, sans-serif;
-    }
-    img { 
-      border: 0px; 
-    }
-    p.lic {
-      font-size: 6pt;
-    }
-  </style>
-</head>
-
 <body>
 	<form name="spawner" action="byond://?src=/* ref src */" method="get">
 		<input type="hidden" name="src" value="/* ref src */">
-		
-		Type <input type="text" name="filter" value="" style="width:280px;height:25"> <input type = "submit" value = "Search" onclick = "updateSearch()" /><br>
-		Offset: <input type="text" name="offset" value="x,y,z" style="width:250px">
-		
-		A <input type="radio" name="offset_type" value="absolute">
-		R <input type="radio" name="offset_type" value="relative" checked="checked"><br>
-		
-		Number: <input type="text" name="object_count" value="1" style="width:30px">
-		Dir: <input type="text" name="object_dir" value="2" style="width:30px">
-		Name: <input type="text" name="object_name" value="" style="width:180px"><br>
-		Where: 
-			<select name='object_where' style="width:320px">
+		<div style="display: block; width: 440px"><table width='100%'>
+		<tr><td width='20%'>Type: </td><td><input type="text" name="filter" value="" style="width:65%" autofocus><button type="submit" onclick="updateSearch()" style="margin-left:5%">Search</button></td>
+		<tr><td width='20%'>Offset: </td><td><input type="text" name="offset" value="x,y,z" style="width:25%;text-align:center">
+		Absolute:<input type="radio" name="offset_type" value="absolute" style="border:none">
+		Relative:<input type="radio" name="offset_type" value="relative" checked="checked" style="border:none"></td></tr>
+		<tr><td width='20%'>Amount: </td><td><input type="text" name="object_count" value="1" style="width:10%;text-align:center"></td></tr>
+		<tr><td width='20%'>Dir: </td><td><input type="text" name="object_dir" value="2" style="width:10%;text-align:center"></td></tr>
+		<tr><td width='20%'>Name: </td><td><input type="text" name="object_name" value="" style="width:65%"></td></tr>
+		<tr><td width='20%'>Where:</td><td>
+			<select name='object_where' style="width:65%">
 				<option value='onfloor'>On floor below own mob</option>
 				<option value='inhand'>In own mob's hand</option>
 				<option value='inmarked'>In marked object</option>
-			</select>
+			</select></td></tr>
+		</table></div>
 		<br><br>
-		<select name="object_list" id="object_list" size="18" multiple style="width:98%"></select><br>
-		<input type="submit" value="spawn">
+		<select name="object_list" id="object_list" size="15" multiple style="width:100%"></select>
+		<br><br>
+		<div align="center"><button type="submit" style="width:50%">Spawn</button></div>
 	</form>
-	
+
 	<script language="JavaScript">
 		var old_search = "";
 		var object_list = document.spawner.object_list;
 		var object_paths = null /* object types */;
 		var objects = object_paths == null ? new Array() : object_paths.split(";");
-		
+
 		document.spawner.filter.focus();
-		
+
 		function populateList(from_list)
 		{
 			object_list.options.length = 0;
-			
+
 			var i;
 			for (i in from_list)
 			{
@@ -68,13 +43,13 @@
 				object_list.options.add(new_option);
 			}
 		}
-		
+
 		function updateSearch()
 		{
 			old_search = document.spawner.filter.value.toLowerCase();
 			if (!old_search)
 				return;
-			
+
 			var filtered = new Array();
 			var i;
 			for (i in objects)
@@ -84,13 +59,16 @@
 				{
 					continue;
 				}
-				
+
 				filtered.push(objects[i]);
 			}
-			
+
 			populateList(filtered);
 		}
-	</script>
-</body>
 
-</html>
+		function quickSpawn() {
+			document.spawner.submit();
+		}
+
+		document.getElementById('object_list').ondblclick = quickSpawn;
+	</script>

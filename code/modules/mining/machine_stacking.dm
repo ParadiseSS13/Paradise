@@ -8,15 +8,15 @@
 	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine
-	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
 	. = ..()
-	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
-	if(machine)
+	for(var/obj/machinery/mineral/stacking_machine/found_machine in range(1, src))
+		machine = found_machine
 		machine.console = src
-	else
-		return INITIALIZE_HINT_QDEL
+		return
+
+	CRASH("[src] failed to link to a stacking machine!")
 
 /obj/machinery/mineral/stacking_unit_console/Destroy()
 	if(machine)
@@ -31,14 +31,14 @@
 	if(!machine)
 		return
 
-	dat += text("<b>Stacking unit console</b><br><br>")
+	dat += "<b>Stacking unit console</b><br><br>"
 
 	for(var/O in machine.stack_list)
 		s = machine.stack_list[O]
 		if(s.amount > 0)
-			dat += text("[capitalize(s.name)]: [s.amount] <A href='?src=[UID()];release=[s.type]'>Release</A><br>")
+			dat += "[capitalize(s.name)]: [s.amount] <A href='byond://?src=[UID()];release=[s.type]'>Release</A><br>"
 
-	dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
+	dat += "<br>Stacking: [machine.stack_amt]<br><br>"
 
 	user << browse("[dat]", "window=console_stacking_machine")
 
@@ -76,7 +76,7 @@
 	speed_process = TRUE
 
 /obj/machinery/mineral/stacking_machine/Destroy()
-	QDEL_LIST(stack_list)
+	QDEL_LIST_CONTENTS(stack_list)
 	if(console)
 		console.machine = null
 	console = null

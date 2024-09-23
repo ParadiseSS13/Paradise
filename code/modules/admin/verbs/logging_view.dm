@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(open_logging_views, list())
+GLOBAL_LIST_EMPTY(open_logging_views)
 
 /client/proc/cmd_admin_open_logging_view()
 	set category = "Admin"
@@ -14,8 +14,8 @@ GLOBAL_LIST_INIT(open_logging_views, list())
 	else if(clear_view)
 		cur_view.clear_all()
 
-	if(mobs_to_add?.len)
+	if(length(mobs_to_add))
 		cur_view.add_mobs(mobs_to_add)
 
 	cur_view.show_ui(usr)
-	
+

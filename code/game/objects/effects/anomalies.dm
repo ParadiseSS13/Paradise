@@ -97,12 +97,17 @@
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	layer = OBJ_LAYER // Mobs will appear above this
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
+	var/obj/effect/warp_effect/supermatter/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
 	. = ..()
+	warp = new(src)
+	vis_contents += warp
 	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
@@ -110,6 +115,11 @@
 			new /obj/item/stack/rods(loc)
 		if(prob(75))
 			new /obj/item/shard(loc)
+
+/obj/effect/anomaly/grav/Destroy()
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
+	return ..()
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -120,13 +130,17 @@
 	for(var/mob/living/M in range(0, src))
 		gravShock(M)
 	for(var/mob/living/M in orange(4, src))
-		if(!M.mob_negates_gravity())
+		if(!M.mob_negates_gravity() && !issilicon(M))
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
 		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things
-			var/mob/living/target = locate() in view(4, src)
-			if(target && !target.stat)
-				O.throw_at(target, 5, 10, dodgeable = FALSE)
+			for(var/mob/living/target in view(4, src))
+				if(target && !target.stat && (get_dist(target, src) > 1 || prob(50))) //We don't want to always throw at the person that is in the anomaly, fuck up people around it.
+					O.throw_at(target, 5, 10, dodgeable = FALSE)
+					break
+	//anomaly quickly contracts then slowly expands it's ring
+	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+	animate(time = 14, transform = matrix())
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()
@@ -148,6 +162,14 @@
 		A.throw_at(target, 5, 1)
 		boing = FALSE
 
+/obj/effect/anomaly/grav/detonate()
+	if(!drops_core)
+		return
+	var/turf/T = get_turf(src)
+	if(T && length(GLOB.gravity_generators["[T.z]"]))
+		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
+		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
+
 /////////////////////
 
 /obj/effect/anomaly/flux
@@ -166,13 +188,16 @@
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
 	explosive = _explosive
+	if(explosive)
+		zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
+		power = 15000
 
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
-	if(explosive && prob(50)) //Let us not fuck up the sm that much
+	if(explosive) //Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
 
@@ -208,23 +233,40 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	///Do we teleport everything around us to a beacon when despawning?
 	var/mass_teleporting = TRUE
+	///Do we have a smaller mob and object grab range, and 4 seconds of mercy?
+	var/supermatter_spawned = FALSE
+	///What is the range we will grab mobs to teleport from
+	var/mob_range = 4
+	///What is the range we will grab objects to teleport from
+	var/other_range = 4
+	///Used by supermatter anomalies. If fully active, behaves like normal. Otherwise, will not teleport people, to keep them being telefragged into the SM
+	var/fully_active = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
 
-/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE, _supermatter_spawned = FALSE)
 	. = ..()
 	mass_teleporting = _mass_teleporting
+	supermatter_spawned = _supermatter_spawned
+	if(supermatter_spawned)
+		mob_range = 1
+		other_range = 3
+		fully_active = FALSE
+		addtimer(VARSET_CALLBACK(src, fully_active, TRUE), 4 SECONDS)
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
+	if(!fully_active)
+		return
 	..()
-	for(var/mob/living/M in range(3, src))
-		do_teleport(M, locate(M.x, M.y, M.z), 4)
-	for(var/obj/item/O in range (3, src))
+	for(var/mob/living/M in range(mob_range, src))
+		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core || supermatter_spawned)
+	for(var/obj/O in range (other_range, src))
 		if(!O.anchored && O.invisibility == 0 && prob(50))
-			do_teleport(O, locate(O.x, O.y, O.z), 6)
+			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core || supermatter_spawned)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
-	if(isliving(AM))
+	if(isliving(AM) && fully_active)
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8)
 
 /obj/effect/anomaly/bluespace/detonate()
@@ -233,9 +275,9 @@
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		// Calculate new position (searches through beacons in world)
-		var/obj/item/radio/beacon/chosen
+		var/obj/item/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/radio/beacon/W in GLOB.beacons)
+		for(var/obj/item/beacon/W in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W
@@ -259,7 +301,7 @@
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
 			for(var/atom/movable/A in urange(BLUESPACE_MASS_TELEPORT_RANGE, turf_from)) // iterate thru list of mobs in the area
-				if(istype(A, /obj/item/radio/beacon))
+				if(istype(A, /obj/item/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored || A.move_resist == INFINITY)
 					continue
@@ -308,13 +350,17 @@
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	if(ticks < 5)
+	if(ticks < 4)
 		return
 	else
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
@@ -323,7 +369,12 @@
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
+		//Make it hot and burny for the new slime
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(500)
+		air.set_oxygen(500)
+		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE
@@ -337,7 +388,84 @@
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+		dust_if_respawnable(chosen)
 		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
+
+/////////////////////
+
+/obj/effect/anomaly/cryo
+	name = "cryogenic anomaly"
+	desc = "Hope you brought a jacket!"
+	icon_state = "cryoanomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/cryo
+
+/obj/effect/anomaly/cryo/anomalyEffect()
+	..()
+
+	var/list/turf_targets = list()
+	for(var/turf/T in oview(get_turf(src), 7))
+		turf_targets += T
+
+	var/list/mob_targets = list()
+	for(var/mob/M in oview(get_turf(src), 7))
+		if(!isliving(M))
+			continue
+		mob_targets += M
+
+	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
+		shootAt(H)
+
+	if(prob(10))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		for(var/i in 1 to 5)
+			step_towards(A, pick(turf_targets))
+			sleep(2)
+		A.Smoke()
+
+	// This has to be in the end because we're adding mobs to a turf list
+	var/shots = drops_core ? rand(3, 5) : rand(1, 3)
+	for(var/i in 1 to shots)
+		if(length(mob_targets))
+			turf_targets += mob_targets
+		shootAt(pick(turf_targets))
+
+	if(prob(50))
+		for(var/turf/possible_floor in view(get_turf(src), (drops_core ? 2 : 1)))
+			if(isfloorturf(possible_floor))
+				var/turf/simulated/floor/nearby_floor = possible_floor
+				nearby_floor.MakeSlippery((drops_core ? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core ? null : rand(10, 20 SECONDS)))
+
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			var/datum/gas_mixture/air = new()
+			air.set_temperature(TCMB)
+			air.set_sleeping_agent(80)
+			air.set_carbon_dioxide(80)
+			T.blind_release_air(air)
+
+/obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
+	O.original = target
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
+
+/obj/effect/anomaly/cryo/detonate()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T) && drops_core)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(TCMB)
+		air.set_sleeping_agent(3000)
+		air.set_carbon_dioxide(3000)
+		T.blind_release_air(air)
 
 /////////////////////
 
@@ -346,32 +474,41 @@
 	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/anomaly/vortex
+	/// The timer that will give us an extra proccall of ripping the floors up
+	var/timer
 
 /obj/effect/anomaly/bhole/anomalyEffect()
 	..()
 	if(!isturf(loc)) //blackhole cannot be contained inside anything. Weird stuff might happen
 		qdel(src)
 		return
+	rip_and_tear()
+	// We queue up another `rip_and_tear` in a second, effectively making it tick once per second without having to switch this anomaly to another SS
+	timer = addtimer(CALLBACK(src, PROC_REF(rip_and_tear)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
 
-	grav(rand(0, 3), rand(2, 3), 50, 25)
+/obj/effect/anomaly/bhole/proc/rip_and_tear()
+	grav(rand(1, 4), rand(2, 3), 100, 30)
 
 	//Throwing stuff around!
-	for(var/obj/O in range(2, src))
+	for(var/obj/O in range(3, src))
 		if(O == src || O.loc == src)
 			return //DON'T DELETE YOURSELF OR YOUR CORE GOD DAMN
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4, src)
+			var/mob/living/target = locate() in view(5, src)
 			if(target && !target.stat)
-				O.throw_at(target, 7, 5)
+				O.throw_at(target, 7, 5, dodgeable = FALSE)
 		else
 			O.ex_act(EXPLODE_HEAVY)
 
-/obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
-	for(var/t = -r, t < r, t++)
-		affect_coord(x + t, y - r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x - t, y + r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x + r, y + t, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x - r, y - t, ex_act_force, pull_chance, turf_removal_chance)
+/obj/effect/anomaly/bhole/proc/grav(radius = 0, ex_act_force, pull_chance, turf_removal_chance)
+	if(radius <= 0 || prob(25)) // Base 25% chance of not damaging any floors or pulling mobs
+		return
+
+	for(var/t in -radius to (radius - 1))
+		affect_coord(x + t, y - radius, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - t, y + radius, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x + radius, y + t, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - radius, y - t, ex_act_force, pull_chance, turf_removal_chance)
 
 /obj/effect/anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
 	//Get turf at coordinate
@@ -388,6 +525,9 @@
 				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
 			step_towards(M, src)
+			if(drops_core)
+				M.Weaken(3.5 SECONDS) //You ran into a black hole, you ride the pain train.
+			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
 	if(T && prob(turf_removal_chance))

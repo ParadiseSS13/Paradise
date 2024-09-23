@@ -8,18 +8,18 @@
 	var/server_features = "Medium RP, varied species/jobs"
 	/// Allow character OOC notes
 	var/allow_character_metadata = TRUE
-	/// Time in seconds for the pregame lobby
+	/// Time in seconds for the pregame lobby. Measured in seconds
 	var/lobby_time = 240
+	/// Default timeout for world reboot. Measured in seconds
+	var/restart_timeout = 75
 	/// Ban all Guest BYOND accounts
 	var/guest_ban = TRUE
 	/// Allow players to use AntagHUD?
 	var/allow_antag_hud = TRUE
 	/// Forbid players from rejoining if they use AntagHUD?
 	var/restrict_antag_hud_rejoin = TRUE
-	/// Enable respanws by default?
+	/// Enable respawns by default?
 	var/respawn_enabled = FALSE
-	/// Enable karma? Disable to lockout awarding and unlock everything
-	var/enable_karma = TRUE
 	/// Enable CID randomiser buster?
 	var/enabled_cid_randomiser_buster = FALSE
 	/// Forbid admins from posessing and flying the singulo round
@@ -38,12 +38,16 @@
 	var/starlight = TRUE
 	/// Disable lobby music?
 	var/disable_lobby_music = FALSE
+	/// Disable ambient sound and white noise
+	var/disable_ambient_noise = FALSE
 	/// Disable a popup if 2 users are on the same CID?
 	var/disable_cid_warning_popup = FALSE
 	/// Amount of loadout points non-donors should get
 	var/base_loadout_points = 5
 	/// Respawnability loss penalty for eary cryoing (minutes)
 	var/cryo_penalty_period = 30
+	/// Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
+	var/roundstart_observer_period = 5
 	/// Enable OOC emojis?
 	var/enable_ooc_emoji = TRUE
 	/// Auto start the game if on a local test server
@@ -89,9 +93,8 @@
 	CONFIG_LOAD_BOOL(guest_ban, data["guest_ban"])
 	CONFIG_LOAD_BOOL(allow_antag_hud, data["allow_antag_hud"])
 	CONFIG_LOAD_BOOL(restrict_antag_hud_rejoin, data["restrict_antag_hud_rejoin"])
-	CONFIG_LOAD_BOOL(respawn_enabled, data["respawn_enabled"])
-	CONFIG_LOAD_BOOL(enable_karma, data["enable_karma"])
 	CONFIG_LOAD_BOOL(enabled_cid_randomiser_buster, data["enable_cid_randomiser_buster"])
+	CONFIG_LOAD_BOOL(respawn_enabled, data["respawn_enabled"])
 	CONFIG_LOAD_BOOL(forbid_singulo_possession, data["prevent_admin_singlo_possession"])
 	CONFIG_LOAD_BOOL(popup_admin_pm, data["popup_admin_pm"])
 	CONFIG_LOAD_BOOL(allow_holidays, data["allow_holidays"])
@@ -100,6 +103,7 @@
 	CONFIG_LOAD_BOOL(ghost_interaction, data["ghost_interaction"])
 	CONFIG_LOAD_BOOL(starlight, data["starlight"])
 	CONFIG_LOAD_BOOL(disable_lobby_music, data["disable_lobby_music"])
+	CONFIG_LOAD_BOOL(disable_ambient_noise, data["disable_ambient_noise"])
 	CONFIG_LOAD_BOOL(disable_cid_warning_popup, data["disable_cid_warning_popup"])
 	CONFIG_LOAD_BOOL(enable_ooc_emoji, data["enable_ooc_emoji"])
 	CONFIG_LOAD_BOOL(developer_express_start, data["developer_express_start"])
@@ -116,8 +120,10 @@
 
 	// Numbers
 	CONFIG_LOAD_NUM(lobby_time, data["lobby_time"])
+	CONFIG_LOAD_NUM(restart_timeout, data["restart_timeout"])
 	CONFIG_LOAD_NUM(base_loadout_points, data["base_loadout_points"])
 	CONFIG_LOAD_NUM(cryo_penalty_period, data["cryo_penalty_period"])
+	CONFIG_LOAD_NUM(roundstart_observer_period, data["roundstart_observer_period"])
 	CONFIG_LOAD_NUM(minimum_client_build, data["minimum_client_build"])
 	CONFIG_LOAD_NUM(byond_account_age_threshold, data["byond_account_age_threshold"])
 	CONFIG_LOAD_NUM(max_client_cid_history, data["max_client_cid_history"])

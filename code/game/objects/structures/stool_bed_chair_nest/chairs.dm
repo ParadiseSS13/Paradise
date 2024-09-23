@@ -1,4 +1,5 @@
-/obj/structure/chair	// fuck you Pete
+/// fuck you Pete
+/obj/structure/chair
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
@@ -21,6 +22,10 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to rotate it.</span>"
+
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
@@ -28,7 +33,7 @@
 		qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
-	..()
+	. = ..()
 	handle_rotation()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -63,7 +68,6 @@
 	..()
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
 	if(over_object == usr && Adjacent(usr))
 		if(!item_chair || has_buckled_mobs())
 			return
@@ -82,6 +86,13 @@
 		var/C = new item_chair(loc)
 		usr.put_in_hands(C)
 		qdel(src)
+		return
+	. = ..()
+
+/obj/structure/chair/attack_hand(mob/user)
+	if(user.Move_Pulled(src))
+		return
+	return ..()
 
 /obj/structure/chair/attack_tk(mob/user as mob)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -117,29 +128,21 @@
 	..()
 	handle_rotation(newdir)
 
-/obj/structure/chair/verb/rotate()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
+/obj/structure/chair/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || is_ventcrawling(user))
+		return
 
+	rotate()
+
+/obj/structure/chair/attack_ghost(mob/user)
 	if(GLOB.configuration.general.ghost_interaction)
-		setDir(turn(dir, (360 / possible_dirs))) //90 for 4 possible dirs, 45 for 8.
-		handle_rotation()
+		rotate()
 		return
+	..()
 
-	if(usr.incapacitated())
-		return
-
+/obj/structure/chair/proc/rotate()
 	setDir(turn(dir, (360 / possible_dirs)))
 	handle_rotation()
-
-/obj/structure/chair/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	rotate()
 
 // Chair types
 /obj/structure/chair/light
@@ -260,7 +263,7 @@
 			buckled_mob.Weaken(12 SECONDS)
 			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
 
 /obj/structure/chair/office/light
@@ -360,6 +363,7 @@
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
 	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 	color = null
 	colorable = FALSE
 
@@ -420,7 +424,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	buildstackamount = 2
-	buildstacktype = /obj/item/stack/sheet/wood
+	buildstacktype = /obj/item/stack/sheet/bamboo
 
 /obj/structure/chair/sofa/bamboo/left
 	icon_state = "bamboo_sofaend_left"
@@ -449,7 +453,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	buildstackamount = 2
-	buildstacktype = /obj/item/stack/sheet/wood
+	buildstacktype = /obj/item/stack/sheet/bamboo
 
 /obj/item/chair
 	name = "chair"
@@ -460,14 +464,33 @@
 	lefthand_file = 'icons/mob/inhands/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	force = 8
+	force = 6
 	throwforce = 10
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
 	hit_reaction_chance = 50
 	materials = list(MAT_METAL = 2000)
-	var/break_chance = 5 //Likely hood of smashing the chair.
+	/// Likelihood of smashing the chair.
+	var/break_chance = 5
+	/// Used for when placing a chair back down.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
+	// Twohanded Component Vars
+	/// force applied with one hand.
+	var/force_unwielded = 6
+	/// force applied with two hands.
+	var/force_wielded = 8
+	// Parry Component Vars when wielding
+	/// the flat amount of damage the shield user takes per non-perfect parry
+	var/stamina_constant = 2
+	/// stamina_coefficient * damage * time_since_time_parried = stamina damage taken per non perfect parry
+	var/stamina_coefficient = 1.5
+	/// the attack types that are considered for parrying
+	var/parryable_attack_types = NON_PROJECTILE_ATTACKS
+
+/obj/item/chair/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded)
+	AddComponent(/datum/component/parry, _stamina_constant = stamina_constant, _stamina_coefficient = stamina_coefficient, _parryable_attack_types = parryable_attack_types)
 
 /obj/item/chair/light
 	icon_state = "chair_greyscale_toppled"
@@ -478,11 +501,13 @@
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
 	item_state = "stool"
-	force = 10
-	throwforce = 10
+	force = 8
+	throwforce = 8
 	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
+	force_unwielded = 8
+	force_wielded = 10
 
 /obj/item/chair/stool/bar
 	name = "bar stool"
@@ -493,12 +518,14 @@
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "Not the most comfortable, but vegan!"
-	item_state = "bamboo_stool"
 	icon_state = "bamboo_stool_toppled"
+	item_state = "stool_bamboo"
 	origin_type = /obj/structure/chair/stool/bamboo
 
-/obj/item/chair/attack_self(mob/user)
-	plant(user)
+/obj/item/chair/AltClick(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
@@ -541,7 +568,7 @@
 			if(C.health < C.maxHealth*0.5)
 				C.Weaken(12 SECONDS)
 				C.Stuttering(12 SECONDS)
-				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
@@ -555,6 +582,10 @@
 		T.Weaken(10 SECONDS)
 		return
 	..()
+
+/obj/item/chair/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to place it down.</span>"
 
 /obj/item/chair/wood
 	name = "wooden chair"

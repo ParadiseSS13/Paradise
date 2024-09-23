@@ -9,6 +9,7 @@
 	standard 0 if fail
 */
 /mob/living/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, used_weapon, spread_damage = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	var/hit_percent = (100 - blocked) / 100
 	if(!damage || (hit_percent <= 0))
 		return FALSE
@@ -157,6 +158,8 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
+	if(amount < 0 && has_status_effect(STATUS_EFFECT_NO_OXY_HEAL))
+		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = max(oxyloss + amount, 0)
 	if(old_oxyloss == oxyloss)
@@ -281,9 +284,9 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
@@ -297,9 +300,9 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 /mob/living/proc/getMaxHealth()

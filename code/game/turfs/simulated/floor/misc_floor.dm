@@ -3,6 +3,14 @@
 	icon_state = "rockvault"
 	smoothing_flags = NONE
 
+/turf/simulated/floor/vault/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
+
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
@@ -84,7 +92,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/// TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -126,18 +135,23 @@
 	name = "high-traction floor"
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
-	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
-	burnt_states = list("noslip-scorched1","noslip-scorched2")
 	slowdown = -0.3
+
+/turf/simulated/floor/noslip/get_broken_states()
+	return list("noslip-damaged1", "noslip-damaged2", "noslip-damaged3")
+
+/turf/simulated/floor/noslip/get_burnt_states()
+	return list("noslip-scorched1", "noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
@@ -153,6 +167,13 @@
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
+
+/turf/simulated/floor/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
@@ -171,6 +192,19 @@
 		new /obj/effect/temp_visual/ratvar/beam(src)
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
+
+/turf/simulated/floor/clockwork/Entered(atom/A, atom/OL, ignoreRest)
+	. = ..()
+	var/counter = 0
+	for(var/obj/effect/temp_visual/ratvar/floor/floor in contents)
+		if(++counter == 3)
+			return
+
+	if(!. && isliving(A))
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
+
+/turf/simulated/floor/clockwork/proc/spawn_visual()
+	new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
@@ -209,3 +243,67 @@
 	icon_state = "reebe"
 	baseturf = /turf/simulated/floor/clockwork/reebe
 	uses_overlay = FALSE
+
+/turf/simulated/floor/clockwork/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/catwalk
+	name = "catwalk"
+	desc = "A catwalk for easier inspection of cable and pipe installations."
+	icon = 'icons/turf/floors/catwalk_floor.dmi'
+	icon_state = "catwalk"
+	base_icon_state = "catwalk"
+	floor_tile = /obj/item/stack/tile/catwalk
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)
+	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
+	footstep = FOOTSTEP_CATWALK
+	barefootstep = FOOTSTEP_CATWALK
+	clawfootstep = FOOTSTEP_CATWALK
+	keep_dir = FALSE
+	intact = FALSE
+	transparent_floor = TRUE
+
+/turf/simulated/floor/catwalk/Initialize(mapload)
+	. = ..()
+	var/image/I = image('icons/turf/floors/plating.dmi', src, "plating")
+	I.layer = PLATING_LAYER
+	underlays += I
+	dir = SOUTH //dirs that are not 2/south cause smoothing jank
+	icon_state = "" //Prevents default icon appearing behind the catwalk
+
+/turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	pry_tile(I, user, TRUE)
+
+/turf/simulated/floor/catwalk/can_lay_cable()
+	return FALSE // Pry the catwalk up if you want to apply cables underneath
+
+/turf/simulated/floor/catwalk/ex_act(severity)
+	if(is_shielded())
+		return
+	switch(severity)
+		if(1.0)
+			ChangeTurf(baseturf)
+		if(2.0)
+			switch(pick(1,2;75,3))
+				if(1)
+					spawn(0)
+						ReplaceWithLattice()
+						if(prob(33)) new /obj/item/stack/rods(src)
+				if(2)
+					ChangeTurf(baseturf)
+				if(3)
+					break_tile_to_plating()
+					hotspot_expose(1000,CELL_VOLUME)
+					if(prob(33)) new /obj/item/stack/rods(src)
+		if(3.0)
+			if(prob(50))
+				break_tile_to_plating()
+				hotspot_expose(1000,CELL_VOLUME)

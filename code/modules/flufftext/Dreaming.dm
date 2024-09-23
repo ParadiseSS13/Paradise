@@ -10,14 +10,14 @@
 	for(var/i in 1 to rand(3, rand(5, 10)))
 		dream_images += pick_n_take(dreams)
 		dreaming++
-	for(var/i in 1 to dream_images.len)
+	for(var/i in 1 to length(dream_images))
 		addtimer(CALLBACK(src, PROC_REF(experience_dream), dream_images[i], FALSE), ((i - 1) * rand(30,60)))
 	return TRUE
 
 
 /mob/living/carbon/proc/custom_dreams(list/dreamlist, mob/user)
 	var/list/newlist = dreamlist.Copy()
-	for(var/i in 1 to newlist.len)
+	for(var/i in 1 to length(newlist))
 		newlist[i] = replacetext(newlist[i], "DREAMER", "[user.name]")
 	return newlist
 
@@ -32,7 +32,7 @@
 	for(var/i in 1 to rand(3, rand(5, 10)))
 		dream_images += pick_n_take(nightmares)
 		nightmare++
-	for(var/i in 1 to dream_images.len)
+	for(var/i in 1 to length(dream_images))
 		addtimer(CALLBACK(src, PROC_REF(experience_dream), dream_images[i], TRUE), ((i - 1) * rand(30,60)))
 	return TRUE
 

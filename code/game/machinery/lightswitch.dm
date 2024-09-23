@@ -2,10 +2,11 @@
 // can have multiple per area
 /obj/machinery/light_switch
 	name = "light switch"
-	desc = "It turns lights on and off. What are you, simple?"
+	desc = "A switch for turning the lights on and off for an entire room."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
+	power_channel = PW_CHANNEL_LIGHTING
 
 /obj/machinery/light_switch/Initialize(mapload, build_dir)
 	. = ..()
@@ -24,13 +25,14 @@
 			pixel_x = -25
 			dir = WEST
 
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
-	icon_state = "light[get_area(src).lightswitch]"
+	var/area/our_area = get_area(src)
+	icon_state = "light[our_area.lightswitch]"
 
 /obj/machinery/light_switch/update_overlays()
 	. = ..()
@@ -38,12 +40,14 @@
 
 	if(stat & NOPOWER)
 		return
-
+	var/area/our_area = get_area(src)
+	. += "light[our_area.lightswitch]"
 	underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "A light switch. It is [get_area(src).lightswitch ? "on" : "off"]."
+	var/area/our_area = get_area(src)
+	. += "<span class='notice'>It is [our_area.lightswitch ? "on" : "off"].</span>"
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -51,7 +55,7 @@
 
 /obj/machinery/light_switch/attack_hand(mob/user)
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 	var/area/A = get_area(src)
 
@@ -59,19 +63,19 @@
 	A.update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/light_switch/L in A)
-		L.update_icon(UPDATE_ICON_STATE)
+		L.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
-	A.power_change()
+	machine_powernet.power_change()
 
 /obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		set_light(0)
+	else
+		set_light(1, 0.5)
 
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -80,14 +84,6 @@
 
 	power_change()
 	..(severity)
-
-/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-
-	update_multitool_menu(user)
 
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE

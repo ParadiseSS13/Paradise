@@ -3,6 +3,7 @@
 	// Check ../login_processing/10-load_preferences.dm
 
 	//general preferences
+	var/raw_muted_admins
 	while(query.NextRow())
 		ooccolor = query.item[1]
 		UI_style = query.item[2]
@@ -13,20 +14,24 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume_mixer = deserialize_volume_mixer(query.item[10])
-		lastchangelog = query.item[11]
-		exp = query.item[12]
-		clientfps = text2num(query.item[13])
-		atklog = text2num(query.item[14])
-		fuid = text2num(query.item[15])
-		parallax = text2num(query.item[16])
-		_2fa_status = query.item[17]
-		screentip_mode = query.item[18]
-		screentip_color = query.item[19]
-		ghost_darkness_level = query.item[20]
-		colourblind_mode = query.item[21]
-		keybindings = init_keybindings(raw = query.item[22])
-		server_region = query.item[23]
+		light = text2num(query.item[10])
+		glowlevel = query.item[11]
+		volume_mixer = deserialize_volume_mixer(query.item[12])
+		lastchangelog = query.item[13]
+		exp = query.item[14]
+		clientfps = text2num(query.item[15])
+		atklog = text2num(query.item[16])
+		fuid = text2num(query.item[17])
+		parallax = text2num(query.item[18])
+		_2fa_status = query.item[19]
+		screentip_mode = query.item[20]
+		screentip_color = query.item[21]
+		ghost_darkness_level = query.item[22]
+		colourblind_mode = query.item[23]
+		keybindings = init_keybindings(raw = query.item[24])
+		server_region = query.item[25]
+		raw_muted_admins = query.item[26]
+		viewrange = query.item[27]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -49,6 +54,12 @@
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	colourblind_mode = sanitize_inlist(colourblind_mode, list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT), COLOURBLIND_MODE_NONE)
+
+	if(length(raw_muted_admins))
+		try
+			admin_sound_ckey_ignore = json_decode(raw_muted_admins)
+		catch
+			admin_sound_ckey_ignore = list() // Invalid JSON, handle safely please
 
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
@@ -79,6 +90,8 @@
 		toggles_2=:toggles2,
 		atklog=:atklog,
 		sound=:sound,
+		light=:light,
+		glowlevel=:glowlevel,
 		volume_mixer=:volume_mixer,
 		lastchangelog=:lastchangelog,
 		clientfps=:clientfps,
@@ -89,7 +102,9 @@
 		ghost_darkness_level=:ghost_darkness_level,
 		colourblind_mode=:colourblind_mode,
 		keybindings=:keybindings,
-		server_region=:server_region
+		server_region=:server_region,
+		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
+		viewrange=:viewrange
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -103,6 +118,8 @@
 			"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 			"atklog" = atklog,
 			"sound" = sound,
+			"light" = light,
+			"glowlevel" = glowlevel,
 			"volume_mixer" = serialize_volume_mixer(volume_mixer),
 			"lastchangelog" = lastchangelog,
 			"clientfps" = clientfps,
@@ -115,6 +132,8 @@
 			"keybindings" = json_encode(keybindings_overrides),
 			"ckey" = C.ckey,
 			"server_region" = server_region,
+			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
+			"viewrange" = viewrange
 		))
 
 	if(!query.warn_execute())

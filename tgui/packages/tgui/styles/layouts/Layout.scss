@@ -1,5 +1,34 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use '../base.scss';
+@use '../functions.scss' as *;
+
+$scrollbar-color-multiplier: 1 !default;
+$luminance: luminance(base.$color-bg);
+$scrollbar-base: color.scale(base.$color-bg, $lightness: -25% * $scrollbar-color-multiplier);
+$scrollbar-face: color.scale(base.$color-bg, $lightness: if($luminance > 0.05, 30%, 10%) * $scrollbar-color-multiplier);
+
+// Fancy scrollbar
+html,
+body {
+  scrollbar-color: $scrollbar-face $scrollbar-base;
+}
+
+// Remove with 516, IE legacy code
+.Layout,
+.Layout * {
+  scrollbar-base-color: color.scale(base.$color-bg, $lightness: -25% * $scrollbar-color-multiplier);
+  scrollbar-face-color: color.scale(base.$color-bg, $lightness: 10% * $scrollbar-color-multiplier);
+  scrollbar-3dlight-color: color.scale(base.$color-bg, $lightness: 0% * $scrollbar-color-multiplier);
+  scrollbar-highlight-color: color.scale(base.$color-bg, $lightness: 0% * $scrollbar-color-multiplier);
+  scrollbar-track-color: color.scale(base.$color-bg, $lightness: -25% * $scrollbar-color-multiplier);
+  scrollbar-arrow-color: color.scale(base.$color-bg, $lightness: 50% * $scrollbar-color-multiplier);
+  scrollbar-shadow-color: color.scale(base.$color-bg, $lightness: 10% * $scrollbar-color-multiplier);
+}
 
 .Layout__content {
   position: absolute;
@@ -8,16 +37,6 @@
   left: 0;
   right: 0;
   overflow: hidden;
-  margin: 6px;
-
-  // Fancy scrollbar
-  scrollbar-base-color: color.scale(base.$color-bg, $lightness: -25%);
-  scrollbar-face-color: color.scale(base.$color-bg, $lightness: 10%);
-  scrollbar-3dlight-color: color.scale(base.$color-bg, $lightness: 0%);
-  scrollbar-highlight-color: color.scale(base.$color-bg, $lightness: 0%);
-  scrollbar-track-color: color.scale(base.$color-bg, $lightness: -25%);
-  scrollbar-arrow-color: color.scale(base.$color-bg, $lightness: 50%);
-  scrollbar-shadow-color: color.scale(base.$color-bg, $lightness: 10%);
 }
 
 .Layout__content--flexRow {
@@ -32,6 +51,7 @@
 
 .Layout__content--scrollable {
   overflow-y: auto;
+  margin-bottom: 0;
 }
 
 .Layout__content--noMargin {

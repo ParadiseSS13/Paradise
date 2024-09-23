@@ -12,23 +12,23 @@
 	cmp = compare
 
 /datum/heap/proc/IsEmpty()
-	return !L.len
+	return !length(L)
 
 //Insert and place at its position a new node in the heap
 /datum/heap/proc/Insert(atom/A)
 
 	L.Add(A)
-	Swim(L.len)
+	Swim(length(L))
 
 //removes and returns the first element of the heap
 //(i.e the max or the min dependant on the comparison function)
 /datum/heap/proc/Pop()
-	if(!L.len)
+	if(!length(L))
 		return null
 	. = L[1]
 
-	L[1] = L[L.len]
-	L.Cut(L.len)
+	L[1] = L[length(L)]
+	L.Cut(length(L))
 
 	Sink(1)
 
@@ -53,10 +53,10 @@
 //Returns the greater (relative to the comparison proc) of a node children
 //or 0 if there's no child
 /datum/heap/proc/GetGreaterChild(index)
-	if(index * 2 > L.len)
+	if(index * 2 > length(L))
 		return 0
 
-	if(index * 2 + 1 > L.len)
+	if(index * 2 + 1 > length(L))
 		return index * 2
 
 	if(call(cmp)(L[index * 2], L[index * 2 + 1]) < 0)

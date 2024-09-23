@@ -42,14 +42,7 @@ export const Signaler = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
-      <Button
-        mt={1}
-        fluid
-        icon="arrow-up"
-        content="Send Signal"
-        textAlign="center"
-        onClick={() => act('signal')}
-      />
+      <Button mt={1} fluid icon="arrow-up" content="Send Signal" textAlign="center" onClick={() => act('signal')} />
     </Section>
   );
 };

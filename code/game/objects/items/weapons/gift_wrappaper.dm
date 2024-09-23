@@ -79,8 +79,8 @@
 		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+		/obj/item/food/grown/ambrosia/deus,
+		/obj/item/food/grown/ambrosia/vulgaris,
 		/obj/item/paicard,
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
@@ -91,6 +91,7 @@
 		/obj/random/figure,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
+		/obj/item/deck/unum,
 		/obj/item/toy/minimeteor,
 		/obj/item/toy/redbutton,
 		/obj/item/toy/figure/owl,
@@ -108,6 +109,7 @@
 		/obj/item/toy/nuke,
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
+		/obj/item/clothing/under/syndicate/greyman,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
@@ -128,7 +130,7 @@
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "wrap_paper"
 	singular_name = "wrapping paper"
 	flags = NOBLUDGEON

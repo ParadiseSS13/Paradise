@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Flex, Input, Modal } from '../../components';
+import { Box, Button, Dropdown, Stack, Input, Modal } from '../../components';
 
 let bodyOverrides = {};
 
@@ -76,15 +76,11 @@ export const ComplexModal = (props, context) => {
   const { id, text, type } = data.modal;
 
   let modalOnEnter;
-  let modalBody;
-  let modalFooter = (
-    <Button
-      icon="arrow-left"
-      content="Cancel"
-      color="grey"
-      onClick={() => modalClose(context)}
-    />
+  let modalHeader = (
+    <Button className="Button--modal" icon="arrow-left" content="Cancel" onClick={() => modalClose(context)} />
   );
+  let modalBody;
+  let modalFooter;
   let overflowY = 'auto';
 
   // Different contents depending on the type
@@ -107,12 +103,7 @@ export const ComplexModal = (props, context) => {
     );
     modalFooter = (
       <Box mt="0.5rem">
-        <Button
-          icon="arrow-left"
-          content="Cancel"
-          color="grey"
-          onClick={() => modalClose(context)}
-        />
+        <Button icon="arrow-left" content="Cancel" color="grey" onClick={() => modalClose(context)} />
         <Button
           icon="check"
           content={'Confirm'}
@@ -125,10 +116,7 @@ export const ComplexModal = (props, context) => {
       </Box>
     );
   } else if (type === 'choice') {
-    const realChoices =
-      typeof data.modal.choices === 'object'
-        ? Object.values(data.modal.choices)
-        : data.modal.choices;
+    const realChoices = typeof data.modal.choices === 'object' ? Object.values(data.modal.choices) : data.modal.choices;
     modalBody = (
       <Dropdown
         options={realChoices}
@@ -141,18 +129,15 @@ export const ComplexModal = (props, context) => {
     overflowY = 'initial';
   } else if (type === 'bento') {
     modalBody = (
-      <Flex spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
+      <Stack spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
         {data.modal.choices.map((c, i) => (
-          <Flex.Item key={i} flex="1 1 auto">
-            <Button
-              selected={i + 1 === parseInt(data.modal.value, 10)}
-              onClick={() => modalAnswer(context, id, i + 1)}
-            >
+          <Stack.Item key={i} flex="1 1 auto">
+            <Button selected={i + 1 === parseInt(data.modal.value, 10)} onClick={() => modalAnswer(context, id, i + 1)}>
               <img src={c} />
             </Button>
-          </Flex.Item>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     );
   } else if (type === 'boolean') {
     modalFooter = (
@@ -185,8 +170,10 @@ export const ComplexModal = (props, context) => {
       onEnter={modalOnEnter}
       mx="auto"
       overflowY={overflowY}
+      padding-bottom="5px"
     >
-      <Box display="inline">{text}</Box>
+      {text && <Box inline>{text}</Box>}
+      {bodyOverrides[id] && modalHeader}
       {modalBody}
       {modalFooter}
     </Modal>

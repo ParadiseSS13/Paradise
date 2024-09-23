@@ -14,6 +14,8 @@
 		toggles,
 		toggles_2,
 		sound,
+		light,
+		glowlevel,
 		volume_mixer,
 		lastchangelog,
 		exp,
@@ -27,7 +29,9 @@
 		ghost_darkness_level,
 		colourblind_mode,
 		keybindings,
-		server_region
+		server_region,
+		muted_adminsounds_ckeys,
+		viewrange
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

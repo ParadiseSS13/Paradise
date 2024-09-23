@@ -103,7 +103,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	for(var/direction in GLOB.cardinal)
 		switch(find_type_in_direction(direction))
 			if(NULLTURF_BORDER)
-				if((smoothing_flags & SMOOTH_BORDER))
+				if(smoothing_flags & SMOOTH_BORDER)
 					. |= direction //BYOND and smooth dirs are the same for cardinals
 			if(ADJ_FOUND)
 				. |= direction //BYOND and smooth dirs are the same for cardinals
@@ -112,7 +112,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(. & WEST_JUNCTION)
 			switch(find_type_in_direction(NORTHWEST))
 				if(NULLTURF_BORDER)
-					if((smoothing_flags & SMOOTH_BORDER))
+					if(smoothing_flags & SMOOTH_BORDER)
 						. |= NORTHWEST_JUNCTION
 				if(ADJ_FOUND)
 					. |= NORTHWEST_JUNCTION
@@ -120,7 +120,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(. & EAST_JUNCTION)
 			switch(find_type_in_direction(NORTHEAST))
 				if(NULLTURF_BORDER)
-					if((smoothing_flags & SMOOTH_BORDER))
+					if(smoothing_flags & SMOOTH_BORDER)
 						. |= NORTHEAST_JUNCTION
 				if(ADJ_FOUND)
 					. |= NORTHEAST_JUNCTION
@@ -129,7 +129,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(. & WEST_JUNCTION)
 			switch(find_type_in_direction(SOUTHWEST))
 				if(NULLTURF_BORDER)
-					if((smoothing_flags & SMOOTH_BORDER))
+					if(smoothing_flags & SMOOTH_BORDER)
 						. |= SOUTHWEST_JUNCTION
 				if(ADJ_FOUND)
 					. |= SOUTHWEST_JUNCTION
@@ -137,7 +137,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(. & EAST_JUNCTION)
 			switch(find_type_in_direction(SOUTHEAST))
 				if(NULLTURF_BORDER)
-					if((smoothing_flags & SMOOTH_BORDER))
+					if(smoothing_flags & SMOOTH_BORDER)
 						. |= SOUTHEAST_JUNCTION
 				if(ADJ_FOUND)
 					. |= SOUTHEAST_JUNCTION
@@ -266,21 +266,14 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		A.bottom_left_corner = se
 		new_overlays += se
 
-	if(new_overlays.len)
+	if(length(new_overlays))
 		A.add_overlay(new_overlays)
-
 
 ///Scans direction to find targets to smooth with.
 /atom/proc/find_type_in_direction(direction)
 	var/turf/target_turf = get_step(src, direction)
 	if(!target_turf)
 		return NULLTURF_BORDER
-
-	var/area/target_area = get_area(target_turf)
-	var/area/source_area = get_area(src)
-	if((source_area.area_limited_icon_smoothing && !istype(target_area, source_area.area_limited_icon_smoothing)) || (target_area.area_limited_icon_smoothing && !istype(source_area, target_area.area_limited_icon_smoothing)))
-		return NO_ADJ_FOUND
-
 	if(isnull(canSmoothWith)) //special case in which it will only smooth with itself
 		if(isturf(src))
 			return (type == target_turf.type) ? ADJ_FOUND : NO_ADJ_FOUND
@@ -369,7 +362,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 				icon_state = "[base_icon_state]-[smoothing_junction]-d"
 				if(!fixed_underlay && new_junction != .) // Mutable underlays?
 					var/junction_dir = reverse_ndir(smoothing_junction)
-					var/turned_adjacency = reverse_direction(junction_dir)
+					var/turned_adjacency = REVERSE_DIR(junction_dir)
 					var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
 					var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
 					if(neighbor_turf && (!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) || neighbor_turf.density)) //dense turfs are unwanted for underlays
@@ -391,7 +384,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 //Icon smoothing helpers
 /proc/smooth_zlevel(zlevel, now = FALSE)
-	var/list/away_turfs = block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel))
+	var/list/away_turfs = block(1, 1, zlevel, world.maxx, world.maxy, zlevel)
 	for(var/V in away_turfs)
 		var/turf/T = V
 		if(T.smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))

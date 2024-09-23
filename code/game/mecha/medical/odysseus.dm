@@ -1,5 +1,5 @@
 /obj/mecha/medical/odysseus
-	desc = "These exosuits are developed and produced by Vey-Med. (&copy; All rights reserved)."
+	desc = "These exosuits are developed and produced by DeForest Medical Corporation, for rescue operations."
 	name = "Odysseus"
 	icon_state = "odysseus"
 	initial_icon = "odysseus"
@@ -38,9 +38,18 @@
 		A.remove_hud_from(H)
 		builtin_hud_user = 0
 	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
-		var/mob/living/carbon/brain/H = occupant
+		var/mob/living/brain/H = occupant
 		var/datum/atom_hud/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 		A.remove_hud_from(H)
 		builtin_hud_user = 0
 
 	. = ..()
+
+/obj/mecha/medical/odysseus/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Odysseus is a relatively fast, lightweight, and easy-to-maintain exosuit developed by DeForest Medical Corporation. \
+	Initially designed for patient rescue and care within hostile environments, it has seen semi-widespread use throughout the sector, usually by larger corporations and military groups who value its ability to get in and out of even the most rugged disaster zones.</i>"
+	. += ""
+	. += "<i>DeForest has seen modest success from the Odysseus, with only minor complaints arising from its sluggish pace and lack of armor or defensive capabilities. \
+	Despite these flaws, it has found a home amid Nanotrasen medical teams, where Paramedics find solid uses for it and its varied equipment loadout. \
+	As with all station-side mechs, Nanotrasen has purchased the license to produce the Odysseus in their facilities.</i>"

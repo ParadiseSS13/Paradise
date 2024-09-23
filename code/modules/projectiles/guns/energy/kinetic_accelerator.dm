@@ -1,6 +1,6 @@
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. Capable of holding up to six slots worth of mod kits."
+	desc = "A self-recharging, ranged mining tool that does increased damage in low pressure environments. It can be upgraded using specialised mod kits."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -34,6 +34,7 @@
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -46,7 +47,7 @@
 	. = TRUE
 	if(!max_mod_capacity)
 		return
-	if(!modkits.len)
+	if(!length(modkits))
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -77,6 +78,16 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	max_mod_capacity = 80
+	icon_state = "kineticgun_b"
+
+/obj/item/gun/energy/kinetic_accelerator/cyborg/malf
+	name = "kinetic accelerator cannon"
+	desc = "A cyborg-modified kinetic accelerator that operates in pressurized environments, but cannot be upgraded and fires slowly."
+	icon_state = "kineticgun_h"
+	item_state = "kineticgun_h"
+	max_mod_capacity = 0
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
+	overheat_time = 2 SECONDS
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
@@ -184,6 +195,9 @@
 		var/obj/item/gun/energy/kinetic_accelerator/KA = loc
 		KA.modify_projectile(BB)
 
+//Malf casing
+/obj/item/ammo_casing/energy/kinetic/malf
+	projectile_type = /obj/item/projectile/kinetic/malf
 
 //Projectiles
 /obj/item/projectile/kinetic
@@ -197,6 +211,11 @@
 	var/pressure_decrease_active = FALSE
 	var/pressure_decrease = 0.25
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
+
+/obj/item/projectile/kinetic/malf
+	pressure_decrease = 1
+	color = "#FFFFFF"
+	icon_state = "ka_tracer"
 
 /obj/item/projectile/kinetic/pod
 	range = 4
@@ -241,10 +260,25 @@
 		for(var/obj/item/borg/upgrade/modkit/M in mods)
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
-		var/turf/simulated/mineral/M = target_turf
-		M.gets_drilled(firer)
+		if(is_ancient_rock(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = target_turf
+			M.gets_drilled(firer)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
+
+
+/obj/item/gun/energy/kinetic_accelerator/pistol
+	name = "proto-kinetic pistol"
+	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
+	icon_state = "kineticgun_p"
+	item_state = "gun"
+	w_class = WEIGHT_CLASS_SMALL
+	max_mod_capacity = 65
+	can_bayonet = FALSE
+	can_flashlight = FALSE
+	can_holster = TRUE
 
 
 //Modkits
@@ -321,14 +355,26 @@
 	forceMove(get_turf(KA))
 	KA.modkits -= src
 
+/obj/item/borg/upgrade/modkit/Destroy()
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator))
+		var/obj/item/gun/energy/kinetic_accelerator/accelerator = loc
+		accelerator.modkits -= src
+	return ..()
+
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
+	return
 
 //use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
 /obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 //use this one for effects you want to trigger before mods that do damage
 /obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 //and this one for things that don't need to trigger before other damage-dealing mods
 /obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
 
 //Range
 /obj/item/borg/upgrade/modkit/range
@@ -405,10 +451,10 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T))
+			if(ismineralturf(T) && !is_ancient_rock(T))
 				var/turf/simulated/mineral/M = T
 				M.gets_drilled(K.firer)
 	if(modifier)
@@ -569,6 +615,7 @@
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
+	var/chassis_item = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
@@ -576,11 +623,13 @@
 	if(.)
 		KA.current_skin = chassis_icon
 		KA.name = chassis_name
+		KA.item_state = chassis_item
 		KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.current_skin = initial(KA.current_skin)
 	KA.name = initial(KA.name)
+	KA.item_state = initial(KA.item_state)
 	KA.update_icon()
 	..()
 
@@ -588,6 +637,7 @@
 	name = "hyper chassis"
 	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
 	chassis_icon = "kineticgun_h"
+	chassis_item = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/tracer

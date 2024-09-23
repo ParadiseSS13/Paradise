@@ -33,6 +33,7 @@
 
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
+	desc = "This console allows staff to give out temporary access to their coworkers."
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
@@ -46,8 +47,15 @@
 	var/duration = 5
 	var/print_cooldown = 0
 
+	var/static/global_terminal_id = 0
+	var/my_terminal_id
+
 	var/list/internal_log = list()
 	var/mode = FALSE  // FALSE - making pass, TRUE - viewing logs
+
+/obj/machinery/computer/guestpass/Initialize(mapload)
+	. = ..()
+	my_terminal_id = ++global_terminal_id
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
@@ -55,7 +63,7 @@
 			if(user.drop_item())
 				I.forceMove(src)
 				scan = I
-				updateUsrDialog()
+				SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
 		return
@@ -73,12 +81,14 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/guestpass/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/guestpass/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/guestpass/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GuestPass",  name, 500, 850, master_ui, state)
+		ui = new(user, src, "GuestPass",  name)
 		ui.open()
-		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/guestpass/ui_data(mob/user)
 	var/list/data = list()
@@ -153,7 +163,7 @@
 				else
 					to_chat(usr, "<span class='warning'>Invalid duration.</span>")
 		if("print")
-			var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
+			var/dat = "<h3>Activity log of guest pass terminal #[global_terminal_id]</h3><br>"
 			for(var/entry in internal_log)
 				dat += "[entry]<br><hr>"
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -222,6 +232,7 @@
 
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"
+	desc = "The Head of Personnel's guest pass terminal allows the HoP to temporarily allow anyone into places they probably shouldn't be."
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()

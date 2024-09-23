@@ -1,6 +1,6 @@
 /obj/item/radio/intercom
 	name = "station intercom (General)"
-	desc = "Talk through this."
+	desc = "A reliable form of communication even during local communication blackouts."
 	icon_state = "intercom"
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
@@ -85,7 +85,7 @@
 
 /obj/item/radio/intercom/syndicate
 	name = "illicit intercom"
-	desc = "Talk through this. Evilly"
+	desc = "Communicate with your minions. Evilly"
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
@@ -174,6 +174,11 @@
 	else
 		return ..()
 
+/obj/item/radio/intercom/AltClick(mob/user)
+	. = ..()
+	if(broadcasting)
+		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) ///Allows us to track who spams all these on if they do.
+
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != 1)
 		return
@@ -245,29 +250,29 @@
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
-	var/area/current_area = get_area(src)
-	if(!current_area)
+	if(!loc) // We init a few radios in nullspace to prevent them from needing power.
 		return
+	var/area/current_area = get_area(src)
 	if(on)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
+		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(local_powernet_check))
 	else
-		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
+		UnregisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE)
 
 /**
-  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+  * Proc called whenever the intercom's local powernet loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
   *
-  * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+  * Normally called after the intercom's local powernet sends the `COMSIG_POWERNET_POWER_CHANGE` signal, but it can also be called directly.
   * Arguments:
   *
   * source - the area that just had a power change.
   */
-/obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+/obj/item/radio/intercom/proc/local_powernet_check(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
 		set_light(0)
 	else
-		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+		on = current_area.powernet.has_power(PW_CHANNEL_EQUIPMENT) // set "on" to the equipment power status of our area.
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
@@ -295,8 +300,8 @@
 	frequency = 1480
 
 /obj/item/radio/intercom/locked/prison
-	name = "\improper prison intercom"
-	desc = "Talk through this. It looks like it has been modified to not broadcast."
+	name = "prison intercom"
+	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable, I guess..."
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()

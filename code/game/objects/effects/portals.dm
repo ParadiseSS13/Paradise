@@ -2,7 +2,7 @@
 
 /obj/effect/portal
 	name = "portal"
-	desc = "Looks unstable. Best to test it with the clown."
+	desc = "Result of bluespace high tech development."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 
@@ -12,17 +12,21 @@
 	/// The ckey of the mob which was responsible for the creation of the portal. For example, the mob who used a wormhole jaunter.
 	var/creation_mob_ckey
 
-	var/failchance = 5
+	var/failchance = 0
 	var/fail_icon = "portal1"
 
-	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	/// How close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	var/precision = FALSE
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
 	/// The time after which the effects should play again. Too many effects can lag the server
 	var/effect_cooldown = 0
+	///Whether or not portal use will cause sparks
+	var/create_sparks = TRUE
+	var/teleports_this_cycle = 0
 
-/obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null)
+/obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null, create_sparks = TRUE)
 	..()
 
 	GLOB.portals += src
@@ -33,6 +37,7 @@
 	else
 		creation_obj_data = list(null, null)
 	creation_mob_ckey = creation_mob?.ckey
+	START_PROCESSING(SSobj, src)
 
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)
@@ -43,7 +48,13 @@
 	if(!QDELETED(O))
 		O.portal_destroyed(src)
 	target = null
+	if(create_sparks)
+		do_sparks(5, 0, loc)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/effect/portal/process()
+	teleports_this_cycle = 0
 
 /obj/effect/portal/singularity_pull()
 	return
@@ -75,7 +86,7 @@
 
 /obj/effect/portal/attack_ghost(mob/dead/observer/O)
 	if(target)
-		O.forceMove(target)
+		O.forceMove(get_turf(target))
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -127,6 +138,8 @@
 	return TRUE
 
 /obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
+	if(teleports_this_cycle >= MAX_ALLOWED_TELEPORTS_PER_PROCESS)
+		return
 	var/use_effects = world.time >= effect_cooldown
 	var/effect = null // Will result in the default effect being used
 	if(!use_effects)
@@ -136,15 +149,55 @@
 		invalid_teleport()
 		return FALSE
 	effect_cooldown = world.time + EFFECT_COOLDOWN
+	teleports_this_cycle++
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
-	do_sparks(5, 0, loc)
+	if(create_sparks)
+		do_sparks(5, 0, loc)
 	qdel(src)
 
-/obj/effect/portal/redspace
-	name = "redspace portal"
+#define UNSTABLE_TIME_DELAY 2 SECONDS
+
+/obj/effect/portal/hand_tele
+	/// After you touch the portal, it will be unstable with high bad teleport chance, this variable contains time when it will be fine again
+	var/unstable_time = 0
+	/// If this is TRUE, you will not be able to teleport with that portal
+	var/inactive = FALSE
+
+/obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
+	. = ..()
+	if(unstable_time > world.time)
+		. += "<span class='warning'>[src] is shaking, it looks very unstable!</span>"
+
+/obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
+	if(inactive)
+		return FALSE
+	return ..()
+
+/obj/effect/portal/hand_tele/teleport(atom/movable/M)
+	. = ..()
+	adjust_unstable()
+
+/obj/effect/portal/hand_tele/proc/adjust_unstable()
+	unstable_time = world.time + UNSTABLE_TIME_DELAY
+	icon_state = fail_icon
+	failchance = 33
+	inactive = TRUE
+	addtimer(CALLBACK(src, PROC_REF(check_unstable), unstable_time), UNSTABLE_TIME_DELAY)
+	addtimer(VARSET_CALLBACK(src, inactive, FALSE), 0.5 SECONDS) // after unstable is setted you have 0.5 safe seconds to think if you want to use it
+
+/obj/effect/portal/hand_tele/proc/check_unstable(current_unstable_time)
+	if(current_unstable_time != unstable_time)
+		return
+	icon_state = initial(icon_state)
+	failchance = 0
+
+#undef UNSTABLE_TIME_DELAY
+
+/obj/effect/portal/advanced
+	name = "advanced portal"
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
 	failchance = 0

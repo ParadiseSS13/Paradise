@@ -19,6 +19,8 @@
 		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
 		)
 	var/datum/track/selection = null
+	/// If set to FALSE, the dance4 proc that rests the dancer will be replaced by dance2.
+	var/restdancing = TRUE
 
 /datum/track
 	var/song_name = "generic"
@@ -98,21 +100,21 @@
 	user.set_machine(src)
 	var/list/dat = list()
 	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><A href='?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "<b><A href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
 	dat += "</div><br>"
-	dat += "<A href='?src=[UID()];action=select'> Select Track</A><br>"
+	dat += "<A href='byond://?src=[UID()];action=select'> Select Track</A><br>"
 	dat += "Track Selected: [selection.song_name]<br>"
 	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
 	dat += "<br>DJ's Soundboard:<b><br>"
 	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<A href='?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<A href='?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<A href='?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<A href='?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<A href='?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<A href='?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<A href='?src=[UID()];action=saber'>Esword</A>"
-	dat += "<A href='?src=[UID()];action=harm'>Harm Alarm</A>"
+	dat += "<A href='byond://?src=[UID()];action=horn'>Air Horn</A>  "
+	dat += "<A href='byond://?src=[UID()];action=alert'>Station Alert</A>  "
+	dat += "<A href='byond://?src=[UID()];action=siren'>Warning Siren</A>  "
+	dat += "<A href='byond://?src=[UID()];action=honk'>Honk</A><br>"
+	dat += "<A href='byond://?src=[UID()];action=pump'>Shotgun Pump</A>"
+	dat += "<A href='byond://?src=[UID()];action=pop'>Gunshot</A>"
+	dat += "<A href='byond://?src=[UID()];action=saber'>Esword</A>"
+	dat += "<A href='byond://?src=[UID()];action=harm'>Harm Alarm</A>"
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
@@ -131,12 +133,7 @@
 					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
-				active = TRUE
-				update_icon()
-				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
-				dance_setup()
-				START_PROCESSING(SSobj, src)
-				lights_spin()
+				breakitdown()
 				updateUsrDialog()
 			else if(active)
 				stop = 0
@@ -149,7 +146,7 @@
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			var/selected = tgui_input_list(usr, "Select a new track", "Track:", available)
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
@@ -170,6 +167,17 @@
 			deejay('sound/weapons/saberon.ogg')
 		if("harm")
 			deejay('sound/AI/harmalarm.ogg')
+
+/**
+ * Starts the dance machine.
+ */
+/obj/machinery/disco/proc/breakitdown()
+	active = TRUE
+	update_icon()
+	set_light(1, LIGHTING_MINIMUM_POWER)
+	dance_setup()
+	START_PROCESSING(SSobj, src)
+	lights_spin()
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)
@@ -328,16 +336,22 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
-	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
-		rangers -= M //Doing that here as it'll be checked less often than in processing.
-		return
+	if(M.client)
+		if(!(M.client.prefs.sound & SOUND_DISCO)) //they dont want music or dancing
+			rangers -= M //Doing that here as it'll be checked less often than in processing.
+			return
+		if(!(M.client.prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO)) //they just dont wanna dance
+			return
 	switch(rand(0,9))
 		if(0 to 1)
 			dance2(M)
 		if(2 to 3)
 			dance3(M)
 		if(4 to 6)
-			dance4(M)
+			if(restdancing)
+				dance4(M)
+			else
+				dance2(M)
 		if(7 to 9)
 			dance5(M)
 
@@ -454,8 +468,8 @@
 	lying_prev = 0
 
 /obj/machinery/disco/proc/dance_over()
-	QDEL_LIST(spotlights)
-	QDEL_LIST(sparkles)
+	QDEL_LIST_CONTENTS(spotlights)
+	QDEL_LIST_CONTENTS(sparkles)
 	for(var/mob/living/L in rangers)
 		if(!L || !L.client)
 			continue
@@ -501,3 +515,12 @@
 
 /obj/machinery/disco/immobile/wrench_act()
 	return FALSE
+
+/obj/machinery/disco/chaos_staff
+	restdancing = FALSE
+	anchored = TRUE
+
+/obj/machinery/disco/chaos_staff/Initialize(mapload)
+	. = ..()
+	selection = pick(songs)
+	INVOKE_ASYNC(src, PROC_REF(breakitdown))

@@ -63,7 +63,7 @@
 	..()
 
 /datum/surgery_step/proxy/Destroy(force, ...)
-	QDEL_LIST(branches_init)
+	QDEL_LIST_CONTENTS(branches_init)
 	return ..()
 
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
@@ -97,7 +97,7 @@
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
 
-		if(!tool && first_step.accept_hand)
+		if((!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND)) && first_step.accept_hand)
 			if(SURGERY_TOOL_HAND in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow an empty hand.")
 			next_surgery = S  // if there's no tool, just proceed forward.
@@ -141,7 +141,7 @@
 		if((SURGERY_TOOL_ANY in starting_tools) && next_surgery_step.accept_any_item)
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
 
-		if(!tool && next_surgery_step.accept_hand && !(SURGERY_TOOL_HAND in starting_tools))
+		if((!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND)) && next_surgery_step.accept_hand && !(SURGERY_TOOL_HAND in starting_tools))
 			next_surgery = surgery
 
 		for(var/allowed in next_surgery_step.allowed_tools)
@@ -292,13 +292,30 @@
 		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
 	return FALSE
 
-/// Proxy surgery step to allow healing bleeding and mending bones.
+/datum/surgery/intermediate/treat_burns
+	name = "Burns (abstract)"
+	desc = "An intermediate surgery to treat burn wounds while a patient is undergoing another procedure."
+	steps = list(/datum/surgery_step/treat_burns)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
+
+/datum/surgery/intermediate/treat_burns/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(affected.status & ORGAN_BURNT)
+		return TRUE
+	return FALSE
+
+/// Proxy surgery step to allow healing bleeding, bones, and burns.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "mend internal bleeding or mend bone (proxy)"
+	name = "mend internal bleeding, bones, or burns (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone
+		/datum/surgery/intermediate/mendbone,
+		/datum/surgery/intermediate/treat_burns
 	)
 
 /// Mend IB without healing bones

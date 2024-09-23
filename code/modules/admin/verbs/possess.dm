@@ -1,6 +1,5 @@
 /proc/possess(obj/O as obj in world)
 	set name = "\[Admin\] Possess Obj"
-	set category = null
 
 	if(!check_rights(R_POSSESS))
 		return
@@ -12,7 +11,7 @@
 
 	var/turf/T = get_turf(O)
 
-	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm posession", "Yes", "No")
+	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm possession", "Yes", "No")
 
 	if(confirm != "Yes")
 		return
@@ -35,7 +34,6 @@
 
 /proc/release(obj/O as obj in world)
 	set name = "\[Admin\] Release Obj"
-	set category = null
 	//usr.loc = get_turf(usr)
 
 	if(!check_rights(R_POSSESS))

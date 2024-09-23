@@ -3,75 +3,125 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
+	dyeable = FALSE
+	actions_types = list(/datum/action/item_action/toggle)
+	strip_delay = 7 SECONDS
+	put_on_delay = 7 SECONDS
+	resistance_flags = FIRE_PROOF
+
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
-	var/gustprotection = FALSE									//this is for unsafe_unwrenching protection
-	actions_types = list(/datum/action/item_action/toggle)
-	strip_delay = 70
-	put_on_delay = 70
-	resistance_flags = FIRE_PROOF
+	///If a pair of magboots has different icons for being on or off
+	var/multiple_icons = TRUE
 
-/obj/item/clothing/shoes/magboots/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+/obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
+	. = ..()
+	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
+		slowdown = slowdown_active
 
-/obj/item/clothing/shoes/magboots/atmos
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
-	name = "atmospheric magboots"
-	icon_state = "atmosmagboots0"
-	magboot_state = "atmosmagboots"
-	gustprotection = TRUE
+/obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+		return
+	check_mag_pulse()
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
-	if(magpulse)
-		START_PROCESSING(SSobj, src) //Gravboots
-		flags &= ~NOSLIP
+/obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
+	. = ..()
+	if(!ishuman(user))
+		return
+	check_mag_pulse()
+
+/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
+
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		STOP_PROCESSING(SSobj, src)
-		flags |= NOSLIP
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
+	no_slip = !no_slip
+	if(multiple_icons)
+		icon_state = "[magboot_state][magpulse]"
+	if(!forced)
+		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
+	check_mag_pulse(user)
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+	if(!user)
+		return
+	if(magpulse)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
+/obj/item/clothing/shoes/magboots/atmos
+	name = "atmospheric magboots"
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"
-	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
+	desc = "Experimental magnetic boots. They automatically activate and deactivate their magnetic pull as the user walks."
 	icon_state = "advmag0"
 	magboot_state = "advmag"
-	gustprotection = TRUE
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/shoes/magboots/advance/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
+
+/obj/item/clothing/shoes/magboots/advance/examine_more(mob/user)
+	. = ..()
+	. += "Nanotrasen's advanced magboots are an experimental development on commercially available designs. Using a combination of haptic feedback sensors and predictive algorithms, \
+	the electromagnets in the boots deactivate themselves when they detect the user trying to lift their feet up, whilst also remaining active if unexpected forces act upon the user. \
+	The predictive action occurs in less than 60 milliseconds, making it appear instant from the perspective of the user."
+	. += ""
+	. += "The rapid activation/deactivation action of the magboots allows users to sprint, jump, or perform any other actions they wish as if the boots were not there, \
+	whilst still providing unrivalled traction and grip both in zero-G and full gravity."
+
+/obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
+	desc = "Reverse-engineered magnetic boots. Property of Gorlex Marauders."
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
-	name = "advanced blood-red magboots"
-	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+/// For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite
+	name = "elite tactical magboots"
+	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
+	icon_state = "elitemag0"
+	magboot_state = "elitemag"
+	origin_tech = null
 	slowdown_active = SHOES_SLOWDOWN
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/shoes/magboots/elite/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
@@ -93,7 +143,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
@@ -113,7 +163,8 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
-/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+/// bundled with the wiz hardsuit
+/obj/item/clothing/shoes/magboots/wizard
 	name = "boots of gripping"
 	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
 	icon_state = "wizmag0"
@@ -123,15 +174,16 @@
 	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
-	if(user)
-		if(user.mind in SSticker.mode.wizards)
-			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				set_light(0)
-			else
-				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
-			..()
-		else
-			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+	if(!user)
+		return
+	if(!iswizard(user))
+		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+		return
+	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+		set_light(0)
+	else
+		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+	..()
 
 
 /obj/item/clothing/shoes/magboots/gravity
@@ -145,7 +197,7 @@
 	slowdown_active = SHOES_SLOWDOWN
 	magboot_state = "gravboots"
 	magpulse_name = "micro gravitational traction system"
-	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
+	var/datum/martial_art/grav_stomp/style //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS
@@ -154,6 +206,10 @@
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/clothing/shoes/magboots/gravity/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
@@ -193,7 +249,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -245,7 +301,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_shoes && cell && core)
+	if(slot == SLOT_HUD_SHOES && cell && core)
 		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
@@ -253,14 +309,14 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_shoes) == src)
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
@@ -289,7 +345,7 @@
 		user.flying = TRUE
 		do_callback = TRUE
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
-		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)

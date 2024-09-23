@@ -43,7 +43,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		var/dat
+		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -67,7 +67,7 @@
 					dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
+				dat+= "<hr><div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='byond://?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
 			if(SCREEN_PAGE_INNER) // X channel pages inbetween.
 				for(var/datum/feed_channel/NP in news_content)
 					pages++ //Let's get it right again.
@@ -82,8 +82,8 @@
 						dat += "<ul>"
 						var/i = 0
 						for(var/datum/feed_message/MESSAGE in C.messages)
-							var/title = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
-							var/body = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
+							var/title = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
+							var/body = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
 							i++
 							dat += "<b>[title]</b> <br>"
 							dat += "[body] <br>"
@@ -94,7 +94,7 @@
 						dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<br><hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div>"
+				dat+= "<br><hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div>"
 			if(SCREEN_PAGE_LAST) //Last page
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
@@ -112,7 +112,7 @@
 					dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+				dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 			else
 				// No trailing punctuation so that it's easy to copy and paste the address
 				if(GLOB.configuration.url.github_url)
@@ -163,8 +163,7 @@
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
-			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page

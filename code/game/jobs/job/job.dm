@@ -3,9 +3,8 @@
 	//The name of the job
 	var/title = "NOPE"
 
-	//Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
-	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
+	/// Job access. A list of constants from access_defines.dm.
+	var/list/access = list()
 
 	///Job Bitflag, used for Database entries - DO NOT JUST EDIT THESE
 	var/flag = 0
@@ -17,6 +16,8 @@
 	var/job_departments = list()
 	///Can this role access its department money account?
 	var/department_account_access = FALSE
+	/// Does this job get a bank account?
+	var/has_bank_account = TRUE
 	//How many players can be this job
 	var/total_positions = 0
 
@@ -41,15 +42,8 @@
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
 
-	//Various Departmental identifiers
-	var/is_supply
-	var/is_service
-	var/is_command
-	var/is_legal
-	var/is_engineering
-	var/is_medical
-	var/is_science
-	var/is_security
+	/// Flags for identifying by department, because we need other shit that isnt for the database
+	var/job_department_flags
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
@@ -57,7 +51,11 @@
 	// Assoc list of EXP_TYPE_ defines and the amount of time needed in those departments
 	var/list/exp_map = list()
 
-	var/disabilities_allowed = 1
+	/// Cannot pick this job if the character has these disabilities
+	var/list/blacklisted_disabilities = list()
+	/// If this job could have any amputated limbs
+	var/missing_limbs_allowed = TRUE
+
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
@@ -70,10 +68,16 @@
 	///Job Objectives that crew with this job will have a roundstart
 	var/required_objectives = list()
 
+	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
+	var/job_banned_gamemode = FALSE
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
+
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
 	if(!H)
@@ -90,10 +94,7 @@
 		announce(H)
 
 /datum/job/proc/get_access()
-	if(GLOB.configuration.jobs.jobs_have_minimal_access)
-		return minimal_access.Copy()
-	else
-		return access.Copy()
+	return access.Copy()
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -114,20 +115,38 @@
 
 	return max(0, minimal_player_age - C.player_age)
 
+/// Returns true if the character has a disability the selected job doesn't allow
 /datum/job/proc/barred_by_disability(client/C)
-	if(!C)
-		return 0
-	if(disabilities_allowed)
-		return 0
-	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
-	for(var/i = 1, i < prohibited_disabilities.len, i++)
-		var/this_disability = prohibited_disabilities[i]
-		if(C.prefs.active_character.disabilities & this_disability)
-			return 1
-	return 0
+	if(!C || !length(blacklisted_disabilities))
+		return FALSE
+	for(var/disability in blacklisted_disabilities)
+		if(C.prefs.active_character.disabilities & disability)
+			return TRUE
+	return FALSE
+
+/// Returns true if the character has amputated limbs when their selected job doesn't allow it
+/datum/job/proc/barred_by_missing_limbs(client/C)
+	if(!C || missing_limbs_allowed)
+		return FALSE
+
+	var/organ_status
+	var/list/active_character_organs = C.prefs.active_character.organ_data
+
+	for(var/organ_name in active_character_organs)
+		organ_status = active_character_organs[organ_name]
+		if(organ_status == "amputated")
+			return TRUE
+	return FALSE
 
 /datum/job/proc/is_position_available()
+	if(job_banned_gamemode)
+		return FALSE
 	return (current_positions < total_positions) || (total_positions == -1)
+
+/datum/job/proc/is_spawn_position_available()
+	if(job_banned_gamemode)
+		return FALSE
+	return (current_positions < spawn_positions) || (spawn_positions == -1)
 
 /datum/outfit/job
 	name = "Standard Gear"
@@ -197,6 +216,7 @@
 					gear_leftovers += G
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
 	if(visualsOnly)
 		return
 
@@ -206,7 +226,7 @@
 
 	imprint_pda(H)
 
-	if(gear_leftovers.len)
+	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
 			if(istype(placed_in))
@@ -261,3 +281,16 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+
+/datum/outfit/job/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	var/obj/item/card/id/id = H.wear_id
+	if(!id)
+		return
+	var/datum/job/J = SSjobs.GetJobType(jobtype)
+	if(!J)
+		J = SSjobs.GetJob(H.job)
+	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(!H.mind.initial_account)
+		return
+	id.associated_account_number = H.mind.initial_account.account_number

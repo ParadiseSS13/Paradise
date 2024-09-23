@@ -10,14 +10,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(mob/user)
-	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
+	var/search = tgui_input_text(user, "Enter name, fingerprint or blood DNA.", "Find record")
 
 	if(!search || user.stat || user.incapacitated())
 		return
@@ -172,7 +172,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='info'><B>Prints:</B></span>")
+			add_log("<span class='notice'><B>Prints:</B></span>")
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -180,7 +180,7 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log("<span class='info'><B>Blood:</B></span>")
+			add_log("<span class='notice'><B>Blood:</B></span>")
 			found_something = TRUE
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -188,7 +188,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='info'><B>Fibers:</B></span>")
+			add_log("<span class='notice'><B>Fibers:</B></span>")
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -196,7 +196,7 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='info'><B>Reagents:</B></span>")
+			add_log("<span class='notice'><B>Reagents:</B></span>")
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE

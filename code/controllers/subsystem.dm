@@ -19,6 +19,9 @@
 	/// What are the implications of this SS being offlined?
 	var/offline_implications = "None. No immediate action is needed."
 
+	/// Tab to display in under the MC subtabs
+	var/cpu_display = SS_CPUDISPLAY_DEFAULT
+
 	/// Order of initialization. Higher numbers are initialized first, lower numbers later. Use or create defines such as [INIT_ORDER_DEFAULT] so we can see the order in one file.
 	var/init_order = INIT_ORDER_DEFAULT
 
@@ -91,6 +94,9 @@
 	/// Priority at the time the subsystem entered the queue. Needed to avoid changes in priority (by admins and the like) from breaking things.
 	var/queued_priority
 
+	/// Amount of times the subsystem has slept during fire()
+	var/fire_sleep_count = 0
+
 	/// How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 	var/static/list/failure_strikes
 
@@ -125,8 +131,10 @@
 	fire(resumed)
 	. = state
 	if(state == SS_SLEEPING)
+		fire_sleep_count++
 		state = SS_IDLE
 	if(state == SS_PAUSING)
+		fire_sleep_count++
 		var/QT = queued_time
 		enqueue()
 		state = SS_PAUSED
@@ -260,31 +268,30 @@
 	return
 
 //used to initialize the subsystem AFTER the map has loaded
-/datum/controller/subsystem/Initialize(start_timeofday)
+/datum/controller/subsystem/proc/call_init(start_timeofday)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	log_startup_progress("Initializing...")
+	Initialize()
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
-	return time
 
-//hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
+/datum/controller/subsystem/Initialize()
+	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
+
+/// Returns what to display as the ms cost for this subsystem.
+/datum/controller/subsystem/proc/get_cost()
+	return round(cost, 1)
+
 /datum/controller/subsystem/stat_entry(msg)
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
 	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags))
-		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
+		msg = "[get_cost()]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
 		msg = "OFFLINE\t[ss_info]"
 
-	var/title = name
-	if(can_fire)
-		title = "[state_colour()]\[[state_letter()]][title]</font>"
-	else
-		title = "\[O][title]"
-
-	stat(title, statclick.update(msg))
+	return ..()
 
 /datum/controller/subsystem/proc/state_letter()
 	switch(state)
@@ -297,7 +304,7 @@
 		if(SS_SLEEPING)
 			. = "S"
 		if(SS_IDLE)
-			. = "  "
+			. = " "
 
 /datum/controller/subsystem/proc/state_colour()
 	switch(state)
@@ -320,6 +327,7 @@
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
 /datum/controller/subsystem/Recover()
+	return
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -342,5 +350,6 @@
 	var/list/out = list()
 	out["cost"] = cost
 	out["tick_usage"] = tick_usage
+	out["sleep_count"] = fire_sleep_count
 	out["custom"] = list() // Override as needed on child
 	return out

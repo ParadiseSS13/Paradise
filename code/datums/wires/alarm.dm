@@ -2,8 +2,6 @@
 /datum/wires/alarm
 	holder_type = /obj/machinery/alarm
 	wire_count = 5
-	window_x = 385
-	window_y = 90
 	proper_name = "Air alarm"
 
 /datum/wires/alarm/New(atom/_holder)
@@ -47,8 +45,7 @@
 				A.apply_mode()
 
 		if(WIRE_AALARM)
-			if(A.alarm_area.atmosalert(ATMOS_ALARM_DANGER, A))
-				A.post_alert(ATMOS_ALARM_DANGER)
+			A.alarm_area.atmosalert(ATMOS_ALARM_DANGER, A)
 			A.update_icon()
 	..()
 
@@ -79,7 +76,6 @@
 			A.apply_mode()
 
 		if(WIRE_AALARM)
-			if(A.alarm_area.atmosalert(ATMOS_ALARM_NONE, A))
-				A.post_alert(ATMOS_ALARM_NONE)
+			A.alarm_area.atmosalert(ATMOS_ALARM_NONE, A)
 			A.update_icon()
 	..()

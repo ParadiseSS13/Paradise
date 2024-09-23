@@ -1,0 +1,9 @@
+help: "Use the specific directional subtypes for this requests console."
+/obj/machinery/requests_console:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/requests_console:
+  banned: true
+=/obj/machinery/requests_console/directional:
+  banned: true

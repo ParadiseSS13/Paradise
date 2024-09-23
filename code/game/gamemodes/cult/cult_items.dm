@@ -6,10 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
-	if(SSticker.mode)
-		icon_state = SSticker.cultdat.tome_icon
-	..()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
+	icon_state = GET_CULT_DATA(tome_icon, "tome")
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -25,17 +24,17 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
-	if(SSticker.mode)
-		icon_state = SSticker.cultdat.sword_icon
-		item_state = SSticker.cultdat.sword_icon
-	..()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
+	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
+	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
 
-/obj/item/melee/cultblade/detailed_examine()
-	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic, will stun them completely."
+/obj/item/melee/cultblade/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.</span>"
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
@@ -46,7 +45,7 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
-	if(!iscultist(target))
+	if(!IS_CULTIST(target))
 		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 		if(S)
 			S.trigger()
@@ -54,7 +53,7 @@
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Confused(20 SECONDS)
@@ -67,20 +66,19 @@
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
 	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
-	if(!iscultist(thrower))
+	if(thrower && !IS_CULTIST(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
 	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(iscultist(hit_atom))
+	if(IS_CULTIST(hit_atom))
 		hit_atom.visible_message("<span class='warning'>[src] bounces off of [hit_atom], as if repelled by an unseen force!</span>")
 		return
 	. = ..()
@@ -92,7 +90,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 5, ACID = 5)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -110,7 +108,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 
@@ -124,7 +122,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -136,7 +134,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
@@ -146,19 +144,16 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, BIO = 20, RAD = 20, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
-	var/current_charges = 3
-	var/shield_state = "shield-cult"
-	var/shield_on = "shield-cult"
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
@@ -167,32 +162,23 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
+	if(!IS_CULTIST(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges && !owner.holy_check())
-		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
-			if(P.shield_buster)
-				current_charges = 0 //Change it to remove 3 charges if it ever has its max shield limit increased above 3.
-		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
-			shield_state = "broken"
-			owner.update_inv_wear_suit()
-		return TRUE
-	return FALSE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
-	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
+	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
+
+/// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
 	name = "flagellant's robes"
@@ -202,7 +188,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -213,13 +199,13 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == slot_wear_suit)
+	else if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
@@ -235,7 +221,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -260,7 +246,7 @@
 		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
 		qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/unholywater
+/obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
@@ -280,7 +266,7 @@
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
 		user.Confused(60 SECONDS)
@@ -295,7 +281,7 @@
 	var/global/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.unEquip(src, 1)
 		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
@@ -303,7 +289,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -337,15 +323,16 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
-		pulled.forceMove(turf_behind)
-		. = pulled
+		if(!pulled.anchored) //Item may have been anchored while pulling, and pulling state isn't updated until you move away, so we double check.
+			pulled.forceMove(turf_behind)
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.unEquip(src, TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
@@ -403,7 +390,7 @@
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
 
@@ -427,6 +414,8 @@
 	name = "mirror shield"
 	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies."
 	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
 	force = 5
@@ -470,14 +459,14 @@
   */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	// Incase they get one by some magic
-	if(!SSticker.cultdat.mirror_shields_active)
+	if(!SSticker.mode.cult_team.mirror_shields_active)
 		to_chat(owner, "<span class='warning'>This shield is powerless! You must perform the required sacrifice to empower it!</span>")
 		return
 
-	if(iscultist(owner) && !owner.holy_check()) // Cultist holding the shield
+	if(IS_CULTIST(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
@@ -542,7 +531,7 @@
 		illusions++
 	else if(isliving(loc))
 		var/mob/living/holder = loc
-		if(iscultist(holder))
+		if(IS_CULTIST(holder))
 			to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
 		else
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
@@ -556,15 +545,16 @@
 		return TRUE
 	return FALSE
 
-/obj/item/twohanded/cult_spear
+/obj/item/cult_spear
 	name = "blood halberd"
 	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
 	slot_flags = 0
 	force = 17
-	force_unwielded = 17
-	force_wielded = 24
 	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
@@ -575,23 +565,24 @@
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
-/obj/item/twohanded/cult_spear/Initialize(mapload)
+/obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
-/obj/item/twohanded/cult_spear/Destroy()
+/obj/item/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
-/obj/item/twohanded/cult_spear/update_icon_state()
-	icon_state = "bloodspear[wielded]"
+/obj/item/cult_spear/update_icon_state()
+	icon_state = "[base_icon_state]0"
 
-/obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		if(iscultist(L))
+		if(IS_CULTIST(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(!L.restrained() && L.put_in_active_hand(src))
 				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
@@ -605,7 +596,7 @@
 				S.trigger()
 			else
 				L.KnockDown(10 SECONDS)
-				L.adjustStaminaLoss(60)
+				L.apply_damage(60, STAMINA)
 				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 				L.flash_eyes(1, TRUE)
 				if(issilicon(L))
@@ -615,11 +606,11 @@
 					L.Stuttering(16 SECONDS)
 					L.CultSlur(20 SECONDS)
 					L.Jitter(16 SECONDS)
-		break_spear(T)
+			break_spear(T)
 	else
 		..()
 
-/obj/item/twohanded/cult_spear/proc/break_spear(turf/T)
+/obj/item/cult_spear/proc/break_spear(turf/T)
 	if(!T)
 		T = get_turf(src)
 	if(T)
@@ -629,18 +620,19 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
-	if(S && wielded)
+	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
-	button_icon_state = "bloodspear"
-	var/obj/item/twohanded/cult_spear/spear
+	button_background_icon_state = "bg_cult"
+	button_overlay_icon_state = "bloodspear"
+	default_button_position = "11:31,4:-2"
+	var/obj/item/cult_spear/spear
 	var/cooldown = 0
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
@@ -695,7 +687,7 @@
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	if(iscultist(target))
+	if(IS_CULTIST(target))
 		damage = 0
 		nodamage = TRUE
 		if(ishuman(target))
@@ -727,7 +719,7 @@
 
 /obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/M = user
@@ -777,14 +769,14 @@
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to make a portal to", "Rune to make a portal to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
 		return
 
 	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+	else if(!is_station_level(R.z) || isspacearea(get_area(src)))
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
 	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
@@ -794,7 +786,7 @@
 
 /obj/effect/portal/cult
 	name = "eldritch portal"
-	desc = "An evil portal made by dark magics. Suprisingly stable."
+	desc = "An evil portal made by dark magics. Surprisingly stable."
 	icon_state = "portal1"
 	failchance = 0
 	precision = FALSE
@@ -806,7 +798,7 @@
 		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)

@@ -13,6 +13,7 @@
 	emote_hear = list("bark")
 	maxHealth = 150
 	health = 150
+	butcher_results = list(/obj/item/food/meat/kangaroo = 6)
 	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
@@ -28,7 +29,7 @@
 /mob/living/simple_animal/hostile/retaliate/kangaroo/Initialize(mapload)
 	. = ..()
 	// Leap spell, player-only usage
-	AddSpell(new /obj/effect/proc_holder/spell/leap)
+	AddSpell(new /datum/spell/leap)
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/AttackingTarget()
 	if(client && a_intent != INTENT_HARM)

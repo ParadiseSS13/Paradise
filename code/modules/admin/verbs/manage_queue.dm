@@ -20,7 +20,7 @@
 			to_chat(usr, "Queue server is now <b>[SSqueue.queue_enabled ? "<font color='green'>Enabled</font>" : "<font color='red'>Disabled</font>"]</b>")
 			message_admins("[key_name_admin(usr)] has [SSqueue.queue_enabled ? "enabled" : "disabled"] the server queue.")
 			log_admin("[key_name(usr)] has [SSqueue.queue_enabled ? "enabled" : "disabled"] the server queue.")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has now **[SSqueue.queue_enabled ? "enabled" : "disabled"]** the queue server.")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has now **[SSqueue.queue_enabled ? "enabled" : "disabled"]** the queue server.")
 		if("Set Threshold")
 			var/new_threshold = input(usr, "Enter new threshold", "Queue Server Manipulation", SSqueue.queue_threshold) as num|null
 			if(!new_threshold)
@@ -29,13 +29,13 @@
 			to_chat(usr, "Queue threshold is now <b>[SSqueue.queue_threshold]</b>")
 			message_admins("[key_name_admin(usr)] has set the queue threshold to [SSqueue.queue_threshold].")
 			log_admin("[key_name(usr)] has set the queue threshold to [SSqueue.queue_threshold].")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has set the queue threshold to **[SSqueue.queue_threshold]**.")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has set the queue threshold to **[SSqueue.queue_threshold]**.")
 		if("Toggle Setting Persistence")
 			SSqueue.persist_queue = !SSqueue.persist_queue
 			to_chat(usr, "Queue server setting persistence is now <b>[SSqueue.persist_queue ? "<font color='green'>Enabled</font>" : "<font color='red'>Disabled</font>"]</b>")
 			message_admins("[key_name_admin(usr)] has [SSqueue.persist_queue ? "enabled" : "disabled"] the server queue settings persistence.")
 			log_admin("[key_name(usr)] has [SSqueue.persist_queue ? "enabled" : "disabled"] the server queue settings persistence.")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has now **[SSqueue.persist_queue ? "enabled" : "disabled"]** server queue settings persistence.")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[usr.ckey]` has now **[SSqueue.persist_queue ? "enabled" : "disabled"]** server queue settings persistence.")
 
 /client/proc/add_queue_server_bypass()
 	set name = "Add Queue Server Bypass"

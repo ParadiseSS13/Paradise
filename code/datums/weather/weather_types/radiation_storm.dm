@@ -17,20 +17,30 @@
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 	var/pre_maint_all_access
 	area_type = /area
-	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig,
-	/area/shuttle, /area/survivalpod) //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
-	target_trait = STATION_LEVEL
+	protected_areas = list(
+		/area/station/maintenance,
+		/area/station/turret_protected/ai_upload,
+		/area/station/turret_protected/ai,
+		/area/station/public/storage/emergency,
+		/area/station/public/storage/emergency/port,
+		/area/station/public/sleep,
+		/area/station/security/brig,
+		/area/shuttle,
+		/area/survivalpod, //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
+		/area/syndicate_depot/core, // exterior of depot still dangerous, gotta be inside
+		/area/ruin, //Let us not completely kill space explorers.
+		/area/station/command/server
+	)
+	target_trait = REACHABLE_SPACE_ONLY
 
 	immunity_type = "rad"
 
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = GLOB.maint_all_access
-	if(!GLOB.maint_all_access)
-		make_maint_all_access()
-
+	pre_maint_all_access = SSmapping.maint_all_access
+	if(!SSmapping.maint_all_access)
+		SSmapping.make_maint_all_access()
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
 	if(!prob(60))
@@ -60,10 +70,13 @@
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
-		revoke_maint_all_access()
+		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces. Door access resetting momentarily.", "Anomaly Alert")
+		addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
+	else
+		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)

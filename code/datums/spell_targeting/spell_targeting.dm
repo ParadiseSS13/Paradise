@@ -34,14 +34,14 @@
  * * params - Params given by the intercept click. Only available if use_intercept_click is TRUE
  * * clicked_atom - The atom clicked on. Only available if use_intercept_click is TRUE
  */
-/datum/spell_targeting/proc/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/proc/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	RETURN_TYPE(/list)
 	return
 
 /**
  * Will attempt to auto target the spell. Only works with 1 target currently
  */
-/datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_targeting/proc/attempt_auto_target(mob/user, datum/spell/spell)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
 		if(valid_target(A, user, spell, FALSE))
@@ -64,7 +64,7 @@
  * * A - Atom the user clicked on
  * * spell - The spell being cast
  */
-/datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, obj/effect/proc_holder/spell/spell)
+/datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, datum/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
 	spell.try_perform(targets, user)
 
@@ -77,7 +77,7 @@
  * * spell - The spell being cast
  * * check_if_in_range - If a view/range check has to be done to see if the target is valid
  */
-/datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell, check_if_in_range = TRUE)
+/datum/spell_targeting/proc/valid_target(target, user, datum/spell/spell, check_if_in_range = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		spell.valid_target(target, user) && (!check_if_in_range || (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))) \
@@ -96,7 +96,7 @@
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(source.loc)
 	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf as anything in getline(source, target))
+	for(var/turf/turf as anything in get_line(source, target))
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy, turf, 1))
 				qdel(dummy)

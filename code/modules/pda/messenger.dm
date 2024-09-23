@@ -58,6 +58,9 @@
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
+	data["ringtone"] = pda.ttone
+	data["ringtone_list"] = pda.ttone_sound
+
 /datum/data/pda/app/messenger/ui_act(action, list/params)
 	if(..())
 		return
@@ -118,10 +121,7 @@
 
 
 /datum/data/pda/app/messenger/proc/create_message(mob/living/U, obj/item/pda/P)
-	var/t = input(U, "Please enter message", name, null) as text|null
-	if(!t)
-		return
-	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+	var/t = tgui_input_text(U, "Please enter your message", name)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
@@ -167,13 +167,13 @@
 		if(sendable && receivable)
 			break
 
-	if(!sendable) // Are we in the range of a reciever?
+	if(!sendable) // Are we in the range of a receiver?
 		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
-	if(!receivable) // Is our recipient in the range of a reciever?
+	if(!receivable) // Is our recipient in the range of a receiver?
 		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
@@ -185,7 +185,7 @@
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[html_decode(t)]", "target" = "[P.UID()]")))
 		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[html_decode(t)]", "target" = "[pda.UID()]")))
-		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
+		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[pda.owner] ([U.key] [ADMIN_PP(U, "PP")])</span> -> <span class='name'>[P.owner]</span> ([ADMIN_VV(P, "VV")]), Message: <span class='message'>\"[t]\"</span></span>", "pda")
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)
@@ -199,7 +199,7 @@
 			PM.conversations.Add("[pda.UID()]")
 
 		SStgui.update_uis(src)
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
+		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='byond://?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
 		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
 		var/log_message = "sent PDA message \"[t]\" using [pda]"
 		var/receiver
@@ -236,7 +236,7 @@
 		var/name = P.owner
 		if(name in names)
 			namecounts[name]++
-			name = text("[name] ([namecounts[name]])")
+			name = "[name] ([namecounts[name]])"
 		else
 			names.Add(name)
 			namecounts[name] = 1

@@ -40,11 +40,11 @@
 	cost = 100
 	category = MERCH_CAT_TOY
 
-/datum/merch_item/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/storage/box/nanomob_booster_pack
-	cost = 125
+/datum/merch_item/scratch_card
+	name = "Scratch Cards Box"
+	desc = "Contains 5 scratch cards. Become rich today!"
+	typepath = /obj/item/storage/box/scratch_cards
+	cost = 100
 	category = MERCH_CAT_TOY
 
 /datum/merch_item/crayons
@@ -65,6 +65,13 @@
 	name = "Miniature Gibber"
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	typepath = /obj/item/toy/minigibber
+	cost = 200
+	category = MERCH_CAT_TOY
+
+/datum/merch_item/unum
+	name = "UNUM!"
+	desc = "Everyone's favorite card game!"
+	typepath = /obj/item/deck/unum
 	cost = 200
 	category = MERCH_CAT_TOY
 
@@ -110,11 +117,18 @@
 	cost = 500
 	category = MERCH_CAT_TOY
 
-/datum/merch_item/baby
-	name = "Toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	typepath = /obj/item/toddler
-	cost = 500
+/datum/merch_item/skateboard
+	name = "Skateboard"
+	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
+	typepath = /obj/item/melee/skateboard
+	cost = 250
+	category = MERCH_CAT_TOY
+
+/datum/merch_item/pro_skateboard
+	name = "Pro Skateboard"
+	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
+	typepath = /obj/item/melee/skateboard/pro
+	cost = 600 //Quite fast, though I expect people to fall flat on their face with this a lot.
 	category = MERCH_CAT_TOY
 
 /datum/merch_item/flag_slime
@@ -224,7 +238,7 @@
 
 /datum/merch_item/flag_solgov
 	name = "SolGov Flag"
-	desc = "The banner of Trans-Solar Federation, allied government."
+	desc = "The banner of Trans-Solar Federation."
 	typepath = /obj/item/flag/solgov
 	cost = 750
 	category = MERCH_CAT_DECORATION

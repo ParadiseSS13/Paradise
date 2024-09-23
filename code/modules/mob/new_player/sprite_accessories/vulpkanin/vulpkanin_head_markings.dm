@@ -18,18 +18,22 @@
 	name = "Vulpkanin Tiger Head and Face"
 	icon_state = "tiger_face"
 
-/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
+/// Companion marking for Vulpkanin Belly Alt..
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp
 	name = "Vulpkanin Muzzle"
 	icon_state = "muzzle"
 
-/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_ears_vulp //Companion marking for Vulpkanin Belly Alt..
+/// Companion marking for Vulpkanin Belly Alt..
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_ears_vulp
 	name = "Vulpkanin Muzzle and Ears"
 	icon_state = "muzzle_ear"
 
-/datum/sprite_accessory/body_markings/head/vulpkanin/points_fade_vulp //Companion marking for Vulpkanin Points Fade.
+/// Companion marking for Vulpkanin Points Fade.
+/datum/sprite_accessory/body_markings/head/vulpkanin/points_fade_vulp
 	name = "Vulpkanin Points Head"
 	icon_state = "points_fade"
 
-/datum/sprite_accessory/body_markings/head/vulpkanin/points_sharp_vulp //Companion marking for Vulpkanin Points Sharp.
+/// Companion marking for Vulpkanin Points Sharp.
+/datum/sprite_accessory/body_markings/head/vulpkanin/points_sharp_vulp
 	name = "Vulpkanin Points Head 2"
 	icon_state = "points_sharp"

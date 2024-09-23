@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  ProgressBar,
-  Section,
-  Tooltip,
-} from '../components';
+import { Button, LabeledList, NumberInput, ProgressBar, Section, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const Tank = (props, context) => {
@@ -22,6 +15,8 @@ export const Tank = (props, context) => {
     maskStatus = (
       <LabeledList.Item label="Mask">
         <Button
+          fluid
+          width="76%"
           icon={data.connected ? 'check' : 'times'}
           content={data.connected ? 'Internals On' : 'Internals Off'}
           selected={data.connected}
@@ -31,7 +26,7 @@ export const Tank = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={325} height={135}>
       <Window.Content>
         <Section>
           <LabeledList>

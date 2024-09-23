@@ -2,12 +2,13 @@
 	name = "Epinephrine Overdose"
 	desc = "We evolve additional sacs of adrenaline throughout our body. Costs 30 chemicals."
 	helptext = "Removes all stuns instantly and adds a short term reduction in further stuns. Can be used while unconscious. Continued use poisons the body."
-	button_icon_state = "adrenaline"
+	button_overlay_icon_state = "adrenaline"
 	chemical_cost = 30
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
@@ -22,8 +23,10 @@
 	user.SetWeakened(0)
 	user.setStaminaLoss(0)
 	user.SetKnockDown(0)
+	user.stand_up(TRUE)
+	SEND_SIGNAL(user, COMSIG_LIVING_CLEAR_STUNS)
 	user.reagents.add_reagent("synaptizine", 15)
-	user.reagents.add_reagent("stimulative_agent", 1)
+	user.reagents.add_reagent("stimulative_cling", 1)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

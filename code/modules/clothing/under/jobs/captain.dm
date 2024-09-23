@@ -16,9 +16,11 @@
 
 /obj/item/clothing/under/rank/captain/dress
 	name = "captain's dress"
-	desc = "Feminine fashion for the style concious captain."
+	desc = "Feminine fashion for the style conscious captain."
 	icon_state = "captain_dress"
 	item_color = "captain_dress"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/captain/parade
 	name = "captain's parade uniform"

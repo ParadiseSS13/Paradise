@@ -65,7 +65,9 @@
 	var/list/tc = allowed_typecache
 	if(disable_attackby)
 		return
-	if(user.a_intent != INTENT_HELP)
+	// Allow tools to be inserted on harm and help intent since they might be used for construction
+	// otherwise user needs to be on help intent
+	if(!((I.tool_behaviour && user.a_intent == INTENT_HARM) || user.a_intent == INTENT_HELP))
 		return
 	if(I.flags & ABSTRACT)
 		return
@@ -91,7 +93,7 @@
 	if(istype(I, /obj/item/stack) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
-		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
+		requested_amount = tgui_input_number(user, "How much do you want to insert?", "Inserting [S.singular_name]s", max_value = S.amount)
 		if(isnull(requested_amount) || (requested_amount <= 0))
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
@@ -182,7 +184,7 @@
 //For consuming material
 //mats is a list of types of material to use and the corresponding amounts, example: list(MAT_METAL=100, MAT_GLASS=200)
 /datum/component/material_container/proc/use_amount(list/mats, multiplier=1)
-	if(!mats || !mats.len)
+	if(!mats || !length(mats))
 		return FALSE
 
 	var/datum/material/M
@@ -290,7 +292,7 @@
 	return (total_amount + amt) <= max_amount
 
 /datum/component/material_container/proc/has_materials(list/mats, multiplier=1)
-	if(!mats || !mats.len)
+	if(!mats || !length(mats))
 		return FALSE
 
 	var/datum/material/M
@@ -319,6 +321,8 @@
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
+	if(!I.materials) // some objects have no materials and this will cause runtimes without this check
+		return 0
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
@@ -384,7 +388,7 @@
 /datum/material/bluespace
 	name = "Bluespace Mesh"
 	id = MAT_BLUESPACE
-	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium

@@ -37,7 +37,7 @@ Difficulty: Medium
 	maxHealth = 2500
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	icon_state = "dragon"
 	icon_living = "dragon"
 	icon_dead = "dragon_dead"
@@ -49,7 +49,7 @@ Difficulty: Medium
 	speed = 5
 	move_to_delay = 5
 	ranged = TRUE
-	pixel_x = -16
+	pixel_x = -32
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
@@ -61,6 +61,7 @@ Difficulty: Medium
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	enraged_loot = /obj/item/disk/fauna_research/ash_drake
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,
 							/datum/action/innate/megafauna_attack/mass_fire,
@@ -68,29 +69,29 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
-	icon_icon = 'icons/obj/wizard.dmi'
-	button_icon_state = "fireball"
+	button_overlay_icon = 'icons/obj/wizard.dmi'
+	button_overlay_icon_state = "fireball"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
-	icon_icon = 'icons/effects/fire.dmi'
-	button_icon_state = "1"
+	button_overlay_icon = 'icons/effects/fire.dmi'
+	button_overlay_icon_state = "1"
 	chosen_message = "<span class='colossus'>You are now shooting mass fire at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "lavastaff_warn"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "lavastaff_warn"
 	chosen_message = "<span class='colossus'>You are now swooping and raining lava at your target.</span>"
 	chosen_attack_num = 4
 
@@ -104,7 +105,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = clamp(max((maxHealth - health) / 50, enraged ? 15 : 0), 0, 20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -124,6 +125,8 @@ Difficulty: Medium
 
 	else if(prob(10+anger_modifier))
 		shoot_fire_attack()
+	else if(enraged && prob(20))
+		arena_escape_enrage()
 	else
 		fire_cone()
 
@@ -138,7 +141,7 @@ Difficulty: Medium
 		return
 	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(9,get_turf(target)))
-		if(prob(11))
+		if(prob(enraged ? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
@@ -148,15 +151,15 @@ Difficulty: Medium
 	while(amount > 0)
 		if(QDELETED(target))
 			break
-		var/turf/T = pick(RANGE_TURFS(1, target))
-		new /obj/effect/temp_visual/lava_warning(T, 60) // longer reset time for the lava
+		var/turf/T = pick(RANGE_TURFS(enraged ? 2 : 1, target))
+		new /obj/effect/temp_visual/lava_warning(T, enraged ? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
 		amount--
 		SLEEP_CHECK_DEATH(delay)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(amount = 30)
 	if(health < maxHealth * 0.5)
-		return swoop_attack(lava_arena = TRUE, swoop_cooldown = 60)
-	INVOKE_ASYNC(src, PROC_REF(lava_pools), amount)
+		return swoop_attack(lava_arena = TRUE, swoop_cooldown = enraged ? 2 SECONDS : 6 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(lava_pools), enraged ? 60 : amount)
 	swoop_attack(FALSE, target, 1000) // longer cooldown until it gets reset below
 	SLEEP_CHECK_DEATH(0)
 	fire_cone()
@@ -169,6 +172,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(spiral_count = 12, range = 15, times = 3)
 	SLEEP_CHECK_DEATH(0)
+	if(prob(50) && enraged)
+		INVOKE_ASYNC(src, PROC_REF(fire_rain))
 	for(var/i = 1 to times)
 		SetRecoveryTime(50)
 		playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
@@ -185,12 +190,12 @@ Difficulty: Medium
 	target.visible_message("<span class='boldwarning'>[src] encases you in an arena of fire!</span>")
 	var/amount = 3
 	var/turf/center = get_turf(target)
-	var/list/walled = RANGE_TURFS(3, center) - RANGE_TURFS(2, center)
+	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
 	var/list/drakewalls = list()
 	for(var/turf/T in walled)
 		drakewalls += new /obj/effect/temp_visual/drakewall(T) // no people with lava immunity can just run away from the attack for free
 	var/list/indestructible_turfs = list()
-	for(var/turf/T in RANGE_TURFS(2, center))
+	for(var/turf/T in RANGE_TURFS(enraged ? 3 : 2, center))
 		if(istype(T, /turf/simulated/floor/indestructible))
 			continue
 		if(!istype(T, /turf/simulated/wall/indestructible))
@@ -199,14 +204,14 @@ Difficulty: Medium
 			indestructible_turfs += T
 	SLEEP_CHECK_DEATH(10) // give them a bit of time to realize what attack is actually happening
 
-	var/list/turfs = RANGE_TURFS(2, center)
+	var/list/turfs = RANGE_TURFS(enraged ? 3 : 2, center)
 	while(amount > 0)
 		var/list/empty = indestructible_turfs.Copy() // can't place safe turfs on turfs that weren't changed to be open
 		var/any_attack = 0
 		for(var/turf/T in turfs)
 			for(var/mob/living/L in T.contents)
 				if(L.client)
-					empty += pick(((RANGE_TURFS(2, L) - RANGE_TURFS(1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
+					empty += pick(((RANGE_TURFS(enraged ? 3 : 2, L) - RANGE_TURFS(enraged ? 2 : 1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
 					any_attack = 1
 			for(var/obj/mecha/M in T.contents)
 				empty += pick(((RANGE_TURFS(2, M) - RANGE_TURFS(1, M)) & turfs) - empty)
@@ -233,7 +238,7 @@ Difficulty: Medium
 	move_to_delay = move_to_delay / 2
 	light_range = 10
 	SLEEP_CHECK_DEATH(10) // run.
-	mass_fire(20, 15, 3)
+	mass_fire(12, 15, 3)
 	move_to_delay = initial(move_to_delay)
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 	light_range = initial(light_range)
@@ -262,7 +267,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(0)
@@ -274,7 +279,9 @@ Difficulty: Medium
 	for(var/turf/T in turfs)
 		if(T.density)
 			break
-		new /obj/effect/hotspot(T)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
 			if(L in hit_list || L == source)
@@ -394,7 +401,7 @@ Difficulty: Medium
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, chat_message_type)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -451,7 +458,7 @@ Difficulty: Medium
 
 	// changes turf to lava temporarily
 	if(!T.density && !islava(T))
-		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
+		var/lava_turf = /turf/simulated/floor/lava
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)
 		sleep(reset_time)
@@ -468,7 +475,7 @@ Difficulty: Medium
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass()
+/obj/effect/temp_visual/drakewall/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/temp_visual/lava_safe
@@ -490,10 +497,10 @@ Difficulty: Medium
 	duration = 10
 
 /obj/effect/temp_visual/dragon_flight
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	icon_state = "dragon"
 	layer = ABOVE_ALL_MOB_LAYER
-	pixel_x = -16
+	pixel_x = -32
 	duration = 10
 	randomdir = FALSE
 
@@ -507,7 +514,7 @@ Difficulty: Medium
 	else
 		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT*0.1, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
 	sleep(3)
-	icon_state = "swoop"
+	icon_state = "dragon_swoop"
 	if(negative)
 		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
 	else
@@ -521,9 +528,9 @@ Difficulty: Medium
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
 		pixel_x = -DRAKE_SWOOP_HEIGHT
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		animate(src, pixel_x = -32, pixel_z = 0, time = 5)
 	else
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		animate(src, pixel_x = -32, pixel_z = 0, time = 5)
 
 /obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
@@ -562,7 +569,9 @@ Difficulty: Medium
 		var/turf/simulated/mineral/M = T
 		M.gets_drilled()
 	playsound(T, "explosion", 80, TRUE)
-	new /obj/effect/hotspot(T)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	hotspot.temperature = 1000
+	hotspot.recolor()
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
@@ -589,14 +598,11 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
-	return
-
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
-	maxHealth = 250
-	health = 250
-	faction = list("neutral")
+	maxHealth = 1000
+	health = 1000
+	faction = list("carp")
 	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
@@ -607,26 +613,27 @@ Difficulty: Medium
 	melee_damage_lower = 35
 	speed = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
-	loot = list()
+	move_to_delay = 3
+	rapid = 2
 	crusher_loot = list()
-	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
+	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/gun/energy/kinetic_accelerator/experimental, /obj/effect/temp_visual/cult/portal)
+	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
-	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life estinguished."
+	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life extinguished."
 	attack_action_types = list()
-
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
-	return
+	internal_gps = /obj/item/gps/internal/carp
+	death_sound = 'sound/creatures/spacedragondeath.ogg'
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	var/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src)
+	var/datum/spell/aoe/repulse/spacedragon/repulse_action = new /datum/spell/aoe/repulse/spacedragon(src)
 	repulse_action.action.Grant(src)
 	mob_spell_list += repulse_action
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
-	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(get_turf(src),'sound/magic/magic_missile.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(0)
 	var/range = 20
 	var/list/turfs = list()
@@ -639,7 +646,7 @@ Difficulty: Medium
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
+/datum/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
@@ -652,7 +659,7 @@ Difficulty: Medium
 	action_background_icon_state = "bg_alien"
 	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
+/datum/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, TRUE)
@@ -661,3 +668,14 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+
+/obj/item/gps/internal/carp
+	icon_state = null
+	gpstag = "Corrupted Signal"
+	desc = "Fish and chips."
+	invisibility = 100
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

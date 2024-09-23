@@ -34,7 +34,7 @@
 
 /obj/effect/step_trigger/message/Trigger(mob/M)
 	if(M.client)
-		to_chat(M, "<span class='info'>[message]</span>")
+		to_chat(M, "<span class='notice'>[message]</span>")
 		if(once)
 			qdel(src)
 
@@ -117,7 +117,7 @@
 		if(teleport_x_offset && teleport_y_offset && teleport_z_offset)
 
 			var/turf/T = locate(rand(teleport_x, teleport_x_offset), rand(teleport_y, teleport_y_offset), rand(teleport_z, teleport_z_offset))
-			if (T)
+			if(T)
 				A.forceMove(T)
 
 /* Fancy teleporter, creates sparks and smokes when used */

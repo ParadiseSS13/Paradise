@@ -6,6 +6,8 @@
 	icon_state = "void-red"
 	item_state = "void"
 	flags_inv = HIDEMASK|HIDEEARS
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_VOID_HELMET
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -18,6 +20,8 @@
 	icon_state = "void-red"
 	item_state = "void"
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_VOID_SUIT
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/multitool)
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -75,7 +79,7 @@
 	icon_state = "void-syndi"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. This one looks rather suspicious."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 
 /obj/item/clothing/suit/space/nasavoid/syndi
 	name = "blood-red NASA void suit"
@@ -83,7 +87,7 @@
 	desc = "A high tech, NASA Centcom branch designed space suit. This one looks rather suspicious."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 
 //random spawner
 

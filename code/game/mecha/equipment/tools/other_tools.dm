@@ -92,7 +92,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -102,7 +102,8 @@
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
+/// what is that noise? A BAWWW from TK mutants.
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
@@ -171,7 +172,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='byond://?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
@@ -227,13 +228,13 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	name = "exosuit energy relay"
-	desc = "An exosuit module that wirelessly drains energy from any available power channel in area. The performance index is quite low."
+	desc = "An exosuit module that wirelessly drains energy from any available power channel in an area. The performance index barely compensates for movement costs."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 0
 	range = 0
 	var/coeff = 100
-	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
+	var/list/use_channels = list(PW_CHANNEL_EQUIPMENT, PW_CHANNEL_ENVIRONMENT, PW_CHANNEL_LIGHTING)
 	selectable = 0
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
@@ -257,7 +258,7 @@
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
-			if(A.powered(c))
+			if(A.powernet.has_power(c))
 				pow_chan = c
 				break
 	return pow_chan
@@ -276,7 +277,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='byond://?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -294,14 +295,14 @@
 		var/area/A = get_area(chassis)
 		if(A)
 			var/pow_chan
-			for(var/c in list(EQUIP,ENVIRON,LIGHT))
-				if(A.powered(c))
+			for(var/c in use_channels)
+				if(A.powernet.has_power(c))
 					pow_chan = c
 					break
 			if(pow_chan)
-				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
+				var/delta = min(60, chassis.cell.maxcharge - cur_charge)
 				chassis.give_power(delta)
-				A.use_power(delta*coeff, pow_chan)
+				A.powernet.use_active_power(pow_chan, delta * coeff)
 
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
@@ -311,14 +312,15 @@
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
 	range = MECHA_MELEE
+	energy_drain = 0 //for allow load fuel without energy
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
-	var/max_fuel = 150000
+	var/max_fuel = 150000 // 45k energy for 75 plasma/ 375 cr.
 	var/fuel_name = "plasma" // Our fuel name as a string
 	var/fuel_amount = 0
 	var/fuel_per_cycle_idle = 10
-	var/fuel_per_cycle_active = 100
-	var/power_per_cycle = 30
+	var/fuel_per_cycle_active = 500
+	var/power_per_cycle = 150
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
@@ -344,42 +346,42 @@
 /obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
 		var/result = load_fuel(target)
 		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			send_byjax(chassis.occupant,"exosuit.browser", "\ref[src]", get_equip_info())
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
-		if(istype(I, /obj/item/stack/sheet))
-			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
-			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
-				if(units)
-					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
-					P.use(units)
-					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
-					return added_fuel
-			else
-				occupant_message("Unit is full.")
-				return 0
-		else // Some other object containing our fuel's type, so we just eat it (ores mainly)
-			var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
+		if(!istype(I, /obj/item/stack/sheet)) // Some other object containing our fuel's type, so we just eat it (ores mainly)
+			var/to_load = clamp(I.materials[fuel_type], 0, max_fuel - fuel_amount)
 			if(to_load == 0)
-				return 0
+				return FALSE
 			fuel_amount += to_load
 			qdel(I)
-			return to_load
+			return 0
+
+		if(fuel_amount >= max_fuel)
+			occupant_message("Unit is full.")
+			return 0
+
+		var/obj/item/stack/sheet/P = I
+		var/to_load = max_fuel - fuel_amount
+
+		var/units = clamp(round(to_load / P.perunit), 1, P.amount)
+		if(units)
+			var/added_fuel = units * P.perunit
+			fuel_amount += added_fuel
+			P.use(units)
+			occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
+			return added_fuel
 
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
-		for(var/baz in I.contents)
-			var/obj/item/O = baz
+		for(var/obj/item/O as anything in I.contents)
 			if(fuel_type in O.materials)
 				fuel_added = load_fuel(O)
 				break
@@ -424,16 +426,51 @@
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
-	max_fuel = 50000
+	max_fuel = 50000 // around 83k energy for 25 uranium/ 0 cr.
 	fuel_per_cycle_idle = 10
-	fuel_per_cycle_active = 30
-	power_per_cycle = 50
+	fuel_per_cycle_active = 150
+	power_per_cycle = 250
 	var/rad_per_cycle = 30
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
 
+/obj/item/mecha_parts/mecha_equipment/thrusters
+	name = "exosuit ion thrusters"
+	desc = "Ion thrusters to be attached to an exosuit. Drains power even while not in flight."
+	icon_state = "tesla"
+	origin_tech = "powerstorage=4;engineering=4"
+	range = 0
+	energy_drain = 20
+	selectable = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/attach(obj/mecha/M)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+	M.add_thrusters()
+	M.thruster_count++
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/detach(atom/moveto)
+	chassis.thruster_count--
+	chassis.remove_thrusters()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/process()
+	if(!chassis)
+		STOP_PROCESSING(SSobj, src)
+	if(!energy_drain || !chassis.thrusters_active)
+		return
+	chassis.use_power(energy_drain)
+
+/obj/mecha/proc/add_thrusters()
+	if(occupant)
+		thrusters_action.Grant(occupant, src)
+
+/obj/mecha/proc/remove_thrusters()
+	if(occupant && !thruster_count)
+		thrusters_action.Remove(occupant)
 
 #undef MECH_GRAVCAT_MODE_GRAVSLING
 #undef MECH_GRAVCAT_MODE_GRAVPUSH

@@ -5,7 +5,7 @@
 	icon_state = "seed-eggplant"
 	species = "eggplant"
 	plantname = "Eggplants"
-	product = /obj/item/reagent_containers/food/snacks/grown/eggplant
+	product = /obj/item/food/grown/eggplant
 	yield = 2
 	potency = 20
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
@@ -15,7 +15,7 @@
 	mutatelist = list(/obj/item/seeds/eggplant/eggy)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
-/obj/item/reagent_containers/food/snacks/grown/eggplant
+/obj/item/food/grown/eggplant
 	seed = /obj/item/seeds/eggplant
 	name = "eggplant"
 	desc = "Maybe there's a chicken inside?"
@@ -32,18 +32,18 @@
 	icon_state = "seed-eggy"
 	species = "eggy"
 	plantname = "Egg-Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/shell/eggy
+	product = /obj/item/food/grown/shell/eggy
 	lifespan = 75
 	production = 12
 	mutatelist = list()
 	reagents_add = list("nutriment" = 0.1)
 
-/obj/item/reagent_containers/food/snacks/grown/shell/eggy
+/obj/item/food/grown/shell/eggy
 	seed = /obj/item/seeds/eggplant/eggy
 	name = "Egg-plant"
 	desc = "There MUST be a chicken inside."
 	icon_state = "eggyplant"
-	trash = /obj/item/reagent_containers/food/snacks/egg
+	trash = /obj/item/food/egg
 	filling_color = "#F8F8FF"
 	bitesize_mod = 2
 	tastes = list("egg-plant" = 1)

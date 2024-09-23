@@ -9,9 +9,10 @@ export const AirlockAccessController = (props, context) => {
   let interiorbutton;
   // If exterior is open, then it can be locked, if closed, it can be cycled to. Vice versa for interior
 
-  if (data.exterior_status.state === 'open') {
+  if (exterior_status === 'open') {
     exteriorbutton = (
       <Button
+        width="50%"
         content={'Lock Exterior Door'}
         icon={'exclamation-triangle'}
         disabled={processing}
@@ -21,6 +22,7 @@ export const AirlockAccessController = (props, context) => {
   } else {
     exteriorbutton = (
       <Button
+        width="50%"
         content={'Cycle to Exterior'}
         icon={'arrow-circle-left'}
         disabled={processing}
@@ -28,21 +30,21 @@ export const AirlockAccessController = (props, context) => {
       />
     );
   }
-  if (data.interior_status.state === 'open') {
+  if (interior_status === 'open') {
     interiorbutton = (
       <Button
+        width="49%"
         content={'Lock Interior Door'}
         icon={'exclamation-triangle'}
         disabled={processing}
-        color={
-          interior_status === 'open' ? 'red' : processing ? 'yellow' : null
-        }
+        color={interior_status === 'open' ? 'red' : processing ? 'yellow' : null}
         onClick={() => act('force_int')}
       />
     );
   } else {
     interiorbutton = (
       <Button
+        width="49%"
         content={'Cycle to Interior'}
         icon={'arrow-circle-right'}
         disabled={processing}
@@ -51,21 +53,23 @@ export const AirlockAccessController = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={330} height={200}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>
             <LabeledList.Item label="External Door Status">
-              {exterior_status.state === 'closed' ? 'Locked' : 'Open'}
+              {exterior_status === 'closed' ? 'Locked' : 'Open'}
             </LabeledList.Item>
             <LabeledList.Item label="Internal Door Status">
-              {interior_status.state === 'closed' ? 'Locked' : 'Open'}
+              {interior_status === 'closed' ? 'Locked' : 'Open'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Actions">
-          <Box>{exteriorbutton}</Box>
-          <Box>{interiorbutton}</Box>
+          <Box>
+            {exteriorbutton}
+            {interiorbutton}
+          </Box>
         </Section>
       </Window.Content>
     </Window>

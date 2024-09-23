@@ -1,7 +1,7 @@
 /**********************Resonator**********************/
 /obj/item/resonator
 	name = "resonator"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
@@ -25,10 +25,10 @@
 /obj/item/resonator/attack_self(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
+		to_chat(user, "<span class='notice'>You set the resonator's fields to detonate after 3 seconds.</span>")
 	else
 		burst_time = 50
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
+		to_chat(user, "<span class='notice'>You set the resonator's fields to detonate after 5 seconds.</span>")
 
 /obj/item/resonator/proc/CreateResonance(target, mob/user)
 	var/turf/T = get_turf(target)
@@ -94,8 +94,11 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(T)
 	if(ismineralturf(T))
-		var/turf/simulated/mineral/M = T
-		M.gets_drilled(creator)
+		if(is_ancient_rock(T))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = T
+			M.gets_drilled(creator)
 	check_pressure(T)
 	playsound(T,'sound/weapons/resonator_blast.ogg',50,1)
 	for(var/mob/living/L in T)

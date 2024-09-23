@@ -54,11 +54,12 @@
 	DropSpiderlings()
 	. = ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/Stat()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	// Provides a status panel indicator, showing mothers how many regen points they have.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
-		stat(null, "Regeneration Points: [regen_points]")
+	if(ckey && stat == CONSCIOUS)
+		status_tab_data[++status_tab_data.len] = list("Regeneration Points:", "[regen_points]")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/examine(mob/user)
 	. = ..()
@@ -82,8 +83,11 @@
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
 		return
 	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
-	if(do_after(src, 100, target = loc))
+	if(do_after_once(src, 100, target = loc, attempt_cancel_message = "You stop producing jelly."))
 		if(loc != mylocation)
+			return
+		if(regen_points < jelly_cost)
+			to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
 			return
 		new /obj/structure/spider/royaljelly(loc)
 		regen_points -= jelly_cost

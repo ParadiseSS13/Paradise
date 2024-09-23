@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use 'sass:meta';
 
@@ -8,25 +13,19 @@ $nanotrasen: #384e68;
   $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-bg: color.scale($nanotrasen, $lightness: -45%),
-  $border-radius: 2px
+  $color-bg: color.scale($nanotrasen, $lightness: -45%)
 );
 
 .theme-ntos {
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: (
-      'color-default': $nanotrasen,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
-    )
+    $with: ('color-default': $nanotrasen, 'color-transparent-text': rgba(227, 240, 255, 0.75))
   );
+  @include meta.load-css('../components/ImageButton.scss', $with: ('color-default': darken($nanotrasen, 15%)));
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-default': $nanotrasen,
-      'color-background': rgba(0, 0, 0, 0.5)
-    )
+    $with: ('color-default-fill': $nanotrasen, 'background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 
@@ -35,6 +34,6 @@ $nanotrasen: #384e68;
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': color.scale($nanotrasen, $lightness: -25%))
+    $with: ('background-color': color.scale($nanotrasen, $lightness: -25%))
   );
 }

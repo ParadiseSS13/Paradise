@@ -8,7 +8,7 @@
 
 /datum/chemical_reaction/explosion_potassium/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/effect_system/reagents_explosion/e = new()
-	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
+	e.set_up(min(round(created_volume / 10, 1), 30), holder.my_atom, 0, 0)
 	e.start()
 	holder.clear_reagents()
 
@@ -30,7 +30,7 @@
 	name = "Bee Explosion"
 	id = "beesplosion"
 	result = null
-	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	required_reagents = list("honey" = 1, "lazarus_reagent" = 1, "radium" = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
@@ -44,7 +44,7 @@
 			var/datum/reagent/R = X
 			if(R.id in required_reagents)
 				continue
-			if(!R.can_synth)
+			if(R.id in GLOB.blocked_chems)
 				continue
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
@@ -166,12 +166,15 @@
 	do_sparks(2, 1, location)
 	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate), holder, location, created_volume), rand(5, 15))
 
-/datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, turf/location, created_volume)
+/datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, turf/prime_location, created_volume)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+	if(istype(holder.my_atom)) //ensures the explosion happens at the container, not where its primed at
+		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+	else
+		explosion(prime_location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -222,7 +225,8 @@
 	result_amount = 2
 	mix_message = "The substance becomes a pile of burning dust."
 
-/datum/chemical_reaction/phlogiston_fire //This MUST be above the smoke recipe.
+/// This MUST be above the smoke recipe.
+/datum/chemical_reaction/phlogiston_fire
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
 	result = "phlogiston"
@@ -256,14 +260,14 @@
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
 	mix_message = "The mixture quickly turns into a pall of smoke!"
-	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
+	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants", "smoke_powder", "fishwater", "toiletwater") //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new
-	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(location, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	if(S)
 		S.set_up(holder, location)
 		if(created_volume < 5)
@@ -281,7 +285,6 @@
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
 	result_amount = 1
-	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder
@@ -386,3 +389,26 @@
 	result = "thermite"
 	required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
 	result_amount = 3
+
+/datum/chemical_reaction/confetti
+	name = "Confetti"
+	id = "confetti"
+	result = "confetti"
+	required_reagents = list("cyanide" = 1, "colorful_reagent" = 1)
+	result_amount = 5
+	mix_message = "The mixture congeals into a dry powder."
+
+/datum/chemical_reaction/confetti/confettibomb
+	name = "confettibomb"
+	id = "confettibomb"
+	required_reagents = list("confetti" = 1)
+	min_temp = T0C + 300
+	result = null
+	mix_sound = 'sound/effects/confetti_partywhistle.ogg'
+	mix_message = "The powder starts vibrating quickly!"
+
+/datum/chemical_reaction/confetti/confettibomb/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/T = get_turf(holder.my_atom)
+	var/confetti_size = CEILING(created_volume / 10, 1)
+	var/confetti_range = CEILING(confetti_size / 2, 1)
+	confettisize(T, confetti_size, confetti_range)

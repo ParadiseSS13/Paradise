@@ -38,7 +38,7 @@
 		var/obj/O = target
 		if(istype(target, /obj/machinery/atmospherics/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/mecha/working/ripley/R = chassis
-			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
+			QDEL_LIST_CONTENTS(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
 			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
 			chassis.occupant.dust()
 			target.Bumped(chassis)
@@ -94,7 +94,7 @@
 	if(isobj(target))
 		var/obj/O = target
 		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+			if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))
@@ -102,7 +102,7 @@
 					O.forceMove(chassis)
 					O.anchored = FALSE
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
 				else
 					O.anchored = initial(O.anchored)
 			else
@@ -147,10 +147,10 @@
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
 		occupant_message("<span class='notice'>Extinguisher refilled.</span>")
-		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
+		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	else
 		if(reagents.total_volume > 0)
-			playsound(chassis, 'sound/effects/extinguish.ogg', 75, 1, -3)
+			playsound(chassis, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 			var/direction = get_dir(chassis,target)
 			var/turf/T = get_turf(target)
 			var/turf/T1 = get_step(T,turn(direction, 90))
@@ -245,7 +245,7 @@
 				if(do_after_cooldown(F))
 					chassis.spark_system.start()
 					F.ChangeTurf(F.baseturf)
-					F.air_update_turf()
+					F.recalculate_atmos_connectivity()
 					playsound(F, usesound, 50, 1)
 			else if(istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")
@@ -254,7 +254,7 @@
 					qdel(target)
 					playsound(target, usesound, 50, 1)
 		if(MECH_RCD_MODE_WALL_OR_FLOOR)
-			if(isspaceturf(target))
+			if(isspaceturf(target) || ischasm(target))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
@@ -292,7 +292,7 @@
 				occupant_message("Switched RCD to Construct Airlock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
-	return "[..()] \[<a href='?src=[UID()];mode=0'>D</a>|<a href='?src=[UID()];mode=1'>C</a>|<a href='?src=[UID()];mode=2'>A</a>\]"
+	return "[..()] \[<a href='byond://?src=[UID()];mode=0'>D</a>|<a href='byond://?src=[UID()];mode=1'>C</a>|<a href='byond://?src=[UID()];mode=2'>A</a>\]"
 
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
@@ -330,8 +330,6 @@
 	name = "cable layer"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_wire"
-	var/datum/event/event
-	var/turf/old_turf
 	var/obj/structure/cable/last_piece
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
@@ -397,7 +395,7 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
+		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='byond://?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='byond://?src=[UID()];cut=1'>Cut</a>" : null]"
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
@@ -436,11 +434,11 @@
 		return reset()
 	var/obj/structure/cable/NC = new(new_turf)
 	NC.cable_color("red")
-	NC.d1 = 0
+	NC.d1 = NO_DIRECTION
 	NC.d2 = fdirn
 	NC.update_icon()
 
-	var/datum/powernet/PN
+	var/datum/regional_powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
 		last_piece.d1 = min(last_piece.d2, Dir)
 		last_piece.d2 = max(last_piece.d2, Dir)
@@ -451,11 +449,61 @@
 		PN = new()
 	NC.powernet = PN
 	PN.cables += NC
-	NC.mergeConnectedNetworks(NC.d2)
+	NC.merge_connected_networks(NC.d2)
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher
+	name = "exosuit crusher"
+	desc = "A mech mounted crusher. For crushing bigger things."
+	icon_state = "mecha_crusher"
+	equip_cooldown = 1.2 SECONDS
+	energy_drain = 3000
+	harmful = TRUE
+	range = MECHA_MELEE | MECHA_RANGED
+	var/obj/item/kinetic_crusher/mecha/internal_crusher
+
+/obj/item/kinetic_crusher/mecha
+	/// Since this one doesn't have the two_handed component it will always use the value in force
+	force = 30
+	armour_penetration_flat = 15
+	detonation_damage = 90
+	backstab_bonus = 50
+
+/obj/item/kinetic_crusher/mecha/get_turf_for_projectile(atom/user)
+	if(ismecha(user.loc) && isturf(user.loc?.loc))
+		return user.loc.loc
+	return null
+
+/obj/item/kinetic_crusher/mecha/Initialize(mapload)
+	. = ..()
+	var/datum/component/unwanted = GetComponent(/datum/component/parry)
+	unwanted?.RemoveComponent()
+	unwanted = GetComponent(/datum/component/two_handed)
+	unwanted?.RemoveComponent()
+	/// This is only for the sake of internal checks in the crusher itself.
+	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
+	. = ..()
+	internal_crusher = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Destroy()
+	QDEL_NULL(internal_crusher)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(!chassis.occupant)
+		return
+	chassis.occupant.changeNext_click(equip_cooldown)
+	var/proximate = chassis.Adjacent(target)
+	if(proximate)
+		target.attackby(internal_crusher, chassis.occupant)
+	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR

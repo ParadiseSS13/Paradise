@@ -26,7 +26,9 @@
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
-	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
+	mouse_opacity = MOUSE_OPACITY_ICON
+	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
@@ -38,6 +40,10 @@
 	var/nest_range = 10
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
+	/// Has someone enabled hard mode?
+	var/enraged = FALSE
+	/// Path of the hardmode loot disk, if applicable.
+	var/enraged_loot
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -46,12 +52,16 @@
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(hoverboard_deactivation))
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
+	UnregisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET)
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -70,8 +80,11 @@
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
+		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
+				if(M.client)
+					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
-			grant_achievement(medal_type,score_type)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
@@ -86,9 +99,14 @@
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
-				OpenFire()
+				OpenFire(L)
 		else
 			devour(L)
+
+/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+	. = ..()
+	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
+		unrage()
 
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/oldloc = loc
@@ -127,24 +145,40 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
-		return FALSE
+/// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
+/mob/living/simple_animal/hostile/megafauna/proc/enrage()
+	if(enraged || ((health / maxHealth) * 100 <= 80))
+		return
+	enraged = TRUE
 
-	for(var/mob/living/L in view(7,src))
-		if(L.stat || !L.client)
-			continue
-		var/client/C = L.client
-		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
-		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
-		SSmedals.SetScore(BOSS_SCORE, C, 1)
-		SSmedals.SetScore(score_type, C, 1)
-	return TRUE
+/mob/living/simple_animal/hostile/megafauna/proc/unrage()
+	enraged = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.density = FALSE //I hate it.
+		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
+
+/mob/living/simple_animal/hostile/megafauna/proc/hoverboard_deactivation(source, target)
+	SIGNAL_HANDLER // COMSIG_HOSTILE_FOUND_TARGET
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(!L.buckled)
+		return
+	if(!istype(L.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
+		return
+	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
+	// Not a visible message, as walls or such may be in the way
+	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
+	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
+	cursed_board.necropolis_curse()
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = ""
+	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_overlay_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

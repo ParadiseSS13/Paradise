@@ -12,17 +12,3 @@
 			Fail("uplink reference [uplink_ref] is used multiple times")
 		uplink_refs += uplink_ref
 
-/datum/unit_test/spellbook_refs/Run()
-	var/list/spell_refs = list()
-	var/list/blacklist = list(/datum/spellbook_entry/summon,
-								/datum/spellbook_entry/item,
-								/datum/spellbook_entry/loadout,)
-	for(var/datum/spellbook_entry/entry as anything in subtypesof(/datum/spellbook_entry) - blacklist)
-		var/spell_ref = initial(entry.log_name)
-		if(isnull(spell_ref))
-			Fail("spellbook entry [initial(entry.name)] has no reference")
-			continue
-		if(spell_ref in spell_refs)
-			Fail("spellbook reference [spell_ref] is used multiple times")
-		spell_refs += spell_ref
-

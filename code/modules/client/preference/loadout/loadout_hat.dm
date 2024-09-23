@@ -13,7 +13,7 @@
 
 /datum/gear/hat
 	main_typepath = /datum/gear/hat
-	slot = slot_head
+	slot = SLOT_HUD_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
@@ -44,7 +44,7 @@
 	path = /obj/item/clothing/head/wizard/marisa/fake
 
 /datum/gear/hat/piratecaphat
-	display_name = "Pirate captian hat"
+	display_name = "Pirate captain hat"
 	path = /obj/item/clothing/head/pirate
 
 /datum/gear/hat/fez
@@ -77,6 +77,16 @@
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/capjanigrey
+	display_name = "Cap, janitor grey"
+	path = /obj/item/clothing/head/soft/janitorgrey
+	allowed_roles = list("Janitor")
+
+/datum/gear/hat/capjanipurple
+	display_name = "Cap, janitor purple"
+	path = /obj/item/clothing/head/soft/janitorpurple
+	allowed_roles = list("Janitor")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -99,7 +109,7 @@
 
 /datum/gear/hat/capwhite
 	display_name = "Cap, white"
-	path = /obj/item/clothing/head/soft/mime
+	path = /obj/item/clothing/head/soft/white
 
 /datum/gear/hat/caporange
 	display_name = "Cap, orange"
@@ -107,7 +117,7 @@
 
 /datum/gear/hat/capgrey
 	display_name = "Cap, grey"
-	path = /obj/item/clothing/head/soft/grey
+	path = /obj/item/clothing/head/soft
 
 /datum/gear/hat/capyellow
 	display_name = "Cap, yellow"
@@ -133,6 +143,11 @@
 	display_name = "Cowboy hat, pink"
 	path = /obj/item/clothing/head/cowboyhat/pink
 
+/datum/gear/hat/cowboyhat/sec
+	display_name = "Cowboy hat, security"
+	path = /obj/item/clothing/head/cowboyhat/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
@@ -140,6 +155,10 @@
 /datum/gear/hat/beret_black
 	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
+
+/datum/gear/hat/beret_white
+	display_name = "Beret, white"
+	path = /obj/item/clothing/head/beret/white
 
 /datum/gear/hat/beret_blue
 	display_name = "Beret, blue"
@@ -155,28 +174,68 @@
 
 /datum/gear/hat/beret_job/captain
 	display_name = "Beret, captain's"
-	path = /obj/item/clothing/head/caphat/beret
+	path = /obj/item/clothing/head/beret/captain
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/captain_white
 	display_name = "Beret, captain's white"
-	path = /obj/item/clothing/head/caphat/beret/white
+	path = /obj/item/clothing/head/beret/captain/white
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/sec
 	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
+
+/datum/gear/hat/beret_job/warden
+	display_name = "Beret, warden"
+	path = /obj/item/clothing/head/beret/warden
+	allowed_roles = list("Warden")
+
+/datum/gear/hat/beret_job/hos
+	display_name = "Beret, head of security"
+	path = /obj/item/clothing/head/beret/hos
+	allowed_roles = list("Head of Security")
+
+/datum/gear/hat/beret_job/jani
+	display_name = "Beret, janitor"
+	path = /obj/item/clothing/head/beret/janitor
+	allowed_roles = list("Janitor")
+
+/datum/gear/hat/beret_job/hop
+	display_name = "Beret, head of personnel"
+	path = /obj/item/clothing/head/beret/hop
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/hat/beret_job/cargo
+	display_name = "Beret, cargo"
+	path = /obj/item/clothing/head/beret/cargo
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+
+/datum/gear/hat/beret_job/qm
+	display_name = "Beret, quartermaster"
+	path = /obj/item/clothing/head/beret/qm
+	allowed_roles = list("Quartermaster")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist")
+
+/datum/gear/hat/beret_job/robowhite
+	display_name = "Beret, robotics"
+	path = /obj/item/clothing/head/beret/robowhite
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/hat/beret_job/roboblack
+	display_name = "Beret, bioengineer"
+	path = /obj/item/clothing/head/beret/roboblack
+	allowed_roles = list("Research Director", "Roboticist")
 
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"

@@ -25,7 +25,7 @@
 	return
 
 /obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
-	var/count = loaded_projectiles.len
+	var/count = length(loaded_projectiles)
 	if(include_loaded && to_launch)
 		count++
 	return count
@@ -37,7 +37,7 @@
 
 /obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
-	QDEL_LIST(loaded_projectiles)
+	QDEL_LIST_CONTENTS(loaded_projectiles)
 	loaded_projectiles = null
 	return ..()
 
@@ -63,7 +63,7 @@
 		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
 
 /obj/item/gun/throw/process_chamber()
-	if(!to_launch && loaded_projectiles.len)
+	if(!to_launch && length(loaded_projectiles))
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
 	return

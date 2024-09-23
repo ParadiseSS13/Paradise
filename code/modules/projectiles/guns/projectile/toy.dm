@@ -6,10 +6,10 @@
 	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = FALSE
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -24,14 +24,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = FALSE
+	suppressed_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	burst_size = 1
 	fire_delay = 0
 	can_holster = TRUE
 	actions_types = list()
-
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
@@ -50,6 +47,8 @@
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
 	. = ..()
+	if(suppressed)
+		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
 	if(gun_light)
 		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
@@ -75,6 +74,10 @@
 	if(chambered && !chambered.BB)
 		qdel(chambered)
 
+/obj/item/gun/projectile/shotgun/toy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+	. = ..()
+	chambered = null
+
 /obj/item/gun/projectile/shotgun/toy/crossbow
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
@@ -86,14 +89,14 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gun/projectile/automatic/c20r/toy
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 
@@ -110,6 +113,7 @@
 	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
+	origin_tech = "combat=5;engineering=3;syndicate=3"
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot

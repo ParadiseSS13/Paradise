@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 export const FaxMachine = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={540} height={295}>
       <Window.Content>
         <Section title="Authorization">
           <LabeledList>
@@ -39,13 +39,7 @@ export const FaxMachine = (props, context) => {
                 content={data.paper ? data.paper : '-----'}
                 onClick={() => act('paper')}
               />
-              {!!data.paper && (
-                <Button
-                  icon="pencil-alt"
-                  content="Rename"
-                  onClick={() => act('rename')}
-                />
-              )}
+              {!!data.paper && <Button icon="pencil-alt" content="Rename" onClick={() => act('rename')} />}
             </LabeledList.Item>
             <LabeledList.Item label="Sending To">
               <Button
@@ -59,12 +53,7 @@ export const FaxMachine = (props, context) => {
               <Button
                 icon="envelope"
                 content={data.sendError ? data.sendError : 'Send'}
-                disabled={
-                  !data.paper ||
-                  !data.destination ||
-                  !data.authenticated ||
-                  data.sendError
-                }
+                disabled={!data.paper || !data.destination || !data.authenticated || data.sendError}
                 onClick={() => act('send')}
               />
             </LabeledList.Item>

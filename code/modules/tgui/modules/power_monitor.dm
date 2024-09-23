@@ -11,10 +11,13 @@
 	if(!select_monitor)
 		powermonitor = ui_host()
 
-/datum/ui_module/power_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/power_monitor/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PowerMonitor", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PowerMonitor", name)
 		ui.open()
 
 /datum/ui_module/power_monitor/ui_data(mob/user)
@@ -34,8 +37,8 @@
 			powermonitor = null
 			return
 		if(powermonitor.powernet)
-			data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
-			data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
+			data["poweravail"] = DisplayPower(powermonitor.powernet.smoothed_available_power)
+			data["powerdemand"] = DisplayPower(powermonitor.powernet.smoothed_demand)
 			data["history"] = powermonitor.history
 			data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
 			data["no_powernet"] = FALSE

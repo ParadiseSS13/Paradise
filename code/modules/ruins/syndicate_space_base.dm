@@ -16,12 +16,13 @@
 					/obj/item/grenade/chem_grenade/pyro = 5,
 					/obj/item/grenade/chem_grenade/cryo = 5,
 					/obj/item/grenade/chem_grenade/adv_release = 5,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater = 1)
+					/obj/item/reagent_containers/drinks/bottle/holywater = 1,
+					/obj/item/pen/sleepy/undisguised = 1)
 	slogan_list = list("It's not pyromania if you're getting paid!","You smell that? Plasma, son. Nothing else in the world smells like that.","I love the smell of Plasma in the morning.")
 	resistance_flags = FIRE_PROOF
 
 // Spawners
-/obj/effect/mob_spawn/human/spacebase_syndicate
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate
 	name = "Syndicate Researcher sleeper"
 	mob_name = "Syndicate Researcher"
 	roundstart = FALSE
@@ -37,7 +38,7 @@
 	allow_species_pick = TRUE
 	skin_tone = 255
 
-/obj/effect/mob_spawn/human/spacebase_syndicate/Destroy()
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
 	S.setDir(dir)
 	return ..()
@@ -61,6 +62,7 @@
 	)
 
 /datum/outfit/spacebase_syndicate/post_equip(mob/living/carbon/human/H)
+	. = ..()
 	H.faction |= "syndicate"
 	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
 	H.rename_character(H.real_name, random_name)

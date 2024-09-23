@@ -2,10 +2,6 @@
 //Turret Control Panel//
 ////////////////////////
 
-/area
-	// Turrets use this list to see if individual power/lethal settings are allowed
-	var/list/turret_controls = list()
-
 /obj/machinery/turretid
 	name = "turret control panel"
 	desc = "Used to control a room's automated defenses."
@@ -72,7 +68,7 @@
 	return ..()
 
 /obj/machinery/turretid/Initialize()
-	..()
+	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))
@@ -88,8 +84,8 @@
 		else
 			control_area = null
 
-	power_change() //Checks power and initial settings
-	return
+	updateTurrets()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) || isAI(user))
@@ -130,7 +126,7 @@
 		emagged = TRUE
 		locked = FALSE
 		ailock = FALSE
-		return
+		return TRUE
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	ui_interact(user)
@@ -141,10 +137,13 @@
 /obj/machinery/turretid/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/turretid/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/turretid/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
+		ui = new(user, src, "PortableTurret", name)
 		ui.open()
 
 /obj/machinery/turretid/ui_data(mob/user)
@@ -168,7 +167,7 @@
 	return data
 
 /obj/machinery/turretid/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(isLocked(usr))
 		return
@@ -218,7 +217,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/power_change()
-	..()
+	if(!..())
+		return
 	updateTurrets()
 	update_icon(UPDATE_ICON_STATE)
 

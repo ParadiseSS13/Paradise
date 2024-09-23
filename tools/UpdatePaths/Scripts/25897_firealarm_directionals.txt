@@ -1,0 +1,6 @@
+/obj/machinery/firealarm{pixel_x=-24} : /obj/machinery/firealarm/directional/west
+/obj/machinery/firealarm{pixel_x=-28} : /obj/machinery/firealarm/directional/west
+/obj/machinery/firealarm{pixel_x=24} : /obj/machinery/firealarm/directional/east
+/obj/machinery/firealarm{pixel_x=28} : /obj/machinery/firealarm/directional/east
+/obj/machinery/firealarm{pixel_y=-24} : /obj/machinery/firealarm/directional/south
+/obj/machinery/firealarm{pixel_y=24} : /obj/machinery/firealarm/directional/north

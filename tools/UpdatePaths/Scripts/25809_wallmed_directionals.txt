@@ -1,0 +1,13 @@
+/obj/machinery/economy/vending/wallmed/survival_pod{pixel_x=-24} : /obj/machinery/economy/vending/wallmed/survival_pod/directional/west
+/obj/machinery/economy/vending/wallmed/syndicate{pixel_x=-30} : /obj/machinery/economy/vending/wallmed/syndicate/directional/west
+/obj/machinery/economy/vending/wallmed{layer=3.3;name="Emergency NanoMed";pixel_x=28} : /obj/machinery/economy/vending/wallmed/directional/east
+/obj/machinery/economy/vending/wallmed{layer=3.3;name="Emergency NanoMed";pixel_y=-32} : /obj/machinery/economy/vending/wallmed/directional/south
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_x=-28} : /obj/machinery/economy/vending/wallmed/directional/west
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_x=28} : /obj/machinery/economy/vending/wallmed/directional/east
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_x=5;pixel_y=-28} : /obj/machinery/economy/vending/wallmed/directional/south
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_y=-28} : /obj/machinery/economy/vending/wallmed/directional/south
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_y=28} : /obj/machinery/economy/vending/wallmed/directional/north
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_y=30} : /obj/machinery/economy/vending/wallmed/directional/north
+/obj/machinery/economy/vending/wallmed{name="Emergency NanoMed";pixel_y=32;power_state=0} : /obj/machinery/economy/vending/wallmed/directional/north{power_state=0}
+/obj/machinery/economy/vending/wallmed{pixel_x=28} : /obj/machinery/economy/vending/wallmed/directional/east
+/obj/machinery/economy/vending/wallmed{pixel_y=32} : /obj/machinery/economy/vending/wallmed/directional/north

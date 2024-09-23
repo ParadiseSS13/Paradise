@@ -14,13 +14,15 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	item_color = "director"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 5, RAD = 0, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 25)
 
 /obj/item/clothing/under/rank/rnd/research_director/dress
 	name = "research director's dress uniform"
-	desc = "Feminine fashion for the style concious RD."
+	desc = "Feminine fashion for the style conscious RD."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"
@@ -29,7 +31,7 @@
 	item_state = "science"
 	item_color = "science"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/rnd/scientist/skirt
 	name = "scientist's jumpskirt"
@@ -58,7 +60,7 @@
 	item_state = "genetics"
 	item_color = "genetics"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/rnd/geneticist/skirt
 	name = "geneticist's jumpskirt"

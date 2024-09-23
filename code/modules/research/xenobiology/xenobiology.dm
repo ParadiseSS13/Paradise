@@ -173,8 +173,7 @@
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = TRUE
-	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
-
+	var/newname = tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN, 1)
 	if(!newname)
 		newname = "pet slime"
 	M.name = newname
@@ -228,23 +227,27 @@
 			explosion(T, -1, -1, 2, 3)
 		qdel(src)
 		return
+	var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+	if(!reason_text)
+		return
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 
-	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
+	var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text ? "\nReason: [sanitize(reason_text)]\n" : ""]"
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
 	if(QDELETED(src) || QDELETED(SM))
 		return
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/C = pick(candidates)
 		SM.key = C.key
+		dust_if_respawnable(C)
 		SM.universal_speak = TRUE
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
-		SM.can_collar = TRUE
+		SM.set_can_collar(TRUE)
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
@@ -302,7 +305,7 @@
 		return
 
 	prompted = TRUE
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
 		prompted = FALSE
 		return
 
@@ -311,7 +314,7 @@
 	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.can_collar = TRUE
+	SM.set_can_collar(TRUE)
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
@@ -447,6 +450,59 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/oil_slick
+	name = "slime oil potion"
+	desc = "A potent chemical mix that will remove the slowdown from any item by reducing friction. Doesn't mix well with water."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle4"
+	origin_tech = "biotech=5"
+
+/obj/item/slimepotion/oil_slick/afterattack(obj/O, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	..()
+	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
+	if(!isitem(O))
+		if(!istype(O, /obj/structure/table))
+			to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+			return
+		var/obj/structure/table/T = O
+		if(T.slippery)
+			to_chat(user, "<span class='warning'>[T] can luckily not be made any slippier!</span>")
+			return
+		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on your own!</span>") //Speed table must remain.
+		T.slippery = TRUE
+	else
+		var/obj/item/I = O
+		if(I.slowdown <= 0)
+			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			return
+		I.slowdown = 0
+		if(ismodcontrol(O))
+			var/obj/item/mod/control/C = O
+			if(C.active)
+				to_chat(user, "<span class='warning'>It is too dangerous to smear [src] on [C] while it is active!</span>")
+				return
+			C.slowdown_inactive = 0
+			C.slowdown_active = 0
+			C.update_speed()
+
+	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
+	ADD_TRAIT(O, TRAIT_OIL_SLICKED, "potion")
+	if(ishuman(O.loc))
+		var/mob/living/carbon/human/H = O.loc
+		H.regenerate_icons()
+	qdel(src)
+
+/obj/item/slimepotion/oil_slick/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 /obj/effect/timestop
 	anchored = TRUE
 	name = "chronofield"
@@ -467,12 +523,11 @@
 /obj/effect/timestop/New()
 	..()
 	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
+		for(var/datum/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
 
-
 /obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, loc))
 			if(isliving(A))
@@ -486,7 +541,7 @@
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
 				stopped_atoms |= M
-			else if(istype(A, /obj/item/projectile))
+			else if(isprojectile(A))
 				var/obj/item/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
@@ -523,7 +578,7 @@
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"
-	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
+	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
@@ -537,10 +592,13 @@
 
 
 /turf/simulated/floor/bluespace
-	slowdown = -1
 	icon_state = "bluespace"
-	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
+	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	floor_tile = /obj/item/stack/tile/bluespace
+
+/turf/simulated/floor/bluespace/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BLUESPACE_SPEED, FLOOR_EFFECT_TRAIT)
 
 
 /obj/item/stack/tile/sepia
@@ -567,7 +625,7 @@
 	..()
 	var/area/A = get_area(src)
 	for(var/turf/T in A)
-		T.color = "#2956B2"
+		T.color = "#7ea9ff"
 	A.xenobiology_compatible = TRUE
 	qdel(src)
 

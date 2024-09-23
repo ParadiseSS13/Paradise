@@ -17,7 +17,8 @@
 /obj/effect/tear/honk
 	name = "honkmensional tear"
 	desc = "A tear in the dimensional fabric of sanity."
-	possible_mobs = list(/mob/living/simple_animal/hostile/retaliate/clown/goblin)
-
-/obj/effect/tear/honk/spawn_leader()
-	return
+	leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/retaliate/clown,
+		/mob/living/simple_animal/hostile/retaliate/clown/goblin
+	)

@@ -1,0 +1,804 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/grass,
+/area/start)
+"c" = (
+/obj/item/storage/fancy/crayons,
+/obj/item/storage/fancy/crayons,
+/obj/item/storage/fancy/crayons,
+/turf/simulated/floor/grass,
+/area/start)
+"d" = (
+/obj/item/stack/ore/iron{
+	amount = 50
+	},
+/obj/item/stack/ore/iron{
+	amount = 50
+	},
+/obj/item/stack/ore/iron{
+	amount = 50
+	},
+/obj/item/stack/ore/iron{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"e" = (
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/turf/simulated/floor/grass,
+/area/start)
+"f" = (
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/turf/simulated/floor/grass,
+/area/start)
+"g" = (
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/turf/simulated/floor/grass,
+/area/start)
+"h" = (
+/obj/item/stack/ore/tranquillite{
+	amount = 50
+	},
+/obj/item/stack/ore/tranquillite{
+	amount = 50
+	},
+/obj/item/stack/ore/tranquillite{
+	amount = 50
+	},
+/obj/item/stack/ore/tranquillite{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"i" = (
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/grass,
+/area/start)
+"j" = (
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/obj/item/storage/bag/tray/cookies_tray,
+/turf/simulated/floor/grass,
+/area/start)
+"k" = (
+/obj/item/stack/marker_beacon/ten,
+/obj/item/stack/marker_beacon/ten,
+/obj/item/stack/marker_beacon/ten,
+/turf/simulated/floor/grass,
+/area/start)
+"l" = (
+/obj/item/stack/sheet/mineral/sandstone/fifty,
+/obj/item/stack/sheet/mineral/sandstone/fifty,
+/obj/item/stack/sheet/mineral/sandstone/fifty,
+/obj/item/stack/sheet/mineral/sandstone/fifty,
+/obj/item/stack/sheet/mineral/sandstone/fifty,
+/turf/simulated/floor/grass,
+/area/start)
+"m" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/start)
+"n" = (
+/turf/simulated/floor/grass,
+/area/start)
+"o" = (
+/obj/item/stack/ore/silver{
+	amount = 50
+	},
+/obj/item/stack/ore/silver{
+	amount = 50
+	},
+/obj/item/stack/ore/silver{
+	amount = 50
+	},
+/obj/item/stack/ore/silver{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"p" = (
+/obj/item/stack/ore/diamond{
+	amount = 50
+	},
+/obj/item/stack/ore/diamond{
+	amount = 50
+	},
+/obj/item/stack/ore/diamond{
+	amount = 50
+	},
+/obj/item/stack/ore/diamond{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"q" = (
+/obj/machinery/mineral/ore_redemption/upgraded,
+/turf/simulated/floor/grass,
+/area/start)
+"r" = (
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/turf/simulated/floor/grass,
+/area/start)
+"s" = (
+/obj/item/stack/ore/plasma{
+	amount = 50
+	},
+/obj/item/stack/ore/plasma{
+	amount = 50
+	},
+/obj/item/stack/ore/plasma{
+	amount = 50
+	},
+/obj/item/stack/ore/plasma{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"t" = (
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/bodybags,
+/turf/simulated/floor/grass,
+/area/start)
+"u" = (
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/turf/simulated/floor/grass,
+/area/start)
+"v" = (
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
+/turf/simulated/floor/grass,
+/area/start)
+"w" = (
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/obj/item/storage/backpack/satcheldeluxe,
+/turf/simulated/floor/grass,
+/area/start)
+"x" = (
+/obj/machinery/recycler,
+/turf/simulated/floor/grass,
+/area/start)
+"z" = (
+/obj/structure/respawner,
+/turf/simulated/floor/grass,
+/area/start)
+"A" = (
+/obj/item/storage/bag/trash/bluespace,
+/obj/item/storage/bag/trash/bluespace,
+/obj/item/storage/bag/trash/bluespace,
+/turf/simulated/floor/grass,
+/area/start)
+"B" = (
+/obj/item/stack/ore/uranium{
+	amount = 50
+	},
+/obj/item/stack/ore/uranium{
+	amount = 50
+	},
+/obj/item/stack/ore/uranium{
+	amount = 50
+	},
+/obj/item/stack/ore/uranium{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"C" = (
+/obj/item/stack/sheet/plastic,
+/obj/item/stack/sheet/plastic,
+/obj/item/stack/sheet/plastic,
+/turf/simulated/floor/grass,
+/area/start)
+"D" = (
+/mob/living/simple_animal/bot/medbot,
+/turf/simulated/floor/grass,
+/area/start)
+"E" = (
+/obj/item/clothing/under/plasmaman/assistant,
+/obj/item/clothing/under/plasmaman/assistant,
+/obj/item/clothing/under/plasmaman/assistant,
+/obj/item/clothing/under/plasmaman/assistant,
+/obj/item/clothing/under/plasmaman/assistant,
+/turf/simulated/floor/grass,
+/area/start)
+"F" = (
+/obj/item/stack/ore/glass{
+	amount = 50
+	},
+/obj/item/stack/ore/glass{
+	amount = 50
+	},
+/obj/item/stack/ore/glass{
+	amount = 50
+	},
+/obj/item/stack/ore/glass{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"G" = (
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/obj/item/stack/sheet/mineral/abductor/fifty,
+/turf/simulated/floor/grass,
+/area/start)
+"H" = (
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/turf/simulated/floor/grass,
+/area/start)
+"J" = (
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/grass,
+/area/start)
+"K" = (
+/obj/item/stack/ore/titanium{
+	amount = 50
+	},
+/obj/item/stack/ore/titanium{
+	amount = 50
+	},
+/obj/item/stack/ore/titanium{
+	amount = 50
+	},
+/obj/item/stack/ore/titanium{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"L" = (
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty,
+/turf/simulated/floor/grass,
+/area/start)
+"M" = (
+/obj/item/tank/internals/plasmaman/full,
+/obj/item/tank/internals/plasmaman/full,
+/obj/item/tank/internals/plasmaman/full,
+/obj/item/tank/internals/plasmaman/full,
+/obj/item/tank/internals/plasmaman/full,
+/turf/simulated/floor/grass,
+/area/start)
+"N" = (
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/turf/simulated/floor/grass,
+/area/start)
+"O" = (
+/obj/item/stack/tape_roll,
+/obj/item/stack/tape_roll,
+/obj/item/stack/tape_roll,
+/turf/simulated/floor/grass,
+/area/start)
+"P" = (
+/obj/item/stack/ore/gold{
+	amount = 50
+	},
+/obj/item/stack/ore/gold{
+	amount = 50
+	},
+/obj/item/stack/ore/gold{
+	amount = 50
+	},
+/obj/item/stack/ore/gold{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"Q" = (
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/grass,
+/area/start)
+"R" = (
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/grass,
+/area/start)
+"S" = (
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/turf/simulated/floor/grass,
+/area/start)
+"T" = (
+/obj/item/stack/ore/bananium{
+	amount = 50
+	},
+/obj/item/stack/ore/bananium{
+	amount = 50
+	},
+/obj/item/stack/ore/bananium{
+	amount = 50
+	},
+/obj/item/stack/ore/bananium{
+	amount = 50
+	},
+/turf/simulated/floor/grass,
+/area/start)
+"U" = (
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/turf/simulated/floor/grass,
+/area/start)
+"V" = (
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/turf/simulated/floor/grass,
+/area/start)
+"X" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/floor/grass,
+/area/start)
+"Y" = (
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/black,
+/turf/simulated/floor/grass,
+/area/start)
+"Z" = (
+/obj/item/clothing/head/helmet/space/plasmaman/assistant,
+/obj/item/clothing/head/helmet/space/plasmaman/assistant,
+/obj/item/clothing/head/helmet/space/plasmaman/assistant,
+/obj/item/clothing/head/helmet/space/plasmaman/assistant,
+/obj/item/clothing/head/helmet/space/plasmaman/assistant,
+/turf/simulated/floor/grass,
+/area/start)
+
+(1,1,1) = {"
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+"}
+(2,1,1) = {"
+m
+z
+f
+S
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(3,1,1) = {"
+m
+Z
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(4,1,1) = {"
+m
+E
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(5,1,1) = {"
+m
+M
+i
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(6,1,1) = {"
+m
+n
+n
+n
+w
+J
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(7,1,1) = {"
+m
+s
+n
+R
+Y
+L
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(8,1,1) = {"
+m
+B
+K
+r
+v
+G
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(9,1,1) = {"
+m
+h
+T
+a
+O
+l
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(10,1,1) = {"
+m
+n
+q
+k
+e
+C
+D
+X
+n
+n
+n
+n
+n
+n
+m
+"}
+(11,1,1) = {"
+m
+p
+P
+V
+c
+g
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(12,1,1) = {"
+m
+F
+d
+A
+Q
+N
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(13,1,1) = {"
+m
+o
+n
+U
+t
+H
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(14,1,1) = {"
+m
+n
+n
+n
+u
+j
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(15,1,1) = {"
+m
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(16,1,1) = {"
+m
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(17,1,1) = {"
+m
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+x
+m
+"}
+(18,1,1) = {"
+m
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+m
+"}
+(19,1,1) = {"
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+"}

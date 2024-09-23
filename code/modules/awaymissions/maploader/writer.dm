@@ -1,10 +1,10 @@
-#define DMM_IGNORE_AREAS 1
-#define DMM_IGNORE_TURFS 2
-#define DMM_IGNORE_OBJS 4
-#define DMM_IGNORE_NPCS 8
-#define DMM_IGNORE_PLAYERS 16
-#define DMM_IGNORE_MOBS 24
-#define DMM_USE_JSON 32
+#define DMM_IGNORE_AREAS 	(1<<0)
+#define DMM_IGNORE_TURFS 	(1<<1)
+#define DMM_IGNORE_OBJS 	(1<<2)
+#define DMM_IGNORE_NPCS 	(1<<3)
+#define DMM_IGNORE_PLAYERS 	(1<<4)
+#define DMM_IGNORE_MOBS 	(DMM_IGNORE_NPCS | DMM_IGNORE_PLAYERS)
+#define DMM_USE_JSON 		(1<<5)
 
 /datum/dmm_suite/proc/save_map(turf/t1, turf/t2, map_name = "", flags = 0)
 	// Check for illegal characters in file name... in a cheap way.
@@ -139,22 +139,10 @@
 	// Objects loop
 	if(!(flags & DMM_IGNORE_OBJS))
 		for(var/obj/O in model.contents)
-			if(O.dont_save || QDELETED(O))
+			if(QDELETED(O))
 				continue
 
 			obj_template += "[O.type][check_attributes(O,use_json=use_json)],"
-
-	// Mobs Loop
-	for(var/mob/M in model.contents)
-		if(M.dont_save || QDELETED(M))
-			continue
-
-		if(M.client)
-			if(!(flags & DMM_IGNORE_PLAYERS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
-		else
-			if(!(flags & DMM_IGNORE_NPCS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
 
 	// Area
 	if(!(flags & DMM_IGNORE_AREAS))
@@ -228,3 +216,11 @@
 		return "[name] = '[attr]'"
 	else
 		return ""
+
+#undef DMM_IGNORE_AREAS
+#undef DMM_IGNORE_TURFS
+#undef DMM_IGNORE_OBJS
+#undef DMM_IGNORE_NPCS
+#undef DMM_IGNORE_PLAYERS
+#undef DMM_IGNORE_MOBS
+#undef DMM_USE_JSON

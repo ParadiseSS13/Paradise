@@ -1,12 +1,8 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /mob/living/verb/pray(msg as text)
 	set category = "IC"
 	set name = "Pray"
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)
 		return
 
@@ -27,18 +23,18 @@
 		cross = image('icons/obj/storage.dmi',"kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
-	else if(iscultist(usr))
+	else if(IS_CULTIST(usr))
 		cross = image('icons/obj/storage.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
-		deity = SSticker.cultdat.entity_name
+		deity = GET_CULT_DATA(entity_name, "Cult God")
 
 	log_say("(PRAYER) [msg]", usr)
-	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
+	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && HAS_MIND_TRAIT(usr, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A href='byond://?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A href='byond://?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
-			to_chat(X, msg)
+			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
 				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
 	to_chat(usr, "Your prayers have been received by the gods.")
@@ -46,7 +42,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/Centcomm_announce(text, mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='boldnotice'><font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
@@ -55,7 +51,7 @@
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/Syndicate_announce(text, mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='boldnotice'><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -64,8 +60,14 @@
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/ERT_Announce(text, mob/Sender, repeat_warning)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
+	var/msg = sanitize(text)
+	var/insert_this = list(list(
+		"time" = station_time_timestamp(),
+		"sender_real_name" = "[Sender.real_name ? Sender.real_name : Sender.name]",
+		"sender_uid" = Sender.UID(),
+		"message" = html_decode(msg)))
+	GLOB.ert_request_messages.Insert(1, insert_this) // insert it to the top of the list
+	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
 	if(repeat_warning)
 		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
 	for(var/client/X in GLOB.admins)
@@ -77,7 +79,7 @@
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
 	var/nuke_status = get_nuke_status()
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]</span>"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -91,6 +93,3 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING

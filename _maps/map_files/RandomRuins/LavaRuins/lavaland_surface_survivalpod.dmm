@@ -80,29 +80,29 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "q" = (
-/obj/effect/mob_spawn/human/miner/explorer{
+/obj/effect/mob_spawn/human/corpse/miner/explorer{
 	brute_damage = 150;
 	oxy_damage = 50
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "r" = (
 /obj/structure/tubes,
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "s" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "t" = (
 /obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
@@ -124,7 +124,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "y" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

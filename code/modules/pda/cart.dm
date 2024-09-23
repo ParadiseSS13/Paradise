@@ -16,8 +16,8 @@
 	var/list/messenger_plugins = list()
 
 /obj/item/cartridge/Destroy()
-	QDEL_LIST(programs)
-	QDEL_LIST(messenger_plugins)
+	QDEL_LIST_CONTENTS(programs)
+	QDEL_LIST_CONTENTS(messenger_plugins)
 	return ..()
 
 /obj/item/cartridge/proc/update_programs(obj/item/pda/pda)
@@ -91,7 +91,7 @@
 		new /datum/data/pda/app/janitor
 	)
 
-/obj/item/cartridge/lawyer
+/obj/item/cartridge/iaa
 	name = "P.R.O.V.E. Cartridge"
 	desc = "A data cartridge for portable microcomputers. Has security records."
 	icon_state = "cart-s"
@@ -141,7 +141,7 @@
 		new /datum/data/pda/app/signaller
 	)
 
-/obj/item/cartridge/quartermaster
+/obj/item/cartridge/cargo
 	name = "Space Parts & Space Vendors Cartridge"
 	desc = "A data cartridge for portable microcomputers. Has supply records and MULEbot control."
 	icon_state = "cart-q"
@@ -158,15 +158,23 @@
 		new /datum/data/pda/app/status_display
 	)
 
+/obj/item/cartridge/qm
+	name = "Space Parts & Space Vendors Cartridge DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control, and a status display controller."
+	icon_state = "cart-q"
+	programs = list(
+		new /datum/data/pda/app/supply,
+		new /datum/data/pda/app/mule_control,
+		new /datum/data/pda/app/status_display
+	)
+
 /obj/item/cartridge/hop
 	name = "HumanResources9001"
-	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control, a custodial locator and a status display controller."
+	desc = "A data cartridge for portable microcomputers. Has security records, a custodial locator, and a status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
 		new /datum/data/pda/app/janitor,
-		new /datum/data/pda/app/supply,
-		new /datum/data/pda/app/mule_control,
 		new /datum/data/pda/app/status_display
 	)
 
@@ -274,7 +282,8 @@
 	charges = 4
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
-/obj/item/cartridge/syndicate/nuclear //needed subtype so regular traitors can't open and close nuclear shuttle doors
+/// needed subtype so regular traitors can't open and close nuclear shuttle doors
+/obj/item/cartridge/syndicate/nuclear
 	name = "Nuclear Agent Detomatix Cartridge"
 	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA"
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
@@ -297,37 +306,3 @@
 	messenger_plugins = list(
 		new /datum/data/pda/messenger_plugin/virus/frame
 	)
-
-/obj/item/cartridge/mob_hunt_game
-	name = "Nano-Mob Hunter GO! Cartridge"
-	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
-	icon_state = "cart-eye"
-	programs = list(
-		new /datum/data/pda/app/mob_hunter_game
-	)
-
-/obj/item/cartridge/mob_hunt_game/detailed_examine_antag()
-	if(emagged)
-		return "This copy of Nano-Mob Hunter GO! has been hacked to allow the creation of trap mobs which will cause any PDA that attempts to capture it to shock anyone holding it. Hacked copies of the game will not trigger the trap."
-
-/obj/item/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/nanomob_card))
-		var/obj/item/nanomob_card/card = O
-		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
-
-		if(my_game.register_capture(card.mob_data))
-			to_chat(user, "<span class='notice'>Transfer successful!</span>")
-			qdel(card)
-		else
-			to_chat(user, "<span class='warning'>Transfer failed. Could not read mob data from card.</span>")
-
-	else
-		..()
-
-/obj/item/cartridge/mob_hunt_game/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
-		my_game.hacked = TRUE
-		to_chat(user, "<span class='warning'>TR4P_M45T3R.mod successfully initialized. ToS violated. User Agreement nullified. Gotta pwn them all.</span>")
-		to_chat(user, "<span class='warning'>You can now create trapped versions of any mob in your collection that will damage hunters who attempt to capture it.</span>")

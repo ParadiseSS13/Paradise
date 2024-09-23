@@ -64,36 +64,46 @@
 	This is not used in stock /tg/station currently.
 */
 /atom/movable/Adjacent(atom/neighbor)
-	if(neighbor == loc) return 1
-	if(!isturf(loc)) return 0
+	if(neighbor == loc)
+		return TRUE
+	if(!isturf(loc))
+		return FALSE
 	for(var/turf/T in locs)
 		if(isnull(T)) continue
-		if(T.Adjacent(neighbor,src)) return 1
-	return 0
+		if(T.Adjacent(neighbor, src)) return TRUE
+	return FALSE
 
 // This is necessary for storage items not on your person.
 /obj/item/Adjacent(atom/neighbor, recurse = 1)
-	if(neighbor == loc) return 1
-	if(isitem(loc))
+	if(neighbor == loc)
+		return TRUE
+	if(!istype(neighbor))
+		return ..()
+	if(isnull(loc))
+		return FALSE
+	if(HAS_TRAIT(loc, TRAIT_ADJACENCY_TRANSPARENT))
+		// Transparent parent, don't decrease recurse.
+		return loc.Adjacent(neighbor, recurse)
+	if(isitem(loc) || isstructure(loc) || isvehicle(loc))
 		if(recurse > 0)
-			return loc.Adjacent(neighbor,recurse - 1)
-		return 0
+			return loc.Adjacent(neighbor, recurse - 1)
+		return FALSE
 	return ..()
 
 /*
 	This checks if you there is uninterrupted airspace between that turf and this one.
-	This is defined as any dense ON_BORDER object, or any dense object without LETPASSTHROW.
+	This is defined as any dense ON_BORDER object, or any dense object without PASSTAKE .
 	The border_only flag allows you to not objects (for source and destination squares)
 */
 /turf/proc/ClickCross(target_dir, border_only, target_atom = null)
 	for(var/obj/O in src)
-		if( !O.density || O == target_atom || (O.pass_flags & LETPASSTHROW))
-			continue // LETPASSTHROW is used for anything you can click through
+		if(!O.density || O == target_atom || (O.pass_flags_self & PASSTAKE))
+			continue // PASSTAKE is used for anything you can click through
 
-		if( O.flags&ON_BORDER) // windows are on border, check them first
-			if( O.dir & target_dir || O.dir&(O.dir-1) ) // full tile windows are just diagonals mechanically
+		if(O.flags&ON_BORDER) // windows are on border, check them first
+			if(O.dir & target_dir || O.dir&(O.dir-1)) // full tile windows are just diagonals mechanically
 				return 0
 
-		else if( !border_only ) // dense, not on border, cannot pass over
+		else if(!border_only) // dense, not on border, cannot pass over
 			return 0
 	return 1

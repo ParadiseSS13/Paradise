@@ -1,17 +1,6 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Modal,
-  LabeledList,
-  ProgressBar,
-  Section,
-  NoticeBox,
-} from '../components';
+import { Box, Button, Flex, Icon, Modal, LabeledList, ProgressBar, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { toTitleCase, decodeHtmlEntities } from 'common/string';
 
@@ -21,14 +10,9 @@ export const MechaControlConsole = (props, context) => {
 
   if (stored_data.length) {
     return (
-      <Window resizable>
+      <Window width={420} height={500}>
         <Window.Content scrollable>
-          <Section
-            title="Log"
-            buttons={
-              <Button icon="window-close" onClick={() => act('clear_log')} />
-            }
-          >
+          <Section title="Log" buttons={<Button icon="window-close" onClick={() => act('clear_log')} />}>
             {stored_data.map((data) => (
               <Box key={data.time}>
                 <Box color="label">({data.time})</Box>
@@ -41,7 +25,7 @@ export const MechaControlConsole = (props, context) => {
     );
   }
   return (
-    <Window resizable>
+    <Window width={420} height={500}>
       <Window.Content scrollable>
         {(beacons.length &&
           beacons.map((beacon) => (
@@ -49,26 +33,20 @@ export const MechaControlConsole = (props, context) => {
               key={beacon.name}
               title={beacon.name}
               buttons={
-                <Fragment>
-                  <Button
-                    icon="comment"
-                    onClick={() => act('send_message', { mt: beacon.uid })}
-                  >
+                <>
+                  <Button icon="comment" onClick={() => act('send_message', { mt: beacon.uid })}>
                     Message
                   </Button>
-                  <Button
-                    icon="eye"
-                    onClick={() => act('get_log', { mt: beacon.uid })}
-                  >
+                  <Button icon="eye" onClick={() => act('get_log', { mt: beacon.uid })}>
                     View Log
                   </Button>
                   <Button.Confirm
                     color="red"
-                    content="EMP"
+                    content="Sabotage"
                     icon="bomb"
                     onClick={() => act('shock', { mt: beacon.uid })}
                   />
-                </Fragment>
+                </>
               }
             >
               <LabeledList>
@@ -76,10 +54,7 @@ export const MechaControlConsole = (props, context) => {
                   <ProgressBar
                     ranges={{
                       good: [beacon.maxHealth * 0.75, Infinity],
-                      average: [
-                        beacon.maxHealth * 0.5,
-                        beacon.maxHealth * 0.75,
-                      ],
+                      average: [beacon.maxHealth * 0.5, beacon.maxHealth * 0.75],
                       bad: [-Infinity, beacon.maxHealth * 0.5],
                     }}
                     value={beacon.health}
@@ -91,10 +66,7 @@ export const MechaControlConsole = (props, context) => {
                     <ProgressBar
                       ranges={{
                         good: [beacon.cellMaxCharge * 0.75, Infinity],
-                        average: [
-                          beacon.cellMaxCharge * 0.5,
-                          beacon.cellMaxCharge * 0.75,
-                        ],
+                        average: [beacon.cellMaxCharge * 0.5, beacon.cellMaxCharge * 0.75],
                         bad: [-Infinity, beacon.cellMaxCharge * 0.5],
                       }}
                       value={beacon.cellCharge}
@@ -102,27 +74,16 @@ export const MechaControlConsole = (props, context) => {
                     />
                   )) || <NoticeBox>No Cell Installed</NoticeBox>}
                 </LabeledList.Item>
-                <LabeledList.Item label="Air Tank">
-                  {beacon.airtank}kPa
-                </LabeledList.Item>
-                <LabeledList.Item label="Pilot">
-                  {beacon.pilot || 'Unoccupied'}
-                </LabeledList.Item>
-                <LabeledList.Item label="Location">
-                  {toTitleCase(beacon.location) || 'Unknown'}
-                </LabeledList.Item>
-                <LabeledList.Item label="Active Equipment">
-                  {beacon.active || 'None'}
-                </LabeledList.Item>
+                <LabeledList.Item label="Air Tank">{beacon.airtank}kPa</LabeledList.Item>
+                <LabeledList.Item label="Pilot">{beacon.pilot || 'Unoccupied'}</LabeledList.Item>
+                <LabeledList.Item label="Location">{toTitleCase(beacon.location) || 'Unknown'}</LabeledList.Item>
+                <LabeledList.Item label="Active Equipment">{beacon.active || 'None'}</LabeledList.Item>
                 {(beacon.cargoMax && (
                   <LabeledList.Item label="Cargo Space">
                     <ProgressBar
                       ranges={{
                         bad: [beacon.cargoMax * 0.75, Infinity],
-                        average: [
-                          beacon.cargoMax * 0.5,
-                          beacon.cargoMax * 0.75,
-                        ],
+                        average: [beacon.cargoMax * 0.5, beacon.cargoMax * 0.75],
                         good: [-Infinity, beacon.cargoMax * 0.5],
                       }}
                       value={beacon.cargoUsed}

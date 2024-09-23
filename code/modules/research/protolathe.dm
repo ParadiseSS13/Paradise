@@ -77,31 +77,33 @@ Note: Must be placed west/left of and R&D console to function.
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
 		return FALSE
 
-	if(exchange_parts(user, O))
-		return FALSE
-
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			for(var/obj/item/reagent_containers/glass/G in component_parts)
-				reagents.trans_to(G, G.reagents.maximum_volume)
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
-			return TRUE
+		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		return TRUE
 
 	if(O.is_open_container())
 		return FALSE
-	else
-		return ..()
+
+	return ..()
+
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	for(var/obj/component in component_parts)
+		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+			reagents.trans_to(component, reagents.total_volume)
+		component.loc = src.loc
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.trans_to(G, G.reagents.maximum_volume)
+	materials.retrieve_all()
+	default_deconstruction_crowbar(user, I)

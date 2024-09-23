@@ -1,18 +1,12 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  AnimatedNumber,
-  Section,
-} from '../components';
+import { Button, LabeledList, Box, AnimatedNumber, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SlotMachine = (props, context) => {
   const { act, data } = useBackend(context);
   if (data.money === null) {
     return (
-      <Window>
+      <Window width={350} height={90}>
         <Window.Content>
           <Section>
             <Box>Could not scan your card or could not find account!</Box>
@@ -29,7 +23,7 @@ export const SlotMachine = (props, context) => {
       playerText = data.plays + ' players have tried their luck today!';
     }
     return (
-      <Window>
+      <Window width={300} height={151}>
         <Window.Content>
           <Section>
             <Box lineHeight={2}>{playerText}</Box>
@@ -37,7 +31,7 @@ export const SlotMachine = (props, context) => {
               <LabeledList.Item label="Credits Remaining">
                 <AnimatedNumber value={data.money} />
               </LabeledList.Item>
-              <LabeledList.Item label="50 credits to spin">
+              <LabeledList.Item label="10 credits to spin">
                 <Button
                   icon="coins"
                   disabled={data.working}

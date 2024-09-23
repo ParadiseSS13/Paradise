@@ -14,21 +14,29 @@
 	var/parry_cooldown
 	///Do we wish to mute the parry sound?
 	var/no_parry_sound
+	/// Text to be shown to users who examine the parent. Will list which type of attacks it can parry.
+	var/examine_text
+	/// Does this item have a require a condition to meet before being able to parry? This is for two handed weapons that can parry. (Default: FALSE)
+	var/requires_two_hands = FALSE
+	/// Does this item require activation? This is for activation based items or energy weapons.
+	var/requires_activation = FALSE
 
 /datum/component/parry/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(attempt_parry))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_parent_examined))
 
 /datum/component/parry/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_HIT_REACT)
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 	var/obj/item/I = parent
 	if(ismob(I.loc))
-		UnregisterSignal(I.loc, COMSIG_LIVING_RESIST)
+		UnregisterSignal(I.loc, COMSIG_HUMAN_PARRY)
 
-/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE)
+/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE, _requires_two_hands = FALSE, _requires_activation = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -37,29 +45,51 @@
 	stamina_coefficient = _stamina_coefficient
 	parry_cooldown = _parry_cooldown
 	no_parry_sound = _no_parry_sound
+	requires_two_hands = _requires_two_hands
+	requires_activation = _requires_activation
 	if(islist(_parryable_attack_types))
 		parryable_attack_types = _parryable_attack_types
 	else
 		parryable_attack_types = list(_parryable_attack_types)
 
+	var/static/list/attack_types_english = list(
+		MELEE_ATTACK = "melee attacks",
+		UNARMED_ATTACK = "unarmed attacks",
+		PROJECTILE_ATTACK = "projectiles",
+		THROWN_PROJECTILE_ATTACK = "thrown projectiles",
+		LEAP_ATTACK = "leap attacks"
+	)
+	var/list/attack_list = list()
+	for(var/attack_type in parryable_attack_types)
+		attack_list += attack_types_english[attack_type]
+
+	examine_text = "<span class='notice'>It's able to <b>parry</b> [english_list(attack_list)].</span>"
+
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
-	if(slot in list(slot_l_hand, slot_r_hand))
-		RegisterSignal(user, COMSIG_LIVING_RESIST, PROC_REF(start_parry))
+	if(slot in list(SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND))
+		RegisterSignal(user, COMSIG_HUMAN_PARRY, PROC_REF(start_parry))
 	else
-		UnregisterSignal(user, COMSIG_LIVING_RESIST)
+		UnregisterSignal(user, COMSIG_HUMAN_PARRY)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER
-	UnregisterSignal(user, COMSIG_LIVING_RESIST)
+	UnregisterSignal(user, COMSIG_HUMAN_PARRY)
 
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
+	if(L.stat != CONSCIOUS)
+		return
+	if(requires_two_hands && !HAS_TRAIT(parent, TRAIT_WIELDED)) // If our item has special conditions before being able to parry.
+		return
+	if(requires_activation && !HAS_TRAIT(parent, TRAIT_ITEM_ACTIVE)) // If our item requires an activation to be able to parry. [E-sword / Teleshield, etc.]
+		return
 	if(time_since_parry < parry_cooldown) // stops spam
 		return
 
 	time_parried = world.time
+	L.changeNext_move(CLICK_CD_PARRY)
 	L.do_attack_animation(L, used_item = parent)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
@@ -101,5 +131,6 @@
 			return COMPONENT_BLOCK_SUCCESSFUL
 		return (COMPONENT_BLOCK_SUCCESSFUL | COMPONENT_BLOCK_PERFECT)
 
-
-
+/datum/component/parry/proc/on_parent_examined(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += examine_text

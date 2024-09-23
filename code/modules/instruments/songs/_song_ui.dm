@@ -44,10 +44,13 @@
 
 	return data
 
-/datum/song/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, parent, ui_key, ui, force_open)
+/datum/song/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/song/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, parent, ui)
 	if(!ui)
-		ui = new(user, parent, ui_key, "Instrument", parent?.name || "Instrument", 700, 500)
+		ui = new(user, parent, "Instrument", parent?.name || "Instrument")
 		ui.open()
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
@@ -60,16 +63,9 @@
 			name = ""
 		if("import")
 			var/t = ""
-			do
-				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
-				if(!in_range(parent, usr))
-					return
-
-				if(length_char(t) >= MUSIC_MAXLINES * MUSIC_MAXLINECHARS)
-					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
-					if(cont == "no")
-						break
-			while(length_char(t) > MUSIC_MAXLINES * MUSIC_MAXLINECHARS)
+			t = tgui_input_text(usr, "Please paste the entire song, formatted:", parent.name, max_length = (MUSIC_MAXLINECHARS * MUSIC_MAXLINES), multiline = TRUE)
+			if(!in_range(parent, usr))
+				return
 			parse_song(t)
 			return FALSE
 		if("help")
@@ -85,10 +81,8 @@
 		if("play")
 			INVOKE_ASYNC(src, PROC_REF(start_playing), usr)
 		if("newline")
-			var/newline = html_encode(input("Enter your line: ", parent.name) as text|null)
+			var/newline = tgui_input_text(usr, "Enter your line:", parent.name, max_length = MUSIC_MAXLINECHARS)
 			if(!newline || !in_range(parent, usr))
-				return
-			if(length(lines) > MUSIC_MAXLINES)
 				return
 			if(length(newline) > MUSIC_MAXLINECHARS)
 				newline = copytext(newline, 1, MUSIC_MAXLINECHARS)
@@ -100,7 +94,7 @@
 			lines.Cut(num, num + 1)
 		if("modifyline")
 			var/num = round(text2num(params["line"]))
-			var/content = stripped_input(usr, "Enter your line: ", parent.name, lines[num], MUSIC_MAXLINECHARS)
+			var/content = tgui_input_text(usr, "Enter your line:", parent.name, lines[num], max_length = MUSIC_MAXLINECHARS)
 			if(!content || !in_range(parent, usr))
 				return
 			if(num > length(lines) || num < 1)

@@ -6,22 +6,16 @@ import { Window } from '../layouts';
 export const HealthSensor = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    on,
-    user_health,
-    minHealth,
-    maxHealth,
-    alarm_health
-  } = data;
+  const { on, user_health, minHealth, maxHealth, alarm_health } = data;
 
   return (
-    <Window>
+    <Window width={300} height={125}>
       <Window.Content>
         <Section>
           <LabeledList>
             <LabeledList.Item label="Scanning">
               <Button
-                icon='power-off'
+                icon="power-off"
                 content={on ? 'On' : 'Off'}
                 color={on ? null : 'red'}
                 selected={on}
@@ -47,9 +41,8 @@ export const HealthSensor = (props, context) => {
             </LabeledList.Item>
             {user_health !== null && (
               <LabeledList.Item label="User health">
-                <Box color={Health2Color(user_health)}
-                  bold={user_health >= 100}>
-                  <AnimatedNumber value={user_health}/>
+                <Box color={Health2Color(user_health)} bold={user_health >= 100}>
+                  <AnimatedNumber value={user_health} />
                 </Box>
               </LabeledList.Item>
             )}
@@ -58,7 +51,7 @@ export const HealthSensor = (props, context) => {
       </Window.Content>
     </Window>
   );
-}
+};
 
 const Health2Color = (health) => {
   if (health > 50) {

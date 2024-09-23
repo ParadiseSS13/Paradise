@@ -17,6 +17,7 @@
 /obj/effect/countdown/Initialize(mapload)
 	. = ..()
 	attach(loc)
+	RegisterSignal(attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(countdown_on_move))
 
 /obj/effect/countdown/examine(mob/user)
 	. = ..()
@@ -37,14 +38,19 @@
 		STOP_PROCESSING(SSfastprocess, src)
 		started = FALSE
 
+/// Get the value from our atom
 /obj/effect/countdown/proc/get_value()
-	// Get the value from our atom
 	return
+
+/obj/effect/countdown/proc/countdown_on_move()
+	SIGNAL_HANDLER
+	forceMove(get_turf(attached_to))
 
 /obj/effect/countdown/process()
 	if(!attached_to || QDELETED(attached_to))
 		qdel(src)
-	forceMove(get_turf(attached_to))
+	if(!isturf(attached_to.loc)) // When in crates, lockers, etc. countdown_on_move wont be called. This is our backup
+		forceMove(get_turf(attached_to))
 	var/new_val = get_value()
 	if(new_val == displayed_text)
 		return
@@ -87,9 +93,8 @@
 	var/obj/machinery/clonepod/C = attached_to
 	if(!istype(C))
 		return
-	else if(C.occupant)
-		var/completion = round(C.get_completion())
-		return completion
+
+	return C.clone_progress
 
 /obj/effect/countdown/supermatter
 	name = "supermatter damage"

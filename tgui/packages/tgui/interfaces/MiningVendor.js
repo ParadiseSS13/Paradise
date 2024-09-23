@@ -1,31 +1,23 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Collapsible,
-  Dropdown,
-  Flex,
-  Input,
-  NoticeBox,
-  Section,
-} from '../components';
+import { Box, Button, Collapsible, Dropdown, Stack, Input, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 const sortTypes = {
   'Alphabetical': (a, b) => a - b,
-  'By availability': (a, b) => -(a.affordable - b.affordable),
-  'By price': (a, b) => a.price - b.price,
+  'Availability': (a, b) => -(a.affordable - b.affordable),
+  'Price': (a, b) => a.price - b.price,
 };
 
 export const MiningVendor = (_properties, _context) => {
   return (
-    <Window>
-      <Window.Content className="Layout__content--flexColumn">
-        <MiningVendorUser />
-        <MiningVendorSearch />
-        <MiningVendorItems />
+    <Window width={400} height={455}>
+      <Window.Content>
+        <Stack fill vertical>
+          <MiningVendorUser />
+          <MiningVendorSearch />
+          <MiningVendorItems />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -37,9 +29,9 @@ const MiningVendorUser = (_properties, context) => {
   return (
     <NoticeBox success={has_id}>
       {has_id ? (
-        <Fragment>
+        <>
           <Box
-            display="inline-block"
+            inline
             verticalAlign="middle"
             style={{
               float: 'left',
@@ -61,7 +53,7 @@ const MiningVendorUser = (_properties, context) => {
               clear: 'both',
             }}
           />
-        </Fragment>
+        </>
       ) : (
         'Please insert an ID in order to make purchases.'
       )}
@@ -74,16 +66,8 @@ const MiningVendorItems = (_properties, context) => {
   const { has_id, id, items } = data;
   // Search thingies
   const [searchText, _setSearchText] = useLocalState(context, 'search', '');
-  const [sortOrder, _setSortOrder] = useLocalState(
-    context,
-    'sort',
-    'Alphabetical'
-  );
-  const [descending, _setDescending] = useLocalState(
-    context,
-    'descending',
-    false
-  );
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sort', 'Alphabetical');
+  const [descending, _setDescending] = useLocalState(context, 'descending', false);
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -105,65 +89,50 @@ const MiningVendorItems = (_properties, context) => {
     }
 
     has_contents = true;
-    return (
-      <MiningVendorItemsCategory
-        key={kv[0]}
-        title={kv[0]}
-        items={items_in_cat}
-      />
-    );
+    return <MiningVendorItemsCategory key={kv[0]} title={kv[0]} items={items_in_cat} />;
   });
   return (
-    <Flex.Item grow="1" overflow="auto">
-      <Section>
-        {has_contents ? (
-          contents
-        ) : (
-          <Box color="label">No items matching your criteria was found!</Box>
-        )}
+    <Stack.Item grow mt={0.5}>
+      <Section fill scrollable>
+        {has_contents ? contents : <Box color="label">No items matching your criteria was found!</Box>}
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
 const MiningVendorSearch = (_properties, context) => {
   const [_searchText, setSearchText] = useLocalState(context, 'search', '');
   const [_sortOrder, setSortOrder] = useLocalState(context, 'sort', '');
-  const [descending, setDescending] = useLocalState(
-    context,
-    'descending',
-    false
-  );
+  const [descending, setDescending] = useLocalState(context, 'descending', false);
   return (
-    <Box mb="0.5rem">
-      <Flex width="100%">
-        <Flex.Item grow="1" mr="0.5rem">
+    <Box>
+      <Stack fill>
+        <Stack.Item grow>
           <Input
+            mt={0.2}
             placeholder="Search by item name.."
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />
-        </Flex.Item>
-        <Flex.Item basis="30%">
+        </Stack.Item>
+        <Stack.Item basis="30%">
           <Dropdown
             selected="Alphabetical"
             options={Object.keys(sortTypes)}
             width="100%"
-            lineHeight="19px"
             onSelected={(v) => setSortOrder(v)}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon={descending ? 'arrow-down' : 'arrow-up'}
-            height="19px"
+            height="21px"
             tooltip={descending ? 'Descending order' : 'Ascending order'}
-            tooltipPosition="bottom-left"
-            ml="0.5rem"
+            tooltipPosition="bottom-start"
             onClick={() => setDescending(!descending)}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };
@@ -176,7 +145,7 @@ const MiningVendorItemsCategory = (properties, context) => {
       {items.map((item) => (
         <Box key={item.name}>
           <Box
-            display="inline-block"
+            inline
             verticalAlign="middle"
             lineHeight="20px"
             style={{

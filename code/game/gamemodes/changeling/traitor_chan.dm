@@ -1,5 +1,5 @@
 /datum/game_mode/traitor/changeling
-	name = "traitor+changeling"
+	name = "traitor_changeling"
 	config_tag = "traitorchan"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
 	restricted_jobs = list("Cyborg")

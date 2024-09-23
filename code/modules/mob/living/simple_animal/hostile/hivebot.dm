@@ -4,7 +4,7 @@
 
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
-	desc = "A small robot"
+	desc = "A small robot."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"

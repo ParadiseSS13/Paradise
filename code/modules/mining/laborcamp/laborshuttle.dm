@@ -33,13 +33,13 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
-	var/machinedir = SOUTH
 	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
+	announcer.follow_target = src
 	announcer.config(list("Security" = 0))
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Destroy()
@@ -70,10 +70,13 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/mineral/labor_prisoner_shuttle_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/labor_prisoner_shuttle_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PrisonerShuttleConsole", name, 315, 150, master_ui, state)
+		ui = new(user, src, "PrisonerShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_data(mob/user)
@@ -153,6 +156,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		return TRUE
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker

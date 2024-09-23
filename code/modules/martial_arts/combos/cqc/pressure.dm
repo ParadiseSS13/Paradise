@@ -8,7 +8,7 @@
 	var/obj/item/I = target.get_active_hand()
 	if(I && target.drop_item())
 		user.put_in_hands(I)
-	target.adjustStaminaLoss(40)
-	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 5, 1, -1)
+	target.apply_damage(40, STAMINA)
+	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 5, TRUE, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

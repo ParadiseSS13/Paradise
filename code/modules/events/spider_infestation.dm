@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
-
 /datum/event/spider_infestation
 	announceWhen	= 400
 	var/spawncount = 1
@@ -8,10 +6,9 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 /datum/event/spider_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 	spawncount = round(num_players() * 0.8)
-	GLOB.sent_spiders_to_station = 1
 
-/datum/event/spider_infestation/announce()
-	if(successSpawn)
+/datum/event/spider_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.minor_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Spider Infestation")

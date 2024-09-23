@@ -18,7 +18,6 @@
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
 #define ROLE_BLOB				"blob"
-#define ROLE_NINJA				"space ninja"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
 #define ROLE_ABDUCTOR			"abductor"
@@ -26,16 +25,15 @@
 #define ROLE_HOG_GOD			"hand of god: god" // We're prolly gonna port this one day or another
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
 #define ROLE_TRADER				"trader"
+#define ROLE_TOURIST			"Tourist"
 #define ROLE_VAMPIRE			"vampire"
 // Role tags for EVERYONE!
-#define ROLE_DEMON				"slaughter demon"
+#define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
-#define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
-#define ROLE_GSPIDER			"giant spider"
 #define ROLE_TSPIDER			"terror spider"
 #define ROLE_DRONE				"drone"
 #define ROLE_DEATHSQUAD			"deathsquad"
@@ -52,23 +50,21 @@
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
-	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
+	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
-	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_PAI, 											// PAI
-	ROLE_POSIBRAIN, 									// Positronic brain
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_ELITE,											// Lavaland Elite
-	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
+	ROLE_TOURIST,										// Tourist
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_ALIEN, 										// Xenomorph
 	ROLE_WIZARD = /datum/game_mode/wizard 				// Wizard

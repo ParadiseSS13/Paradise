@@ -95,7 +95,7 @@
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_style = input("Please select gradient style.", "Hair Gradient", head_organ.h_grad_style) as null|anything in GLOB.hair_gradients_list
+				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list)
 				if(new_style)
 					owner.change_hair_gradient(style = new_style)
 
@@ -140,6 +140,11 @@
 				var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_color) as color|null
 				if(new_eyes && (!..()) && owner.change_eye_color(new_eyes))
 					update_dna()
+
+		if("runechat_color")
+			var/new_runechat_color = input("Please select runechat color.", "Runechat Color", owner.dna.chat_color) as color|null
+			if(new_runechat_color && (!..()))
+				owner.change_runechat_color(new_runechat_color)
 
 		if("head_accessory")
 			if(can_change_head_accessory() && (params["head_accessory"] in valid_head_accessories))
@@ -199,10 +204,13 @@
 					cut_and_generate_data()
 
 
-/datum/ui_module/appearance_changer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/appearance_changer/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AppearanceChanger", name, 800, 450, master_ui, state)
+		ui = new(user, src, "AppearanceChanger", name)
 		ui.open()
 
 /datum/ui_module/appearance_changer/ui_data(mob/user)
@@ -211,7 +219,6 @@
 
 	data["specimen"] = owner.dna.species.name
 	data["gender"] = owner.gender
-	data["has_gender"] = owner.dna.species.has_gender
 	data["change_race"] = can_change(APPEARANCE_RACE)
 	if(data["change_race"])
 		var/list/species = list()
@@ -223,6 +230,7 @@
 	data["change_skin_tone"] = can_change_skin_tone()
 	data["change_skin_color"] = can_change_skin_color()
 	data["change_eye_color"] = can_change(APPEARANCE_EYE_COLOR)
+	data["change_runechat_color"] = TRUE
 	data["change_head_accessory"] = can_change_head_accessory()
 	if(data["change_head_accessory"])
 		var/list/head_accessory_styles = list()
@@ -231,30 +239,39 @@
 		data["head_accessory_styles"] = head_accessory_styles
 		data["head_accessory_style"] = head_organ ? head_organ.ha_style : "None"
 
-	data["change_hair"] = can_change(APPEARANCE_HAIR)
-	if(data["change_hair"])
-		var/list/hair_styles = list()
-		for(var/hair_style in valid_hairstyles)
-			hair_styles += list(list("hairstyle" = hair_style))
-		data["hair_styles"] = hair_styles
-		data["hair_style"] = head_organ ? head_organ.h_style : "Skinhead"
+	if(!(owner.dna.species.bodyflags & BALD))
+		data["change_hair"] = can_change(APPEARANCE_HAIR)
+		if(data["change_hair"])
+			var/list/hair_styles = list()
+			for(var/hair_style in valid_hairstyles)
+				hair_styles += list(list("hairstyle" = hair_style))
+			data["hair_styles"] = hair_styles
+			data["hair_style"] = head_organ ? head_organ.h_style : "Skinhead"
+		data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
+		data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
 
-	data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
-	if(data["change_facial_hair"])
-		var/list/facial_hair_styles = list()
-		for(var/facial_hair_style in valid_facial_hairstyles)
-			facial_hair_styles += list(list("facialhairstyle" = facial_hair_style))
-		data["facial_hair_styles"] = facial_hair_styles
-		data["facial_hair_style"] = head_organ ? head_organ.f_style : "Shaved"
+	if(!(owner.dna.species.bodyflags & SHAVED))
+		data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
+		if(data["change_facial_hair"])
+			var/list/facial_hair_styles = list()
+			for(var/facial_hair_style in valid_facial_hairstyles)
+				facial_hair_styles += list(list("facialhairstyle" = facial_hair_style))
+			data["facial_hair_styles"] = facial_hair_styles
+			data["facial_hair_style"] = head_organ ? head_organ.f_style : "Shaved"
+		data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
+		data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
+		data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
-	data["change_head_markings"] = can_change_markings("head")
-	if(data["change_head_markings"])
-		var/m_style = owner.m_styles["head"]
-		var/list/head_marking_styles = list()
-		for(var/head_marking_style in valid_head_marking_styles)
-			head_marking_styles += list(list("headmarkingstyle" = head_marking_style))
-		data["head_marking_styles"] = head_marking_styles
-		data["head_marking_style"] = m_style
+	if(!ismachineperson(owner))
+		data["change_head_markings"] = can_change_markings("head")
+		if(data["change_head_markings"])
+			var/m_style = owner.m_styles["head"]
+			var/list/head_marking_styles = list()
+			for(var/head_marking_style in valid_head_marking_styles)
+				head_marking_styles += list(list("headmarkingstyle" = head_marking_style))
+			data["head_marking_styles"] = head_marking_styles
+			data["head_marking_style"] = m_style
+		data["change_head_marking_color"] = can_change_markings("head")
 
 	data["change_body_markings"] = can_change_markings("body")
 	if(data["change_body_markings"])
@@ -291,14 +308,8 @@
 		data["alt_head_style"] = head_organ.alt_head
 
 	data["change_head_accessory_color"] = can_change_head_accessory()
-	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
-	data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
-	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
-	data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
-	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
-	data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
 	return data
 

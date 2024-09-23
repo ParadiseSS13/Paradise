@@ -7,35 +7,46 @@
 
 	maxHealth = 25
 	health = 25
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 1)
 	density = FALSE
 
+	var/temperature_resistance = T0C+75
 	var/amount_grown = 0
 	var/max_grown = 200
-	var/time_of_birth
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
+	hud_type = /datum/hud/larva
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
 	. = ..()
-	if(name == "alien larva")
-		name = "alien larva ([rand(1, 1000)])"
+
+	name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	AddSpell(new /datum/spell/alien_spell/evolve_larva)
+	var/datum/action/innate/hide/alien_larva_hide/hide = new()
+	hide.Grant(src)
+
+/mob/living/carbon/alien/larva/Destroy()
+	for(var/datum/action/innate/hide/alien_larva_hide/hide in actions)
+		hide.Remove(src)
+	return ..()
+
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
-//This needs to be fixed
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
+/mob/living/carbon/alien/larva/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Progress:", "[amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
+/mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
@@ -43,30 +54,24 @@
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
-	var/b_loss = null
-	var/f_loss = null
+	var/brute_loss = null
+	var/fire_loss = null
 	switch(severity)
 		if(1.0)
 			gib()
 			return
-
 		if(2.0)
-
-			b_loss += 60
-
-			f_loss += 60
-
-			AdjustEarDamage(30, 120)
-
+			brute_loss += 60
+			fire_loss += 60
+			Deaf(2 MINUTES)
 		if(3.0)
-			b_loss += 30
+			brute_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)
-			AdjustEarDamage(15, 60)
+			Deaf(1 MINUTES)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
-
+	adjustBruteLoss(brute_loss)
+	adjustFireLoss(fire_loss)
 	updatehealth()
 
 //can't equip anything
@@ -74,17 +79,10 @@
 	return
 
 /mob/living/carbon/alien/larva/restrained()
-	return 0
-
-/mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
+	return FALSE
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
 
-
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-	return
-
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
-

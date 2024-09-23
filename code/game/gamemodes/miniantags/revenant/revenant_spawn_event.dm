@@ -14,7 +14,7 @@
 
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
-		if(!candidates.len)
+		if(!length(candidates))
 			key_of_revenant = null
 			kill()
 			return
@@ -37,6 +37,7 @@
 			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))
 		player_mind.transfer_to(revvie)
+		dust_if_respawnable(C)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		SSticker.mode.traitors |= player_mind
@@ -45,3 +46,5 @@
 
 /datum/event/revenant/start()
 	get_revenant()
+
+#undef REVENANT_SPAWN_THRESHOLD

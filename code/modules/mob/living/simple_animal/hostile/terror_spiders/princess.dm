@@ -109,7 +109,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/spider_special_action()
 	// Princess AI routine. GREATLY simplified version of queen routine.
-	if(!stat && !ckey)
+	if(stat == CONSCIOUS && !ckey)
 		// Utilize normal queen AI for finding a nest site (neststep=0), and activating NestMode() (neststep=1)
 		if(neststep != 2)
 			return ..()

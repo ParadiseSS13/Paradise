@@ -4,18 +4,19 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
+	desc = "For making copies of important documents, or more likely, your ass."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
-	power_channel = EQUIP
+	idle_power_consumption = 30
+	active_power_consumption = 200
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "bleeps"
+
+	COOLDOWN_DECLARE(copying_cooldown)
 
 	var/insert_anim = "bigscanner1"
 	///Is the photocopier performing an action currently?
@@ -41,11 +42,12 @@
 	var/static/total_copies = 0
 	var/static/max_copies_reached = FALSE
 
+
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)
 	if(..())
@@ -85,8 +87,8 @@
 	c.offset_y = copy.offset_y
 	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
 	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
+	for(var/j = 1, j <= length(temp_overlays), j++) //gray overlay onto the copy
+		if(length(copy.ico))
 			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(copy.ico[j], "deny"))
@@ -199,7 +201,7 @@
 			W = photocopy(W, bundled = TRUE)
 			if(use_toner && W)
 				toner -= 5
-		if (!W)
+		if(!W)
 			break
 		W.forceMove(P)
 		P.amount++
@@ -291,27 +293,27 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
 				break
 			toner -= 1
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
@@ -345,12 +347,12 @@
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned by \the [src].</span>")
 		copying = FALSE
 		return
-	use_power(active_power_usage)
-	sleep(PHOTOCOPIER_DELAY)
+	use_power(active_power_consumption)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 	LAZYADD(saved_documents, O)
 	copying = FALSE
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-	atom_say("Document succesfully scanned!")
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
+	atom_say("Document successfully scanned!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -364,10 +366,13 @@
 		copy(document, scancopy = TRUE)
 
 
-/obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Photocopier", name, 402, 368, master_ui, state)
+		ui = new(user, src, "Photocopier", name)
 		ui.open()
 
 /obj/machinery/photocopier/ui_data(mob/user)
@@ -378,6 +383,7 @@
 	data["folder"] = (folder ? folder.name : null)
 	data["mob"] = (copymob ? copymob.name : null)
 	data["files"] = list()
+	data["issilicon"] = issilicon(user)
 	if(LAZYLEN(saved_documents))
 		for(var/obj/item/O in saved_documents)
 			var/list/document_data = list(
@@ -387,10 +393,13 @@
 			data["files"] += list(document_data)
 	return data
 
-/obj/machinery/photocopier/ui_act(action, list/params)
+/obj/machinery/photocopier/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 	. = FALSE
+	if(!COOLDOWN_FINISHED(src, copying_cooldown))
+		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		return
 	add_fingerprint(usr)
 	switch(action)
 		if("copy")
@@ -411,6 +420,10 @@
 				. = TRUE
 		if("scandocument")
 			scan_document()
+		if("ai_text")
+			ai_text(ui.user)
+		if("ai_pic")
+			ai_pic()
 		if("filecopy")
 			file_copy(params["uid"])
 		if("deletefile")
@@ -418,31 +431,51 @@
 			. = TRUE
 	update_icon()
 
-/obj/machinery/photocopier/proc/aipic()
+/obj/machinery/photocopier/proc/ai_text(mob/user)
+	if(!issilicon(user))
+		return
+	if(stat & (BROKEN|NOPOWER))
+		return
+	var/text = tgui_input_text(user, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
+	if(!text)
+		return
+	if(toner < 1 || !user)
+		return
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	var/obj/item/paper/p = new /obj/item/paper(loc)
+	text = p.parsepencode(text, null, user)
+	p.info = text
+	p.populatefields()
+	toner -= 1
+	use_power(active_power_consumption)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
+
+/obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(toner < 5)
+		return
+	var/mob/living/silicon/tempAI = usr
+	var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
 
-	if(toner >= 5)
-		var/mob/living/silicon/tempAI = usr
-		var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
+	if(!camera)
+		return
+	var/datum/picture/selection = camera.selectpicture()
+	if(!selection)
+		return
 
-		if(!camera)
-			return
-		var/datum/picture/selection = camera.selectpicture()
-		if(!selection)
-			return
-
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		var/obj/item/photo/p = new /obj/item/photo(loc)
-		p.construct(selection)
-		if(p.desc == "")
-			p.desc += "Copied by [tempAI.name]"
-		else
-			p.desc += " - Copied by [tempAI.name]"
-		toner -= 5
-		sleep(15)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	var/obj/item/photo/p = new /obj/item/photo(loc)
+	p.construct(selection)
+	if(p.desc == "")
+		p.desc += "Copied by [tempAI.name]"
+	else
+		p.desc += " - Copied by [tempAI.name]"
+	toner -= 5
+	use_power(active_power_consumption)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
@@ -512,12 +545,13 @@
 		copyitem.forceMove(get_turf(src))
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
 		copyitem = null
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/photocopier/Destroy()
-	QDEL_LIST(saved_documents)
+	QDEL_LIST_CONTENTS(saved_documents)
 	return ..()
 
 /**
@@ -537,6 +571,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
@@ -545,6 +580,7 @@
 
 /obj/item/toner
 	name = "toner cartridge"
+	desc = "Has 140 papers worth of ink in it! Shame you can only use 30 before it runs out of cyan..."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30

@@ -5,8 +5,9 @@
 	icon_state = "folded_wall"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/inflatable/detailed_examine()
-	return "Inflate by using it in your hand. The inflatable barrier will inflate on your tile. To deflate it, use the 'deflate' verb."
+/obj/item/inflatable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
@@ -28,22 +29,23 @@
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 
-/obj/structure/inflatable/detailed_examine()
-	return "To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
+/obj/structure/inflatable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
-	..()
-	air_update_turf(TRUE)
+	. = ..()
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target)
 	return
 
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/attack_hand(mob/user)
@@ -79,15 +81,6 @@
 	transfer_fingerprints_to(R)
 	qdel(src)
 
-/obj/structure/inflatable/verb/hand_deflate()
-	set name = "Deflate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || usr.restrained())
-		return
-
-	deconstruct(TRUE)
 
 /obj/item/inflatable/door
 	name = "inflatable door"
@@ -103,7 +96,8 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/structure/inflatable/door //Based on mineral door code
+/// Based on mineral door code
+/obj/structure/inflatable/door
 	name = "inflatable door"
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
@@ -111,10 +105,6 @@
 
 	var/state_open = FALSE
 	var/is_operating = FALSE
-
-/obj/structure/inflatable/door/detailed_examine()
-	return "Click the door to open or close it. It only stops air while closed.<br>\
-			To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
 
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
@@ -126,12 +116,12 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
@@ -139,8 +129,6 @@
 		return
 	if(ismob(user))
 		var/mob/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
@@ -160,11 +148,10 @@
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
-	opacity = !opacity
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/door/update_icon_state()
 	if(state_open)

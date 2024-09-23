@@ -1,17 +1,12 @@
-#define LING_FAKEDEATH_TIME					40 SECONDS
-#define LING_DEAD_GENETIC_DAMAGE_HEAL_CAP	50	//The lowest value of genetic_damage handle_changeling() can take it to while dead.
-#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
+// This list is basically a copy of GLOB.greek_letters, but it also removes letters when a changeling spawns in with that ID
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
-
-/datum/game_mode
-	var/list/datum/mind/changelings = list()
 
 /datum/game_mode/changeling
 	name = "changeling"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -58,7 +53,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/text = "<FONT size = 3><B>The changelings were:</B></FONT>"
+		var/list/text = list("<FONT size = 3><B>The changelings were:</B></FONT>")
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
@@ -80,7 +75,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += "<br><b>Changeling ID:</b> [cling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [cling.absorbed_count]"
 
-			var/list/all_objectives = changeling.get_all_objectives()
+			var/list/all_objectives = changeling.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))
 				var/count = 1
@@ -108,7 +103,4 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			else
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
-
-		to_chat(world, text)
-
-	return TRUE
+		return text.Join("")

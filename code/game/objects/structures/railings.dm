@@ -5,21 +5,44 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
-/obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
+/obj/structure/railing/get_climb_text()
+	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
+
+/// aesthetic corner sharp edges hurt oof ouch
+/obj/structure/railing/corner
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
 
+/// aestetic "end" for railing
+/obj/structure/railing/cap
+	icon_state = "railing_cap"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/cap/normal
+	icon_state = "railing_cap_normal"
+
+/obj/structure/railing/cap/reversed
+	icon_state = "railing_cap_reversed"
+
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
+
+/obj/structure/railing/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
+
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
@@ -30,7 +53,7 @@
 	if(!I.tool_start_check(user, amount = 0))
 		return
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-	if(I.use_tool(src, user, 40, volume = 50))
+	if(I.use_tool(src, user, 4 SECONDS, I.tool_volume))
 		obj_integrity = max_integrity
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
@@ -61,20 +84,29 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
-/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/corner/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE
 
 /obj/structure/railing/corner/CheckExit()
 	return TRUE
 
+/obj/structure/railing/cap/CanPass()
+	return TRUE
+
+/obj/structure/railing/cap/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return TRUE
+
+/obj/structure/railing/cap/CheckExit()
+	return TRUE
+
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return TRUE
 	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
+		var/mob/living/M = mover
+		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
@@ -86,7 +118,7 @@
 		return density
 	return FALSE
 
-/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(to_dir == dir)
 		return FALSE
 	if(ordinal_direction_check(to_dir))
@@ -98,10 +130,10 @@
 	var/mob/living/M = O
 	if(istype(O) && O.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(O, /obj/item/projectile))
+	if(isprojectile(O))
 		return TRUE
-	if(ismob(O))
-		if(M.flying || M.floating)
+	if(istype(M))
+		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(O.throwing)
 		return TRUE

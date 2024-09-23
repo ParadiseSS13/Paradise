@@ -9,11 +9,18 @@ $background-beige: #e8e4c9;
 
 .NuclearBomb__displayBox {
   background-color: #002003;
-  border: 4px inset $background-beige;
+  border: 0.167em inset $background-beige;
   color: #03e017;
-  font-size: 24px;
+  font-size: 2em;
   font-family: monospace;
-  padding: 6px;
+  padding: 0.25em;
+}
+
+.NuclearBomb__Button {
+  outline-width: 0.25rem !important;
+  border-width: 0.65rem !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .NuclearBomb__Button--keypad {
@@ -47,11 +54,4 @@ $background-beige: #e8e4c9;
     background-color: lighten($color-danger, 15%) !important;
     border-color: lighten($color-danger, 15%) !important;
   }
-}
-
-.NuclearBomb__NTIcon {
-  background-image: url('../assets/bg-nanotrasen.svg');
-  background-size: 70%;
-  background-position: center;
-  background-repeat: no-repeat;
 }

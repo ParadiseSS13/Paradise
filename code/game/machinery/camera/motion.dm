@@ -1,9 +1,3 @@
-/obj/machinery/camera
-	var/list/localMotionTargets = list()
-	var/detectTime = 0
-	var/area/ai_monitored/area_motion = null
-	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
-
 /obj/machinery/camera/process()
 	// motion camera event loop
 	if(!isMotion())
@@ -45,7 +39,7 @@
 /obj/machinery/camera/proc/cancelAlarm()
 	if(detectTime == -1)
 		if(status)
-			SSalarm.cancelAlarm("Motion", get_area(src), src)
+			GLOB.alarm_manager.cancel_alarm("Motion", get_area(src), src)
 	detectTime = 0
 	return TRUE
 
@@ -53,7 +47,7 @@
 	if(!detectTime)
 		return FALSE
 	if(status)
-		SSalarm.triggerAlarm("Motion", get_area(src), list(UID()), src)
+		GLOB.alarm_manager.trigger_alarm("Motion", get_area(src), list(UID()), src)
 		visible_message("<span class='warning'>A red light flashes on [src]!</span>")
 	detectTime = -1
 	return TRUE

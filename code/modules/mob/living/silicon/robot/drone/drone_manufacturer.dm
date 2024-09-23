@@ -9,20 +9,22 @@
 
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 5000
+	idle_power_consumption = 20
+	active_power_consumption = 5000
 
 	var/produce_drones = TRUE
 	var/drone_progress = 100
 	var/time_last_drone = 0
 
-/obj/machinery/drone_fabricator/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
+/obj/machinery/drone_fabricator/update_icon_state()
+	. = ..()
+	if(stat & NOPOWER)
 		icon_state = "drone_fab_nopower"
-		stat |= NOPOWER
+
+/obj/machinery/drone_fabricator/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/drone_fabricator/process()
 
@@ -47,8 +49,11 @@
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && isobserver(user) && count_drones() < MAX_MAINT_DRONES)
+	if(isobserver(user) && drone_prepared())
 		. += "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
+
+/obj/machinery/drone_fabricator/proc/drone_prepared()
+	return (produce_drones && drone_progress >= 100 && (count_drones() < MAX_MAINT_DRONES))
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
@@ -76,7 +81,21 @@
 
 	drone_progress = 0
 
+/obj/machinery/drone_fabricator/attack_ghost(mob/user as mob)
+	if(!drone_prepared() || !isobserver(user))
+		return
+	var/mob/dead/observer/ghost = user
+	ghost.join_as_drone()
 
+/obj/machinery/drone_fabricator/attack_hand(mob/user)
+	. = ..()
+	if(isdrone(user) && Adjacent(user))
+		if(alert(user, "Would you like to shut down?", null, "Yes", "No") != "Yes")
+			return
+		var/mob/living/silicon/robot/drone/D = user
+		if(!istype(D) || QDELETED(D))
+			return
+		D.cryo_with_dronefab(src)
 
 /mob/dead/verb/join_as_drone()
 	set category = "Ghost"
@@ -112,10 +131,10 @@
 	var/joinedasobserver = FALSE
 	if(isobserver(src))
 		var/mob/dead/observer/G = src
-		if(cannotPossess(G))
+		if(!G.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer == TRUE)
+		if(G.started_as_observer)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -133,7 +152,7 @@
 		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
 		return
 
-	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
+	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)

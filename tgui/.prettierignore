@@ -1,0 +1,4 @@
+# Ignore built packages:
+public
+**.cjs
+packages/tgui-dev-server

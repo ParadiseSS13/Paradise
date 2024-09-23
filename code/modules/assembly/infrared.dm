@@ -28,6 +28,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
+	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -134,12 +135,12 @@
 	if(!secured)	return
 	user.set_machine(src)
 	var/dat = {"<TT><B>Infrared Laser</B>
-				<B>Status</B>: [on ? "<A href='?src=[UID()];state=0'>On</A>" : "<A href='?src=[UID()];state=1'>Off</A>"]<BR>
-				<B>Visibility</B>: [visible ? "<A href='?src=[UID()];visible=0'>Visible</A>" : "<A href='?src=[UID()];visible=1'>Invisible</A>"]<BR>
-				<B>Current Direction</B>: <A href='?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
+				<B>Status</B>: [on ? "<A href='byond://?src=[UID()];state=0'>On</A>" : "<A href='byond://?src=[UID()];state=1'>Off</A>"]<BR>
+				<B>Visibility</B>: [visible ? "<A href='byond://?src=[UID()];visible=0'>Visible</A>" : "<A href='byond://?src=[UID()];visible=1'>Invisible</A>"]<BR>
+				<B>Current Direction</B>: <A href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
 				</TT>
-				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
-				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
+				<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A>
+				<BR><BR><A href='byond://?src=[UID()];close=1'>Close</A>"}
 	var/datum/browser/popup = new(user, "infra", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -159,25 +160,24 @@
 		if(first)
 			first.vis_spread(visible)
 	if(href_list["rotate"])
-		rotate()
+		rotate(usr)
 	if(href_list["close"])
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
 		attack_self(usr)
 
-/obj/item/assembly/infra/verb/rotate()//This could likely be better
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
-	set src in usr
+/obj/item/assembly/infra/AltClick(mob/user)
+	rotate(user)
 
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/item/assembly/infra/proc/rotate(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	dir = turn(dir, 90)
 
-	if(usr.machine == src)
-		interact(usr)
+	if(user.machine == src)
+		interact(user)
 
 	if(first)
 		qdel(first)
@@ -226,6 +226,9 @@
 
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
+
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+	return TRUE
 
 /obj/effect/beam/i_beam/process()
 	life_cycles++

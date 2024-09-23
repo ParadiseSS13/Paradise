@@ -14,7 +14,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 #define PROMOTIONS_FOR_EVERYONE 2000
 #define AMBASSADORS_OF_DISCOVERY 3000
 #define PRIDE_OF_SCIENCE 4000
-#define NANOTRANSEN_FINEST 5000
+#define NANOTRASEN_FINEST 5000
 
 /datum/scoreboard
 	/// Overall combined score for the whole round.
@@ -100,6 +100,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		var/mob/M = _I
 		if(is_station_level(M.z))
 			check_station_player(M)
+		else if(!M.loc)
+			stack_trace("[M] ended up without a location!")
 		else if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && istype(get_area(M), SSshuttle.emergency.areaInstance))
 			check_shuttle_player(M)
 
@@ -129,7 +131,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 /datum/scoreboard/proc/check_station_player(mob/M)
-	if(!is_station_level(M.z) || M.stat < DEAD)
+	if(!is_station_level(M.z) || M.stat != DEAD)
 		return
 	if(isAI(M))
 		dead_ai = TRUE
@@ -144,21 +146,28 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 	score_escapees++
 
-	var/cash_score = get_score_container_worth(H)
+	var/cash_score = get_score_person_worth(H)
 	if(cash_score > richest_cash)
 		richest_cash = cash_score
 		richest_name = H.real_name
 		richest_job = H.job
-		richest_key = H.key
+		richest_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
 	var/damage_score = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
 	if(damage_score > damaged_health)
 		damaged_health = damage_score
 		damaged_name = H.real_name
 		damaged_job = H.job
-		damaged_key = H.key
+		damaged_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
-// A recursive function to properly determine the wealthiest escapee
+/// A function to determine the cash plus the account balance of the wealthiest escapee
+/datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
+	if(!H.mind)
+		return // if they have no mind, we don't care
+	// return value of space cash on the person + whatever balance they currently have in their original money account
+	return get_score_container_worth(H) + H.mind.initial_account?.credit_balance
+
+/// A recursive function to properly determine the cash on the wealthiest escapee
 /datum/scoreboard/proc/get_score_container_worth(atom/C, level = 0)
 	. = 0
 	if(level >= 5) // in case the containers recurse or something
@@ -234,7 +243,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 	// Generate the score panel
-	var/list/dat = list("<b>Round Statistics and Score</b><br><hr>")
+	var/list/dat = list("<!DOCTYPE html><meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>")
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
@@ -291,8 +300,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Lean Mean Machine Thirteen"
 		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Promotions for Everyone"
 		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Ambassadors of Discovery"
-		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
-		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
+		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
+		if(NANOTRASEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	GLOB.scoreboard = jointext(dat, "")
@@ -300,7 +309,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/mob/E in GLOB.player_list)
 		if(E.client)
 			to_chat(E, "<b>The crew's final score is:</b>")
-			to_chat(E, "<b><font size='4'><a href='?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
+			to_chat(E, "<b><font size='4'><a href='byond://?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
 			if(!E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
 				E << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
@@ -324,4 +333,4 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 #undef PROMOTIONS_FOR_EVERYONE
 #undef AMBASSADORS_OF_DISCOVERY
 #undef PRIDE_OF_SCIENCE
-#undef NANOTRANSEN_FINEST
+#undef NANOTRASEN_FINEST

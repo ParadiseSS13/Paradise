@@ -12,19 +12,6 @@
 /area/ruin/unpowered
 	always_unpowered = FALSE
 
-/area/ruin/unpowered/no_grav
-	has_gravity = FALSE
-
 /area/ruin/powered
 	requires_power = FALSE
-
-//Areas
-
-/area/ruin/powered/snow_biodome
-
-/area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
-
-
-
 

@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(GLOB.sent_syndicate_strike_team == 1)
 		alert("The Syndicate are already sending a team, Mr. Dumbass.")
 		return
-	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No")=="No")
+	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.", null,"Yes","No")=="No")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
 
@@ -23,9 +23,9 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			if(alert("Error, no mission set. Do you want to exit the setup process?", null,"Yes","No")=="Yes")
 				return
 
 	if(GLOB.sent_syndicate_strike_team)
@@ -46,7 +46,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?", null, 21, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
 	if(!length(commando_ghosts))
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
@@ -78,8 +78,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 		//So they don't forget their code or mission.
 		if(nuke_code)
-			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
-		new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
+			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
+		new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 
 		to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
 		new_syndicate_commando.faction += "syndicate"
@@ -124,38 +124,38 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE, full_gear = FALSE)
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
+	equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
+	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), SLOT_HUD_JUMPSUIT)
 	if(!full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), SLOT_HUD_GLOVES)
 
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), SLOT_HUD_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), SLOT_HUD_IN_BACKPACK)
 
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), SLOT_HUD_IN_BACKPACK)
 	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/pinpointer(src), SLOT_HUD_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), SLOT_HUD_IN_BACKPACK)
 	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/card/emag(src), SLOT_HUD_RIGHT_STORE)
+	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), SLOT_HUD_LEFT_STORE)
 
 	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
-		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
-		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), slot_s_store)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
-		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), SLOT_HUD_WEAR_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), SLOT_HUD_OUTER_SUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), SLOT_HUD_GLASSES)
+		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), SLOT_HUD_BELT)
+		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), SLOT_HUD_SUIT_STORE)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/elite(src), SLOT_HUD_SHOES)
+		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), SLOT_HUD_RIGHT_HAND)
+		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), SLOT_HUD_IN_BACKPACK)
 
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(src)
 	D.implant(src)
 	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
@@ -163,6 +163,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	W.assignment = "Syndicate Commando"
 	W.access += get_syndicate_access(W.assignment)
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
+	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 	return 1
+
+#undef SYNDICATE_COMMANDOS_POSSIBLE

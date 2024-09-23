@@ -8,9 +8,9 @@
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 
-/datum/event/alien_infestation/announce()
-	if(successSpawn)
-		GLOB.major_announcement.Announce("Confirmed outbreak of level 3-X biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
+/datum/event/alien_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
+		GLOB.major_announcement.Announce("Xenomorph infestation detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_xeno.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
@@ -30,10 +30,10 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			C.remove_from_respawnable_list()
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
+			dust_if_respawnable(C)
 			new_xeno.forceMove(vent)
 			new_xeno.add_ventcrawl(vent)
 			if(SSticker && SSticker.mode)
@@ -41,3 +41,4 @@
 
 			spawncount--
 			successSpawn = TRUE
+	SSevents.biohazards_this_round += "Xenomorphs"

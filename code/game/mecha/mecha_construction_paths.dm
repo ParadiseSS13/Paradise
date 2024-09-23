@@ -166,21 +166,21 @@
 			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
 			holder.icon_state = "ripley1"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
 				holder.icon_state = "ripley2"
 			else
 				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
 				holder.icon_state = "ripley0"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
 				holder.icon_state = "ripley3"
 			else
 				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
 				holder.icon_state = "ripley1"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
 				holder.icon_state = "ripley4"
 			else
@@ -189,7 +189,7 @@
 				coil.amount = 4
 				holder.icon_state = "ripley2"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "ripley5"
@@ -197,7 +197,7 @@
 				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
 				holder.icon_state = "ripley3"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
 				holder.icon_state = "ripley6"
 			else
@@ -205,7 +205,7 @@
 				new /obj/item/circuitboard/mecha/ripley/main(get_turf(holder))
 				holder.icon_state = "ripley4"
 		if(8)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "ripley7"
@@ -213,7 +213,7 @@
 				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
 				holder.icon_state = "ripley5"
 		if(7)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
 				holder.icon_state = "ripley8"
 			else
@@ -221,14 +221,14 @@
 				new /obj/item/circuitboard/mecha/ripley/peripherals(get_turf(holder))
 				holder.icon_state = "ripley6"
 		if(6)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
 				holder.icon_state = "ripley9"
 			else
 				user.visible_message("[user] unfastens the peripherals control module.", "You unfasten the peripherals control module.")
 				holder.icon_state = "ripley7"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the internal armor layer.", "You secure the internal armor layer.")
 				holder.icon_state = "ripley10"
 			else
@@ -237,21 +237,21 @@
 				MS.amount = 5
 				holder.icon_state = "ripley8"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the internal armor layer to the [holder].", "You weld the internal armor layer to the [holder].")
 				holder.icon_state = "ripley11"
 			else
 				user.visible_message("[user] unfastens the internal armor layer.", "You unfasten the internal armor layer.")
 				holder.icon_state = "ripley9"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the external reinforced armor layer to the [holder].", "You install the external reinforced armor layer to the [holder].")
 				holder.icon_state = "ripley12"
 			else
 				user.visible_message("[user] cuts the internal armor layer from the [holder].", "You cut the internal armor layer from the [holder].")
 				holder.icon_state = "ripley10"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the external armor layer.", "You secure the external reinforced armor layer.")
 				holder.icon_state = "ripley13"
 			else
@@ -260,7 +260,7 @@
 				MS.amount = 5
 				holder.icon_state = "ripley11"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the external armor layer to the [holder].", "You weld the external armor layer to the [holder].")
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
@@ -414,21 +414,21 @@
 			user.visible_message("<span class='notice'>[user] connects the [holder] hydraulic systems</span>", "<span class='notice'>You connect the [holder] hydraulic systems.</span>")
 			holder.icon_state = "gygax1"
 		if(19)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] activates the [holder] hydraulic systems.</span>", "<span class='notice'>You activate the [holder] hydraulic systems.</span>")
 				holder.icon_state = "gygax2"
 			else
 				user.visible_message("<span class='notice'>[user] disconnects the [holder] hydraulic systems.</span>", "<span class='notice'>You disconnect the [holder] hydraulic systems.</span>")
 				holder.icon_state = "gygax0"
 		if(18)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] adds the wiring to the [holder].</span>", "<span class='notice'>You add the wiring to the [holder].</span>")
 				holder.icon_state = "gygax3"
 			else
 				user.visible_message("<span class='notice'>[user] deactivates the [holder] hydraulic systems.</span>", "<span class='notice'>You deactivate the [holder] hydraulic systems.</span>")
 				holder.icon_state = "gygax1"
 		if(17)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] adjusts the wiring of the [holder].</span>", "<span class='notice'>You adjust the wiring of the [holder].</span>")
 				holder.icon_state = "gygax4"
 			else
@@ -437,7 +437,7 @@
 				coil.amount = 4
 				holder.icon_state = "gygax2"
 		if(16)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the central control module into the [holder].</span>", "<span class='notice'>You install the central computer mainboard into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax5"
@@ -445,7 +445,7 @@
 				user.visible_message("<span class='notice'>[user] disconnects the wiring of the [holder].</span>", "<span class='notice'>You disconnect the wiring of the [holder].</span>")
 				holder.icon_state = "gygax3"
 		if(15)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the mainboard.</span>", "<span class='notice'>You secure the mainboard.</span>")
 				holder.icon_state = "gygax6"
 			else
@@ -453,7 +453,7 @@
 				new /obj/item/circuitboard/mecha/gygax/main(get_turf(holder))
 				holder.icon_state = "gygax4"
 		if(14)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the peripherals control module into the [holder].</span>", "<span class='notice'>You install the peripherals control module into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax7"
@@ -461,7 +461,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the mainboard.</span>", "<span class='notice'>You unfasten the mainboard.</span>")
 				holder.icon_state = "gygax5"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the peripherals control module.</span>", "<span class='notice'>You secure the peripherals control module.</span>")
 				holder.icon_state = "gygax8"
 			else
@@ -469,7 +469,7 @@
 				new /obj/item/circuitboard/mecha/gygax/peripherals(get_turf(holder))
 				holder.icon_state = "gygax6"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the weapon control module into the [holder].</span>", "<span class='notice'>You install the weapon control module into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax9"
@@ -477,7 +477,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the peripherals control module.</span>", "<span class='notice'>You unfasten the peripherals control module.</span>")
 				holder.icon_state = "gygax7"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the weapon control module.</span>", "<span class='notice'>You secure the weapon control module.</span>")
 				holder.icon_state = "gygax10"
 			else
@@ -485,7 +485,7 @@
 				new /obj/item/circuitboard/mecha/gygax/targeting(get_turf(holder))
 				holder.icon_state = "gygax8"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs advanced scanner module to the [holder].</span>", "<span class='notice'>You install advanced scanner module to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax11"
@@ -493,7 +493,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the weapon control module.</span>", "<span class='notice'>You unfasten the weapon control module.</span>")
 				holder.icon_state = "gygax9"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the advanced scanner module.</span>", "<span class='notice'>You secure the advanced scanner module.</span>")
 				holder.icon_state = "gygax12"
 			else
@@ -501,7 +501,7 @@
 				new /obj/item/stock_parts/scanning_module/adv(get_turf(holder))
 				holder.icon_state = "gygax10"
 		if(8)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs a mech power core into the [holder].", "You install a mech power core into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "gygax13"
@@ -509,7 +509,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the advanced scanner module.</span>", "<span class='notice'>You unfasten the advanced scanner module.</span>")
 				holder.icon_state = "gygax11"
 		if(7)
-			if(diff == FORWARD)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the mech power core.</span>", "<span class='notice'>You secure the mech power core.</span>")
 				holder.icon_state = "gygax14"
 			else
@@ -517,14 +517,14 @@
 				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "gygax12"
 		if(6)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the internal armor layer to the [holder].</span>", "<span class='notice'>You install the internal armor layer to the [holder].</span>")
 				holder.icon_state = "gygax15"
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the advanced capacitor.</span>", "<span class='notice'>You unfasten the advanced capacitor.</span>")
 				holder.icon_state = "gygax13"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the internal armor layer.</span>", "<span class='notice'>You secure the internal armor layer.</span>")
 				holder.icon_state = "gygax16"
 			else
@@ -533,14 +533,14 @@
 				MS.amount = 5
 				holder.icon_state = "gygax14"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] welds the internal armor layer to the [holder].</span>", "<span class='notice'>You weld the internal armor layer to the [holder].</span>")
 				holder.icon_state = "gygax17"
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the internal armor layer.</span>", "<span class='notice'>You unfasten the internal armor layer.</span>")
 				holder.icon_state = "gygax15"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You install the Gygax Armor Plates to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax18"
@@ -548,7 +548,7 @@
 				user.visible_message("<span class='notice'>[user] cuts the internal armor layer from the [holder].</span>", "<span class='notice'>You cut the internal armor layer from the [holder].</span>")
 				holder.icon_state = "gygax16"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the Gygax Armor Plates.</span>", "<span class='notice'>You secure the Gygax Armor Plates.</span>")
 				holder.icon_state = "gygax19"
 			else
@@ -556,7 +556,7 @@
 				new /obj/item/mecha_parts/part/gygax_armour(get_turf(holder))
 				holder.icon_state = "gygax17"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] welds the Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You weld the Gygax Armor Plates to the [holder].</span>")
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the Gygax Armor Plates.</span>", "<span class='notice'>You unfasten the Gygax Armor Plates.</span>")
@@ -687,21 +687,21 @@
 			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
 			holder.icon_state = "fireripley1"
 		if(14)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
 				holder.icon_state = "fireripley2"
 			else
 				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
 				holder.icon_state = "fireripley0"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
 				holder.icon_state = "fireripley3"
 			else
 				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
 				holder.icon_state = "fireripley1"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
 				holder.icon_state = "fireripley4"
 			else
@@ -710,7 +710,7 @@
 				coil.amount = 4
 				holder.icon_state = "fireripley2"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "fireripley5"
@@ -718,7 +718,7 @@
 				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
 				holder.icon_state = "fireripley3"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
 				holder.icon_state = "fireripley6"
 			else
@@ -726,7 +726,7 @@
 				new /obj/item/circuitboard/mecha/ripley/main(get_turf(holder))
 				holder.icon_state = "fireripley4"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "fireripley7"
@@ -734,7 +734,7 @@
 				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
 				holder.icon_state = "fireripley5"
 		if(8)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
 				holder.icon_state = "fireripley8"
 			else
@@ -742,7 +742,7 @@
 				new /obj/item/circuitboard/mecha/ripley/peripherals(get_turf(holder))
 				holder.icon_state = "fireripley6"
 		if(7)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
 				holder.icon_state = "fireripley9"
 			else
@@ -750,7 +750,7 @@
 				holder.icon_state = "fireripley7"
 
 		if(6)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the internal armor layer.", "You secure the internal armor layer.")
 				holder.icon_state = "fireripley10"
 			else
@@ -759,21 +759,21 @@
 				MS.amount = 5
 				holder.icon_state = "fireripley8"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the internal armor layer to the [holder].", "You weld the internal armor layer to the [holder].")
 				holder.icon_state = "fireripley11"
 			else
 				user.visible_message("[user] unfastens the internal armor layer.", "You unfasten the internal armor layer.")
 				holder.icon_state = "fireripley9"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] starts to install the external armor layer to the [holder].", "You start to install the external armor layer to the [holder].")
 				holder.icon_state = "fireripley12"
 			else
 				user.visible_message("[user] cuts the internal armor layer from the [holder].", "You cut the internal armor layer from the [holder].")
 				holder.icon_state = "fireripley10"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the external reinforced armor layer to the [holder].", "You install the external reinforced armor layer to the [holder].")
 				holder.icon_state = "fireripley13"
 			else
@@ -782,7 +782,7 @@
 				MS.amount = 5
 				holder.icon_state = "fireripley11"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the external armor layer.", "You secure the external reinforced armor layer.")
 				holder.icon_state = "fireripley14"
 			else
@@ -791,7 +791,7 @@
 				MS.amount = 5
 				holder.icon_state = "fireripley12"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the external armor layer to the [holder].", "You weld the external armor layer to the [holder].")
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
@@ -1095,21 +1095,21 @@
 			user.visible_message("<span class='notice'>[user] connects the [holder] hydraulic systems.</span>", "<span class='notice'>You connect the [holder] hydraulic systems.</span>")
 			holder.icon_state = "durand1"
 		if(19)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] activates the [holder] hydraulic systems.</span>", "<span class='notice'>You activate the [holder] hydraulic systems.</span>")
 				holder.icon_state = "durand2"
 			else
 				user.visible_message("<span class='notice'>[user] disconnects the [holder] hydraulic systems.</span>", "<span class='notice'>You disconnect the [holder] hydraulic systems.</span>")
 				holder.icon_state = "durand0"
 		if(18)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] adds the wiring to the [holder].</span>", "<span class='notice'>You add the wiring to the [holder].</span>")
 				holder.icon_state = "durand3"
 			else
 				user.visible_message("<span class='notice'>[user] deactivates the [holder] hydraulic systems.</span>", "<span class='notice'>You deactivate the [holder] hydraulic systems.</span>")
 				holder.icon_state = "durand1"
 		if(17)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] adjusts the wiring of the [holder].</span>", "<span class='notice'>You adjust the wiring of the [holder].</span>")
 				holder.icon_state = "durand4"
 			else
@@ -1118,7 +1118,7 @@
 				coil.amount = 4
 				holder.icon_state = "durand2"
 		if(16)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the central control module into the [holder].</span>", "<span class='notice'>You install the central computer mainboard into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand5"
@@ -1126,7 +1126,7 @@
 				user.visible_message("<span class='notice'>[user] disconnects the wiring of the [holder].</span>", "<span class='notice'>You disconnect the wiring of the [holder].</span>")
 				holder.icon_state = "durand3"
 		if(15)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the mainboard.</span>", "<span class='notice'>You secure the mainboard.</span>")
 				holder.icon_state = "durand6"
 			else
@@ -1134,7 +1134,7 @@
 				new /obj/item/circuitboard/mecha/durand/main(get_turf(holder))
 				holder.icon_state = "durand4"
 		if(14)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the peripherals control module into the [holder].</span>", "<span class='notice'>You install the peripherals control module into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand7"
@@ -1142,7 +1142,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the mainboard.</span>", "<span class='notice'>You unfasten the mainboard.</span>")
 				holder.icon_state = "durand5"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the peripherals control module.</span>", "<span class='notice'>You secure the peripherals control module.</span>")
 				holder.icon_state = "durand8"
 			else
@@ -1150,7 +1150,7 @@
 				new /obj/item/circuitboard/mecha/durand/peripherals(get_turf(holder))
 				holder.icon_state = "durand6"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the weapon control module into the [holder].</span>", "<span class='notice'>You install the weapon control module into the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand9"
@@ -1158,7 +1158,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the peripherals control module.</span>", "<span class='notice'>You unfasten the peripherals control module.</span>")
 				holder.icon_state = "durand7"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the weapon control module.</span>", "<span class='notice'>You secure the weapon control module.</span>")
 				holder.icon_state = "durand10"
 			else
@@ -1166,7 +1166,7 @@
 				new /obj/item/circuitboard/mecha/durand/targeting(get_turf(holder))
 				holder.icon_state = "durand8"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs phasic scanner module to the [holder].</span>", "<span class='notice'>You install phasic scanner module to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand11"
@@ -1174,7 +1174,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the weapon control module.</span>", "<span class='notice'>You unfasten the weapon control module.</span>")
 				holder.icon_state = "durand9"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the phasic scanner module.</span>", "<span class='notice'>You secure the phasic scanner module.</span>")
 				holder.icon_state = "durand12"
 			else
@@ -1182,7 +1182,7 @@
 				new /obj/item/stock_parts/scanning_module/phasic(get_turf(holder))
 				holder.icon_state = "durand10"
 		if(8)
-			if(diff == FORWARD)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the mech power core to the [holder].</span>", "<span class='notice'>You install the mech power core to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand13"
@@ -1190,7 +1190,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the phasic scanner module.</span>", "<span class='notice'>You unfasten the phasic scanner module.</span>")
 				holder.icon_state = "durand11"
 		if(7)
-			if(diff == FORWARD)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the mech power core.</span>", "<span class='notice'>You secure the mech power core.</span>")
 				holder.icon_state = "durand14"
 			else
@@ -1198,14 +1198,14 @@
 				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "durand12"
 		if(6)
-			if(diff == FORWARD)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the internal armor layer to the [holder].</span>", "<span class='notice'>You install the internal armor layer to the [holder].</span>")
 				holder.icon_state = "durand15"
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the mech power core.</span>", "<span class='notice'>You unfasten the mech power core.</span>")
 				holder.icon_state = "durand13"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the internal armor layer.</span>", "<span class='notice'>You secure the internal armor layer.</span>")
 				holder.icon_state = "durand16"
 			else
@@ -1214,14 +1214,14 @@
 				MS.amount = 5
 				holder.icon_state = "durand14"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] welds the internal armor layer to the [holder].</span>", "<span class='notice'>You weld the internal armor layer to the [holder].</span>")
 				holder.icon_state = "durand17"
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the internal armor layer.</span>", "<span class='notice'>You unfasten the internal armor layer.</span>")
 				holder.icon_state = "durand15"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] installs the Durand Armor Plates to the [holder].</span>", "<span class='notice'>You install the Durand Armor Plates to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand18"
@@ -1229,7 +1229,7 @@
 				user.visible_message("<span class='notice'>[user] cuts the internal armor layer from the [holder].</span>", "<span class='notice'>You cut the internal armor layer from the [holder].</span>")
 				holder.icon_state = "durand16"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] secures the Durand Armor Plates.</span>", "<span class='notice'>You secure the Durand Armor Plates.</span>")
 				holder.icon_state = "durand19"
 			else
@@ -1237,7 +1237,7 @@
 				new /obj/item/mecha_parts/part/durand_armor(get_turf(holder))
 				holder.icon_state = "durand17"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("<span class='notice'>[user] welds the Durand Armor Plates to the [holder].</span>", "<span class='notice'>You weld the Durand Armor Plates to the [holder].</span>")
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the Durand Armor Plates.</span>", "<span class='notice'>You unfasten the Durand Armor Plates.</span>")
@@ -1414,21 +1414,21 @@
 			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
 			holder.icon_state = "phazon1"
 		if(23)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
 				holder.icon_state = "phazon2"
 			else
 				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
 				holder.icon_state = "phazon0"
 		if(22)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
 				holder.icon_state = "phazon3"
 			else
 				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
 				holder.icon_state = "phazon1"
 		if(21)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
 				holder.icon_state = "phazon4"
 			else
@@ -1437,7 +1437,7 @@
 				coil.amount = 4
 				holder.icon_state = "phazon2"
 		if(20)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon5"
@@ -1445,7 +1445,7 @@
 				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
 				holder.icon_state = "phazon3"
 		if(19)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
 				holder.icon_state = "phazon6"
 			else
@@ -1453,7 +1453,7 @@
 				new /obj/item/circuitboard/mecha/phazon/main(get_turf(holder))
 				holder.icon_state = "phazon4"
 		if(18)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon7"
@@ -1461,7 +1461,7 @@
 				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
 				holder.icon_state = "phazon5"
 		if(17)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
 				holder.icon_state = "phazon8"
 			else
@@ -1469,7 +1469,7 @@
 				new /obj/item/circuitboard/mecha/phazon/peripherals(get_turf(holder))
 				holder.icon_state = "phazon6"
 		if(16)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the weapon control module into the [holder].", "You install the weapon control module into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon9"
@@ -1477,7 +1477,7 @@
 				user.visible_message("[user] unfastens the peripherals control module.", "You unfasten the peripherals control module.")
 				holder.icon_state = "phazon7"
 		if(15)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the weapon control module.", "You secure the weapon control module.")
 				holder.icon_state = "phazon10"
 			else
@@ -1485,7 +1485,7 @@
 				new /obj/item/circuitboard/mecha/phazon/targeting(get_turf(holder))
 				holder.icon_state = "phazon8"
 		if(14)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs phasic scanner module to the [holder].", "You install phasic scanner module to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon11"
@@ -1493,7 +1493,7 @@
 				user.visible_message("[user] unfastens the weapon control module.", "You unfasten the weapon control module.")
 				holder.icon_state = "phazon9"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the phasic scanner module.", "You secure the phasic scanner module.")
 				holder.icon_state = "phazon12"
 			else
@@ -1501,7 +1501,7 @@
 				new /obj/item/stock_parts/scanning_module/phasic(get_turf(holder))
 				holder.icon_state = "phazon10"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs super capacitor to the [holder].", "You install super capacitor to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon13"
@@ -1509,7 +1509,7 @@
 				user.visible_message("[user] unfastens the phasic scanner module.", "You unfasten the phasic scanner module.")
 				holder.icon_state = "phazon11"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the super capacitor.", "You secure the super capacitor.")
 				holder.icon_state = "phazon14"
 			else
@@ -1517,14 +1517,14 @@
 				new /obj/item/stock_parts/capacitor/super(get_turf(holder))
 				holder.icon_state = "phazon12"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the bluespace crystal.", "You install the bluespace crystals.")
 				holder.icon_state = "phazon15"
 			else
 				user.visible_message("[user] unsecures the super capacitor from the [holder].", "You unsecure the super capacitor from the [holder].")
 				holder.icon_state = "phazon13"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] connects the bluespace crystal.", "You connect the bluespace crystals.")
 				holder.icon_state = "phazon16"
 			else
@@ -1532,21 +1532,21 @@
 				new /obj/item/stack/ore/bluespace_crystal(get_turf(holder), new_amount = 5)
 				holder.icon_state = "phazon14"
 		if(8)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] engages the bluespace crystal.", "You engage the bluespace crystals.")
 				holder.icon_state = "phazon17"
 			else
 				user.visible_message("[user] disconnects the bluespace crystal from the [holder].", "You disconnect the bluespace crystal from the [holder].")
 				holder.icon_state = "phazon15"
 		if(7)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the phase armor layer to the [holder].", "You install the phase armor layer to the [holder].")
 				holder.icon_state = "phazon18"
 			else
 				user.visible_message("[user] disengages the bluespace crystal.", "You disengage the bluespace crystals.")
 				holder.icon_state = "phazon16"
 		if(6)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the phase armor layer.", "You secure the phase armor layer.")
 				holder.icon_state = "phazon19"
 			else
@@ -1555,14 +1555,14 @@
 				MS.amount = 5
 				holder.icon_state = "phazon17"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the phase armor layer to the [holder].", "You weld the phase armor layer to the [holder].")
 				holder.icon_state = "phazon20"
 			else
 				user.visible_message("[user] unfastens the phase armor layer.", "You unfasten the phase armor layer.")
 				holder.icon_state = "phazon18"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs Phazon Armor Plates to the [holder].", "You install Phazon Armor Plates to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "phazon21"
@@ -1570,7 +1570,7 @@
 				user.visible_message("[user] cuts phase armor layer from the [holder].", "You cut the phase armor layer from the [holder].")
 				holder.icon_state = "phazon19"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures Phazon Armor Plates.", "You secure Phazon Armor Plates.")
 				holder.icon_state = "phazon22"
 			else
@@ -1578,13 +1578,13 @@
 				new /obj/item/mecha_parts/part/phazon_armor(get_turf(holder))
 				holder.icon_state = "phazon20"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds Phazon Armor Plates to the [holder].", "You weld Phazon Armor Plates to the [holder].")
 			else
 				user.visible_message("[user] unfastens Phazon Armor Plates.", "You unfasten Phazon Armor Plates.")
 				holder.icon_state = "phazon21"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] carefully inserts the anomaly core into \the [holder] and secures it.", "You slowly place the anomaly core into its socket and close its chamber.")
 				qdel(used_atom)
 	return 1
@@ -1707,21 +1707,21 @@
 			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
 			holder.icon_state = "odysseus1"
 		if(13)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
 				holder.icon_state = "odysseus2"
 			else
 				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
 				holder.icon_state = "odysseus0"
 		if(12)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
 				holder.icon_state = "odysseus3"
 			else
 				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
 				holder.icon_state = "odysseus1"
 		if(11)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
 				holder.icon_state = "odysseus4"
 			else
@@ -1730,7 +1730,7 @@
 				coil.amount = 4
 				holder.icon_state = "odysseus2"
 		if(10)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "odysseus5"
@@ -1738,7 +1738,7 @@
 				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
 				holder.icon_state = "odysseus3"
 		if(9)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
 				holder.icon_state = "odysseus6"
 			else
@@ -1746,7 +1746,7 @@
 				new /obj/item/circuitboard/mecha/odysseus/main(get_turf(holder))
 				holder.icon_state = "odysseus4"
 		if(8)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "odysseus7"
@@ -1754,7 +1754,7 @@
 				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
 				holder.icon_state = "odysseus5"
 		if(7)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
 				holder.icon_state = "odysseus8"
 			else
@@ -1762,14 +1762,14 @@
 				new /obj/item/circuitboard/mecha/odysseus/peripherals(get_turf(holder))
 				holder.icon_state = "odysseus6"
 		if(6)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
 				holder.icon_state = "odysseus9"
 			else
 				user.visible_message("[user] unfastens the peripherals control module.", "You unfasten the peripherals control module.")
 				holder.icon_state = "odysseus7"
 		if(5)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the internal armor layer.", "You secure the internal armor layer.")
 				holder.icon_state = "odysseus10"
 			else
@@ -1778,14 +1778,14 @@
 				MS.amount = 5
 				holder.icon_state = "odysseus8"
 		if(4)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the internal armor layer to the [holder].", "You weld the internal armor layer to the [holder].")
 				holder.icon_state = "odysseus11"
 			else
 				user.visible_message("[user] unfastens the internal armor layer.", "You unfasten the internal armor layer.")
 				holder.icon_state = "odysseus9"
 		if(3)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] installs [used_atom] layer to the [holder].", "You install the external reinforced armor layer to the [holder].")
 
 				holder.icon_state = "odysseus12"
@@ -1793,7 +1793,7 @@
 				user.visible_message("[user] cuts the internal armor layer from the [holder].", "You cut the internal armor layer from the [holder].")
 				holder.icon_state = "odysseus10"
 		if(2)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] secures the external armor layer.", "You secure the external reinforced armor layer.")
 				holder.icon_state = "odysseus13"
 			else
@@ -1802,10 +1802,12 @@
 				user.visible_message("[user] pries [MS] from the [holder].", "You pry [MS] from the [holder].")
 				holder.icon_state = "odysseus11"
 		if(1)
-			if(diff==FORWARD)
+			if(diff==CONSTRUCTION_PATH_FORWARDS)
 				user.visible_message("[user] welds the external armor layer to the [holder].", "You weld the external armor layer to the [holder].")
 				holder.icon_state = "odysseus14"
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
 				holder.icon_state = "odysseus12"
 	return 1
+
+#undef STANDARD_STACK_AMOUNT

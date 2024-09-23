@@ -73,7 +73,7 @@
 	channel_name = "Nyx Daily"
 	author = "Reporter Leland H. Howards"
 
-	message = {"The newly-christened civillian transport Lotus Tree suffered two very large explosions near the
+	message = {"The newly-christened civilian transport Lotus Tree suffered two very large explosions near the
 				bridge today, and there are unconfirmed reports that the death toll has passed 50. The cause of
 				the explosions remain unknown, but there is speculation that it might have something to do with
 				the recent change of regulation in the Moore-Lee Corporation, a major funder of the ship, when M-L

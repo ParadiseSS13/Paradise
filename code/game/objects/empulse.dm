@@ -31,24 +31,22 @@
 	for(var/mob/M in range(heavy_range, epicenter))
 		SEND_SOUND(M, emp_sound)
 	for(var/atom/T in range(light_range, epicenter))
-		if(cause == "cult" && iscultist(T))
+		if(cause == "cult" && IS_CULTIST(T))
 			continue
 		var/distance = get_dist(epicenter, T)
 		var/will_affect = FALSE
 
-		if(distance < 0)
-			distance = 0
 		if(distance < heavy_range)
-			will_affect = T.emp_act(1)
+			will_affect = T.emp_act(EMP_HEAVY)
 
 		else if(distance == heavy_range)
 			if(prob(50))
-				will_affect = T.emp_act(1)
+				will_affect = T.emp_act(EMP_HEAVY)
 			else
-				will_affect = T.emp_act(2)
+				will_affect = T.emp_act(EMP_LIGHT)
 
 		else if(distance <= light_range)
-			will_affect = T.emp_act(2)
+			will_affect = T.emp_act(EMP_LIGHT)
 
 		if(will_affect)
 			if(cause == "cult")

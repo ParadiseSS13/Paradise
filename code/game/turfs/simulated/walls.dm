@@ -1,5 +1,3 @@
-#define WALL_DENT_HIT 1
-#define WALL_DENT_SHOT 2
 #define MAX_DENT_DECALS 15
 
 /turf/simulated/wall
@@ -18,6 +16,7 @@
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
 	var/global/damage_overlays[8]
+	var/melting = FALSE //TRUE if wall is currently being melted with thermite
 
 	opacity = TRUE
 	density = TRUE
@@ -25,10 +24,12 @@
 	explosion_block = 1
 
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	flags_ricochet = RICOCHET_HARD
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	var/heat_resistance = 5000
 
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
@@ -43,6 +44,10 @@
 	var/rusted = FALSE
 	/// Have we got a rusty overlay?
 	var/rusted_overlay
+	/// Are we a explodable turf?
+	var/explodable = FALSE
+	/// Do we have a explodable overlay?
+	var/explodable_overlay
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
@@ -57,6 +62,7 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10, 1)
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -80,10 +86,8 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-
-/turf/simulated/wall/detailed_examine()
-	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
-			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+	if(can_dismantle_with_welder)
+		. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()
@@ -106,13 +110,17 @@
 		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
 		. += rusted_overlay
 
+	if(explodable && !explodable_overlay)
+		explodable_overlay = icon('icons/turf/overlays.dmi', pick("explodable"), pick(NORTH, SOUTH, EAST, WEST))
+		. += explodable_overlay
+
 	if(!damage)
 		. += dent_decals
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
-		overlay = damage_overlays.len
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
+		overlay = length(damage_overlays)
 
 	if(length(dent_decals))
 		. += dent_decals
@@ -121,9 +129,9 @@
 	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
-	var/alpha_inc = 256 / damage_overlays.len
+	var/alpha_inc = 256 / length(damage_overlays)
 
-	for(var/i = 1; i <= damage_overlays.len; i++)
+	for(var/i = 1; i <= length(damage_overlays); i++)
 		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
 		img.blend_mode = BLEND_MULTIPLY
 		img.alpha = (i * alpha_inc) - 1
@@ -146,17 +154,6 @@
 		dismantle_wall()
 	else
 		update_icon()
-
-/turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
-	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
-	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
-		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.set_angle(new_angle_s)
-	return TRUE
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
@@ -186,10 +183,10 @@
 	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
-			return
 		if(2.0)
 			if(prob(50))
 				take_damage(rand(150, 250))
@@ -197,14 +194,12 @@
 				dismantle_wall(1, 1)
 		if(3.0)
 			take_damage(rand(0, 250))
-		else
-	return
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		dismantle_wall()
 	else
-		add_dent(WALL_DENT_HIT)
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
@@ -229,7 +224,7 @@
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			else
-				add_dent(WALL_DENT_HIT)
+				add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 		if(TOX)
@@ -251,9 +246,8 @@
 	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 20 SECONDS
-	if(speed)
-		wait = speed
+	if(melting)
+		return
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
 
@@ -266,16 +260,39 @@
 	O.density = TRUE
 	O.layer = 5
 
-	src.ChangeTurf(/turf/simulated/floor/plating)
-
-	var/turf/simulated/floor/F = src
-	F.burn_tile()
-	F.icon_state = "plating"
 	if(user)
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
-	spawn(wait)
+	if(speed)
+		melting = TRUE
+		while(speed > 0)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+			speed = max(0, speed - 1 SECONDS)
+			sleep(1)
+		burn_down()
+		var/turf/simulated/floor/F = src
+		F.burn_tile()
+		F.icon_state = "plating"
 		if(O)	qdel(O)
+		return
+
+	melting = TRUE
+	while(reagents.get_reagent_amount("thermite") > 0)
+		reagents.remove_reagent("thermite", 5)
+		if(damage_cap - damage <= 30)
+			burn_down()
+
+			var/turf/simulated/floor/F = src
+			F.burn_tile()
+			F.icon_state = "plating"
+			break
+		take_damage(30)
+		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		sleep(1 SECONDS)
+	if(iswallturf(src))
+		melting = FALSE
+	if(O)
+		qdel(O)
 	return
 
 //Interactions
@@ -287,9 +304,9 @@
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			dismantle_wall(1)
-			to_chat(M, "<span class='info'>You smash through the wall.</span>")
+			to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 		else
-			to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 			take_damage(rand(25, 75))
 			return
 
@@ -305,8 +322,8 @@
 		dismantle_wall(TRUE)
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		add_dent(WALL_DENT_HIT)
-		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
+		to_chat(user, "<span class='notice'>You punch the wall.</span>")
 	return TRUE
 
 /turf/simulated/wall/attack_hand(mob/user)
@@ -342,15 +359,15 @@
 
 	if(try_wallmount(I, user, params))
 		return
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper_engineering))
+	// The cyborg gripper does a separate attackby, so bail from this one
+	if(istype(I, /obj/item/gripper))
 		return
 
 	return ..()
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
 	if(rotting)
@@ -395,7 +412,7 @@
 			dismantle_wall()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+	if((!I.sharp && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
@@ -435,13 +452,21 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 		return TRUE
 
-	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
 			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+		return TRUE
+
+	else if(istype(I, /obj/item/zombie_claw))
+		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
+		if(do_after(user, isdiamond ? 2 MINUTES * I.toolspeed : 1 MINUTES * I.toolspeed, target = src)) // 120/60 seconds by default
+			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] claws through [src]!</span>","<span class='warning'>You hear the grinding of metal and bone.</span>")
 		return TRUE
 	return FALSE
 
@@ -516,9 +541,9 @@
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
 	switch(denttype)
-		if(WALL_DENT_SHOT)
+		if(PROJECTILE_IMPACT_WALL_DENT_SHOT)
 			decal.icon_state = "bullet_hole"
-		if(WALL_DENT_HIT)
+		if(PROJECTILE_IMPACT_WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
 	decal.pixel_x = x
@@ -530,5 +555,17 @@
 		dent_decals = list(decal)
 
 	update_icon()
+
+/turf/simulated/wall/MouseEntered(location, control, params)
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+
+/turf/simulated/wall/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 #undef MAX_DENT_DECALS

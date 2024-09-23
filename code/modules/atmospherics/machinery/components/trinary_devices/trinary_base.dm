@@ -1,9 +1,10 @@
 /obj/machinery/atmospherics/trinary
 	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 
-	layer = GAS_FILTER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
+	layer_offset = GAS_FILTER_OFFSET
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2
@@ -198,18 +199,12 @@
 	var/turf/T = get_turf(src)
 	if(T)
 		//Remove the gas from air1+air2+air3 and assume it
-		var/datum/gas_mixture/environment = T.return_air()
-		var/lost = pressures*environment.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air3.temperature * R_IDEAL_GAS_EQUATION)
+		var/lost = pressures * CELL_VOLUME / (air1.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures * CELL_VOLUME / (air2.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures * CELL_VOLUME / (air3.temperature() * R_IDEAL_GAS_EQUATION)
 		var/shared_loss = lost/3
 
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
 		to_release.merge(air3.remove(shared_loss))
-		T.assume_air(to_release)
-		air_update_turf(1)
-
-/obj/machinery/atmospherics/trinary/process_atmos()
-	..()
-	return parent1 && parent2 && parent3
+		T.blind_release_air(to_release)

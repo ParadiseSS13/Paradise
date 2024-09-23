@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, ProgressBar } from '../components';
+import { Button, LabeledList, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 export const DisposalBin = (props, context) => {
@@ -20,12 +20,9 @@ export const DisposalBin = (props, context) => {
     stateText = 'Idle';
   }
   return (
-    <Window>
+    <Window width={300} height={260}>
       <Window.Content>
-        <Section>
-          <Box bold m={1}>
-            Status
-          </Box>
+        <Section title="Status">
           <LabeledList>
             <LabeledList.Item label="State" color={stateColor}>
               {stateText}
@@ -43,23 +40,22 @@ export const DisposalBin = (props, context) => {
               />
             </LabeledList.Item>
           </LabeledList>
-          <Box bold m={1}>
-            Controls
-          </Box>
+        </Section>
+        <Section title="Controls">
           <LabeledList>
             <LabeledList.Item label="Handle">
               <Button
                 icon="toggle-off"
                 disabled={data.isAI || data.panel_open}
                 content="Disengaged"
-                selected={data.flushing ? null : 'selected'}
+                selected={!data.flushing}
                 onClick={() => act('disengageHandle')}
               />
               <Button
                 icon="toggle-on"
                 disabled={data.isAI || data.panel_open}
                 content="Engaged"
-                selected={data.flushing ? 'selected' : null}
+                selected={data.flushing}
                 onClick={() => act('engageHandle')}
               />
             </LabeledList.Item>
@@ -68,24 +64,19 @@ export const DisposalBin = (props, context) => {
                 icon="toggle-off"
                 disabled={data.mode === -1}
                 content="Off"
-                selected={data.mode ? null : 'selected'}
+                selected={!data.mode}
                 onClick={() => act('pumpOff')}
               />
               <Button
                 icon="toggle-on"
                 disabled={data.mode === -1}
                 content="On"
-                selected={data.mode ? 'selected' : null}
+                selected={data.mode}
                 onClick={() => act('pumpOn')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Eject">
-              <Button
-                icon="sign-out-alt"
-                disabled={data.isAI}
-                content="Eject Contents"
-                onClick={() => act('eject')}
-              />
+              <Button icon="sign-out-alt" disabled={data.isAI} content="Eject Contents" onClick={() => act('eject')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -10,18 +10,18 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 	if(GLOB.deathsquad_sent)
-		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",, "Yes", "No") != "Yes")
+		if(alert("A Deathsquad is already being sent, are you sure you want to send another?", null, "Yes", "No") != "Yes")
 			return
 	else
-		if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",, "Yes", "No") != "Yes")
+		if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.", null, "Yes", "No") != "Yes")
 			return
 	message_admins("<span class='notice'>[key_name_admin(proccaller)] has started to spawn a DeathSquad.</span>")
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
 	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader.</span>")
 
-	var/mission = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
+	var/mission = sanitize(copytext_char(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
 	if(!mission)
-		if(alert("Error, no mission set. Do you want to exit the setup process?",, "Yes", "No") == "Yes")
+		if(alert("Error, no mission set. Do you want to exit the setup process?", null, "Yes", "No") == "Yes")
 			message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 			return
@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 	var/is_leader = TRUE
 	if(GLOB.deathsquad_sent)
-		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another unrestricted NAD?",, "Yes", "No") != "Yes")
+		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another unrestricted NAD?", null, "Yes", "No") != "Yes")
 			is_leader = FALSE
 	GLOB.deathsquad_sent = TRUE
 	message_admins("[key_name_admin(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
@@ -50,22 +50,30 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 	// Find the nuclear auth code
 	var/nuke_code
+	var/new_nuke = FALSE
 	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+		if(istype(N, /obj/machinery/nuclearbomb/syndicate) || !N.core)
+			continue
 		var/temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
 			break
 	if(!nuke_code)
-		message_admins("No nuclear warheads have been detected, the Deathsquad will not be provided detonation codes.")
+		message_admins("No functional nuclear warheads have been detected, the Deathsquad will be issued a new warhead.")
+		new_nuke = TRUE
+		nuke_code = rand(10000, 99999)
+
+	if(alert("Do you want a new nuclear warhead to be spawned with this team?", null, "Yes", "No") == "Yes")
+		new_nuke = TRUE
 
 	// Find ghosts willing to be Deathsquad
 	var/list/commando_ghosts = list()
-	if(alert("Would you like to custom pick your Deathsquad?",, "Yes", "No") == "Yes")
+	if(alert("Would you like to custom pick your Deathsquad?", null, "Yes", "No") == "Yes")
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?", null, 21, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 		if(length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the amount requested
 	if(!length(commando_ghosts))
@@ -73,6 +81,12 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		log_admin("[key_name(proccaller)]'s Deathsquad had no volunteers and was cancelled.")
 		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
+
+	// Spawns a nuclear warhead for the team
+	if(new_nuke)
+		for(var/obj/effect/landmark/spawner/nuclear_bomb/death_squad/nuke_spawn in GLOB.landmarks_list)
+			var/obj/machinery/nuclearbomb/undeployed/the_bomb = new (get_turf(nuke_spawn))
+			the_bomb.r_code = nuke_code
 
 	// Equips the Deathsquad
 	for(var/mob/ghost_mob in commando_ghosts)
@@ -132,6 +146,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			SSticker.minds += R.mind
 		SSticker.mode.traitors += R.mind
 		R.key = ghost_mob.key
+		dust_if_respawnable(ghost_mob)
 		if(nuke_code)
 			R.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
 		R.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
@@ -140,6 +155,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		var/mob/living/carbon/human/new_commando = create_deathsquad_commando(L, is_leader)
 		new_commando.mind.key = ghost_mob.key
 		new_commando.key = ghost_mob.key
+		dust_if_respawnable(ghost_mob)
 		new_commando.update_action_buttons_icon()
 		if(nuke_code)
 			new_commando.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")

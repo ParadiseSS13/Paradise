@@ -9,7 +9,7 @@
 	key_third_person = "roars"
 	message = "roars!"
 	message_param = "roars at %t!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	sound = "sound/voice/hiss5.ogg"
 	volume = 80
 
@@ -18,7 +18,7 @@
 	key_third_person = "hisses"
 	message = "hisses!"
 	message_param = "hisses at %t!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	sound = "sound/voice/hiss1.ogg"
 	volume = 30
 
@@ -28,5 +28,5 @@
 	message = "gnarls and shows its teeth."
 	message_param = "gnarls and flashes its teeth at %t."
 	sound = "sound/voice/hiss4.ogg"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	volume = 30

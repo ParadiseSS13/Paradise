@@ -12,7 +12,7 @@
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
-	. += "[initial(desc)] The planchette is sitting at \"[planchette]\"."
+	. += "The planchette is sitting at \"[planchette]\"."
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
@@ -78,3 +78,7 @@
 		return 0
 
 	return 1
+
+/obj/structure/spirit_board/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 4 SECONDS)

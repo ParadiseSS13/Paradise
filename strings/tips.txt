@@ -1,13 +1,13 @@
 Space map levels' connections are randomized between rounds, but are otherwise kept consistent in the same round.
 You can catch thrown items by toggling on your throw mode with an empty hand active.
-To crack the safe in the vault, use a stethoscope or thermal drill.
+To crack the safe in the vault, use a stethoscope or thermal drill. You can also steal the combination paper from the captain's office, if they didn't secure it.
 You can climb onto a table by dragging yourself onto one. This takes some time. Clicking on a table that someone else is climbing onto will knock them down.
 You can drag other players onto yourself to open the strip menu, letting you remove their equipment or force them to wear something. Note that exosuits or helmets will block your access to the clothing beneath them, and that certain items take longer to strip or put on than others.
 Clicking on a windoor rather than bumping into it will keep it open. You can click it again to close it.
 You can spray a fire extinguisher, throw items, or fire a gun while floating through space to change your direction. Simply fire in the opposite direction of where you want to go.
 You can change the control scheme by pressing tab. One uses WASD for movement, while the other uses the arrow keys. Keep in mind that hotkeys are also changed with this.
 Firesuits and winter coats offer mild protection from the cold, allowing you to spend longer periods of time near breaches and space than if wearing nothing at all.
-Glass shards can be welded to make glass, and metal rods can be welded to make metal. Ores can be welded too, but this takes a lot of fuel.
+Glass shards can be welded to make glass, and metal rods and tiles can be welded to make metal. Ores can be welded too, but this takes a lot of fuel.
 If you need to drag multiple people either to safety or to space, bring a locker over and stuff them all in before hauling them off.
 You can grab someone by clicking on them with the grab intent, then upgrade the grab by clicking on the grab itself. An aggressive grab will allow you to place them on a table by clicking on it, or throw them by toggling on throwing.
 Holding alt and left clicking a tile will allow you to see its contents in the top right window panel, which is much faster than right clicking.
@@ -17,7 +17,7 @@ You can recolor certain items like jumpsuits and gloves in washing machines by a
 Maintenance is full of equipment that is randomized every round. Look around and see if anything is worth using.
 Some roles cannot be antagonists by default, but antag selection is decided first. For instance, you can set Security Officer to High without affecting your chances of becoming an antag -- the game will just select a different role.
 There are many places around the station to hide contraband. A few for starters: linen boxes, toilet cisterns, body bags. Experiment to find more!
-When in doubt about technicial issues, clear your cache (byond launcher > cogwheel > preferences > game prefs), update your BYOND, and relog.
+When in doubt about technical issues, clear your cache (byond launcher > cogwheel > preferences > game prefs), update your BYOND, and relog.
 Most things have special interactions with your middle mouse button, alt, shift, and control click. Experiment!
 If you find yourself in a fistfight with another player, running away and calling for help is a perfectly viable option.
 Different weapons have different strengths. Some weapons, such as spears, floor tiles, and throwing stars, deal more damage when thrown compared to when attacked normally.
@@ -29,6 +29,7 @@ Most job-related exosuit clothing can fit job-related items into it. For example
 If there's something you need from another department, try asking! This game isn't singleplayer and you'd be surprised what you can get accomplished together!
 You'll quickly lose your interest in the game if you play to win and kill. If you find yourself doing this, take a step back and talk to people - it's a much better experience!
 Don't be afraid to ask for help, whether from your peers or from mentors.
+If someone is in critical condition, you can interact with them to start performing CPR. This will heal oxygen damage and help restart breathing. Additionally, if the patient is dead but still revivable, it will extend the defibrillation window for as long as CPR continues. If you or the patient is wearing a mask or you are a species that doesn't breathe the same kind of air as the patient, it will be less effective.
 As the Captain, you are one of the highest priority targets on the station. Everything from nuclear operatives to traitors that need to rob you of your unique lasergun or your life are things to worry about.
 As the Captain, always take the nuclear disk and pinpointer with you every shift. It's a good idea to give one of these to another head or Blueshield you can trust with keeping it safe.
 As the Captain, you have absolute access and control over the station, but this does not mean that being a horrible person won't result in mutiny and a ban.
@@ -52,17 +53,17 @@ As a Scientist, you can disable anomalies by scanning them with an analyzer, the
 As a Scientist, researchable stock parts can seriously improve the efficiency and speed of machines around the station. In some cases, it can even unlock new functions.
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on a bluespace anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
-As a Roboticist, you can reset a cyborg's module by cutting and mending the reset wire with a wire cutter or using a cyborg reset module.
+As a Roboticist, you can use a multitool on an empty cyborg shell to alter various settings, including whether it will connect to the AI.
 As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can easily be repaired with cables and welders.
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs, or aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
 As a Cyborg, choose your module carefully, as only a cyborg reset module will let you repick it.
-As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes can easily stunlock you and you cannot do any precision work as you lack hands.
+As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes can easily stunlock you and there are many tasks you cannot perform as your grippers will not allow you to.
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your magnetic gripper.
-As a Medical Cyborg, you can partially perform surgery, as you cannot replace organs, but you cannot fail any surgery steps.
+As a Medical Cyborg, the Hydrocodone in your Cyborg you can perform most surgery procedures even in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
 As a Janitor Cyborg, you are the bane of all slaughter demons. Cleaning up blood stains will severely hinder them.
 As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints.
 As the Chief Engineer, your hardsuit is significantly better than everybody else's. It has the best features of both engineering and atmospherics hardsuits, boasting nigh-invulnerability to radiation and all atmospheric conditions. It even has a built in jet-pack!
@@ -75,6 +76,7 @@ As an Engineer, you can repair windows by using a welding tool on them while on 
 As an Engineer, you can lock APCs, fire alarms, emitters, and radiation collectors using your ID card to prevent others from disabling them.
 As an Engineer, don't underestimate the humble P.A.C.M.A.N. generators. With upgraded parts, a couple units working in tandem are sufficient to take over for an exploded engine or shattered solars.
 As an Engineer, you can pry open secure storage blast doors by turning off the secure storage APC's enviroment power channel.
+As an Engineer, you can set up the SMES units before working on the engine. This will stop the station from running out of power before the engine is online.
 As an Atmospheric Technician, look into replacing your gas pumps with volumetric gas pumps, as those move air in flat numerical amounts, rather than percentages which leave trace gases.
 As an Atmospheric Technician, you are better suited to fighting fires than anyone else. As such, you have access to better firesuits, backpack firefighter tanks, and a completely heat and fire proof hardsuit.
 As an Atmospheric Technician, your backpack firefighter tank can launch cryofrost. This resin will extinguish fires and very quickly; it's ideal for plasma fires!
@@ -112,7 +114,7 @@ As a Botanist, you can combine production trait chemicals just like a Chemist. C
 As the Chef, you can create a very wide variety of food with the crafting menu. You can find it by looking for the hammer icon near your intents.
 As the Chef, you can rename your custom made food with a pen.
 As the Chef, if you are low on ingredients, consider making something that has several servings to last longer among the crew.
-As the Bartender, you can use a circular saw on your shotgun to make it easier to store.
+As the Bartender, you can use a circular saw on your shotgun to make it easier to store. Remember to unload it first!
 As a Janitor, if someone steals your janicart, you can instead use your space cleaner spray, grenades, water sprayer or order another from Cargo.
 As a Janitor, mousetraps can be used to create bombs or booby-trap containers.
 As the Librarian, be sure to keep the shelves stocked and the library clean for crew.
@@ -128,7 +130,7 @@ As a Traitor, you can manufacture and recycle revolver bullets at a hacked autol
 As a Traitor, you may sometimes be assigned to hunt other traitors, and in turn be hunted by others.
 As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors -- or, of course, betraying them.
 As a Traitor, plasma can be injected into many things to sabotage them. Power cells, light bulbs, cigars and e-cigs will all explode when used.
-As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 40TC but contains a lot of random syndicate gear.
+As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 200 TC but contains a lot of random syndicate gear.
 As a Traitor, you can eject someone from cloning early by disabling power in genetics. Note that they will suffer more genetic damage and may lose vital organs from this.
 As a Nuclear Operative, communication is key! Use ; to speak to your fellow operatives and coordinate an attack plan.
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.
@@ -137,6 +139,7 @@ As a Nuclear Operative, you might end up in a situation where the AI has bolted 
 As a Monkey, you can still wear a few human items, such as backpacks, gas masks, and hats, and still have two free hands.
 As the Malfunctioning AI, you can shunt to an APC if the situation gets bad.
 As the Malfunctioning AI, you should either order your cyborgs to dismantle the robotics console or blow it up yourself in order to protect them.
+As the Malfunctioning AI, you start with access to the syndicate comms frequency. You can listen in on traitor communications, or reach out and coordinate with them.
 As an Alien, your melee prowess is unmatched, but your ranged abilities are sorely lacking. Make use of corners to force a melee confrontation!
 As an Alien, you take double damage from all burn attacks, such as lasers, welding tools, and fires. Furthermore, fire can destroy your resin and eggs. Expose areas to space to starve away any flamethrower fires before they can do damage!
 As an Alien, resin floors not only regenerate your plasma supply, but also passively heal you. Fight on resin floors to gain a home turf advantage!
@@ -161,6 +164,7 @@ As a Wizard, the fireball spell performs very poorly at close range, as it can e
 As a Wizard, summoning guns will give everyone anything from a floral somatoray to a pulse rifle. Use at your own risk!
 As a Wizard, the staff of chaos can fire any type of bolts from the magical wands. This can range from bolts of instant death to healing or reviving someone.
 As a Wizard, most spells become unusable if you are not wearing your robe, hat, and sandals.
+As a Wizard, don't forget to grab Mugwort before leaving your den, it's a very useful medicine!
 As an Abductor, you can select where your victims will be sent on the ship control console.
 As an Abductor Agent, the combat mode vest has much higher resistance to every kind of weapon, and your helmet prevents the AI from tracking you.
 As an Abductor, the baton can cycle between four modes: stun, sleep, cuff and probe.
@@ -180,11 +184,15 @@ As a Terror Spider, protect the queen at all cost!
 As a Terror Spider, don't forget you can move your nest if the crew is pressuring you too badly.
 As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
 As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
+Remote signalers are extremely versatile. They can be used in bombs, hacking, counteracting anomalies, and much more. Get creative!
+Need to perform surgery? No surgery kit? No worries! You can use a wide variety of improvised tools to perform ghetto surgery! For example, using a wrench as a stand-in for a bone setter, or a cigarette as a cautery. You can even use alcohol as a makeshift painkiller. Just be aware that these tools may not work as well as proper ones.
+If you examine something twice in quick succession, you will perform an extended examination. Many items have extended descriptions that give you more information about the world.
+You can dip cigarettes into beakers or inject reagents into them. This can be used to infuse cigarettes with powerful medications or poisons which will slowly release over time. Welding fuel and plasma make them explode when lit!
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
-Sleeping in a bed can heal minor amounts of brute and burn damage.
+Sleeping in a bed can heal minor amounts of brute and burn damage. It can also cure the common cold.
 The Experimentor has a chance to spawn hostile mobs. Be ready to run for your life when using it.
 Space ruins can contain all kinds of interesting goodies, even a wand that can raise the dead!
 Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
@@ -193,3 +201,4 @@ Blob structures take half damage from brute damage. Use lasers.
 You can hide paper in vents, but you have to use a screwdriver to open it first.
 While the Standard Operating Procedures aren't fully rules, they are there for safety and professional reasons.
 Killing the Wizard usually ends the round, unless they are a lich or Space Wizard Federation is RAGING.
+The admins are not omnipotent and can miss things that happen during the chaos of a round. If someone is breaking the rules, you can press F1 or use the Ahelp verb to notify them. Even if there are no admins online, the Ahelp will be recorded. It also gets sent to a special channel on the Paradise Discord.

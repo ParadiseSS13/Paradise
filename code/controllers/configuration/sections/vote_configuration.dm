@@ -1,6 +1,6 @@
 /// Config holder for stuff relating to the ingame vote system
 /datum/configuration_section/vote_configuration
-	/// How long will a vote last for (deciseconds)
+	/// How long will a vote last for in deciseconds
 	var/vote_time = 60 SECONDS // 60 seconds
 	/// Time before the first shuttle vote (deciseconds)
 	var/autotransfer_initial_time = 2 HOURS // 2 hours

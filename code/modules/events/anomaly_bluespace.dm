@@ -1,8 +1,7 @@
 /datum/event/anomaly/anomaly_bluespace
-	name = "Anomaly: Bluespace"
+	name = "Anomaly event"
 	startWhen = 3
 	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/bluespace
-
-/datum/event/anomaly/anomaly_bluespace/announce()
-	GLOB.minor_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_bluespace.ogg')
+	prefix_message = "Unstable bluespace anomaly detected on long range scanners."
+	announce_sound = 'sound/AI/anomaly_bluespace.ogg'

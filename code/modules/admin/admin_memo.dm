@@ -132,7 +132,7 @@
 				var/last_editor = query_memoshow.item[4]
 				output += "<span class='memo'>Memo by <span class='prefix'>[ckey]</span> on [timestamp]"
 				if(last_editor)
-					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
+					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
 				output += "<br>[memotext]</span><br>"
 			if(output)
 				to_chat(src, output)
@@ -152,7 +152,7 @@
 				memolist += "[ckey]"
 
 			qdel(query_memodellist)
-			if(!memolist.len)
+			if(!length(memolist))
 				to_chat(src, "No memos found in database.")
 				return
 

@@ -23,11 +23,8 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
@@ -55,6 +52,7 @@
 		return
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
@@ -90,7 +88,7 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
+		if(level == 1 && (T.intact||T.transparent_floor)) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
@@ -105,18 +103,19 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
-		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
+		M.emote("me", EMOTE_VISIBLE, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
 		if(M.environment_smash)
 			play_soundeffect = 0
+		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(M.obj_damage)
 			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
 		else
 			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
 		if(. && !play_soundeffect)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return TRUE
@@ -168,14 +167,13 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 ///the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
 	if(!(resistance_flags & UNACIDABLE) && acid_volume)
-
 		if(!acid_level)
 			SSacid.processing[src] = src
 			add_overlay(GLOB.acid_overlay, TRUE)
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
-		return 1
+		return TRUE
 
 ///the proc called by the acid subsystem to process the acid that's on the obj
 /obj/proc/acid_processing()
@@ -194,12 +192,17 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	SSacid.processing -= src
 	deconstruct(FALSE)
 
+/obj/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	. = ..()
+	if(acid_level)
+		acid_level = 0
+
 //// FIRE
 
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
+		if(level == 1 && (T.intact||T.transparent_floor)) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(QDELETED(src))  // Some items, like patches, might get qdeled in the parent call

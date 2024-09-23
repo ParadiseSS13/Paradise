@@ -3,26 +3,14 @@ import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Chart,
-  ColorBox,
-  Flex,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Table,
-} from '../components';
+import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table } from '../components';
 import { Window } from '../layouts';
 const PEAK_DRAW = 600000;
 
 export const PowerMonitor = (props, context) => {
   return (
-    <Window resizeable>
+    <Window width={600} height={650}>
       <Window.Content scrollable>
         <PowerMonitorMainContent />
       </Window.Content>
@@ -52,7 +40,7 @@ const SelectionView = (props, context) => {
       {powermonitors.map((p) => (
         <Box key={p}>
           <Button
-            content={p.Name}
+            content={p.Area}
             icon="arrow-right"
             onClick={() =>
               act('selectmonitor', {
@@ -80,11 +68,7 @@ const DataView = (props, context) => {
       </Box>
     );
   } else {
-    const [sortByField, setSortByField] = useLocalState(
-      context,
-      'sortByField',
-      null
-    );
+    const [sortByField, setSortByField] = useLocalState(context, 'sortByField', null);
     const supply = history.supply[history.supply.length - 1] || 0;
     const demand = history.demand[history.demand.length - 1] || 0;
     const supplyData = history.supply.map((value, i) => [i, value]);
@@ -103,28 +87,18 @@ const DataView = (props, context) => {
     ])(apcs);
 
     body = (
-      <Fragment>
+      <>
         <Flex spacing={1}>
           <Flex.Item width="200px">
             <Section>
               <LabeledList>
                 <LabeledList.Item label="Supply">
-                  <ProgressBar
-                    value={supply}
-                    minValue={0}
-                    maxValue={maxValue}
-                    color="green"
-                  >
+                  <ProgressBar value={supply} minValue={0} maxValue={maxValue} color="green">
                     {toFixed(supply / 1000) + ' kW'}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Draw">
-                  <ProgressBar
-                    value={demand}
-                    minValue={0}
-                    maxValue={maxValue}
-                    color="red"
-                  >
+                  <ProgressBar value={demand} minValue={0} maxValue={maxValue} color="red">
                     {toFixed(demand / 1000) + ' kW'}
                   </ProgressBar>
                 </LabeledList.Item>
@@ -132,7 +106,7 @@ const DataView = (props, context) => {
             </Section>
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Section position="relative" height="100%">
+            <Section fill ml={1}>
               <Chart.Line
                 fillPositionedParent
                 data={supplyData}
@@ -193,9 +167,7 @@ const DataView = (props, context) => {
               <Table.Cell className="Table__cell text-right text-nowrap">
                 <AreaCharge charging={area.CellStatus} charge={area.CellPct} />
               </Table.Cell>
-              <Table.Cell className="Table__cell text-right text-nowrap">
-                {area.Load}
-              </Table.Cell>
+              <Table.Cell className="Table__cell text-right text-nowrap">{area.Load}</Table.Cell>
               <Table.Cell className="Table__cell text-center text-nowrap">
                 <AreaStatusColorBox status={area.Equipment} />
               </Table.Cell>
@@ -208,7 +180,7 @@ const DataView = (props, context) => {
             </Table.Row>
           ))}
         </Table>
-      </Fragment>
+      </>
     );
   }
 
@@ -216,15 +188,7 @@ const DataView = (props, context) => {
     <Section
       title={powermonitor}
       buttons={
-        <Box m={0}>
-          {select_monitor && (
-            <Button
-              content="Back"
-              icon="arrow-up"
-              onClick={() => act('return')}
-            />
-          )}
-        </Box>
+        <Box m={0}>{select_monitor && <Button content="Back" icon="arrow-up" onClick={() => act('return')} />}</Box>
       }
     >
       {body}
@@ -235,13 +199,12 @@ const DataView = (props, context) => {
 const AreaCharge = (props) => {
   const { charging, charge } = props;
   return (
-    <Fragment>
+    <>
       <Icon
         width="18px"
         textAlign="center"
         name={
-          (charging === 'N' &&
-            (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
+          (charging === 'N' && (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
           (charging === 'C' && 'bolt') ||
           (charging === 'F' && 'battery-full') ||
           (charging === 'M' && 'slash')
@@ -256,7 +219,7 @@ const AreaCharge = (props) => {
       <Box inline width="36px" textAlign="right">
         {toFixed(charge) + '%'}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -284,15 +247,8 @@ const AreaStatusColorBox = (props) => {
       active = false;
       break;
   }
-  const tooltipText =
-    (active ? 'On' : 'Off') + ` [${auto ? 'auto' : 'manual'}]`;
-  return (
-    <ColorBox
-      color={active ? 'good' : 'bad'}
-      content={auto ? undefined : 'M'}
-      title={tooltipText}
-    />
-  );
+  const tooltipText = (active ? 'On' : 'Off') + ` [${auto ? 'auto' : 'manual'}]`;
+  return <ColorBox color={active ? 'good' : 'bad'} content={auto ? undefined : 'M'} title={tooltipText} />;
 };
 
 AreaStatusColorBox.defaultHooks = pureComponentHooks;

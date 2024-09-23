@@ -41,30 +41,13 @@
 	payload_name = "holy water"
 	desc = "Then shalt thou count to three, no more, no less."
 	stage = 2
-	det_time = 30
+	det_time = 3 SECONDS
 
 /obj/item/grenade/chem_grenade/holywater/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B = new(src)
 	B.reagents.add_reagent("holywater",100)
 	beakers += B
-
-/obj/item/grenade/chem_grenade/hellwater
-	payload_name = "hell water"
-	desc = "And he struck them down with an unholy fury that burn like one-thousands badmins."
-	stage = 2
-	det_time = 30
-
-/obj/item/grenade/chem_grenade/hellwater/Initialize(mapload)
-	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
-	B1.reagents.add_reagent("hell_water",80)
-	B1.reagents.add_reagent("sugar",20)
-	B2.reagents.add_reagent("hell_water", 60)
-	B2.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
-
 
 /obj/item/grenade/chem_grenade/drugs
 	payload_name = "miracle"

@@ -1,5 +1,4 @@
-body 
-{ 
+body {
 	padding: 0;
 	margin: 0;
 	background-color: #272727;
@@ -8,84 +7,114 @@ body
 	line-height: 170%;
 }
 
-hr
-{
+hr {
 	background-color: #40628a;
-	height: 1px;
+	height: 2px;
+	border: 0;
 }
 
-a, a:link, a:visited, a:active, .linkOn, .linkOff
-{ 
-	color: #ffffff; 
+a,
+a:link,
+a:visited,
+a:active,
+.linkOn,
+.linkOff {
+	color: #ffffff;
 	text-decoration: none;
 	background: #40628a;
 	border: 1px solid #161616;
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
-	cursor:default;
+	cursor: default;
 }
 
-a.nobg, a.nobg:link, a.nobg:visited, a.nobg:active
-{ 
-	color: #ffffff; 
+a.nobg,
+a.nobg:link,
+a.nobg:visited,
+a.nobg:active {
+	color: #ffffff;
 	text-decoration: none;
 	background: transparent;
 	border: none;
 	padding: 0px;
 	margin: 0px;
-	cursor:default;
-	font-weight:bold;
+	cursor: default;
+	font-weight: bold;
 }
-a.nobg:hover 
-{ 
-	color:#40628a;
+a.nobg:hover {
+	color: #40628a;
 }
 
-a:hover 
-{ 
+a:hover {
 	color: #40628a;
 	background: #ffffff;
 }
 
-a.white, a.white:link, a.white:visited, a.white:active
-{ 
-	color: #40628a; 
+a.red {
+	background: #b30000;
+}
+
+a.red:hover {
+	color: #ffffff;
+	background: #ff0000;
+}
+
+a.green {
+	background: #408000;
+}
+
+a.green:hover {
+	color: #ffffff;
+	background: #59b300;
+}
+
+a.white,
+a.white:link,
+a.white:visited,
+a.white:active {
+	color: #40628a;
 	text-decoration: none;
 	background: #ffffff;
 	border: 1px solid #161616;
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
-	cursor:default;
+	cursor: default;
 }
 
-a.white:hover 
-{ 
+a.white:hover {
 	color: #ffffff;
 	background: #40628a;
 }
 
-.linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover
-{ 
-	color: #ffffff; 
+.linkOn,
+a.linkOn:link,
+a.linkOn:visited,
+a.linkOn:active,
+a.linkOn:hover {
+	color: #ffffff;
 	background: #2f943c;
 	border-color: #24722e;
 }
 
-.linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover
-{ 
-	color: #ffffff; 
+.linkOff,
+a.linkOff:link,
+a.linkOff:visited,
+a.linkOff:active,
+a.linkOff:hover {
+	color: #ffffff;
 	background: #999999;
 	border-color: #666666;
 }
 
-a.icon, .linkOn.icon, .linkOff.icon
-{
+a.icon,
+.linkOn.icon,
+.linkOff.icon {
 	position: relative;
 	padding: 1px 4px 2px 20px;
 }
 
-a.icon img, .linkOn.icon img
-{
+a.icon img,
+.linkOn.icon img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -93,144 +122,126 @@ a.icon img, .linkOn.icon img
 	height: 18px;
 }
 
-ul
-{
+ul {
 	padding: 4px 0 0 10px;
 	margin: 0;
 	list-style-type: none;
 }
 
-li
-{
+li {
 	padding: 0 0 2px 0;
 }
 
-img, a img 
-{ 
-	border-style:none; 
+img,
+a img {
+	border-style: none;
 }
 
-h1, h2, h3, h4, h5, h6
-{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	margin: 0;
-	padding: 16px 0 8px 0; 
+	padding: 16px 0 8px 0;
 	color: #517087;
 }
 
-h1
-{
+h1 {
 	font-size: 15px;
 }
 
-h2
-{
+h2 {
 	font-size: 14px;
 }
 
-h3
-{
+h3 {
 	font-size: 13px;
 }
 
-h4
-{
+h4 {
 	font-size: 12px;
 }
 
-.uiWrapper
-{
-
+.uiWrapper {
 	width: 100%;
 	height: 100%;
-	padding-top:32px;
+	padding-top: 32px;
 }
 
-.uiTitle
-{
+.uiTitle {
 	clear: both;
 	padding: 6px 8px 6px 8px;
 	border-bottom: 2px solid #161616;
 	background: #383838;
-	color: #98B0C3;
+	color: #98b0c3;
 	font-size: 16px;
 }
 
-.uiTitleWrapper
- {
- 	position:fixed;
- 	top:0px;
- 	left:0px;
- 	right:0px;
- 	z-index: 10
- }
- 
- .uiTitleButtons
- {
- 	position:fixed;
- 	top:0px;
- 	right:0px;
- 	height:32px;
- 	z-index:11;
- }
+.uiTitleWrapper {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 10;
+}
 
+.uiTitleButtons {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	height: 32px;
+	z-index: 11;
+}
 
-.uiTitle.icon
-{
+.uiTitle.icon {
 	padding: 6px 8px 6px 42px;
 	background-position: 2px 50%;
 	background-repeat: no-repeat;
 }
 
-.uiContent
-{	
+.uiContent {
 	clear: both;
 	padding: 8px;
 	font-family: Verdana, Geneva, sans-serif;
 }
 
-.good
-{
+.good {
 	color: #00ff00;
 }
 
-.average
-{
+.average {
 	color: #d09000;
 }
 
-.bad
-{
+.bad {
 	color: #ff0000;
 }
 
-.highlight
-{
-	color: #8BA5C4;
+.highlight {
+	color: #8ba5c4;
 }
 
-.dark
-{
+.dark {
 	color: #272727;
 }
 
-.notice
-{
+.notice {
 	position: relative;
-	background: #E9C183;
-	color: #15345A;
+	background: #e9c183;
+	color: #15345a;
 	font-size: 10px;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
 	margin: 4px;
 }
 
-.notice.icon
-{	
+.notice.icon {
 	padding: 2px 4px 0 20px;
 }
 
-.notice img
-{
+.notice img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -238,13 +249,11 @@ h4
 	height: 16px;
 }
 
-div.notice
-{
+div.notice {
 	clear: both;
 }
 
-.statusDisplay
-{
+.statusDisplay {
 	background: #000000;
 	color: #ffffff;
 	border: 1px solid #40628a;
@@ -252,34 +261,29 @@ div.notice
 	margin: 3px 0;
 }
 
-.statusLabel
-{
+.statusLabel {
 	width: 138px;
 	float: left;
 	overflow: hidden;
-	color: #98B0C3;
+	color: #98b0c3;
 }
 
-.statusValue
-{
+.statusValue {
 	float: left;
 }
 
-.block
-{
+.block {
 	padding: 8px;
 	margin: 10px 4px 4px 4px;
 	border: 1px solid #40628a;
 	background-color: #202020;
 }
 
-.block h3
-{
+.block h3 {
 	padding: 0;
 }
 
-.progressBar
-{
+.progressBar {
 	width: 240px;
 	height: 14px;
 	border: 1px solid #666666;
@@ -288,79 +292,67 @@ div.notice
 	overflow: hidden;
 }
 
-.progressFill
-{
+.progressFill {
 	width: 100%;
 	height: 100%;
 	background: #40628a;
 	overflow: hidden;
 }
 
-.progressFill.good
-{
+.progressFill.good {
 	color: #ffffff;
 	background: #00ff00;
 }
 
-.progressFill.average
-{
+.progressFill.average {
 	color: #ffffff;
 	background: #d09000;
 }
 
-.progressFill.bad
-{
+.progressFill.bad {
 	color: #ffffff;
 	background: #ff0000;
 }
 
-.progressFill.highlight
-{
+.progressFill.highlight {
 	color: #ffffff;
-	background: #8BA5C4;
+	background: #8ba5c4;
 }
 
-.clearBoth
-{
+.clearBoth {
 	clear: both;
 }
 
-.clearLeft
-{
+.clearLeft {
 	clear: left;
 }
 
-.clearRight
-{
+.clearRight {
 	clear: right;
 }
 
-.line
-{
+.line {
 	width: 100%;
 	clear: both;
 }
-.charPreview
-{
-	-ms-interpolation-mode: nearest-neighbor;
+.charPreview {
+	-ms-interpolation-mode: nearest-neighbor; /* Remove with Byond 516 */
+	image-rendering: pixelated;
 	width: 64px;
-	height:64px;
+	height: 64px;
 }
 
-.typing:after
-{
+.typing:after {
 	overflow: hidden;
 	display: inline-block;
 	vertical-align: bottom;
-	animation: ellipsis steps(4,end) 900ms infinite;
-	content: "\2026";
+	animation: ellipsis steps(4, end) 900ms infinite;
+	content: '\2026';
 	width: 0px;
 }
 
-@keyframes ellipsis
-{
-	to
-	{
+@keyframes ellipsis {
+	to {
 		width: 1.25em;
 	}
 }

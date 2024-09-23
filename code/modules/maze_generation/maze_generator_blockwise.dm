@@ -68,7 +68,7 @@
 			var/turf/T3 = unvisited_neighbours["[D]"] // Pick random dir turf
 
 			// Remove the color between the two
-			var/turf/T4 = get_step(T3, GetOppositeDir(text2num(D)))
+			var/turf/T4 = get_step(T3, REVERSE_DIR(text2num(D)))
 			T4?.color = MAZEGEN_TURF_CELL
 
 			// Mark as visited

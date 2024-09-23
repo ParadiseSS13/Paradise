@@ -15,7 +15,11 @@
 	. = ..()
 	if(SSticker.mode)//game hasn't started officially don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
-		icon_state = SSticker.cultdat.cult_wall_icon_state
+		icon_state = GET_CULT_DATA(cult_wall_icon_state, initial(icon_state))
+
+/turf/simulated/wall/cult/bullet_act(obj/item/projectile/Proj)
+	. = ..()
+	new /obj/effect/temp_visual/cult/turf(src)
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
@@ -23,7 +27,7 @@
 
 /turf/simulated/wall/cult/artificer/break_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
-	return null //excuse me we want no runed metal here
+	return //excuse me we want no runed metal here
 
 /turf/simulated/wall/cult/artificer/devastate_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
@@ -63,6 +67,11 @@
 	QDEL_NULL(realappearance)
 	return ..()
 
+/turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
+	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
+
 /turf/simulated/wall/clockwork/narsie_act()
 	..()
 	if(istype(src, /turf/simulated/wall/clockwork)) //if we haven't changed type
@@ -91,3 +100,22 @@
 	if(heated)
 		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
 		M.take_damage(20, BURN)
+
+/turf/simulated/wall/boss
+	name = "ancient wall"
+	desc = "A thick metal wall, it look very old."
+	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon_state = "boss_wall-0"
+	base_icon_state = "boss_wall"
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+	explosion_block = 2
+	damage_cap = 600
+	hardness = 10
+	heat_resistance = 20000
+	can_dismantle_with_welder = FALSE
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	sheet_type = /obj/item/stack/sheet/runed_metal
+	sheet_amount = 1
+	girder_type = /obj/structure/girder/cult

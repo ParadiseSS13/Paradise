@@ -55,6 +55,8 @@
 	var/carved = FALSE
 	///Item that is stored inside the book
 	var/obj/item/store
+	/// Cooldown for brain damage loss when reading
+	COOLDOWN_DECLARE(brain_damage_cooldown)
 
 /obj/item/book/Initialize(mapload, datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	. = ..()
@@ -137,6 +139,16 @@
 	if(!can_read(user))
 		return
 
+	if(isliving(user))
+		var/mob/living/L = user
+		// Books can be read every BRAIN_DAMAGE_BOOK_TIME, and has a minumum delay of BRAIN_DAMAGE_MOB_TIME between seperate book reads.
+		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
+			if(prob(10))
+				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
+			L.adjustBrainLoss(-1)
+			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
+			L.apply_status_effect(STATUS_BOOKWYRM)
+
 	show_content(user) //where all the magic happens
 	onclose(user, "book")
 
@@ -147,15 +159,15 @@
   * buttons and then builds the rest of the UI based on what page the player is turned to.
   */
 /obj/item/book/proc/show_content(mob/user)
-	var/dat = ""
+	var/dat = "<meta charset='utf-8'>"
 	//First, we're going to choose/generate our header buttons for switching pages and store it in var/dat
 	var/header_left = "<div style='float:left; text-align:left; width:49.9%'></div>"
 	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"
 	if(length(pages)) //No need to have page switching buttons if there's no pages
 		if(current_page < length(pages))
-			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(current_page)
-			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 
 	dat += header_left + header_right
 	//Now we're going to display the header buttons + the current page selected, if it's page 0, we display the cover_page instead
@@ -198,11 +210,11 @@
 	if(protected) //we don't want people touching "special" books, especially ones that use iframes
 		to_chat(user, "<span class='notice'>These pages don't seem to take the ink well. Looks like you can't modify it.</span>")
 		return
-	var/choice = input(user, "What would you like to edit?") as null|anything in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page")
+	var/choice = tgui_input_list(user, "What would you like to edit?", "Book Edit", list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page"))
 	switch(choice)
 		if("Title")
-			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
-			if(!newtitle)
+			var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
+			if(isnull(newtitle))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
@@ -210,14 +222,14 @@
 			name = "Book: " + newtitle
 			title = newtitle
 		if("Author")
-			var/newauthor = stripped_input(user, "Write the author's name:")
-			if(!newauthor)
+			var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
+			if(isnull(newauthor))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			author = newauthor
 		if("Summary")
-			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
-			if(!newsummary)
+			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN, multiline = TRUE)
+			if(isnull(newsummary))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			summary = newsummary
@@ -232,8 +244,8 @@
 			if(character_space_remaining <= 0)
 				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
-			var/content = strip_html(input(user, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
-			if(!content)
+			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE, multiline = TRUE)
+			if(isnull(content))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
@@ -255,8 +267,8 @@
 			if(!length(pages))
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
-			var/page_choice = input(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", null) as num|null
-			if(!page_choice)
+			var/page_choice = tgui_input_number(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", max_value = length(pages))
+			if(isnull(page_choice))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			if(page_choice <= 0 || page_choice > length(pages))
@@ -348,11 +360,14 @@
 	var/amount = 1
 
 /obj/item/book/random/Initialize()
-	..()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(spawn_books)), 0)
+
+/obj/item/book/random/proc/spawn_books()
 	var/list/books = GLOB.library_catalog.get_random_book(amount)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(loc, book, TRUE, FALSE)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/item/book/random/triple
 	amount = 3

@@ -11,7 +11,7 @@
 	throw_speed = 3
 	var/obj/item/pen/containedpen
 	var/obj/item/toppaper
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	resistance_flags = FLAMMABLE
 
 /obj/item/clipboard/New()
@@ -27,9 +27,7 @@
 		return
 	. = ..()
 
-/obj/item/clipboard/verb/removePen(mob/user)
-	set category = "Object"
-	set name = "Remove clipboard pen"
+/obj/item/clipboard/proc/removePen(mob/user)
 	if(!ishuman(user) || user.incapacitated())
 		return
 	penPlacement(user, containedpen, FALSE)
@@ -42,6 +40,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to remove its pen.</span>"
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
@@ -67,14 +66,14 @@
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = "<title>[src]</title>"
-	dat += "<a href='?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
+	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
-		dat += "<a href='?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
 	for(var/obj/item/P in src)
 		if(isPaperwork(P) == PAPERWORK && P != toppaper)
-			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a><a href='?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
 		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
 	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()

@@ -6,6 +6,8 @@
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 20 SECONDS
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -43,6 +45,7 @@
 	temp_deviance = 500
 	size_divisor = 80
 	mob_burning = 3 // 15
+	burn_temperature = T0C + 700
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -52,6 +55,9 @@
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 40 SECONDS
+	fire_stack_applications = 4 // BURN BABY BURN
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -91,6 +97,9 @@
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
+	burn_temperature = T0C + 400
+	burn_duration = 15 SECONDS // Barely better than default
+
 	var/max_radius = 7
 	var/min_radius = 0
 	var/volume_radius_modifier = -0.15
@@ -139,7 +148,7 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("fuel", volume)
 
-/datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
+/datum/reagent/fuel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume) // Splashing people with welding fuel to make them easy to ignite!
 	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
@@ -152,6 +161,8 @@
 	color = "#7A2B94"
 	taste_description = "corporate assets going to waste"
 	taste_mult = 1.5
+	burn_temperature = T0C + 400
+	burn_duration = 20 SECONDS
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -168,7 +179,7 @@
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(10)
+		C.add_plasma(10)
 	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
@@ -185,6 +196,8 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
+	burn_temperature = T0C + 1500 // hahahahHAHAHAHAH LET IT BURN
+	burn_duration = 5 SECONDS // Not for long though
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -209,7 +222,6 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
-		S.thermite = TRUE
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -238,6 +250,9 @@
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
+	burn_temperature = T0C + 700
+	burn_duration = 15 SECONDS
+	fire_stack_applications = 3
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -252,9 +267,8 @@
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
-		M.adjust_fire_stacks(10)
-		M.IgniteMob()
+	M.adjust_fire_stacks(10)
+	M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")
@@ -426,15 +440,8 @@
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
-	var/CT = cooling_temperature
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, cooling_temperature)
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"
@@ -457,7 +464,7 @@
 	update_flags |= M.adjustToxLoss(3, FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(20)
+		C.add_plasma(20)
 	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
@@ -465,3 +472,14 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/confetti
+	name = "Confetti"
+	id = "confetti"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "the tears of janitors"
+
+/datum/reagent/confetti/reaction_turf(turf/T, volume)
+	var/confetti = /obj/effect/decal/cleanable/confetti
+	new confetti(T)

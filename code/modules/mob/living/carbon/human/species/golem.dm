@@ -1,11 +1,12 @@
 /datum/species/golem
 	name = "Golem"
 	name_plural = "Golems"
+	max_age = 300
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BLOOD, NO_HAIR)
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
+	species_traits = list(NO_BLOOD, NO_HAIR, NOT_SELECTABLE)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS, TRAIT_XENO_IMMUNE, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
 	speed_mod = 2
@@ -14,7 +15,7 @@
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
-	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
+	no_equip = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_JUMPSUIT, SLOT_HUD_SUIT_STORE)
 	nojumpsuit = TRUE
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
@@ -52,7 +53,7 @@
 	// 3% chance that our golem has a human surname, because cultural contamination
 	if(prob(human_surname_chance))
 		golem_surname = pick(GLOB.last_names)
-	else if(special_names && special_names.len && prob(special_name_chance))
+	else if(special_names && length(special_names) && prob(special_name_chance))
 		golem_surname = pick(special_names)
 
 	var/golem_name = "[prefix] [golem_surname]"
@@ -111,7 +112,7 @@
 	name = "Plasma Golem"
 	skinned_type = /obj/item/stack/ore/plasma
 	//Can burn and takes damage from heat
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS) //no RESISTHEAT, NOFIRE
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS, TRAIT_BURN_WOUND_IMMUNE) //no RESISTHEAT, NOFIRE
 	golem_colour = rgb(170, 51, 221)
 	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
@@ -142,21 +143,21 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		var/datum/action/innate/ignite/ignite = new()
-		ignite.Grant(C)
+		var/datum/action/innate/golem_ignite/golem_ignite = new()
+		golem_ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	for(var/datum/action/innate/ignite/ignite in C.actions)
-		ignite.Remove(C)
+	for(var/datum/action/innate/golem_ignite/golem_ignite in C.actions)
+		golem_ignite.Remove(C)
 	..()
 
-/datum/action/innate/ignite
+/datum/action/innate/golem_ignite
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "sacredflame"
+	button_overlay_icon_state = "sacredflame"
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
@@ -267,6 +268,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(FALSE)
 	if(H.stat == DEAD)
 		return
 	H.adjustBruteLoss(-2)
@@ -288,7 +290,7 @@
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
 	//Can burn and take damage from heat
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	armor = 30
 	burn_mod = 1.25
@@ -311,7 +313,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
@@ -377,7 +379,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if(P.flag == BULLET || P.flag == BOMB)
+		if((P.flag == BULLET || P.flag == BOMB) && P.armour_penetration_percentage < 100)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
@@ -437,7 +439,7 @@
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You destabilize and teleport!</span>")
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
 			continue
@@ -446,7 +448,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -496,8 +498,8 @@
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "blink"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "blink"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
@@ -519,7 +521,7 @@
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
 			continue
@@ -530,7 +532,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -539,9 +541,9 @@
 		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtonIcon() //action icon looks unavailable
+	UpdateButtons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtonIcon() //action icon looks available again
+	UpdateButtons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"
@@ -559,7 +561,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS, TRAIT_BURN_WOUND_IMMUNE)
 	var/last_honk = 0
 	var/honkooldown = 0
 	var/last_banana = 0
@@ -570,8 +572,8 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
-	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(H), SLOT_HUD_RIGHT_STORE)
+	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
 	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -648,12 +650,12 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
-	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
+	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
+	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/drinks/bottle/bottleofnothing(H), SLOT_HUD_RIGHT_STORE)
+	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+		H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /datum/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
 /datum/unarmed_attack/golem/tranquillite
@@ -705,11 +707,14 @@
 	new /obj/structure/cloth_pile(get_turf(H), H)
 	..()
 
+/datum/species/golem/cloth/can_be_legion_infested()
+	return FALSE // can't infest a pile of cloth,
+
 /obj/structure/cloth_pile
 	name = "pile of bandages"
 	desc = "It emits a strange aura, as if there was still life within it..."
 	max_integrity = 50
-	armor = list(MELEE = 90, BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, BIO = 100, FIRE = -50, ACID = -50)
+	armor = list(MELEE = 90, BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, FIRE = -50, ACID = -50)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE
@@ -759,6 +764,6 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(is_hot(P))
+	if(P.get_heat())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()

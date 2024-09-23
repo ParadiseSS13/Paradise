@@ -8,14 +8,14 @@
 	item_state = "welder"
 	belt_icon = "welder"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 3
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	w_class = WEIGHT_CLASS_NORMAL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -26,16 +26,23 @@
 	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
-	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
-	var/refills_over_time = FALSE //Do we regenerate fuel?
+	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
+	var/requires_fuel = TRUE 
+	/// If TRUE, fuel will regenerate over time.
+	var/refills_over_time = FALSE
+	/// Sound played when turned on.
 	var/activation_sound = 'sound/items/welderactivate.ogg'
+	/// Sound played when turned off.
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
+	/// The brightness of the active flame.
 	var/light_intensity = 2
-	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
-	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	/// Does the icon_state change if the fuel is low?
+	var/low_fuel_changes_icon = TRUE
+	/// How often does the tool flash the user's eyes?
+	var/progress_flash_divisor = 1 SECONDS
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -71,6 +78,13 @@
 		if(GET_FUEL < maximum_fuel)
 			reagents.add_reagent("fuel", 1)
 	..()
+
+/obj/item/weldingtool/extinguish_light(force)
+	if(!force)
+		return
+	if(!tool_enabled)
+		return
+	remove_fuel(maximum_fuel)
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
@@ -129,6 +143,40 @@
 	if(GET_FUEL < amount * requires_fuel)
 		return
 	remove_fuel(amount)
+	return TRUE
+
+/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!tool_enabled)
+		return
+	if(!proximity || isturf(target)) // We don't want to take away fuel when we hit something far away
+		return
+	remove_fuel(0.5)
+
+/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!tool_enabled)
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] casually lights [cig] with [src], what a badass.</span>",
+			"<span class='notice'>You light [cig] with [src].</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [cig]. What a badass.</span>",
+			"<span class='notice'>You light [cig] for [target] with [src].</span>"
+		)
+	cig.light(user, target)
 	return TRUE
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
@@ -192,6 +240,9 @@
 	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
 		update_icon()
 
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
@@ -206,25 +257,41 @@
 	desc = "An advanced welder designed to be used in robotic systems."
 	toolspeed = 0.5
 
+/obj/item/weldingtool/research
+	name = "research welding tool"
+	desc = "A scratched-up welder that's been modified many times. Is it still the same tool?"
+	icon_state = "welder_research"
+	item_state = "welder_research"
+	belt_icon = "welder_research"
+	maximum_fuel = 40
+	toolspeed = 0.75
+	light_intensity = 1
+
+/obj/item/weldingtool/research/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	to_chat(user, "<span class='notice'>You begin tinkering with [src]...")
+	user.Immobilize(10 SECONDS)
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	user.visible_message("<span class='danger'>[src] blows up in [user]'s face!</span>", "<span class='userdanger'>Oh, shit!</span>")
+	playsound(loc, "sound/effects/explosion1.ogg", 50, TRUE, -1)
+	user.gib()
+
+	return OBLITERATION
+
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	low_fuel_changes_icon = FALSE
-
-/obj/item/weldingtool/abductor
-	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
-	toolspeed = 0.1
-	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
-	requires_fuel = FALSE
-	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/hugetank
@@ -257,3 +324,5 @@
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+#undef GET_FUEL

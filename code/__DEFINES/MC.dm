@@ -17,42 +17,51 @@
 #define MC_AVG_FAST_UP_SLOW_DOWN(average, current) (average > current ? MC_AVERAGE_SLOW(average, current) : MC_AVERAGE_FAST(average, current))
 #define MC_AVG_SLOW_UP_FAST_DOWN(average, current) (average < current ? MC_AVERAGE_SLOW(average, current) : MC_AVERAGE_FAST(average, current))
 
+///creates a running average of "things elapsed" per time period when you need to count via a smaller time period.
+///eg you want an average number of things happening per second but you measure the event every tick (50 milliseconds).
+///make sure both time intervals are in the same units. doesnt work if current_duration > total_duration or if total_duration == 0
+#define MC_AVG_OVER_TIME(average, current, total_duration, current_duration) (((total_duration - current_duration) / (total_duration)) * (average) + (current))
+
+#define MC_AVG_MINUTES(average, current, current_duration) (MC_AVG_OVER_TIME(average, current, 1 MINUTES, current_duration))
+
+#define MC_AVG_SECONDS(average, current, current_duration) (MC_AVG_OVER_TIME(average, current, 1 SECONDS, current_duration))
+
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
-#define START_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
+#define START_PROCESSING(Processor, Datum) if(!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
 #define STOP_PROCESSING(Processor, Datum) Datum.isprocessing = FALSE;Processor.processing -= Datum
 
 //SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)
 
 //subsystem does not initialize.
-#define SS_NO_INIT 1
+#define SS_NO_INIT (1<<0)
 
 //subsystem does not fire.
 //	(like can_fire = 0, but keeps it from getting added to the processing subsystems list)
 //	(Requires a MC restart to change)
-#define SS_NO_FIRE 2
+#define SS_NO_FIRE (1<<1)
 
 /** Subsystem only runs on spare cpu (after all non-background subsystems have ran that tick) */
 /// SS_BACKGROUND has its own priority bracket, this overrides SS_TICKER's priority bump
-#define SS_BACKGROUND 4
+#define SS_BACKGROUND (1<<2)
 
 //subsystem does not tick check, and should not run unless there is enough time (or its running behind (unless background))
-#define SS_NO_TICK_CHECK 8
+#define SS_NO_TICK_CHECK (1<<3)
 
 //Treat wait as a tick count, not DS, run every wait ticks.
 /// (also forces it to run first in the tick (unless SS_BACKGROUND))
 //	(implies all runlevels because of how it works)
 //	This is designed for basically anything that works as a mini-mc (like SStimer)
-#define SS_TICKER 16
+#define SS_TICKER (1<<4)
 
 //keep the subsystem's timing on point by firing early if it fired late last fire because of lag
 //	ie: if a 20ds subsystem fires say 5 ds late due to lag or what not, its next fire would be in 15ds, not 20ds.
-#define SS_KEEP_TIMING 32
+#define SS_KEEP_TIMING (1<<5)
 
 //Calculate its next fire after its fired.
 //	(IE: if a 5ds wait SS takes 2ds to run, its next fire should be 5ds away, not 3ds like it normally would be)
 //	This flag overrides SS_KEEP_TIMING
-#define SS_POST_FIRE_TIMING 64
+#define SS_POST_FIRE_TIMING (1<<6)
 
 //SUBSYSTEM STATES
 #define SS_IDLE 0		//aint doing shit.
@@ -77,3 +86,12 @@
 	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X
+
+#define TIMER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/timer/##X);\
+/datum/controller/subsystem/timer/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id="timer_[#X]";\
+}\
+/datum/controller/subsystem/timer/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/timer/##X

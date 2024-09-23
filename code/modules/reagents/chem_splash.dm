@@ -6,7 +6,7 @@
 
 
 /proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1)
-	if(!isturf(epicenter) || !reactants.len || threatscale <= 0)
+	if(!isturf(epicenter) || !length(reactants) || threatscale <= 0)
 		return
 	var/has_reagents
 	var/total_reagents
@@ -25,7 +25,7 @@
 	for(var/datum/reagents/R in reactants)
 		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
 		total_temp += R.chem_temp
-	splash_holder.set_reagent_temp((total_temp / reactants.len) + extra_heat) // Average temperature of reagents + extra heat.
+	splash_holder.set_reagent_temp((total_temp / length(reactants)) + extra_heat) // Average temperature of reagents + extra heat.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
 		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
@@ -41,7 +41,7 @@
 			for(var/turf/T in (orange(i, epicenter) - orange(i-1, epicenter)))
 				turflist |= T
 			for(var/turf/T in turflist)
-				if( !(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
+				if(!(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y)))
 					turflist.Remove(T)
 					turflist.Add(T) // we move the purely diagonal turfs to the end of the list.
 			for(var/turf/T in turflist)
@@ -63,7 +63,7 @@
 				reactable |= A
 			if(extra_heat >= 300)
 				T.hotspot_expose(extra_heat*2, 5)
-		if(!reactable.len) //Nothing to react with. Probably means we're in nullspace.
+		if(!length(reactable)) //Nothing to react with. Probably means we're in nullspace.
 			return
 		for(var/thing in reactable)
 			var/atom/A = thing

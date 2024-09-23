@@ -21,6 +21,23 @@
 		"darkred", "darkredcorners", "darkredfull", "darkblue", "darkbluecorners", "darkbluefull", "darkgreen", "darkgreencorners",
 		"darkgreenfull", "darkyellow", "darkyellowcorners", "darkyellowfull", "darkbrown", "darkbrowncorners", "darkbrownfull")
 
+	// This is a double-list. First entry is the type key, second is the direction, with the final value being the b64 of the icon
+	var/static/list/lookup_cache = list()
+
+/datum/painter/floor/New(obj/item/painter/parent_painter)
+	. = ..()
+	if(!length(lookup_cache))
+		for(var/style in allowed_states)
+			if(!(style in lookup_cache))
+				lookup_cache += style
+				lookup_cache[style] = list()
+
+			for(var/dir in GLOB.alldirs)
+				var/icon/floor_icon = icon('icons/turf/floors.dmi', style, dir)
+				// These indexes have to be strings otherwise it treats it as a list index not a map lookup index
+				lookup_cache[style] += "[dir]"
+				lookup_cache[style]["[dir]"] = icon2base64(floor_icon)
+
 /datum/painter/floor/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor/plasteel))
 		to_chat(user, "<span class='warning'>[holder] can only be used on station flooring.</span>")
@@ -41,10 +58,13 @@
 		return
 	ui_interact(user)
 
-/datum/painter/floor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/painter/floor/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/datum/painter/floor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FloorPainter", module_name, 405, 470, master_ui, state)
+		ui = new(user, src, "FloorPainter", module_name)
 		// Disable automatic updates, because:
 		// 1) we are the only user of the item, and don't expect to observe external changes
 		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
@@ -59,8 +79,7 @@
 
 	data["directionsPreview"] = list()
 	for(var/dir in GLOB.alldirs)
-		var/icon/floor_icon = icon('icons/turf/floors.dmi', floor_state, dir)
-		data["directionsPreview"][dir2text(dir)] = icon2base64(floor_icon)
+		data["directionsPreview"][dir2text(dir)] = lookup_cache[floor_state]["[dir]"]
 
 	return data
 
@@ -69,8 +88,7 @@
 	var/list/data = list()
 	data["allStylesPreview"] = list()
 	for(var/style in allowed_states)
-		var/icon/floor_icon = icon('icons/turf/floors.dmi', style, SOUTH)
-		data["allStylesPreview"][style] = icon2base64(floor_icon)
+		data["allStylesPreview"][style] = lookup_cache[style]["[SOUTH]"]
 
 	return data
 
@@ -97,4 +115,4 @@
 		if(dir != 0)
 			floor_dir = dir
 
-	SStgui.update_uis(src)
+	return TRUE

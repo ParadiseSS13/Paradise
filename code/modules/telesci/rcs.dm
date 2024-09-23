@@ -68,7 +68,7 @@
 	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
 		L += "**Unknown**"
 
-	var/select = input("Please select a telepad.", "RCS") in L
+	var/select = tgui_input_list(user, "Please select a telepad.", "RCS", L)
 	if(select == "**Unknown**") // Randomise the teleport location
 		pad = random_coords()
 	else // Else choose the value of the selection
@@ -79,21 +79,18 @@
 /**
   * Returns a random location in a z level
   *
-  * Defaults to Z level 1, with a 50% chance of being a different one.
-  * Z levels 1 to 4 are excluded from the alternatives.
+  * Defaults to station Z level, with a 50% chance of being a different one.
+  * Alternatives are space z levels with ruins.
   * Coordinates are constrained within 50-200 x & y.
   */
 /obj/item/rcs/proc/random_coords()
-	var/Z = 1 // Z level
+	var/Z = level_name_to_num(MAIN_STATION)
 	// Random Coordinates
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
 
 	if(prob(50)) // 50% chance of being a different Z level
-		var/list/z_levels = GLOB.space_manager.levels_by_name.Copy()
-		z_levels.Cut(1, 5) // Remove the first four z levels from the list (Station, CC, Lavaland, Gateway)
-		Z = pick(z_levels) // Pick a z level
-		Z = z_levels.Find(Z) + 4 // And get the corresponding number + 4
+		Z = pick(levels_by_trait(SPAWN_RUINS))
 
 	return locate(rand_x, rand_y, Z)
 
@@ -102,7 +99,7 @@
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
 		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
-		return
+		return TRUE
 
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)

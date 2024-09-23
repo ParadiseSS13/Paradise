@@ -8,7 +8,7 @@
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -19,14 +19,14 @@
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -44,7 +44,7 @@
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -52,7 +52,7 @@
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_them()]self raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -66,7 +66,7 @@
 	can_hold = list(
 		/obj/item/fish,
 		/obj/item/fish_eggs,
-		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/food/shrimp,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -74,7 +74,7 @@
 //				Fish Items					//
 //////////////////////////////////////////////
 
-/obj/item/reagent_containers/food/snacks/shrimp
+/obj/item/food/shrimp
 	name = "shrimp"
 	desc = "A single raw shrimp."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -82,12 +82,12 @@
 	filling_color = "#FF1C1C"
 	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/shrimp/Initialize(mapload)
+/obj/item/food/shrimp/Initialize(mapload)
 	. = ..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
 	reagents.add_reagent("protein", 1)
 
-/obj/item/reagent_containers/food/snacks/feederfish
+/obj/item/food/feederfish
 	name = "feeder fish"
 	desc = "A tiny feeder fish. Sure doesn't look very filling..."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -95,7 +95,7 @@
 	filling_color = "#FF1C1C"
 	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/feederfish/Initialize(mapload)
+/obj/item/food/feederfish/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("protein", 1)
 
@@ -168,10 +168,10 @@
 	icon_state = "catfish"
 
 /obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
-		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+		new /obj/item/food/catfishmeat(get_turf(src))
+		new /obj/item/food/catfishmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
@@ -187,10 +187,10 @@
 	icon_state = "salmon"
 
 /obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
-		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
+		new /obj/item/food/salmonmeat(get_turf(src))
+		new /obj/item/food/salmonmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
@@ -203,9 +203,9 @@
 	force = 3
 
 /obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+		new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
 		return
 	..()

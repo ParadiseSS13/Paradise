@@ -7,7 +7,7 @@
 /obj/item/powersink
 	name = "power sink"
 	desc = "A nulling power sink which drains energy from electrical systems."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/goonstation/objects/powersink.dmi'
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
@@ -77,7 +77,7 @@
 			else
 				set_mode(CLAMPED_OFF)
 				visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-				message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
 		else
 			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
@@ -113,14 +113,14 @@
 		set_mode(DISCONNECTED)
 		return
 
-	var/datum/powernet/PN = attached.powernet
+	var/datum/regional_powernet/PN = attached.powernet
 	if(PN)
 		set_light(5)
 
 		// found a powernet, so drain up to max power from it
 
-		var/drained = min (drain_rate, attached.newavail())
-		attached.add_delayedload(drained)
+		var/drained = min(drain_rate, attached.get_queued_surplus())
+		attached.add_queued_power_demand(drained)
 		power_drained += drained
 
 		// if tried to drain more than available on powernet
@@ -138,10 +138,10 @@
 					break
 
 	if(power_drained > max_power * 0.98)
-		if (!admins_warned)
+		if(!admins_warned)
 			admins_warned = TRUE
-			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
-		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
+			message_admins("Power sink at ([x],[y],[z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
+		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)

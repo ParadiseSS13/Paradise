@@ -5,8 +5,8 @@
 	Or you can just drop your plates on the floor, like civilized folk."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "synthesizer"
-	idle_power_usage = 8 //5 with default parts
-	active_power_usage = 13 //10 with default parts
+	idle_power_consumption = 8 //5 with default parts
+	active_power_consumption = 13 //10 with default parts
 	anchored = FALSE
 	density = FALSE
 	pass_flags = PASSTABLE
@@ -14,7 +14,7 @@
 		/obj/item/trash/plate,
 		/obj/item/trash/tray,
 		/obj/item/trash/snack_bowl,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
+		/obj/item/reagent_containers/drinks/drinkingglass,
 		/obj/item/kitchen/utensil/fork,
 		/obj/item/shard,
 		/obj/item/broken_bottle)
@@ -63,18 +63,18 @@
 		return TRUE
 
 /obj/machinery/dish_drive/RefreshParts()
-	idle_power_usage = initial(idle_power_usage)
-	active_power_usage = initial(active_power_usage)
-	use_power = initial(use_power)
+	idle_power_consumption = initial(idle_power_consumption)
+	active_power_consumption = initial(active_power_consumption)
+	change_power_mode(initial(power_state))
 	var/total_rating = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		total_rating += S.rating
-	if(total_rating >= 9)
-		active_power_usage = 0
-		use_power = NO_POWER_USE
+	if(total_rating >= 9) //this entire power use section needs to be cleaned up :sob:
+		active_power_consumption = 0
+		change_power_mode(NO_POWER_USE)
 	else
-		idle_power_usage = max(0, idle_power_usage - total_rating)
-		active_power_usage = max(0, active_power_usage - total_rating)
+		change_power_mode((idle_power_consumption - total_rating) > 0 ? ACTIVE_POWER_USE : NO_POWER_USE)
+		active_power_consumption = max(0, active_power_consumption - total_rating)
 	var/obj/item/circuitboard/dish_drive/board = locate() in component_parts
 	if(board)
 		suction_enabled = board.suction
@@ -122,13 +122,15 @@
 		if(is_type_in_list(I, disposable_items))
 			LAZYREMOVE(dish_drive_contents, I)
 			I.forceMove(bin)
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			disposed++
 	if(disposed)
 		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
 		playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 15, TRUE)
-		Beam(bin, icon_state = "rped_upgrade", time = 5)
+		Beam(bin, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
+	else if(manual)
+		to_chat(usr, "<span class='notice'>There are no disposable items to be beamed.</span>")
 	time_since_dishes = world.time + 60 SECONDS

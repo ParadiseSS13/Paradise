@@ -1,4 +1,5 @@
-/obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
+/// Set the baseturfs of every turf in the /area/ it is placed.
+/obj/effect/baseturf_helper
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
@@ -48,11 +49,15 @@
 
 /obj/effect/baseturf_helper/lava
 	name = "lava baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
-/obj/effect/baseturf_helper/lava_land/surface
+/obj/effect/baseturf_helper/lava/mapping_lava
+	name = "mapping lava baseturf editor"
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/obj/effect/baseturf_helper/lava_land
 	name = "lavaland baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -61,10 +66,11 @@
 
 /obj/effect/mapping_helpers/Initialize(mapload)
 	..()
-	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
+	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
+	layer = ON_EDGED_TURF_LAYER
 
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
@@ -78,18 +84,20 @@
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
+
 	if(!mapload)
 		log_world("[src] spawned outside of mapload!")
-		return
+		return INITIALIZE_HINT_QDEL
 
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	. = ..()
 	if(!(locate(/obj/machinery/door) in get_turf(src)))
 		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
 
 	for(var/obj/machinery/door/D in get_turf(src))
-		if(!is_type_in_list(D, blacklist))
-			payload(D)
+		payload(D)
 
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
@@ -115,6 +123,7 @@
 		log_world("[src] at [AREACOORD(src)] tried to bolt [airlock] but it's already locked!")
 	else
 		airlock.locked = TRUE
+		airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/unres
 	name = "airlock unresctricted side helper"
@@ -122,6 +131,7 @@
 
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock)
 	airlock.unres_sides ^= dir
+	airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/autoname
 	name = "airlock autoname helper"
@@ -129,3 +139,39 @@
 
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
+
+//part responsible for windoors (thanks S34N)
+/obj/effect/mapping_helpers/airlock/windoor
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+
+/// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
+/obj/effect/mapping_helpers/bombable_wall
+	name = "bombable wall helper"
+	icon_state = "explodable"
+	late = TRUE
+
+/obj/effect/mapping_helpers/bombable_wall/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_debug("[src] spawned outside of mapload!")
+		return
+
+	var/turf/our_turf = get_turf(src) // In case a locker ate us or something
+	our_turf.AddElement(/datum/element/bombable_turf)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname
+	name = "windoor autoname helper"
+	icon_state = "windoor_autoname"
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/payload(obj/machinery/door/window/windoor)
+	if(windoor.dir == dir)
+		windoor.name = get_area_name(windoor, TRUE)
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk
+	name = "windesk autoname helper"
+	icon_state = "windesk_autoname"
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
+	if(windoor.dir == dir)
+		windoor.name = "[get_area_name(windoor, TRUE)] Desk"

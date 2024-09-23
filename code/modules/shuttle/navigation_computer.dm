@@ -41,16 +41,9 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/GrantActions(mob/living/user)
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
-		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
-	if(rotate_action)
-		rotate_action.target = user
-		rotate_action.Grant(user)
-		actions += rotate_action
-	*/
 	if(place_action)
 		place_action.target = user
 		place_action.Grant(user)
@@ -62,7 +55,7 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(null, src)
+	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(get_turf(locate("landmark*Observer-Start")), src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
@@ -104,7 +97,7 @@
 			to_remove += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images -= to_remove
-		user.client.SetView(7)
+		user.client.SetView(user.client.prefs.viewrange)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/placeLandingSpot()
 	if(designating_target_loc || !current_user)
@@ -147,7 +140,7 @@
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	QDEL_LIST_CONTENTS(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
@@ -164,7 +157,7 @@
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)))
 		return FALSE
 	return TRUE
 
@@ -172,7 +165,7 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/list/image_cache = the_eye.placement_images
 	the_eye.setDir(turn(the_eye.dir, -90))
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/pic = image_cache[i]
 		var/list/coords = image_cache[pic]
 		var/Tmp = coords[1]
@@ -194,7 +187,7 @@
 	var/list/bounds = shuttle_port.return_coords(the_eye.x - x_offset, the_eye.y - y_offset, the_eye.dir)
 	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
 	var/list/image_cache = the_eye.placement_images
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/I = image_cache[i]
 		var/list/coords = image_cache[I]
 		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
@@ -234,7 +227,7 @@
 		return SHUTTLE_DOCKER_BLOCKED
 
 	// Checking for overlapping dock boundaries
-	for(var/i in 1 to overlappers.len)
+	for(var/i in 1 to length(overlappers))
 		var/obj/docking_port/port = overlappers[i]
 		if(port == my_port || locate(port) in jumpto_ports)
 			continue
@@ -274,7 +267,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
+	if(isspaceturf(get_turf(T)) || isspacearea(get_area(T)) || istype(get_area(T), /area/shuttle))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()
@@ -290,8 +283,8 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_icon_state = "mech_cycle_equip_off"
+	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_overlay_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -303,8 +296,8 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_icon_state = "mech_zoom_off"
+	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_overlay_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -316,7 +309,7 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
-	button_icon_state = "camera_jump"
+	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -336,7 +329,7 @@
 			L[S.name] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
+	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
 	playsound(src, "terminal_type", 25, 0)

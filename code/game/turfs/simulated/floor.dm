@@ -17,17 +17,12 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
-	thermal_conductivity = 0.040
-	heat_capacity = 10000
-	flags = NO_SCREENTIPS
-	var/lava = 0
+	thermal_conductivity = 0.020
+	heat_capacity = 100000
 	var/broken = FALSE
 	var/burnt = FALSE
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	var/list/burnt_states = list("floorscorched1", "floorscorched2")
-	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
 
 	var/footstep = FOOTSTEP_FLOOR
@@ -42,18 +37,12 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	else
 		icon_regular_floor = icon_state
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
-//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if(!( locate(/obj/machinery/mass_driver, src) ))
-//			return 0
-//	return ..()
-
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
 		return
 	switch(severity)
 		if(1.0)
-			ChangeTurf(baseturf)
+			ChangeTurf(baseturf, keep_icon = FALSE) // we do not keep the icon so that asteroid platings can work properly
 		if(2.0)
 			switch(pick(1,2;75,3))
 				if(1)
@@ -76,7 +65,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return
 
 /turf/simulated/floor/burn_down()
-	ex_act(2)
+	ex_act(EXPLODE_HEAVY)
 
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
@@ -85,12 +74,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 // Checks if the turf is safe to be on
 /turf/simulated/floor/is_safe()
-	if(!air)
-		return FALSE
-	var/datum/gas_mixture/Z = air
+	var/datum/gas_mixture/Z = get_readonly_air()
 	var/pressure = Z.return_pressure()
 	// Can most things breathe and tolerate the temperature and pressure?
-	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
+	if(Z.oxygen() < 16 || Z.toxins() >= 0.05 || Z.carbon_dioxide() >= 10 || Z.sleeping_agent() >= 1 || (Z.temperature() <= 270) || (Z.temperature() >= 360) || (pressure <= 20) || (pressure >= 550))
 		return FALSE
 	return TRUE
 
@@ -116,14 +103,14 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/break_tile()
 	if(broken)
 		return
-	current_overlay = pick(broken_states)
+	current_overlay = pick(get_broken_states())
 	broken = TRUE
 	update_icon()
 
 /turf/simulated/floor/burn_tile()
 	if(burnt)
 		return
-	current_overlay = pick(burnt_states)
+	current_overlay = pick(get_burnt_states())
 	burnt = TRUE
 	update_icon()
 
@@ -139,19 +126,23 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
+	var/old_transparent_floor = transparent_floor
 
 	var/turf/simulated/floor/W = ..()
 
 	var/obj/machinery/atmospherics/R
+	var/obj/machinery/power/terminal/term
 
 	if(keep_icon)
 		W.icon_regular_floor = old_icon
 		W.icon_plating = old_plating
 	if(W.keep_dir)
 		W.dir = old_dir
-	if(W.transparent_floor)
+	if(W.transparent_floor != old_transparent_floor)
 		for(R in W)
 			R.update_icon()
+		for(term in W)
+			term.update_icon()
 	for(R in W)
 		R.update_underlays()
 	W.update_icon()
@@ -164,8 +155,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(..())
 		return TRUE
 
-	if(intact && istype(C, /obj/item/stack/tile))
+	if((intact || transparent_floor) && istype(C, /obj/item/stack/tile))
 		try_replace_tile(C, user, params)
+		return TRUE
 
 	if(istype(C, /obj/item/pipe))
 		var/obj/item/pipe/P = C
@@ -206,7 +198,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(T.turf_type == type)
 		return
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
+	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
@@ -261,3 +253,12 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken
+
+/turf/simulated/floor/proc/get_broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/proc/get_burnt_states()
+	return list("floorscorched1", "floorscorched2")
+
+/turf/simulated/floor/proc/get_prying_tools()
+	return list(TOOL_CROWBAR)

@@ -1,19 +1,20 @@
 /obj/machinery/camera
 	name = "security camera"
-	desc = "It's used to monitor rooms."
+	desc = "Used by security teams and annoying AIs to watch over you."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
-	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 10
+	power_state = ACTIVE_POWER_USE
+	idle_power_consumption = 5
+	active_power_consumption = 10
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
-	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 90, ACID = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
 	var/list/network = list("SS13")
+	var/list/previous_network
 	var/c_tag = null
 	var/c_tag_order = 999
 	var/status = TRUE
@@ -21,10 +22,12 @@
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
+	/// If this camera should be added to the camera network and update the camera network when it moves around
+	var/part_of_camera_network
 
 	//OTHER
 
-	var/view_range = 7
+	var/view_range = CAMERA_VIEW_DISTANCE
 	var/short_range = 2
 
 	var/alarm_on = FALSE
@@ -33,8 +36,12 @@
 
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	var/area/station/ai_monitored/area_motion = null
+	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 
-/obj/machinery/camera/Initialize(mapload)
+/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
@@ -43,26 +50,34 @@
 	assembly.update_icon()
 
 	GLOB.cameranet.cameras += src
-	GLOB.cameranet.addCamera(src)
+	part_of_camera_network = should_add_to_cameranet
+	if(part_of_camera_network)
+		GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		LAZYADD(myArea.cameras, UID())
+		var/area/our_area = get_area(src)
+		LAZYADD(our_area.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
-		toggle_cam(null, FALSE)
+		turn_off(null, FALSE)
 		wires.cut_all()
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
 
+/obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, OldLoc)
+
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
-	toggle_cam(null, FALSE) //kick anyone viewing out
+	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
-	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
+	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
-	if(isarea(myArea))
-		LAZYREMOVE(myArea.cameras, UID())
-	var/area/ai_monitored/A = get_area(src)
+	var/area/our_area = get_area(src)
+	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
+		LAZYREMOVE(our_area.cameras, UID())
+	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
@@ -85,41 +100,31 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon(UPDATE_ICON_STATE)
-			var/list/previous_network = network
-			network = list()
-			GLOB.cameranet.removeCamera(src)
-			stat |= EMPED
-			set_light(0)
-			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon(UPDATE_ICON_STATE)
-			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(!QDELETED(src))
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon(UPDATE_ICON_STATE)
-						if(can_use())
-							GLOB.cameranet.addCamera(src)
-						emped = 0 //Resets the consecutive EMP count
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.client.eye == src)
-					M.reset_perspective(null)
-					to_chat(M, "The screen bursts into static.")
+			if(!(stat & EMPED))
+				previous_network = network
+				network = list()
+				stat |= EMPED
+				turn_off(null, FALSE, TRUE)
+				addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), (90 / severity) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
+
+/obj/machinery/camera/proc/reactivate_after_emp()
+	network = previous_network
+	previous_network = null
+	stat &= ~EMPED
+	turn_on(null, FALSE, TRUE)
 
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
 		return
 	..()
 
-/obj/machinery/camera/proc/setViewRange(num = 7)
+/obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -128,7 +133,7 @@
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isEmpProof())
@@ -139,7 +144,7 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isMotion())
@@ -151,7 +156,7 @@
 
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
-		if (!can_use())
+		if(!can_use())
 			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
 			return
 
@@ -179,13 +184,13 @@
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 				if(U.name == "Unknown")
-					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
-				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
+					to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+				AI.last_paper_seen = "<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
-				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
+				O << browse("<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>", "window=[itemname]")
 
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I
@@ -261,37 +266,58 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
-	status = !status
-	if(can_use())
-		GLOB.cameranet.addCamera(src)
-		if(isturf(loc))
-			myArea = get_area(src)
-			LAZYADD(myArea.cameras, UID())
-		else
-			myArea = null
-	else
-		set_light(0)
-		GLOB.cameranet.removeCamera(src)
-		if(isarea(myArea))
-			LAZYREMOVE(myArea.cameras, UID())
-	GLOB.cameranet.updateChunk(x, y, z)
-	var/change_msg = "deactivates"
+/obj/machinery/camera/proc/toggle_cam(mob/user, display_message = TRUE)
 	if(status)
-		change_msg = "reactivates"
-	if(displaymessage)
+		turn_off(user, display_message)
+		return
+
+	turn_on(user, display_message)
+
+/obj/machinery/camera/proc/turn_on(mob/user, display_message = TRUE, emp_recover = FALSE)
+	if(status && !emp_recover)
+		return
+	status = TRUE
+	if(!emp_recover && isturf(loc))
+		var/area/our_area = get_area(src)
+		LAZYADD(our_area.cameras, UID())
+
+	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
+			visible_message("<span class='danger'>[user] reactivates [src]!</span>")
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
+			visible_message("<span class='danger'>\The [src] reactivates!</span>")
+		playsound(loc, toggle_sound, 100, TRUE)
+	update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(src, COMSIG_CAMERA_ON, user, display_message)
 
+/obj/machinery/camera/proc/turn_off(mob/user, display_message = TRUE, emped = FALSE)
+	if(!status && !emped)
+		return
+
+	if(!emped)
+		status = FALSE
+		var/area/our_area = get_area(src)
+		if(our_area)
+			LAZYREMOVE(our_area.cameras, UID())
+
+	set_light(0)
+
+	if(display_message)
+		if(user)
+			visible_message("<span class='danger'>[user] deactivates [src]!</span>")
+			add_hiddenprint(user)
+		else
+			visible_message("<span class='danger'>\The [src] deactivates!</span>")
 		playsound(loc, toggle_sound, 100, 1)
+
 	update_icon(UPDATE_ICON_STATE)
 
-	// now disconnect anyone using the camera
-	//Apparently, this will disconnect anyone even if the camera was re-activated.
-	//I guess that doesn't matter since they can't use it anyway?
+	kick_out_watchers()
+
+	SEND_SIGNAL(src, COMSIG_CAMERA_OFF, user, display_message, emped)
+
+/obj/machinery/camera/proc/kick_out_watchers()
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && O.client.eye == src)
 			O.reset_perspective(null)
@@ -373,7 +399,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
@@ -388,7 +414,9 @@
 	..()
 	return TRUE
 
-/obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
+/// Cameras which are placed inside of things, such as helmets.
+/obj/machinery/camera/portable
+	start_active = TRUE // theres no real way to reactivate these, so never break them when they init
 	var/turf/prev_turf
 
 /obj/machinery/camera/portable/Initialize(mapload)
@@ -398,6 +426,12 @@
 	assembly.update_icon()
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
-	if(GLOB.cameranet && get_turf(src) != prev_turf)
-		GLOB.cameranet.updatePortableCamera(src)
-		prev_turf = get_turf(src)
+	if(!part_of_camera_network)
+		return PROCESS_KILL // Stop wasting performance
+
+	if(get_turf(src) == prev_turf)
+		return
+
+	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
+	GLOB.cameranet.updatePortableCamera(src, prev_turf)
+	prev_turf = get_turf(src)

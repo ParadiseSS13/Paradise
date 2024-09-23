@@ -1,7 +1,3 @@
-/mob/living
-	var/last_taste_time
-	var/last_taste_text
-
 /mob/living/proc/get_taste_sensitivity()
 	return TASTE_SENSITIVITY_NORMAL
 

@@ -16,11 +16,7 @@ const BotList = (props, context) => {
 
   return bots.map((b) => (
     <Box key={b.Name}>
-      <Button
-        content={b.Name}
-        icon="cog"
-        onClick={() => act('control', { bot: b.uid })}
-      />
+      <Button content={b.Name} icon="cog" onClick={() => act('control', { bot: b.uid })} />
     </Box>
   ));
 };
@@ -76,17 +72,10 @@ const BotStatus = (props, context) => {
         <LabeledList.Item label="Power">{powr}%</LabeledList.Item>
         <LabeledList.Item label="Home">{home}</LabeledList.Item>
         <LabeledList.Item label="Destination">
-          <Button
-            content={dest ? dest + ' (Set)' : 'None (Set)'}
-            onClick={() => act('target')}
-          />
+          <Button content={dest ? dest + ' (Set)' : 'None (Set)'} onClick={() => act('target')} />
         </LabeledList.Item>
         <LabeledList.Item label="Current Load">
-          <Button
-            content={load ? load + ' (Unload)' : 'None'}
-            disabled={!load}
-            onClick={() => act('unload')}
-          />
+          <Button content={load ? load + ' (Unload)' : 'None'} disabled={!load} onClick={() => act('unload')} />
         </LabeledList.Item>
         <LabeledList.Item label="Auto Pickup">
           <Button
@@ -95,7 +84,7 @@ const BotStatus = (props, context) => {
             onClick={() =>
               act('set_pickup_type', {
                 // Using just ! doesnt work here, because !null is still null
-                autopick: (pick ? 0 : 1),
+                autopick: pick ? 0 : 1,
               })
             }
           />
@@ -107,7 +96,7 @@ const BotStatus = (props, context) => {
             onClick={() =>
               act('set_auto_return', {
                 // Using just ! doesnt work here, because !null is still null
-                autoret: (retn ? 0 : 1),
+                autoret: retn ? 0 : 1,
               })
             }
           />
@@ -115,11 +104,7 @@ const BotStatus = (props, context) => {
         <LabeledList.Item label="Controls">
           <Button content="Stop" icon="stop" onClick={() => act('stop')} />
           <Button content="Proceed" icon="play" onClick={() => act('start')} />
-          <Button
-            content="Return Home"
-            icon="home"
-            onClick={() => act('home')}
-          />
+          <Button content="Return Home" icon="home" onClick={() => act('home')} />
         </LabeledList.Item>
       </LabeledList>
     </Section>

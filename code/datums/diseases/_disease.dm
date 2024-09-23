@@ -2,22 +2,22 @@
 #define VIRUS_SYMPTOM_LIMIT	6
 
 //Visibility Flags
-#define HIDDEN_SCANNER	1
-#define HIDDEN_PANDEMIC	2
+#define HIDDEN_SCANNER	(1<<0)
+#define HIDDEN_PANDEMIC	(1<<1)
 
 //Disease Flags
-#define CURABLE		1
-#define CAN_CARRY	2
-#define CAN_RESIST	4
+#define CURABLE		(1<<0)
+#define CAN_CARRY	(1<<1)
+#define CAN_RESIST	(1<<2)
 
 //Spread Flags
-#define SPECIAL 1
-#define NON_CONTAGIOUS 2
-#define BLOOD 4
-#define CONTACT_FEET 8
-#define CONTACT_HANDS 16
-#define CONTACT_GENERAL 32
-#define AIRBORNE 64
+#define SPECIAL			(1<<0)
+#define NON_CONTAGIOUS	(1<<1)
+#define BLOOD			(1<<2)
+#define CONTACT_FEET	(1<<3)
+#define CONTACT_HANDS	(1<<4)
+#define CONTACT_GENERAL	(1<<5)
+#define AIRBORNE		(1<<6)
 
 
 //Severity Defines
@@ -39,6 +39,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/spread_flags = AIRBORNE
 
 	//Fluff
+	/// Used for identification of viruses in the Medical Records Virus Database
+	var/medical_name
 	var/form = "Virus"
 	var/name = "No disease"
 	var/desc = ""
@@ -57,7 +59,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
-	var/mob/living/carbon/affected_mob = null
+	var/mob/living/carbon/affected_mob
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
 	var/infectivity = 65
 	var/cure_chance = 8
@@ -65,10 +67,12 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
 	var/permeability_mod = 1
-	var/severity =	NONTHREAT
+	var/severity = NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
+	/// Allow the virus to infect and process while the affected_mob is dead
+	var/allow_dead = FALSE
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -76,6 +80,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return ..()
 
 /datum/disease/proc/stage_act()
+	if(!affected_mob)
+		return FALSE
 	var/cure = has_cure()
 
 	if(carrier && !cure)
@@ -83,33 +89,44 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	stage = min(stage, max_stages)
 
-	if(!cure)
-		if(prob(stage_prob))
-			stage = min(stage + 1,max_stages)
-			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
-				discovered = TRUE
-				affected_mob.med_hud_set_status()
-	else
-		if(prob(cure_chance))
-			stage = max(stage - 1, 1)
+	handle_stage_advance(cure)
+
+	return handle_cure_testing(cure)
+
+/datum/disease/proc/handle_stage_advance(has_cure = FALSE)
+	if(!has_cure && prob(stage_prob))
+		stage = min(stage + 1, max_stages)
+		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+			discovered = TRUE
+			affected_mob.med_hud_set_status()
+
+/datum/disease/proc/handle_cure_testing(has_cure = FALSE)
+	if(has_cure && prob(cure_chance))
+		stage = max(stage - 1, 1)
 
 	if(disease_flags & CURABLE)
-		if(cure && prob(cure_chance))
+		if(has_cure && prob(cure_chance))
 			cure()
 			return FALSE
 	return TRUE
-
 
 /datum/disease/proc/has_cure()
 	if(!(disease_flags & CURABLE))
 		return 0
 
-	. = cures.len
+	var/cures_found = 0
 	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
-			.--
-	if(!. || (needs_all_cures && . < cures.len))
-		return 0
+		if(C_id == "ethanol")
+			for(var/datum/reagent/consumable/ethanol/booze in affected_mob.reagents.reagent_list)
+				cures_found++
+				break
+		else if(affected_mob.reagents.has_reagent(C_id))
+			cures_found++
+
+	if(needs_all_cures && cures_found < length(cures))
+		return FALSE
+
+	return cures_found
 
 /datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
@@ -129,19 +146,20 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	var/turf/T = affected_mob.loc
-	if(istype(T))
+	var/turf/target = affected_mob.loc
+	if(istype(target))
 		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
-			var/turf/V = get_turf(C)
-			if(V)
+			var/turf/current = get_turf(C)
+			if(current)
 				while(TRUE)
-					if(V == T)
+					if(current == target)
 						C.ContractDisease(src)
 						break
-					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp))
+					var/direction = get_dir(current, target)
+					var/turf/next = get_step(current, direction)
+					if(!current.CanAtmosPass(direction) || !next.CanAtmosPass(turn(direction, 180)))
 						break
-					V = Temp
+					current = next
 
 
 /datum/disease/proc/cure()
@@ -154,10 +172,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	if(istype(src, D.type))
-		return 1
-	return 0
-
+	if(ispath(D))
+		return istype(src, D)
+	return istype(src, D.type)
 
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()

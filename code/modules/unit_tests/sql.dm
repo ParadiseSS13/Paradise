@@ -5,6 +5,6 @@
 		Fail("SQL version error: Game is running V[SQL_VERSION] but config is V[GLOB.configuration.database.version]. You may need to update the example config.")
 
 	if(SSdbcore.total_errors > 0)
-		Fail("SQL errors occured on startup. Please fix them.")
+		Fail("SQL errors occurred on startup. Please fix them.")
 
 

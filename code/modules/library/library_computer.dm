@@ -18,12 +18,13 @@
   */
 /obj/machinery/computer/library
 	name = "Library Computer"
-	anchored = TRUE
-	density = TRUE
+	desc = "Used by dusty librarians for their dusty books."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "library"
 	icon_keyboard = null
-	icon_screen = "computer_on"
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
+	density = TRUE
+	anchored = TRUE
 
 	//We define a required access only to lock library specific actions like ordering/managing books to librarian access+
 	req_one_access = list(ACCESS_LIBRARY)
@@ -51,9 +52,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	populate_booklist(async = FALSE)
-	//since ui_data screws up when SQL calls are made inside it,
-	//we must populate our booklist before ui_act is called for the first time
+	addtimer(CALLBACK(src, PROC_REF(populate_booklist)), 0)
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -76,7 +75,7 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
 			return
-		to_chat(user, "<span class='notice'>Barcode Scanner Succesfully Connected to Computer.</span>")
+		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return
@@ -103,10 +102,13 @@
 
 	return ..()
 
-/obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/library/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/library/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LibraryComputer", name, 1050, 600, master_ui, state)
+		ui = new(user, src, "LibraryComputer", name)
 		ui.open()
 
 /*
@@ -290,7 +292,7 @@
 					return
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-					atom_say("Deletion Succesful!")
+					atom_say("Deletion Successful!")
 					return
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				atom_say("Deletion Failed!")
@@ -303,7 +305,7 @@
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-				atom_say("Rating Succesful!")
+				atom_say("Rating Successful!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")
@@ -327,7 +329,10 @@
 				user_data.selected_book.categories += text2num(params["category_id"])
 				populate_booklist()
 		if("uploadbook")
-			if(GLOB.library_catalog.upload_book(params["user_ckey"], user_data.selected_book))
+			var/choice = tgui_alert(ui.user, "I have ensured that nothing in this book violates this server's game rules and want to upload it to the database.", "Confirm", list("Yes", "No"))
+			if(choice != "Yes")
+				return
+			if(GLOB.library_catalog.upload_book(ui.user.ckey, user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
 				return
@@ -471,7 +476,7 @@
 			return FALSE
 
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
-	if(B.carved == TRUE)
+	if(B.carved)
 		return
 	user_data.selected_book.title = B.title ? B.title : "No Title"
 	user_data.selected_book.author = B.author ? B.author : "No Author"
@@ -531,11 +536,11 @@
   * internal proc that will refresh our cached booklist, it needs to be called everytime we are switching parameters
   * that will affect what books will be displayed in our TGUI player book archive.
  */
-/obj/machinery/computer/library/proc/populate_booklist(async = TRUE)
+/obj/machinery/computer/library/proc/populate_booklist()
 	cached_booklist = list() //clear old list
 	var/starting_book = (archive_page_num - 1) * LIBRARY_BOOKS_PER_PAGE
 	var/range = LIBRARY_BOOKS_PER_PAGE
-	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data, async))
+	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data))
 		//instead of just adding the datum to the cached_booklist, we want to make it an assoc list so we can just give it to the TGUI
 
 		var/list/book_data = list(
@@ -580,6 +585,16 @@
 
 	new newbook.book_type(loc)
 	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
+
+/obj/machinery/computer/library/emag_act(mob/user)
+	if(print_cooldown <= world.time)
+		new /obj/item/storage/bible/syndi(loc)
+		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
+		print_cooldown = world.time + PRINTING_COOLDOWN
+		return TRUE
+
+/obj/machinery/computer/library/syndie
+	req_one_access = list(ACCESS_SYNDICATE)
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

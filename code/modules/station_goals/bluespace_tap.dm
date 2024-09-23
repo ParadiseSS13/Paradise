@@ -24,7 +24,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -43,6 +43,7 @@
 
 /obj/item/circuitboard/machine/bluespace_tap
 	board_name = "Bluespace Harvester"
+	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
@@ -101,7 +102,7 @@
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 1,
-		/obj/item/twohanded/dualsaber/toy = 5,
+		/obj/item/dualsaber/toy = 5,
 		/obj/machinery/snow_machine = 10,
 		/obj/item/clothing/head/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
@@ -115,7 +116,11 @@
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/combat = 5,
+		/obj/item/blank_tarot_card = 5,
+		/obj/item/tarot_card_pack = 5,
+		/obj/item/tarot_card_pack/jumbo = 3,
+		/obj/item/tarot_card_pack/mega = 2
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -127,13 +132,13 @@
 		/obj/item/storage/pill_bottle/random_meds/labelled = 25,
 		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 15,
 		/obj/item/dnainjector/telemut = 5,
-		/obj/item/dnainjector/midgit = 5,
+		/obj/item/dnainjector/small_size = 5,
 		/obj/item/dnainjector/morph = 5,
 		/obj/item/dnainjector/regenerate = 5,
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pet/penguin/baby = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
@@ -148,30 +153,29 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/wingfangchu,
-		/obj/item/reagent_containers/food/snacks/hotdog,
-		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
-		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
-		/obj/item/reagent_containers/food/snacks/appletart,
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
-		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
-		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
-		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/fishburger,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/meatpie,
+		/obj/item/food/wingfangchu,
+		/obj/item/food/hotdog,
+		/obj/item/food/sliceable/turkey,
+		/obj/item/food/plumphelmetbiscuit,
+		/obj/item/food/appletart,
+		/obj/item/food/sliceable/cheesecake,
+		/obj/item/food/sliceable/bananacake,
+		/obj/item/food/sliceable/chocolatecake,
+		/obj/item/food/soup/meatballsoup,
+		/obj/item/food/soup/mysterysoup,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/fishburger,
+		/obj/item/food/cubancarp,
+		/obj/item/food/fishandchips,
+		/obj/item/food/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-#define kW *1000
-#define MW kW *1000
-#define GW MW *1000
+#define BASE_ENERGY_CONVERSION 4e-6
+#define BASE_POINTS 2
 
 /**
   * # Bluespace Harvester
@@ -185,22 +189,22 @@
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
-	icon_state = "bluespace_tap"	//sprites by Ionward
+	icon_state = "bluespace_tap"
+	base_icon_state = "bluespace_tap"
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
-	pixel_y = -64
-	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
-	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
+	pixel_y = -32
+	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 kW, 5 kW, 50 kW, 100 kW, 500 kW,
-								1 MW, 2 MW, 5 MW, 10 MW, 25 MW,
-								50 MW, 75 MW, 125 MW, 200 MW, 500 MW,
-								1 GW, 5 GW, 15 GW, 45 GW, 500 GW)
+	var/list/power_needs = list(1 KW, 2 KW, 5 KW, 10 KW, 15 KW,
+								25 KW, 50 KW, 100 KW, 250 KW, 500 KW,
+								1 MW, 2 MW, 5 MW, 10 MW, 15 MW,
+								20 MW, 25 MW, 30 MW, 40 MW, 50 MW,
+								60 MW, 70 MW, 80 MW, 90 MW, 100 MW)
 
 	/// list of possible products
 	var/static/product_list = list(
@@ -221,42 +225,110 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
+	// Tweak these and active_power_consumption to balance power generation
 
-	// Tweak these and active_power_usage to balance power generation
-
-	/// Max power input level, I don't expect this to be ever reached
-	var/max_level = 20
-	/// Amount of points to give per mining level
-	var/base_points = 4
+	/// Max power input level, I don't expect this to be ever reached. It has been reached.
+	var/max_level = 25
+	/// amount of points generated per level for the first 10 levels
+	var/base_points = BASE_POINTS
+	/// amount of points generated per process cycle per unit of energy consumed
+	var/conversion_ratio = BASE_ENERGY_CONVERSION
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
-	var/safe_levels = 10
-
+	var/safe_levels = 15
+	/// Whether or not auto shutdown will engage when portals open
+	var/auto_shutdown = TRUE
+	/// Whether or not stabilizers will engage to prevent or reduce the chance of portals opening
+	var/stabilizers = TRUE
+	/// Amount of power the stabilizers consume
+	var/stabilizer_power = 0
+	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
+	var/overhead = 0
+	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
+	var/list/active_nether_portals = list()
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
-	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
-		occupied += get_step(src, direct)
-	occupied += locate(x + 1, y - 2, z)
-	occupied += locate(x - 1, y - 2, z)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
-	for(var/i = 1 to 5)	//five of each
-		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
+	component_parts += new /obj/item/circuitboard/machine/bluespace_tap()
+	for(var/i in 1 to 5)	//five of each
+		component_parts += new /obj/item/stock_parts/capacitor/quadratic()
+		component_parts += new /obj/item/stack/ore/bluespace_crystal()
 	if(!powernet)
 		connect_to_network()
 
-/obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST(fillers)
-	return ..()
+	AddComponent(/datum/component/multitile, 1, list(
+		list(1, 1,		   1),
+		list(1, MACH_CENTER, 1),
+		list(1, 0,		   1),
+	))
+
+/obj/machinery/power/bluespace_tap/update_icon_state()
+	. = ..()
+
+	if(length(active_nether_portals))
+		icon_state = "cascade_tap"
+		return
+
+	if(get_available_power() <= 0)
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state][get_icon_state_number()]"
+
+
+/obj/machinery/power/bluespace_tap/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+
+	if(length(active_nether_portals))
+		. += "cascade"
+		set_light(15, 5, "#ff0000")
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+
+	if(get_available_power())
+		. += "screen"
+		if(light)
+			underlays += emissive_appearance(icon, "light_mask")
+
+/obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
+	switch(input_level)
+		if(0)
+			return 0
+		if(1 to 3)
+			return 1
+		if(4 to 8)
+			return 2
+		if(9 to 11)
+			return 3
+		if(12 to 15)
+			return 4
+		if(16 to INFINITY)
+			return 5
+
+/obj/machinery/power/bluespace_tap/power_change()
+	. = ..()
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+	if(.)
+		update_icon()
+
+
+/obj/machinery/power/bluespace_tap/connect_to_network()
+	. = ..()
+	if(.)
+		update_icon()
+
+/obj/machinery/power/bluespace_tap/disconnect_from_network()
+	. = ..()
+	if(.)
+		update_icon()
 
 /**
   * Increases the desired mining level
@@ -312,29 +384,49 @@
 
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
-	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
+	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
+		update_icon()
 		return	// and no mining gets done
 	if(actual_power_usage)
-		add_load(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * base_points
-		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
+		consume_direct_power(actual_power_usage)
+		//2 points per level up to level 10 and 4 points per MW (or 5 when emmaged).
+		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)
+		points += points_to_add	// point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
+	// Between levels 15 and 18 get one level of overhead per 5MW of surplus power. Above level 18 get 1 level per 10MW of surplus power.
+	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7
+	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18 ? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
+	consume_direct_power(stabilizer_power)
 	// actual input level changes slowly
-	if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+	// holy shit every proccess this
+	if(input_level < desired_level && (get_surplus() + get_power_use(input_level) + stabilizer_power >= get_power_use(input_level + 1)))
 		input_level++
+		update_icon()
 	else if(input_level > desired_level)
 		input_level--
-	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
-		if(!emagged)
-			input_level = 0	//emergency shutdown unless we're sabotaged
+		update_icon()
+	// Stabilizers reduce the chance of portals. prob with values less than 0 treat it as 0.
+	if(prob(input_level - (safe_levels + stabilizers * overhead) + (emagged * 5)))
+		var/area/our_area = get_area(src)
+		if(!length(active_nether_portals))
+			GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : auto_shutdown ? "Emergency shutdown initiated." : "Automatic shutdown disabled."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		if(!emagged && auto_shutdown)
+			input_level = 0	//emergency shutdown unless it is disabled
 			desired_level = 0
-		for(var/i in 1 to rand(1, 3))
-			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
-			new /obj/structure/spawner/nether/bluespace_tap(location)
+		start_nether_portaling(rand(1 , 3) + max((level - 15 - overhead) / 3 , 0))
 
-
+/obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
+	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
+	var/obj/structure/spawner/nether/bluespace_tap/P = new /obj/structure/spawner/nether/bluespace_tap(location)
+	amount--
+	active_nether_portals += P
+	P.linked_source_object = src
+	// 1 Extra mob for each 2 levels above 15.
+	P.max_mobs = 5 + max((input_level - 15) / 2, 0)
+	update_icon()
+	if(amount)
+		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3, 5) SECONDS)
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
@@ -343,12 +435,16 @@
 	data["inputLevel"] = input_level
 	data["points"] = points
 	data["totalPoints"] = total_points
-	data["powerUse"] = actual_power_usage
-	data["availablePower"] = surplus()
+	data["powerUse"] = actual_power_usage + stabilizer_power
+	data["availablePower"] = get_surplus()
 	data["maxLevel"] = max_level
 	data["emagged"] = emagged
 	data["safeLevels"] = safe_levels
 	data["nextLevelPower"] = get_power_use(input_level + 1)
+	data["autoShutown"] = auto_shutdown
+	data["overhead"] = overhead
+	data["stabilizers"] = stabilizers
+	data["stabilizerPower"] = stabilizer_power
 
 	/// A list of lists, each inner list equals a datum
 	var/list/listed_items = list()
@@ -364,12 +460,18 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /**
@@ -388,8 +490,7 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
-
-
+	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 
 //UI stuff below
 
@@ -407,11 +508,18 @@
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
 			produce(key)
+		if("auto_shutdown")
+			auto_shutdown = !auto_shutdown
+		if("stabilizers")
+			stabilizers = !stabilizers
 
-/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/bluespace_tap/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)
+		ui = new(user, src, "BluespaceTap", name)
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
@@ -419,18 +527,28 @@
 	if(emagged)
 		return
 	emagged = TRUE
+	desired_level = max_level
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
+	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
-	max_mobs = 5		//Dont' want them overrunning the station
+	max_mobs = 5 // Don't want them overrunning the station
 	max_integrity = 250
+	/// the BSH that spawned this portal
+	var/obj/machinery/power/bluespace_tap/linked_source_object
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
 	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
 	return ..()
+
+/obj/structure/spawner/nether/bluespace_tap/Destroy()
+	. = ..()
+	if(linked_source_object)
+		linked_source_object.active_nether_portals -= src
+		linked_source_object.update_icon()
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
@@ -450,6 +568,5 @@
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
 
-#undef kW
-#undef MW
-#undef GW
+#undef BASE_ENERGY_CONVERSION
+#undef BASE_POINTS

@@ -11,15 +11,13 @@
 /area/lavaland/surface/outdoors/unexplored)
 "d" = (
 /obj/structure/clockwork/wall_gear,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/stack/tile/brass,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "f" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
@@ -29,29 +27,24 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "h" = (
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "i" = (
 /obj/structure/grille/ratvar/broken,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "j" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/clockwork,
 /area/lavaland/surface/outdoors/unexplored)
 "k" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/alloy_shards/small,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "l" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/unexplored)
 "m" = (
 /obj/item/clockwork/alloy_shards/medium,
@@ -59,6 +52,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "n" = (
 /obj/item/clockwork/component/belligerent_eye/blind_eye,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "o" = (
@@ -66,121 +60,83 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "p" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/alloy_shards/medium,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors/unexplored)
-"q" = (
-/obj/structure/lattice/catwalk/clockwork,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "r" = (
-/obj/structure/lattice/clockwork,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "s" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/alloy_shards/large,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "t" = (
 /obj/item/stack/tile/brass,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/grille/ratvar,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors/unexplored)
-"v" = (
-/obj/item/clockwork/alloy_shards/medium,
-/obj/structure/lattice/clockwork,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "w" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/grille/ratvar/broken,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "x" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/clockwork/wall_gear,
 /obj/item/stack/tile/brass,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "y" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/component/geis_capacitor/fallen_armor,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "z" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/clockwork/wall_gear,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "A" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/weapon/ratvarian_spear,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "C" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/item/clockwork/alloy_shards/medium/gear_bit,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "D" = (
 /obj/structure/grille/ratvar,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "E" = (
 /obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "F" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/dead_ratvar,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "G" = (
 /obj/item/stack/tile/brass/fifty,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 
@@ -223,7 +179,7 @@ b
 a
 h
 b
-r
+b
 c
 j
 x
@@ -247,7 +203,7 @@ f
 b
 l
 b
-v
+m
 b
 p
 w
@@ -272,7 +228,7 @@ a
 f
 l
 l
-r
+b
 b
 b
 l
@@ -284,7 +240,7 @@ l
 b
 h
 c
-r
+b
 a
 a
 "}
@@ -310,7 +266,7 @@ l
 l
 D
 h
-r
+b
 a
 a
 "}
@@ -379,7 +335,7 @@ l
 l
 n
 h
-r
+b
 l
 l
 b
@@ -460,7 +416,7 @@ k
 h
 h
 h
-r
+b
 l
 l
 l
@@ -480,13 +436,13 @@ l
 l
 b
 l
-q
-r
+l
+b
 h
 h
 h
 c
-q
+l
 l
 b
 l
@@ -506,7 +462,7 @@ l
 b
 p
 s
-r
+b
 h
 h
 h
@@ -582,7 +538,7 @@ l
 l
 l
 l
-q
+l
 b
 h
 h
@@ -609,8 +565,8 @@ l
 l
 b
 l
-q
-r
+l
+b
 h
 h
 h
@@ -618,9 +574,9 @@ h
 h
 b
 s
-r
+b
 l
-r
+b
 l
 l
 b
@@ -641,11 +597,11 @@ h
 h
 h
 h
-r
+b
 k
 b
 C
-r
+b
 h
 b
 b
@@ -668,12 +624,12 @@ h
 h
 h
 h
-r
+b
 j
 h
 c
 h
-r
+b
 h
 b
 b
@@ -700,7 +656,7 @@ l
 l
 b
 E
-r
+b
 G
 o
 "}
@@ -712,9 +668,9 @@ l
 l
 l
 l
-r
+b
 h
-r
+b
 h
 h
 h
@@ -728,7 +684,7 @@ l
 l
 j
 j
-r
+b
 "}
 (22,1,1) = {"
 c
@@ -770,7 +726,7 @@ u
 r
 p
 h
-r
+b
 h
 b
 l
@@ -779,7 +735,7 @@ l
 b
 b
 w
-r
+b
 b
 "}
 (24,1,1) = {"
@@ -792,7 +748,7 @@ l
 l
 j
 j
-q
+l
 p
 h
 m
@@ -821,7 +777,7 @@ l
 l
 b
 h
-r
+b
 x
 h
 l
@@ -847,7 +803,7 @@ l
 l
 l
 g
-q
+l
 b
 h
 l

@@ -1,0 +1,144 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"m" = (
+/obj/structure/nest/lavaland,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"R" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+
+(1,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(2,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(3,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(4,1,1) = {"
+R
+R
+R
+R
+m
+R
+R
+"}
+(5,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(6,1,1) = {"
+R
+m
+R
+R
+R
+R
+R
+"}
+(7,1,1) = {"
+R
+R
+R
+R
+R
+R
+m
+"}
+(8,1,1) = {"
+R
+R
+R
+m
+R
+R
+R
+"}
+(9,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(10,1,1) = {"
+m
+R
+R
+R
+R
+R
+R
+"}
+(11,1,1) = {"
+R
+R
+R
+R
+R
+m
+R
+"}
+(12,1,1) = {"
+R
+R
+m
+R
+R
+R
+R
+"}
+(13,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(14,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(15,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}

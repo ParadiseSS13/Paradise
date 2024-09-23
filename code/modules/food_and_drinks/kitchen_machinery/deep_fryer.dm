@@ -40,11 +40,11 @@
 	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 80 max upgrade)
 
 /obj/machinery/cooker/deepfryer/gettype()
-	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
+	var/obj/item/food/deepfryholder/type = new(get_turf(src))
 	return type
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/ice))
 		var/ice_amount = I.reagents.get_reagent_amount("ice")
 		if(ice_amount)
 			I.reagents.remove_all(I.reagents.total_volume)
@@ -82,28 +82,35 @@
 		to_chat(usr, "<span class='warning'>You short out the fryer's safeties, allowing non-food objects to be placed in the oil.</span>")
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		emagged = TRUE
-		return
+		return TRUE
 
-/obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
-	if(ishuman(G.affecting))
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
-		if(!head)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-			return 0
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
-						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
-		C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
-		head.disfigure()
-		add_attack_logs(user, G.affecting, "Deep-fried with [src]")
-		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
-		return 0
-	return 0
+/obj/machinery/cooker/deepfryer/special_attack_shove(mob/living/target, mob/living/attacker)
+	target.visible_message(
+		"<span class='danger'>[attacker] shoves [target] against [src], and [target] reaches into the hot oil trying to catch [target.p_their()] fall!</span>",
+		"<span class='userdanger'>[attacker] shoves you into [src], your hands landing in hot oil!</span>",
+		"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+	)
+	target.apply_damage(10, BURN, BODY_ZONE_PRECISE_L_HAND)
+	target.apply_damage(10, BURN, BODY_ZONE_PRECISE_R_HAND)
+	playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
+	return FALSE
+
+/obj/machinery/cooker/deepfryer/special_attack(mob/user, mob/living/carbon/target)
+	var/obj/item/organ/external/head/head = target.get_organ("head")
+	if(!istype(head))
+		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		return FALSE  // you'll probably get smacked against it
+	target.visible_message(
+		"<span class='danger'>[user] dunks [target]'s face into [src]!</span>",
+		"<span class='userdanger'>[user] dunks your face into [src]!</span>",
+		"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+	)
+	playsound(src, "sound/machines/kitchen/deep_fryer_emerge.ogg", 100)
+	target.emote("scream")
+	target.apply_damage(45, BURN, "head") // 45 fire damage and disfigurement because your face was just deep fried!
+	head.disfigure()
+	add_attack_logs(user, target, "Deep-fried with [src]")
+	return TRUE
 
 /// Make foam consisting of burning oil.
 /obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
@@ -111,10 +118,11 @@
 		create_reagents()
 	// the cooking oil should spread through the foam.
 	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
-	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000, no_react = TRUE)
 	reagents.chem_temp = 1000
-	var/datum/effect_system/foam_spread/S = new()
+	var/datum/effect_system/foam_spread/oil/S = new()
 	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.temperature = 1000
 	S.start()
 
 
@@ -149,44 +157,44 @@
 	return istype(I, input)
 
 /datum/deepfryer_special/shrimp
-	input = /obj/item/reagent_containers/food/snacks/shrimp
-	output = /obj/item/reagent_containers/food/snacks/fried_shrimp
+	input = /obj/item/food/shrimp
+	output = /obj/item/food/fried_shrimp
 
 /datum/deepfryer_special/banana
-	input = /obj/item/reagent_containers/food/snacks/grown/banana
-	output = /obj/item/reagent_containers/food/snacks/friedbanana
+	input = /obj/item/food/grown/banana
+	output = /obj/item/food/friedbanana
 
 /datum/deepfryer_special/fries
-	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/fries
+	input = /obj/item/food/rawsticks
+	output = /obj/item/food/fries
 
 /datum/deepfryer_special/corn_chips
-	input = /obj/item/reagent_containers/food/snacks/grown/corn
-	output = /obj/item/reagent_containers/food/snacks/cornchips
+	input = /obj/item/food/grown/corn
+	output = /obj/item/food/cornchips
 
 /datum/deepfryer_special/fried_tofu
-	input = /obj/item/reagent_containers/food/snacks/tofu
-	output = /obj/item/reagent_containers/food/snacks/fried_tofu
+	input = /obj/item/food/tofu
+	output = /obj/item/food/fried_tofu
 
 /datum/deepfryer_special/chimichanga
-	input = /obj/item/reagent_containers/food/snacks/burrito
-	output = /obj/item/reagent_containers/food/snacks/chimichanga
+	input = /obj/item/food/burrito
+	output = /obj/item/food/chimichanga
 
 /datum/deepfryer_special/potato_chips
-	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/reagent_containers/food/snacks/chips
+	input = /obj/item/food/grown/potato/wedges
+	output = /obj/item/food/chips
 
 /datum/deepfryer_special/carrotfries
-	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
-	output = /obj/item/reagent_containers/food/snacks/carrotfries
+	input = /obj/item/food/grown/carrot/wedges
+	output = /obj/item/food/carrotfries
 
 /datum/deepfryer_special/onionrings
-	input = /obj/item/reagent_containers/food/snacks/onion_slice
-	output = /obj/item/reagent_containers/food/snacks/onionrings
+	input = /obj/item/food/onion_slice
+	output = /obj/item/food/onionrings
 
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
-	output = /obj/item/reagent_containers/food/snacks/fried_vox
+	output = /obj/item/food/fried_vox
 
 /datum/deepfryer_special/fried_vox/validate(obj/item/I)
 	if(!..())
@@ -196,6 +204,4 @@
 
 /obj/machinery/cooker/deepfryer/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 30)

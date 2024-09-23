@@ -28,8 +28,9 @@ GLOBAL_PROTECT(log_end)
 #define testing(msg)
 #endif
 
-/proc/log_admin(text)
-	GLOB.admin_log.Add(text)
+/proc/log_admin(text, skip_glob = FALSE)
+	if(!skip_glob)
+		GLOB.admin_log.Add(text)
 	if(GLOB.configuration.logging.admin_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
@@ -40,7 +41,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "DEBUG: [text]")
+			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(GLOB.configuration.logging.game_logging)
@@ -92,12 +93,20 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_ping_all_admins(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		rustg_log_write(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_qdel(text)
 	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
+/proc/log_devsay(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		rustg_log_write(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
 	if(GLOB.configuration.logging.say_logging)
@@ -145,11 +154,19 @@ GLOBAL_PROTECT(log_end)
 /proc/log_runtime_summary(text)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
-/proc/log_tgui(text)
-	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
-
-/proc/log_karma(text)
-	rustg_log_write(GLOB.karma_log, "[text][GLOB.log_end]")
+/proc/log_tgui(user_or_client, text)
+	var/list/messages = list()
+	if(!user_or_client)
+		messages.Add("no user")
+	else if(ismob(user_or_client))
+		var/mob/user = user_or_client
+		messages.Add("[user.ckey] (as [user])")
+	else if(isclient(user_or_client))
+		var/client/client = user_or_client
+		messages.Add("[client.ckey]")
+	messages.Add(": [text]")
+	messages.Add("[GLOB.log_end]")
+	rustg_log_write(GLOB.tgui_log, messages.Join())
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)

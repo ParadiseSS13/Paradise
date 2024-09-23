@@ -1,16 +1,15 @@
 /obj/machinery/processor
-	name = "Food Processor"
+	name = "\improper Food Processor"
+	desc = "Used for turning ingredients into other ingredients."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 50
 
 	var/processing = FALSE
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
 	var/rating_speed = 1
 	var/rating_amount = 1
 
@@ -21,6 +20,31 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
+
+/obj/machinery/processor/update_icon_state()
+	. = ..()
+	if(processing)
+		icon_state = "processor_on"
+		return
+	icon_state = initial(icon_state)
+
+/obj/machinery/processor/examine(mob/user)
+	. = ..()
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+	else
+		. += "<span class='notice'>It is secured in place.</span>"
+
+/obj/machinery/processor/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		return
+	setDir(turn(dir, 90))
 
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
@@ -53,6 +77,7 @@
 	var/output
 	var/time = 40
 
+/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
@@ -64,36 +89,40 @@
 /////OBJECT RECIPIES/////
 /////////////////////////
 /datum/food_processor_process/meat
-	input = /obj/item/reagent_containers/food/snacks/meat
-	output = /obj/item/reagent_containers/food/snacks/meatball
+	input = /obj/item/food/meat
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/potato
-	input = /obj/item/reagent_containers/food/snacks/grown/potato
-	output = /obj/item/reagent_containers/food/snacks/rawsticks
+	input = /obj/item/food/grown/potato
+	output = /obj/item/food/rawsticks
 
 /datum/food_processor_process/rawsticks
-	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/tatortot
+	input = /obj/item/food/rawsticks
+	output = /obj/item/food/tatortot
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/reagent_containers/food/snacks/grown/soybeans
-	output = /obj/item/reagent_containers/food/snacks/soydope
+	input = /obj/item/food/grown/soybeans
+	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/reagent_containers/food/snacks/doughslice
-	output = /obj/item/reagent_containers/food/snacks/spaghetti
+	input = /obj/item/food/doughslice
+	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni
-	input = /obj/item/reagent_containers/food/snacks/spaghetti
-	output = /obj/item/reagent_containers/food/snacks/macaroni
+	input = /obj/item/food/spaghetti
+	output = /obj/item/food/macaroni
 
 /datum/food_processor_process/parsnip
-	input = /obj/item/reagent_containers/food/snacks/grown/parsnip
-	output = /obj/item/reagent_containers/food/snacks/roastparsnip
+	input = /obj/item/food/grown/parsnip
+	output = /obj/item/food/roastparsnip
 
 /datum/food_processor_process/carrot
-	input =  /obj/item/reagent_containers/food/snacks/grown/carrot
-	output = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
+	input =  /obj/item/food/grown/carrot
+	output = /obj/item/food/grown/carrot/wedges
+
+/datum/food_processor_process/towercap
+	input = /obj/item/grown/log
+	output = /obj/item/popsicle_stick
 
 /////////////////////////
 ///END OBJECT RECIPIES///
@@ -160,18 +189,17 @@
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
 		return
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
 
 	default_deconstruction_crowbar(user, O)
@@ -204,10 +232,11 @@
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
-	if(contents.len == 0)
+	if(length(contents) == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
 	processing = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
@@ -229,6 +258,7 @@
 			continue
 		P.process_food(loc, O, src)
 	processing = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \

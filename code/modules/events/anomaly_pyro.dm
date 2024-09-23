@@ -1,8 +1,7 @@
 /datum/event/anomaly/anomaly_pyro
-	name = "Anomaly: Pyroclastic"
+	name = "Anomaly event"
 	startWhen = 3
 	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/pyro
-
-/datum/event/anomaly/anomaly_pyro/announce()
-	GLOB.minor_announcement.Announce("Atmospheric anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_pyro.ogg')
+	prefix_message = "Pyroclastic anomaly detected on long range scanners."
+	announce_sound = 'sound/AI/anomaly_pyro.ogg'

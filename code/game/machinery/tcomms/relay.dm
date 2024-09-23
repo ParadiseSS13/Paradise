@@ -54,6 +54,11 @@
   */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
+
+	// It's also possible the relay's APC's Initialize was called after this one.
+	// Take the opportunity here to re-check the equipment channel.
+	power_change()
+
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == autolink_id)
 			AddLink(C)
@@ -130,7 +135,8 @@
   * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
 /obj/machinery/tcomms/relay/power_change()
-	..()
+	if(!..())
+		return
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
@@ -138,10 +144,13 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/relay/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/tcomms/relay/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/tcomms/relay/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TcommsRelay", name, 600, 400, master_ui, state)
+		ui = new(user, src, "TcommsRelay", name)
 		ui.open()
 
 /obj/machinery/tcomms/relay/ui_data(mob/user)
@@ -201,7 +210,7 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()

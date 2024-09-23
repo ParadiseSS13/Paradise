@@ -2,14 +2,23 @@
 GLOBAL_LIST_EMPTY(hivemind_bank)
 
 /datum/action/changeling/hivemind_pick
-	name = "Hive Channel DNA"
-	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Costs 10 chemicals."
-	button_icon_state = "hive_absorb"
+	name = "Hivemind Access"
+	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind using :g. Costs 10 chemicals."
+	helptext = "Tunes our chemical receptors for hivemind communication, which passively grants us access to the Changeling Hivemind."
+	button_overlay_icon_state = "hive_absorb"
 	chemical_cost = 10
-	power_type = CHANGELING_INNATE_POWER
+	dna_cost = 4
+	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
+
+/datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/C)
+	if(!..())
+		return
+	user.add_language("Changeling")
+	to_chat(user, "<span class='notice'>We feel our consciousness become capable of communion with the hivemind.</span>")
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
-	var/channel_pick = alert("Upload or Absorb DNA?", "Channel Select", "Upload", "Absorb")
+	var/channel_pick = tgui_alert(user, "Upload or Absorb DNA?", "Channel Select", list("Upload", "Absorb"))
 
 	if(channel_pick == "Upload")
 		dna_upload(user)
@@ -41,7 +50,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		to_chat(user, "<span class='notice'>There's no new DNA to absorb from the air.</span>")
 		return
 
-	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
+	var/S = tgui_input_list(user, "Select a DNA absorb from the air", "Absorb DNA", names)
 	if(!S)
 		return
 
@@ -50,3 +59,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
+
+/datum/action/changeling/hivemind_pick/Remove(mob/user)
+	if(!istype(user))
+		return
+	user.remove_language("Changeling")
+	to_chat(user, "<span class='notice'>We feel a slight emptiness as we shut ourselves off from the hivemind.</span>")
+	..()

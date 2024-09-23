@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -41,10 +41,10 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
-	if (islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
+	if(islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
 		has_suit.armor = getArmor(arglist(has_suit.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
 															// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
-	if (islist(armor) || isnull(armor))
+	if(islist(armor) || isnull(armor))
 		armor = getArmor(arglist(armor))
 
 	has_suit.armor = has_suit.armor.attachArmor(armor)
@@ -74,20 +74,27 @@
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
-	if(istype(H))
+	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
-			return 1
+			return TRUE
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
+			if(user == H)
+				U.attach_accessory(src, user, TRUE)
+				return
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
-			if(do_after(user, 40, target=H) && H.w_uniform == U)
-				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
-				U.attackby(src, user)
+			if(do_after(user, 4 SECONDS, target = H) && H.w_uniform == U)
+				if(U.attach_accessory(src, user, TRUE))
+					user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+					after_successful_nonself_attach(H, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
-		return 1
+		return TRUE
 	return ..()
+
+/obj/item/clothing/accessory/proc/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	return
 
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
@@ -126,7 +133,8 @@
 	icon_state = "horribletie"
 	item_color = "horribletie"
 
-/obj/item/clothing/accessory/waistcoat // No overlay
+/// No overlay
+/obj/item/clothing/accessory/waistcoat
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
@@ -139,53 +147,60 @@
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
-	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
+	desc = "An outdated medical apparatus, used to get a rough idea of the condition of the heart and lungs. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
 	item_color = "stethoscope"
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
-	if(ishuman(M) && isliving(user))
-		if(user == M)
-			user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
-		else
-			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
-		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
-		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
-			var/color = "notice"
-			if(H)
-				var/heart_sound
-				switch(H.damage)
-					if(0 to 1)
-						heart_sound = "healthy"
-					if(1 to 25)
-						heart_sound = "offbeat"
-					if(25 to 50)
-						heart_sound = "uneven"
-						color = "warning"
-					if(50 to INFINITY)
-						heart_sound = "weak, unhealthy"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
-			if(L)
-				var/lung_sound
-				switch(L.damage)
-					if(0 to 1)
-						lung_sound = "healthy respiration"
-					if(1 to 25)
-						lung_sound = "labored respiration"
-					if(25 to 50)
-						lung_sound = "pained respiration"
-						color = "warning"
-					if(50 to INFINITY)
-						lung_sound = "gurgling"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
-		else
-			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
-		return
-	return ..(M,user)
+	if(!ishuman(M) || !isliving(user))
+		return ..(M, user)
 
+	if(user == M)
+		user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
+	else
+		user.visible_message("[user] places [src] against [M]'s chest and listens attentively.", "You place [src] against [M]'s chest...")
+	var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(!lung_datum || !heart_datum)
+		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
+
+	var/obj/item/organ/internal/H = heart_datum.linked_organ
+	var/obj/item/organ/internal/L = lung_datum.linked_organ
+	if(!M.pulse || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
+		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
+
+	var/color = "notice"
+	if(H)
+		var/heart_sound
+		switch(H.damage)
+			if(0 to 1)
+				heart_sound = "healthy"
+			if(1 to 25)
+				heart_sound = "offbeat"
+			if(25 to 50)
+				heart_sound = "uneven"
+				color = "warning"
+			if(50 to INFINITY)
+				heart_sound = "weak, unhealthy"
+				color = "warning"
+		to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
+
+	if(L)
+		var/lung_sound
+		switch(L.damage)
+			if(0 to 1)
+				lung_sound = "healthy respiration"
+			if(1 to 25)
+				lung_sound = "labored respiration"
+			if(25 to 50)
+				lung_sound = "pained respiration"
+				color = "warning"
+			if(50 to INFINITY)
+				lung_sound = "gurgling"
+				color = "warning"
+		to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
 
 //Medals
 /obj/item/clothing/accessory/medal
@@ -195,6 +210,29 @@
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	/// The channel we will announce on when we are rewarded to someone
+	var/channel
+	/// Will we try to announce, toggled by using in hand
+	var/try_announce = TRUE
+
+/obj/item/clothing/accessory/medal/examine(mob/user)
+	. = ..()
+	if(channel)
+		. += "<span class='notice'>The tiny radio inside seems to be [try_announce ? "active" : "inactive"].</span>"
+
+/obj/item/clothing/accessory/medal/attack_self(mob/user)
+	. = ..()
+	if(channel)
+		try_announce = !try_announce
+		to_chat(user, "<span class='notice'>You silently [try_announce ? "enable" : "disable"] the radio in [src].</span>")
+
+/obj/item/clothing/accessory/medal/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	if(!channel || !try_announce)
+		return
+	if(!is_station_level(user.z))
+		return
+	GLOB.global_announcer.autosay("[H] has been rewarded [src] by [user]!", "Medal Announcer", channel, src)
+	channel = null
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
@@ -203,15 +241,22 @@
 	icon_state = "gold"
 	item_color = "gold"
 	materials = list(MAT_GOLD=1000)
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	channel = null // captains medal is special :)
+
+/obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
+	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
+	icon_state = "ion"
 
 // SILVER (awarded by Captain)
 
@@ -221,51 +266,141 @@
 	icon_state = "silver"
 	item_color = "silver"
 	materials = list(MAT_SILVER=1000)
+	channel = "Command"
 
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
 	desc = "An award issued by Captains to crew members whose exceptional performance and service to the station has been commended by the station's top leadership."
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/silver/leadership
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
 
 
-// BRONZE (awarded by heads of department, except for the bronze heart)
+// BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
 
 
 
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
 	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+	channel = "Security"
 
 /obj/item/clothing/accessory/medal/science
 	name = "smart science medal"
 	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+	channel = "Science"
 
 /obj/item/clothing/accessory/medal/engineering
 	name = "excellent engineering medal"
 	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+	channel = "Engineering"
 
 /obj/item/clothing/accessory/medal/service
 	name = "superior service medal"
 	desc = "An award issued by the HoP to service staff who go above and beyond."
+	channel = "Service"
 
 /obj/item/clothing/accessory/medal/medical
 	name = "magnificient medical medal"
 	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+	channel = "Medical"
 
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	channel = "Procedure"
+
+/obj/item/clothing/accessory/medal/supply
+	name = "stable supply medal"
+	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+	channel = "Supply"
+
+/// Prize for the NT Recruiter emagged arcade
+/obj/item/clothing/accessory/medal/recruiter
+	name = "nanotrasen recruiter medal"
+	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
+	item_color = "bronze_heart"
+	channel = "Common"
 
+// Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
 
+/obj/item/clothing/accessory/medal/plasma
+	name = "plasma medal"
+	desc = "An eccentric medal made of plasma."
+	icon_state = "plasma"
+	item_color = "plasma"
+	materials = list(MAT_PLASMA = 1000)
 
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
+	if(temperature > T0C + 200)
+		burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	. = ..()
+	burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/proc/burn_up()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
+	visible_message("<span class='warning'>[src] bursts into flame!</span>")
+	qdel(src)
+
+// Alloy, for the vetus speculator, or abductors I guess.
+
+/obj/item/clothing/accessory/medal/alloy
+	name = "alloy medal"
+	desc = "An eccentric medal made of some strange alloy."
+	icon_state = "alloy"
+	item_color = "alloy"
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
+
+// Mostly mining medals past here
+
+/obj/item/clothing/accessory/medal/gold/bubblegum
+	name = "bubblegum HRD-MDE award"
+	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+	channel = null
+
+/// Kill every hardmode boss. In a shift. Good luck.
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full
+	name = "medal of incredible dedication"
+	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+	channel = null
+
+/obj/item/clothing/accessory/medal/silver/colossus
+	name = "colossus HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+	channel = null
+
+/obj/item/clothing/accessory/medal/silver/legion
+	name = "legion HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+	channel = null
+
+/obj/item/clothing/accessory/medal/blood_drunk
+	name = "blood drunk HRD-MDE award"
+	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
+
+/obj/item/clothing/accessory/medal/plasma/hierophant
+	name = "hierophant HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
+
+/obj/item/clothing/accessory/medal/plasma/ash_drake
+	name = "ash drake HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
+
+/obj/item/clothing/accessory/medal/alloy/vetus
+	name = "vetus speculator HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
 
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
@@ -278,7 +413,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_BELT | SLOT_TIE
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
 
 	var/stored_name = null
 
@@ -321,47 +456,64 @@
 	else
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		return TRUE
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
-	if(isliving(user))
+	if(H != user)
 		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are THE LAW!</span>")
+		return
+	..()
 
 //////////////
 //OBJECTION!//
 //////////////
 
-/obj/item/clothing/accessory/lawyers_badge
-	name = "attorney's badge"
-	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
-	icon_state = "lawyerbadge"
-	item_state = "lawyerbadge"
-	item_color = "lawyerbadge"
+/obj/item/clothing/accessory/legal_badge
+	name = "magistrate's badge"
+	desc = "Fills you with the conviction of JUSTICE. Display your mastery of Space Law to the world."
+	icon_state = "legal_badge"
+	item_state = "legal_badge"
+	item_color = "legal_badge"
 	var/cached_bubble_icon = null
+	var/what_you_are = "THE LAW"
 
-/obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
+/obj/item/clothing/accessory/legal_badge/attack_self(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
+	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
 
-/obj/item/clothing/accessory/lawyers_badge/on_attached(obj/item/clothing/under/S, mob/user)
+/obj/item/clothing/accessory/legal_badge/attack(mob/living/carbon/human/H, mob/living/user)
+	if(H != user)
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are [what_you_are]!</span>")
+		return
+	..()
+
+/obj/item/clothing/accessory/legal_badge/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		cached_bubble_icon = M.bubble_icon
-		M.bubble_icon = "lawyer"
+		M.bubble_icon = "legal"
 
-/obj/item/clothing/accessory/lawyers_badge/on_removed(mob/user)
+/obj/item/clothing/accessory/legal_badge/on_removed(mob/user)
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		M.bubble_icon = cached_bubble_icon
 	..()
 
+/obj/item/clothing/accessory/legal_badge/iaa
+	name = "internal affairs badge"
+	desc = "Marks you as an expert of Standard Operating Procedure, and as a soul-crushing paper pusher."
+	what_you_are = "HUMAN RESOURCES"
+
 ///////////
 //SCARVES//
 ///////////
 
-/obj/item/clothing/accessory/scarf // No overlay
+/// No overlay
+/obj/item/clothing/accessory/scarf
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
@@ -449,7 +601,15 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
+
+/obj/item/clothing/accessory/necklace/long
+	name = "large necklace"
+	desc = "A large necklace."
+	icon_state = "necklacelong"
+	item_state = "necklacelong"
+	item_color = "necklacelong"
+
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -464,7 +624,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -473,16 +633,16 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
-	icon_state = "locket"
-	item_state = "locket"
-	item_color = "locket"
-	slot_flags = SLOT_TIE
+	icon_state = "locketgold"
+	item_state = "locketgold"
+	item_color = "locketgold"
+	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.
@@ -526,6 +686,13 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/necklace/locket/silver
+	name = "silver locket"
+	desc = "A silver locket that seems to have space for a photo within."
+	icon_state = "locketsilver"
+	item_state = "locketsilver"
+	item_color = "locketsilver"
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
@@ -662,11 +829,61 @@
 	item_state = "corset_blue"
 	item_color = "corset_blue"
 
+//Pins
+/obj/item/clothing/accessory/pin
+	name = "nanotrasen pin"
+	desc = "It's a standard pin to wear so you can show your loyalty to Nanotrasen!"
+	icon_state = "nt_pin"
+	item_state = "nt_pin"
+	item_color = "nt_pin"
+
+/obj/item/clothing/accessory/pin/pride
+	name = "pride pin"
+	desc = "It's a standard pin, wear it with pride. You can change which flag is used from a button on the back."
+	icon_state = "pride_pin"
+	item_state = "pride_pin"
+	item_color = "pride_pin"
+
+	///List of all pride flags to icon state
+	var/static/list/flag_types = list(
+		"Pride" = "pride_pin",
+		"Bisexual Pride" = "bi_pin",
+		"Pansexual Pride" = "pan_pin",
+		"Asexual Pride" = "ace_pin",
+		"Non-binary Pride" = "enby_pin",
+		"Transgender Pride" = "trans_pin")
+
+	///List of all pride flags to icon image, for the radial
+	var/static/list/flag_icons = list()
+
+/obj/item/clothing/accessory/pin/pride/Initialize(mapload)
+	. = ..()
+	if(length(flag_icons)) //Only generate it once
+		return
+
+	for(var/current_pin in flag_types) //generate the flag icons
+		var/image/pin_icon = image(icon, icon_state = flag_types[current_pin])
+		flag_icons[current_pin] = pin_icon
+
+/obj/item/clothing/accessory/pin/pride/attack_self(mob/user)
+	. = ..()
+	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
+	if(!chosen_pin)
+		to_chat(user, "<span class='notice'>You decide not to change [src].</span>")
+		return
+	var/pin_icon_state = flag_types[chosen_pin]
+	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
+
+	icon_state = pin_icon_state
+	item_state = pin_icon_state
+	item_color = pin_icon_state
+	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+
 /proc/english_accessory_list(obj/item/clothing/under/U)
-	if(!istype(U) || !U.accessories.len)
+	if(!istype(U) || !length(U.accessories))
 		return
 	var/list/A = U.accessories
-	var/total = A.len
+	var/total = length(A)
 	if(total == 1)
 		return "\a [A[1]]"
 	else if(total == 2)

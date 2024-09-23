@@ -10,12 +10,13 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-/datum/supply_packs/misc/watertank
-	name = "Water Tank Crate"
-	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 50
+/datum/supply_packs/misc/loader
+	name = "Loader MODsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/loader)
+	cost = 750 //Unique, expencive. Better sell that plasma
 	containertype = /obj/structure/largecrate
-	containername = "water tank crate"
+	containername = "\improper Loader MODsuit crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
 
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
@@ -47,8 +48,8 @@
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater,
+	contains = list(/obj/item/reagent_containers/drinks/bottle/holywater,
+					/obj/item/reagent_containers/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
 					/obj/item/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -81,6 +82,18 @@
 	contains = list(/obj/item/stack/tile/carpet/twenty)
 	containername = "carpet crate"
 
+/datum/supply_packs/misc/personal_crates
+	name = "Personal Crates Pack"
+	cost = 100
+	containertype = /obj/structure/largecrate
+	contains = list(/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal)
+	containername = "personal crates pack"
+
 
 ///////////// Paper Work
 
@@ -105,17 +118,6 @@
 					/obj/item/clipboard)
 	cost = 100
 	containername = "bureaucracy crate"
-
-/datum/supply_packs/misc/toner
-	name = "Toner Cartridges Crate"
-	contains = list(/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner)
-	cost = 100
-	containername = "toner cartridges crate"
 
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
@@ -161,6 +163,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
+					/obj/item/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
@@ -201,11 +204,37 @@
 	cost = 100
 	containername = "replacement lights crate"
 
+/datum/supply_packs/misc/janicart
+	name = "Janicart Crate"
+	contains = list(/obj/vehicle/janicart,
+					/obj/item/key/janitor)
+	cost = 500
+	containertype = /obj/structure/largecrate
+	containername = "Janicart. Caution while driving is advised."
+	department_restrictions = list(DEPARTMENT_SERVICE)
+
 /datum/supply_packs/misc/noslipfloor
 	name = "High-traction Floor Tiles"
 	contains = list(/obj/item/stack/tile/noslip/loaded)
 	cost = 200
 	containername = "high-traction floor tiles"
+
+/datum/supply_packs/misc/soap
+	name = "Assorted Soap Crate"
+	contains = list(/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap/nanotrasen)
+	cost = 250
+	containername = "soap crate"
+
+/datum/supply_packs/misc/sus_soap
+	name = "Suspicious Soap Crate"
+	contains = list(/obj/item/soap/syndie,
+					/obj/item/soap/syndie)
+	cost = 250
+	containername = "suspicious soap crate"
+	hidden = TRUE
 
 ///////////// Costumes
 
@@ -223,8 +252,8 @@
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana
+					/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+					/obj/item/reagent_containers/drinks/bottle/bottleofbanana
 					)
 	cost = 250
 	containertype = /obj/structure/closet/crate/secure
@@ -234,7 +263,7 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/twohanded/staff,
+	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake,
@@ -278,6 +307,15 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
+/datum/supply_packs/misc/welding_goggles
+	name = "Welding Goggles Crate"
+	contains = list(/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding)
+	cost = 300
+	containername = "welding goggles crate"
+
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,
@@ -301,7 +339,7 @@
 					/obj/item/clothing/head/collectable/slime,
 					/obj/item/clothing/head/collectable/xenom,
 					/obj/item/clothing/head/collectable/petehat)
-	name = "Collectible Hats Crate"
+	name = "Collectable Hats Crate"
 	cost = 2500
 	containername = "collectable hats crate! Brought to you by Bass.inc!"
 
@@ -309,6 +347,11 @@
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+/datum/supply_packs/misc/randomised/plushie
+	name = "Collectable Plushies Crate"
+	cost = 1000
+	containername = "collectable plushies crate! Brought to you by Bass.inc!"
+	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
@@ -345,7 +388,7 @@
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
-					/obj/structure/piano)
+					/obj/structure/musician/piano)
 	cost = 500
 	containername = "big band musical instruments collection"
 
@@ -368,17 +411,24 @@
 	containername = "flags crate"
 	contraband = TRUE
 
-/datum/supply_packs/misc/formalwear //This is a very classy crate.
+/datum/supply_packs/misc/pimpcoat
+	name = "Very Expensive Coat for Rich People"
+	contains = list(/obj/item/clothing/suit/pimpcoat)
+	cost = 1000
+	containername = "expensive coat crate"
+
+/// This is a very classy crate.
+/datum/supply_packs/misc/formalwear
 	name = "Formal Wear Crate"
 	contains = list(/obj/item/clothing/under/dress/blacktango,
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/misc/assistantformal,
-					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
-					/obj/item/clothing/suit/storage/lawyer/bluejacket,
-					/obj/item/clothing/under/rank/civilian/lawyer/purple,
-					/obj/item/clothing/suit/storage/lawyer/purpjacket,
-					/obj/item/clothing/under/rank/civilian/lawyer/black,
-					/obj/item/clothing/suit/storage/lawyer/blackjacket,
+					/obj/item/clothing/under/rank/procedure/iaa/blue,
+					/obj/item/clothing/suit/storage/iaa/bluejacket,
+					/obj/item/clothing/under/rank/procedure/iaa/purple,
+					/obj/item/clothing/suit/storage/iaa/purplejacket,
+					/obj/item/clothing/under/rank/procedure/iaa,
+					/obj/item/clothing/suit/storage/iaa/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,
 					/obj/item/clothing/accessory/blue,
 					/obj/item/clothing/accessory/red,
@@ -412,7 +462,8 @@
 	cost = 400
 	containername = "wedding crate"
 
-/datum/supply_packs/misc/teamcolors		//For team sports like space polo
+/// For team sports like space polo
+/datum/supply_packs/misc/teamcolors
 	name = "Team Jerseys Crate"
 	// 4 red jerseys, 4 blue jerseys, and 1 baseball
 	contains = list(/obj/item/clothing/under/color/red/jersey,
@@ -427,15 +478,16 @@
 	cost = 300
 	containername = "team jerseys crate"
 
-/datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+/// For space polo! Or horsehead Quiditch
+/datum/supply_packs/misc/polo
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
-	contains = list(/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
+	contains = list(/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
@@ -446,7 +498,8 @@
 	cost = 250
 	containername = "polo supply crate"
 
-/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+/// For non log spamming cargo brawls!
+/datum/supply_packs/misc/boxing
 	name = "Boxing Supply Crate"
 	// 4 boxing gloves
 	contains = list(/obj/item/clothing/gloves/boxing/blue,
@@ -461,14 +514,23 @@
 	cost = 50
 	contains = list(/obj/item/vending_refill/bardrobe,
 					/obj/item/vending_refill/chefdrobe,
-					/obj/item/vending_refill/hydrodrobe)
+					/obj/item/vending_refill/hydrodrobe,
+					/obj/item/vending_refill/janidrobe,
+					/obj/item/vending_refill/lawdrobe)
 	containername = "service clothing vendor crate"
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo
 	name = "Cargo Clothing Vendors Crate"
 	cost = 50
-	contains = list(/obj/item/vending_refill/cargodrobe)
+	contains = list(/obj/item/vending_refill/cargodrobe,
+					/obj/item/vending_refill/exploredrobe)
 	containername = "cargo clothing vendor crate"
+
+/datum/supply_packs/misc/hoverboard
+	name = "Hoverboard Crate"
+	contains = list(/obj/item/melee/skateboard/hoverboard)
+	cost = 999 // Price of cool. Also under 1000 so it's not grand theft if stolen, lmao
+	containername = "hoverboard crate"
 
 ///////////// Station Goals
 

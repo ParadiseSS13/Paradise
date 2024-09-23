@@ -5,7 +5,7 @@
 	icon_state = "seed-potato"
 	species = "potato"
 	plantname = "Peanut Vines"
-	product = /obj/item/reagent_containers/food/snacks/grown/peanuts
+	product = /obj/item/food/grown/peanuts
 	lifespan = 30
 	maturation = 10
 	production = 1
@@ -17,7 +17,7 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("plantmatter" = 0.1)
 
-/obj/item/reagent_containers/food/snacks/grown/peanuts
+/obj/item/food/grown/peanuts
 	seed = /obj/item/seeds/peanuts
 	name = "patch of peanuts"
 	desc = "Best avoided if you have spess allergies."

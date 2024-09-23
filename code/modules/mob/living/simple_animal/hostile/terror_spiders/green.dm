@@ -48,10 +48,10 @@
 		eggtypes += TS_DESC_BLACK
 	var/eggtype = pick(eggtypes)
 	if(client)
-		eggtype = input("What kind of eggs?") as null|anything in eggtypes
+		eggtype = tgui_input_list(src, "What kind of eggs?", "Egg Laying", eggtypes)
 		if(!(eggtype in eggtypes))
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
-			return 0
+			return FALSE
 	if(!isturf(loc))
 		// This has to be checked after we ask the user what egg type. Otherwise they could trigger prompt THEN move into a vent.
 		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")

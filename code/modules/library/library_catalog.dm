@@ -236,7 +236,7 @@
   * * range - Amount of books we want to grab at once
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/get_book_by_range(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
+/datum/library_catalog/proc/get_book_by_range(initial = 1, range = 25, datum/library_user_data/search_terms)
 	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
@@ -246,7 +246,7 @@
 
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
 
-	if(!select_query.warn_execute(async = doAsync))
+	if(!select_query.warn_execute())
 		qdel(select_query)
 		return
 
@@ -365,7 +365,7 @@
   * Arguments:
   * * amount - amount of random books to get
  */
-/datum/library_catalog/proc/get_random_book(amount = 1, doAsync = TRUE)
+/datum/library_catalog/proc/get_random_book(amount = 1)
 	if(!amount)
 		return
 	if(!SSdbcore.IsConnected())
@@ -374,7 +374,7 @@
 	var/list/sql_params = list("amount" = num_books )
 	var/sql = "SELECT id, author, title, content, summary, rating, primary_category, secondary_category, tertiary_category, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
-	if(!query.warn_execute(async = doAsync)) //this proc is used in initialize in some objects :)
+	if(!query.warn_execute())
 		qdel(query)
 		return
 
@@ -427,14 +427,14 @@
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but it does not exist in the Database, please investigate further.")
 		return FALSE
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not successfully saved to the Database. Please investigate further.")
 		alert("Connection to Archive has been severed. Aborting.")
 		return FALSE
 
 	//Alright now that we've triple checked that we're ready to do this:
 	//Has this player reported this book already this round?
 	for(var/datum/flagged_book/book in flagged_books)
-		if (book.bookid == bookid && book.reporter == ckey)
+		if(book.bookid == bookid && book.reporter == ckey)
 			return FALSE
 	//If not, have they report this book in a previous round?
 	for(var/datum/flagged_book/book in reportedbook.reports)
@@ -462,7 +462,7 @@
 		"report" = json_encode(flag_json),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	message_admins("[ckey] has flagged book #[bookid] as inappropriate for \"[report_type.description]\".")
@@ -486,7 +486,7 @@
 		return FALSE //it don't exist
 
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		return FALSE
 
 	//uploading our report to the library
@@ -495,7 +495,7 @@
 		"report" = json_encode(list()),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	qdel(query)

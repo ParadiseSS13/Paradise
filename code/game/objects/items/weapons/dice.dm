@@ -1,12 +1,16 @@
-/obj/item/storage/pill_bottle/dice
+/// Thankfully no longer a pill bottle.
+/obj/item/storage/bag/dice
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
+	use_sound = "rustle"
+	storage_slots = 50
+	max_combined_w_class = 50
 	can_hold = list(/obj/item/dice)
-	allow_wrap = FALSE
+	resistance_flags = FLAMMABLE
 
-/obj/item/storage/pill_bottle/dice/populate_contents()
+/obj/item/storage/bag/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
 	if(special_die == "1")
 		new /obj/item/dice/d1(src)
@@ -25,13 +29,14 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+/obj/item/storage/bag/dice/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
-/obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/// depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/obj/item/dice
 	name = "die"
-	desc = "A die with six sides. Basic and servicable."
+	desc = "A die with six sides. Basic and serviceable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
@@ -99,7 +104,7 @@
 
 /obj/item/dice/d00
 	name = "d00"
-	desc = "A die with ten sides. Works better for d100 rolls than a golfball."
+	desc = "A die with ten sides. Works better for d100 rolls than a golf ball."
 	icon_state = "d00"
 	sides = 10
 
@@ -111,7 +116,7 @@
 
 /obj/item/dice/d20
 	name = "d20"
-	desc = "A die with twenty sides. The prefered die to throw at the GM."
+	desc = "A die with twenty sides. The preferred die to throw at the GM."
 	icon_state = "d20"
 	sides = 20
 
@@ -145,7 +150,7 @@
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind || iswizard(user))
 			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
 			return
 
@@ -158,7 +163,7 @@
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
 		user.unEquip(src)
 
@@ -182,12 +187,12 @@
 			//Swarm of creatures
 			T.visible_message("<span class='userdanger'>A swarm of creatures surround [user]!</span>")
 			for(var/direction in GLOB.alldirs)
-				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user),direction))
+				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user), direction))
 		if(4)
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant))
+				if(istype(I, /obj/item/bio_chip))
 					continue
 				qdel(I)
 		if(5)
@@ -204,13 +209,12 @@
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
 			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
-			var/throw_dir = GLOB.cardinal
-			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
+			var/atom/throw_target = get_edge_target_turf(user, pick(GLOB.cardinal))
 			user.throw_at(throw_target, 200, 4)
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user),-1,0,2, flame_range = 2)
+			explosion(get_turf(user), -1, 0, 2, flame_range = 2)
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -222,7 +226,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
@@ -234,23 +238,46 @@
 			T.visible_message("<span class='userdanger'>Mad dosh shoots out of [src]!</span>")
 			var/turf/Start = get_turf(src)
 			for(var/direction in GLOB.alldirs)
-				var/turf/dirturf = get_step(Start,direction)
+				var/turf/dirturf = get_step(Start, direction)
 				if(prob(50))
 					new /obj/item/stack/spacecash/c1000(dirturf)
 				else
 					var/obj/item/storage/bag/money/M = new(dirturf)
-					for(var/i in 1 to rand(5,50))
+					for(var/i in 1 to rand(5, 50))
 						new /obj/item/coin/gold(M)
 		if(14)
-			//Free Gun
-			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
+			//Tator Item
+			var/list/traitor_items = list(/obj/item/chameleon,
+				/obj/item/chameleon_counterfeiter,
+				/obj/item/clothing/shoes/chameleon/noslip,
+				/obj/item/pinpointer/advpinpointer,
+				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
+				/obj/item/storage/backpack/duffel/syndie/med/surgery,
+				/obj/item/storage/toolbox/syndicate,
+				/obj/item/storage/backpack/clown/syndie,
+				/obj/item/storage/backpack/satchel_flat,
+				/obj/item/storage/box/syndie_kit/camera_bug,
+				/obj/item/storage/belt/military/traitor,
+				/obj/item/clothing/glasses/chameleon/thermal,
+				/obj/item/borg/upgrade/modkit/indoors,
+				/obj/item/storage/box/syndie_kit/chameleon,
+				/obj/item/mod/control/pre_equipped/traitor,
+				/obj/item/bio_chip_implanter/storage,
+				/obj/item/toy/syndicateballoon)
+			var/selected_item = pick(traitor_items)
+			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
+			new selected_item(drop_location())
 			create_smoke(2)
-			new /obj/item/gun/projectile/revolver/mateba(drop_location())
 		if(15)
 			//Random One-use spellbook
+			var/list/oneuse_spellbook = list(/obj/item/spellbook/oneuse/smoke,
+				/obj/item/spellbook/oneuse/blind,
+				/obj/item/spellbook/oneuse/knock,
+				/obj/item/spellbook/oneuse/summonitem)
+			var/selected_spellbook = pick(oneuse_spellbook)
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
 			create_smoke(2)
-			new /obj/item/spellbook/oneuse/random(drop_location())
+			new selected_spellbook(drop_location())
 		if(16)
 			//Servant & Servant Summon
 			T.visible_message("<span class='userdanger'>A Dice Servant appears in a cloud of smoke!</span>")
@@ -259,29 +286,30 @@
 
 			H.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()
+
 			var/datum/objective/O = new
-			O.owner = servant_mind
 			O.target = user.mind
 			O.explanation_text = "Serve [user.real_name]."
-			servant_mind.objectives += O
+			servant_mind.add_mind_objective(O)
+
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 30 SECONDS, source = H)
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", poll_time = 30 SECONDS, source = H)
 			if(length(candidates) && !QDELETED(H))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
+				dust_if_respawnable(C)
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/summonmob/S = new
+			var/datum/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
-
 		if(17)
-			//Tator Kit
-			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndie_kit/bundle(drop_location())
+			//Free Gun
+			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
 			create_smoke(2)
+			new /obj/item/gun/energy/kinetic_accelerator/experimental(drop_location())
 		if(18)
 			//Captain ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
@@ -292,11 +320,12 @@
 			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
 			user.physiology.brute_mod *= 0.5
 			user.physiology.burn_mod *= 0.5
-
 		if(20)
-			//Free wizard!
-			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user]!</span>")
-			user.mind.make_Wizard()
+			//Three free good dice rolls!
+			T.visible_message("<span class='userdanger'>Critical number! [src] is rolling three times all by himself!</span>")
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 3 SECONDS)
 
 /obj/item/dice/d100
 	name = "d100"

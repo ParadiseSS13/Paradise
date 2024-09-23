@@ -12,7 +12,8 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
-/datum/supply_packs/engineering/tools		//the most robust crate
+/// the most robust crate
+/datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
@@ -60,9 +61,9 @@
 	contains = list(/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
+					/obj/item/clothing/suit/storage/hazardvest/staff,
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
@@ -100,7 +101,7 @@
 					/obj/item/circuitboard/solar_control,
 					/obj/item/tracker_electronics,
 					/obj/item/paper/solar)
-	cost = 250
+	cost = 100
 	containername = "solar pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -209,10 +210,11 @@
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
+/* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
+		/obj/machinery/power/teg,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 250
@@ -220,3 +222,59 @@
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
+*/
+/datum/supply_packs/engineering/canister/nitrogen
+	name = "Nitrogen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "nitrogen canister crate"
+
+/datum/supply_packs/engineering/canister/oxygen
+	name = "Oxygen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/oxygen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "oxygen canister crate"
+
+/datum/supply_packs/engineering/canister/air
+	name = "Air canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/air)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "Air canister crate"
+
+/datum/supply_packs/engineering/canister/sleeping_agent
+	name = "Nitrous oxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/sleeping_agent)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Nitrous oxide canister crate"
+
+/datum/supply_packs/engineering/canister/carbon_dioxide
+	name = "Carbon dioxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Carbon dioxide canister crate"
+
+/datum/supply_packs/engineering/canister/toxins
+	name = "Plasma canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Plasma canister crate"
+
+/datum/supply_packs/engineering/chemical_flamethrower
+	name = "Chemical Flamethrower Starter Pack"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 750
+	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
+	containername = "chemical flamethrower crate"
+
+/datum/supply_packs/engineering/chemical_canister
+	name = "Chemical Flamethrower Canister Pack"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 500
+	containertype = /obj/structure/closet/crate
+	containername = "chemical flamethrower canister crate"

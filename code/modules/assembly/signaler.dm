@@ -2,12 +2,12 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another."
 	icon_state = "signaller"
 	item_state = "signaler"
-	materials = list(MAT_METAL=400, MAT_GLASS=120)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
-	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
+	wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE | ASSEMBLY_WIRE_RADIO_PULSE | ASSEMBLY_WIRE_RADIO_RECEIVE
 	secured = TRUE
 	bomb_name = "remote-control bomb"
 	/// Are we set to receieve a signal?
@@ -28,6 +28,20 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
+	. += "<span class='notice'>Alt+Click to send a signal.</span>"
+
+/obj/item/assembly/signaler/AltClick(mob/user)
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	activate()
+
+/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+	if(issignaler(W))
+		var/obj/item/assembly/signaler/signaler2 = W
+		if(secured && signaler2.secured)
+			code = signaler2.code
+			frequency = signaler2.frequency
+			to_chat(user, "You transfer the frequency and code to [src].")
+	return ..()
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
@@ -42,6 +56,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	if(usr) // sometimes (like when a prox sensor sends a signal) there is no usr
 		invoking_ckey = usr.key
 	GLOB.lastsignalers.Add("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
+	investigate_log("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]", "signalers")
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
@@ -49,11 +64,8 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
 /obj/item/assembly/signaler/activate()
-	if(cooldown > 0)
+	if(!..())
 		return
-
-	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 	signal()
 
@@ -66,10 +78,13 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/assembly/signaler/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/assembly/signaler/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
+/obj/item/assembly/signaler/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RemoteSignaler", name, 300, 200, master_ui, state)
+		ui = new(user, src, "RemoteSignaler", name)
 		ui.open()
 
 /obj/item/assembly/signaler/ui_data(mob/user)

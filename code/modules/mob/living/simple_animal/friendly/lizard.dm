@@ -15,22 +15,23 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
+	faction = list("neutral", "jungle")
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/eating_sound = 'sound/weapons/bite.ogg'
 	/// Lizards start with a tail
-	var/has_tail = TRUE 
+	var/has_tail = TRUE
 
 /mob/living/simple_animal/lizard/handle_automated_action()
-	if(!stat && !buckled)
+	if(stat == CONSCIOUS && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue.", "wags its tail.", "lies down."))
 
@@ -82,8 +83,8 @@
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-		C.stored_comms["wood"] += 2 //TODO make this stuff not wood because borgs don't have a wood module, only drones, and this doesn't work with drones - GDN
-		C.stored_comms["glass"] += 2
+		C.stored_comms["metal"] += 2 // having more metal than glass because blood has iron in it
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

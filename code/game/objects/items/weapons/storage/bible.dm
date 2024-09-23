@@ -1,6 +1,8 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
+	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
@@ -18,17 +20,21 @@
 		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
 		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
 		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
-		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
-		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
-		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
-		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
-		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "generic_bible"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "generic_bible"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "generic_bible"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "generic_bible"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "generic_bible"),
 		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
 		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
 		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),
 		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
 		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+		"Honkmother" =		   list("state" = "honk",		  "inhand" = "honk"),
+		"Silentfather" =	   list("state" = "mime",		  "inhand" = "mime"),
+		"Clockwork" =		   list("state" = "clock_bible",  "inhand" = "clock_bible"),
+		"Nanotrasen" =		   list("state" = "nanotrasen",	  "inhand" = "nanotrasen")
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -52,8 +58,8 @@
 	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
@@ -78,7 +84,7 @@
 	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!user.mind?.isholy)
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
 		user.take_organ_damage(0, 10)
 		return
@@ -93,17 +99,17 @@
 		var/mob/living/carbon/human/H = M
 		if(prob(60))
 			bless(H)
-			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
+			H.visible_message("<span class='danger'>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
 				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
-			playsound(loc, "punch", 25, 1, -1)
+			playsound(loc, "punch", 25, TRUE, -1)
 		else
 			M.adjustBrainLoss(10)
 			to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
-			playsound(src.loc, "punch", 25, 1, -1)
+			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_themselves()]" : "[H]"] over the head with [src]!</span>")
+			playsound(src.loc, "punch", 25, TRUE, -1)
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
-		playsound(src.loc, "punch", 25, 1, -1)
+		playsound(src.loc, "punch", 25, TRUE, -1)
 
 
 /obj/item/storage/bible/afterattack(atom/target, mob/user, proximity, params)
@@ -112,16 +118,16 @@
 
 	if(isfloorturf(target))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
-		if(user.mind?.isholy)
+		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(istype(target, /obj/machinery/door/airlock))
 		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
-		if(user.mind?.isholy)
+		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
-	if(user.mind?.isholy && target.reagents)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && target.reagents)
 		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [target].</span>")
 			var/water2holy = target.reagents.get_reagent_amount("water")
@@ -136,7 +142,7 @@
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
-	if(!customisable || !user.mind?.isholy)
+	if(!customisable || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return
 
 	var/list/skins = list()
@@ -164,7 +170,7 @@
 		if("Scientology")
 			carpet_dir = 8
 	if(carpet_dir)
-		for(var/area/chapel/main/A in world)
+		for(var/area/station/service/chapel/main/A in world)
 			for(var/turf/T in A.contents)
 				if(T.icon_state == "carpetsymbol")
 					T.dir = carpet_dir*/
@@ -177,9 +183,15 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user?.mind.isholy || !ishuman(user))
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(!src || !H.is_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE
+
+/obj/item/storage/bible/syndi
+	name = "suspicious bible"
+	desc = "For treading the line between cultist, contraband, and a hostile corporation."
+	customisable = FALSE
+	icon_state = "syndi"

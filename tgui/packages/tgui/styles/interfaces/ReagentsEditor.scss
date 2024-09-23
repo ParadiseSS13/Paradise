@@ -1,0 +1,40 @@
+@use '../colors.scss';
+
+.reagents-table {
+  border-collapse: separate;
+  border-spacing: 0 0.3em;
+}
+
+.volume-cell {
+  min-width: 3em;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.volume-cell:not(:hover) .volume-actions-wrapper {
+  display: none;
+}
+
+.volume-cell:hover .volume-label {
+  display: none;
+}
+
+.reagent-absent-name-cell {
+  color: colors.$grey;
+}
+
+.reagent-row > *:last-child {
+  padding-right: 0.5em;
+}
+
+.absent-row:not(:hover) .add-reagent-button {
+  visibility: hidden;
+}
+
+.condensed-button {
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  line-height: 0;
+  background: none;
+}

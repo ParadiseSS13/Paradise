@@ -1,19 +1,11 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  NoticeBox,
-  ProgressBar,
-  Section,
-} from '../components';
+import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 export const APC = (props, context) => {
   return (
-    <Window>
+    <Window width={510} height={435}>
       <Window.Content>
         <ApcContent />
       </Window.Content>
@@ -66,16 +58,14 @@ const ApcContent = (props, context) => {
   const { act, data } = useBackend(context);
   const locked = data.locked && !data.siliconUser;
   const normallyLocked = data.normallyLocked;
-  const externalPowerStatus =
-    powerStatusMap[data.externalPower] || powerStatusMap[0];
-  const chargingStatus =
-    powerStatusMap[data.chargingStatus] || powerStatusMap[0];
+  const externalPowerStatus = powerStatusMap[data.externalPower] || powerStatusMap[0];
+  const chargingStatus = powerStatusMap[data.chargingStatus] || powerStatusMap[0];
   const channelArray = data.powerChannels || [];
   const malfStatus = malfMap[data.malfStatus] || malfMap[0];
   const adjustedCellChange = data.powerCellStatus / 100;
 
   return (
-    <Fragment>
+    <>
       <InterfaceLockNoticeBox />
       <Section title="Power Status">
         <LabeledList>
@@ -124,21 +114,14 @@ const ApcContent = (props, context) => {
                 key={channel.title}
                 label={channel.title}
                 buttons={
-                  <Fragment>
-                    <Box
-                      inline
-                      mx={2}
-                      color={channel.status >= 2 ? 'good' : 'bad'}
-                    >
+                  <>
+                    <Box inline mx={2} color={channel.status >= 2 ? 'good' : 'bad'}>
                       {channel.status >= 2 ? 'On' : 'Off'}
                     </Box>
                     <Button
                       icon="sync"
                       content="Auto"
-                      selected={
-                        !locked &&
-                        (channel.status === 1 || channel.status === 3)
-                      }
+                      selected={!locked && (channel.status === 1 || channel.status === 3)}
                       disabled={locked}
                       onClick={() => act('channel', topicParams.auto)}
                     />
@@ -156,7 +139,7 @@ const ApcContent = (props, context) => {
                       disabled={locked}
                       onClick={() => act('channel', topicParams.off)}
                     />
-                  </Fragment>
+                  </>
                 }
               >
                 {channel.powerLoad} W
@@ -172,7 +155,7 @@ const ApcContent = (props, context) => {
         title="Misc"
         buttons={
           !!data.siliconUser && (
-            <Fragment>
+            <>
               {!!data.malfStatus && (
                 <Button
                   icon={malfStatus.icon}
@@ -181,12 +164,8 @@ const ApcContent = (props, context) => {
                   onClick={() => act(malfStatus.action)}
                 />
               )}
-              <Button
-                icon="lightbulb-o"
-                content="Overload"
-                onClick={() => act('overload')}
-              />
-            </Fragment>
+              <Button icon="lightbulb-o" content="Overload" onClick={() => act('overload')} />
+            </>
           )
         }
       >
@@ -195,11 +174,22 @@ const ApcContent = (props, context) => {
             label="Cover Lock"
             buttons={
               <Button
+                mb={0.4}
                 icon={data.coverLocked ? 'lock' : 'unlock'}
                 content={data.coverLocked ? 'Engaged' : 'Disengaged'}
-                selected={data.coverLocked}
                 disabled={locked}
                 onClick={() => act('cover')}
+              />
+            }
+          />
+          <LabeledList.Item
+            label="Emergency Lighting"
+            buttons={
+              <Button
+                icon="lightbulb-o"
+                content={data.emergencyLights ? 'Enabled' : 'Disabled'}
+                disabled={locked}
+                onClick={() => act('emergency_lighting')}
               />
             }
           />
@@ -207,27 +197,15 @@ const ApcContent = (props, context) => {
             label="Night Shift Lighting"
             buttons={
               <Button
+                mt={0.4}
                 icon="lightbulb-o"
                 content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
-                selected={data.nightshiftLights}
                 onClick={() => act('toggle_nightshift')}
-              />
-            }
-          />
-          <LabeledList.Item
-            label="Emergency Light Fallback"
-            buttons={
-              <Button
-                icon={data.coverLocked ? 'lock' : 'unlock'}
-                content={data.emergencyLights ? 'Engaged' : 'Disengaged'}
-                selected={data.emergencyLights}
-                disabled={locked}
-                onClick={() => act('emergency_lighting')}
               />
             }
           />
         </LabeledList>
       </Section>
-    </Fragment>
+    </>
   );
 };

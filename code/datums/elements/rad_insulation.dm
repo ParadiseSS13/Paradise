@@ -1,6 +1,6 @@
 /datum/element/rad_insulation
-	element_flags = ELEMENT_DETACH | ELEMENT_BESPOKE
-	id_arg_index = 2
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	var/amount					// Multiplier for radiation strength passing through
 
 /datum/element/rad_insulation/Attach(datum/target, _amount = RAD_MEDIUM_INSULATION, protects = TRUE, contamination_proof = TRUE)

@@ -1,6 +1,5 @@
-#define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
-
-GLOBAL_LIST_EMPTY(splatter_cache)
+#define DRYING_TIME 5 MINUTES //for 1 unit of depth in puddle (amount var)
+#define ALWAYS_IN_GRAVITY 2
 
 /obj/effect/decal/cleanable/blood
 	name = "blood"
@@ -21,9 +20,12 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
-
+	var/image/weightless_image
+	inertia_move_delay = 1 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
+	if(C == src)
+		return FALSE
 	if(C.blood_DNA)
 		blood_DNA |= C.blood_DNA.Copy()
 	if(bloodiness)
@@ -31,24 +33,56 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 			C.bloodiness += bloodiness
 	return ..()
 
-
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
+	weightless_image = new()
 	update_icon()
-	if(type == /obj/effect/decal/cleanable/blood/gibs)
+
+	if(!gravity_check)
+		//weightless blood cannot dry
 		return
-	if(!.)
+
+	if(!. && !QDELETED(src))
 		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
+	QDEL_NULL(weightless_image)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
+	var/turf/T = get_turf(src)
+	check_gravity(T)
+
+	if((T && (T.density)) || !gravity_check || locate(/obj/structure/window/) in T || locate(/obj/structure/grille/) in T)
+		off_floor = TRUE
+		layer = ABOVE_MOB_LAYER
+		plane = GAME_PLANE
+
 	if(basecolor == "rainbow")
-		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
+		basecolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
+
 	color = basecolor
+
+	if(!gravity_check)
+		if(prob(50))
+			animate_float(src, -1, rand(30,120))
+		else
+			animate_levitate(src, -1, rand(30,120))
+
+		if(weightless_image.icon_state)
+			icon_state = weightless_image.icon_state
+
+		overlays -= weightless_image
+		color = "#FFFFFF"
+		icon = 'icons/effects/blood_weightless.dmi'
+		weightless_image = image(icon, icon_state)
+		icon_state = "empty"
+		weightless_image.icon += basecolor
+		overlays += weightless_image
+	else
+		overlays.Cut()
 	..()
 
 /obj/effect/decal/cleanable/blood/proc/dry()
@@ -56,6 +90,90 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = drydesc
 	color = adjust_brightness(color, -50)
 	amount = 0
+	gravity_check = ALWAYS_IN_GRAVITY
+	animate(src)
+
+	if(isspaceturf(loc))
+		var/turf/T = get_turf(src)
+		if(!locate(/obj/structure/grille/) in T && !locate(/obj/structure/window/) in T)
+			qdel(src) //no free floating dried blood in space, thatd look weird
+
+/obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
+	if(gravity_check) //only floating blood can splat :C
+		return
+	var/turf/T = get_turf(AT)
+	if(should_merge_decal(T))
+		qdel(src)
+		return
+	if(loc != T)
+		forceMove(T) //move to the turf to splatter on
+	animate(src) //stop floating
+	gravity_check = ALWAYS_IN_GRAVITY
+	icon = initial(icon)
+	icon_state = weightless_image.icon_state
+	layer = initial(layer)
+	plane = initial(plane)
+	update_icon()
+
+
+/obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
+	if(gravity_check)
+		return TRUE
+
+	if(has_gravity(src))
+		if(!gravity_check)
+			splat(get_step(src, movement_dir))
+		return TRUE
+
+	if(pulledby && !pulledby.pulling)
+		return TRUE
+
+	if(throwing)
+		return TRUE
+
+	return FALSE
+
+
+/obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
+	// this is to prevent double or triple bumps from calling splat after src is qdel'd.
+	// only god knows why this fixes the issue
+	if(yes)
+		return
+
+	if(gravity_check)
+		return ..()
+
+	if(iswallturf(A) || istype(A, /obj/structure/window))
+		splat(A)
+		return
+
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	if(ishuman(A))
+		bloodyify_human(A)
+		return
+
+	return ..()
+
+/obj/effect/decal/cleanable/blood/proc/bloodyify_human(mob/living/carbon/human/H)
+	if(inertia_dir && H.inertia_dir == inertia_dir) //if they are moving the same direction we are, no collison
+		return
+
+	var/list/obj/item/things_to_potentially_bloody = list()
+	var/count = amount + 1
+
+	for(var/obj/item/i in H.contents)
+		things_to_potentially_bloody += i
+
+	if(length(things_to_potentially_bloody))
+		for(var/i in 1 to count)
+			things_to_potentially_bloody[rand(1, length(things_to_potentially_bloody))].add_blood(blood_DNA, basecolor)
+			count--
+		qdel(src)
+	else
+		splat(get_turf(H))
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()
@@ -70,9 +188,12 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = basecolor
+		if(isnull(basecolor))
+			user.hand_blood_color = "#A10808"
+		else
+			user.hand_blood_color = basecolor
 		user.update_inv_gloves()
-		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
@@ -95,7 +216,8 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
 
-/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
+/// not a child of blood on purpose
+/obj/effect/decal/cleanable/trail_holder
 	name = "blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
@@ -111,7 +233,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	return TRUE
 
 /obj/effect/decal/cleanable/blood/writing
-	icon_state = "tracks"
+	icon_state = "writing1"
 	desc = "It looks like a writing in blood."
 	gender = NEUTER
 	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")
@@ -120,7 +242,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/writing/Initialize(mapload)
 	. = ..()
-	if(random_icon_states.len)
+	if(length(random_icon_states))
 		for(var/obj/effect/decal/cleanable/blood/writing/W in loc)
 			random_icon_states.Remove(W.icon_state)
 		icon_state = pick(random_icon_states)
@@ -144,6 +266,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+	gravity_check = ALWAYS_IN_GRAVITY
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
 	giblets = null
@@ -154,7 +277,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		return
 	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
-		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
+		fleshcolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
 	giblets.color = fleshcolor
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
 	icon = blood
@@ -184,7 +307,8 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	scoop_reagents = list("liquidgibs" = 5)
 
 
-/obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
+/// most ironic name ever...
+/obj/effect/decal/cleanable/blood/gibs/cleangibs
 	scoop_reagents = null
 	mergeable_decal = TRUE
 
@@ -218,3 +342,4 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	return FALSE
 
 #undef DRYING_TIME
+#undef ALWAYS_IN_GRAVITY

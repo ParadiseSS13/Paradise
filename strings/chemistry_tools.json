@@ -405,7 +405,8 @@
 		"prions",
 		"nanomachines",
 		"chlorine",
-		"fluorine"
+		"fluorine",
+		"happiness"
 	],
 	"CYBERPUNK_drug_adulterants_safe": [
 		"mercury",
@@ -467,6 +468,7 @@
 		"spidereggs",
 		"concentrated_initro",
 		"heartworms",
-		"bacon_grease"
+		"bacon_grease",
+		"lexorin"
 	]
 }

@@ -28,6 +28,7 @@
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
@@ -37,20 +38,27 @@
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
-	var/list/mob/dead/observer/spirits
+	/// List of wisps we have active, for cleanup purposes in case a ghost gets randomly deleted.
+	var/list/obj/effect/wisp/ghost/orbs
+	/// List of ghosts currently orbiting us.
+	var/list/mob/dead/observer/ghosts
 
 /obj/item/melee/ghost_sword/New()
 	..()
-	spirits = list()
+	ghosts = list()
+	orbs = list()
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
-	for(var/mob/dead/observer/G in spirits)
+	for(var/mob/dead/observer/G in ghosts)
 		remove_ghost(G)
-	spirits.Cut()
+	// if there are any orbs left (possibly detached from ghosts) ensure they don't stick around
+	for(var/spirit as anything in orbs)
+		qdel(spirit)
 	remove_signals(src)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.poi_list -= src
@@ -58,8 +66,8 @@
 
 /obj/item/melee/ghost_sword/examine()
 	. = ..()
-	if(length(spirits))
-		. += "It appears to pulse with the power of [length(spirits)] vengeful spirits!"
+	if(length(orbs))
+		. += "It appears to pulse with the power of [length(orbs)] vengeful spirit\s!"
 	else
 		. += "It glows weakly."
 
@@ -69,7 +77,7 @@
 		return
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
-	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
+	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
 
@@ -82,7 +90,7 @@
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
 	var/mob/dead/observer/ghost = orbiter
-	if(!istype(ghost) || !isobserver(orbiter) || (ghost in spirits))
+	if(!istype(ghost) || !isobserver(orbiter) || (ghost in ghosts))
 		return
 
 	if(!ismob(loc))
@@ -90,23 +98,34 @@
 		// they'll get added to spirits (and turned visible) when the sword enters a mob's hand then
 		return
 
-	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
+	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts
 
-	spirits |= ghost
-	ghost.invisibility = 0
+
+	var/obj/effect/wisp/ghost/orb = new(src)
+	orb.color = ghost.get_runechat_color()
+	orb.alpha = 128
+	orb.orbit(src, clockwise = FALSE)
+	ghosts[ghost] = orb
+	orbs.Add(orb)
+
+	// if a ghost gets deleted, the orb cleans itself up
+	// which then passes the torch to us to clean ourselves up
+	RegisterSignal(orb, COMSIG_PARENT_QDELETING, PROC_REF(on_orb_qdel))
 
 /obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
 
 	var/mob/dead/observer/ghost = orbiter
 
-	if(!istype(ghost) || !isobserver(ghost) || !(ghost in spirits))
+	if(!istype(ghost) || !(ghost in ghosts))
 		return
 
 	remove_signals(ghost)
 
-	spirits -= ghost
-	ghost.invisibility = initial(ghost.invisibility)
+	var/obj/effect/wisp/ghost/attached_orb = ghosts[ghost]
+	attached_orb.stop_orbit()
+	qdel(attached_orb)
+	ghosts -= ghost
 
 /obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
@@ -125,7 +144,7 @@
 
 	if(ismob(old_loc))
 		remove_signals(old_loc)
-		for(var/mob/dead/observer/orbiter in spirits)
+		for(var/mob/dead/observer/orbiter in ghosts)
 			remove_ghost(src, orbiter)
 
 	if(ismob(loc))
@@ -134,19 +153,47 @@
 		for(var/mob/dead/observer/orbiter in get_orbiters_up_hierarchy(recursive = TRUE))
 			add_ghost(src, orbiter)
 
+// clean up wisps
+/obj/item/melee/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	orbs -= orb
+	for(var/ghost in ghosts)
+		if(ghosts[ghost] == orb)
+			ghosts -= ghost
+			break
+
+
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
-	var/ghost_counter = length(spirits)
+	var/ghost_counter = length(orbs)
 
 	force = clamp((ghost_counter * 4), 0, 75)
-	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
+	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirit\s!</span>")
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = length(spirits)
+	var/ghost_counter = length(orbs)
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
+	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghost\s!</span>")
 	return ..()
+
+
+/obj/effect/wisp/ghost
+	name = "mischievous wisp"
+	desc = "A wisp that seems to want to get up to shenanigans. It often seems disappointed, for some reason."
+	light_range = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/wisp/ghost/Initialize(mapload, mob/dead/observer/ghost)
+	. = ..()
+	RegisterSignal(ghost, COMSIG_PARENT_QDELETING, PROC_REF(on_ghost_qdel))
+
+/obj/effect/wisp/ghost/proc/on_ghost_qdel(mob/dead/observer/ghost)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	stop_orbit()
+	// we only live as long as our attached ghost
+	qdel(src)
+
 
 // Blood
 
@@ -170,7 +217,7 @@
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+				var/datum/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
@@ -200,18 +247,19 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
-	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
+	icon_state = "lavastaff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
+	item_state = "lavastaff"
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	needs_permit = TRUE
-	var/turf_type = /turf/simulated/floor/plating/lava/smooth
+	var/turf_type = /turf/simulated/floor/lava
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"
@@ -225,6 +273,28 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
+/obj/item/lava_staff/attack(mob/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] holds the tip of [src] near [user.p_their()] [cig.name] until it is suddenly set alight.</span>",
+			"<span class='notice'>You hold the tip of [src] near [cig] until it is suddenly set alight.</span>",
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] points [src] at [target] until [target.p_their()] [cig.name] is suddenly set alight.</span>",
+			"<span class='notice'>You point [src] at [target] until [target.p_their()] [cig] is suddenly set alight.</span>",
+		)
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(timer > world.time)
@@ -233,13 +303,13 @@
 	if(is_type_in_typecache(target, banned_turfs))
 		return
 
-	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+	if(!is_mining_level(user.z) && !iswizard(user)) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + create_delay + 1
 		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))
@@ -252,7 +322,7 @@
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
-				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
+				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
 				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
 				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown

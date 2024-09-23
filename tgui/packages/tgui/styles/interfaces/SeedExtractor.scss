@@ -1,0 +1,17 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.SeedExtractor__list {
+  tr:not(:first-child) {
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    transition: background-color 50ms;
+    &:hover,
+    &:focus {
+      background-color: rgba(base.$color-bg, 1);
+    }
+  }
+}

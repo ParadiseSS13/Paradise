@@ -11,12 +11,15 @@
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 18
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
+	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 
@@ -41,7 +44,7 @@
 	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
 	if(prob(50))
@@ -104,10 +107,10 @@
 	throwforce = 18
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
-	new /obj/item/screwdriver(src, "red")
+	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)

@@ -61,7 +61,7 @@
 /datum/SDQL_parser/proc/parse_error(error_message)
 	error = 1
 	to_chat(usr, "<span class='danger'>SDQL2 Parsing Error: [error_message]</span>")
-	return query.len + 1
+	return length(query) + 1
 
 /datum/SDQL_parser/proc/parse()
 	tree = list()
@@ -73,14 +73,14 @@
 		return tree
 
 /datum/SDQL_parser/proc/token(i)
-	if(i <= query.len)
+	if(i <= length(query))
 		return query[i]
 
 	else
 		return null
 
 /datum/SDQL_parser/proc/tokens(i, num)
-	if(i + num <= query.len)
+	if(i + num <= length(query))
 		return query.Copy(i, i + num)
 
 	else

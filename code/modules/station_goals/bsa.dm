@@ -22,7 +22,7 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B)
+	for(var/obj/machinery/bsa/full/B in GLOB.machines)
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -32,37 +32,24 @@
 	density = TRUE
 	anchored = TRUE
 
+/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+	default_unfasten_wrench(user, I, 1 SECONDS)
+	return TRUE
+
+/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
+	M.buffer = src
+	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	return TRUE
+
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
-
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
-
-/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -71,23 +58,19 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer)
-			if(istype(M.buffer,/obj/machinery/bsa/back))
-				back = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-			else if(istype(M.buffer,/obj/machinery/bsa/front))
-				front = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
+	. = TRUE
+	if(!M.buffer)
+		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		return
+	if(istype(M.buffer,/obj/machinery/bsa/back))
+		back = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+	else if(istype(M.buffer,/obj/machinery/bsa/front))
+		front = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -202,14 +185,22 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	overlays += top_layer
-	reload()
+
+/obj/machinery/bsa/full/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/bsa/full/LateInitialize(mapload)
+	. = ..()
+	reload() // so we don't try and use the powernet before it initializes
+
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
-	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
-		T.ex_act(1)
+	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
+		T.ex_act(EXPLODE_DEVASTATE)
 		for(var/atom/A in T)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
@@ -231,6 +222,7 @@
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -239,6 +231,7 @@
 
 /obj/item/circuitboard/machine/bsa/middle
 	board_name = "Bluespace Artillery Fusor"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -247,6 +240,7 @@
 
 /obj/item/circuitboard/machine/bsa/front
 	board_name = "Bluespace Artillery Bore"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -255,6 +249,7 @@
 
 /obj/item/circuitboard/computer/bsa_control
 	board_name = "Bluespace Artillery Controls"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 
@@ -263,7 +258,7 @@
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
@@ -281,7 +276,7 @@
 	target_all_areas = TRUE
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
-	..()
+	. = ..()
 	if(!cannon)
 		cannon = deploy()
 
@@ -315,10 +310,13 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/bsa_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BlueSpaceArtilleryControl", name, 400, 155, master_ui, state)
+		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)
@@ -361,8 +359,10 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
-	var/V = input(user,"Select target", "Select target",null) in options|null
-	target = options[V]
+	var/choose = tgui_input_list(user, "Select target", "Target",  options)
+	if(!choose)
+		return
+	target = options[choose]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(isarea(target))

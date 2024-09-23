@@ -10,6 +10,7 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 /datum/tgs_event_handler/impl
 	var/datum/timedevent/reattach_timer
 
+	receive_health_checks = TRUE
 
 /datum/tgs_event_handler/impl/HandleEvent(event_code, ...)
 	switch(event_code)
@@ -48,6 +49,8 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 			if(reattach_timer)
 				deltimer(reattach_timer)
 				reattach_timer = null
+		if(TGS_EVENT_HEALTH_CHECK)
+			SSheartbeat.last_heartbeat = REALTIMEOFDAY
 
 /datum/tgs_event_handler/impl/proc/LateOnReattach()
 	server_announce_adminonly("\[Warning] TGS hasn't notified us of it coming back for a full minute! Is there a problem?")

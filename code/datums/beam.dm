@@ -14,8 +14,9 @@
 	var/origin_oldloc = null
 	var/static_beam = FALSE
 	var/beam_type = /obj/effect/ebeam //must be subtype
+	var/beamcolor
 
-/datum/beam/New(beam_origin,beam_target,beam_icon='icons/effects/beam.dmi',beam_icon_state="b_beam",time=50,maxdistance=10,btype = /obj/effect/ebeam,beam_sleep_time=3)
+/datum/beam/New(beam_origin, beam_target,beam_icon = 'icons/effects/beam.dmi', beam_icon_state = "b_beam", time = 50, maxdistance = 10, btype = /obj/effect/ebeam, beam_sleep_time = 3, beam_color)
 	endtime = world.time+time
 	origin = beam_origin
 	origin_oldloc =	get_turf(origin)
@@ -29,6 +30,7 @@
 	icon = beam_icon
 	icon_state = beam_icon_state
 	beam_type = btype
+	beamcolor = beam_color
 
 /datum/beam/proc/Start()
 	Draw()
@@ -48,7 +50,7 @@
 	finished = TRUE
 
 /datum/beam/proc/Reset()
-	QDEL_LIST(elements)
+	QDEL_LIST_CONTENTS(elements)
 
 /datum/beam/Destroy()
 	Reset()
@@ -77,10 +79,12 @@
 		//cropped by a transparent box of length-N pixel size
 		if(N+32>length)
 			var/icon/II = new(icon, icon_state)
-			II.DrawBox(null,1,(length-N),32,32)
+			II.DrawBox(null, 1, (length-N), 32, 32)
 			X.icon = II
 		else
 			X.icon = base_icon
+		if(beamcolor)
+			X.color = beamcolor
 		X.transform = rot_matrix
 
 		//Calculate pixel offsets (If necessary)
@@ -129,7 +133,12 @@
 
 /obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
 	..()
-	A.ex_act(1)
+	A.ex_act(EXPLODE_DEVASTATE)
+
+/obj/effect/ebeam/vetus/Destroy()
+	for(var/mob/living/M in get_turf(src))
+		M.electrocute_act(20, "the giant arc", flags = SHOCK_NOGLOVES) //fuck your gloves.
+	return ..()
 
 /obj/effect/ebeam/disintegration_telegraph
 	alpha = 100
@@ -158,7 +167,7 @@
 	var/armor = L.run_armor_check(limb_to_hit, LASER)
 	L.apply_damage(damage, BURN, limb_to_hit, armor)
 
-/atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time=3)
-	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type,beam_sleep_time)
+/atom/proc/Beam(atom/BeamTarget, icon_state="b_beam", icon='icons/effects/beam.dmi', time = 5 SECONDS, maxdistance = 10, beam_type = /obj/effect/ebeam, beam_sleep_time = 3, beam_color)
+	var/datum/beam/newbeam = new(src, BeamTarget, icon, icon_state, time, maxdistance, beam_type, beam_sleep_time, beam_color)
 	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam

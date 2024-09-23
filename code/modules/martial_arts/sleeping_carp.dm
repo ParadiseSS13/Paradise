@@ -1,5 +1,6 @@
 //Used by the gang of the same name. Uses combos. Basic attacks bypass armor and never miss
 /datum/martial_art/the_sleeping_carp
+	weight = 9
 	name = "The Sleeping Carp"
 	deflection_chance = 100
 	reroute_deflection = TRUE
@@ -32,10 +33,12 @@
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, "<span class='warning'>You feel the knowledge of the scroll in your mind, yet reject its more violent teachings. \
 					You will instead deflect projectiles into the ground.")
+	H.RegisterSignal(H, COMSIG_CARBON_THROWN_ITEM_CAUGHT, TYPE_PROC_REF(/mob/living/carbon, throw_mode_on))
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()
 	H.faction -= "carp"// :C
+	H.UnregisterSignal(H, COMSIG_CARBON_THROWN_ITEM_CAUGHT)
 
 /datum/martial_art/the_sleeping_carp/explaination_footer(user)
 	to_chat(user, "<b><i>In addition, by having your throw mode on when being shot at, you enter an active defensive mode where you will block and deflect all projectiles fired at you!</i></b>")

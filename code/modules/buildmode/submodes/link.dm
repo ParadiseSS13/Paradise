@@ -6,7 +6,7 @@
 
 
 /datum/buildmode_mode/link/proc/clear_lines()
-	QDEL_LIST(link_lines)
+	QDEL_LIST_CONTENTS(link_lines)
 
 /datum/buildmode_mode/link/proc/form_connection(atom/source, atom/dest, valid)
 	var/obj/effect/buildmode_line/L = new(BM.holder, source, dest, "[source.name] to [dest.name]")
@@ -54,7 +54,7 @@
 				speed_execute()
 				return
 			if(!M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(length(link_lines) && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = TRUE
@@ -76,7 +76,7 @@
 				speed_execute()
 				return
 			if(M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(length(link_lines) && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = FALSE

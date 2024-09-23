@@ -14,6 +14,39 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		return ..()
 	GLOB.total_runtimes++
 
+	// STEP 1 - WE SANITIZE
+	// Proc args are included in runtimes. This has a habit of leaking secrets. We dont want this.
+	var/list/sanitize_splitlines = splittext(e.desc, "\n")
+	var/callstack_hit = FALSE
+	for(var/i in 1 to length(sanitize_splitlines))
+		var/original_line = sanitize_splitlines[i]
+		// Blank line, skip it
+		if(length(original_line) < 3)
+			continue
+
+		// We only care about lines after callstack
+		if(original_line == "  call stack:")
+			callstack_hit = TRUE
+			continue
+
+		// If we aint hit it, next
+		if(!callstack_hit)
+			continue
+
+		// First split on the colon
+		var/list/inner_split = splittext(original_line, ": ")
+		if(length(inner_split) >= 2)
+			var/source_half = "[inner_split[1]]: "
+			var/proc_half = inner_split[2]
+			var/proc_name = splittext(proc_half, "(")[1] // Put a ) here to stop the bracket colouriser whining
+
+			proc_name = replacetext(proc_name, " ", "_") // Put the underscores back because BYOND removes them for some reason
+
+			sanitize_splitlines[i] = "[source_half][proc_name]"
+
+	e.desc = sanitize_splitlines.Join("\n")
+
+	// Ok now we can do everything else
 	var/erroruid = "[e.file][e.line]"
 	var/last_seen = GLOB.error_last_seen[erroruid]
 	var/cooldown = GLOB.error_cooldown[erroruid] || 0
@@ -39,13 +72,13 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			var/skipcount = abs(GLOB.error_cooldown[erroruid]) - 1
 			GLOB.error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
+				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file]:[e.line].")
 				GLOB.error_cache.logError(e, skipCount = skipcount)
 	GLOB.error_last_seen[erroruid] = world.time
 	GLOB.error_cooldown[erroruid] = cooldown
 
 	// This line will log a runtime summary to a file which can be publicly distributed without sending player data
-	log_runtime_summary("Runtime in [e.file],[e.line]: [e]")
+	log_runtime_summary("Runtime in [e.file]:[e.line]: [e]")
 
 	// The detailed error info needs some tweaking to make it look nice
 	var/list/srcinfo = null
@@ -66,7 +99,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	// I apologize in advance
 	var/list/splitlines = splittext(e.desc, "\n")
 	var/list/desclines = list()
-	if(splitlines.len > 2) // If there aren't at least three lines, there's no info
+	if(length(splitlines) > 2) // If there aren't at least three lines, there's no info
 		for(var/line in splitlines)
 			if(length(line) < 3)
 				continue // Blank line, skip it
@@ -98,11 +131,24 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		desclines += "  (This error will now be silenced for [ERROR_SILENCE_TIME / 600] minutes)"
 
 	// Now to actually output the error info...
-	log_world("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
-	log_runtime_txt("Runtime in [e.file],[e.line]: [e]")
+	log_world("\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]")
+	log_runtime_txt("Runtime in [e.file],[e.line]: [e]") // All other runtimes show as [e.file]:[e.line] except this one to prevent fuckery with analyzing both old and new runtimes. runtime.log should stay in the [e.file],[e.line] format.
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)
 	if(GLOB.error_cache)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
+
+/client/proc/throw_runtime()
+	set name = "Throw Runtime"
+	set desc = "Throws a runtime, what did you expect?"
+	set category = "Debug"
+
+	if(!check_rights(R_MAINTAINER))
+		return
+
+	throw_runtime_inner(1337, 0)
+
+/client/proc/throw_runtime_inner(x, y)
+	to_chat(usr, "[x]/[y]=[x/y]")

@@ -21,6 +21,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	return ..()
 
 /datum/effect_system
+	///The number of objects the effect system will spawn
 	var/number = 3
 	var/cardinals = 0
 	var/turf/location

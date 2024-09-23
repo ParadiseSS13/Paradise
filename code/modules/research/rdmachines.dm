@@ -6,9 +6,9 @@
 	icon = 'icons/obj/machines/research.dmi'
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/busy = FALSE
 	var/obj/machinery/computer/rdconsole/linked_console
+	// Why is this scoped here????????
 	var/obj/item/loaded_item = null
 	var/datum/component/material_container/materials	//Store for hyper speed!
 	var/efficiency_coeff = 1

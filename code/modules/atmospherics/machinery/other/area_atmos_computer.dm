@@ -5,7 +5,7 @@
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/area_atmos
 
-	var/list/connectedscrubbers = new()
+	var/list/connectedscrubbers = list()
 	var/status = ""
 
 	var/range = 25
@@ -31,7 +31,7 @@
 		return
 	src.add_fingerprint(usr)
 	var/dat = {"
-	<html>
+	<html><meta charset='utf-8'>
 		<head>
 			<style type="text/css">
 				a.green:link
@@ -71,13 +71,13 @@
 		<body>
 			<center><h1>Area Air Control</h1></center>
 			<font color="red">[status]</font><br>
-			<a href="?src=[UID()];scan=1">Scan</a>
+			<a href='byond://?src=[UID()];scan=1'>Scan</a>
 			<table border="1" width="90%">"}
 	for(var/obj/machinery/atmospherics/portable/scrubber/huge/scrubber in connectedscrubbers)
 		dat += {"
 				<tr>
 					<td>[scrubber.name]</td>
-					<td width="150"><a class="green" href="?src=[UID()];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="?src=[UID()];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
+					<td width="150"><a class="green" href='byond://?src=[UID()];scrub=\ref[scrubber];toggle=1'>Turn On</a> <a class="red" href='byond://?src=[UID()];scrub=\ref[scrubber];toggle=0'>Turn Off</a></td>
 				</tr>"}
 
 	dat += {"
@@ -168,7 +168,7 @@
 		var/turf/T2 = get_turf(scrubber)
 		if(T2 && T2.loc)
 			var/area/A2 = T2.loc
-			if(istype(A2) && A2 == A )
+			if(istype(A2) && A2 == A)
 				connectedscrubbers += scrubber
 				found = 1
 

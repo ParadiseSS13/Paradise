@@ -28,6 +28,9 @@
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
+		// can this mob run the emote at all?
+		if(!P.can_run_emote(src, intentional = intentional))
+			continue
 		if(!P.check_cooldown(src, intentional))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
@@ -49,8 +52,8 @@
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
-	else if (!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
+	else if(!message)
+		input = tgui_input_text(src, "Choose an emote to display.", "Custom Emote")
 	else
 		input = message
 
@@ -119,7 +122,7 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
@@ -131,7 +134,8 @@
 	var/mob/living/L = user
 
 	if(IS_HORIZONTAL(L))
-		message = "flops and flails around on the floor."
+		var/turf = get_turf(L)
+		message = "flops and flails around [isspaceturf(turf) ? "in space" : "on the floor"]."
 		return ..()
 	else if(params)
 		message_param = "flips in %t's general direction."
@@ -147,20 +151,26 @@
 				var/turf/newloc = G.affecting.loc
 				if(isturf(oldloc) && isturf(newloc))
 					user.SpinAnimation(5, 1)
-					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
-					user.forceMove(newloc)
-					G.glide_for(0.6 SECONDS)
-					G.affecting.forceMove(oldloc)
+					var/old_pass = user.pass_flags
+					user.pass_flags |= (PASSTABLE)
+					step(user, get_dir(oldloc, newloc))
+					user.pass_flags = old_pass
 					message = "flips over [G.affecting]!"
 					return ..()
 
 	user.SpinAnimation(5, 1)
 
+	if(isrobot(user))
+		var/mob/living/silicon/robot/borg = user
+		if(borg.drop_hat())
+			borg.visible_message("<span class='warning'><span class='name'>[user]</span> drops their hat!</span>",
+							"<span class='warning'>As you flip your hat falls off!</span>")
+
 	if(prob(5) && ishuman(user))
-		message = "attempts a flip and crashes to the floor!"
-		sleep(0.3 SECONDS)
+		var/turf = get_turf(L)
+		message = "attempts a flip and [isspaceturf(turf) ? "loses balance" : "crashes to the floor"]!"
 		if(istype(L))
-			L.Weaken(4 SECONDS)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS)
 		return ..()
 
 	. = ..()
@@ -171,7 +181,7 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 	cooldown = 2 SECONDS // how long the spin takes, any faster and mobs can spin
 

@@ -13,10 +13,10 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 	// Built automatically from the corresponding vending machine.
-	// If null, considered to be full. Otherwise, is list(/typepath = amount).
+	// If null, considered to be full upon being restocked.
 	var/list/products
 	var/list/contraband
 	var/list/premium
@@ -28,23 +28,26 @@
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
-	if (num == INFINITY)
+	if(num == INFINITY)
 		. += "It's sealed tight, completely full of supplies."
-	else if (num == 0)
+	else if(num == 0)
 		. += "It's empty!"
-	else
+	else if(!isnull(num)) // If it's null, then the items haven't been properly added yet.
 		. += "It can restock [num] item\s."
 
 /obj/item/vending_refill/get_part_rating()
-	if (!products || !contraband || !premium)
-		return INFINITY
 	. = 0
+	if(isnull(products) && isnull(contraband) && isnull(premium))
+		return null
 	for(var/key in products)
 		. += products[key]
 	for(var/key in contraband)
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
+
+	if(. > 30)
+		return INFINITY
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"
@@ -197,6 +200,10 @@
 	machine_name = "CargoDrobe"
 	icon_state = "refill_clothes"
 
+/obj/item/vending_refill/exploredrobe
+	machine_name = "ExploreDrobe"
+	icon_state = "refill_clothes"
+
 /obj/item/vending_refill/chefdrobe
 	machine_name = "ChefDrobe"
 	icon_state = "refill_clothes"
@@ -207,4 +214,12 @@
 
 /obj/item/vending_refill/hydrodrobe
 	machine_name = "HydroDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/janidrobe
+	machine_name = "JaniDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/lawdrobe
+	machine_name = "LawDrobe"
 	icon_state = "refill_clothes"

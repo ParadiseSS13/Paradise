@@ -12,9 +12,9 @@
 		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
+	if(stat != DEAD && bleed_rate && bleedsuppress)
 		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -25,7 +25,8 @@
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_BADDNA)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
-
+			if(nutrition >= NUTRITION_LEVEL_WELL_FED)
+				blood_volume += 0.1 // double it if you are well fed
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
@@ -57,9 +58,9 @@
 			if(BP.is_robotic())
 				continue
 
-			//We want an accurate reading of .len
+			//We want an accurate reading of length()
 			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			temp_bleed += 0.5 * length(BP.embedded_objects)
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
@@ -86,9 +87,9 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= 10)
-				add_splatter_floor(loc)
+				add_splatter_floor(loc, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 			else
-				add_splatter_floor(loc, 1)
+				add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -107,7 +108,7 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 			custom_emote(EMOTE_VISIBLE, "coughs up blood!")
-			add_splatter_floor(loc, 1)
+			add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
 			vomit(0, 1)
@@ -190,7 +191,7 @@
 			blood_data["viruses"] += D.Copy()
 
 		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
-		if(resistances && resistances.len)
+		if(resistances && length(resistances))
 			blood_data["resistances"] = resistances.Copy()
 		var/list/temp_chem = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -213,7 +214,7 @@
 		return blood_data
 	if(blood_id == "slimejelly")
 		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
+		blood_data["blood_color"] = dna.species.blood_color
 		return blood_data
 
 //get the id of the substance this mob use as blood.
@@ -233,30 +234,30 @@
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
-	. = list()
+	. = list(BLOOD_TYPE_FAKE_BLOOD)
 	if(!bloodtype)
 		return
 	switch(bloodtype)
 		if("A-")
-			return list("A-", "O-")
+			. += list("A-", "O-")
 		if("A+")
-			return list("A-", "A+", "O-", "O+")
+			. += list("A-", "A+", "O-", "O+")
 		if("B-")
-			return list("B-", "O-")
+			. += list("B-", "O-")
 		if("B+")
-			return list("B-", "B+", "O-", "O+")
+			. += list("B-", "B+", "O-", "O+")
 		if("AB-")
-			return list("A-", "B-", "O-", "AB-")
+			. += list("A-", "B-", "O-", "AB-")
 		if("AB+")
-			return list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+")
+			. += list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+")
 		if("O-")
-			return list("O-")
+			. += list("O-")
 		if("O+")
-			return list("O-", "O+")
+			. += list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
+	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
@@ -268,11 +269,19 @@
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
 		if(drop)
+			if(emittor_intertia)
+				drop.newtonian_move(emittor_intertia)
 			if(drop.drips < 5)
 				drop.drips++
-				drop.overlays |= pick(drop.random_icon_states)
+				var/image/I = image(drop.icon, drop.random_icon_states)
+				I.icon += drop.basecolor
+				drop.overlays |= I
+
 				drop.transfer_mob_blood_dna(src)
-				drop.basecolor = b_data["blood_color"]
+				if(b_data && !isnull(b_data["blood_color"]))
+					drop.basecolor = b_data["blood_color"]
+				else
+					drop.basecolor = "#A10808"
 				drop.update_icon()
 			else
 				temp_blood_DNA = list()
@@ -281,8 +290,13 @@
 		else
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
-			drop.basecolor = b_data["blood_color"]
+			if(b_data && !isnull(b_data["blood_color"]))
+				drop.basecolor = b_data["blood_color"]
+			else
+				drop.basecolor = "#A10808"
 			drop.update_icon()
+			if(emittor_intertia)
+				drop.newtonian_move(emittor_intertia)
 			return
 
 	// Find a blood decal or create a new one.
@@ -304,12 +318,14 @@
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
+	if(emittor_intertia)
+		B.newtonian_move(emittor_intertia)
 
-/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
 	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
 	if(!T)
 		T = get_turf(src)
 
@@ -352,3 +368,5 @@
 	var/id = get_blood_id()
 	if(id)
 		reagents.del_reagent(get_blood_id())
+
+#undef EXOTIC_BLEED_MULTIPLIER

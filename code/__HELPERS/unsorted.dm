@@ -46,98 +46,99 @@
 	else if(dx < 0)
 		. += 360
 
-//Returns location. Returns null if no location was found.
-/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
-/*
-Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
-Random error in tile placement x, error in tile placement y, and block offset.
-Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
-Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
-Turf and target are seperate in case you want to teleport some distance from a turf the target is not standing on or something.
-*/
+// Returns location. Returns null if no location was found.
+/proc/get_teleport_loc(turf/location, mob/target, distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
+	/*
+	Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
+	Random error in tile placement x, error in tile placement y, and block offset.
+	Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
+	Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
+	Turf and target are seperate in case you want to teleport some distance from a turf the target is not standing on or something.
+	*/
 
-	var/dirx = 0//Generic location finding variable.
+	var/dirx = 0 // Generic location finding variable.
 	var/diry = 0
 
-	var/xoffset = 0//Generic counter for offset location.
+	var/xoffset = 0 // Generic counter for offset location.
 	var/yoffset = 0
 
-	var/b1xerror = 0//Generic placing for point A in box. The lower left.
+	var/b1xerror = 0 // Generic placing for point A in box. The lower left.
 	var/b1yerror = 0
-	var/b2xerror = 0//Generic placing for point B in box. The upper right.
+	var/b2xerror = 0 // Generic placing for point B in box. The upper right.
 	var/b2yerror = 0
 
-	errorx = abs(errorx)//Error should never be negative.
+	errorx = abs(errorx) // Error should never be negative.
 	errory = abs(errory)
-	//var/errorxy = round((errorx+errory)/2)//Used for diagonal boxes.
 
-	switch(target.dir)//This can be done through equations but switch is the simpler method. And works fast to boot.
-	//Directs on what values need modifying.
-		if(1)//North
-			diry+=distance
-			yoffset+=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
-		if(2)//South
-			diry-=distance
-			yoffset-=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
-		if(4)//East
-			dirx+=distance
-			yoffset+=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
-		if(8)//West
-			dirx-=distance
-			yoffset-=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
+	switch(target.dir) // This can be done through equations but switch is the simpler method. And works fast to boot.
+		// Directs on what values need modifying.
+		if(NORTH)
+			diry += distance
+			yoffset += eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
+		if(SOUTH)
+			diry -= distance
+			yoffset -= eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
+		if(EAST)
+			dirx += distance
+			yoffset += eoffsetx // Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory // Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
+		if(WEST)
+			dirx -= distance
+			yoffset -= eoffsetx // Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory // Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
 
-	var/turf/destination=locate(location.x+dirx,location.y+diry,location.z)
+	var/turf/destination = locate(location.x + dirx, location.y + diry, location.z)
 
-	if(destination)//If there is a destination.
-		if(errorx||errory)//If errorx or y were specified.
-			var/destination_list[] = list()//To add turfs to list.
-			//destination_list = new()
-			/*This will draw a block around the target turf, given what the error is.
-			Specifying the values above will basically draw a different sort of block.
-			If the values are the same, it will be a square. If they are different, it will be a rectengle.
-			In either case, it will center based on offset. Offset is position from center.
-			Offset always calculates in relation to direction faced. In other words, depending on the direction of the teleport,
-			the offset should remain positioned in relation to destination.*/
+	if(!destination)
+		return
 
-			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
+	if(!errorx && !errory)
+		if(density && destination.density)
+			return
+		if(destination.x > world.maxx || destination.x < 1 || destination.y > world.maxy || destination.y < 1)
+			return
+		return destination
 
-			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
-				if(density&&T.density)	continue//If density was specified.
-				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
-				if(T.y>world.maxy || T.y<1)	continue
-				destination_list += T
-			if(destination_list.len)
-				destination = pick(destination_list)
-			else	return
+	var/list/destination_list = list()
 
-		else//Same deal here.
-			if(density&&destination.density)	return
-			if(destination.x>world.maxx || destination.x<1)	return
-			if(destination.y>world.maxy || destination.y<1)	return
-	else	return
+	/*
+	This will draw a block around the target turf, given what the error is.
+	Specifying `errorx` and `errory` will basically draw a different sort of block.
+	If the values are the same, it will be a square. If they are different, it will be a rectengle.
+	In either case, it will center based on offset. Offset is position from center.
+	Offset always calculates in relation to direction faced. In other words, depending on the direction of the teleport,
+	the offset should remain positioned in relation to destination.
+	*/
+	var/turf/center = locate((destination.x + xoffset), (destination.y + yoffset), location.z) // So now, find the new center.
 
-	return destination
+	// Now to find a box from center location and make that our destination.
+	for(var/turf/T in block(center.x + b1xerror, center.y + b1yerror, location.z, center.x + b2xerror, center.y + b2yerror, location.z))
+		if(density && T.density)
+			continue
+		if(T.x > world.maxx || T.x < 1 || T.y > world.maxy || T.y < 1)
+			continue // Don't want them to teleport off the map.
+		destination_list += T
+	if(!length(destination_list))
+		return
+	return pick(destination_list)
 
 
 /proc/is_in_teleport_proof_area(atom/O)
@@ -173,43 +174,49 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /////////////////////////////////////////////////////////////////////////
 
 /**
- * Gets the turfs which are between the two given atoms. Including their positions
- * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
- * Arguments:
- * * M - The source atom
- * * N - The target atom
+ * Get a list of turfs in a line from `starting_atom` to `ending_atom`.
+ *
+ * Uses the ultra-fast [Bresenham Line-Drawing Algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm).
  */
-/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
-	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
-		return list()
-	var/px=M.x		//starting x
-	var/py=M.y
-	var/line[] = list(locate(px,py,M.z))
-	var/dx=N.x-px	//x distance
-	var/dy=N.y-py
-	var/dxabs=abs(dx)//Absolute value of x distance
-	var/dyabs=abs(dy)
-	var/sdx=SIGN(dx)	//Sign of x distance (+ or -)
-	var/sdy=SIGN(dy)
-	var/x=dxabs>>1	//Counters for steps taken, setting to distance/2
-	var/y=dyabs>>1	//Bit-shifting makes me l33t.  It also makes getline() unnessecarrily fast.
-	var/j			//Generic integer for counting
-	if(dxabs>=dyabs)	//x distance is greater than y
-		for(j=0;j<dxabs;j++)//It'll take dxabs steps to get there
-			y+=dyabs
-			if(y>=dxabs)	//Every dyabs steps, step once in y direction
-				y-=dxabs
-				py+=sdy
-			px+=sdx		//Step on in x direction
-			line+=locate(px,py,M.z)//Add the turf to the list
+/proc/get_line(atom/starting_atom, atom/ending_atom)
+	var/current_x_step = starting_atom.x//start at x and y, then add 1 or -1 to these to get every turf from starting_atom to ending_atom
+	var/current_y_step = starting_atom.y
+	var/starting_z = starting_atom.z
+
+	var/list/line = list(get_step(starting_atom, 0))//get_turf(atom) is faster than locate(x, y, z) //Get turf isn't defined yet so we use get step
+
+	var/x_distance = ending_atom.x - current_x_step //x distance
+	var/y_distance = ending_atom.y - current_y_step
+
+	var/abs_x_distance = abs(x_distance)//Absolute value of x distance
+	var/abs_y_distance = abs(y_distance)
+
+	var/x_distance_sign = SIGN(x_distance) //Sign of x distance (+ or -)
+	var/y_distance_sign = SIGN(y_distance)
+
+	var/x = abs_x_distance >> 1 //Counters for steps taken, setting to distance/2
+	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnessecarrily fast.
+
+	if(abs_x_distance >= abs_y_distance) //x distance is greater than y
+		for(var/distance_counter in 0 to (abs_x_distance - 1))//It'll take abs_x_distance steps to get there
+			y += abs_y_distance
+
+			if(y >= abs_x_distance) //Every abs_y_distance steps, step once in y direction
+				y -= abs_x_distance
+				current_y_step += y_distance_sign
+
+			current_x_step += x_distance_sign //Step on in x direction
+			line += locate(current_x_step, current_y_step, starting_z)//Add the turf to the list
 	else
-		for(j=0;j<dyabs;j++)
-			x+=dxabs
-			if(x>=dyabs)
-				x-=dyabs
-				px+=sdx
-			py+=sdy
-			line+=locate(px,py,M.z)
+		for(var/distance_counter in 0 to (abs_y_distance - 1))
+			x += abs_x_distance
+
+			if(x >= abs_y_distance)
+				x -= abs_y_distance
+				current_x_step += x_distance_sign
+
+			current_y_step += y_distance_sign
+			line += locate(current_x_step, current_y_step, starting_z)
 	return line
 
 //Same as the thing below just for density and without support for atoms.
@@ -255,50 +262,22 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/format_frequency(f)
 	return "[round(f / 10)].[f % 10]"
 
-/obj/proc/atmosanalyzer_scan(datum/gas_mixture/air_contents, mob/user, obj/target = src)
-	var/obj/icon = target
-	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
-	var/pressure = air_contents.return_pressure()
-	var/total_moles = air_contents.total_moles()
-
-	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
-	if(total_moles>0)
-		var/o2_concentration = air_contents.oxygen/total_moles
-		var/n2_concentration = air_contents.nitrogen/total_moles
-		var/co2_concentration = air_contents.carbon_dioxide/total_moles
-		var/plasma_concentration = air_contents.toxins/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-
-		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
-		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
-		if(unknown_concentration>0.01)
-			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
-		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
-	else
-		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
-	return
-
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
-	var/select = null
+// Selects an unlinked borg, used in the robot upload console
+/proc/freeborg(mob/user)
+	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+	if(length(borgs))
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -310,7 +289,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(A.control_disabled)
 			continue
 		. += A
-	return .
 
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
@@ -325,10 +303,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(ais.len)
-		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
-		else		. = pick(ais)
-	return .
+	if(!length(ais))
+		return
+	if(user)
+		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
+	else
+		return pick(ais)
 
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
@@ -398,7 +378,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	for(var/mob/living/carbon/human/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/living/carbon/brain/M in sortmob)
+	for(var/mob/living/brain/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/carbon/alien/M in sortmob)
 		moblist.Add(M)
@@ -424,11 +404,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 // Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
 /proc/DisplayJoules(units)
-	if (units < 1000) // Less than a kJ
+	if(units < 1000) // Less than a kJ
 		return "[round(units, 0.1)] J"
-	else if (units < 1000000) // Less than a MJ
+	else if(units < 1000000) // Less than a MJ
 		return "[round(units * 0.001, 0.01)] kJ"
-	else if (units < 1000000000) // Less than a GJ
+	else if(units < 1000000000) // Less than a GJ
 		return "[round(units * 0.000001, 0.001)] MJ"
 	return "[round(units * 0.000000001, 0.0001)] GJ"
 
@@ -470,12 +450,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc?.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/current = M
+	while(current?.loc && !isturf(current.loc))
+		current = current.loc
+		if(stop_type && istype(current, stop_type))
 			break
-	return loc
+	return current
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -495,47 +475,110 @@ Returns 1 if the chain up to the area contains the given typepath
 // otherwise, just reset the client mob's machine var.
 
 
-// returns the turf located at the map edge in the specified direction relative to A
-// used for mass driver
-/proc/get_edge_target_turf(atom/A, direction)
-
-	var/turf/target = locate(A.x, A.y, A.z)
-	if(!A || !target)
-		return 0
-		//since NORTHEAST == NORTH & EAST, etc, doing it this way allows for diagonal mass drivers in the future
+/// Returns the turf located at the map edge in the specified direction relative to target_atom used for mass driver
+/proc/get_edge_target_turf(atom/target_atom, direction)
+	if(!target_atom)
+		return FALSE
+	var/turf/target = get_turf(target_atom)
+	if(!target)
+		return FALSE
+		//since NORTHEAST == NORTH|EAST, etc, doing it this way allows for diagonal mass drivers in the future
 		//and isn't really any more complicated
 
-		// Note diagonal directions won't usually be accurate
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
-		target = locate(target.x, world.maxy, target.z)
-	if(direction & SOUTH)
-		target = locate(target.x, 1, target.z)
+		y = world.maxy
+	else if(direction & SOUTH) //you should not have both NORTH and SOUTH in the provided direction
+		y = 1
 	if(direction & EAST)
-		target = locate(world.maxx, target.y, target.z)
-	if(direction & WEST)
-		target = locate(1, target.y, target.z)
+		x = world.maxx
+	else if(direction & WEST)
+		x = 1
+	if(IS_DIR_DIAGONAL(direction)) //let's make sure it's accurately-placed for diagonals
+		var/lowest_distance_to_map_edge = min(abs(x - target_atom.x), abs(y - target_atom.y))
+		return get_ranged_target_turf(target_atom, direction, lowest_distance_to_map_edge)
+	return locate(x, y, target_atom.z)
 
-	return target
-
-// returns turf relative to A in given direction at set range
+/** returns turf relative to A in given direction at set range
 // result is bounded to map size
 // note range is non-pythagorean
 // used for disposal system
-/proc/get_ranged_target_turf(atom/A, direction, range)
+*/
+/proc/get_ranged_target_turf(atom/target_atom, direction, range)
 
-	var/x = A.x
-	var/y = A.y
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
 		y = min(world.maxy, y + range)
-	if(direction & SOUTH)
+	else if(direction & SOUTH)
 		y = max(1, y - range)
 	if(direction & EAST)
 		x = min(world.maxx, x + range)
-	if(direction & WEST)
+	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,A.z)
+	return locate(x, y, target_atom.z)
 
+/**
+ * Get ranged target turf, but with direct targets as opposed to directions
+ *
+ * Starts at atom starting_atom and gets the exact angle between starting_atom and target
+ * Moves from starting_atom with that angle, Range amount of times, until it stops, bound to map size
+ * Arguments:
+ * * starting_atom - Initial Firer / Position
+ * * target - Target to aim towards
+ * * range - Distance of returned target turf from starting_atom
+ * * offset - Angle offset, 180 input would make the returned target turf be in the opposite direction
+ */
+/proc/get_ranged_target_turf_direct(atom/starting_atom, atom/target, range, offset)
+	var/angle = ATAN2(target.x - starting_atom.x, target.y - starting_atom.y)
+	if(offset)
+		angle += offset
+	var/turf/starting_turf = get_turf(starting_atom)
+	for(var/i in 1 to range)
+		var/turf/check = locate(starting_atom.x + cos(angle) * i, starting_atom.y + sin(angle) * i, starting_atom.z)
+		if(!check)
+			break
+		starting_turf = check
+
+	return starting_turf
+
+// returns turf relative to A for a given clockwise angle at set range
+// result is bounded to map size
+/proc/get_angle_target_turf(atom/A, angle, range)
+	if(!istype(A))
+		return null
+	var/x = A.x
+	var/y = A.y
+
+	x += range * sin(angle)
+	y += range * cos(angle)
+
+	//Restricts to map boundaries while keeping the final angle the same
+	var/dx = A.x - x
+	var/dy = A.y - y
+	var/ratio
+	if(dy == 0) //prevents divide-by-zero errors
+		ratio = INFINITY
+	else
+		ratio = dx / dy
+
+	if(x < 1)
+		y += (1 - x) / ratio
+		x = 1
+	else if(x > world.maxx)
+		y += (world.maxx - x) / ratio
+		x = world.maxx
+
+	if(y < 1)
+		x += (1 - y) * ratio
+		y = 1
+	else if(y > world.maxy)
+		x += (world.maxy - y) * ratio
+		y = world.maxy
+
+	return locate(round(x, 1), round(y, 1), A.z)
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
@@ -564,7 +607,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	for(var/atom/part in contents)
 		toReturn += part
-		if(part.contents.len && searchDepth)
+		if(length(part.contents) && searchDepth)
 			toReturn += part.GetAllContents(searchDepth - 1)
 
 	return toReturn
@@ -599,14 +642,20 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs, list/excluded_objs)
 	if(T.density)
 		return TRUE
-	for(var/i in T)
-		var/atom/A = i
-		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
-			return TRUE
-		if(A.density && (!exclude_mobs || !ismob(A)))
+	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+	if(!exclude_mobs)
+		for(var/mob/living/L in T)
+			if(L.density)
+				return TRUE
+	var/any_excluded_objs = length(excluded_objs)
+	for(var/obj/O in T)
+		if(any_excluded_objs && (O in excluded_objs))
+			continue
+		if(O.density)
 			return TRUE
 	return FALSE
 
@@ -619,7 +668,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/dir_alt2 = turn(base_dir, -90)
 		var/turf/turf_last1 = temp
 		var/turf/turf_last2 = temp
-		var/free_tile = null
+		var/free_tile
 		var/breakpoint = 0
 
 		while(!free_tile && breakpoint < 10)
@@ -664,7 +713,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/areas = new/list()
+	var/list/areas = list()
 	for(var/area/N in world)
 		if(istype(N, areatype)) areas += N
 	return areas
@@ -672,16 +721,19 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+	if(!areatype)
+		return
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/turfs = new/list()
-	for(var/area/N in world)
+	var/list/turfs = list()
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
-			for(var/turf/T in N) turfs += T
+			for(var/turf/T in N)
+				turfs += T
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -693,19 +745,20 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/atoms = new/list()
+	var/list/atoms = list()
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
 				atoms += A
 	return atoms
 
-/datum/coords //Simple datum for storing coordinates.
-	var/x_pos = null
-	var/y_pos = null
-	var/z_pos = null
+/// Simple datum for storing coordinates.
+/datum/coords
+	var/x_pos
+	var/y_pos
+	var/z_pos
 
-/area/proc/move_contents_to(area/A, turftoleave=null, direction = null)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -714,7 +767,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(!A || !src) return 0
 
-	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_src = get_area_turfs(type)
 	var/list/turfs_trg = get_area_turfs(A.type)
 
 	var/src_min_x = 0
@@ -729,7 +782,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -737,7 +790,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -745,8 +798,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/fromupdate = new/list()
-	var/list/toupdate = new/list()
+	var/list/from_update = list()
+	var/list/to_update = list()
 
 	moving:
 		for(var/turf/T in refined_src)
@@ -762,19 +815,17 @@ Returns 1 if the chain up to the area contains the given typepath
 					var/turf/X = B.ChangeTurf(T.type)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
+						var/datum/milla_safe/area_move_transrer_gas/milla = new()
+						milla.invoke_async(T, X)
 
-
-					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
+					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
-
 						// Spawn a new shuttle corner object
-						var/obj/corner = new()
+						var/obj/corner = new
 						corner.loc = X
 						corner.density = TRUE
 						corner.anchored = TRUE
@@ -793,35 +844,31 @@ Returns 1 if the chain up to the area contains the given typepath
 						X.icon = nextturf.icon
 						X.icon_state = nextturf.icon_state
 
-
 					for(var/obj/O in T)
-
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
 							X.icon = 'icons/turf/shuttle.dmi'
-							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
+							X.icon_state = replacetext(O.icon_state, "_f", "_s") // Revert the turf to the old icon_state
 							X.name = "wall"
-							qdel(O) // prevents multiple shuttle corners from stacking
+							qdel(O) // Prevents multiple shuttle corners from stacking
 							continue
-						if(!isobj(O)) continue
+
+						if(QDELETED(O))
+							continue
+
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X)
 						O.loc.Entered(O)
+
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue
 						M.loc = X
 
-//					var/area/AR = X.loc
+					to_update += X
 
-//					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
-//						X.opacity = !X.opacity
-//						X.set_opacity(!X.opacity)
-
-					toupdate += X
-
-					if(turftoleave)
-						fromupdate += T.ChangeTurf(turftoleave)
+					if(turf_to_leave)
+						from_update += T.ChangeTurf(turf_to_leave)
 					else
 						T.ChangeTurf(T.baseturf)
 
@@ -829,56 +876,47 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
+/datum/milla_safe/area_move_transrer_gas
 
-	if(fromupdate.len)
-		for(var/turf/simulated/T2 in fromupdate)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2,1)
+/datum/milla_safe/area_move_transrer_gas/on_run(turf/source, turf/target)
+	get_turf_air(target).copy_from(get_turf_air(source))
 
-
-
-
-/proc/DuplicateObject(obj/original, perfectcopy = 0 , sameloc = 0, atom/newloc = null)
+/proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
-		return null
+		return
 
-	var/obj/O = null
+	var/obj/O
 
 	if(sameloc)
-		O=new original.type(original.loc)
+		O = new original.type(original.loc)
 	else
-		O=new original.type(newloc)
+		O = new original.type(newloc)
 
 	if(perfectcopy)
-		if((O) && (original))
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
+		if(O && original)
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
-				if(istype(original.vars[V],/list))
+				if(islist(original.vars[V]))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
-					continue	// this would reference the original's object, that will break when it is used or deleted.
+				else if(istype(original.vars[V], /datum))
+					continue // This would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
 	if(istype(O))
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
+/area/proc/copy_contents_to(area/A, platingRequired = FALSE, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
-	//Returns: Nothing.
+	//Returns: List containing copied objects or `FALSE` if source/target area are null.
 	//Notes: Attempts to move the contents of one area to another area.
 	//       Movement based on lower left corner. Tiles that do not fit
 	//		 into the new area will not be moved.
 
-	if(!A || !src) return 0
+	if(!A || !src)
+		return FALSE
 
 	var/list/turfs_src = get_area_turfs(src.type)
 	var/list/turfs_trg = get_area_turfs(A.type)
@@ -886,16 +924,20 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/src_min_x = 0
 	var/src_min_y = 0
 	for(var/turf/T in turfs_src)
-		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
-		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
+		if(T.x < src_min_x || !src_min_x)
+			src_min_x	= T.x
+		if(T.y < src_min_y || !src_min_y)
+			src_min_y	= T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	for(var/turf/T in turfs_trg)
-		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
-		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
+		if(T.x < trg_min_x || !trg_min_x)
+			trg_min_x	= T.x
+		if(T.y < trg_min_y || !trg_min_y)
+			trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -903,7 +945,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -911,95 +953,54 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/toupdate = new/list()
-
-	var/copiedobjs = list()
-
+	var/list/to_update = list()
+	var/list/copied_objects = list()
 
 	moving:
 		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
+
 			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
+
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
+					if(platingRequired && isspaceturf(B))
+						continue moving
 
 					var/old_dir1 = T.dir
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
 
-					if(platingRequired)
-						if(isspaceturf(B))
-							continue moving
-
 					var/turf/X = new T.type(B)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-
-					var/list/objs = new/list()
-					var/list/newobjs = new/list()
-					var/list/mobs = new/list()
-					var/list/newmobs = new/list()
+					var/list/newobjs = list()
+					var/list/newmobs = list()
 
 					for(var/obj/O in T)
-
-						if(!isobj(O))
-							continue
-
-						objs += O
-
-
-					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , perfect_copy)
-
-
-					for(var/obj/O in newobjs)
-						O.loc = X
+						newobjs += DuplicateObject(O, perfect_copy, FALSE, X)
 
 					for(var/mob/M in T)
-
 						if(!M.move_on_shuttle)
 							continue
-						mobs += M
+						newmobs += DuplicateObject(M, TRUE, FALSE, X)
 
-					for(var/mob/M in mobs)
-						newmobs += DuplicateObject(M , 1)
-
-					for(var/mob/M in newmobs)
-						M.loc = X
-
-					copiedobjs += newobjs
-					copiedobjs += newmobs
-
-
+					copied_objects += newobjs
+					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity", "group")))
+						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
-//					var/area/AR = X.loc
-
-//					if(AR.lighting_use_dynamic)
-//						X.opacity = !X.opacity
-//						X.sd_set_opacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
-
-					toupdate += X
+					to_update += X
 
 					refined_src -= T
 					refined_trg -= B
 					continue moving
 
-
-
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
-
-
-	return copiedobjs
-
+	return copied_objects
 
 
 /proc/get_cardinal_dir(atom/A, atom/B)
@@ -1036,19 +1037,25 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 /proc/parse_zone(zone)
-	if(zone == "r_hand") return "right hand"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "l_arm") return "left arm"
-	else if(zone == "r_arm") return "right arm"
-	else if(zone == "l_leg") return "left leg"
-	else if(zone == "r_leg") return "right leg"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "r_hand") return "right hand"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else return zone
+	switch(zone)
+		if("r_hand")
+			return "right hand"
+		if("l_hand")
+			return "left hand"
+		if("r_arm")
+			return "right arm"
+		if("l_arm")
+			return "left arm"
+		if("r_foot")
+			return "right foot"
+		if("l_foot")
+			return "left foot"
+		if("r_leg")
+			return "right leg"
+		if("l_leg")
+			return "left leg"
+		else
+			return zone
 
 /*
 
@@ -1114,100 +1121,20 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed()
+//For objects that should embed, but make no sense being sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
-	if(is_sharp(W))
-		return 1
+	if(W.sharp)
+		return TRUE
 	if(is_pointed(W))
-		return 1
+		return TRUE
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
-/proc/is_hot(obj/item/W as obj)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(W.tool_enabled)
-			return 2500
-		else
-			return 0
-	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/O = W
-		if(O.lit)
-			return 1500
-		else
-			return 0
-	if(istype(W, /obj/item/match))
-		var/obj/item/match/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/candle))
-		var/obj/item/candle/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/flashlight/flare))
-		var/obj/item/flashlight/flare/O = W
-		if(O.on)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/gun/energy/plasmacutter))
-		return 3800
-	if(istype(W, /obj/item/melee/energy))
-		var/obj/item/melee/energy/O = W
-		if(O.active)
-			return 3500
-		else
-			return 0
-	if(istype(W, /obj/item/assembly/igniter))
-		return 20000
-	else
-		return 0
-
-//Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
-
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
+		return TRUE
 
 /*
 Checks if that loc and dir has a item on the wall
@@ -1216,10 +1143,10 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
-	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
+	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign)))
+	/obj/structure/sign, /obj/machinery/barsign)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
@@ -1262,9 +1189,9 @@ Standard way to write links -Sayu
 */
 
 /proc/topic_link(datum/D, arglist, content)
-	if(istype(arglist,/list))
+	if(islist(arglist))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 
@@ -1347,9 +1274,9 @@ Standard way to write links -Sayu
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
-	var/atom/found = null
+	var/atom/found
 
-	while(processing_list.len && found==null)
+	while(length(processing_list) && isnull(found))
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1375,7 +1302,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
+		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
@@ -1422,9 +1349,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	simulated = 0
 	see_in_dark = 1e6
-
-/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
-	SHOULD_CALL_PARENT(FALSE)
 
 /mob/dview/Destroy()
 	SHOULD_CALL_PARENT(FALSE)
@@ -1558,7 +1482,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!orange)
 		L += t_center
 
-	while( c_dist <= dist )
+	while(c_dist <= dist)
 		y = t_center.y + c_dist
 		x = t_center.x - c_dist + 1
 		for(x in x to t_center.x+c_dist)
@@ -1568,17 +1492,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
+		var/list/temp_list_one = list()
 		for(y in t_center.y-c_dist to y)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_one += T
+		L += reverselist(temp_list_one)
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
+		var/list/temp_list_two = list()
 		for(x in t_center.x-c_dist to x)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_two += T
+		L += reverselist(temp_list_two)
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
@@ -1642,20 +1570,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
+	if(!skip_filter)
+		if(!value) //nothing should be calling us with a number, so this is safe
+			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			if(isnull(value))
+				return
+		value = trim(value)
+		if(!isnull(value) && value != "")
+			matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
-		return
+		if(!length(matches))
+			return
 
 	var/chosen
-	if(matches.len == 1)
+	if(length(matches) == 1)
 		chosen = matches[1]
 	else
 		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
@@ -1691,7 +1620,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
 			/obj/item/grenade = "GRENADE",
 			/obj/item/gun = "GUN",
-			/obj/item/implant = "IMPLANT",
+			/obj/item/bio_chip = "BIO_CHIP",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
 			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
 			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
@@ -1707,10 +1636,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/radio/headset = "HEADSET",
 			/obj/item/reagent_containers/glass/beaker = "BEAKER",
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
-			/obj/item/reagent_containers/food/pill/patch = "PATCH",
-			/obj/item/reagent_containers/food/pill = "PILL",
-			/obj/item/reagent_containers/food/drinks = "DRINK",
-			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/patch = "PATCH",
+			/obj/item/reagent_containers/pill = "PILL",
+			/obj/item/reagent_containers/drinks = "DRINK",
+			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers/syringe = "SYRINGE",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/item/robot_parts = "ROBOT_PARTS",
@@ -1748,6 +1677,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
+			/datum/station_goal/secondary = "S_GOAL",
+			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
@@ -1785,7 +1716,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 
 /proc/filter_fancy_list(list/L, filter as text)
-	var/list/matches = new
+	var/list/matches = list()
 	for(var/key in L)
 		var/value = L[key]
 		if(findtext("[key]", filter) || findtext("[value]", filter))
@@ -1875,8 +1806,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
+/// This proc returns every player with a client who is not a ghost or a new_player
+/proc/get_living_players(exclude_nonhuman = FALSE, exclude_offstation = FALSE)
+	var/list/living_players = list()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(exclude_nonhuman && !ishuman(M))
+			continue
+		if(exclude_offstation && M.mind?.offstation_role)
+			continue
+		living_players += M
+
+	return living_players
+
 /proc/make_bit_triplet()
-	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/list/num_sample = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
 	var/result = 0
 	for(var/i = 0, i < 3, i++)
 		var/num = pick(num_sample)
@@ -1942,19 +1886,26 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
 
-/proc/params2turf(scr_loc, turf/origin, client/C)
-	if(!scr_loc)
-		return null
-	var/tX = splittext(scr_loc, ",")
-	var/tY = splittext(tX[2], ":")
-	var/tZ = origin.z
-	tY = tY[1]
-	tX = splittext(tX[1], ":")
-	tX = tX[1]
-	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
-	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
-	return locate(tX, tY, tZ)
+/// Returns a turf based on text inputs, original turf and viewing client
+/proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
+	if(!modifiers)
+		return
+
+	var/screen_loc = splittext(modifiers["screen-loc"], ",")
+	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)
+	var/click_turf_x = splittext(screen_loc[1], ":")
+	var/click_turf_y = splittext(screen_loc[2], ":")
+	var/click_turf_z = origin.z
+
+	var/click_turf_px = text2num(click_turf_x[2])
+	var/click_turf_py = text2num(click_turf_y[2])
+	click_turf_x = origin.x + text2num(click_turf_x[1]) - round(actual_view[1] / 2) - 1
+	click_turf_y = origin.y + text2num(click_turf_y[1]) - round(actual_view[2] / 2) - 1
+
+	var/turf/click_turf = locate(clamp(click_turf_x, 1, world.maxx), clamp(click_turf_y, 1, world.maxy), click_turf_z)
+	LAZYSET(modifiers, "icon-x", "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
+	LAZYSET(modifiers, "icon-y", "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
+	return click_turf
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
@@ -1976,9 +1927,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :result, :server_id)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, INET_ATON(:ip), :cid, :result, :server_id)", list(
 		"ckey" = ckey,
-		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
+		"ip" = "[ip ? ip : "127.0.0.1"]",
 		"cid" = cid,
 		"result" = connection_type,
 		"server_id" = GLOB.configuration.system.instance_id
@@ -1994,6 +1945,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)
@@ -2012,33 +1965,39 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Engine Ambience"
 		if(CHANNEL_FIREALARM)
 			return "Fire Alarms"
+		if(CHANNEL_ASH_STORM)
+			return "Ash Storms"
+		if(CHANNEL_RADIO_NOISE)
+			return "Radio Noise"
+		if(CHANNEL_BOSS_MUSIC)
+			return "Boss Music"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)
-		if(SLOT_OCLOTHING)
-			return slot_wear_suit
-		if(SLOT_ICLOTHING)
-			return slot_w_uniform
-		if(SLOT_GLOVES)
-			return slot_gloves
-		if(SLOT_EYES)
-			return slot_glasses
-		if(SLOT_MASK)
-			return slot_wear_mask
-		if(SLOT_HEAD)
-			return slot_head
-		if(SLOT_FEET)
-			return slot_shoes
-		if(SLOT_ID)
-			return slot_wear_id
-		if(SLOT_BELT)
-			return slot_belt
-		if(SLOT_BACK)
-			return slot_back
-		if(SLOT_PDA)
-			return slot_wear_pda
-		if(SLOT_TIE)
-			return slot_tie
+		if(SLOT_FLAG_OCLOTHING)
+			return SLOT_HUD_OUTER_SUIT
+		if(SLOT_FLAG_ICLOTHING)
+			return SLOT_HUD_JUMPSUIT
+		if(SLOT_FLAG_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(SLOT_FLAG_EYES)
+			return SLOT_HUD_GLASSES
+		if(SLOT_FLAG_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(SLOT_FLAG_HEAD)
+			return SLOT_HUD_HEAD
+		if(SLOT_FLAG_FEET)
+			return SLOT_HUD_SHOES
+		if(SLOT_FLAG_ID)
+			return SLOT_HUD_WEAR_ID
+		if(SLOT_FLAG_BELT)
+			return SLOT_HUD_BELT
+		if(SLOT_FLAG_BACK)
+			return SLOT_HUD_BACK
+		if(SLOT_FLAG_PDA)
+			return SLOT_HUD_WEAR_PDA
+		if(SLOT_FLAG_TIE)
+			return SLOT_HUD_TIE
 
 
 /**
@@ -2054,7 +2013,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   * * url - URL to GET
   */
 /proc/HTTPGet(url)
-	var/datum/http_request/req = new()
+	var/datum/http_request/req = new
 	req.prepare(RUSTG_HTTP_METHOD_GET, url)
 	req.begin_async()
 
@@ -2074,3 +2033,23 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	output["CONTENT"] = content
 
 	return output
+
+/// Given a color in the format of "#RRGGBB", will return if the color is dark.
+/proc/is_color_dark(color, threshold = 25)
+	var/hsl = rgb2num(color, COLORSPACE_HSL)
+	return hsl[3] < threshold
+
+/**
+ * This proc takes a list of types, and returns them in the format below.
+ * [type] = amount of type in list.
+ * Useful for recipes.
+ */
+/proc/type_list_to_counted_assoc_list(list/origin_list)
+	var/list/return_list = list()
+	for(var/datum/path as anything in origin_list)
+		if(isdatum(path))
+			path = path.type
+		if(!return_list[path])
+			return_list[path] = 0
+		return_list[path] += 1
+	return return_list

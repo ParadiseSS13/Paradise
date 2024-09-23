@@ -11,4 +11,4 @@
   * * blockwise - This will be TRUE if the maze this is running on is a blockwise maze
   */
 /obj/effect/mazegen/module_helper/proc/helper_run(blockwise = FALSE, obj/effect/mazegen/host)
-	CRASH("spawn_loot() not overriden for [type]")
+	CRASH("spawn_loot() not overridden for [type]")

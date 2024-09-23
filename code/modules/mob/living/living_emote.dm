@@ -1,7 +1,7 @@
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,	// nice try
+		/mob/living/brain,	// nice try
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot
 	)
@@ -11,7 +11,6 @@
 	. = ..()
 	if(user.mind?.miming)
 		return FALSE  // shh
-	return .
 
 /datum/emote/living/blush
 	key = "blush"
@@ -51,7 +50,7 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.Paralyse(4 SECONDS)
+		L.KnockDown(10 SECONDS)
 
 /datum/emote/living/dance
 	key = "dance"
@@ -74,16 +73,15 @@
 	muzzle_ignore = TRUE // makes sure that sound is played upon death
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
-	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
+	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."
 	message_AI = "screeches, its screen flickering as its systems slowly halt."
-	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor..."
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple = "stops moving..."
 
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,
+		/mob/living/brain,
 	)
 
 /datum/emote/living/deathgasp/should_play_sound(mob/user, intentional)
@@ -120,7 +118,7 @@
 	if(!istype(H))
 		return ..()
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -8, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/drool
 	key = "drool"
@@ -208,7 +206,7 @@
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
-				message_param = "<span class='userdanger>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
 
 	return ..()
 
@@ -224,7 +222,7 @@
 	message_mime = "acts out a scream!"
 	message_simple = "whimpers."
 	message_alien = "roars!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_MOUTH | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(
 		// Humans and silicons get specialized scream.
 		/mob/living/carbon/human,
@@ -350,7 +348,7 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,
+		/mob/living/brain,
 	)
 
 /datum/emote/living/tilt
@@ -392,7 +390,7 @@
 	key_third_person = "custom"
 	message = null
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,	// nice try
+		/mob/living/brain,	// nice try
 	)
 
 	// Custom emotes should be able to be forced out regardless of context.
@@ -416,9 +414,9 @@
 		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
 		return FALSE
 	else if(!params)
-		custom_emote = copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)
+		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
+			var/type = tgui_alert(user, "Is this a visible or hearable emote?", "Custom Emote", list("Visible", "Hearable"))
 			switch(type)
 				if("Visible")
 					custom_emote_type = EMOTE_VISIBLE

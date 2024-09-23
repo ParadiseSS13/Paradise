@@ -61,25 +61,32 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
 
-	var/list/listeners = GLOB.player_list
-	if(!ignore_walls) //these sounds don't carry through walls
-		listeners = listeners & hearers(maxdistance, turf_source)
-
-	for(var/P in listeners)
-		var/mob/M = P
-		if(!M || !M.client)
+	var/list/possible_listeners = list()
+	var/list/desired_turfs = list()
+	for(var/mob/P as anything in GLOB.player_list)
+		if(isnull(P) || !P.client)
+			continue
+		var/turf/T = get_turf(P)
+		if(!T || T.z != turf_source.z || get_dist(T, turf_source) > maxdistance)
 			continue
 
-		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
-		if(!T)
-			continue
-		if(T.z != turf_source.z)
-			continue
+		possible_listeners += P
+		desired_turfs |= T
 
-		var/distance = get_dist(M, turf_source)
+	var/list/listeners = list()
+	if(ignore_walls)
+		listeners = possible_listeners
+	else if(length(possible_listeners))
+		var/list/turf_vis = list()
+		for(var/turf/T as anything in desired_turfs)
+			turf_vis[T] = inLineOfSight(T.x, T.y, turf_source.x, turf_source.y, T.z)
 
-		if(distance <= maxdistance)
-			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+		for(var/mob/P in possible_listeners)
+			if(turf_vis[get_turf(P)])
+				listeners += P
+
+	for(var/mob/M as anything in listeners)
+		M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
 	if(!client || !can_hear())
@@ -91,9 +98,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.wait = 0 //No queue
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
-
-	if(channel)
-		S.volume *= client.prefs.get_channel_volume(channel)
 
 	if(vary)
 		if(frequency)
@@ -109,22 +113,23 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 		distance *= distance_multiplier
 
-		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
+		if(max_distance && distance > falloff_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
 			S.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * S.volume
 			//https://www.desmos.com/calculator/sqdfl8ipgf
 
 		if(pressure_affected)
 			//Atmosphere affects sound
-			var/pressure_factor = 1
-			var/datum/gas_mixture/hearer_env = T.return_air()
-			var/datum/gas_mixture/source_env = turf_source.return_air()
+			var/pressure = ONE_ATMOSPHERE
+			if(!T.blocks_air)
+				var/datum/gas_mixture/hearer_env = T.get_readonly_air()
+				pressure = hearer_env.return_pressure()
+			if(!turf_source.blocks_air)
+				var/datum/gas_mixture/source_env = turf_source.get_readonly_air()
+				pressure = min(pressure, source_env.return_pressure())
 
-			if(hearer_env && source_env)
-				var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
-				if(pressure < ONE_ATMOSPHERE)
-					pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
-			else //space
-				pressure_factor = 0
+			var/pressure_factor = 1
+			if(pressure < ONE_ATMOSPHERE)
+				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE) / (ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 
 			if(distance <= 1)
 				pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
@@ -159,7 +164,18 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
+	S.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= USER_VOLUME(src, channel)
+
 	SEND_SOUND(src, S)
+
+/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
+	if(!S)
+		S = sound(get_sfx(soundin))
+	for(var/mob/m as anything in GLOB.player_list)
+		if(!isnewplayer(m) && is_station_level(m.z))
+			m.playsound_local(m, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)
@@ -189,6 +205,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
+			if("patchpack")
+				soundin = pick('sound/effects/CC0/patchpack1.ogg', 'sound/effects/CC0/patchpack2.ogg', 'sound/effects/CC0/patchpack3.ogg', 'sound/effects/CC0/patchpack4.ogg', 'sound/effects/CC0/patchpack5.ogg')
+			if("pillbottle")
+				soundin = pick('sound/effects/CC0/pillbottle1.ogg', 'sound/effects/CC0/pillbottle2.ogg', 'sound/effects/CC0/pillbottle3.ogg', 'sound/effects/CC0/pillbottle4.ogg')
 			if("shatter")
 				soundin = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
 			if("explosion")

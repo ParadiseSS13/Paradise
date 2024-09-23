@@ -65,12 +65,18 @@
 
 
 /obj/item/gun/magic/process()
+	// Don't start recharging until we lose a charge
+	if(charges >= max_charges)
+		charge_tick = 0
+		return FALSE
+
 	charge_tick++
-	if(charge_tick < recharge_rate || charges >= max_charges)
-		return 0
-	charge_tick = 0
-	charges++
-	return 1
+	if(charge_tick >= recharge_rate)
+		charge_tick = 0
+		charges++
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/gun/magic/update_icon_state()
 	return
@@ -80,6 +86,6 @@
 	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, fire_sound, 50, 1, -1)
+	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

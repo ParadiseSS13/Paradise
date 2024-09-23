@@ -4,20 +4,20 @@
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/banhammer/attack(mob/M, mob/user)
@@ -28,9 +28,11 @@
 /obj/item/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "sord"
-	item_state = "sord"
-	slot_flags = SLOT_BELT
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	slot_flags = SLOT_FLAG_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -38,25 +40,28 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
+	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_themselves()] with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
 	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
 	return SHAME
 
 /obj/item/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/Initialize(mapload)
@@ -64,7 +69,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/claymore/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
 /obj/item/claymore/ceremonial
@@ -74,11 +79,15 @@
 
 /obj/item/katana
 	name = "katana"
-	desc = "Woefully underpowered in D20"
+	desc = "Woefully underpowered in D20."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -86,7 +95,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
@@ -96,13 +105,16 @@
 
 
 /obj/item/katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
+	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
 	return BRUTELOSS
 
 /obj/item/harpoon
 	name = "harpoon"
 	sharp = TRUE
 	desc = "Tharr she blows!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	force = 20
@@ -125,12 +137,9 @@
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/spear/S = new /obj/item/spear
 		if(istype(I, /obj/item/shard/plasma))
-			S.force_wielded = 19
-			S.force_unwielded = 11
-			S.throwforce = 21
-			S.icon_prefix = "spearplasma"
+			S.add_plasmaglass()
 			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
@@ -156,6 +165,7 @@
 /obj/item/throwing_star
 	name = "throwing star"
 	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
 	item_state = "eshield0"
 	force = 2
@@ -170,7 +180,6 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/spear/kidan
-	icon_state = "kidanspear"
 	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
@@ -181,7 +190,7 @@
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
-	icon = 'icons/obj/items.dmi'
+	flags_2 = RANDOM_BLOCKER_2
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
@@ -217,7 +226,7 @@
 				return TRUE
 			else if(prob(30))
 				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
-				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
@@ -225,7 +234,7 @@
 				return FALSE
 			else
 				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
-				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
+				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
 				deflectmode = FALSE
@@ -263,7 +272,7 @@
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
@@ -282,7 +291,7 @@
 		return
 	if(!(target.status_flags & CANPUSH))
 		// No throwing mobs specifically flagged as immune to being pushed.
-		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return
 	if(target.move_resist > MOVE_RESIST_DEFAULT)
 		// No throwing mobs that have higher than normal move_resist.

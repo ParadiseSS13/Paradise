@@ -12,7 +12,6 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-		target_turf.air_update_turf()
 	qdel(src)
 
 /obj/item/grenade/gas/plasma
@@ -48,6 +47,6 @@
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))
 		T.MakeSlippery(TURF_WET_ICE)
 		for(var/mob/living/carbon/L in T)
-			L.adjustStaminaLoss(stamina_damage)
+			L.apply_damage(stamina_damage, STAMINA)
 			L.adjust_bodytemperature(-230)
 	qdel(src)

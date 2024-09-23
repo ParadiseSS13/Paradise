@@ -4,12 +4,11 @@
 	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 300
-	active_power_usage = 300
+	idle_power_consumption = 300
+	active_power_consumption = 300
 	max_integrity = 200
 	integrity_failure = 100
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
@@ -30,7 +29,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
+/obj/machinery/computer/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
@@ -88,12 +87,13 @@
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 /obj/machinery/computer/power_change()
-	..()
+	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -116,10 +116,10 @@
 /obj/machinery/computer/emp_act(severity)
 	..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			if(prob(50))
 				obj_break(ENERGY)
-		if(2)
+		if(EMP_LIGHT)
 			if(prob(10))
 				obj_break(ENERGY)
 
@@ -176,3 +176,16 @@
 	if(circuit && !(flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
+
+/obj/machinery/computer/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(!self_hurt && prob(50 * (damage / 15)))
+		obj_break(MELEE)
+		take_damage(damage, BRUTE)
+		self_hurt = TRUE
+	return ..()
+
+/obj/machinery/computer/nonfunctional
+	name = "broken computer"
+	desc = "A computer long since rendered non-functional due to lack of maintenance. \
+		It is spitting out error messages."
+	circuit = /obj/item/circuitboard/nonfunctional

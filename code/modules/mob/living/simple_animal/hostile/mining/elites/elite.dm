@@ -49,8 +49,8 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
-			if(response == "No" || QDELETED(src) || !Adjacent(T))
+			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
+			if(response != "Yes" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
 			T.mychild = null
@@ -103,16 +103,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
-	button_icon_state = ""
-	background_icon_state = "bg_default"
+	button_overlay_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_overlay_icon_state = ""
+	button_background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
+/datum/action/innate/elite_attack/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
 	button.maptext_y = 0
@@ -125,13 +125,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButton()
+	UpdateButtons()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
+/datum/action/innate/elite_attack/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
 	if(status_only)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+
 	if(timeleft == 0)
 		button.maptext = ""
 	else
@@ -152,7 +154,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
-	desc = "An odd, pulsing tumor sticking out of the ground.  You feel compelled to reach out and touch it..."
+	desc = "An odd, pulsing tumor sticking out of the ground. You feel compelled to reach out and touch it..."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/lavaland/tumor.dmi'
 	icon_state = "tumor"
@@ -190,12 +192,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					"<span class='warning'>You reach for [src] with your arm... but nothing happens.</span>")
 				return
 			activity = TUMOR_ACTIVE
-			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius.  Uh-oh...</span>",
-				"<span class='userdanger'>[src] convulses as your arm enters its radius.  Your instincts tell you to step back.</span>")
+			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius. Uh-oh...</span>",
+				"<span class='userdanger'>[src] convulses as your arm enters its radius. Your instincts tell you to step back.</span>")
 			make_activator(user)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
+				to_chat(mychild, "<span class='warning'>Someone has activated your tumor. You will be returned to fight shortly, get ready!</span>")
 			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
@@ -217,12 +219,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
 				to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\n\
 					Your attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\n\
-					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
+					While the opponent might have an upper hand with powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
 					If you want to win, you'll have to use your powers in creative ways to ensure the kill. It's suggested you try using them all as soon as possible.\n\
 					Should you win, you'll receive extra information regarding what to do after. Good luck!</b>")
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
-				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
+				visible_message("<span class='warning'>The stirring stops, and nothing emerges. Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
 				clear_activator(user)
 
@@ -230,11 +232,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	visible_message("<span class='userdanger'>[mychild] emerges from [src]!</span>")
-	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
-		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		dust_if_respawnable(elitemind)
+		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -243,13 +246,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
 	visible_message("<span class='userdanger'>[mychild] emerges from [src]!</span>")
-	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
 		mychild.maxHealth = mychild.maxHealth * 2.5
 		mychild.health = mychild.maxHealth
 		mychild.grab_ghost()
-		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
@@ -330,20 +333,17 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(loc == null)
 		return
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
-		var/obj/effect/temp_visual/elite_tumor_wall/newwall
-		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-		newwall.activator = activator
-		newwall.ourelite = mychild
+		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
 /obj/structure/elite_tumor/proc/border_check()
 	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
 		activator.forceMove(loc)
 		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 
 /obj/structure/elite_tumor/HasProximity(atom/movable/AM)
 	if(!ishuman(AM) && !isrobot(AM))
@@ -360,11 +360,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		invaders += M
 	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src) // extra safety
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(M, 'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
-	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	visible_message("<span class='warning'>[src] begins to convulse violently before beginning to dissipate.</span>")
 	visible_message("<span class='warning'>As [src] closes, something is forced up from down below.</span>")
 	var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
@@ -398,14 +398,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		SSblackbox.record_feedback("tally", "ai_controlled_elite_win", 1, mychild.name)
 	if(times_won == 1)
-		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-		to_chat(mychild, "<span class='warning'><As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
-			Despite this inferno being your home, you feel as if you aren't welcome here anymore.\n\
-			Without any guidance, your purpose is now for you to decide.</span>")
-		to_chat(mychild, "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.\n\
-			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
-			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
-		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
+		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, FALSE)
+		var/list/text = list()
+		text += "<span class='warning'>As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.</span>"
+		text += "<span class='warning'>Despite this inferno being your home, you feel as if you aren't welcome here anymore.</span>"
+		text += "<span class='warning'>Without any guidance, your purpose is now for you to decide.\n</span>"
+		text += "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.</b>"
+		text += "<b>Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.</b>"
+		text += "<b>Also, be wary of your fellow inhabitants, they likely won't be happy to see you! \n</b>"
+		text += "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station.</span>"
+		text += "<span class='big bold>'You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>"
+		text += "<span class='warning'>Do not attack the Mining Station or Labour Camp, unless the Shaft Miner you are actively fighting runs into the Station/Camp.</span>"
+		text += "<span class='warning'>After they are killed, you must withdraw. If you wish to continue attacking the Station, you MUST ahelp.</span>"
+		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"
+		to_chat(mychild, text.Join(" "))
+
 	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/tumor_shard
@@ -430,8 +437,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
-		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
+		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt. Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
+		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user]. You are expected not to intentionally sabotage their faction unless commanded to!</span>")
 		if(user.mind.special_role)
 			E.maxHealth = 300
 			E.health = 300
@@ -453,14 +460,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
-	duration = 50
+	duration = 5 SECONDS
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
-	var/activator
-	var/ourelite
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
@@ -477,6 +482,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(isliving(mover))
 		return FALSE
+
+/obj/effect/temp_visual/elite_tumor_wall/gargantua
+	duration = 35 SECONDS // A bit longer than the spell lasts, it should be cleaned up by the spell otherwise it might not GC properly
+
+/obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
+	return FALSE
 
 /obj/item/gps/internal/tumor
 	icon_state = null

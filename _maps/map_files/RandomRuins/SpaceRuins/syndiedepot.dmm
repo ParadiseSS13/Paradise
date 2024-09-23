@@ -53,7 +53,7 @@
 	},
 /area/syndicate_depot/outer)
 "al" = (
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/monstermeat/spiderleg,
 /obj/structure/spider,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85,7 +85,7 @@
 /area/syndicate_depot/outer)
 "ar" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -128,7 +128,7 @@
 	},
 /area/syndicate_depot/core)
 "ay" = (
-/obj/item/reagent_containers/food/drinks/flask/barflask,
+/obj/item/reagent_containers/drinks/flask/barflask,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -270,7 +270,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -282,7 +282,7 @@
 	},
 /area/syndicate_depot/core)
 "aT" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -494,12 +494,12 @@
 /area/syndicate_depot/core)
 "by" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
 	pixel_x = 24;
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -593,7 +593,7 @@
 	},
 /area/syndicate_depot/core)
 "bM" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
@@ -614,7 +614,7 @@
 /area/syndicate_depot/core)
 "bO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -665,7 +665,7 @@
 "bV" = (
 /obj/structure/table,
 /obj/item/folder/syndicate/yellow,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -736,11 +736,11 @@
 /area/syndicate_depot/core)
 "cf" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
-	use_power = 0
+	power_state = 0
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -784,7 +784,9 @@
 	},
 /area/syndicate_depot/core)
 "cl" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -908,7 +910,9 @@
 	},
 /area/syndicate_depot/core)
 "cA" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -918,7 +922,9 @@
 	},
 /area/syndicate_depot/core)
 "cB" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -980,11 +986,7 @@
 /area/syndicate_depot/core)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 24;
-	req_access = list(150)
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1149,10 +1151,7 @@
 	},
 /area/syndicate_depot/core)
 "de" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
@@ -1169,6 +1168,9 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
+"Te" = (
+/turf/simulated/mineral/random/high_chance,
+/area/syndicate_depot/outer)
 
 (1,1,1) = {"
 aa
@@ -1501,8 +1503,8 @@ ad
 ad
 ad
 ad
-ad
-ad
+Te
+Te
 ad
 ad
 ad
@@ -1543,19 +1545,19 @@ ac
 ac
 ad
 ad
-ad
+Te
 ad
 af
-af
-ad
-ad
-ad
-ad
-ad
 af
 ad
 ad
 ad
+ad
+ad
+af
+Te
+Te
+Te
 ad
 ad
 ad
@@ -1593,7 +1595,7 @@ ac
 ac
 ad
 ad
-ad
+Te
 af
 am
 aU
@@ -1644,7 +1646,7 @@ ac
 ad
 ad
 ad
-ad
+Te
 af
 af
 aV
@@ -1973,8 +1975,8 @@ cM
 am
 dc
 af
-ad
-ad
+Te
+Te
 ad
 ac
 ac
@@ -2024,8 +2026,8 @@ af
 af
 af
 af
-ad
-ad
+Te
+Te
 ad
 ad
 ac
@@ -2076,7 +2078,7 @@ af
 af
 af
 af
-ad
+Te
 ad
 ad
 ad
@@ -2127,7 +2129,7 @@ af
 af
 ap
 af
-ad
+Te
 ad
 ad
 ac
@@ -2304,7 +2306,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad
@@ -2356,8 +2358,8 @@ ad
 ad
 am
 af
-ad
-ad
+Te
+Te
 ad
 at
 aQ
@@ -2402,12 +2404,12 @@ ac
 ac
 ac
 ad
-ad
-ad
+Te
+Te
 ad
 an
 af
-ad
+Te
 ad
 ad
 at
@@ -2454,7 +2456,7 @@ ac
 ad
 ad
 ac
-ad
+Te
 ad
 af
 ap
@@ -2499,13 +2501,13 @@ aa
 (27,1,1) = {"
 ab
 ac
-ad
+Te
 ac
 ac
 ac
 ac
 ac
-ad
+Te
 ad
 af
 af
@@ -2538,7 +2540,7 @@ af
 af
 af
 ad
-ad
+Te
 ad
 ac
 ac
@@ -2588,8 +2590,8 @@ at
 af
 ap
 af
-ad
-ad
+Te
+Te
 ad
 ac
 ac
@@ -2756,7 +2758,7 @@ aa
 ac
 ac
 ac
-ad
+Te
 ac
 ac
 ac
@@ -2843,7 +2845,7 @@ aD
 at
 af
 af
-ad
+Te
 ad
 ad
 ad
@@ -2894,7 +2896,7 @@ bv
 at
 af
 af
-ad
+Te
 ad
 ac
 ad
@@ -2945,7 +2947,7 @@ at
 at
 cM
 af
-ad
+Te
 ad
 ac
 ac
@@ -3222,7 +3224,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad
@@ -3242,9 +3244,9 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
+Te
+Te
+Te
 ad
 ad
 ad
@@ -3270,10 +3272,10 @@ ac
 ad
 ad
 ad
+Te
 ad
 ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3292,8 +3294,8 @@ ad
 ad
 bf
 bf
-ad
-ad
+Te
+Te
 ad
 ad
 ad
@@ -3321,10 +3323,10 @@ ad
 ad
 ad
 ad
+Te
+Te
 ad
-ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3372,13 +3374,13 @@ ac
 ad
 ad
 ad
+Te
+Te
+Te
+Te
 ad
 ad
-ad
-ad
-ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3422,17 +3424,17 @@ ac
 ad
 ad
 ad
+Te
+Te
+Te
+Te
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
+Te
+Te
 ad
 bf
 bm
@@ -3473,16 +3475,16 @@ ad
 ad
 ad
 ad
+Te
+Te
+Te
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
+Te
 ad
 ad
 bf
@@ -3525,13 +3527,13 @@ ad
 ad
 ad
 ad
+Te
 ad
 ad
 ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
 ad
 ad
 ad
@@ -3581,7 +3583,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad

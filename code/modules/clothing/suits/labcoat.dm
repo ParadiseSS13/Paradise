@@ -7,8 +7,8 @@
 	suit_adjusted = 1
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/robotanalyzer)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50)
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/robotanalyzer)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	species_exception = list(/datum/species/golem)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -63,3 +63,34 @@
 	desc = "A comfortable suit for paramedics. Has dark colours."
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"
+
+/obj/item/clothing/suit/storage/labcoat/psych
+	name = "psychologist labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a cyan stripe on the shoulder."
+	icon_state = "labcoat_psych_open"
+	item_state = "labcoat_psych_open"
+
+/obj/item/clothing/suit/storage/labcoat/robowhite
+	name = "roboticist labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulder."
+	icon_state = "labcoat_robowhite_open"
+	item_state = "labcoat_robowhite_open"
+
+/obj/item/clothing/suit/storage/labcoat/roboblack
+	name = "bioengineer labcoat"
+	desc = "A black suit that protects against minor chemical spills. Has a red stripe on the shoulder."
+	icon_state = "labcoat_roboblack_open"
+	item_state = "labcoat_roboblack_open"
+
+/obj/item/clothing/suit/storage/labcoat/rd
+	name = "research director's labcoat"
+	desc = "More purple than the standard model."
+	icon_state = "labcoat_rd_open"
+	item_state = "labcoat_rd_open"
+
+/obj/item/clothing/suit/storage/labcoat/hydro
+	name = "hydroponics labcoat"
+	desc = "A blue suit that protects against minor chemical spills. Has a green stripe on the shoulder."
+	icon_state = "labcoat_hydro_open"
+	item_state = "labcoat_hydro_open"
+	allowed = list(/obj/item/plant_analyzer, /obj/item/reagent_containers/glass/bottle, /obj/item/storage/bag/plants, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker, /obj/item/paper)

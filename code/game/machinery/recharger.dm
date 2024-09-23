@@ -8,9 +8,8 @@
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 200
+	idle_power_consumption = 4
+	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
 	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
@@ -50,7 +49,7 @@
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
-	if(!istype(A) || !A.power_equip)
+	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
 		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
 		return
 
@@ -65,7 +64,7 @@
 
 	G.forceMove(src)
 	charging = G
-	use_power = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 	using_power = check_cell_needs_recharging(get_cell_from(G))
 	update_icon()
 
@@ -92,19 +91,15 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(istype(src, /obj/machinery/recharger/wallcharger))	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
+		return
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	if(anchored)
-		WRENCH_ANCHOR_MESSAGE
-	else
-		WRENCH_UNANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -116,7 +111,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -124,7 +119,7 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		update_icon()
 
 /obj/machinery/recharger/process()
@@ -155,7 +150,8 @@
 	..(severity)
 
 /obj/machinery/recharger/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -231,6 +227,9 @@
 	else
 		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
 
+	if(!check_cell_needs_recharging(C)) // we recharged cell, does it still need power? If no, recharger should blink yellow
+		return FALSE
+
 	return TRUE
 
 /obj/machinery/recharger/examine(mob/user)
@@ -246,7 +245,7 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			. += "<span class='notice'>The status display reads:<span>"
 			if(using_power)
-				. += "<span class='notice'>- Recharging <b>[(C.chargerate/C.maxcharge)*100]%</b> cell charge per cycle.<span>"
+				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.<span>"
 			if(charging)
 				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
 
@@ -255,6 +254,13 @@
 	name = "wall recharger"
 	icon_state = "wrecharger0"
 	base_icon_state = "wrecharger"
+
+/obj/machinery/recharger/wallcharger/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/recharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	RefreshParts()
 
 #undef RECHARGER_POWER_USAGE_GUN
 #undef RECHARGER_POWER_USAGE_MISC

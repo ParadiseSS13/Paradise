@@ -37,8 +37,11 @@
 		currentPatient = null
 	return ..()
 
-/obj/machinery/computer/operating/detailed_examine()
-	return "This console gives information on the status of the patient on the adjacent operating table, notably their consciousness."
+
+
+/obj/machinery/computer/operating/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This console gives information on the status of the patient on the adjacent operating table and the next surgery step required in the current surgery.</span>"
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -56,10 +59,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/operating/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
+		ui = new(user, src, "OperatingComputer", "Patient Monitor")
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -83,7 +89,7 @@
 		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
+		occupantData["maxTemp"] = 1000
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
 		if(ishuman(occupant) && occupant.dna.species)
@@ -112,7 +118,7 @@
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			var/mob/living/carbon/human/H = occupant
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+			occupantData["pulse"] = occupant.get_pulse()
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = H.max_blood
@@ -180,6 +186,8 @@
 			return FALSE
 
 /obj/machinery/computer/operating/process()
+	if(stat & (NOPOWER|BROKEN))
+		return
 	if(!table) //Does this Operating Computer have an Operating Table connected to it?
 		return
 	if(!verbose) //Are the speakers on?
@@ -211,7 +219,7 @@
 
 	if(nextTick < world.time)
 		nextTick=world.time + OP_COMPUTER_COOLDOWN
-		if(crit && table.patient.health <= -50 )
+		if(crit && table.patient.health <= -50)
 			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
 			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
@@ -220,3 +228,5 @@
 		if(table.patient.stat != patientStatusHolder)
 			atom_say("Patient is now [patientStatus]")
 			patientStatusHolder = table.patient.stat
+
+#undef OP_COMPUTER_COOLDOWN

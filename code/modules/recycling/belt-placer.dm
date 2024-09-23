@@ -1,4 +1,5 @@
-/obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
+/// Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
+/obj/item/storage/conveyor
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
 	icon_state = "belt_placer"

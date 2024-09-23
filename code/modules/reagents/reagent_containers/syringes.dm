@@ -1,7 +1,3 @@
-#define SYRINGE_DRAW 0
-#define SYRINGE_INJECT 1
-#define SYRINGE_BROKEN 2
-
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe."
@@ -12,21 +8,19 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 15
-	sharp = TRUE
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
+	var/penetrates_thick = FALSE
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
-
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
 
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -63,7 +57,7 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, TRUE))
+		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 			return
 
 	switch(mode)
@@ -120,7 +114,7 @@
 				return
 
 			if(L) //living mob
-				if(!L.can_inject(user, TRUE))
+				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 					return
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
@@ -140,6 +134,15 @@
 				var/contained = english_list(rinject)
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+
+			if(isfood(target))
+
+				var/list/chemicals = list()
+				for(var/datum/reagent/chem in reagents.reagent_list)
+					chemicals += chem.name
+				var/contained_chemicals = english_list(chemicals)
+
+				add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
@@ -177,6 +180,33 @@
 		. += injoverlay
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
+
+/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
+		return
+
+	if(H.floating || H.flying || H.buckled)
+		return
+
+	if(!IS_HORIZONTAL(H) && (H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
+		return
+
+	if(IS_HORIZONTAL(H) && ((H.wear_suit && (H.wear_suit.body_parts_covered & UPPER_TORSO)) || (H.w_uniform && (H.w_uniform.body_parts_covered & UPPER_TORSO))))
+		return
+
+	H.visible_message("<span class='danger'>[H] is injected by [src].</span>", \
+				"<span class='userdanger'>You are injected by [src]!</span>")
+
+	if(IS_HORIZONTAL(H))
+		H.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	else
+		H.apply_damage(5, BRUTE, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+
+	if(reagents.total_volume && H.reagents.total_volume < H.reagents.maximum_volume)
+		var/inject_amount = reagents.total_volume
+		reagents.reaction(H, REAGENT_INGEST, inject_amount)
+		reagents.trans_to(H, inject_amount)
+		update_icon()
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "syringe (spaceacillin)"
@@ -241,3 +271,4 @@
 	amount_per_transfer_from_this = 50
 	volume = 50
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+

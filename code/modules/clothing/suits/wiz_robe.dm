@@ -4,7 +4,7 @@
 	icon_state = "wizard"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
@@ -49,7 +49,7 @@
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
@@ -82,14 +82,15 @@
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
-	desc = "A magnificant, gem-lined robe that seems to radiate power."
+	desc = "A magnificent, gem-lined robe that seems to radiate power."
 	icon_state = "wizard"
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	allowed = list(/obj/item/teleportation_scroll)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	allowed = list(/obj/item/teleportation_scroll, /obj/item/gun/magic/staff, /obj/item/melee/ghost_sword, /obj/item/lava_staff, /obj/item/hierophant_club)
+	max_suit_w = WEIGHT_CLASS_HUGE
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	put_on_delay = 50
@@ -98,7 +99,7 @@
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
-	desc = "A magnificant, red, gem-lined robe that seems to radiate power."
+	desc = "A magnificent, red, gem-lined robe that seems to radiate power."
 	icon_state = "redwizard"
 	item_state = "redwizrobe"
 
@@ -156,7 +157,7 @@
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -166,7 +167,7 @@
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -177,71 +178,54 @@
 	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 //Shielded Armour
 
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard
+/obj/item/clothing/suit/space/hardsuit/wizard
 	name = "battlemage armor"
-	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
+	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
-	recharge_rate = 0
-	current_charges = 15
-	recharge_cooldown = INFINITY
-	shield_state = "shield-red"
-	shield_on = "shield-red"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
+	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch
+/obj/item/clothing/suit/space/hardsuit/wizard/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
+
+/obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
-	recharge_rate = 1
-	recharge_cooldown = 0
-	max_charges = 15
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+/obj/item/clothing/suit/space/hardsuit/wizard/arch/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS)
+
+/obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"
 	desc = "A suitably impressive helmet."
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 	desc = "A truly protective helmet."
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-
-/obj/item/wizard_armour_charge
-	name = "battlemage shield charges"
-	desc = "A powerful rune that will increase the number of hits a suit of battlemage armour can take before failing.."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "electricity2"
-
-/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/shielded/wizard/W, mob/user)
-	. = ..()
-	if(!istype(W))
-		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
-		return
-	W.current_charges += 8
-	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [W.current_charges] hits.</span>")
-	qdel(src)

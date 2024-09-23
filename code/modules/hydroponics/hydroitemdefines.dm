@@ -1,20 +1,39 @@
 // Plant analyzer
 /obj/item/plant_analyzer
 	name = "plant analyzer"
-	desc = "A scanner used to evaluate a plant's various areas of growth."
+	desc = "A versatile scanner for analyzing plants, plant produce, and seeds. Can be used on a bag holding unsorted seeds to quickly and thorougly sort them into usable packs."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+
+/obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
+	if(!istype(target, /obj/item))
+		return ..()
+
+	var/found_unsorted_seeds = FALSE
+	var/depth = 0
+	for(var/obj/item/unsorted_seeds/unsorted in target)
+		found_unsorted_seeds = TRUE
+		if(!use_tool(target, user, 0.5 SECONDS))
+			break
+		depth++
+		unsorted.sort(depth)
+
+	if(found_unsorted_seeds)
+		return FALSE
+	return ..()
+
 
 // *************************************
 // Hydroponics Tools
 // *************************************
 
-/obj/item/reagent_containers/spray/weedspray // -- Skie
+/// -- Skie
+/obj/item/reagent_containers/spray/weedspray
 	name = "weed spray"
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -23,7 +42,7 @@
 	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -31,10 +50,11 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
-/obj/item/reagent_containers/spray/pestspray // -- Skie
+/// -- Skie
+/obj/item/reagent_containers/spray/pestspray
 	name = "pest spray"
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -43,7 +63,7 @@
 	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -51,7 +71,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
 /obj/item/cultivator
@@ -82,6 +102,9 @@
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "hatchet"
 	item_state = "hatchet"
 	belt_icon = "hatchet"
@@ -98,8 +121,8 @@
 	sharp = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
@@ -117,6 +140,7 @@
 /obj/item/scythe
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "scythe0"
 	force = 13
 	throwforce = 5
@@ -125,7 +149,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	armour_penetration_flat = 20
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -142,13 +166,13 @@
 	origin_tech = "materials=1;combat=2"
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is beheading [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
+			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
@@ -175,7 +199,7 @@
 	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	extend = FALSE
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
@@ -184,7 +208,7 @@
 	extend = !extend
 	if(extend)
 		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
-		slot_flags = SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
+		slot_flags = SLOT_FLAG_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -193,7 +217,7 @@
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
-		slot_flags = SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
+		slot_flags = SLOT_FLAG_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
@@ -240,8 +264,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
 	. = ..()
 	add_lid()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
 	. = ..()
@@ -284,24 +306,30 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	desc = "Contains a basic fertilizer with no special traits."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
-	list_reagents = list("eznutriment" = 80)
+	list_reagents = list("eznutrient" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/mut
+	name = "jug of Mutrient"
+	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	icon_state = "plastic_jug_mut"
+	list_reagents = list("mutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
+	list_reagents = list("left4zednutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
-	list_reagents = list("robustharvestnutriment" = 80)
+	list_reagents = list("robustharvestnutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'

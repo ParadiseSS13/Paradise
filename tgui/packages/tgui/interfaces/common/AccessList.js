@@ -1,14 +1,6 @@
 import { sortBy } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useLocalState } from '../../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  LabeledList,
-  Section,
-  Tabs,
-} from '../../components';
+import { Box, Button, Stack, LabeledList, Section, Tabs, Divider } from '../../components';
 
 const diffMap = {
   0: {
@@ -28,7 +20,6 @@ const diffMap = {
 export const AccessList = (props, context) => {
   const {
     sectionButtons = null,
-    sectionFlexGrow = null,
     usedByRcd,
     rcdButtons,
     accesses = [],
@@ -40,17 +31,9 @@ export const AccessList = (props, context) => {
     grantDep,
     denyDep,
   } = props;
-  const [selectedAccessName, setSelectedAccessName] = useLocalState(
-    context,
-    'accessName',
-    accesses[0]?.name
-  );
-  const selectedAccess = accesses.find(
-    (access) => access.name === selectedAccessName
-  );
-  const selectedAccessEntries = sortBy((entry) => entry.desc)(
-    selectedAccess?.accesses || []
-  );
+  const [selectedAccessName, setSelectedAccessName] = useLocalState(context, 'accessName', accesses[0]?.name);
+  const selectedAccess = accesses.find((access) => access.name === selectedAccessName);
+  const selectedAccessEntries = sortBy((entry) => entry.desc)(selectedAccess?.accesses || []);
 
   const checkAccessIcon = (accesses) => {
     let oneAccess = false;
@@ -73,28 +56,19 @@ export const AccessList = (props, context) => {
 
   return (
     <Section
+      fill
+      scrollable
       title="Access"
-      flexGrow={sectionFlexGrow}
       buttons={
-        <Fragment>
-          <Button
-            icon="check-double"
-            content="Select All"
-            color="good"
-            onClick={() => grantAll()}
-          />
-          <Button
-            icon="undo"
-            content="Deselect All"
-            color="bad"
-            onClick={() => denyAll()}
-          />
+        <>
+          <Button icon="check-double" content="Select All" color="good" onClick={() => grantAll()} />
+          <Button icon="undo" content="Deselect All" color="bad" onClick={() => denyAll()} />
           {sectionButtons}
-        </Fragment>
+        </>
       }
     >
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item grow basis="25%">
           <Tabs vertical>
             {accesses.map((access) => {
               const entries = access.accesses || [];
@@ -114,10 +88,13 @@ export const AccessList = (props, context) => {
               );
             })}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1}>
-          <Flex>
-            <Flex.Item width="50%" mr={0.45}>
+        </Stack.Item>
+        <Stack.Item>
+          <Divider vertical />
+        </Stack.Item>
+        <Stack.Item grow basis="80%">
+          <Stack mb={1}>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="check"
@@ -125,8 +102,8 @@ export const AccessList = (props, context) => {
                 color="good"
                 onClick={() => grantDep(selectedAccess.regid)}
               />
-            </Flex.Item>
-            <Flex.Item width="50%" ml={0}>
+            </Stack.Item>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="times"
@@ -134,14 +111,12 @@ export const AccessList = (props, context) => {
                 color="bad"
                 onClick={() => denyDep(selectedAccess.regid)}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
-                <LabeledList.Item label="Require">
-                  {rcdButtons}
-                </LabeledList.Item>
+                <LabeledList.Item label="Require">{rcdButtons}</LabeledList.Item>
               </LabeledList>
             </Box>
           )}
@@ -151,16 +126,14 @@ export const AccessList = (props, context) => {
               key={entry.desc}
               content={entry.desc}
               disabled={
-                grantableList.length > 0 &&
-                !grantableList.includes(entry.ref) &&
-                !selectedList.includes(entry.ref)
+                grantableList.length > 0 && !grantableList.includes(entry.ref) && !selectedList.includes(entry.ref)
               }
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)}
             />
           ))}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

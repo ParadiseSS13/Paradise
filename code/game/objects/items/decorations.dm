@@ -226,7 +226,7 @@
 	add_fingerprint(user)
 	if(!I.tool_use_check(user, 0))
 		return
-	default_unfasten_wrench(user, I, 0)
+	default_unfasten_wrench(user, I)
 
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT

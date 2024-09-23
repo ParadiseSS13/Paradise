@@ -4,8 +4,7 @@
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_on"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 
 	var/tokens = 0
 	var/freeplay = FALSE			//for debugging and admin kindness
@@ -58,18 +57,18 @@
 		return
 
 /obj/machinery/economy/arcade/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
 	if(!freeplay)
 		if(isspacecash(O))
 			insert_cash(O, user, token_price)
 			if(pay_with_cash(token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return
+
 		if(istype(O, /obj/item/card/id))
 			if(pay_with_card(O, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return
+
 	return ..()
 
 /obj/machinery/economy/arcade/screwdriver_act(mob/living/user, obj/item/I)

@@ -15,8 +15,8 @@
 	var/comment
 	///does this order need to be approve by the department head?
 	var/requires_head_approval = FALSE
-	///does this order need to be approve by the QM?
-	var/requires_qm_approval = FALSE
+	///does this order need to be approve by carg?
+	var/requires_cargo_approval = FALSE
 
 /obj/item/paper/request_form
 	name = "request form"
@@ -27,14 +27,14 @@
 		return
 
 	//create the crate
-	var/obj/structure/closet/crate/crate = new object.containertype(_loc)
-	crate.name = "[object.containername] [comment ? "([comment])":"" ]"
-	if(object.access)
-		crate.req_access = list(text2num(object.access))
+	var/obj/structure/closet/crate/crate = object.create_package(_loc)
+
+	if(comment)
+		crate.name = "[crate.name] ([comment])"
 
 	//create the manifest slip
 	var/obj/item/paper/manifest/slip = new
-	slip.points = object.cost
+	slip.points = object.get_cost()
 	slip.ordernumber = ordernum
 
 	var/stationName = station_name()
@@ -52,24 +52,12 @@
 	slip.info += "[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
 	slip.info += "CONTENTS:<br><ul>"
 
-	//we now create the actual contents
-	var/list/contains = list()
-	if(istype(object, /datum/supply_packs/misc/randomised))
-		var/datum/supply_packs/misc/randomised/SO = object
-		contains = list()
-		if(length(object.contains))
-			for(var/j in 1 to SO.num_contained)
-				contains += pick(object.contains)
-	else
-		contains = object.contains
+	for(var/atom/A in crate.contents)
+		slip.info += "<li>[A.name]</li>"
 
-	for(var/typepath in contains)
-		if(!typepath)
-			continue
-		var/atom/A = new typepath(crate)
-		if(object.amount && A.vars.Find("amount") && A:amount)
-			A:amount = object.amount
-		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
+	var/special_content = object.get_special_manifest()
+	if(special_content)
+		slip.info += "<li>[special_content]</li>"
 
 	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/critter/CritCrate = crate

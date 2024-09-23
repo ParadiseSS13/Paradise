@@ -2,14 +2,14 @@
 	name = "leg cuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	cuffed_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
-	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+	breakouttime = 30 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -18,8 +18,11 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
+	breakouttime = 20 SECONDS
 	var/armed = FALSE
 	var/trap_damage = 20
+	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
+	var/silent_arming = FALSE
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
@@ -32,13 +35,17 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
+
+	if(!ishuman(user) || user.restrained())
+		return
+
+	if(do_after(user, 2 SECONDS, target = user))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
@@ -91,45 +98,62 @@
 	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
-	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			var/mob/living/L = AM
-			armed = FALSE
-			update_icon()
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
+	if(!armed || !isturf(loc))
+		return ..()
 
-			if(IED && isturf(src.loc))
-				IED.active = TRUE
-				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-				spawn(IED.det_time)
-					IED.prime()
+	var/mob/living/L = AM
+	if((iscarbon(AM) || isanimal(AM)) && !L.flying)
+		spring_trap(AM)
 
-			if(sig && isturf(src.loc))
-				sig.signal()
-
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(IS_HORIZONTAL(H))
-					H.apply_damage(trap_damage, BRUTE,"chest")
-				else
-					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					forceMove(H)
-					H.update_inv_legcuffed()
-					SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
+		if(ishuman(AM))
+			var/mob/living/carbon/H = AM
+			if(IS_HORIZONTAL(H))
+				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
-				L.apply_damage(trap_damage, BRUTE)
+				H.apply_damage(trap_damage, BRUTE, pick("l_leg", "r_leg"))
+			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+				H.legcuffed = src
+				forceMove(H)
+				H.update_inv_legcuffed()
+				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+		else
+			if(istype(L, /mob/living/simple_animal/hostile/bear))
+				L.apply_damage(trap_damage * 2.5, BRUTE)
+			else
+				L.apply_damage(trap_damage * 1.75, BRUTE)
 	..()
+
+/obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
+	if(!armed)
+		return FALSE
+	spring_trap(finder)
+
+	if(ishuman(finder))
+		var/mob/living/carbon/H = finder
+		H.apply_damage(trap_damage, BRUTE, pick("l_hand", "r_hand"))
+	return TRUE
+
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user)
+	armed = FALSE
+	update_icon()
+	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
+	if(!silent_arming)
+		user.visible_message("<span class='danger'>[user] triggers [src].</span>", "<span class='userdanger'>You trigger [src].</span>")
+
+	if(sig)
+		sig.signal()
+
+	if(IED)
+		IED.active = TRUE
+		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+		spawn(IED.det_time)
+			IED.prime()
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
 	armed = TRUE
-	icon_state = "e_snare"
+	icon_state = "e_snare1"
 	trap_damage = 0
 	flags = DROPDEL
 	breakouttime = 6 SECONDS
@@ -152,6 +176,8 @@
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "bola"
 	item_state = "bola"
 	breakouttime = 3.5 SECONDS
@@ -247,7 +273,8 @@
 		if(!reuseable)
 			flags |= DROPDEL
 
-/obj/item/restraints/legcuffs/bola/tactical //traitor variant
+/// traitor variant
+/obj/item/restraints/legcuffs/bola/tactical
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
@@ -256,7 +283,8 @@
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
 
-/obj/item/restraints/legcuffs/bola/energy //For Security
+/// For Security
+/obj/item/restraints/legcuffs/bola/energy
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"

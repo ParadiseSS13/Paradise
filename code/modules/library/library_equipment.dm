@@ -16,8 +16,20 @@
 	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
+
+/obj/structure/bookcase/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		// same reasoning as closets
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+/obj/structure/bookcase/proc/take_contents()
+	for(var/obj/item/I in get_turf(src))
+		if(is_type_in_list(I, allowed_books))
+			I.forceMove(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/attackby(obj/item/O, mob/user)
 	if(is_type_in_list(O, allowed_books))
@@ -44,7 +56,7 @@
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = input(user, "Which book would you like to remove from [src]?") as null|anything in contents
+	var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
 	if(!choice)
 		return
 	if(user.incapacitated() || !Adjacent(user))
@@ -137,7 +149,10 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	var/list/books = GLOB.library_catalog.get_random_book(book_count, doAsync = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+
+/obj/structure/bookcase/random/proc/load_books()
+	var/list/books = GLOB.library_catalog.get_random_book(book_count)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -147,6 +162,7 @@
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
+	desc = "Used by authors, poets, and librarians to scan papers and print copies of their fanfics."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE
@@ -202,10 +218,13 @@
 		if(c)
 			selected_content.categories += c
 
-/obj/machinery/bookbinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/bookbinder/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/bookbinder/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BookBinder", name, 700, 400, master_ui, state)
+		ui = new(user, src, "BookBinder", name)
 		ui.open()
 
 /obj/machinery/bookbinder/ui_data(mob/user)
@@ -396,25 +415,25 @@
 		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
 			if(!computer.user_data.patron_account)
-				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 			else
-				confirm = alert("Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 
-			if(confirm == "No")
+			if(confirm != "Yes")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)
@@ -423,3 +442,8 @@
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
 		return FALSE
+
+#undef BARCODE_MODE_SCAN_SELECT
+#undef BARCODE_MODE_SCAN_INVENTORY
+#undef BARCODE_MODE_CHECKOUT
+#undef BARCODE_MODE_CHECKIN

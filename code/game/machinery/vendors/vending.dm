@@ -23,7 +23,7 @@
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 
 	/// Icon_state when vending
 	var/icon_vend
@@ -40,8 +40,7 @@
 	/// Icon for the lightmask, defaults to icon_state + _off, _lightmask if one is defined.
 	var/icon_lightmask
 	// Power
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	var/vend_power_usage = 150
 
 	var/light_range_on = 1
@@ -60,13 +59,11 @@
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
 	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
-	var/list/premium 	= list()	// No specified amount = only one in stock
 	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
 
 	// List of vending_product items available.
 	var/list/product_records = list()
 	var/list/hidden_records = list()
-	var/list/coin_records = list()
 	var/list/imagelist = list()
 
 	/// Unimplemented list of ads that are meant to show up somewhere, but don't.
@@ -101,8 +98,7 @@
 
 	/// If true, enforce access checks on customers. Disabled by messing with wires.
 	var/scan_id = TRUE
-	/// Holder for a coin inserted into the vendor
-	var/obj/item/coin/coin
+
 	var/datum/wires/vending/wires
 
 	/// boolean, whether this vending machine can accept people inserting items into it, used for coffee vendors
@@ -117,6 +113,35 @@
 
 	///the money account that is tethered to this vendor
 	var/datum/money_account/vendor_account
+
+	/// If this vending machine can be tipped or not
+	var/tiltable = TRUE
+	/// If this vendor is currently tipped
+	var/tilted = FALSE
+	/// Amount of damage to deal when tipped
+	var/squish_damage = 40  // yowch
+	/// Factor of extra damage to deal when triggering a crit
+	var/crit_damage_factor = 2
+	/// Factor of extra damage to deal when you knock it over onto yourself
+	var/self_knockover_factor = 1.5
+	/// number of shards to apply when a crit embeds
+	var/num_shards = 7
+	/// Last time the machine was punched
+	var/last_hit_time = 0
+	/// How long to wait before resetting the warning cooldown
+	var/hit_warning_cooldown_length = 10 SECONDS
+
+	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
+	var/aggressive = FALSE
+
+	/// How often slogans will be used by vendors if they're aggressive.
+	var/aggressive_slogan_delay = (1 MINUTES)
+
+	/// The category of this vendor. Used for announcing brand intelligence.
+	var/category = VENDOR_TYPE_GENERIC
+
+	/// How often will the vendor tip when you walk by it when aggressive is true?
+	var/aggressive_tilt_chance = 25
 
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
@@ -135,8 +160,7 @@
 	if(build_inv) //non-constructable vending machine
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
-		build_inventory(premium, coin_records)
-	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
+	for(var/datum/data/vending_product/R in (product_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
 		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
@@ -150,15 +174,24 @@
 	if(account_database)
 		vendor_account = account_database.vendor_account
 
+	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
+	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
+	if(aggressive)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
-	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
 	return ..()
+
+/obj/machinery/economy/vending/examine(mob/user)
+	. = ..()
+	if(aggressive)
+		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
@@ -166,11 +199,9 @@
 
 	product_records = list()
 	hidden_records = list()
-	coin_records = list()
 	if(refill_canister)
 		build_inventory(products, product_records, start_empty = TRUE)
 		build_inventory(contraband, hidden_records, start_empty = TRUE)
-		build_inventory(premium, coin_records, start_empty = TRUE)
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
@@ -212,12 +243,10 @@
 
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
-		set_light(0)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
-		set_light(light_range_on, light_power_on)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
 	update_icon(UPDATE_OVERLAYS)
@@ -258,12 +287,9 @@
 		canister.products = products.Copy()
 	if(!canister.contraband)
 		canister.contraband = contraband.Copy()
-	if(!canister.premium)
-		canister.premium = premium.Copy()
 	. = 0
 	. += refill_inventory(canister.products, product_records)
 	. += refill_inventory(canister.contraband, hidden_records)
-	. += refill_inventory(canister.premium, coin_records)
 /**
   * Refill our inventory from the passed in product list into the record list
   *
@@ -294,7 +320,6 @@
 
 	R.products = unbuild_inventory(product_records)
 	R.contraband = unbuild_inventory(hidden_records)
-	R.premium = unbuild_inventory(coin_records)
 
 /**
   * Given a record list, go through and and return a list of type -> amount
@@ -312,61 +337,124 @@
 	else
 		..()
 
+/obj/machinery/economy/vending/proc/on_try_untilt(atom/source, mob/user)
+	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		return COMPONENT_BLOCK_UNTILT
+
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
+	if(tilted)
+		if(user.a_intent == INTENT_HELP)
+			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+			return
+		return ..()
+
 	if(isspacecash(I))
 		insert_cash(I, user)
 		return
 	if(istype(I, /obj/item/coin))
-		if(!length(premium))
-			to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
-			return
-		if(coin)
-			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
-			return
-		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		SStgui.update_uis(src)
+		to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
 		return
 	if(refill_canister && istype(I, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
-				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+			return
+
+		var/obj/item/vending_refill/canister = I
+		var/transferred = restock(canister)
+		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
+			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+		else if(transferred) // We transferred some items
+			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+		else // Nothing transferred, parts are still left, nothing to restock!
+			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
+
 	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
-	return ..()
+	. = ..()
+	if(tiltable && !tilted && I.force)
+		if(resistance_flags & INDESTRUCTIBLE)
+			// no goodies, but also no tilts
+			return
+		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
+		last_hit_time = world.time
+		if(should_warn)
+			visible_message("<span class='warning'>[src] seems to sway a bit!</span>")
+			to_chat(user, "<span class='danger'>You might want to think twice about doing that again, [src] looks like it could come crashing down!</span>")
+			return
+
+		switch(rand(1, 100))
+			if(1 to 5)
+				freebie(user, 3)
+			if(6 to 15)
+				freebie(user, 2)
+			if(16 to 25)
+				freebie(user, 1)
+			if(26 to 75)
+				return
+			if(76 to 90)
+				tilt(user)
+			if(91 to 100)
+				tilt(user, crit = TRUE)
 
 
+/obj/machinery/economy/vending/proc/freebie(mob/user, num_freebies)
+	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!</span>")
+
+	for(var/i in 1 to num_freebies)
+		for(var/datum/data/vending_product/R in shuffle(product_records))
+
+			if(R.amount <= 0)
+				continue
+
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			new dump_path(get_turf(src))
+			R.amount--
+			break
+
+/obj/machinery/economy/vending/HasProximity(atom/movable/AM)
+	if(!aggressive || tilted || !tiltable)
+		return
+
+	if(isliving(AM) && prob(aggressive_tilt_chance))
+		var/mob/living/to_be_tipped = AM
+		if(to_be_tipped.incorporeal_move) // OooOooOoo spooky ghosts
+			return
+		AM.visible_message(
+			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
+			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
+		)
+		tilt(AM, prob(5), FALSE)
+		aggressive = FALSE
+		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
+		// ALSO DEAR GOD DO NOT MAKE IT MORE LIKELY FOR THEM TO CRIT OR NOT
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
 	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wires.Interact(user)
 
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored)
@@ -383,11 +471,17 @@
 
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
 
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 6 SECONDS)
@@ -464,6 +558,23 @@
 /obj/machinery/economy/vending/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
+	return TRUE
+
+/obj/machinery/economy/vending/ex_act(severity)
+	. = ..()
+	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
+		return
+	var/tilt_prob = 0
+	switch(severity)
+		if(EXPLODE_LIGHT)
+			tilt_prob = 10
+		if(EXPLODE_HEAVY)
+			tilt_prob = 50
+		if(EXPLODE_DEVASTATE)
+			tilt_prob = 80
+
+	if(prob(tilt_prob))
+		tilt()
 
 /obj/machinery/economy/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -475,19 +586,23 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(tilted)
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first.</span>")
+		return
+
 	if(seconds_electrified != 0 && shock(user, 100))
 		return
 
 	ui_interact(user)
 	wires.Interact(user)
 
-/obj/machinery/economy/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/vending/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
+		ui = new(user, src, "Vending",  name)
 		ui.open()
 
 /obj/machinery/economy/vending/ui_data(mob/user)
@@ -513,11 +628,10 @@
 				data["user"]["job"] = C.rank ? C.rank : "No Job"
 
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
-	data["coin_name"] = coin ? coin.name : FALSE
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
@@ -536,32 +650,17 @@
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
-			req_coin = FALSE,
 			is_hidden = FALSE,
 			inum = i++
 		)
 		data["product_records"] += list(data_pr)
-	data["coin_records"] = list()
-	for (var/datum/data/vending_product/R in coin_records)
-		var/list/data_cr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			max_amount = R.max_amount,
-			req_coin = TRUE,
-			is_hidden = FALSE,
-			inum = i++,
-			premium = TRUE
-		)
-		data["coin_records"] += list(data_cr)
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
-			req_coin = FALSE,
 			is_hidden = TRUE,
 			inum = i++,
 			premium = TRUE
@@ -588,17 +687,6 @@
 		if("eject_item")
 			eject_item(user)
 			. = TRUE
-		if("remove_coin")
-			if(!coin)
-				to_chat(user, "<span class='warning'>There is no coin in this machine.</span>")
-				return
-			if(istype(user, /mob/living/silicon))
-				to_chat(user, "<span class='warning'>You lack hands.</span>")
-				return
-			to_chat(user, "<span class='notice'>You remove [coin] from [src].</span>")
-			user.put_in_hands(coin)
-			coin = null
-			. = TRUE
 		if("change")
 			. = TRUE
 			give_change(user)
@@ -608,7 +696,6 @@
 	if(.)
 		add_fingerprint(user)
 
-
 /obj/machinery/economy/vending/proc/try_vend(key, mob/user)
 	if(!vend_ready)
 		to_chat(user, "<span class='warning'>The vending machine is busy!</span>")
@@ -617,9 +704,9 @@
 		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
 		return
 
-	var/list/display_records = product_records + coin_records
+	var/list/display_records = product_records
 	if(extended_inventory)
-		display_records = product_records + coin_records + hidden_records
+		display_records = product_records + hidden_records
 	if(key < 1 || key > length(display_records))
 		log_debug("invalid inum passed to a [name] vendor.</span>")
 		return
@@ -627,9 +714,9 @@
 	if(!istype(R))
 		log_debug("player attempted to access an unknown vending_product at a [name] vendor.</span>")
 		return
-	var/list/record_to_check = product_records + coin_records
+	var/list/record_to_check = product_records
 	if(extended_inventory)
-		record_to_check = product_records + coin_records + hidden_records
+		record_to_check = product_records + hidden_records
 	if(!R.product_path)
 		log_debug("player attempted to access an unknown product record at a [name] vendor.</span>")
 		return
@@ -710,20 +797,6 @@
 
 	vend_ready = FALSE //One thing at a time!!
 
-	if(coin_records.Find(R))
-		if(!coin)
-			to_chat(user, "<span class='notice'>You need to insert a coin to get this item.</span>")
-			vend_ready = TRUE
-			return
-		if(coin.string_attached)
-			if(prob(50))
-				to_chat(user, "<span class='notice'>You successfully pull the coin out before [src] could swallow it.</span>")
-			else
-				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
-				QDEL_NULL(coin)
-		else
-			QDEL_NULL(coin)
-
 	R.amount--
 
 	if(last_reply + vend_delay + 200 <= world.time && vend_reply)
@@ -752,6 +825,8 @@
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
 			vended.forceMove(T)
+			vended.pixel_x = rand(-5, 5)
+			vended.pixel_y = rand(-5, 5)
 		return TRUE
 	return FALSE
 
@@ -777,7 +852,8 @@
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && prob(5))
+	// especially if we want to tip over onto them!
+	if((last_slogan + slogan_delay <= world.time || (aggressive && last_slogan + aggressive_slogan_delay <= world.time)) && LAZYLEN(slogan_list) && !shut_up && prob(5))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
@@ -785,7 +861,7 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-/obj/machinery/economy/vending/extinguish_light()
+/obj/machinery/economy/vending/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 
@@ -798,15 +874,13 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	. = ..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon(UPDATE_OVERLAYS)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -814,6 +888,13 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	if(aggressive)
+		aggressive = FALSE  // the evil is defeated
+
+	if(cash_transaction)
+		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
+		cash_transaction = 0
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
@@ -837,6 +918,10 @@
 			dump_amount++
 			if(dump_amount >= 16)
 				return
+
+/obj/machinery/economy/vending/proc/on_untilt(atom/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
+	tilted = FALSE
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()
@@ -862,6 +947,67 @@
 
 /obj/machinery/economy/vending/onTransitZ()
 	return
+
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
+	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+		return
+
+
+	if(from_anywhere)
+		forceMove(get_turf(victim))
+
+
+	if(Adjacent(victim))
+		var/damage = squish_damage
+		var/picked_angle = pick(90, 270)
+		var/should_crit = !from_combat && crit
+		if(!crit && !from_combat)
+			// only deal this extra bit of damage if they wouldn't otherwise be taking the double damage from critting
+			damage *= self_knockover_factor
+
+		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
+		if(.)
+			tilted = TRUE
+			anchored = FALSE
+			layer = ABOVE_MOB_LAYER
+
+	var/should_throw_at_target = TRUE
+
+	. = FALSE
+
+
+	if(get_turf(victim) != get_turf(src))
+		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+
+	tilt_over(should_throw_at_target ? victim : null)
+
+/obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
+
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
+		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
+		tilt(target, from_combat = TRUE)
+		target.visible_message("<span class='danger'>[attacker] slams [target] into [src]!</span>", \
+								"<span class='userdanger'>You get slammed into [src] by [attacker]!</span>", \
+								"<span class='danger'>You hear a loud crunch.</span>")
+	else if(HAS_TRAIT_FROM(attacker, TRAIT_PACIFISM, GHOST_ROLE))  // should only apply to the ghost bar
+		add_attack_logs(attacker, target, "shoved into a vending machine ([src]), but flattened themselves.")
+		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
+		target.visible_message("<span class='warning'>[attacker] tries to slam [target] into [src], but falls face first into [src]!</span>", \
+								"<span class='userdanger'>You get pushed into [src] by [attacker], but narrowly move out of the way as it tips over on top of [attacker]!</span>", \
+								"<span class='danger'>You hear a loud crunch.</span>")
+	else
+		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
+	return TRUE
+
+/obj/machinery/economy/vending/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(HAS_TRAIT(C, TRAIT_FLATTENED))
+		return ..()
+	tilt(C, from_combat = TRUE)
+	mob_hurt = TRUE
+	return ..()
+
 /*
  * Vending machine types
  */
@@ -879,5 +1025,3 @@
 	premium = list()
 
 */
-
-

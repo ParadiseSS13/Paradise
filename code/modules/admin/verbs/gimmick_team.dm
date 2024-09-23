@@ -10,11 +10,11 @@
 	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
-	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?",,"Yes","No")=="No")
+	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?", null,"Yes","No")=="No")
 		return
 	var/turf/T = get_turf(mob)
 	var/pick_manually = 0
-	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
+	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.", null,"Yes","No")=="Yes")
 		pick_manually = 1
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	var/teamsize = input(src, "How many team members?") as null|anything in teamsizeoptions
@@ -23,7 +23,7 @@
 		return
 	var/themission = null
 	while(!themission)
-		themission = sanitize(copytext(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		themission = sanitize(copytext_char(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""), 1, MAX_MESSAGE_LEN))
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return
@@ -36,7 +36,7 @@
 	if(isnull(dresscode))
 		return
 	var/is_syndicate = FALSE
-	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
+	if(alert("Do you want these characters automatically classified as antagonists?", null,"Yes","No")=="Yes")
 		is_syndicate = TRUE
 
 	var/datum/outfit/O = outfit_list[dresscode]
@@ -47,7 +47,7 @@
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
-		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
+		for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
 			var/candidate = input("Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
 			possible_ghosts -= candidate
 			players_to_spawn += candidate
@@ -55,7 +55,7 @@
 		to_chat(src, "Polling candidates...")
 		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
 
-	if(!players_to_spawn.len)
+	if(!length(players_to_spawn))
 		to_chat(src, "Nobody volunteered.")
 		return 0
 
@@ -75,6 +75,7 @@
 		H.mind.offstation_role = TRUE
 
 		H.key = thisplayer.key
+		dust_if_respawnable(thisplayer)
 
 		H.equipOutfit(O, FALSE)
 

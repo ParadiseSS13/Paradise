@@ -2,6 +2,7 @@
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
+	item_state = "mousetrap"
 	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = FALSE
@@ -12,23 +13,23 @@
 	. = ..()
 	if(armed)
 		. += "It looks like it's armed."
+	. += "<span class='notice'><b>Alt-Click</b> to hide it.</span>"
 
 /obj/item/assembly/mousetrap/activate()
 	if(!..())
 		return
 
 	armed = !armed
-	if(!armed)
-		if(ishuman(usr))
-			var/mob/living/carbon/human/user = usr
-			if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-				to_chat(user, "Your hand slips, setting off the trigger.")
-				pulse(0)
+	if(!armed && ishuman(usr))
+		var/mob/living/carbon/human/user = usr
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+			to_chat(user, "Your hand slips, setting off the trigger.")
+			pulse(0)
 
 	update_icon()
 
 	if(usr)
-		playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
+		playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
 
 
 /obj/item/assembly/mousetrap/update_icon_state()
@@ -93,7 +94,7 @@
 
 	armed = !armed
 	update_icon()
-	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
+	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
@@ -143,13 +144,9 @@
 	armed = TRUE
 
 
-/obj/item/assembly/mousetrap/verb/hide_under()
-	set src in oview(1)
-	set name = "Hide"
-	set category = "Object"
-
-	if(usr.stat)
+/obj/item/assembly/mousetrap/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	layer = TURF_LAYER + 0.2
-	to_chat(usr, "<span class='notice'>You hide [src].</span>")
+	to_chat(user, "<span class='notice'>You hide [src].</span>")

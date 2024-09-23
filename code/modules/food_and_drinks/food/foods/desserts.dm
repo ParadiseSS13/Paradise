@@ -1,71 +1,15 @@
-
-//////////////////////
-//	Ice Cream		//
-//////////////////////
-
-/obj/item/reagent_containers/food/snacks/icecream
-	name = "ice cream"
-	desc = "Delicious ice cream."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "icecream_cone"
-	bitesize = 3
-	list_reagents = list("nutriment" = 1, "sugar" = 1)
-	tastes = list("ice cream" = 1)
-
-/obj/item/reagent_containers/food/snacks/icecream/Initialize(mapload)
-	. = ..()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/reagent_containers/food/snacks/icecream/update_overlays()
-	. = ..()
-	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
-	var/list/reagent_colors = rgb2num(mix_color_from_reagents(reagents.reagent_list), COLORSPACE_HSV)  //switching to HSV colorspace lets us easily manipulate the saturation and brightness independently
-	//Clamping the brightness keeps us from having greyish ice cream while still alowing for a range of colours
-	filling.color = rgb(reagent_colors[1], ((1.5 * reagent_colors[2]) - 10), (clamp(reagent_colors[3], 85, 100) - 10), space = COLORSPACE_HSV)
-	. += filling
-
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcone
-	name = "ice cream cone"
-	desc = "Delicious ice cream."
-	icon_state = "icecream_cone"
-	volume = 50
-	bitesize = 3
-	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
-
-/obj/item/reagent_containers/food/snacks/icecream/wafflecone
-	name = "ice cream in a waffle cone"
-	desc = "Delicious ice cream."
-	icon_state = "icecream_cone_waffle"
-	volume = 50
-	bitesize = 3
-	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
-
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcup
-	name = "chocolate ice cream cone"
-	desc = "Delicious ice cream."
-	icon_state = "icecream_cone_chocolate"
-	volume = 50
-	bitesize = 3
-	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
-
-/obj/item/reagent_containers/food/snacks/icecreamsandwich
-	name = "icecream sandwich"
-	desc = "Portable ice cream in its own packaging."
-	icon_state = "icecreamsandwich"
-	list_reagents = list("nutriment" = 2, "ice" = 2)
-
-
 //////////////////////
 //		Misc		//
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/friedbanana
+/obj/item/food/friedbanana
 	name = "fried banana"
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
 	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/reagent_containers/food/snacks/ricepudding
+/obj/item/food/ricepudding
 	name = "rice pudding"
 	desc = "Where's the Jam!"
 	icon_state = "rpudding"
@@ -73,8 +17,9 @@
 	filling_color = "#FFFBDB"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	tastes = list("rice" = 1, "sweetness" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/reagent_containers/food/snacks/spacylibertyduff
+/obj/item/food/spacylibertyduff
 	name = "spacy liberty duff"
 	desc = "Jello gelatin, from Alfred Hubbard's cookbook."
 	icon_state = "spacylibertyduff"
@@ -83,8 +28,9 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "psilocybin" = 6)
 	tastes = list("jelly" = 1, "mushroom" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/reagent_containers/food/snacks/amanitajelly
+/obj/item/food/amanitajelly
 	name = "amanita jelly"
 	desc = "Looks curiously toxic."
 	icon_state = "amanitajelly"
@@ -93,8 +39,9 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
 	tastes = list("jelly" = 1, "mushroom" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/reagent_containers/food/snacks/candiedapple
+/obj/item/food/candiedapple
 	name = "candied apple"
 	desc = "An apple coated in sugary sweetness."
 	icon_state = "candiedapple"
@@ -102,11 +49,13 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
 	tastes = list("apple" = 2, "sweetness" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/reagent_containers/food/snacks/mint
+/obj/item/food/mint
 	name = "mint"
 	desc = "it is only wafer thin."
 	icon_state = "mint"
 	bitesize = 1
 	filling_color = "#F2F2F2"
 	list_reagents = list("minttoxin" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL

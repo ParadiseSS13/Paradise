@@ -4,7 +4,7 @@ import { CrewManifest } from './common/CrewManifest';
 
 export const GenericCrewManifest = (props, context) => {
   return (
-    <Window resizable theme="nologo">
+    <Window theme="nologo" width={588} height={510}>
       <Window.Content scrollable>
         <Section noTopPadding>
           <CrewManifest />

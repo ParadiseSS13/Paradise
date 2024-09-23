@@ -56,12 +56,12 @@
 	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_bedhead
-	name = "Tajara bedhead"
+	name = "Tajara Bedhead"
 	icon_state = "bedhead"
-	glasses_over = null
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_retro
-	name = "Tajaran Ladies' Retro"
+	name = "Tajara Ladies' Retro"
 	icon_state = "ladiesretro"
 	glasses_over = null
 
@@ -78,4 +78,94 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_fingercurl
 	name = "Tajara Finger Curls"
 	icon_state = "fingerwave"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_sidebraid
+	name = "Tajara Sidebraid"
+	icon_state = "sidebraid"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/tajara/taj_hair_earrings
+	name = "Tajara Earrings"
+	icon_state = "earrings"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_combedback
+	name = "Tajara Combed Back"
+	icon_state = "combedback"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_tailedbangs
+	name = "Tajara Tailed Bangs"
+	icon_state = "tailedbangs"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_punk
+	name = "Tajara Punk"
+	icon_state = "punk"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_marmalade
+	name = "Tajara Marmalade"
+	icon_state = "marmalade"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_lynx
+	name = "Tajara Lynx"
+	icon_state = "lynx"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/tajara/taj_hair_longtail
+	name = "Tajara Long Tail"
+	icon_state = "longtail"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_shy
+	name = "Tajara Shy"
+	icon_state = "shy"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_metal
+	name = "Tajara Metal"
+	icon_state = "metal"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_ponytail
+	name = "Tajara Ponytail"
+	icon_state = "ponytail"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_overeye
+	name = "Tajara Over Eye"
+	icon_state = "overeye"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_tough
+	name = "Tajara Tough"
+	icon_state = "tough"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_cuttail
+	name = "Tajara Cuttail"
+	icon_state = "cuttail"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_dreadlocks
+	name = "Tajara Dreadlocks"
+	icon_state = "dreadlocks"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_hairbun
+	name = "Tajara Hair Bun"
+	icon_state = "hairbun"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_ribbons
+	name = "Tajara Hair Ribbons"
+	icon_state = "ribbons"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_tail
+	name = "Tajara Hair Tail"
+	icon_state = "tail"
 	glasses_over = null

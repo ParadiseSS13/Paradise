@@ -1,55 +1,44 @@
 /obj/item/gun/rocketlauncher
 	var/projectile
 	name = "rocket launcher"
-	desc = "Say hello to my little friend"
+	desc = "A rocket propelled grenade launcher. Holds one shell at a time."
 	icon_state = "rocket"
 	item_state = "rocket"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
-	throw_range = 10
-	force = 5.0
+	throw_range = 3
+	force = 15
 	flags = CONDUCT
-	origin_tech = "combat=6"
+	origin_tech = "combat=6;syndicate=7"
+	fire_sound = 'sound/weapons/blastcannon.ogg'
+	fire_delay = 40
+	recoil = 2
 	var/missile_speed = 2
 	var/missile_range = 30
-	var/max_rockets = 1
-	var/list/rockets = new/list()
+
+
+/obj/item/gun/rocketlauncher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += "<span class='notice'>It is currently [chambered ? "" : "un"]loaded.</span>"
 
-/obj/item/gun/rocketlauncher/Destroy()
-	QDEL_LIST(rockets)
-	rockets = null
-	return ..()
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_casing/rocket))
-		if(rockets.len < max_rockets)
-			user.drop_item()
-			I.loc = src
-			rockets += I
-			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
-			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more rockets.</span>")
-	else
+	if(!istype(I, /obj/item/ammo_casing/rocket))
 		return ..()
+	if(!chambered)
+		user.unEquip(I)
+		I.forceMove(src)
+		chambered = I
+		to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] cannot hold another rocket.</span>")
+
+/obj/item/gun/rocketlauncher/process_chamber()
+	QDEL_NULL(chambered)
 
 /obj/item/gun/rocketlauncher/can_shoot()
-	return rockets.len
-
-/obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
-	if(rockets.len)
-		var/obj/item/ammo_casing/rocket/I = rockets[1]
-		var/obj/item/missile/M = new /obj/item/missile(user.loc)
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
-		M.primed = 1
-		M.throw_at(target, missile_range, missile_speed, user, 1)
-		message_admins("[key_name_admin(user)] fired a rocket from a rocket launcher ([name]).")
-		log_game("[key_name_admin(user)] used a rocket launcher ([name]).")
-		rockets -= I
-		qdel(I)
-	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+	return chambered

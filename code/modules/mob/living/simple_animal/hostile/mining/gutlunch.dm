@@ -39,7 +39,10 @@
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
-	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal)
+	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes, 
+										/obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, 
+										/obj/item/organ/internal/liver, /obj/item/organ/internal/kidneys, 
+										/obj/item/organ/internal/appendix)
 	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
@@ -94,11 +97,6 @@
 
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
-
-/obj/item/udder/gutlunch/Initialize(mapload)
-	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
 
 /obj/item/udder/gutlunch/generateMilk()
 	if(prob(60))

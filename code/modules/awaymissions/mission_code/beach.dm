@@ -13,7 +13,7 @@
 
 /obj/effect/waterfall/New()
 	. = ..()
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE | TIMER_LOOP)
 
 /obj/effect/waterfall/Destroy()
 	if(water_timer)
@@ -26,14 +26,14 @@
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
 
 /turf/simulated/floor/beach/away
 	name = "Beach"
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/beach/away/Initialize(mapload)
 	. = ..()
@@ -56,7 +56,8 @@
 	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 
-/turf/simulated/floor/beach/away/sand/dense //for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/sand/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/sand/dense
 
@@ -72,7 +73,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/away/coastline/dense		//for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/coastline/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/coastline/dense
 
@@ -112,7 +114,15 @@
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
 		linkedcontroller.decalinpool += A
 
-/turf/simulated/floor/beach/away/water/dense			//for boundary "walls"
+/turf/simulated/floor/beach/away/water/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/water/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/water/dense
 

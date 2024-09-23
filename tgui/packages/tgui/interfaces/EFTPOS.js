@@ -1,18 +1,35 @@
-import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
+import { createSearch } from 'common/string';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, LabeledList, Section, Input, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 export const EFTPOS = (props, context) => {
   const { act, data } = useBackend(context);
   const { transaction_locked, machine_name } = data;
   return (
-    <Window>
+    <Window width={500} height={250}>
       <Window.Content>
-        <Box italic>
-          This terminal is {machine_name}. Report this code when contacting
-          Nanotrasen IT Support.
-        </Box>
-        {transaction_locked ? <LockedView /> : <UnlockedView />}
+        <Section
+          title={'POS Terminal ' + machine_name}
+          buttons={
+            <>
+              <Button
+                content={transaction_locked ? 'Unlock EFTPOS' : 'Lock EFTPOS'}
+                tooltip="Enter pin to modify transactions and EFTPOS settings"
+                icon={transaction_locked ? 'lock-open' : 'lock'}
+                onClick={() => act('toggle_lock')}
+              />
+              <Button
+                content="Reset EFTPOS"
+                tooltip="Requires Captain, HoP or CC access"
+                icon="sync"
+                onClick={() => act('reset')}
+              />
+            </>
+          }
+        >
+          {transaction_locked ? <LockedView /> : <UnlockedView />}
+        </Section>
       </Window.Content>
     </Window>
   );
@@ -20,95 +37,72 @@ export const EFTPOS = (props, context) => {
 
 const LockedView = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    transaction_purpose,
-    transaction_amount,
-    linked_account,
-    transaction_paid,
-  } = data;
+  const { transaction_amount, transaction_paid } = data;
   return (
-    <Section title="Current Transaction" mt={1}>
-      <LabeledList>
-        <LabeledList.Item label="Transaction Purpose">
-          {transaction_purpose}
-        </LabeledList.Item>
-        <LabeledList.Item label="Value">
-          {/* Ternary required otherwise the 0 is offset weirdly */}
-          {transaction_amount ? transaction_amount : '0'}
-        </LabeledList.Item>
-        <LabeledList.Item label="Linked Account">
-          {linked_account ? linked_account : 'None'}
-        </LabeledList.Item>
-        <LabeledList.Item label="Actions">
-          <Button
-            content={transaction_paid ? 'Reset' : 'Reset (Auth required)'}
-            icon="unlock"
-            onClick={() => act('toggle_lock')}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      <NoticeBox mt={1}>
-        <Button
-          content="------"
-          icon="id-card"
-          mr={2}
-          onClick={() => act('scan_card')}
-        />
+    <>
+      <Box
+        mt={2}
+        bold
+        width="100%"
+        fontSize="3rem"
+        color={transaction_paid ? 'green' : 'red'}
+        align="center"
+        justify="center"
+      >
+        Payment {transaction_paid ? 'Accepted' : 'Due'}: ${transaction_amount}
+      </Box>
+      <Box mt={0.5} fontSize="1.25rem" align="center" justify="center">
         {transaction_paid
           ? 'This transaction has been processed successfully '
           : 'Swipe your card to finish this transaction.'}
-      </NoticeBox>
-    </Section>
+      </Box>
+    </>
   );
 };
 
 const UnlockedView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { transaction_purpose, transaction_amount, linked_account } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const { transaction_purpose, transaction_amount, linked_account, available_accounts } = data;
+
+  let accountMap = [];
+  available_accounts.map((account) => (accountMap[account.name] = account.UID));
   return (
-    <Section title="Transation Settings" mt={1}>
-      <LabeledList>
-        <LabeledList.Item label="Transaction Purpose">
-          <Button
-            content={transaction_purpose}
-            icon="edit"
-            onClick={() => act('trans_purpose')}
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Value">
-          <Button
-            // Ternary required otherwise the 0 is offset weirdly
-            content={transaction_amount ? transaction_amount : '0'}
-            icon="edit"
-            onClick={() => act('trans_value')}
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Linked Account">
-          <Button
-            content={linked_account ? linked_account : 'None'}
-            icon="edit"
-            onClick={() => act('link_account')}
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Actions">
-          <Button
-            content="Lock in new transaction"
-            icon="lock"
-            onClick={() => act('toggle_lock')}
-          />
-          <Button
-            content="Change access code"
-            icon="key"
-            onClick={() => act('change_code')}
-          />
-          <Button
-            content="Reset access code"
-            tooltip="Requires Captain, HoP or CC access"
-            icon="sync-alt"
-            onClick={() => act('reset')}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
+    <LabeledList>
+      <LabeledList.Item label="Transaction Purpose">
+        <Button content={transaction_purpose} icon="edit" onClick={() => act('trans_purpose')} />
+      </LabeledList.Item>
+      <LabeledList.Item label="Value">
+        <Button
+          content={transaction_amount ? '$' + transaction_amount : '$0'}
+          icon="edit"
+          onClick={() => act('trans_value')}
+        />
+      </LabeledList.Item>
+      <LabeledList.Item label="Linked Account">
+        <Box mb={0.5}>{linked_account.name}</Box>
+        <Input width="190px" placeholder="Search by name" onInput={(e, value) => setSearchText(value)} />
+        <Dropdown
+          mt={0.6}
+          width="190px"
+          options={available_accounts
+            .filter(
+              createSearch(searchText, (account) => {
+                return account.name;
+              })
+            )
+            .map((account) => account.name)}
+          selected={available_accounts.filter((account) => account.UID === linked_account.UID)[0]?.name}
+          onSelected={(val) =>
+            act('link_account', {
+              account: accountMap[val],
+            })
+          }
+        />
+      </LabeledList.Item>
+      <LabeledList.Item label="Actions">
+        <Button content="Change access code" icon="key" onClick={() => act('change_code')} />
+      </LabeledList.Item>
+    </LabeledList>
   );
 };

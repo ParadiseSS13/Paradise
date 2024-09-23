@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
-	set category = "Debug"
+	set category = "Event"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -20,28 +20,38 @@
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = typecacheof(list(
-	/area/turret_protected/ai,
-	/area/turret_protected/ai_upload,
-	/area/engine,
-	/area/solar,
-	/area/holodeck,
-	/area/shuttle,
-	/area/maintenance,
-	/area/toxins/test_area))
+		/area/station/turret_protected/ai,
+		/area/station/turret_protected/ai_upload,
+		/area/station/engineering,
+		/area/holodeck,
+		/area/shuttle,
+		/area/station/maintenance,
+		/area/station/science/toxins/test,
+		/area/space,
+		/area/station/public/sleep))
 
-	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
-	var/list/danger_areas = list(
-	/area/engine/break_room,
-	/area/engine/equipmentstorage,
-	/area/engine/chiefs_office,
-	/area/engine/controlroom)
+	//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.
+	var/list/allowed_areas = list(
+		/area/station/engineering/break_room,
+		/area/station/engineering/equipmentstorage,
+		/area/station/engineering/controlroom)
 
-	var/list/allowed_areas = list()
+	var/list/remove_these_areas = safe_areas - allowed_areas
+	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
-	allowed_areas = typecacheof(GLOB.the_station_areas) - safe_areas + danger_areas
-	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
-
+	if(!length(possible_areas))
+		return null
 	return pick(possible_areas)
+
+/proc/findUnrestrictedEventArea() //Does almost the same as findEventArea() but hits a few more areas including maintenance and the AI sat, and also returns a list of all the areas, instead of just one area
+	var/list/safe_areas = typecacheof(list(
+	/area/station/engineering/solar,
+	/area/station/science/toxins/test,
+	/area/station/public/sleep))
+
+	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, safe_areas)
+
+	return possible_areas
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
@@ -56,7 +66,8 @@
 	active_with_role["Cyborg"] = 0
 	active_with_role["Janitor"] = 0
 	active_with_role["Botanist"] = 0
-	active_with_role["Any"] = GLOB.player_list.len
+	active_with_role["Chemist"] = 0
+	active_with_role["Any"] = length(GLOB.player_list)
 
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
@@ -79,7 +90,7 @@
 		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
 			active_with_role["Medical"]++
 
-		if(M.mind.assigned_role in GLOB.security_positions)
+		if(M.mind.assigned_role in GLOB.active_security_positions)
 			active_with_role["Security"]++
 
 		if(M.mind.assigned_role in list("Research Director", "Scientist"))
@@ -96,6 +107,9 @@
 
 		if(M.mind.assigned_role == "Botanist")
 			active_with_role["Botanist"]++
+
+		if(M.mind.assigned_role == "Chemist")
+			active_with_role["Chemist"]++
 
 	return active_with_role
 

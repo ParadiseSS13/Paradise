@@ -1,16 +1,20 @@
+GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
+
 /datum/orbit_menu
-	var/mob/dead/observer/owner
 
-/datum/orbit_menu/New(mob/dead/observer/new_owner)
-	if(!istype(new_owner))
-		qdel(src)
-	owner = new_owner
+/datum/orbit_menu/ui_state(mob/user)
+	return GLOB.observer_state
 
-/datum/orbit_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
+
+/datum/orbit_menu/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+	)
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -25,10 +29,11 @@
 			if(poi == null)
 				. = TRUE
 				return
-			owner.ManualFollow(poi)
+			var/mob/dead/observer/ghost = ui.user
+			ghost.ManualFollow(poi)
 			. = TRUE
 		if("refresh")
-			update_static_data(owner, ui)
+			update_static_data(ui.user, ui)
 			. = TRUE
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -36,11 +41,14 @@
 
 	var/list/alive = list()
 	var/list/highlights = list()
+	var/list/response_teams = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
+	var/list/ssd = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/list/tourist = list()
 	var/length_of_ghosts = length(get_observers())
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
@@ -73,12 +81,20 @@
 				npcs += list(serialized)
 			else if(M.stat == DEAD)
 				dead += list(serialized)
+			else if(!M.client) // this includes mobs which ghosted, but aren't `player_logged`, so that the Alive count is more accurate
+				ssd += list(serialized)
 			else
 				if(length(orbiters) >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
 					highlights += list(serialized)
+				serialized["ssd"] = !M.client
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+				if(mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD))
+					response_teams += list(serialized)
+				if(mind.special_role == SPECIAL_ROLE_TOURIST)
+					tourist += list(serialized)
+
 				if(user.antagHUD)
 					/*
 					If a mind is many antags at once, we'll display all of them, each
@@ -90,6 +106,7 @@
 					- mindslaves/vampire thralls
 					- vampire
 					- changelings
+					- revolutionaries/headrevs
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -103,13 +120,8 @@
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
-							"Cultist" = (mind in SSticker.mode.cult),
-							"Wizard" = (mind in SSticker.mode.wizards),
-							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
-							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries)
+							"Abductor" = (mind in SSticker.mode.abductors)
 						)
 
 					for(var/antag_name in other_antags)
@@ -119,6 +131,13 @@
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
+
+					// Antaghud? Let them see everyone's role
+					if(isliving(M))
+						var/mob/living/L = M
+						if(L.mind?.has_normal_assigned_role())
+							serialized["assigned_role"] = L.mind.assigned_role
+							serialized["assigned_role_sprite"] = ckey(L.mind.get_assigned_role_asset())
 
 				// Player terror spiders (and other hostile player-controlled event mobs) have their own category to help see how much there are.
 				// Not in the above block because terrors can be known whether AHUD is on or not.
@@ -134,9 +153,13 @@
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Xenomorph"
 					antagonists += list(antag_serialized)
-				else if(isslaughterdemon(M))
+				else if(isdemon(M))
 					var/list/antag_serialized = serialized.Copy()
-					antag_serialized["antag"] = "Slaughter Demon"
+					antag_serialized["antag"] = "Demon"
+					antagonists += list(antag_serialized)
+				else if(ismorph(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Morph"
 					antagonists += list(antag_serialized)
 		else
 			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
@@ -145,7 +168,10 @@
 
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
+	data["response_teams"] = response_teams
+	data["tourist"] = tourist
 	data["alive"] = alive
+	data["ssd"] = ssd
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc

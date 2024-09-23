@@ -43,6 +43,7 @@
 		qdel(ticket)
 	tickets.Cut()
 	update_icon()
+	return TRUE
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
@@ -191,7 +192,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+	. += "<span class='notice'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
@@ -214,9 +215,9 @@
 
 /obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
-	if(is_hot(P))
+	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.drop_item()
 			user.adjust_fire_stacks(1)

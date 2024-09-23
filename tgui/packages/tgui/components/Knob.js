@@ -1,16 +1,16 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { IS_IE8 } from '../byond';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 import { NumberInput } from './NumberInput';
 
 export const Knob = (props) => {
-  // IE8: I don't want to support a yet another component on IE8.
-  // IE8: It also can't handle SVG.
-  if (IS_IE8) {
-    return <NumberInput {...props} />;
-  }
   const {
     // Draggable props (passthrough)
     animated,
@@ -30,7 +30,7 @@ export const Knob = (props) => {
     fillValue,
     color,
     ranges = {},
-    size,
+    size = 1,
     bipolar,
     children,
     popUpPosition,
@@ -54,23 +54,10 @@ export const Knob = (props) => {
       }}
     >
       {(control) => {
-        const {
-          dragging,
-          editing,
-          value,
-          displayValue,
-          displayElement,
-          inputElement,
-          handleDragStart,
-        } = control;
-        const scaledFillValue = scale(
-          fillValue ?? displayValue,
-          minValue,
-          maxValue
-        );
+        const { dragging, editing, value, displayValue, displayElement, inputElement, handleDragStart } = control;
+        const scaledFillValue = scale(fillValue ?? displayValue, minValue, maxValue);
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
-        const effectiveColor =
-          color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
+        const effectiveColor = color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
         const rotation = (scaledDisplayValue - 0.5) * 270;
         return (
           <div
@@ -83,7 +70,7 @@ export const Knob = (props) => {
             ])}
             {...computeBoxProps({
               style: {
-                'font-size': size + 'rem',
+                'font-size': size + 'em',
                 ...style,
               },
               ...rest,
@@ -101,32 +88,18 @@ export const Knob = (props) => {
               </div>
             </div>
             {dragging && (
-              <div
-                className={classes([
-                  'Knob__popupValue',
-                  popUpPosition && 'Knob__popupValue--' + popUpPosition,
-                ])}
-              >
+              <div className={classes(['Knob__popupValue', popUpPosition && 'Knob__popupValue--' + popUpPosition])}>
                 {displayElement}
               </div>
             )}
-            <svg
-              className="Knob__ring Knob__ringTrackPivot"
-              viewBox="0 0 100 100"
-            >
+            <svg className="Knob__ring Knob__ringTrackPivot" viewBox="0 0 100 100">
               <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
             </svg>
-            <svg
-              className="Knob__ring Knob__ringFillPivot"
-              viewBox="0 0 100 100"
-            >
+            <svg className="Knob__ring Knob__ringFillPivot" viewBox="0 0 100 100">
               <circle
                 className="Knob__ringFill"
                 style={{
-                  'stroke-dashoffset':
-                    ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
-                    Math.PI *
-                    50,
+                  'stroke-dashoffset': ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) * Math.PI * 50,
                 }}
                 cx="50"
                 cy="50"

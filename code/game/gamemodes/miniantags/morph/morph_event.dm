@@ -4,7 +4,7 @@
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, source = /mob/living/simple_animal/hostile/morph)
-		if(!candidates.len)
+		if(!length(candidates))
 			key_of_morph = null
 			kill()
 			return
@@ -23,6 +23,7 @@
 		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 		player_mind.transfer_to(S)
 		S.make_morph_antag()
+		dust_if_respawnable(C)
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")
 

@@ -6,6 +6,11 @@
 #define WANTED_NOTICE_DESC_MAX_LENGTH 512
 #define STORIES_PER_LOAD 9999 // TODO during QP...
 
+/// The feed network singleton. Contains all channels (which contain all stories).
+GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new)
+/// Global list that contains all existing newscasters in the world.
+GLOBAL_LIST_EMPTY(allNewscasters)
+
 /**
   * # Newscaster
   *
@@ -19,7 +24,7 @@
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -77,7 +82,6 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
@@ -85,6 +89,10 @@
 			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
+
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -121,7 +129,8 @@
 			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -187,12 +196,15 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/newscaster/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/newscaster/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui = null)
 	if(can_scan(user))
 		scanned_user = get_scanned_user(user)["name"]
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Newscaster", name, 800, 600)
+		ui = new(user, src, "Newscaster", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -239,7 +251,7 @@
 				for(var/m in stories)
 					if(now >= m["publish_time"])
 						var/datum/feed_message/FM = locateUID(m["uid"])
-						if(FM && !(FM.censor_flags & CENSOR_STORY))
+						if(FM && !(FM.censor_flags & NEWSCASTER_CENSOR_STORY))
 							if(isliving(user))
 								FM.view_count++
 							m["view_count"] = FM.view_count
@@ -262,22 +274,22 @@
 				if(job.is_position_available())
 					var/list/opening_data = list("title" = job.title)
 					// Is the job a command job?
-					if(job.title in GLOB.command_positions)
+					if(job.job_department_flags & DEP_FLAG_COMMAND)
 						opening_data["is_command"] = TRUE
 					// Add the job opening to the corresponding categories
 					// Ugly!
 					opening_data = list(opening_data)
-					if(job.is_security)
+					if(job.job_department_flags & DEP_FLAG_SECURITY)
 						jobs["security"] += opening_data
-					if(job.is_engineering)
+					if(job.job_department_flags & DEP_FLAG_ENGINEERING)
 						jobs["engineering"] += opening_data
-					if(job.is_medical)
+					if(job.job_department_flags & DEP_FLAG_MEDICAL)
 						jobs["medical"] += opening_data
-					if(job.is_science)
+					if(job.job_department_flags & DEP_FLAG_SCIENCE)
 						jobs["science"] += opening_data
-					if(job.is_service)
+					if(job.job_department_flags & DEP_FLAG_SERVICE)
 						jobs["service"] += opening_data
-					if(job.is_supply)
+					if(job.job_department_flags & DEP_FLAG_SUPPLY)
 						jobs["supply"] += opening_data
 
 	// Append temp photo
@@ -299,6 +311,7 @@
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
@@ -326,13 +339,14 @@
   * * M - Optional. The user to send the story's photo to if it exists
   */
 /obj/machinery/newscaster/proc/get_message_data(datum/feed_message/FM, mob/M)
-	if(!(FM.censor_flags & CENSOR_STORY) && M && FM.img)
+	if(!(FM.censor_flags & NEWSCASTER_CENSOR_STORY) && M && FM.img)
 		M << browse_rsc(FM.img, "story_photo_[FM.UID()].png")
 	return list(list(
 		uid = FM.UID(),
-		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
-		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
-		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
+		author = (FM.censor_flags & NEWSCASTER_CENSOR_AUTHOR) ? "" : FM.author,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
+		title = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? "" : FM.title,
+		body = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
 		censor_flags = FM.censor_flags,
 		view_count = FM.view_count,
@@ -414,9 +428,9 @@
 				set_temp("This story has been locked by CentComm and thus cannot be censored in any way.", "danger")
 				return
 			if(action == "censor_author")
-				FM.censor_flags = (FM.censor_flags & CENSOR_AUTHOR) ? (FM.censor_flags & ~CENSOR_AUTHOR) : (FM.censor_flags|CENSOR_AUTHOR)
+				FM.censor_flags = (FM.censor_flags & NEWSCASTER_CENSOR_AUTHOR) ? (FM.censor_flags & ~NEWSCASTER_CENSOR_AUTHOR) : (FM.censor_flags|NEWSCASTER_CENSOR_AUTHOR)
 			else if(action == "censor_story")
-				FM.censor_flags = (FM.censor_flags & CENSOR_STORY) ? (FM.censor_flags & ~CENSOR_STORY) : (FM.censor_flags|CENSOR_STORY)
+				FM.censor_flags = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? (FM.censor_flags & ~NEWSCASTER_CENSOR_STORY) : (FM.censor_flags|NEWSCASTER_CENSOR_STORY)
 			else
 				return FALSE
 		if("clear_wanted_notice")
@@ -508,7 +522,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
@@ -517,9 +531,11 @@
 					FC.description = copytext(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
+					FC.author_ckey = usr.ckey
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
 					set_temp("Channel [FC.channel_name] created.", "good")
+					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
 					var/author = trim(arguments["author"])
 					var/channel = trim(arguments["channel"])
@@ -535,6 +551,7 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
+					FM.author_ckey = usr.ckey
 					FM.title = copytext(title, 1, STORY_NAME_MAX_LENGTH)
 					FM.body = copytext(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
@@ -553,6 +570,7 @@
 					viewing_channel = FC
 					eject_photo(usr)
 					set_temp("Story published to channel [FC.channel_name].", "good")
+					usr.create_log(MISC_LOG, "Newscaster story [title] created with desc [body].")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
@@ -581,6 +599,7 @@
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")
+					usr.create_log(MISC_LOG, "Wanted notice for [name] created with desc [description].")
 				else
 					return FALSE
 		else
@@ -716,15 +735,10 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
-	eject_photo(usr)
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

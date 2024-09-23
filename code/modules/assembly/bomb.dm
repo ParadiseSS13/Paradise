@@ -54,14 +54,14 @@
 		return
 	if(!status)
 		status = TRUE
-		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
+		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
+		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]")
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
-		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
+		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
-		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_ALMOSTALL)
+		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_ALMOSTALL)
 		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 
 
@@ -69,16 +69,6 @@
 	bombassembly.attack_self(user, 1)
 	add_fingerprint(user)
 	return
-
-/obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	sleep(10)
-	if(!src)
-		return
-	if(status)
-		bombtank.detonate()	//if its not a dud, boom (or not boom if you made shitty mix) the ignite proc is below, in this file
-	else
-		bombtank.release()
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(bombassembly)
@@ -102,7 +92,7 @@
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
-/obj/item/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
+/obj/item/tank/proc/bomb_assemble(W, user)	//Bomb assembly proc. This turns assembly+tank into a bomb
 	var/obj/item/assembly_holder/S = W
 	var/mob/M = user
 	if(!S.secured)										//Check if the assembly is secured
@@ -127,14 +117,14 @@
 	return
 
 /obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
-	var/fuel_moles = air_contents.toxins + air_contents.oxygen/6
+	var/fuel_moles = air_contents.toxins() + air_contents.oxygen() / 6
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)
 	loc = null
 
-	if(air_contents.temperature > (T0C + 400))
-		strength = (fuel_moles/15)
+	if(air_contents.temperature() > (T0C + 400))
+		strength = (fuel_moles / 15)
 
 		if(strength >=1)
 			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1))
@@ -143,34 +133,33 @@
 		else if(strength >=0.2)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(air_contents.temperature > (T0C + 250))
+	else if(air_contents.temperature() > (T0C + 250))
 		strength = (fuel_moles/20)
 
 		if(strength >=1)
-			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
+			explosion(ground_zero, 0, round(strength, 1), round(strength * 2, 1), round(strength * 3, 1))
 		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(air_contents.temperature > (T0C + 100))
-		strength = (fuel_moles/25)
+	else if(air_contents.temperature() > (T0C + 100))
+		strength = (fuel_moles / 25)
 
-		if(strength >=1)
-			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
+		if(strength >= 1)
+			explosion(ground_zero, -1, 0, round(strength, 1), round(strength * 3, 1))
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else
-		ground_zero.assume_air(air_contents)
+		ground_zero.blind_release_air(air_contents)
 		ground_zero.hotspot_expose(1000, 125)
 
-	air_update_turf()
 	if(master)
 		qdel(master)
 	qdel(src)
@@ -180,5 +169,4 @@
 	var/turf/simulated/T = get_turf(src)
 	if(!T)
 		return
-	T.assume_air(removed)
-	air_update_turf()
+	T.blind_release_air(removed)

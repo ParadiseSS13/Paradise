@@ -12,8 +12,9 @@
 	item_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
-	vision_flags = NONE
-	invis_view = SEE_INVISIBLE_LIVING
+	active_on_equip = FALSE
+
+	var/active_on_equip_rad = FALSE
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
@@ -28,18 +29,33 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/glasses/meson/engine/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && mode == MODE_MESON && slot == SLOT_HUD_GLASSES)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+	if(active_on_equip_rad && mode == MODE_RAD && slot == SLOT_HUD_GLASSES)
+		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the goggles" : "The goggles turn"] [mode ? "to [mode] mode" : "off"][voluntary ? "." : "!"]</span>")
 
-	switch(mode)
-		if(MODE_MESON)
-			vision_flags = SEE_TURFS
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	if(mode == MODE_MESON)
+		if(!HAS_TRAIT_FROM(user, TRAIT_MESON_VISION, "meson_glasses[UID()]"))
+			ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		active_on_equip = TRUE
+	else
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		active_on_equip = FALSE
 
-		if(MODE_TRAY) //undoes the last mode, meson
-			vision_flags = NONE
-			lighting_alpha = null
+	if(mode == MODE_RAD)
+		if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]"))
+			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip_rad = TRUE
+	else
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip_rad = FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -49,7 +65,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
 	toggle_mode(user, TRUE)
@@ -79,13 +95,14 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(slot_glasses) == src)
+		if(user.get_item_by_slot(SLOT_HUD_GLASSES) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_l_hand()
 			user.update_inv_r_hand()
 
-/obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
+/// atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
+/obj/item/clothing/glasses/meson/engine/tray
 	name = "optical t-ray scanner"
 	icon_state = "trayson-t-ray"
 	item_state = "trayson-t-ray"

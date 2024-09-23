@@ -14,12 +14,12 @@
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/machinery/shield/Move()
@@ -27,12 +27,7 @@
 	..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
-
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)
@@ -97,7 +92,7 @@
 	parent_rune.attack_hand(user)
 
 /obj/machinery/shield/cult/barrier/attack_animal(mob/living/simple_animal/user)
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		parent_rune.attack_animal(user)
 	else
 		..()
@@ -120,7 +115,7 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		visible = FALSE
 
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return visible
 
 /obj/machinery/shieldgen
@@ -140,9 +135,10 @@
 	var/list/deployed_shields = list()
 	var/is_open = FALSE //Whether or not the wires are exposed
 	var/locked = FALSE
+	var/shield_range = 2
 
 /obj/machinery/shieldgen/Destroy()
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -155,7 +151,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	anchored = TRUE
 
-	for(var/turf/target_tile in range(2, src))
+	for(var/turf/target_tile in range(shield_range, src))
 		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
@@ -172,7 +168,7 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
@@ -295,6 +291,18 @@
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
+/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	if(active)
+		shields_down()
+		addtimer(CALLBACK(src, PROC_REF(shields_up)), 1 SECONDS)//Lets docking finish, prevents placing shields on shuttle tiles.
+
+/obj/machinery/shieldgen/raven
+	name = "military shield generator"
+	desc = "Military grade shield generators used to protect spaceships from incoming fire."
+	shield_range = 4
+	anchored = TRUE
+
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define MAX_STORED_POWER 500
 /obj/machinery/shieldwallgen
@@ -305,12 +313,13 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
+	flags = CONDUCT
+	power_state = NO_POWER_USE
+
 	var/activated = FALSE
 	var/locked = TRUE
 	var/list/active_shields
 	var/stored_power = 0
-	flags = CONDUCT
-	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()
@@ -327,20 +336,20 @@
 	var/turf/T = loc
 
 	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/PN = C?.powernet // find the powernet of the connected cable
+	var/datum/regional_powernet/PN = C?.powernet // find the powernet of the connected cable
 
 	if(!PN)
 		deactivate()
 		return FALSE
 
-	var/surplus = max(PN.avail - PN.load, 0)
+	var/surplus = max(PN.available_power - PN.power_demand, 0)
 	var/shieldload = min(rand(50, 200), surplus)
 	if(!shieldload && stored_power <= 0)		// no cable or no power, and no power stored
 		deactivate()
 		return FALSE
 
 	stored_power += min(shieldload, MAX_STORED_POWER - stored_power)
-	PN.load += shieldload //uses powernet power.
+	PN.power_demand += shieldload //uses powernet power.
 	return TRUE
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
@@ -378,6 +387,7 @@
 /obj/machinery/shieldwallgen/proc/activate()
 	activated = TRUE
 	START_PROCESSING(SSmachines, src)
+	update_icon(UPDATE_ICON_STATE)
 	for(var/direction in GLOB.cardinal)
 		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
 
@@ -411,7 +421,7 @@
 	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		var/list/L = active_shields["[direction]"]
-		QDEL_LIST(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
+		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
 
 /obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
 	var/list/L = active_shields["[direction]"]
@@ -532,14 +542,11 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
-
+/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(10)
 		else
 			return !density
@@ -550,21 +557,19 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target)
 	if(isliving(mover))
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return FALSE
-	return ..(mover, target, height)
+	return ..()
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living && ("syndicate" in pass_info.factions))
+		return TRUE
+	return ..(to_dir, pass_info)
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
@@ -601,3 +606,5 @@
 /obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()
+
+#undef MAX_STORED_POWER

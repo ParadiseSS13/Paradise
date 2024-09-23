@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/guardian/charger
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 20
+	melee_damage_upper = 20
 	ranged = TRUE //technically
 	ranged_message = "charges"
 	ranged_cooldown_time = 40
@@ -11,13 +11,13 @@
 	tech_fluff_string = "Boot sequence complete. Charge modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to deal damage."
 	var/charging = FALSE
-	var/obj/screen/alert/chargealert
+	var/atom/movable/screen/alert/chargealert
 
 /mob/living/simple_animal/hostile/guardian/charger/Life()
 	. = ..()
 	if(ranged_cooldown <= world.time)
 		if(!chargealert)
-			chargealert = throw_alert("charge", /obj/screen/alert/cancharge)
+			chargealert = throw_alert("charge", /atom/movable/screen/alert/cancharge)
 	else
 		clear_alert("charge")
 		chargealert = null

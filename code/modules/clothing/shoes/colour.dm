@@ -10,9 +10,6 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	dyeable = TRUE
 
-/obj/item/clothing/shoes/black/redcoat
-	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
-
 /obj/item/clothing/shoes/black/greytide
 	flags = NODROP
 
@@ -20,24 +17,7 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
-
-/obj/item/clothing/shoes/brown/captain
-	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/hop
-	item_color = "hop"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/rd
-	item_color = "director"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/cmo
-	item_color = "medical"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/qm
-	item_color = "cargo"		//Exists for washing machines. Is not different from brown shoes in any way.
+	item_color = "brown"
 
 /obj/item/clothing/shoes/blue
 	name = "blue shoes"
@@ -58,11 +38,6 @@
 	name = "purple shoes"
 	icon_state = "purple"
 	item_color = "purple"
-
-/obj/item/clothing/shoes/brown
-	name = "brown shoes"
-	icon_state = "brown"
-	item_color = "brown"
 
 /obj/item/clothing/shoes/red
 	name = "red shoes"

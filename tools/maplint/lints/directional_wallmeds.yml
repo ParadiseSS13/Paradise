@@ -1,0 +1,27 @@
+help: "Use the specific directional subtypes for this wallmed."
+/obj/machinery/economy/vending/wallmed:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/economy/vending/wallmed:
+  banned: true
+=/obj/machinery/economy/vending/wallmed/directional:
+  banned: true
+
+/obj/machinery/economy/vending/wallmed/syndicate:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/economy/vending/wallmed/syndicate:
+  banned: true
+=/obj/machinery/economy/vending/wallmed/syndicate/directional:
+  banned: true
+
+/obj/machinery/economy/vending/wallmed/survival_pod:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/economy/vending/wallmed/survival_pod:
+  banned: true
+=/obj/machinery/economy/vending/wallmed/survival_pod/directional:
+  banned: true

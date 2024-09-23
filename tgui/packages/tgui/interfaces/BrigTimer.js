@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Dropdown, Box, Section } from '../components';
 import { Window } from '../layouts';
@@ -25,32 +24,19 @@ export const BrigTimer = (props, context) => {
     nameOptions.push(data.spns[i]);
   }
   return (
-    <Window resizable>
+    <Window width={500} height={!data.timing ? 396 : 237}>
       <Window.Content>
         <Section title="Cell Information">
           <LabeledList>
             <LabeledList.Item label="Cell ID">{data.cell_id}</LabeledList.Item>
-            <LabeledList.Item label="Occupant">
-              {data.nameText}
-            </LabeledList.Item>
+            <LabeledList.Item label="Occupant">{data.nameText}</LabeledList.Item>
             <LabeledList.Item label="Crimes">{data.crimes}</LabeledList.Item>
-            <LabeledList.Item label="Brigged By">
-              {data.brigged_by}
-            </LabeledList.Item>
-            <LabeledList.Item label="Time Brigged For">
-              {data.time_set}
-            </LabeledList.Item>
-            <LabeledList.Item label="Time Left">
-              {data.time_left}
-            </LabeledList.Item>
+            <LabeledList.Item label="Brigged By">{data.brigged_by}</LabeledList.Item>
+            <LabeledList.Item label="Time Brigged For">{data.time_set}</LabeledList.Item>
+            <LabeledList.Item label="Time Left">{data.time_left}</LabeledList.Item>
             <LabeledList.Item label="Actions">
-              <Fragment>
-                <Button
-                  icon="lightbulb-o"
-                  content="Flash"
-                  disabled={!data.isAllowed}
-                  onClick={() => act('flash')}
-                />
+              <>
+                <Button icon="lightbulb-o" content="Flash" disabled={!data.isAllowed} onClick={() => act('flash')} />
                 <Button
                   icon="sync"
                   content="Reset Timer"
@@ -63,7 +49,7 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('stop')}
                 />
-              </Fragment>
+              </>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -93,9 +79,7 @@ export const BrigTimer = (props, context) => {
               <LabeledList.Item label="Prisoner Crimes">
                 <Button
                   icon="pencil-alt"
-                  content={
-                    data.prisoner_charge ? data.prisoner_charge : '-----'
-                  }
+                  content={data.prisoner_charge ? data.prisoner_charge : '-----'}
                   disabled={!data.isAllowed}
                   onClick={() => act('prisoner_charge')}
                 />
@@ -112,12 +96,7 @@ export const BrigTimer = (props, context) => {
                 <Button
                   icon="gavel"
                   content="Start Sentence"
-                  disabled={
-                    !data.prisoner_name ||
-                    !data.prisoner_charge ||
-                    !data.prisoner_time ||
-                    !data.isAllowed
-                  }
+                  disabled={!data.prisoner_name || !data.prisoner_charge || !data.prisoner_time || !data.isAllowed}
                   onClick={() => act('start')}
                 />
               </LabeledList.Item>

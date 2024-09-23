@@ -2,7 +2,7 @@
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
@@ -10,7 +10,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 80, ACID = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -22,7 +22,7 @@
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	populate_gas()
 
@@ -82,10 +82,10 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
+			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature - T0C
+	var/celsius_temperature = air_contents.temperature() - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -111,7 +111,7 @@
 			qdel(src)
 
 		if(air_contents)
-			location.assume_air(air_contents)
+			location.blind_release_air(air_contents)
 
 		qdel(src)
 
@@ -122,7 +122,7 @@
 
 	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		head.disfigure()
+		head?.disfigure()
 		H.inflate_gib()
 		return OBLITERATION
 
@@ -133,8 +133,7 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.assume_air(air_contents)
-			air_update_turf()
+			T.blind_release_air(air_contents)
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
@@ -145,9 +144,6 @@
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
 
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
@@ -157,10 +153,13 @@
 
 	ui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
+		ui = new(user, src, "Tank", name)
 		ui.open()
 
 /obj/item/tank/ui_data(mob/user)
@@ -205,17 +204,12 @@
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/tank/remove_air(amount)
-	return air_contents.remove(amount)
-
-/obj/item/tank/return_air()
+/obj/item/tank/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/item/tank/assume_air(datum/gas_mixture/giver)
-	air_contents.merge(giver)
-
-	check_status()
-	return 1
+/obj/item/tank/return_analyzable_air()
+	return air_contents
 
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
@@ -224,9 +218,9 @@
 	var/tank_pressure = air_contents.return_pressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
-	return remove_air(moles_needed)
+	return air_contents.remove(moles_needed)
 
 /obj/item/tank/process()
 	//Allow for reactions
@@ -243,7 +237,7 @@
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(loc,/obj/item/transfer_valve))
-			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting
@@ -268,8 +262,8 @@
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
-			T.assume_air(air_contents)
-			playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			T.blind_release_air(air_contents)
+			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
 			integrity--
@@ -281,7 +275,7 @@
 			if(!T)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.assume_air(leaked_gas)
+			T.blind_release_air(leaked_gas)
 		else
 			integrity--
 

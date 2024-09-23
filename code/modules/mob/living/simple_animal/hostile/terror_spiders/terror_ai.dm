@@ -68,16 +68,16 @@
 			targets2 += M
 		else
 			targets3 += M
-	if(targets1.len)
+	if(length(targets1))
 		return targets1
-	if(targets2.len)
+	if(length(targets2))
 		return targets2
 	return targets3
 
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
 	if(target && isliving(target))
 		var/mob/living/T = target
-		if(T.stat > 0)
+		if(T.stat != CONSCIOUS)
 			killcount++
 			regen_points += regen_points_per_kill
 	attackstep = 0
@@ -275,11 +275,11 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventilation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)

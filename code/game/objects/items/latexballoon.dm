@@ -1,6 +1,6 @@
 /obj/item/latexballon
 	name = "latex glove"
-	desc = "" //todo
+	desc = "You wanted a fiery fist o' pain, but all you got was this dumb balloon."
 	icon_state = "latexballon"
 	item_state = "lgloves"
 	force = 0
@@ -35,15 +35,16 @@
 		var/mob/living/user = loc
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	loc.assume_air(air_contents)
+	var/turf/T = get_turf(src)
+	T.blind_release_air(air_contents)
 
 /obj/item/latexballon/ex_act(severity)
 	burst()
 	switch(severity)
-		if (1)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				qdel(src)
 
 /obj/item/latexballon/bullet_act(obj/item/projectile/P)
@@ -61,5 +62,5 @@
 		var/obj/item/tank/T = W
 		blow(T, user)
 		return
-	if(is_sharp(W) || is_hot(W) || is_pointed(W))
+	if(W.sharp || W.get_heat() || is_pointed(W))
 		burst()

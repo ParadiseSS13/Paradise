@@ -6,9 +6,20 @@
 	var/list/status_traits
 	var/list/comp_lookup
 	var/list/list/datum/callback/signal_procs
-	var/signal_enabled = FALSE
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
+	/// MD5'd version of the UID. Used for instances where we dont want to make clients aware of UIDs.
+	VAR_PRIVATE/tmp/md5_unique_datum_id = null // using VAR_PRIVATE means it cant be accessed outside of the MD5_UID() proc
+
+	/// Used by SSprocessing
+	var/isprocessing = FALSE
+
+/**
+  * A cached version of our \ref
+  * The brunt of \ref costs are in creating entries in the string tree (a tree of immutable strings)
+  * This avoids doing that more then once per datum by ensuring ref strings always have a reference to them after they're first pulled
+  */
+	var/cached_ref
 
 #ifdef REFERENCE_TRACKING
 	var/running_find_references
@@ -34,8 +45,6 @@
 		qdel(timer)
 
 	//BEGIN: ECS SHIT
-	signal_enabled = FALSE
-
 	var/list/dc = datum_components
 	if(dc)
 		var/all_components = dc[/datum/component]

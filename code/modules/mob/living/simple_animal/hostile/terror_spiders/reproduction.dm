@@ -30,18 +30,14 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	GLOB.ts_spiderling_list -= src
+	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
+		S.immediate_ventcrawl = TRUE
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
 	. = ..()
-
-
-/obj/structure/spider/spiderling/terror_spiderling/Destroy()
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
-		S.immediate_ventcrawl = TRUE
-	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
@@ -67,14 +63,14 @@
 		if(A == src)
 			if(score > 0)
 				new /obj/effect/temp_visual/heart(T) // heart symbol, I am safe here, protected by a friendly spider
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/heal(T) // white "+" symbol, I am neutral here
 			else
 				new /obj/effect/temp_visual/at_shield(T) // octagon symbol, I am unsafe here, I need to flee
 		else
 			if(score > 0)
 				new /obj/effect/temp_visual/telekinesis(T) // blue sparks, this is a safe area, I want to go here
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/revenant(T) // purple sparks, this is a neutral area, an acceptable choice
 			else
 				new /obj/effect/temp_visual/cult/sparks(T) // red sparks, this is an unsafe area, I won't go here unless fleeing something worse
@@ -111,7 +107,7 @@
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)

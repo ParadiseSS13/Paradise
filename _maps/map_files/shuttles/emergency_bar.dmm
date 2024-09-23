@@ -45,7 +45,7 @@
 /area/shuttle/escape)
 "an" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ao" = (
@@ -75,9 +75,9 @@
 /area/shuttle/escape)
 "av" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "aw" = (
@@ -101,7 +101,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "az" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -112,7 +112,7 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aC" = (
@@ -122,7 +122,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aD" = (
@@ -146,9 +146,9 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
@@ -245,7 +245,7 @@
 "aU" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -296,7 +296,7 @@
 "bd" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -368,11 +368,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bs" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)

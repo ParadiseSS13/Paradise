@@ -19,11 +19,10 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
-	power_channel = ENVIRON
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
+	idle_power_consumption = 2
+	active_power_consumption = 6
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	resistance_flags = FIRE_PROOF
 
 	light_power = LIGHTING_MINIMUM_POWER
@@ -37,6 +36,25 @@ FIRE ALARM
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
+
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
+	. = ..()
+
+	if(building)
+		buildstage = 0
+		wiresexposed = TRUE
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+
+	var/area/our_area = get_area(src)
+	LAZYADD(our_area.firealarms, src)
+
+	if(is_station_contact(z))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
+	name = "fire alarm"
+	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
+	update_icon()
 
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
@@ -74,7 +92,7 @@ FIRE ALARM
 		return
 
 	if(is_station_contact(z) && show_alert_level)
-		. += "overlay_[get_security_level()]"
+		. += "overlay_[SSsecurity_level.get_current_level_as_text()]"
 		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
 
 	if(!wiresexposed)
@@ -86,7 +104,8 @@ FIRE ALARM
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		return TRUE
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
@@ -198,19 +217,20 @@ FIRE ALARM
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0 && !emagged)
 			if(prob(33))
 				alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
-	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+	if(current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
 	..()
 
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(myArea.firealarms, src)
+		var/area/our_area = get_area(src)
+		LAZYREMOVE(our_area.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -227,7 +247,7 @@ FIRE ALARM
 	if(stat & NOPOWER)
 		set_light(0)
 		return
-	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
+	else if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
 		set_light(2, 1, COLOR_WHITE)
 		return
 	else if(fire == !!light_power || fire == !!(light_power - 0.1))
@@ -238,13 +258,25 @@ FIRE ALARM
 	else
 		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
+/obj/machinery/firealarm/proc/update_fire_sound(fire)
+	var/area/A = get_area(src)
+	if(stat & NOPOWER)
+		GLOB.firealarm_soundloop.stop(src, TRUE)
+	else if(A.fire)
+		GLOB.firealarm_soundloop.start(src)
+
+/obj/machinery/firealarm/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	update_icon()
+	update_fire_light()
+
 /obj/machinery/firealarm/power_change()
-	if(powered(ENVIRON))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_fire_light()
 	update_icon()
+	update_fire_sound()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
@@ -282,7 +314,7 @@ FIRE ALARM
 				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
 				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
 
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	. += "It shows the alert level as: <B><U>[capitalize(SSsecurity_level.get_current_level_as_text())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)
@@ -294,30 +326,17 @@ FIRE ALARM
 	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
+	if(!A)
+		return
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
-
-/obj/machinery/firealarm/New(location, direction, building)
-	. = ..()
-
-	if(building)
-		buildstage = 0
-		wiresexposed = TRUE
-		setDir(direction)
-		set_pixel_offsets_from_dir(26, -26, 26, -26)
-
-	myArea = get_area(src)
-	LAZYADD(myArea.firealarms, src)
-
-/obj/machinery/firealarm/Initialize(mapload)
-	. = ..()
-	name = "fire alarm"
-	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
-	update_icon()
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(myArea.firealarms, src)
+	var/area/our_area = get_area(src)
+	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
 
 /*
 FIRE ALARM CIRCUIT

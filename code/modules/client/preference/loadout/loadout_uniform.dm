@@ -14,7 +14,7 @@
 // Uniform slot
 /datum/gear/uniform
 	main_typepath = /datum/gear/uniform
-	slot = slot_w_uniform
+	slot = SLOT_HUD_JUMPSUIT
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
@@ -103,7 +103,7 @@
 	path = /obj/item/clothing/under/color/darkred
 
 /datum/gear/uniform/suit/soviet
-	display_name = "USSP uniform"
+	display_name = "Old USSP uniform"
 	path = /obj/item/clothing/under/costume/soviet
 
 /datum/gear/uniform/suit/kilt
@@ -183,9 +183,14 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
+/datum/gear/uniform/skirt/job/expedition
+	display_name = "Skirt, expedition"
+	path = /obj/item/clothing/under/rank/cargo/expedition/skirt
+	allowed_roles = list("Quartermaster", "Explorer")
+
 /datum/gear/uniform/skirt/job/qm
-	display_name = "Skirt, QM"
-	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
+	display_name = "Skirt, quartermaster"
+	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/skirt/job/warden
@@ -203,14 +208,39 @@
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
+/datum/gear/uniform/skirt/job/clown
+	display_name = "Skirt, clown"
+	path = /obj/item/clothing/under/rank/civilian/clown/skirt
+	allowed_roles = list("Clown")
+
+/datum/gear/uniform/skirt/job/mime
+	display_name = "Skirt, mime"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt
+	allowed_roles = list("Mime")
+
+/datum/gear/uniform/skirt/job/janitor
+	display_name = "Skirt, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/skirt/job/head_of_personnel
+	display_name = "Skirt, hop"
+	path = /obj/item/clothing/under/rank/civilian/hop/skirt
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/uniform/skirt/job/magistrate
+	display_name = "Skirt, magistrate"
+	path = /obj/item/clothing/under/rank/procedure/magistrate/skirt
+	allowed_roles = list("Magistrate")
+
 /datum/gear/uniform/skirt/job/ntrep
 	display_name = "Skirt, nt rep"
-	path = /obj/item/clothing/under/rank/centcom/representative/skirt
+	path = /obj/item/clothing/under/rank/procedure/representative/skirt
 	allowed_roles = list("Nanotrasen Representative")
 
 /datum/gear/uniform/skirt/job/blueshield
 	display_name = "Skirt, blueshield"
-	path = /obj/item/clothing/under/rank/centcom/blueshield/skirt
+	path = /obj/item/clothing/under/rank/procedure/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
 
@@ -226,6 +256,14 @@
 	display_name = "Medical scrubs, green"
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/cargo
+	main_typepath = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/delivery
+	display_name = "Cargo uniform, delivery"
+	path = /obj/item/clothing/under/rank/cargo/tech/delivery
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
@@ -328,6 +366,16 @@
 	display_name = "Tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/suit/greyman
+	display_name = "Greyman Henley"
+	description = "Khaki henley paired up with some grey cargo pants (WARNING DOES NOT HAVE SUIT SENSORS)"
+	path = /obj/item/clothing/under/syndicate/greyman
+
+/datum/gear/uniform/suit/assistantformal
+	display_name = "Assistant's Formal Uniform"
+	description = "Formal attire fit for an Assistant."
+	path = /obj/item/clothing/under/misc/assistantformal
 
 /datum/gear/uniform/suit/redhawaiianshirt
 	display_name = "Red Hawaiian T-Shirt"

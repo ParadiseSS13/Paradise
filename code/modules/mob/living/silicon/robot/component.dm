@@ -8,13 +8,21 @@
 	var/brute_damage = 0
 	var/electronics_damage = 0
 	var/max_damage = 30
-	var/component_disabled = 0
+	var/component_disabled = FALSE
 	var/mob/living/silicon/robot/owner
 	var/external_type = null // The actual device object that has to be installed for this.
 	var/obj/item/wrapped = null // The wrapped device(e.g. radio), only set if external_type isn't null
+	///How much a component is contributing to slowdown, set on New to be equal to min_slowdown_factor
+	var/current_slowdown_factor
+	///The max amount of slowness a component can contribute, set on New to be 1% of the max damage
+	var/max_slowdown_factor
+	///The minimum amount of speed modification a component can contribute. Currently just 0 for all.
+	var/min_slowdown_factor = 0
 
 /datum/robot_component/New(mob/living/silicon/robot/R)
 	owner = R
+	max_slowdown_factor = (max_damage / 100)
+	current_slowdown_factor = min_slowdown_factor
 
 // Should only ever be destroyed when a borg gets destroyed
 /datum/robot_component/Destroy(force, ...)
@@ -25,6 +33,8 @@
 /datum/robot_component/proc/install(obj/item/I, update_health = TRUE)
 	wrapped = I
 	installed = TRUE
+	I.forceMove(owner)
+	current_slowdown_factor = (brute_damage + electronics_damage) / 100
 	go_online()
 	if(update_health)
 		owner.updatehealth("component '[src]' installed")
@@ -35,7 +45,7 @@
 	go_offline()
 	owner.updatehealth("component '[src]' removed")
 
-/datum/robot_component/proc/destroy()
+/datum/robot_component/proc/break_component()
 	if(wrapped)
 		qdel(wrapped)
 	uninstall()
@@ -50,9 +60,9 @@
 
 	brute_damage += brute
 	electronics_damage += electronics
-
+	current_slowdown_factor = clamp((current_slowdown_factor + ((brute + electronics) / 100)), min_slowdown_factor, max_slowdown_factor)
 	if(brute_damage + electronics_damage >= max_damage)
-		destroy()
+		break_component()
 
 	SStgui.update_uis(owner.self_diagnosis)
 
@@ -63,11 +73,18 @@
 
 	if(owner && updating_health)
 		owner.updatehealth("component '[src]' heal damage")
-
-	brute_damage = max(0, brute_damage - brute)
-	electronics_damage = max(0, electronics_damage - electronics)
-
+	var/burn_damage_healed = clamp(electronics, 0, electronics_damage)
+	var/brute_damage_healed = clamp(brute, 0, brute_damage)
+	current_slowdown_factor = clamp((current_slowdown_factor - ((burn_damage_healed + brute_damage_healed) / 100)), min_slowdown_factor, max_slowdown_factor)
+	rounding_error_check()
+	brute_damage -= brute_damage_healed
+	electronics_damage -= burn_damage_healed
 	SStgui.update_uis(owner.self_diagnosis)
+
+///There tends to be some desync between slowdown and damage when being healed up slowly like through self-repair or upgraded rechargers.
+/datum/robot_component/proc/rounding_error_check()
+	if(current_slowdown_factor < (min_slowdown_factor) + 0.0001) //Within .0001 of the minimum, just set it to the minimum
+		current_slowdown_factor = min_slowdown_factor
 
 /datum/robot_component/proc/is_powered()
 	return installed && (brute_damage + electronics_damage < max_damage) && (powered)
@@ -90,12 +107,12 @@
 /datum/robot_component/proc/disable()
 	if(!component_disabled)
 		go_offline()
-	component_disabled++
+		component_disabled = TRUE
 
 /datum/robot_component/proc/enable()
-	component_disabled--
-	if(!component_disabled)
+	if(component_disabled)
 		go_online()
+		component_disabled = FALSE
 
 /datum/robot_component/proc/toggle()
 	toggled = !toggled
@@ -111,6 +128,13 @@
 
 /datum/robot_component/proc/go_offline()
 	return
+
+/datum/robot_component/proc/get_movement_delay()
+	if(is_missing())
+		return 0
+	if(is_destroyed())
+		return max_slowdown_factor
+	return  current_slowdown_factor
 
 /datum/robot_component/armour
 	name = "armour plating"
@@ -136,15 +160,18 @@
 	owner.cell = null
 
 /datum/robot_component/cell/is_powered()
-	return ..() && owner.cell
+	return ..() && owner.cell?.charge
 
 /datum/robot_component/cell/Destroy(force, ...)
 	owner.cell = null
 	return ..()
 
-/datum/robot_component/cell/destroy()
+/datum/robot_component/cell/break_component()
 	..()
 	owner.cell = null
+
+/datum/robot_component/cell/disable() //This can't be manually disabled, and shouldn't be accidentally disabled
+	return
 
 /datum/robot_component/radio
 	name = "radio"
@@ -189,11 +216,19 @@
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed && C.toggled && C.is_powered() && !C.component_disabled
 
+///Disables a random component for the duration, or until manually turned back on.
+/mob/living/silicon/robot/proc/disable_random_component(number_disabled, duration)
+	var/list/random_components = pick_multiple_unique(components, number_disabled)
+	for(var/component in random_components)
+		disable_component(component, duration)
+
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
 	D.disable()
-	spawn(duration)
-		D.enable()
+	addtimer(CALLBACK(src, PROC_REF(reenable_component), D), duration)
+
+/mob/living/silicon/robot/proc/reenable_component(datum/robot_component/to_enable)
+	to_enable.enable()
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(component_name)
@@ -243,114 +278,3 @@
 	name = "radio"
 	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
 	icon_state = "radio"
-
-//
-//Robotic Component Analyzer, basically a health analyzer for robots
-//
-/obj/item/robotanalyzer
-	name = "cyborg analyzer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "robotanalyzer"
-	item_state = "analyzer"
-	desc = "A hand-held scanner able to diagnose robotic injuries."
-	flags = CONDUCT
-	slot_flags = SLOT_BELT
-	throwforce = 3
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 5
-	throw_range = 10
-	origin_tech = "magnets=1;biotech=1"
-	var/mode = 1
-
-/obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
-		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
-		to_chat(user, "<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>")
-		to_chat(user, "<span class='notice'>Body Temperature: ???</span>")
-		return
-
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>","<span class='notice'>You have analyzed [M]'s components.</span>")
-	robot_healthscan(user, M)
-	add_fingerprint(user)
-
-
-/proc/robot_healthscan(mob/user, mob/living/M)
-	var/scan_type
-	if(isrobot(M))
-		scan_type = "robot"
-	else if(ishuman(M))
-		scan_type = "prosthetics"
-	else
-		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
-		return
-
-
-	switch(scan_type)
-		if("robot")
-			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
-			var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>")
-			to_chat(user, "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
-			to_chat(user, "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
-			if(M.timeofdeath && M.stat == DEAD)
-				to_chat(user, "<span class='notice'>Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>")
-			var/mob/living/silicon/robot/H = M
-			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
-			var/list/missing = H.get_missing_components()
-			to_chat(user, "<span class='notice'>Localized Damage:</span>")
-			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
-				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
-			else
-				if(LAZYLEN(damaged))
-					for(var/datum/robot_component/org in damaged)
-						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
-						capitalize(org.name),					\
-						(org.is_destroyed())	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
-						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
-						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
-						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
-						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
-				if(LAZYLEN(missing))
-					for(var/datum/robot_component/org in missing)
-						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
-
-			if(H.emagged && prob(5))
-				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
-
-		if("prosthetics")
-			var/mob/living/carbon/human/H = M
-			to_chat(user, "<span class='notice'>Analyzing Results for \the [H]:</span>")
-			to_chat(user, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
-
-			to_chat(user, "<span class='notice'>External prosthetics:</span>")
-			var/organ_found
-			if(LAZYLEN(H.internal_organs))
-				for(var/obj/item/organ/external/E in H.bodyparts)
-					if(!E.is_robotic())
-						continue
-					organ_found = TRUE
-					to_chat(user, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
-			if(!organ_found)
-				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-			to_chat(user, "<hr>")
-			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
-			organ_found = null
-			if(LAZYLEN(H.internal_organs))
-				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
-						continue
-					organ_found = TRUE
-					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
-			if(!organ_found)
-				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-			to_chat(user, "<hr>")
-			to_chat(user, "<span class='notice'>Cybernetic implants:</span>")
-			organ_found = null
-			if(LAZYLEN(H.internal_organs))
-				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
-					organ_found = TRUE
-					to_chat(user, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
-			if(!organ_found)
-				to_chat(user, "<span class='warning'>No implants located.</span>")

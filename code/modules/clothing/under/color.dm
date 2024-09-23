@@ -7,12 +7,19 @@
 		"Human" = 'icons/mob/clothing/under/color.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/color.dmi'
 		)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
-	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
+	var/list/excluded = list(/obj/item/clothing/under/color/random,
+							/obj/item/clothing/under/color/blue/dodgeball,
+							/obj/item/clothing/under/color/orange/prison,
+							/obj/item/clothing/under/color/red/dodgeball,
+							/obj/item/clothing/under/color/red/jersey,
+							/obj/item/clothing/under/color/blue/jersey,
+							/obj/item/clothing/under/color/white/enforcer)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
@@ -57,10 +64,6 @@
 	icon_state = "ancient"
 	item_state = "gy_suit"
 	item_color = "ancient"
-
-/obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	owner.forcesay(GLOB.hit_appends)
-	return
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -128,7 +131,8 @@
 	item_state = "p_suit"
 	item_color = "purple"
 
-/obj/item/clothing/under/color/purple/sensor	//for jani ert
+/// for jani ert
+/obj/item/clothing/under/color/purple/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
@@ -141,11 +145,6 @@
 	name = "light green jumpsuit"
 	icon_state = "lightgreen"
 	item_color = "lightgreen"
-
-/obj/item/clothing/under/color/lightblue
-	name = "light blue jumpsuit"
-	icon_state = "lightblue"
-	item_color = "lightblue"
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"

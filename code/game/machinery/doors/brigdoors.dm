@@ -38,10 +38,20 @@
 	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 
+/obj/machinery/door_timer/Initialize(mapload)
+	..()
+
+	GLOB.celltimers_list += src
+	Radio = new /obj/item/radio(src)
+	Radio.listening = FALSE
+	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
+	return INITIALIZE_HINT_LATELOAD
+
 /obj/machinery/door_timer/Destroy()
+	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
-	qdel(Radio)
 	GLOB.celltimers_list -= src
 	return ..()
 
@@ -113,16 +123,6 @@
 			return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
-/obj/machinery/door_timer/Initialize(mapload)
-	..()
-
-	GLOB.celltimers_list += src
-	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
-	Radio.config(list("Security" = 0))
-	Radio.follow_target = src
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/machinery/door_timer/LateInitialize()
 	..()
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
@@ -149,12 +149,6 @@
 		stat |= BROKEN
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/door_timer/Destroy()
-	QDEL_NULL(Radio)
-	targets.Cut()
-	prisoner = null
-	return ..()
-
 /obj/machinery/door_timer/proc/on_target_qdel(atom/target)
 	targets -= target
 
@@ -166,7 +160,7 @@
 		return
 	if(timing)
 		if(timeleft() <= 0)
-			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
+			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security")
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
 			timing = FALSE
@@ -178,7 +172,8 @@
 
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -251,7 +246,7 @@
 		if(C.opened)
 			continue
 		C.locked = FALSE
-		C.icon_state = C.icon_closed
+		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		if(!T.stat)
@@ -294,10 +289,13 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door_timer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door_timer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BrigTimer",  name, 500, 450, master_ui, state)
+		ui = new(user, src, "BrigTimer",  name)
 		ui.open()
 
 /obj/machinery/door_timer/ui_static_data(mob/user)
@@ -341,7 +339,10 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
+				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				if(isnull(new_name))
+					return
+				prisoner_name = new_name
 			if(prisoner_name)
 				var/datum/data/record/R = find_security_record("name", prisoner_name)
 				if(istype(R))
@@ -349,10 +350,15 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
+			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
+			if(isnull(new_charge))
+				return
+			prisoner_charge = new_charge
 		if("prisoner_time")
-			prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
-			prisoner_time = min(max(round(prisoner_time), 0), 60)
+			var/new_time = tgui_input_number(usr, "Prisoner Time (in minutes):", name, prisoner_time, 60)
+			if(isnull(new_time))
+				return
+			prisoner_time = new_time
 		if("start")
 			if(!prisoner_name || !prisoner_charge || !prisoner_time)
 				return FALSE
@@ -367,13 +373,13 @@
 			update_icon(UPDATE_ICON_STATE)
 		if("restart_timer")
 			if(timing)
-				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/reset_reason = tgui_input_text(usr, "Reason for resetting timer:", name)
 				if(!reset_reason)
 					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
-				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, "Security", list(z))
+				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, "Security")
 				notify_prisoner("Your brig timer has been reset for: '[reset_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -384,7 +390,7 @@
 			if(timing)
 				timer_end()
 				var/stoptext = isobserver(usr) ? "from cell control." : "by [usr.name]."
-				Radio.autosay("Timer stopped manually [stoptext]", name, "Security", list(z))
+				Radio.autosay("Timer stopped manually [stoptext]", name, "Security")
 			else
 				. = FALSE
 		if("flash")
@@ -480,5 +486,13 @@
 /obj/machinery/door_timer/cell_6
 	name = "Cell 6"
 	id = "Cell 6"
+
+/obj/machinery/door_timer/cell_7
+	name = "Cell 7"
+	id = "Cell 7"
+
+/obj/machinery/door_timer/cell_8
+	name = "Cell 8"
+	id = "Cell 8"
 
 #undef CELL_NONE

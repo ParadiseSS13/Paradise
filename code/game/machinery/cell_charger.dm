@@ -2,15 +2,15 @@
 	name = "cell charger"
 	desc = "It charges power cells."
 	icon = 'icons/obj/power.dmi'
-	icon_state = "ccharger0"
+	icon_state = "ccharger"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 60
-	power_channel = EQUIP
+	idle_power_consumption = 5
+	active_power_consumption = 60
+	power_channel = PW_CHANNEL_EQUIPMENT
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
+	/// Cell charge rate (Watts)
 	var/charge_rate = 500
 
 /obj/machinery/cell_charger/Initialize(mapload)
@@ -19,6 +19,15 @@
 	component_parts += new /obj/item/circuitboard/cell_charger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	if(!mapload)
+		return
+
+	for(var/obj/item/stock_parts/cell/I in get_turf(src)) //suck any cells in at roundstart
+		I.forceMove(src)
+		charging = I
+		check_level()
+		update_icon(UPDATE_OVERLAYS)
+		break
 
 /obj/machinery/cell_charger/deconstruct()
 	if(charging)
@@ -29,13 +38,21 @@
 	QDEL_NULL(charging)
 	return ..()
 
-/obj/machinery/cell_charger/update_icon_state()
-	icon_state = "ccharger[charging ? 1 : 0]"
-
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()
-	if(charging && !(stat & (BROKEN|NOPOWER)))
-		. += "ccharger-o[chargelevel]"
+	if(!charging)
+		return
+	. += "[charging.icon_state]"
+
+	switch(charging.charge / charging.maxcharge)
+		if(0.1 to 0.995)
+			. += "cell-o1"
+		if(0.995 to 1)
+			. += "cell-o2"
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+	. += "ccharger-o[chargelevel]"
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
@@ -58,7 +75,7 @@
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
 				return
-			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
+			if(!a.powernet.has_power(PW_CHANNEL_EQUIPMENT)) // There's no APC in this area, don't try to cheat power!
 				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
 				return
 			if(!user.drop_item())
@@ -68,7 +85,7 @@
 			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			check_level()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -85,19 +102,13 @@
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	if(anchored)
-		WRENCH_ANCHOR_MESSAGE
-	else
-		WRENCH_UNANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/cell_charger/proc/removecell()
 	charging.update_icon()
 	charging = null
 	chargelevel = -1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
 	if(!charging)

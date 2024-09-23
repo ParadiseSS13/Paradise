@@ -41,16 +41,23 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/reagent_containers/iv_bag/proc/on_examine(datum/source, mob/examiner, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+	examine_list += "<span class='notice'>[source.p_they(TRUE)] [source.p_have()] an active IV bag.</span>"
+
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
+	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
+	if(injection_target)
+		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
 	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
-	if(!injection_target)
+	if(QDELETED(injection_target))
 		end_processing()
 		return
 
@@ -74,8 +81,10 @@
 	else		// Drawing
 		if(reagents.total_volume < reagents.maximum_volume)
 			injection_target.transfer_blood_to(src, amount_per_transfer_from_this)
-			for(var/datum/reagent/x in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
-				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
+			for(var/datum/reagent/reagent in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
+				if(reagent.id in GLOB.blocked_chems)
+					continue
+				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
@@ -161,7 +170,8 @@
 	. = ..()
 	name = "[initial(name)] - Saline Glucose"
 
-/obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/// Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/obj/item/reagent_containers/iv_bag/blood
 	var/blood_type
 	var/blood_species = "Synthetic humanoid"
 	var/iv_blood_colour = "#A10808"
@@ -214,3 +224,6 @@
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	. = ..()
 	name = "[initial(name)] - Slime Jelly"
+
+#undef IV_DRAW
+#undef IV_INJECT

@@ -6,7 +6,7 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
@@ -39,7 +39,7 @@
 	update_brightness()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	return TRUE
 
 /obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
@@ -82,7 +82,7 @@
 	else
 		return ..()
 
-/obj/item/flashlight/extinguish_light()
+/obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
 		update_brightness()
@@ -93,7 +93,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
@@ -128,6 +128,10 @@
 	materials = list()
 	on = TRUE
 
+/obj/item/flashlight/lamp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
+
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
@@ -137,13 +141,11 @@
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
 
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
+/obj/item/flashlight/lamp/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	if(!usr.stat)
-		attack_self(usr)
+	attack_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -173,6 +175,11 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -195,6 +202,8 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
+	hitsound = "swing_hit"
+	attack_verb = list()
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -213,7 +222,36 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
+
+/obj/item/flashlight/flare/used
+
+/obj/item/flashlight/flare/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/glowstick/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(isdrone(user) && !fuel)
+		C.stored_comms["metal"] += 1
+		C.stored_comms["glass"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 
@@ -231,8 +269,8 @@
 	blocks_emissive = FALSE
 
 /obj/item/flashlight/flare/glowstick/Initialize()
+	. = ..()
 	light_color = color
-	..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
@@ -283,8 +321,12 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-/obj/item/flashlight/flare/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+/obj/item/flashlight/flare/extinguish_light(force = FALSE)
+	if(force)
+		fuel = 0
+		visible_message("<span class='danger'>[src] burns up rapidly!</span>")
+	else
+		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -321,8 +363,12 @@
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
-/obj/item/flashlight/slime/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+/obj/item/flashlight/slime/extinguish_light(force = FALSE)
+	if(force)
+		visible_message("<span class='danger'>[src] withers away.</span>")
+		qdel(src)
+	else
+		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -363,12 +409,13 @@
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
-		A.emp_act(1)
+		A.emp_act(EMP_HEAVY)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
 
-/obj/item/flashlight/spotlight //invisible lighting source
+/// invisible lighting source
+/obj/item/flashlight/spotlight
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null

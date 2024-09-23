@@ -1,319 +1,1712 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aq" = (
+/obj/effect/spawner/random_spawners/oil_often,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/grille/broken,
+/obj/machinery/door_control{
+	id = "mechtransport_lockdown";
+	name = "lockdown blast door control";
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"aW" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"aZ" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"bk" = (
+/obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/turf/simulated/wall/mineral/titanium,
-/area/ruin/space/powered)
-"c" = (
-/obj/effect/spawner/window/shuttle,
+"bT" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/mech_transport)
+"bU" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"ce" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"f" = (
-/obj/structure/closet/crate/secure/loot,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"g" = (
-/obj/structure/table,
-/obj/machinery/door_control{
-	id = "mecha cargo"
+/area/ruin/space/mech_transport)
+"cf" = (
+/obj/structure/mecha_wreckage/marauder,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"cy" = (
+/obj/item/shard{
+	icon_state = "medium"
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"h" = (
-/obj/structure/table,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"i" = (
-/obj/machinery/computer{
-	name = "shuttle control console"
-	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"j" = (
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"k" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"l" = (
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"m" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"n" = (
-/obj/machinery/computer{
-	name = "exosuit control console"
-	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"p" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"q" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/space/powered)
-"r" = (
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"s" = (
-/obj/structure/mecha_wreckage/phazon,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"t" = (
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"u" = (
-/obj/structure/mecha_wreckage/ripley/firefighter,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"v" = (
-/obj/structure/mecha_wreckage/ripley,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"w" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"x" = (
-/obj/effect/decal/cleanable/blood/gibs/robot/up,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"y" = (
-/obj/machinery/door/poddoor{
-	id_tag = "mecha cargo";
-	name = "Cargo Bay Door";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"z" = (
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"A" = (
-/obj/structure/mecha_wreckage/durand,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"B" = (
-/obj/item/stack/tile/plasteel{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"C" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"D" = (
+/obj/effect/decal/cleanable/glass,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"E" = (
-/obj/item/stack/rods,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"F" = (
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"G" = (
-/obj/item/stack/tile/plasteel{
-	pixel_x = 7;
-	pixel_y = 8
+"df" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"H" = (
-/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"di" = (
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"dr" = (
+/obj/structure/closet/crate/can,
+/obj/item/newspaper,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/mech_transport)
+"dt" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/redgrid,
+/area/ruin/space/mech_transport)
+"ef" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/turf/simulated/floor/redgrid,
+/area/ruin/space/mech_transport)
+"ey" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"ff" = (
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"gk" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"hm" = (
+/obj/structure/table,
+/obj/item/mecha_parts/core,
+/obj/structure/sign/poster/contraband/tools{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"hu" = (
+/obj/effect/decal/remains/human,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/mech_transport)
+"hJ" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "mechtransport_bay_shutter"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"hW" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/repair_droid,
+/obj/item/mecha_parts/mecha_equipment/extinguisher,
+/obj/item/mecha_modkit/voice/honk{
+	pixel_y = 10;
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"iG" = (
+/obj/structure/firelock_frame,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"J" = (
-/obj/structure/mecha_wreckage/odysseus,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"K" = (
-/obj/item/stack/sheet/metal,
+/area/ruin/space/mech_transport)
+"jd" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"jG" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"kI" = (
+/obj/item/chair,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"ma" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "mechtransport_lockdown";
+	name = "lockdown blast door"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"mn" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"nO" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"od" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"oo" = (
+/turf/template_noop,
+/area/template_noop)
+"oA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"pi" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/oil_often,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"pt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"px" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"pJ" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"qs" = (
+/obj/structure/sign/poster/ripped{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"qE" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/sign/nosmoking_1{
+	pixel_y = 0;
+	pixel_x = 32
+	},
+/obj/effect/landmark/burnturf,
+/obj/item/light/tube{
+	status = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"qJ" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"rx" = (
+/obj/structure/sign/poster/official/safety_eye_protection{
+	pixel_x = -32
+	},
+/obj/machinery/light/built{
+	dir = 8
+	},
+/obj/item/light/tube{
+	status = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"rK" = (
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"sr" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_y = 0;
+	pixel_x = -2
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"sH" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"sY" = (
+/obj/structure/closet,
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"ta" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 6;
+	pixel_x = -2
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"tS" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"uu" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"uU" = (
+/obj/structure/table,
+/obj/item/food/cornchips{
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"vl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"vm" = (
+/obj/structure/table,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"vo" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"wo" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/item/mecha_parts/mecha_equipment/drill{
+	pixel_y = 10
+	},
+/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"wz" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"wF" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/shreds{
+	pixel_y = -10
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"xE" = (
+/obj/item/storage/box/cups{
+	pixel_y = 3
+	},
+/obj/structure/table,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"xG" = (
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"yb" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"yf" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"yR" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "mechtransport_lockdown";
+	name = "lockdown blast door"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"zy" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"zM" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"zP" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"zX" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Af" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/generic,
+/obj/machinery/door_control{
+	id = "mechtransport_bay_shutter";
+	name = "Export Bay Shutter Control";
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Ap" = (
+/turf/simulated/mineral,
+/area/ruin/space/mech_transport)
+"AE" = (
+/obj/structure/mecha_wreckage/phazon,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/mounted/frame/firealarm{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Be" = (
+/obj/machinery/economy/vending/snack{
+	stat = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"CK" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/mech_transport)
+"CL" = (
+/obj/item/stack/tile/plasteel{
+	pixel_y = 10;
+	pixel_x = 11
+	},
+/turf/template_noop,
+/area/template_noop)
+"Di" = (
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/mech_transport)
+"EC" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"Ff" = (
+/obj/item/pipe,
+/turf/template_noop,
+/area/template_noop)
+"Fo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Fw" = (
+/obj/item/mounted/frame/intercom{
+	pixel_y = -32
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Fx" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"FK" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Gk" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Go" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"HK" = (
+/obj/effect/spawner/random_spawners/oil_often,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"HT" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/toy/figure/mech/durand{
+	pixel_y = 11
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"HZ" = (
+/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"L" = (
-/obj/structure/mecha_wreckage/gygax,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"M" = (
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"P" = (
+"Jn" = (
+/obj/structure/lattice,
 /obj/item/stack/rods,
 /turf/template_noop,
 /area/space/nearstation)
-"R" = (
+"Kg" = (
+/obj/machinery/photocopier{
+	toner = 0
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"Kq" = (
+/obj/structure/mecha_wreckage/mauler,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Kz" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Lq" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"LZ" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin{
+	pixel_x = -6
+	},
+/obj/item/pen/multi/syndicate,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 3;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"MA" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/mecha_wreckage/ares,
+/obj/machinery/door/window,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"MI" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"MK" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Nc" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"U" = (
-/obj/item/gps/ruin,
-/turf/simulated/wall/mineral/titanium,
-/area/ruin/space/powered)
+/area/ruin/space/mech_transport)
+"Nd" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "mechtransport_supplies";
+	pixel_y = -32;
+	name = "secure supplies blast door control"
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"Nq" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/mecha_wreckage/seraph,
+/obj/machinery/door/window,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Nv" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"NB" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"NR" = (
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
+"Os" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "mechtransport_supplies";
+	name = "secure storage blast door"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"OQ" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Pa" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"QC" = (
+/obj/structure/chair,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"Rt" = (
+/obj/structure/mecha_wreckage/durand,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"RY" = (
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"So" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/obj/machinery/light/built{
+	dir = 4
+	},
+/turf/simulated/floor/redgrid,
+/area/ruin/space/mech_transport)
+"St" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "mechtransport_ext";
+	pixel_y = -32;
+	name = "Export Bay Blast Door Control"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Sw" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Tf" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Tr" = (
+/obj/item/light/tube{
+	status = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Ty" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"Uf" = (
+/obj/structure/table_frame,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"UF" = (
+/obj/machinery/constructable_frame,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"UK" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 15
+	},
+/obj/item/stack/sheet/mineral/diamond{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/silver{
+	amount = 15
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Vj" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"Vp" = (
+/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+	id_tag = "mechtransport_ext"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"VP" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"VS" = (
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Wg" = (
+/obj/item/stack/tile/plasteel{
+	pixel_y = 6;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"Yq" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"Zn" = (
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
+"Zu" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/turf/simulated/floor/redgrid,
+/area/ruin/space/mech_transport)
+"ZI" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"ZK" = (
+/obj/item/clothing/head/welding,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
 
 (1,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-b
-B
-D
-H
-K
-a
-a
-a
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (2,1,1) = {"
-b
-b
-b
-b
-r
-s
-w
-z
-C
-E
-C
-D
-M
-P
-a
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (3,1,1) = {"
-c
-f
-j
-p
-r
-t
-t
-A
-t
-C
-H
-D
-D
-a
-a
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (4,1,1) = {"
-c
-f
-k
-b
-r
-t
-x
-B
-A
-t
-B
-C
-K
-a
-a
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (5,1,1) = {"
-c
-g
-l
-U
-r
-u
-t
-t
-t
-F
-J
-r
-E
-D
-a
+oo
+oo
+oo
+Ap
+oo
+oo
+Ap
+Ap
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+Ap
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (6,1,1) = {"
-c
-h
-m
-b
-r
-t
-v
-t
-C
-G
-J
-C
-C
-a
-a
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+oo
+Ap
+Ap
+oo
+oo
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (7,1,1) = {"
-c
-i
-n
-b
-r
-v
-t
-t
-t
-t
-t
-L
-q
-b
-R
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+oo
+oo
+oo
+oo
+Ap
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (8,1,1) = {"
-b
-b
-b
-b
-r
-t
-t
-t
-t
-w
-t
-r
-b
-b
-R
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+oo
+oo
+oo
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}
 (9,1,1) = {"
-a
-a
-a
-b
-b
-b
-y
-y
-y
-y
-y
-b
-q
-b
-R
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+"}
+(10,1,1) = {"
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+wz
+vo
+vo
+vo
+vo
+od
+od
+od
+vo
+vo
+vo
+oo
+oo
+oo
+oo
+oo
+"}
+(11,1,1) = {"
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+EC
+Ty
+VS
+VS
+VS
+VS
+Tf
+VS
+VS
+px
+Be
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(12,1,1) = {"
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+VS
+VS
+Uf
+VS
+wF
+Di
+VS
+px
+VS
+VS
+xE
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(13,1,1) = {"
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+sH
+sH
+yf
+Sw
+bT
+dr
+VS
+px
+px
+Go
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(14,1,1) = {"
+Ap
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Uf
+sH
+kI
+di
+CK
+vo
+vo
+vo
+vo
+vo
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(15,1,1) = {"
+oo
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+Ap
+vm
+uU
+VS
+Fw
+vo
+Zu
+Rt
+rx
+cf
+ef
+vo
+vo
+vo
+vo
+oo
+oo
+oo
+"}
+(16,1,1) = {"
+oo
+oo
+oo
+oo
+Ap
+oo
+oo
+Ap
+Ap
+Ap
+Ap
+Ap
+tS
+Tr
+VS
+VS
+zy
+vo
+df
+jG
+bU
+pi
+df
+vo
+nO
+vl
+vo
+oo
+oo
+oo
+"}
+(17,1,1) = {"
+oo
+Ap
+oo
+oo
+oo
+oo
+Ap
+oo
+Ap
+Ap
+Ap
+VS
+VS
+VS
+VS
+VS
+MI
+vo
+rK
+bU
+Yq
+bU
+Af
+vo
+Kq
+oA
+Vp
+oo
+oo
+oo
+"}
+(18,1,1) = {"
+oo
+oo
+oo
+Ap
+oo
+oo
+oo
+oo
+Ap
+Ap
+VS
+ce
+qJ
+VS
+VS
+RY
+VS
+yR
+Kz
+Lq
+HK
+bU
+bU
+hJ
+HK
+bU
+bU
+oo
+oo
+oo
+"}
+(19,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+CL
+HZ
+iG
+VS
+VS
+VS
+di
+CK
+jd
+vo
+vo
+vo
+vo
+zX
+bU
+Yq
+bU
+HK
+vo
+Nq
+Fo
+bU
+oo
+oo
+oo
+"}
+(20,1,1) = {"
+oo
+Ap
+oo
+oo
+UF
+HZ
+Wg
+hu
+cy
+HZ
+VS
+VS
+vo
+Kg
+yb
+Fx
+Zn
+vo
+Nv
+Gk
+NB
+OQ
+Nv
+vo
+MA
+St
+vo
+oo
+oo
+oo
+"}
+(21,1,1) = {"
+oo
+oo
+oo
+bk
+oo
+oo
+wz
+vo
+VS
+VS
+VS
+VS
+ma
+uu
+QC
+HT
+Nd
+vo
+So
+qE
+bU
+AE
+dt
+vo
+vo
+vo
+vo
+oo
+oo
+oo
+"}
+(22,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+Jn
+HZ
+vo
+vo
+ZI
+VS
+VP
+vo
+Pa
+Fx
+LZ
+zP
+vo
+vo
+vo
+Os
+vo
+vo
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(23,1,1) = {"
+oo
+oo
+oo
+oo
+mn
+oo
+oo
+oo
+vo
+vo
+ey
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+ta
+bU
+HK
+Kz
+hW
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(24,1,1) = {"
+oo
+oo
+bk
+HZ
+vo
+HZ
+oo
+oo
+vo
+pJ
+VS
+zM
+VS
+aW
+aq
+gk
+sY
+vo
+hm
+Kz
+ZK
+Kz
+wo
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(25,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+Ff
+oo
+oo
+vo
+vo
+pt
+qs
+ff
+vo
+NR
+xG
+sr
+vo
+UK
+aZ
+FK
+aZ
+MK
+vo
+Vj
+Nc
+oo
+oo
+oo
+oo
+"}
+(26,1,1) = {"
+oo
+oo
+vo
+oo
+oo
+oo
+oo
+oo
+oo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+vo
+oo
+oo
+oo
+oo
+oo
+"}
+(27,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+"}
+(28,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+"}
+(29,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+"}
+(30,1,1) = {"
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
+oo
 "}

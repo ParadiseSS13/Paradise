@@ -1,0 +1,98 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/power/solar,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"c" = (
+/obj/structure/lattice,
+/obj/machinery/power/solar,
+/turf/template_noop,
+/area/template_noop)
+"e" = (
+/obj/structure/lattice,
+/obj/structure/window/full/shuttle{
+	name = "satellite lense"
+	},
+/turf/template_noop,
+/area/template_noop)
+"k" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"q" = (
+/obj/structure/safe/floor,
+/obj/item/golden_record,
+/turf/simulated/wall/satellite,
+/area/template_noop)
+"O" = (
+/obj/structure/target_stake{
+	name = "low gain antenna";
+	anchored = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"S" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+S
+c
+S
+S
+S
+k
+"}
+(2,1,1) = {"
+S
+a
+S
+S
+S
+S
+"}
+(3,1,1) = {"
+S
+c
+S
+S
+S
+S
+"}
+(4,1,1) = {"
+O
+q
+e
+R
+R
+R
+"}
+(5,1,1) = {"
+S
+a
+S
+S
+S
+S
+"}
+(6,1,1) = {"
+S
+a
+S
+S
+S
+S
+"}
+(7,1,1) = {"
+S
+a
+S
+S
+S
+S
+"}

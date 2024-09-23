@@ -7,11 +7,12 @@
 	icon_dead = "bunny_dead"
 	icon_resting = "bunny_stretch"
 	emote_see = list("thumps", "sniffs at something", "hops around", "flips their ears up")
+	faction = list("neutral", "jungle")
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 10
 	health = 10
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -26,8 +27,13 @@
 	holder_type = /obj/item/holder/bunny
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	ventcrawler = VENTCRAWLER_ALWAYS
 
 /mob/living/simple_animal/bunny/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M, TRUE)
 	..()
+
+/mob/living/simple_animal/bunny/syndi // for the syndicake factory bunny so its not being shot
+	faction = list("syndicate")
+	gold_core_spawnable = NO_SPAWN

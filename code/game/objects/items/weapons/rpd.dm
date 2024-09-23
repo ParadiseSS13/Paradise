@@ -23,7 +23,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect_system/spark_spread/spark_system
@@ -33,6 +33,7 @@
 	var/pipe_category = RPD_ATMOS_PIPING //For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
 	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
+	var/whatttube = PIPE_TRANSIT_TUBE
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
@@ -43,6 +44,7 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Transit", "mode" = RPD_TRANSIT_MODE, "icon" = "subway"),
 		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
 		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
 		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
@@ -112,6 +114,8 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.wrench_act(user, user.get_inactive_hand())
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -123,19 +127,42 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.attackby(user.get_inactive_hand(), user)
 	activate_rpd(TRUE)
+
+/obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
+	if(!can_dispense_pipe(whatttube, PIPETYPE_TRANSIT))
+		CRASH("Failed to spawn [get_pipe_name(whatttube, PIPETYPE_TRANSIT)] - possible tampering detected")
+
+	for(var/datum/pipes/transit/T in GLOB.construction_pipe_list)
+		if(T.pipe_id == whatttube)
+			var/obj/structure/transit_tube_construction/S = new T.construction_type(dest)
+			if(!istype(S))
+				CRASH("found [S] when constructing transit tube but expected /obj/structure/transit_tube_construction")
+
+			S.dir = iconrotation ? iconrotation : user.dir
+
+			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(S, user.get_inactive_hand())))
+				S.wrench_act(user, user.get_inactive_hand())
+			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
+	for(var/obj/structure/transit_tube_construction/tube in T)
+		tube.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
+	for(var/obj/structure/transit_tube_construction/tube in T)
+		tube.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
@@ -154,6 +181,9 @@
 		if(!D.anchored)
 			QDEL_NULL(D)
 			eaten = TRUE
+	for(var/obj/structure/transit_tube_construction/C in T)
+		QDEL_NULL(C)
+		eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()
@@ -170,12 +200,19 @@
 /obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rpd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rpd/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
+		ui = new(user, src, "RPD", name)
 		ui.open()
 
+/obj/item/rpd/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/rpd)
+	)
 
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)
@@ -190,6 +227,7 @@
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
+	data["whatttube"] = whatttube
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -200,15 +238,17 @@
 
 	switch(action)
 		if("iconrotation")
-			iconrotation = text2num(sanitize(params["iconrotation"]))
+			iconrotation = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatpipe")
-			whatpipe = text2num(sanitize(params["whatpipe"]))
+			whatpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatdpipe")
-			whatdpipe = text2num(sanitize(params["whatdpipe"]))
+			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("whatttube")
+			whatttube = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
-			pipe_category = text2num(sanitize(params["pipe_category"]))
+			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
-			mode = text2num(sanitize(params["mode"]))
+			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
@@ -260,12 +300,15 @@
 	if(world.time < lastused + spawndelay)
 		return
 
-
 	var/turf/T = get_turf(target)
+
+	if(!T)
+		return
+
 	if(target != T)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
-		if(target.rpd_act(user, src) == TRUE)
+		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
 			if(ranged)
@@ -276,13 +319,13 @@
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 
 	for(var/obj/O in T)
-		if(O.rpd_blocksusage() == TRUE)
+		if(O.rpd_blocksusage())
 			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.view + 2))\
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
 			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
@@ -293,8 +336,14 @@
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
-	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
-		return
+	if(user.a_intent != INTENT_HARM)
+		if(istype(O, /obj/machinery/atmospherics/pipe))
+			return
+		else if(istype(O, /obj/structure/disposalconstruct))
+			return
+		else if(istype(O, /obj/structure/transit_tube_construction))
+			return
+
 	return ..()
 
 #undef RPD_COOLDOWN_TIME

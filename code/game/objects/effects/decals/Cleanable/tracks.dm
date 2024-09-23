@@ -1,5 +1,6 @@
 // 5 seconds
 #define TRACKS_CRUSTIFY_TIME   50
+#define ALWAYS_IN_GRAVITY 2
 
 // color-dir-dry
 GLOBAL_LIST_EMPTY(fluidtrack_cache)
@@ -15,6 +16,14 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	gender = PLURAL
 	random_icon_states = null
 	amount = 0
+	gravity_check = ALWAYS_IN_GRAVITY
+
+/// Subtype of tracks used for decorating maps.
+/obj/effect/decal/cleanable/blood/tracks/mapped
+	desc = "Your instincts say you shouldn't be following these."
+	drydesc = "Your instincts say you shouldn't be following these."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "tracks"
 
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
@@ -28,7 +37,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	var/exited_dirs = 0
 	var/base_alpha = BLOODY_FOOTPRINT_BASE_ALPHA
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
-
+	gravity_check = ALWAYS_IN_GRAVITY
 
 /obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
 	..()
@@ -146,3 +155,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	if(basecolor == COLOR_BLOOD_MACHINE)
 		return FALSE
 	return TRUE
+
+#undef ALWAYS_IN_GRAVITY
+
+#undef TRACKS_CRUSTIFY_TIME

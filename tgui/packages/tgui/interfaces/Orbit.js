@@ -1,20 +1,13 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Icon,
-  Input,
-  Section,
-} from '../components';
+import { Box, Button, Divider, Icon, Input, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { classes } from '../../common/react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 
 const searchFor = (searchText) =>
-  createSearch(searchText, (thing) => thing.name);
+  createSearch(searchText, (thing) => thing.name + (thing.assigned_role !== null ? '|' + thing.assigned_role : ''));
 
 const compareString = (a, b) => (a < b ? -1 : a > b);
 
@@ -31,11 +24,7 @@ const compareNumberedText = (a, b) => {
   const aNumberMatch = aName.match(PATTERN_NUMBER);
   const bNumberMatch = bName.match(PATTERN_NUMBER);
 
-  if (
-    aNumberMatch &&
-    bNumberMatch &&
-    aName.replace(PATTERN_NUMBER, '') === bName.replace(PATTERN_NUMBER, '')
-  ) {
+  if (aNumberMatch && bNumberMatch && aName.replace(PATTERN_NUMBER, '') === bName.replace(PATTERN_NUMBER, '')) {
     const aNumber = parseInt(aNumberMatch[1], 10);
     const bNumber = parseInt(bNumberMatch[1], 10);
 
@@ -69,6 +58,17 @@ const OrbitedButton = (props, context) => {
   return (
     <Button
       color={color}
+      tooltip={
+        thing.assigned_role ? (
+          <Stack>
+            <Box as="img" mr="0.5em" className={classes(['orbit_job16x16', thing.assigned_role_sprite])} />{' '}
+            {thing.assigned_role}
+          </Stack>
+        ) : (
+          ''
+        )
+      }
+      tooltipPosition="bottom"
       onClick={() =>
         act('orbit', {
           ref: thing.ref,
@@ -89,7 +89,7 @@ const OrbitedButton = (props, context) => {
 
 export const Orbit = (props, context) => {
   const { act, data } = useBackend(context);
-  const { alive, antagonists, highlights, auto_observe, dead, ghosts, misc, npcs } = data;
+  const { alive, antagonists, highlights, response_teams, tourist, auto_observe, dead, ssd, ghosts, misc, npcs } = data;
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -109,16 +109,16 @@ export const Orbit = (props, context) => {
   const orbitMostRelevant = (searchText) => {
     for (const source of [
       sortedAntagonists.map(([_, antags]) => antags),
+      tourist,
       highlights,
       alive,
       ghosts,
+      ssd,
       dead,
       npcs,
       misc,
     ]) {
-      const member = source
-        .filter(searchFor(searchText))
-        .sort(compareNumberedText)[0];
+      const member = source.filter(searchFor(searchText)).sort(compareNumberedText)[0];
       if (member !== undefined) {
         act('orbit', { ref: member.ref });
         break;
@@ -127,14 +127,14 @@ export const Orbit = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={700} height={500}>
       <Window.Content scrollable>
         <Section>
-          <Flex>
-            <Flex.Item>
-              <Icon name="search" mr={1} />
-            </Flex.Item>
-            <Flex.Item grow={1}>
+          <Stack>
+            <Stack.Item>
+              <Icon name="search" />
+            </Stack.Item>
+            <Stack.Item grow>
               <Input
                 placeholder="Search..."
                 autoFocus
@@ -143,26 +143,26 @@ export const Orbit = (props, context) => {
                 onInput={(_, value) => setSearchText(value)}
                 onEnter={(_, value) => orbitMostRelevant(value)}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Divider vertical />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 inline
                 color="transparent"
                 tooltip="Refresh"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 icon="sync-alt"
                 onClick={() => act('refresh')}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         {antagonists.length > 0 && (
           <Section title="Antagonists">
             {sortedAntagonists.map(([name, antags]) => (
-              <Section key={name} title={name} level={2}>
+              <Section key={name} title={`${name} - (${antags.length})`} level={2}>
                 {antags
                   .filter(searchFor(searchText))
                   .sort(compareNumberedText)
@@ -174,48 +174,24 @@ export const Orbit = (props, context) => {
           </Section>
         )}
         {highlights.length > 0 && (
-          <BasicSection
-            title="Highlights"
-            source={highlights}
-            searchText={searchText}
-            color={'teal'}
-          />
+          <BasicSection title="Highlights" source={highlights} searchText={searchText} color={'teal'} />
         )}
 
-        <BasicSection
-          title="Alive"
-          source={alive}
-          searchText={searchText}
-          color={'good'}
-        />
+        <BasicSection title="Response Teams" source={response_teams} searchText={searchText} color={'purple'} />
 
-        <BasicSection
-          title="Ghosts"
-          source={ghosts}
-          searchText={searchText}
-          color={'grey'}
-        />
+        <BasicSection title="Tourists" source={tourist} searchText={searchText} color={'violet'} />
 
-        <BasicSection
-          title="Dead"
-          source={dead}
-          searchText={searchText}
-          sorted={false}
-        />
+        <BasicSection title="Alive" source={alive} searchText={searchText} color={'good'} />
 
-        <BasicSection
-          title="NPCs"
-          source={npcs}
-          searchText={searchText}
-          sorted={false}
-        />
+        <BasicSection title="Ghosts" source={ghosts} searchText={searchText} color={'grey'} />
 
-        <BasicSection
-          title="Misc"
-          source={misc}
-          searchText={searchText}
-          sorted={false}
-        />
+        <BasicSection title="SSD" source={ssd} searchText={searchText} color={'grey'} />
+
+        <BasicSection title="Dead" source={dead} searchText={searchText} sorted={false} />
+
+        <BasicSection title="NPCs" source={npcs} searchText={searchText} sorted={false} />
+
+        <BasicSection title="Misc" source={misc} searchText={searchText} sorted={false} />
       </Window.Content>
     </Window>
   );

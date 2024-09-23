@@ -1,5 +1,6 @@
 /datum/martial_art/boxing
 	name = "Boxing"
+	weight = 1
 
 /datum/martial_art/boxing/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
@@ -17,7 +18,7 @@
 
 	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 	if(!damage)
-		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
 		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)", ATKLOG_ALL)
 		return 0
@@ -26,7 +27,7 @@
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
+	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
@@ -39,13 +40,12 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Weaken(10 SECONDS)
-			D.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(D))
-			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
 	name = "Drunken Brawling"
+	weight = 2
+	can_horizontally_grab = FALSE
 
 /datum/martial_art/drunk_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(prob(70))
@@ -76,14 +76,14 @@
 		damage = 0
 
 	if(!damage)
-		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
 		return 1 //returns 1 so that they actually miss and don't switch to attackhand damage
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
+	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 
 
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
@@ -97,7 +97,4 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Paralyse(10 SECONDS)
-			D.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(D))
-			D.forcesay(GLOB.hit_appends)
 	return 1

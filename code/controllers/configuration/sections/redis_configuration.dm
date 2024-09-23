@@ -10,7 +10,7 @@
 	// UNIT TESTS ARE DEFINED - USE CUSTOM CI VALUES
 	#ifdef UNIT_TESTS
 
-	enabled = TRUE
+	// enabled = TRUE
 
 	#else
 	// Load the normal config. Were not in CI mode

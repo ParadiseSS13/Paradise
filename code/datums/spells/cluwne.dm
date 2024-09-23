@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/cluwne
+/datum/spell/touch/cluwne
 	name = "Curse of the Cluwne"
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
 	hand_path = /obj/item/melee/touch_attack/cluwne
@@ -12,6 +12,11 @@
 	action_icon_state = "cluwne"
 
 /mob/living/carbon/human/proc/makeCluwne()
+	if(istype(back, /obj/item/mod/control)) // Check if the target is wearing a modsuit
+		var/obj/item/mod/control/modsuit_control = back
+		if(istype(wear_suit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
+			modsuit_control.active = FALSE // Instantly deactivate the modsuit - if it was activated
+			modsuit_control.quick_deploy(src) // The modsuit is no longer deployed
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
@@ -24,8 +29,7 @@
 	if(mind)
 		mind.assigned_role = "Cluwne"
 
-	var/obj/item/organ/internal/honktumor/cursed/tumor = new
-	tumor.insert(src)
+
 	dna.SetSEState(GLOB.nervousblock, 1, 1)
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
@@ -33,12 +37,14 @@
 	unEquip(w_uniform, 1)
 	unEquip(shoes, 1)
 	unEquip(gloves, 1)
+	var/obj/item/organ/internal/honktumor/cursed/tumor = new
+	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		unEquip(wear_mask, 1)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -48,7 +54,7 @@
 	SetConfused(0)
 	SetJitter(0)
 	if(mind)
-		mind.assigned_role = "Lawyer"
+		mind.assigned_role = "Internal Affairs Agent"
 
 	var/obj/item/organ/internal/honktumor/cursed/tumor = get_int_organ(/obj/item/organ/internal/honktumor/cursed)
 	if(tumor)
@@ -79,5 +85,5 @@
 		unEquip(gloves, 1)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/lawyer/black, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/iaa/formal/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES, TRUE, TRUE)

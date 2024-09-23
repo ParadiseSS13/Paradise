@@ -29,7 +29,8 @@ other types of metals and chemistry for reagents).
 
 */
 
-/datum/design						//Datum for object designs, used in construction
+/// Datum for object designs, used in construction
+/datum/design
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
@@ -45,3 +46,5 @@ other types of metals and chemistry for reagents).
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
+	/// Determines whether or not we get to get a design blueprint from a disk
+	var/requires_whitelist = FALSE

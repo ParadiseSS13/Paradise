@@ -107,5 +107,75 @@
 /datum/map_per_tile_test/structures_in_farspace_checker
 
 /datum/map_per_tile_test/structures_in_farspace_checker/CheckTile(turf/T)
-	if(T.loc.type == /area/space && locate(/obj/structure) in T.contents)
+	if((T.loc.type == /area/space || T.loc.type == /area/space/centcomm) && locate(/obj/structure) in T.contents)
 		Fail(T, "tile contains at least one structure found in non-near space area")
+
+/datum/map_per_tile_test/nearspace_checker
+	var/allowed_turfs = list(/turf/space,
+		/turf/simulated/floor/plating/airless,
+		/turf/simulated/floor/plasteel/airless,
+		/turf/simulated/wall
+	)
+
+/datum/map_per_tile_test/nearspace_checker/New()
+	..()
+	allowed_turfs = typecacheof(allowed_turfs)
+
+/datum/map_per_tile_test/nearspace_checker/CheckTile(turf/T)
+	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
+		Fail(T, "nearspace area contains a non-space turf: [T], ([T.type])")
+
+
+/datum/map_per_tile_test/cable_adjacency_checker
+
+/datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
+	for(var/obj/structure/cable/cable in T.contents)
+		check_direction(T, cable.d1, "d1")
+		check_direction(T, cable.d2, "d2")
+
+/datum/map_per_tile_test/cable_adjacency_checker/proc/check_direction(origin_turf, direction, report_name)
+	if(!direction) // cable direction = 0, which means its a node
+		return TRUE
+	var/turf/potential_cable_turf = get_step(origin_turf, direction)
+	var/reversed_direction = REVERSE_DIR(direction)
+	for(var/obj/structure/cable/other_cable in potential_cable_turf.contents)
+		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
+			return TRUE
+
+	Fail(origin_turf, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
+	return FALSE
+
+/datum/map_per_tile_test/duplicate_cable_check
+
+/datum/map_per_tile_test/duplicate_cable_check/CheckTile(turf/T)
+	var/obj/structure/cable/cable = locate() in T.contents
+	for(var/obj/structure/cable/other_cable in T.contents)
+		if(cable == other_cable)
+			continue // same object, continue
+		if(cable.d1 == other_cable.d1 && cable.d2 == other_cable.d2)
+			Fail(T, "tile has duplicated cables.")
+
+/datum/map_per_tile_test/missing_pipe_connection
+
+/datum/map_per_tile_test/missing_pipe_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/pipe/simple/pipe = locate() in T.contents
+	if(isnull(pipe))
+		return
+	if(!pipe.node1 && !pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing both nodes.")
+		return
+	if(istype(pipe, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) && (pipe.node1 || pipe.node2))
+		return // H/E pipes only need one end, because they don't always become full loops
+	if(!pipe.node1)
+		Fail(T, "[pipe] ([pipe.type]) missing node1. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node2))))])")
+	if(!pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing node2. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node1))))])")
+
+/datum/map_per_tile_test/unary_device_connection
+
+/datum/map_per_tile_test/unary_device_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/unary/unary_device = locate() in T.contents
+	if(isnull(unary_device))
+		return
+	if(!unary_device.node)
+		Fail(T, "[unary_device] ([unary_device.type]) missing node. ([uppertext(dir2text(unary_device.dir))])")

@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/gas
 	name = "gas mask"
-	desc = "A face-covering mask that can be connected to an air supply."
+	desc = "A face-covering mask that can be connected to an air supply. Used by mischievous assistants and syndicate agents alike."
 	icon_state = "gas_alt"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
@@ -30,7 +30,7 @@
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
@@ -38,6 +38,15 @@
 	can_toggle = TRUE
 	visor_flags_inv = HIDEEYES
 	resistance_flags = FIRE_PROOF
+
+	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+	)
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -47,7 +56,8 @@
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 35)
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
 
@@ -72,7 +82,18 @@
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize()
 	. = ..()
-	adjustmask()
+	force_adjust_mask()
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDEFACE
+	flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -94,7 +115,6 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 150, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
@@ -224,9 +244,9 @@
 
 /obj/item/clothing/mask/gas/navy_officer
 	name = "nanotrasen navy officer gas mask"
-	desc = "A durable gas mask designed for NanoTrasen Navy Officers."
+	desc = "A durable gas mask designed for Nanotrasen Navy Officers."
 	icon_state = "navy_officer_gasmask"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 6 SECONDS
 
 // ********************************************************************
@@ -292,7 +312,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
-	name = "\improper blue SWAT mask"
+	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
@@ -316,7 +336,7 @@
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
-		if (!safety)
+		if(!safety)
 			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
 			return
 
@@ -381,6 +401,7 @@
 	if(safety)
 		safety = 0
 		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+		return TRUE
 	else
 		return
 
@@ -393,12 +414,12 @@
 		if(!safety)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
+			playsound(src.loc, 'sound/voice/binsult.ogg', 100, FALSE, 4)
 			cooldown = world.time
 			return
 
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, 0, 4)
+		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
 

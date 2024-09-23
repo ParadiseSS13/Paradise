@@ -1,4 +1,8 @@
+RESTRICT_TYPE(/datum/antagonist)
+
 GLOBAL_LIST_EMPTY(antagonists)
+
+#define SUCCESSFUL_DETACH "dont touch this string numbnuts"
 
 /datum/antagonist
 	/// The name of the antagonist.
@@ -18,9 +22,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// Should we replace the role-banned player with a ghost?
 	var/replace_banned = TRUE
 	/// List of objectives connected to this datum.
-	var/list/objectives
-	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
-	var/list/assigned_targets
+	var/datum/objective_holder/objective_holder
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -35,32 +37,64 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// The spawn class to use for gain/removal clown text
+	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
+	/// The organization, if any, this antag is associated with
+	var/datum/antag_org/organization
+	/// If set to TRUE, the antag will be notified they are targeted by another antagonist this round.
+	var/targeted_by_antag = FALSE
+	/// The message displayed to the antag if targeted_by_antag is set to TRUE
+	var/targeted_by_antag_message = "You can't shake the feeling someone's been stalking you. You might be an assassin's next target."
+
+	//Blurb stuff
+	/// Intro Blurbs text colour
+	var/blurb_text_color = COLOR_BLACK
+	/// Intro Blurbs outline width
+	var/blurb_text_outline_width = 0
+	/// Intro Blurb Font
+	var/blurb_font = "Courier New"
+	//Backgrount
+	var/blurb_r = 0
+	var/blurb_g = 0
+	var/blurb_b = 0
+	var/blurb_a = 0
+
+	/// Do we have delayed objective giving?
+	var/delayed_objectives = FALSE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
-	objectives = list()
-	assigned_targets = list()
+	objective_holder = new(src)
 
 /datum/antagonist/Destroy(force, ...)
-	for(var/datum/objective/O as anything in objectives)
-		objectives -= O
-		if(!O.team)
-			qdel(O)
-	remove_owner_from_gamemode()
+	qdel(objective_holder)
 	GLOB.antagonists -= src
+	if(!QDELETED(owner) && detach_from_owner() != SUCCESSFUL_DETACH)
+		stack_trace("[src] ([type]) failed to detach from owner! This is very bad!")
+
+	return ..()
+
+/**
+ * Removes owner's dependencies on this antag datum.
+ * For example: removal of antag datum from owner's `antag_datums`, antag datum related teams etc.
+ * If your `/datum/antagonist`  subtype adds more dependencies on `owner` - they should be cleared there.
+ */
+/datum/antagonist/proc/detach_from_owner()
+	SHOULD_CALL_PARENT(TRUE)
+
+	remove_owner_from_gamemode()
 	if(!silent)
 		farewell()
 	remove_innate_effects()
 	antag_memory = null
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
-	if(owner)
-		LAZYREMOVE(owner.antag_datums, src)
+	LAZYREMOVE(owner.antag_datums, src)
 	restore_last_hud_and_role()
 	owner = null
-	return ..()
+	return SUCCESSFUL_DETACH
 
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
@@ -139,6 +173,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return L
 
 /**
+ * Selects and set the organization this antag is associated with.
+ * Base proc, override as needed
+ */
+/datum/antagonist/proc/select_organization()
+	return
+
+/**
  * Adds this datum's antag hud to `antag_mob`.
  *
  * Arguments:
@@ -211,59 +252,51 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
-	var/datum/objective/O = new objective_type(explanation_text)
-	O.owner = owner
+/datum/antagonist/proc/add_antag_objective(datum/objective/objective_to_add, explanation_text, mob/target_override)
+	if(ispath(objective_to_add))
+		objective_to_add = new objective_to_add()
 
-	if(target_override)
-		O.target = target_override
-		objectives += O
-		return
+	// Roll to see if we target a specific department or random one
+	if(organization && prob(organization.focus))
+		if(organization.targeted_departments)
+			objective_to_add.target_department = pick(organization.targeted_departments)
+			objective_to_add.steal_list = organization.theft_targets
 
-	if(!O.needs_target)
-		objectives += O
-		return
+	if(objective_to_add.owner)
+		stack_trace("[objective_to_add], [objective_to_add.type] was assigned as an objective to [owner] (mind), but already had an owner: [objective_to_add.owner] (mind). Overriding.")
+	objective_to_add.owner = owner
 
-	O.find_target()
-	var/duplicate = FALSE
-
-	// Steal objectives need snowflake handling here unfortunately.
-	if(istype(O, /datum/objective/steal))
-		var/datum/objective/steal/S = O
-		// Check if it's a duplicate.
-		if("[S.steal_target]" in assigned_targets)
-			S.find_target() // Try again.
-			if("[S.steal_target]" in assigned_targets)
-				S.steal_target = null
-				S.explanation_text = "Free Objective" // Still a duplicate, so just make it a free objective.
-				duplicate = TRUE
-		if(S.steal_target && !duplicate)
-			assigned_targets += "[S.steal_target]"
-	else
-		if("[O.target]" in assigned_targets)
-			O.find_target()
-			if("[O.target]" in assigned_targets)
-				O.target = null
-				O.explanation_text = "Free Objective"
-				duplicate = TRUE
-		if(O.target && !duplicate)
-			assigned_targets += "[O.target]"
-
-	objectives += O
-	return O
+	return objective_holder.add_objective(objective_to_add, explanation_text, target_override)
 
 /**
- * Announces all objectives of this datum, and only this datum.
+ * Complement to add_antag_objective that removes the objective.
+ * Currently unused.
  */
-/datum/antagonist/proc/announce_objectives()
-	if(!length(objectives))
-		return FALSE
-	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
-	var/objective_num = 1
-	for(var/objective in objectives)
-		var/datum/objective/O = objective
-		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [O.explanation_text]</span><br>")
-	return TRUE
+/datum/antagonist/proc/remove_antag_objective(datum/objective/O)
+	return objective_holder.remove_objective(O)
+
+/**
+ * Do we have any objectives at all, including from a team.
+ * Faster than get_antag_objectives()
+ */
+/datum/antagonist/proc/has_antag_objectives(include_team = TRUE)
+	. = FALSE
+	if(include_team)
+		var/datum/team/team = get_team()
+		if(istype(team))
+			. |= team.objective_holder.has_objectives()
+	. |= objective_holder.has_objectives()
+
+/**
+ * Get all of this antagonist's objectives, including from the team.
+ */
+/datum/antagonist/proc/get_antag_objectives(include_team = TRUE)
+	. = list()
+	if(include_team)
+		var/datum/team/team = get_team()
+		if(istype(team))
+			. |= team.objective_holder.get_objectives()
+	. |= objective_holder.get_objectives()
 
 /**
  * Proc called when the datum is given to a mind.
@@ -271,17 +304,23 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
+	select_organization()
 	if(give_objectives)
 		give_objectives()
+	var/list/messages = list()
 	if(!silent)
-		greet()
-		announce_objectives()
+		messages.Add(greet())
+		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
-	finalize_antag()
+	messages.Add(finalize_antag())
 	if(wiki_page_name)
-		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
+	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
 /**
@@ -301,7 +340,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	owner.special_role = A.special_role
 
 /**
- * Checks if the person trying to recieve this datum is role banned from it.
+ * Checks if the person trying to receive this datum is role banned from it.
  */
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
@@ -316,10 +355,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!length(candidates))
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
-	to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
 	owner.current.key = C.key
+	dust_if_respawnable(C)
 	return TRUE
 
 /**
@@ -328,8 +368,12 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
+	var/list/messages = list()
+	. = messages
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		if(organization && organization.intro_desc)
+			messages.Add("<span class='boldnotice'>[organization.intro_desc]</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -338,7 +382,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]!</span>")
 
 /**
  * Creates a new antagonist team.
@@ -368,14 +412,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 	report += printplayer(owner)
 
 	var/objectives_complete = TRUE
-	if(owner.objectives.len)
+	if(objective_holder.has_objectives())
 		report += printobjectives(owner)
-		for(var/datum/objective/objective in owner.objectives)
+		for(var/datum/objective/objective in objective_holder.get_objectives())
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
 
-	if(owner.objectives.len == 0 || objectives_complete)
+	if(objectives_complete)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
@@ -389,3 +433,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
 	return
+
+// Called when the owner is cryo'd, for when you want things to happen on cryo and not deletion
+/datum/antagonist/proc/on_cryo()
+	return
+
+/// This is the custom blurb message used on login for an antagonist.
+/datum/antagonist/proc/custom_blurb()
+	return FALSE
+
+#undef SUCCESSFUL_DETACH

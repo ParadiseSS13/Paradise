@@ -27,7 +27,7 @@
 	var/suspended = FALSE
 	///Type of account this is
 	var/account_type = ACCOUNT_TYPE_PERSONAL
-	///the amount this account recieves every payday
+	///the amount this account receives every payday
 	var/payday_amount = CREW_BASE_PAY_LOW
 
 	///The nanobank programs associated with this account, used for notifying crew members through PDA, this is a lazy list
@@ -53,8 +53,8 @@
 
 /datum/money_account/Destroy(force)
 	//we don't need to worry about nanobank programs here because they auto GC themselves
-	QDEL_LIST(account_log)
-	QDEL_LIST(hidden_account_log)
+	QDEL_LIST_CONTENTS(account_log)
+	QDEL_LIST_CONTENTS(hidden_account_log)
 	if(!QDELETED(database_holder))
 		if(account_type == ACCOUNT_TYPE_PERSONAL)
 			database_holder.user_accounts -= src //remove reference to this account incase this was not deleted the "correct" way through an account db

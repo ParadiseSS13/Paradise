@@ -21,6 +21,10 @@
 /obj/structure/grille/broken,
 /turf/space,
 /area/space)
+"f" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
+/turf/space,
+/area/space)
 "g" = (
 /obj/structure/disposalpipe/broken{
 	dir = 4
@@ -36,14 +40,6 @@
 /area/space)
 "l" = (
 /obj/item/stack/cable_coil/cut,
-/turf/space,
-/area/space)
-"m" = (
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/space,
-/area/space)
-"n" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/space,
 /area/space)
 "o" = (
@@ -79,11 +75,11 @@
 /turf/space,
 /area/space)
 "y" = (
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "z" = (
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "B" = (
 /obj/structure/lattice,
@@ -100,21 +96,20 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "E" = (
 /obj/item/stack/rods,
 /turf/space,
 /area/space)
 "F" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "G" = (
 /obj/random/toolbox,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "I" = (
 /obj/structure/grille/broken,
@@ -129,28 +124,21 @@
 /obj/item/shard,
 /turf/space,
 /area/space)
-"N" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "O" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Q" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "T" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "U" = (
 /obj/effect/spawner/random_barrier/wall_probably,
@@ -159,12 +147,17 @@
 "V" = (
 /turf/simulated/wall,
 /area/space)
+"W" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
+/turf/space,
+/area/space)
 "X" = (
 /turf/space,
 /area/space)
 "Y" = (
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Z" = (
 /obj/item/stack/sheet/metal,
@@ -241,7 +234,7 @@ a
 a
 d
 X
-m
+X
 X
 X
 X
@@ -264,7 +257,7 @@ a
 r
 X
 g
-F
+y
 X
 E
 I
@@ -310,11 +303,11 @@ X
 X
 y
 E
-X
+f
 E
 Y
 X
-n
+X
 X
 h
 E
@@ -387,7 +380,7 @@ X
 E
 X
 X
-n
+X
 r
 a
 "}
@@ -398,7 +391,7 @@ X
 X
 I
 v
-v
+W
 X
 v
 t
@@ -467,7 +460,7 @@ X
 v
 X
 v
-N
+v
 E
 E
 K
@@ -512,11 +505,11 @@ T
 X
 Z
 X
-n
+X
 v
 X
 z
-n
+X
 X
 Z
 X
