@@ -5163,7 +5163,7 @@
 /area/station/maintenance/fore)
 "ayb" = (
 /obj/structure/closet/emcloset/anchored,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ayd" = (
@@ -5435,7 +5435,7 @@
 	},
 /area/station/service/clown)
 "azo" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/old_kitchen)
 "azq" = (
@@ -11923,7 +11923,7 @@
 "aZC" = (
 /obj/structure/closet/crate/secure/bin,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood/fancy/birch,
 /area/station/maintenance/starboard)
 "aZD" = (
@@ -35638,9 +35638,9 @@
 /turf/space,
 /area/space/nearstation)
 "cNo" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -37451,7 +37451,7 @@
 "cUS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cUT" = (
@@ -38519,8 +38519,8 @@
 /area/station/medical/psych)
 "cYT" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cZl" = (
@@ -39024,8 +39024,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dbJ" = (
@@ -39307,9 +39307,9 @@
 /area/station/maintenance/abandonedbar)
 "dcY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -40917,9 +40917,9 @@
 /area/station/maintenance/port)
 "dkA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "neutral"
@@ -41297,7 +41297,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/service/cafeteria)
 "dmV" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plating,
@@ -41310,9 +41310,9 @@
 	},
 /area/station/science/research)
 "dmX" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -43369,7 +43369,7 @@
 /area/station/science/lobby)
 "dvl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dvo" = (
@@ -43832,7 +43832,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dzb" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dzn" = (
@@ -44888,9 +44888,9 @@
 "dES" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -45898,7 +45898,7 @@
 "dKr" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dKs" = (
@@ -46406,8 +46406,8 @@
 /area/station/command/office/blueshield)
 "dNS" = (
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dOc" = (
@@ -46627,8 +46627,8 @@
 "dPb" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dPd" = (
@@ -48874,9 +48874,9 @@
 /area/station/science/storage)
 "dYr" = (
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -48929,8 +48929,8 @@
 /area/station/maintenance/port2)
 "dYC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/oil_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -52607,12 +52607,12 @@
 /area/station/engineering/atmos)
 "eYd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "eYr" = (
@@ -55667,8 +55667,8 @@
 "fUZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "fVi" = (
@@ -56488,7 +56488,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "gjZ" = (
@@ -57233,10 +57233,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "gvn" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -57692,8 +57692,8 @@
 	},
 /area/station/engineering/hardsuitstorage)
 "gCZ" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -57731,7 +57731,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/library)
 "gDY" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59412,10 +59412,10 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/legal/courtroom)
 "heT" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -59504,10 +59504,10 @@
 	},
 /area/station/medical/sleeper)
 "hfw" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -59901,7 +59901,7 @@
 "hle" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "hlo" = (
@@ -60824,7 +60824,7 @@
 /area/station/maintenance/fsmaint)
 "hBj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -60973,7 +60973,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/service/chapel/bedroom)
 "hDH" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/tranquillite,
@@ -64223,10 +64223,10 @@
 /area/station/hallway/primary/aft)
 "iyA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -64687,10 +64687,10 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -65174,10 +65174,10 @@
 /obj/structure/sign/poster/contraband/vodka{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
@@ -65310,7 +65310,7 @@
 /area/station/engineering/hardsuitstorage)
 "iRt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -65478,8 +65478,8 @@
 /turf/simulated/wall,
 /area/station/security/storage)
 "iTK" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "iUa" = (
@@ -65687,7 +65687,7 @@
 	},
 /area/station/science/misc_lab)
 "iWV" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -66049,7 +66049,7 @@
 "jdn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "neutral"
@@ -67028,7 +67028,7 @@
 	},
 /area/station/maintenance/port)
 "jpn" = (
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/item/coin/silver{
 	pixel_y = 5;
 	pixel_x = 3
@@ -67045,8 +67045,8 @@
 	},
 /area/station/supply/qm)
 "jpo" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
@@ -67138,7 +67138,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "jqD" = (
@@ -68145,7 +68145,7 @@
 	},
 /area/station/service/chapel)
 "jGT" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68447,7 +68447,7 @@
 	},
 /area/station/security/brig)
 "jKy" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -69440,8 +69440,8 @@
 /area/station/service/theatre)
 "jZz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -70871,7 +70871,7 @@
 "kww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "kwC" = (
@@ -73150,8 +73150,8 @@
 	},
 /area/station/medical/virology)
 "lhJ" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
@@ -74559,11 +74559,11 @@
 /turf/simulated/floor/carpet,
 /area/station/maintenance/port)
 "lCy" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -75911,8 +75911,8 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "lWq" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "lWG" = (
@@ -77598,9 +77598,9 @@
 "mzk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -78219,8 +78219,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "mMc" = (
@@ -79196,7 +79196,7 @@
 "nan" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "naq" = (
@@ -79862,9 +79862,9 @@
 	},
 /area/station/maintenance/fore)
 "njI" = (
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "njJ" = (
@@ -81439,7 +81439,7 @@
 	dir = 9
 	},
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -82052,7 +82052,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -82083,7 +82083,7 @@
 	},
 /area/station/hallway/primary/fore)
 "nMH" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/damageturf,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -82771,7 +82771,7 @@
 	},
 /area/station/engineering/control)
 "nWl" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -83219,11 +83219,11 @@
 	},
 /area/station/maintenance/fsmaint)
 "ocg" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -83845,9 +83845,9 @@
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "omg" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/igniter{
 	id = "disp"
 	},
@@ -85212,7 +85212,7 @@
 /turf/simulated/floor/wood/parquet,
 /area/station/service/library)
 "oJn" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "oJB" = (
@@ -85438,7 +85438,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oMf" = (
@@ -87845,7 +87845,7 @@
 	},
 /area/station/science/robotics)
 "puY" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -88465,7 +88465,7 @@
 /area/station/engineering/mechanic)
 "pFT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -92322,8 +92322,8 @@
 "qOo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "neutral"
@@ -93903,8 +93903,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "rix" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
@@ -94743,7 +94743,7 @@
 /area/station/engineering/controlroom)
 "rwn" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "rwJ" = (
@@ -95185,7 +95185,7 @@
 /area/station/hallway/primary/fore)
 "rDc" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "rDi" = (
@@ -97433,7 +97433,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "soY" = (
@@ -97658,7 +97658,7 @@
 	pixel_y = 8;
 	pixel_x = 6
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -98362,8 +98362,8 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "sAA" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "sAG" = (
@@ -98840,7 +98840,7 @@
 	},
 /area/station/engineering/atmos)
 "sGD" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/old_kitchen)
@@ -99835,7 +99835,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "sYj" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
@@ -103012,7 +103012,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "tWx" = (
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/plating/burnt/airless,
 /area/space/nearstation)
 "tWG" = (
@@ -104569,7 +104569,7 @@
 /area/station/public/arcade)
 "usY" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/machinery/light/directional/east,
 /obj/machinery/ai_status_display/east,
 /turf/simulated/floor/plasteel{
@@ -105113,7 +105113,7 @@
 /area/station/medical/break_room)
 "uFe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uFf" = (
@@ -105631,7 +105631,7 @@
 	},
 /area/station/security/checkpoint/south)
 "uME" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "uMM" = (
@@ -107023,7 +107023,7 @@
 /area/station/maintenance/dormitory_maintenance)
 "vfg" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vfh" = (
@@ -109159,10 +109159,10 @@
 "vPh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "vPi" = (
@@ -111710,7 +111710,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wEW" = (
@@ -112463,8 +112463,8 @@
 /area/station/engineering/atmos)
 "wRl" = (
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -112715,7 +112715,7 @@
 "wUr" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 8;
@@ -113581,7 +113581,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "xgs" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -113882,9 +113882,9 @@
 	},
 /area/station/medical/reception)
 "xlu" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xlQ" = (
@@ -114176,7 +114176,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "xpI" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/structure/sign/poster/official/random/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -114536,7 +114536,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "xui" = (
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/plating/burnt/airless,
 /area/space/nearstation)
 "xum" = (
@@ -114884,7 +114884,7 @@
 	},
 /area/station/hallway/primary/central/east)
 "xzO" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/old_kitchen)
 "xAg" = (
@@ -116831,7 +116831,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "ycK" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -117033,7 +117033,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "ygB" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -117229,8 +117229,8 @@
 /obj/machinery/light/small/directional/north,
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"

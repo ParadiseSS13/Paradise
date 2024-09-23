@@ -7685,7 +7685,7 @@
 "jVr" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "jVL" = (

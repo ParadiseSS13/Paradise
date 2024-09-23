@@ -652,8 +652,8 @@
 	pixel_x = 3
 	},
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel/white{
 	icon_state = "white_large"
 	},
@@ -3594,11 +3594,11 @@
 "Vp" = (
 /obj/machinery/light/directional/north,
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark_diagonal"
 	},
@@ -3998,9 +3998,9 @@
 "ZV" = (
 /obj/item/trash/candy,
 /obj/structure/closet/crate/secure/bin,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/carpet/arcade,
 /area/awaymission/beach)
 "ZZ" = (

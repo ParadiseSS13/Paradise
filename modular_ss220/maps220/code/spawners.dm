@@ -1,82 +1,121 @@
-/* Lootdrop food spawners */
-/obj/effect/spawner/lootdrop/CCfood
+/* Random food spawners */
+/obj/effect/spawner/random/CCfood
 
-/obj/effect/spawner/lootdrop/CCfood/desert
-	lootcount = 5
-	loot = list(
-		/obj/item/food/baguette=10,
-		/obj/item/food/applepie=10,
-		/obj/item/food/bananabreadslice=10,
-		/obj/item/food/bananacakeslice=10,
-		/obj/item/food/carrotcakeslice=10,
-		/obj/item/food/croissant=10,
-		/obj/item/reagent_containers/drinks/cans/cola=10,""=70)
 
-/obj/effect/spawner/lootdrop/CCfood/meat
-	lootcount = 5
+/obj/effect/spawner/random/CCfood/dessert
+	spawn_loot_count = 3
 	loot = list(
-		/obj/item/food/lasagna=10,
-		/obj/item/food/burger/bigbite=10,
-		/obj/item/food/fishandchips=10,
-		/obj/item/food/fishburger=10,
-		/obj/item/food/hotdog=10,
-		/obj/item/food/meatpie=10,
-		/obj/item/reagent_containers/drinks/cans/cola=10,""=70)
+		/obj/item/food/baguette,
+		/obj/item/food/applepie,
+		/obj/item/food/bananabreadslice,
+		/obj/item/food/bananacakeslice,
+		/obj/item/food/carrotcakeslice,
+		/obj/item/food/croissant,
+		/obj/item/reagent_containers/drinks/cans/cola,
+		)
 
-/obj/effect/spawner/lootdrop/CCfood/alcohol
-	lootcount = 1
+/obj/effect/spawner/random/CCfood/meat
+	spawn_loot_count = 3
 	loot = list(
-		/obj/item/reagent_containers/drinks/flask/detflask=10,
-		/obj/item/reagent_containers/drinks/cans/tonic=10,
-		/obj/item/reagent_containers/drinks/cans/thirteenloko=10,
-		/obj/item/reagent_containers/drinks/cans/synthanol=10,
-		/obj/item/reagent_containers/drinks/cans/space_mountain_wind=10,
-		/obj/item/reagent_containers/drinks/cans/lemon_lime=10,""=70)
+		/obj/item/food/lasagna,
+		/obj/item/food/burger/bigbite,
+		/obj/item/food/fishandchips,
+		/obj/item/food/fishburger,
+		/obj/item/food/hotdog,
+		/obj/item/food/meatpie,
+		/obj/item/reagent_containers/drinks/cans/cola,
+		)
+
+/obj/effect/spawner/random/CCfood/alcohol
+	spawn_loot_count = 1
+	loot = list(
+		/obj/item/reagent_containers/drinks/flask/detflask,
+		/obj/item/reagent_containers/drinks/cans/tonic,
+		/obj/item/reagent_containers/drinks/cans/thirteenloko,
+		/obj/item/reagent_containers/drinks/cans/synthanol,
+		/obj/item/reagent_containers/drinks/cans/space_mountain_wind,
+		/obj/item/reagent_containers/drinks/cans/lemon_lime,
+		)
 
 /* Lootdrop */
-/obj/effect/spawner/lootdrop/maintenance
+/obj/effect/spawner/random/maintenance
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 
-/obj/effect/spawner/lootdrop/maintenance/three
-	icon_state = "trippleloot"
+/obj/effect/spawner/random/maintenance/one
+	icon_state = "loot"
 
-/obj/effect/spawner/lootdrop/maintenance/five
-	name = "maintenance loot spawner (5 items)"
+/obj/effect/spawner/random/maintenance/one/Initialize(mapload)
+	. = ..()
+	spawn_loot_count = 1
+
+/obj/effect/spawner/random/maintenance/two
+	icon_state = "doubleloot"
+
+/obj/effect/spawner/random/maintenance/two/Initialize(mapload)
+	. = ..()
+	spawn_loot_count = 2
+
+/obj/effect/spawner/random/maintenance/three
+	icon_state = "tripleloot"
+
+/obj/effect/spawner/random/maintenance/three/Initialize(mapload)
+	. = ..()
+	spawn_loot_count = 3
+
+/obj/effect/spawner/random/maintenance/five
 	icon_state = "moreloot"
-	lootcount = 5
 
-/obj/effect/spawner/lootdrop/trash
-	name = "trash spawner"
+/obj/effect/spawner/random/maintenance/five/Initialize(mapload)
+	. = ..()
+	spawn_loot_count = 5
+
+/obj/effect/spawner/random/trash
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
-	icon_state = "trash"
+
+/obj/effect/spawner/random/trash/Initialize(mapload)
+	. = ..()
+	loot += list(
+		list(
+			/obj/item/trash/bowl,
+			/obj/item/trash/can,
+			/obj/item/trash/candle,
+			/obj/item/trash/candy,
+			/obj/item/trash/cheesie,
+			/obj/item/trash/chips,
+			/obj/item/trash/fried_vox,
+			/obj/item/trash/gum,
+			/obj/item/trash/liquidfood,
+			/obj/item/trash/pistachios,
+			/obj/item/trash/plate,
+			/obj/item/trash/popcorn,
+			/obj/item/trash/raisins,
+			/obj/item/trash/semki,
+			/obj/item/trash/snack_bowl,
+			/obj/item/trash/sosjerky,
+			/obj/item/trash/spacetwinkie,
+			/obj/item/trash/spentcasing,
+			/obj/item/trash/syndi_cakes,
+			/obj/item/trash/tapetrash,
+			/obj/item/trash/tastybread,
+			/obj/item/trash/tray,
+			/obj/item/trash/waffles,
+			/obj/item/trash/vulpix_chips,
+			/obj/item/trash/foodtray,
+		) = 5,
+	)
+
+// Office toys spawner
+/obj/effect/spawner/random/officetoys
+	name = "office desk toy spawner"
+	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
+	icon_state = "officetoy"
 	loot = list(
-		/obj/item/trash/bowl,
-		/obj/item/trash/can,
-		/obj/item/trash/candle,
-		/obj/item/trash/candy,
-		/obj/item/trash/cheesie,
-		/obj/item/trash/chips,
-		/obj/item/trash/fried_vox,
-		/obj/item/trash/gum,
-		/obj/item/trash/liquidfood,
-		/obj/item/trash/pistachios,
-		/obj/item/trash/plate,
-		/obj/item/trash/popcorn,
-		/obj/item/trash/raisins,
-		/obj/item/trash/semki,
-		/obj/item/trash/snack_bowl,
-		/obj/item/trash/sosjerky,
-		/obj/item/trash/spacetwinkie,
-		/obj/item/trash/spentcasing,
-		/obj/item/trash/syndi_cakes,
-		/obj/item/trash/tapetrash,
-		/obj/item/trash/tastybread,
-		/obj/item/trash/tray,
-		/obj/item/trash/waffles,
-		/obj/item/trash/vulpix_chips,
-		/obj/item/trash/foodtray,
-		""=20
-		)
+		/obj/item/toy/desk/officetoy,
+		/obj/item/toy/desk/dippingbird,
+		/obj/item/toy/desk/newtoncradle,
+		/obj/item/toy/desk/fan,
+		/obj/item/hourglass
+	)
 
 /* Random spawners */
 /obj/effect/spawner/random_spawners/mod

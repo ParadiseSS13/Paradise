@@ -26,7 +26,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "cr" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "cV" = (
@@ -87,7 +87,7 @@
 /area/ruin/powered/cheesus)
 "fK" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "gh" = (
@@ -199,7 +199,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 5
 	},
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)

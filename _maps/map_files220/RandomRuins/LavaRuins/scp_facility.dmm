@@ -459,7 +459,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "wa" = (
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},

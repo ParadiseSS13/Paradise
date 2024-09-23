@@ -212,7 +212,7 @@
 	attacktext = "claw"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	a_intent = INTENT_HARM
-	loot = list(/obj/effect/spawner/random/maintenance = 1)
+	loot = list(/obj/effect/spawner/random/maintenance/one = 1)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 5, "max_n2" = 0)
 	unsuitable_atmos_damage = 7.5
 	faction = list("Vox")
@@ -229,7 +229,7 @@
 	icon_dead = "voxmeleedead"
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	loot = list(/obj/effect/spawner/lootdrop/maintenance/three = 1)
+	loot = list(/obj/effect/spawner/random/maintenance/two = 1)
 	attacktext = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
@@ -247,7 +247,7 @@
 	minimum_distance = 5
 	casingtype = /obj/item/ammo_casing/c45
 	projectilesound = 'sound/weapons/gunshots/gunshot_strong.ogg'
-	loot = list(/obj/effect/spawner/lootdrop/maintenance/three = 1)
+	loot = list(/obj/effect/spawner/random/maintenance/three = 1)
 
 /mob/living/simple_animal/hostile/vox/ranged_laser
 	name = "Vox Laser Gunman"
@@ -263,7 +263,7 @@
 	melee_damage_upper = 20
 	projectiletype = /obj/item/projectile/beam/laser
 	projectilesound = 'sound/weapons/laser.ogg'
-	loot = list(/obj/effect/spawner/random/maintenance = 1)
+	loot = list(/obj/effect/spawner/random/maintenance/one = 1)
 
 /mob/living/simple_animal/hostile/vox/ranged_laser/space
 	name = "Vox Helmsman"
@@ -274,7 +274,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	wander = FALSE
 	minbodytemp = 0
-	loot = list(/obj/effect/spawner/lootdrop/maintenance/three = 1)
+	loot = list(/obj/effect/spawner/random/maintenance/three = 1)
 
 /* Jungle Mob */
 /mob/living/simple_animal/hostile/jungle_lizard

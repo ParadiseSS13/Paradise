@@ -3950,7 +3950,7 @@
 /area/centcom/ss220/admin1)
 "cqz" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "cqV" = (
@@ -4927,7 +4927,7 @@
 /area/shuttle/syndicate)
 "dbI" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
@@ -6785,7 +6785,7 @@
 /obj/structure/table/reinforced{
 	color = "#996633"
 	},
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -6962,7 +6962,7 @@
 /area/syndicate_mothership/jail)
 "emI" = (
 /obj/structure/table/wood/fancy/royalblue,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "enl" = (
@@ -9019,7 +9019,7 @@
 /area/centcom/ss220/admin2)
 "fqN" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /obj/structure/light_fake,
 /obj/structure/sign/poster/official/random/south,
 /turf/simulated/floor/carpet/royalblack,
@@ -11349,7 +11349,7 @@
 /area/syndicate_mothership)
 "gPm" = (
 /obj/structure/table/wood/fancy/black,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/bar)
 "gPJ" = (
@@ -11865,7 +11865,7 @@
 /area/shuttle/syndicate)
 "hdk" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/bar)
 "hdo" = (
@@ -14211,7 +14211,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/carpet/lone,
 /area/centcom/ss220/bar)
 "irK" = (
@@ -15140,7 +15140,7 @@
 /area/syndicate_mothership/jail)
 "iUn" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
 "iUu" = (
@@ -16879,7 +16879,7 @@
 /area/centcom/ss220/supply)
 "kdg" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
@@ -18206,7 +18206,7 @@
 /area/centcom/ss220/evac)
 "kMD" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
@@ -18347,7 +18347,7 @@
 	},
 /obj/structure/table/wood/fancy/purple,
 /obj/structure/sign/poster/official/random/north,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "kRo" = (
@@ -20984,7 +20984,7 @@
 /area/space/centcomm)
 "mqA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
 "mqM" = (
@@ -22438,7 +22438,7 @@
 /area/centcom/ss220/admin1)
 "noT" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
@@ -25118,7 +25118,7 @@
 /area/centcom/ss220/admin2)
 "oWk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -28632,7 +28632,7 @@
 /area/syndicate_mothership/control)
 "rgd" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
@@ -29008,8 +29008,8 @@
 	},
 /area/syndicate_mothership/cargo)
 "rqA" = (
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/structure/table/wood/fancy/blue,
 /turf/simulated/floor/carpet/royalblue,
 /area/centcom/ss220/bar)
@@ -30303,7 +30303,7 @@
 /area/syndicate_mothership/elite_squad)
 "rXJ" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
@@ -32102,8 +32102,8 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "sZB" = (
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/bar)
@@ -32427,7 +32427,7 @@
 /area/centcom/ss220/admin3)
 "tnw" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/desert,
+/obj/effect/spawner/random/CCfood/dessert,
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
@@ -32579,7 +32579,7 @@
 /area/shuttle/administration)
 "trV" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
 "tsb" = (
@@ -34598,7 +34598,7 @@
 /area/shuttle/syndicate)
 "uGb" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
@@ -37098,7 +37098,7 @@
 /area/centcom/ss220/park)
 "wbm" = (
 /obj/structure/table/wood/fancy/black,
-/obj/effect/spawner/lootdrop/CCfood/alcohol,
+/obj/effect/spawner/random/CCfood/alcohol,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/bar)
 "wbu" = (
@@ -38799,7 +38799,7 @@
 /area/centcom/ss220/general)
 "wTV" = (
 /obj/structure/table/abductor,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
@@ -39316,7 +39316,7 @@
 /area/shuttle/syndicate)
 "xjz" = (
 /obj/structure/table/wood/fancy/royalblue,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "xjE" = (
@@ -40016,7 +40016,7 @@
 /area/centcom/ss220/bar)
 "xEu" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/spawner/lootdrop/CCfood/meat,
+/obj/effect/spawner/random/CCfood/meat,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "xEG" = (

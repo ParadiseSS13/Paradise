@@ -23055,7 +23055,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "bEm" = (
@@ -23430,7 +23430,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/lighter/zippo,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFP" = (
@@ -25643,7 +25643,7 @@
 /area/station/service/library)
 "bOs" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bOt" = (
@@ -29141,7 +29141,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "cad" = (
@@ -30858,7 +30858,7 @@
 	pixel_x = 1;
 	pixel_y = 31
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "cfK" = (
@@ -31794,7 +31794,7 @@
 "ciK" = (
 /obj/structure/table/wood,
 /obj/item/paper/ntrep,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ciM" = (
@@ -47685,7 +47685,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62398,7 +62398,7 @@
 	},
 /obj/item/stamp/rd,
 /obj/item/paper/monitorkey,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/item/lighter/zippo/rd{
 	pixel_x = 7;
 	pixel_y = 14
@@ -79527,7 +79527,7 @@
 	dir = 6
 	},
 /obj/item/stamp/magistrate,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -83687,7 +83687,7 @@
 /area/station/security/range)
 "vKy" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/officetoys,
+/obj/effect/spawner/random/officetoys,
 /obj/item/radio/intercom/directional/east,
 /obj/item/radio/intercom/department/security{
 	pixel_x = 34;

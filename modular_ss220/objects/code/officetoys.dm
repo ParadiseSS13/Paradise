@@ -181,19 +181,6 @@
 	else
 		soundloop.stop()
 
-// Office toys spawner
-/obj/effect/spawner/lootdrop/officetoys
-	name = "office desk toy spawner"
-	icon = 'modular_ss220/objects/icons/officetoys.dmi'
-	icon_state = "spawner"
-	loot = list(
-		/obj/item/toy/desk/officetoy,
-		/obj/item/toy/desk/dippingbird,
-		/obj/item/toy/desk/newtoncradle,
-		/obj/item/toy/desk/fan,
-		/obj/item/hourglass
-	)
-
 // Item datums
 /datum/looping_sound/fanblow
 	start_sound = 'modular_ss220/objects/sound/officetoys/fan_start.ogg'

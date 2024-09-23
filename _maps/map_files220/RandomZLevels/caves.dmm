@@ -737,7 +737,7 @@
 /area/awaymission/caves)
 "dp" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/random/trash,
 /obj/machinery/light_construct/small/west,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
