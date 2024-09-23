@@ -16,7 +16,7 @@
 	var/mob/living/M = AM
 	if(faction && (faction in M.faction))
 		return
-	if(M.flying)
+	if(HAS_TRAIT(M, TRAIT_FLYING))
 		return
 	triggermine(M)
 

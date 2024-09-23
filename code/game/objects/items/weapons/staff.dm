@@ -34,7 +34,7 @@
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	if(iswizard(user))
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_FLYING, "broomstick")
 		user.say("QUID 'ITCH")
 		animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
 	to_chat(user, "<span class='notice'>You hold [src] between your legs.</span>")
@@ -58,8 +58,7 @@
 	..()
 
 /obj/item/staff/broom/dropped(mob/user)
-	if(iswizard(user) && user.flying)
-		user.flying = FALSE
+	REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")
 	..()
 
 /obj/item/staff/broom/horsebroom
