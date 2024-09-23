@@ -30,5 +30,8 @@
 /obj/item/gun/energy/laser/tag
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/gun/energy/laser/practice
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/gun/energy/laser/awaymission_aeg/rnd
 	w_class = WEIGHT_CLASS_NORMAL
