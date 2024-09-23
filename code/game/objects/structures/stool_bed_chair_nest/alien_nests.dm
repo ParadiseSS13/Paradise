@@ -79,7 +79,10 @@
 			if(user && !isalien(user))
 				return
 			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost)
-			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
+			to_chat(buckled_mob, "<span class='ghostalert'>You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the nest.</span>")
+			if(tgui_alert(buckled_mob, "You may now ghost and keep respawnability, you will be notified if you leave the nest, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
+				return
+			buckled_mob.ghostize(TRUE)
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
 	M.pixel_y = 0
