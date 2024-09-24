@@ -1571,6 +1571,7 @@
 #include "code\modules\asset_cache\assets\asset_common.dm"
 #include "code\modules\asset_cache\assets\asset_emoji.dm"
 #include "code\modules\asset_cache\assets\asset_icon_ref_map.dm"
+#include "code\modules\asset_cache\assets\asset_idcard.dm"
 #include "code\modules\asset_cache\assets\asset_jquery.dm"
 #include "code\modules\asset_cache\assets\asset_materials.dm"
 #include "code\modules\asset_cache\assets\asset_nanomap.dm"
