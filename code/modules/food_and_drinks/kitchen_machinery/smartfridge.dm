@@ -434,7 +434,10 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/kitchen,
-		/obj/item/food))
+		/obj/item/food,
+		/obj/item/seeds,
+		/obj/item/grown,
+		/obj/item/reagent_containers/condiment))
 
 // Syndicate Druglab Ruin
 /obj/machinery/smartfridge/food/syndicate_druglab
@@ -453,10 +456,6 @@
 /obj/machinery/smartfridge/food/chef/Initialize(mapload)
 	starting_items = generate_starting_items()
 	. = ..()
-	accepted_items_typecache = typecacheof(list(
-		/obj/item/food,
-		/obj/item/seeds,
-		/obj/item/grown))
 
 /obj/machinery/smartfridge/food/chef/proc/generate_starting_items()
 	// These plants are blocked for being inedable, downright toxic, RND plants, botany plants, or wheat.
@@ -515,9 +514,8 @@
 			chosen = pick(subtypesof(/obj/item/food/grown) - forbidden_plants)
 		else // Fish / sushi stuff, or xenomeat rarely as a treat
 			chosen = pick(/obj/item/food/catfishmeat, /obj/item/food/carpmeat, /obj/item/food/salmonmeat, /obj/item/food/shrimp, /obj/item/food/monstermeat/xenomeat)
-		for(var/H in 1 to 3)
-			output += chosen
-	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
+		output[chosen] += 3
+ 	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
 	for(var/G in 1 to 2)
 		output += pick(/obj/item/reagent_containers/condiment/bbqsauce,
 					/obj/item/reagent_containers/condiment/soysauce,
