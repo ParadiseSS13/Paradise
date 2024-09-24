@@ -376,5 +376,15 @@
 	name = "attention"
 	info = {"As per administration's order, unauthorized entry to supply storage is forbidden. Make your requests from the guard wing if you have a pending delivery."}
 
+/obj/effect/spawner/random/deepstorage_award
+	name = "boss award"
+	icon_state = "questionmark"
+	loot = list(
+		/obj/item/rod_of_asclepius = 3,
+		/obj/item/storage/box/syndie_kit/chameleon = 3,
+		/obj/item/storage/belt/champion/wrestling = 1,
+		/obj/item/storage/box/telescience = 1,
+	)
+
 #undef DS_BOSS_STORAGE
 #undef DS_ENGINEERING
