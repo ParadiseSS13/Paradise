@@ -27,7 +27,7 @@
 	singu_radio = new(src)
 	singu_radio.listening = FALSE
 	singu_radio.follow_target = src
-	singu_radio.config(list(warning_channel = 0, breach_channel = 0))
+	singu_radio.config(list("[warning_channel]" = 0, "[breach_channel]" = 0))
 
 
 /obj/machinery/computer/singulo_monitor/Destroy()

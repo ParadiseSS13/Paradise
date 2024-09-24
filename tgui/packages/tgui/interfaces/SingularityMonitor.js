@@ -121,8 +121,8 @@ const SingularityMonitorDataView = (props, context) => {
                     minValue={singulo_low}
                     maxValue={singulo_high}
                     ranges={{
-                      good: [0.67 * singulo_high - 0.33 * singulo_low, singulo_high],
-                      average: [0.33 * singulo_high - 0.67 * singulo_low, 0.67 * singulo_high - 0.33 * singulo_low],
+                      good: [0.67 * singulo_high + 0.33 * singulo_low, singulo_high],
+                      average: [0.33 * singulo_high + 0.67 * singulo_low, 0.67 * singulo_high + 0.33 * singulo_low],
                       bad: [singulo_low, 0.33 * singulo_high + 0.67 * singulo_low],
                     }}
                   >

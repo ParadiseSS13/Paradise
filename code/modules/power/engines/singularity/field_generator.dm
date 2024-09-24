@@ -60,14 +60,18 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	if(active == FG_ONLINE)
 		calc_power()
 
+/// Iterates over generators in a clockwise fashion to find the ones comprising the perimiter of a containment field(if it is closed)
 /obj/machinery/field/generator/proc/find_containment_gens(_dir, list/containment_gens = list())
+	// We can't go in a direction that doesn't exist
 	if(!dir)
 		return
 	containment_gens |= src
+	// This is the next generator if we can't go in the given direction anymore
 	var/obj/machinery/field/generator/turn_gen
 	for(var/obj/machinery/field/generator/gen in connected_gens)
 		var/x_diff = (gen.x - x)
 		var/y_diff = (gen.y - y)
+		// For each generator we check if it's either in the direction of travel or 90 degrees clockwise
 		switch(_dir)
 			if(NORTH)
 				if(x_diff > 0 && y_diff == 0)
@@ -89,10 +93,16 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 					turn_gen = gen
 				if(x_diff >= 0 || y_diff != 0)
 					continue
+		// If we hadn't continued we found a generator in the direction of travel.
 		if(!(gen in containment_gens))
 			return gen.find_containment_gens(_dir, containment_gens)
-	if(turn_gen)
+		// We can keep going forward, but we've been there. Round trip complete
+		return containment_gens
+
+	// If we didn't find a generator in the direction of travel, we try going 90 degrees clockwise.
+	if(turn_gen && !(turn_gen in containment_gens))
 		return find_containment_gens(turn(_dir, -90), containment_gens)
+	// Either we hit a dead end or finished a round trip
 	return containment_gens
 
 
