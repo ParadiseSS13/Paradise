@@ -152,15 +152,15 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
+		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
 	if(mining_points)
 		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
+	name = "[registered_name]'s ID Card ([assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -328,11 +328,11 @@
 	..()
 
 /obj/item/card/id/proc/flash_card(mob/user)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
+		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
 	if(mining_points)
 		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 /obj/item/card/id/silver
 	name = "identification card"
@@ -354,6 +354,8 @@
 	var/static/list/card_images
 	/// Editing is prohibited if registered_human reference is missing
 	var/mob/living/carbon/human/registered_human
+
+	COOLDOWN_DECLARE(new_picture_cooldown)
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
@@ -391,7 +393,7 @@
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(!registered_human)
+	if(!registered_human || !Adjacent(registered_human))
 		return
 	. = TRUE
 	switch(action)
@@ -402,25 +404,25 @@
 		if("change_ai_tracking")
 			change_ai_tracking()
 		if("change_name")
-			change_name()
+			change_name(params["option"], params["name"])
 		if("change_photo")
 			change_photo()
 		if("change_appearance")
 			change_appearance(params)
 		if("change_sex")
-			change_sex()
+			change_sex(params["sex"])
 		if("change_age")
-			change_age()
+			change_age(params["age"])
 		if("change_occupation")
 			change_occupation()
 		if("change_money_account")
-			change_money_account()
+			change_money_account(params["option"], params["new_account"])
 		if("change_blood_type")
-			change_blood_type()
+			change_blood_type(params["option"], params["new_type"])
 		if("change_dna_hash")
-			change_dna_hash()
+			change_dna_hash(params["option"], params["new_dna"])
 		if("change_fingerprints")
-			change_fingerprints()
+			change_fingerprints(params["option"], params["new_fingerprints"])
 	RebuildHTML()
 
 /obj/item/card/id/syndicate/ui_data(mob/user)
@@ -436,6 +438,7 @@
 	data["fingerprint_hash"] = fingerprint_hash
 	data["photo"] = photo
 	data["ai_tracking"] = untrackable
+	data["picture_cooldown"] = COOLDOWN_FINISHED(src, new_picture_cooldown)
 	return data
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
@@ -452,11 +455,8 @@
 /obj/item/card/id/syndicate/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/idcards),
-		get_asset_datum(/datum/asset/spritesheet/orbit_job),
+		get_asset_datum(/datum/asset/spritesheet/job_icons),
 	)
-
-/obj/item/card/id/syndicate/ui_state(mob/user)
-	return GLOB.default_state
 
 /obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -480,24 +480,23 @@
 
 /obj/item/card/id/syndicate/proc/delete_info(datum/tgui/ui)
 	var/response = tgui_alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", list("Yes", "No"))
-	if(!Adjacent(registered_human) || isnull(response))
+	if(!Adjacent(registered_human) || response != "Yes")
 		return
-	if(response == "Yes")
-		name = initial(name)
-		registered_name = initial(registered_name)
-		icon_state = initial(icon_state)
-		sex = initial(sex)
-		age = initial(age)
-		assignment = initial(assignment)
-		rank = initial(rank)
-		associated_account_number = initial(associated_account_number)
-		blood_type = initial(blood_type)
-		dna_hash = initial(dna_hash)
-		fingerprint_hash = initial(fingerprint_hash)
-		photo = null
-		registered_human.sec_hud_set_ID()
-		registered_human = null
-		ui.close()
+	name = initial(name)
+	registered_name = initial(registered_name)
+	icon_state = initial(icon_state)
+	sex = initial(sex)
+	age = initial(age)
+	assignment = initial(assignment)
+	rank = initial(rank)
+	associated_account_number = initial(associated_account_number)
+	blood_type = initial(blood_type)
+	dna_hash = initial(dna_hash)
+	fingerprint_hash = initial(fingerprint_hash)
+	photo = null
+	registered_human.sec_hud_set_ID()
+	registered_human = null
+	ui.close()
 
 /obj/item/card/id/syndicate/proc/clear_access()
 	var/response = tgui_alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", list("Yes", "No"))
@@ -510,14 +509,32 @@
 /obj/item/card/id/syndicate/proc/change_ai_tracking()
 	untrackable = !untrackable
 
-/obj/item/card/id/syndicate/proc/change_name()
-	var/new_name = reject_bad_name(tgui_input_text(registered_human,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_human) ? registered_human.real_name : registered_human.name), TRUE)
-	if(!Adjacent(registered_human) || isnull(new_name))
-		return
-	registered_name = new_name
+/obj/item/card/id/syndicate/proc/change_name(option, name)
+	// var/new_name = reject_bad_name(tgui_input_text(registered_human, "What name would you like to put on this card?","Agent Card Name", ishuman(registered_human) ? registered_human.real_name : registered_human.name), TRUE)
+	// if(!Adjacent(registered_human) || isnull(new_name))
+	// 	return
+	// registered_name = new_name
+	// UpdateName()
+
+	var/new_name
+	if(option == "Primary")
+		new_name = ishuman(registered_human) ? registered_human.real_name : registered_human.name
+
+	else if(option == "Secondary")
+		new_name = tgui_input_list(registered_human, "Чьё имя вы хотите взять?", "Карта Агента - Имя", GLOB.human_list)
+		if(isnull(new_name))
+			return
+
+	else
+		new_name = name
+
+	registered_name = reject_bad_name(new_name, TRUE)
 	UpdateName()
+	to_chat(registered_human, "Имя изменено на: [new_name].")
 
 /obj/item/card/id/syndicate/proc/change_photo()
+	if(!COOLDOWN_FINISHED(src, new_picture_cooldown))
+		return
 	var/job_clothes = null
 	if(assignment)
 		job_clothes = assignment
@@ -525,15 +542,16 @@
 	if(!newphoto)
 		return
 	photo = newphoto
+	COOLDOWN_START(src, new_picture_cooldown, 10 SECONDS)
 
 /obj/item/card/id/syndicate/proc/change_appearance(list/params)
 	var/choice = params["new_appearance"]
 	if(!choice)
 		return
-	icon_state = choice
+	if(choice in icon_states(icon))
+		icon_state = choice
 
-/obj/item/card/id/syndicate/proc/change_sex()
-	var/new_sex = tgui_input_text(registered_human,"What sex would you like to put on this card?","Agent Card Sex", ishuman(registered_human) ? capitalize(registered_human.gender) : "Male", MAX_MESSAGE_LEN)
+/obj/item/card/id/syndicate/proc/change_sex(new_sex)
 	if(!Adjacent(registered_human) || isnull(new_sex))
 		return
 	sex = new_sex
@@ -612,29 +630,44 @@
 	UpdateName()
 	registered_human.sec_hud_set_ID()
 
-/obj/item/card/id/syndicate/proc/change_money_account()
-	var/new_account = tgui_input_number(registered_human, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
-	if(!Adjacent(registered_human) || isnull(new_account))
-		return
-	associated_account_number = new_account
+/obj/item/card/id/syndicate/proc/change_money_account(option, new_account)
+	if(option == "Primary")
+		new_account = rand(1000, 9999) * 1000 + rand(1000, 9999)
+	else
+		new_account = new_account
+		if(!isnum(new_account))
+			to_chat(registered_human, "Номер аккаунта должен состоять только из цифр!")
+			return
 
-/obj/item/card/id/syndicate/proc/change_blood_type()
-	var/new_blood_type = tgui_input_text(registered_human, "What blood type would you like to be written on this card?", "Agent Card Blood Type", registered_human.dna.blood_type)
-	if(!Adjacent(registered_human) || isnull(new_blood_type))
-		return
-	blood_type = new_blood_type
+	associated_account_number = clamp(new_account, 1000000, 9999999)
+	to_chat(registered_human, "Привязанный счёт изменён на: [new_account].")
 
-/obj/item/card/id/syndicate/proc/change_dna_hash()
-	var/new_dna_hash = tgui_input_text(registered_human, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", registered_human.dna.unique_enzymes)
-	if(!Adjacent(registered_human) || isnull(new_dna_hash))
-		return
-	dna_hash = new_dna_hash
+/obj/item/card/id/syndicate/proc/change_blood_type(option, new_type)
+	if(option == "Primary")
+		blood_type = registered_human.dna.blood_type
+	else
+		var/blood_param = new_type
+		if(blood_param)
+			blood_type = blood_param
 
-/obj/item/card/id/syndicate/proc/change_fingerprints()
-	var/new_fingerprint_hash = tgui_input_text(registered_human,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash", md5(registered_human.dna.uni_identity))
-	if(!Adjacent(registered_human) || isnull(new_fingerprint_hash))
-		return
-	fingerprint_hash = new_fingerprint_hash
+	to_chat(registered_human, "Тип крови изменён на: [blood_type].")
+
+/obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)
+	if(option == "Primary")
+		dna_hash = registered_human.dna.unique_enzymes
+	else
+		if(new_dna)
+			dna_hash = new_dna
+
+	to_chat(registered_human, "ДНК изменён на: [dna_hash].")
+
+/obj/item/card/id/syndicate/proc/change_fingerprints(option, new_fingerprints)
+	if(option == "Primary")
+		fingerprint_hash = md5(registered_human.dna.uni_identity)
+	else
+		var/fingerprints_param  = new_fingerprints
+		if(fingerprints_param)
+			fingerprint_hash = fingerprints_param
 
 /obj/item/card/id/syndicate/Destroy()
 	registered_human = null
