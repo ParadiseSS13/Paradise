@@ -33795,10 +33795,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "enw" = (
-/obj/machinery/smartfridge/secure{
-	name = "\improper Kitchen Delivery SmartFridge";
-	req_one_access_txt = "28;35"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen";
@@ -33810,6 +33806,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -104619,20 +104616,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
-"yme" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/smartfridge/food/chef,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/service/kitchen)
 "ymf" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable,
@@ -124067,7 +124050,7 @@ kKO
 ceJ
 mrt
 hpJ
-yme
+baF
 bld
 biB
 biB
