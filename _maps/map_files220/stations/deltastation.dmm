@@ -1263,7 +1263,7 @@
 	dir = 5;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "ajM" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/light/directional/south,
@@ -1402,7 +1402,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aln" = (
 /obj/structure/chair/comfy/teal{
 	dir = 1
@@ -1499,7 +1499,7 @@
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "alR" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/effect/decal/cleanable/dirt,
@@ -1695,7 +1695,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "amL" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -1772,7 +1772,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "amR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -1781,7 +1781,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "amS" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
@@ -1791,7 +1791,7 @@
 	dir = 1;
 	icon_state = "browncorner"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "amT" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/rods,
@@ -1802,7 +1802,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "amU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -1918,7 +1918,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "anP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2004,13 +2004,13 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoc" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aod" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet,
@@ -2020,7 +2020,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoe" = (
 /obj/structure/table,
 /obj/random/toolbox,
@@ -2031,7 +2031,7 @@
 "aof" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aog" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2049,7 +2049,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight,
@@ -2163,7 +2163,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoJ" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dirt,
@@ -2172,14 +2172,14 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aoL" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2397,13 +2397,13 @@
 "apw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "apx" = (
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "apy" = (
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "apz" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -2412,7 +2412,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "apA" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
@@ -2646,7 +2646,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aqs" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -2924,7 +2924,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "arh" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2957,7 +2957,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "arj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11486,7 +11486,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "aXM" = (
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dust,
@@ -22275,7 +22275,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "bNy" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -52749,7 +52749,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "fbk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58155,7 +58155,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "gLa" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
@@ -58269,7 +58269,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "gMf" = (
 /obj/machinery/papershredder,
 /obj/effect/turf_decal/siding/wood/cherry{
@@ -58845,7 +58845,7 @@
 /area/station/public/pool)
 "gUc" = (
 /turf/simulated/wall,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "gUg" = (
 /obj/structure/grille/broken,
 /obj/structure/chair/stool/bar{
@@ -58861,7 +58861,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "gUl" = (
 /obj/structure/bed/mattress/dirty,
 /obj/effect/decal/cleanable/dirt,
@@ -62365,7 +62365,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "hXU" = (
 /obj/structure/railing/cap{
 	dir = 9
@@ -64778,7 +64778,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "iHY" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -65221,7 +65221,7 @@
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "iQj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67307,7 +67307,7 @@
 /obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "jtv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -74497,7 +74497,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "lBu" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -79563,7 +79563,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "nft" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/delivery/hollow,
@@ -83544,7 +83544,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "ohp" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -84863,7 +84863,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plating,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "oCK" = (
 /obj/item/kirbyplants,
 /obj/item/radio/intercom/directional/north,
@@ -85512,7 +85512,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "oNP" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -87561,7 +87561,7 @@
 "prY" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall,
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "psd" = (
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 1
@@ -92452,7 +92452,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/station/supply/abandoned_boxroom)
+/area/station/supply/warehouse)
 "qPu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,

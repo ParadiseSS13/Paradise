@@ -19693,7 +19693,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plating,
-/area/station/maintenance/port)
+/area/station/supply/warehouse)
 "bxd" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -20072,7 +20072,7 @@
 "byv" = (
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "byw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -20213,7 +20213,7 @@
 	maxcharge = 2000
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bzD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass,
@@ -20560,12 +20560,17 @@
 "bBj" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bBk" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bBn" = (
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -20727,19 +20732,24 @@
 "bCu" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCv" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCw" = (
 /turf/simulated/wall,
 /area/station/command/meeting_room)
 "bCz" = (
 /obj/item/stack/sheet/cardboard,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCA" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -21059,8 +21069,13 @@
 	amount = 50
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bDN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -21080,7 +21095,7 @@
 	},
 /obj/structure/closet/crate/internals,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bDU" = (
 /obj/structure/disposaloutlet{
 	dir = 1
@@ -21127,8 +21142,13 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bEj" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21384,8 +21404,13 @@
 /obj/machinery/light_switch/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFo" = (
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel,
@@ -21398,11 +21423,11 @@
 	req_one_access_txt = "31"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFq" = (
 /obj/structure/sign/poster/contraband/random/south,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFr" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
@@ -21878,7 +21903,7 @@
 "bGY" = (
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bHc" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -22169,8 +22194,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bIy" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -22720,7 +22750,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bKT" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -51705,7 +51735,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "fPy" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -61824,6 +61854,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jsR" = (
@@ -68103,7 +68138,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "lHU" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves{
@@ -70552,7 +70587,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "mxn" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -82258,6 +82293,10 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/hallway)
+"qCk" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/station/supply/warehouse)
 "qCv" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -83548,7 +83587,7 @@
 	pixel_y = 16
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "qWR" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -84542,7 +84581,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "rrL" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood/oak,
@@ -90798,8 +90837,13 @@
 	dir = 6
 	},
 /obj/machinery/light/small/directional/west,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "tGg" = (
 /obj/machinery/computer/robotics{
 	dir = 4
@@ -92606,6 +92650,9 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/asmaint)
+"ulv" = (
+/turf/simulated/floor/plasteel,
+/area/station/supply/warehouse)
 "uly" = (
 /obj/machinery/mineral/stacking_machine{
 	input_dir = 8;
@@ -99081,6 +99128,9 @@
 /obj/structure/sign/poster/contraband/random/south,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"wAO" = (
+/turf/simulated/wall,
+/area/station/supply/warehouse)
 "wAP" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -124830,14 +124880,14 @@ blR
 bsc
 bql
 svp
-mwL
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
+qCk
+wAO
+wAO
+wAO
+wAO
+wAO
+wAO
+wAO
 bIZ
 kTU
 bKz
@@ -125087,7 +125137,7 @@ blR
 blT
 bql
 bnw
-bxb
+wAO
 bDI
 tFZ
 bBk
@@ -125345,13 +125395,13 @@ blR
 jjK
 bnK
 bxc
-bKz
+ulv
 lHS
 bGY
-bKz
+ulv
 fPx
 bFp
-bxb
+wAO
 bMi
 bKz
 bKz
@@ -125601,14 +125651,14 @@ iYO
 blR
 bql
 bst
-bxb
+wAO
 byv
 mwY
-bKz
+ulv
 qWP
 rrF
 bFq
-bxb
+wAO
 bxb
 bKB
 bVl
@@ -125858,14 +125908,14 @@ cEJ
 blR
 niJ
 bCj
-bxb
-bKz
-bKz
+wAO
+ulv
+ulv
 bBj
 bCz
-bKz
-bKz
-bxb
+ulv
+ulv
+wAO
 bIW
 crC
 hTA
@@ -126115,14 +126165,14 @@ blR
 blR
 bql
 cho
-bxb
+wAO
 bzB
 bBj
-bKz
+ulv
 bDR
 bCu
 bKQ
-bxb
+wAO
 bJi
 bUa
 jox
@@ -126372,14 +126422,14 @@ blR
 bsn
 sjl
 mBl
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
+wAO
+wAO
+wAO
+wAO
+wAO
+wAO
+wAO
+wAO
 bzJ
 bNM
 bBn
