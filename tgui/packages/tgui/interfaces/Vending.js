@@ -1,10 +1,10 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Table } from '../components';
+import { Box, Button, DmIcon, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const { product, productStock, productImage } = props;
+  const { product, productStock, productIcon, productIconState } = props;
   const { chargesMoney, user, usermoney, inserted_cash, vend_ready, inserted_item_name } = data;
   const free = !chargesMoney || product.price === 0;
   let buttonText = 'ERROR!';
@@ -21,15 +21,7 @@ const VendingRow = (props, context) => {
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <img
-          src={`data:image/jpeg;base64,${productImage}`}
-          style={{
-            'vertical-align': 'middle',
-            width: '32px',
-            margin: '0px',
-            'margin-left': '0px',
-          }}
-        />
+        <DmIcon icon={productIcon} icon_state={productIconState} verticalAlign="middle" />
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -69,7 +61,6 @@ export const Vending = (props, context) => {
     inserted_item_name,
     panel_open,
     speaker,
-    imagelist,
   } = data;
   let inventory;
 
@@ -148,7 +139,8 @@ export const Vending = (props, context) => {
                     key={product.name}
                     product={product}
                     productStock={stock[product.name]}
-                    productImage={imagelist[product.path]}
+                    productIcon={product.icon}
+                    productIconState={product.icon_state}
                   />
                 ))}
               </Table>

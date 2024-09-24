@@ -64,7 +64,6 @@
 	// List of vending_product items available.
 	var/list/product_records = list()
 	var/list/hidden_records = list()
-	var/list/imagelist = list()
 
 	/// Unimplemented list of ads that are meant to show up somewhere, but don't.
 	var/list/ads_list = list()
@@ -160,10 +159,6 @@
 	if(build_inv) //non-constructable vending machine
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
-	for(var/datum/data/vending_product/R in (product_records + hidden_records))
-		var/obj/item/I = R.product_path
-		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
@@ -645,10 +640,12 @@
 	data["product_records"] = list()
 	var/i = 1
 	for(var/datum/data/vending_product/R in product_records)
+		var/obj/item = R.product_path
 		var/list/data_pr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			is_hidden = FALSE,
 			inum = i++
@@ -656,17 +653,18 @@
 		data["product_records"] += list(data_pr)
 	data["hidden_records"] = list()
 	for(var/datum/data/vending_product/R in hidden_records)
+		var/obj/item = R.product_path
 		var/list/data_hr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			is_hidden = TRUE,
 			inum = i++,
 			premium = TRUE
 		)
 		data["hidden_records"] += list(data_hr)
-	data["imagelist"] = imagelist
 	return data
 
 /obj/machinery/economy/vending/ui_act(action, params, datum/tgui/ui)
