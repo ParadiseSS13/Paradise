@@ -60,6 +60,42 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	if(active == FG_ONLINE)
 		calc_power()
 
+/obj/machinery/field/generator/proc/find_containment_gens(_dir, list/containment_gens = list())
+	if(!dir)
+		return
+	containment_gens |= src
+	var/obj/machinery/field/generator/turn_gen
+	for(var/obj/machinery/field/generator/gen in connected_gens)
+		var/x_diff = (gen.x - x)
+		var/y_diff = (gen.y - y)
+		switch(_dir)
+			if(NORTH)
+				if(x_diff > 0 && y_diff == 0)
+					turn_gen = gen
+				if(x_diff != 0 || y_diff <= 0)
+					continue
+			if(SOUTH)
+				if(x_diff < 0 && y_diff == 0)
+					turn_gen = gen
+				if(x_diff != 0 || y_diff >= 0)
+					continue
+			if(EAST)
+				if(x_diff == 0 && y_diff < 0)
+					turn_gen = gen
+				if(x_diff <= 0 || y_diff != 0)
+					continue
+			if(WEST)
+				if(x_diff == 0 && y_diff > 0)
+					turn_gen = gen
+				if(x_diff >= 0 || y_diff != 0)
+					continue
+		if(!(gen in containment_gens))
+			return gen.find_containment_gens(_dir, containment_gens)
+	if(turn_gen)
+		return find_containment_gens(turn(_dir, -90), containment_gens)
+	return containment_gens
+
+
 /obj/machinery/field/generator/attack_hand(mob/user)
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on

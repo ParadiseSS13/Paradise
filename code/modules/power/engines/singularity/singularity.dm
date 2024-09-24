@@ -35,9 +35,14 @@
 	var/isnt_shutting_down = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
+	/// Id for monitoring.
+	var/singulo_id = 1
+	/// Amount of singulos created during the round(note that this will include teslas as well)
+	var/static/global_singulo_id = 1
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
+	singulo_id = global_singulo_id++
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
@@ -272,16 +277,16 @@
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
-		if(1 to 199)
+		if(1 to (STAGE_TWO_THRESHOLD - 1))
 			allowed_size = STAGE_ONE
-		if(200 to 499)
+		if(STAGE_TWO_THRESHOLD to (STAGE_THREE_THRESHOLD - 1))
 			allowed_size = STAGE_TWO
-		if(500 to 999)
+		if(STAGE_THREE_THRESHOLD to (STAGE_FOUR_THRESHOLD - 1))
 			allowed_size = STAGE_THREE
-		if(1000 to 1999)
+		if(STAGE_FOUR_THRESHOLD to (STAGE_FIVE_THRESHOLD - 1))
 			allowed_size = STAGE_FOUR
-		if(2000 to INFINITY)
-			if(energy >= 3000 && consumedSupermatter)
+		if(STAGE_FIVE_THRESHOLD to INFINITY)
+			if(energy >= STAGE_SIX_THRESHOLD && consumedSupermatter)
 				allowed_size = STAGE_SIX
 			else
 				allowed_size = STAGE_FIVE
@@ -400,6 +405,21 @@
 			return 0
 	return 1
 
+// Returns a list of the field generators generating the containing field(if there is one within 10 tiles)
+/obj/singularity/proc/find_field_gens()
+	for(var/_dir in list(NORTH, SOUTH, EAST, WEST))
+		var/turf/T = loc
+		for(var/i in 1 to 10)
+			T = get_step(T, _dir)
+			var/obj/generator_field
+			generator_field = locate(/obj/machinery/field/generator) in T
+			if(generator_field)
+				var/obj/machinery/field/generator/gen = generator_field
+				return(gen.find_containment_gens(turn(_dir, -90)))
+			generator_field = locate(/obj/machinery/field/containment) in T
+			if(generator_field)
+				var/obj/machinery/field/containment/field = generator_field
+				return(field.FG1.find_containment_gens(turn(_dir, -90)))
 
 /obj/singularity/proc/can_move(turf/T)
 	if(!T)
