@@ -135,6 +135,14 @@
 		active = null
 
 /obj/machinery/computer/singulo_monitor/proc/send_alerts()
+	// Breach alerts
+	if(active.current_size > (last_size + 2) || current_size >= STAGE_FIVE)// We should only see a singulo grow 2 stages at once when breaching containment.
+		singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] has exceeded containment field limits!</b>", name, breach_channel)
+	for(var/obj/machinery/field/generator/gen in field_gens)
+		if(!gen || (gen.active < 2))
+			singu_radio.autosay("<b>Warning: The containment field of the singularity in [get_area(active)] has been disabled!</b>", name, breach_channel)
+			return
+
 	if(active.energy > last_energy)// We only want to give warnings while the situation is getting worse.
 		if(active.energy >= (STAGE_FIVE_THRESHOLD - 100))
 			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] approaching an uncontainable level!</b>", name, warning_channel)
@@ -153,14 +161,6 @@
 			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] is nearing containment field limits!</b>", name, warning_channel)
 			return
 
-	// Breach alerts
-	if(active.current_size > (last_size + 2))// We should only see a singulo grow 2 stages at once when breaching containment.
-		singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] has exceeded containment field limits!</b>", name, breach_channel)
-	for(var/obj/machinery/field/generator/gen in field_gens)
-		if(!gen || (gen.active < 2))
-			singu_radio.autosay("<b>Warning: The containment field of the singularity in [get_area(active)] has been disabled!</b>", name, breach_channel)
-			return
-
 
 
 
@@ -170,6 +170,7 @@
 	if(active)
 		if(last_energy != active.energy)
 			send_alerts()
+			last_size = current_size
 			last_energy = active.energy
 			icon_screen = "singumon_[last_energy]"
 			update_icon()
