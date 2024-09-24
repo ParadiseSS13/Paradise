@@ -4676,7 +4676,7 @@
 /obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random_spawners/ruin/deepstorage_award,
+/obj/effect/spawner/random/deepstorage_award,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
