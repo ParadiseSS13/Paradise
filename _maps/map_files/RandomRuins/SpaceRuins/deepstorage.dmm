@@ -6016,6 +6016,7 @@
 /obj/structure/rack,
 /obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/deepstorage_reward/main,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
