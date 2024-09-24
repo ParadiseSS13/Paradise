@@ -271,12 +271,18 @@
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
 	var/list/data = list()
+	var/obj/result = recipe.result_type
 
 	data["uid"] = recipe.UID()
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
-	data["image"] = recipe.image
+	data["icon"] = result.icon
+	data["icon_state"] = result.icon_state
+
+	// DmIcon cannot paint images. So, if we have grayscale sprite, we need ready base64 image.
+	if(recipe.result_image)
+		data["image"] = recipe.result_image
 
 	return data
 

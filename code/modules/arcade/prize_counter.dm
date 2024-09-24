@@ -30,11 +30,6 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/machinery/prize_counter/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/prize_counter)
-	)
-
 /obj/machinery/prize_counter/ui_data(mob/user)
 	var/list/data = list()
 	data["tickets"] = tickets
@@ -45,12 +40,14 @@
 
 	var/list/prizes = list()
 	for(var/datum/prize_item/prize in GLOB.global_prizes.prizes)
+		var/obj/prize_item = prize.typepath
 		prizes += list(list(
 			"name" = initial(prize.name),
 			"desc" = initial(prize.desc),
 			"cost" = prize.cost,
+			"icon" = prize_item.icon,
+			"icon_state" = prize_item.icon_state,
 			"itemID" = GLOB.global_prizes.prizes.Find(prize),
-			"imageID" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
 		))
 	static_data["prizes"] = prizes
 

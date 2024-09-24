@@ -279,44 +279,6 @@
 
 /turf/simulated/wall/mineral/titanium/survival/pod
 
-//undeconstructable type for derelict
-//these walls are undeconstructable/unthermitable
-/turf/simulated/wall/mineral/titanium/nodecon
-	name = "russian wall"
-	desc = "Like regular titanium, but able to deflect capitalist aggressors."
-	can_dismantle_with_welder = FALSE
-
-/turf/simulated/wall/mineral/titanium/nodecon/wizard
-	name = "wizard wall"
-	desc = "Like regular titanium, but able to deflect wizards aggressors."
-
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend
-	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
-
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
-
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth
-	icon_state = "plastinum_wall"
-	smoothing_flags = NONE
-
-//properties for derelict sub-type to prevent said deconstruction/thermiting
-/turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/burn_down()
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/welder_act()
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
-	return
-
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium

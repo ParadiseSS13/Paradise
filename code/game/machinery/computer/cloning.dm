@@ -262,6 +262,7 @@
 			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
 			COOLDOWN_START(src, scancooldown, 10 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(do_scan), patient_data), 5 SECONDS)
+			addtimer(VARSET_CALLBACK(src, currently_scanning, FALSE), 5 SECONDS) // ABSOLUTELY make sure this is false at the end of this.
 			return TRUE
 
 		if("fix_all")
@@ -327,6 +328,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/computer/cloning/proc/do_scan(datum/cloning_data/patient_data)
+	currently_scanning = FALSE
 	if(!scanner?.occupant)
 		return
 
@@ -355,6 +357,5 @@
 			feedback = list("text" = "Successfully scanned the patient.", "color" = "good", "scan_succeeded" = TRUE)
 			desired_data = generate_healthy_data(scan)
 
-	currently_scanning = FALSE
 #undef TAB_MAIN
 #undef TAB_DAMAGES_BREAKDOWN

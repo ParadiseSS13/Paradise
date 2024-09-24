@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	loot = list(
 			/obj/item/rcd/combat,
 			/obj/item/gun/medbeam,
-			/obj/item/mod/module/energy_shield,
+			/obj/item/gun/energy/wormhole_projector,
 			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
 	)
 
