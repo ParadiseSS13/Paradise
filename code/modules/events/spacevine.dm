@@ -705,7 +705,7 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target)
 	if(isvineimmune(mover))
 		. = TRUE
 	else

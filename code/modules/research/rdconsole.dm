@@ -422,8 +422,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			SSblackbox.record_feedback("nested tally", "RND Production List", amount, list("[being_built.category]", "[being_built.name]"))
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				new_item.pixel_x = rand(-5, 5)
-				new_item.pixel_y = rand(-5, 5)
+				if(istype(new_item)) // Only want a random pixel offset if it IS actually an item, and not a structure like a bluespace closet
+					new_item.pixel_x = rand(-5, 5)
+					new_item.pixel_y = rand(-5, 5)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
@@ -477,6 +478,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/user_pass = input(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
+					C.consoles += UID()
 					network_manager_uid = C.UID()
 					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
 				else
@@ -707,6 +709,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return TRUE // update uis
 
 /obj/machinery/computer/rdconsole/proc/unlink()
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.consoles -= UID()
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
