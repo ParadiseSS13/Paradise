@@ -944,7 +944,7 @@
 	owner.SetParalysis(0)
 	owner.SetSleeping(0)
 	owner.SetConfused(0)
-	owner.adjustStaminaLoss(-100)
+	owner.staminaloss = 0
 	owner.stand_up(TRUE)
 	SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
 	return ..()
