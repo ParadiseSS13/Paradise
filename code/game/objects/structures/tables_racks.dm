@@ -126,15 +126,12 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/table/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
-	if(ismob(mover))
-		var/mob/living/M = mover
-		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
-			return TRUE
+	var/mob/living/living_mover = mover
+	if(istype(living_mover) && (living_mover.flying || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
@@ -361,6 +358,8 @@
 		return 0 SECONDS // sure
 	if(!issimple_animal(flipper))
 		return 0 SECONDS
+	if(istype(flipper, /mob/living/simple_animal/revenant))
+		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)
 			return 30 SECONDS  // you can do it but you gotta *really* work for it
@@ -901,9 +900,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+/obj/structure/rack/CanPass(atom/movable/mover, turf/target)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover))
