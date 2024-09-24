@@ -30,6 +30,7 @@
 	)
 
 	spawn_random_angle = TRUE
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/food_trash/record_item(type_path_to_make)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
