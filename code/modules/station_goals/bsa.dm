@@ -117,7 +117,7 @@
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = 10 MINUTES // The gun's cooldown
+	var/reload_cooldown_time = 10 MINUTES // The gun's cooldown
 	COOLDOWN_DECLARE(firing_cooldown)
 
 	pixel_y = -32
@@ -137,7 +137,7 @@
 
 /obj/machinery/bsa/full/admin
 	power_used_per_shot = 0
-	reload_cooldown = 100 SECONDS
+	reload_cooldown_time = 100 SECONDS
 
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
@@ -221,7 +221,7 @@
 
 /obj/machinery/bsa/full/proc/reload()
 	use_power(power_used_per_shot)
-	COOLDOWN_START(src, firing_cooldown, reload_cooldown)
+	COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
 	last_fire_time = world.time / 10
 
 /obj/item/circuitboard/machine/bsa/back
@@ -299,7 +299,7 @@
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
 		icon_state = icon_state_nopower
-	else if(cannon && (cannon.last_fire_time + cannon.reload_cooldown) > (world.time / 10))
+	else if(cannon && (!COOLDOWN_FINISHED(cannon, firing_cooldown)))
 		icon_state = icon_state_reloading
 	else if(cannon)
 		icon_state = icon_state_active
@@ -330,7 +330,7 @@
 	if(target)
 		data["target"] = get_target_name()
 	if(cannon)
-		data["reloadtime_text"] = seconds_to_clock(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10)
+		data["reloadtime_text"] = seconds_to_clock(round(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10))
 		data["ready"] = COOLDOWN_FINISHED(cannon, firing_cooldown)
 	else
 		data["ready"] = FALSE
