@@ -41,8 +41,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 	// values for slapping
 	var/slap_sound = 'sound/effects/woodhit.ogg'
-	var/slap_cooldown = (4 SECONDS)
-	var/slap_on_cooldown = FALSE
+	COOLDOWN_DECLARE(slap_cooldown)
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
@@ -63,30 +62,27 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/melee/saber/attack(mob/living/target, mob/living/user)
-	if(user.a_intent == INTENT_HELP && ishuman(target))
-		if(!slap_on_cooldown)
-			var/mob/living/carbon/human/H = target
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-				user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
-									"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
-				slap(user, user)
-			else
-				user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
-									"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
-				slap(target, user)
-		return
-	else
+	if(user.a_intent != INTENT_HELP || !ishuman(target))
 		return ..()
-
-/obj/item/melee/saber/proc/slap(mob/living/target, mob/living/user)
+	if(!COOLDOWN_FINISHED(src, slap_cooldown))
+		return
 	var/mob/living/carbon/human/H = target
-	user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
+							"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+		slap(user, user)
+	else
+		user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
+							"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+		slap(target, user)
+
+/obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(loc, slap_sound, 50, TRUE, -1)
-	H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
-	H.apply_damage(10, STAMINA)
-	add_attack_logs(user, H, "Slapped by [src]", ATKLOG_ALL)
-	slap_on_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, slap_on_cooldown, FALSE), slap_cooldown)
+	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	target.apply_damage(10, STAMINA)
+	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
+	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
 // Traitor Sword
 /obj/item/melee/snakesfang
