@@ -4673,10 +4673,10 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Cn" = (
+/obj/effect/spawner/random/deepstorage_award,
 /obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random/deepstorage_award,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
