@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Section, Stack, Table } from '../components';
+import { Box, Button, DmIcon, Section, Stack, Table, Icon } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
@@ -21,7 +21,12 @@ const VendingRow = (props, context) => {
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <DmIcon icon={productIcon} icon_state={productIconState} verticalAlign="middle" />
+        <DmIcon
+          verticalAlign="middle"
+          icon={productIcon}
+          icon_state={productIconState}
+          fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
+        />
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
