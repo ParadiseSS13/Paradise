@@ -126,15 +126,12 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/table/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
-	if(ismob(mover))
-		var/mob/living/M = mover
-		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
-			return TRUE
+	var/mob/living/living_mover = mover
+	if(istype(living_mover) && (living_mover.flying || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
@@ -328,22 +325,53 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
+	var/flip_speed = get_flip_speed(user)
+
 	if(!flipped)
+
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'>[user] starts trying to flip [src]!</span>", "<span class='warning'>You start trying to flip [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""].</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'>[user] gives up on trying to flip [src].</span>")
+				return
 		if(!flip(get_cardinal_dir(user, src)))
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
 			return
 
-		user.visible_message("<span class='warning'>[user] flips \the [src]!</span>")
+
+		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
 
 		if(climbable)
 			structure_shaken()
 	else
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'>[user] starts trying to right [src]!</span>", "<span class='warning'>You start trying to right [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'>[user] gives up on trying to right [src].</span>")
+				return
 		if(!unflip())
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
+		user.visible_message("<span class='warning'>[user] rights [src]!</span>")
+
+/obj/structure/table/proc/get_flip_speed(mob/living/flipper)
+	if(!istype(flipper))
+		return 0 SECONDS // sure
+	if(!issimple_animal(flipper))
+		return 0 SECONDS
+	if(istype(flipper, /mob/living/simple_animal/revenant))
+		return 0 SECONDS  // funny ghost table
+	switch(flipper.mob_size)
+		if(MOB_SIZE_TINY)
+			return 30 SECONDS  // you can do it but you gotta *really* work for it
+		if(MOB_SIZE_SMALL)
+			return 5 SECONDS  // not gonna terrorize anything
+		else
+			return 0 SECONDS
+
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
-		return FALSE
+		return 0
 
 	if(!straight_table_check(turn(direction, 90)) || !straight_table_check(turn(direction, -90)))
 		return FALSE
@@ -872,9 +900,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+/obj/structure/rack/CanPass(atom/movable/mover, turf/target)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover))

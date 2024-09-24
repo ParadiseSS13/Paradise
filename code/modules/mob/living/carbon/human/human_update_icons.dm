@@ -884,7 +884,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		- /obj/item/judobelt
 		- /obj/item/storage/belt/chef
 		- /obj/item/storage/belt/mining/..
-		- /obj/item/storage/belt/rapier
+		- /obj/item/storage/belt/saber
 		- /obj/item/defibrillator/compact/..
 		- /obj/item/nullrod/..
 		- /obj/item/claymore/..

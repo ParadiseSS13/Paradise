@@ -928,11 +928,13 @@
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
+		/obj/item/extinguisher/mini // for friendly fire from their immolator gun.
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
-		/obj/item/gun/energy/immolator/multi/cyborg
+		/obj/item/gun/energy/immolator/multi/cyborg,
+		/obj/item/extinguisher/mini
 	)
 
 // Destroyer security module.
