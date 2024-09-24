@@ -116,7 +116,8 @@
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
-	var/reload_cooldown_time = 10 MINUTES // The gun's cooldown
+	/// The gun's cooldown
+	var/reload_cooldown_time = 10 MINUTES 
 	COOLDOWN_DECLARE(firing_cooldown)
 
 	pixel_y = -32
