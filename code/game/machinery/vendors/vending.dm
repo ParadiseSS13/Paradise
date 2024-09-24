@@ -656,7 +656,7 @@
 		var/obj/item = R.product_path
 		var/list/data_hr = list(
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
 			max_amount = R.max_amount,
