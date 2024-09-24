@@ -1927,6 +1927,10 @@
 /obj/structure/fluff/beach_umbrella/engine,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ghost_bar/indoor/cave)
+"gK" = (
+/obj/machinery/tcomms/relay/cc,
+/turf/simulated/floor/ash,
+/area/ghost_bar/outdoor)
 "gL" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/remains/human,
@@ -8499,6 +8503,9 @@
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/structure/closet,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar/indoor)
 "Db" = (
@@ -10419,7 +10426,8 @@
 "JF" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library{
-	pixel_y = 8
+	pixel_y = 8;
+	req_one_access = null
 	},
 /turf/simulated/floor/wood/oak,
 /area/ghost_bar/indoor)
@@ -66783,7 +66791,7 @@ kH
 kH
 kH
 in
-in
+gK
 in
 in
 in
