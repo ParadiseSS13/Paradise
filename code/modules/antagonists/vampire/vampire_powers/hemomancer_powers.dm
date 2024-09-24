@@ -79,7 +79,6 @@
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/attacker = user
-	var/is_alien = FALSE
 
 	if(!V)
 		return
@@ -89,7 +88,6 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	if(isalien(target))
-		is_alien = TRUE
 		if(!xenomorph_acid_boosted)
 			if(C.ckey && C.stat != DEAD)
 				to_chat(user, "<span class='warning'>As [C] bleeds acid, you mix it into your claws!</span>")
@@ -101,11 +99,11 @@
 				heal_boost = 2 // This *might* let you survive xeno disarms. Maybe.
 				damtype = BURN
 				hitsound = 'sound/weapons/sear.ogg'
-				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0)
+				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
 				user.update_inv_r_hand()
 				user.update_inv_l_hand()
 	if(C.ckey && C.stat != DEAD && C.affects_vampire())
-		if(is_alien || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
+		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
 			attacker.adjustStaminaLoss(-20 * heal_boost) // security is dead
