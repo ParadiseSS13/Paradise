@@ -13626,7 +13626,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/item/clothing/suit/fire/atmos,
+/obj/item/clothing/suit/fire/firefighter/atmos,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate6)
 "Qc" = (
