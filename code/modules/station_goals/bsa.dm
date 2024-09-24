@@ -116,7 +116,6 @@
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
-	var/last_fire_time = 0 // The time at which the gun was last fired
 	var/reload_cooldown_time = 10 MINUTES // The gun's cooldown
 	COOLDOWN_DECLARE(firing_cooldown)
 
@@ -222,7 +221,6 @@
 /obj/machinery/bsa/full/proc/reload()
 	use_power(power_used_per_shot)
 	COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
-	last_fire_time = world.time / 10
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
