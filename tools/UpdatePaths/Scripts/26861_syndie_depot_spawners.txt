@@ -1,0 +1,16 @@
+/obj/effect/spawner/random_spawners/ruin/deepstorage_award : /obj/effect/spawner/random/deepstorage_award
+
+/obj/effect/spawner/random_spawners/syndicate/layout/door : /obj/effect/spawner/random/syndicate/walldoor
+/obj/effect/spawner/random_spawners/syndicate/layout/door/vault : /obj/effect/spawner/random/syndicate/wallvault
+/obj/effect/spawner/random_spawners/syndicate/loot : /obj/effect/spawner/random/syndicate/loot/common, /obj/structure/closet/secure_closet/syndicate/depot
+/obj/effect/spawner/random_spawners/syndicate/loot/level2 : /obj/effect/spawner/random/syndicate/loot/rare, /obj/structure/closet/secure_closet/syndicate/depot
+/obj/effect/spawner/random_spawners/syndicate/loot/level3 : /obj/effect/spawner/random/syndicate/loot/officer, /obj/structure/closet/secure_closet/syndicate/depot
+/obj/effect/spawner/random_spawners/syndicate/loot/level4 : /obj/effect/spawner/random/syndicate/loot/armory, /obj/structure/closet/secure_closet/syndicate/depot/armory
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin : /obj/effect/spawner/random/syndicate/loot/stetchkin
+/obj/effect/spawner/random_spawners/syndicate/mob : /obj/effect/spawner/random/syndicate/mob
+/obj/effect/spawner/random_spawners/syndicate/trap/documents : /obj/effect/spawner/random/syndicate/trapped_documents
+/obj/effect/spawner/random_spawners/syndicate/trap/medbot : /obj/effect/spawner/random/syndicate/medbot
+/obj/effect/spawner/random_spawners/syndicate/trap/mine : /obj/effect/spawner/random/syndicate/mine
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb : /obj/effect/spawner/random/syndicate/pizzabomb
+/obj/effect/spawner/random_spawners/syndicate/turret : /obj/effect/spawner/random/syndicate/turret
+/obj/effect/spawner/random_spawners/syndicate/turret/external : /obj/effect/spawner/random/syndicate/turret/external

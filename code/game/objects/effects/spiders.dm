@@ -2,6 +2,7 @@
 	name = "web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
+	icon_state = "stickyweb1"
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
