@@ -408,7 +408,7 @@
 		if("change_photo")
 			change_photo()
 		if("change_appearance")
-			change_appearance(params)
+			change_appearance(params["appearance"])
 		if("change_sex")
 			change_sex(params["sex"])
 		if("change_age")
@@ -544,12 +544,11 @@
 	photo = newphoto
 	COOLDOWN_START(src, new_picture_cooldown, 10 SECONDS)
 
-/obj/item/card/id/syndicate/proc/change_appearance(list/params)
-	var/choice = params["new_appearance"]
-	if(!choice)
+/obj/item/card/id/syndicate/proc/change_appearance(new_appearance)
+	if(!new_appearance)
 		return
-	if(choice in icon_states(icon))
-		icon_state = choice
+	if(new_appearance in icon_states(icon))
+		icon_state = new_appearance
 
 /obj/item/card/id/syndicate/proc/change_sex(new_sex)
 	if(!Adjacent(registered_human) || isnull(new_sex))
