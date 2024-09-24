@@ -50,7 +50,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/nanotrasenrep,
 		/datum/job/chaplain,
 		/datum/job/officer,
-		/datum/job/qm
+		/datum/job/qm,
+		/datum/job/nanotrasentrainer
 )
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -153,6 +154,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
+		return ..()
+	if(istype(id_card, /obj/item/card/id/nct_data_chip))
 		return ..()
 
 	if(!scan && check_access(id_card))
@@ -425,6 +428,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
+					if(istype(I, /obj/item/card/id/nct_data_chip))
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+						return FALSE
 					if(!check_access(I))
 						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
@@ -451,6 +458,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
+					if(istype(I, /obj/item/card/id/nct_data_chip))
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+						return FALSE
 					usr.drop_item()
 					I.forceMove(src)
 					modify = I
