@@ -453,7 +453,7 @@
 /obj/machinery/smartfridge/food/chef/Initialize(mapload)
 	starting_items = generate_starting_items()
 	. = ..()
-	accepted_items_typecache = accepted_items_typecache = typecacheof(list(
+	accepted_items_typecache = typecacheof(list(
 		/obj/item/food,
 		/obj/item/seeds,
 		/obj/item/grown))
