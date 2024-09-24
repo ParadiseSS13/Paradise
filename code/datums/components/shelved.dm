@@ -29,6 +29,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/shelver/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
 	var/list/results = list()
 	for(var/uid in used_places)
 		if(uid)
@@ -134,13 +135,13 @@
 		i++
 		if(icon_x >= coords[1] && icon_x <= coords[3] && icon_y >= coords[2] && icon_y <= coords[4])
 			if(used_places[i])
-				to_chat(usr, "<span class='notice'>There's already something there on [parent].</span>")
+				to_chat(user, "<span class='notice'>There's already something there on [parent].</span>")
 				return COMPONENT_NO_AFTERATTACK
 
 			var/position_details = placement_zones[coords]
 			if(user.drop_item())
 				add_item(attacker, i, position_details)
-				to_chat(usr, "<span class='notice'>You place [attacker] on [parent].</span>")
+				to_chat(user, "<span class='notice'>You place [attacker] on [parent].</span>")
 				return COMPONENT_NO_AFTERATTACK
 
 /**
