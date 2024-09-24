@@ -136,12 +136,12 @@ const SingularityMonitorDataView = (props, context) => {
             <Section
               fill
               scrollable
-              title="Shield Generators"
+              title="Field Generators"
               buttons={<Button icon="arrow-left" content="Back" onClick={() => act('back')} />}
             >
               <LabeledList>
                 {generators.map((generator) => (
-                  <LabeledList.Item key={generator.gen_index} label="Shield Energy">
+                  <LabeledList.Item key={generator.gen_index} label="Remaining Charge">
                     <ProgressBar
                       value={generator.charge}
                       minValue={0}
