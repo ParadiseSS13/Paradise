@@ -58,7 +58,7 @@
 	desc = "We shape our arm into an extended mass of sparking nanites."
 	action_icon_state = "elecarm"
 	max_level = 3
-	base_cost = 60
+	base_cost = 50
 	upgrade_info = "Increase the rate at which this recharges."
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
@@ -78,7 +78,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = FLAYER_CATEGORY_DESTROYER
-	base_cost = 100
+	base_cost = 75
 	max_level = 3
 	upgrade_info = "The internal power cell recharges faster."
 
@@ -97,7 +97,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = FLAYER_CATEGORY_DESTROYER
-	base_cost = 75
+	base_cost = 50
 	max_level = 3
 	upgrade_info = "Reduces the time needed for us to recycle scrap into ammo."
 

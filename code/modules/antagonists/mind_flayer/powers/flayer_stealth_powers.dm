@@ -67,7 +67,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
-	base_cost = 60
+	base_cost = 40
 
 /datum/spell/flayer/self/voice_synthesizer/cast(list/targets, mob/living/user)
 	if(flayer.mimicking)
@@ -94,7 +94,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 30 SECONDS
-	base_cost = 80
+	base_cost = 75
 	stage = 3
 	max_level = 3
 	var/smoke_effects_spawned = 10
@@ -116,7 +116,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS // Debug blah blah blah
-	base_cost = 100
+	base_cost = 80
 	static_upgrade_increase = 50
 	stage = 2
 	max_level = 3
@@ -146,7 +146,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 2 SECONDS //The cast time is going to be the main limiting factor, not cooldown
-	base_cost = 200
+	base_cost = 150
 	stage = 3
 	var/hand_type = /obj/item/melee/swarm_hand
 

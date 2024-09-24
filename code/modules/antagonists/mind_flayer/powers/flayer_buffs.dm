@@ -10,7 +10,7 @@
 	max_level = 4
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
-	base_cost = 75 // Upgrading this past the base form costs a ton but is very rewarding
+	base_cost = 50 // Upgrading this past the base form costs a ton but is very rewarding
 	/// Any extra duration we get from upgrading the spell.
 	var/extra_duration = 0 // The base spell is 5 brute/burn healing a second for 5 seconds
 	/// Any extra healing we get per second from upgrading the spell
@@ -84,8 +84,8 @@
 	category = FLAYER_CATEGORY_DESTROYER
 	stage = CAPSTONE_STAGE
 	action_icon = "mutate"
-	base_cost = 250
-	static_upgrade_increase = 50 // Total cost of 900 swarms
+	base_cost = 200
+	static_upgrade_increase = 50 // Total cost of 750 swarms
 	max_level = 3
 
 /datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)

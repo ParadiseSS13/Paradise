@@ -28,7 +28,9 @@
 	///A brief description of what the ability's upgrades do
 	var/upgrade_info = "TODO add upgrade text for this passive"
 	/// Does this passive need to process
-	var/should_process = TRUE
+	var/should_process = FALSE
+	/// Do we increase the cost by a static amount? And by how much?
+	var/static_upgrade_increase
 
 /datum/mindflayer_passive/New()
 	. = ..()
@@ -48,7 +50,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	flayer.send_swarm_message(level ? upgrade_text : gain_text) //This will only be false when level = 0, when first bought
 	level++
-	current_cost = base_cost * (level + 1)
+	current_cost = static_upgrade_increase ? (base_cost + (level * static_upgrade_increase)) : (base_cost * (level + 1))
 	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()
@@ -105,7 +107,7 @@
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_DESTROYER
-	base_cost = 100
+	base_cost = 50
 	stage = 2
 
 /datum/mindflayer_passive/badass/on_apply()
@@ -176,7 +178,7 @@
 	upgrade_text = "Our repair quickens."
 	power_type = FLAYER_PURCHASABLE_POWER
 	should_process = TRUE
-	base_cost = 50
+	base_cost = 40
 	max_level = 2
 	var/heal_modifier = 0.4 //S Same speed as mito
 
@@ -221,11 +223,11 @@
 	upgrade_info = "Further increase the rate of swarm siphoning."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
-	base_cost = 75
+	base_cost = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	..()
-	flayer.drain_multiplier++
+	flayer.drain_multiplier += 0.5
 
 /datum/mindflayer_passive/drain_speed/on_remove()
 	flayer.drain_multiplier = initial(flayer.drain_multiplier)
@@ -251,7 +253,8 @@
 	gain_text = "Precise optics control engaged."
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
-	base_cost = 50
+	base_cost = 40
+	static_upgrade_increase = 20
 	var/obj/item/organ/internal/eyes/optical_sensor/user_eyes
 
 /datum/mindflayer_passive/telescopic_eyes/on_apply()
