@@ -232,7 +232,6 @@
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet-255"
 	base_icon_state = "carpet"
-	floor_tile = /obj/item/stack/tile/carpet
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET)
@@ -265,7 +264,6 @@
 	pixel_x = -9
 	pixel_y = -9
 	layer = ABOVE_OPEN_TURF_LAYER
-	floor_tile = /obj/item/stack/tile/grass
 
 /turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
