@@ -1,3 +1,5 @@
+#define MAX_SHELF_ITEMS 6
+
 /datum/component/shelver
 	/// A list whose keys are a 4-tuple of (left, bottom, right, top) bounding boxes to position details.
 	/// Position details include "x" and "y" as pixel offsets, and "layer" as appearance layer for a placed object.
@@ -44,33 +46,35 @@
 	examine_list += "<span class='notice'>It currently holds: [joined_results].</span>"
 
 /datum/component/shelver/proc/prepare_autoshelf()
+	SIGNAL_HANDLER // COMSIG_SHELF_ADDED_ON_MAPLOAD
+
 	// See /obj/structure/closet/Initialize for explanation of
 	// addtimer use here
 	addtimer(CALLBACK(src, PROC_REF(shelf_items)), 0)
 
 /datum/component/shelver/proc/shelf_items()
-	var/obj/structure/structure = parent
+	var/obj/structure/structure_parent = parent
 
 	var/list/nearby_empty_tiles = list()
-	for(var/turf/turf_in_view in view(2, get_turf(structure)))
+	for(var/turf/turf_in_view in view(2, get_turf(structure_parent)))
 		if(!isfloorturf(turf_in_view))
 			continue
-		for(var/turf/potential_blockage as anything in get_line(get_turf(structure), turf_in_view))
+		for(var/turf/potential_blockage as anything in get_line(get_turf(structure_parent), turf_in_view))
 			if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE, excluded_objs = list(parent)))
 				nearby_empty_tiles += turf_in_view
 
 	var/itemcount = 1
-	for(var/obj/item/I in structure.loc)
-		if(I.density || I.anchored || I == structure)
+	for(var/obj/item/I in structure_parent.loc)
+		if(I.density || I.anchored || I == structure_parent)
 			continue
-		if(itemcount > 6)
+		if(itemcount > MAX_SHELF_ITEMS)
 			// If we can't fit it on the shelf, toss it somewhere nearby
 			if(length(nearby_empty_tiles))
 				var/turf/T = pick(nearby_empty_tiles)
 				I.pixel_x = 0
 				I.pixel_y = 0
 				I.forceMove(T)
-		if(!(SEND_SIGNAL(structure, COMSIG_SHELF_ATTEMPT_PICKUP, I) & SHELF_PICKUP_FAILURE))
+		if(!(SEND_SIGNAL(structure_parent, COMSIG_SHELF_ATTEMPT_PICKUP, I) & SHELF_PICKUP_FAILURE))
 			itemcount++
 
 /datum/component/shelver/proc/on_shelf_attempt_pickup(datum/source, obj/item/to_add)
@@ -141,7 +145,10 @@
 			var/position_details = placement_zones[coords]
 			if(user.drop_item())
 				add_item(attacker, i, position_details)
-				to_chat(user, "<span class='notice'>You place [attacker] on [parent].</span>")
+				user.visible_message(
+					"<span class='notice'>[user] places [attacker] on [parent].</span>",
+					"<span class='notice'>You place [attacker] on [parent].</span>",
+				)
 				return COMPONENT_NO_AFTERATTACK
 
 /**
@@ -279,3 +286,5 @@
 		return
 	if(prob(50))
 		scatter()
+
+#undef MAX_SHELF_ITEMS
