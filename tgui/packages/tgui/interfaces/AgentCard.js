@@ -215,21 +215,22 @@ export const AgentCardInfo = (props, context) => {
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend(context);
   const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', '');
-  const { appearances } = data;
+  const { icon, appearances } = data;
 
   return (
     <Stack.Item grow>
       <Section fill scrollable title="Внешний вид">
-        {Object.entries(appearances).map(([name, image]) => (
+        {appearances.map((appearance) => (
           <ImageButton
             m={0.5}
-            key={name}
-            base64={image}
+            key={appearance}
+            dmIcon={icon}
+            dmIconState={appearance}
             imageSize={58}
-            selected={selectedAppearance === name}
+            selected={selectedAppearance === appearance}
             onClick={() => {
-              setSelectedAppearance(name);
-              act('change_appearance', { new_appearance: name });
+              setSelectedAppearance(appearance);
+              act('change_appearance', { new_appearance: appearance });
             }}
           />
         ))}

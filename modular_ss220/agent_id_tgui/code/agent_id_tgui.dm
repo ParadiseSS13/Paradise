@@ -3,7 +3,8 @@
 	blood_type = null
 	fingerprint_hash = null
 	var/mob/living/carbon/human/registered_human
-	var/static/list/appearances
+	var/static/list/restricted_appearances = list("admin", "deathsquad", "clownsquad", "data", "ERT_empty", "silver", "gold", "TDred", "TDgreen")
+	var/static/list/appearances = GLOB.card_skins_ss220 + GLOB.card_skins_special_ss220 + GLOB.card_skins_donor_ss220 - restricted_appearances
 	var/static/list/departments = list(
 				"Assistant" = null,
 				"Service" = GLOB.service_positions,
@@ -16,18 +17,6 @@
 				"Special" = (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()),
 				"Custom" = null,
 			)
-
-/obj/item/card/id/syndicate/New()
-	. = ..()
-	var/static/list/final_appearances = list()
-
-	if(length(final_appearances) == 0)
-		var/static/list/restricted_skins = list("admin", "deathsquad", "clownsquad", "data", "ERT_empty", "silver", "gold", "TDred", "TDgreen")
-		var/static/list/raw_appearances = GLOB.card_skins_ss220 + GLOB.card_skins_special_ss220 + GLOB.card_skins_donor_ss220 - restricted_skins
-		for(var/skin in raw_appearances)
-			final_appearances[skin] = "[icon2base64(icon(initial(icon), skin, SOUTH, 1))]"
-
-	appearances = final_appearances
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..() || !registered_human)
@@ -136,6 +125,7 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
+	data["icon"] = icon
 	data["appearances"] = appearances
 	return data
 
