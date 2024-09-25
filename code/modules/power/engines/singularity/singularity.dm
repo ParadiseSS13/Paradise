@@ -415,11 +415,11 @@
 			generator_field = locate(/obj/machinery/field/generator) in T
 			if(generator_field)
 				var/obj/machinery/field/generator/gen = generator_field
-				return(gen.find_containment_gens(turn(_dir, -90)))
+				return(gen.find_containment_gens(turn(_dir, -90), src))
 			generator_field = locate(/obj/machinery/field/containment) in T
 			if(generator_field)
 				var/obj/machinery/field/containment/field = generator_field
-				return(field.FG1.find_containment_gens(turn(_dir, -90)))
+				return(field.FG1.find_containment_gens(turn(_dir, -90), src))
 
 /obj/singularity/proc/can_move(turf/T)
 	if(!T)
@@ -584,3 +584,24 @@
 /obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)
+
+/obj/singularity/proc/in_containment(list/containment_gens)
+	if(!containment_gens)
+		return FALSE
+	var/max_x = -1
+	var/max_y = -1
+	var/min_x = -1
+	var/min_y = -1
+	for(var/obj/machinery/field/generator/gen in containment_gens)
+		if(gen.x > max_x || max_x < 0)
+			max_x = gen.x
+
+		if(gen.y > max_y || max_y < 0)
+			max_y = gen.y
+
+		if(gen.x < min_x || min_x < 0)
+			min_x = gen.x
+
+		if(gen.y < min_y || min_y < 0)
+			min_y = gen.y
+	return (x <= max_x && x >= min_x && y <= max_y && y >= min_y)
