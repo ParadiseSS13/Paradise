@@ -588,7 +588,7 @@
 		return
 	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
 
-/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, channel = CHANNEL_SURGERY_SOUNDS)
+/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!failure_sound || ismachineperson(target))
 		return
 	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
