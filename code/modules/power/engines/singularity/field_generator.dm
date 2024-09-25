@@ -90,19 +90,19 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		// Go right if we can, forward if we can't go right, and left if we can't go forward
 		if(get_dir(src,gen) == turn(_dir, -90))
 			temp_gens = gen.find_containment_gens(turn(_dir, -90), singulo, containment_gens)
-			if(temp_gens)
+			if(length(temp_gens))
 				return temp_gens
 		if(get_dir(src,gen) == _dir)
 			temp_gens = gen.find_containment_gens(_dir, singulo, containment_gens)
-			if(temp_gens)
+			if(length(temp_gens))
 				return temp_gens
 		if(get_dir(src,gen) == turn(_dir, 90))
 			temp_gens = gen.find_containment_gens(turn(_dir, 90), singulo, containment_gens)
-			if(temp_gens)
+			if(length(temp_gens))
 				return temp_gens
 
-	// We got to a dead end, return an empty list
-	return list()
+	// We got to a dead end, temp_gens should be empty here.
+	return temp_gens
 
 
 /obj/machinery/field/generator/attack_hand(mob/user)
