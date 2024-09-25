@@ -214,7 +214,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.set_alpha_tracking(ALPHA_VISIBLE, src)
-
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	H.set_alpha_tracking(ALPHA_VISIBLE, src)
 /datum/mutation/stealth/darkcloak/on_life(mob/M)
 	var/turf/simulated/T = get_turf(M)
 	if(!istype(T) || !ishuman(M))
