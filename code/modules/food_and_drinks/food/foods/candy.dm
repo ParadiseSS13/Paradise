@@ -13,7 +13,7 @@
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
 	tastes = list("candy" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
+	goal_difficulty = FOOD_GOAL_SKIP
 
 // ***********************************************************
 // Candy Ingredients / Flavorings / Byproduct
