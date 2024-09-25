@@ -243,7 +243,6 @@
 				dissipate_delay = 10
 				dissipate_track = 0
 				dissipate_strength = 10
-				notify_dead()
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
 			icon = 'icons/effects/288x288.dmi'
@@ -262,6 +261,8 @@
 			grav_pull = 15
 			consume_range = 5
 			dissipate = FALSE
+	if(current_size >= STAGE_FIVE)
+		notify_dead()
 	if(current_size == allowed_size)
 		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
 		return 1
