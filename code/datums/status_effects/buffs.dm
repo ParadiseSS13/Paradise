@@ -550,7 +550,7 @@
 	return TRUE
 
 /datum/status_effect/speedlegs/tick()
-	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
+	if(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)
 		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
 		owner.Weaken(6 SECONDS)
 		qdel(src)
@@ -561,7 +561,7 @@
 			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
 
 /datum/status_effect/speedlegs/before_remove()
-	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+	if(stacks < 3 && !(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
 		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
 		return FALSE
 	return TRUE

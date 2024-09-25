@@ -233,7 +233,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100)
+		if(owner.current.getCloneLoss() >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/handle_vampire()

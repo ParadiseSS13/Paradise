@@ -988,10 +988,7 @@
 	update_state()
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
-	if(height==0)
-		return 1
-
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target) //So nymphs can climb over top of trays.
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else

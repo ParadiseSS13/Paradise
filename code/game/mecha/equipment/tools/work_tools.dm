@@ -459,15 +459,15 @@
 	name = "exosuit crusher"
 	desc = "A mech mounted crusher. For crushing bigger things."
 	icon_state = "mecha_crusher"
-	equip_cooldown = 15
+	equip_cooldown = 1.2 SECONDS
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
 	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha
-	force = 15
-	force_wielded = 30
+	/// Since this one doesn't have the two_handed component it will always use the value in force
+	force = 30
 	armour_penetration_flat = 15
 	detonation_damage = 90
 	backstab_bonus = 50
@@ -483,6 +483,7 @@
 	unwanted?.RemoveComponent()
 	unwanted = GetComponent(/datum/component/two_handed)
 	unwanted?.RemoveComponent()
+	/// This is only for the sake of internal checks in the crusher itself.
 	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
 
 /obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
@@ -498,9 +499,10 @@
 		return
 	if(!chassis.occupant)
 		return
+	chassis.occupant.changeNext_click(equip_cooldown)
 	var/proximate = chassis.Adjacent(target)
-	if(ismob(target))
-		internal_crusher.attack(target, chassis.occupant)
+	if(proximate)
+		target.attackby(internal_crusher, chassis.occupant)
 	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
