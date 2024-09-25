@@ -58,6 +58,7 @@
 #define TTS_CATEGORY_TLOU "The Last of Us"
 #define TTS_CATEGORY_DEEP_ROCK_GALACTIC "Deep Rock Galactic"
 #define TTS_CATEGORY_SUNBOY "Пророк Санбой"
+#define TTS_CATEGORY_WH40k "Warhammer 40k"
 
 
 #define TTS_GENDER_ANY "Любой"

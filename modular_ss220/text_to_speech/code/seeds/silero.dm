@@ -5251,3 +5251,63 @@
 	value = "last_years_snow_narrator"
 	category = TTS_CATEGORY_OTHER
 	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/last_years_snow_man
+	name = "last_years_snow_man"
+	value = "last_years_snow_man"
+	category = TTS_CATEGORY_OTHER
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_titus
+	name = "marine2_titus"
+	value = "marine2_titus"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_berserk
+	name = "marine2_berserk"
+	value = "marine2_berserk"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_gadriel
+	name = "marine2_gadriel"
+	value = "marine2_gadriel"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_chairon
+	name = "marine2_chairon"
+	value = "marine2_chairon"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_acheran
+	name = "marine2_acheran"
+	value = "marine2_acheran"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_machine_spirit_4
+	name = "marine2_machine_spirit_4"
+	value = "marine2_machine_spirit_4"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/marine2_magos_galeo
+	name = "marine2_magos_galeo"
+	value = "marine2_magos_galeo"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_servo_skull
+	name = "marine2_servo-skull"
+	value = "marine2_servo-skull"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/marine2_balthazar
+	name = "marine2_balthazar"
+	value = "marine2_balthazar"
+	category = TTS_CATEGORY_WH40k
+	gender = TTS_GENDER_MALE
