@@ -172,7 +172,7 @@
 			send_alerts()
 			last_size = active.current_size
 			last_energy = active.energy
-			icon_screen = "singumon_[last_energy]"
+			icon_screen = (active.allowed_size == 4 && active.energy >= (STAGE_FIVE_THRESHOLD - 100)) ? "singumon_pre5" : "singumon_[active.allowed_size]"
 			update_icon()
 
 	return TRUE
