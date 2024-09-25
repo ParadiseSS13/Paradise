@@ -99,6 +99,32 @@
 	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+/datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
+	var/list/data = list()
+	var/list/shoe_skins = list()
+	for(var/V in typesof(/obj/item/clothing/shoes))
+		if(ispath(V) && ispath(V, /obj/item))
+			var/obj/item/I = V
+			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
+				continue
+			shoe_skins.Add(list(list(
+				"name" = initial(I.name),
+			)))
+
+	data["shoes"] = shoe_skins
+	return data
+
+/datum/action/item_action/chameleon/change/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", name)
+		ui.open()
+
+/datum/action/item_action/chameleon/change/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/cham_shoes),
+	)
+
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	UpdateButtons()
@@ -114,12 +140,15 @@
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item
 	var/picked_name
-	picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
-	if(!picked_name)
-		return
-	picked_item = chameleon_list[picked_name]
-	if(!picked_item)
-		return
+	if(chameleon_type == /obj/item/clothing/shoes)
+		ui_interact(user)
+	else
+		picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
+		if(!picked_name)
+			return
+		picked_item = chameleon_list[picked_name]
+		if(!picked_item)
+			return
 	update_look(user, picked_item)
 
 /datum/action/item_action/chameleon/change/proc/random_look(mob/user)
