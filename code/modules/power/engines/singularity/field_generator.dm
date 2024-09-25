@@ -60,7 +60,14 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	if(active == FG_ONLINE)
 		calc_power()
 
-/// Iterates over generators in a clockwise fashion to find the ones comprising the perimiter of a containment field(if it is closed)
+/**
+ * Gets a list of generators that form a field that is enclosing a given singularity, if such a field exists.
+ *
+ * Arguments:
+ * * _dir - The direction in which we are currently going
+ * * singulo - The singularity we are looking to contain
+ * * containment_gens - A list of generators which is the portion of the potential result we have so far.
+ */
 /obj/machinery/field/generator/proc/find_containment_gens(_dir, obj/singularity/singulo, list/containment_gens = list())
 	// We can't go in a direction that doesn't exist
 	if(!dir)
