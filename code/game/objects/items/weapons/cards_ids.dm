@@ -354,8 +354,14 @@
 	var/static/list/card_images
 	/// Editing is prohibited if registered_human reference is missing
 	var/mob/living/carbon/human/registered_human
+	var/static/list/possible_jobs
 
 	COOLDOWN_DECLARE(new_picture_cooldown)
+
+/obj/item/card/id/syndicate/Initialize(mapload)
+	. = ..()
+	if(!possible_jobs) 
+		possible_jobs = sortTim(GLOB.joblist + get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs(), GLOBAL_PROC_REF(cmp_text_asc))
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
@@ -555,23 +561,13 @@
 		return
 	sex = new_sex
 
-/obj/item/card/id/syndicate/proc/change_age()
-	var/new_age = tgui_input_number(registered_human,"What age would you like to be written on this card?","Agent Card Age", registered_human.age)
-	if(!Adjacent(registered_human) || isnull(new_age))
-		return
-	age = new_age
+/obj/item/card/id/syndicate/proc/change_age(new_age)
+	age = clamp(new_age, 17, 999)
 
 /obj/item/card/id/syndicate/proc/change_occupation()
 	var/list/departments =list(
 				"Assistant",
-				"Engineering",
-				"Medical",
-				"Science",
-				"Security",
-				"Service",
-				"Command",
-				"Special",
-				"Custom",
+				"Custom"
 			)
 
 	var/new_job
@@ -580,47 +576,13 @@
 	var/tgui_message = "What job would you like to put on this card?"
 	var/department = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", departments)
 	if(department != "Custom")
-		switch(department)
-			if("Engineering")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.engineering_positions)
-			if("Medical")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.medical_positions)
-			if("Science")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.science_positions)
-			if("Security")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.security_positions)
-			if("Service")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.service_positions)
-			if("Command")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.command_positions)
-			if("Special")
-				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
-			if("Assistant")
-				new_job = "Assistant"
+		new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", possible_jobs)
 		new_rank = new_job
 	else
 		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 		tgui_message = "What SecHUD icon would you like to be shown on this card?"
-		var/department_icon = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", departments)
-		switch(department_icon)
-			if("Engineering")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.engineering_positions)
-			if("Medical")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.medical_positions)
-			if("Science")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.science_positions)
-			if("Security")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.security_positions)
-			if("Service")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.service_positions)
-			if("Command")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.command_positions)
-			if("Special")
-				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
-			if("Custom")
-				new_rank = null
-			if("Assistant")
-				new_rank = "Assistant"
+		new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet")
+
 
 	if(!Adjacent(registered_human) || isnull(new_job))
 		return

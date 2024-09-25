@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
 /datum/orbit_menu/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+		get_asset_datum(/datum/asset/spritesheet/job_icons)
 	)
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
