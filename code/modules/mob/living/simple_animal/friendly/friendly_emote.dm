@@ -74,9 +74,17 @@
 	var/anim_type = "idle1"
 	var/duration = 2 SECONDS
 
+/datum/emote/living/simple_animal/mouse/idle/try_run_emote(mob/user, emote_arg, type_override, intentional)
+	if(istype(user, /mob/living/simple_animal/mouse/admin))
+		var/mob/living/simple_animal/mouse/admin/admin_mouse = user
+		if(admin_mouse.jetpack)
+			to_chat(user, "<span class='warning'>You can't emote, while you use jetpack.</span>")
+			return FALSE
+	. = ..()
+
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type, duration)
-	return ..()
+	. = ..()
 
 /datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
 	return user.squeak_sound
