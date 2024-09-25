@@ -1,7 +1,7 @@
 /obj/structure/sign/poster
 	icon = 'modular_ss220/objects/icons/posters.dmi'
 
-// Contraband
+// MARK: Contraband
 /obj/structure/sign/poster/contraband/lady
 	name = "Соблазнительная Красотка"
 	desc = "На плакате изображена крайне сексуальная девушка."
@@ -44,7 +44,13 @@
 	icon = 'modular_ss220/objects/icons/posters.dmi'
 	icon_state = "contraband7"
 
-// Legit
+/obj/structure/sign/poster/contraband/argonian
+	name = "Аргонианская горничная"
+	desc = "Вы видите ящероподобную горничную. Вам раньше не доводилось видеть подобную расу, однако она имеет некоторые сходства с унатхами."
+	icon = 'modular_ss220/objects/icons/posters.dmi'
+	icon_state = "contraband8"
+
+// MARK: Legit
 /obj/structure/sign/poster/official/mars
 	name = "Плакат Марса"
 	desc = "Это плакат, выпущенный компанией Generic Space в рамках серии памятных плакатов, посвящённых чудесам космоса."
