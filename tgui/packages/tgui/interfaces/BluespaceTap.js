@@ -28,13 +28,13 @@ export const Incursion = (props, context) => {
           interval={Math.random() > 0.25 ? 750 + 400 * Math.random() : 290 + 150 * Math.random()}
           time={60 + 150 * Math.random()}
         >
-          <Flex mb="30px" fontsize="256px">
-            <Flex.Item bold color="red" fontsize="256px" textAlign="center">
+          <Stack mb="30px" fontsize="256px">
+            <Stack.Item bold color="red" fontsize="256px" textAlign="center">
               <Icon name="skull" size={14} mb="64px" />
               <br />
               E$#OR:& U#KN!WN IN%ERF#R_NCE
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Blink>
       </Dimmer>
     );

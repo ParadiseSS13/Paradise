@@ -386,9 +386,10 @@
 	* And about every 3:20 minutes for a 10MW difference
 	* Emagging guarantees a chance of at least 5%
 	* Prob treats values less than 0 as 0.
+	* Emagging garuantees a chance of at least 5%.
+	* Prob treats values less than 0 as 0.
 	*/
-	// Emagging garuantees a chance of at least 5%.
-	// Prob treats values less than 0 as 0.
+
 	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW)) + (emagged * 5))
 		var/area/our_area = get_area(src)
 		if((!spawning || !length(active_nether_portals)))
