@@ -18,7 +18,7 @@
 			continue
 		target_by_name[possible_target.real_name] = possible_target
 	if(length(target_by_name) < 1)
-		to_chat(user, "<span class='changeling'>There is no pray to be hunted here...</span>")
+		to_chat(user, "<span class='changeling'>There is no prey to be hunted here...</span>")
 		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Prey", target_by_name)
 	if(!target_name)
