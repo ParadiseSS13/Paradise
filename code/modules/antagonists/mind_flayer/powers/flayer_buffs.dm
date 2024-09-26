@@ -10,7 +10,8 @@
 	max_level = 4
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
-	base_cost = 50 // Upgrading this past the base form costs a ton but is very rewarding
+	current_cost = 50 // Innate abilities HAVE to set `current_cost`
+	static_upgrade_increase = 25
 	/// Any extra duration we get from upgrading the spell.
 	var/extra_duration = 0 // The base spell is 5 brute/burn healing a second for 5 seconds
 	/// Any extra healing we get per second from upgrading the spell
