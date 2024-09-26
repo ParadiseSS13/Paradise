@@ -466,7 +466,6 @@
 	access = ACCESS_CARGO_BOT
 
 // Miscellaneous access helpers
-
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage
 	access = ACCESS_DEEPSTORAGE
 
