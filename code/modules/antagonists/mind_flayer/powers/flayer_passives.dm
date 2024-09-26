@@ -50,7 +50,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	flayer.send_swarm_message(level ? upgrade_text : gain_text) //This will only be false when level = 0, when first bought
 	level++
-	current_cost = static_upgrade_increase ? (base_cost + (level * static_upgrade_increase)) : (base_cost * (level + 1))
+	current_cost += static_upgrade_increase
 	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()
@@ -198,6 +198,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
 	base_cost = 40
+	static_upgrade_increase = 20
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	..()
@@ -224,6 +225,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
 	base_cost = 50
+	static_upgrade_increase = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	..()
@@ -254,7 +256,6 @@
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 40
-	static_upgrade_increase = 20
 	var/obj/item/organ/internal/eyes/optical_sensor/user_eyes
 
 /datum/mindflayer_passive/telescopic_eyes/on_apply()

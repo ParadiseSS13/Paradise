@@ -40,6 +40,12 @@
 	remove_all_passives()
 	..()
 
+/datum/antagonist/mindflayer/add_owner_to_gamemode()
+	SSticker.mode.mindflayers += owner
+
+/datum/antagonist/mindflayer/remove_owner_from_gamemode()
+	SSticker.mode.mindflayers -= owner
+
 // This proc adds extra things, and base abilities that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
@@ -222,7 +228,7 @@
 	if(set_owner)
 		to_add.flayer = src
 	to_add.level = 1
-	to_add.current_cost = to_add.static_upgrade_increase ? (to_add.static_upgrade_increase + to_add.current_cost) : (to_add.base_cost * (to_add.level + 1)) // This is always gonna be base cost * 2 but it standardizes how this looks elsewhere
+	to_add.current_cost += to_add.static_upgrade_increase
 	owner.AddSpell(to_add)
 	powers += to_add
 

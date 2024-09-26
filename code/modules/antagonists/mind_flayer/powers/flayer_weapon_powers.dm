@@ -98,6 +98,7 @@
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = FLAYER_CATEGORY_DESTROYER
 	base_cost = 50
+	static_upgrade_increase = 50
 	max_level = 3
 	upgrade_info = "Reduces the time needed for us to recycle scrap into ammo."
 

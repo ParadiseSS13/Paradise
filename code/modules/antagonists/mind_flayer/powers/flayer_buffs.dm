@@ -62,7 +62,7 @@
 	stage = 3
 	max_level = 3
 	base_cost = 150
-	static_upgrade_increase = 50
+	static_upgrade_increase = 25
 	upgrade_info = "Improve your heat sinks, making you heat up slower."
 	var/heat_per_tick = 22
 
