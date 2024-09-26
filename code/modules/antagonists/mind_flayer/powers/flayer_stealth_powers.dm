@@ -195,6 +195,8 @@
 		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
 		return
+	to_chat(user, "<span class='notice'>The mass of swarms vanish into the cyborg's internals. Success.</span>")
+	qdel(src)
 	sleep(6)
 	borg.SetEmagged(TRUE) // This was mostly stolen from mob/living/silicon/robot/emag_act(), its functionally an emagging anyway.
 	borg.SetLockdown(TRUE)
@@ -229,11 +231,12 @@
 	else
 		to_chat(borg, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
 	borg.SetLockdown(0)
+	var/time = time2text(world.realtime,"hh:mm:ss")
+	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) assimilated [borg.name]([borg.key])")
 	if(borg.module)
 		borg.module.emag_act(user)
 		borg.module.module_type = "Malf" // For the cool factor
 		borg.update_module_icon()
 		borg.module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 	borg.update_icons()
-	qdel(src)
 	return TRUE
