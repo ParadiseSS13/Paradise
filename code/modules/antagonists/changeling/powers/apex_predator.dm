@@ -17,7 +17,7 @@
 		if(!possible_target.mind || (target_turf.z != user_turf.z))
 			continue
 		target_by_name[possible_target.real_name] = possible_target
-	if(length(target_by_name) < 1)
+	if(!length(target_by_name))
 		to_chat(user, "<span class='changeling'>There is no prey to be hunted here...</span>")
 		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Prey", target_by_name)
