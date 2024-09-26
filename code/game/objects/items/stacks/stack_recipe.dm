@@ -112,7 +112,7 @@
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
-	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once specifically to stop stacking different cult structures, once for stacking the same structure.
+	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once during try_build, and when we build the actual thing, in case it was on a do-after and there's now a structure here.
 		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
 		return FALSE
 
