@@ -338,7 +338,7 @@ do {\
 /obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
 	..()
 
-	if (istype(I, /obj/item/kitchen/utensil) || is_pen(I))
+	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
 		return
 
 	if(!istype(I, /obj/item/food))
