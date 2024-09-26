@@ -73,8 +73,13 @@
 	var/list/chameleon_list = list()
 	var/chameleon_type = null
 	var/chameleon_name = "Item"
-
+	var/holder
 	var/emp_timer
+
+/datum/action/item_action/chameleon/change/New(Target)
+	. = ..()
+	holder = Target
+	
 
 /datum/action/item_action/chameleon/change/Grant(mob/M)
 	if(M && (owner != M))
@@ -99,17 +104,20 @@
 	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+/datum/action/item_action/chameleon/change/ui_host()
+	return holder
+
+/datum/action/item_action/chameleon/change/ui_state(mob/user)
+	return GLOB.physical_state
+
 /datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	var/list/shoe_skins = list()
-	for(var/V in typesof(/obj/item/clothing/shoes))
-		if(ispath(V) && ispath(V, /obj/item))
-			var/obj/item/I = V
-			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
-				continue
-			shoe_skins.Add(list(list(
-				"name" = initial(I.name),
-			)))
+	for(var/V in chameleon_list)
+		shoe_skins.Add(list(list(
+			"icon" = initial(chameleon_list[V].icon_state),
+			"name" = initial(chameleon_list[V].name),
+		)))
 
 	data["shoes"] = shoe_skins
 	return data
@@ -119,12 +127,17 @@
 	if(!ui)
 		ui = new(user, src, "Chameleon", name)
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
 /datum/action/item_action/chameleon/change/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/cham_shoes),
 	)
 
+/datum/action/item_action/chameleon/change/ui_act(action, list/params)
+	switch(action)
+		if("change_appearance")
+			update_look(usr, chameleon_list[params["new_appearance"]])
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	UpdateButtons()
@@ -134,8 +147,9 @@
 			var/obj/item/I = V
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
-			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/chameleon_item_name = "[initial(I.name)]_[initial(I.icon_state)]"
+			if(isnull(chameleon_list[chameleon_item_name]))
+				chameleon_list[chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item

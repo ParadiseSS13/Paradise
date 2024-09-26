@@ -17,11 +17,13 @@ type Data = {
   assignment: string;
   job_icon: string;
   idcards: IDCard[];
-  shoe_skins: ShoeSkin[];
+  shoes: ShoeSkin[];
+  chameleon_name: string
 };
 
 type ShoeSkin = {
   name: string;
+  icon: string;
 };
 
 type IDCard = {
@@ -34,7 +36,7 @@ export const Chameleon = (props, context) => {
   return (
     <Window width={430} height={500} theme="syndicate">
       <Window.Content>
-        <AgentCardAppearances />;
+        <AgentCardAppearances />
       </Window.Content>
     </Window>
   );
@@ -43,23 +45,23 @@ export const Chameleon = (props, context) => {
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
-  const { shoe_skins } = data;
+  const { shoes, chameleon_name } = data;
   return (
     <Stack.Item grow>
-      <Section fill scrollable title={'Card Appearance'}>
-        {shoe_skins.map((idcard) => (
+      <Section  title={'Card Appearance'}>
+        {shoes.map((shoe) => (
           <Button
             m={0.5}
             compact
             color={'translucent'}
-            key={idcard.name}
-            selected={idcard.name === selectedAppearance}
-            tooltip={idcard.name}
-            className={classes(['cham_shoes64x64', idcard.name])}
+            key={shoe.name}
+            selected={shoe.name === selectedAppearance}
+            tooltip={shoe.name}
+            className={classes([chameleon_name + '64x64', shoe.icon])}
             onClick={() => {
-              setSelectedAppearance(idcard.name);
+              setSelectedAppearance(shoe.name);
               act('change_appearance', {
-                new_appearance: idcard.name,
+                new_appearance: shoe.name + "_" + shoe.icon
               });
             }}
           />

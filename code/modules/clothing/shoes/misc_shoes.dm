@@ -20,7 +20,7 @@
 
 /// overpowered gimmick boots
 /obj/item/clothing/shoes/combat/swat
-	name = "\improper SWAT shoes"
+	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
@@ -419,7 +419,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
-	name = "\improper Hugs-The-Feet lizard skin boots"
+	name = "Hugs-The-Feet lizard skin boots"
 	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
 	icon_state = "lizardboots_blue"
 

@@ -1563,6 +1563,7 @@
 #include "code\modules\asset_cache\asset_cache_item.dm"
 #include "code\modules\asset_cache\asset_list.dm"
 #include "code\modules\asset_cache\assets\asset_alloys.dm"
+#include "code\modules\asset_cache\assets\asset_chameleon_shoes.dm"
 #include "code\modules\asset_cache\assets\asset_chem_master.dm"
 #include "code\modules\asset_cache\assets\asset_chess.dm"
 #include "code\modules\asset_cache\assets\asset_claw_game.dm"
