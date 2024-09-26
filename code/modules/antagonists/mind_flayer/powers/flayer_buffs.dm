@@ -77,7 +77,7 @@
 
 /datum/spell/flayer/self/terminator_form
 	name = "T.E.R.M.I.N.A.T.O.R. Form"
-	desc = "For a short time, become unable to die, and you are not slowed down by pain. This will not heal you however, \
+	desc = "For a short time, you become unable to die and are not slowed down by pain. This will not heal you however, \
 			and you will still die if the duration ends if you did not heal yourself."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 5 MINUTES // Base uptime is 20%
