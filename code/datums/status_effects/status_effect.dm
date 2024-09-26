@@ -262,6 +262,7 @@
 
 /// Status effect from multiple sources, when all sources are removed, so is the effect
 /datum/status_effect/grouped
+	id = "grouped"
 	status_type = STATUS_EFFECT_MULTIPLE //! Adds itself to sources and destroys itself if one exists already, there are never multiple
 	var/list/sources = list()
 
