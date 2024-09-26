@@ -287,6 +287,8 @@
 /datum/spell/vampire/predator_senses/cast(list/targets, mob/user)
 	var/targets_by_name = list()
 	for(var/mob/living/carbon/human/H as anything in targets)
+		if(H == user)
+			continue
 		targets_by_name[H.real_name] = H
 
 	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
