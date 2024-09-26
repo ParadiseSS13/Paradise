@@ -3665,11 +3665,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 "jl" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	locked = 1;
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)

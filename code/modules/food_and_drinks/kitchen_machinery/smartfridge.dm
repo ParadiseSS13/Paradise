@@ -545,7 +545,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_AI_UPLOAD]"
+	req_access = list(ACCESS_AI_UPLOAD)
 	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
 		drop_contents_on_delete = FALSE
 		return INITIALIZE_HINT_QDEL
@@ -564,7 +564,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RD]"
+	req_access = list(ACCESS_RD)
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk
 	name = "\improper High-Risk Laws Storage"
@@ -580,7 +580,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_CAPTAIN]"
+	req_access = list(ACCESS_CAPTAIN)
 
 /**
   * # Refrigerated Medicine Storage
@@ -617,7 +617,7 @@
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RESEARCH]"
+	req_access = list(ACCESS_RESEARCH)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -631,7 +631,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_one_access_txt = "5;33"
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 	board_type = /obj/machinery/smartfridge/secure/medbay
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
@@ -659,7 +659,7 @@
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_CHEMISTRY]"
+	req_access = list(ACCESS_CHEMISTRY)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/storage/pill_bottle,
@@ -689,10 +689,6 @@
   * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
-	req_access_txt = null
-
-/obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
-	. = ..()
 	req_access = list(ACCESS_SYNDICATE)
 
 /**
@@ -755,10 +751,10 @@
 	desc = "A refrigerated storage unit for volatile sample storage."
 	board_type = /obj/machinery/smartfridge/secure/chemistry/virology
 	icon_addon = "smartfridge_virology"
+	req_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_VIROLOGY]"
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
@@ -791,7 +787,7 @@
   * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
-	req_access_txt = null
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	starting_items = list(
@@ -804,7 +800,6 @@
 		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
 	)
 	. = ..()
-	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Drink Showcase
