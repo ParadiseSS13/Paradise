@@ -239,9 +239,12 @@
 		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>",
 			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
 		add_attack_logs(user, L, "stunned")
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	play_hit_sound()
 	deductcharge(hitcost)
 	return TRUE
+
+/obj/item/melee/baton/proc/play_hit_sound()
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 /obj/item/melee/baton/proc/thrown_baton_stun(mob/living/carbon/human/L)
 	if(cooldown > world.time)
@@ -351,6 +354,10 @@
 	/// The duration that stunning someone will disable their radio for
 	var/radio_disable_time = 8 SECONDS
 
+/obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
+	link_new_cell()
+	return ..()
+
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
 
@@ -362,6 +369,9 @@
 
 /obj/item/melee/baton/flayerprod/attack_self(mob/user)
 	return
+
+/obj/item/melee/baton/flayerprod/play_hit_sound()
+	playsound(src, 'sound/weapons/egloves.ogg', 25, TRUE, -1, ignore_walls = FALSE)
 
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
@@ -383,10 +393,6 @@
 	for(var/obj/item/radio/R in all_items)
 		R.on = TRUE
 		R.listening = TRUE
-
-/obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
-	link_new_cell()
-	return ..()
 
 /obj/item/melee/baton/flayerprod/deductcharge(amount)
 	if(cell.charge < hitcost)

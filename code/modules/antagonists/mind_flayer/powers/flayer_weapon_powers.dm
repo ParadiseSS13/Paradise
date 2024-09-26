@@ -32,7 +32,7 @@
 
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
-	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
 	RegisterSignal(user, COMSIG_FLAYER_RETRACT_IMPLANTS, PROC_REF(retract), user)
 	return weapon_ref
@@ -45,7 +45,7 @@
 	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), weapon_holder)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
 	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
 	UnregisterSignal(owner, COMSIG_FLAYER_RETRACT_IMPLANTS)
 
