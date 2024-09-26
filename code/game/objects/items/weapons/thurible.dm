@@ -51,7 +51,7 @@
 		icon_state = "thurible"
 		item_state = "thurible"
 	if(in_inventory)
-		for(var/mob/M in view(0, get_turf(src.loc)))
+		for(var/mob/M in view(0, get_turf(loc)))
 			if(M.r_hand == src || M.l_hand == src)
 				M.update_inv_l_hand()
 				M.update_inv_r_hand()
