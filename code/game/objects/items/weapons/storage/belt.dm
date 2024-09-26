@@ -411,7 +411,8 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
+		/obj/item/rpd/bluespace
 	)
 
 /obj/item/storage/belt/military/sst
