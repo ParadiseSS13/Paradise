@@ -90,7 +90,10 @@ const Abilities = (props, context) => {
                     mb={1}
                     textAlign="center"
                     content={currentCost} // Show the current cost from known_abilities
-                    disabled={currentCost > usable_swarms}
+                    disabled={
+                      currentCost > usable_swarms ||
+                      (knownAbility && knownAbility.current_level === knownAbility.max_level)
+                    }
                     tooltip="Purchase this ability?"
                     onClick={() => {
                       act('purchase', { ability_path: ability.ability_path });
@@ -102,6 +105,12 @@ const Abilities = (props, context) => {
                 <Stack.Item>
                   <Stack vertical>
                     <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
+                    <Stack.Item color="green">
+                      Level:{' '}
+                      {knownAbility && knownAbility.current_level > 0
+                        ? `${knownAbility.current_level} / ${knownAbility.max_level}`
+                        : `0 / ${ability.max_level}`}{' '}
+                    </Stack.Item>
                     <Stack.Divider />
                   </Stack>
                 </Stack.Item>
