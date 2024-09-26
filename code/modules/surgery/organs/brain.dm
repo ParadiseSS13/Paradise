@@ -141,7 +141,7 @@
 		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
 	else if(prob(4))
 		owner.vomit()
-		to_chat(owner, "<span class='warning'>'You feel nauseous.</span>")
+		to_chat(owner, "<span class='warning'>You feel nauseous.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 	if(prob(4))
