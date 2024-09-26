@@ -24,9 +24,11 @@
 /datum/component/label/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackby))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(OnUpdateName))
+
 
 /datum/component/label/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
 
 /**
 	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
@@ -72,6 +74,12 @@
 	* user: The mob exmaining the parent.
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
+
+///Reapplies label when update_name() is called on the parent object. Attempts to remove it first just in case.
+/datum/component/label/proc/OnUpdateName()
+	remove_label()
+	apply_label()
+
 /datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
 
