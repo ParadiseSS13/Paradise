@@ -134,6 +134,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
