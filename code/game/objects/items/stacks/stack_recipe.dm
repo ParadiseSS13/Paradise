@@ -92,7 +92,7 @@
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 			return FALSE
-		if(locate(/obj/structure/cult) in get_turf(material))
+		if(locate(/obj/structure) in get_turf(material))
 			to_chat(user, "<span class='warning'>There is a structure here!</span>")
 			return FALSE
 
@@ -105,7 +105,7 @@
 		if(!do_after(user, time, target = material.loc))
 			return FALSE
 
-	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
+	if(cult_structure && locate(/obj/structure) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
