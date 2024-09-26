@@ -34,8 +34,8 @@
 
 	canlay = 0
 	hasnested = TRUE
-	spider_spawnfrequency = 300 // 30 seconds
-	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
+	spider_spawnfrequency = 120 SECONDS
+	var/grant_prob = 100 // eggs are guaranteed. I HATE RNG.
 	var/spider_max_children = 8
 
 
