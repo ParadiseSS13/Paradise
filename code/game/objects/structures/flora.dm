@@ -292,13 +292,20 @@
 	RegisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS, PROC_REF(reapply_hide))
 	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
 	user.add_overlay(mob_overlay)
-	user.alpha = 0
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.set_alpha_tracking(0, src)
+	else
+		user.alpha = 0
 
 /// User has either dropped the plant, or plant is being destroyed, restore user to normal.
 /obj/item/kirbyplants/proc/unhide_user(mob/living/carbon/user)
 	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
 	user.cut_overlay(mob_overlay)
 	user.alpha = initial(user.alpha)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.set_alpha_tracking(ALPHA_VISIBLE, src)
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.

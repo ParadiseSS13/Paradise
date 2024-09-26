@@ -80,3 +80,22 @@
 /datum/station_trait/triple_ai/revert()
 	. = ..()
 	SSticker.triai = FALSE
+
+/datum/station_trait/rave
+	name = "Rave"
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 5
+	show_in_report = TRUE
+	report_message = "Our workers have installed new 'Motivational' lighting for you."
+
+/datum/station_trait/rave/on_round_start()
+	. = ..()
+	for(var/obj/machinery/light/light in GLOB.machines)
+		var/turf/our_turf = get_turf(light)
+		if(!is_station_level(our_turf.z))
+			continue
+		var/list/rgb = hsl2rgb(rand(0, 255) / 255, rand((0.4 * 255), 255) / 255, rand((0.5 * 255), (0.8 * 255)) / 255)
+		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		light.color = new_color
+		light.brightness_color = new_color
+		light.update(FALSE, TRUE, FALSE)
