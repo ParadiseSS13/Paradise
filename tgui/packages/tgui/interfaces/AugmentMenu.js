@@ -17,7 +17,7 @@ export const AugmentMenu = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const { usable_swarms, ability_tabs } = data;
+  const { usable_swarms, ability_tabs, known_abilities } = data; // Include known_abilities
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -77,33 +77,37 @@ const Abilities = (props, context) => {
         <Upgrades />
       ) : (
         <Stack vertical>
-          {abilities.map((ability) => (
-            <Stack.Item key={ability.name} direction="row">
-              <Stack>
-                <Button
-                  height="20px"
-                  width="35px"
-                  mb={1}
-                  textAlign="center"
-                  content={ability.cost}
-                  disabled={ability.cost > usable_swarms}
-                  tooltip="Purchase this ability?"
-                  onClick={() => {
-                    act('purchase', { ability_path: ability.ability_path });
-                    // Refresh abilities after purchase
-                    setSelectedTab(selectedTab);
-                  }}
-                />
-                <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
-              </Stack>
-              <Stack.Item>
-                <Stack vertical>
-                  <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
-                  <Stack.Divider />
+          {abilities.map((ability) => {
+            const knownAbility = known_abilities.find((a) => a.ability_path === ability.ability_path);
+            const currentCost = knownAbility ? knownAbility.cost : ability.cost;
+
+            return (
+              <Stack.Item key={ability.name} direction="row">
+                <Stack>
+                  <Button
+                    height="20px"
+                    width="35px"
+                    mb={1}
+                    textAlign="center"
+                    content={currentCost} // Show the current cost from known_abilities
+                    disabled={currentCost > usable_swarms}
+                    tooltip="Purchase this ability?"
+                    onClick={() => {
+                      act('purchase', { ability_path: ability.ability_path });
+                      setSelectedTab(selectedTab); // Refresh to update ability costs
+                    }}
+                  />
+                  <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
                 </Stack>
+                <Stack.Item>
+                  <Stack vertical>
+                    <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
+                    <Stack.Divider />
+                  </Stack>
+                </Stack.Item>
               </Stack.Item>
-            </Stack.Item>
-          ))}
+            );
+          })}
         </Stack>
       )}
     </Section>

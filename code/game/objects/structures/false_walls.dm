@@ -167,6 +167,11 @@
 				new mineral(loc)
 	qdel(src)
 
+/obj/structure/falsewall/set_smoothed_icon_state(new_junction)
+	if(opening || !density)
+		return
+	return ..()
+
 /*
  * False R-Walls
  */
