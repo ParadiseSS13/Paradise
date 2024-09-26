@@ -92,7 +92,7 @@
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 			return FALSE
-		if(locate(/obj/structure) in get_turf(material))
+		if(locate(/obj/structure/cult) in get_turf(material))
 			to_chat(user, "<span class='warning'>There is a structure here!</span>")
 			return FALSE
 
@@ -105,11 +105,15 @@
 		if(!do_after(user, time, target = material.loc))
 			return FALSE
 
-	if(cult_structure && locate(/obj/structure) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
+	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+		return FALSE
+
+	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
-	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once specifically to stop stacking different cult structures, once for stacking the same structure.
+		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
 		return FALSE
 
 	if(max_res_amount > 1) // Is it a stack?
