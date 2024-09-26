@@ -189,6 +189,7 @@
 
 				make_terminal(user, temporary_direction, temporary_location)
 				terminal.connect_to_network()
+				stat &= ~BROKEN
 		return
 
 	// Disassembling the terminal
