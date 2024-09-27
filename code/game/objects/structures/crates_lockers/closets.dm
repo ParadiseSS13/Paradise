@@ -11,6 +11,8 @@
 	var/icon_opened
 	var/opened_door_sprite
 	var/closed_door_sprite
+	var/icon_door = null
+	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -62,6 +64,7 @@
 	. = new_overlays
 	if(enable_door_overlay && !is_animating_door)
 		if(opened && has_opened_overlay)
+			. += "[icon_door_override ? icon_door : icon_state]_open"
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[opened_door_sprite || icon_state]_opened", alpha = src.alpha)
 			. += door_overlay
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
