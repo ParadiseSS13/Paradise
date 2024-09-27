@@ -722,8 +722,8 @@
 	owner.clear_fullscreen("payback")
 	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 1)
 
-/datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
-	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
+/datum/status_effect/drill_payback/tick() // They are not staying down. This will be a fight.
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) // We don't want someone drilling the safe at arrivals then raiding bridge with the buff
 		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
 		times_warned++
 		if(times_warned >= 6)
