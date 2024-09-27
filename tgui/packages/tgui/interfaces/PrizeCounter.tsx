@@ -1,4 +1,3 @@
-import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Stack, ImageButton, Input, Icon } from '../components';
 import { Window } from '../layouts';
@@ -6,9 +5,10 @@ import { Window } from '../layouts';
 type Prize = {
   name: string;
   desc: string;
+  icon: string;
+  icon_state: string;
   cost: number;
   itemID: number;
-  imageID: string;
 };
 
 type PrizeData = {
@@ -45,14 +45,9 @@ export const PrizeCounter = (props, context) => {
                     </Stack.Item>
                   )}
                   <Stack.Item>
-                    <Button
-                      fluid
-                      iconRight
-                      icon="ticket"
-                      disabled={!tickets}
-                      content={<>Tickets: {<b>{tickets}</b>}</>}
-                      onClick={() => act('eject')}
-                    />
+                    <Button fluid iconRight icon="ticket" disabled={!tickets} onClick={() => act('eject')}>
+                      Tickets: <b>{tickets}</b>
+                    </Button>
                   </Stack.Item>
                   <Stack.Item>
                     <Button
@@ -72,8 +67,9 @@ export const PrizeCounter = (props, context) => {
                   <ImageButton
                     fluid
                     key={prize.name}
-                    asset={['prize_counter64x64', prize.imageID]}
                     title={prize.name}
+                    dmIcon={prize.icon}
+                    dmIconState={prize.icon_state}
                     buttonsAlt
                     buttons={
                       <Button
