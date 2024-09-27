@@ -134,6 +134,9 @@ SUBSYSTEM_DEF(ticker)
 			// Start a map vote IF
 			// - Map rotate doesnt have a mode for today and map voting is enabled
 			// - Map rotate has a mode for the day and it ISNT full random
+			if(SSmaprotate.setup_done && (SSmaprotate.rotation_mode == MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES))
+				SSmaprotate.decide_next_map()
+				return
 			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else

@@ -941,7 +941,22 @@
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
+				if("map_pick")
+					var/list/potential_maps = list()
+					map_vote_pref_json = list() //Clear it out
+					for(var/x in subtypesof(/datum/map))
+						var/datum/map/M = x
+						if(!initial(M.voteable))
+							continue
+						potential_maps += M
 
+					var/loops = 0
+					for(var/i = length(potential_maps), i--)
+						var/their_pick = input("Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps") as null|anything in potential_maps
+						loops++
+						potential_maps -= their_pick
+						map_vote_pref_json += their_pick
+						map_vote_pref_json[their_pick] = loops
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
