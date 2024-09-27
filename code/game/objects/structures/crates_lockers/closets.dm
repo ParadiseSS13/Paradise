@@ -97,7 +97,7 @@
 	var/num_steps = door_anim_time / world.tick_lag
 
 	for(var/step in 0 to num_steps)
-		var/angle = door_anim_angle * (closing ? 1 - (step/num_steps) : (step/num_steps))
+		var/angle = door_anim_angle * (closing ? 1 - (step / num_steps) : (step / num_steps))
 		var/matrix/door_transform = get_door_transform(angle)
 		var/door_state
 		var/door_layer
