@@ -4,18 +4,31 @@
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	action_icon = 'icons/mob/robot_items.dmi'
 	action_icon_state = "lollipop"
-	base_cooldown = 1 SECONDS //This just handles retracting and deploying the weapon, weapon charge will be fully separate
+	base_cooldown = 1 SECONDS // This just handles retracting and deploying the weapon, weapon charge will be fully separate
 	/// Typepath of the weapon
 	var/weapon_type
-	/// Reference to the weapon itself, set on cast or on_purchase_upgrade
+	/// Reference to the weapon itself, set on create_new_weapon
 	var/obj/item/weapon_ref
-	/// The object that stores a retracted weapon
-	var/obj/weapon_holder
+
+/datum/spell/flayer/self/weapon/New()
+	. = ..()
+	if(!weapon_ref)
+		create_new_weapon()
 
 /datum/spell/flayer/self/weapon/Destroy(force, ...)
-	. = ..()
 	weapon_ref = null
-	weapon_holder = null
+	return ..()
+
+/datum/spell/flayer/self/weapon/proc/create_new_weapon()
+	if(!QDELETED(weapon_ref))
+		return
+	weapon_ref = new weapon_type(src)
+	weapon_ref.flags |= (ABSTRACT | NODROP | DROPDEL) // Just in case the item doesn't start with both of these, or somehow loses them.
+	RegisterSignal(weapon_ref, COMSIG_PARENT_QDELETING, PROC_REF(clear_weapon_ref))
+	on_purchase_upgrade()
+
+/datum/spell/flayer/self/weapon/proc/clear_weapon_ref()
+	weapon_ref = null
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/living/carbon/human/user)
 	if(weapon_ref && (user.l_hand == weapon_ref || user.r_hand == weapon_ref))
@@ -27,8 +40,7 @@
 		return FALSE
 
 	if(!weapon_ref)
-		weapon_ref = new weapon_type(user, src)
-	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
+		create_new_weapon()
 
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
@@ -42,7 +54,7 @@
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
-	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), weapon_holder)
+	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), src)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
@@ -65,10 +77,11 @@
 
 /datum/spell/flayer/self/weapon/swarmprod/on_purchase_upgrade()
 	if(!weapon_ref)
-		weapon_ref = new weapon_type(flayer.owner.current, src)
+		create_new_weapon()
+
 	var/obj/item/melee/baton/flayerprod/prod = weapon_ref
 	var/obj/item/stock_parts/cell/flayerprod/cell = prod.cell
-	cell.chargerate += 200
+	cell.chargerate = initial(cell.chargerate) + 200 * (level - 1) // Innate abilities are wack
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augmentation"
@@ -84,10 +97,10 @@
 
 /datum/spell/flayer/self/weapon/laser/on_purchase_upgrade()
 	if(!weapon_ref)
-		weapon_ref = new weapon_type(flayer.owner.current, src)
-		weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these
+		create_new_weapon()
+
 	var/obj/item/gun/energy/laser/mounted/laser = weapon_ref
-	laser.charge_delay -= 1
+	laser.charge_delay = initial(laser.charge_delay) - 1 * level
 
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
@@ -104,11 +117,10 @@
 
 /datum/spell/flayer/self/weapon/flak_gun/on_purchase_upgrade()
 	if(!weapon_ref)
-		weapon_ref = new weapon_type(flayer.owner.current, src)
-		weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these
-	var/obj/item/pneumatic_cannon/flayer/cannon = weapon_ref
-	cannon.charge_time -= 2 SECONDS
+		create_new_weapon()
 
+	var/obj/item/pneumatic_cannon/flayer/cannon = weapon_ref
+	cannon.charge_time = initial(cannon.charge_time) - 2 SECONDS * level
 
 /datum/spell/flayer/self/weapon/grapple_arm
 	name = "Integrated Grappling Mechanism"
@@ -192,4 +204,4 @@
 	target.visible_message("<span class='notice'>[firer] drags [firer.p_themselves()] across the room!</span>")
 
 /datum/spell/flayer/self/weapon/grapple_arm/on_purchase_upgrade()
-	cooldown_handler.recharge_duration -= 10 SECONDS
+	cooldown_handler.recharge_duration = initial(cooldown_handler.recharge_duration) - 10 SECONDS * level

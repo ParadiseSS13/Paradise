@@ -51,7 +51,7 @@
 	if(unlink)
 		cell = null
 		return
-	if(isrobot(loc.loc)) // First loc is the module
+	if(isrobot(loc?.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 		return
