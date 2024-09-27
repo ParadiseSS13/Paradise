@@ -191,4 +191,4 @@
 
 /mob/living/proc/check_buckled()
 	if(buckled && !(buckled in loc))
-		unbuckle_self(force = TRUE)
+		unbuckle(force = TRUE)

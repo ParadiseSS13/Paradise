@@ -316,7 +316,7 @@
 					if(T.density)
 						forceMove(H.loc)
 					if(H.buckled)
-						H.unbuckle_self(force = TRUE)
+						H.unbuckle(force = TRUE)
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")

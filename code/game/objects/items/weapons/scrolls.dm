@@ -59,7 +59,7 @@
 		return
 
 	if(user && user.buckled)
-		user.unbuckle_self(force = TRUE)
+		user.unbuckle(force = TRUE)
 
 	if(user?.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)

@@ -648,7 +648,7 @@
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
-					M.unbuckle_self(force = TRUE)
+					M.unbuckle(force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
 					if(L.incorporeal_move || L.status_flags & GODMODE)
