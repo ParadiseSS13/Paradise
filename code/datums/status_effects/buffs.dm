@@ -730,7 +730,7 @@
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 			return
 	if(owner.stat != DEAD)
-		var/mob/living/carbon/human/H
+		var/mob/living/carbon/human/H = owner // The Brute and Burn heal doesn't work if it doesn't do it at the human level
 		H.adjustBruteLoss(-3, FALSE, robotic = TRUE)
 		H.adjustFireLoss(-3, FALSE, robotic = TRUE)
 		owner.adjustStaminaLoss(-25)
