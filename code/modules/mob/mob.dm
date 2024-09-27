@@ -1061,6 +1061,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(M.layer < layer)
 		M.layer = layer + 0.1
 
+///unbuckle the mob from whatever it is buckled to.
+/mob/proc/unbuckle(force)
+	buckled.unbuckle_mob(src, force)
+
 ///Call back post unbuckle from a mob, (reset your visual height here)
 /mob/post_unbuckle_mob(mob/living/M)
 	M.layer = initial(M.layer)

@@ -802,8 +802,6 @@
 	END RESIST PROCS
 *///////////////////////
 
-/mob/living/proc/unbuckle(force)
-	buckled.unbuckle_mob(src, force)
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
