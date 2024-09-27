@@ -92,7 +92,9 @@
 	if(HAS_TRAIT(owner.current, TRAIT_MINDFLAYER_NULLIFIED))
 		send_swarm_message("We do not have the energy for this...")
 		return FALSE
-
+	if(IS_MINDFLAYER(H))
+		send_swarm_message("Their hive rejects the connection.")
+		return FALSE
 	var/obj/item/organ/internal/brain/brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	if(!istype(brain))
 		send_swarm_message("This entity has no brain to harvest from.")
