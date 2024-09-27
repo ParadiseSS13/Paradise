@@ -6,6 +6,7 @@
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
+	door_anim_time = 0
 	density = FALSE
 	anchored = TRUE
 	icon_closed = "wall-locker"
@@ -19,6 +20,7 @@
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies"
 	icon_state = "emerg"
+	door_anim_time = 0
 	icon_closed = "emerg"
 	icon_opened = "emerg_open"
 
