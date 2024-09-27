@@ -626,6 +626,10 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
+/atom/movable/screen/alert/ghost/cryo
+	name = "Ghost"
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+
 /atom/movable/screen/alert/ghost/cryo/Click()
 	if(!..())
 		return
@@ -635,8 +639,6 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/ghost/xeno
 	name = "Ghost"
 	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
-	icon_state = "template"
-	timeout = 5 MINUTES // longer than any infection should be
 
 /atom/movable/screen/alert/ghost/xeno/Click()
 	if(!..())
