@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
 	for(var/obj/item/I in loc)
-		if(I.density || I.anchored || I == src)
+		if(I.density || I.anchored)
 			continue
 		if(space >= maxspace)
 			break
