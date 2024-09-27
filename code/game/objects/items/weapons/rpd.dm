@@ -349,7 +349,7 @@
 			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			return
-		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
