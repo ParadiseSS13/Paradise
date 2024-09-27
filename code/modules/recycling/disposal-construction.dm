@@ -149,7 +149,7 @@
 	if(ispipe)
 		anchored = !anchored
 		level = anchored ? 1 : 2
-		to_chat(user, anchored ? "You attach the [nicetype] to the underfloor." : "You detach the [nicetype] from the underfloor.")
+		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the underfloor.</span>" : "<span class='notice'>You detach the [nicetype] from the underfloor.</span>")
 	else
 		var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
 		if(!CT)
@@ -157,7 +157,7 @@
 			return
 		anchored = !anchored
 		density = anchored
-		to_chat(user, anchored ? "You attach the [nicetype] to the trunk." : "You detach the [nicetype] from the trunk.")
+		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the trunk.</span>" : "<span class='notice'>You detach the [nicetype] from the trunk.</span>")
 
 	I.play_tool_sound(src, I.tool_volume)
 	update()
@@ -200,15 +200,15 @@
 				if(istype(CP, /obj/structure/disposalpipe/broken))
 					pdir = CP.dir
 				if(pdir & dpdir)
-					to_chat(user, "There is already a [nicetype] at that location.")
+					to_chat(user, "<span class='warning'>There is already a [nicetype] at that location.</span>")
 					return
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
 			if(I.tool_use_check(user, 0))
-				to_chat(user, "Welding the [nicetype] in place.")
+				to_chat(user, "<span class='notice'>You begin welding the [nicetype] in place.</span>")
 				if(I.use_tool(src, user, 20, volume = I.tool_volume))
-					to_chat(user, "The [nicetype] has been welded in place!")
+					to_chat(user, "<span class='notice'>You have welded the [nicetype] in place!</span>")
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe
 
@@ -245,10 +245,10 @@
 					qdel(src)
 					return
 			else
-				to_chat(user, "You need more welding fuel to complete this task.")
+				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
 				return
 		else
-			to_chat(user, "You need to attach it to the plating first!")
+			to_chat(user, "<span class='warning'>You need to attach it to the plating first!</span>")
 			return
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
