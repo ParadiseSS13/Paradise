@@ -12,7 +12,7 @@
 
 /datum/spell/flayer/self/weapon/New()
 	. = ..()
-	if(!weapon_ref)
+	if(weapon_type && !weapon_ref)
 		create_new_weapon()
 
 /datum/spell/flayer/self/weapon/Destroy(force, ...)
