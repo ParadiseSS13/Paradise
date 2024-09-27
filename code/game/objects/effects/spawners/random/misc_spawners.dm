@@ -6,6 +6,7 @@
 		/obj/item/dice/d10,
 		/obj/item/dice/d12,
 	)
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/dice/Initialize()
 	. = ..()
@@ -28,6 +29,7 @@
 		/obj/item/folder/yellow,
 		/obj/item/clipboard,
 	)
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/book
 	icon = 'icons/effects/random_spawners.dmi'
@@ -67,6 +69,7 @@
 		/obj/item/book/manual/wiki/sop_supply,
 		/obj/item/book/manual/zombie_manual,
 	)
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/book/record_item(type_path_to_make)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/book]")
@@ -78,6 +81,7 @@
 		/obj/item/mod/module/balloon = 1,
 		/obj/item/mod/module/stamp = 1
 	)
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/janitor/supplies
 	icon = 'icons/effects/random_spawners.dmi'
@@ -89,4 +93,5 @@
 		/obj/item/storage/box/lights/mixed,
 		/obj/item/storage/box/lights/bulbs,
 	)
+	record_spawn = TRUE
 
