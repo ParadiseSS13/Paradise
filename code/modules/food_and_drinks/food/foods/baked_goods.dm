@@ -500,14 +500,14 @@
 		filling_color = "#FF69B4"
 
 /obj/item/food/donut/jelly/slimejelly
-	name = "jelly donut"
+	name = "slime jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/donut/jelly/cherryjelly
-	name = "jelly donut"
+	name = "cherry jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"

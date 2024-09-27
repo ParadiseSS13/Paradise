@@ -282,6 +282,26 @@
 	name = "portal"
 	desc = "Good luck."
 
+// loot spawners
+
+/obj/effect/spawner/random/deepstorage_reward
+	name = "warehouse fashion reward"
+	loot = list(
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/clothing/suit/pimpcoat,
+			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/clothing/glasses/sunglasses/yeah
+	)
+
+/obj/effect/spawner/random/deepstorage_reward/main
+	name = "warehouse main reward"
+	loot = list(
+			/obj/item/storage/belt/champion/wrestling,
+			/obj/item/storage/box/weaver_kit,
+			/obj/item/gun/medbeam,
+			/obj/item/storage/lockbox/experimental_weapon
+	)
+
 // paper stuff & lore
 
 /obj/item/paper/fluff/ruins/deepstorage/log1
@@ -375,16 +395,6 @@
 /obj/item/paper/fluff/ruins/deepstorage/log9
 	name = "attention"
 	info = {"As per administration's order, unauthorized entry to supply storage is forbidden. Make your requests from the guard wing if you have a pending delivery."}
-
-/obj/effect/spawner/random/deepstorage_award
-	name = "boss award"
-	icon_state = "questionmark"
-	loot = list(
-		/obj/item/rod_of_asclepius = 3,
-		/obj/item/storage/box/syndie_kit/chameleon = 3,
-		/obj/item/storage/belt/champion/wrestling = 1,
-		/obj/item/storage/box/telescience = 1,
-	)
 
 #undef DS_BOSS_STORAGE
 #undef DS_ENGINEERING

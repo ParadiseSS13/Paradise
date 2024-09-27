@@ -1022,7 +1022,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!istype(cig))
 		return null
 
-	if(user.zone_selected != "mouth" || !user.a_intent == INTENT_HELP)
+	if(!direct_attackby_item && (user.zone_selected != "mouth" || user.a_intent != INTENT_HELP))
 		return null
 
 	if(cig.lit)
