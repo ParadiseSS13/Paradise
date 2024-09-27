@@ -43042,9 +43042,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
 "dlu" = (
-/obj/machinery/porta_turret{
-	dir = 1
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -44134,11 +44132,7 @@
 /area/station/engineering/secure_storage)
 "dpK" = (
 /obj/machinery/light/directional/east,
-/obj/machinery/porta_turret{
-	dir = 8;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /turf/simulated/floor/bluegrid,
 /area/station/aisat/hall)
 "dpL" = (
@@ -44482,12 +44476,6 @@
 /obj/machinery/status_display/directional/west,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
-"drI" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai)
 "drK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -44502,9 +44490,7 @@
 	},
 /area/station/turret_protected/ai)
 "drM" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drN" = (
@@ -44529,9 +44515,7 @@
 /area/station/aisat/service)
 "drR" = (
 /obj/machinery/status_display/directional/west,
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drS" = (
@@ -49595,9 +49579,7 @@
 	},
 /area/station/security/interrogation)
 "fcb" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -50196,9 +50178,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "fnT" = (
-/obj/machinery/porta_turret{
-	dir = 1
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/item/radio/intercom/locked/ai_private{
 	broadcasting = 1;
 	dir = 1;
@@ -70433,14 +70413,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
-"mtR" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai_upload)
 "mtW" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment{
@@ -76742,9 +76714,7 @@
 	},
 /area/station/science/toxins/mixing)
 "oGA" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84808,9 +84778,7 @@
 /area/station/engineering/ai_transit_tube)
 "rxK" = (
 /obj/machinery/status_display/directional/east,
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "rxV" = (
@@ -85926,9 +85894,7 @@
 	},
 /area/station/engineering/supermatter_room)
 "rVt" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -99221,11 +99187,7 @@
 /area/station/science/xenobiology)
 "wCk" = (
 /obj/machinery/light/directional/west,
-/obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /turf/simulated/floor/bluegrid,
 /area/station/aisat/hall)
 "wCq" = (
@@ -132334,10 +132296,10 @@ tKk
 bxA
 beE
 beE
-mtR
+oGA
 tEu
 lXe
-mtR
+oGA
 bIL
 beE
 paO
@@ -133876,7 +133838,7 @@ bvC
 bxY
 beE
 beE
-mtR
+oGA
 hHp
 qZw
 oGA
@@ -144520,7 +144482,7 @@ drf
 drf
 dry
 drG
-drI
+drM
 dry
 drE
 dry

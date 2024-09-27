@@ -17307,7 +17307,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "bwG" = (
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -21106,7 +21106,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -21491,10 +21491,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/command/meeting_room)
-"bKP" = (
-/obj/machinery/porta_turret,
-/turf/simulated/floor/plasteel/dark,
-/area/station/turret_protected/ai_upload)
 "bKS" = (
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/bluegrid,
@@ -23006,7 +23002,7 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
 "bPI" = (
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -23396,9 +23392,7 @@
 /area/station/command/office/blueshield)
 "bQK" = (
 /obj/machinery/alarm/directional/west,
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "bQL" = (
@@ -23417,9 +23411,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bQN" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "bQO" = (
@@ -25398,7 +25390,7 @@
 	},
 /area/station/turret_protected/aisat)
 "bXL" = (
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret/ai_turret,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -27428,7 +27420,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "ceP" = (
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "ceU" = (
@@ -153212,7 +153204,7 @@ byU
 bFy
 bHo
 bOT
-bKP
+bQN
 bMW
 bOO
 bQK
@@ -155268,7 +155260,7 @@ byU
 bFy
 bHw
 bOT
-bKP
+bQN
 bNa
 bOS
 bQN
