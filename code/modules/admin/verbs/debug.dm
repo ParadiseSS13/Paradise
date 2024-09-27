@@ -719,7 +719,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!F.active)
 			F.active = TRUE
 			F.state = 2
-			F.power = 250
+			F.energy = 125
 			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()
