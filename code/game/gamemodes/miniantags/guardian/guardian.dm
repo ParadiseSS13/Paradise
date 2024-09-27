@@ -144,7 +144,7 @@
 		if(iscarbon(summoner))
 			resulthealth = round(((summoner.health - HEALTH_THRESHOLD_CRIT) / abs(HEALTH_THRESHOLD_CRIT - summoner.maxHealth)) * 100)
 		else
-			resulthealth = round((summoner.health / (summoner.maxHealth/2)) * 100)
+			resulthealth = round((summoner.health / (summoner.maxHealth / 2)) * 100)
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[summoner.health < HEALTH_THRESHOLD_CRIT ? "#db2828" : "#efeeef"]>[resulthealth]%</font></div>"
 
