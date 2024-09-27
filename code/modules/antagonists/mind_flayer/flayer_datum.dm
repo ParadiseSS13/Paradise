@@ -24,6 +24,8 @@
 	var/list/category_stage = list(FLAYER_CATEGORY_GENERAL = 1, FLAYER_CATEGORY_DESTROYER = 1, FLAYER_CATEGORY_INTRUDER = 1)
 	/// If the mindflayer can still pick a stage 4 ability
 	var/can_pick_capstone = TRUE
+	/// Have we notified that our victim does not give swarms from draining
+	var/has_notified = FALSE
 
 /proc/ismindflayer(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
@@ -110,8 +112,10 @@
 	if(isnull(drained_humans[unique_drain_id]))
 		drained_humans[unique_drain_id] = 0
 	else if(drained_humans[unique_drain_id] > BRAIN_DRAIN_LIMIT)
-		send_swarm_message("You have drained most of the life force from [H]'s brain, and you will get no more swarms from them!")
-		return FALSE
+		if(!has_notified)
+			has_notified = TRUE
+			send_swarm_message("You have drained most of the life force from [H]'s brain, and you will get no more swarms from them!")
+		return DRAIN_BUT_NO_SWARMS
 	return TRUE
 
 /**
@@ -131,20 +135,26 @@
 		harvesting = null
 		return
 	while(do_mob(owner.current, H, time = DRAIN_TIME, progress = FALSE))
-		if(!check_valid_harvest(H))
+		var/check_harvest = check_valid_harvest(H)
+		if(!check_harvest)
 			harvesting = null
+			has_notified = FALSE
 			return
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME, beam_color = COLOR_ASSEMBLY_PURPLE)
 		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod)
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
-		adjust_swarms(damage_to_deal)
-		drained_humans[unique_drain_id] += damage_to_deal
+
+		if(check_harvest != DRAIN_BUT_NO_SWARMS)
+			adjust_swarms(damage_to_deal)
+			drained_humans[unique_drain_id] += damage_to_deal
+
 		// Lasting effects. Every second of draining requires 4 seconds of healing
 		drained_brain.max_damage -= 0.25 // As much damage as the default drain
 		drained_brain.temporary_damage += 0.25
 
 	send_swarm_message("Our connection severs.")
 	harvesting = null
+	has_notified = FALSE
 
 
 /datum/antagonist/mindflayer/greet()

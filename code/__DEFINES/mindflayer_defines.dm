@@ -8,6 +8,8 @@
 
 #define BRAIN_DRAIN_LIMIT 120
 #define DRAIN_TIME (1/4 SECONDS)
+/// If we want to keep draining someone but we don't have any swarms to gain
+#define DRAIN_BUT_NO_SWARMS 2
 
 #define isflayerpassive(A)		(istype(A, /datum/mindflayer_passive))
 
