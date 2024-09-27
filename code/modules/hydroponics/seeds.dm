@@ -427,8 +427,7 @@
 	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
 		N = "experimental " + N
 	name = N + V
-	if(GetComponent(/datum/component/label))
-		GetComponent(/datum/component/label).apply_label() // Don't delete labels
+	update_name() //Append name additives such as from labels
 
 
 

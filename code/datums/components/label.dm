@@ -19,12 +19,12 @@
 		return COMPONENT_INCOMPATIBLE
 
 	label_name = _label_name
-	apply_label()
+	applyLabel()
 
 /datum/component/label/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackby))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(onAttackBy))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(OnUpdateName))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(onUpdateName))
 
 /datum/component/label/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
@@ -34,12 +34,12 @@
 	Since the parent already has a label, it will remove the old one from the parent's name, and apply the new one.
 */
 /datum/component/label/InheritComponent(datum/component/label/new_comp , i_am_original, _label_name)
-	remove_label()
+	removeLabel()
 	if(new_comp)
 		label_name = new_comp.label_name
 	else
 		label_name = _label_name
-	apply_label()
+	applyLabel()
 
 /**
 	This proc will trigger when any object is used to attack the parent.
@@ -52,14 +52,14 @@
 	* attacker: The object that is hitting the parent.
 	* user: The mob who is wielding the attacking object.
 */
-/datum/component/label/proc/OnAttackby(datum/source, obj/item/attacker, mob/user)
+/datum/component/label/proc/onAttackBy(datum/source, obj/item/attacker, mob/user)
 	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
 	// The hand labeler should be off in order to remove a label.
 	var/obj/item/hand_labeler/labeler = attacker
 	if(!istype(labeler) || labeler.mode)
 		return
 
-	remove_label()
+	removeLabel()
 	playsound(parent, 'sound/items/poster_ripped.ogg', 20, TRUE)
 	to_chat(user, "<span class='warning'>You remove the label from [parent].</span>")
 	qdel(src) // Remove the component from the object.
@@ -75,20 +75,20 @@
 */
 
 ///Reapplies label when update_name() is called on the parent object. Attempts to remove it first just in case.
-/datum/component/label/proc/OnUpdateName()
-	remove_label()
-	apply_label()
+/datum/component/label/proc/onUpdateName()
+	removeLabel()
+	applyLabel()
 
 /datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
-/datum/component/label/proc/apply_label()
+/datum/component/label/proc/applyLabel()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
 
 /// Removes the label from the parent's name
-/datum/component/label/proc/remove_label()
+/datum/component/label/proc/removeLabel()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "([label_name])", "") // Remove the label text from the parent's name, wherever it's located.
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.
@@ -108,12 +108,12 @@
 
 /// Applies a static label to the parent's name.
 /// We do this instead of using label_name so it's easier to identify goal objects at a glance.
-/datum/component/label/goal/apply_label()
+/datum/component/label/goal/applyLabel()
 	var/atom/owner = parent
 	owner.name += " (Secondary Goal)"
 
 /// Removes the label from the parent's name
-/datum/component/label/goal/remove_label()
+/datum/component/label/goal/removeLabel()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "(Secondary Goal)", "") // Remove the label text from the parent's name, wherever it's located.
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.
