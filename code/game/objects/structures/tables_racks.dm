@@ -106,7 +106,7 @@
 		clear_smooth_overlays()
 
 // Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
-/obj/structure/table/set_smoothed_icon_state(new_junction) 
+/obj/structure/table/set_smoothed_icon_state(new_junction)
 	if(flipped)
 		return
 	..()
@@ -182,8 +182,7 @@
 		return
 	if(get_dist(P.starting, loc) <= 1) // Tables won't help you if people are THIS close
 		return
-	var/block_dir = get_dir(get_step(loc, dir), loc)
-	if(proj_dir != block_dir) // Back/side shots may pass
+	if(proj_dir != dir) // Back/side shots may pass
 		return
 	if(prob(40))
 		return FALSE // Blocked
