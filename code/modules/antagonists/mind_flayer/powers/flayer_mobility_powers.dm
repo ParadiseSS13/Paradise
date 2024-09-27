@@ -1,7 +1,7 @@
 //Basically shadow anchor, but the entry and exit point must be computers. I'm not in your walls I'm in your PC
 /datum/spell/flayer/computer_recall
 	name = "Traceroute"
-	desc = "Cast once to mark a computer, then cast this next to a different computer to recall yourself back to the first. Alt click to check your current mark."
+	desc = "Allows us to cast a mark to a computer. To recall us to this computer, cast this next to a different computer. To check your current mark: Alt click."
 	base_cooldown = 60 SECONDS
 	action_icon_state = "pd_cablehop"
 	upgrade_info = "Halve the time it takes to recharge."
@@ -11,6 +11,7 @@
 	stage = 2
 	base_cost = 150
 	static_upgrade_increase = 25
+	max_level = 2
 	/// The console we currently have a mark on
 	var/obj/machinery/computer/marked_computer
 

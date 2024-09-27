@@ -1,7 +1,7 @@
 /// Hack computer cameras to use them as a secret camera network
 /datum/spell/flayer/surveillance_monitor
 	name = "Camfecting Bug"
-	desc = "Cast on a computer to hack its webcam, then alt-click the spell to access all your hacked cameras."
+	desc = "Allows us to cast a hack to a computers webcam. Alt-click the spell to access all your hacked computer webcams.."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
@@ -11,7 +11,7 @@
 	static_upgrade_increase = 15
 	stage = 1
 	max_level = 4
-	upgrade_info = "Increase the amount of computers you can hack by 6."
+	upgrade_info = "Upgrades increase the amount of computers you can hack by 6."
 	/// An internal camera bug
 	var/obj/item/camera_bug/internal_camera
 	/// How many computers can we have hacked at most?
@@ -61,7 +61,7 @@
 
 /datum/spell/flayer/self/voice_synthesizer
 	name = "Enhanced Voice Mod"
-	desc = "Configure your vocal modulator to sound like a different person, and amplify your voice slightly."
+	desc = "Allows for the configuration of our vocal modulator to sound like a different person. We can amplify our voice slightly as well."
 	action_icon = 'icons/obj/clothing/masks.dmi'
 	action_icon_state = "voice_modulator"
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -88,7 +88,7 @@
 
 /datum/spell/flayer/self/heat_sink
 	name = "Heat Sink"
-	desc = "Vent the used coolant from our internals to disorient and scald attackers."
+	desc = "Vent our used coolant to scald and disorient attackers."
 	upgrade_info = "5 extra plumes of steam and 5 less seconds between casts."
 	action_icon_state = "smoke"
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -111,7 +111,7 @@
 
 /datum/spell/flayer/skin_suit
 	name = "Flesh Facsimile"
-	desc = "Choose someone we see, and rearrange our surface to resemble theirs."
+	desc = "Allows us to rearrange our surface to resemble someone we see."
 	action_icon_state = "genetic_poly"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
@@ -141,7 +141,7 @@
 /// After a 7 second channel time you can emag a borg
 /datum/spell/flayer/self/override_key
 	name = "Silicon Administrative Access"
-	desc = "Charge your hand with a mass of nanites that can hijack the lawsets of cyborgs."
+	desc = "Allows us to charge our hand with a mass of nanites that hijacks cyborgs lawsets."
 	action_icon_state = "magnet" // Uhhhhhhhhhhhhhhhhhhhhhhhhhhh
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER

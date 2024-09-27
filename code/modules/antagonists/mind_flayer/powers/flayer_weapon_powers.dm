@@ -59,7 +59,7 @@
 	action_icon_state = "elecarm"
 	max_level = 3
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`
-	upgrade_info = "Increase the rate at which this recharges."
+	upgrade_info = "Upgrading it recharges the internal power cell faster."
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
 
@@ -72,7 +72,7 @@
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augmentation"
-	desc = "Our hand melts away, replaced with the barrel of a laser gun."
+	desc = "Allows us to melt our hand away, replacing it with the barrel of a laser gun."
 	action_icon = 'icons/obj/guns/energy.dmi'
 	action_icon_state = "laser"
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -91,7 +91,7 @@
 
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
-	desc = "Our hand melts away, replaced with a makeshift cannon that automatically loads with shrapnel."
+	desc = "Allows us to melt our hand away, replacing it with a makeshift cannon that automatically loads with shrapnel."
 	action_icon = 'icons/obj/pneumaticCannon.dmi'
 	action_icon_state = "pneumaticCannon"
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -100,7 +100,7 @@
 	base_cost = 50
 	static_upgrade_increase = 50
 	max_level = 3
-	upgrade_info = "Reduces the time needed for us to recycle scrap into ammo."
+	upgrade_info = "Upgrading it reduces the time needed for us to recycle scrap into ammo."
 
 /datum/spell/flayer/self/weapon/flak_gun/on_purchase_upgrade()
 	if(!weapon_ref)
@@ -112,7 +112,7 @@
 
 /datum/spell/flayer/self/weapon/grapple_arm
 	name = "Integrated Grappling Mechanism"
-	desc = "Shoot out your arm attached to a cable, then drag yourself over to wherever or whoever it hits."
+	desc = "Allows us to shoot out our arm attached by a cable. We will drag ourself over to wherever or whoever it hits."
 	upgrade_info = "Reduce the time between grapples by 10 seconds."
 	action_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	action_icon_state = "flayer_claw"

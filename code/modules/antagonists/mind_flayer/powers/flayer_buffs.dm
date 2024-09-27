@@ -28,7 +28,7 @@
 
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"
-	desc = "Transmute your physical form to be much less solid, allowing you to phase through glass and non-solid objects."
+	desc = "Allows us to transmute our physical form, letting us phase through glass and non-solid objects."
 	action_icon_state = "blink"
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime at base
@@ -36,7 +36,7 @@
 	stage = 2
 	base_cost = 100
 	max_level = 3
-	upgrade_info = "At level 2, you also deflect projectiles shot at you. Level 3 doubles the duration of the effect."
+	upgrade_info = "After upgrading once, we also deflect projectiles shot at us. After upgrading a second time, the duration of the effect is doubled."
 	/// Do we get bullet reflection
 	var/should_get_reflection = FALSE
 	/// Extra duration we gain from upgrading
@@ -55,7 +55,7 @@
 /// A toggle ability that makes you speedy and attack faster while heating up, level one cast is guaranteed to hurt a bit.
 /datum/spell/flayer/self/overclock
 	name = "Overclock"
-	desc = "Put extra strain on your motors to move and attack faster, at the cost of heating up a dangerous amount."
+	desc = "Allows us to move and attack faster, at the cost of putting extra strain on our motors and heating us up a dangerous amount."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 15 SECONDS
 	category = FLAYER_CATEGORY_DESTROYER
@@ -64,7 +64,7 @@
 	max_level = 3
 	base_cost = 150
 	static_upgrade_increase = 25
-	upgrade_info = "Improve your heat sinks, making you heat up slower."
+	upgrade_info = "Upgrading this improves our heat sinks, making us heat up slower."
 	var/heat_per_tick = 22
 
 /datum/spell/flayer/self/overclock/cast(list/targets, mob/living/user)
