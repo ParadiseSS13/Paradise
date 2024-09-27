@@ -104,6 +104,8 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 			T.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
 			on_change(T)
 
+		CHECK_TICK
+
 /datum/caves_theme/proc/on_change(turf/T)
 	if(prob(2))
 		lavaland_caves_spawn_flora(T)
