@@ -104,8 +104,11 @@
 	if(!H.ckey && !H.player_ghosted)
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 		return FALSE
-	if(brain.damage > brain.max_damage)
+	if(brain.damage >= brain.max_damage || (H.stat == DEAD && !H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)))
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
+		return FALSE
+	if(HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN))
+		send_swarm_message("This brain is unsuitable to harvest.")
 		return FALSE
 
 	var/unique_drain_id = H.UID()
