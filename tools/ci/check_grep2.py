@@ -18,7 +18,7 @@ def print_error(message: str, filename: str, line_number: int):
     else:
         print(f"{filename}:{line_number}: {RED}{message}{NC}")
 
-IGNORE_515_PROC_MARKER_FILENAME = "proc_refs.dm"
+IGNORE_515_PROC_MARKER_FILENAME = "__proc_refs.dm"
 CHECK_515_PROC_MARKER_RE = re.compile(r"\.proc/")
 def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):

@@ -72,6 +72,8 @@
 		steps++
 
 /datum/component/squeak/proc/play_squeak_crossed(atom/source, atom/movable/crossing)
+	if(!isturf(crossing.loc) || !isturf(source.loc))
+		return
 	if(istype(crossing, /obj/effect))
 		return
 	if(ismob(crossing))

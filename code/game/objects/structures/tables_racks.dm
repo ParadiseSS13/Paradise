@@ -100,6 +100,16 @@
 	if(flipped)
 		clear_smooth_overlays()
 
+// Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
+/obj/structure/table/set_smoothed_icon_state(new_junction) 
+	if(flipped)
+		return
+	..()
+
+/obj/structure/table/flipped
+	icon_state = "tableflip0"
+	flipped = TRUE
+
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
 	qdel(src)
@@ -129,10 +139,9 @@
 /obj/structure/table/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
-	if(ismob(mover))
-		var/mob/living/M = mover
-		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
-			return TRUE
+	var/mob/living/living_mover = mover
+	if(istype(living_mover) && (living_mover.flying || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
@@ -359,6 +368,8 @@
 		return 0 SECONDS // sure
 	if(!issimple_animal(flipper))
 		return 0 SECONDS
+	if(istype(flipper, /mob/living/simple_animal/revenant))
+		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)
 			return 30 SECONDS  // you can do it but you gotta *really* work for it

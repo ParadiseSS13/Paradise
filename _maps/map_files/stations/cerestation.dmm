@@ -28271,6 +28271,10 @@
 	},
 /area/station/medical/patients_rooms)
 "dlp" = (
+/obj/structure/railing/corner{
+	dir = 1;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58975,6 +58979,20 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lwZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "lxe" = (
 /obj/structure/table/reinforced,
 /obj/item/transfer_valve{
@@ -74137,7 +74155,7 @@
 /area/station/hallway/primary/aft/east)
 "pRl" = (
 /obj/structure/disposaloutlet{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -102291,6 +102309,14 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
+"xGy" = (
+/obj/structure/disposalpipe/junction/y{
+	dir = 4
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "xGA" = (
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
@@ -126611,7 +126637,7 @@ xbi
 huq
 huq
 huq
-huq
+xGy
 uNO
 czl
 baF
@@ -126868,7 +126894,7 @@ qoK
 nxG
 nxG
 nxG
-eiE
+lwZ
 wph
 oZo
 baF
