@@ -154,14 +154,16 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	var/new_scan_range = rand(4, 7)
 	var/tempradius = rand(10, 15)
 	var/probmodifer = OASIS_SPAWNER_PROB_MODIFIER * tempradius
+	var/list/oasis_turfs = list()
 	for(var/turf/NT in circlerangeturfs(T, tempradius))
 		var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 		if(safe_replace(NT) && prob(min(probmodifer / distance, 100)))
 			var/turf/changed = NT.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-			if(prob(30))
+			if(prob(5))
 				lavaland_caves_spawn_mob(changed, new_scan_range, new_scan_range)
-			else if(prob(15))
+			else if(prob(10))
 				lavaland_caves_spawn_flora(changed)
+			oasis_turfs |= NT
 
 	if(prob(50))
 		tempradius = round(tempradius / 3)
@@ -171,6 +173,11 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		for(var/turf/oasis in circlerangeturfs(T, tempradius))
 			if(safe_replace(oasis))
 				oasis.ChangeTurf(oasis_laketype)
+				oasis_turfs -= oasis
+
+		// Move tendrils out of the oasis
+		for(var/obj/structure/spawner/lavaland/O in circlerange(T, tempradius))
+			O.forceMove(pick_n_take(oasis_turfs))
 
 	return T
 
