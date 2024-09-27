@@ -24484,7 +24484,7 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "byw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -24728,13 +24728,13 @@
 	maxcharge = 2000
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bzC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bzE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -25145,7 +25145,7 @@
 "bBj" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bBk" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -25153,7 +25153,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25438,14 +25438,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -25457,7 +25462,7 @@
 "bCz" = (
 /obj/item/stack/sheet/cardboard,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bCB" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -25743,7 +25748,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bDJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25804,7 +25809,7 @@
 	},
 /obj/structure/closet/crate/internals,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bDU" = (
 /obj/structure/disposaloutlet{
 	dir = 1
@@ -25858,8 +25863,13 @@
 /obj/structure/closet/crate/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bEj" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25970,13 +25980,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bEC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bED" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/rnd)
@@ -26086,8 +26096,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFp" = (
 /obj/machinery/door_control{
 	id = "qm_warehouse";
@@ -26097,13 +26112,13 @@
 	req_access_txt = "31"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFq" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bFr" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/disposalpipe/segment{
@@ -26567,7 +26582,7 @@
 "bGY" = (
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bGZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -27022,8 +27037,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bIy" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27035,7 +27055,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bIA" = (
 /obj/structure/closet/radiation,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -27624,7 +27644,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/area/station/supply/warehouse)
 "bKS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -39363,6 +39383,9 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"cCh" = (
+/turf/simulated/floor/plasteel,
+/area/station/supply/warehouse)
 "cCk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -56908,6 +56931,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
+"gfL" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/station/supply/warehouse)
 "ggr" = (
 /obj/item/stack/rods{
 	amount = 4
@@ -76347,7 +76374,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
-/area/station/maintenance/port)
+/area/station/supply/warehouse)
 "pIR" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -76868,6 +76895,10 @@
 	},
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
+"pWt" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/supply/warehouse)
 "pWW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -77878,6 +77909,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"qsc" = (
+/turf/simulated/wall,
+/area/station/supply/warehouse)
 "qsA" = (
 /obj/machinery/light{
 	dir = 8
@@ -87874,6 +87908,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "vwi" = (
@@ -114518,14 +114557,14 @@ blR
 bsc
 bwy
 svp
-mwL
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
+gfL
+qsc
+qsc
+qsc
+qsc
+qsc
+qsc
+qsc
 bIZ
 bNI
 rBg
@@ -114775,7 +114814,7 @@ blR
 blT
 bwy
 bnw
-bxb
+qsc
 bDI
 bzC
 bBk
@@ -115033,13 +115072,13 @@ blR
 bww
 bnK
 pIE
-bKz
+cCh
 bEB
 bGY
 bIz
-bKz
+cCh
 bFp
-bxb
+qsc
 bMi
 bKz
 bQg
@@ -115289,14 +115328,14 @@ iYO
 blR
 bwy
 bvF
-bxb
+qsc
 byv
 bEB
-bKz
-bKz
-bKz
+cCh
+cCh
+cCh
 bFq
-bxb
+qsc
 bxb
 bKB
 uSw
@@ -115546,14 +115585,14 @@ cEJ
 blR
 bGX
 bCj
-bxb
-bKz
+qsc
+cCh
 bEC
 bBj
 bCz
-bKz
-bKz
-bxb
+cCh
+cCh
+qsc
 bIW
 crC
 bMy
@@ -115803,14 +115842,14 @@ blR
 blR
 bwy
 cho
-bxb
+qsc
 bzB
 bBj
 bCu
 bDR
-bKz
+pWt
 bKQ
-bxb
+qsc
 bJi
 bBn
 bQm
@@ -116060,14 +116099,14 @@ blR
 bsn
 mQd
 mBl
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
-bxb
+qsc
+qsc
+qsc
+qsc
+qsc
+qsc
+qsc
+qsc
 bzJ
 bNM
 bQj
