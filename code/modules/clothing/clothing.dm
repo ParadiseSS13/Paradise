@@ -520,9 +520,7 @@
   * * Hat - The clothing/head object being checked. MUST BE TYPE /obj/item/clothing/head
 */
 /obj/item/clothing/head/proc/can_attach_hat(obj/item/clothing/head/hat)
-	if(length(attached_hats) >= 1 || !can_have_hats || !hat.can_be_hat) // this hat already has a hat or cannot be a hat of a hat!
-		return FALSE
-	return TRUE
+	return length(attached_hats) < 1 && can_have_hats && hat.can_be_hat // this hat already has a hat or cannot be a hat of a hat!
 
 /obj/item/clothing/head/proc/attach_hat(obj/item/clothing/head/hat, mob/user, unequip = FALSE)
 	if(can_attach_hat(hat))
@@ -548,7 +546,7 @@
 	if(istype(I, /obj/item/clothing/head) && can_have_hats)
 		attach_hat(I, user, TRUE)
 
-	return . = ..()
+	return ..()
 
 //////////////////////////////
 // MARK: MASK
