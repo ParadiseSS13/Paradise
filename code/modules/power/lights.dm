@@ -144,7 +144,6 @@
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-stage1"
 	anchored = TRUE
 	layer = FLY_LAYER
@@ -155,7 +154,6 @@
 /obj/machinery/light_construct/floor
 	name = "floor light fixture frame"
 	desc = "A floor light fixture under construction."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor-construct-stage1"
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
@@ -264,7 +262,6 @@
 /obj/machinery/light/floor
 	name = "floor light"
 	desc = "A lightbulb you can walk on without breaking it, amazing."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor1"
 	glow_icon_state = "floor"
 	exposure_icon_state = "floor_circle"
@@ -854,6 +851,22 @@
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
+/obj/machinery/light/extinguish_light(force = FALSE)
+	on = FALSE
+	extinguished = TRUE
+	emergency_mode = FALSE
+	no_emergency = TRUE
+	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	update(FALSE)
+
+/obj/machinery/light/proc/enable_emergency_lighting()
+	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	extinguished = FALSE
+	no_emergency = FALSE
+	update(FALSE)
+
+
 /**
   * MARK: Light item
   *
@@ -1008,21 +1021,6 @@
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
-
-/obj/machinery/light/extinguish_light(force = FALSE)
-	on = FALSE
-	extinguished = TRUE
-	emergency_mode = FALSE
-	no_emergency = TRUE
-	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-	update(FALSE)
-
-/obj/machinery/light/proc/enable_emergency_lighting()
-	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
-	extinguished = FALSE
-	no_emergency = FALSE
-	update(FALSE)
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE
