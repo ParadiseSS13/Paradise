@@ -402,7 +402,7 @@
 	var/obj/item/clothing/under/has_under = null
 	/// the attached hats to this hat.
 	var/list/attached_hats = list()
-	/// if this hat can have hats placed ontop of it.
+	/// if this hat can have hats placed on top of it.
 	var/can_have_hats = FALSE
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
