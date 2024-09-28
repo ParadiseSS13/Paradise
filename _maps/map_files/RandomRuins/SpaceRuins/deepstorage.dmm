@@ -860,7 +860,7 @@
 /area/ruin/space/deepstorage)
 "cU" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1079,7 +1079,7 @@
 /area/ruin/space/deepstorage)
 "eI" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1211,7 +1211,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -1259,7 +1259,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1284,6 +1284,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1462,7 +1463,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner";
 	dir = 1
@@ -1495,7 +1496,7 @@
 /area/ruin/space/deepstorage)
 "hK" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/sign/poster/contraband/power{
 	pixel_x = -32
 	},
@@ -1619,7 +1620,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1742,7 +1743,7 @@
 /area/ruin/space/deepstorage)
 "jq" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "jr" = (
@@ -1946,7 +1947,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1981,7 +1982,7 @@
 "kG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -2093,7 +2094,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2111,12 +2112,12 @@
 	dir = 6
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2539,7 +2540,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 4
@@ -2593,7 +2594,7 @@
 /obj/structure/railing/corner,
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2664,9 +2665,10 @@
 	},
 /area/ruin/space/deepstorage)
 "pk" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/structure/rack,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2675,9 +2677,8 @@
 "ps" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2757,7 +2758,7 @@
 /area/ruin/space/deepstorage)
 "qa" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2860,7 +2861,7 @@
 /area/ruin/space/deepstorage)
 "qQ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3011,7 +3012,7 @@
 /area/ruin/space/deepstorage)
 "rQ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3019,7 +3020,7 @@
 /area/ruin/space/deepstorage)
 "rS" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3145,7 +3146,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3153,7 +3154,7 @@
 /area/ruin/space/deepstorage)
 "sY" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -3169,7 +3170,7 @@
 /area/ruin/space/unpowered)
 "ta" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner"
 	},
@@ -3348,7 +3349,7 @@
 /area/ruin/space/deepstorage)
 "tH" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3409,7 +3410,7 @@
 /area/ruin/space/deepstorage)
 "tZ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3939,8 +3940,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "ye" = (
-/obj/structure/table/reinforced,
-/obj/item/salvage/ruin/russian,
+/obj/structure/rack,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -4657,7 +4660,7 @@
 /area/ruin/space/deepstorage)
 "Cl" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -4673,10 +4676,10 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Cn" = (
-/obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random_spawners/ruin/deepstorage_award,
+/obj/structure/rack,
+/obj/effect/spawner/random/deepstorage_reward,
+/obj/effect/spawner/random/deepstorage_reward,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4770,7 +4773,7 @@
 "CZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -5233,7 +5236,7 @@
 /area/ruin/space/unpowered)
 "GE" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5465,7 +5468,7 @@
 /area/ruin/space/deepstorage)
 "IJ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5482,8 +5485,8 @@
 /area/ruin/space/deepstorage)
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/safe,
-/obj/item/stack/spacecash/c500,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5957,7 +5960,7 @@
 "Mb" = (
 /obj/structure/railing,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Mf" = (
@@ -6016,6 +6019,7 @@
 /obj/structure/rack,
 /obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/deepstorage_reward/main,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6166,7 +6170,7 @@
 /area/ruin/space/deepstorage)
 "Ob" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -6283,7 +6287,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6412,7 +6416,7 @@
 /area/ruin/space/deepstorage)
 "PU" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6596,7 +6600,7 @@
 	dir = 10
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "Rc" = (
@@ -7108,7 +7112,7 @@
 /area/ruin/space/unpowered)
 "UM" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 1
@@ -7529,7 +7533,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7614,7 +7618,7 @@
 /area/ruin/space/deepstorage)
 "XN" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -7685,7 +7689,7 @@
 /area/ruin/space/deepstorage)
 "Yk" = (
 /obj/structure/table/reinforced,
-/obj/item/salvage/ruin/nanotrasen,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7905,7 +7909,7 @@
 "ZS" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/space/deepstorage)
 "ZU" = (

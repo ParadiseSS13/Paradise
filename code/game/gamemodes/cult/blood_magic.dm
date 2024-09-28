@@ -188,7 +188,7 @@
 		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						"<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
-	owner.emp_act(2)
+	owner.emp_act(EMP_LIGHT)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
 	charges--
@@ -388,7 +388,7 @@
 
 /obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
-	if(has_source)
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
@@ -566,11 +566,10 @@
 		return
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed() || C.get_arm_ignore())
-			CuffAttack(C, user)
-		else
+		if(!(C.has_left_hand() || C.has_right_hand()))
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
 			return
+		CuffAttack(C, user)
 		source.UpdateButtons()
 		..()
 

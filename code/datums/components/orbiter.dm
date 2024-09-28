@@ -456,7 +456,7 @@
 	var/list/output = list()
 	if(!processed)
 		processed = list()
-	if(src in processed || isturf(src))
+	if((src in processed) || isturf(src))
 		return output
 
 	processed += src

@@ -156,6 +156,7 @@
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
 #define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
 #define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2		//! Tile is exposed to the environment, ex: lavaland
+#define ATMOS_MODE_NO_DECAY 3					//! Prevents hot tiles from automatically decaying towards T20C.
 
 /// Lavaland environment: hot, low pressure.
 #define ENVIRONMENT_LAVALAND "lavaland"

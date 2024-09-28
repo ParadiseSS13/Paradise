@@ -144,7 +144,7 @@
 		return
 	var/obj/tgvehicle/scooter/skateboard/S = parent
 	for(var/mob/living/L in S.return_occupants()) // Only one on a skateboard unless an admin var edits it. If an admin var edits it, that is on them.
-		if((L.staminaloss >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
+		if((L.getStaminaLoss() >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
 			S.unbuckle_mob(L)
 			L.KnockDown(2 SECONDS)
 			L.visible_message("<span class='warning'>[L] gets shot off [S] by [projectile]!</span>",

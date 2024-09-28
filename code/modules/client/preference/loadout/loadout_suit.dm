@@ -41,12 +41,12 @@
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Research Director")
+	allowed_roles = list("Scientist", "Research Director", "Geneticist")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
@@ -129,7 +129,7 @@
 /datum/gear/suit/bomber/job/medical
 	display_name = "Bomber jacket, medical"
 	path = /obj/item/clothing/suit/jacket/bomber/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
 
 /datum/gear/suit/bomber/job/chemist
 	display_name = "Bomber jacket, chemist"
@@ -144,7 +144,7 @@
 /datum/gear/suit/bomber/job/science
 	display_name = "Bomber jacket, science"
 	path = /obj/item/clothing/suit/jacket/bomber/sci
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist")
 
 /datum/gear/suit/bomber/job/robotics
 	display_name = "Bomber jacket, robotics"

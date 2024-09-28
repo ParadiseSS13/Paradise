@@ -16,6 +16,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
+	// Tells if all maintenance airlocks have emergency access enabled
+	var/maint_all_access = FALSE
+	// Tells if all station airlocks have emergency access enabled
+	var/station_all_access = FALSE
 
 	/// A mapping of environment names to MILLA environment IDs.
 	var/list/environments
@@ -355,6 +359,42 @@ SUBSYSTEM_DEF(mapping)
 				ruins_availible -= R
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+/datum/controller/subsystem/mapping/proc/make_maint_all_access()
+	for(var/area/station/maintenance/A in existing_station_areas)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	maint_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
+	for(var/area/station/maintenance/A in existing_station_areas)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	maint_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
+
+/datum/controller/subsystem/mapping/proc/make_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	station_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	station_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

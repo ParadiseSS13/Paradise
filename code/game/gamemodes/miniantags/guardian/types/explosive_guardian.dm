@@ -86,7 +86,7 @@
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
-	user.ex_act(2)
+	user.ex_act(EXPLODE_HEAVY)
 	user.Stun(3 SECONDS)//A bomb went off in your hands. Actually lets people follow up with it if they bait someone, right now it is unreliable.
 	qdel(src)
 

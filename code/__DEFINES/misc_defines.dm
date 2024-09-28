@@ -104,6 +104,9 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 0
+
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -420,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 59
+#define SQL_VERSION 60
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -600,8 +603,9 @@
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
-#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
+#define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
 /**
  * Reading books can help with brain damage!
@@ -730,3 +734,5 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define ALPHA_VISIBLE 255 // the max alpha

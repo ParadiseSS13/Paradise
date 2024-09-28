@@ -3,36 +3,36 @@
 	set category = "OOC"
 
 	var/list/lines = list()
-	var/list/temp = list()
+	var/list/ckeys = list()
 
 	for(var/client/C in GLOB.clients)
 		if(C.holder && C.holder.big_brother) // BB doesn't show up at all
 			continue
 
 		if(C.holder && C.holder.fakekey)
-			temp += C.holder.fakekey
+			ckeys += C.holder.fakekey
 		else
-			temp += C.key
+			ckeys += C.key
 
-	temp = sortList(temp) // Sort it. We dont do this above because fake keys would be out of order, which would be a giveaway
+	ckeys = sortList(ckeys) // Sort it. We dont do this above because fake keys would be out of order, which would be a giveaway
 
 	var/list/output_players = list()
 
 	// Now go over it again to apply colours.
-	for(var/p in temp)
-		var/client/C = GLOB.directory[ckey(p)]
+	for(var/player in ckeys)
+		var/client/C = GLOB.directory[ckey(player)]
 		if(!C)
 			// This should NEVER happen, but better to be safe
 			continue
 		// Get the colour
 		var/colour = client2rankcolour(C)
-		var/out = "[p]"
+		var/output = "[player]"
 		if(C.holder)
-			out = "<b>[out]</b>"
+			output = "<b>[output]</b>"
 		if(colour)
-			out = "<font color='[colour]'>[out]</font>"
+			output = "<font color='[colour]'>[output]</font>"
 
-		output_players += out
+		output_players += output
 
 	lines += "<b>Current Players ([length(output_players)]): </b>"
 	lines += output_players.Join(", ") // Turn players into a comma separated list
@@ -40,9 +40,7 @@
 	if(check_rights(R_ADMIN, FALSE))
 		lines += "Click <a href='byond://?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
 
-	var/msg = lines.Join("\n")
-
-	to_chat(src, msg)
+	to_chat(src, lines.Join("<br>"))
 
 // Advanced version of `who` to show player age, antag status and more. Lags the chat when loading, so its in its own proc
 /client/proc/who_advanced()
@@ -55,7 +53,8 @@
 		if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
 			continue
 
-		var/entry = "\t[C.key]"
+		var/list/entry = list()
+		entry += "\t[C.key]"
 		if(C.holder && C.holder.fakekey)
 			entry += " <i>(as [C.holder.fakekey])</i>"
 		entry += " - Playing as [C.mob.real_name]"
@@ -64,8 +63,8 @@
 				entry += " - <font color='darkgray'><b>Unconscious</b></font>"
 			if(DEAD)
 				if(isobserver(C.mob))
-					var/mob/dead/observer/O = C.mob
-					if(O.started_as_observer)
+					var/mob/dead/observer/observer = C.mob
+					if(observer.started_as_observer)
 						entry += " - <font color='gray'>Observing</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"
@@ -74,113 +73,97 @@
 				else
 					entry += " - <font color='black'><b>DEAD</b></font>"
 
-		var/age
+		var/account_age
 		if(isnum(C.player_age))
-			age = C.player_age
+			account_age = C.player_age
 		else
-			age = 0
+			account_age = 0
 
-		if(age <= 1)
-			age = "<font color='#ff0000'><b>[age]</b></font>"
-		else if(age < 10)
-			age = "<font color='#ff8c00'><b>[age]</b></font>"
+		if(account_age <= 1)
+			account_age = "<font color='#ff0000'><b>[account_age]</b></font>"
+		else if(account_age < 10)
+			account_age = "<font color='#ff8c00'><b>[account_age]</b></font>"
 
-		entry += " - [age]"
+		entry += " - [account_age]"
 
 		if(is_special_character(C.mob))
 			entry += " - <b><font color='red'>Antagonist</font></b>"
 		entry += " ([ADMIN_QUE(C.mob, "?")])"
-		Lines += entry
 
-	var/msg = ""
+		Lines += entry.Join("")
+
+	var/list/msg = list()
 
 	for(var/line in sortList(Lines))
-		msg += "[line]\n"
+		msg += "[line]"
 
 	msg += "<b>Total Players: [length(Lines)]</b>"
-	to_chat(src, msg)
+	to_chat(src, msg.Join("<br>"))
 
 /client/verb/adminwho()
 	set category = "Admin"
 	set name = "Adminwho"
 
-	var/msg = ""
-	var/modmsg = ""
-	var/num_mods_online = 0
+	var/list/adminmsg = list()
+	var/list/mentormsg = list()
+	var/list/devmsg = list()
+	var/num_mentors_online = 0
 	var/num_admins_online = 0
-	if(holder)
-		for(var/client/C in GLOB.admins)
-			if(check_rights(R_ADMIN, 0, C.mob))
+	var/num_devs_online = 0
 
-				if(C?.holder?.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
-					continue
+	for(var/client/C in GLOB.admins)
+		var/list/line = list()
+		var/rank_colour = client2rankcolour(C)
+		if(rank_colour)
+			line += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
+		else
+			line += "<b>[C]</b> is a [C.holder.rank]"
 
-				if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE))		// normal admins can't see BB
-					continue
+		if(holder) // Only for those with perms see the extra bit
+			if(C.holder.fakekey && check_rights(R_ADMIN, FALSE))
+				line += " <i>(as [C.holder.fakekey])</i>"
 
-				// Their rank may not have a defined colour, only set colour if so
-				var/rank_colour = client2rankcolour(C)
-				if(rank_colour)
-					msg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
-				else
-					msg += "<b>[C]</b> is a [C.holder.rank]"
+			if(isobserver(C.mob))
+				line += " - Observing"
+			else if(isnewplayer(C.mob))
+				line += " - Lobby"
+			else
+				line += " - Playing"
 
-				if(C.holder.fakekey)
-					msg += " <i>(as [C.holder.fakekey])</i>"
+			if(C.is_afk())
+				line += " (AFK)"
 
-				if(isobserver(C.mob))
-					msg += " - Observing"
-				else if(isnewplayer(C.mob))
-					msg += " - Lobby"
-				else
-					msg += " - Playing"
+		line += "<br>"
+		if(check_rights(R_ADMIN, FALSE, C.mob)) // Is this client an admin?
+			if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
+				continue
 
-				if(C.is_afk())
-					msg += " (AFK)"
-				msg += "\n"
+			if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
+				continue
+			num_admins_online++
+			adminmsg += line.Join("")
 
-				num_admins_online++
+		else if(check_rights(R_DEV_TEAM, FALSE, C.mob)) // Is this client a developer?
+			num_devs_online++
+			devmsg += line.Join("")
 
-			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				// Their rank may not have a defined colour, only set colour if so
-				var/rank_colour = client2rankcolour(C)
-				if(rank_colour)
-					modmsg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
-				else
-					modmsg += "<b>[C]</b> is a [C.holder.rank]"
+		else if(check_rights(R_MENTOR, FALSE, C.mob)) // Is this client a mentor?
+			num_mentors_online++
+			mentormsg += line.Join("")
 
-				if(isobserver(C.mob))
-					modmsg += " - Observing"
-				else if(isnewplayer(C.mob))
-					modmsg += " - Lobby"
-				else
-					modmsg += " - Playing"
-
-				if(C.is_afk())
-					modmsg += " (AFK)"
-				modmsg += "\n"
-				num_mods_online++
-	else
-		for(var/client/C in GLOB.admins)
-
-			if(check_rights(R_ADMIN, 0, C.mob))
-				if(!C.holder.fakekey)
-					var/rank_colour = client2rankcolour(C)
-					if(rank_colour)
-						msg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
-					else
-						msg += "<b>[C]</b> is a [C.holder.rank]"
-					msg += "\n"
-					num_admins_online++
-			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				var/rank_colour = client2rankcolour(C)
-				if(rank_colour)
-					modmsg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"
-				else
-					modmsg += "<b>[C]</b> is a [C.holder.rank]"
-				modmsg += "\n"
-				num_mods_online++
-
-	var/noadmins_info = "\n<span class='notice'><small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small></span>"
-	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mentors ([num_mods_online]):</b>\n" + modmsg + noadmins_info
-	to_chat(src, msg)
+	var/list/final_message = list()
+	if(num_admins_online)
+		final_message += "<b>Current Admins ([num_admins_online]):</b><br>"
+		final_message += adminmsg
+		final_message += "<br>"
+	if(num_devs_online)
+		final_message += "<b>Current Developers ([num_devs_online]):</b><br>"
+		final_message += devmsg
+		final_message += "<br>"
+	if(num_mentors_online)
+		final_message += "<b>Current Mentors ([num_mentors_online]):</b><br>"
+		final_message += mentormsg
+		final_message += "<br>"
+	if(!num_admins_online || !num_mentors_online)
+		final_message += "<span class='notice'>Even with no [!num_admins_online ? "admins" : ""][!num_admins_online && !num_mentors_online ? " or " : ""][!num_mentors_online ? "mentors" : ""] are online, make a ticket anyways. [!num_admins_online ? "Adminhelps" : ""][!num_admins_online && !num_mentors_online ? " and " : ""][!num_mentors_online ? "Mentorhelps" : ""] will be relayed to discord, and staff will still be informed.</span>"
+	to_chat(src, final_message.Join(""))

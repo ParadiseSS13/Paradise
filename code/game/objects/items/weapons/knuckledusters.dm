@@ -65,7 +65,7 @@
 	icon_state = "knuckleduster_nt"
 	force = 10
 	throwforce = 5
-	origin_tech = "combat=3"
+	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Steal objectives shouldnt be easy to destroy.
 	materials = list(MAT_GOLD = 500, MAT_TITANIUM = 200, MAT_PLASMA = 200)
 	trauma = 10

@@ -66,16 +66,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	var/obj/item/stack/sheet/NG = new welded_type(user.loc)
-	for(var/obj/item/stack/sheet/G in user.loc)
-		if(!istype(G, welded_type))
-			continue
-		if(G == NG)
-			continue
-		if(G.amount >= G.max_amount)
-			continue
-		G.attackby(NG, user)
-	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+	new welded_type(user.loc)
+	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack.</span>")
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)

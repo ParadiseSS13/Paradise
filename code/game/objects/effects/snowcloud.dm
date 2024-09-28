@@ -113,7 +113,7 @@
 	qdel(src)
 
 /obj/effect/snow/ex_act(severity)
-	if(severity == 3 && prob(50))
+	if(severity == EXPLODE_LIGHT && prob(50))
 		return
 	qdel(src)
 

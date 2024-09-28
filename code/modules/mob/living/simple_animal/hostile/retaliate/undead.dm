@@ -89,6 +89,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	deathmessage = null
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/warden/Process_Spacemove(movement_dir)
 	return TRUE
@@ -109,6 +110,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/skeleton/angered_warden/Process_Spacemove(movement_dir)
 	return TRUE

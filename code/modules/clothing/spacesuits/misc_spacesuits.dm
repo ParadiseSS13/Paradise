@@ -64,6 +64,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	dyeable = FALSE
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
@@ -85,8 +86,8 @@
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	name = "\improper Trans-Solar Federation commander's beret"
-	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
+	name = "\improper TSF staff officer's beret"
+	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by high-ranking officers of the Trans-Solar Federation."
 	icon_state = "beret_solgovcelite"
 
 /obj/item/clothing/suit/space/deathsquad/officer
@@ -103,7 +104,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
-	name = "\improper Trans-Solar Federation commander's jacket"
+	name = "\improper TSF staff officer's jacket"
+	desc = "A stylish, heavily armored jacket worn by high-ranking officers of the Trans-Solar Federation."
 	icon_state = "solgovcommander"
 	item_state = "solgovcommander"
 

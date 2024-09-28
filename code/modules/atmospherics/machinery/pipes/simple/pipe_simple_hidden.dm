@@ -49,7 +49,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
 	. = list()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
+	. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()

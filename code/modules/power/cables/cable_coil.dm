@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+		cable_color(C.dye_color)
 
 ///////////////////////////////////////////////
 // Cable laying procedures

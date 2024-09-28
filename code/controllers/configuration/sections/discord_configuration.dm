@@ -11,11 +11,10 @@
 	var/mentor_role_id = ""
 	/// List of all URLs for the main webhooks
 	var/list/main_webhook_urls = list()
-	/// List of all URLs for the admin webhooks
-	var/list/mentor_webhook_urls = list()
 	/// List of all URLs for the mentor webhooks
+	var/list/mentor_webhook_urls = list()
+	/// List of all URLs for the admin webhooks
 	var/list/admin_webhook_urls = list()
-
 
 
 /datum/configuration_section/discord_configuration/load_data(list/data)

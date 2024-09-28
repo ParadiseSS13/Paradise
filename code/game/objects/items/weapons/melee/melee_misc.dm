@@ -23,37 +23,37 @@
 	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/melee/rapier
-	name = "captain's rapier"
+/obj/item/melee/saber
+	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
-	icon_state = "rapier"
-	item_state = "rapier"
+	icon_state = "saber"
+	item_state = "saber"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration_percentage = 75
 	sharp = TRUE
-	origin_tech = "combat=5"
+	origin_tech = null
 	attack_verb = list("lunged at", "stabbed")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
-/obj/item/melee/rapier/examine(mob/user)
+/obj/item/melee/saber/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The blade looks very well-suited for piercing armour.</span>"
 
-/obj/item/melee/rapier/examine_more(mob/user)
+/obj/item/melee/saber/examine_more(mob/user)
 	. = ..()
 	. += "Swords are a traditional ceremonial weapon carried by commanding officers of many armies and navies, even long after firearms and laserarms rendered them obsolete. \
 	Despite having no roots in such traditions, Nanotrasen participates in them, as these trappings of old tradition help to promote the air of authority the company wishes for its captains to possess."
 	. += ""
-	. += "Whilst not intended to actually be used in combat, these ceremonial rapiers are in-fact quite functional, \
+	. += "Whilst not intended to actually be used in combat, the ceremonial blades issued by Nanotrasen are in-fact quite functional, \
 	able to both inflict grievous wounds on aggressors that get too close, whilst also elegantly parrying their blows (assuming the wielder is skilled with the blade). \
-	The thin, sharp point is also quite effective at at defeating even modern body armour, which tends to be designed to deal with ballistic and laser weapons rather than swords..."
+	The sharp edge is adept at hacking unarmored targets, whilst the rigid tip is also quite effective at at defeating even modern body armor with thrusting attacks, as modern armor is generally designed to defeat ballistic and laser weapons rather than swords..."
 
-/obj/item/melee/rapier/Initialize(mapload)
+/obj/item/melee/saber/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))

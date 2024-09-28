@@ -14,6 +14,7 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
+	dyeable = FALSE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',

@@ -49,6 +49,10 @@
 	name = "Central Maintenance"
 	icon_state = "maintcentral"
 
+/area/station/maintenance/maintcentral2
+	name = "Central Maintenance Secondary"
+	icon_state = "maintcentral"
+
 /area/station/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -129,30 +133,53 @@
 	name = "Gambling Den"
 	icon_state = "yellow"
 
-/area/station/maintenance/auxsolarport
-	name = "\improper Fore Port Solar Maintenance"
-	icon_state = "FPctrl"
+// Solars
 
-/area/station/maintenance/starboardsolar
+/area/station/maintenance/solar_maintenance
+	name = "\improper Solar Maintenance"
+	icon_state = "general_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore
+	name = "\improper Fore Solar Maintenance"
+	icon_state = "fore_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore_starboard
+	name = "\improper Fore-Starboard Solar Maintenance"
+	icon_state = "fore_starboard_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore_port
+	name = "\improper Fore-Port Solar Maintenance"
+	icon_state = "fore_port_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft
+	name = "\improper Aft Solar Maintenance"
+	icon_state = "aft_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft_starboard
+	name = "\improper Aft-Starboard Solar Maintenance"
+	icon_state = "aft_starboard_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft_port
+	name = "\improper Aft-Port Solar Maintenance"
+	icon_state = "aft_port_solar_control"
+
+/area/station/maintenance/solar_maintenance/starboard
 	name = "\improper Starboard Solar Maintenance"
-	icon_state = "ASctrl"
+	icon_state = "starboard_solar_control"
 
-/area/station/maintenance/starboardsolar/aft
-	name = "\improper Aft Starboard Solar Maintenance"
-	icon_state = "ASctrl"
-
-/area/station/maintenance/portsolar
-	name = "\improper Aft Port Solar Maintenance"
-	icon_state = "APctrl"
-
-/area/station/maintenance/auxsolarstarboard
-	name = "\improper Fore Starboard Solar Maintenance"
-	icon_state = "FSctrl"
+/area/station/maintenance/solar_maintenance/port
+	name = "\improper Port Solar Maintenance"
+	icon_state = "port_solar_control"
 
 /// Derelict Assembly Line
 /area/station/maintenance/assembly_line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/abandoned_garden
@@ -203,3 +230,45 @@
 
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
+
+// Emerald Station
+
+/area/station/maintenance/dorms
+	name = "Dorms Maintenance"
+	icon_state = "dorms_maint"
+
+/area/station/maintenance/dorms/port
+	name = "Dorms Port Maintenance"
+	icon_state = "dorms_maint_port"
+
+/area/station/maintenance/dorms/starboard
+	name = "Dorms Starboard Maintenance"
+	icon_state = "dorms_maint_starboard"
+
+/area/station/maintenance/dorms/aft
+	name = "Dorms Aft Maintenance"
+	icon_state = "dorms_maint_aft"
+
+/area/station/maintenance/dorms/fore
+	name = "Dorms Fore Maintenance"
+	icon_state = "dorms_maint_fore"
+
+/area/station/maintenance/security
+	name = "Security Maintenance"
+	icon_state = "sec_maint"
+
+/area/station/maintenance/security/fore
+	name = "Security Maintenance Fore"
+	icon_state = "sec_maint_fore"
+
+/area/station/maintenance/security/aft_port
+	name = "Security Maintenance Aft Port"
+	icon_state = "sec_maint_ap"
+
+/area/station/maintenance/security/aft_starboard
+	name = "Security Maintenance Aft Starboard"
+	icon_state = "sec_maint_as"
+
+/area/station/engineering/atmos/asteroid_maint
+	name = "Asteroid Filtering Maintenance"
+	icon_state = "asteroid_maint"

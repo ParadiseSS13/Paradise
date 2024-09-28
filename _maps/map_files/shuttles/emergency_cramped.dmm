@@ -80,7 +80,7 @@
 "r" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -95,7 +95,7 @@
 "u" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "w" = (
