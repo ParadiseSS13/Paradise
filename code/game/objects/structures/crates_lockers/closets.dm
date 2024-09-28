@@ -62,6 +62,9 @@
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
+/obj/structure/closet/Destroy()
+	QDEL_NULL(door_obj)
+
 /obj/structure/closet/update_icon()
 	. = ..()
 	if(!enable_door_overlay)
@@ -206,18 +209,12 @@
 	locked = FALSE
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	opened = TRUE
-	// if(!dense_when_open)
-	// 	set_density(FALSE)
 	density = FALSE
 	dump_contents()
 	if(enable_door_overlay)
 		animate_door(FALSE)
 	update_appearance()
-	after_open(user, force)
 	return TRUE
-
-/obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
-	return
 
 /obj/structure/closet/proc/close()
 	if(!opened)
