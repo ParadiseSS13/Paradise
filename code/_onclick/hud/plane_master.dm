@@ -196,7 +196,6 @@
 
 /atom/movable/screen/plane_master/lamps_glare/backdrop(mob/mymob)
 	remove_filter("add_lamps_to_glare")
-	remove_filter("add_floor_lamps_to_glare")
 	remove_filter("lamps_glare")
 
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
