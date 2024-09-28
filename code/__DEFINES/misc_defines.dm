@@ -423,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 59
+#define SQL_VERSION 60
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -734,3 +734,5 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define ALPHA_VISIBLE 255 // the max alpha
