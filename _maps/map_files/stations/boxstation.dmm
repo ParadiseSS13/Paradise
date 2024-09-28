@@ -30237,11 +30237,21 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "bUw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -53063,15 +53073,6 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
-"eoV" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "eoX" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -56705,6 +56706,14 @@
 /obj/effect/landmark/start/chemist,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
+"fYW" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/gravitygenerator)
 "fZu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/extinguisher,
@@ -60745,11 +60754,14 @@
 	},
 /area/station/maintenance/asmaint2)
 "hYH" = (
-/obj/structure/cable,
-/obj/machinery/power/apc/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "hZc" = (
@@ -67333,6 +67345,18 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/central/ne)
+"lmL" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Power Transmission Laser"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/gravitygenerator)
 "lmM" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -68546,6 +68570,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "lPC" = (
@@ -69108,19 +69133,6 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
-"mdD" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "mdR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -72279,11 +72291,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80156,6 +80163,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "rng" = (
@@ -86138,8 +86150,12 @@
 	},
 /area/station/medical/cryo)
 "upX" = (
-/obj/machinery/alarm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "upZ" = (
@@ -86470,6 +86486,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "uyl" = (
@@ -88863,10 +88880,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/closet/radiation,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -89483,18 +89500,15 @@
 /turf/simulated/floor/plating,
 /area/station/science/misc_lab)
 "wct" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Power Transmission Laser"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "wcA" = (
 /obj/structure/closet/emcloset,
@@ -117011,8 +117025,8 @@ cQy
 cNB
 cNB
 nME
-mdD
-eoV
+cUf
+mnN
 hYH
 upX
 sqN
@@ -117271,7 +117285,7 @@ uyl
 iir
 bFC
 bFC
-bFC
+lmL
 bFC
 bFC
 bFC
@@ -118040,7 +118054,7 @@ cLi
 cLi
 tEU
 mAq
-kkk
+fYW
 rne
 bUv
 qlp
