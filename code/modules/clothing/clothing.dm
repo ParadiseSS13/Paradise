@@ -448,21 +448,19 @@
 
 /obj/item/clothing/head/examine(mob/user)
 	. = ..()
-	if(length(attached_hats))
-		for(var/obj/item/clothing/head/hat as anything in attached_hats)
-			. += "\A [hat] is placed neatly ontop."
+	for(var/obj/item/clothing/head/hat as anything in attached_hats)
+		. += "\A [hat] is placed neatly ontop."
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
 	if(!istype(H))
 		return
 	has_under = H
-	loc = has_under
+	forceMove(has_under)
 	has_under.overlays += item_state
 	has_under.actions += actions
 
-	for(var/X in actions)
-		var/datum/action/A = X
+	for(var/datum/action/A in actions)
 		if(has_under.is_equipped())
 			var/mob/M = has_under.loc
 			A.Grant(M)
