@@ -12,6 +12,9 @@
 	density = TRUE
 	anchored = TRUE
 
+	pixel_x = 0
+	pixel_y = -64
+
 	/// Variables go below here
 	/// The range we have this basically determines how far the beam goes its redone on creation so its set to a small number here
 	var/range = 5
