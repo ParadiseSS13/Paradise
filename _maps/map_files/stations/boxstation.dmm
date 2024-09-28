@@ -92936,8 +92936,10 @@
 "xUY" = (
 /obj/structure/table/glass,
 /obj/item/clothing/mask/cigarette/cigar,
-/turf/simulated/floor/light{
-	color = "#fff"
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluered"
 	},
 /area/station/command/bridge)
 "xVe" = (
