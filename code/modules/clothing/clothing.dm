@@ -433,7 +433,7 @@
 			H.on_removed(M)
 	else
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
-			H.forceMove(loc)
+			H.forceMove(get_turf(src))
 	attached_hats = null
 	return ..()
 
@@ -449,7 +449,7 @@
 /obj/item/clothing/head/examine(mob/user)
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
-		. += "\A [hat] is placed neatly ontop."
+		. += "\A [hat] is placed neatly on top."
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
