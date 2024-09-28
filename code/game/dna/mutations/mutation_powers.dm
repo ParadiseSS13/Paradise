@@ -855,7 +855,7 @@
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
-			var/new_head_accessory_colour = tgui_input_color(user, "Please select head accessory colour.", "Character Generation", head_organ.headacc_colour)
+			var/new_head_accessory_colour = tgui_input_color(user, "Please select head accessory color.", "Character Generation", head_organ.headacc_colour)
 			if(new_head_accessory_colour)
 				M.change_head_accessory_color(new_head_accessory_colour)
 
@@ -876,7 +876,7 @@
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
-			var/new_marking_colour = tgui_input_color(user, "Please select head marking colour.", "Character Generation", M.m_colours["head"])
+			var/new_marking_colour = tgui_input_color(user, "Please select head marking color.", "Character Generation", M.m_colours["head"])
 			if(new_marking_colour)
 				M.change_marking_color(new_marking_colour, "head")
 
@@ -887,7 +887,7 @@
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
-		var/new_marking_colour = tgui_input_color(user, "Please select body marking colour.", "Character Generation", M.m_colours["body"])
+		var/new_marking_colour = tgui_input_color(user, "Please select body marking color.", "Character Generation", M.m_colours["body"])
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
@@ -897,7 +897,7 @@
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
-		var/new_marking_colour = tgui_input_color(user, "Please select tail marking colour.", "Character Generation", M.m_colours["tail"])
+		var/new_marking_colour = tgui_input_color(user, "Please select tail marking color.", "Character Generation", M.m_colours["tail"])
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "tail")
 
@@ -927,7 +927,7 @@
 
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = tgui_input_color(user, "Please select body colour.", "Character Generation", M.skin_colour)
+		var/new_body_colour = tgui_input_color(user, "Please select body color.", "Character Generation", M.skin_colour)
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
 
