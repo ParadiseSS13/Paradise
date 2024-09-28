@@ -869,7 +869,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/clothing/head/w_hat = head
 			if(length(w_hat.attached_hats))
 				for(var/obj/item/clothing/head/Hat in w_hat:attached_hats)
-					standing.overlays += image("icon" = Hat.icon_override, "icon_state" = "[Hat.icon_state]")
+					if(Hat.sprite_sheets && Hat.sprite_sheets[dna.species.sprite_sheet_name])
+						standing.overlays += image("icon" = Hat.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[Hat.icon_state]")
+					else
+						standing.overlays += image("icon" = Hat.icon_override, "icon_state" = "[Hat.icon_state]")
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
