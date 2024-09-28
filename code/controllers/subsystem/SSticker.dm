@@ -829,8 +829,11 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		.++
 
+/// Record the initial time that a biohazard spawned, and then
+/// start the callback loop of recording its population according
+/// to the [BIOHAZARD_POP_INTERVAL].
 /datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
-	SSblackbox.record_feedback("ledger", "biohazard_start_times_ds", world.time - time_game_started, biohazard)
+	SSblackbox.record_feedback("associative", "biohazard_starts", 1, list("type" = biohazard, "time_ds" = world.time - time_game_started))
 	update_biohazard_pop_stats(biohazard)
 
 /datum/controller/subsystem/ticker/proc/update_biohazard_pop_stats(biohazard)
