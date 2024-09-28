@@ -1,6 +1,6 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
-import { Button, Input, Section, Stack, Table } from '../components';
+import { Button, Section, Stack, Table } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
@@ -24,11 +24,7 @@ export const RankedListInputModal = (props, context) => {
     <Window title={title} width={325} height={windowHeight}>
       {timeout && <Loader value={timeout} />}
       <Window.Content>
-        <Section
-          className="ListInput__Section"
-          fill
-          title={message}
-        >
+        <Section className="ListInput__Section" fill title={message}>
           <Stack fill vertical>
             <Stack.Item grow>
               <ListDisplay filteredItems={edittedItems} setEdittedItems={setEdittedItems} />
@@ -97,7 +93,6 @@ const ListDisplay = (props, context) => {
             onDrop={() => handleDrop(index)}
             style={{
               padding: '8px',
-              cursor: 'move',
             }}
           >
             <Button
@@ -107,7 +102,9 @@ const ListDisplay = (props, context) => {
               style={{
                 animation: 'none',
                 transition: 'none',
+                cursor: 'move',
               }}
+              icon="grip-lines"
             >
               {item.replace(/^\w/, (c) => c.toUpperCase())}
             </Button>
