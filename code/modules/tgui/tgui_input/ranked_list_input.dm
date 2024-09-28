@@ -52,15 +52,7 @@
 	modal_type = "RankedListInputModal"
 
 /datum/tgui_list_input/ranked/handle_submit_action(params)
-	if(!(params["entry"] in items))
+	if(!lists_equal_unordered(params["entry"], items))
 		return FALSE
-	set_choice(items_map[params["entry"]])
+	set_choice(params["entry"])
 	return TRUE
-
-// ctodo remove
-/client/verb/test_rankedlist_shit()
-	name = "Test"
-
-	var/list/shitlist = list("Bob", "Alice", "Dooley", "Estephan", "Charlie")
-	var/list/new_list = tgui_input_ranked_list(src, "Sort These Alphabetically!", "Sorting", )
-	to_chat(world, json_encode(new_list))
