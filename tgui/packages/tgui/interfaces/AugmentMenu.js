@@ -17,35 +17,51 @@ export const AugmentMenu = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const { usable_swarms, ability_tabs, known_abilities } = data; // Include known_abilities
+  const { usable_swarms, ability_tabs, known_abilities } = data;
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
-  const getFilteredAbilities = () => {
-    const currentTab = ability_tabs.find((tab) => tab.category_name === selectedTab.category_name);
-    if (!currentTab) return [];
+  const currentTab = ability_tabs.find((tab) => tab.category_name === selectedTab.category_name) || {};
+  const { abilities = [], category_stage } = currentTab;
 
-    return currentTab.abilities.filter(
-      (ability) =>
-        ability.stage <= currentTab.category_stage &&
-        (!searchText || ability.name.toLowerCase().includes(searchText.toLowerCase()))
-    );
-  };
+  const filteredAbilities = abilities.filter((ability) => {
+    const isWithinStage = ability.stage <= Math.min(category_stage, 4);
+    const matchesSearch = !searchText || ability.name.toLowerCase().includes(searchText.toLowerCase());
+    return isWithinStage && matchesSearch;
+  });
 
-  const handleSearch = (value) => {
-    setSearchText(value);
-  };
-
+  const handleSearch = (value) => setSearchText(value);
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
     setSearchText('');
   };
 
-  const abilities = getFilteredAbilities();
+  const showStage = ['intruder', 'destroyer'].includes(selectedTab.category_name.toLowerCase());
+
+  const renderAbilityButton = (ability, currentCost, knownAbility) => (
+    <Button
+      height="20px"
+      width="35px"
+      mb={1}
+      textAlign="center"
+      content={currentCost}
+      disabled={currentCost > usable_swarms || (knownAbility && knownAbility.current_level === knownAbility.max_level)}
+      tooltip="Purchase this ability?"
+      onClick={() => {
+        act('purchase', { ability_path: ability.ability_path });
+        setSelectedTab(selectedTab);
+      }}
+    />
+  );
 
   return (
     <Section
-      title={`Swarms: ${usable_swarms}`}
+      title={
+        <Stack vertical>
+          <span>Swarms: {usable_swarms}</span>
+          {showStage && <span>Stage: {Math.min(category_stage, 4)}</span>}
+        </Stack>
+      }
       buttons={
         <Input
           width="200px"
@@ -67,49 +83,31 @@ const Abilities = (props, context) => {
         ))}
         <Tabs.Tab
           key="upgrades"
-          selected={selectedTab.category_name === 'Upgrades'}
-          onClick={() => handleTabChange({ category_name: 'Upgrades' })}
+          selected={selectedTab.category_name === 'upgrades'}
+          onClick={() => handleTabChange({ category_name: 'upgrades' })}
         >
           Upgrades
         </Tabs.Tab>
       </Tabs>
-      {selectedTab.category_name === 'Upgrades' ? (
+      {selectedTab.category_name === 'upgrades' ? (
         <Upgrades />
       ) : (
         <Stack vertical>
-          {abilities.map((ability) => {
+          {filteredAbilities.map((ability) => {
             const knownAbility = known_abilities.find((a) => a.ability_path === ability.ability_path);
             const currentCost = knownAbility ? knownAbility.cost : ability.cost;
 
             return (
               <Stack.Item key={ability.name} direction="row">
                 <Stack>
-                  <Button
-                    height="20px"
-                    width="35px"
-                    mb={1}
-                    textAlign="center"
-                    content={currentCost} // Show the current cost from known_abilities
-                    disabled={
-                      currentCost > usable_swarms ||
-                      (knownAbility && knownAbility.current_level === knownAbility.max_level)
-                    }
-                    tooltip="Purchase this ability?"
-                    onClick={() => {
-                      act('purchase', { ability_path: ability.ability_path });
-                      setSelectedTab(selectedTab); // Refresh to update ability costs
-                    }}
-                  />
+                  {renderAbilityButton(ability, currentCost, knownAbility)}
                   <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
                 </Stack>
                 <Stack.Item>
                   <Stack vertical>
                     <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
                     <Stack.Item color="green">
-                      Level:{' '}
-                      {knownAbility && knownAbility.current_level > 0
-                        ? `${knownAbility.current_level} / ${knownAbility.max_level}`
-                        : `0 / ${ability.max_level}`}{' '}
+                      Level: {knownAbility?.current_level || 0} / {ability.max_level}
                     </Stack.Item>
                     <Stack.Divider />
                   </Stack>
