@@ -829,22 +829,45 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		.++
 
-/// Return whether or not a given biohazard is an active threat.
-/// For blobs, this is simply if there are any overminds left. For terrors and
-/// xenomorphs, this is whether they have overwhelming numbers.
-/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+/datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
+	SSblackbox.record_feedback("ledger", "biohazard_start_times_ds", world.time - time_game_started, biohazard)
+	update_biohazard_pop_stats(biohazard)
+
+/datum/controller/subsystem/ticker/proc/update_biohazard_pop_stats(biohazard)
+	var/current_count = biohazard_count(biohazard)
+	SSblackbox.record_feedback("ledger", "biohazard_pop_[BIOHAZARD_POP_INTERVAL_STR]_interval", current_count, biohazard)
+	addtimer(CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, update_biohazard_pop_stats), biohazard), BIOHAZARD_POP_INTERVAL)
+
+/datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
 		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 			var/spiders = 0
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spiders++
-			return spiders >= 5
+			return spiders
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			return length(GLOB.ts_spiderlist)
 		if(BIOHAZARD_XENO)
-			return count_xenomorps() > 5
+			return count_xenomorps()
 		if(BIOHAZARD_BLOB)
 			return length(SSticker.mode.blob_overminds)
+
+	CRASH("biohazard_count got unexpected [biohazard]")
+
+/// Return whether or not a given biohazard is an active threat.
+/// For blobs, this is simply if there are any overminds left. For terrors and
+/// xenomorphs, this is whether they have overwhelming numbers.
+/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+	var/count = biohazard_count(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+			return count >= 5
+		if(TS_INFESTATION_PRINCE_SPIDER)
+			return count > 0
+		if(BIOHAZARD_XENO)
+			return count > 5
+		if(BIOHAZARD_BLOB)
+			return count > 0
 
 	return FALSE
