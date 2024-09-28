@@ -291,7 +291,7 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		var/temp = tgui_input_color(usr, "Please select crayon colour.", "Crayon colour")
+		var/temp = tgui_input_color(usr, "Please select crayon color.", "Crayon color")
 		if(isnull(temp))
 			return
 		colour = temp
