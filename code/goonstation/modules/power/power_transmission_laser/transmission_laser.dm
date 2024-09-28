@@ -447,3 +447,5 @@
 	SIGNAL_HANDLER
 
 	host.atom_entered_beam(src, arrived)
+
+#undef MINIMUM_POWER
