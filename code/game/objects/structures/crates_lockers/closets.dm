@@ -62,9 +62,6 @@
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
-/obj/structure/closet/Destroy()
-	QDEL_NULL(door_obj)
-
 /obj/structure/closet/update_icon()
 	. = ..()
 	if(!enable_door_overlay)
@@ -165,6 +162,7 @@
 /obj/structure/closet/Destroy(force)
 	if(!force)
 		dump_contents()
+	QDEL_NULL(door_obj)
 	return ..()
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target)
