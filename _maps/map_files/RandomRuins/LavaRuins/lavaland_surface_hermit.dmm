@@ -9,12 +9,7 @@
 /turf/simulated/wall/mineral/iron,
 /area/ruin/powered)
 "d" = (
-/obj/item/clothing/head/helmet/space/syndicate/orange,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plating,
-/area/ruin/powered)
-"e" = (
-/obj/item/clothing/suit/space/syndicate/orange,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "g" = (
@@ -363,7 +358,7 @@ s
 "}
 (11,1,1) = {"
 c
-e
+o
 h
 g
 l
