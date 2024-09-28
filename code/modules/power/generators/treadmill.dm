@@ -16,6 +16,11 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_atom_exited),
+	)
+
 /obj/machinery/power/treadmill/Initialize(mapload)
 	. = ..()
 	on_anchor_changed()
@@ -23,26 +28,24 @@
 /obj/machinery/power/treadmill/proc/on_anchor_changed()
 	if(anchored)
 		connect_to_network()
-		RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
-		RegisterSignal(src, COMSIG_MOVABLE_UNCROSS, PROC_REF(on_movable_uncross))
+		AddElement(/datum/element/connect_loc, loc_connections)
 	else
 		disconnect_from_network()
-		UnregisterSignal(src, COMSIG_MOVABLE_CROSS)
-		UnregisterSignal(src, COMSIG_MOVABLE_UNCROSS)
+		RemoveElement(/datum/element/connect_loc)
 
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
-/obj/machinery/power/treadmill/proc/on_movable_cross(datum/source, mob/living/crossed)
+/obj/machinery/power/treadmill/proc/on_atom_entered(datum/source, mob/living/crossed)
 	if(crossed.anchored || crossed.throwing)
 		return
 
 	if(!istype(crossed) || crossed.dir != dir)
-		return throw_off(crossed)
+		throw_off(crossed)
 	else
 		mobs_running[crossed] = crossed.last_movement
 
-/obj/machinery/power/treadmill/proc/on_movable_uncross(mob/living/crossed)
+/obj/machinery/power/treadmill/proc/on_atom_exited(mob/living/crossed)
 	if(istype(crossed))
 		mobs_running -= crossed
 
@@ -51,8 +54,6 @@
 	if(speed && A.move_resist < INFINITY)
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
 		A.throw_at(get_distant_turf(get_turf(src), REVERSE_DIR(dir), dist), A.throw_range, A.throw_speed, null, 1)
-
-		return TRUE
 
 /obj/machinery/power/treadmill/process()
 	if(!anchored)
