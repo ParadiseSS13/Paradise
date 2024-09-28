@@ -254,7 +254,7 @@
 
 /obj/machinery/power/transmission_laser/ui_act(action, list/params)
 	. = ..()
-	if (.)
+	if(.)
 		return
 	switch(action)
 		if("toggle_input")
@@ -292,7 +292,7 @@
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = get_surplus()
 	input_available = get_surplus()
-	if((stat & BROKEN))
+	if(stat & BROKEN)
 		return
 
 	if(total_energy >= announcement_threshold)
