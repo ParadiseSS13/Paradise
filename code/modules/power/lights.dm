@@ -165,6 +165,11 @@
 	construct_type = /obj/machinery/light/floor/built
 
 
+#undef LIGHT_CONSTRUCT_EMPTY_FRAME
+#undef LIGHT_CONSTRUCT_WIRED
+#undef LIGHT_CONSTRUCT_COMPLETED
+
+
 /**
   * # Light fixture
   *
