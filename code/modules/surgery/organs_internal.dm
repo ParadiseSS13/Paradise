@@ -292,8 +292,7 @@
 	name = "extract organ"
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
-		/obj/item/stack/sheet/sinew = 70,
-		/obj/item/stack/cable_coil = 70,
+		/obj/item/wirecutters = 70,
 		/obj/item/kitchen/utensil/fork = 70
 	)
 
