@@ -57777,16 +57777,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
-"ldC" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "ldD" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -141181,7 +141171,7 @@ aXR
 aXR
 xbO
 rNK
-ldC
+xki
 amz
 amz
 amz
