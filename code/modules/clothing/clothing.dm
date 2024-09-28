@@ -398,10 +398,87 @@
 	var/vision_flags = 0
 	var/see_in_dark = 0
 	var/lighting_alpha
+	/// the head clothing that this item may be attached to.
+	var/obj/item/clothing/under/has_under = null
+	/// the attached hats to this hat.
+	var/list/attached_hats = list()
+	/// if this hat can have hats placed ontop of it.
+	var/can_have_hats = FALSE
 
 /obj/item/clothing/head/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+
+//when user attached a hat to H (another hat)
+/obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
+	if(!istype(H))
+		return
+	has_under = H
+	loc = has_under
+	has_under.overlays += icon_state
+	has_under.actions += actions
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(has_under.is_equipped())
+			var/mob/M = has_under.loc
+			A.Grant(M)
+
+	if(user)
+		to_chat(user, "<span class='notice'>You attach [src] to [has_under].</span>")
+	src.add_fingerprint(user)
+
+/obj/item/clothing/head/proc/on_removed(mob/user)
+	if(!has_under)
+		return
+	has_under.overlays -= icon_state
+	has_under.actions -= actions
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(ismob(has_under.loc))
+			var/mob/M = has_under.loc
+			A.Remove(M)
+
+	has_under = null
+	if(user)
+		user.put_in_hands(src)
+		add_fingerprint(user)
+
+/*
+  * # can_attach_hat
+  *
+  * Arguments:
+  * * Hat - The clothing/head object being checked. MUST BE TYPE /obj/item/clothing/head
+*/
+/obj/item/clothing/head/proc/can_attach_hat(obj/item/clothing/accessory/A)
+	if(length(attached_hats) >= 1 || !can_have_hats) // this hat already has a hat!
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/head/proc/attach_hat(obj/item/clothing/head/Hat, mob/user, unequip = FALSE)
+	if(can_attach_hat(Hat))
+		if(unequip && !user.unEquip(Hat)) // Make absolutely sure this accessory is removed from hands
+			return FALSE
+
+		attached_hats += Hat
+		Hat.on_attached(src, user)
+
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.update_inv_w_uniform()
+
+		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot place any more hats ontop of [src].</span>")
+
+	return FALSE
+
+/obj/item/clothing/head/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/head))
+		attach_hat(I, user, TRUE)
+
+	. = ..()
 
 //////////////////////////////
 // MARK: MASK
