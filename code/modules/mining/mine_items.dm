@@ -46,6 +46,7 @@
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "mining"
+	opened_door_sprite = "cargo"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()

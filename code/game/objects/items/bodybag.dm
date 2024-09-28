@@ -17,7 +17,7 @@
 	desc = "A plastic bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag"
-	has_closed_overlay = FALSE
+	enable_door_overlay = FALSE
 	door_anim_time = 0
 	density = FALSE
 	integrity_failure = 0

@@ -9,10 +9,10 @@
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
 	var/icon_closed
 	var/icon_opened
+	/// Overwrites icon_state for the opened door sprite. Only necessary if the opened door sprite has a different name than the icon_state.
 	var/opened_door_sprite
+	/// Overwrites icon_state for the closed door sprite. Only necessary if the closed door sprite has a different name than the icon_state.
 	var/closed_door_sprite
-	var/icon_door = null
-	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -30,7 +30,7 @@
 	var/transparent
 	var/secure = FALSE
 
-		/// The overlay for the closet's door
+	/// The overlay for the closet's door
 	var/obj/effect/overlay/closet_door/door_obj
 	/// Whether or not this door is being animated
 	var/is_animating_door = FALSE
@@ -42,9 +42,11 @@
 	var/door_hinge_x = -6.5
 	/// Amount of time it takes for the door animation to play
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
-
+	/// Whether this closet uses a door overlay at all. If FALSE, it'll switch to a system where the entire icon_state is replaced with [icon_state]_open instead.
 	var/enable_door_overlay = TRUE
+	/// Whether this closet uses a door overlay for when it is opened
 	var/has_opened_overlay = TRUE
+	/// Whether this closet uses a door overlay for when it is closed
 	var/has_closed_overlay = TRUE
 
 // Please dont override this unless you absolutely have to
@@ -60,16 +62,24 @@
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
+/obj/structure/closet/update_icon()
+	. = ..()
+	if(!enable_door_overlay)
+		if(opened)
+			icon_state = "[initial(icon_state)]_open"
+		else
+			icon_state = initial(icon_state)
+
 /obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
 	. = new_overlays
 	if(enable_door_overlay && !is_animating_door)
 		if(opened && has_opened_overlay)
-			. += "[icon_door_override ? icon_door : icon_state]_open"
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[opened_door_sprite || icon_state]_opened", alpha = src.alpha)
 			. += door_overlay
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(!opened && has_closed_overlay)
 			. += "[closed_door_sprite || icon_state]_closed"
+	
 	if(opened)
 		return
 
@@ -133,10 +143,6 @@
 	door_matrix.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
 	door_matrix.Translate(door_hinge_x, 0)
 	return door_matrix
-
-/obj/structure/closet/update_icon()
-	. = ..()
-	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
@@ -204,7 +210,8 @@
 	// 	set_density(FALSE)
 	density = FALSE
 	dump_contents()
-	animate_door(FALSE)
+	if(enable_door_overlay)
+		animate_door(FALSE)
 	update_appearance()
 	after_open(user, force)
 	return TRUE
@@ -250,7 +257,8 @@
 		itemcount++
 	opened = FALSE
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
-	animate_door(TRUE)
+	if(enable_door_overlay)
+		animate_door(TRUE)
 	update_appearance()
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE

@@ -7,6 +7,7 @@
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
 	door_anim_time = 0
+	enable_door_overlay = FALSE
 	density = FALSE
 	anchored = TRUE
 	icon_closed = "wall-locker"

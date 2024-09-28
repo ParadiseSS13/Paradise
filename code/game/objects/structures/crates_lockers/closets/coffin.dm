@@ -2,7 +2,7 @@
 	name = "coffin"
 	desc = "It's a burial receptacle for the dearly departed."
 	icon_state = "coffin"
-	has_closed_overlay = FALSE
+	enable_door_overlay = FALSE
 	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
