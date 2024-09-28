@@ -651,6 +651,17 @@ enable_space_ruins = false
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
 maximum_zlevels = 4
+
+# Minimum space ruin budget.
+space_ruin_budget_min = 600
+# Maximum space ruin budget.
+space_ruin_budget_max = 1000
+
+# Minimum lavaland ruin budget.
+lavaland_ruin_budget_min = 175
+# Maximum lavaland ruin budget.
+lavaland_ruin_budget_max = 325
+
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
