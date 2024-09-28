@@ -71567,10 +71567,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
-"iaH" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "iaU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72027,13 +72023,13 @@
 	},
 /area/station/public/fitness)
 "iou" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -93747,7 +93743,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "utt" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -120509,7 +120505,7 @@ aaa
 cmL
 aaa
 aaa
-iaH
+aaa
 cJd
 aaa
 abj

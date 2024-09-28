@@ -56707,7 +56707,6 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "fYW" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -65965,6 +65964,24 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
+"kEn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint2)
 "kEs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -78032,9 +78049,6 @@
 	name = "shutter door controller";
 	pixel_y = 26
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -78045,6 +78059,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -80168,6 +80185,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "rng" = (
@@ -90077,11 +90095,6 @@
 	id_tag = "maint_house"
 	},
 /obj/structure/barricade/wooden,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -118309,7 +118322,7 @@ gSd
 xSq
 cNB
 rMq
-tEU
+kEn
 cUf
 bFC
 sOz

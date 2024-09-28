@@ -2046,7 +2046,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "amF" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -53412,7 +53412,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jOT" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/grouped_spawner{
@@ -100712,7 +100712,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "xdi" = (
 /obj/structure/grille/broken,
 /obj/effect/spawner/random_spawners/dirt_frequent,
@@ -101140,7 +101140,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "xkj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

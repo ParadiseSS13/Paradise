@@ -12527,15 +12527,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
-"cpB" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "cpF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -141641,8 +141632,8 @@ hTd
 uEi
 uEi
 uEi
-cpB
-cpB
+uEi
+uEi
 oKt
 pMe
 wZO
