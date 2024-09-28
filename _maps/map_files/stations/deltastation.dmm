@@ -100321,10 +100321,6 @@
 "ykJ" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
-"ymc" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/control)
 
 (1,1,1) = {"
 aaa
@@ -119999,7 +119995,7 @@ bXU
 bXU
 bXU
 bXU
-ymc
+bXU
 bXU
 bXU
 bXU
