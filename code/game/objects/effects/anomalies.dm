@@ -98,6 +98,7 @@
 	icon_state = "shield2"
 	density = FALSE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	layer = OBJ_LAYER // Mobs will appear above this
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
@@ -405,24 +406,14 @@
 	for(var/turf/T in oview(get_turf(src), 7))
 		turf_targets += T
 
+	var/list/mob_targets = list()
+	for(var/mob/M in oview(get_turf(src), 7))
+		if(!isliving(M))
+			continue
+		mob_targets += M
+
 	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
 		shootAt(H)
-
-	for(var/I in 1 to rand(1, 3))
-		var/turf/target = pick(turf_targets)
-		shootAt(target)
-
-	if(prob(50))
-		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), (drops_core ? 2 : 1)))
-			nearby_floor.MakeSlippery((drops_core? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core? null : rand(10, 20 SECONDS)))
-
-		var/turf/simulated/T = get_turf(src)
-		if(istype(T))
-			var/datum/gas_mixture/air = new()
-			air.set_temperature(TCMB)
-			air.set_sleeping_agent(20)
-			air.set_carbon_dioxide(20)
-			T.blind_release_air(air)
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
@@ -430,6 +421,27 @@
 			step_towards(A, pick(turf_targets))
 			sleep(2)
 		A.Smoke()
+
+	// This has to be in the end because we're adding mobs to a turf list
+	var/shots = drops_core ? rand(3, 5) : rand(1, 3)
+	for(var/i in 1 to shots)
+		if(length(mob_targets))
+			turf_targets += mob_targets
+		shootAt(pick(turf_targets))
+
+	if(prob(50))
+		for(var/turf/possible_floor in view(get_turf(src), (drops_core ? 2 : 1)))
+			if(isfloorturf(possible_floor))
+				var/turf/simulated/floor/nearby_floor = possible_floor
+				nearby_floor.MakeSlippery((drops_core ? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core ? null : rand(10, 20 SECONDS)))
+
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			var/datum/gas_mixture/air = new()
+			air.set_temperature(TCMB)
+			air.set_sleeping_agent(80)
+			air.set_carbon_dioxide(80)
+			T.blind_release_air(air)
 
 /obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
 	var/turf/T = get_turf(src)
@@ -451,8 +463,8 @@
 	if(istype(T) && drops_core)
 		var/datum/gas_mixture/air = new()
 		air.set_temperature(TCMB)
-		air.set_sleeping_agent(1000)
-		air.set_carbon_dioxide(1000)
+		air.set_sleeping_agent(3000)
+		air.set_carbon_dioxide(3000)
 		T.blind_release_air(air)
 
 /////////////////////

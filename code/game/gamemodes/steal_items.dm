@@ -47,9 +47,9 @@
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
-/datum/theft_objective/captains_rapier
-	name = "the captain's rapier"
-	typepath = /obj/item/melee/rapier
+/datum/theft_objective/captains_saber
+	name = "the captain's saber"
+	typepath = /obj/item/melee/saber
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 

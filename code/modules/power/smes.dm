@@ -189,6 +189,7 @@
 
 				make_terminal(user, temporary_direction, temporary_location)
 				terminal.connect_to_network()
+				stat &= ~BROKEN
 		return
 
 	// Disassembling the terminal
@@ -293,7 +294,7 @@
 			if(output_used < 0.0001)		// Either from no charge or set to 0
 				outputting = FALSE
 				investigate_log("lost power and turned <font color='red'>off</font>", "singulo")
-		else if(output_attempt && charge > output_level && output_level > 0)
+		else if(output_attempt && charge > 0 && output_level > 0)
 			outputting = TRUE
 		else
 			output_used = 0
