@@ -36,9 +36,15 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	blurb_a = 1
 
 /datum/antagonist/vampire/Destroy(force, ...)
-	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
+	return ..()
+
+/datum/antagonist/vampire/detach_from_owner()
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
+	if(ishuman(owner.current))
+		var/mob/living/carbon/human/human_owner = owner.current
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
@@ -233,7 +239,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100)
+		if(owner.current.getCloneLoss() >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/handle_vampire()
@@ -258,24 +264,25 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	if(!ishuman(owner.current))
 		owner.current.alpha = 255
 		return
-	var/turf/simulated/T = get_turf(owner.current)
+	var/mob/living/carbon/human/human_owner = owner.current
+	var/turf/simulated/T = get_turf(human_owner)
 	var/light_available = T.get_lumcount() * 10
 
 	if(!istype(T))
 		return
 
-	if(!iscloaking || owner.current.on_fire)
-		owner.current.alpha = 255
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	if(!iscloaking || human_owner.on_fire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
+		REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	if(light_available <= 2)
-		owner.current.alpha = 38 // round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.15, src)
+		ADD_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	owner.current.alpha = 204 // 255 * 0.80
+	REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.80, src)
 
 /**
  * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
