@@ -71638,10 +71638,6 @@
 	icon_state = "C1"
 	},
 /area/station/hallway/primary/central/north)
-"oYR" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "oZw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -139968,7 +139964,7 @@ wyk
 wyk
 wyk
 wyk
-oYR
+bre
 aLl
 xQV
 aBZ
@@ -140225,7 +140221,7 @@ vum
 uHr
 vum
 vum
-oYR
+bre
 aLl
 avA
 ksb
@@ -140482,7 +140478,7 @@ aaa
 aaa
 aaa
 aaa
-oYR
+bre
 aef
 aef
 aBZ
