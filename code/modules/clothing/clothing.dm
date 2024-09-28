@@ -475,8 +475,7 @@
 	has_under.overlays -= icon_state
 	has_under.actions -= actions
 
-	for(var/X in actions)
-		var/datum/action/A = X
+	for(var/datum/action/A in actions)
 		if(ismob(has_under.loc))
 			var/mob/M = has_under.loc
 			A.Remove(M)
