@@ -24,6 +24,7 @@
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 	can_have_hats = TRUE
+	can_be_hat = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()

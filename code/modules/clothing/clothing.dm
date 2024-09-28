@@ -404,10 +404,46 @@
 	var/list/attached_hats = list()
 	/// if this hat can have hats placed ontop of it.
 	var/can_have_hats = FALSE
+	/// if this hat can be a hat of a hat. Hat^2
+	var/can_be_hat = TRUE
 
 /obj/item/clothing/head/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+
+/obj/item/clothing/head/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	if(!length(attached_hats))
+		return
+	var/obj/item/clothing/head/Hat
+	if(length(attached_hats) > 1)
+		var/pick = radial_menu_helper(usr, src, attached_hats, custom_check = FALSE, require_near = TRUE)
+		if(!pick)
+			return
+		Hat = pick
+	else
+		Hat = attached_hats[1]
+	remove_hat(user, Hat)
+
+/obj/item/clothing/head/Destroy()
+	QDEL_LIST_CONTENTS(attached_hats)
+	return ..()
+
+/obj/item/clothing/head/dropped(mob/user, silent)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+		for(var/obj/item/clothing/head/Hat in attached_hats)
+			Hat.attached_unequip()
+
+/obj/item/clothing/head/examine(mob/user)
+	. = ..()
+	if(length(attached_hats))
+		for(var/obj/item/clothing/head/Hat in attached_hats)
+			. += "\A [Hat] is placed neatly ontop."
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
@@ -415,7 +451,7 @@
 		return
 	has_under = H
 	loc = has_under
-	has_under.overlays += icon_state
+	has_under.overlays += item_state
 	has_under.actions += actions
 
 	for(var/X in actions)
@@ -445,20 +481,45 @@
 		user.put_in_hands(src)
 		add_fingerprint(user)
 
+/obj/item/clothing/head/proc/detach_hat(obj/item/clothing/head/Hat, mob/user)
+	attached_hats -= Hat
+	Hat.on_removed(user)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+/obj/item/clothing/head/proc/remove_hat(mob/user, obj/item/clothing/head/Hat)
+	if(!(Hat in attached_hats))
+		return
+	if(!isliving(user))
+		return
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	detach_hat(Hat, user)
+	to_chat(user, "<span class='notice'>You remove [Hat] from [src].</span>")
+
+/obj/item/clothing/head/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/head/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
 /*
   * # can_attach_hat
   *
   * Arguments:
   * * Hat - The clothing/head object being checked. MUST BE TYPE /obj/item/clothing/head
 */
-/obj/item/clothing/head/proc/can_attach_hat(obj/item/clothing/accessory/A)
-	if(length(attached_hats) >= 1 || !can_have_hats) // this hat already has a hat!
+/obj/item/clothing/head/proc/can_attach_hat(obj/item/clothing/head/Hat)
+	if(length(attached_hats) >= 1 || !can_have_hats || !Hat.can_be_hat) // this hat already has a hat or cannot be a hat of a hat!
 		return FALSE
 	return TRUE
 
 /obj/item/clothing/head/proc/attach_hat(obj/item/clothing/head/Hat, mob/user, unequip = FALSE)
 	if(can_attach_hat(Hat))
-		if(unequip && !user.unEquip(Hat)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.unEquip(Hat)) // Make absolutely sure this hat is removed from hands
 			return FALSE
 
 		attached_hats += Hat
@@ -466,16 +527,18 @@
 
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
+			H.update_inv_head()
 
 		return TRUE
+	else if(Hat.has_under)
+		return FALSE
 	else
-		to_chat(user, "<span class='notice'>You cannot place any more hats ontop of [src].</span>")
+		to_chat(user, "<span class='notice'>You cannot place [Hat] ontop of [src].</span>")
 
 	return FALSE
 
 /obj/item/clothing/head/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/head))
+	if(istype(I, /obj/item/clothing/head) && can_have_hats)
 		attach_hat(I, user, TRUE)
 
 	. = ..()

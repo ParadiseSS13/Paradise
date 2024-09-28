@@ -18,6 +18,8 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	can_have_hats = TRUE
+	can_be_hat = FALSE
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"

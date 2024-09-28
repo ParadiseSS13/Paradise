@@ -855,14 +855,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.sprite_sheet_name], "[head.icon_state]", layer = -HEAD_LAYER)
-			if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
-				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
-				if(!P.up)
-					standing.overlays += P.visor_icon
 		else if(head.icon_override)
 			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
 		else
 			standing = mutable_appearance('icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
+
+		if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
+			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
+			if(!P.up)
+				standing.overlays += P.visor_icon
+
+		if(istype(head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/w_hat = head
+			if(length(w_hat.attached_hats))
+				for(var/obj/item/clothing/head/Hat in w_hat:attached_hats)
+					standing.overlays += image("icon" = Hat.icon_override, "icon_state" = "[Hat.icon_state]")
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
