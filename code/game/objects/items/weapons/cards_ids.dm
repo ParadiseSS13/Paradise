@@ -548,7 +548,7 @@
 	if(option == "Primary")
 		new_job = assignment
 		tgui_message = "What SecHUD icon would you like to be shown on this card?"
-		new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet")
+		new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet" + "Unknown")
 	else
 		var/department = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", list("Existing job", "Custom"))
 		if(department != "Custom")
@@ -557,8 +557,7 @@
 		else
 			new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 			tgui_message = "What SecHUD icon would you like to be shown on this card?"
-			new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet")
-
+			new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet" + "Unknown")
 
 	if(!Adjacent(registered_human) || isnull(new_job))
 		return
@@ -566,6 +565,11 @@
 	rank = new_rank
 	UpdateName()
 	registered_human.sec_hud_set_ID()
+
+/obj/item/card/id/syndicate/get_job_name()
+	if(ckey(rank) in icon_states('icons/mob/hud/job_assets.dmi'))
+		return ckey(rank)
+	return ..()
 
 /obj/item/card/id/syndicate/proc/change_money_account(option, new_account)
 	if(option == "Primary")

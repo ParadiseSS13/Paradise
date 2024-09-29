@@ -2,7 +2,6 @@ import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
 
 const GENDERS = [
   { name: 'Male', icon: 'mars' },
