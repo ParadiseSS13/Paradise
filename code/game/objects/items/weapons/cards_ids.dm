@@ -355,6 +355,7 @@
 	/// Editing is prohibited if registered_human reference is missing
 	var/mob/living/carbon/human/registered_human
 	var/static/list/possible_jobs
+	var/hud_icon
 
 	COOLDOWN_DECLARE(new_photo_cooldown)
 
@@ -437,7 +438,7 @@
 	data["sex"] = sex
 	data["age"] = age
 	data["assignment"] = assignment
-	data["job_icon"] = ckey(get_job_name())
+	data["job_icon"] = hud_icon
 	data["associated_account_number"] = associated_account_number
 	data["blood_type"] = blood_type
 	data["dna_hash"] = dna_hash
@@ -565,6 +566,7 @@
 	rank = new_rank
 	UpdateName()
 	registered_human.sec_hud_set_ID()
+	hud_icon = ckey(get_job_name())
 
 /obj/item/card/id/syndicate/get_job_name()
 	if(ckey(rank) in icon_states('icons/mob/hud/job_assets.dmi'))
