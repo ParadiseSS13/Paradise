@@ -513,7 +513,7 @@
 	if(option == "Primary")
 		new_name = ishuman(registered_human) ? registered_human.real_name : registered_human.name
 	else if(option == "Secondary")
-		new_name = tgui_input_list(registered_human, "Whose name do you want to copy?", "Agent ID - Name", GLOB.human_list)
+		new_name = tgui_input_list(registered_human, "Whose name do you want to copy?", "Agent ID - Name", GLOB.crew_list)
 		if(isnull(new_name))
 			return
 	else
@@ -608,8 +608,6 @@
 	else
 		if(new_dna)
 			dna_hash = new_dna
-
-	to_chat(registered_human, "Your DNA hash has been changed to [dna_hash].")
 
 /obj/item/card/id/syndicate/proc/change_fingerprints(option, new_fingerprints)
 	if(option == "Primary")
