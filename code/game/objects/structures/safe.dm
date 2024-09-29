@@ -339,14 +339,14 @@ GLOBAL_LIST_EMPTY(safes)
 	if(get_dist(src, driller) >= 9)
 		return //You need to be near the drill if you want to get the buff.
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
 	for(var/mob/living/carbon/human/H in view(9, driller))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
