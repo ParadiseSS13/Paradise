@@ -174,7 +174,7 @@
 	)
 
 	preop_sound = list(
-		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
+		TOOL_BONEGEL = 'sound/surgery/organ1.ogg',
 		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
 		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
 	)
