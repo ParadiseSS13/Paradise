@@ -979,6 +979,30 @@
 	icon = 'modular_ss220/food_and_drinks/icons/trash.dmi'
 	icon_state = "pan"
 
+/obj/item/food/soup/sawdust_soup
+	name = "суп из опилок"
+	desc = "Отчаянные времена требуют отчаянных мер..."
+	icon = 'modular_ss220/food_and_drinks/icons/food.dmi'
+	icon_state = "sawdustsoup"
+	lefthand_file = 'modular_ss220/food_and_drinks/icons/food_lefthand.dmi'
+	righthand_file = 'modular_ss220/food_and_drinks/icons/food_righthand.dmi'
+	filling_color = "#fae4b5"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("water" = 10, "nutriment" = 2, "vitamin" = 1)
+	tastes = list("опилки" = 1)
+	goal_difficulty = FOOD_GOAL_SKIP
+
+/datum/recipe/microwave/sawdust_soup
+	reagents = list("water" = 20)
+	items = list(/obj/item/stack/sheet/wood = 1)
+	result = /obj/item/food/soup/sawdust_soup
+
+/obj/item/food/soup/sawdust_soup/On_Consume(mob/M, mob/user)
+	. = ..()
+	var/mob/living/carbon/consumer = user
+	if(prob(5))
+		consumer.vomit(nutritional_value * 2.5)
+
 // Infinite Pizza Box
 /obj/item/pizzabox/infinite
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
