@@ -521,7 +521,7 @@
 
 	registered_name = reject_bad_name(new_name, TRUE)
 	UpdateName()
-	to_chat(registered_human, "Your name has been changed to [new_name].")
+	to_chat(registered_human, "ID name has been changed to [new_name].")
 
 /obj/item/card/id/syndicate/proc/change_photo()
 	if(!COOLDOWN_FINISHED(src, new_photo_cooldown))
@@ -586,11 +586,11 @@
 	else
 		new_account = text2num(new_account)
 		if(!isnum(new_account))
-			to_chat(registered_human, "Your account number can only contain numbers.")
+			to_chat(registered_human, "ID account number can only contain numbers.")
 			return
 
 	associated_account_number = clamp(new_account, 1000000, 9999999)
-	to_chat(registered_human, "Your account number has been changed to [new_account].")
+	to_chat(registered_human, "ID account number has been changed to [new_account].")
 
 /obj/item/card/id/syndicate/proc/change_blood_type(option, new_type)
 	if(option == "Primary")
@@ -598,7 +598,7 @@
 	else if(new_type)
 		blood_type = new_type
 
-	to_chat(registered_human, "Your blood type has been changed to [blood_type].")
+	to_chat(registered_human, "ID blood type has been changed to [blood_type].")
 
 /obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)
 	if(option == "Primary")
