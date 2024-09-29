@@ -39,7 +39,7 @@
 	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
 
 	if(!user.drop_item() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		flayer.send_swarm_message("We cannot manifest that currently...")
+		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
 		return FALSE
 
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
