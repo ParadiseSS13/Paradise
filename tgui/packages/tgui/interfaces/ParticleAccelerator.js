@@ -1,13 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section } from '../components';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
-  const { assembled, power, strength, max_strength } = data;
+  const { assembled, power, strength, max_strength, problem_parts, orientation } = data;
   return (
     <Window width={350} height={160}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Section
           title="Control Panel"
           buttons={<Button icon={'sync'} content={'Connect'} onClick={() => act('scan')} />}
@@ -41,6 +41,20 @@ export const ParticleAccelerator = (props, context) => {
               />
             </LabeledList.Item>
           </LabeledList>
+        </Section>
+        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'} />
+        <Section title="Issues" scrollable>
+          {!!problem_parts &&
+            problem_parts
+              .slice()
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
+                  </Stack>
+                );
+              })}
         </Section>
       </Window.Content>
     </Window>

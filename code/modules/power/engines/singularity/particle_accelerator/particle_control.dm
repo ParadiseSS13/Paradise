@@ -18,6 +18,10 @@
 	var/assembled = 0
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null
+	/// List of parts that are either missing or misaligned
+	var/list/problem_parts = list()
+	/// The expected orientation of the accelerator this is trying to link. In text form so the UI can use it
+	var/dir_text
 
 /obj/machinery/particle_accelerator/control_box/Initialize(mapload)
 	. = ..()
@@ -146,15 +150,29 @@
 
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
+	problem_parts = list()
+	dir_text = null
+	var/turf/T
 	for(var/obj/structure/particle_accelerator/fuel_chamber/F in orange(1,src))
 		dir = F.dir
+		T = F.loc
+		switch(dir)
+			if(NORTH)
+				dir_text = "North"
+			if(SOUTH)
+				dir_text = "South"
+			if(EAST)
+				dir_text = "East"
+			if(WEST)
+				dir_text = "West"
+
+	if(!T)
+		return 0
 	connected_parts = list()
 	var/tally = 0
 	var/ldir = turn(dir,-90)
 	var/rdir = turn(dir,90)
 	var/odir = turn(dir,180)
-	var/turf/T = loc
-	T = get_step(T,rdir)
 	if(check_part(T,/obj/structure/particle_accelerator/fuel_chamber))
 		tally++
 	T = get_step(T,odir)
@@ -190,6 +208,13 @@
 			if(PA.report_ready(src))
 				connected_parts.Add(PA)
 				return 1
+			else if(PA)
+				problem_parts["[PA.name]"] = "Incomplete"
+		else if(PA)
+			problem_parts["[PA.name]"] = "Wrong Orientation"
+	else if(PA)
+		problem_parts["[PA.name]"] = "Wrong Position"
+
 	return 0
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
@@ -224,10 +249,18 @@
 
 /obj/machinery/particle_accelerator/control_box/ui_data(mob/user)
 	var/list/data = list()
+	var/list/problem_parts_ui = list()
+
+	for(var/part in problem_parts)
+		problem_parts_ui.Add(list(list("name" = "[part]", "issue" = "[problem_parts[part]]")))
+
+
 	data["assembled"] = assembled
 	data["power"] = active
 	data["strength"] = strength
 	data["max_strength"] = strength_upper_limit
+	data["problem_parts"] = problem_parts_ui
+	data["orientation"] = dir_text ? dir_text : FALSE
 	return data
 
 /obj/machinery/particle_accelerator/control_box/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
