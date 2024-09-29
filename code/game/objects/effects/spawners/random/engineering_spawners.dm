@@ -1,6 +1,7 @@
 /obj/effect/spawner/random/engineering
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "wrench"
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/engineering/tools
 	name = "Tool spawner"

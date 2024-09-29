@@ -2303,11 +2303,6 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/permabrig)
-"aoE" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "aoF" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -14721,7 +14716,6 @@
 	},
 /area/station/science/genetics)
 "bLf" = (
-/obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
@@ -14731,16 +14725,10 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Secure Armory"
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -14805,6 +14793,9 @@
 /obj/item/storage/box/rubbershot{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18194,9 +18185,6 @@
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18204,7 +18192,6 @@
 	},
 /area/station/security/armory/secure)
 "ccO" = (
-/obj/structure/rack,
 /obj/item/gun/energy/disabler{
 	pixel_x = -3;
 	pixel_y = 3
@@ -18218,6 +18205,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -18872,7 +18860,6 @@
 	},
 /area/station/security/warden)
 "cgG" = (
-/obj/structure/rack,
 /obj/item/storage/box/seccarts{
 	pixel_x = 3;
 	pixel_y = 2
@@ -18887,17 +18874,16 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "cgL" = (
-/obj/structure/rack,
 /obj/item/gun/energy/laser{
 	pixel_x = -3;
 	pixel_y = 3
@@ -18907,20 +18893,13 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "cgR" = (
-/obj/structure/rack,
 /obj/item/gun/energy/gun{
 	pixel_x = -3;
 	pixel_y = 3
@@ -18933,10 +18912,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -27765,6 +27741,10 @@
 	},
 /area/station/medical/patients_rooms)
 "dlp" = (
+/obj/structure/railing/corner{
+	dir = 1;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -33210,11 +33190,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/window/basic{
 	dir = 8
 	},
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "eot" = (
@@ -44604,11 +44584,11 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/structure/table/glass,
 /obj/item/radio/intercom{
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/structure/shelf/medbay,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -44802,15 +44782,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/tech_storage)
-"hIk" = (
-/obj/item/assembly/mousetrap/armed,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fore2)
 "hIo" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "mining_home";
@@ -46176,12 +46147,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "hZk" = (
-/obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
+/obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -52172,8 +52143,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "jyk" = (
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jyn" = (
@@ -54590,6 +54561,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
+"kdd" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/item/stack/packageWrap,
+/obj/item/destTagger,
+/obj/structure/shelf/command,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/wall,
+/area/station/command/bridge)
 "kds" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -59588,6 +59574,20 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lwZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "lxe" = (
 /obj/structure/table/reinforced,
 /obj/item/transfer_valve{
@@ -69318,17 +69318,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"olh" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreenfull"
-	},
-/area/station/service/hydroponics)
 "olr" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -75559,7 +75548,7 @@
 /area/station/hallway/primary/aft/east)
 "pRl" = (
 /obj/structure/disposaloutlet{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -82591,6 +82580,31 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/east)
+"rOh" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/item/assembly/mousetrap/armed,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/fore2)
 "rOp" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -88373,6 +88387,11 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/sercom)
+"tmf" = (
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "tmg" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -89331,12 +89350,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/destTagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
+/obj/structure/shelf/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -89622,6 +89641,22 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/maintenance/disposal/northeast)
+"tDi" = (
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/structure/shelf/service,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "tDm" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -102007,7 +102042,6 @@
 	},
 /area/station/public/fitness)
 "wOh" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -102020,6 +102054,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -105131,6 +105166,14 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
+"xGy" = (
+/obj/structure/disposalpipe/junction/y{
+	dir = 4
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "xGA" = (
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
@@ -127283,7 +127326,7 @@ glI
 gIv
 uCO
 noy
-olh
+tDi
 nWX
 qxR
 btd
@@ -129576,7 +129619,7 @@ xbi
 huq
 huq
 huq
-huq
+xGy
 uNO
 czl
 baF
@@ -129833,7 +129876,7 @@ qoK
 nxG
 nxG
 nxG
-eiE
+lwZ
 wph
 oZo
 baF
@@ -132330,7 +132373,7 @@ ifP
 fBt
 fBt
 fBt
-hIk
+rOh
 fBt
 fBt
 fBt
@@ -140042,7 +140085,7 @@ fcE
 cyR
 bpg
 aSf
-xYZ
+kdd
 cLV
 cQJ
 cau
@@ -143618,7 +143661,7 @@ oXd
 amt
 anz
 aof
-aoE
+tmf
 apw
 cMH
 cMH

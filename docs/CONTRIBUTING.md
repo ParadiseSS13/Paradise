@@ -219,6 +219,7 @@ affect mergeability status. People included in this role are:
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)
 - [Warriorstar](https://github.com/warriorstar-orion)
+- [Wilkson](https://github.com/BiancaWilkson)
 
 ---
 
