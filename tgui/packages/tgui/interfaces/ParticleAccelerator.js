@@ -1,5 +1,6 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack } from '../components';
+import { Box, Button, Grid, LabeledList, Section, Stack, Grid } from '../components';
+import { GridColumn } from '../components/Grid';
 import { Window } from '../layouts';
 
 export const ParticleAccelerator = (props, context) => {
@@ -43,9 +44,9 @@ export const ParticleAccelerator = (props, context) => {
           </LabeledList>
         </Section>
         <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'} />
-        <Section title="Issues" scrollable>
-          {!!problem_parts &&
-            problem_parts
+        <Grid>
+          <GridColumn>
+            {problem_parts
               .slice()
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((item) => {
@@ -55,7 +56,32 @@ export const ParticleAccelerator = (props, context) => {
                   </Stack>
                 );
               })}
-        </Section>
+          </GridColumn>
+          <GridColumn>
+            {problem_parts
+              .slice()
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
+                  </Stack>
+                );
+              })}
+          </GridColumn>
+          <GridColumn>
+            {problem_parts
+              .slice()
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
+                  </Stack>
+                );
+              })}
+          </GridColumn>
+        </Grid>
       </Window.Content>
     </Window>
   );
