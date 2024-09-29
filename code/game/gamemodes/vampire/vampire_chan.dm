@@ -8,7 +8,9 @@
 	required_enemies = 1
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
-	vampire_penalty = 0.6 // Cut out 40% of the vampires since we'll replace some with changelings
+	vampire_penalty = 0.4 // Cut out 40% of the vampires since we'll replace some with changelings
+	/// A list of all soon-to-be changelings
+	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/vampire/changeling/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
