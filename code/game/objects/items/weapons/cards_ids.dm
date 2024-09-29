@@ -564,9 +564,10 @@
 		return
 	assignment = new_job
 	rank = new_rank
+	hud_icon = ckey(get_job_name())
 	UpdateName()
 	registered_human.sec_hud_set_ID()
-	hud_icon = ckey(get_job_name())
+	
 
 /obj/item/card/id/syndicate/get_job_name()
 	if(ckey(rank) in icon_states('icons/mob/hud/job_assets.dmi'))
