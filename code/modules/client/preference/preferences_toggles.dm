@@ -114,10 +114,20 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "You will now hear a sound when mentorhelp is sent."
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
+
+/datum/preference_toggle/toggle_prayer_sound
+	name = "Prayer sound"
+	description = "Toggle hearing a notification when prayers are received"
+	preftoggle_bitflag = SOUND_PRAYERNOTIFY
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	enable_message = "You will now hear a sound when prayers are made."
+	disable_message = "You will no longer hear a sound when prayers are made."
+	blackbox_message = "Toggle Prayer Sound"
 
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Toggle Deadchat visibility"
