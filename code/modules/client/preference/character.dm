@@ -108,6 +108,7 @@
 	var/list/custom_emotes = list()
 	/// Runechat color
 	var/runechat_color = "#FFFFFF"
+	var/list/quirks = list()
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -199,7 +200,8 @@
 					custom_emotes=:custom_emotes,
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
-					body_type=:body_type
+					body_type=:body_type,
+					quirks=:quirks
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -263,7 +265,8 @@
 						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
 						"ckey" = C.ckey,
-						"slot" = slot_number
+						"slot" = slot_number,
+						"quirks" = quirks
 					))
 
 			if(!query.warn_execute())
