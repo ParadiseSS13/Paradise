@@ -2805,10 +2805,9 @@
 	},
 /area/station/maintenance/fore2)
 "aqn" = (
-/obj/structure/rack,
-/obj/item/crowbar,
-/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -17818,12 +17817,12 @@
 /area/station/service/kitchen)
 "bdN" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/rack,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
+/obj/structure/shelf/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20864,7 +20863,6 @@
 	},
 /area/station/security/processing)
 "bme" = (
-/obj/structure/rack,
 /obj/item/gun/energy/laser{
 	pixel_x = 3;
 	pixel_y = 3
@@ -20875,6 +20873,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bmg" = (
@@ -21366,7 +21365,6 @@
 	name = "west bump";
 	pixel_x = -30
 	},
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
 	pixel_x = 3;
 	pixel_y = -4
@@ -21377,6 +21375,7 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bnk" = (
@@ -22776,7 +22775,6 @@
 	},
 /area/station/security/processing)
 "bqW" = (
-/obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = 3;
 	pixel_y = 3
@@ -22787,6 +22785,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bqX" = (
@@ -27819,7 +27818,6 @@
 	},
 /area/station/public/storage/tools)
 "bDP" = (
-/obj/structure/table/reinforced,
 /obj/item/stack/rods,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
@@ -27829,6 +27827,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "bDQ" = (
@@ -28504,7 +28503,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFL" = (
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
 /obj/machinery/light/small,
@@ -28512,6 +28510,7 @@
 	pixel_y = -3
 	},
 /obj/item/multitool/command,
+/obj/structure/shelf/command,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -30523,7 +30522,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bKA" = (
-/obj/structure/rack,
 /obj/item/book/manual/wiki/hacking,
 /obj/item/book/manual/wiki/engineering_guide,
 /obj/item/book/manual/wiki/engineering_construction,
@@ -30531,6 +30529,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "bKB" = (
@@ -38570,12 +38569,12 @@
 	},
 /area/station/security/evidence)
 "cgp" = (
-/obj/structure/table,
 /obj/item/hand_labeler,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
 /obj/item/pen,
 /obj/machinery/firealarm/directional/south,
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44755,11 +44754,11 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "cxH" = (
-/obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cxI" = (
@@ -46961,8 +46960,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cDP" = (
-/obj/structure/rack,
 /obj/machinery/light/small,
+/obj/structure/shelf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cDQ" = (
@@ -71516,7 +71515,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "ibR" = (
-/obj/structure/rack,
 /obj/item/gun/energy/gun{
 	pixel_x = 3;
 	pixel_y = 3
@@ -71532,6 +71530,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ibT" = (
@@ -73048,8 +73047,8 @@
 	},
 /area/station/hallway/primary/central/nw)
 "iXL" = (
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "iXM" = (
@@ -79061,7 +79060,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port2)
 "mEk" = (
-/obj/structure/rack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/gun/energy/disabler{
 	pixel_x = 3;
@@ -79072,6 +79070,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "mEu" = (
@@ -85947,7 +85946,6 @@
 	},
 /area/station/medical/storage)
 "qys" = (
-/obj/structure/table/glass,
 /obj/item/storage/box/syringes{
 	pixel_x = 4;
 	pixel_y = 4
@@ -85957,6 +85955,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/shelf/medbay,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -95004,6 +95003,11 @@
 /obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
+"vys" = (
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "vyO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -119857,7 +119861,7 @@ cie
 cie
 cie
 bXU
-jJj
+vys
 drn
 dhG
 cHA
