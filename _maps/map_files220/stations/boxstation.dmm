@@ -5368,9 +5368,6 @@
 /area/station/security/prison/cell_block/A)
 "awc" = (
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
