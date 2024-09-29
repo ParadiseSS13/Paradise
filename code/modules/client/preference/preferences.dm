@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_cache = active_character.loadout_gear.Copy()
 	active_character.loadout_gear.Cut()
 	if(new_item)
-		loadout_cache += new_item.type
+		loadout_cache += "[new_item]"
 
 	for(var/item in loadout_cache)
 		var/datum/gear/gear = text2path(item) || item
@@ -738,7 +738,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				type_blacklist += gear.main_typepath
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
-		active_character.loadout_gear += gear.type
+		active_character.loadout_gear[item] = loadout_cache[item] ? loadout_cache[item] : list()
 		total_cost += added_cost
 	return total_cost
 

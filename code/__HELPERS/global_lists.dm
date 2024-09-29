@@ -93,17 +93,23 @@
 
 		gear = new gear_type
 		var/obj/gear_item = gear.path
-		GLOB.gear_datums[gear_type] += list(list(
+		var/list/tweaks_display_type = list()
+		for(var/datum/gear_tweak/tweak in gear.gear_tweaks)
+			tweaks_display_type[tweak.type] = tweak.display_type
+
+		GLOB.gear_tgui_info[gear_type] += list(list(
 			"name" = gear.display_name,
 			"desc" = gear.description,
 			"icon" = gear_item.icon,
 			"icon_state" = gear_item.icon_state,
 			"category" = gear.sort_category,
 			"cost" = gear.cost,
-			"tweaks" = gear.gear_tweaks,
+			"tweaks_display_type" = tweaks_display_type,
 			"allowed_roles" = gear.allowed_roles,
 			"gear_tier" = gear.donator_tier,
 		))
+
+		GLOB.gear_datums[gear_type] = gear
 
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()

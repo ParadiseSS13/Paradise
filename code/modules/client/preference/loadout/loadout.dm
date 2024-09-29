@@ -39,10 +39,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	location = nlocation
 
 /datum/gear/proc/spawn_item(location, metadata)
-	var/datum/gear_data/gd = new(path, location)
-	for(var/datum/gear_tweak/gt in gear_tweaks)
-		gt.tweak_gear_data(metadata["[gt]"], gd)
-	var/item = new gd.path(gd.location)
-	for(var/datum/gear_tweak/gt in gear_tweaks)
-		gt.tweak_item(item, metadata["[gt]"])
+	var/datum/gear_data/gear_data = new(path, location)
+	for(var/datum/gear_tweak/tweak in gear_tweaks)
+		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
+	var/item = new gear_data.path(gear_data.location)
+	for(var/datum/gear_tweak/tweak in gear_tweaks)
+		tweak.tweak_item(item, metadata["[tweak]"])
 	return item

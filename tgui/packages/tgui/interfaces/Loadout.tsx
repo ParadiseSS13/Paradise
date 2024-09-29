@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, ImageButton, Button, Input, Section, Tabs, ProgressBar, Stack } from '../components';
+import { Box, ImageButton, Button, Input, Section, Tabs, ProgressBar, Stack, Icon, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -19,7 +19,22 @@ type Gear = {
   cost: number;
   gear_tier: number;
   allowed_roles: string[];
-  tweaks: string[];
+  tweaks_display_type: Record<string, string>;
+};
+
+const TweakDisplay = (display_type: string, metadata: string) => {
+  switch (display_type) {
+    case 'color':
+      return <Icon name="circle" color={metadata ? metadata : 'white'} />;
+    case 'edit':
+      return (
+        <Tooltip content={metadata} position="top">
+          <Icon name="pen-to-square" />
+        </Tooltip>
+      );
+    default:
+      return <Icon name="bug" color="red" />;
+  }
 };
 
 const filterGears = (gears: Record<string, Gear[]>, searchText: string, selectedCategory: string) => {
@@ -147,7 +162,7 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
             )
           }
           tooltipPosition={'bottom'}
-          selected={selected_gears.includes(gear.key)}
+          selected={Object.keys(selected_gears).includes(gear.key)}
           disabled={gear.gear_tier > 0}
           buttons={
             <>
@@ -166,6 +181,25 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
                   tooltipPosition="left"
                 />
               )}
+              {Object.keys(gear.tweaks_display_type).map((tweak) => (
+                <Button
+                  key={tweak}
+                  width="22px"
+                  color="transparent"
+                  onClick={() => {
+                    act('set_tweak', { gear: gear.key, tweak: tweak });
+                  }}
+                >
+                  {TweakDisplay(
+                    gear.tweaks_display_type[tweak],
+                    Object.keys(selected_gears).includes(gear.key)
+                      ? Object.keys(selected_gears[gear.key]).includes(tweak)
+                        ? selected_gears[gear.key][tweak]
+                        : null
+                      : null
+                  )}
+                </Button>
+              ))}
               {/* Place here other tooltip buttons */}
               <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
             </>
@@ -191,7 +225,7 @@ const LoadoutEquipped = (props, context) => {
   const { gears, selected_gears } = data;
 
   const filteredGears = Object.entries(gears).flatMap(([key, gearList]) =>
-    gearList.filter(() => selected_gears.includes(key)).map((gear) => ({ ...gear, key }))
+    gearList.filter(() => Object.keys(selected_gears).includes(key)).map((gear) => ({ ...gear, key }))
   );
 
   return (
