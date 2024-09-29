@@ -431,3 +431,29 @@
 	cooldown = 10 SECONDS
 	volume = 50
 	muzzled_noises = list("слабо")
+
+/datum/emote/living/carbon/human/meow
+	key = "meow"
+	key_third_person = "meow"
+	message = "мяукает."
+	message_param = "мяукает на %t."
+	sound = 'modular_ss220/emotes/audio/tajaran/meow_tajaran.ogg'
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH | EMOTE_AUDIBLE
+	vary = TRUE
+	cooldown = 10 SECONDS
+	volume = 50
+	muzzled_noises = list("слабо")
+
+/datum/emote/living/carbon/human/mrow
+	key = "mrow"
+	key_third_person = "mrow"
+	message = "раздражённо мяукает."
+	message_param = "раздражённо мяукает на %t."
+	sound = 'modular_ss220/emotes/audio/tajaran/annoyed_meow_tajaran.ogg'
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH | EMOTE_AUDIBLE
+	vary = TRUE
+	cooldown = 10 SECONDS
+	volume = 70
+	muzzled_noises = list("слабо")

@@ -483,6 +483,16 @@
 	set category = "Эмоции"
 	emote("wiggles", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_meow()
+	set name = "< " + EMOTE_HUMAN_MEOW + " >"
+	set category = "Эмоции"
+	emote("meow", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_mrow()
+	set name = "< " + EMOTE_HUMAN_MROW + " >"
+	set category = "Эмоции"
+	emote("mrow", intentional = TRUE)
+
 /mob/living/carbon/human/verb/emote_wave()
 	set name = "◦ " + EMOTE_CARBON_WAVE + " "
 	set category = "Эмоции"

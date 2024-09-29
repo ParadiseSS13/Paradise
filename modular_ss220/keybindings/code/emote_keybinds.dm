@@ -85,6 +85,22 @@
 	linked_emote = /datum/emote/living/carbon/human/ururu
 	name = EMOTE_HUMAN_RUMBLE
 
+/datum/keybinding/emote/carbon/human/meow
+	linked_emote = /datum/emote/living/carbon/human/meow
+	name = EMOTE_HUMAN_MEOW
+
+/datum/keybinding/emote/carbon/human/meow/New()
+	. = ..()
+	name += " (таяр)"
+
+/datum/keybinding/emote/carbon/human/mrow
+	linked_emote = /datum/emote/living/carbon/human/mrow
+	name = EMOTE_HUMAN_MROW
+
+/datum/keybinding/emote/carbon/human/mrow/New()
+	. = ..()
+	name +=  " (таяр)"
+
 /datum/keybinding/emote/carbon/human/drask_talk/New()
 	..()
 	name += " (драск)"

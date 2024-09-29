@@ -458,6 +458,12 @@
 /datum/emote/living/carbon/human/slime/pop
 	name = EMOTE_HUMAN_POP
 
+/datum/emote/living/carbon/human/tajaran/meow
+	name = EMOTE_HUMAN_MEOW
+
+/datum/emote/living/carbon/human/tajaran/mrow
+	name = EMOTE_HUMAN_MROW
+
 /// Emote Animal
 
 /datum/emote/living/simple_animal/gorilla/ooga

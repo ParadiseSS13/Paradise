@@ -121,6 +121,8 @@
 #define EMOTE_HUMAN_WHIP 			"Ударить хвостом"
 #define EMOTE_HUMAN_BARK			"Гавкнуть"
 #define EMOTE_HUMAN_WBARK			"Дважды гавкнуть"
+#define EMOTE_HUMAN_MEOW			"Мяукнуть"
+#define EMOTE_HUMAN_MROW			"Мяукнуть раздражённо"
 
 /// Carbon Emotes
 #define EMOTE_CARBON_BLINK 			"Моргать"
