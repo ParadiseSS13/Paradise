@@ -23,7 +23,6 @@
 	if(!QDELETED(weapon_ref))
 		return
 	weapon_ref = new weapon_type(src)
-	weapon_ref.flags |= (ABSTRACT | NODROP | DROPDEL) // Just in case the item doesn't start with both of these, or somehow loses them.
 	RegisterSignal(weapon_ref, COMSIG_PARENT_QDELETING, PROC_REF(clear_weapon_ref))
 	on_purchase_upgrade()
 
@@ -35,12 +34,13 @@
 		retract(user, TRUE)
 		return
 
-	if(!user.drop_item())
-		to_chat(user, "[user.get_active_hand()] is stuck to your hand!")
-		return FALSE
-
 	if(!weapon_ref)
 		create_new_weapon()
+	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
+
+	if(!user.drop_item() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		flayer.send_swarm_message("We cannot manifest that currently...")
+		return FALSE
 
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
@@ -54,7 +54,7 @@
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
-	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), src)
+	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), owner) // Just kinda shove it into the user
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
@@ -81,7 +81,7 @@
 
 	var/obj/item/melee/baton/flayerprod/prod = weapon_ref
 	var/obj/item/stock_parts/cell/flayerprod/cell = prod.cell
-	cell.chargerate = initial(cell.chargerate) + 200 * (level - 1) // Innate abilities are wack
+	cell.chargerate = initial(cell.chargerate) + 200 * (level) // Innate abilities are wack
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augmentation"
