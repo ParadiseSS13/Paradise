@@ -43,7 +43,7 @@
 	icon_state = "blackjumpskirt"
 	item_state = "bl_suit"
 	item_color = "blackskirt"
-	resistance_flags = NONE//I am going to assume this is here for a reason
+	resistance_flags = NONE // I am going to assume this is here for a reason
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
