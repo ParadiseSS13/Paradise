@@ -1,4 +1,4 @@
-/// Sprites for Orbit Role UI
+/// All job icon sprites, as visible on a security HUD. Used by agent ID and orbit menu.
 /datum/asset/spritesheet/job_icons
 	name = "job_icons"
 

@@ -167,18 +167,17 @@ export const AgentCardInfo = (props, context) => {
               <Stack fill mb={-0.5}>
                 <Stack.Item grow>
                   <Button fluid onClick={() => act('change_occupation')} textAlign="middle">
-                    <Box className={classes(['job_icons16x16', job_icon])} verticalAlign="bottom" my="2px" />{' '}
                     {assignment ? assignment : '[UNSET]'}
                   </Button>
                 </Stack.Item>
                 <Stack.Item>
                   <Button
-                    // icon="file-signature"
                     tooltip={"Change HUD icon"}
                     tooltipPosition={'bottom-end'}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
-                    className={classes(['job_icons16x16', job_icon])}
-                  />
+                  >
+                    <Box className={classes(['job_icons16x16', job_icon])} verticalAlign="bottom" my="2px" />{' '}
+                  </Button>
                 </Stack.Item>
               </Stack>
             </LabeledList.Item>
