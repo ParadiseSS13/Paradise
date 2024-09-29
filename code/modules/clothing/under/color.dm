@@ -312,7 +312,7 @@
 	item_color = "rainbow"
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
-	name = "rainbow jumpskirtskirt"
+	name = "rainbow jumpskirt"
 	desc = "rainbow"
 	icon_state = "rainbowjumpskirt"
 	item_state = "rainbow"
