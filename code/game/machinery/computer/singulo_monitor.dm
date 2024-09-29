@@ -2,7 +2,7 @@
 	name = "singularity monitoring console"
 	desc = "Used to monitor singularities."
 	icon_keyboard = "power_key"
-	icon_screen = "smmon_0"
+	icon_screen = "singumon_0"
 	circuit = /obj/item/circuitboard/singulo_monitor
 	light_color = LIGHT_COLOR_YELLOW
 	/// Cache-list of all singularities
@@ -173,7 +173,9 @@
 			last_size = active.current_size
 			last_energy = active.energy
 			icon_screen = (((active.allowed_size + 1) / 2) == 4 && active.energy >= (STAGE_FIVE_THRESHOLD - 100)) ? "singumon_pre5" : "singumon_[(active.allowed_size + 1) / 2]"
-			update_icon()
+	else
+		icon_screen = "singumon_0"
+	update_icon()
 
 	return TRUE
 
