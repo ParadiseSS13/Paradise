@@ -356,12 +356,12 @@
 	var/mob/living/carbon/human/registered_human
 	var/static/list/possible_jobs
 
-	COOLDOWN_DECLARE(new_picture_cooldown)
+	COOLDOWN_DECLARE(new_photo_cooldown)
 
 /obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
 	if(!possible_jobs) 
-		possible_jobs = sortTim(GLOB.joblist + get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs(), GLOBAL_PROC_REF(cmp_text_asc))
+		possible_jobs = sortTim(GLOB.joblist, GLOBAL_PROC_REF(cmp_text_asc))
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
@@ -414,13 +414,13 @@
 		if("change_photo")
 			change_photo()
 		if("change_appearance")
-			change_appearance(params["appearance"])
+			change_appearance(params["new_appearance"])
 		if("change_sex")
 			change_sex(params["sex"])
 		if("change_age")
 			change_age(params["age"])
 		if("change_occupation")
-			change_occupation()
+			change_occupation(params["option"])
 		if("change_money_account")
 			change_money_account(params["option"], params["new_account"])
 		if("change_blood_type")
@@ -444,7 +444,7 @@
 	data["fingerprint_hash"] = fingerprint_hash
 	data["photo"] = photo
 	data["ai_tracking"] = untrackable
-	data["picture_cooldown"] = COOLDOWN_FINISHED(src, new_picture_cooldown)
+	data["photo_cooldown"] = COOLDOWN_FINISHED(src, new_photo_cooldown)
 	return data
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
@@ -485,9 +485,6 @@
 			ui_interact(user)
 
 /obj/item/card/id/syndicate/proc/delete_info(datum/tgui/ui)
-	var/response = tgui_alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", list("Yes", "No"))
-	if(!Adjacent(registered_human) || response != "Yes")
-		return
 	name = initial(name)
 	registered_name = initial(registered_name)
 	icon_state = initial(icon_state)
@@ -505,41 +502,29 @@
 	ui.close()
 
 /obj/item/card/id/syndicate/proc/clear_access()
-	var/response = tgui_alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", list("Yes", "No"))
-	if(!Adjacent(registered_human) || isnull(response))
-		return
-	if(response == "Yes")
-		access = initial_access.Copy() // Initial() doesn't work on lists
-		to_chat(registered_human, "<span class='notice'>Card access reset.</span>")
+	access = initial_access.Copy() // Initial() doesn't work on lists
+	to_chat(registered_human, "<span class='notice'>Card access reset.</span>")
 
 /obj/item/card/id/syndicate/proc/change_ai_tracking()
 	untrackable = !untrackable
 
 /obj/item/card/id/syndicate/proc/change_name(option, name)
-	// var/new_name = reject_bad_name(tgui_input_text(registered_human, "What name would you like to put on this card?","Agent Card Name", ishuman(registered_human) ? registered_human.real_name : registered_human.name), TRUE)
-	// if(!Adjacent(registered_human) || isnull(new_name))
-	// 	return
-	// registered_name = new_name
-	// UpdateName()
-
 	var/new_name
 	if(option == "Primary")
 		new_name = ishuman(registered_human) ? registered_human.real_name : registered_human.name
-
 	else if(option == "Secondary")
-		new_name = tgui_input_list(registered_human, "Чьё имя вы хотите взять?", "Карта Агента - Имя", GLOB.human_list)
+		new_name = tgui_input_list(registered_human, "Whose name do you want to copy?", "Agent ID - Name", GLOB.human_list)
 		if(isnull(new_name))
 			return
-
 	else
 		new_name = name
 
 	registered_name = reject_bad_name(new_name, TRUE)
 	UpdateName()
-	to_chat(registered_human, "Имя изменено на: [new_name].")
+	to_chat(registered_human, "Your name has been changed to [new_name].")
 
 /obj/item/card/id/syndicate/proc/change_photo()
-	if(!COOLDOWN_FINISHED(src, new_picture_cooldown))
+	if(!COOLDOWN_FINISHED(src, new_photo_cooldown))
 		return
 	var/job_clothes = null
 	if(assignment)
@@ -548,7 +533,7 @@
 	if(!newphoto)
 		return
 	photo = newphoto
-	COOLDOWN_START(src, new_picture_cooldown, 10 SECONDS)
+	COOLDOWN_START(src, new_photo_cooldown, 10 SECONDS) // This proc is expensive, we don't want people spamming it.
 
 /obj/item/card/id/syndicate/proc/change_appearance(new_appearance)
 	if(!new_appearance)
@@ -564,24 +549,23 @@
 /obj/item/card/id/syndicate/proc/change_age(new_age)
 	age = clamp(new_age, 17, 999)
 
-/obj/item/card/id/syndicate/proc/change_occupation()
-	var/list/departments =list(
-				"Assistant",
-				"Custom"
-			)
-
+/obj/item/card/id/syndicate/proc/change_occupation(option)
 	var/new_job
 	var/new_rank
-
 	var/tgui_message = "What job would you like to put on this card?"
-	var/department = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", departments)
-	if(department != "Custom")
-		new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", possible_jobs)
-		new_rank = new_job
-	else
-		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+	if(option == "Primary")
+		new_job = assignment
 		tgui_message = "What SecHUD icon would you like to be shown on this card?"
 		new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet")
+	else
+		var/department = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", list("Existing job", "Custom"))
+		if(department != "Custom")
+			new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", possible_jobs)
+			new_rank = new_job
+		else
+			new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+			tgui_message = "What SecHUD icon would you like to be shown on this card?"
+			new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet")
 
 
 	if(!Adjacent(registered_human) || isnull(new_job))
@@ -593,38 +577,45 @@
 
 /obj/item/card/id/syndicate/proc/change_money_account(option, new_account)
 	if(option == "Primary")
+		new_account = registered_human.mind.initial_account?.account_number
+		if(!new_account)
+			to_chat(registered_human, "You don't have an account.")
+			return
+	else if(option == "Secondary")
 		new_account = rand(1000, 9999) * 1000 + rand(1000, 9999)
 	else
-		new_account = new_account
+		new_account = text2num(new_account)
 		if(!isnum(new_account))
-			to_chat(registered_human, "Номер аккаунта должен состоять только из цифр!")
+			to_chat(registered_human, "Your account number can only contain numbers.")
 			return
 
 	associated_account_number = clamp(new_account, 1000000, 9999999)
-	to_chat(registered_human, "Привязанный счёт изменён на: [new_account].")
+	to_chat(registered_human, "Your account number has been changed to [new_account].")
 
 /obj/item/card/id/syndicate/proc/change_blood_type(option, new_type)
 	if(option == "Primary")
 		blood_type = registered_human.dna.blood_type
-	else
-		var/blood_param = new_type
-		if(blood_param)
-			blood_type = blood_param
+	else if(new_type)
+		blood_type = new_type
 
-	to_chat(registered_human, "Тип крови изменён на: [blood_type].")
+	to_chat(registered_human, "Your blood type has been changed to [blood_type].")
 
 /obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)
 	if(option == "Primary")
 		dna_hash = registered_human.dna.unique_enzymes
+	else if(option == "Secondary")
+		dna_hash = md5(num2text(rand(0, 999)))
 	else
 		if(new_dna)
 			dna_hash = new_dna
 
-	to_chat(registered_human, "ДНК изменён на: [dna_hash].")
+	to_chat(registered_human, "Your DNA hash has been changed to [dna_hash].")
 
 /obj/item/card/id/syndicate/proc/change_fingerprints(option, new_fingerprints)
 	if(option == "Primary")
 		fingerprint_hash = md5(registered_human.dna.uni_identity)
+	else if(option == "Secondary")
+		fingerprint_hash = md5(num2text(rand(0, 999)))
 	else
 		var/fingerprints_param  = new_fingerprints
 		if(fingerprints_param)

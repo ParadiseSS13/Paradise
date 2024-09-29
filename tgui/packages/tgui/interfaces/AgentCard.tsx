@@ -25,6 +25,7 @@ type Data = {
   assignment: string;
   job_icon: string;
   idcards: IDCard[];
+  photo_cooldown: boolean;
 };
 
 type IDCard = {
@@ -99,15 +100,26 @@ export const AgentCardInfo = (props, context) => {
     fingerprint_hash,
     photo,
     ai_tracking,
+    photo_cooldown,
   } = data;
 
-  const tooltipText = (
+  const tooltipTextCopy = (
     <span>
       Autofill options.
       <br />
       LMB - Autofill your own data.
       <br />
-      RMB - Autofill someone else.
+      RMB - Autofill someone else data.
+    </span>
+  );
+  
+  const tooltipTextRandom = (
+    <span>
+      Autofill options.
+      <br />
+      LMB - Autofill your own data.
+      <br />
+      RMB - Autofill with random data.
     </span>
   );
 
@@ -119,7 +131,7 @@ export const AgentCardInfo = (props, context) => {
             <InfoInput
               label="Name"
               value={registered_name}
-              tooltip={tooltipText}
+              tooltip={tooltipTextCopy}
               onCommit={(e, value) => act('change_name', { name: value })}
               onClick={() => act('change_name', { option: 'Primary' })}
               onRClick={(event) => {
@@ -152,18 +164,34 @@ export const AgentCardInfo = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Rank">
-              <Button fluid onClick={() => act('change_occupation')} textAlign="middle">
-                <Box className={classes(['job_icons16x16', job_icon])} verticalAlign="bottom" my="2px" />{' '}
-                {assignment ? assignment : '[UNSET]'}
-              </Button>
+              <Stack fill mb={-0.5}>
+                <Stack.Item grow>
+                  <Button fluid onClick={() => act('change_occupation')} textAlign="middle">
+                    <Box className={classes(['job_icons16x16', job_icon])} verticalAlign="bottom" my="2px" />{' '}
+                    {assignment ? assignment : '[UNSET]'}
+                  </Button>
+                </Stack.Item>
+                <Stack.Item>
+                  <Button
+                    // icon="file-signature"
+                    tooltip={"Change HUD icon"}
+                    tooltipPosition={'bottom-end'}
+                    onClick={() => act('change_occupation', { option: 'Primary' })}
+                    className={classes(['job_icons16x16', job_icon])}
+                  />
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <InfoInput
               label="Fingerprint"
               value={fingerprint_hash}
-              tooltip="Ввести свои отпечатки."
               onCommit={(e, value) => act('change_fingerprints', { new_fingerprints: value })}
               onClick={() => act('change_fingerprints', { option: 'Primary' })}
-              onRClick={() => act('change_fingerprints', { option: 'Primary' })}
+              onRClick={(event) => {
+                event.preventDefault();
+                act('change_fingerprints', { option: 'Secondary' })
+              }}
+              tooltip={tooltipTextRandom}
             />
             <LabeledList.Item label="Blood Type">
               <Stack fill mb={-0.5}>
@@ -184,19 +212,32 @@ export const AgentCardInfo = (props, context) => {
               value={dna_hash}
               onCommit={(e, value) => act('change_dna_hash', { new_dna: value })}
               onClick={() => act('change_dna_hash', { option: 'Primary' })}
-              onRClick={() => act('change_dna_hash', { option: 'Primary' })}
-              tooltip="Ввести своё ДНК."
+              onRClick={(event) => {
+                event.preventDefault();
+                act('change_dna_hash', { option: 'Secondary' })
+              }}
+              tooltip={tooltipTextRandom}
             />
             <InfoInput
               label="Account"
               value={associated_account_number || 0}
               onCommit={(e, value) => act('change_money_account', { new_account: value })}
               onClick={() => act('change_money_account', { option: 'Primary' })}
-              onRClick={() => act('change_money_account', { option: 'Primary' })}
-              tooltip="Ввести случайный набор цифр."
+              onRClick={(event) => {
+                event.preventDefault();
+                act('change_money_account', { option: 'Secondary' })
+              }}
+              tooltip={tooltipTextRandom}
             />
             <LabeledList.Item label="Photo">
-              <Button fluid textAlign="center" content={photo ? 'Update' : unset} onClick={() => act('change_photo')} />
+              <Button 
+                fluid 
+                textAlign="center" 
+                content={photo ? 'Update' : unset} 
+                disabled={!photo_cooldown} 
+                tooltip={photo_cooldown ? '' : 'You can\'t generate a new photo yet.'} 
+                onClick={() => act('change_photo')} 
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>
