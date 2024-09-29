@@ -4758,11 +4758,11 @@
 	},
 /area/station/security/permabrig)
 "aBx" = (
-/obj/structure/rack,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -32
 	},
 /obj/item/gun/energy/ionrifle,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -5846,7 +5846,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aGb" = (
-/obj/structure/table,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
@@ -5854,6 +5853,7 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
+/obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aGc" = (
@@ -7937,7 +7937,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "aMN" = (
-/obj/structure/rack,
 /obj/item/gun/energy/gun{
 	pixel_y = 6
 	},
@@ -7945,6 +7944,7 @@
 	pixel_y = 3
 	},
 /obj/item/gun/energy/gun,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -15481,6 +15481,10 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/destTagger{
+	pixel_x = 4;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -15601,7 +15605,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "bjd" = (
-/obj/structure/rack,
 /obj/item/stack/packageWrap{
 	pixel_x = 2;
 	pixel_y = -3
@@ -15620,10 +15623,7 @@
 	},
 /obj/item/stack/wrapping_paper,
 /obj/item/stack/wrapping_paper,
-/obj/item/destTagger{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -21403,7 +21403,6 @@
 /area/station/command/bridge)
 "byx" = (
 /obj/machinery/light,
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/emergency{
 	pixel_x = -2;
@@ -21416,6 +21415,7 @@
 	pixel_y = -28
 	},
 /obj/item/multitool/command,
+/obj/structure/shelf/command,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -29620,11 +29620,11 @@
 	pixel_x = -2;
 	pixel_y = -2
 	},
-/obj/structure/table/reinforced,
 /obj/machinery/requests_console/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/shelf/medbay,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -30010,7 +30010,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cdG" = (
-/obj/structure/rack,
+/obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -30231,7 +30231,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/structure/table/glass,
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 2;
 	pixel_y = 6
@@ -30252,6 +30251,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/shelf/service,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ceE" = (
@@ -44308,7 +44308,6 @@
 	},
 /area/station/security/main)
 "dCp" = (
-/obj/structure/rack,
 /obj/machinery/firealarm/directional/west,
 /obj/item/gun/energy/disabler{
 	pixel_y = 6
@@ -44317,6 +44316,7 @@
 	pixel_y = 3
 	},
 /obj/item/gun/energy/disabler,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -53477,7 +53477,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "htP" = (
-/obj/structure/table,
 /obj/item/reagent_containers/condiment/milk{
 	pixel_x = 6;
 	pixel_y = 8
@@ -53498,6 +53497,7 @@
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
+/obj/structure/shelf,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/cafeteria)
 "huo" = (
@@ -68239,7 +68239,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/bridge)
 "nxO" = (
-/obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_y = 6
 	},
@@ -68253,6 +68252,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/alarm/directional/north,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -70220,13 +70220,13 @@
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
 "otp" = (
-/obj/structure/table,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
 /obj/item/book/manual/wiki/sop_supply,
 /obj/item/storage/belt/utility,
 /obj/item/screwdriver/cargo,
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -70366,7 +70366,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "oAs" = (
-/obj/structure/table/reinforced,
 /obj/machinery/firealarm/directional/west,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -70388,6 +70387,7 @@
 	pixel_y = 4
 	},
 /obj/item/mecha_parts/core,
+/obj/structure/shelf/science,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "oAL" = (
@@ -83496,7 +83496,6 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "uba" = (
-/obj/structure/rack,
 /obj/item/gun/energy/laser{
 	pixel_y = 6
 	},
@@ -83504,6 +83503,7 @@
 	pixel_y = 3
 	},
 /obj/item/gun/energy/laser,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
