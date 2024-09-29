@@ -68,6 +68,7 @@
 #include "mobs/_mobs.dme"
 #include "pixel_shift/_pixel_shift.dme"
 #include "screentip_change/_screentip_change.dme"
+#include "station_traits/_station_traits.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
 #include "sm_space_drop/sm_space_drop.dme"
 #include "text_to_speech/_tts.dme"

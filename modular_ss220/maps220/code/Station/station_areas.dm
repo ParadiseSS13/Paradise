@@ -15,6 +15,11 @@
 /area/station/security/processing
 	request_console_name = "Security"
 
+/area/station/security/restroom
+	name = "Комната отдыха Службы Безопасности"
+	icon_state = "security"
+	request_console_name = "Security"
+
 /area/mine/laborcamp
 	request_console_name = "Labor Camp"
 
@@ -46,7 +51,7 @@
 
 /area/station/engineering/controlroom
 	request_console_name = "Engineering"
-	
+
 /area/station/engineering/dronefabricator
 	name = "Комната Изготовления Дронов"
 	icon_state = "engi"
@@ -97,6 +102,9 @@
 
 /area/station/medical/virology
 	request_console_name = "Virology"
+
+/area/station/medical/virology/test_room
+	name = "Тестовая Комната Вирусологии"
 
 /area/station/medical/chemistry
 	request_console_name = "Chemistry"
