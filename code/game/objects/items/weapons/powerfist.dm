@@ -129,5 +129,4 @@
 		amount_to_remove = 0.1 * pressure_in_tank
 
 	var/moles_to_remove = (amount_to_remove * tank.air_contents.volume) / (R_IDEAL_GAS_EQUATION * tank.air_contents.temperature())
-	if(tank.air_contents.boolean_remove(moles_to_remove))
-		return TRUE
+	return tank.air_contents.boolean_remove(moles_to_remove)
