@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider } from '../components';
+import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 
@@ -24,12 +24,9 @@ type Data = {
   photo: string;
   assignment: string;
   job_icon: string;
-  idcards: IDCard[];
+  appearances: string[];
+  id_icon: string;
   photo_cooldown: boolean;
-};
-
-type IDCard = {
-  name: string;
 };
 
 const unset = 'Empty';
@@ -66,7 +63,7 @@ export const AgentCard = (props, context) => {
   };
 
   return (
-    <Window width={430} height={500} theme="syndicate">
+    <Window width={435} height={500} theme="syndicate">
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item textAlign="center">
@@ -112,7 +109,7 @@ export const AgentCardInfo = (props, context) => {
       RMB - Autofill someone else data.
     </span>
   );
-  
+
   const tooltipTextRandom = (
     <span>
       Autofill options.
@@ -172,11 +169,18 @@ export const AgentCardInfo = (props, context) => {
                 </Stack.Item>
                 <Stack.Item>
                   <Button
-                    tooltip={"Change HUD icon"}
+                    tooltip={'Change HUD icon'}
                     tooltipPosition={'bottom-end'}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
                   >
-                    <Box className={classes(['job_icons16x16', job_icon])} verticalAlign="bottom" my="2px" />{' '}
+                    <DmIcon
+                      fill
+                      icon={'icons/mob/hud/job_assets.dmi'}
+                      icon_state={job_icon}
+                      verticalAlign="bottom"
+                      my="2px"
+                      width="16px"
+                    />{' '}
                   </Button>
                 </Stack.Item>
               </Stack>
@@ -188,7 +192,7 @@ export const AgentCardInfo = (props, context) => {
               onClick={() => act('change_fingerprints', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
-                act('change_fingerprints', { option: 'Secondary' })
+                act('change_fingerprints', { option: 'Secondary' });
               }}
               tooltip={tooltipTextRandom}
             />
@@ -213,7 +217,7 @@ export const AgentCardInfo = (props, context) => {
               onClick={() => act('change_dna_hash', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
-                act('change_dna_hash', { option: 'Secondary' })
+                act('change_dna_hash', { option: 'Secondary' });
               }}
               tooltip={tooltipTextRandom}
             />
@@ -224,18 +228,18 @@ export const AgentCardInfo = (props, context) => {
               onClick={() => act('change_money_account', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
-                act('change_money_account', { option: 'Secondary' })
+                act('change_money_account', { option: 'Secondary' });
               }}
               tooltip={tooltipTextRandom}
             />
             <LabeledList.Item label="Photo">
-              <Button 
-                fluid 
-                textAlign="center" 
-                content={photo ? 'Update' : unset} 
-                disabled={!photo_cooldown} 
-                tooltip={photo_cooldown ? '' : 'You can\'t generate a new photo yet.'} 
-                onClick={() => act('change_photo')} 
+              <Button
+                fluid
+                textAlign="center"
+                content={photo ? 'Update' : unset}
+                disabled={!photo_cooldown}
+                tooltip={photo_cooldown ? '' : "You can't generate a new photo yet."}
+                onClick={() => act('change_photo')}
               />
             </LabeledList.Item>
           </LabeledList>
@@ -280,23 +284,26 @@ export const AgentCardInfo = (props, context) => {
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
-  const { idcards } = data;
+  const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>
       <Section fill scrollable title={'Card Appearance'}>
-        {idcards.map((idcard) => (
-          <Button
-            m={0.5}
+        {appearances.map((appearance) => (
+          <ImageButton
+            key={appearance}
+            dmIcon={id_icon}
+            dmIconState={appearance}
+            imageSize={64}
             compact
-            color={'translucent'}
-            key={idcard.name}
-            selected={idcard.name === selectedAppearance}
-            tooltip={idcard.name}
-            className={classes(['idcards64x64', idcard.name])}
+            selected={appearance === selectedAppearance}
+            tooltip={appearance}
+            style={{
+              opacity: (appearance === selectedAppearance && '1') || '0.5',
+            }}
             onClick={() => {
-              setSelectedAppearance(idcard.name);
+              setSelectedAppearance(appearance);
               act('change_appearance', {
-                new_appearance: idcard.name,
+                new_appearance: appearance,
               });
             }}
           />

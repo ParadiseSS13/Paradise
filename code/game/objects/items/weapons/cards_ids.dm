@@ -451,18 +451,10 @@
 	var/list/data = list()
 	var/list/idcard_skins = list()
 	for(var/idcard_skin in get_all_card_skins())
-		idcard_skins.Add(list(list(
-			"name" = idcard_skin,
-		)))
-	data["idcards"] = idcard_skins
+		idcard_skins.Add(idcard_skin)
+	data["appearances"] = idcard_skins
+	data["id_icon"] = icon
 	return data
-
-
-/obj/item/card/id/syndicate/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/idcards),
-		get_asset_datum(/datum/asset/spritesheet/job_icons),
-	)
 
 /obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
