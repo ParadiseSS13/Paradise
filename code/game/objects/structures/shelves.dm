@@ -134,6 +134,6 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 	deconstruct()
 
-/obj/structure/shelf/deconstruct(disassembled)
+/obj/structure/gunrack/deconstruct(disassembled)
 	new /obj/item/stack/sheet/metal(get_turf(src), 5)
 	return ..()
