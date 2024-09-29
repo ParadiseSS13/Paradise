@@ -515,7 +515,7 @@
 		else // Fish / sushi stuff, or xenomeat rarely as a treat
 			chosen = pick(/obj/item/food/catfishmeat, /obj/item/food/carpmeat, /obj/item/food/salmonmeat, /obj/item/food/shrimp, /obj/item/food/monstermeat/xenomeat)
 		output[chosen] += 3
- 	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
+	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
 	for(var/G in 1 to 2)
 		output += pick(/obj/item/reagent_containers/condiment/bbqsauce,
 					/obj/item/reagent_containers/condiment/soysauce,
