@@ -565,7 +565,7 @@
 				return TRUE
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!preop_sound || ismachineperson(target))
+	if(!preop_sound || (islist(preop_sound) && !length(preop_sound)) || ismachineperson(target))
 		return
 	var/sound_file_use
 	if(islist(preop_sound))
