@@ -1,9 +1,22 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, Section, Stack, ImageButton, Flex, Table } from '../components';
+import {
+  Box,
+  Button,
+  Grid,
+  LabeledList,
+  Section,
+  Stack,
+  ImageButton,
+  Flex,
+  Table,
+  Tooltip,
+  DmIcon,
+} from '../components';
 import { GridColumn } from '../components/Grid';
 import { TableRow } from '../components/Table';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
+import { StationAlertConsole } from './StationAlertConsole';
 
 const dir2text = (dir) => {
   switch (dir) {
@@ -31,11 +44,11 @@ export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
-    <Window width={350} height={160}>
+    <Window width={500} height={600}>
       <Window.Content scrollable>
         <Section
           title="Control Panel"
-          buttons={<Button icon={'sync'} content={'Connect'} onClick={() => act('scan')} />}
+          buttons={<Button dmIcon={'sync'} content={'Connect'} onClick={() => act('scan')} />}
         >
           <LabeledList>
             <LabeledList.Item label="Status" mb="5px">
@@ -67,59 +80,72 @@ export const ParticleAccelerator = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'} />
+        <Section
+          title={
+            orientation ? 'EM Acceleration Chamber Orientation: ' + orientation : 'No EM Acceleration Chamber Detected'
+          }
+        />
         <Section title="Layout">
           {orientation === 'north' || orientation === 'south' ? (
             <Grid>
               <GridColumn width="40px">
                 {layout_1.slice().map((item) => (
-                  <ImageButton
-                    key={item.name}
-                    dmIcon={icon}
-                    dmIconState={item.icon_state}
-                    direction={item.dir}
-                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
-                    style={{
-                      'border-style': 'solid',
-                      'border-width': '2px',
-                      'border-color': item.status === 'good' ? 'green' : 'red',
-                      padding: '2px',
-                    }}
-                  />
+                  <Stack.Item grow key={item.name}>
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        dmDirection={item.dir}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    </Tooltip>
+                  </Stack.Item>
                 ))}
               </GridColumn>
-              <GridColumn width="40px">
+              <GridColumn>
                 {layout_2.slice().map((item) => (
-                  <ImageButton
-                    key={item.name}
-                    dmIcon={icon}
-                    dmIconState={item.icon_state}
-                    direction={item.dir}
-                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
-                    style={{
-                      'border-style': 'solid',
-                      'border-width': '2px',
-                      'border-color': item.status === 'good' ? 'green' : 'red',
-                      padding: '2px',
-                    }}
-                  />
+                  <Stack.Item grow key={item.name}>
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        dmDirection={item.dir}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    </Tooltip>
+                  </Stack.Item>
                 ))}
               </GridColumn>
               <GridColumn width="40px">
                 {layout_3.slice().map((item) => (
-                  <ImageButton
-                    key={item.name}
-                    dmIcon={icon}
-                    dmIconState={item.icon_state}
-                    direction={item.dir}
-                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
-                    style={{
-                      'border-style': 'solid',
-                      'border-width': '2px',
-                      'border-color': item.status === 'good' ? 'green' : 'red',
-                      padding: '2px',
-                    }}
-                  />
+                  <Stack.Item grow key={item.name} tooltip={item.status}>
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        dmDirection={item.dir}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    </Tooltip>
+                  </Stack.Item>
                 ))}
               </GridColumn>
             </Grid>
@@ -128,60 +154,60 @@ export const ParticleAccelerator = (props, context) => {
               <TableRow width="40px">
                 {layout_1.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    {
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
-                        direction={item.dir}
-                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        dmDirection={item.dir}
                         style={{
                           'border-style': 'solid',
                           'border-width': '2px',
-                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                           padding: '2px',
                         }}
                       />
-                    }
+                    </Tooltip>
                   </Table.Cell>
                 ))}
               </TableRow>
               <TableRow width="40px">
                 {layout_2.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    {
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
-                        direction={item.dir}
-                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        dmDirection={item.dir}
                         style={{
                           'border-style': 'solid',
                           'border-width': '2px',
-                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                           padding: '2px',
                         }}
                       />
-                    }
+                    </Tooltip>
                   </Table.Cell>
                 ))}
               </TableRow>
               <TableRow width="40px">
                 {layout_3.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    {
+                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
-                        direction={item.dir}
-                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        dmDirection={item.dir}
                         style={{
                           'border-style': 'solid',
                           'border-width': '2px',
-                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          'border-color':
+                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                           padding: '2px',
                         }}
                       />
-                    }
+                    </Tooltip>
                   </Table.Cell>
                 ))}
               </TableRow>
