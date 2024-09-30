@@ -1,11 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, Section, Stack, Grid } from '../components';
+import { Box, Button, Grid, LabeledList, Section, Stack } from '../components';
 import { GridColumn } from '../components/Grid';
 import { Window } from '../layouts';
+import { classes } from 'common/react';
 
 export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
-  const { assembled, power, strength, max_strength, problem_parts, orientation } = data;
+  const { assembled, power, strength, max_strength, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Window width={350} height={160}>
       <Window.Content scrollable>
@@ -43,45 +44,61 @@ export const ParticleAccelerator = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'} />
-        <Grid>
-          <GridColumn>
-            {problem_parts
-              .slice()
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((item) => {
-                return (
-                  <Stack key={item}>
-                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
-                  </Stack>
-                );
-              })}
-          </GridColumn>
-          <GridColumn>
-            {problem_parts
-              .slice()
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((item) => {
-                return (
-                  <Stack key={item}>
-                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
-                  </Stack>
-                );
-              })}
-          </GridColumn>
-          <GridColumn>
-            {problem_parts
-              .slice()
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((item) => {
-                return (
-                  <Stack key={item}>
-                    <Stack.Item>{item.name + ': ' + item.issue}</Stack.Item>
-                  </Stack>
-                );
-              })}
-          </GridColumn>
-        </Grid>
+        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'}>
+          <LabeledList>
+            {layout_2.slice().map((item) => {
+              return (
+                <Stack key={item}>
+                  {item.name}: {item.status}, {item.orientation}
+                </Stack>
+              );
+            })}
+          </LabeledList>
+          <Grid>
+            <GridColumn>
+              {layout_1.slice().map((item) => (
+                <Box
+                  key={item.name}
+                  fluid
+                  textAlign="center"
+                  tooltip={item.status}
+                  content={
+                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
+                  }
+                  style={{ 'margin-bottom': '5px' }}
+                />
+              ))}
+            </GridColumn>
+            <GridColumn>
+              {layout_2.slice().map((item) => (
+                <Box
+                  key={item.name}
+                  fluid
+                  textAlign="center"
+                  tooltip={item.status}
+                  content={
+                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
+                  }
+                  style={{ 'margin-bottom': '5px' }}
+                />
+              ))}
+            </GridColumn>
+            <GridColumn>
+              {layout_3.slice().map((item) => (
+                <Box
+                  key={item.name}
+                  fluid
+                  textAlign="center"
+                  tooltip={item.status}
+                  content={
+                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
+                  }
+                  style={{ 'margin-bottom': '5px' }}
+                />
+              ))}
+            </GridColumn>
+          </Grid>
+        </Section>
       </Window.Content>
     </Window>
   );

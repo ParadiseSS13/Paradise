@@ -1,3 +1,12 @@
+#define PARTICLE_LEFT 1
+#define PARTICLE_CENTER 2
+#define PARTICLE_RIGHT 3
+#define EMITTER 1
+#define POWER_BOX 2
+#define FUEL_CHAMBER 3
+#define END_CAP 4
+
+
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
@@ -18,8 +27,11 @@
 	var/assembled = 0
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null
-	/// List of parts that are either missing or misaligned
-	var/list/problem_parts = list()
+	/// Layout of the particle accelerator. Used by the UI
+	var/list/layout = list(
+		list(list("name" = "EM Containment Grid Right", "icon" = "emitter_right", "status" = "", "orientation" = "south")),
+		list(list("name" = "EM Containment Grid Center", "icon" = "emitter_center", "status" = "", "orientation" = "south"), list("name" = "Particle Focusing EM Lens", "icon" = "power_box", "status" = "", "orientation" = "south"), list("name" = "EM Acceleration Chamber", "icon" = "fuel_chamber", "status" = "", "orientation" = "south"), list("name" = "Alpha Particle Generation Array", "icon" = "end_cap", "status" = "", "orientation" = "south")),
+		list(list("name" = "EM Containment Grid Left", "icon" = "emitter_left", "status" = "", "orientation" = "south")))
 	/// The expected orientation of the accelerator this is trying to link. In text form so the UI can use it
 	var/dir_text
 
@@ -150,22 +162,20 @@
 
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
-	problem_parts = list()
 	dir_text = null
 	var/turf/T
 	for(var/obj/structure/particle_accelerator/fuel_chamber/F in orange(1,src))
 		dir = F.dir
 		T = F.loc
-		switch(dir)
-			if(NORTH)
-				dir_text = "North"
-			if(SOUTH)
-				dir_text = "South"
-			if(EAST)
-				dir_text = "East"
-			if(WEST)
-				dir_text = "West"
-
+	switch(dir)
+		if(NORTH)
+			dir_text = "north"
+		if(SOUTH)
+			dir_text = "south"
+		if(EAST)
+			dir_text = "east"
+		if(WEST)
+			dir_text = "west"
 	if(!T)
 		return 0
 	connected_parts = list()
@@ -173,25 +183,31 @@
 	var/ldir = turn(dir,-90)
 	var/rdir = turn(dir,90)
 	var/odir = turn(dir,180)
-	if(check_part(T,/obj/structure/particle_accelerator/fuel_chamber))
+	if(check_part(T,/obj/structure/particle_accelerator/fuel_chamber, PARTICLE_CENTER, FUEL_CHAMBER))
 		tally++
+		layout[PARTICLE_CENTER][FUEL_CHAMBER]["status"] = "good"
 	T = get_step(T,odir)
-	if(check_part(T,/obj/structure/particle_accelerator/end_cap))
+	if(check_part(T,/obj/structure/particle_accelerator/end_cap, PARTICLE_CENTER, END_CAP))
 		tally++
+		layout[PARTICLE_CENTER][END_CAP]["status"] = "good"
 	T = get_step(T,dir)
 	T = get_step(T,dir)
-	if(check_part(T,/obj/structure/particle_accelerator/power_box))
+	if(check_part(T,/obj/structure/particle_accelerator/power_box, PARTICLE_CENTER, POWER_BOX))
 		tally++
+		layout[PARTICLE_CENTER][POWER_BOX]["status"] = "good"
 	T = get_step(T,dir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/center))
+	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/center, PARTICLE_CENTER, EMITTER))
 		tally++
+		layout[PARTICLE_CENTER][EMITTER]["status"] = "good"
 	T = get_step(T,ldir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/left))
+	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/left, PARTICLE_LEFT, EMITTER))
 		tally++
+		layout[PARTICLE_LEFT][EMITTER]["status"] = "good"
 	T = get_step(T,rdir)
 	T = get_step(T,rdir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/right))
+	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/right, PARTICLE_RIGHT, EMITTER))
 		tally++
+		layout[PARTICLE_RIGHT][EMITTER]["status"] = "good"
 	if(tally >= 6)
 		assembled = 1
 		return 1
@@ -199,7 +215,7 @@
 		assembled = 0
 		return 0
 
-/obj/machinery/particle_accelerator/control_box/proc/check_part(turf/T, type)
+/obj/machinery/particle_accelerator/control_box/proc/check_part(turf/T, type, column, row)
 	if(!(T)||!(type))
 		return 0
 	var/obj/structure/particle_accelerator/PA = locate(/obj/structure/particle_accelerator) in T
@@ -209,11 +225,13 @@
 				connected_parts.Add(PA)
 				return 1
 			else if(PA)
-				problem_parts["[PA.name]"] = "Incomplete"
+				layout[column][row]["status"] = "Incomplete"
+				layout[column][row]["orientation"] = PA.dir
 		else if(PA)
-			problem_parts["[PA.name]"] = "Wrong Orientation"
-	else if(PA)
-		problem_parts["[PA.name]"] = "Wrong Position"
+			layout[column][row]["status"] =  "Wrong Orientation"
+			layout[column][row]["orientation"] = PA.dir
+	else
+		layout[column][row]["status"] =  "Not In Position"
 
 	return 0
 
@@ -249,17 +267,19 @@
 
 /obj/machinery/particle_accelerator/control_box/ui_data(mob/user)
 	var/list/data = list()
-	var/list/problem_parts_ui = list()
+	var/list/ui_col_1 = layout[PARTICLE_RIGHT]
+	var/list/ui_col_2 = layout[PARTICLE_CENTER]
+	var/list/ui_col_3 = layout[PARTICLE_LEFT]
 
-	for(var/part in problem_parts)
-		problem_parts_ui.Add(list(list("name" = "[part]", "issue" = "[problem_parts[part]]")))
 
 
 	data["assembled"] = assembled
 	data["power"] = active
 	data["strength"] = strength
 	data["max_strength"] = strength_upper_limit
-	data["problem_parts"] = problem_parts_ui
+	data["layout_1"] = ui_col_1
+	data["layout_2"] = ui_col_2
+	data["layout_3"] = ui_col_3
 	data["orientation"] = dir_text ? dir_text : FALSE
 	return data
 
@@ -293,3 +313,11 @@
 
 	if(.)
 		update_icon()
+
+#undef PARTICLE_LEFT
+#undef PARTICLE_CENTER
+#undef PARTICLE_RIGHT
+#undef EMITTER
+#undef POWER_BOX
+#undef FUEL_CHAMBER
+#undef END_CAP
