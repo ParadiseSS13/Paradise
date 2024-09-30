@@ -23,7 +23,7 @@
 	var/current_cost
 	///If the passive is for a specific class, or FLAYER_CATEGORY_GENERAL if not
 	var/category = FLAYER_CATEGORY_GENERAL
-	///If the passive requires prerequisites, currently only important for badass.
+	///If the passive only unlocks after the stages below it have been bought, for subclass passives
 	var/stage = 0
 	///A brief description of what the ability's upgrades do
 	var/upgrade_info = "TODO add upgrade text for this passive"
@@ -323,3 +323,29 @@
 	if(attack_holder)
 		user.dna.species.unarmed = attack_holder
 	attack_holder = null
+
+/datum/mindflayer_passive/radio_jammer
+	name = "Destructive Interference"
+	purchase_text = "Allows us toggle a close-range radio jamming signal."
+	gain_text = "Localized communications brownout available."
+	upgrade_info = "Upgrades increase the range of our jamming signal."
+	upgrade_text = "Our signal grows in strength."
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cost = 80
+	max_level = 3
+	static_upgrade_increase = 40 // Upgrading this doesn't really do a ton except being more annoying and letting people triangulate your location easier
+	category = FLAYER_CATEGORY_INTRUDER
+	stage = 2
+	var/obj/item/jammer/internal_jammer
+
+/datum/mindflayer_passive/radio_jammer/on_apply()
+	..()
+	if(!internal_jammer)
+		internal_jammer = new /obj/item/jammer(owner) //Shove it in the flayer's chest
+		for(var/datum/action/action in internal_jammer.actions)
+			action.Grant(owner)
+
+	internal_jammer.range = 15 + ((level - 1) * 5) //Base range of the jammer is 15, each level adds 5 tiles for a max of 25 if you want to be REALLY annoying
+
+/datum/mindflayer_passive/radio_jammer/on_remove()
+	qdel(internal_jammer)
