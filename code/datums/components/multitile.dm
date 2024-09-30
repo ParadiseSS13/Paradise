@@ -38,7 +38,7 @@
 			return COMPONENT_INCOMPATIBLE
 
 		for(var/j in 1 to length(new_filler_map[i]))
-			if(new_filler_map[i][j] == 2)
+			if(new_filler_map[i][j] == MACH_CENTER)
 				offset_x = j - ((length(new_filler_map[i]) + 1) / 2)
 				offset_y = i - ((length(new_filler_map) + 1) / 2)
 
@@ -59,9 +59,9 @@
 	var/current_width = 1
 	var/tile_index = 1
 
-	for(var/turf/filler_turf as anything in block( \
-	owner.x - offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z, \
-	owner.x - offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z, \
+	for(var/turf/filler_turf as anything in block( 
+	owner.x - offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z,
+	owner.x - offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z,
 	))
 		//Last check is for filler row lists of length 1.
 		if(new_filler_map[max_height - current_height][current_width] == 1) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our list in reverse
