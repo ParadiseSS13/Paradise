@@ -119,9 +119,58 @@
 
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
-	name = "bullet casing"
-	desc = "A spent bullet casing. Smells like cordite."
+	name = "arbitrary spent ammunition"
+	desc = "This is an arbitrary item, if you see it in normal play, please make an issue report on GitHub."
 	icon_state = "gshell"
+
+/obj/item/trash/spentcasing/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+	transform = turn(transform, rand(0, 360))
+
+/obj/item/trash/spentcasing/shotgun
+	name = "spent buckshot shell"
+	desc = "A spent shotgun shell. It smells like cordite."
+	icon_state = "gshell"
+
+/obj/item/trash/spentcasing/shotgun/rubbershot
+	name = "spent rubbershot shell"
+	desc = "A spent shotgun shell. It smells like cordite and singed rubber."
+	icon_state = "cshell"
+
+/obj/item/trash/spentcasing/shotgun/beanbag
+	name = "spent beanbag shell"
+	icon_state = "bshell"
+
+/obj/item/trash/spentcasing/shotgun/slug
+	name = "spent slug shell"
+	icon_state = "blshell"
+
+/obj/item/trash/spentcasing/shotgun/dragonsbreath
+	name = "spent dragonsbreath shell"
+	desc = "A spent shotgun shell. It smells like cordite, burnt plastic, and a hint of petrolium."
+	icon_state = "ishell"
+
+/obj/item/trash/spentcasing/shotgun/stun
+	name = "spent stun shell"
+	icon_state = "stunshell"
+
+/obj/item/trash/spentcasing/bullet
+	desc = "A spent small-caliber bullet casing. It smells of brass and cordite."
+	icon_state = "s-casing"
+
+/obj/item/trash/spentcasing/bullet/medium
+	desc = "A spent rifle-caliber bullet casing. It smells of brass and cordite."
+	icon_state = "762-casing"
+
+/obj/item/trash/spentcasing/bullet/large
+	desc = "A spent .50 BMG bullet casing. It smells of brass and cordite."
+	icon_state = ".50"
+
+/obj/item/trash/spentcasing/bullet/lasershot
+	desc = "A spent IK-series single-use lasershot cell. It smells of burnt plastic with a metallic-chemical undertone."
+	icon_state = "lasercasing"
 
 /obj/item/trash/tapetrash
 	name = "old duct tape"
