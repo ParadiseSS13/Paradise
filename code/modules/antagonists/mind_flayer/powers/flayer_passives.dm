@@ -57,9 +57,9 @@
 	return
 
 /datum/mindflayer_passive/process()
-	return
+	return PROCESS_KILL
 
-//SELF-BUFF PASSIVES
+// SELF-BUFF PASSIVES
 /datum/mindflayer_passive/armored_plating
 	name = "Armored Plating"
 	purchase_text = "Increases our natural armor."
@@ -164,9 +164,9 @@
 	should_process = TRUE
 
 /datum/mindflayer_passive/regen/process()
-	if(isspaceturf(get_turf(owner))) // No healing in space
+	if(isspaceturf(get_turf(owner)) || owner.stat == DEAD) // No healing in space or while you're dead
 		return
-	if(ishuman(owner) && owner.stat != DEAD)
+	if(ishuman(owner))
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
@@ -180,7 +180,7 @@
 	should_process = TRUE
 	base_cost = 40
 	max_level = 2
-	var/heal_modifier = 0.4 //S Same speed as mito
+	var/heal_modifier = 0.4 // Same speed as mito
 
 /datum/mindflayer_passive/fix_components/process()
 	if(!ishuman(owner) || owner.stat == DEAD)
@@ -276,15 +276,17 @@
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
-	stage = 4
+	stage = CAPSTONE_STAGE
 	category = FLAYER_CATEGORY_INTRUDER
+	/// How much do we multiply the drain amount?
+	var/drain_multiplier_amount = 10
 
 /datum/mindflayer_passive/ultimate_drain/on_apply()
 	..()
-	flayer.drain_amount *= 10 // 0.5 becomes 5 brain damage per tick, stacks with the multiplier
+	flayer.drain_amount *= drain_multiplier_amount // 0.5 becomes 5 brain damage per tick, stacks with the multiplier
 
 /datum/mindflayer_passive/ultimate_drain/on_remove()
-	flayer.drain_amount = 0.5
+	flayer.drain_amount /= drain_multiplier_amount
 
 /datum/mindflayer_passive/torque_enhancer
 	name = "Torque Enhancer"
@@ -308,13 +310,13 @@
 		attack_holder = hands_copy
 	hands.damage += 5
 	switch(level)
-		if(1)
+		if(POWER_LEVEL_ONE)
 			hands.attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 			hands.attack_verb = list("bashed", "battered")
-		if(2)
+		if(POWER_LEVEL_TWO)
 			hands.attack_sound = 'sound/effects/meteorimpact.ogg'
 			hands.attack_verb = list("blugeoned", "beat")
-		if(3)
+		if(POWER_LEVEL_FOUR)
 			hands.attack_sound = 'sound/misc/demon_attack1.ogg'
 			hands.attack_verb = list("destroyed", "demolished", "hammered")
 
@@ -328,7 +330,7 @@
 	name = "Destructive Interference"
 	purchase_text = "Allows us toggle a close-range radio jamming signal."
 	gain_text = "Localized communications brownout available."
-	upgrade_info = "Upgrades increase the range of our jamming signal."
+	upgrade_info = "Upgrades increase the range of our jamming signal. At the apex of strength, we become invisible to silicon lifeforms."
 	upgrade_text = "Our signal grows in strength."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 80
@@ -336,7 +338,10 @@
 	static_upgrade_increase = 40 // Upgrading this doesn't really do a ton except being more annoying and letting people triangulate your location easier
 	category = FLAYER_CATEGORY_INTRUDER
 	stage = 2
+	/// The internal jammer of the ability
 	var/obj/item/jammer/internal_jammer
+	/// The owner's invisibility before this ability
+	var/stored_invis
 
 /datum/mindflayer_passive/radio_jammer/on_apply()
 	..()
@@ -347,5 +352,14 @@
 
 	internal_jammer.range = 15 + ((level - 1) * 5) //Base range of the jammer is 15, each level adds 5 tiles for a max of 25 if you want to be REALLY annoying
 
+	if(level == POWER_LEVEL_THREE)
+		ADD_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+		stored_invis = owner.invisibility
+		owner.set_invisible(SEE_INVISIBLE_LIVING)
+		to_chat(owner, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+
 /datum/mindflayer_passive/radio_jammer/on_remove()
-	qdel(internal_jammer)
+	QDEL_NULL(internal_jammer)
+	REMOVE_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+	owner.set_invisible(stored_invis)
+	to_chat(owner, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")
