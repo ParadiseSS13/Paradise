@@ -85,11 +85,6 @@
 			active_character.gen_record = genmsg
 			active_character.SetRecords(user)
 
-	if(href_list["preference"] == "gear")
-		var/datum/ui_module/loadout/loadout = new(user)
-		loadout.ui_interact(user)
-		return
-
 	switch(href_list["task"])
 		if("random")
 			var/datum/robolimb/robohead

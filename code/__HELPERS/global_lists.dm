@@ -93,9 +93,13 @@
 
 		gear = new gear_type
 		var/obj/gear_item = gear.path
-		var/list/tweaks_display_type = list()
+		var/list/tweaks = list()
 		for(var/datum/gear_tweak/tweak in gear.gear_tweaks)
-			tweaks_display_type[tweak.type] = tweak.display_type
+			tweaks[tweak.type] += list(list(
+				"name" = tweak.display_type,
+				"icon" = tweak.fa_icon,
+				"tooltip" = tweak.info,
+			))
 
 		GLOB.gear_tgui_info[gear_type] += list(list(
 			"name" = gear.display_name,
@@ -104,9 +108,9 @@
 			"icon_state" = gear_item.icon_state,
 			"category" = gear.sort_category,
 			"cost" = gear.cost,
-			"tweaks_display_type" = tweaks_display_type,
-			"allowed_roles" = gear.allowed_roles,
 			"gear_tier" = gear.donator_tier,
+			"allowed_roles" = gear.allowed_roles,
+			"tweaks" = tweaks,
 		))
 
 		GLOB.gear_datums[gear_type] = gear

@@ -1,5 +1,6 @@
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, ImageButton, Button, Input, Section, Tabs, ProgressBar, Stack, Icon, Tooltip } from '../components';
+import { Box, Dimmer, ImageButton, Button, Input, Section, Tabs, ProgressBar, Stack, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -19,32 +20,27 @@ type Gear = {
   cost: number;
   gear_tier: number;
   allowed_roles: string[];
-  tweaks_display_type: Record<string, string>;
+  tweaks: Record<string, Tweak[]>;
 };
 
-const TweakDisplay = (display_type: string, metadata: string) => {
-  switch (display_type) {
-    case 'color':
-      return <Icon name="circle" color={metadata ? metadata : 'white'} />;
-    case 'edit':
-      return (
-        <Tooltip content={metadata} position="top">
-          <Icon name="pen-to-square" />
-        </Tooltip>
-      );
-    default:
-      return <Icon name="bug" color="red" />;
-  }
+type Tweak = {
+  name: string;
+  icon: string;
+  tooltip: string;
 };
 
 const filterGears = (gears: Record<string, Gear[]>, searchText: string, selectedCategory: string) => {
+  const searching = createSearch<Gear>(searchText, (gear) => gear.name);
+
   return Object.entries(gears).flatMap(([key, gearList]) =>
     gearList
-      .filter((gear: Gear) =>
-        searchText ? gear.name.toLowerCase().includes(searchText.toLowerCase()) : gear.category === selectedCategory
-      )
-      .map((gear: Gear) => ({ ...gear, key }))
+      .filter((gear) => (searchText ? searching(gear) : gear.category === selectedCategory))
+      .map((gear) => ({ ...gear, key }))
   );
+};
+
+const getGearTweaks = (gear: Gear) => {
+  return Object.entries(gear.tweaks).flatMap(([key, tweaks]) => tweaks.map((tweak) => ({ ...tweak, key })));
 };
 
 const getCategories = (gears: Record<string, Gear[]>): string[] => {
@@ -61,9 +57,10 @@ export const Loadout = (props, context) => {
   const [search, setSearch] = useLocalState(context, 'search', false);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [selectedCategory, setSelectedCategory] = useLocalState(context, 'selectedCategory', 'Accessories');
-
+  const [tweakedGears, setTweakedGears] = useLocalState(context, 'tweakedGears', '');
   return (
     <Window width={975} height={650}>
+      {tweakedGears && <GearTweak tweakedGears={tweakedGears} setTweakedGears={setTweakedGears} />}
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>
@@ -72,7 +69,7 @@ export const Loadout = (props, context) => {
           <Stack.Item grow>
             <Stack fill>
               <Stack.Item basis="25%">
-                <LoadoutEquipped />
+                <LoadoutEquipped tweakedGears={tweakedGears} setTweakedGears={setTweakedGears} />
               </Stack.Item>
               <Stack.Item basis="75%">
                 <LoadoutGears
@@ -91,15 +88,21 @@ export const Loadout = (props, context) => {
   );
 };
 
-const LoadoutCategories = ({ selectedCategory, setSelectedCategory }, context) => {
-  const { data } = useBackend<Data>(context);
-  const { gears } = data;
-  const categories = getCategories(gears);
-
+const LoadoutCategories = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
+  const { selectedCategory, setSelectedCategory } = props;
+  const categories = getCategories(data.gears);
   return (
-    <Tabs fluid textAlign="center" styles={{ 'flex-wrap': 'wrap-reverse' }}>
+    <Tabs fluid textAlign="center" style={{ 'flex-wrap': 'wrap-reverse' }}>
       {categories.map((category) => (
-        <Tabs.Tab key={category} selected={category === selectedCategory} onClick={() => setSelectedCategory(category)}>
+        <Tabs.Tab
+          key={category}
+          selected={category === selectedCategory}
+          style={{
+            'white-space': 'nowrap',
+          }}
+          onClick={() => setSelectedCategory(category)}
+        >
           {category}
         </Tabs.Tab>
       ))}
@@ -107,11 +110,10 @@ const LoadoutCategories = ({ selectedCategory, setSelectedCategory }, context) =
   );
 };
 
-const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSearchText }, context) => {
+const LoadoutGears = (props, context) => {
   const { act, data } = useBackend<Data>(context);
-  const { gears, selected_gears } = data;
-  const filteredGears = filterGears(gears, searchText, selectedCategory);
-
+  const { selectedCategory, search, setSearch, searchText, setSearchText } = props;
+  const filteredGears = filterGears(data.gears, searchText, selectedCategory);
   return (
     <Section
       fill
@@ -152,7 +154,7 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
               <Box>
                 {gear.name.length > 12 && <Box>{gear.name}</Box>}
                 {gear.gear_tier > 0 && (
-                  <Box mt={1.5} textColor="red">
+                  <Box mt={gear.name.length > 12 && 1.5} textColor="red">
                     That gear is only available at a higher donation tier than you are on.
                   </Box>
                 )}
@@ -162,7 +164,7 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
             )
           }
           tooltipPosition={'bottom'}
-          selected={Object.keys(selected_gears).includes(gear.key)}
+          selected={Object.keys(data.selected_gears).includes(gear.key)}
           disabled={gear.gear_tier > 0}
           buttons={
             <>
@@ -181,25 +183,17 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
                   tooltipPosition="left"
                 />
               )}
-              {Object.keys(gear.tweaks_display_type).map((tweak) => (
-                <Button
-                  key={tweak}
-                  width="22px"
-                  color="transparent"
-                  onClick={() => {
-                    act('set_tweak', { gear: gear.key, tweak: tweak });
-                  }}
-                >
-                  {TweakDisplay(
-                    gear.tweaks_display_type[tweak],
-                    Object.keys(selected_gears).includes(gear.key)
-                      ? Object.keys(selected_gears[gear.key]).includes(tweak)
-                        ? selected_gears[gear.key][tweak]
-                        : null
-                      : null
-                  )}
-                </Button>
-              ))}
+              {getGearTweaks(gear).length > 0 &&
+                getGearTweaks(gear).map((tweak) => (
+                  <Button
+                    key={tweak.name}
+                    width="22px"
+                    color="transparent"
+                    icon={tweak.icon}
+                    tooltip={tweak.tooltip}
+                    tooltipPosition="top"
+                  />
+                ))}
               {/* Place here other tooltip buttons */}
               <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
             </>
@@ -222,10 +216,10 @@ const LoadoutGears = ({ selectedCategory, search, setSearch, searchText, setSear
 
 const LoadoutEquipped = (props, context) => {
   const { act, data } = useBackend<Data>(context);
-  const { gears, selected_gears } = data;
+  const { tweakedGears, setTweakedGears } = props;
 
-  const filteredGears = Object.entries(gears).flatMap(([key, gearList]) =>
-    gearList.filter(() => Object.keys(selected_gears).includes(key)).map((gear) => ({ ...gear, key }))
+  const filteredGears = Object.entries(data.gears).flatMap(([key, gearList]) =>
+    gearList.filter(() => Object.keys(data.selected_gears).includes(key)).map((gear) => ({ ...gear, key }))
   );
 
   return (
@@ -252,13 +246,24 @@ const LoadoutEquipped = (props, context) => {
               dmIcon={gear.icon}
               dmIconState={gear.icon_state}
               buttons={
-                <Button
-                  translucent
-                  icon="times"
-                  iconColor="red"
-                  width="32px"
-                  onClick={() => act('toggle_gear', { gear: gear.key })}
-                />
+                <>
+                  {getGearTweaks(gear).length > 0 && (
+                    <Button
+                      translucent
+                      icon="gears"
+                      iconColor="gray"
+                      width="33px"
+                      onClick={() => setTweakedGears(gear)}
+                    />
+                  )}
+                  <Button
+                    translucent
+                    icon="times"
+                    iconColor="red"
+                    width="32px"
+                    onClick={() => act('toggle_gear', { gear: gear.key })}
+                  />
+                </>
               }
             >
               {gear.name}
@@ -276,5 +281,63 @@ const LoadoutEquipped = (props, context) => {
         </Section>
       </Stack.Item>
     </Stack>
+  );
+};
+
+const GearTweak = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
+  const { tweakedGears, setTweakedGears } = props;
+
+  return (
+    <Dimmer>
+      <Box className={'Loadout-Modal__background'}>
+        <Section
+          fill
+          scrollable
+          width={20}
+          height={20}
+          title={tweakedGears.name}
+          buttons={
+            <Button
+              color="red"
+              icon="times"
+              tooltip="Close"
+              tooltipPosition="top"
+              onClick={() => setTweakedGears('')}
+            />
+          }
+        >
+          <LabeledList>
+            {getGearTweaks(tweakedGears).map((tweak) => {
+              const tweakInfo = data.selected_gears[tweakedGears.key][tweak.key];
+
+              return (
+                <LabeledList.Item
+                  key={tweak.name}
+                  label={tweak.name}
+                  buttons={
+                    <Button
+                      color="transparent"
+                      icon={'pen'}
+                      onClick={() => act('set_tweak', { gear: tweakedGears.key, tweak: tweak.key })}
+                    />
+                  }
+                >
+                  {tweakInfo ? tweakInfo : 'Default'}
+                  <Box
+                    inline
+                    ml={1}
+                    width={1}
+                    height={1}
+                    verticalAlign={'middle'}
+                    style={{ 'background-color': `${tweakInfo}` }}
+                  />
+                </LabeledList.Item>
+              );
+            })}
+          </LabeledList>
+        </Section>
+      </Box>
+    </Dimmer>
   );
 };
