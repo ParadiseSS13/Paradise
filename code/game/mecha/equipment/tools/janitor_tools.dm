@@ -235,7 +235,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/deconstruct()
 	var/turf/T = get_turf(src)
 	for(var/obj/item/I in storage_controller.contents)
-		I.forceMove(T)
+		storage_controller.remove_from_storage(I, T)
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/get_equip_info()
@@ -264,8 +264,10 @@
 			"<span class='notice'>You empty [src] into disposal unit.</span>",
 			"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
 		)
+		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
 		for(var/obj/item/I in storage_controller.contents)
-			I.forceMove(target)
+			storage_controller.remove_from_storage(I, target)
 		return
 	var/turf/target_turf
 	if(iswallturf(target))
@@ -279,15 +281,15 @@
 			for(var/turf/current_target_turf in view(1, target_turf))
 				for(var/obj/item/I in current_target_turf.contents)
 					if(storage_controller.can_be_inserted(I))
-						I.forceMove(storage_controller)
+						storage_controller.handle_item_insertion(I, null, TRUE)
 		else // Single turf
 			for(var/obj/item/I in target_turf.contents)
 				if(storage_controller.can_be_inserted(I))
-					I.forceMove(storage_controller)
+					storage_controller.handle_item_insertion(I, null, TRUE)
 		chassis.occupant_message("You pick up all the items with [src]. Remaining cargo compartment capacity: [storage_controller.max_combined_w_class - length(storage_controller.contents)]")
 
 	else // Dumping
 		for(var/obj/item/I in storage_controller.contents)
-			I.forceMove(target_turf)
+			storage_controller.remove_from_storage(I, target_turf)
 		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
 	update_equip_info()
