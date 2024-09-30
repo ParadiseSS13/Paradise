@@ -9,8 +9,8 @@
  * First Aid Kits
  */
 /obj/item/storage/firstaid
-	name = "first-aid kit"
-	desc = "It's an emergency medical kit for those serious boo-boos."
+	name = "generic first-aid kit"
+	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon_state = "firstaid"
 	throw_speed = 2
 	throw_range = 8
@@ -24,6 +24,34 @@
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
 
+
+/obj/item/storage/firstaid/regular
+	name = "first-aid kit"
+	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
+
+/obj/item/storage/firstaid/regular/populate_contents()
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/healthanalyzer(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/firstaid/regular/empty/populate_contents()
+	return
+
+/obj/item/storage/firstaid/regular/doctor
+	desc = "A medical kit designed for Nanotrasen medical personnel"
+
+/obj/item/storage/firstaid/regular/doctor/populate_contents()
+	new /obj/item/reagent_containers/applicator/brute(src)
+	new /obj/item/reagent_containers/applicator/burn(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"
@@ -45,35 +73,6 @@
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
 	return
-
-/obj/item/storage/firstaid/regular
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
-	icon_state = "firstaid"
-
-/obj/item/storage/firstaid/regular/populate_contents()
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/pill/salicylic(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-
-/obj/item/storage/firstaid/regular/empty/populate_contents()
-	return
-
-/obj/item/storage/firstaid/doctor
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
-	icon_state = "firstaid"
-
-/obj/item/storage/firstaid/doctor/populate_contents()
-	new /obj/item/reagent_containers/applicator/brute(src)
-	new /obj/item/reagent_containers/applicator/burn(src)
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/pill/salicylic(src)
-	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
@@ -233,7 +232,6 @@
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
-	icon_state = "firstaid"
 	desc = "A medical kit used by Amber level emergency response team personnel."
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
