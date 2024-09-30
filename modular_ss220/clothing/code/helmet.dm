@@ -129,6 +129,15 @@
 	icon_state = "ember_sec"
 	item_state = "ember_sec"
 
+/obj/item/clothing/head/helmet/ert/security/paranormal
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+		)
+
 /obj/item/clothing/head/helmet/space/ert_engineer
 	name = "emergency response team engineer space helmet"
 	desc = "Space helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."

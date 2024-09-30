@@ -306,6 +306,14 @@
 	icon_state = "ember_sec"
 	item_state = "ember_sec"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/armor/vest/ert/security/paranormal
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/suit/space/ert_engineer
 	name = "emergency response team engineer space suit"
 	desc = "Space suit worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
