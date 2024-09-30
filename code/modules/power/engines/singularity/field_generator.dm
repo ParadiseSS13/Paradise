@@ -88,15 +88,15 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 			continue
 
 		// Go right if we can, forward if we can't go right, and left if we can't go forward
-		if(get_dir(src,gen) == turn(_dir, -90))
+		if(get_dir(src, gen) == turn(_dir, -90))
 			temp_gens = gen.find_containment_gens(turn(_dir, -90), singulo, containment_gens)
 			if(length(temp_gens))
 				return temp_gens
-		if(get_dir(src,gen) == _dir)
+		if(get_dir(src, gen) == _dir)
 			temp_gens = gen.find_containment_gens(_dir, singulo, containment_gens)
 			if(length(temp_gens))
 				return temp_gens
-		if(get_dir(src,gen) == turn(_dir, 90))
+		if(get_dir(src, gen) == turn(_dir, 90))
 			temp_gens = gen.find_containment_gens(turn(_dir, 90), singulo, containment_gens)
 			if(length(temp_gens))
 				return temp_gens
@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
+				investigate_log("<font color='green'>activated</font> by [user.key].", "singulo")
 
 				add_fingerprint(user)
 	else
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	else
 		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
-		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
+		investigate_log("ran out of power and <font color='red'>deactivated</font>", "singulo")
 		power = 0
 		check_power_level()
 		return 0
@@ -255,12 +255,12 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 			if(FG == last)//We just asked you
 				continue
 			if(G)//Another gen is askin for power and we dont have it
-				if(FG.draw_power(draw,failsafe,G,src))//Can you take the load
+				if(FG.draw_power(draw, failsafe , G , src))//Can you take the load
 					return 1
 				else
 					return 0
 			else//We are askin another for power
-				if(FG.draw_power(draw,failsafe,src,src))
+				if(FG.draw_power(draw, failsafe, src, src))
 					return 1
 				else
 					return 0
@@ -317,11 +317,11 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 	T = loc
 	for(var/dist in 0 to steps) // creates each field tile
-		var/field_dir = get_dir(T,get_step(G.loc, NSEW))
+		var/field_dir = get_dir(T, get_step(G.loc, NSEW))
 		T = get_step(T, NSEW)
 		if(!locate(/obj/machinery/field/containment) in T)
 			var/obj/machinery/field/containment/CF = new/obj/machinery/field/containment()
-			CF.set_master(src,G)
+			CF.set_master(src, G)
 			CF.loc = T
 			CF.dir = field_dir
 			fields += CF
@@ -370,7 +370,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
 				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
 				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
-				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.", "singulo")
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)

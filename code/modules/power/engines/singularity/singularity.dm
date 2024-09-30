@@ -114,15 +114,15 @@
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.","singulo")
+				investigate_log("has been destroyed by a heavy explosion.", "singulo")
 				qdel(src)
 				return
 			else
-				energy -= round(((energy+1)/2),1)
+				energy -= round(((energy+1)/2), 1)
 		if(2)
-			energy -= round(((energy+1)/3),1)
+			energy -= round(((energy+1)/3), 1)
 		if(3)
-			energy -= round(((energy+1)/4),1)
+			energy -= round(((energy+1)/4), 1)
 	return
 
 
@@ -168,7 +168,7 @@
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
+	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]", "singulo")
 
 /obj/singularity/proc/do_dissipate()
 	if(!dissipate)
@@ -202,7 +202,7 @@
 				vis_contents -= warp
 				qdel(warp)
 		if(STAGE_TWO)
-			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
+			if((check_turfs_in(1, 1))&&(check_turfs_in(2, 1))&&(check_turfs_in(4, 1))&&(check_turfs_in(8, 1)))
 				current_size = STAGE_TWO
 				icon = 'icons/effects/96x96.dmi'
 				icon_state = "singularity_s3"
@@ -217,7 +217,7 @@
 					warp = new(src)
 					vis_contents += warp
 		if(STAGE_THREE)
-			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
+			if((check_turfs_in(1, 2))&&(check_turfs_in(2, 2))&&(check_turfs_in(4, 2))&&(check_turfs_in(8, 2)))
 				current_size = STAGE_THREE
 				icon = 'icons/effects/160x160.dmi'
 				icon_state = "singularity_s5"
@@ -232,7 +232,7 @@
 					warp = new(src)
 					vis_contents += warp
 		if(STAGE_FOUR)
-			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
+			if((check_turfs_in(1, 3))&&(check_turfs_in(2, 3))&&(check_turfs_in(4, 3))&&(check_turfs_in(8, 3)))
 				current_size = STAGE_FOUR
 				icon = 'icons/effects/224x224.dmi'
 				icon_state = "singularity_s7"
@@ -264,7 +264,7 @@
 	if(current_size >= STAGE_FIVE)
 		notify_dead()
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
+		investigate_log("<font color='red'>grew to size [current_size]</font>", "singulo")
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -274,7 +274,7 @@
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.","singulo")
+		investigate_log("collapsed.", "singulo")
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
@@ -326,7 +326,7 @@
 			qdel(A)
 		else
 			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
-			investigate_log("has been destroyed by Nar'Sie","singulo")
+			investigate_log("has been destroyed by Nar'Sie", "singulo")
 			qdel(src)
 
 	return
@@ -375,7 +375,7 @@
 	var/list/turfs = list()
 	var/turf/T = src.loc
 	for(var/i = 1 to steps)
-		T = get_step(T,direction)
+		T = get_step(T, direction)
 	if(!isturf(T))
 		return 0
 	turfs.Add(T)
@@ -390,12 +390,12 @@
 			dir3 = 2
 	var/turf/T2 = T
 	for(var/j = 1 to steps-1)
-		T2 = get_step(T2,dir2)
+		T2 = get_step(T2, dir2)
 		if(!isturf(T2))
 			return 0
 		turfs.Add(T2)
 	for(var/k = 1 to steps-1)
-		T = get_step(T,dir3)
+		T = get_step(T, dir3)
 		if(!isturf(T))
 			return 0
 		turfs.Add(T)
@@ -507,8 +507,8 @@
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
-	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4))
+	var/dist = max((current_size - 2), 1)
+	explosion(src.loc, (dist), (dist*2), (dist*4))
 	qdel(src)
 	return(gain)
 
