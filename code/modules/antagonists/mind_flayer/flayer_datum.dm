@@ -213,6 +213,7 @@
 	var/datum/spell/flayer/spell = has_spell(to_add)
 	if(!spell)
 		force_add_ability(to_add, set_owner)
+		check_special_stage_ability(to_add)
 		return
 	force_upgrade_ability(spell, upgrade_type)
 
@@ -228,6 +229,7 @@
 	var/datum/mindflayer_passive/passive = has_passive(to_add)
 	if(!passive)
 		force_add_passive(to_add)
+		check_special_stage_ability(to_add)
 		return
 	force_upgrade_passive(passive, upgrade_type)
 
@@ -313,3 +315,23 @@
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[COLOR_BLUE_LIGHT]>[usable_swarms]</font></div>"
+
+/**
+* Checks if we are eligible to get a special ability for reaching the third stage in a given subclass
+*/
+/datum/antagonist/mindflayer/proc/check_special_stage_ability(datum/spell/flayer/adding_spell)
+	if(!adding_spell || category_stage[adding_spell.category] < 3)
+		return
+
+	switch(adding_spell.category)
+		if(FLAYER_CATEGORY_DESTROYER)
+			if(has_spell(/datum/spell/flayer/self/weapon/vortex_arm))
+				return // We already have it
+			add_ability(new /datum/spell/flayer/self/weapon/vortex_arm, src)
+			send_swarm_message("We gain the ability to crystallize nanites into a reflective shell around our arm.")
+
+		if(FLAYER_CATEGORY_INTRUDER)
+			if(has_spell(/datum/spell/flayer/self/weapon/access_tuner))
+				return // We already have it
+			add_ability(new /datum/spell/flayer/self/weapon/access_tuner, src)
+			send_swarm_message("We gain the ability to manipulate airlocks from a distance.")
