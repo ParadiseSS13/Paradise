@@ -57,9 +57,9 @@
 	return
 
 /datum/mindflayer_passive/process()
-	return
+	return PROCESS_KILL
 
-//SELF-BUFF PASSIVES
+// SELF-BUFF PASSIVES
 /datum/mindflayer_passive/armored_plating
 	name = "Armored Plating"
 	purchase_text = "Increases our natural armor."
@@ -164,9 +164,9 @@
 	should_process = TRUE
 
 /datum/mindflayer_passive/regen/process()
-	if(isspaceturf(get_turf(owner))) // No healing in space
+	if(isspaceturf(get_turf(owner)) || owner.stat == DEAD) // No healing in space or while you're dead
 		return
-	if(ishuman(owner) && owner.stat != DEAD)
+	if(ishuman(owner))
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
@@ -180,7 +180,7 @@
 	should_process = TRUE
 	base_cost = 40
 	max_level = 2
-	var/heal_modifier = 0.4 //S Same speed as mito
+	var/heal_modifier = 0.4 // Same speed as mito
 
 /datum/mindflayer_passive/fix_components/process()
 	if(!ishuman(owner) || owner.stat == DEAD)
@@ -276,7 +276,7 @@
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
-	stage = 4
+	stage = CAPSTONE_STAGE
 	category = FLAYER_CATEGORY_INTRUDER
 	/// How much do we multiply the drain amount?
 	var/drain_multiplier_amount = 10
