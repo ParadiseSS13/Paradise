@@ -47,7 +47,7 @@
 	layer = 2.9
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "o" = (
