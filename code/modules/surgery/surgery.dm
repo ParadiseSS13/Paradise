@@ -569,14 +569,8 @@
 		return
 	var/sound_file_use
 	if(islist(preop_sound))
-		if(istype(tool))
-			for(var/typepath in preop_sound)
-				if(!ispath(typepath) && (typepath in GLOB.surgery_tool_behaviors))
-					sound_file_use = preop_sound[typepath]
-					break
-
 		for(var/typepath in preop_sound)
-			if(ispath(typepath) && istype(tool, typepath))
+			if((ispath(typepath) && istype(tool, typepath)) || ((typepath in GLOB.surgery_tool_behaviors) && istype(tool) && tool.tool_behaviour == typepath))
 				sound_file_use = preop_sound[typepath]
 				break
 	else
