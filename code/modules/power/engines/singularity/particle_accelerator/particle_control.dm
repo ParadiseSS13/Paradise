@@ -29,9 +29,9 @@
 	var/datum/wires/particle_acc/control_box/wires = null
 	/// Layout of the particle accelerator. Used by the UI
 	var/list/layout = list(
-		list(list("name" = "EM Containment Grid Right", "icon" = "emitter_right", "status" = "", "orientation" = "south")),
-		list(list("name" = "EM Containment Grid Center", "icon" = "emitter_center", "status" = "", "orientation" = "south"), list("name" = "Particle Focusing EM Lens", "icon" = "power_box", "status" = "", "orientation" = "south"), list("name" = "EM Acceleration Chamber", "icon" = "fuel_chamber", "status" = "", "orientation" = "south"), list("name" = "Alpha Particle Generation Array", "icon" = "end_cap", "status" = "", "orientation" = "south")),
-		list(list("name" = "EM Containment Grid Left", "icon" = "emitter_left", "status" = "", "orientation" = "south")))
+		list(list("name" = "EM Containment Grid Right", "icon_state" = "emitter_right", "status" = "", "dir" = "1"), list("name" = "Blank1", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank2", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank3", "icon_state" = "blank", "status" = "good", "dir" = "1")),
+		list(list("name" = "EM Containment Grid Center", "icon_state" = "emitter_center", "status" = "", "dir" = "1"), list("name" = "Particle Focusing EM Lens", "icon_state" = "power_box", "status" = "", "dir" = "1"), list("name" = "EM Acceleration Chamber", "icon_state" = "fuel_chamber", "status" = "", "dir" = "1"), list("name" = "Alpha Particle Generation Array", "icon_state" = "end_cap", "status" = "", "dir" = "1")),
+		list(list("name" = "EM Containment Grid Left", "icon_state" = "emitter_left", "status" = "", "dir" = "1"), list("name" = "Blank4", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank5", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank6", "icon_state" = "blank", "status" = "good", "dir" = "1")))
 	/// The expected orientation of the accelerator this is trying to link. In text form so the UI can use it
 	var/dir_text
 
@@ -167,15 +167,7 @@
 	for(var/obj/structure/particle_accelerator/fuel_chamber/F in orange(1,src))
 		dir = F.dir
 		T = F.loc
-	switch(dir)
-		if(NORTH)
-			dir_text = "north"
-		if(SOUTH)
-			dir_text = "south"
-		if(EAST)
-			dir_text = "east"
-		if(WEST)
-			dir_text = "west"
+	dir_text = dir2text(dir)
 	if(!T)
 		return 0
 	connected_parts = list()
@@ -226,10 +218,11 @@
 				return 1
 			else if(PA)
 				layout[column][row]["status"] = "Incomplete"
-				layout[column][row]["orientation"] = PA.dir
 		else if(PA)
 			layout[column][row]["status"] =  "Wrong Orientation"
-			layout[column][row]["orientation"] = PA.dir
+
+		layout[column][row]["dir"] = PA.dir
+		layout[column][row]["icon_state"] = PA.icon_state
 	else
 		layout[column][row]["status"] =  "Not In Position"
 
@@ -267,9 +260,21 @@
 
 /obj/machinery/particle_accelerator/control_box/ui_data(mob/user)
 	var/list/data = list()
-	var/list/ui_col_1 = layout[PARTICLE_RIGHT]
-	var/list/ui_col_2 = layout[PARTICLE_CENTER]
-	var/list/ui_col_3 = layout[PARTICLE_LEFT]
+	var/list/ui_col_1 = list()
+	var/list/ui_col_2 = list()
+	var/list/ui_col_3 = list()
+	if(dir == NORTH || dir == WEST)
+		ui_col_1 = layout[PARTICLE_RIGHT]
+		ui_col_2 = layout[PARTICLE_CENTER]
+		ui_col_3 = layout[PARTICLE_LEFT]
+	else
+		var/len = length(layout[PARTICLE_CENTER])
+		for(var/i in 0 to (len - 1))
+			ui_col_1.Add(list(layout[PARTICLE_RIGHT][len - i]))
+			ui_col_2.Add(list(layout[PARTICLE_CENTER][len - i]))
+			ui_col_3.Add(list(layout[PARTICLE_LEFT][len - i]))
+
+
 
 
 
@@ -281,6 +286,7 @@
 	data["layout_2"] = ui_col_2
 	data["layout_3"] = ui_col_3
 	data["orientation"] = dir_text ? dir_text : FALSE
+	data["icon"] = icon
 	return data
 
 /obj/machinery/particle_accelerator/control_box/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

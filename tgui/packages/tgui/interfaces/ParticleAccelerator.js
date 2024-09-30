@@ -1,12 +1,35 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, Section, Stack } from '../components';
+import { Box, Button, Grid, LabeledList, Section, Stack, ImageButton, Flex, Table } from '../components';
 import { GridColumn } from '../components/Grid';
+import { TableRow } from '../components/Table';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 
+const dir2text = (dir) => {
+  switch (dir) {
+    case 1.0:
+      return 'north';
+    case 2.0:
+      return 'south';
+    case 4.0:
+      return 'east';
+    case 8.0:
+      return 'west';
+    case 5.0:
+      return 'northeast';
+    case 6.0:
+      return 'southeast';
+    case 9.0:
+      return 'northwest';
+    case 10.0:
+      return 'southwest';
+  }
+  return '';
+};
+
 export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
-  const { assembled, power, strength, max_strength, layout_1, layout_2, layout_3, orientation } = data;
+  const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Window width={350} height={160}>
       <Window.Content scrollable>
@@ -44,60 +67,126 @@ export const ParticleAccelerator = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'}>
-          <LabeledList>
-            {layout_2.slice().map((item) => {
-              return (
-                <Stack key={item}>
-                  {item.name}: {item.status}, {item.orientation}
-                </Stack>
-              );
-            })}
-          </LabeledList>
-          <Grid>
-            <GridColumn>
-              {layout_1.slice().map((item) => (
-                <Box
-                  key={item.name}
-                  fluid
-                  textAlign="center"
-                  tooltip={item.status}
-                  content={
-                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
-                  }
-                  style={{ 'margin-bottom': '5px' }}
-                />
-              ))}
-            </GridColumn>
-            <GridColumn>
-              {layout_2.slice().map((item) => (
-                <Box
-                  key={item.name}
-                  fluid
-                  textAlign="center"
-                  tooltip={item.status}
-                  content={
-                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
-                  }
-                  style={{ 'margin-bottom': '5px' }}
-                />
-              ))}
-            </GridColumn>
-            <GridColumn>
-              {layout_3.slice().map((item) => (
-                <Box
-                  key={item.name}
-                  fluid
-                  textAlign="center"
-                  tooltip={item.status}
-                  content={
-                    <Box className={classes(['particle_accelerator32x32', `${item.orientation}-${item.icon}`])} />
-                  }
-                  style={{ 'margin-bottom': '5px' }}
-                />
-              ))}
-            </GridColumn>
-          </Grid>
+        <Section title={orientation ? 'Chamber Orientation: ' + orientation : 'No Fuel Chamber Detected'} />
+        <Section title="Layout">
+          {orientation === 'north' || orientation === 'south' ? (
+            <Grid>
+              <GridColumn width="40px">
+                {layout_1.slice().map((item) => (
+                  <ImageButton
+                    key={item.name}
+                    dmIcon={icon}
+                    dmIconState={item.icon_state}
+                    direction={item.dir}
+                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                    style={{
+                      'border-style': 'solid',
+                      'border-width': '2px',
+                      'border-color': item.status === 'good' ? 'green' : 'red',
+                      padding: '2px',
+                    }}
+                  />
+                ))}
+              </GridColumn>
+              <GridColumn width="40px">
+                {layout_2.slice().map((item) => (
+                  <ImageButton
+                    key={item.name}
+                    dmIcon={icon}
+                    dmIconState={item.icon_state}
+                    direction={item.dir}
+                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                    style={{
+                      'border-style': 'solid',
+                      'border-width': '2px',
+                      'border-color': item.status === 'good' ? 'green' : 'red',
+                      padding: '2px',
+                    }}
+                  />
+                ))}
+              </GridColumn>
+              <GridColumn width="40px">
+                {layout_3.slice().map((item) => (
+                  <ImageButton
+                    key={item.name}
+                    dmIcon={icon}
+                    dmIconState={item.icon_state}
+                    direction={item.dir}
+                    tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                    style={{
+                      'border-style': 'solid',
+                      'border-width': '2px',
+                      'border-color': item.status === 'good' ? 'green' : 'red',
+                      padding: '2px',
+                    }}
+                  />
+                ))}
+              </GridColumn>
+            </Grid>
+          ) : (
+            <Table>
+              <TableRow width="40px">
+                {layout_1.slice().map((item) => (
+                  <Table.Cell key={item.name}>
+                    {
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        direction={item.dir}
+                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    }
+                  </Table.Cell>
+                ))}
+              </TableRow>
+              <TableRow width="40px">
+                {layout_2.slice().map((item) => (
+                  <Table.Cell key={item.name}>
+                    {
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        direction={item.dir}
+                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    }
+                  </Table.Cell>
+                ))}
+              </TableRow>
+              <TableRow width="40px">
+                {layout_3.slice().map((item) => (
+                  <Table.Cell key={item.name}>
+                    {
+                      <ImageButton
+                        dmIcon={icon}
+                        dmIconState={item.icon_state}
+                        direction={item.dir}
+                        tooltip={item.name + ': ' + item.status + ', direction: ' + dir2text(item.dir)}
+                        style={{
+                          'border-style': 'solid',
+                          'border-width': '2px',
+                          'border-color': item.status === 'good' ? 'green' : 'red',
+                          padding: '2px',
+                        }}
+                      />
+                    }
+                  </Table.Cell>
+                ))}
+              </TableRow>
+            </Table>
+          )}
         </Section>
       </Window.Content>
     </Window>
