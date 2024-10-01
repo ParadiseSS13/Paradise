@@ -71,8 +71,8 @@ const Abilities = ({ context }) => {
         <Stack.Item>
           <Stack vertical>
             <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
-            <Stack.Item color="green">
-              Level: {levelInfo}
+            <Stack.Item>
+              Level: <span style={{ color: 'green' }}>{levelInfo}</span>
               {showStage && ability.stage > 0 && <span> (Stage: {ability.stage})</span>}
             </Stack.Item>
             <Stack.Divider />
@@ -87,8 +87,14 @@ const Abilities = ({ context }) => {
       title={
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Stack vertical style={{ marginRight: '10px' }}>
-            <span>Swarms: {usable_swarms}</span>
-            {showStage && currentTab && <span>Category Stage: {Math.min(currentTab.category_stage, 4)}</span>}
+            <span>
+              Swarms: <span style={{ color: 'green' }}>{usable_swarms}</span>
+            </span>
+            {showStage && currentTab && (
+              <span>
+                Category Stage: <span style={{ color: 'green' }}>{Math.min(currentTab.category_stage, 4)}</span>
+              </span>
+            )}
           </Stack>
           <div className="Section__buttons">
             <Input
@@ -163,8 +169,12 @@ const Upgrades = ({ act, abilityTabs, knownAbilities, usableSwarms }) => {
         <Stack.Item>
           <Stack vertical>
             <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
-            <Stack.Item color="green" fontSize="13px">
-              Level: {knownAbility.current_level} / {knownAbility.max_level}
+            <Stack.Item>
+              Level:{' '}
+              <span style={{ color: 'green' }}>
+                {' '}
+                {knownAbility.current_level} / {knownAbility.max_level}
+              </span>
               {ability.stage > 0 && <span> (Stage: {ability.stage})</span>}
             </Stack.Item>
             <Stack.Divider />
