@@ -172,8 +172,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
 	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 
-	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		dna.species.updatespeciescolor(src)
+	if(dna.species)
+		if(dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+			dna.species.updatespeciescolor(src)
+		if(dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
+			dna.species.updatespeciessubtype(src)
 
 	//CACHING: Generate an index key from visible bodyparts.
 	//0 = destroyed, 1 = normal, 2 = robotic, 3 = necrotic.
@@ -235,6 +238,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
+
+		if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Used for a when slime morphs into another species. Makes them slightly transparent.
+			base_icon.GrayScale()
+			base_icon.Blend("[skin_colour]DC", ICON_AND) //DC = 220 alpha.
 
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		GLOB.human_icon_cache[icon_key] = new_base
@@ -1237,6 +1244,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 		wings_icon.SetIntensity(0.7)
+	if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Slimfies the wings
+		wings_icon.GrayScale()
+		wings_icon.Blend("[skin_colour]DC", ICON_AND) //DC = 220 alpha.
 	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
 	wings.pixel_x = body_accessory.pixel_x_offset
 	wings.pixel_y = body_accessory.pixel_y_offset
@@ -1281,6 +1291,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					accessory_s.Blend(skin_colour, body_accessory.blend_mode)
 				if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
+
+			if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Slimfies the tail
+				accessory_s.GrayScale()
+				accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha. Less alpha here because the tail is generally stubborn...
+
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")

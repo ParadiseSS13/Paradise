@@ -292,6 +292,12 @@
 
 						if(!(NS.autohiss_basic_map))
 							active_character.autohiss_mode = AUTOHISS_OFF
+				if("species_subtype")
+					if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+						var/new_subtype = tgui_input_list(user, "Choose your character's species subtype:", "Character Preference", S.allowed_species_subtypes)
+						if(isnull(new_subtype))
+							return
+						active_character.species_subtype = new_subtype
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")

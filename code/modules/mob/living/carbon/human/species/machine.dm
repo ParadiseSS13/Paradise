@@ -24,7 +24,7 @@
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
@@ -74,6 +74,68 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	allowed_species_subtypes = list(
+		1 = "None",
+		2 = "Vox",
+		3 = "Unathi",
+		4 = "Nian"
+	)
+
+/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-subtype and imitation
+	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
+		var/new_icobase = 'icons/mob/human_races/r_machine.dmi' //Default IPC.
+		if(H.species_subtype == species_subtype) // No update, no need to go further.
+			return
+		switch(H.species_subtype)
+			if("Nian")
+				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
+				species_subtype = "Nian"
+				tail = null
+				wing = "plain"
+				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_WING)
+				H.body_accessory = null
+			if("Unathi") // Unathi
+				new_icobase = 'icons/mob/human_races/r_lizard.dmi'
+				species_subtype = "Unathi"
+				tail = "sogtail"
+				wing = null
+				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				H.body_accessory = null
+			if("Vox") // Vox :)
+				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				tail = "voxtail_gry"
+				wing = null
+				species_subtype = "Vox"
+				bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				H.body_accessory = null
+			if("None") // Regular IPC
+				// Reset
+				new_icobase = initial(icobase)
+				species_subtype = "None"
+				tail = initial(tail)
+				eyes = initial(eyes)
+				wing = initial(wing)
+				bodyflags = initial(bodyflags)
+				H.body_accessory = null
+		if(species_subtype != "None")
+			sprite_sheet_name = species_subtype
+		else
+			sprite_sheet_name = name
+		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base
+			limb.set_company(limb.model, sprite_sheet_name)
+
+		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
+		H.tail = tail
+		H.wing = wing
+
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		head.h_style = "Bald"
+		head.f_style = "Shaved"
+		head.ha_style = "None"
+		H.s_tone = 0
+		H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+		H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()

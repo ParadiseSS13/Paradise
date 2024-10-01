@@ -3,6 +3,10 @@
 	var/name
 	/// Pluralized name (since "[name]s" is not always valid)
 	var/name_plural
+	/// Sub-type of the species. Used for when slimes imitate a species or when an IPC has augments that look like another species. This will affect sprite_sheet_name
+	var/species_subtype = "None"
+	/// List of available sub-types for the species to imitate / morph into (Machine / Slime)
+	var/allowed_species_subtypes = list()
 	/// The corresponding key for spritesheets
 	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
@@ -198,7 +202,9 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
-	if(!sprite_sheet_name)
+	if(!isnull(species_subtype) && species_subtype != "None")
+		sprite_sheet_name = species_subtype
+	else if(!sprite_sheet_name)
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
@@ -393,6 +399,9 @@
 			H.faction -= i
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
+	return
+
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H) // Handles changing icobase for species that can imitate/morph into other species
 	return
 
 // Do species-specific reagent handling here
