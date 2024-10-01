@@ -1257,6 +1257,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 			under_wing_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 			under_wing_icon.SetIntensity(0.7)
+		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+			under_wing_icon.GrayScale()
+			under_wing_icon.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		var/mutable_appearance/under_wing = mutable_appearance(under_wing_icon, layer = -WING_UNDERLIMBS_LAYER)
 		under_wing.pixel_x = body_accessory.pixel_x_offset
 		under_wing.pixel_y = body_accessory.pixel_y_offset
