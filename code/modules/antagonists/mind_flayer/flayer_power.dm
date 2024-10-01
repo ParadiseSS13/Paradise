@@ -178,8 +178,9 @@
 */
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
-	if(existing_spell)
-		return try_upgrade_spell(existing_spell)
+	if(existing_spell && (existing_spell.level >= existing_spell.max_level))
+		send_swarm_message("That function is already at it's strongest.")
+		return FALSE
 
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarm\s for this...")
@@ -189,7 +190,7 @@
 		send_swarm_message("We do not have all the knowledge needed for this.")
 		return FALSE
 	if(to_add.stage == CAPSTONE_STAGE)
-		if(!can_pick_capstone)
+		if(!can_pick_capstone && !existing_spell)
 			send_swarm_message("We have already forsaken that knowledge.")
 			return FALSE
 		can_pick_capstone = FALSE
@@ -201,23 +202,6 @@
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
 	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
-
-/*
-* Given a spell, checks to see if the mindflayer has all the prerequisites to upgrade a spell.
-* Returns FALSE if the spell was not upgrade, TRUE if it was.
-*/
-/datum/antagonist/mindflayer/proc/try_upgrade_spell(datum/spell/flayer/to_upgrade)
-	if(to_upgrade.level >= to_upgrade.max_level)
-		send_swarm_message("That function is already at it's strongest.")
-		return FALSE
-	if(to_upgrade.current_cost > get_swarms())
-		send_swarm_message("We need [to_upgrade.current_cost - get_swarms()] more swarms for this...")
-		return FALSE
-	adjust_swarms(-to_upgrade.current_cost)
-	to_upgrade.level += 1
-	to_upgrade.current_cost += to_upgrade.static_upgrade_increase
-	add_ability(to_upgrade, src)
-	return TRUE
 
 /*
 * Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
@@ -241,7 +225,7 @@
 		return FALSE
 
 	if(to_add.stage == CAPSTONE_STAGE)
-		if(!can_pick_capstone)
+		if(!can_pick_capstone && !existing_passive)
 			send_swarm_message("We have already forsaken that knowledge.")
 			return FALSE
 		can_pick_capstone = FALSE
@@ -269,8 +253,11 @@
 	else
 		var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
 		. =  flayer.try_purchase_passive(to_add)
-	SSblackbox.record_feedback("tally", "power_purchased", 1, "[path]")
 
-///This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
-/datum/spell/flayer/on_purchase_upgrade()
-	return
+/// This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
+/datum/spell/flayer/proc/on_apply()
+	SHOULD_CALL_PARENT(TRUE)
+	level++
+	current_cost += static_upgrade_increase
+
+	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(name, "upgraded", level))

@@ -75,13 +75,14 @@
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
 
-/datum/spell/flayer/self/weapon/swarmprod/on_purchase_upgrade()
+/datum/spell/flayer/self/weapon/swarmprod/on_apply()
+	..()
 	if(!weapon_ref)
 		create_new_weapon()
 
 	var/obj/item/melee/baton/flayerprod/prod = weapon_ref
 	var/obj/item/stock_parts/cell/flayerprod/cell = prod.cell
-	cell.chargerate = initial(cell.chargerate) + 200 * (level) // Innate abilities are wack
+	cell.chargerate = initial(cell.chargerate) + 200 * level // Innate abilities are wack
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augmentation"
@@ -95,7 +96,8 @@
 	max_level = 3
 	upgrade_info = "The internal power cell recharges faster."
 
-/datum/spell/flayer/self/weapon/laser/on_purchase_upgrade()
+/datum/spell/flayer/self/weapon/laser/on_apply()
+	..()
 	if(!weapon_ref)
 		create_new_weapon()
 
@@ -115,7 +117,8 @@
 	max_level = 3
 	upgrade_info = "Upgrading it reduces the time needed for us to recycle scrap into ammo."
 
-/datum/spell/flayer/self/weapon/flak_gun/on_purchase_upgrade()
+/datum/spell/flayer/self/weapon/flak_gun/on_apply()
+	..()
 	if(!weapon_ref)
 		create_new_weapon()
 
@@ -203,7 +206,8 @@
 		return
 	target.visible_message("<span class='notice'>[firer] drags [firer.p_themselves()] across the room!</span>")
 
-/datum/spell/flayer/self/weapon/grapple_arm/on_purchase_upgrade()
+/datum/spell/flayer/self/weapon/grapple_arm/on_apply()
+	..()
 	cooldown_handler.recharge_duration = initial(cooldown_handler.recharge_duration) - 10 SECONDS * level
 
 /*

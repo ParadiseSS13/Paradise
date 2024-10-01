@@ -51,6 +51,8 @@
 	flayer.send_swarm_message(level ? upgrade_text : gain_text) //This will only be false when level = 0, when first bought
 	level++
 	current_cost += static_upgrade_increase
+	if(level != 1) // Purchasing a passive also calls this proc
+		SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(name, "upgraded", level))
 	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()

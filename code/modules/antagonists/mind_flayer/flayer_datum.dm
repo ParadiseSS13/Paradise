@@ -211,11 +211,13 @@
 	if(!to_add)
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
-	if(!spell)
-		force_add_ability(to_add, set_owner)
-		check_special_stage_ability(to_add)
+	if(spell)
+		force_upgrade_ability(spell, upgrade_type)
 		return
-	force_upgrade_ability(spell, upgrade_type)
+
+	force_add_ability(to_add, set_owner)
+	check_special_stage_ability(to_add)
+	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))
 
 /**
 * Adds a passive to a mindflayer if they don't already have it, upgrades it if they do.
@@ -227,11 +229,13 @@
 	if(!to_add)
 		return
 	var/datum/mindflayer_passive/passive = has_passive(to_add)
-	if(!passive)
-		force_add_passive(to_add)
-		check_special_stage_ability(to_add)
+	if(passive)
+		force_upgrade_passive(passive, upgrade_type)
 		return
-	force_upgrade_passive(passive, upgrade_type)
+
+	force_add_passive(to_add)
+	check_special_stage_ability(to_add)
+	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))
 
 /**
 * Adds an ability to a mindflayer, and sets the owner.
@@ -263,7 +267,7 @@
 	powers += to_add
 
 /datum/antagonist/mindflayer/proc/force_upgrade_ability(datum/spell/flayer/to_upgrade, upgrade_type)
-	to_upgrade.on_purchase_upgrade()
+	to_upgrade.on_apply()
 
 /datum/antagonist/mindflayer/proc/force_upgrade_passive(datum/mindflayer_passive/to_upgrade)
 	to_upgrade.on_apply()

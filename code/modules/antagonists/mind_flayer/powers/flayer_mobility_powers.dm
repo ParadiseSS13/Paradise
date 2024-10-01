@@ -69,5 +69,6 @@
 		return
 	to_chat(user, "<span class='notice'>Your current mark is [marked_computer].</span>")
 
-/datum/spell/flayer/computer_recall/on_purchase_upgrade()
+/datum/spell/flayer/computer_recall/on_apply()
+	..()
 	cooldown_handler.recharge_duration -= 30 SECONDS

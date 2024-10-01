@@ -21,7 +21,8 @@
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
 
-/datum/spell/flayer/self/rejuv/on_purchase_upgrade()
+/datum/spell/flayer/self/rejuv/on_apply()
+	..()
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	extra_duration += 2 SECONDS
 	extra_healing += 2
@@ -45,7 +46,8 @@
 /datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM, extra_duration, should_get_reflection)
 
-/datum/spell/flayer/self/quicksilver_form/on_purchase_upgrade()
+/datum/spell/flayer/self/quicksilver_form/on_apply()
+	..()
 	switch(level)
 		if(POWER_LEVEL_TWO)
 			should_get_reflection = TRUE
@@ -73,7 +75,8 @@
 		return
 	user.apply_status_effect(STATUS_EFFECT_OVERCLOCK, heat_per_tick)
 
-/datum/spell/flayer/self/overclock/on_purchase_upgrade()
+/datum/spell/flayer/self/overclock/on_apply()
+	..()
 	heat_per_tick -= 5
 
 /datum/spell/flayer/self/terminator_form
@@ -91,5 +94,6 @@
 /datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)
 
-/datum/spell/flayer/self/terminator_form/on_purchase_upgrade()
+/datum/spell/flayer/self/terminator_form/on_apply()
+	..()
 	cooldown_handler.recharge_duration -= 1 MINUTES

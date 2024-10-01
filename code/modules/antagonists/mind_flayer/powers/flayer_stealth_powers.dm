@@ -56,7 +56,8 @@
 	flayer.send_swarm_message("Surveillance unit #[internal_camera.connections] deployed.")
 	return TRUE
 
-/datum/spell/flayer/surveillance_monitor/on_purchase_upgrade()
+/datum/spell/flayer/surveillance_monitor/on_apply()
+	..()
 	maximum_hacked_computers += 6
 
 /datum/spell/flayer/self/voice_synthesizer
@@ -105,7 +106,8 @@
 	smoke.set_up(smoke_effects_spawned, FALSE, user, null)
 	smoke.start()
 
-/datum/spell/flayer/self/heat_sink/on_purchase_upgrade()
+/datum/spell/flayer/self/heat_sink/on_apply()
+	..()
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	smoke_effects_spawned += 5
 
@@ -135,7 +137,8 @@
 	var/mob/living/target = targets[1]
 	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE, target)
 
-/datum/spell/flayer/skin_suit/on_purchase_upgrade()
+/datum/spell/flayer/skin_suit/on_apply()
+	..()
 	cooldown_handler.recharge_duration -= 30 SECONDS
 
 /// After a 7 second channel time you can emag a borg
