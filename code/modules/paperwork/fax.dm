@@ -18,7 +18,6 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	var/list/reply_to = null
 
 /datum/fax/admin/New()
-	GLOB.adminfaxes += src
 
 // Fax panel - lets admins check all faxes sent during the round
 /client/proc/fax_panel()
