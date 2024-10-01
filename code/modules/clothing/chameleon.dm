@@ -40,17 +40,10 @@
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
 	for(var/V in user.chameleon_item_actions)
-		var/datum/action/item_action/chameleon/change/A = V
-		var/done = FALSE
+		var/datum/action/item_action/chameleon/change/action = V
 		for(var/T in outfit_types)
-			for(var/name in A.chameleon_list)
-				if(A.chameleon_list[name] == T)
-					A.update_look(user, T)
-					outfit_types -= T
-					done = TRUE
-					break
-			if(done)
-				break
+			if(ispath(T, action.chameleon_type))
+				action.update_look(user, T)
 	//hardsuit helmets/suit hoods
 	if(ispath(O.suit, /obj/item/clothing/suit/hooded) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -69,11 +62,11 @@
 
 /datum/action/item_action/chameleon/change
 	name = "Chameleon Change"
-	var/list/chameleon_blacklist = list() //This is a typecache
-	var/list/chameleon_list = list()
+	var/static/list/chameleon_blacklist = list() //This is a typecache
+	var/static/list/chameleon_list = list()
 	var/chameleon_type = null
 	var/chameleon_name = "Item"
-	var/holder
+	var/obj/item/holder
 	var/emp_timer
 
 /datum/action/item_action/chameleon/change/New(Target)
@@ -112,72 +105,60 @@
 
 /datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
-	var/list/shoe_skins = list()
-	for(var/V in chameleon_list)
-		shoe_skins.Add(list(list(
-			"icon" = initial(chameleon_list[V].icon_state),
-			"name" = initial(chameleon_list[V].name),
+	var/list/chameleon_skins = list()
+	for(var/V in chameleon_list[chameleon_name])
+		chameleon_skins.Add(list(list(
+			"icon" = initial(chameleon_list[chameleon_name][V].icon),
+			"icon_state" = initial(chameleon_list[chameleon_name][V].icon_state),
+			"name" = initial(chameleon_list[chameleon_name][V].name),
 		)))
 
-	data["shoes"] = shoe_skins
+	data["chameleon_skins"] = chameleon_skins
 	return data
 
 /datum/action/item_action/chameleon/change/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Chameleon", name)
+		ui = new(user, src, "Chameleon", "Change [chameleon_name] Appearance")
 		ui.open()
 		ui.set_autoupdate(FALSE)
-
-/datum/action/item_action/chameleon/change/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/cham_shoes),
-	)
 
 /datum/action/item_action/chameleon/change/ui_act(action, list/params)
 	switch(action)
 		if("change_appearance")
-			update_look(usr, chameleon_list[params["new_appearance"]])
+			update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
+	if(!isnull(chameleon_list[chameleon_name]))
+		return
+	chameleon_list[chameleon_name] = list()
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
-			var/chameleon_item_name = "[initial(I.name)]_[initial(I.icon_state)]"
-			if(isnull(chameleon_list[chameleon_item_name]))
-				chameleon_list[chameleon_item_name] = I
+			var/chameleon_item_name = "[replacetext(initial(I.name), "\improper", "")]_[initial(I.icon_state)]"
+			if(isnull(chameleon_list[chameleon_name][chameleon_item_name]))
+				chameleon_list[chameleon_name][chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
-	var/obj/item/picked_item
-	var/picked_name
-	if(chameleon_type == /obj/item/clothing/shoes)
-		ui_interact(user)
-	else
-		picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
-		if(!picked_name)
-			return
-		picked_item = chameleon_list[picked_name]
-		if(!picked_item)
-			return
-	update_look(user, picked_item)
+	ui_interact(user)
 
 /datum/action/item_action/chameleon/change/proc/random_look(mob/user)
-	var/picked_name = pick(chameleon_list)
+	var/picked_name = pick(chameleon_list[chameleon_name])
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, chameleon_list[picked_name])
+		update_look(user, chameleon_list[chameleon_name][picked_name])
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(chameleon_list[picked_name])
+		update_item(chameleon_list[chameleon_name][picked_name])
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
 	if(isliving(user))

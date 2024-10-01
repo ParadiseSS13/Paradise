@@ -1,72 +1,80 @@
-import { BooleanLike } from 'common/react';
+import { createSearch } from 'common/string';
+import { flow } from 'common/fp';
+import { filter, sortBy } from 'common/collections';
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider } from '../components';
+import { Button, LabeledList, Section, Stack, ImageButton, Input } from '../components';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
 
 type Data = {
-  ai_tracking: BooleanLike;
-  associated_account_number: number;
-  age: number;
-  registered_name: string;
-  sex: string;
-  blood_type: string;
-  dna_hash: string;
-  fingerprint_hash: string;
-  photo: string;
-  assignment: string;
-  job_icon: string;
-  idcards: IDCard[];
-  shoes: ShoeSkin[];
-  chameleon_name: string
-};
-
-type ShoeSkin = {
-  name: string;
+  chameleon_skins: ChameleonSkin[];
+  chameleon_name: string;
   icon: string;
 };
 
-type IDCard = {
+type ChameleonSkin = {
   name: string;
+  icon: string;
+  icon_state: string;
 };
-
-const unset = 'Empty';
 
 export const Chameleon = (props, context) => {
   return (
-    <Window width={430} height={500} theme="syndicate">
+    <Window width={431} height={500} theme="syndicate">
       <Window.Content>
-        <AgentCardAppearances />
+        <ChameleonAppearances />
       </Window.Content>
     </Window>
   );
 };
 
-export const AgentCardAppearances = (props, context) => {
+const selectSkins = (skins, searchText = '') => {
+  const testSearch = createSearch(searchText, (skin: ChameleonSkin) => skin.name);
+  return flow([
+    // Null filter
+    filter((skin) => skin?.name),
+    // Optional search term
+    searchText && filter(testSearch),
+  ])(skins);
+};
+
+export const ChameleonAppearances = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
-  const { shoes, chameleon_name } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const chameleon_skins = selectSkins(data.chameleon_skins, searchText);
   return (
-    <Stack.Item grow>
-      <Section  title={'Card Appearance'}>
-        {shoes.map((shoe) => (
-          <Button
-            m={0.5}
-            compact
-            color={'translucent'}
-            key={shoe.name}
-            selected={shoe.name === selectedAppearance}
-            tooltip={shoe.name}
-            className={classes([chameleon_name + '64x64', shoe.icon])}
-            onClick={() => {
-              setSelectedAppearance(shoe.name);
-              act('change_appearance', {
-                new_appearance: shoe.name + "_" + shoe.icon
-              });
-            }}
-          />
-        ))}
-      </Section>
-    </Stack.Item>
+    <Stack fill vertical>
+      <Stack.Item>
+        <Input fluid placeholder="Search for an appearance" onInput={(e, value) => setSearchText(value)} />
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable title={'Item Appearance'}>
+          {chameleon_skins.map((chameleon_skin) => {
+            const skin_name = chameleon_skin.name + '_' + chameleon_skin.icon_state;
+            return (
+              <ImageButton
+                dmIcon={chameleon_skin.icon}
+                dmIconState={chameleon_skin.icon_state}
+                imageSize={64}
+                m={0.5}
+                compact
+                key={skin_name}
+                selected={skin_name === selectedAppearance}
+                tooltip={chameleon_skin.name}
+                style={{
+                  opacity: (skin_name === selectedAppearance && '1') || '0.5',
+                }}
+                onClick={() => {
+                  setSelectedAppearance(skin_name);
+                  act('change_appearance', {
+                    new_appearance: skin_name,
+                  });
+                }}
+              />
+            );
+          })}
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
