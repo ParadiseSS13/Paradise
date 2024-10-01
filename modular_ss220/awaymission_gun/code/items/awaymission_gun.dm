@@ -18,7 +18,7 @@
 
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
 	. = ..()
-	if(is_away_level(new_z) || (!is_station_level(new_z) && check_level_trait(new_z, REACHABLE_SPACE_ONLY)))
+	if(is_away_level(new_z))
 		if(ismob(loc))
 			to_chat(loc, span_notice("Ваш [src] активируется, начиная аккумулировать энергию из материи сущего."))
 		selfcharge = TRUE
