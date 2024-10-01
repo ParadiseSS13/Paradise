@@ -275,6 +275,7 @@
 	owner.adjustFireLoss(-5)
 
 /datum/status_effect/blood_rush
+	id = "blood_rush"
 	alert_type = null
 	duration = 10 SECONDS
 
@@ -488,6 +489,7 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 
 /datum/status_effect/fleshmend
+	id = "fleshmend"
 	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1 SECONDS
@@ -536,6 +538,7 @@
 		qdel(src)
 
 /datum/status_effect/speedlegs
+	id = "speedlegs"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 4 SECONDS
@@ -550,7 +553,7 @@
 	return TRUE
 
 /datum/status_effect/speedlegs/tick()
-	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
+	if(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)
 		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
 		owner.Weaken(6 SECONDS)
 		qdel(src)
@@ -561,7 +564,7 @@
 			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
 
 /datum/status_effect/speedlegs/before_remove()
-	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+	if(stacks < 3 && !(owner.stat || owner.getStaminaLoss() >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
 		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
 		return FALSE
 	return TRUE
@@ -577,6 +580,7 @@
 	cling = null
 
 /datum/status_effect/panacea
+	id = "panacea"
 	duration = 20 SECONDS
 	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
@@ -702,6 +706,7 @@
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
 /datum/status_effect/drill_payback
+	id = "drill_payback"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
@@ -797,6 +802,7 @@
 	vamp = null
 
 /datum/status_effect/rev_protection
+	id = "rev_protection"
 	// revs are paralyzed for 10 seconds when they're deconverted, same duration
 	duration = 10 SECONDS
 	alert_type = null
@@ -823,6 +829,7 @@
 	. = ..()
 
 /datum/status_effect/bookwyrm
+	id = "bookwyrm"
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
 

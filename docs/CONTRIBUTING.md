@@ -123,8 +123,9 @@ Status of your pull request will be communicated via PR labels. This includes:
   should never have this label
 - `Status: Awaiting review` - This will be displayed when your PR has passed the
   design vote and is now waiting for someone in the review team to approve it
-- `Status: Awaiting merge` - Your PR is done and is waiting for someone with
-  commit access to merge it. **Note: Your PR may be delayed if it is pending
+- `Status: Awaiting merge` - Your PR is done and is waiting for a maintainer to merge it
+
+  **Note: Your PR may be delayed if it is pending
   testmerge or in the mapping queue**
 
 ### Mapping Standards
@@ -180,11 +181,11 @@ will automatically build them for you and update your branch.
 There are three roles on the GitHub:
 
 - Headcoder
-- Commit Access
+- Maintainer
 - Review Team
 
-Each role inherits the lower role's responsibilities (IE: Headcoders also have
-commit access, and members of commit access are also part of the review team)
+Each role inherits the lower role's responsibilities
+(IE: Headcoders are also maintainers, and maintainers are also part of the review team)
 
 `Headcoders` are the overarching "administrators" of the repository. People
 included in this role are:
@@ -195,7 +196,7 @@ included in this role are:
 
 ---
 
-`Commit Access` members have write access to the repository and can merge your
+`Maintainers` have write access to the repository and can merge your
 PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
@@ -219,6 +220,7 @@ affect mergeability status. People included in this role are:
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)
 - [Warriorstar](https://github.com/warriorstar-orion)
+- [Wilkson](https://github.com/BiancaWilkson)
 
 ---
 
