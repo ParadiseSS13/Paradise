@@ -372,7 +372,12 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_entered))
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/machinery/teleport/hub/upgraded/Initialize(mapload)
 	. = ..()
@@ -389,7 +394,6 @@
 	if(power_station)
 		power_station.teleporter_hub = null
 		power_station = null
-	UnregisterSignal(COMSIG_MOVABLE_CROSS)
 	return ..()
 
 /obj/machinery/teleport/hub/RefreshParts()
@@ -410,7 +414,9 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/proc/on_entered(atom/source, atom/movable/entered, turf/old_loc)
+/obj/machinery/teleport/hub/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(!is_teleport_allowed(z) && !admin_usage)
 		if(ismob(entered))
 			to_chat(entered, "You can't use this here.")
@@ -491,8 +497,13 @@
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_entered))
 	update_lighting()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/machinery/teleport/perma/process()
 	teleports_this_cycle = 0
@@ -506,7 +517,7 @@
 	tele_delay = max(A, 0)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/teleport/perma/proc/on_entered(atom/source, atom/movable/entered, turf/old_loc)
+/obj/machinery/teleport/perma/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
@@ -525,7 +536,6 @@
 
 /obj/machinery/teleport/perma/Destroy()
 	. = ..()
-	UnregisterSignal(COMSIG_MOVABLE_CROSS)
 
 /obj/machinery/teleport/perma/proc/CrossedCallback()
 	recalibrating = FALSE

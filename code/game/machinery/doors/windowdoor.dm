@@ -32,6 +32,12 @@
 	if(req_access && length(req_access))
 		base_state = icon_state
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	if(name != initial(name))
 		return
 	var/new_name = get_area_name(src)
@@ -39,12 +45,6 @@
 		name = "Windoor"
 		return
 	name = new_name
-
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
-	)
-
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
@@ -179,6 +179,8 @@
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower())
 
 /obj/machinery/door/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
 	if(istype(leaving) && leaving.checkpass(PASSGLASS))
 		return
 
@@ -188,6 +190,7 @@
 			return
 
 	if(direction == dir && density)
+		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=0)
@@ -205,16 +208,15 @@
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(10)
+	addtimer(CALLBACK(src, PROC_REF(finish_open)), 8)
 
+/obj/machinery/door/window/proc/finish_open()
 	density = FALSE
-//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
 		operating = NONE
-	return 1
 
 /obj/machinery/door/window/close(forced=0)
 	if(operating)
