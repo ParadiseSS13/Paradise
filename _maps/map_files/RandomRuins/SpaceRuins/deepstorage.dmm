@@ -2666,13 +2666,10 @@
 /area/ruin/space/deepstorage)
 "pk" = (
 /obj/effect/decal/cleanable/dirt,
-
 /obj/item/salvage/ruin/soviet,
-
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
-
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
