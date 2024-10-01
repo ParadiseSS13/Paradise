@@ -36,7 +36,7 @@
 	species_traits = list(LIPS, NO_CLONESCAN, EXOTIC_COLOR)
 	inherent_traits = list(TRAIT_WATERBREATH, TRAIT_NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE | HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_ACCESSORY
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
@@ -62,7 +62,8 @@
 		2 = "Vox",
 		3 = "Unathi",
 		4 = "Tajaran",
-		5 = "Nian"
+		5 = "Nian",
+		6 = "Vulpkanin"
 	)
 
 	var/reagent_skin_coloring = FALSE
@@ -95,44 +96,56 @@
 		var/new_icobase = 'icons/mob/human_races/r_slime.dmi' //Default slime person.
 		if(H.species_subtype == species_subtype) // No update, no need to go further.
 			return
-		bodyflags = initial(bodyflags)
+		//bodyflags = initial(bodyflags)
 		switch(H.species_subtype)
+			if("Vulpkanin") // Vulp
+				new_icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
+				species_subtype = "Vulpkanin"
+				name = "Vulpkanin"
+				tail = "vulptail"
+				wing = null
+				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				H.body_accessory = null
 			if("Nian") // Nian
 				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
 				species_subtype = "Nian"
+				name = "Nian"
 				tail = null
 				wing = "plain"
-				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_WING)
+				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_WING)
 				H.body_accessory = null
 			if("Tajaran") // Tajaran
 				new_icobase = 'icons/mob/human_races/r_tajaran.dmi'
 				species_subtype = "Tajaran"
+				name = "Tajaran"
 				tail = "tajtail"
 				wing = null
-				bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				//bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
 				H.body_accessory = null
 			if("Unathi") // Unathi
 				new_icobase = 'icons/mob/human_races/r_lizard.dmi'
 				species_subtype = "Unathi"
 				tail = "sogtail"
 				wing = null
-				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
 				H.body_accessory = null
 			if("Vox") // Vox :)
 				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				name = "Vox"
 				tail = "voxtail_gry"
 				wing = null
 				species_subtype = "Vox"
-				bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
+				//bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
 				H.body_accessory = null
 			if("None") // Regular slime person
 				// Reset
 				new_icobase = initial(icobase)
 				species_subtype = "None"
+				name = "Slime People"
 				tail = null
 				eyes = initial(eyes)
 				wing = null
-				bodyflags = initial(bodyflags)
+				//bodyflags = initial(bodyflags)
 				H.body_accessory = null
 
 		if(species_subtype != "None")
