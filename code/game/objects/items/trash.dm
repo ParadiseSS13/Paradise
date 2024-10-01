@@ -146,7 +146,7 @@
 
 /obj/item/trash/spentcasing/shotgun
 	name = "spent buckshot shell"
-	desc = "A spent shotgun shell. It smells like cordite and singed rubber."
+	desc = "A spent shotgun shell. It smells like cordite."
 	icon_state = "gshell"
 
 /obj/item/trash/spentcasing/shotgun/rubbershot
