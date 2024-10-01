@@ -1244,9 +1244,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 		wings_icon.SetIntensity(0.7)
-	if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Slimfies the wings
+	if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
 		wings_icon.GrayScale()
-		wings_icon.Blend("[skin_colour]DC", ICON_AND) //DC = 220 alpha.
+		wings_icon.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
 	wings.pixel_x = body_accessory.pixel_x_offset
 	wings.pixel_y = body_accessory.pixel_y_offset
@@ -1292,7 +1292,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 
-			if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Slimfies the tail
+			if(istype(src.dna.species, /datum/species/slime)) // Slimfies the tail
 				accessory_s.GrayScale()
 				accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha. Less alpha here because the tail is generally stubborn...
 
@@ -1334,6 +1334,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					tail_s.Blend(skin_colour, ICON_ADD)
 				if(tail_marking_icon && !tail_marking_style.tails_allowed)
 					tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
+
+			if(istype(src.dna.species, /datum/species/slime)) // Slimifies the tail
+				tail_s.GrayScale()
+				tail_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
+
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
@@ -1373,11 +1378,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		if(dna.species.bodyflags & HAS_SKIN_COLOR)
 			accessory_s.Blend(skin_colour, body_accessory.blend_mode)
+		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+			accessory_s.GrayScale()
+			accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
+
 			if(body_accessory.allowed_species && (dna.species.name in body_accessory.allowed_species))
 				under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
 			under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
@@ -1409,6 +1418,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]w_s")
 		if(dna.species.bodyflags & HAS_SKIN_COLOR)
 			tailw_s.Blend(skin_colour, ICON_ADD)
+		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+			tailw_s.GrayScale()
+			tailw_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
