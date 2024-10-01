@@ -9,15 +9,20 @@
 
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/proc/on_cross(atom/movable/crossed)
-	if(!isliving(crossed))
+/obj/effect/mine/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(!isliving(entered))
 		return
-	var/mob/living/M = crossed
+	var/mob/living/M = entered
 	if(faction && (faction in M.faction))
 		return
 	if(M.flying)

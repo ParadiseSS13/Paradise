@@ -127,9 +127,10 @@ If you care about every time a movable attempts to overlap you, listen to
 `COMSIG_MOVABLE_PRE_MOVE`, and return `COMPONENT_MOVABLE_BLOCK_PRE_MOVE` to
 prevent it from happening.
 
-If you care about every time a movable overlaps you, listen to
-`COMSIG_MOVABLE_CROSS`. If you care about every time a movable is overlapped by
-you, listen to `COMSIG_MOVABLE_CROSS_OVER`.
+If you want to prevent a movable from crossing you, listen to
+`COMSIG_MOVABLE_CROSS` and return `COMPONENT_BLOCK_CROSS` to prevent it. If you
+want to prevent a movable from being crossed by you, listen to
+`COMSIG_MOVABLE_CROSS_OVER` and return `COMPONENT_BLOCK_CROSS` to prevent it.
 
 If you care about an atom entering or exiting your contents, listen to
 `COMSIG_ATOM_ENTERED` or `COMSIG_ATOM_EXITED`.

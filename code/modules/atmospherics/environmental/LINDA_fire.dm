@@ -190,7 +190,10 @@
 
 /obj/effect/hotspot/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 // Garbage collect itself by nulling reference to it
 
@@ -223,10 +226,11 @@
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	var/mob/living/L = crossed
-	if(istype(L))
-		L.fire_act()
+/obj/effect/hotspot/proc/on_atom_entered(datum/source, mob/living/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(istype(entered))
+		entered.fire_act()
 
 /obj/effect/hotspot/singularity_pull()
 	return
