@@ -44,6 +44,7 @@
 		"<span class='danger'>[user] de-materializes and jumps through the screen of [target]!</span>",
 		"<span class='warning'>You de-materialize and jump into [target]!")
 
+	user.set_body_position(STANDING_UP)
 	var/matrix/previous = user.transform
 	var/matrix/shrank = user.transform.Scale(0.25)
 	var/direction = get_dir(user, target)
@@ -53,10 +54,12 @@
 	sleep(0.5 SECONDS)
 	target.Beam(marked_computer, icon_state = "rped_upgrade", icon ='icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = INFINITY)
 	playsound(start_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
 	playsound(end_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	user.forceMove(end_turf)
 	user.pixel_x = 0 //Snap back to the center, then animate the un-shrinking
 	user.pixel_y = 0
+	user.set_body_position(STANDING_UP)
 	animate(user, 0.5 SECONDS, 0, transform = previous)
 	user.visible_message(
 		"<span class='warning'>[user] suddenly crawls through the monitor of [marked_computer]!</span>",
