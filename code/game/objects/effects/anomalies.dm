@@ -87,7 +87,9 @@
 	if(drops_core)
 		aSignal.forceMove(drop_location())
 		aSignal = null
-		SSblackbox.record_feedback("ledger", "anomaly_defuse_time_ds", round(((death_time - world.time) / 10) * 2), "[type]")
+		// Subtracts the time remaining from lifespan to get defuse time, converts it to seconds
+		var/defuse_time = round((lifespan - (death_time - world.time)) / 10)
+		SSblackbox.record_feedback("ledger", "anomaly_defuse_time", "[defuse_time]", "[type]")
 
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
