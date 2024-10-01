@@ -54,9 +54,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += "<span class='notice'><b>Alt-Shift-Click</b> to right the table again.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to right the table again.</span>"
 		else
-			. += "<span class='notice'><b>Alt-Shift-Click</b> to flip over the table.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to flip over the table.</span>"
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
@@ -331,7 +331,7 @@
 			return 0
 	return T.straight_table_check(direction)
 
-/obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
+/obj/structure/table/AltClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
