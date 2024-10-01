@@ -26,9 +26,7 @@
 	if(isnull(user.client))
 		return
 
-	// doesn't support this
-	// if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
-	// 	return input(user, message, title, default) as null|anything in items
+	// We don't support disabled TGUI input (PREFTOGGLE_2_DISABLE_TGUI_INPUT), get with the times old man
 
 	var/datum/tgui_list_input/ranked/input = new(user, message, title, items, default, timeout, ui_state)
 

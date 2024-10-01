@@ -926,4 +926,4 @@
  */
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
-	return !length(list_one - list_two) && !length(list_two - list_one)
+	return !length(list_one ^ list_two)
