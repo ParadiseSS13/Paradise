@@ -1844,9 +1844,7 @@
 	name = "custom placement";
 	pixel_x = 30
 	},
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eI" = (
@@ -2010,9 +2008,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/hallway/primary)
 "fb" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fc" = (
@@ -2247,14 +2243,12 @@
 	},
 /area/ruin/space/derelict/arrival)
 "fB" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fC" = (
@@ -2266,12 +2260,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fD" = (
-/obj/item/trash/spentcasing,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fE" = (
@@ -2399,14 +2393,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fU" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fV" = (
 /obj/structure/chair/stool/bar,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fW" = (
@@ -2576,7 +2568,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "gr" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gs" = (
@@ -2702,7 +2694,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "gH" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
@@ -2732,9 +2724,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gM" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gN" = (
@@ -3229,7 +3219,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ia" = (
@@ -3327,9 +3317,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "in" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -3374,9 +3362,7 @@
 /area/ruin/space/derelict/arrival)
 "ix" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iy" = (
@@ -3477,7 +3463,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iL" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "iM" = (
@@ -3686,9 +3672,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jo" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jp" = (
@@ -3702,9 +3686,7 @@
 /area/ruin/space/derelict/arrival)
 "jq" = (
 /obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jr" = (
@@ -3722,7 +3704,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jt" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -3931,9 +3913,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "jX" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict14"
 	},
@@ -4009,9 +3989,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kf" = (
@@ -4386,7 +4364,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "kN" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict3"
 	},
@@ -4430,9 +4408,7 @@
 /area/ruin/space/derelict/arrival)
 "kU" = (
 /obj/machinery/light/small,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "redblue"
@@ -4557,9 +4533,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "ll" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "lm" = (
@@ -4907,9 +4881,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "mf" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mg" = (
