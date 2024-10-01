@@ -56880,7 +56880,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "gfL" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/supply/warehouse)
 "ggr" = (
