@@ -8,7 +8,7 @@
 	flags = CONDUCT
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	layer = BELOW_OBJ_LAYER
+	layer = MAP_EDITOR_TURF_LAYER - 0.1
 	level = 3
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
