@@ -59,7 +59,7 @@
 		// Ammo casings rarely
 		list(
 			/obj/item/ammo_casing/c10mm,
-			/obj/item/trash/spentcasing,
+			/obj/item/trash/spentcasing/shotgun,
 		) = 1,
 	)
 

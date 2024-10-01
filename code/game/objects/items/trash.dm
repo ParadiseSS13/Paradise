@@ -17,6 +17,9 @@
 		return TRUE
 	return ..()
 
+/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
+	return
+
 /obj/item/trash/raisins
 	name = "4no raisins"
 	icon_state= "4no_raisins"
@@ -117,10 +120,22 @@
 	name = "bread tube"
 	icon_state = "tastybread"
 
+/obj/item/trash/tapetrash
+	name = "old duct tape"
+	icon_state = "tape"
+	desc = "Not sticky anymore."
+	throw_range = 1
+
+/obj/item/trash/popsicle_stick
+	name = "used popsicle stick"
+	icon_state = "popsicle_stick_s"
+	desc = "Still tastes sweet."
+
+// Ammo casings
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
-	name = "arbitrary spent ammunition"
-	desc = "This is an arbitrary item, if you see it in normal play, please make an issue report on GitHub."
+	name = "arbitrary spent casing item"
+	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
 	icon_state = "gshell"
 
 /obj/item/trash/spentcasing/Initialize(mapload)
@@ -131,7 +146,7 @@
 
 /obj/item/trash/spentcasing/shotgun
 	name = "spent buckshot shell"
-	desc = "A spent shotgun shell. It smells like cordite."
+	desc = "A spent shotgun shell. It smells like cordite and singed rubber."
 	icon_state = "gshell"
 
 /obj/item/trash/spentcasing/shotgun/rubbershot
@@ -157,31 +172,20 @@
 	icon_state = "stunshell"
 
 /obj/item/trash/spentcasing/bullet
-	desc = "A spent small-caliber bullet casing. It smells of brass and cordite."
+	name = "spent bullet casing"
+	desc = "A spent bullet casing. It smells of brass and cordite."
 	icon_state = "s-casing"
 
 /obj/item/trash/spentcasing/bullet/medium
-	desc = "A spent rifle-caliber bullet casing. It smells of brass and cordite."
+	name = "spent large bullet casing"
+	desc = "A spent high-caliber bullet casing. It smells of brass and cordite."
 	icon_state = "762-casing"
 
 /obj/item/trash/spentcasing/bullet/large
+	name = "spent .50 BMG bullet casing"
 	desc = "A spent .50 BMG bullet casing. It smells of brass and cordite."
 	icon_state = ".50"
 
 /obj/item/trash/spentcasing/bullet/lasershot
 	desc = "A spent IK-series single-use lasershot cell. It smells of burnt plastic with a metallic-chemical undertone."
 	icon_state = "lasercasing"
-
-/obj/item/trash/tapetrash
-	name = "old duct tape"
-	icon_state = "tape"
-	desc = "Not sticky anymore."
-	throw_range = 1
-
-/obj/item/trash/popsicle_stick
-	name = "used popsicle stick"
-	icon_state = "popsicle_stick_s"
-	desc = "Still tastes sweet."
-
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
-	return
