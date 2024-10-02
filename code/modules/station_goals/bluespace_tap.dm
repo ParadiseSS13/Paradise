@@ -256,7 +256,7 @@
 	if(!powernet)
 		connect_to_network()
 
-	AddComponent(/datum/component/multitile, 1, list(
+	AddComponent(/datum/component/multitile, list(
 		list(1, 1,		   1),
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),

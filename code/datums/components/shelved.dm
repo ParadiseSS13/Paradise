@@ -227,6 +227,7 @@
 /datum/component/shelved/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_item_pickup))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
 	var/obj/shelf = locateUID(shelf_uid)
 	if(shelf)
 		RegisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT, PROC_REF(on_movable_shove_impact))
@@ -239,6 +240,11 @@
 
 /datum/component/shelved/proc/on_item_pickup(obj/item/I, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
+	qdel(src)
+
+/// Generic handler for if anything moves us off our original shelf position, such as atmos pressure.
+/datum/component/shelved/proc/on_movable_moved()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	qdel(src)
 
 /datum/component/shelved/UnregisterFromParent()

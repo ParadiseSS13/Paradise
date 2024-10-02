@@ -1065,10 +1065,6 @@
 /obj/structure/sign/mech,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"cM" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "cN" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
@@ -1263,10 +1259,6 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/ruin/space/derelict/crew_quarters)
-"dl" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "dm" = (
 /obj/machinery/computer/security,
@@ -1849,11 +1841,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"eI" = (
-/obj/structure/sign/securearea,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ruslocksec";
@@ -2486,10 +2473,6 @@
 	icon_state = "purple"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"ge" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/hallway/primary)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -2714,10 +2697,6 @@
 /obj/item/reagent_containers/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
-"gJ" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "gK" = (
 /obj/structure/chair{
 	dir = 4
@@ -6459,10 +6438,6 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"qq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "qr" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -7437,6 +7412,10 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
+"xi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
 "Ci" = (
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
@@ -7449,6 +7428,14 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
+"El" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
+"Mi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "Nv" = (
 /obj/effect/spawner/airlock,
@@ -7485,6 +7472,10 @@
 /mob/living/simple_animal/hostile/russian,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
+"Ye" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
 "Yi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -8270,7 +8261,7 @@ ac
 ac
 aW
 bn
-gJ
+xi
 bn
 bn
 hI
@@ -8633,7 +8624,7 @@ aW
 bn
 ed
 en
-eI
+El
 fg
 fB
 fX
@@ -8909,7 +8900,7 @@ dQ
 do
 do
 cm
-cM
+El
 de
 fE
 fZ
@@ -9313,7 +9304,7 @@ mS
 oc
 oS
 qg
-qq
+bn
 aW
 ac
 ac
@@ -9452,7 +9443,7 @@ aW
 bn
 cm
 cA
-cM
+El
 cA
 do
 dD
@@ -9636,7 +9627,7 @@ bF
 bT
 co
 cA
-cM
+El
 dg
 ds
 bn
@@ -10844,7 +10835,7 @@ et
 eQ
 fl
 fL
-ge
+Ye
 eg
 ac
 ac
@@ -12719,7 +12710,7 @@ db
 db
 db
 qK
-dl
+Mi
 ac
 ac
 ac
@@ -12949,7 +12940,7 @@ ac
 ac
 aV
 bm
-dl
+Mi
 dz
 dJ
 db
@@ -12992,7 +12983,7 @@ pw
 db
 db
 db
-dl
+Mi
 aV
 ac
 ac
@@ -13355,7 +13346,7 @@ oR
 db
 ph
 bm
-dl
+Mi
 bm
 aV
 ac
