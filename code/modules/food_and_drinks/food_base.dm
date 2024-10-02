@@ -65,7 +65,7 @@
 			/obj/structure/table,
 			/obj/structure/rack,
 			/obj/structure/closet,
-			/obj/structure/shelf,
+			/obj/structure/shelf
 		))
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
