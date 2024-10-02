@@ -243,7 +243,8 @@
 	if(!ishuman(hit_atom) || !throwingdatum || iswizard(hit_atom))
 		return
 	var/mob/living/carbon/human/crushee = hit_atom
-	var/obj/item/organ/external/hit_limb = crushee.get_organ(throwingdatum.target_zone)
+	var/zone = ran_zone(throwingdatum.target_zone) // Base 80% to hit the zone you're aiming for
+	var/obj/item/organ/external/hit_limb = crushee.get_organ(zone)
 	if(hit_limb)
 		hit_limb.fracture()
 
