@@ -163,7 +163,7 @@
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one's got purple Janitorial stripes."
+	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has purple Janitorial stripes."
 	icon_state = "hardsuit0-ert_janitor"
 	item_color = "ert_janitor"
 
