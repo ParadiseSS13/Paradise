@@ -314,7 +314,7 @@
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor's made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange engineering stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange engineering stripes."
 	icon_state = "erthelmet_eng"
 
 //Medical
