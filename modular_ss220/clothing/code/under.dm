@@ -448,3 +448,89 @@
 /obj/item/clothing/under/towel/short/alt/brown
 	name = "коричневое махровое маленькое полотенце"
 	color = "#DEB887"
+
+/* EI uniform */
+/obj/item/clothing/under/ei_combat
+	name = "тактическая водолазка Gold on Black"
+	desc = "Все то же удобство, но в прекрасной гамме угольных оттенков."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "ei_combat"
+	item_color = "ei_combat"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/species/kidan/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Abductor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+	)
+
+/obj/item/clothing/under/ei_skirt
+	name = "блузка с юбкой Gold on Black"
+	desc = "Не волнуйтесь, запачкать её будет крайне сложно, так что вы всегда будете прелестны и очаровательны. Даже если руки по локоть в крови."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "ei_skirt"
+	item_color = "ei_skirt"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/species/kidan/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Abductor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+	)
+
+/obj/item/clothing/under/ei_skirt_alt
+	name = "юбка «Солнце» от EI"
+	desc = "Юбка «Солнце» в классических цветах корпорации EI."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "ei_skirt_alt"
+	item_color = "ei_skirt_alt"
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/species/kidan/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Abductor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+	)

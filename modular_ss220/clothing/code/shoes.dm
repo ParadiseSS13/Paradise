@@ -166,3 +166,32 @@
 		/obj/item/clothing/shoes/clown_shoes/slippers,
 	)
 	category = CAT_CLOTHING
+
+/* EI shoes */
+/obj/item/clothing/shoes/ei_shoes
+	name = "ботинки Gold On Black"
+	desc = "Черный ботинки в классическом стиле с легким золотым напылением от корпорации Etamin Industry."
+	icon = 'modular_ss220/clothing/icons/object/shoes.dmi'
+	icon_state = "ei_shoes"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/species/kidan/shoes.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Skeleton" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Abductor" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/shoes.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/shoes.dmi',
+	)
