@@ -111,7 +111,7 @@
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one's got orange Engineering stripes, and additional lead plating for improved radiation protection."
+	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has orange Engineering stripes, and additional lead plating for improved radiation protection."
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
