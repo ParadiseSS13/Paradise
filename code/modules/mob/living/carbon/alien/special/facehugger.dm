@@ -23,10 +23,11 @@
 	///Time it takes for a facehugger to become active again after going idle.
 	var/min_active_time = 20 SECONDS
 	var/max_active_time = 40 SECONDS
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 	ADD_TRAIT(src, TRAIT_XENO_INTERACTABLE, UID())
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -199,7 +200,7 @@
 	icon_state = "[initial(icon_state)]_dead"
 	item_state = "facehugger_inactive"
 	stat = DEAD
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	QDEL_NULL(proximity_monitor)
 
 	visible_message("<span class='danger'>[src] curls up into a ball!</span>")
 

@@ -422,10 +422,11 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	var/soundblock = null
 	/// How long do we sleep between messages? 5 seconds by default.
 	var/loop_sleep_time = 5 SECONDS
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/environmental_storytelling_holopad/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 
 /obj/structure/environmental_storytelling_holopad/Destroy()
 	QDEL_NULL(our_holo)
@@ -439,7 +440,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	QDEL_NULL(proximity_monitor)
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))

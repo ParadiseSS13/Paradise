@@ -35,6 +35,10 @@
 	var/isnt_shutting_down = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
+	var/datum/proximity_monitor/singulo/proximity_monitor
+	var/angle_to_singulo
+	var/distance_to_singulo
+
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -43,7 +47,7 @@
 
 	energy = starting_energy
 	if(warps_projectiles)
-		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+		proximity_monitor = new(src, 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -484,6 +488,28 @@
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
+/obj/singularity/HasProximity(atom/movable/crossed)
+	if(!isprojectile(crossed))
+		return
+	var/obj/item/projectile/P = crossed
+	var/distance = get_dist(src, crossed)
+	var/projectile_angle = P.Angle
+	var/angle_to_projectile = angle_to_singulo
+	if(angle_to_projectile == 180)
+		angle_to_projectile = -180
+	angle_to_projectile -= projectile_angle
+	if(angle_to_projectile > 180)
+		angle_to_projectile -= 360
+	else if(angle_to_projectile < -180)
+		angle_to_projectile += 360
+
+	if(distance == 0)
+		qdel(P)
+		return
+	projectile_angle += angle_to_projectile / (distance ** 2)
+	P.damage += 10 / distance
+	P.set_angle(projectile_angle)
+
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
@@ -504,52 +530,22 @@
 	if(prob(1))
 		mezzer()
 
-/datum/component/proximity_monitor/singulo
-	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+/datum/proximity_monitor/singulo
+	var/obj/singularity/singularity
 
-/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
+/datum/proximity_monitor/singulo/New(atom/_host, range, _ignore_if_not_on_turf = TRUE)
 	. = ..()
-	var/obj/effect/abstract/proximity_checker/singulo/S = .
-	S.calibrate()
+	calibrate()
 
-/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
-	. = ..()
-	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
-		S.calibrate()
-
-/obj/effect/abstract/proximity_checker/singulo
-	var/angle_to_singulo
-	var/distance_to_singulo
-
-/obj/effect/abstract/proximity_checker/singulo/Initialize(mapload, datum/component/proximity_monitor/P)
-	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
-
-/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
-	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
-	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
-
-/obj/effect/abstract/proximity_checker/singulo/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(!isprojectile(crossed))
+/datum/proximity_monitor/singulo/proc/calibrate()
+	if(!host)
 		return
-	var/obj/item/projectile/P = crossed
-	var/distance = distance_to_singulo
-	var/projectile_angle = P.Angle
-	var/angle_to_projectile = angle_to_singulo
-	if(angle_to_projectile == 180)
-		angle_to_projectile = -180
-	angle_to_projectile -= projectile_angle
-	if(angle_to_projectile > 180)
-		angle_to_projectile -= 360
-	else if(angle_to_projectile < -180)
-		angle_to_projectile += 360
-
-	if(distance == 0)
-		qdel(P)
+	var/obj/singularity/singularity = host
+	if(!istype(host))
 		return
-	projectile_angle += angle_to_projectile / (distance ** 2)
-	P.damage += 10 / distance
-	P.set_angle(projectile_angle)
+
+	singularity.angle_to_singulo = ATAN2(hasprox_receiver.y - singularity.y, hasprox_receiver.x - singularity.x)
+	singularity.distance_to_singulo = get_dist(hasprox_receiver, src)
 
 /obj/singularity/proc/end_deadchat_plays()
 	move_self = TRUE

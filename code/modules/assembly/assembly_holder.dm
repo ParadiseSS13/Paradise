@@ -13,13 +13,6 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-/obj/item/assembly_holder/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
@@ -53,12 +46,9 @@
 	a_right = A2
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
+	A1.on_attach()
+	A2.on_attach()
 	return TRUE
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
-		return TRUE
-	return FALSE
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()

@@ -338,9 +338,6 @@
 		last_move = 0
 		return
 
-	if(.)
-		Moved(oldloc, direct)
-
 	last_move = direct
 	move_speed = world.time - l_move_time
 	l_move_time = world.time

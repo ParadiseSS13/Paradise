@@ -142,6 +142,8 @@
 	/// How often will the vendor tip when you walk by it when aggressive is true?
 	var/aggressive_tilt_chance = 25
 
+	var/datum/proximity_monitor/proximity_monitor
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -175,7 +177,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
 	if(aggressive)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src, 1)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)

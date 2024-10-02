@@ -96,6 +96,29 @@
 	update_icon()
 	return secured
 
+/**
+ * on_attach: Called when attached to a holder, wiring datum, or other special assembly
+ *
+ * Will also be called if the assembly holder is attached to a plasma (internals) tank or welding fuel (dispenser) tank.
+ */
+/obj/item/assembly/proc/on_attach()
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(!holder && connected)
+		holder = connected.holder
+
+/**
+ * on_detach: Called when removed from an assembly holder or wiring datum
+ */
+/obj/item/assembly/proc/on_detach()
+	if(connected)
+		connected = null
+	if(!holder)
+		return FALSE
+	forceMove(holder.drop_location())
+	holder = null
+	return TRUE
+
 /// Called when an assembly is attacked by another
 /obj/item/assembly/proc/attach_assembly(obj/item/assembly/A, mob/user)
 	holder = new /obj/item/assembly_holder(get_turf(src))
