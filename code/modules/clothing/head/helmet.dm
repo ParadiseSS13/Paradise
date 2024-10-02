@@ -320,7 +320,7 @@
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor's made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white medical stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white medical stripes."
 	icon_state = "erthelmet_med"
 
 //Janitorial
