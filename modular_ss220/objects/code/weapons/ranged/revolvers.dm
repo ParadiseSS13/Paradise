@@ -208,7 +208,13 @@
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	item_state = "peashooter_bullet"
 	stamina = 5
-	damage_type = STAMINA
+	damage = 0
+	var/additional_zombie_damage = 10
+
+/obj/item/projectile/bullet/midbullet_r/peas_shooter/prehit(atom/target)
+	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+		damage += additional_zombie_damage
+	return ..()
 
 /obj/item/projectile/bullet/midbullet_r/peas_shooter/on_hit(mob/H)
 	. = ..()
