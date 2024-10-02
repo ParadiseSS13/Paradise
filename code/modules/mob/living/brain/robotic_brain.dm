@@ -17,8 +17,7 @@
 	var/mob/living/carbon/human/imprinted_master = null
 	var/ejected_flavor_text = "circuit"
 	/// If this is a posibrain, which will reject attempting to put a new ghost in it, because this a real brain we care about, not a robobrain
-	var/is_posibrain = FALSE
-
+	var/can_be_reinhabited = TRUE
 	dead_icon = "boris_blank"
 
 /obj/item/mmi/robotic_brain/Destroy()
@@ -33,7 +32,7 @@
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		imprinted_master = user
 		return
-	if(brainmob && !brainmob.key && !searching && !is_posibrain)
+	if(brainmob && !brainmob.key && !searching && can_be_reinhabited)
 		//Start the process of searching for a new user.
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
 		request_player()
@@ -208,4 +207,4 @@
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
-	is_posibrain = TRUE
+	can_be_reinhabited = FALSE
