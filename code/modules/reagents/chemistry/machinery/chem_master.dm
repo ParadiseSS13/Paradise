@@ -628,7 +628,7 @@
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
-	sprites = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
+	sprites = list("bottle", "reagent_bottle")
 	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
