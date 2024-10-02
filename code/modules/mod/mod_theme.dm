@@ -1113,7 +1113,7 @@
 	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/responsory
-	name = "\improper NA-22 'Ward'"
+	name = "\improper 'Ward' responsory"
 	desc = "A high-tech combat modsuit designed and produced by Nanotrasen. Well armored, environmentally sealed, and outfitted with all manner of useful gadetry. \
 		The pinnacle of corporate security hardware."
 	extended_desc = "A streamlined suit of powered armor produced entirely in-house by the Nanotrasen Corporation, the NA-22 'Ward' rapid response suit is one of the finest combat modsuits available on the market today. \
