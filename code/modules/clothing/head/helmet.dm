@@ -326,5 +326,5 @@
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor's made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple janitorial stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple janitorial stripes."
 	icon_state = "erthelmet_jan"
