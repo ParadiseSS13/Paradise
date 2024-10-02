@@ -753,7 +753,7 @@
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
 	name = "emergency response team armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests."
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
@@ -761,12 +761,12 @@
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
 	name = "emergency response team commander armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real. This one has chipped blue command insignia on the shoulders."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests. This one has chipped blue command insignia on the shoulders."
 
 //Security
 /obj/item/clothing/suit/armor/vest/ert/security
 	name = "emergency response team security armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real. This one has chipped red security insignia on the shoulders."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests. This one has chipped red security insignia on the shoulders."
 	icon_state = "ertarmor_sec"
 
 //Paranormal
@@ -779,19 +779,19 @@
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer
 	name = "emergency response team engineer armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real. This one has chipped orange engineering insignia on the shoulders."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests. This one has chipped orange engineering insignia on the shoulders."
 	icon_state = "ertarmor_eng"
 
 //Medical
 /obj/item/clothing/suit/armor/vest/ert/medical
 	name = "emergency response team medical armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real. This one has chipped white medical insignia on the shoulders."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests. This one has chipped white medical insignia on the shoulders."
 	icon_state = "ertarmor_med"
 
 //Janitorial
 /obj/item/clothing/suit/armor/vest/ert/janitor
 	name = "emergency response team janitor armor"
-	desc = "A bargain-bin protective vest produced by Citadel Armories. The pauldrons and chest panel are made of decorative plastic, but at least the kevlar's real. This one has chipped purple janitorial insignia on the shoulders."
+	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests. This one has chipped purple janitorial insignia on the shoulders."
 	icon_state = "ertarmor_jan"
 
 //same defense as basic sec armor
