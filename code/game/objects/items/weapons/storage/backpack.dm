@@ -909,30 +909,30 @@
 //Commander
 /obj/item/storage/backpack/ert/commander
 	name = "emergency response team commander backpack"
-	desc = "A spacious backpack with lots of pockets, worn by the commander of a Nanotrasen Emergency Response Team."
+	desc = "A spacious blue-striped combat backpack with plenty of easily-accessible pockets."
 
 //Security
 /obj/item/storage/backpack/ert/security
 	name = "emergency response team security backpack"
-	desc = "A spacious backpack with lots of pockets, worn by security members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious red-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_security"
 
 //Engineering
 /obj/item/storage/backpack/ert/engineer
 	name = "emergency response team engineer backpack"
-	desc = "A spacious backpack with lots of pockets, worn by engineering members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious orange-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_engineering"
 
 //Medical
 /obj/item/storage/backpack/ert/medical
 	name = "emergency response team medical backpack"
-	desc = "A spacious backpack with lots of pockets, worn by medical members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious white-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_medical"
 
 //Janitorial
 /obj/item/storage/backpack/ert/janitor
 	name = "emergency response team janitor backpack"
-	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious purple-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_janitor"
 
 //Solgov
@@ -943,6 +943,6 @@
 
 /obj/item/storage/backpack/ert/deathsquad
 	name = "Deathsquad backpack"
-	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
+	desc = "A spacious red & black combat rucksack made of lightweight nanomesh. Likely the most intimidating backpack one will ever see."
 	icon_state = "ert_security"
 
