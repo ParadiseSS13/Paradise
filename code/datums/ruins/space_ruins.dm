@@ -213,7 +213,7 @@
 	id = "dj"
 	suffix = "dj.dmm"
 	name = "Soviet DJ Station"
-	description = "An old Union listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	description = "An old soviet era listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
 	cost = 2
 
 /datum/map_template/ruin/space/druglab
