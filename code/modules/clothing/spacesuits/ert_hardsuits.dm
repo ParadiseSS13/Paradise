@@ -91,7 +91,7 @@
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
 	name = "emergency response team security helmet"
-	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one's got red Security stripes."
+	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has red Security stripes."
 	icon_state = "hardsuit0-ert_security"
 	item_state = "syndicate-helm-black-red"
 	item_color = "ert_security"
