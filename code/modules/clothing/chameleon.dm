@@ -103,6 +103,11 @@
 /datum/action/item_action/chameleon/change/ui_state(mob/user)
 	return GLOB.physical_state
 
+/datum/action/item_action/chameleon/change/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_appearance"] = "[holder.name]_[holder.icon_state]"
+	return data
+
 /datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	var/list/chameleon_skins = list()
@@ -169,6 +174,7 @@
 		update_item(picked_item)
 		var/obj/item/thing = target
 		thing.update_slot_icon()
+		SStgui.update_uis(src)
 	UpdateButtons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
@@ -703,17 +709,21 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
-	. = ..()
 	if(ismodcontrol(target))
 		var/obj/item/mod/control/C = target
-		if(C.current_disguise) //backup check
+		C.current_disguise = FALSE
+		if(C.active || C.activating)
+			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			return
+		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
 				toreturn.return_look()
 			return
+		. = ..()
 		C.current_disguise = TRUE
 		C.item_state = initial(picked_item.item_state)
 		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
-			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look), TRUE)
 
 /datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
 	if(ismodcontrol(target))
