@@ -76,7 +76,7 @@
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
 	name = "emergency response team commander helmet"
-	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one's got blue Command stripes."
+	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has blue Command stripes."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
