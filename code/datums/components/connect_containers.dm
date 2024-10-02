@@ -12,7 +12,7 @@
 
 /datum/component/connect_containers/Initialize(atom/movable/tracked, list/connections)
 	. = ..()
-	if (!ismovable(tracked))
+	if(!ismovable(tracked))
 		return COMPONENT_INCOMPATIBLE
 
 	src.connections = connections
