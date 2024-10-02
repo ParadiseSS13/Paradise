@@ -1,7 +1,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert
 	name = "emergency response team helmet"
-	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. The HUD's software licensce has expired."
+	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
