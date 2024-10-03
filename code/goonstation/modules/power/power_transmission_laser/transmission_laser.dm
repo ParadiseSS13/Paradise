@@ -89,9 +89,9 @@
 			if(oldmap)
 				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 0, 			0,			1, 0),
-				list(0, 0, 			1,			1, 1),
-				list(0, 0, 		MACH_CENTER, 	1, 1),
+				list(0, 1, 			0,			0, 0),
+				list(1, 1, 			1,			0, 0),
+				list(1, 1, 		MACH_CENTER, 	0, 0),
 				list(0, 0, 			0, 			0, 0),
 				list(0, 0, 			0, 			0, 0),
 			))
@@ -104,9 +104,9 @@
 			AddComponent(/datum/component/multitile, 2, list(
 				list(0, 0, 			0,			0, 0),
 				list(0, 0, 			0,			0, 0),
-				list(1, 1, 		MACH_CENTER, 	0, 0),
-				list(1, 1, 			1, 			0, 0),
-				list(0, 1, 			0, 			0, 0),
+				list(0, 0, 		MACH_CENTER, 	1, 1),
+				list(0, 0, 			1, 			1, 1),
+				list(0, 0, 			0, 			1, 0),
 			))
 		if(WEST)
 			pixel_x = -64
@@ -115,9 +115,9 @@
 			if(oldmap)
 				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 0, 			1,			1, 0),
-				list(0, 0, 			1,			1, 1),
-				list(0, 0, 		MACH_CENTER, 	1, 0),
+				list(0, 1, 			1,			0, 0),
+				list(1, 1, 			1,			0, 0),
+				list(0, 1, 		MACH_CENTER, 	0, 0),
 				list(0, 0, 			0, 			0, 0),
 				list(0, 0, 			0, 			0, 0),
 			))
@@ -128,9 +128,9 @@
 			if(oldmap)
 				qdel(oldmap)
 			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 1, 			1,			0, 0),
-				list(1, 1, 			1,			0, 0),
-				list(0, 1, 		MACH_CENTER, 	0, 0),
+				list(0, 0, 			1,			1, 0),
+				list(0, 0, 			1,			1, 1),
+				list(0, 0, 		MACH_CENTER, 	1, 0),
 				list(0, 0, 			0, 			0, 0),
 				list(0, 0, 			0, 			0, 0),
 			))
