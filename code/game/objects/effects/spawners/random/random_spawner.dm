@@ -36,7 +36,7 @@
 	/// Whether blackbox should record when the spawner spawns.
 	var/record_spawn = FALSE
 	/// Where do we want to spawn an item (closet, safe etc.)
-	var/obj/spawn_inside = null
+	var/spawn_inside
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
