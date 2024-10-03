@@ -101,17 +101,18 @@
 				"tooltip" = tweak.info,
 			))
 
-		GLOB.gear_tgui_info[gear_type] += list(list(
-			"name" = gear.display_name,
-			"desc" = gear.description,
-			"icon" = gear_item.icon,
-			"icon_state" = gear_item.icon_state,
-			"category" = gear.sort_category,
-			"cost" = gear.cost,
-			"gear_tier" = gear.donator_tier,
-			"allowed_roles" = gear.allowed_roles,
-			"tweaks" = tweaks,
-		))
+		GLOB.gear_tgui_info[gear.sort_category] += list(
+			"[gear_type]" = list(
+				"name" = gear.display_name,
+				"desc" = gear.description,
+				"icon" = gear_item.icon,
+				"icon_state" = gear_item.icon_state,
+				"cost" = gear.cost,
+				"gear_tier" = gear.donator_tier,
+				"allowed_roles" = gear.allowed_roles,
+				"tweaks" = tweaks,
+			)
+		)
 
 		GLOB.gear_datums[gear_type] = gear
 
