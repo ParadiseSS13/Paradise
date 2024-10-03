@@ -440,4 +440,9 @@
 
 	host.atom_entered_beam(src, arrived)
 
+/// Explosions aren't supposed to make holes in a beam.
+/obj/effect/transmission_beam/ex_act(severity)
+	return
+
+
 #undef MINIMUM_POWER
