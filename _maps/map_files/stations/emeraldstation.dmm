@@ -78964,8 +78964,8 @@
 	},
 /area/station/security/prisonershuttle)
 "oIR" = (
-/obj/machinery/smartfridge,
 /obj/machinery/door/firedoor,
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "oIU" = (
