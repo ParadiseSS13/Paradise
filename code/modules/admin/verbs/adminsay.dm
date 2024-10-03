@@ -129,11 +129,8 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			var/class = "emoji_enabled"
-			if(check_rights(R_ADMIN|R_DEV_TEAM, 0, C.mob))
-				class = "emoji_enabled linkify"
 
-			msg = "<span class='[class]'>[msg]</span>"
+			msg = "<span class='emoji_enabled linkify'>[msg]</span>"
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
