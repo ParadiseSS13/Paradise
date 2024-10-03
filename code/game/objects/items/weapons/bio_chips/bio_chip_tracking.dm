@@ -23,6 +23,12 @@
 	. = ..()
 	if(!.)
 		return
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/anchor = H.get_int_organ(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/)
+		if(anchor)
+			target.visible_message("<span class='danger'>[src] sparks out, disrupted by [anchor] inside [H]!</span>")
+			return
 	internal_gps = new internal_gps_path(src)
 	if(gpstag)
 		internal_gps.gpstag = gpstag
