@@ -389,7 +389,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(loc, /obj/item/robot_module))
 		// If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return

@@ -502,10 +502,6 @@
 	if(!istype(I))
 		return FALSE
 
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
-		F.update_icon()
-
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
@@ -533,6 +529,13 @@
 	I.on_exit_storage(src)
 	update_icon()
 	return TRUE
+
+/obj/item/storage/fancy/remove_from_storage(obj/item/I, atom/new_location)
+	if(!istype(I))
+		return FALSE
+
+	update_icon()
+	return ..()
 
 /obj/item/storage/Exited(atom/A, loc)
 	remove_from_storage(A, loc) //worry not, comrade; this only gets called once

@@ -151,6 +151,11 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
+CONDITIONAL_ISTYPE_SRC = re.compile(r"if.+istype\(src,\s?\/[^turf]")
+def check_istype_src(idx, line):
+    if CONDITIONAL_ISTYPE_SRC.search(line):
+        return [(idx + 1, "Our coding requirements prohibits use of istype(src, /any_type).")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -164,6 +169,7 @@ CODE_CHECKS = [
     check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
+    check_istype_src,
 ]
 
 

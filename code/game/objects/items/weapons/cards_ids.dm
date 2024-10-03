@@ -266,22 +266,7 @@
 			to_chat(user, "This ID has already been stamped!")
 
 	else if(istype(W, /obj/item/card/id/guest))
-		if(istype(src, /obj/item/card/id/guest))
-			return
-		var/obj/item/card/id/guest/G = W
-		if(world.time > G.expiration_time)
-			to_chat(user, "There's no point, the guest pass has expired.")
-			return
-		if(guest_pass)
-			to_chat(user, "There's already a guest pass attached to this ID.")
-			return
-		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
-			to_chat(user, "The guest pass cannot be attached to this ID")
-			return
-		if(!user.unEquip(G))
-			return
-		G.loc = src
-		guest_pass = G
+		attach_guest_pass(W, user)
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
