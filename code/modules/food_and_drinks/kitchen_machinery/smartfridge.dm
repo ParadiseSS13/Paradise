@@ -459,7 +459,8 @@
 
 /obj/machinery/smartfridge/food/chef/proc/generate_starting_items()
 	// These plants are blocked for being inedable, downright toxic, RND plants, botany plants, or wheat.
-	var/list/static/forbidden_plants = list(/obj/item/food/grown/wheat,
+	var/list/static/forbidden_plants = list(
+		/obj/item/food/grown/wheat,
 		/obj/item/food/grown/meatwheat,
 		/obj/item/food/grown/shell/gatfruit,
 		/obj/item/food/grown/apple/poisoned,
@@ -506,7 +507,7 @@
 		/obj/item/food/grown/mushroom/fungus,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/ash_flora,
-		)
+	)
 	var/list/output = list()
 	for(var/I in 1 to 3)
 		var/obj/item/food/chosen
@@ -517,16 +518,18 @@
 		output[chosen] += 3
 	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
 	for(var/G in 1 to 2)
-		output += pick(/obj/item/reagent_containers/condiment/bbqsauce,
-					/obj/item/reagent_containers/condiment/soysauce,
-					/obj/item/reagent_containers/condiment/mayonnaise,
-					/obj/item/reagent_containers/condiment/cherryjelly,
-					/obj/item/reagent_containers/condiment/peanutbutter,
-					/obj/item/reagent_containers/condiment/honey,
-					/obj/item/reagent_containers/condiment/oliveoil,
-					/obj/item/reagent_containers/condiment/frostoil,
-					/obj/item/reagent_containers/condiment/wasabi,
-					/obj/item/reagent_containers/condiment/vinegar)
+		output += pick(
+			/obj/item/reagent_containers/condiment/bbqsauce,
+			/obj/item/reagent_containers/condiment/soysauce,
+			/obj/item/reagent_containers/condiment/mayonnaise,
+			/obj/item/reagent_containers/condiment/cherryjelly,
+			/obj/item/reagent_containers/condiment/peanutbutter,
+			/obj/item/reagent_containers/condiment/honey,
+			/obj/item/reagent_containers/condiment/oliveoil,
+			/obj/item/reagent_containers/condiment/frostoil,
+			/obj/item/reagent_containers/condiment/wasabi,
+			/obj/item/reagent_containers/condiment/vinegar
+		)
 	return output
 
 /**
