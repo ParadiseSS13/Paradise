@@ -18993,7 +18993,6 @@
 	},
 /area/station/hallway/primary/fore/south)
 "bhH" = (
-/obj/machinery/smartfridge,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
 	dir = 8
 	},
@@ -19004,6 +19003,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 8
 	},
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (

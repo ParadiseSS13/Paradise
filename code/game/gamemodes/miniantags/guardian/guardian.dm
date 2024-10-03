@@ -125,7 +125,7 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
-	..()
+	. = ..()
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
