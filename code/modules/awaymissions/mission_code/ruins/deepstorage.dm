@@ -1,5 +1,8 @@
+GLOBAL_LIST_EMPTY(fleshling)
+
 #define DS_BOSS_STORAGE "DS_BossStorage"
 #define DS_ENGINEERING "DS_Engineering"
+
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
 	desc = "A sinister mass of flesh molded into a grotesque shape. Nothing about it looks like the result of natural evolution. It looks agitated and clearly doesn't want you to leave here alive."
@@ -29,6 +32,19 @@
 	var/charging = FALSE
 	/// Did our boss die?
 	var/boss_killed = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/Initialize(mapload)
+	. = ..()
+	GLOB.fleshling += src
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/LateInitialize() // this is where we choose real gateopener among gateopener_candidate
+	var/list/remote_candidates = list()
+	for(var/mob/living/simple_animal/hostile/spaceinfected/gateopener_candidate/G in GLOB.alive_mob_list)
+		remote_candidates += G
+	if(length(remote_candidates))
+		var/mob/living/simple_animal/hostile/spaceinfected/gateopener_candidate/G = pick(remote_candidates)
+		G.chosen = TRUE
 
 // Below here is copy-pasted from /asteroid/big_legion
 
@@ -122,6 +138,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/Destroy()
+	GLOB.fleshling -= src
 	handle_dying()
 	return ..()
 
@@ -153,13 +170,14 @@
 	speed = 0
 	maxHealth = 150
 	health = 150
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/blood/innards,
@@ -200,33 +218,15 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/spaceinfected/gateopener // When this mob dies it'll trigger a poddoor open
-	/// Is our mob dead?
-	var/has_died = FALSE
-	loot = list(/obj/item/gun/energy/laser,
-			/obj/effect/decal/cleanable/blood/innards,
-			/obj/effect/decal/cleanable/blood,
-			/obj/effect/gibspawner/generic,
-			/obj/effect/gibspawner/generic) // First weapon this ruin provides
+/mob/living/simple_animal/hostile/spaceinfected/gateopener_candidate // One of these mobs will be randomly choosen in every round to drop a remote
+	/// Was this mob chosen to drop the remote on death?
+	var/chosen = FALSE
 
-/mob/living/simple_animal/hostile/spaceinfected/gateopener/Destroy()
-	handle_dying()
+/mob/living/simple_animal/hostile/spaceinfected/gateopener_candidate/Destroy()
+	if(chosen)
+		new /obj/item/gun/energy/laser(loc)
+		new /obj/item/deepstorage_remote(loc)
 	return ..()
-
-/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/handle_dying()
-	if(!has_died)
-		has_died = TRUE
-
-/mob/living/simple_animal/hostile/spaceinfected/gateopener/death(gibbed)
-	if(can_die() && !has_died)
-		unlock_blast_doors(DS_ENGINEERING)
-		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
-	return ..(gibbed)
-
-/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/unlock_blast_doors(target_id_tag)
-	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.open()
 
 /mob/living/simple_animal/hostile/spaceinfected/default/ranged
 	desc = "A reanimated corpse. This one is keeping its distance from you."
@@ -234,7 +234,7 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/neurotox
+	projectiletype = /obj/item/projectile/neurotox/condensed
 	projectilesound = 'sound/weapons/pierce.ogg'
 
 // Below here is ruin specific code
@@ -281,6 +281,53 @@
 /obj/effect/portal/advanced/deepstorage
 	name = "portal"
 	desc = "Good luck."
+
+/obj/effect/abstract/deepstorage_cheese_detector
+	name = "deepstorage anti-theft system"
+
+/obj/effect/abstract/deepstorage_cheese_detector/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	var/msg = "An unauthorized organism has been detected within the perimeter. Initiating cleaning process."
+	if(ishuman(AM) || isrobot(AM))
+		if(length(GLOB.fleshling) != 0)
+			for(var/mob/R in range(35, src))
+				to_chat(R, "<b><font size=4 color=red>Intruder Alert</font><br> <font size=3><span class='robot'>[msg]</font size></font></b></span>")
+				SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
+			explosion(loc, 3, 5, 6, flame_range = 6)
+		for(var/obj/effect/abstract/deepstorage_cheese_detector/DCD in urange(10, get_turf(src)))
+			qdel(DCD)
+
+/obj/item/documents/syndicate/unknown_specimen
+	name = "Unknown Specimen"
+	desc = "A bundle of sealed containers, holding some odd fleshy mass inside. Did something just move inside, or was it just your imagination? Central Command may be interested in studying this discovery."
+	icon = 'icons/obj/sellable.dmi'
+	icon_state = "specimen"
+	hitsound = 'sound/items/handling/salvagepickup.ogg'
+	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
+	drop_sound = 'sound/items/handling/salvagedrop.ogg'
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/deepstorage_remote
+	name = "worn remote"
+	desc = "A signaling device that can access several airlocks and gates in this derelict facility. Most of the buttons don't seem functional now, except for the one labeled 'Auxiliary Power Room.'"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-white"
+	var/used = FALSE
+
+/obj/item/deepstorage_remote/attack_self(mob/living/user)
+	if(!used)
+		used = TRUE
+		unlock_blast_doors(DS_ENGINEERING)
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
+		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You click the button but there is no response.</span>")
+
+/obj/item/deepstorage_remote/proc/unlock_blast_doors(target_id_tag)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && !P.operating)
+			P.open()
 
 // loot spawners
 

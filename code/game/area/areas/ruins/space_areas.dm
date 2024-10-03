@@ -9,6 +9,9 @@
 /area/ruin/space/unpowered
 	always_unpowered = FALSE
 
+/area/ruin/space/unpowered/teleproof
+	tele_proof = TRUE
+
 /area/ruin/space/unpowered/no_grav
 	has_gravity = FALSE
 
@@ -244,6 +247,12 @@
 /area/ruin/space/deepstorage
 	name = "Derelict Facility"
 	apc_starts_off = TRUE
+	tele_proof = TRUE
+
+/area/ruin/space/deepstorage/teleport_allowed
+	icon_state = "red"
+	tele_proof = FALSE
+	requires_power = FALSE
 
 /area/ruin/space/sec_shuttle
 	name = "Abandoned Security Shuttle"
