@@ -528,7 +528,7 @@
 			/obj/item/reagent_containers/condiment/oliveoil,
 			/obj/item/reagent_containers/condiment/frostoil,
 			/obj/item/reagent_containers/condiment/wasabi,
-			/obj/item/reagent_containers/condiment/vinegar
+			/obj/item/reagent_containers/condiment/vinegar,
 		)
 	return output
 
