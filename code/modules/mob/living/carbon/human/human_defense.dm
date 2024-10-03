@@ -438,7 +438,12 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(mob/user)
+	var/obj/item/organ/external/affecting
+	if(!user.zone_selected) // pulse demons really.
+		affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG))
+	else
+		affecting = get_organ(user.zone_selected)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
@@ -447,9 +452,9 @@ emp_act
 	if(affecting.sabotaged)
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
-		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
+		to_chat(user, "<span class='warning'>You sneakily hack into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = TRUE
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/grabbedby(mob/living/user)
 	if(w_uniform)
@@ -493,8 +498,6 @@ emp_act
 		visible_message("<span class='warning'>[src] blocks [I]!</span>")
 		return FALSE
 
-	if(istype(I,/obj/item/card/emag))
-		emag_act(user, affecting)
 
 	send_item_attack_message(I, user, hit_area)
 

@@ -301,7 +301,7 @@
 		//rating acts
 		if("set_rating")
 			if(params["rating_value"])
-				user_data.selected_rating = text2num(params["rating_value"])
+				user_data.selected_rating = clamp(text2num(params["rating_value"]), 0, 10)
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)

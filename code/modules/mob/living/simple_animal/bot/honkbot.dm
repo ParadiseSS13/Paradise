@@ -330,7 +330,7 @@
 			if(emagged) // actually emagged
 				bike_horn()
 			else
-				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
+				if((C in view(4, src)) && !spam_flag) //keep the range short for patrolling
 					bike_horn()
 			continue
 

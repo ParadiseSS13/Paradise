@@ -208,3 +208,4 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
+	assignedrole = "Free Golem"

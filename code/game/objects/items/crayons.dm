@@ -359,6 +359,9 @@
 	attackee.lip_color = colour
 	attackee.update_body()
 
+	play_spray_sound(user)
+
+/obj/item/toy/crayon/spraycan/proc/play_spray_sound(mob/user)
 	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
 
 /obj/item/toy/crayon/spraycan/update_icon_state()

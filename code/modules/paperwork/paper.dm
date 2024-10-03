@@ -319,7 +319,7 @@
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (usr in get_turf(src) || loc.Adjacent(usr))))
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && ((usr in get_turf(src)) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")

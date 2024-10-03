@@ -661,6 +661,7 @@
 
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SHOVE_IMPACT, target, attacker)
 	return FALSE
 
 /**

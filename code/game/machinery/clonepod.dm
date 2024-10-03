@@ -245,7 +245,7 @@
 					create_clone()
 					return
 
-				if(clone.cloneloss >= 25)
+				if(clone.getCloneLoss() >= 25)
 					clone.adjustCloneLoss(-2)
 					return
 
@@ -373,7 +373,7 @@
 		reset_cloning()
 		return TRUE
 
-	if(!clone.cloneloss)
+	if(!clone.getCloneLoss())
 		clone.forceMove(loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
