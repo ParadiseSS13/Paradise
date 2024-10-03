@@ -107,7 +107,7 @@
 	add_queue('modular_ss220/aesthetics_sounds/sound/hev/death.ogg', 5 SECONDS, purge_queue=TRUE)
 
 //Mute
-/obj/item/clothing/suit/space/hev/proc/handle_speech(datum/source, mob/speech_args)
+/obj/item/clothing/suit/space/hev/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 	var/static/list/cancel_messages = list(
 		"Вам трудно говорить, когда костюм туго сдавливает ваше горло...",
