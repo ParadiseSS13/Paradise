@@ -135,6 +135,9 @@ const LoadoutGears = (props, context) => {
         })
         .map(({ key, gear }) => {
           const maxTextLength = 12;
+          const selected = Object.keys(data.selected_gears).includes(key);
+          const costText = gear.cost === 1 ? `${gear.cost} Point` : `${gear.cost} Points`;
+
           const tooltipText = (
             <Box>
               {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
@@ -155,8 +158,8 @@ const LoadoutGears = (props, context) => {
               dmIconState={gear.icon_state}
               tooltip={(gear.name.length > maxTextLength || gear.gear_tier > 0) && tooltipText}
               tooltipPosition={'bottom'}
-              selected={Object.keys(data.selected_gears).includes(key)}
-              disabled={gear.gear_tier > 0}
+              selected={selected}
+              disabled={gear.gear_tier > 0 || (data.gear_slots + gear.cost > data.max_gear_slots && !selected)}
               buttons={
                 <>
                   {gear.allowed_roles && (
@@ -190,11 +193,16 @@ const LoadoutGears = (props, context) => {
                 </>
               }
               buttonsAlt={
-                gear.gear_tier > 0 && (
-                  <Box lineHeight={1.75} style={{ 'text-shadow': '0 0 3px 6px rgba(0, 0, 0, 0.5)' }}>
-                    Tier {gear.gear_tier}
-                  </Box>
-                )
+                <Box class="Loadout-InfoBox">
+                  <Stack fill>
+                    <Stack.Item grow textAlign="left" fontSize={1} color="gold" opacity={0.5}>
+                      {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
+                    </Stack.Item>
+                    <Stack.Item fontSize={0.75} color="gray">
+                      {costText}
+                    </Stack.Item>
+                  </Stack>
+                </Box>
               }
               onClick={() => act('toggle_gear', { gear: key })}
             >
@@ -266,7 +274,15 @@ const LoadoutEquipped = (props, context) => {
       </Stack.Item>
       <Stack.Item>
         <Section>
-          <ProgressBar value={data.gear_slots} maxValue={data.max_gear_slots} styles={{ textAlign: 'center' }}>
+          <ProgressBar
+            value={data.gear_slots}
+            maxValue={data.max_gear_slots}
+            ranges={{
+              bad: [data.max_gear_slots, Infinity],
+              average: [data.max_gear_slots * 0.66, data.max_gear_slots],
+              good: [0, data.max_gear_slots * 0.66],
+            }}
+          >
             <Box textAlign="center">
               Used points {data.gear_slots}/{data.max_gear_slots}
             </Box>
