@@ -398,7 +398,7 @@
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("runechat_color")
-					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color)
+					var/result = tgui_input_color(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color)
 					if(isnull(result))
 						return
 					active_character.runechat_color = result
