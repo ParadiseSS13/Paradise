@@ -97,7 +97,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "as" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
 "at" = (
@@ -5449,7 +5449,7 @@
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
 "qi" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "qm" = (
@@ -5497,7 +5497,7 @@
 	},
 /area/mine/laborcamp)
 "qJ" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp)
 "qK" = (
@@ -5983,7 +5983,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "tZ" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "ua" = (
@@ -8906,7 +8906,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "KD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "KE" = (
@@ -10999,7 +10999,7 @@
 /area/lavaland/surface/outdoors/legion)
 "XI" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XL" = (
@@ -11409,7 +11409,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ZZ" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp/security)
 
