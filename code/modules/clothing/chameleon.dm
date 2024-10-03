@@ -111,7 +111,7 @@
 /datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	var/list/chameleon_skins = list()
-	for(var/V in chameleon_list[chameleon_name])
+	for(var/obj/item/V in chameleon_list[chameleon_name])
 		chameleon_skins.Add(list(list(
 			"icon" = initial(chameleon_list[chameleon_name][V].icon),
 			"icon_state" = initial(chameleon_list[chameleon_name][V].icon_state),
@@ -131,7 +131,7 @@
 /datum/action/item_action/chameleon/change/ui_act(action, list/params)
 	if(..())
 		return
-		
+
 	switch(action)
 		if("change_appearance")
 			update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
