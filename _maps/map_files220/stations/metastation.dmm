@@ -52376,7 +52376,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "hbB" = (
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/legal/magistrate)
 "hbN" = (
