@@ -6,6 +6,8 @@
 }
 
 .Loadout-InfoBox {
-  line-height: 1.25em;
-  text-shadow: 0 2px 0 2px rgba(0, 0, 0, 0.33);
+  display: flex;
+  line-height: 1.2rem;
+  text-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.66);
+  text-align: left;
 }

@@ -89,6 +89,7 @@ const LoadoutCategories = (props, context) => {
 
 const LoadoutGears = (props, context) => {
   const { act, data } = useBackend<Data>(context);
+  const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
   const [sorting, setSorting] = useLocalState(context, 'sorting', false);
 
@@ -130,6 +131,7 @@ const LoadoutGears = (props, context) => {
       {Object.entries(data.gears[category])
         .map(([key, gear]) => ({ key, gear }))
         .sort((a, b) => sorting && a.gear.name.localeCompare(b.gear.name))
+        /* NOTE: Make cross-category search. Now it searching only in category */
         .filter(({ gear }) => {
           return gear.name.toLowerCase().includes(searchText.toLowerCase());
         })
@@ -149,6 +151,50 @@ const LoadoutGears = (props, context) => {
             </Box>
           );
 
+          const tooltipsInfo = (
+            <>
+              {gear.allowed_roles && (
+                <Button
+                  width="22px"
+                  color="transparent"
+                  icon="user"
+                  tooltip={
+                    <Section m={-1} title="Allowed Roles">
+                      {gear.allowed_roles.map((role) => (
+                        <Box key={role}>{role}</Box>
+                      ))}
+                    </Section>
+                  }
+                  tooltipPosition="left"
+                />
+              )}
+              {Object.entries(gear.tweaks).map(([key, tweaks]) =>
+                tweaks.map((tweak) => (
+                  <Button
+                    key={key}
+                    width="22px"
+                    color="transparent"
+                    icon={tweak.icon}
+                    tooltip={tweak.tooltip}
+                    tooltipPosition="top"
+                  />
+                ))
+              )}
+              <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
+            </>
+          );
+
+          const textInfo = (
+            <Box class="Loadout-InfoBox">
+              <Box style={{ 'flex-grow': 1 }} fontSize={1} color="gold" opacity={0.75}>
+                {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
+              </Box>
+              <Box fontSize={0.75} opacity={0.66}>
+                {costText}
+              </Box>
+            </Box>
+          );
+
           return (
             <ImageButton
               key={key}
@@ -159,51 +205,9 @@ const LoadoutGears = (props, context) => {
               tooltip={(gear.name.length > maxTextLength || gear.gear_tier > 0) && tooltipText}
               tooltipPosition={'bottom'}
               selected={selected}
-              disabled={gear.gear_tier > 0 || (data.gear_slots + gear.cost > data.max_gear_slots && !selected)}
-              buttons={
-                <>
-                  {gear.allowed_roles && (
-                    <Button
-                      width="22px"
-                      color="transparent"
-                      icon="user"
-                      tooltip={
-                        <Section m={-1} title="Allowed Roles">
-                          {gear.allowed_roles.map((role) => (
-                            <Box key={role}>{role}</Box>
-                          ))}
-                        </Section>
-                      }
-                      tooltipPosition="left"
-                    />
-                  )}
-                  {Object.entries(gear.tweaks).map(([key, tweaks]) =>
-                    tweaks.map((tweak) => (
-                      <Button
-                        key={key}
-                        width="22px"
-                        color="transparent"
-                        icon={tweak.icon}
-                        tooltip={tweak.tooltip}
-                        tooltipPosition="top"
-                      />
-                    ))
-                  )}
-                  <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
-                </>
-              }
-              buttonsAlt={
-                <Box class="Loadout-InfoBox">
-                  <Stack fill>
-                    <Stack.Item grow textAlign="left" fontSize={1} color="gold" opacity={0.5}>
-                      {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
-                    </Stack.Item>
-                    <Stack.Item fontSize={0.75} color="gray">
-                      {costText}
-                    </Stack.Item>
-                  </Stack>
-                </Box>
-              }
+              disabled={gear.gear_tier > user_tier || (gear_slots + gear.cost > max_gear_slots && !selected)}
+              buttons={tooltipsInfo}
+              buttonsAlt={textInfo}
               onClick={() => act('toggle_gear', { gear: key })}
             >
               {gear.name}
@@ -217,11 +221,13 @@ const LoadoutGears = (props, context) => {
 const LoadoutEquipped = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const { setTweakedGear } = props;
-  const selectedGears = Object.entries(data.gears).flatMap(([categoryKey, categoryItems]) =>
-    Object.entries(categoryItems)
+  const selectedGears = Object.entries(data.gears).reduce((a, [categoryKey, categoryItems]) => {
+    const selectedInCategory = Object.entries(categoryItems)
       .filter(([gearKey]) => Object.keys(data.selected_gears).includes(gearKey))
-      .map(([gearKey, gear]) => ({ key: gearKey, ...gear }))
-  );
+      .map(([gearKey, gear]) => ({ key: gearKey, ...gear }));
+
+    return a.concat(selectedInCategory);
+  }, []);
 
   return (
     <Stack fill vertical>
