@@ -373,6 +373,10 @@
 	name = "Corgi Shirt"
 	icon_state = "shirt_corgi"
 
+/datum/sprite_accessory/undershirt/shirt_en
+	name = "Borgi Shirt" // E-N!
+	icon_state = "shirt_borgi"
+
 /datum/sprite_accessory/undershirt/shirt_clown
 	name = "Clown Shirt"
 	icon_state = "shirt_clown"

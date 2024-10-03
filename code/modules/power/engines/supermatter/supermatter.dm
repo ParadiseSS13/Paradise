@@ -559,6 +559,8 @@
 			var/mole_crunch_bonus = 0
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
 				mole_crunch_bonus = 7000 //This adds 7000 EER worth of power to the SM. This should make mole crunch potentially worthy as a SM setup, if not risky. More stable than the anomalies, but very easy to push over the edge. Don't forget, a high EER setup can harvest power through zaps
+				if(!has_been_powered) // Nice try, no free no risk power
+					enable_for_the_first_time()
 			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + mole_crunch_bonus)
 
 		//Power * 0.55 * a value between 1 and 0.8

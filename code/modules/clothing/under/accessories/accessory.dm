@@ -444,7 +444,7 @@
 			var/obj/item/pda/pda = I
 			id_card = pda.id
 
-		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+		if((ACCESS_SEC_DOORS in id_card.access) || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
