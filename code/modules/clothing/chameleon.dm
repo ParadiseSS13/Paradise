@@ -111,8 +111,8 @@
 /datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	var/list/chameleon_skins = list()
-	for(var/obj/item/V in chameleon_list[chameleon_name])
-		var/obj/item/chameleon_item = chameleon_list[chameleon_name][V]
+	for(var/chameleon_type in chameleon_list[chameleon_name])
+		var/obj/item/chameleon_item = chameleon_list[chameleon_name][chameleon_type]
 		chameleon_skins.Add(list(list(
 			"icon" = initial(chameleon_item.icon),
 			"icon_state" = initial(chameleon_item.icon_state),
