@@ -196,9 +196,13 @@
 
 /datum/component/shelver/gun_rack
 	placement_zones = list(
-		list(1,  1, 10, 32) = list("x" = -8, "y" = -1),
-		list(11, 1, 20, 32) = list("x" = 0, "y" = -1),
-		list(21, 1, 32, 32) = list("x" = 8, "y" = -1),
+		// SS220 EDIT START more guns on rack
+		list(1,  1, 7, 32) = list("x" = -12, "y" = -1),
+		list(8, 1, 13, 32) = list("x" = -6, "y" = -1),
+		list(14, 1, 19, 32) = list("x" = 0, "y" = -1),
+		list(20, 1, 25, 32) = list("x" = 6, "y" = -1),
+		list(26, 1, 32, 32) = list("x" = 12, "y" = -1),
+		// SS220 EDIT END
 	)
 	default_scale = 0.80
 	default_rotation = -90

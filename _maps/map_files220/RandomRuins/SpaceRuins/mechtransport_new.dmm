@@ -742,7 +742,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "rs" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plating,
@@ -865,7 +865,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "uk" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -1860,7 +1860,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "LY" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "Md" = (
@@ -1981,7 +1981,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Po" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)

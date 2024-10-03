@@ -908,7 +908,7 @@
 /area/station/security/prisonershuttle)
 "afe" = (
 /obj/structure/window/reinforced,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -1296,7 +1296,7 @@
 /turf/space,
 /area/shuttle/gamma/station)
 "ahG" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -1486,7 +1486,7 @@
 	},
 /area/station/security/armory/secure)
 "aiq" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -1581,7 +1581,7 @@
 	},
 /area/station/security/brig)
 "aiN" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1771,7 +1771,7 @@
 	},
 /area/station/security/armory/secure)
 "ajr" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/sslr{
 	pixel_x = -4
 	},

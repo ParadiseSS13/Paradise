@@ -224,7 +224,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "acU" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/sslr{
 	pixel_x = -4
 	},
@@ -57178,7 +57178,7 @@
 /obj/item/gun/energy/laser{
 	pixel_x = 6
 	},
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "grY" = (
@@ -66278,7 +66278,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "jeM" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/gun/energy/gun{
 	pixel_x = 2
@@ -80584,7 +80584,7 @@
 /area/station/engineering/hardsuitstorage)
 "nqn" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -2
 	},
@@ -88040,7 +88040,7 @@
 /obj/item/gun/energy/disabler{
 	pixel_x = 6
 	},
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
