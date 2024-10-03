@@ -5279,9 +5279,17 @@
 /obj/structure/light_fake{
 	dir = 4
 	},
-/obj/machinery/economy/vending/secdrobe{
-	prices = list()
-	},
+/obj/structure/closet,
+/obj/item/clothing/suit/armor/secjacket,
+/obj/item/clothing/head/helmet,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/storage/belt/security/full,
+/obj/item/clothing/head/soft/sec/corp,
+/obj/item/storage/backpack/security,
+/obj/item/clothing/suit/armor/vest/security,
+/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/shoes/jackboots,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredaltstrip";
 	dir = 5
