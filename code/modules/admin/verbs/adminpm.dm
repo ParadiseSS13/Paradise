@@ -96,14 +96,15 @@
 	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
-	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, mob)))
-		send_span = "mentorhelp"
-		receive_span = "mentorhelp"
+	var/sender_admin_check = check_rights(R_ADMIN|R_MOD, 0, mob)
+	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || sender_admin_check))
+		send_span = sender_admin_check ? "mentorhelp linkify" : "mentorhelp"
+		receive_span = sender_admin_check ? "mentorhelp linkify" : "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
 		tickets_system = SSmentor_tickets
 	else
-		send_span = "adminhelp"
-		receive_span = "adminhelp"
+		send_span = sender_admin_check ? "adminhelp linkify" : "adminhelp"
+		receive_span = sender_admin_check ? "adminhelp linkify" : "adminhelp"
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
@@ -214,9 +215,9 @@
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_mhelp("<span class='[sender_admin_check ? "adminhelp linkify" : "mentor"]'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
 	else
-		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_ahelp("<span class='[sender_admin_check ? "adminhelp linkify" : "adminhelp"]'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it

@@ -166,8 +166,11 @@ export const highlightNode = (node, regex, words, createNode = createHighlightNo
 // Linkify
 // --------------------------------------------------------
 
-// prettier-ignore
-const URL_REGEX = /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/ig;
+// URL_REGEX: Matches URLs but excludes common image extensions
+const URL_REGEX = /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/gi;
+
+// IMG_REGEX: Matches image URLs, including data URLs
+const IMG_REGEX = /(?:(?:https?|data):\/\/|\/\/)\S+\.(?:png|jpg|jpeg|gif|webp|svg|bmp|ico)(?:\?.*)?/gi;
 
 /**
  * Highlights the text in the node based on the provided regular expression.
@@ -184,7 +187,7 @@ export const linkifyNode = (node) => {
     // Is a text node
     if (node.nodeType === 3) {
       n += linkifyTextNode(node);
-    } else if (tag !== 'a') {
+    } else if (tag !== 'a' && tag !== 'img') {
       n += linkifyNode(node);
     }
   }
@@ -192,6 +195,18 @@ export const linkifyNode = (node) => {
 };
 
 const linkifyTextNode = replaceInTextNode(URL_REGEX, null, (text) => {
+  const match = IMG_REGEX.exec(text);
+  if (match) {
+    const fragment = document.createDocumentFragment();
+    const image_node = document.createElement('img');
+    // Use the matched URL from the regex group
+    image_node.src = match[0];
+    image_node.alt = text; // URL as alt text
+    fragment.appendChild(document.createElement('br')); // Add a line break
+    fragment.appendChild(image_node);
+    fragment.appendChild(document.createElement('br'));
+    return fragment;
+  }
   const node = document.createElement('a');
   node.href = text;
   node.textContent = text;
