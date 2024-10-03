@@ -134,3 +134,8 @@
 /obj/item/clothing/head/towel/brown
 	name = "коричневая шапочка из полотенца"
 	color = "#DEB887"
+
+/obj/item/clothing/head/beret/centcom/intern
+	name = "nanotrasen intern beret"
+	desc = "Берет стажера НТ. Белый берет с зеленой звездой. Выглядит подозрительно похожим на берет главного инженера..."
+	icon_state = "beret_ce"

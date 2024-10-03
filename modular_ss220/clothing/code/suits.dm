@@ -262,6 +262,21 @@
 	desc = "Парадный плащ нового образца, внедряемый на объектах компании в последнее время. Отличительной чертой является стоячий воротник и резаный подол. Невысокие показатели защиты нивелируются пафосом, источаемым этим плащом."
 	icon_state = "ntsc_coat"
 
+/obj/item/clothing/under/rank/centcom/intern
+	name = "nanotrasen intern uniform"
+	desc = "Стандартная униформа стажера НТ. Обладает не самым хорошим качеством, однако вполне сгодится для удовлетворения амбиций стажера. В комплекте идёт зеленый галстук. Слава НТ!"
+	icon = 'icons/obj/clothing/under/procedure.dmi'
+	icon_state = "iaa"
+	item_state = "iaa"
+	item_color = "iaa"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/procedure.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/procedure.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/procedure.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/procedure.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/procedure.dmi'
+		)
+
 /* SYNDICATE */
 /obj/item/clothing/suit/space/deathsquad/officer/syndie
 	name = "куртка офицера синдиката"
