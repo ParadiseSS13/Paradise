@@ -63,7 +63,10 @@
 		3 = "Unathi",
 		4 = "Tajaran",
 		5 = "Nian",
-		6 = "Vulpkanin"
+		6 = "Vulpkanin",
+		7 = "Kidan",
+		8 = "Grey",
+		9 = "Drask"
 	)
 
 	var/reagent_skin_coloring = FALSE
@@ -96,72 +99,39 @@
 		var/new_icobase = 'icons/mob/human_races/r_slime.dmi' //Default slime person.
 		if(H.species_subtype == species_subtype) // No update, no need to go further.
 			return
-		//bodyflags = initial(bodyflags)
-		switch(H.species_subtype)
-			if("Vulpkanin") // Vulp
-				new_icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
-				species_subtype = "Vulpkanin"
-				name = "Vulpkanin"
-				tail = "vulptail"
-				wing = null
-				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("Nian") // Nian
-				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
-				species_subtype = "Nian"
-				name = "Nian"
-				tail = null
-				wing = "plain"
-				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_WING)
-				H.body_accessory = null
-			if("Tajaran") // Tajaran
-				new_icobase = 'icons/mob/human_races/r_tajaran.dmi'
-				species_subtype = "Tajaran"
-				name = "Tajaran"
-				tail = "tajtail"
-				wing = null
-				//bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("Unathi") // Unathi
-				new_icobase = 'icons/mob/human_races/r_lizard.dmi'
-				species_subtype = "Unathi"
-				tail = "sogtail"
-				wing = null
-				//bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("Vox") // Vox :)
-				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				name = "Vox"
-				tail = "voxtail_gry"
-				wing = null
-				species_subtype = "Vox"
-				//bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("None") // Regular slime person
-				// Reset
-				new_icobase = initial(icobase)
-				species_subtype = "None"
-				name = "Slime People"
-				tail = null
-				eyes = initial(eyes)
-				wing = null
-				//bodyflags = initial(bodyflags)
-				H.body_accessory = null
-
-		if(species_subtype != "None")
+		species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
+		if(species_subtype != "None") // Update our species display and reference name to match the subtype. Used for species specific clothing and accessories.
 			sprite_sheet_name = species_subtype
 		else
-			sprite_sheet_name = name
+			sprite_sheet_name = name // Resets sprite sheet back to slime people.
+
 		var/datum/species/s = GLOB.all_species[species_subtype]
 		if(isnull(s))
-			s = src
+			s = GLOB.all_species[name] // Reset species fully to slime person again.
+
+		// Copy over new species variables to our current species.
+		new_icobase = s.icobase
+		tail = s.tail
+		wing = s.wing
+		eyes = s.eyes
+		scream_verb = s.scream_verb
+		male_scream_sound = s.male_scream_sound
+		female_scream_sound = s.female_scream_sound
+		default_headacc = s.default_headacc
+		default_bodyacc = s.default_bodyacc
+		male_cough_sounds = s.male_cough_sounds
+		female_cough_sounds = s.female_cough_sounds
+		male_sneeze_sound = s.male_sneeze_sound
+		female_sneeze_sound = s.female_sneeze_sound
+
+		H.body_accessory = default_bodyacc
+		H.tail = tail
+		H.wing = wing
 		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base in the case they have robotic limbs
 			limb.icobase = s.icobase // update their icobase for when we apply the slimfy effect
 			limb.set_company(limb.model, sprite_sheet_name)
 
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
-		H.tail = tail
-		H.wing = wing
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 		head.h_style = "Bald"
@@ -171,9 +141,6 @@
 		H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 		H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-
-/datum/species/slime/proc/slimify(mob/living/carbon/human/H) // WIP -- MutableAppearance, greyscale then overlay slime color over.
-	return
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -314,6 +281,7 @@
 		H.regenerate_icons()
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to shift your form!</span>")
+
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
