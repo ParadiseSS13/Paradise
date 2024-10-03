@@ -164,7 +164,7 @@
 
 /obj/item/trash/spentcasing/shotgun/dragonsbreath
 	name = "spent dragonsbreath shell"
-	desc = "A spent shotgun shell. It smells like cordite, burnt plastic, and a hint of petrolium."
+	desc = "A spent shotgun shell. It smells like cordite, burnt plastic, and a hint of petroleum."
 	icon_state = "ishell"
 
 /obj/item/trash/spentcasing/shotgun/stun
