@@ -55,7 +55,7 @@
 	var/turf/T = get_turf(src)
 	check_gravity(T)
 
-	if((T && (T.density)) || !gravity_check || locate(/obj/structure/window/) in T || locate(/obj/structure/grille/) in T)
+	if(!istype(src, /obj/effect/decal/cleanable/blood/footprints) && ((T && (T.density)) || !gravity_check || locate(/obj/structure/window/full) in T || locate(/obj/structure/grille/) in T))
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
