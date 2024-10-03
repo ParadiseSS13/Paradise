@@ -88,12 +88,10 @@
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			if(oldmap)
 				qdel(oldmap)
-			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 1, 			0,			0, 0),
-				list(1, 1, 			1,			0, 0),
-				list(1, 1, 		MACH_CENTER, 	0, 0),
-				list(0, 0, 			0, 			0, 0),
-				list(0, 0, 			0, 			0, 0),
+			AddComponent(/datum/component/multitile, list(
+				list(0, 1, 			0,		),
+				list(1, 1, 			1,		),
+				list(1, 1, 		MACH_CENTER),
 			))
 		if(SOUTH)
 			pixel_x = 0
@@ -101,12 +99,10 @@
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			if(oldmap)
 				qdel(oldmap)
-			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 0, 			0,			0, 0),
-				list(0, 0, 			0,			0, 0),
-				list(0, 0, 		MACH_CENTER, 	1, 1),
-				list(0, 0, 			1, 			1, 1),
-				list(0, 0, 			0, 			1, 0),
+			AddComponent(/datum/component/multitile, list(
+				list(MACH_CENTER, 	1, 1),
+				list(1, 			1, 1),
+				list(0, 			1, 0),
 			))
 		if(WEST)
 			pixel_x = -64
@@ -114,12 +110,10 @@
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			if(oldmap)
 				qdel(oldmap)
-			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 1, 			1,			0, 0),
-				list(1, 1, 			1,			0, 0),
-				list(0, 1, 		MACH_CENTER, 	0, 0),
-				list(0, 0, 			0, 			0, 0),
-				list(0, 0, 			0, 			0, 0),
+			AddComponent(/datum/component/multitile, list(
+				list(0, 1, 			1,		),
+				list(1, 1, 			1,		),
+				list(0, 1, 		MACH_CENTER),
 			))
 		if(EAST)
 			pixel_x = 0
@@ -127,12 +121,10 @@
 			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
 			if(oldmap)
 				qdel(oldmap)
-			AddComponent(/datum/component/multitile, 2, list(
-				list(0, 0, 			1,			1, 0),
-				list(0, 0, 			1,			1, 1),
-				list(0, 0, 		MACH_CENTER, 	1, 0),
-				list(0, 0, 			0, 			0, 0),
-				list(0, 0, 			0, 			0, 0),
+			AddComponent(/datum/component/multitile, list(
+				list(1,				1, 0),
+				list(1,				1, 1),
+				list(MACH_CENTER, 	1, 0),
 			))
 
 /obj/machinery/power/transmission_laser/Destroy()
