@@ -143,7 +143,7 @@ const LoadoutGears = (props, context) => {
           const tooltipText = (
             <Box>
               {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
-              {gear.gear_tier > 0 && (
+              {gear.gear_tier > user_tier && (
                 <Box mt={gear.name.length > maxTextLength && 1.5} textColor="red">
                   That gear is only available at a higher donation tier than you are on.
                 </Box>
