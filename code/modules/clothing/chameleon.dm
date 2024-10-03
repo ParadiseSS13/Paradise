@@ -112,10 +112,11 @@
 	var/list/data = list()
 	var/list/chameleon_skins = list()
 	for(var/obj/item/V in chameleon_list[chameleon_name])
+		var/obj/item/chameleon_item = chameleon_list[chameleon_name][V]
 		chameleon_skins.Add(list(list(
-			"icon" = initial(chameleon_list[chameleon_name][V].icon),
-			"icon_state" = initial(chameleon_list[chameleon_name][V].icon_state),
-			"name" = initial(chameleon_list[chameleon_name][V].name),
+			"icon" = initial(chameleon_item.icon),
+			"icon_state" = initial(chameleon_item.icon_state),
+			"name" = initial(chameleon_item.name),
 		)))
 
 	data["chameleon_skins"] = chameleon_skins
