@@ -129,6 +129,9 @@
 		ui.set_autoupdate(FALSE)
 
 /datum/action/item_action/chameleon/change/ui_act(action, list/params)
+	if(..())
+		return
+		
 	switch(action)
 		if("change_appearance")
 			update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
