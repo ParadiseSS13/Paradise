@@ -1,6 +1,18 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Dimmer, ImageButton, Button, Input, Section, Tabs, ProgressBar, Stack, LabeledList } from '../components';
+import {
+  Box,
+  Dimmer,
+  Dropdown,
+  ImageButton,
+  Button,
+  Input,
+  Section,
+  Tabs,
+  ProgressBar,
+  Stack,
+  LabeledList,
+} from '../components';
 import { Window } from '../layouts';
 import { createLogger } from '../logging';
 const logger = createLogger('Loadout');
@@ -28,6 +40,12 @@ type Tweak = {
   name: string;
   icon: string;
   tooltip: string;
+};
+
+const sortTypes = {
+  'Default': (a, b) => a.gear.gear_tier - b.gear.gear_tier,
+  'Alphabetical': (a, b) => a.gear.name.toLowerCase().localeCompare(b.gear.name.toLowerCase()),
+  'Cost': (a, b) => a.gear.cost - b.gear.cost,
 };
 
 export const Loadout = (props, context) => {
@@ -91,7 +109,20 @@ const LoadoutGears = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
-  const [sorting, setSorting] = useLocalState(context, 'sorting', false);
+
+  const [sortType, setSortType] = useLocalState(context, 'sortType', 'Default');
+  const [sortReverse, setsortReverse] = useLocalState(context, 'sortReverse', false);
+
+  let contents = Object.entries(data.gears[category])
+    .map(([key, gear]) => ({ key, gear }))
+    .sort(sortTypes[sortType])
+    /* NOTE: Make cross-category search. Now it searching only in category */
+    .filter(({ gear }) => {
+      return gear.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+  if (sortReverse) {
+    contents = contents.reverse();
+  }
 
   return (
     <Section
@@ -99,121 +130,127 @@ const LoadoutGears = (props, context) => {
       scrollable
       title={category}
       buttons={
-        <>
-          <Button
-            icon="arrow-down-a-z"
-            selected={sorting}
-            tooltip="Sort gears alphabetically"
-            tooltipPosition="bottom-end"
-            onClick={() => setSorting(!sorting)}
-          />
-          {search && (
-            <Input
-              width={20}
-              placeholder="Search..."
-              value={searchText}
-              onInput={(e) => setSearchText(e.target.value)}
+        <Stack>
+          <Stack.Item>
+            <Dropdown
+              height={1.66}
+              selected={sortType}
+              options={Object.keys(sortTypes)}
+              onSelected={(value) => setSortType(value)}
             />
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              icon={sortReverse ? 'arrow-down-wide-short' : 'arrow-down-short-wide'}
+              tooltip={sortReverse ? 'Ascending order' : 'Descending order'}
+              tooltipPosition="bottom-end"
+              onClick={() => setsortReverse(!sortReverse)}
+            />
+          </Stack.Item>
+          {search && (
+            <Stack.Item>
+              <Input
+                width={20}
+                placeholder="Search..."
+                value={searchText}
+                onInput={(e) => setSearchText(e.target.value)}
+              />
+            </Stack.Item>
           )}
-          <Button
-            icon="magnifying-glass"
-            selected={search}
-            tooltip="Toggle search field"
-            tooltipPosition="bottom-end"
-            onClick={() => {
-              setSearch(!search);
-              setSearchText('');
-            }}
-          />
-        </>
+          <Stack.Item>
+            <Button
+              icon="magnifying-glass"
+              selected={search}
+              tooltip="Toggle search field"
+              tooltipPosition="bottom-end"
+              onClick={() => {
+                setSearch(!search);
+                setSearchText('');
+              }}
+            />
+          </Stack.Item>
+        </Stack>
       }
     >
-      {Object.entries(data.gears[category])
-        .map(([key, gear]) => ({ key, gear }))
-        .sort((a, b) => sorting && a.gear.name.localeCompare(b.gear.name))
-        /* NOTE: Make cross-category search. Now it searching only in category */
-        .filter(({ gear }) => {
-          return gear.name.toLowerCase().includes(searchText.toLowerCase());
-        })
-        .map(({ key, gear }) => {
-          const maxTextLength = 12;
-          const selected = Object.keys(data.selected_gears).includes(key);
-          const costText = gear.cost === 1 ? `${gear.cost} Point` : `${gear.cost} Points`;
+      {contents.map(({ key, gear }) => {
+        const maxTextLength = 12;
+        const selected = Object.keys(data.selected_gears).includes(key);
+        const costText = gear.cost === 1 ? `${gear.cost} Point` : `${gear.cost} Points`;
 
-          const tooltipText = (
-            <Box>
-              {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
-              {gear.gear_tier > user_tier && (
-                <Box mt={gear.name.length > maxTextLength && 1.5} textColor="red">
-                  That gear is only available at a higher donation tier than you are on.
-                </Box>
-              )}
-            </Box>
-          );
+        const tooltipText = (
+          <Box>
+            {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
+            {gear.gear_tier > user_tier && (
+              <Box mt={gear.name.length > maxTextLength && 1.5} textColor="red">
+                That gear is only available at a higher donation tier than you are on.
+              </Box>
+            )}
+          </Box>
+        );
 
-          const tooltipsInfo = (
-            <>
-              {gear.allowed_roles && (
+        const tooltipsInfo = (
+          <>
+            {gear.allowed_roles && (
+              <Button
+                width="22px"
+                color="transparent"
+                icon="user"
+                tooltip={
+                  <Section m={-1} title="Allowed Roles">
+                    {gear.allowed_roles.map((role) => (
+                      <Box key={role}>{role}</Box>
+                    ))}
+                  </Section>
+                }
+                tooltipPosition="left"
+              />
+            )}
+            {Object.entries(gear.tweaks).map(([key, tweaks]) =>
+              tweaks.map((tweak) => (
                 <Button
+                  key={key}
                   width="22px"
                   color="transparent"
-                  icon="user"
-                  tooltip={
-                    <Section m={-1} title="Allowed Roles">
-                      {gear.allowed_roles.map((role) => (
-                        <Box key={role}>{role}</Box>
-                      ))}
-                    </Section>
-                  }
-                  tooltipPosition="left"
+                  icon={tweak.icon}
+                  tooltip={tweak.tooltip}
+                  tooltipPosition="top"
                 />
-              )}
-              {Object.entries(gear.tweaks).map(([key, tweaks]) =>
-                tweaks.map((tweak) => (
-                  <Button
-                    key={key}
-                    width="22px"
-                    color="transparent"
-                    icon={tweak.icon}
-                    tooltip={tweak.tooltip}
-                    tooltipPosition="top"
-                  />
-                ))
-              )}
-              <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
-            </>
-          );
+              ))
+            )}
+            <Button width="22px" color="transparent" icon="info" tooltip={gear.desc} tooltipPosition="top" />
+          </>
+        );
 
-          const textInfo = (
-            <Box class="Loadout-InfoBox">
-              <Box style={{ 'flex-grow': 1 }} fontSize={1} color="gold" opacity={0.75}>
-                {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
-              </Box>
-              <Box fontSize={0.75} opacity={0.66}>
-                {costText}
-              </Box>
+        const textInfo = (
+          <Box class="Loadout-InfoBox">
+            <Box style={{ 'flex-grow': 1 }} fontSize={1} color="gold" opacity={0.75}>
+              {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
             </Box>
-          );
+            <Box fontSize={0.75} opacity={0.66}>
+              {costText}
+            </Box>
+          </Box>
+        );
 
-          return (
-            <ImageButton
-              key={key}
-              m={0.5}
-              imageSize={84}
-              dmIcon={gear.icon}
-              dmIconState={gear.icon_state}
-              tooltip={(gear.name.length > maxTextLength || gear.gear_tier > 0) && tooltipText}
-              tooltipPosition={'bottom'}
-              selected={selected}
-              disabled={gear.gear_tier > user_tier || (gear_slots + gear.cost > max_gear_slots && !selected)}
-              buttons={tooltipsInfo}
-              buttonsAlt={textInfo}
-              onClick={() => act('toggle_gear', { gear: key })}
-            >
-              {gear.name}
-            </ImageButton>
-          );
-        })}
+        return (
+          <ImageButton
+            key={key}
+            m={0.5}
+            imageSize={84}
+            dmIcon={gear.icon}
+            dmIconState={gear.icon_state}
+            tooltip={(gear.name.length > maxTextLength || gear.gear_tier > 0) && tooltipText}
+            tooltipPosition={'bottom'}
+            selected={selected}
+            disabled={gear.gear_tier > user_tier || (gear_slots + gear.cost > max_gear_slots && !selected)}
+            buttons={tooltipsInfo}
+            buttonsAlt={textInfo}
+            onClick={() => act('toggle_gear', { gear: key })}
+          >
+            {gear.name}
+          </ImageButton>
+        );
+      })}
     </Section>
   );
 };
