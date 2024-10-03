@@ -90,6 +90,8 @@ const LoadoutCategories = (props, context) => {
 const LoadoutGears = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const { category, search, setSearch, searchText, setSearchText } = props;
+  const [sorting, setSorting] = useLocalState(context, 'sorting', false);
+
   return (
     <Section
       fill
@@ -97,6 +99,13 @@ const LoadoutGears = (props, context) => {
       title={category}
       buttons={
         <>
+          <Button
+            icon="arrow-down-a-z"
+            selected={sorting}
+            tooltip="Sort gears alphabetically"
+            tooltipPosition="bottom-end"
+            onClick={() => setSorting(!sorting)}
+          />
           {search && (
             <Input
               width={20}
@@ -120,7 +129,7 @@ const LoadoutGears = (props, context) => {
     >
       {Object.entries(data.gears[category])
         .map(([key, gear]) => ({ key, gear }))
-        .sort((a, b) => a.gear.name.localeCompare(b.gear.name))
+        .sort((a, b) => sorting && a.gear.name.localeCompare(b.gear.name))
         .filter(({ gear }) => {
           return gear.name.toLowerCase().includes(searchText.toLowerCase());
         })
