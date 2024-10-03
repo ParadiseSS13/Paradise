@@ -9,7 +9,7 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "v" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 

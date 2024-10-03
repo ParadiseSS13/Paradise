@@ -175,3 +175,53 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = "[get_area_name(windoor, TRUE)] Desk"
+
+/obj/effect/mapping_helpers/turf
+	icon = 'icons/turf/overlays.dmi'
+
+/obj/effect/mapping_helpers/turf/proc/payload(turf/simulated/T)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("root turf mapping_helper payload called")
+
+/obj/effect/mapping_helpers/turf/damage
+	icon_state = "damaged"
+
+/obj/effect/mapping_helpers/turf/damage/Initialize(mapload)
+	. = ..()
+
+	var/turf/simulated/T = get_turf(src)
+	if(!istype(T))
+		return
+
+	T.break_tile()
+
+/obj/effect/mapping_helpers/turf/burn
+	icon_state = "burned"
+
+/obj/effect/mapping_helpers/turf/burn/Initialize(mapload)
+	. = ..()
+
+	var/turf/simulated/T = get_turf(src)
+	if(!istype(T))
+		return
+
+	T.burn_tile()
+
+/obj/effect/mapping_helpers/turf/rust
+	icon_state = "rustwall"
+	var/spawn_probability = 100
+
+/obj/effect/mapping_helpers/turf/rust/payload(turf/simulated/wall/T)
+	. = ..()
+
+	if(!istype(T))
+		return
+
+	if(prob(spawn_probability))
+		T.rust()
+
+/obj/effect/mapping_helpers/turf/rust/probably
+	spawn_probability = 75
+
+/obj/effect/mapping_helpers/turf/rust/maybe
+	spawn_probability = 25

@@ -42,7 +42,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "j" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turf/rust,
 /turf/simulated/wall,
 /area/ruin/space/derelict/teleporter)
 "k" = (
@@ -60,7 +60,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "n" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -72,7 +72,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
@@ -144,13 +144,13 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "y" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/derelict/teleporter)
 "z" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/item/kirbyplants/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead"

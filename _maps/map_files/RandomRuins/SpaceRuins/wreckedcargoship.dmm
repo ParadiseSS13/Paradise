@@ -365,7 +365,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -432,7 +432,7 @@
 /obj/machinery/door/firedoor/border_only/closed{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "py" = (
@@ -549,13 +549,13 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "tm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/wreck_cargoship)
 "tn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "cargoshipblastdoor4"
@@ -603,7 +603,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "wf" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turf/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -802,7 +802,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -938,7 +938,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "Mc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "Mt" = (
@@ -1079,7 +1079,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /obj/machinery/button/windowtint{
 	pixel_y = -32
 	},
@@ -1098,7 +1098,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turf/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},

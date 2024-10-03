@@ -378,18 +378,17 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	for(var/I in 1 to 7)
 		new /obj/item/wormhole_jaunter/contractor(src)
 
-/obj/effect/spawner/random_spawners/telecomms_emp_loot
+/obj/effect/spawner/random/telecomms_emp_loot
 	name = "telecomms emp loot"
-	result = list(
+	loot = list(
 		/obj/item/grenade/empgrenade = 8,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/energy/ionrifle = 1)
 
-/obj/effect/spawner/random_spawners/telecomms_teleprod_maybe
+/obj/effect/spawner/random/telecomms_teleprod_maybe
 	name = "teleprod maybe"
-	result = list(
-		/datum/nothing = 4,
-		/obj/item/melee/baton/cattleprod/teleprod = 1)
+	loot = list(/obj/item/melee/baton/cattleprod/teleprod = 1)
+	spawn_loot_chance = 20
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad

@@ -3,7 +3,7 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turf/damage,
 /turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (
