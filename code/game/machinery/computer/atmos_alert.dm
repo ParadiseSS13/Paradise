@@ -7,16 +7,14 @@
 	light_color = LIGHT_COLOR_CYAN
 	// List of alarms and their state in areas. This is sent to TGUI
 	var/list/alarm_cache
-	var/parent_area_type = null
+	var/parent_area_type
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
 	alarm_cache = list()
 	alarm_cache["minor"] = list()
 	alarm_cache["priority"] = list()
-
 	var/area/machine_area = get_area(src)
-
 	parent_area_type = machine_area.get_top_parent_type()
 
 /obj/machinery/computer/atmos_alert/process()

@@ -65,7 +65,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	))
 
 	var/area/machine_area = get_area(src)
-
 	parent_area_type = machine_area.get_top_parent_type()
 
 	if(parent_area_type)
@@ -95,8 +94,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/current_overlay = null
 	var/construction_state = GRAV_NEEDS_WELDING
 	var/overlay_state = "activated"
-	var/parent_area_type = null
-	var/areas = list()
+	var/parent_area_type
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()

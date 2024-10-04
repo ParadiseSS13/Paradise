@@ -7,7 +7,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/stationalert_engineering
 	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
-	var/parent_area_type = null
+	var/parent_area_type
 	var/list/areas = list()
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
@@ -16,7 +16,6 @@
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 	var/area/machine_area = get_area(src)
-
 	parent_area_type = machine_area.get_top_parent_type()
 	if(parent_area_type)
 		areas = typesof(parent_area_type)

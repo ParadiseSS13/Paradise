@@ -1,7 +1,7 @@
 /datum/ui_module/atmos_control
 	name = "Atmospherics Control"
-	var/parent_area_type = null
-	var/z = null
+	var/parent_area_type
+	var/z_level
 
 /datum/ui_module/atmos_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -39,6 +39,6 @@
 				alarms_on_net |= air_alarm
 
 	var/list/data = list()
-	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(alarms_on_net, target_z = z)
+	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(alarms_on_net, target_z = z_level)
 
 	return data

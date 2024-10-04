@@ -506,16 +506,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	circuit = /obj/item/circuitboard/atmoscontrol
 	req_access = list(ACCESS_ATMOSPHERICS)
 	var/datum/ui_module/atmos_control/atmos_control
-	var/parent_area_type = null
+	var/parent_area_type
 
 /obj/machinery/computer/atmoscontrol/Initialize(mapload)
 	. = ..()
 	atmos_control = new(src)
-
 	var/area/machine_area = get_area(src)
-
 	parent_area_type = machine_area.get_top_parent_type()
-
 	atmos_control.parent_area_type = parent_area_type
 	atmos_control.z = z
 
