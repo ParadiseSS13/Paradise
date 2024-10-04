@@ -8,9 +8,9 @@
 	Another research station has developed a device called a Bluespace Harvester.
 	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
 	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
-	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
+	Acquire the circuit board, construct the device over a wire knot and feed it enough power to strike a motherlode of objects, located [goal] points deep.
 	<br><br>
-	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
+	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered. It may also require maintenance irregularly.
 	<br>
 	Nanotrasen Science Directorate"}
 
@@ -222,6 +222,16 @@
 	var/points = 0
 	/// The total points earned by this machine so far, for tracking station goal and highscore
 	var/total_points = 0
+	/// The point interval where the machine will automatically spawn a clothing item
+	var/clothing_interval = 5000
+	/// The point interval where the machine will automatically spawn a food item
+	var/food_interval = 6000
+	/// The point interval where the machine will automatically spawn a cultural item
+	var/cultural_interval = 10000
+	/// The point interval where the machine will automatically spawn an organic item
+	var/organic_interval = 15000
+	/// The point interval where the machine will strike a motherlode
+	var/motherlode_interval = 45000
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
@@ -243,8 +253,14 @@
 	var/stabilizer_power = 0
 	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
 	var/overhead = 0
-	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
+	/// When portal event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
+	/// When a filth event triggers, this will stop the operation until it is cleaned
+	var/dirty = FALSE
+	/// When a chemical event triggers, this will stop operation until the chemical is fed to the machine
+	var/chemical_block = FALSE
+	/// When a chemical event triggers, this will contain the needed chemical to start progress again
+	var/chemical_needed = "Water"
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
