@@ -34,8 +34,8 @@
 
 /datum/gear_tweak/color/get_metadata(user, metadata)
 	if(valid_colors)
-		return tgui_input_list(user, "Choose an item color.", "Tweak Gear Color", valid_colors, metadata)
-	return input(user, "Choose an item color.", "Tweak Gear Color", metadata) as color|null
+		return tgui_input_list(user, "Choose an item color.", "Recolor Gear", valid_colors, metadata)
+	return input(user, "Choose an item color.", "Recolor Gear", metadata) as color|null
 
 /datum/gear_tweak/color/tweak_item(obj/item/gear, metadata)
 	if((valid_colors && !(metadata in valid_colors)) || !metadata)
@@ -53,7 +53,7 @@
 	return ""
 
 /datum/gear_tweak/rename/get_metadata(user, metadata)
-	var/new_name = tgui_input_text(user, "Rename an object. Enter empty line for stock name", "Tweak Gear Color", metadata, MAX_NAME_LEN)
+	var/new_name = tgui_input_text(user, "Rename an object. Enter empty line for stock name", "Rename Gear", metadata, MAX_NAME_LEN)
 	if(isnull(new_name))
 		return metadata
 	return new_name

@@ -14,8 +14,6 @@ import {
   LabeledList,
 } from '../components';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
-const logger = createLogger('Loadout');
 
 type Data = {
   user_tier: number;
@@ -54,6 +52,7 @@ export const Loadout = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [category, setCategory] = useLocalState(context, 'category', Object.keys(data.gears)[0]);
   const [tweakedGear, setTweakedGear] = useLocalState(context, 'tweakedGear', '');
+
   return (
     <Window width={975} height={650}>
       {tweakedGear && <GearTweak tweakedGear={tweakedGear} setTweakedGear={setTweakedGear} />}
@@ -112,14 +111,22 @@ const LoadoutGears = (props, context) => {
 
   const [sortType, setSortType] = useLocalState(context, 'sortType', 'Default');
   const [sortReverse, setsortReverse] = useLocalState(context, 'sortReverse', false);
+  const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
-  let contents = Object.entries(data.gears[category])
-    .map(([key, gear]) => ({ key, gear }))
-    .sort(sortTypes[sortType])
-    /* NOTE: Make cross-category search. Now it searching only in category */
-    .filter(({ gear }) => {
-      return gear.name.toLowerCase().includes(searchText.toLowerCase());
-    });
+  let contents;
+  if (searchText.length > 2) {
+    contents = Object.entries(data.gears)
+      .reduce((a, [key, gears]) => {
+        return a.concat(Object.entries(gears).map(([key, gear]) => ({ key, gear })));
+      }, [])
+      .filter(({ gear }) => {
+        return testSearch(gear);
+      });
+  } else {
+    contents = Object.entries(data.gears[category]).map(([key, gear]) => ({ key, gear }));
+  }
+
+  contents.sort(sortTypes[sortType]);
   if (sortReverse) {
     contents = contents.reverse();
   }
@@ -205,7 +212,7 @@ const LoadoutGears = (props, context) => {
                 tooltipPosition="left"
               />
             )}
-            {Object.entries(gear.tweaks).map(([key, tweaks]) =>
+            {Object.entries(gear.tweaks).map(([key, tweaks]: [string, Tweak[]]) =>
               tweaks.map((tweak) => (
                 <Button
                   key={key}
