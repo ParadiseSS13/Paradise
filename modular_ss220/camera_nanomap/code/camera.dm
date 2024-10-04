@@ -71,7 +71,7 @@
 			z = C.z,
 			status = C.status
 		))
-		if("[C.z]" in z_levels || !C.nanomap_png)
+		if(("[C.z]" in z_levels) || !C.nanomap_png)
 			continue
 		z_levels += list("[C.z]" = C.nanomap_png)
 		// Sort it by z levels

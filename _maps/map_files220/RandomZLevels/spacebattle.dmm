@@ -2756,7 +2756,7 @@
 /area/awaymission/space_battle/cruiser)
 "iu" = (
 /obj/item/gun/projectile/automatic/c20r,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate)
 "iv" = (
@@ -4613,7 +4613,7 @@
 	},
 /area/awaymission/space_battle/syndicate/syndicate5)
 "oe" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
@@ -8562,7 +8562,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "AP" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
@@ -9463,7 +9463,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "Dt" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway11)
 "Dv" = (
@@ -10317,7 +10317,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "FV" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway2)
@@ -11431,7 +11431,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "Jn" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
@@ -11858,7 +11858,7 @@
 	},
 /area/awaymission/space_battle/medbay)
 "KN" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
@@ -12650,7 +12650,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/awaymission/space_battle)
 "Na" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "Nc" = (
@@ -13344,7 +13344,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/hallway3)
 "Pi" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/lasercannon,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
@@ -16523,7 +16523,7 @@
 	},
 /area/awaymission/space_battle/hallway4)
 "YY" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "YZ" = (

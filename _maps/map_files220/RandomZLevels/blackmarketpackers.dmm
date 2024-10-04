@@ -590,7 +590,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "cc" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/riot/short{
 	pixel_x = 6
 	},
@@ -4542,7 +4542,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "wU" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser{
 	pixel_x = -8
 	},

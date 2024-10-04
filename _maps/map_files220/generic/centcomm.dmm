@@ -529,7 +529,7 @@
 	},
 /area/syndicate_mothership/jail)
 "auk" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/pulse/destroyer/annihilator{
 	pixel_x = -6
 	},
@@ -603,7 +603,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "avX" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -6
 	},
@@ -721,7 +721,7 @@
 	},
 /area/centcom/ss220/bar)
 "azw" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/lwap,
 /obj/item/gun/energy/lwap{
 	pixel_x = 2
@@ -2724,7 +2724,7 @@
 	color = "#000000"
 	},
 /obj/effect/turf_decal/siding/wood/end,
-/obj/structure/rack/gunrack{
+/obj/structure/gunrack{
 	color = "grey"
 	},
 /obj/item/gun/projectile/shotgun/automatic/dual_tube,
@@ -3295,7 +3295,7 @@
 	},
 /obj/structure/light_fake/small,
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "bVX" = (
@@ -3478,7 +3478,7 @@
 	},
 /area/shuttle/syndicate)
 "ccF" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser/instakill/blue{
 	pixel_x = -6
 	},
@@ -3593,7 +3593,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/centcom/ss220/evac)
 "cgE" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/l6_saw{
 	pixel_x = -6
 	},
@@ -3883,7 +3883,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "coe" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
 	pixel_x = 2
@@ -5011,7 +5011,7 @@
 	},
 /area/centcom/ss220/admin3)
 "ddt" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/clown,
 /obj/item/gun/energy/clown{
 	pixel_x = 2
@@ -5891,7 +5891,7 @@
 	pixel_y = -3
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "dCq" = (
@@ -7760,7 +7760,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/centcom/ss220/bar)
 "eIq" = (
-/obj/structure/rack/gunrack{
+/obj/structure/gunrack{
 	color = "grey"
 	},
 /obj/item/gun/projectile/automatic/gyropistol{
@@ -8477,7 +8477,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/syndicate_mothership/control)
 "fbR" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/m90,
 /obj/item/gun/projectile/automatic/m90{
 	pixel_x = 2
@@ -8546,7 +8546,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "fcF" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/ar{
 	pixel_x = -6
 	},
@@ -11783,7 +11783,7 @@
 	},
 /area/shuttle/escape)
 "hbp" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/automatic/dual_tube,
 /obj/item/gun/projectile/shotgun/automatic/dual_tube{
 	pixel_x = 2
@@ -11886,7 +11886,7 @@
 	},
 /obj/structure/light_fake/small,
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "hdx" = (
@@ -13558,7 +13558,7 @@
 	},
 /area/centcom/ss220/medbay)
 "hXZ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/proto,
 /obj/item/gun/projectile/automatic/proto{
 	pixel_x = 2
@@ -14066,7 +14066,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "ipb" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw{
 	pixel_x = 2
@@ -14257,7 +14257,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
 "isq" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/m90{
 	pixel_x = -6
 	},
@@ -16157,7 +16157,7 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
-/obj/structure/rack/gunrack{
+/obj/structure/gunrack{
 	color = "grey"
 	},
 /obj/item/gun/energy/pulse/destroyer/annihilator,
@@ -17771,7 +17771,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "kED" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/gun/blueshield/pdw9{
 	pixel_x = -6
 	},
@@ -18964,7 +18964,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/court)
 "ljX" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/disabler{
 	pixel_x = -6
 	},
@@ -19915,7 +19915,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "lLq" = (
@@ -22035,7 +22035,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "ndz" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/gun/nuclear{
 	pixel_x = -6
 	},
@@ -22075,7 +22075,7 @@
 /obj/item/ammo_casing/rocket,
 /obj/item/ammo_casing/rocket,
 /obj/effect/turf_decal/delivery/white,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -22445,7 +22445,7 @@
 /turf/simulated/floor/fakespace,
 /area/centcom/ss220/bar)
 "npf" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/immolator,
 /obj/item/gun/energy/immolator{
 	pixel_x = 2
@@ -22481,7 +22481,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "npI" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/lwap{
 	pixel_x = -6
 	},
@@ -22765,7 +22765,7 @@
 	},
 /area/centcom/ss220/evac)
 "nzJ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/disabler/smg,
 /obj/item/gun/energy/disabler/smg{
 	pixel_x = 2
@@ -24178,7 +24178,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "ouD" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/lasercannon,
 /obj/item/gun/energy/lasercannon{
 	pixel_x = 2
@@ -24629,7 +24629,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "oGQ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/xray,
 /obj/item/gun/energy/xray{
 	pixel_x = 2
@@ -27520,7 +27520,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "qyB" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/ak814,
 /obj/item/gun/projectile/automatic/ak814{
 	pixel_x = 2
@@ -29445,7 +29445,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "rxI" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = 2
@@ -31451,7 +31451,7 @@
 	},
 /area/syndicate_mothership/jail)
 "sJw" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/disabler/silencer,
 /obj/item/gun/energy/disabler/silencer{
 	pixel_x = 2
@@ -31589,7 +31589,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
 "sLm" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/pulse,
 /obj/item/gun/energy/pulse{
 	pixel_x = 2
@@ -32068,7 +32068,7 @@
 	},
 /area/syndicate_mothership)
 "sZo" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser,
 /obj/item/gun/energy/laser{
 	pixel_x = 2
@@ -33751,7 +33751,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "ubR" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/pulse/pistol/m1911{
 	pixel_x = -6
 	},
@@ -35874,7 +35874,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/evac)
 "vsJ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/ar,
 /obj/item/gun/projectile/automatic/ar{
 	pixel_x = 2
@@ -39184,7 +39184,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "xfK" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/sniper_rifle{
 	pixel_x = -6
 	},
@@ -39628,7 +39628,7 @@
 /obj/structure/light_fake{
 	dir = 1
 	},
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "xqG" = (

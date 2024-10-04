@@ -565,9 +565,9 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
-	var/obj/item/clothing/ears/headphones/P = r_ear
+	var/obj/item/clothing/ears/headphones/P = H.r_ear
 	if(istype(P))
-		P.attack_self(H) // activate them, display musical notes effect
+		P.toggle_visual_notes(H) // activate them, display musical notes effect
 
 // Soviet Military
 

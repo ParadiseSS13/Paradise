@@ -723,13 +723,6 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
-"jT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_excavation)
 "kh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/ripley,
@@ -786,7 +779,6 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "nw" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
@@ -870,11 +862,6 @@
 /area/ruin/unpowered/althland_excavation)
 "si" = (
 /obj/structure/sign/explosives/alt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_excavation)
-"sp" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
@@ -1679,13 +1666,13 @@ yb
 bO
 nw
 gh
-jT
+TN
 Wt
 RG
 tj
-jT
+TN
 Zy
-sp
+TN
 aq
 dp
 Cs
@@ -1702,7 +1689,7 @@ oh
 Mm
 Mm
 TN
-sp
+TN
 aU
 Lt
 am
@@ -1828,7 +1815,7 @@ Ei
 (9,1,1) = {"
 Mm
 TN
-sp
+TN
 bC
 zw
 TN

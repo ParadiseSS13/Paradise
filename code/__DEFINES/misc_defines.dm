@@ -105,7 +105,7 @@
 #define STAGE_SIX 11 //From supermatter shard
 
 /// A define for the center of the coordinate map of big machinery
-#define MACH_CENTER 0
+#define MACH_CENTER 2
 
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
@@ -423,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 592207
+#define SQL_VERSION 602207
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)

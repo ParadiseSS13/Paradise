@@ -20,7 +20,8 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf || !is_teleport_allowed(device_turf.z))
+	var/area/our_area = get_area(device_turf)
+	if(!device_turf || !is_teleport_allowed(device_turf.z) || our_area.tele_proof)
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
 		return FALSE
 	return TRUE
@@ -201,13 +202,18 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = user
 
 /obj/item/grenade/jaunter_grenade/prime()
+	var/area/our_area = get_area(src)
+	var/turf/T = get_turf(src)
+	if(!is_teleport_allowed(T.z) || our_area.tele_proof)
+		do_sparks(5, 0, T)
+		qdel(src)
+		return
 	update_mob()
 	var/list/destinations = list()
 	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/BT = get_turf(B)
 		if(is_station_level(BT.z))
 			destinations += BT
-	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
 		for(var/obj/effect/abstract/chasm_storage/C in T)
 			var/found_mob = FALSE

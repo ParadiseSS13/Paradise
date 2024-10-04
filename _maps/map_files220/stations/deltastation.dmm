@@ -224,7 +224,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "acU" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/sslr{
 	pixel_x = -4
 	},
@@ -1177,7 +1177,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "aiL" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/apmaint)
 "aiQ" = (
@@ -2031,7 +2031,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "aof" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/supply/warehouse)
 "aog" = (
@@ -4457,7 +4457,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "avs" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/east)
 "avu" = (
@@ -4786,7 +4786,7 @@
 	},
 /area/station/engineering/atmos/control)
 "awW" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
@@ -6010,7 +6010,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/supermatter)
 "aBg" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "aBn" = (
@@ -25602,7 +25602,7 @@
 /area/station/security/lobby)
 "bXX" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/starboard2)
 "bXY" = (
@@ -27728,7 +27728,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "cfn" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "cfo" = (
@@ -35640,7 +35640,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/pool)
 "cMS" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "cMU" = (
@@ -38456,7 +38456,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/podpilot)
 "cXT" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
 "cXU" = (
@@ -40957,7 +40957,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/study)
 "dkp" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "dkq" = (
@@ -51454,7 +51454,7 @@
 /area/station/engineering/controlroom)
 "eEl" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "eEL" = (
@@ -57178,7 +57178,7 @@
 /obj/item/gun/energy/laser{
 	pixel_x = 6
 	},
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "grY" = (
@@ -63998,7 +63998,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/main)
 "itt" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/medmaint)
 "itv" = (
@@ -65083,7 +65083,7 @@
 	},
 /area/station/security/prison/cell_block/A)
 "iKY" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/starboard2)
 "iLl" = (
@@ -66278,7 +66278,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "jeM" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/gun/energy/gun{
 	pixel_x = 2
@@ -70045,7 +70045,7 @@
 	},
 /area/station/science/storage)
 "kfl" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/starboard2)
 "kfm" = (
@@ -70690,7 +70690,7 @@
 /area/station/public/pool)
 "kqa" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/old_kitchen)
 "kqo" = (
@@ -73850,7 +73850,7 @@
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "loS" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/old_detective)
 "lpe" = (
@@ -74628,7 +74628,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
 "lAU" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/engineering/mechanic)
 "lBa" = (
@@ -80584,7 +80584,7 @@
 /area/station/engineering/hardsuitstorage)
 "nqn" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -2
 	},
@@ -81278,7 +81278,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/medmaint)
 "nBi" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "nBl" = (
@@ -82737,7 +82737,7 @@
 	},
 /area/station/science/genetics)
 "nRE" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "nRQ" = (
@@ -85487,7 +85487,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/old_detective)
 "oJY" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "oKa" = (
@@ -87731,7 +87731,7 @@
 	},
 /area/station/hallway/secondary/bridge)
 "prt" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/service/bar)
 "prx" = (
@@ -88040,7 +88040,7 @@
 /obj/item/gun/energy/disabler{
 	pixel_x = 6
 	},
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -88236,7 +88236,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/station/maintenance/starboard)
 "pyb" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "pyd" = (
@@ -90779,7 +90779,7 @@
 	},
 /area/station/maintenance/medmaint)
 "qmo" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/virology_maint)
 "qmw" = (
@@ -93556,7 +93556,7 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "rad" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/old_kitchen)
 "rah" = (
@@ -99873,7 +99873,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "sRU" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "sSr" = (
@@ -100580,7 +100580,7 @@
 /area/station/medical/patients_rooms)
 "teg" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/virology_maint)
 "tep" = (
@@ -102392,7 +102392,7 @@
 /area/station/supply/storage)
 "tFi" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/starboard2)
 "tFq" = (
@@ -102722,7 +102722,7 @@
 	},
 /area/station/maintenance/port)
 "tLi" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "tLw" = (
@@ -104327,7 +104327,7 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/station/service/library)
 "ukT" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fore2)
 "uld" = (
@@ -108354,7 +108354,7 @@
 /area/station/hallway/secondary/exit)
 "vxn" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/medmaint)
 "vxw" = (
@@ -114926,7 +114926,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "xtZ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "xui" = (

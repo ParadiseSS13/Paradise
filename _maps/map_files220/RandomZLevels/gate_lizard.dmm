@@ -1597,7 +1597,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "cdh" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
@@ -1714,7 +1714,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "cmS" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser/retro/old{
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws.";
 	pixel_y = -9
@@ -3594,7 +3594,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/awaymission/jungle_planet/outside/abandoned)
 "eKg" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -8746,7 +8746,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "liw" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/fireaxe/boneaxe,
 /obj/item/spear/bonespear,
 /obj/item/scythe/bone,
@@ -9148,7 +9148,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "lJw" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/e_gun/old,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
@@ -9338,7 +9338,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "lWJ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "lWL" = (
@@ -12487,7 +12487,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "qeb" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/bow,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
@@ -13421,7 +13421,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rjA" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/structure/window/reinforced,
 /obj/item/gun/energy/laser/retro/old{
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."

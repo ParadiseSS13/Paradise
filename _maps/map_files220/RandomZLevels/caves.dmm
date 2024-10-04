@@ -3498,7 +3498,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "sn" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/laser/retro,
 /obj/item/gun/energy/laser/retro,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9585,7 +9585,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "YS" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/disabler,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{

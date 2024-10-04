@@ -1002,7 +1002,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_teleporter)
 "btq" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
 /obj/item/ammo_box/magazine/wt550m9,
 /obj/item/ammo_box/magazine/wt550m9,
@@ -1077,7 +1077,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
 "bwp" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
@@ -1589,7 +1589,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "bWq" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/revolver/nagant,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
@@ -2127,7 +2127,7 @@
 	},
 /area/awaymission/black_mesa/science_internal)
 "cED" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -2886,7 +2886,7 @@
 	},
 /area/awaymission/black_mesa/security_outpost)
 "dzf" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
@@ -2976,7 +2976,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "dFZ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/melee/classic_baton,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -6449,7 +6449,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "hWM" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/shotgun/buck,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
@@ -6872,7 +6872,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
 "iBg" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/n762,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
@@ -7228,7 +7228,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_hallway)
 "iVz" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_sec)
@@ -8312,7 +8312,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "kig" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
@@ -8555,7 +8555,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "kuQ" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/magazine/m556,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -10636,7 +10636,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "mXr" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
@@ -11038,7 +11038,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/scientist_hall)
 "ntU" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -12914,7 +12914,7 @@
 /area/awaymission/black_mesa/science_labs)
 "pGt" = (
 /obj/item/gun/projectile/automatic/m90,
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "pHL" = (
@@ -16186,7 +16186,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "tJO" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/shield/riot,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -16346,7 +16346,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_science_room)
 "tWO" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/energy/lwap,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
@@ -16374,7 +16374,7 @@
 	},
 /area/awaymission/black_mesa/entrance_lobby)
 "tYo" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -17170,7 +17170,7 @@
 	},
 /area/awaymission/black_mesa/high_security_hallway)
 "uVv" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/boltaction,
 /turf/simulated/floor/wood,
 /area/awaymission/black_mesa/employee_dorm_room)
@@ -18061,7 +18061,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "wcw" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -18547,7 +18547,7 @@
 /turf/simulated/floor/plating/dirt/xen_dirt,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "wJs" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun,
 /obj/item/ammo_box/shotgun/buck,
 /turf/simulated/floor/plasteel/smooth,
@@ -18849,7 +18849,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/genetics_elevator)
 "wZE" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/magazine/wt550m9,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
@@ -18892,7 +18892,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "xaA" = (
-/obj/structure/rack/gunrack,
+/obj/structure/gunrack,
 /obj/item/ammo_box/magazine/m556,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_sec)
