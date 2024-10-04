@@ -306,7 +306,7 @@
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
-	static_upgrade_increase = 50
+	static_upgrade_increase = 25
 	max_level = 3
 	weapon_type = /obj/item/gun/projectile/revolver/doublebarrel/flayer
 
