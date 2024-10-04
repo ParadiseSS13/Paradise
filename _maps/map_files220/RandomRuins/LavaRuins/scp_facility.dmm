@@ -928,7 +928,7 @@
 /area/ruin/powered/scpfacility)
 "KS" = (
 /obj/structure/rack,
-/obj/item/gun/energy/e_gun,
+/obj/item/gun/energy/gun,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
