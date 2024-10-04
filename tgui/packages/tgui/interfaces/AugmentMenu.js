@@ -70,7 +70,7 @@ const Abilities = ({ context }) => {
         </Stack>
         <Stack.Item>
           <Stack vertical>
-            <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
+            <Stack.Item fontSize="13px">{ability.desc || 'Description not available'}</Stack.Item>
             <Stack.Item>
               Level: <span style={{ color: 'green' }}>{levelInfo}</span>
               {showStage && ability.stage > 0 && <span> (Stage: {ability.stage})</span>}
@@ -138,44 +138,34 @@ const Abilities = ({ context }) => {
 };
 
 const Upgrades = ({ act, abilityTabs, knownAbilities, usableSwarms }) => {
-  const relevantAbilities = abilityTabs
-    .flatMap((tab) =>
-      tab.abilities.filter((ability) =>
-        knownAbilities.some(
-          (known) => known.ability_path === ability.ability_path && known.current_level < known.max_level
-        )
-      )
-    )
-    .sort((a, b) => a.stage - b.stage);
-
-  const renderAbility = (ability) => {
-    const knownAbility = knownAbilities.find((a) => a.ability_path === ability.ability_path);
+  const relevantAbilities = knownAbilities.filter((known) => known.current_level < known.max_level);
+  const renderAbility = (knownAbility) => {
+    const currentAbility = abilityTabs
+      .flatMap((tab) => tab.abilities)
+      .find((ability) => ability.ability_path === knownAbility.ability_path);
 
     return (
-      <Stack.Item key={ability.name} direction="row">
+      <Stack.Item key={knownAbility.name} direction="row">
         <Stack>
           <Button
             height="20px"
             width="35px"
             mb={1}
             textAlign="center"
-            content={ability.cost}
-            disabled={ability.cost > usableSwarms}
+            content={knownAbility.cost}
+            disabled={knownAbility.cost > usableSwarms}
             tooltip="Upgrade this ability?"
-            onClick={() => act('purchase', { ability_path: ability.ability_path })}
+            onClick={() => act('purchase', { ability_path: knownAbility.ability_path })}
           />
-          <Stack.Item fontSize="16px">{ability.name}</Stack.Item>
+          <Stack.Item fontSize="16px">{knownAbility.name}</Stack.Item>
         </Stack>
         <Stack.Item>
           <Stack vertical>
-            <Stack.Item fontSize="13px">{ability.desc}</Stack.Item>
+            <Stack.Item fontSize="13px">{knownAbility.upgrade_text}</Stack.Item>
             <Stack.Item>
               Level:{' '}
-              <span style={{ color: 'green' }}>
-                {' '}
-                {knownAbility.current_level} / {knownAbility.max_level}
-              </span>
-              {ability.stage > 0 && <span> (Stage: {ability.stage})</span>}
+              <span style={{ color: 'green' }}>{`${knownAbility.current_level} / ${knownAbility.max_level}`}</span>
+              {currentAbility && currentAbility.stage > 0 && <span> (Stage: {currentAbility.stage})</span>}
             </Stack.Item>
             <Stack.Divider />
           </Stack>
@@ -183,6 +173,5 @@ const Upgrades = ({ act, abilityTabs, knownAbilities, usableSwarms }) => {
       </Stack.Item>
     );
   };
-
   return <Stack vertical>{relevantAbilities.map(renderAbility)}</Stack>;
 };
