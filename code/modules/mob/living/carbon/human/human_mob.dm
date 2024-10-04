@@ -21,9 +21,7 @@
 	if(!mind)
 		return FALSE
 	if(mind.miming)
-		var/datum/component/footstep/step_sound = GetComponent(/datum/component/footstep)
-		if(step_sound)
-			step_sound.RemoveComponent()
+		DeleteComponent(/datum/component/footstep)
 	return TRUE
 
 /**

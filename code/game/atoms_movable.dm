@@ -676,9 +676,7 @@
 
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		comp.RemoveComponent()
+	DeleteComponent(/datum/component/deadchat_control)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()

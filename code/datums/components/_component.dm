@@ -442,6 +442,14 @@
 	return old_comp
 
 /**
+  * Removes the component from the datum
+  */
+/datum/proc/DeleteComponent(component_to_nuke)
+	var/datum/component/removing = GetComponent(component_to_nuke)
+	if(istype(removing))
+		qdel(removing)
+
+/**
   * Get existing component of type, or create it and return a reference to it
   *
   * Use this if the item needs to exist at the time of this call, but may not have been created before now

@@ -473,9 +473,7 @@
 	if(visualsOnly)
 		return
 
-	var/datum/component/footstep/step_sound = H.GetComponent(/datum/component/footstep)
-	if(step_sound)
-		step_sound.RemoveComponent()
+	H.DeleteComponent(/datum/component/footstep)
 
 /datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

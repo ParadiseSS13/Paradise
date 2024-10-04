@@ -511,9 +511,7 @@
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
 
-	var/datum/component/squeak/squeak = M.GetComponent(/datum/component/squeak)
-	if(squeak)
-		squeak.RemoveComponent()
+	M.DeleteComponent(/datum/component/squeak)
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"

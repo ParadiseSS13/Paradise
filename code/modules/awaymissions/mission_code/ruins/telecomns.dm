@@ -430,9 +430,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	var/datum/component/proximity_monitor/monitor = GetComponent(/datum/component/proximity_monitor)
-	if(monitor)
-		monitor.RemoveComponent()
+	DeleteComponent(/datum/component/proximity_monitor)
 
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)

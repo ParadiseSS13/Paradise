@@ -413,9 +413,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"
 		to_chat(mychild, text.Join(" "))
 
-	var/datum/component/proximity_monitor/monitor = GetComponent(/datum/component/proximity_monitor)
-	if(monitor)
-		monitor.RemoveComponent()
+	DeleteComponent(/datum/component/proximity_monitor)
 
 /obj/item/tumor_shard
 	name = "tumor shard"

@@ -524,9 +524,8 @@
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
-		var/datum/component/proximity_monitor/monitor = GetComponent(/datum/component/proximity_monitor)
-		if(monitor)
-			monitor.RemoveComponent()
+		DeleteComponent(/datum/component/proximity_monitor)
+
 		addtimer(CALLBACK(src, PROC_REF(hatch)), 1.5 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
