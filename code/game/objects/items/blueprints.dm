@@ -216,6 +216,8 @@
 		var/area/old_area = thing.loc
 		A.contents += thing
 		thing.change_area(old_area, A)
+		for(var/obj/machinery/machine in thing.contents)
+			machine.reregister_machine()
 
 	var/area/oldA = get_area(get_turf(usr))
 	var/list/firedoors = oldA.firedoors
