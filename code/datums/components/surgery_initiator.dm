@@ -67,6 +67,7 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
 	if(!P.sharp)
+		UnlinkComponent()
 		RemoveComponent()
 
 /// Does the surgery initiation.
