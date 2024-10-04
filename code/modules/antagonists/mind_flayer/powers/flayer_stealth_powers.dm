@@ -1,7 +1,7 @@
 /// Hack computer cameras to use them as a secret camera network
 /datum/spell/flayer/surveillance_monitor
 	name = "Camfecting Bug"
-	desc = "Allows us to cast a hack to a computers webcam. Alt-click the spell to access all your hacked computer webcams.."
+	desc = "Allows us to cast a hack to a computers webcam. Alt-click the spell to access all your hacked computer webcams."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
