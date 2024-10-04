@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Dropdown, Box, Section, Stack } from '../components';
+import { Button, LabeledList, Dropdown, Box, Section } from '../components';
 import { Window } from '../layouts';
 
 export const BrigTimer = (props, context) => {
