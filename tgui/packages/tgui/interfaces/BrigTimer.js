@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Dropdown, Box, Section } from '../components';
+import { Button, LabeledList, Dropdown, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const BrigTimer = (props, context) => {
@@ -64,16 +64,18 @@ export const BrigTimer = (props, context) => {
                   onClick={() => act('prisoner_name')}
                 />
                 {!!data.spns.length && (
-                  <Dropdown
-                    disabled={!data.isAllowed || !data.spns.length}
-                    options={data.spns}
-                    width="250px"
-                    onSelected={(value) =>
-                      act('prisoner_name', {
-                        prisoner_name: value,
-                      })
-                    }
-                  />
+                  <Box mt="0.3rem">
+                    <Dropdown
+                      disabled={!data.isAllowed || !data.spns.length}
+                      options={data.spns}
+                      width="250px"
+                      onSelected={(value) =>
+                        act('prisoner_name', {
+                          prisoner_name: value,
+                        })
+                      }
+                    />
+                  </Box>
                 )}
               </LabeledList.Item>
               <LabeledList.Item label="Prisoner Crimes">
