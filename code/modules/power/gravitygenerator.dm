@@ -66,7 +66,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	var/area/machine_area = get_area(src)
 	parent_area_type = machine_area.get_top_parent_type()
-
 	if(parent_area_type)
 		areas = typesof(parent_area_type)
 
