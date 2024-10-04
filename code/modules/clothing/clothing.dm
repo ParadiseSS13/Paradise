@@ -281,7 +281,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
