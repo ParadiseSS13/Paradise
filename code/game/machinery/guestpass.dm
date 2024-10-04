@@ -10,7 +10,7 @@
 	var/expiration_time = 0
 	var/reason = "NOT SPECIFIED"
 
-/obj/item/card/id/proc/attach_guest_pass(/obj/item/card/id/guest/G, mob/user)
+/obj/item/card/id/proc/attach_guest_pass(obj/item/card/id/guest/G, mob/user)
 	if(world.time > G.expiration_time)
 		to_chat(user, "There's no point, the guest pass has expired.")
 		return

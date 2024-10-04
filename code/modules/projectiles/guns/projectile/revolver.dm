@@ -501,5 +501,5 @@
 		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user)
-	 // So that it is stealthy
+	// So that it is stealthy
 	return build_base_description()
