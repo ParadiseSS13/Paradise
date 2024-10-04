@@ -42,8 +42,7 @@ merged.
 
 After a twenty four hour minimum waiting period, Pull Requests can be merged
 once they receive approval from the relevant team. An exception is made for
-refactors and fixes, which may be merged by any member with commit access'
-discretion with no waiting period.
+refactors and fixes, which may be merged by any maintainer with no waiting period.
 
 While normally provided, voting team members are not obligated to publicly state
 their objections to a Pull Request. Attacking or berating a voting team member
