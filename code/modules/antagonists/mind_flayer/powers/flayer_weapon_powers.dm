@@ -321,7 +321,7 @@
 		mag.max_ammo = 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/flayer
-	name = "integrated shrapnel launcher"
+	name = "integrated shrapnel cannon"
 	desc = "Allows us to propel shrapnel at high velocities. Cannot be loaded with conventional shotgun shells."
 	icon_state = "shell_cannon_weapon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
