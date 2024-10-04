@@ -409,12 +409,6 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"nX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_processing)
 "oj" = (
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
@@ -517,12 +511,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
-"sv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_processing)
 "sB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/trunk,
@@ -759,11 +747,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
-"AT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_processing)
 "BB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump,
@@ -784,11 +767,6 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_processing)
-"BO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_processing)
 "BV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1213,12 +1191,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"QE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_processing)
 "RL" = (
 /obj/item/stack/sheet/metal{
 	amount = 5
@@ -1726,7 +1698,7 @@ KZ
 ab
 ui
 ui
-QE
+ui
 Lg
 ui
 ab
@@ -1773,7 +1745,7 @@ jb
 ab
 ab
 ui
-QE
+ui
 af
 BM
 Hz
@@ -1811,7 +1783,7 @@ ab
 ab
 af
 af
-AT
+Au
 Wb
 kR
 fc
@@ -1871,7 +1843,7 @@ bT
 JT
 zZ
 qn
-nX
+ui
 ui
 ui
 VJ
@@ -1957,7 +1929,7 @@ bT
 um
 um
 ui
-BO
+ui
 zR
 ui
 bT
@@ -2016,7 +1988,7 @@ ui
 iq
 MO
 eH
-BO
+ui
 ab
 ap
 ab
@@ -2158,7 +2130,7 @@ ab
 ab
 ui
 ui
-BO
+ui
 ui
 ui
 ab
@@ -2308,7 +2280,7 @@ bT
 ui
 ui
 nK
-sv
+um
 lZ
 ui
 Yd
@@ -2596,7 +2568,7 @@ af
 af
 ui
 ui
-BO
+ui
 ho
 ui
 bT
