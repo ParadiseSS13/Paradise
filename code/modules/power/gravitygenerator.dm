@@ -95,6 +95,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/construction_state = GRAV_NEEDS_WELDING
 	var/overlay_state = "activated"
 	var/parent_area_type
+	var/areas = list()
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()

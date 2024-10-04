@@ -514,7 +514,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	var/area/machine_area = get_area(src)
 	parent_area_type = machine_area.get_top_parent_type()
 	atmos_control.parent_area_type = parent_area_type
-	atmos_control.z = z
+	atmos_control.z_level = z
 
 /obj/machinery/computer/atmoscontrol/Destroy()
 	QDEL_NULL(atmos_control)
