@@ -446,7 +446,7 @@
   */
 /datum/proc/DeleteComponent(component_to_nuke)
 	var/datum/component/removing = GetComponent(component_to_nuke)
-	if(istype(removing))
+	if(istype(removing, component_to_nuke)
 		qdel(removing)
 
 /**
