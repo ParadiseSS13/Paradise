@@ -109,7 +109,7 @@
 	desc = "Allows us to melt our hand away, replacing it with a makeshift cannon that automatically loads with shrapnel."
 	action_icon = 'icons/obj/pneumaticCannon.dmi'
 	action_icon_state = "pneumaticCannon"
-	power_type = FLAYER_PURCHASABLE_POWER
+	power_type = FLAYER_UNOBTAINABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = FLAYER_CATEGORY_DESTROYER
 	base_cost = 50
@@ -295,3 +295,92 @@
 			qdel(src)
 			return
 		parent.retract(owner, TRUE, TRUE)
+
+/datum/spell/flayer/self/weapon/shotgun
+	name = "Integrated Shrapnel Cannon."
+	desc = "Allows us to propel pieces of shrapnel from our arm."
+	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "v1_arm"
+	base_cooldown = 1 SECONDS
+	category = FLAYER_CATEGORY_DESTROYER
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cost = 50
+	static_upgrade_increase = 50
+	max_level = 3
+	weapon_type = /obj/item/gun/projectile/revolver/doublebarrel/flayer
+
+/datum/spell/flayer/self/weapon/shotgun/on_apply()
+	..()
+	if(!weapon_ref)
+		create_new_weapon()
+	var/obj/item/gun/projectile/revolver/doublebarrel/flayer/gun = weapon_ref
+	gun.reload_time = initial(gun.reload_time) - 5 SECONDS * (level - 1)
+	if(level > 2)
+		var/obj/item/ammo_box/magazine/mag = gun.magazine
+		mag.max_ammo = 2
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer
+	name = "integrated shrapnel launcher"
+	icon_state = "shell_cannon_weapon"
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	flags = NODROP | ABSTRACT
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
+	w_class = WEIGHT_CLASS_BULKY
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/flayer
+	unique_reskin = FALSE
+	can_sawoff = FALSE
+	/// How long does it take to reload
+	var/reload_time = 30 SECONDS
+	COOLDOWN_DECLARE(recharge_time)
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/process()
+	if(QDELETED(chambered))
+		var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
+		chambered = AC
+
+	if(!COOLDOWN_FINISHED(src, recharge_time))
+		return
+	if(magazine.ammo_count() >= magazine.max_ammo)
+		return
+	magazine.stored_ammo += new magazine.ammo_type
+	COOLDOWN_START(src, recharge_time, reload_time)
+
+	// We do this twice if somehow someone managed to unload their chambered bullet, and it needs reinserting
+	if(QDELETED(chambered))
+		var/obj/item/ammo_casing/AC = magazine.get_round()
+		chambered = AC
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/shoot_live_shot(mob/living/user, atom/target, pointblank, message)
+	. = ..()
+	if(chambered)//We have a shell in the chamber
+		QDEL_NULL(chambered)
+	if(!magazine.ammo_count())
+		return
+	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
+	chambered = AC
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/attack_self(mob/living/user)
+	return FALSE // Not getting those shrapnel rounds out of there.
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/attackby(obj/item/A, mob/user, params)
+	return FALSE // No loading your gun
+
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/sleight_of_handling(mob/living/carbon/human/user)
+	return FALSE // Also no loading like this
+
+/obj/item/ammo_box/magazine/internal/shot/flayer
+	name = "shell launch system internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/shrapnel
+	max_ammo = 1
