@@ -181,7 +181,8 @@
 	max_weight_class = 7
 	gas_per_throw = 5
 
-//Mind Flayer Flak Cannon
+// Mind Flayer Flak Cannon
+// Not used anymore, really just for adminbus
 /obj/item/pneumatic_cannon/flayer
 	name = "\improper Pneumatic Flak Cannon"
 	desc = "An arm-mounted cannon that can shoot a concentrated burst of flak."
