@@ -82,8 +82,7 @@
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	var/random_duration = (2 + rand(0, 4)) SECONDS
-	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), random_duration, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), rand(2, 6)) SECONDS, TIMER_UNIQUE)
 
 
 /obj/item/candle/proc/stop_flickering()
