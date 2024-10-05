@@ -86,7 +86,7 @@
 	if(cell)
 		install_cell(cell)
 	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(mod, COMSIG_CLICK_CTRL, PROC_REF(on_attack_hand))
+	RegisterSignal(mod, COMSIG_CLICK_CTRL, PROC_REF(on_ctrl_click))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
 		on_wearer_set(mod, mod.wearer)
@@ -181,7 +181,7 @@
 		return
 	examine_text += cell ? "You could remove the cell while in hand or being worn with <b>Ctrl-Click</b>." : "You could use a <b>cell</b> on it to install one."
 
-/obj/item/mod/core/standard/proc/on_attack_hand(datum/source, mob/living/user)
+/obj/item/mod/core/standard/proc/on_ctrl_click(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
 	if(mod.seconds_electrified && charge_amount() && mod.shock(user))
