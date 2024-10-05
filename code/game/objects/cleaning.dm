@@ -20,31 +20,40 @@
 		to_chat(user, "<span class='notice'>You need to take that [text_targetname] off before cleaning it.</span>")
 		return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //So we don't need a cleaning_act for every cmaggable object
+	// Consolidate cmagged trait checks and update cleaning parameters
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		is_cmagged = TRUE
 		text_verb = "clean the ooze off"
 		cleanspeed = CMAG_CLEANTIME
 
-	user.visible_message("<span class='warning'>[user] begins to [text_verb] \the [text_targetname][text_description]</span>", "<span class='warning'>You begin to [text_verb] \the [text_targetname][text_description]</span>")
+	// Display cleaning message to the user and others
+	user.visible_message("<span class='warning'>[user] begins to [text_verb] [text_targetname][text_description]</span>", "<span class='warning'>You begin to [text_verb] [text_targetname][text_description]</span>")
+
+	// Execute cleaning action with the defined cleaning speed
 	if(!do_after(user, cleanspeed, target = src))
 		return FALSE
 
+	// Check if the cleaner can clean and execute post-clean actions
 	if(!cleaner.can_clean())
 		cleaner.post_clean(src, user)
 		return FALSE
 
+	// Perform post-clean actions
 	cleaner.post_clean(src, user)
 
-	to_chat(user, "<span class='notice'>You [text_verb] \the [text_targetname][text_description]</span>")
+	// Notify user of successful cleaning
+	to_chat(user, "<span class='notice'>You [text_verb] [text_targetname][text_description]</span>")
 
-	if(is_cmagged) //If we've cleaned a cmagged object
+	// Handle cmagged objects after cleaning
+	if(is_cmagged)
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		uncmag()
 		return TRUE
 	else
-		//Generic cleaning functionality
-		var/obj/effect/decal/cleanable/C = locate() in src
-		qdel(C)
+		// Generic cleaning functionality
+		var/obj/effect/decal/cleanable/decal_to_clean = locate() in src
+		if(decal_to_clean)
+			qdel(decal_to_clean)
 		clean_blood()
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 		return TRUE
@@ -53,27 +62,31 @@
 	return FALSE
 
 /atom/proc/post_clean(atom/target, mob/user) //For specific cleaning object behaviors after cleaning, such as mops making floors slippery.
+	// Example: Make floors slippery after mopping
+	if(istype(target, /turf))
+		to_chat(user, "<span class='notice'>The floor is now slippery!</span>")
 	return
 
 /*
 	* # machine_wash()
 	*
 	* Called by machinery/washing_machine during its wash cycle
-	* allows custom behaviour to be implemented on items that are put through the washing machine
-	* by default it un cmag's objects and cleans all contaminents off of the item
+	* Allows custom behavior to be implemented on items that are put through the washing machine.
+	* By default, it un-cmags objects and cleans all contaminants off the item.
 	*
-	* source - the washing_machine that is responsible for the washing, used by overrides to detect color to dye with
+	* Parameters:
+	* - source: the washing_machine that is responsible for the washing, used by overrides to detect color to dye with.
 */
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/source)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //If we've cleaned a cmagged object
+	// Remove cmag trait if present
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		uncmag()
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
-	//Generic cleaning functionality
-	var/obj/effect/decal/cleanable/C = locate() in src
-	if(!QDELETED(C))
-		qdel(C)
+	// Generic cleaning functionality
+	var/obj/effect/decal/cleanable/decal_to_clean = locate() in src
+	if(!QDELETED(decal_to_clean))
+		qdel(decal_to_clean)
 	clean_blood()
-
 
 #undef CMAG_CLEANTIME
