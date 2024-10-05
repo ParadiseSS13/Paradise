@@ -250,7 +250,12 @@
 
 /obj/item/ammo_box/update_desc()
 	. = ..()
-	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
+
+	// Edgecase catch to prevent a shell count from appearing on the DL-88 Speedcharger
+	if(istype(src, /obj/item/ammo_box/magazine/detective/speedcharger))
+		desc = "[initial(desc)]"
+	else
+		desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()
 	var/num_ammo = 0
