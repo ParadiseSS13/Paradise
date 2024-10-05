@@ -151,6 +151,10 @@
 		// SS220 ADDITION START - TTS220
 		if(!check_tts_seed_ready())
 			return FALSE
+
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
 		// SS220 ADDITION END
 
 		ready = !ready
