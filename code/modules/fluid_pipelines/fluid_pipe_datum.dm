@@ -1,6 +1,6 @@
 /datum/fluid_pipe
-	/// The fluid datum reference
-	var/datum/fluid
+	/// The fluid container datum reference
+	var/datum/fluid_container
 	/// All the connected pipes in this pipeline
 	var/list/connected_pipes = list()
 	/// All connected machinery in this pipeline
@@ -18,8 +18,8 @@
 	. = ..()
 	SSfluid.running_datums += src
 
-	if(!fluid)
-		fluid = new()
+	if(!fluid_container)
+		fluid_container = new()
 
 	if(pipe.just_a_pipe)
 		connected_pipes += pipe
@@ -68,8 +68,8 @@
 			return
 		if(1)
 			var/datum/fluid_pipe/pipe_datum = new_pipelines[1]
-			pipe_datum.fluid = fluid
-			fluid = null
+			pipe_datum.fluid_container = fluid_container
+			fluid_container = null
 			return
 
 	var/total_pipes = 0
