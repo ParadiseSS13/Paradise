@@ -88,7 +88,7 @@
 
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
 		pipe.process()
-		pipe.update_overlays()
+		pipe.icon_updates()
 
 /datum/fluid_pipe/proc/return_percentile_full()
 	var/fullness = fluid_container.get_fluid_volumes()
@@ -97,5 +97,4 @@
 
 /datum/fluid_pipe/proc/icon_updates()
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
-		pipe.update_overlays()
-		pipe.update_icon_state()
+		pipe.update_icon()
