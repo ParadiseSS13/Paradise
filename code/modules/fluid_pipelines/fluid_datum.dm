@@ -18,18 +18,51 @@
 			continue
 		. += liquid.fluid_amount
 
+/**
+  * A proc that merges the `container` with `src`
+  * Returns the surviving container
+  * This proc should not be called often because it scales in O(n^2) and there isn't a limit as to how many fluids can be in pipenets
+  */
+/datum/fluid_container/proc/merge_containers(datum/fluid_container/container)
+	if(!container)
+		return src
+	if(length(container.fluids) <= 0)
+		qdel(container)
+		return src
+	for(var/datum/fluid/liquid as anything in fluids)
+		for(var/datum/fluid/second_liquid as anything in container.fluids)
+			if(istype(liquid, second_liquid))
+				liquid.fluid_amount += second_liquid.fluid_amount
+				container.fluids -= second_liquid
+				qdel(second_liquid)
+				break
+
+	// Merge the remaining unique fluids with this container
+	fluids += container.fluids
+	return src
+
+/datum/fluid_container/proc/add_fluid(type, amount)
+	if(!ispath(type))
+		stack_trace("add_fluid was called with a non-typepath fluid")
+		return
+
+	var/datum/fluid/potential = is_type_in_list(type, fluids, TRUE)
+	if(!potential)
+		fluids += new type(amount)
+	else
+		potential.fluid_amount += amount
 
 
-
-
-
-
-
+// MARK: Fluid datums
 /datum/fluid
 	/// What is our fluid called
 	var/fluid_name = "ant fluid idk" // ants are bugs ... right?
 	/// How much of our fluid do we have
 	var/fluid_amount = 0
+
+/datum/fluid/New(amount)
+	. = ..()
+	fluid_amount = max(0, amount)
 
 /datum/fluid/raw_plasma
 	fluid_name = "unrefined plasma"

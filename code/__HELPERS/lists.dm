@@ -100,12 +100,12 @@
 	return 0
 
 //Checks for specific types in a list
-/proc/is_type_in_list(datum/D, list/L)
+/proc/is_type_in_list(datum/D, list/L, return_type = FALSE)
 	if(!L || !length(L) || !D)
 		return FALSE
 	for(var/type in L)
 		if(istype(D, type))
-			return TRUE
+			return return_type ? type : TRUE
 	return FALSE
 
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')

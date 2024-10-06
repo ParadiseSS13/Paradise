@@ -12,8 +12,9 @@
 	icon_state = "intake"
 	anchored = FALSE
 	just_a_pipe = FALSE
+	capacity = 0 // Safety
 	/// How much fluid do we move each tick? The amount moved is the double of the variable.
-	var/pump_speed = 100 // Enough to fully fill one pipe per tick
+	var/pump_speed = 50 // Enough to fully fill one pipe per tick
 	/// The incoming pipeline datum
 	var/datum/fluid_pipe/incoming
 	/// The outgoing pipeline datum
@@ -23,6 +24,7 @@
 	return
 
 /obj/machinery/fluid_pipe/pump/blind_connect()
+	clear_pipenet_refs() // You have to clear these every time you attempt connecting, otherwise it might keep pumping even though it's not connected
 	for(var/direction in list(dir, REVERSE_DIR(dir)))
 		var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
 		if(pipe)
@@ -37,6 +39,7 @@
 		outgoing.add_pipe(src)
 	else
 		incoming = pipe_to_connect_to.fluid_datum
+		incoming.add_pipe(src)
 
 /obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
@@ -58,3 +61,8 @@
 				pipe.update_icon_state()
 
 	anchored = !anchored
+
+/obj/machinery/fluid_pipe/pump/clear_pipenet_refs()
+	. = ..()
+	incoming = null
+	outgoing = null

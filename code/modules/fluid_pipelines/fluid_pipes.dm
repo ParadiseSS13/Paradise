@@ -37,10 +37,17 @@
 	if(QDELETED(pipe_to_connect_to))
 		return
 
-	if(!pipe_to_connect_to.fluid_datum)
+	// Both pipes have fluid datums
+	if(fluid_datum && pipe_to_connect_to.fluid_datum)
+		fluid_datum.merge(pipe_to_connect_to.fluid_datum)
+
+	// Merging pipe (or both) don't have fluid datums
+	else if(!pipe_to_connect_to.fluid_datum)
 		if(!fluid_datum)
 			fluid_datum = new(src)
 		fluid_datum.add_pipe(pipe_to_connect_to)
+
+	// Merging pipe has a fluid datum
 	else
 		pipe_to_connect_to.fluid_datum.add_pipe(src)
 
@@ -92,3 +99,8 @@
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
 	. += mutable_appearance('icons/obj/pipes/fluid_pipes.dmi', fluid_datum.return_percentile_full())
+
+/// Clears out the pipenet datum references. Override if your machinery holds more references
+/obj/machinery/fluid_pipe/proc/clear_pipenet_refs()
+	SHOULD_CALL_PARENT(TRUE)
+	fluid_datum = null
