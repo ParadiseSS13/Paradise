@@ -345,6 +345,11 @@
 /datum/component/proximity_monitor/table/create_prox_checkers()
 	update_prox_checkers(FALSE)
 
+/**
+ * Update the proximity monitors making up this component.
+ * Arguments:
+ * * clear_existing - If true, any existing proximity monitors attached to this will be deleted.
+ */
 /datum/component/proximity_monitor/table/proc/update_prox_checkers(clear_existing = TRUE)
 	var/list/tables = list()
 	var/list/prox_mon_spots = list()
@@ -360,7 +365,7 @@
 
 	LAZYINITLIST(proximity_checkers)
 	crawl_along(get_turf(parent), tables, prox_mon_spots, 0)
-	// var/turf/parent_turf = get_turf(parent)
+
 	// For whatever reason their turf is null. Create the checkers in nullspace for now. When the parent moves to a valid turf, they can be recenetered.
 	for(var/T in prox_mon_spots)
 		create_single_prox_checker(T, /obj/effect/abstract/proximity_checker/table)
@@ -434,6 +439,7 @@
 	// This should hopefully ensure that multiple decks around each other don't overlap
 	register_on_mob(mover)
 
+/// Triggered when someone moves from a tile that contains our monitor.
 /obj/effect/abstract/proximity_checker/table/proc/on_move_from_monitor(atom/movable/tracked, atom/old_loc)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(tracked))

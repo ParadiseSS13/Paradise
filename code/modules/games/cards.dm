@@ -53,6 +53,10 @@
 	var/card_resistance_flags = FLAMMABLE
 	/// ID used to track the decks and cardhands that can be combined into one another.
 	var/main_deck_id = -1
+	/// The name of the last player to interact with this deck.
+	var/last_player_name
+	/// The action that the last player made. Should be in the form of "played a card", "drew a card."
+	var/last_player_action
 
 /obj/item/deck/Initialize(mapload, parent_deck_id = -1)
 	. = ..()
@@ -71,6 +75,8 @@
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
+	if(last_player_name && last_player_action)
+		. += "<span class='notice'>Most recent action: [last_player_name] [last_player_action].</span>"
 	if(in_play_range(user) && !Adjacent(user))
 		. += "<span class='boldnotice'>You're in range of this card-hand, and can use it at a distance!</span>"
 	else
@@ -89,6 +95,10 @@
 	. += "\t<span class='notice'><b>Ctrl-Click</b> with cards to place them at the bottom of the deck.</span>"
 	. += ""
 	. += "You also notice a little number on the corner of [src]: it's tagged [main_deck_id]."
+
+/obj/item/deck/proc/add_most_recent_action(mob/user, action)
+	last_player_name = "[user]"
+	last_player_action = action
 
 /// Fill the deck with all the specified cards.
 /// Uses deck_size to determine how many times to call build_deck()
@@ -178,6 +188,7 @@
 	qdel(other_deck)
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(user)
+		add_most_recent_action(user, "merged [src] and [other_deck]")
 		user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
 /obj/item/deck/attack_hand(mob/user)
@@ -267,17 +278,17 @@
 				user.vis_contents += draft
 				QDEL_IN(draft, 1 SECONDS)
 				sleep(1 SECONDS)
+			add_most_recent_action(user, "placed [P] on the [side]")
 			user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
 			user.do_attack_animation(src, hand)
-		else
+			update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+			return
 			// don't attack with the open hand lol
-			user.do_attack_animation(src, no_effect = TRUE)
-	else
-		user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
+		user.do_attack_animation(src, no_effect = TRUE)
 
+	add_most_recent_action(user, "placed [length(chosen_cards)] card\s on the [side]")
+	user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
 
-
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 // deck datum actions
 /datum/action/item_action/draw_card
@@ -359,12 +370,14 @@
 
 	user.do_attack_animation(src, no_effect = TRUE)
 	if(public)
+		add_most_recent_action(user, "drew \a [P.name]")
 		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>", "<span class='notice'>You hear a card be drawn.</span>")
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 		user.vis_contents += draft
 		QDEL_IN(draft, 1 SECONDS)
 		sleep(1 SECONDS)
 	else
+		add_most_recent_action(user, "drew a card")
 		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>", "<span class='notice'>You hear a card be drawn.</span>")
 		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
 
@@ -419,12 +432,14 @@
 	H.concealed = TRUE
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
+		add_most_recent_action(user, "dealt [dcard] card\s to [user.p_themselves()]")
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>",
 			"<span class='notice'>You deal [dcard] card\s to yourself.</span>",
 			"<span class='notice'>You hear cards being dealt.</span>"
 		)
 	else
+		add_most_recent_action(user, "dealt [dcard] card\s to [target]")
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card\s to [target].</span>",
 			"<span class='notice'>You deal [dcard] card\s to [target].</span>",
@@ -440,6 +455,7 @@
 		cards = shuffle(cards)
 
 		if(user)
+			add_most_recent_action(user, "shuffled [src]")
 			user.visible_message(
 				"<span class='notice'>[user] shuffles [src].</span>",
 				"<span class='notice'>You shuffle [src].</span>",
