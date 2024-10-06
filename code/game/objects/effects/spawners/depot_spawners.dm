@@ -173,6 +173,7 @@
 		/obj/item/shield/energy,
 		/obj/item/storage/box/syndie_kit/teleporter,
 		/obj/item/weaponcrafting/gunkit/universal_gun_kit,
+		/obj/item/mod/control/pre_equipped/traitor_elite
 	)
 
 // Layout-affecting spawns
