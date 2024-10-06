@@ -31766,6 +31766,9 @@
 	name = "Magboot Storage"
 	},
 /obj/item/clothing/shoes/magboots,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cwX" = (
@@ -32057,6 +32060,9 @@
 	name = "RCD Storage"
 	},
 /obj/machinery/light/directional/west,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cyf" = (
@@ -44045,6 +44051,9 @@
 /obj/item/tank/jetpack/carbondioxide{
 	pixel_x = -4;
 	pixel_y = 3
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -70265,6 +70274,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -107104,6 +107116,7 @@
 /obj/machinery/door/window/classic/normal{
 	name = "Cryo Tank Storage"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"

@@ -52375,9 +52375,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
-"hbB" = (
-/turf/simulated/wall,
-/area/station/legal/magistrate)
 "hbN" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -55148,6 +55145,9 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 1;
 	name = "Delivery Desk"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -63452,7 +63452,7 @@
 	id_tag = "roboticsprivacy";
 	name = "Robotics Shutters"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -79025,6 +79025,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "tsm" = (
@@ -79650,6 +79653,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "tKb" = (
@@ -86667,6 +86673,9 @@
 /obj/item/desk_bell{
 	pixel_y = 8;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -119291,7 +119300,7 @@ lHy
 abZ
 abZ
 abZ
-hbB
+abZ
 abZ
 aZU
 baL
