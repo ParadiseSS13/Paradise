@@ -35,6 +35,8 @@
 	var/spawn_random_angle = FALSE
 	/// Whether blackbox should record when the spawner spawns.
 	var/record_spawn = FALSE
+	/// Where do we want to spawn an item (closet, safe etc.)
+	var/spawn_inside
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
@@ -56,6 +58,9 @@
 
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
+
+	if(spawn_inside)
+		new spawn_inside(loc)
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
