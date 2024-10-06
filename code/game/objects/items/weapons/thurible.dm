@@ -85,24 +85,25 @@
 
 /obj/item/thurible/on_reagent_change()
 	. = ..()
-	if(!corrupted)
-		var/found_forbidden_reagent = FALSE
-		for(var/datum/reagent/R as anything in reagents.reagent_list)
-			if(R.id == "unholywater")
-				corrupted = TRUE
-				visible_message(
-					"<span class='notice'>You corrupt [src] with unholy water!</span>",
-					"<span class='warning'>You hear a strange gurgling.</span>"
-				)
-				return
-			if(!safe_chem_list.Find(R.id))
-				reagents.del_reagent(R.id)
-				found_forbidden_reagent = TRUE
-		if(found_forbidden_reagent)
+	if(corrupted)
+		return
+	var/found_forbidden_reagent = FALSE
+	for(var/datum/reagent/R as anything in reagents.reagent_list)
+		if(R.id == "unholywater")
+			corrupted = TRUE
 			visible_message(
-					"<span class='notice'>[src] banishes an unholy substance!</span>",
-					"<span class='warning'>You hear a strange fizzing.</span>"
-				)
+				"<span class='notice'>You corrupt [src] with unholy water!</span>",
+				"<span class='warning'>You hear a strange gurgling.</span>"
+			)
+			return
+		if(!safe_chem_list.Find(R.id))
+			reagents.del_reagent(R.id)
+			found_forbidden_reagent = TRUE
+	if(found_forbidden_reagent)
+		visible_message(
+			"<span class='notice'>[src] banishes an unholy substance!</span>",
+			"<span class='warning'>You hear a strange fizzing.</span>"
+		)
 
 /// Lights the thurible and starts processing reagents
 /obj/item/thurible/proc/light(mob/user)
