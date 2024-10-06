@@ -52,6 +52,7 @@
 
 /obj/item/reagent_containers/patch/styptic/small
 	name = "brute mini-patch"
+	icon_state = "bandaid_brute_small"
 	list_reagents = list("styptic_powder" = 15)
 
 /obj/item/reagent_containers/patch/silver_sulf
@@ -63,6 +64,7 @@
 
 /obj/item/reagent_containers/patch/silver_sulf/small
 	name = "burn mini-patch"
+	icon_state = "bandaid_burn_small"
 	list_reagents = list("silver_sulfadiazine" = 15)
 
 /obj/item/reagent_containers/patch/synthflesh

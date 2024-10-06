@@ -549,6 +549,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
+/obj/item/circuitboard/washing_machine
+	board_name = "Washing Machine"
+	icon_state = "generic"
+	build_path = /obj/machinery/washing_machine
+	board_type = "machine"
+	origin_tech = "programming=1"
+
 /obj/item/circuitboard/smartfridge
 	board_name = "Smartfridge"
 	build_path = /obj/machinery/smartfridge
@@ -565,6 +572,7 @@ to destroy them and players will be able to make replacements.
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
+							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
 							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
@@ -712,6 +720,10 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Syndi Autolathe)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/autolathe/syndicate
+
+/obj/item/circuitboard/autolathe/trapped
+	board_name = "Modified Autolathe"
+	build_path = /obj/machinery/autolathe/trapped
 
 /obj/item/circuitboard/protolathe
 	board_name = "Protolathe"

@@ -127,6 +127,9 @@
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
 	src.add_fingerprint(user)
 
 	if(istype(I, /obj/item/melee/energy/blade))
@@ -503,8 +506,8 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/process()
-	change_power_mode(NO_POWER_USE)
 	if(stat & BROKEN)			// nothing can happen if broken
+		change_power_mode(NO_POWER_USE)
 		return
 
 	flush_count++
@@ -523,20 +526,17 @@
 	if(stat & NOPOWER)			// won't charge if no power
 		return
 
-	change_power_mode(IDLE_POWER_USE)
-
 	if(mode != DISPOSALS_RECHARGING)		// if off or ready, no need to charge
 		return
 
-	// otherwise charge
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(IDLE_POWER_USE) // only start using power when we're sucking in air
 
 	var/datum/milla_safe/disposal_suck_air/milla = new()
 	milla.invoke_async(src)
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
-
+	change_power_mode(ACTIVE_POWER_USE)
 	flushing = 1
 	flick("[icon_state]-flush", src)
 
@@ -571,6 +571,9 @@
 	flush = 0
 	if(mode == DISPOSALS_CHARGED)	// if was ready,
 		mode = DISPOSALS_RECHARGING	// switch to charging
+		change_power_mode(IDLE_POWER_USE)
+	else
+		change_power_mode(NO_POWER_USE)
 	update()
 	return
 
@@ -610,7 +613,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))
@@ -634,7 +637,7 @@
 		return
 
 	else
-		return ..(mover, target, height)
+		return ..()
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

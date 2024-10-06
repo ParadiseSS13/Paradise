@@ -33,3 +33,7 @@
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M, TRUE)
 	..()
+
+/mob/living/simple_animal/bunny/syndi // for the syndicake factory bunny so its not being shot
+	faction = list("syndicate")
+	gold_core_spawnable = NO_SPAWN

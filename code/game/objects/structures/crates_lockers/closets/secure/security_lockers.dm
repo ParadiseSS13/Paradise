@@ -14,7 +14,7 @@
 	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
-	new /obj/item/storage/belt/sheath/rapier(src)
+	new /obj/item/storage/belt/sheath/saber(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/captain(src)

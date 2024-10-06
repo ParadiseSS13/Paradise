@@ -455,7 +455,7 @@
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	to_chat(wearer, "<span class='warning'>[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!")
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)

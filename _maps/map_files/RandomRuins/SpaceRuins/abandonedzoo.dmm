@@ -349,7 +349,7 @@
 	},
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

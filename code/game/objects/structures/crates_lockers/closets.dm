@@ -62,8 +62,8 @@
 		dump_contents()
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0 || wall_mounted)
+/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+	if(wall_mounted)
 		return TRUE
 	return (!density)
 
@@ -340,7 +340,7 @@
 	return TRUE
 
 /obj/structure/closet/container_resist(mob/living/L)
-	var/breakout_time = 2 //2 minutes by default
+	var/breakout_time = 2 MINUTES
 	if(opened)
 		if(L.loc == src)
 			L.forceMove(get_turf(src)) // Let's just be safe here
@@ -358,7 +358,7 @@
 
 
 	spawn(0)
-		if(do_after(L,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+		if(do_after(L, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 

@@ -69,6 +69,13 @@
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
+				if(GLOB.disable_explosions)
+					if(istype(user))
+						to_chat(user, "<span class='userdanger'>You seem to stuff yourself into the quantum hellscape between the two bags. That wasn't wise.</span>")
+						user.gib()
+
+					return
+
 				investigate_log("has become a singularity. Caused by [user.key]","singulo")
 				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
@@ -930,8 +937,8 @@
 
 //Solgov
 /obj/item/storage/backpack/ert/solgov
-	name = "\improper TSF marine backpack"
-	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
+	name = "\improper TSF marine rucksack"
+	desc = "A spacious rucksack covered in pouches and pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
 
 /obj/item/storage/backpack/ert/deathsquad

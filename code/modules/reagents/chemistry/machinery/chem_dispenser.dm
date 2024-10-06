@@ -134,7 +134,7 @@
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		..()

@@ -447,7 +447,7 @@
 	name = "engineering robot module"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
-	module_actions = list(/datum/action/innate/robot_sight/meson, /datum/action/innate/robot_magpulse)
+	module_actions = list(/datum/action/innate/robot_sight/engineering_scanner, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
@@ -458,7 +458,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/wirecutters/cyborg,
 		/obj/item/multitool/cyborg,
-		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
@@ -928,11 +927,13 @@
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
+		/obj/item/extinguisher/mini // for friendly fire from their immolator gun.
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
-		/obj/item/gun/energy/immolator/multi/cyborg
+		/obj/item/gun/energy/immolator/multi/cyborg,
+		/obj/item/extinguisher/mini
 	)
 
 // Destroyer security module.

@@ -12,18 +12,18 @@
 	/// All Power Machines that are connected to this powernet
 	var/list/nodes = list()
 
-	/// the current available power in the powernet
+	/// the current available power in the powernet (Watts)
 	var/available_power = 0
-	/// the current load on the powernet, increased by each machine at processing
+	/// the current load on the powernet, increased by each machine at processing (Watts)
 	var/power_demand = 0
-	/// what available power was gathered last tick, then becomes...
+	/// what available power was gathered last tick, then becomes... (Watts)
 	var/queued_power_production = 0
-	/// load applied to powernet between power ticks.
+	/// load applied to powernet between power ticks. (Watts)
 	var/queued_power_demand = 0
-	/// excess power on the powernet (typically avail-load)
+	/// excess power on the powernet (typically avail-load) (Watts)
 	var/excess_power = 0
 
-	/// the available power as it appears on the power console (gradually updated)
+	/// the available power as it appears on the power console (gradually updated) (Watts)
 	var/smoothed_available_power = 0
 	/// the load as it appears on the power console (gradually updated)
 	var/smoothed_demand = 0
