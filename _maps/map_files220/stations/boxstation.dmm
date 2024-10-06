@@ -134,14 +134,9 @@
 /area/station/security/armory/secure)
 "abP" = (
 /obj/machinery/suit_storage_unit/security/secure,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "abY" = (
@@ -281,24 +276,23 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "acH" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced,
-/obj/item/grenade/barrier{
-	pixel_x = 5;
-	pixel_y = 5
+/obj/structure/table/reinforced,
+/obj/item/storage/box/trackimp{
+	pixel_y = 8;
+	pixel_x = -6
 	},
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/storage/box/chemimp{
+	pixel_x = 6;
+	pixel_y = 8
 	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/item/storage/lockbox/mindshield,
+/obj/item/storage/lockbox/mindshield{
+	pixel_y = 4
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "acK" = (
@@ -396,42 +390,39 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "adb" = (
-/obj/structure/rack,
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
+/obj/structure/shelf/security,
+/obj/item/grenade/barrier{
+	pixel_x = -6;
+	pixel_y = 4
 	},
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/item/grenade/barrier{
+	pixel_y = 4
+	},
+/obj/item/grenade/barrier{
+	pixel_y = 4;
+	pixel_x = 6
+	},
+/obj/item/grenade/barrier{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/grenade/barrier{
+	pixel_y = -4
+	},
+/obj/item/grenade/barrier{
+	pixel_y = -4;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "adg" = (
 /obj/structure/dispenser/oxygen,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/armory/secure)
-"adh" = (
-/obj/machinery/suit_storage_unit/security/secure,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "adi" = (
@@ -547,8 +538,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "adP" = (
-/obj/structure/rack,
-/obj/structure/rack,
+/obj/structure/shelf/security,
 /obj/item/storage/box/rubbershot{
 	pixel_y = -3
 	},
@@ -566,12 +556,6 @@
 	},
 /obj/item/storage/box/beanbag{
 	pixel_y = 3
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -846,7 +830,6 @@
 /obj/machinery/camera{
 	c_tag = "Brig Secure Armory North"
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -907,24 +890,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "afe" = (
-/obj/structure/window/reinforced,
-/obj/structure/gunrack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = -8
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = -4
-	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
-	pixel_x = 4
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 8
-	},
+/obj/structure/shelf/security,
+/obj/item/storage/box/tranquilizer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1139,7 +1106,6 @@
 /area/station/maintenance/asmaint2)
 "agS" = (
 /obj/machinery/flasher/portable,
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -1297,12 +1263,6 @@
 /area/shuttle/gamma/station)
 "ahG" = (
 /obj/structure/gunrack,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = 8
 	},
@@ -1419,28 +1379,28 @@
 	},
 /area/station/security/brig)
 "aif" = (
-/obj/structure/rack,
-/obj/item/storage/box/teargas{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/handcuffs,
+/obj/structure/shelf/security,
 /obj/item/storage/box/flashbangs{
-	pixel_x = -2;
-	pixel_y = -2
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/storage/box/teargas{
+	pixel_y = 8
+	},
+/obj/item/storage/box/seccarts{
+	pixel_y = 8;
+	pixel_x = 6
+	},
+/obj/item/storage/box/handcuffs{
+	pixel_x = -6
 	},
 /obj/item/storage/box/handcuffs,
-/obj/item/storage/box/seccarts{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/item/storage/box/handcuffs{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "aig" = (
@@ -1472,34 +1432,16 @@
 	},
 /area/station/security/armory/secure)
 "aip" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/rack,
-/obj/item/storage/box/tranquilizer,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/gunrack,
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "aiq" = (
-/obj/structure/gunrack,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = -4
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 4
-	},
+/obj/structure/rack,
+/obj/item/clothing/suit/hooded/ablative,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1559,12 +1501,20 @@
 	},
 /area/station/security/armory/secure)
 "aiB" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/structure/gunrack,
+/obj/item/gun/energy/disabler{
+	pixel_x = -8
 	},
-/obj/item/clothing/suit/hooded/ablative,
-/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/disabler{
+	pixel_x = -4
+	},
+/obj/item/gun/energy/disabler,
+/obj/item/gun/energy/disabler{
+	pixel_x = 4
+	},
+/obj/item/gun/energy/disabler{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1582,9 +1532,6 @@
 /area/station/security/brig)
 "aiN" = (
 /obj/structure/gunrack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/item/gun/energy/gun{
 	pixel_x = -4
 	},
@@ -1743,27 +1690,13 @@
 	},
 /area/station/security/brig)
 "ajq" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/structure/gunrack,
+/obj/item/gun/energy/laser{
+	pixel_x = -4
 	},
-/obj/item/clothing/suit/armor/bulletproof/sec{
-	pixel_x = -3
-	},
-/obj/item/clothing/suit/armor/bulletproof/sec,
-/obj/item/clothing/suit/armor/bulletproof/sec{
-	pixel_x = 3
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_y = 8;
-	pixel_x = -3
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_y = 8
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_y = 8;
-	pixel_x = 3
+/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser{
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1781,9 +1714,6 @@
 	},
 /obj/item/gun/projectile/automatic/sslr{
 	pixel_x = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1830,21 +1760,24 @@
 	},
 /area/station/security/brig)
 "ajK" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/structure/shelf/security,
+/obj/item/clothing/suit/armor/bulletproof/sec{
+	pixel_x = -6
 	},
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/item/clothing/suit/armor/bulletproof/sec,
+/obj/item/clothing/suit/armor/bulletproof/sec{
+	pixel_x = 6
 	},
-/obj/item/clothing/head/helmet/riot{
-	pixel_y = 3;
-	pixel_x = 3
+/obj/item/clothing/head/helmet/alt{
+	pixel_y = 8;
+	pixel_x = -6
 	},
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot{
-	pixel_y = -3;
-	pixel_x = -3
+/obj/item/clothing/head/helmet/alt{
+	pixel_y = 8
+	},
+/obj/item/clothing/head/helmet/alt{
+	pixel_y = 8;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1909,7 +1842,6 @@
 "akl" = (
 /obj/machinery/flasher/portable,
 /obj/machinery/status_display/directional/north,
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -1942,18 +1874,24 @@
 	},
 /area/station/security/permabrig)
 "akt" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/shelf/security,
 /obj/item/clothing/suit/armor/riot/sec{
-	pixel_x = 3;
-	pixel_y = 3
+	pixel_x = -6
 	},
 /obj/item/clothing/suit/armor/riot/sec,
 /obj/item/clothing/suit/armor/riot/sec{
-	pixel_y = -3;
-	pixel_x = -3
+	pixel_x = 6
+	},
+/obj/item/clothing/head/helmet/riot{
+	pixel_y = 8;
+	pixel_x = -6
+	},
+/obj/item/clothing/head/helmet/riot{
+	pixel_y = 8
+	},
+/obj/item/clothing/head/helmet/riot{
+	pixel_y = 8;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1961,19 +1899,13 @@
 	},
 /area/station/security/armory/secure)
 "aku" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/shelf/security,
 /obj/item/shield/riot{
-	pixel_x = 3;
-	pixel_y = 3
+	pixel_x = -6
 	},
 /obj/item/shield/riot,
 /obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = -3
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2712,7 +2644,7 @@
 	},
 /area/station/security/storage)
 "amH" = (
-/obj/structure/rack,
+/obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
 	},
@@ -2720,14 +2652,16 @@
 	pixel_y = 35
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -8
+	pixel_y = 4;
+	pixel_x = 6
+	},
+/obj/item/flash{
+	pixel_y = 6;
+	pixel_x = -4
 	},
 /obj/item/assembly/timer{
-	pixel_y = -6
+	pixel_x = 6
 	},
-/obj/item/flash,
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -2740,31 +2674,30 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
 "amJ" = (
-/obj/structure/rack,
+/obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank/north,
 /obj/machinery/light/directional/north,
-/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/accessory/holster{
-	pixel_x = -6;
-	pixel_y = 6
+	pixel_x = -8
 	},
 /obj/item/clothing/accessory/holster{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 6;
-	pixel_y = -6
+	pixel_x = -4
 	},
 /obj/item/clothing/accessory/holster,
-/obj/item/restraints/handcuffs{
-	pixel_y = -4
+/obj/item/clothing/accessory/holster{
+	pixel_x = 4
 	},
-/obj/item/restraints/handcuffs,
+/obj/item/clothing/accessory/holster{
+	pixel_x = 8
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 8;
+	pixel_x = -4
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 8;
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -53574,11 +53507,7 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/fsmaint)
 "guL" = (
-/obj/structure/window/reinforced,
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/item/ammo_box/magazine/sslr{
 	pixel_y = 12;
 	pixel_x = -4
@@ -79875,7 +79804,6 @@
 /area/station/maintenance/apmaint)
 "pEE" = (
 /obj/machinery/flasher/portable,
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -133402,7 +133330,7 @@ aaa
 aab
 aaa
 aiv
-ahG
+afe
 aor
 acj
 acH
@@ -133663,7 +133591,7 @@ adP
 ajj
 acj
 aif
-adh
+abP
 ajj
 vET
 vBJ
@@ -134176,7 +134104,7 @@ akl
 pEE
 ahV
 aiq
-aiN
+aiB
 ajr
 guL
 kAr
@@ -134433,9 +134361,9 @@ aeR
 agS
 jUf
 aip
-aiB
+aiN
 ajq
-afe
+ahG
 dCA
 alX
 amI
