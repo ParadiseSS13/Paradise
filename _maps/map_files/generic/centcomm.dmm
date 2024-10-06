@@ -1342,6 +1342,12 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
+"ff" = (
+/obj/machinery/fluid_pipe,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "fg" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/holding)
@@ -13393,6 +13399,14 @@
 /obj/item/reagent_containers/drinks/cans/madminmalt,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"Vw" = (
+/obj/machinery/fluid_pipe/pump{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "Vx" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
@@ -59897,11 +59911,11 @@ De
 De
 De
 De
-De
-De
-De
-De
-De
+ff
+ff
+ff
+ff
+ff
 De
 De
 De
@@ -60150,15 +60164,15 @@ De
 De
 De
 De
+ff
+ff
+ff
+De
+ff
 De
 De
 De
-De
-De
-De
-De
-De
-De
+ff
 De
 De
 De
@@ -60407,15 +60421,15 @@ De
 De
 De
 De
+ff
+De
+ff
+ff
+ff
 De
 De
 De
-De
-De
-De
-De
-De
-De
+ff
 De
 De
 De
@@ -60664,15 +60678,15 @@ De
 De
 De
 De
+ff
 De
 De
 De
+ff
 De
 De
 De
-De
-De
-De
+ff
 De
 De
 De
@@ -60921,15 +60935,15 @@ De
 De
 De
 De
+ff
 De
 De
 De
-De
-De
-De
-De
-De
-De
+ff
+ff
+ff
+ff
+ff
 De
 De
 De
@@ -61178,7 +61192,7 @@ De
 De
 De
 De
-De
+Vw
 De
 De
 De
@@ -61435,7 +61449,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
@@ -61692,7 +61706,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
@@ -61949,7 +61963,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
@@ -62206,7 +62220,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
