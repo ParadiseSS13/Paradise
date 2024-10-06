@@ -50,11 +50,11 @@
 	else
 		icon_state = "thurible"
 		item_state = "thurible"
-	if(in_inventory)
-		for(var/mob/M in view(0, get_turf(loc)))
-			if(M.r_hand == src || M.l_hand == src)
-				M.update_inv_l_hand()
-				M.update_inv_r_hand()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.r_hand == src || H.l_hand == src)
+			H.update_inv_l_hand()
+			H.update_inv_r_hand()
 	return ..()
 
 /obj/item/thurible/attackby(obj/item/fire_source, mob/user, params)
