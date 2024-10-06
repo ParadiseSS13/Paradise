@@ -37,8 +37,6 @@
 	if(QDELETED(pipe_to_connect_to))
 		return
 
-	message_admins(fluid_datum)
-	message_admins("other pipe [pipe_to_connect_to.fluid_datum]")
 	if(!pipe_to_connect_to.fluid_datum)
 		if(!fluid_datum)
 			fluid_datum = new(src)
