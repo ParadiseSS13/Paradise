@@ -1,6 +1,6 @@
 /datum/fluid_pipe
 	/// The fluid container datum reference
-	var/datum/fluid_container
+	var/datum/fluid_container/fluid_container
 	/// All the connected pipes in this pipeline
 	var/list/connected_pipes = list()
 	/// All connected machinery in this pipeline
@@ -16,7 +16,7 @@
 
 /datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe)
 	. = ..()
-	SSfluid.running_datums += src
+	START_PROCESSING(SSfluid, src)
 
 	if(!fluid_container)
 		fluid_container = new()
@@ -33,6 +33,8 @@
 		connected_pipes += pipe
 	else
 		machinery += pipe
+
+	pipe.fluid_datum = src
 
 	total_capacity += pipe.capacity
 
@@ -51,6 +53,7 @@
 	// As much as it pains me, we have to do this first so we start with a clean slate and can make new pipenets
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
 		pipe.fluid_datum = null
+		pipe.neighbours = 0
 
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
 		pipe.blind_connect()
@@ -78,3 +81,21 @@
 
 	for(var/datum/fluid_pipe as anything in new_pipelines) // First I need to flesh out the fluid datums
 		continue
+
+/datum/fluid_pipe/process()
+	for(var/obj/machinery/machine as anything in machinery)
+		machine.process()
+
+	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
+		pipe.process()
+		pipe.update_overlays()
+
+/datum/fluid_pipe/proc/return_percentile_full()
+	var/fullness = fluid_container.get_fluid_volumes()
+	fullness = (fullness / total_capacity) * 100
+	return "[round(fullness, 10)]"
+
+/datum/fluid_pipe/proc/icon_updates()
+	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
+		pipe.update_overlays()
+		pipe.update_icon_state()

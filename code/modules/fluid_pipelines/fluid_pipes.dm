@@ -5,6 +5,7 @@
 	icon_state = "pipe-j1" // If you see this iconstate something went wrong
 	power_state = NO_POWER_USE
 	flags_2 = NO_MALF_EFFECT_2
+	anchored = TRUE
 	/// The pipe datum connected to this pipe
 	var/datum/fluid_pipe/fluid_datum
 	/// Is this fluid machinery or just a pipe
@@ -27,8 +28,7 @@
 /obj/machinery/fluid_pipe/update_icon_state()
 	var/temp_state = "pipe"
 	for(var/direction in GLOB.cardinal)
-		var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction)
-		if(pipe)
+		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
 			temp_state += "_[direction]"
 
 	icon_state = temp_state
@@ -36,18 +36,19 @@
 /obj/machinery/fluid_pipe/proc/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
 	if(QDELETED(pipe_to_connect_to))
 		return
-	if(isnull(fluid_datum))
-		fluid_datum = new(src)
+
+	message_admins(fluid_datum)
+	message_admins("other pipe [pipe_to_connect_to.fluid_datum]")
+	if(!pipe_to_connect_to.fluid_datum)
+		if(!fluid_datum)
+			fluid_datum = new(src)
 		fluid_datum.add_pipe(pipe_to_connect_to)
 	else
-		pipe_to_connect_to.fluid_datum = fluid_datum
-		fluid_datum.add_pipe(pipe_to_connect_to)
+		pipe_to_connect_to.fluid_datum.add_pipe(src)
 
-	update_icon_state()
 	neighbours++
-
-	pipe_to_connect_to.update_icon_state()
 	pipe_to_connect_to.neighbours++
+	fluid_datum.icon_updates()
 
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
 	if(QDELETED(src))
@@ -65,11 +66,13 @@
 /// Want to connect a pipe to other pipes, but don't know where the other pipes are?
 /obj/machinery/fluid_pipe/proc/blind_connect()
 	for(var/direction in GLOB.cardinal)
-		var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction)
-		if(pipe && pipe.anchored)
-			pipe.connect_pipes(src) // The reason for this is so we can override the behaviour on pumps
+		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
+			if(pipe && pipe.anchored)
+				pipe.connect_pipes(src) // The reason for this is so we can override the behaviour on pumps
 									// so we can make them reconsider all of their connections every time they are connected
-			pipe.update_icon_state()
+				return
+
+	update_icon_state()
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
 	. = ..()
@@ -87,3 +90,7 @@
 		blind_connect()
 	else
 		disconnect_pipe()
+
+/obj/machinery/fluid_pipe/update_overlays()
+	. = ..()
+	. += mutable_appearance('icons/obj/pipes/fluid_pipes.dmi', fluid_datum.return_percentile_full())
