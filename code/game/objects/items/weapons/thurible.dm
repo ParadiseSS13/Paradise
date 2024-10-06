@@ -10,6 +10,7 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
+	container_type = REFILLABLE
 	/// Whether or not the thurible can be loaded with harmful chems
 	var/corrupted = FALSE
 	/// Has the thurible been ignited?
@@ -27,7 +28,6 @@
 /obj/item/thurible/Initialize(mapload)
 	. = ..()
 	create_reagents(50)
-	container_type = REFILLABLE
 	reagents.set_reacting(FALSE)
 
 /obj/item/thurible/Destroy()
