@@ -106,21 +106,23 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
+	var/scribble_html = scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""
 	usr << browse("<html><meta charset='utf-8'><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
-		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
+		+ scribble_html \
 		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
-	if(!n_name)
-		return
-	//loc.loc check is for making possible renaming photos in clipboards
-	if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
-		name = "[(n_name ? "[n_name]" : "photo")]"
-	add_fingerprint(user)
+    var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", max_length = 128)
+    if(!n_name)
+        return
+    //loc.loc check is for making possible renaming photos in clipboards
+    if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
+        name = "[(n_name ? "[n_name]" : "photo")]"
+        scribble = n_name  // Set the scribble to the new name
+    add_fingerprint(user)
 
 /**************
 * photo album *
