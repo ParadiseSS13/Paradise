@@ -924,7 +924,7 @@
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
-		if(prob(66))
+		if(prob(66.66))
 			to_chat(M, "<span class='warning'>You feel hungry...</span>")
 		else if(prob(50))
 			update_flags |= M.adjustToxLoss(1, FALSE)
