@@ -169,5 +169,5 @@
 	for(var/mob/living/carbon/smoker as anything in mobs_to_smoke)
 		released_reagents.reagents.copy_to(smoker, percentage_to_add)
 
-	if(!reagents.total_volume)
+	if(reagents.total_volume <= 0)
 		put_out()
