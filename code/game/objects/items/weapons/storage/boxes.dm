@@ -713,10 +713,13 @@
 /obj/item/storage/fancy/shell/update_overlays()
 	. = ..()
 	var/list/cached_contents = contents
-	message_admins(json_encode(cached_contents))
 	for(var/index in 1 to length(storage_slots))
 		var/obj/shell = cached_contents[index]
-		. += image(icon, shell.icon_state, pixel_x = 3 * (round(index / 2)), pixel_y = -4 * ((index + 1) % 2))
+		var/image/I = image(icon, src, shell.icon_state)
+		I.pixel_x = 3 * (round(index / 2))
+		I.pixel_y = -4 * ((index + 1) % 2)
+		. += I
+
 	. += "shell_box_front" // need to add another overlay to prevent from other overlays from showing on top
 
 /obj/item/storage/fancy/shell/populate_contents()
