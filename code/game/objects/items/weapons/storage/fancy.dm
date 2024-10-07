@@ -106,7 +106,7 @@
 
 /obj/item/storage/fancy/candle_box/Initialize(mapload)
 	. = ..()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I in 1 to storage_slots)
