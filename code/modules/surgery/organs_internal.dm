@@ -182,8 +182,6 @@
 		/obj/item/stack/nanopaste = 100
 	)
 
-	preop_sound = 'sound/surgery/organ1.ogg'
-
 /datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
 	var/tool_name = "[tool]"
 	if(istype(tool, /obj/item/stack/medical/bruise_pack))
@@ -298,8 +296,6 @@
 		/obj/item/kitchen/utensil/fork = 70
 	)
 
-	preop_sound = 'sound/surgery/organ1.ogg'
-	success_sound = 'sound/surgery/organ2.ogg'
 	var/obj/item/organ/internal/extracting = null
 
 /datum/surgery_step/internal/manipulate_organs/extract/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -393,9 +389,6 @@
 		/obj/item/organ/internal = 100,
 		/obj/item/food/organ = 0  // there for the flavor text
 	)
-
-	preop_sound = 'sound/surgery/organ2.ogg'
-	success_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/food/organ))
@@ -650,9 +643,6 @@
 		TOOL_CROWBAR = 90
 	)
 
-	preop_sound = 'sound/surgery/retractor1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-
 /datum/surgery_step/internal/manipulate_organs/finish/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -717,15 +707,6 @@
 		TOOL_WIRECUTTER = 35
 	)
 
-	preop_sound = list(
-		TOOL_SAW = 'sound/surgery/saw.ogg',
-		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
-		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
-		/obj/item/butcher_chainsaw = 'sound/weapons/chainsaw.ogg',
-		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
-	)
-
-	success_sound = 'sound/surgery/organ2.ogg'
 	time = 5.4 SECONDS
 
 
@@ -769,9 +750,6 @@
 		/obj/item/butcher_chainsaw = 1
 	)
 
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/scalpel2.ogg'
-	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 1.6 SECONDS
 
 /datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -809,8 +787,6 @@
 		/obj/item/kitchen/utensil/fork = 60
 	)
 
-	preop_sound = 'sound/surgery/retractor1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -862,9 +838,6 @@
 		/obj/item/flamethrower = 1
 	)
 
-	preop_sound = 'sound/surgery/cautery1.ogg'
-	success_sound = 'sound/surgery/cautery2.ogg'
-	failure_sound = 'sound/items/welder.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/seal_carapace/proc/zone_name(target_zone)
