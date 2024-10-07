@@ -113,6 +113,8 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		lavaland_caves_spawn_mob(T)
 
 /datum/caves_theme/proc/safe_replace(turf/T)
+	if(T.flags & NO_LAVA_GEN)
+		return FALSE
 	if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
 		return FALSE
 	if(istype(T, /turf/simulated/floor/chasm))
