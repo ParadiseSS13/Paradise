@@ -272,7 +272,7 @@
 				/obj/item/melee/baseball_bat/homerun = 50,
 				/obj/item/rcd/combat = 50,
 				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50,
-				/obj/item/storage/fancy/shell/buck = 30, //Only seven shots, make them count
+				/obj/item/storage/fancy/shell/buck = 30, //Only eight shots, make them count
 				/obj/item/mod/module/noslip = 40,
 				/obj/item/clothing/mask/holo_cigar = 50
 				)
