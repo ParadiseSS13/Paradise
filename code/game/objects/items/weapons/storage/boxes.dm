@@ -736,7 +736,7 @@
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
 
-/obj/item/storage/box/slug/populate_contents()
+/obj/item/storage/fancy/shell/slug/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/ammo_casing/shotgun(src)
 
