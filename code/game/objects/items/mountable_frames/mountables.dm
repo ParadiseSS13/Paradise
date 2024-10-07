@@ -14,17 +14,18 @@
 
 /obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag) //checks
 	if(!on_wall || !user)
-		return
+		return FALSE
 	if(!proximity_flag) //if we aren't next to the turf
-		return
+		return FALSE
+
 	if(!allow_floor_mounting)
 		if(!(get_dir(on_wall, user) in GLOB.cardinal))
 			to_chat(user, "<span class='warning'>You need to be standing next to [on_wall] to place [src].</span>")
-			return
+			return FALSE
 
 		if(gotwallitem(get_turf(user), get_dir(on_wall, user)))
 			to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
-			return
+			return FALSE
 
 	return TRUE
 
