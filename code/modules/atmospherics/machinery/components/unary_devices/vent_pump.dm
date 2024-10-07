@@ -88,10 +88,7 @@
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
-
-	addtimer(CALLBACK(src, PROC_REF(update_pipe_image), 0.2 SECONDS))
-	// Wait a little before actually updating the pipe image.
-	// Otherwise, the overlay has only been added to the overlay queue, but not yet added to the image, leading to an incorrect overlay being show
+	update_pipe_image(.)
 
 /obj/machinery/atmospherics/unary/update_pipe_image()
 	. = ..()
