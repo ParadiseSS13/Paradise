@@ -274,7 +274,7 @@
 	/// The name that shows on the box lid, describing the pizza type.
 	var/box_tag = ""
 	/// The type of pizza that's spawned in the box.
-	var/pizza_type = /obj/item/food/sliceable/pizza/pepperonipizza // pepperoni as default because there is no generic pizza
+	var/pizza_type
 
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()
