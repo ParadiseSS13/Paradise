@@ -118,6 +118,11 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = LIGHTING_LAMPS_RENDER_TARGET
 
+/atom/movable/screen/plane_master/lamps/floor
+	name = "floor lamps plane master"
+	plane = FLOOR_LIGHTING_LAMPS_PLANE
+	render_target = FLOOR_LIGHTING_LAMPS_RENDER_TARGET
+
 /atom/movable/screen/plane_master/exposure
 	name = "exposure plane master"
 	plane = LIGHTING_EXPOSURE_PLANE
@@ -143,6 +148,12 @@
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/target_rendering = LIGHTING_LAMPS_RENDER_TARGET
+
+/atom/movable/screen/plane_master/lamps_selfglow/floor
+	name = "floor lamps selfglow plane master"
+	plane = FLOOR_LIGHTING_LAMPS_SELFGLOW
+	target_rendering = FLOOR_LIGHTING_LAMPS_RENDER_TARGET
 
 /atom/movable/screen/plane_master/lamps_selfglow/backdrop(mob/mymob)
 	remove_filter("add_lamps_to_selfglow")
@@ -169,13 +180,19 @@
 		else
 			return
 
-	add_filter("add_lamps_to_selfglow", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
+	add_filter("add_lamps_to_selfglow", 1, layering_filter(render_source = target_rendering, blend_mode = BLEND_OVERLAY))
 	add_filter("lamps_selfglow_bloom", 1, bloom_filter(threshold = "#777777", size = bloomsize, offset = bloomoffset, alpha = 80))
 
 /atom/movable/screen/plane_master/lamps_glare
 	name = "lamps glare plane master"
 	plane = LIGHTING_LAMPS_GLARE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/target_rendering = LIGHTING_LAMPS_RENDER_TARGET
+
+/atom/movable/screen/plane_master/lamps_glare/floor
+	name = "floor lamps glare plane master"
+	plane = FLOOR_LIGHTING_LAMPS_GLARE
+	target_rendering = FLOOR_LIGHTING_LAMPS_RENDER_TARGET
 
 /atom/movable/screen/plane_master/lamps_glare/backdrop(mob/mymob)
 	remove_filter("add_lamps_to_glare")
@@ -187,5 +204,5 @@
 	var/enabled = mymob?.client?.prefs?.light & LIGHT_GLARE
 
 	if(enabled)
-		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_ADD))
+		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = target_rendering, blend_mode = BLEND_ADD))
 		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.035))

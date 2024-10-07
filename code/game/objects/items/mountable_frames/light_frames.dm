@@ -22,6 +22,8 @@
 			newlight = new /obj/machinery/light_construct/small(constrloc)
 		if("tube")
 			newlight = new /obj/machinery/light_construct(constrloc)
+		if("floor")
+			newlight = new /obj/machinery/light_construct/floor(on_wall)
 		else
 			newlight = new /obj/machinery/light_construct/small(constrloc)
 	newlight.dir = constrdir
@@ -40,3 +42,13 @@
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
 	metal_sheets_refunded = 1
+
+/obj/item/mounted/frame/light_fixture/floor
+	name = "floor light fixture frame"
+	desc = "Used for building floor lights."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "floor-construct-item"
+	fixture_type = "floor"
+	metal_sheets_refunded = 3
+	buildon_types = list(/turf/simulated/floor)
+	allow_floor_mounting = TRUE
