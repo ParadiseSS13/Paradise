@@ -1360,6 +1360,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	alpha = initial(alpha)
 	add_to_all_human_data_huds()
 
+/mob/living/carbon/human/reset_visibility()
+	..()
+	alpha = get_alpha()
+
 /mob/proc/make_invisible()
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128

@@ -33,6 +33,10 @@
 	var/spawn_random_offset_max_pixels = 16
 	/// Whether the spawned items should be rotated randomly.
 	var/spawn_random_angle = FALSE
+	/// Whether blackbox should record when the spawner spawns.
+	var/record_spawn = FALSE
+	/// Where do we want to spawn an item (closet, safe etc.)
+	var/spawn_inside
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
@@ -54,6 +58,9 @@
 
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
+
+	if(spawn_inside)
+		new spawn_inside(loc)
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
@@ -96,7 +103,8 @@
 			loot_spawned++
 
 /**
- *  Makes the actual item related to our spawner.
+ *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,
+ *  this is when the items spawned are recorded to blackbox (except for `/obj/effect`s).
  *
  * spawn_loc - where are we spawning it?
  * type_path_to_make - what are we spawning?
@@ -104,7 +112,8 @@
 /obj/effect/spawner/random/proc/make_item(spawn_loc, type_path_to_make)
 	var/result = new type_path_to_make(spawn_loc)
 
-	record_item(type_path_to_make)
+	if(record_spawn)
+		record_item(type_path_to_make)
 
 	var/atom/item = result
 	if(spawn_random_angle && istype(item))
