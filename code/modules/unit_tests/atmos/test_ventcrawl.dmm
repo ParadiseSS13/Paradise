@@ -1,4 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/turf/simulated/floor,/area/space)
 "d" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
