@@ -66,7 +66,6 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
-		// REMOVE_TRAIT(H, TRAIT_NOSLIP, UID()) // have to shove this in because
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
