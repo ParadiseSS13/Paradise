@@ -265,10 +265,6 @@
 		// 100 volume - 20 seconds of lost sleep
 		AdjustSleeping(-(volume * 0.2 SECONDS), bound_lower = 1 SECONDS) // showers cannot save you from sleeping gas, 1 second lower boundary
 
-//This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(turf/T, speed)
-	src.take_organ_damage(speed*5)
-
 /mob/living/proc/near_wall(direction, distance=1)
 	var/turf/T = get_step(get_turf(src),direction)
 	var/turf/last_turf = src.loc

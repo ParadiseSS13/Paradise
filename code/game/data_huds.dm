@@ -200,14 +200,8 @@
 			revivable_state = "flatline"
 		else if(!mind)
 			revivable_state = "dead"
-		else
-			var/foundghost = FALSE
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				if(G.mind.current == src)
-					foundghost = (G.can_reenter_corpse && G.client)
-					break
-			if(foundghost || key)
-				revivable_state = "hassoul"
+		else if(get_ghost() || key)
+			revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
 

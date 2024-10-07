@@ -773,7 +773,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
-		var/msg = !dna.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
+		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
@@ -1359,6 +1359,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = initial(invisibility)
 	alpha = initial(alpha)
 	add_to_all_human_data_huds()
+
+/mob/living/carbon/human/reset_visibility()
+	..()
+	alpha = get_alpha()
 
 /mob/proc/make_invisible()
 	invisibility = INVISIBILITY_LEVEL_TWO

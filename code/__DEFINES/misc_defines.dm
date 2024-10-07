@@ -104,6 +104,9 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 2
+
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -420,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 59
+#define SQL_VERSION 60
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -731,3 +734,5 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define ALPHA_VISIBLE 255 // the max alpha

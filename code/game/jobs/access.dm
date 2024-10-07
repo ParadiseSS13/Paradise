@@ -97,7 +97,7 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if("Trans-Solar Federation General")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
@@ -154,13 +154,13 @@
 		if(REGION_MEDBAY) //medbay
 			return list(ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_PSYCHIATRIST, ACCESS_VIROLOGY, ACCESS_SURGERY, ACCESS_CMO, ACCESS_PARAMEDIC)
 		if(REGION_RESEARCH) //research
-			return list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
+			return list(ACCESS_AI_UPLOAD, ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
 		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE)
 		if(REGION_SUPPLY) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
+			return list(ACCESS_EXPEDITION, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
 		if(REGION_COMMAND) //command
-			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
+			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
 
@@ -388,13 +388,13 @@
 
 /proc/get_all_solgov_jobs()
 	return list(
-		"Sol Trader",
-		"Solar Federation Marine",
-		"Solar Federation Lieutenant",
-		"Solar Federation Specops Marine",
-		"Solar Federation Specops Lieutenant",
-		"Solar Federation Representative",
-		"Solar Federation General")
+		"Trans-Solar Federation Trader",
+		"TSF Marine",
+		"TSF Lieutenant",
+		"MARSOC Marine",
+		"MARSOC Lieutenant",
+		"Trans-Solar Federation Representative",
+		"Trans-Solar Federation General")
 
 /proc/get_all_soviet_jobs()
 	return list(

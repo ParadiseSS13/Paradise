@@ -279,7 +279,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			msg += "<span class='notice'>Testing potentials:</span><BR>"
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
+				msg += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [techlvls[T]] <br>"
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 
@@ -994,3 +994,36 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
+
+/**
+  * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
+  *
+  * Returns: the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed.
+  * If the cigarette is already lit, or is a fancy smokable being lit by anything other than a zippo or match, will return `FALSE`.
+  * Otherwise it will return `null`.
+  * Arguments:
+  * * user - The mob trying to light the cigarette.
+  * * target - The mob with the cigarette.
+  * * direct_attackby_item - Used if the cigarette item is clicked on directly with a lighter instead of a mob wearing a cigarette.
+  */
+/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(!user || !target)
+		return null
+
+	var/obj/item/clothing/mask/cigarette/cig = direct_attackby_item ? direct_attackby_item : target.wear_mask
+	if(!istype(cig))
+		return null
+
+	if(!direct_attackby_item && (user.zone_selected != "mouth" || user.a_intent != INTENT_HELP))
+		return null
+
+	if(cig.lit)
+		to_chat(user, "<span class='warning'>[cig] is already lit!</span>")
+		return FALSE
+
+	// Only matches and cigars can light fancy smokables.
+	if(cig.fancy && !istype(src, /obj/item/match) && !istype(src, /obj/item/lighter/zippo))
+		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
+		return FALSE
+
+	return cig
