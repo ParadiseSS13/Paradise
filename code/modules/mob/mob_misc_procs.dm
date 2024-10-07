@@ -268,7 +268,7 @@
 	var/list/newphrase = list()
 	var/newletter
 	while(counter >= 1)
-		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
+		newletter = copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(prob(33.33))
 			if(lowertext(newletter) == "o")
 				newletter = "u"
