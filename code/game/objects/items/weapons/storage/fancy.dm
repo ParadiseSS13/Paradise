@@ -32,9 +32,6 @@
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
 
-/obj/item/storage/fancy/Initialize(mapload)
-	. = ..()
-	update_icon_state()
 
 /*
  * Donut Box
@@ -107,8 +104,9 @@
 	throwforce = 2
 	slot_flags = SLOT_FLAG_BELT
 
-/obj/item/storage/fancy/candle_box/full
-	icon_state = "candlebox5"
+/obj/item/storage/fancy/candle_box/Initialize(mapload)
+	. = ..()
+	update_icon_state()
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I in 1 to storage_slots)
