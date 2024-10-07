@@ -579,7 +579,7 @@
 
 /obj/item/pizzabox/pizza_bomb/Initialize(mapload)
 	correct_wire = pick(wires)
-	var/obj/item/pizzabox/mimic_box = pick(subtypesof(/obj/item/pizzabox) - /obj/item/pizzabox/pizza_bomb)
+	var/obj/item/pizzabox/mimic_box = pick(subtypesof(/obj/item/pizzabox) - typesof(/obj/item/pizzabox/pizza_bomb))
 	box_tag = mimic_box.box_tag
 	. = ..()
 
