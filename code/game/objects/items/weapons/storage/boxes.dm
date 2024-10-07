@@ -705,7 +705,7 @@
 /obj/item/storage/fancy/shell
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
-	can_hold = list(/obj/item/ammo_casing/shotgun/rubbershot) // Rubbershot as a failsafe
+	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
 
 /obj/item/storage/fancy/shell/update_icon_state()
 	icon_state = "open"
@@ -713,43 +713,50 @@
 /obj/item/storage/fancy/shell/update_overlays()
 	. = ..()
 	var/list/cached_contents = contents
-	for(var/index in 1 to length(storage_slots))
+	for(var/index in 1 to length(cached_contents))
 		var/obj/shell = cached_contents[index]
-		var/image/I = image(icon, src, shell.icon_state)
-		I.pixel_x = 3 * (round(index / 2))
+		var/image/I = image(icon, src, initial(shell.icon_state))
+		I.pixel_x = 3 * (round((index - 1) / 2))
 		I.pixel_y = -4 * ((index + 1) % 2)
 		. += I
 
 	. += "shell_box_front" // need to add another overlay to prevent from other overlays from showing on top
 
-/obj/item/storage/fancy/shell/populate_contents()
-	for(var/i in 1 to storage_slots)
-		var/obj/item/ammo_casing/shotgun/shell = can_hold[1]
-		new shell(src)
-
 /obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
-	can_hold = list(/obj/item/ammo_casing/shotgun/tranquilizer)
+
+/obj/item/storage/fancy/shell/tranquilizer/populate_contents()
+	for(var/i in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/storage/fancy/shell/slug
 	name = "ammunition box (Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
-	can_hold = list(/obj/item/ammo_casing/shotgun)
+
+/obj/item/storage/box/slug/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/ammo_casing/shotgun(src)
 
 /obj/item/storage/fancy/shell/buck
 	name = "ammunition box (Buckshot)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckbox"
-	can_hold = list(/obj/item/ammo_casing/shotgun/buckshot)
+
+/obj/item/storage/box/buck/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 /obj/item/storage/fancy/shell/dragonsbreath
 	name = "ammunition box (Dragonsbreath)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbox"
-	can_hold = list(/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath)
+
+/obj/item/storage/box/dragonsbreath/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
 
 /obj/item/storage/fancy/shell/stun
 	name = "ammunition box (Stun shells)"
