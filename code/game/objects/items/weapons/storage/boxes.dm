@@ -745,7 +745,7 @@
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckbox"
 
-/obj/item/storage/box/buck/populate_contents()
+/obj/item/storage/fancy/shell/buck/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
@@ -754,7 +754,7 @@
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbox"
 
-/obj/item/storage/box/dragonsbreath/populate_contents()
+/obj/item/storage/fancy/shell/dragonsbreath/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
 
