@@ -33,6 +33,7 @@
 /obj/machinery/computer/singulo_monitor/Destroy()
 	active = null
 	qdel(singu_radio)
+	singularities.Cut()
 	return ..()
 
 /obj/machinery/computer/singulo_monitor/attack_ai(mob/user)
@@ -97,8 +98,7 @@
 
 	else
 		var/list/singulos = list()
-		for(var/I in singularities)
-			var/obj/singularity/S = I
+		for(var/obj/singularity/S in singularities)
 			var/area/A = get_area(S)
 			if(!A)
 				continue
@@ -126,8 +126,8 @@
 	if(!T)
 		return
 	for(var/obj/singularity/S in GLOB.singularities)
-		// not within coverage, not on a tile.
-		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !issimulatedturf(S.loc) || istype(active)))
+		// not within coverage, not on a tile, not a gravitational singularity
+		if((S.type in subtypesof(/obj/singularity)) || !(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T)))
 			continue
 		singularities.Add(S)
 
@@ -145,7 +145,7 @@
 
 	if(active.energy > last_energy)// We only want to give warnings while the situation is getting worse.
 		if(active.energy >= (STAGE_FIVE_THRESHOLD - 100))
-			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] approaching an uncontainable level!</b>", name, warning_channel)
+			singu_radio.autosay("<b>Warning: The singularity is approaching an uncontainable level!</b>", name, warning_channel)
 			return
 		var/warning_threshold
 		// The field can contain energy of up to 1 stage above the current one.
@@ -160,7 +160,6 @@
 		if(warning_threshold && (active.energy >= (warning_threshold - 100)))
 			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] is nearing containment field limits!</b>", name, warning_channel)
 			return
-
 
 
 

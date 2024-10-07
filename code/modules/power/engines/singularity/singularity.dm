@@ -1,3 +1,6 @@
+/// Amount of singulos created during the round(note that this will include teslas as well)
+GLOBAL_VAR_INIT(global_singulo_id, 1)
+
 /obj/singularity
 	name = "gravitational singularity"
 	desc = "A gravitational singularity."
@@ -37,12 +40,10 @@
 	var/list/all_possible_areas = list()
 	/// Id for monitoring.
 	var/singulo_id = 1
-	/// Amount of singulos created during the round(note that this will include teslas as well)
-	var/static/global_singulo_id = 1
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
-	singulo_id = global_singulo_id++
+	singulo_id = GLOB.global_singulo_id++
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 

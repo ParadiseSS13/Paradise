@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 			if(FG == last)//We just asked you
 				continue
 			if(G)//Another gen is askin for power and we dont have it
-				if(FG.draw_power(draw, failsafe , G , src))//Can you take the load
+				if(FG.draw_power(draw, failsafe ,G , src))//Can you take the load
 					return 1
 				else
 					return 0
