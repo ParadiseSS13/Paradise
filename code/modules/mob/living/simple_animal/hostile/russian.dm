@@ -71,9 +71,11 @@
 	unsuitable_atmos_damage = 15
 	faction = list("soviet")
 	status_flags = CANPUSH
-	loot = list(/obj/effect/mob_spawn/human/corpse/sovietnian,
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/sovietnian,
 		/obj/item/melee/energy/sword/pirate,
-		/obj/item/salvage/loot/russian)
+		/obj/item/salvage/loot/russian
+	)
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
