@@ -23,6 +23,9 @@
 		/obj/item/butcher_chainsaw = 1
 	)
 
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/scalpel2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 1.6 SECONDS
 
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -67,6 +70,7 @@
 		/obj/item/assembly/mousetrap = 25
 	)
 
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 2.4 SECONDS
 
 
@@ -111,6 +115,9 @@
 		/obj/item/kitchen/utensil/fork = 60
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/retract_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -168,6 +175,9 @@
 		/obj/item/flamethrower = 1 // You make do with what ya got...
 	)
 
+	preop_sound = 'sound/surgery/cautery1.ogg'
+	success_sound = 'sound/surgery/cautery2.ogg'
+	failure_sound = 'sound/items/welder.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/cauterize/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -226,6 +236,15 @@
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
 		/obj/item/screwdriver = 20
 	)
+
+	preop_sound = list(
+		TOOL_DRILL = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/pickaxe/drill = 'sound/weapons/drill.ogg',
+		/obj/item/mecha_parts/mecha_equipment/drill = 'sound/weapons/drill.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+	)
+
 	time = 3 SECONDS
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -264,6 +283,13 @@
 		/obj/item/melee/energy = 75
 	)
 
+	preop_sound = list(
+		TOOL_SAW = 'sound/surgery/saw.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg'
+	)
+
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 10 SECONDS
 
 /datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
