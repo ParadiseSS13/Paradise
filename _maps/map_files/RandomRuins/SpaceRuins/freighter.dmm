@@ -366,6 +366,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
+"Dn" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 1
+	},
+/obj/structure/railing/cap,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
 "EW" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/mineral/plastitanium,
@@ -464,6 +473,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
+"JC" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
 "JW" = (
 /obj/structure/closet/cabinet,
 /mob/living/simple_animal/nian_caterpillar,
@@ -545,6 +563,9 @@
 "Ob" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
+	},
+/obj/structure/railing/cap{
+	pixel_x = -21
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -659,10 +680,7 @@
 /area/ruin/space/powered)
 "XB" = (
 /obj/structure/table,
-/obj/item/paper{
-	info = "<h3>Voidhopper of Nexus Shipping Manifest</h3><hr><br>Order: #7934<br>Destination: <i> The destination seems to have been blacked out.</i><br>Requested By: Athena, Praetorian of Gliese<br>CONTENTS:<br><ul><li>1 pair of kitty ears</li><li>1 banhammer</li><li>1 exosuit mining scanner</li><li>1 diamond-tipped exosuit drill</li><li>1 'LittleBoy' Mining Grenade Launcher</li><li>1 mecha voice modification kit: Honk</li><li>20 plastitanium glass</li><li>50 uranium sheets</li><li>50 reinforced plasma glass</li><li>50 metal sheets</li><li>1 fuel tank</li><li>1 radiant dance machine mark IV</li><li>1 soap</li><li>1 advanced mop</li><li>1 advanced space cleaner</li></ul><br>CHECK CONTENTS AND SIGN BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr><b>X: <i> Athena, Praetorian of Gliese </i> </b>";
-	name = "Voidhopper of Nexus Shipping Manifest"
-	},
+/obj/item/paper/fluff/ruins/nian_freighter/manifest,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Zc" = (
@@ -710,9 +728,9 @@ Kh
 Kh
 Kh
 Kh
-Kv
-Kv
-Kv
+JC
+JC
+JC
 Kh
 Kh
 Kh
@@ -894,7 +912,7 @@ NP
 zu
 dN
 cn
-eI
+tV
 fY
 Kh
 Kh
@@ -934,7 +952,7 @@ Nl
 AU
 mG
 Nl
-tV
+eI
 LW
 Kh
 Kh
@@ -1111,7 +1129,7 @@ rK
 xJ
 Fl
 La
-Ob
+Dn
 Mm
 vc
 Tf

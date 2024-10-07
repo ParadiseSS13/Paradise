@@ -27,3 +27,4 @@
 		<hr />
 		<b>X: <i> Athena, Praetorian of Gliese </i> </b>
 	"}
+	icon_state = "paper_words"
