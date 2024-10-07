@@ -9,17 +9,6 @@
 	///specifies which type of light fixture this frame will build
 	var/fixture_type = "tube"
 
-/obj/item/mounted/frame/light_fixture/try_build(turf/on_wall, mob/user)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	for(var/obj/machinery/possible_fixture as anything in get_turf(user))
-		if(istype(possible_fixture, /obj/machinery/light) || istype(possible_fixture, /obj/machinery/light_construct))
-			to_chat(user, "<span class='warning'>There is already a light here!</span>")
-			return FALSE
-	return TRUE
-
 /obj/item/mounted/frame/light_fixture/do_build(turf/on_wall, mob/user)
 	to_chat(user, "You begin attaching [src] to \the [on_wall].")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
