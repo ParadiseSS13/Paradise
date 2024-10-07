@@ -536,8 +536,10 @@
 		return
 
 	if(pizza_bomb_status != PIZZA_BOMB_TIMER_SET)
-		open = !open
-		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+		if(pizza_bomb_status != PIZZA_BOMB_PRIMED)
+			// Can only toggle disarmed boxes
+			open = !open
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		return
 
 	open = TRUE
