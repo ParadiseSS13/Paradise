@@ -706,6 +706,7 @@
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/fancy/shell/update_icon_state()
 	icon_state = "open"
@@ -780,7 +781,6 @@
 	name = "ammunition box (Rubbershot shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "rubberbox"
-	icon_type = "rubber"
 
 /obj/item/storage/fancy/shell/rubbershot/populate_contents()
 	for(var/I in 1 to 8)

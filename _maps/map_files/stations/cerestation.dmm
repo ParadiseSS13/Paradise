@@ -15195,7 +15195,6 @@
 /turf/simulated/floor/grass,
 /area/station/science/genetics)
 "bLm" = (
-/obj/structure/rack,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -15212,13 +15211,17 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/storage/fancy/shell/tranquilizer{
+	pixel_x = 7;
+	pixel_y = -5
+	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "bLr" = (
-/obj/structure/rack,
 /obj/item/storage/fancy/shell/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
@@ -15234,10 +15237,6 @@
 	},
 /obj/item/storage/fancy/shell/beanbag,
 /obj/item/storage/fancy/shell/beanbag,
-/obj/item/storage/fancy/shell/tranquilizer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -15245,6 +15244,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

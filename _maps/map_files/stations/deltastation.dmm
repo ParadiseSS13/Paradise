@@ -18870,6 +18870,7 @@
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
 /obj/structure/rack,
+/obj/item/storage/fancy/shell/tranquilizer,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "bhk" = (
@@ -75020,7 +75021,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "kii" = (
-/obj/structure/rack,
 /obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
@@ -75033,7 +75033,6 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/fancy/shell/tranquilizer,
 /obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
@@ -75046,6 +75045,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "kiC" = (
