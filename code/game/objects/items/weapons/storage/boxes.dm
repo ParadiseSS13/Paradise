@@ -707,9 +707,17 @@
 	storage_slots = 8
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+	/// What shell do we fill the box with
+	var/shell_type
 
 /obj/item/storage/fancy/shell/update_icon_state()
 	icon_state = "open"
+
+/obj/item/storage/fancy/shell/populate_contents()
+	if(!shell_type)
+		return
+	for(var/i in 1 to storage_slots)
+		new shell_type(src)
 
 /obj/item/storage/fancy/shell/update_overlays()
 	. = ..()
@@ -727,73 +735,49 @@
 	name = "ammunition box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
-
-/obj/item/storage/fancy/shell/tranquilizer/populate_contents()
-	for(var/i in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+	shell_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/storage/fancy/shell/slug
 	name = "ammunition box (Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
-
-/obj/item/storage/fancy/shell/slug/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun(src)
+	shell_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/storage/fancy/shell/buck
 	name = "ammunition box (Buckshot)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckbox"
-
-/obj/item/storage/fancy/shell/buck/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
+	shell_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/storage/fancy/shell/dragonsbreath
 	name = "ammunition box (Dragonsbreath)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbox"
-
-/obj/item/storage/fancy/shell/dragonsbreath/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+	shell_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/storage/fancy/shell/stun
 	name = "ammunition box (Stun shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "stunbox"
-
-/obj/item/storage/fancy/shell/stun/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
+	shell_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/storage/fancy/shell/beanbag
 	name = "ammunition box (Beanbag shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "beanbox"
-
-/obj/item/storage/fancy/shell/beanbag/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	shell_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/storage/fancy/shell/rubbershot
 	name = "ammunition box (Rubbershot shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "rubberbox"
-
-/obj/item/storage/fancy/shell/rubbershot/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+	shell_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "hshell_box"
-
-/obj/item/storage/fancy/shell/holy/populate_contents()
-	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/holy(src)
+	shell_type = /obj/item/ammo_casing/shotgun/holy
 
 ////////////////
 /* Donk Boxes */
