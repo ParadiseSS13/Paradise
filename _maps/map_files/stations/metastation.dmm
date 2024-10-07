@@ -66468,7 +66468,7 @@
 /area/station/medical/virology)
 "mRy" = (
 /obj/structure/rack,
-/obj/item/storage/box/tranquilizer,
+/obj/item/storage/fancy/shell/tranquilizer,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -78007,21 +78007,21 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

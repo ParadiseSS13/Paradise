@@ -15200,12 +15200,12 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -15219,22 +15219,22 @@
 /area/station/security/armory/secure)
 "bLr" = (
 /obj/structure/rack,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/tranquilizer{
+/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/tranquilizer{
 	pixel_x = 3;
 	pixel_y = -3
 	},
