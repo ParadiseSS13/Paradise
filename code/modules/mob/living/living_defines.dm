@@ -110,4 +110,5 @@
 	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
 	var/last_taste_text
 
+	/// Used for ventcrawlers; Keeps track of what pipeline we're currently in so we can update the images for it when it gets changed
 	var/datum/pipeline/our_pipeline
