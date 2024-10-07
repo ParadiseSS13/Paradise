@@ -32,7 +32,6 @@
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
 
-
 /*
  * Donut Box
  */
