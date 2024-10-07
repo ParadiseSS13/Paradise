@@ -151,6 +151,16 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
+IGNORE_ATOM_ICON_FILE = "atoms.dm"
+NO_MANUAL_ICON_UPDATES = re.compile(r"([\s.])(update_icon_state|update_desc|update_overlays|update_name)\(.*\)")
+def check_manual_icon_updates(idx, line):
+    if result := NO_MANUAL_ICON_UPDATES.search(line):
+        proc_result = result.group(2)
+        target = "update_icon"
+        if(proc_result == "update_name" or proc_result == "update_desc"):
+            target = "update_appearance"
+        return [(idx + 1, f"{proc_result}() should not be called manually. Use {target}({proc_result.upper()}) instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -187,6 +197,8 @@ if __name__ == "__main__":
             extra_checks = []
             if filename != IGNORE_515_PROC_MARKER_FILENAME:
                 extra_checks.append(check_515_proc_syntax)
+            if filename != IGNORE_ATOM_ICON_FILE:
+                extra_checks.append(check_manual_icon_updates)
 
             last_line = None
             for idx, line in enumerate(code):

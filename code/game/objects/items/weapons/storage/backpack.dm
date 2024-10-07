@@ -431,7 +431,7 @@
 				slowdown = 1
 			if(antidrop_on_zip)
 				flags ^= NODROP
-			update_icon_state(UPDATE_ICON_STATE)
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 		slowdown = 0
@@ -440,7 +440,7 @@
 			container.hide_from_all() // Hide everything inside the bag too
 		if(antidrop_on_zip)
 			flags |= NODROP
-		update_icon_state(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/backpack/duffel/update_icon_state()
 	. = ..()
