@@ -417,8 +417,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_add_trait(datum/target, trait, source)
-    ADD_TRAIT(target, trait, source)
+	ADD_TRAIT(target, trait, source)
 
 /// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_remove_trait(datum/target, trait, source)
-    REMOVE_TRAIT(target, trait, source)
+	REMOVE_TRAIT(target, trait, source)
