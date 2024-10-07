@@ -1019,7 +1019,7 @@
 	},
 /area/ruin/space/deepstorage)
 "eh" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "em" = (
@@ -1362,7 +1362,7 @@
 "gS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -1395,7 +1395,7 @@
 	pixel_y = 4;
 	pixel_x = 1
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "hj" = (
@@ -2658,7 +2658,7 @@
 /area/ruin/space/deepstorage)
 "pj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2779,7 +2779,7 @@
 "qm" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4050,7 +4050,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -4504,8 +4504,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "By" = (
-/obj/effect/mapping_helpers/turf/damage,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "BB" = (
@@ -4716,7 +4716,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "CG" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -5822,7 +5822,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Lf" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/molten_object{
 	pixel_y = 6;
@@ -5835,7 +5835,7 @@
 /obj/structure/sign/greencross{
 	pixel_y = 32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "Li" = (
@@ -6030,7 +6030,7 @@
 /turf/simulated/floor/chasm/space_ruin,
 /area/ruin/space/powered)
 "MU" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "MV" = (
@@ -6046,7 +6046,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -6202,7 +6202,7 @@
 /area/ruin/space/deepstorage)
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -7381,7 +7381,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Wz" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 10;

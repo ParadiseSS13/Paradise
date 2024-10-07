@@ -300,7 +300,7 @@
 /area/station/maintenance/asmaint)
 "aeo" = (
 /obj/effect/spawner/random/fungus/maybe,
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/starboard)
 "aer" = (
@@ -691,7 +691,7 @@
 /area/station/public/shops)
 "aiN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -982,7 +982,7 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/item/paper/crumpled,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "ams" = (
@@ -1438,7 +1438,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "apl" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/aft2)
 "aps" = (
@@ -1661,7 +1661,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "arh" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -2697,7 +2697,7 @@
 /area/station/engineering/ai_transit_tube)
 "aBc" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "aBe" = (
@@ -2728,7 +2728,7 @@
 	},
 /area/station/science/research)
 "aBm" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -3576,7 +3576,7 @@
 "aKZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "aLc" = (
@@ -4088,7 +4088,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "aPv" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "aPz" = (
@@ -4623,7 +4623,7 @@
 	},
 /area/station/medical/storage/secondary)
 "aUS" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "aVh" = (
@@ -5358,7 +5358,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/range)
 "bae" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -5916,7 +5916,7 @@
 	},
 /area/station/hallway/primary/central/se)
 "bgM" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -6069,7 +6069,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "bhY" = (
@@ -6193,7 +6193,7 @@
 	},
 /area/station/command/bridge)
 "bja" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -6440,7 +6440,7 @@
 	},
 /area/station/aisat/breakroom)
 "blH" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -7215,7 +7215,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "bsr" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/starboard)
 "bss" = (
@@ -7963,7 +7963,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "byO" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/molten_object/large{
@@ -8413,8 +8413,8 @@
 /area/station/science/lobby)
 "bCs" = (
 /obj/item/clothing/suit/chef/classic,
-/obj/effect/mapping_helpers/turf/burn,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -8461,7 +8461,7 @@
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
 "bCU" = (
@@ -8808,7 +8808,7 @@
 /area/station/medical/medbay2)
 "bFQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -10691,7 +10691,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "bVQ" = (
@@ -10917,7 +10917,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "bYg" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
 "bYq" = (
@@ -11275,7 +11275,7 @@
 /obj/item/reagent_containers/drinks/h_chocolate,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/cobweb/right/rare,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "cbU" = (
@@ -12412,7 +12412,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cnZ" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "coj" = (
@@ -12604,7 +12604,7 @@
 "cqq" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "cqt" = (
@@ -12837,7 +12837,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "csh" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/abandoned_office)
 "csk" = (
@@ -13046,7 +13046,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
 "cuN" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/fore)
 "cuO" = (
@@ -13137,7 +13137,7 @@
 /area/station/service/hydroponics)
 "cvM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -13714,7 +13714,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "cBK" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -13995,7 +13995,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "cET" = (
@@ -14149,7 +14149,7 @@
 	},
 /area/station/service/hydroponics)
 "cGm" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "cGp" = (
@@ -14426,7 +14426,7 @@
 	},
 /area/station/service/chapel/funeral)
 "cIq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -14503,7 +14503,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -14666,7 +14666,7 @@
 /area/station/hallway/primary/central/west)
 "cKS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
 /obj/structure/cable{
 	d1 = 4;
@@ -14768,7 +14768,7 @@
 "cLO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "cLR" = (
@@ -15337,7 +15337,7 @@
 /turf/space,
 /area/space)
 "cSc" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -16204,7 +16204,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "dbu" = (
@@ -17358,12 +17358,12 @@
 "dmF" = (
 /obj/item/paper/crumpled,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "dmI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -17700,7 +17700,7 @@
 	},
 /area/station/public/dorms)
 "dpq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -17835,7 +17835,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "drv" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -17913,7 +17913,7 @@
 /area/station/maintenance/apmaint2)
 "drV" = (
 /obj/effect/spawner/random/maintenance,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "drX" = (
@@ -18246,7 +18246,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -20665,7 +20665,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "dSc" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "dSf" = (
@@ -20986,7 +20986,7 @@
 	},
 /area/station/engineering/control)
 "dXh" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/maybe,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21168,7 +21168,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "dZo" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -21968,7 +21968,7 @@
 	},
 /area/station/public/dorms)
 "egS" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
 "egV" = (
@@ -22216,7 +22216,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "ejL" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
 "ejP" = (
@@ -22503,7 +22503,7 @@
 /area/station/maintenance/aft2)
 "emi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -22690,7 +22690,7 @@
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/garden)
 "enX" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -23245,7 +23245,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "etA" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/solar_maintenance/fore_port)
 "etN" = (
@@ -23759,7 +23759,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "eyx" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -24147,7 +24147,7 @@
 /area/station/command/office/hop)
 "eCl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -24922,7 +24922,7 @@
 	},
 /area/station/engineering/engine)
 "eJT" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/security/aft_starboard)
 "eJV" = (
@@ -25540,7 +25540,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
 "ePB" = (
@@ -25888,7 +25888,7 @@
 "eUe" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -26123,7 +26123,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "eVT" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -26489,7 +26489,7 @@
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
 "eYQ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -26894,7 +26894,7 @@
 	},
 /area/station/medical/surgery/observation)
 "fbI" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft2)
 "fcb" = (
@@ -27483,7 +27483,7 @@
 	},
 /area/station/public/shops)
 "fgs" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -27613,7 +27613,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "fhh" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "fhm" = (
@@ -27973,7 +27973,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "fls" = (
@@ -28101,7 +28101,7 @@
 /area/station/engineering/atmos)
 "fmF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "fmJ" = (
@@ -30482,7 +30482,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "fIl" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -30989,7 +30989,7 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -31152,7 +31152,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
 "fNz" = (
@@ -31174,7 +31174,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
 "fNH" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
@@ -31261,7 +31261,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "fOu" = (
@@ -31418,7 +31418,7 @@
 "fPN" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "fPO" = (
@@ -32695,7 +32695,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "gdS" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -33030,7 +33030,7 @@
 "ggS" = (
 /obj/item/trash/spentcasing,
 /obj/effect/spawner/random/blood/maybe,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -33704,7 +33704,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "gmo" = (
@@ -33755,7 +33755,7 @@
 "gmB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt/roach,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "gmD" = (
@@ -34098,7 +34098,7 @@
 	dir = 8;
 	pixel_y = 10
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -34403,7 +34403,7 @@
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "gtw" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
@@ -35010,7 +35010,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "gAX" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -36147,7 +36147,7 @@
 "gKv" = (
 /obj/item/trash/can,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "gKE" = (
@@ -36171,7 +36171,7 @@
 /area/station/maintenance/storage)
 "gKI" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/generic,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
@@ -36718,7 +36718,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/cmo)
 "gQY" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/plating,
@@ -39020,7 +39020,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "hmw" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/public/toilet/lockerroom)
 "hmx" = (
@@ -39717,7 +39717,7 @@
 /area/station/medical/virology)
 "hsV" = (
 /obj/effect/spawner/random/blood/maybe,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "hsY" = (
@@ -40047,7 +40047,7 @@
 	},
 /area/station/engineering/equipmentstorage)
 "hwb" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hwd" = (
@@ -40165,7 +40165,7 @@
 /area/station/security/permabrig)
 "hxd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/oil/maybe,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -41794,7 +41794,7 @@
 /area/station/maintenance/apmaint)
 "hKN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
@@ -41967,7 +41967,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hNh" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -42378,7 +42378,7 @@
 /area/station/security/brig)
 "hSJ" = (
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "hSK" = (
@@ -42510,7 +42510,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "hUH" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -43466,7 +43466,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_port)
 "idv" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "idC" = (
@@ -43636,7 +43636,7 @@
 "ifj" = (
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "ifm" = (
@@ -45726,7 +45726,7 @@
 "izg" = (
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -46092,7 +46092,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "iCP" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
@@ -46272,8 +46272,8 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "iEK" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "iEL" = (
@@ -46297,7 +46297,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "iEU" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -46562,7 +46562,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "iGU" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "iGZ" = (
@@ -46600,7 +46600,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "iHq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -46745,7 +46745,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "iIw" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/starboard)
 "iID" = (
@@ -47224,7 +47224,7 @@
 	},
 /area/station/aisat/service)
 "iMZ" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
 "iNa" = (
@@ -47580,7 +47580,7 @@
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "iQa" = (
@@ -48538,7 +48538,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "iZx" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -49517,7 +49517,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -49868,7 +49868,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "jmd" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "jmr" = (
@@ -50787,7 +50787,7 @@
 	},
 /area/station/public/dorms)
 "jvq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -52265,7 +52265,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "jIn" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/security/fore)
 "jIp" = (
@@ -53116,7 +53116,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "jQA" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/structure/cable{
 	d1 = 2;
@@ -53431,7 +53431,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "jTc" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -53674,7 +53674,7 @@
 	},
 /area/station/security/permabrig)
 "jWe" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -54465,7 +54465,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "kdx" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
 "kdB" = (
@@ -54705,7 +54705,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "kgg" = (
@@ -55680,7 +55680,7 @@
 	dir = 9
 	},
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "kpO" = (
@@ -55829,7 +55829,7 @@
 "kqW" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "kqZ" = (
@@ -55863,7 +55863,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "krq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -56416,7 +56416,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kwN" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/secure_storage)
 "kwO" = (
@@ -56580,7 +56580,7 @@
 "kyJ" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "kyR" = (
@@ -57330,7 +57330,7 @@
 	},
 /area/station/hallway/secondary/entry/lounge)
 "kHi" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
@@ -57532,7 +57532,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 /obj/effect/spawner/random/cobweb/left/rare,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "kJt" = (
@@ -58329,7 +58329,7 @@
 /area/station/service/chapel)
 "kQc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/cap/visible{
 	dir = 4
 	},
@@ -59066,7 +59066,7 @@
 	},
 /area/station/security/lobby)
 "kYa" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -59344,7 +59344,7 @@
 	},
 /area/station/engineering/equipmentstorage)
 "laP" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plating,
@@ -59693,7 +59693,7 @@
 "leW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "lfe" = (
@@ -60080,7 +60080,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "liC" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour/foam,
 /obj/item/paper/maintengine,
@@ -60188,7 +60188,7 @@
 /area/station/security/permabrig)
 "ljY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "lkf" = (
@@ -60718,7 +60718,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
@@ -60827,7 +60827,7 @@
 	dir = 8
 	},
 /obj/item/food/candy/coin,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "lpY" = (
@@ -61047,7 +61047,7 @@
 	},
 /area/station/medical/cloning)
 "lrR" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -61113,7 +61113,7 @@
 /area/station/engineering/hardsuitstorage)
 "lsw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
@@ -61789,7 +61789,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -62078,7 +62078,7 @@
 /area/station/hallway/primary/starboard/south)
 "lAu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -62426,7 +62426,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "lDR" = (
@@ -62727,7 +62727,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "lGI" = (
@@ -63593,7 +63593,7 @@
 	},
 /area/station/medical/virology)
 "lRo" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -65152,7 +65152,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "mhP" = (
@@ -65526,7 +65526,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/xeno,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "mlB" = (
@@ -67426,7 +67426,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "mDY" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/security/aft_starboard)
 "mDZ" = (
@@ -67549,7 +67549,7 @@
 	pixel_y = 9;
 	pixel_x = 9
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -67849,7 +67849,7 @@
 /area/station/maintenance/aft)
 "mJR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -68623,7 +68623,7 @@
 "mRF" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "mRL" = (
@@ -68640,7 +68640,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "mRQ" = (
@@ -68830,7 +68830,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "mTb" = (
@@ -69816,7 +69816,7 @@
 	},
 /area/station/service/theatre)
 "ncF" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/security/aft_starboard)
 "ncH" = (
@@ -69954,7 +69954,7 @@
 /area/station/hallway/primary/central/sw)
 "ndJ" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "ndK" = (
@@ -70387,7 +70387,7 @@
 /area/station/supply/storage)
 "nhh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -70401,7 +70401,7 @@
 "nho" = (
 /obj/item/paper,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "nhr" = (
@@ -70508,7 +70508,7 @@
 	},
 /area/station/public/shops)
 "nia" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -70524,7 +70524,7 @@
 	},
 /area/station/public/sleep)
 "niO" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/assembly_line)
 "niR" = (
@@ -70909,7 +70909,7 @@
 /area/station/engineering/atmos)
 "nmS" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "nmV" = (
@@ -71119,7 +71119,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "noG" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint2)
 "noO" = (
@@ -71147,7 +71147,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "npe" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -71244,7 +71244,7 @@
 /area/station/supply/expedition)
 "npP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
 	icon_state = "medium"
@@ -71387,7 +71387,7 @@
 /area/station/hallway/secondary/entry)
 "nqv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
@@ -71615,7 +71615,7 @@
 	},
 /obj/item/stack/cable_coil/random,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "nsp" = (
@@ -71877,7 +71877,7 @@
 	},
 /obj/item/pen/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "nwc" = (
@@ -72099,7 +72099,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "nxL" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -72192,7 +72192,7 @@
 /area/station/hallway/primary/central/ne)
 "nyp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72315,7 +72315,7 @@
 /area/station/supply/lobby)
 "nzO" = (
 /obj/structure/mecha_wreckage/odysseus,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -72616,7 +72616,7 @@
 /area/station/maintenance/aft2)
 "nCL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "nCP" = (
@@ -73222,7 +73222,7 @@
 	},
 /area/station/science/rnd)
 "nHE" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 2;
@@ -73442,7 +73442,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "nJD" = (
@@ -74283,7 +74283,7 @@
 	name = "trash spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "nQM" = (
@@ -74774,7 +74774,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "nVl" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nVs" = (
@@ -75232,7 +75232,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "nZp" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -75571,7 +75571,7 @@
 "obQ" = (
 /obj/item/paper,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "obT" = (
@@ -75849,7 +75849,7 @@
 	},
 /area/station/hallway/spacebridge/security/south)
 "oeh" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint2)
 "oei" = (
@@ -75861,7 +75861,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -75884,7 +75884,7 @@
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "oeG" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -76850,7 +76850,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
@@ -77170,7 +77170,7 @@
 /area/station/command/office/hop)
 "opY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "oqa" = (
@@ -77254,7 +77254,7 @@
 "oqI" = (
 /obj/item/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "oqL" = (
@@ -78524,7 +78524,7 @@
 	},
 /area/station/turret_protected/aisat/interior)
 "oDZ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour/foam,
 /obj/effect/decal/cleanable/glass,
@@ -78747,7 +78747,7 @@
 "oGl" = (
 /obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "oGn" = (
@@ -79448,7 +79448,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "oMk" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/engineering/tech_storage)
 "oMl" = (
@@ -79472,7 +79472,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -79617,7 +79617,7 @@
 	name = "Ians Stick";
 	desc = "A large stick covered in bite marks and dried slobber.ss"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "oNB" = (
@@ -80237,7 +80237,7 @@
 	},
 /area/station/public/storage/tools)
 "oTq" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_port)
 "oTr" = (
@@ -80770,7 +80770,7 @@
 /area/station/engineering/solar/fore_starboard)
 "oXw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "oXJ" = (
@@ -80930,7 +80930,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "oYH" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -81268,7 +81268,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "pbP" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "pbT" = (
@@ -81685,7 +81685,7 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "pfC" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/legal/courtroom)
 "pfG" = (
@@ -82520,7 +82520,7 @@
 /area/station/maintenance/aft2)
 "pnD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/cable{
 	d1 = 4;
@@ -83929,7 +83929,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "pCR" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -83948,7 +83948,7 @@
 /area/station/public/dorms)
 "pCU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -84217,7 +84217,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "pFc" = (
@@ -85606,7 +85606,7 @@
 /turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos)
 "pSv" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "pSy" = (
@@ -87535,7 +87535,7 @@
 /area/station/maintenance/fsmaint2)
 "qmg" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -87793,7 +87793,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "qoG" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating,
@@ -87841,7 +87841,7 @@
 	},
 /area/station/security/storage)
 "qpr" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "qps" = (
@@ -88424,7 +88424,7 @@
 /area/station/maintenance/security/aft_port)
 "qwl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "qwt" = (
@@ -89349,7 +89349,7 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -89561,7 +89561,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "qGz" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/storage)
 "qGC" = (
@@ -89678,7 +89678,7 @@
 	},
 /area/station/science/robotics/chargebay)
 "qHM" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plating,
@@ -89936,7 +89936,7 @@
 /obj/item/decorations/sticky_decorations/flammable/ghost{
 	pixel_y = -18
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qKm" = (
@@ -89968,7 +89968,7 @@
 "qKM" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -90276,7 +90276,7 @@
 /area/station/maintenance/apmaint)
 "qNp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "qNJ" = (
@@ -90903,7 +90903,7 @@
 /turf/space,
 /area/space/nearstation)
 "qUr" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -90921,7 +90921,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "qUE" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
 "qUF" = (
@@ -90930,7 +90930,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/plating,
@@ -91008,7 +91008,7 @@
 /area/station/hallway/primary/central/sw)
 "qVm" = (
 /obj/item/trash/spentcasing,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "qVn" = (
@@ -91513,7 +91513,7 @@
 	},
 /area/station/engineering/atmos/transit)
 "qZs" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/machinery/light/small{
 	dir = 4
@@ -92343,7 +92343,7 @@
 /area/station/command/office/hop)
 "rgF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "rgI" = (
@@ -92566,7 +92566,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/generic,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "rir" = (
@@ -93300,7 +93300,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "roe" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -93513,7 +93513,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "rqs" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft)
 "rqw" = (
@@ -93678,7 +93678,7 @@
 /area/station/legal/magistrate)
 "rsq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -95028,7 +95028,7 @@
 /area/station/maintenance/apmaint)
 "rGh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "rGk" = (
@@ -95595,7 +95595,7 @@
 /area/station/security/prisonershuttle)
 "rKN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "rKO" = (
@@ -95768,7 +95768,7 @@
 /area/station/supply/storage)
 "rLX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
@@ -95895,7 +95895,7 @@
 "rMU" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -96087,7 +96087,7 @@
 	},
 /area/station/medical/patients_rooms_secondary)
 "rOP" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -96407,7 +96407,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "rRE" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -96691,7 +96691,7 @@
 	},
 /area/station/aisat/service)
 "rUe" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -97162,7 +97162,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "rXv" = (
@@ -97592,14 +97592,14 @@
 	},
 /area/station/medical/cloning)
 "sbA" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sbL" = (
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "sbN" = (
@@ -98312,7 +98312,7 @@
 	},
 /area/station/maintenance/starboard)
 "sja" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 2;
@@ -98331,7 +98331,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "sjf" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -98527,7 +98527,7 @@
 	},
 /area/station/medical/storage)
 "skm" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/security/aft_port)
 "sks" = (
@@ -98746,7 +98746,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -98755,7 +98755,7 @@
 	dir = 1;
 	pixel_y = -8
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "smU" = (
@@ -98924,7 +98924,7 @@
 /area/station/hallway/secondary/entry)
 "soT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "soW" = (
@@ -99148,7 +99148,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
 "srp" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "srv" = (
@@ -99264,7 +99264,7 @@
 /area/station/maintenance/dorms/starboard)
 "ssV" = (
 /obj/effect/spawner/random/fungus/maybe,
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "ssZ" = (
@@ -100481,7 +100481,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/blood/maybe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "sDk" = (
@@ -100925,7 +100925,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sHh" = (
@@ -101321,7 +101321,7 @@
 	},
 /area/station/supply/miningdock)
 "sLh" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -102457,7 +102457,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
 "sWz" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -102665,7 +102665,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "sXZ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -102876,7 +102876,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -103412,7 +103412,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "tfe" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -103749,7 +103749,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "tih" = (
@@ -103777,7 +103777,7 @@
 	},
 /area/station/hallway/spacebridge/security/south)
 "tiw" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -103907,7 +103907,7 @@
 /obj/item/chair/wood,
 /obj/item/seeds/cannabis,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "tjA" = (
@@ -104175,7 +104175,7 @@
 	},
 /area/station/medical/chemistry)
 "tlQ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -104261,7 +104261,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -104521,7 +104521,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -104656,7 +104656,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/fsmaint)
 "tpq" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
@@ -105221,7 +105221,7 @@
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "tua" = (
@@ -105527,7 +105527,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "tyl" = (
@@ -107170,7 +107170,7 @@
 /area/station/science/explab)
 "tOs" = (
 /obj/item/stack/tile/carpet,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -108097,7 +108097,7 @@
 	},
 /area/station/command/office/ce)
 "tXS" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -108135,7 +108135,7 @@
 	},
 /area/station/medical/cloning)
 "tYb" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/structure/cable{
 	d1 = 4;
@@ -108361,7 +108361,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "uaj" = (
@@ -108925,7 +108925,7 @@
 /area/station/maintenance/aft2)
 "ufk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "ufl" = (
@@ -109104,7 +109104,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "uhm" = (
@@ -109208,7 +109208,7 @@
 /obj/structure/sign/poster/official/love_ian{
 	pixel_y = -32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "uiT" = (
@@ -109363,7 +109363,7 @@
 	},
 /area/station/science/misc_lab)
 "ukj" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
@@ -109852,7 +109852,7 @@
 /area/station/service/bar)
 "uoR" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
@@ -110254,7 +110254,7 @@
 /obj/item/trash/spentcasing,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/candy/coin,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "utm" = (
@@ -110555,7 +110555,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -110846,7 +110846,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
@@ -111806,7 +111806,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "uGJ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -112889,7 +112889,7 @@
 	},
 /area/station/command/office/rd)
 "uRj" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -113585,7 +113585,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "uXq" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -113822,7 +113822,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
@@ -114013,7 +114013,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "vcS" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/abandoned_garden)
 "vcV" = (
@@ -114155,7 +114155,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "ves" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "vew" = (
@@ -115752,7 +115752,7 @@
 	name = "Ians Collar";
 	desc = "Sports a small tag on the front: Ian"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "vtr" = (
@@ -115940,7 +115940,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "vvj" = (
@@ -116186,7 +116186,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
 "vyj" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint)
 "vyl" = (
@@ -116242,7 +116242,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "vyP" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -116300,7 +116300,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "vzs" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -117455,7 +117455,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "vJX" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/security/fore)
 "vKa" = (
@@ -117759,7 +117759,7 @@
 /area/station/public/dorms)
 "vMb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -118187,7 +118187,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint2)
 "vPr" = (
@@ -119041,7 +119041,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "vXQ" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/port)
 "vXX" = (
@@ -119518,7 +119518,7 @@
 	},
 /area/station/science/rnd)
 "wcG" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
 "wcI" = (
@@ -119974,7 +119974,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "whf" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/generic,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -120067,7 +120067,7 @@
 /area/station/medical/break_room)
 "whN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -120095,7 +120095,7 @@
 "whZ" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -121381,7 +121381,7 @@
 /area/station/maintenance/storage)
 "wve" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wvi" = (
@@ -121766,7 +121766,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "wzf" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -122130,7 +122130,7 @@
 	},
 /area/station/supply/office)
 "wDI" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "wDJ" = (
@@ -122276,7 +122276,7 @@
 /area/station/medical/chemistry)
 "wFM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -122934,7 +122934,7 @@
 	},
 /area/station/security/brig)
 "wLO" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -123132,12 +123132,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "wOp" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
@@ -123458,7 +123458,7 @@
 /turf/simulated/wall,
 /area/station/supply/warehouse)
 "wRf" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "wRg" = (
@@ -124263,7 +124263,7 @@
 	name = "trash spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "wZD" = (
@@ -126406,7 +126406,7 @@
 /area/station/hallway/secondary/entry/lounge)
 "xsY" = (
 /obj/item/stack/rods,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "xts" = (
@@ -126481,7 +126481,7 @@
 	},
 /area/station/medical/morgue)
 "xtZ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -126509,7 +126509,7 @@
 "xuI" = (
 /obj/item/cigbutt/roach,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "xuN" = (
@@ -126697,7 +126697,7 @@
 /area/station/engineering/break_room/secondary)
 "xwH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "xwJ" = (
@@ -126824,7 +126824,7 @@
 	},
 /area/station/science/xenobiology)
 "xxy" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -126873,7 +126873,7 @@
 /area/station/medical/psych)
 "xyd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -128096,7 +128096,7 @@
 	},
 /area/station/aisat/service)
 "xKJ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
 	icon_state = "small"
@@ -129306,7 +129306,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "xWH" = (
@@ -129594,7 +129594,7 @@
 /area/station/public/sleep)
 "yau" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -129935,7 +129935,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "ydT" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/security/fore)
 "ydU" = (
@@ -130148,7 +130148,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "yfv" = (
@@ -130594,7 +130594,7 @@
 /area/station/science/break_room)
 "yju" = (
 /obj/effect/spawner/random/cobweb/right/rare,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "yjv" = (

@@ -191,7 +191,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aU" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/powered/bar)
 "aV" = (
@@ -318,7 +318,7 @@
 	},
 /area/ruin/space/powered/bar)
 "bn" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/mineral,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
@@ -381,7 +381,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "eG" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
@@ -534,7 +534,7 @@
 	},
 /area/ruin/space/powered/bar)
 "tv" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
@@ -575,12 +575,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "wy" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "wL" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/crowbar/small,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
@@ -608,13 +608,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
 "yW" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "yX" = (
@@ -775,7 +775,7 @@
 	},
 /area/ruin/space/powered/bar)
 "KM" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
@@ -898,7 +898,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "QU" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/mineral,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -953,7 +953,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "VU" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/light_construct/small{
 	dir = 8

@@ -558,7 +558,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/kitchen)
 "no" = (
@@ -699,7 +699,7 @@
 	},
 /area/ruin/space/powered/casino/arrivals)
 "qK" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1103,7 +1103,7 @@
 /area/ruin/space/powered/casino/kitchen)
 "Cp" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "Cr" = (
@@ -1271,7 +1271,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/teleporter)
 "GP" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/maints)
 "GX" = (
@@ -1406,7 +1406,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/security)
 "KV" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/engine)
 "LI" = (
@@ -1692,7 +1692,7 @@
 /turf/space,
 /area/space)
 "TO" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "TV" = (
@@ -1835,7 +1835,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "VW" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/security)
 "We" = (

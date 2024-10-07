@@ -13,7 +13,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ae" = (
@@ -21,17 +21,17 @@
 /area/ruin/space/powered)
 "af" = (
 /obj/structure/computerframe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ag" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ah" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "aj" = (
@@ -84,7 +84,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "as" = (
@@ -240,7 +240,7 @@
 /area/ruin/space/powered)
 "aW" = (
 /obj/effect/spawner/window/reinforced,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "aY" = (
@@ -491,7 +491,7 @@
 "YM" = (
 /obj/structure/table/wood,
 /obj/item/blank_tarot_card,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 

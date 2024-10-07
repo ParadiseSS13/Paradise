@@ -116,7 +116,7 @@
 /area/ruin/space/mech_transport)
 "hu" = (
 /obj/effect/decal/remains/human,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/mech_transport)
 "hJ" = (
@@ -141,7 +141,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "jd" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "jG" = (
@@ -224,14 +224,14 @@
 	pixel_y = 0;
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/light/tube{
 	status = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "qJ" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/plating/airless,
@@ -332,11 +332,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "wz" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "wF" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
@@ -399,7 +399,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Af" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/door_control{
 	id = "mechtransport_bay_shutter";
@@ -439,7 +439,7 @@
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/mech_transport)
 "EC" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/gibs/robot/up,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
@@ -520,7 +520,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Lq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "LZ" = (
@@ -602,7 +602,7 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -648,7 +648,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Sw" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)

@@ -1,8 +1,8 @@
-/obj/effect/spawner/random_spawners/wall_rusted_always : /obj/effect/mapping_helpers/turf/rust
-/obj/effect/spawner/random_spawners/wall_rusted_maybe : /obj/effect/mapping_helpers/turf/rust/maybe
-/obj/effect/spawner/random_spawners/wall_rusted_probably : /obj/effect/mapping_helpers/turf/rust/probably
-/obj/effect/landmark/damageturf : /obj/effect/mapping_helpers/turf/damage
-/obj/effect/landmark/burnturf : /obj/effect/mapping_helpers/turf/burn
+/obj/effect/spawner/random_spawners/wall_rusted_always : /obj/effect/mapping_helpers/turfs/rust
+/obj/effect/spawner/random_spawners/wall_rusted_maybe : /obj/effect/mapping_helpers/turfs/rust/maybe
+/obj/effect/spawner/random_spawners/wall_rusted_probably : /obj/effect/mapping_helpers/turfs/rust/probably
+/obj/effect/landmark/damageturf : /obj/effect/mapping_helpers/turfs/damage
+/obj/effect/landmark/burnturf : /obj/effect/mapping_helpers/turfs/burn
 /obj/effect/spawner/random_spawners/cobweb_left_frequent : /obj/effect/spawner/random/cobweb/left/frequent
 /obj/effect/spawner/random_spawners/cobweb_left_rare : /obj/effect/spawner/random/cobweb/left/rare
 /obj/effect/spawner/random_spawners/cobweb_right_frequent : /obj/effect/spawner/random/cobweb/right/frequent

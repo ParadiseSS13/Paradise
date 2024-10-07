@@ -268,7 +268,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "Qx" = (

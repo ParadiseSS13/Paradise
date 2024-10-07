@@ -86,7 +86,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "dk" = (
@@ -192,7 +192,7 @@
 	d2 = 4
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "fA" = (
@@ -228,7 +228,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "gL" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hy" = (
@@ -238,7 +238,7 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
@@ -257,7 +257,7 @@
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iO" = (
@@ -271,7 +271,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iV" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "jk" = (
@@ -288,7 +288,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "jG" = (
@@ -307,7 +307,7 @@
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "jS" = (
@@ -321,7 +321,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kd" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kg" = (
@@ -335,7 +335,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "kt" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kw" = (
@@ -370,7 +370,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "kT" = (
 /obj/structure/mirror,
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kZ" = (
@@ -500,7 +500,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "nn" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "nH" = (
@@ -526,7 +526,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "oL" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "oW" = (
@@ -571,7 +571,7 @@
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "qu" = (
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "rn" = (
@@ -655,7 +655,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "to" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -804,7 +804,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "yJ" = (
@@ -925,7 +925,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Dj" = (
@@ -943,7 +943,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "DO" = (
@@ -979,7 +979,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "EU" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Fm" = (
@@ -1083,7 +1083,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "Iz" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turf/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "IC" = (
@@ -1107,7 +1107,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "IM" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "Jo" = (
@@ -1309,7 +1309,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "Ro" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
@@ -1491,7 +1491,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "ZA" = (

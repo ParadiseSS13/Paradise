@@ -95,7 +95,7 @@
 /turf/space,
 /area/template_noop)
 "D" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
@@ -158,7 +158,7 @@
 /turf/simulated/wall,
 /area/space)
 "U" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "V" = (

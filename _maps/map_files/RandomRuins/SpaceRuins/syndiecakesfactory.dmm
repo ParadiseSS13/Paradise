@@ -224,7 +224,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "hF" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/syndicakefactory)
 "hH" = (
@@ -344,7 +344,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "oH" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/syndicakefactory)
 "oJ" = (

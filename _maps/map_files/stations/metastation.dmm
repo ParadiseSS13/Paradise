@@ -597,7 +597,7 @@
 	},
 /area/station/security/detective)
 "ahd" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ahh" = (
@@ -650,7 +650,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ahJ" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ahZ" = (
@@ -879,7 +879,7 @@
 /area/space/nearstation)
 "ajy" = (
 /obj/item/vending_refill/coffee,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "ajC" = (
@@ -1495,7 +1495,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "anf" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = -25;
 	pixel_y = 4;
@@ -2595,7 +2595,7 @@
 	},
 /area/station/engineering/gravitygenerator)
 "asU" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "asV" = (
@@ -3251,7 +3251,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "avD" = (
@@ -3503,7 +3503,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "awf" = (
@@ -3620,7 +3620,7 @@
 /area/station/security/permabrig)
 "awE" = (
 /obj/machinery/space_heater,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -3842,7 +3842,7 @@
 /area/station/public/storage/emergency/port)
 "axt" = (
 /obj/effect/spawner/random/maintenance,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "axv" = (
@@ -5409,7 +5409,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "aEj" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "aEk" = (
@@ -5639,7 +5639,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aEN" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -7545,7 +7545,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "aLD" = (
@@ -10802,7 +10802,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/storage)
 "aVY" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "aVZ" = (
@@ -12761,7 +12761,7 @@
 	},
 /area/station/aisat)
 "bcb" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "bcd" = (
@@ -14802,7 +14802,7 @@
 "bgV" = (
 /obj/item/kirbyplants/plant22,
 /obj/effect/spawner/random/cobweb/left/rare,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bgW" = (
@@ -16916,7 +16916,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bmq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bmr" = (
@@ -18211,7 +18211,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bpT" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bpU" = (
@@ -18514,7 +18514,7 @@
 	},
 /area/station/hallway/primary/central/se)
 "bqS" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "bqT" = (
@@ -20724,7 +20724,7 @@
 /turf/space,
 /area/space/nearstation)
 "bwO" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bwP" = (
@@ -25491,7 +25491,7 @@
 "bNf" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/rag,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bNg" = (
@@ -26318,7 +26318,7 @@
 /area/station/hallway/secondary/bridge)
 "bQu" = (
 /obj/machinery/economy/slot_machine,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bQy" = (
@@ -27420,7 +27420,7 @@
 /area/station/science/research)
 "bUz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "bUA" = (
@@ -27626,7 +27626,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bVe" = (
@@ -27766,7 +27766,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bVN" = (
@@ -27783,7 +27783,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bVR" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bVS" = (
@@ -28105,7 +28105,7 @@
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bWJ" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bWK" = (
@@ -28778,7 +28778,7 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bYT" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bYW" = (
@@ -30030,7 +30030,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "cdP" = (
@@ -30358,7 +30358,7 @@
 /area/station/maintenance/aft)
 "cfb" = (
 /obj/machinery/economy/slot_machine,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cfc" = (
@@ -30909,7 +30909,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -31089,7 +31089,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "chE" = (
@@ -31695,7 +31695,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cjH" = (
@@ -31884,7 +31884,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ckF" = (
@@ -32048,7 +32048,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cll" = (
@@ -32311,7 +32311,7 @@
 	},
 /area/station/science/research)
 "cms" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cmu" = (
@@ -33218,7 +33218,7 @@
 /area/station/maintenance/aft)
 "cqi" = (
 /obj/item/shovel/spade,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cqj" = (
@@ -33327,7 +33327,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/vending_refill/hydroseeds,
 /obj/effect/spawner/random/cobweb/right/rare,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cqK" = (
@@ -33760,7 +33760,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/station/engineering/atmos)
 "csv" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "csw" = (
@@ -34611,7 +34611,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cvS" = (
@@ -35077,7 +35077,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -35194,7 +35194,7 @@
 /obj/item/seeds/banana,
 /obj/item/seeds/chanter,
 /obj/item/seeds/chili,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cyf" = (
@@ -35271,7 +35271,7 @@
 "cyx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cyy" = (
@@ -35645,7 +35645,7 @@
 /area/station/maintenance/xenobio_south)
 "cAf" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/space_heater,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -36198,7 +36198,7 @@
 /area/station/maintenance/apmaint)
 "cCp" = (
 /obj/structure/closet/crate,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -36516,7 +36516,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cDA" = (
@@ -37496,7 +37496,7 @@
 	pixel_x = -32
 	},
 /obj/structure/bed/dogbed,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cHf" = (
@@ -37675,7 +37675,7 @@
 /area/station/security/prison/cell_block/A)
 "cHy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cHA" = (
@@ -37888,7 +37888,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "cIl" = (
@@ -37913,7 +37913,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cIp" = (
@@ -39196,7 +39196,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cNC" = (
@@ -39627,19 +39627,19 @@
 	pixel_y = 32
 	},
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cPq" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/janitor/supplies,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cPr" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker,
@@ -39883,7 +39883,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cQt" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -40264,7 +40264,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cSg" = (
@@ -40641,7 +40641,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cTD" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
@@ -41471,7 +41471,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "cXu" = (
@@ -42324,7 +42324,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "dcd" = (
@@ -43021,7 +43021,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "dgg" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -46431,7 +46431,7 @@
 /area/station/security/permabrig)
 "eBk" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "eBq" = (
@@ -46820,7 +46820,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/test_chamber)
 "eLW" = (
@@ -46963,7 +46963,7 @@
 	},
 /area/station/hallway/secondary/entry/lounge)
 "ePK" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "ePT" = (
@@ -48013,7 +48013,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "fla" = (
@@ -49845,7 +49845,7 @@
 	},
 /area/station/science/lobby)
 "fTV" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "fUf" = (
@@ -50188,7 +50188,7 @@
 	},
 /area/station/science/xenobiology)
 "gbM" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
 "gbP" = (
@@ -51004,7 +51004,7 @@
 /turf/space,
 /area/space/nearstation)
 "gty" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft2)
 "gtW" = (
@@ -51234,7 +51234,7 @@
 	},
 /area/station/medical/reception)
 "gBL" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/test_chamber)
 "gCo" = (
@@ -51925,7 +51925,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "gOT" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/research)
 "gOU" = (
@@ -52807,7 +52807,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -54744,7 +54744,7 @@
 "hTl" = (
 /obj/item/book/manual/random,
 /obj/machinery/light/small,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "hTx" = (
@@ -55046,7 +55046,7 @@
 /turf/space,
 /area/space/nearstation)
 "iag" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -57548,7 +57548,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "jfb" = (
@@ -60254,7 +60254,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "kol" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -60429,7 +60429,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ksb" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint)
 "ksf" = (
@@ -61953,7 +61953,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -64260,7 +64260,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/spacehut)
 "lVp" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "lVy" = (
@@ -66389,7 +66389,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "mPr" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -66941,7 +66941,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "naq" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
 "naR" = (
@@ -68331,7 +68331,7 @@
 /area/station/maintenance/asmaint)
 "nCf" = (
 /obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "nCh" = (
@@ -68981,7 +68981,7 @@
 	},
 /area/station/science/toxins/launch)
 "nRQ" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/science/test_chamber)
 "nSc" = (
@@ -69229,7 +69229,7 @@
 /area/station/maintenance/starboard)
 "nXk" = (
 /obj/structure/bookcase,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "nXr" = (
@@ -69355,7 +69355,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nZj" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/control)
 "nZB" = (
@@ -69890,7 +69890,7 @@
 	},
 /area/station/maintenance/asmaint)
 "ook" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/security/range)
 "ool" = (
@@ -70007,7 +70007,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "oqk" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/chair/stool{
 	dir = 8
 	},
@@ -70436,7 +70436,7 @@
 /area/station/science/rnd)
 "oDp" = (
 /obj/structure/girder,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oEe" = (
@@ -70749,7 +70749,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oNk" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oNl" = (
@@ -71250,7 +71250,7 @@
 	},
 /area/station/science/robotics)
 "oVx" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
 "oVI" = (
@@ -73786,7 +73786,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pWK" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "pWM" = (
@@ -73881,7 +73881,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
@@ -76390,7 +76390,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "rbU" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -76559,7 +76559,7 @@
 	},
 /area/station/science/storage)
 "rhb" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/chair,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
@@ -79383,7 +79383,7 @@
 /area/station/hallway/secondary/entry/south)
 "smW" = (
 /obj/machinery/space_heater,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -79865,7 +79865,7 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/trashcart,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -80671,7 +80671,7 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "sPF" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -82666,7 +82666,7 @@
 	},
 /area/station/engineering/break_room)
 "tKX" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
 /area/station/maintenance/asmaint)
 "tLv" = (
@@ -83102,7 +83102,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tXq" = (
@@ -85819,7 +85819,7 @@
 	},
 /area/station/medical/medbay)
 "veE" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -86195,7 +86195,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "vmW" = (
-/obj/effect/mapping_helpers/turf/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/misc_lab)
 "vmX" = (
@@ -86534,7 +86534,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "vuo" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/tech_storage)
 "vuE" = (
@@ -86846,7 +86846,7 @@
 	},
 /area/station/security/permabrig)
 "vCt" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "vCB" = (
@@ -89028,7 +89028,7 @@
 	},
 /area/station/security/brig)
 "wGv" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -89206,7 +89206,7 @@
 /area/station/maintenance/aft)
 "wMy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "wMQ" = (
@@ -90770,7 +90770,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "xtx" = (
-/obj/effect/mapping_helpers/turf/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
 "xtA" = (
@@ -91633,7 +91633,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -91913,7 +91913,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "xSv" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
 "xTH" = (

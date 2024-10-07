@@ -54,7 +54,7 @@
 /obj/machinery/door/airlock/silver{
 	locked = 1
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Delta)
 "an" = (
@@ -149,7 +149,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Fore)
 "aE" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Delta)
 "aF" = (
@@ -174,7 +174,7 @@
 /area/ruin/powered)
 "aL" = (
 /obj/item/multitool,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "aM" = (
@@ -237,7 +237,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Fore)
 "aW" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Delta)
 "aX" = (
@@ -259,7 +259,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "be" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "bf" = (
@@ -1610,7 +1610,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "fo" = (
@@ -1693,7 +1693,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Aft)
 "fA" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fB" = (
@@ -1725,7 +1725,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fF" = (
@@ -1734,7 +1734,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fG" = (
@@ -1795,12 +1795,12 @@
 /area/ruin/unpowered/BMPship/Aft)
 "fN" = (
 /obj/item/shard,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fO" = (
 /obj/structure/chair/stool,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fP" = (
@@ -1854,12 +1854,12 @@
 /area/ruin/powered)
 "fY" = (
 /obj/structure/computerframe,
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fZ" = (
 /obj/structure/computerframe,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "ga" = (
@@ -1869,7 +1869,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "gb" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "gc" = (
@@ -1965,7 +1965,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "gq" = (
 /obj/structure/cable,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "gr" = (
@@ -1993,7 +1993,7 @@
 /area/ruin/powered)
 "gw" = (
 /obj/effect/gibspawner/robot,
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gx" = (
@@ -2012,7 +2012,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gz" = (
-/obj/effect/mapping_helpers/turf/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gA" = (
@@ -2312,7 +2312,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "hE" = (
-/obj/effect/mapping_helpers/turf/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
