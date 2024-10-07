@@ -23,7 +23,7 @@
 			to_chat(user, "<span class='warning'>You need to be standing next to [on_wall] to place [src].</span>")
 			return FALSE
 
-		if(gotwallitem(get_turf(user), get_dir(on_wall, user)))
+		if(gotwallitem(get_turf(user), get_dir(user, on_wall)))
 			to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
 			return FALSE
 
