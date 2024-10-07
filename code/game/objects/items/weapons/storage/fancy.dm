@@ -32,6 +32,10 @@
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
 
+/obj/item/storage/fancy/Initialize(mapload)
+	. = ..()
+	update_icon_state()
+
 /*
  * Donut Box
  */
