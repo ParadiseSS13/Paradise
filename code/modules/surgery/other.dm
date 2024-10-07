@@ -81,7 +81,6 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -134,7 +133,6 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -192,9 +190,6 @@
 		/obj/item/shard = 60
 	)
 
-	preop_sound = 'sound/surgery/scalpel1.ogg'
-	success_sound = 'sound/surgery/retractor2.ogg'
-	failure_sound = 'sound/surgery/organ1.ogg'
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 

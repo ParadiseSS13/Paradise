@@ -57051,13 +57051,7 @@
 	},
 /area/station/science/genetics)
 "dnW" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/light/floor,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/light,
 /area/station/engineering/atmos)
 "dnX" = (
 /obj/structure/chair/sofa/left{
@@ -85194,12 +85188,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"pXV" = (
-/obj/machinery/light/floor,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "pYb" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/plating,
@@ -88519,11 +88507,10 @@
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "rUU" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/light/floor,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
+/turf/simulated/floor/light,
 /area/station/engineering/atmos)
 "rVB" = (
 /obj/structure/table/reinforced,
@@ -124167,11 +124154,11 @@ aSD
 iYX
 aVF
 ban
-ban
+dnW
 tNx
 lth
 fgF
-ban
+dnW
 wKG
 lfU
 aYt
@@ -124681,12 +124668,12 @@ aSD
 aUc
 aVF
 ban
-pXV
 ban
 ban
 ban
 ban
-dnW
+ban
+jgG
 ban
 biQ
 bkC
@@ -125966,11 +125953,11 @@ aSD
 aUc
 aVF
 jgG
-jgG
+rUU
 iUf
 iUf
 iUf
-ban
+dnW
 nae
 ban
 aZm
@@ -126480,12 +126467,12 @@ aSH
 aUd
 aVF
 jVW
-rUU
 beJ
 beJ
 beJ
 beJ
-rUU
+beJ
+beJ
 bhk
 biU
 bkJ
