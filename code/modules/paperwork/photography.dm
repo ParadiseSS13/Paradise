@@ -115,14 +115,14 @@
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-    var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", max_length = 128)
-    if(!n_name)
-        return
-    //loc.loc check is for making possible renaming photos in clipboards
-    if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
-        name = "[(n_name ? "[n_name]" : "photo")]"
-        scribble = n_name  // Set the scribble to the new name
-    add_fingerprint(user)
+	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", max_length = 128)
+	if(!n_name)
+		return
+	//loc.loc check is for making possible renaming photos in clipboards
+	if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
+		name = "[(n_name ? "[n_name]" : "photo")]"
+		scribble = n_name  // Set the scribble to the new name
+	add_fingerprint(user)
 
 /**************
 * photo album *
