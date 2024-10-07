@@ -2943,12 +2943,6 @@
 	pixel_y = -4;
 	pixel_x = -17
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24;
-	pixel_y = -5
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -15011,6 +15005,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
+"cOV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/requests_console/directional/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "cOY" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
@@ -16884,6 +16886,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"dhN" = (
+/obj/structure/chair/sofa/bench{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "dhP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -17790,7 +17799,7 @@
 "dqX" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start/assistant,
-/obj/structure/sign/poster/official/random{
+/obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -38203,6 +38212,7 @@
 /area/station/maintenance/asmaint)
 "heu" = (
 /obj/structure/closet/wardrobe/black,
+/obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hey" = (
@@ -40111,6 +40121,14 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
+"hwo" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "hwx" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/wood,
@@ -42717,6 +42735,9 @@
 /area/station/public/pet_store)
 "hWk" = (
 /obj/structure/chair/sofa/bench/left,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "hWv" = (
@@ -45517,6 +45538,9 @@
 /obj/machinery/firealarm/directional/south,
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52811,6 +52835,17 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/security/south)
+"jNB" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "jNM" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -76495,6 +76530,9 @@
 /area/station/maintenance/apmaint2)
 "okc" = (
 /obj/item/kirbyplants,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -83829,6 +83867,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"pBn" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "pBo" = (
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
@@ -90902,6 +90947,13 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"qUn" = (
+/obj/structure/chair/sofa,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet,
+/area/station/public/dorms)
 "qUr" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -91986,6 +92038,14 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"rcZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "rdc" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -93201,6 +93261,9 @@
 "rnA" = (
 /obj/structure/chair/sofa/bench/left{
 	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
@@ -96068,6 +96131,9 @@
 /obj/machinery/camera{
 	c_tag = "Dormitories Lounge";
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
@@ -102201,6 +102267,12 @@
 /area/station/legal/courtroom/gallery)
 "sUJ" = (
 /obj/item/kirbyplants,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -106342,6 +106414,17 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
+"tGI" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/structure/chair/sofa/bench/left{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "tGJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -108205,6 +108288,9 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -111875,6 +111961,7 @@
 /area/station/hallway/primary/fore/north)
 "uHu" = (
 /obj/structure/closet/wardrobe/mixed,
+/obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "uHy" = (
@@ -161143,10 +161230,10 @@ nIV
 tId
 jsx
 asq
+rcZ
 tId
 tId
-tId
-jsx
+jNB
 asq
 heu
 cJq
@@ -162171,10 +162258,10 @@ nIV
 lAJ
 usj
 asq
+hwo
 lAJ
 lAJ
-lAJ
-usj
+cOV
 asq
 uHu
 cJq
@@ -162842,7 +162929,7 @@ oGg
 mlh
 nYZ
 vAZ
-eBG
+qUn
 aAt
 dwn
 tVG
@@ -171591,7 +171678,7 @@ dkG
 kyA
 uci
 kyA
-cIa
+tGI
 dws
 dws
 dws
@@ -171848,7 +171935,7 @@ rSC
 uks
 uci
 kyA
-kyA
+dhN
 ajq
 aNu
 nRd
@@ -172105,7 +172192,7 @@ wBF
 kwm
 qHk
 kyA
-kyA
+pBn
 ajq
 aNu
 anY
