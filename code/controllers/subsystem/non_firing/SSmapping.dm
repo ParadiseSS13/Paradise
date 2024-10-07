@@ -56,11 +56,13 @@ SUBSYSTEM_DEF(mapping)
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[lavaland_theme_type]")
 
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)
 	caves_theme = new caves_theme_type
 	log_startup_progress("We feel like [caves_theme.name] today...")
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[caves_theme_type]")
 
 	// Load all Z level templates
 	preloadTemplates()
