@@ -44,15 +44,15 @@ class MemoryBackend {
     return this.store[key];
   }
 
-  set(key, value) {
+  async set(key, value) {
     this.store[key] = value;
   }
 
-  remove(key) {
+  async remove(key) {
     this.store[key] = undefined;
   }
 
-  clear() {
+  async clear() {
     this.store = {};
   }
 }
@@ -69,15 +69,15 @@ class HubStorageBackend {
     }
   }
 
-  async set(key, value) {
+  set(key, value) {
     window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
   }
 
-  async remove(key) {
+  remove(key) {
     window.hubStorage.removeItem('paradise-' + key);
   }
 
-  async clear() {
+  clear() {
     window.hubStorage.clear();
   }
 }

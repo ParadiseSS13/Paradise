@@ -58,15 +58,6 @@ export const PrizeCounter = (props, context) => {
                       onClick={() => setToggleSearch(!toggleSearch)}
                     />
                   </Stack.Item>
-                  <Stack.Item>
-                    <Button
-                      icon="search"
-                      tooltip="Toggle search"
-                      tooltipPosition="bottom-end"
-                      selected={toggleSearch}
-                      onClick={() => setToggleSearch(!toggleSearch)}
-                    />
-                  </Stack.Item>
                 </Stack>
               }
             >
