@@ -63259,13 +63259,6 @@
 	icon_state = "cult"
 	},
 /area/station/service/chapel/office)
-"dUf" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/obj/machinery/requests_console/directional/east,
-/turf/simulated/floor/carpet,
-/area/station/security/detective)
 "dUi" = (
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -148613,7 +148606,7 @@ aaa
 bLn
 bHP
 dMA
-dUf
+bLu
 bNu
 nXf
 bLn

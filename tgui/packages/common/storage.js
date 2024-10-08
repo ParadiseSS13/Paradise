@@ -44,15 +44,15 @@ class MemoryBackend {
     return this.store[key];
   }
 
-  async set(key, value) {
+  set(key, value) {
     this.store[key] = value;
   }
 
-  async remove(key) {
+  remove(key) {
     this.store[key] = undefined;
   }
 
-  async clear() {
+  clear() {
     this.store = {};
   }
 }

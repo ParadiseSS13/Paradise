@@ -204,9 +204,6 @@
 	for(var/obj/structure/grille/grill_to_destroy in act_on)
 		qdel(grill_to_destroy)
 
-// /datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
-// 	return A == usr
-
 /datum/rcd_act/remove_user
 	mode = MODE_DECON
 	cost = 5
@@ -349,7 +346,7 @@
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
-		if(!act.try_act(user, src, user))
+		if(!act.try_act(suicide_tile, src, user))
 			flags &= ~NODROP
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")

@@ -11304,11 +11304,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
 "bui" = (
@@ -11316,11 +11311,6 @@
 /obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
@@ -16046,18 +16036,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"bPw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/port/north)
 "bPx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -20809,9 +20787,9 @@
 /area/station/science/hallway)
 "cqO" = (
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -28349,11 +28327,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "dlT" = (
@@ -28964,11 +28937,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36668,7 +36636,7 @@
 "fgP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
-	color = "#954535"
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -37158,11 +37126,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -45707,11 +45670,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -47941,11 +47899,6 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
 "ivS" = (
@@ -49830,11 +49783,6 @@
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -56396,11 +56344,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/theatre)
@@ -70581,13 +70524,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72990,11 +72926,6 @@
 /obj/item/storage/firstaid/brute,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
@@ -79251,11 +79182,6 @@
 /area/station/service/bar)
 "rot" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "roF" = (
@@ -82927,11 +82853,6 @@
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
@@ -91589,11 +91510,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "uJq" = (
@@ -97178,28 +97094,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/secondary/entry/north)
-"wlU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/port/east)
 "wlV" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
@@ -98849,9 +98743,9 @@
 /area/station/service/hydroponics)
 "wFt" = (
 /obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -99890,11 +99784,6 @@
 "wUV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
@@ -107750,6 +107639,10 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
 lzH
 aad
 aad
@@ -111868,8 +111761,6 @@ rNK
 lzH
 lzH
 lzH
-lzH
-lzH
 rNK
 dcv
 rNK
@@ -115198,8 +115089,6 @@ uCK
 aXn
 aXn
 hUU
-rNK
-rNK
 rNK
 rNK
 rNK
@@ -121350,7 +121239,7 @@ mCM
 mCM
 mCM
 oGs
-eJF
+mCM
 mGM
 mCM
 mCM
@@ -129505,7 +129394,7 @@ xXx
 jpP
 cRv
 cRv
-cRv
+rNK
 rNK
 rNK
 myi
@@ -130020,6 +129909,8 @@ jpP
 eUt
 abE
 abE
+rNK
+rNK
 rNK
 myi
 myi

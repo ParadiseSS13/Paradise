@@ -5,6 +5,7 @@ import { Window } from '../layouts';
 const SelectableTile = (props, context) => {
   const { act, data } = useBackend(context);
   const { icon_state, direction, isSelected, onSelect } = props;
+
   return (
     <DmIcon
       icon={data.icon}
@@ -30,7 +31,7 @@ const Dir = {
 
 export const DecalPainter = (props, context) => {
   const { act, data } = useBackend(context);
-  const { availableStyles, selectedStyle, selectedDir, directionsPreview, allStylesPreview, removalMode } = data;
+  const { availableStyles, selectedStyle, selectedDir, removalMode } = data;
   return (
     <Window width={405} height={475}>
       <Window.Content scrollable>
