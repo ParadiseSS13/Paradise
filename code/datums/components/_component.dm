@@ -479,7 +479,8 @@
   * Deletes the component and removes it from parent.
   */
 /datum/component/proc/RemoveComponent() // This really is just a wrapper to pretend that we're using sane procs to fully remove a component
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /**
   * Transfer this component to another parent
