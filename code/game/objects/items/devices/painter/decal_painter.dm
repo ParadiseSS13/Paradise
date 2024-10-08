@@ -21,7 +21,7 @@
 				continue
 			allowed_decals += decal
 			if(!(decal in lookup_cache_decals))
-				lookup_cache_decals["[decal]"] = decal
+				lookup_cache_decals[decal::icon_state] = decal
 
 /datum/painter/decal/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor))
@@ -69,8 +69,8 @@
 	var/list/data = list()
 	data["icon"] = decal_icon
 	var/list/decal_names = list()
-	for(var/decal in allowed_decals)
-		decal_names += "[decal]"
+	for(var/decal in lookup_cache_decals)
+		decal_names += decal
 	data["availableStyles"] = decal_names
 
 	return data

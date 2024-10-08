@@ -69,7 +69,7 @@ export const DecalPainter = (props, context) => {
               {availableStyles.map((style) => (
                 <Flex.Item key={style}>
                   <SelectableTile
-                    icon_state={selectedStyle}
+                    icon_state={style}
                     isSelected={selectedStyle === style && !removalMode}
                     onSelect={() => act('select_style', { style: style })}
                   />
