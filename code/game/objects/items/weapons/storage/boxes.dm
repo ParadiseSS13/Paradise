@@ -700,8 +700,6 @@
 /* Ammo Boxes */
 ////////////////
 
-// Empty type
-// All these can only hold their special ammo types and automatically are filled with them
 /obj/item/storage/fancy/shell
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
