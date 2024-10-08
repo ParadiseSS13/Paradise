@@ -37,6 +37,8 @@
 	name = "33pc trap pizza"
 	icon_state = "pizzabox"
 	loot = list(
+		/obj/item/pizzabox/pizza_bomb/autoarm = 4,
+
 		/obj/item/pizzabox/firecracker = 1,
 		/obj/item/pizzabox/garlic = 1,
 		/obj/item/pizzabox/hawaiian = 1,
@@ -44,7 +46,6 @@
 		/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/mushroom = 1,
 		/obj/item/pizzabox/pepperoni = 1,
-		/obj/item/pizzabox/pizza_bomb/autoarm = 5,
 		/obj/item/pizzabox/vegetable = 1,
 	)
 
