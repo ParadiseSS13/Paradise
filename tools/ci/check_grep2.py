@@ -151,7 +151,7 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
-EMPTY_LIST_WHITESPACE = re.compile(r"list\(\s+\)")
+EMPTY_LIST_WHITESPACE = re.compile(r"list\(\s+")
 def check_empty_list_whitespace(idx, line):
     if EMPTY_LIST_WHITESPACE.search(line):
         return [(idx + 1, "Empty list declarations should not have any whitespace within their parentheses.")]
