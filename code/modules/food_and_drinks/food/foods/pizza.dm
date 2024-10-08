@@ -432,7 +432,7 @@
 	box_tag = "meatlover's supreme"
 
 /obj/item/pizzabox/hawaiian
-	pizza = /obj/item/food/sliceable/pizza/hawaiianpizza
+	pizza_type = /obj/item/food/sliceable/pizza/hawaiianpizza
 	box_tag = "Hawaiian feast"
 
 /obj/item/pizzabox/pepperoni
@@ -440,7 +440,7 @@
 	box_tag = "classic pepperoni"
 
 /obj/item/pizzabox/garlic
-	pizza = /obj/item/food/sliceable/pizza/garlicpizza
+	pizza_type = /obj/item/food/sliceable/pizza/garlicpizza
 	box_tag = "triple garlic"
 
 /obj/item/pizzabox/firecracker
