@@ -572,7 +572,7 @@
 			"You feel like miming a performance.")
 			to_chat(M, "<span class='warning'>[pick(mime_message)]</span>")
 		if(M.mind.assigned_role == "Clown")
-			if(!M.dna.species.tox_mod) // If they can't take tox damage, make them take burn damage
+			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 			else
 				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
