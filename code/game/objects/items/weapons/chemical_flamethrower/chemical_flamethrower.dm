@@ -30,7 +30,7 @@
 	/// How many firestacks will our reagent apply
 	var/canister_fire_applications = 1
 	/// How much ammo do we use per tile?
-	var/ammo_usage = 2
+	var/ammo_usage = 1
 	/// Is this a syndicate flamethrower
 	var/syndicate = FALSE
 

@@ -564,6 +564,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_fire()
 	update_icons()
 	update_emissive_block()
+	alpha = get_alpha()
 	if(player_logged) //make sure the SSD overlay stays
 		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 
@@ -884,7 +885,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		- /obj/item/judobelt
 		- /obj/item/storage/belt/chef
 		- /obj/item/storage/belt/mining/..
-		- /obj/item/storage/belt/sabre
+		- /obj/item/storage/belt/saber
 		- /obj/item/defibrillator/compact/..
 		- /obj/item/nullrod/..
 		- /obj/item/claymore/..
