@@ -752,11 +752,11 @@
 	UnregisterSignal(M, COMSIG_MOB_PRE_JAUNT)
 	return ..()
 
-/// Signal for COMSIG_MOVABLE_TELEPORTED that blocks teleports and stuns the would-be-teleportee.
+/// Blocks teleports and stuns the would-be-teleportee.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_teleport(mob/living/teleportee, atom/destination, channel)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED 
 
-	to_chat(teleportee, ("<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>"))
+	to_chat(teleportee, "<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>")
 
 	teleportee.Weaken(5 SECONDS)
 	var/datum/effect_system/spark_spread/spark_system = new()
@@ -764,11 +764,11 @@
 	spark_system.start()
 	return COMPONENT_BLOCK_TELEPORT
 
-/// Signal for COMSIG_MOB_PRE_JAUNT that prevents a user from entering a jaunt.
+/// Prevents a user from entering a jaunt.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_jaunt(mob/living/jaunter)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT 
 
-	to_chat(jaunter, ("<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>"))
+	to_chat(jaunter, "<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>")
 
 	jaunter.Weaken(5 SECONDS)
 	var/datum/effect_system/spark_spread/spark_system = new()
