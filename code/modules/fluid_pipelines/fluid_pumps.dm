@@ -58,7 +58,7 @@
 		for(var/direction in list (dir, REVERSE_DIR(dir)))
 			var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
 			if(pipe)
-				pipe.update_icon_state()
+				pipe.update_icon()
 
 	anchored = !anchored
 

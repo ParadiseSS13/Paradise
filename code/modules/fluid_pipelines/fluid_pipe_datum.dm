@@ -39,9 +39,9 @@
 	if(QDELETED(pipe))
 		return
 	if(pipe.just_a_pipe)
-		connected_pipes += pipe
+		connected_pipes |= pipe
 	else
-		machinery += pipe
+		machinery |= pipe
 
 	pipe.fluid_datum = src
 
@@ -69,6 +69,7 @@
   * THIS IS HIGHLY INEFFICIENT AND I HATE IT. THIS SHOULD BE CHANGED SOMEHOW BUT I DON'T KNOW HOW ATM
   */
 /datum/fluid_pipe/proc/rebuild_pipenet()
+	message_admins("OH GOD OH FUCK REBUILD PIPENET IS CALLED")
 	var/list/new_pipeline_datums = list()
 	// As much as it pains me, we have to do this first so we start with a clean slate and can make new pipenets
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
@@ -119,6 +120,10 @@
 		stack_trace("`merge` was called without a pipenet to merge with. UID of src: [UID()]")
 		return
 
+	if(pipenet == src)
+		// This can and will happen. Do not remove.
+		return
+
 	// Change pipes
 	for(var/obj/machinery/fluid_pipe/pipe as anything in pipenet.connected_pipes)
 		pipe.fluid_datum = src
@@ -131,4 +136,5 @@
 	machinery += pipenet.machinery
 
 	total_capacity += pipenet.total_capacity
-	fluid_container.merge_containers(pipenet.fluid_container)
+	fluid_container = fluid_container.merge_containers(pipenet.fluid_container)
+	qdel(pipenet)

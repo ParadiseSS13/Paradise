@@ -9,6 +9,12 @@
 /datum/fluid_container
 	/// List with all fluids currently in the container
 	var/list/fluids = list()
+	/// Reference to owner pipeline datum
+	var/datum/fluid_pipe/pipe_datum
+
+/datum/fluid_container/New(datum/fluid_pipe/parent)
+	. = ..()
+	pipe_datum = parent
 
 /// Returns the total amount of fluids in the container
 /datum/fluid_container/proc/get_fluid_volumes()

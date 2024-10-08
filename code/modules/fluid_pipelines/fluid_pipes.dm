@@ -53,7 +53,9 @@
 
 	neighbours++
 	pipe_to_connect_to.neighbours++
-	fluid_datum.icon_updates()
+
+	update_icon()
+	pipe_to_connect_to.update_icon()
 
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
 	if(QDELETED(src))
@@ -74,10 +76,9 @@
 		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
 			if(pipe && pipe.anchored)
 				pipe.connect_pipes(src) // The reason for this is so we can override the behaviour on pumps
-									// so we can make them reconsider all of their connections every time they are connected
-				return
+										// so we can make them reconsider all of their connections every time they are connected
 
-	update_icon_state()
+	update_icon()
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
 	. = ..()
@@ -98,7 +99,7 @@
 
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
-	. += mutable_appearance('icons/obj/pipes/fluid_pipes.dmi', fluid_datum.return_percentile_full())
+	. += fluid_datum.return_percentile_full()
 
 /// Clears out the pipenet datum references. Override if your machinery holds more references
 /obj/machinery/fluid_pipe/proc/clear_pipenet_refs()
