@@ -39,6 +39,8 @@
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
 ///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
+///from base of atom/movable/shove_impact(): (mob/living/target, mob/living/attacker)
+#define COMSIG_MOVABLE_SHOVE_IMPACT "movable_shove_impact"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 

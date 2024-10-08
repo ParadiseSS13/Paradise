@@ -5523,10 +5523,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
-"sy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/moonbase19)
 "sF" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/indestructible/riveted,
@@ -14684,7 +14680,7 @@ Wd
 rL
 mh
 Mv
-sy
+ag
 tX
 tX
 Dd
@@ -15998,7 +15994,7 @@ OZ
 VR
 af
 bP
-sy
+ag
 af
 tX
 tX

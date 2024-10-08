@@ -1264,10 +1264,6 @@
 	icon_state = "blue"
 	},
 /area/ruin/space/derelict/crew_quarters)
-"dl" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/crew_quarters)
 "dm" = (
 /obj/machinery/computer/security,
 /obj/effect/decal/cleanable/dirt,
@@ -1849,11 +1845,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"eI" = (
-/obj/structure/sign/securearea,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ruslocksec";
@@ -2486,10 +2477,6 @@
 	icon_state = "purple"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"ge" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/hallway/primary)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -2714,10 +2701,6 @@
 /obj/item/reagent_containers/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
-"gJ" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "gK" = (
 /obj/structure/chair{
 	dir = 4
@@ -6459,10 +6442,6 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"qq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "qr" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -7437,6 +7416,10 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
+"xi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
 "Ci" = (
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
@@ -7449,6 +7432,10 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
+"Mi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "Nv" = (
 /obj/effect/spawner/airlock,
@@ -7485,6 +7472,10 @@
 /mob/living/simple_animal/hostile/russian,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
+"Ye" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
 "Yi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -8270,7 +8261,7 @@ ac
 ac
 aW
 bn
-gJ
+xi
 bn
 bn
 hI
@@ -8633,7 +8624,7 @@ aW
 bn
 ed
 en
-eI
+cM
 fg
 fB
 fX
@@ -9313,7 +9304,7 @@ mS
 oc
 oS
 qg
-qq
+bn
 aW
 ac
 ac
@@ -10844,7 +10835,7 @@ et
 eQ
 fl
 fL
-ge
+Ye
 eg
 ac
 ac
@@ -12719,7 +12710,7 @@ db
 db
 db
 qK
-dl
+Mi
 ac
 ac
 ac
@@ -12949,7 +12940,7 @@ ac
 ac
 aV
 bm
-dl
+Mi
 dz
 dJ
 db
@@ -12992,7 +12983,7 @@ pw
 db
 db
 db
-dl
+Mi
 aV
 ac
 ac
@@ -13355,7 +13346,7 @@ oR
 db
 ph
 bm
-dl
+Mi
 bm
 aV
 ac

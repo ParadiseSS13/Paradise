@@ -34,8 +34,7 @@
 
 	canlay = 0
 	hasnested = TRUE
-	spider_spawnfrequency = 300 // 30 seconds
-	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
+	spider_spawnfrequency = 120 SECONDS
 	var/spider_max_children = 8
 
 
@@ -68,9 +67,6 @@
 		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
 		return
 
-	if(!prob(grant_prob))
-		return
-
 	var/list/spider_array = CountSpidersDetailed(TRUE)
 	var/brood_count = spider_array["all"]
 
@@ -100,8 +96,7 @@
 		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/show_egg_timer()
-	var/average_timer = (1 / (grant_prob / 100)) * (spider_spawnfrequency / 10)
-	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [average_timer] seconds, on average.</span>")
+	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [spider_spawnfrequency / 10] seconds.</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()
 	// Princesses don't nest. However, we still need to override this in case an AI princess calls it.
