@@ -29,14 +29,11 @@
  * * R - the cyborg that was clicked on with an upgrade.
  */
 /obj/item/borg/upgrade/proc/action(mob/user, mob/living/silicon/robot/R)
-	if(!pre_install_checks(R))
+	if(!pre_install_checks(user, R))
 		return
-	if(!do_install(R))
+	if(!do_install(user, R))
 		return
 	after_install(R)
-	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
-		return
 	if(delete_after_install)
 		qdel(src)
 	else
@@ -69,7 +66,11 @@
  * Arguments:
  * * R - the cyborg we're applying the upgrade to.
  */
-/obj/item/borg/upgrade/proc/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/proc/do_install(mob/user, mob/living/silicon/robot/R)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!user?.drop_item())
+		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
+		return FALSE
 	return TRUE
 
 /**
@@ -106,7 +107,9 @@
 	require_module = TRUE
 	delete_after_install = TRUE
 
-/obj/item/borg/upgrade/reset/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/reset/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	R.reset_module()
 	return TRUE
 
@@ -126,7 +129,9 @@
 		return
 	heldname = new_heldname
 
-/obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 		return
@@ -144,7 +149,9 @@
 	icon_state = "cyborg_upgrade1"
 	delete_after_install = TRUE
 
-/obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/restart/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	if(R.health < 0)
 		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
 		return
@@ -167,7 +174,9 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
 
-/obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/thrusters/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	R.ionpulse = TRUE
 	return TRUE
 
@@ -183,7 +192,9 @@
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
 
-/obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/selfrepair/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	cyborg = R
 	icon_state = "selfrepair_off"
 	var/datum/action/A = new /datum/action/item_action/toggle(src)
@@ -267,7 +278,9 @@
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
 
-/obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/vtec/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	R.slowdown_cap = 3.5
 	return TRUE
 
@@ -283,7 +296,9 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
-/obj/item/borg/upgrade/disablercooler/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/disablercooler/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
 		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
@@ -331,7 +346,9 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/lavaproof/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/lavaproof/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	if(istype(R))
 		R.weather_immunities += "lava"
 	return TRUE
@@ -379,7 +396,9 @@
 	var/buffer_speed = 1
 	var/mob/living/silicon/robot/cyborg
 
-/obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/floorbuffer/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	cyborg = R
 	var/datum/action/A = new /datum/action/item_action/floor_buffer(src)
 	A.Grant(R)
@@ -421,7 +440,9 @@
 	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/syndicate/do_install(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/syndicate/do_install(mob/user, mob/living/silicon/robot/R)
+	if(!..())
+		return FALSE
 	if(R.weapons_unlock)
 		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
 	R.weapons_unlock = TRUE
