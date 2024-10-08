@@ -416,8 +416,8 @@
 	..()
 
 /obj/item/pizzabox/margherita
-	box_tag = "margherita deluxe"
 	pizza_type = /obj/item/food/sliceable/pizza/margheritapizza
+	box_tag = "margherita deluxe"
 
 /obj/item/pizzabox/vegetable
 	pizza_type = /obj/item/food/sliceable/pizza/vegetablepizza
