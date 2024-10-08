@@ -38,7 +38,6 @@
 	icon_state = "pizzabox"
 	loot = list(
 		/obj/item/pizzabox/pizza_bomb/autoarm = 4,
-
 		/obj/item/pizzabox/firecracker = 1,
 		/obj/item/pizzabox/garlic = 1,
 		/obj/item/pizzabox/hawaiian = 1,
