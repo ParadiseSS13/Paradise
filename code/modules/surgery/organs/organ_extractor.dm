@@ -129,7 +129,7 @@
 		C.apply_damage(5, BRUTE, drilled_organ)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 
-	if(!do_after_once(C, (user_is_target ? self_insert_time : insert_time), target = C))
+	if(!do_after_once(user, (user_is_target ? self_insert_time : insert_time), target = C))
 		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
 		in_use = FALSE
 		return

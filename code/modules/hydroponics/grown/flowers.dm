@@ -38,7 +38,7 @@
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
 	product = /obj/item/food/grown/lily
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/poppy/lily/trumpet)
 
 /obj/item/food/grown/lily
 	seed = /obj/item/seeds/poppy/lily
@@ -50,6 +50,36 @@
 	tastes = list("lily" = 1)
 	filling_color = "#C7BBAD"
 	distill_reagent = "vermouth"
+
+//Spaceman's Trumpet
+
+/obj/item/seeds/poppy/lily/trumpet
+	name = "pack of spaceman's trumpet seeds"
+	desc = "A plant sculped by extensive genetic engineering. The spaceman's trumpet is said to bear no resemblance to its wild ancestors. Inside NT AgriSci circles it is better known as NTPW-0372."
+	icon_state = "seed-trumpet"
+	species = "spacemanstrumpet"
+	plantname = "Spaceman's Trumpet Plant"
+	product = /obj/item/food/grown/trumpet
+	lifespan = 80
+	production = 5
+	endurance = 10
+	maturation = 12
+	yield = 4
+	potency = 20
+	growthstages = 4
+	weed_rate = 2
+	weed_chance = 10
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_grow = "spacemanstrumpet-grow"
+	icon_dead = "spacemanstrumpet-dead"
+	mutatelist = null
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+
+/obj/item/food/grown/trumpet
+	seed = /obj/item/seeds/poppy/lily/trumpet
+	name = "spaceman's trumpet"
+	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
+	icon_state = "spacemanstrumpet"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
