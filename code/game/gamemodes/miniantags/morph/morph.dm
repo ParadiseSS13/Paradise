@@ -284,7 +284,7 @@
 		prepare_ambush() // They cheat okay
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
-	if(!isliving(target)) // Eat Corpses to regen health
+	if(isliving(target)) // Eat Corpses to regen health
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			try_eat(L)
