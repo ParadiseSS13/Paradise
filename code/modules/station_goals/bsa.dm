@@ -116,8 +116,9 @@
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
-	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = 600 // The gun's cooldown
+	/// The gun's cooldown
+	var/reload_cooldown_time = 10 MINUTES 
+	COOLDOWN_DECLARE(firing_cooldown)
 
 	pixel_y = -32
 	pixel_x = -192
@@ -136,7 +137,7 @@
 
 /obj/machinery/bsa/full/admin
 	power_used_per_shot = 0
-	reload_cooldown = 100
+	reload_cooldown_time = 100 SECONDS
 
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
@@ -196,6 +197,8 @@
 
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
+	if(!COOLDOWN_FINISHED(src, firing_cooldown))
+		return
 	var/turf/point = get_front_turf()
 	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
 		T.ex_act(EXPLODE_DEVASTATE)
@@ -218,7 +221,7 @@
 
 /obj/machinery/bsa/full/proc/reload()
 	use_power(power_used_per_shot)
-	last_fire_time = world.time / 10
+	COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
@@ -295,7 +298,7 @@
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
 		icon_state = icon_state_nopower
-	else if(cannon && (cannon.last_fire_time + cannon.reload_cooldown) > (world.time / 10))
+	else if(cannon && (!COOLDOWN_FINISHED(cannon, firing_cooldown)))
 		icon_state = icon_state_reloading
 	else if(cannon)
 		icon_state = icon_state_active
@@ -326,14 +329,8 @@
 	if(target)
 		data["target"] = get_target_name()
 	if(cannon)
-		var/reload_cooldown = cannon.reload_cooldown
-		var/last_fire_time = cannon.last_fire_time
-		var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
-		var/minutes = max(0, round(time_to_wait / 60))
-		var/seconds = max(0, time_to_wait - (60 * minutes))
-		var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
-		data["reloadtime_text"] = "[minutes]:[seconds2]"
-		data["ready"] = minutes == 0 && seconds == 0
+		data["reloadtime_text"] = seconds_to_clock(round(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10))
+		data["ready"] = COOLDOWN_FINISHED(cannon, firing_cooldown)
 	else
 		data["ready"] = FALSE
 	return data

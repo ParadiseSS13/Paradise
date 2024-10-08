@@ -214,6 +214,8 @@
 			continue
 		if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 			continue
+		if(R.wormhole_weaver)
+			continue
 		if(R.syndicate && !emagged)
 			continue
 		var/tmpname = T.loc.name

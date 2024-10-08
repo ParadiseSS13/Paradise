@@ -1,17 +1,17 @@
 # Reviewer Crash Course
 
-by *Sirryan*
+by _Sirryan_
 
 Hey everyone, I noticed some people were not sure how to approach reviewing PRs
 so I figured I would write up a small guide on PR reviewing and how people like
-our Headcoders, commit access, Lewcc, S34N, and I all do our jobs. In addition
+our Headcoders, maintainers, Lewcc, S34N, and I all do our jobs. In addition
 to some guidance and pointers on PR reviewing, I will also go over a few code
 examples and point out code standard corrections and basic errors that
 prospective reviewers can begin to start on.
 
 ## What is code review?
 
-> Code reviews act as quality assurance of the code base.... *and* can also act
+> Code reviews act as quality assurance of the code base.... _and_ can also act
 > as a second step in identifying bugs, logic problems, or uncovered edge cases.
 > [(source)](https://about.gitlab.com/topics/version-control/what-is-code-review/)
 
@@ -54,7 +54,7 @@ their own code and help you understand their intention and goals. Please note:
 ITS IMPORTANT TO READ PR DESCRIPTIONS, you should not be reviewing a PR until
 you know what it's actually attempting to do.
 
-**But Sirryan, that's not the *kind* of code review I'm interested in learning
+**But Sirryan, that's not the _kind_ of code review I'm interested in learning
 about**. Yes, yes, I know, I'm getting there. While its important to understand
 the conversation (and relationship-building) parts of code review, there's also
 important technical parts to review that keep our codebase moving. Before
@@ -62,6 +62,7 @@ getting into HOW to code review, we will take a look at the two types of
 technical code reviews.
 
 ## Comments
+
 Basic comments are when a reviewer leaves a message, question, or directive for
 the PR author at a certain code line or chunk. For example, SteelSlayer has left
 a comment on Line 12 of `objective.dm` inquiring about a certain variable. The
@@ -73,6 +74,7 @@ issues to be addressed quickly and efficiently.
 ![image](./images/reviewer_pr_conversation.png)
 
 ## Suggestions
+
 Suggestions are when a reviewer suggests/requests a change to a certain line or
 chunk of code. This leaves less agency for the PR author (especially when
 suggested by a development team member or experienced reviewer) but allows for
@@ -85,6 +87,7 @@ most critical for enforcing code standards and making 1-5 line corrections.
 ![image](./images/reviewer_pr_suggestions.png)
 
 ## Leaving PR Reviews
+
 The way you leave any form of comment or suggestion directly on a line or chunk
 of code is under the "Files Changed" tab of the pull request. All you need to do
 now is scroll down to a line of code that you want to comment on and hover over
@@ -111,6 +114,7 @@ reviews, you can submit them together in the top right of the files changes tab
 once done.
 
 ## What can I start reviewing?
+
 So you know what reviewing is, you know how to review, and you're ready to
 review.... but what do you review? Knowledge of code and willingness to
 understand our currently implemented systems is critically important to being
@@ -119,6 +123,7 @@ look out for on PR's to get familiarized with the code review process and get a
 few reviews under your belt.
 
 ### Problematic Code Examples
+
 Lets say a contributor has opened a pull request adding a brand-new item to the
 game. This item has a few special functions and procs that you need to look
 over. I will go through each part of this code that I would leave comments or
@@ -281,8 +286,8 @@ suggest to fix them as a PR reviewer.**
 ## The Art of Code
 
 > ... I like it because I could make the computer do what I wanted and every
-> time I did that, I got this little thrill and this rush and throughout *my
-> entire career*. That thrill for me has never gone away [[The Art of Code - Dylan Beattie](https://www.youtube.com/watch?v=6avJHaC3C2U)]
+> time I did that, I got this little thrill and this rush and throughout _my
+> entire career_. That thrill for me has never gone away [[The Art of Code - Dylan Beattie](https://www.youtube.com/watch?v=6avJHaC3C2U)]
 
 This segment might be a bit corny but I figured it would be important to include
 because I felt like it was an important aspect of reviewing that I've always had

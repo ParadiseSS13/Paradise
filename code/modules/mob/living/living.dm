@@ -293,7 +293,7 @@
 	if(stat == DEAD)
 		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
 		return
-	if(health >= HEALTH_THRESHOLD_CRIT)
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
@@ -307,7 +307,7 @@
 	if(stat == DEAD)
 		return
 
-	if(health >= HEALTH_THRESHOLD_CRIT)
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
@@ -359,6 +359,7 @@
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 	med_hud_set_status()

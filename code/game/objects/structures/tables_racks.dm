@@ -100,6 +100,16 @@
 	if(flipped)
 		clear_smooth_overlays()
 
+// Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
+/obj/structure/table/set_smoothed_icon_state(new_junction) 
+	if(flipped)
+		return
+	..()
+
+/obj/structure/table/flipped
+	icon_state = "tableflip0"
+	flipped = TRUE
+
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
 	qdel(src)
