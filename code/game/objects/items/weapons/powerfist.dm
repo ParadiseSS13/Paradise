@@ -14,8 +14,9 @@
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
-	///base pressure in kpa used by the powerfist per hit
+	/// Base pressure in kpa used by the powerfist per hit
 	var/gasperfist = 17.5
+
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 /obj/item/melee/powerfist/Destroy()
@@ -93,7 +94,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return
-	if(tank && !tank.air_contents.boolean_remove(((gasperfist * fisto_setting) * tank.air_contents.return_volume()) / (R_IDEAL_GAS_EQUATION * tank.air_contents.temperature())))
+	if(!use_air())
 		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return
@@ -114,3 +115,18 @@
 	add_attack_logs(user, target, "POWER FISTED with [src]")
 
 	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+
+/obj/item/melee/powerfist/proc/use_air()
+	if(!tank)
+		return FALSE
+
+	var/amount_to_remove = gasperfist * fisto_setting
+	var/pressure_in_tank = tank.air_contents.return_pressure()
+
+	// So this check is here to see if the amount of pressure currently in the tank is higher than 10 atmospheres
+	// If it is higher, we instead take 10% out of the tank so it'll deplete a lot faster, but is still a bit more ammo
+	if(pressure_in_tank > (ONE_ATMOSPHERE * 10))
+		amount_to_remove = 0.1 * pressure_in_tank
+
+	var/moles_to_remove = (amount_to_remove * tank.air_contents.volume) / (R_IDEAL_GAS_EQUATION * tank.air_contents.temperature())
+	return tank.air_contents.boolean_remove(moles_to_remove)

@@ -107,7 +107,9 @@
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
-		/obj/item/robotanalyzer)
+		/obj/item/robotanalyzer,
+		/obj/item/rpd/bluespace
+	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -409,7 +411,8 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
+		/obj/item/rpd/bluespace
 	)
 
 /obj/item/storage/belt/military/sst
@@ -733,7 +736,7 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/saber)
 	layer_over_suit = TRUE
 	large = TRUE
 
@@ -776,15 +779,15 @@
 		var/mob/living/L = loc
 		L.update_inv_belt()
 
-/obj/item/storage/belt/sheath/rapier
-	name = "rapier sheath"
-	desc = "Can hold rapiers."
+/obj/item/storage/belt/sheath/saber
+	name = "saber sheath"
+	desc = "Can hold sabers."
 	icon_state = "sheath"
 	item_state = "sheath"
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/saber)
 
-/obj/item/storage/belt/sheath/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
+/obj/item/storage/belt/sheath/saber/populate_contents()
+	new /obj/item/melee/saber(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang
