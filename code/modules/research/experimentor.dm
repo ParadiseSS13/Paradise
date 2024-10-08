@@ -574,8 +574,11 @@
 		if(dotype != FAIL)
 			if(process && process.origin_tech)
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
+				var/datum/research/F = linked_console.get_files()
+				if(!F)
+					return
 				for(var/T in temp_tech)
-					linked_console.files.UpdateTech(T, temp_tech[T])
+					F.UpdateTech(T, temp_tech[T])
 	updateUsrDialog()
 	return
 

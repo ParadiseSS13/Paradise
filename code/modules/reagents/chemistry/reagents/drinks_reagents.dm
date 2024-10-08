@@ -140,6 +140,15 @@
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
+/datum/reagent/consumable/bungojuice
+	name = "Bungo Juice"
+	id = "bungojuice"
+	description = "Exotic! You feel like you are on vacation already."
+	color = "#F9E43D"
+	drink_name = "Bungo Juice"
+	drink_desc = "Exotic! You feel like you are on vacation already."
+	taste_description = "succulent bungo with an acidic poisonous tang"
+
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
 	id = "watermelonjuice"
@@ -429,7 +438,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Mime")))
+	if(ishuman(M) && M.mind && M.mind.miming)
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags

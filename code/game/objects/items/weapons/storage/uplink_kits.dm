@@ -557,6 +557,13 @@
 /obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
 	new /obj/item/grenade/syndieminibomb/pen(src)
 
+/obj/item/storage/box/syndie_kit/chemical_canister
+	name = "\improper Chemical flamethrower canisters"
+
+/obj/item/storage/box/syndie_kit/chemical_canister/populate_contents()
+	new /obj/item/chemical_canister/extended/nuclear(src)
+	new /obj/item/chemical_canister/extended/nuclear(src)
+
 /obj/item/storage/box/syndie_kit/decoy
 	name = "\improper Decoy Grenade kit"
 

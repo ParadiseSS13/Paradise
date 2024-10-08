@@ -2,6 +2,7 @@
 	name = "web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
+	icon_state = "stickyweb1"
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
@@ -38,9 +39,7 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
 	else if(isliving(mover))

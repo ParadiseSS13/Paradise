@@ -31,10 +31,6 @@
 	var/time_coeff = 1
 	/// Resource efficiency multiplier. A lower value means less resources consumed. Updated by [CheckParts()][/atom/proc/CheckParts].
 	var/component_coeff = 1
-	/// Holds the locally known R&D designs.
-	var/datum/research/local_designs = null
-	/// Whether a R&D sync is currently in progress.
-	var/syncing = FALSE
 	/// The currently selected category.
 	var/selected_category = null
 	/// The design that is being currently being built.
@@ -47,13 +43,16 @@
 	var/list/datum/design/build_queue = null
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
+	/// ID to autolink to, used in mapload
+	var/autolink_id = null
+	/// UID of the network that we use
+	var/network_manager_uid = null
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
-	. = ..()
+	..()
 	// Set up some datums
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, PROC_REF(can_insert_materials)), CALLBACK(src, PROC_REF(on_material_insert)))
 	materials.precise_insertion = TRUE
-	local_designs = new /datum/research(src)
 
 	// Components
 	component_parts = list()
@@ -84,10 +83,35 @@
 		"Misc"
 	)
 
+	output_dir = dir
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/mecha_part_fabricator/LateInitialize()
+	for(var/obj/machinery/computer/rnd_network_controller/RNC as anything in GLOB.rnd_network_managers)
+		if(RNC.network_name == autolink_id)
+			network_manager_uid = RNC.UID()
+			RNC.mechfabs += UID()
+
+/obj/machinery/mecha_part_fabricator/proc/get_files()
+	if(!network_manager_uid)
+		return null
+
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(!RNC)
+		network_manager_uid = null
+		return null
+
+	return RNC.research_files
+
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
-	QDEL_NULL(local_designs)
+
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(RNC)
+		// Unlink us
+		RNC.mechfabs -= UID()
+
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/I)
@@ -172,7 +196,13 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/build_design(datum/design/D)
 	. = FALSE
-	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
+
+	var/datum/research/files = get_files()
+	if(!files)
+		atom_say("Error - No research network linked.")
+		return
+
+	if(!files.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
 		atom_say("Error: Something is already being built!")
@@ -182,6 +212,11 @@
 		return
 	if(stat & NOPOWER)
 		atom_say("Error: Insufficient power!")
+		return
+
+	var/turf_to_print_on = get_step(src, output_dir)
+	if(iswallturf(turf_to_print_on))
+		atom_say("Error: Output blocked by a wall!")
 		return
 
 	// Subtract the materials from the holder
@@ -237,27 +272,6 @@
 	// Keep the queue processing going if it's on
 	process_queue()
 
-	SStgui.update_uis(src)
-
-/**
-  * Syncs the R&D designs from the first [/obj/machinery/computer/rdconsole] in the area.
-  */
-/obj/machinery/mecha_part_fabricator/proc/sync()
-	addtimer(CALLBACK(src, PROC_REF(sync_timer_finish)), 3 SECONDS)
-	syncing = TRUE
-
-/**
-  * Called when the timer for syncing finishes.
-  */
-/obj/machinery/mecha_part_fabricator/proc/sync_timer_finish()
-	syncing = FALSE
-	var/area/A = get_area(src)
-	for(var/obj/machinery/computer/rdconsole/RDC in A) // These computers should have their own global..
-		if(!RDC.sync)
-			continue
-		RDC.files.push_data(local_designs)
-		atom_say("Successfully synchronized with R&D servers.")
-		break
 	SStgui.update_uis(src)
 
 /**
@@ -334,10 +348,34 @@
 
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
 	var/list/data = list()
-	data["syncing"] = syncing
+
+	var/datum/research/files = get_files()
+	if(!files)
+		data["linked"] = FALSE
+
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC as anything in GLOB.rnd_network_managers)
+			controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
+		data["controllers"] = controllers
+
+		return data
+
+	data["linked"] = TRUE
 	data["processingQueue"] = processing_queue
 	data["categories"] = categories
 	data["curCategory"] = selected_category
+
+	var/list/tech_levels = list()
+	for(var/tech_id in files.known_tech)
+		var/datum/tech/T = files.known_tech[tech_id]
+		if(T.level <= 0)
+			continue
+		var/list/this_tech_list = list()
+		this_tech_list["name"] = T.name
+		this_tech_list["level"] = T.level
+		this_tech_list["desc"] = T.desc
+		tech_levels[++tech_levels.len] = this_tech_list
+	data["tech_levels"] = tech_levels
 
 	// Materials
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -369,8 +407,8 @@
 	// Current category
 	if(selected_category)
 		var/list/category_designs = list()
-		for(var/v in local_designs.known_designs)
-			var/datum/design/D = local_designs.known_designs[v]
+		for(var/tech_id in files.known_designs)
+			var/datum/design/D = files.known_designs[tech_id]
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
 			var/list/design_out = list("id" = D.id, "name" = D.name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
@@ -396,6 +434,42 @@
 	if(..())
 		return
 
+	// We switch these actions first because they can be done without files
+	switch(action)
+		if("unlink")
+			if(!network_manager_uid)
+				return
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
+			if(choice == "Yes")
+				unlink()
+
+			return TRUE
+
+		// You should only be able to link if its not linked, to prevent weirdness
+		if("linktonetworkcontroller")
+			if(network_manager_uid)
+				return
+			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
+			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
+				// Check the password
+				if(user_pass == C.network_password)
+					C.mechfabs += UID()
+					network_manager_uid = C.UID()
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+				else
+					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+
+			return TRUE
+
+
+	var/datum/research/files = get_files()
+	if(!files)
+		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		return
+
 	. = TRUE
 	switch(action)
 		if("category")
@@ -405,23 +479,23 @@
 			selected_category = new_cat
 		if("build")
 			var/id = params["id"]
-			var/datum/design/D = local_designs.known_designs[id]
+			var/datum/design/D = files.known_designs[id]
 			if(!D)
 				return
 			build_design(D)
 		if("queue")
 			var/id = params["id"]
-			if(!(id in local_designs.known_designs))
+			if(!(id in files.known_designs))
 				return
-			var/datum/design/D = local_designs.known_designs[id]
+			var/datum/design/D = files.known_designs[id]
 			if(!(D.build_type & allowed_design_types) || length(D.reagents_list))
 				return
 			LAZYADD(build_queue, D)
 			process_queue()
 		if("queueall")
 			LAZYINITLIST(build_queue)
-			for(var/v in local_designs.known_designs)
-				var/datum/design/D = local_designs.known_designs[v]
+			for(var/tech_id in files.known_designs)
+				var/datum/design/D = files.known_designs[tech_id]
 				if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 					continue
 				build_queue += D
@@ -448,10 +522,6 @@
 		if("process")
 			processing_queue = !processing_queue
 			process_queue()
-		if("sync")
-			if(syncing)
-				return
-			sync()
 		if("withdraw")
 			var/id = params["id"]
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -465,6 +535,12 @@
 		else
 			return FALSE
 	add_fingerprint(usr)
+
+/obj/machinery/mecha_part_fabricator/proc/unlink()
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.mechfabs -= UID()
+	network_manager_uid = null
+	SStgui.update_uis(src)
 
 /**
   * # Exosuit Fabricator (upgraded)
@@ -484,14 +560,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/**
-  * # Robotic Fabricator
-  *
-  * Cyborgs-only variant of [/obj/machinery/mecha_part_fabricator].
-  */
-/obj/machinery/mecha_part_fabricator/robot
-	name = "robotic fabricator"
-	categories = list("Cyborg")
+/obj/machinery/mecha_part_fabricator/station
+	autolink_id = "station_rnd"
 
 #undef EXOFAB_BASE_CAPACITY
 #undef EXOFAB_CAPACITY_PER_RATING

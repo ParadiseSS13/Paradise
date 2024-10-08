@@ -381,6 +381,12 @@
 	for(var/I in 1 to 5)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/obj_destruction(damage_flag)
+	if(damage_flag == ACID || damage_flag == FIRE)
+		for(var/obj/item/food/monkeycube/mkc in contents)
+			mkc.obj_destruction(damage_flag)
+	. = ..()
+
 /obj/item/storage/box/monkeycubes/syndicate
 	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
 	monkey_cube_type = /obj/item/food/monkeycube/syndicate
@@ -1113,6 +1119,7 @@
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/circuitboard/rnd_network_controller(src)
 
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
