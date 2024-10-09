@@ -3917,7 +3917,7 @@
 /turf/simulated/wall,
 /area/station/security/range)
 "azv" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -9199,7 +9199,7 @@
 /area/station/hallway/spacebridge/dockmed)
 "bis" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -14215,7 +14215,7 @@
 	},
 /area/station/service/library)
 "bGB" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bGF" = (
@@ -18554,7 +18554,7 @@
 /area/station/maintenance/apmaint)
 "caX" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "caY" = (
@@ -33830,10 +33830,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "enw" = (
-/obj/machinery/smartfridge/secure{
-	name = "\improper Kitchen Delivery SmartFridge";
-	req_one_access_txt = "28;35"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen";
@@ -33845,6 +33841,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -34602,7 +34599,7 @@
 /turf/simulated/floor/plating,
 /area/station/service/bar)
 "ezr" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -34758,7 +34755,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "eBq" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -37455,7 +37452,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "fsV" = (
-/obj/effect/spawner/random_barrier/wall_probably,
+/obj/effect/spawner/random/barrier/wall_probably,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "fsW" = (
@@ -40627,7 +40624,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gsr" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "gsx" = (
@@ -40652,7 +40649,7 @@
 	pixel_y = -24;
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -43117,7 +43114,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hgx" = (
@@ -49052,7 +49049,7 @@
 /area/station/hallway/primary/fore/east)
 "iJM" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "iJY" = (
@@ -53413,7 +53410,7 @@
 /area/station/science/xenobiology)
 "jNU" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -61909,7 +61906,7 @@
 	},
 /area/station/science/robotics)
 "mmv" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -69402,7 +69399,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "oyh" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "oyo" = (
@@ -81148,7 +81145,7 @@
 /turf/simulated/wall,
 /area/station/public/toilet)
 "rNW" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
 "rOc" = (
@@ -81640,7 +81637,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "rVD" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -95876,7 +95873,7 @@
 /area/station/public/storage/tools)
 "vPd" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vPj" = (
@@ -101558,7 +101555,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "xrI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "xrN" = (
@@ -102228,7 +102225,7 @@
 	},
 /area/station/science/misc_lab)
 "xAK" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "xAO" = (
@@ -102563,7 +102560,7 @@
 	},
 /area/station/command/teleporter)
 "xEX" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/asmaint)
 "xEZ" = (
