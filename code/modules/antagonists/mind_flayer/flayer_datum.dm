@@ -213,6 +213,7 @@
 	var/datum/spell/flayer/spell = has_spell(to_add)
 	if(spell)
 		force_upgrade_ability(spell, upgrade_type)
+		qdel(to_add)
 		return
 
 	force_add_ability(to_add, set_owner)
@@ -231,6 +232,7 @@
 	var/datum/mindflayer_passive/passive = has_passive(to_add)
 	if(passive)
 		force_upgrade_passive(passive, upgrade_type)
+		qdel(to_add)
 		return
 
 	force_add_passive(to_add)
