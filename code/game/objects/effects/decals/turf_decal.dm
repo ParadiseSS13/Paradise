@@ -3,7 +3,7 @@
 	icon_state = "warningline"
 	layer = TURF_DECAL_LAYER
 
-/obj/effect/turf_decal/Initialize(mapload, var/_dir)
+/obj/effect/turf_decal/Initialize(mapload, _dir)
 	..()
 	. = INITIALIZE_HINT_QDEL
 	var/turf/T = loc
