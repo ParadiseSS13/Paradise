@@ -195,13 +195,16 @@ SUBSYSTEM_DEF(blackbox)
   * Arguments:
   * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
   * * key - Key of the data to be used (EG: "admin_verb")
-  * * increment - If using "amount", how much to increment why
+  * * stat - Either a number accumulated via "amount", "tally", or "nested tally"; or a number/string collected by "ledger" or "nested ledger".
   * * data - The actual data to logged
   * * overwrite - Do we want to overwrite the existing key
   * * ignore_seal - Does the feedback go in regardless of blackbox sealed status? (EG: map vote results)
   */
-/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite, ignore_seal)
-	if((sealed && !ignore_seal) || !key_type || !istext(key) || !isnum(increment || !data))
+/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, stat, data, overwrite, ignore_seal)
+	var/is_invalid_value = !isnum(stat || !data)
+	if(key_type == "ledger" || key_type == "nested ledger")
+		is_invalid_value &&= !istext(stat)
+	if((sealed && !ignore_seal) || !key_type || !istext(key) || is_invalid_value)
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)
@@ -215,17 +218,17 @@ SUBSYSTEM_DEF(blackbox)
 			else
 				FV.json["data"] |= data
 		if("amount")
-			FV.json["data"] += increment
+			FV.json["data"] += stat
 		if("tally")
 			if(!islist(FV.json["data"]))
 				FV.json["data"] = list()
-			FV.json["data"]["[data]"] += increment
+			FV.json["data"]["[data]"] += stat
 		if("nested tally")
 			if(!islist(data))
 				return
 			if(!islist(FV.json["data"]))
 				FV.json["data"] = list()
-			FV.json["data"] = record_feedback_recurse_list(FV.json["data"], data, increment)
+			FV.json["data"] = record_feedback_recurse_list(FV.json["data"], data, stat)
 		if("associative")
 			if(!islist(data))
 				return
@@ -235,6 +238,18 @@ SUBSYSTEM_DEF(blackbox)
 			FV.json["data"]["[pos]"] = list()
 			for(var/i in data)
 				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]"
+		if("ledger")
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			if(!islist(FV.json["data"]["[data]"]))
+				FV.json["data"]["[data]"] = list()
+			FV.json["data"]["[data]"] += list(stat)
+		if("nested ledger")
+			if(!islist(data))
+				return
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			FV.json["data"] = record_feedback_recurse_list(FV.json["data"], data, stat, accumulate = FALSE)
 
 /**
   * Recursive list recorder
@@ -244,21 +259,28 @@ SUBSYSTEM_DEF(blackbox)
   * Arguments:
   * * L - List to use
   * * key_list - List of keys to add
-  * * increment - How much to increase by
+  * * value - How much to increase by or append to
   * * depth - Depth to use
+  * * accumulate - TRUE if we are adding `value` to a tally, FALSE if we are appending it to a record
   */
-/datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
+/datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, value, depth = 1, accumulate = TRUE)
+	var/key_depth = key_list[depth]
 	if(depth == length(key_list))
-		if(L.Find(key_list[depth]))
-			L["[key_list[depth]]"] += increment
+		if(L.Find(key_depth))
+			if(accumulate)
+				L["[key_depth]"] += value
+			else
+				if(!islist(L["[key_depth]"]))
+					L["[key_depth]"] = list()
+				L["[key_depth]"] += list(value)
 		else
-			var/list/list_found_index = list(key_list[depth] = increment)
+			var/list/list_found_index = accumulate ? list("[key_depth]" = value) : list("[key_depth]" = list(value))
 			L += list_found_index
 	else
-		if(!L.Find(key_list[depth]))
-			var/list/list_go_down = list(key_list[depth] = list())
+		if(!L.Find(key_depth))
+			var/list/list_go_down = list("[key_depth]" = list())
 			L += list_go_down
-		L["[key_list[depth-1]]"] = .(L["[key_list[depth]]"], key_list, increment, ++depth)
+		L["[key_list[depth-1]]"] = .(L["[key_depth]"], key_list, value, ++depth, accumulate = accumulate)
 	return L
 
 /**

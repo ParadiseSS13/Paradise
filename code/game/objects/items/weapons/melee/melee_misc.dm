@@ -84,6 +84,11 @@
 	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
 	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
+/obj/item/melee/saber/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
+						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	return BRUTELOSS
+
 // Traitor Sword
 /obj/item/melee/snakesfang
 	name = "snakesfang"
