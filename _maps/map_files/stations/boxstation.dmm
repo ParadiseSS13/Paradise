@@ -75850,7 +75850,6 @@
 	name = "Merge Conflict Marker: ---"
 	},
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: >>>"
 	},
