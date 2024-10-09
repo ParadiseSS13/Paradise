@@ -56041,6 +56041,42 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"fHL" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "fIj" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -60252,21 +60288,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"hLY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random/barrier/grille_maybe,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random_spawners/grille_maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "hMm" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -118715,7 +118736,7 @@ cJx
 cOr
 cZw
 qWJ
-hLY
+fHL
 gSd
 uyl
 cUf
