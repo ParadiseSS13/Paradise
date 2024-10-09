@@ -75841,20 +75841,6 @@
 	icon_state = "white"
 	},
 /area/station/command/office/rd)
-"prA" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random/barrier/grille_maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/barrier/grille_maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "prX" = (
 /obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
@@ -118720,7 +118706,7 @@ cJx
 cOr
 cZw
 qWJ
-prA
+tmS
 gSd
 uyl
 cUf
