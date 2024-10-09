@@ -106,6 +106,4 @@
 
 /datum/painter/decal/proc/remove_decals(atom/target)
 	var/turf/target_turf = get_turf(target)
-	var/decals = target_turf.GetComponents(/datum/component/decal)
-	for(var/datum/component/decal/D in decals)
-		D.Destroy()
+	target_turf.DeleteComponentsType(/datum/component/decal)
