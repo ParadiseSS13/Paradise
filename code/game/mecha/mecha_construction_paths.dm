@@ -1838,7 +1838,6 @@
 	const_holder.icon_state = "nkarrdem0"
 	const_holder.density = TRUE
 	qdel(src)
-	return
 
 /datum/construction/reversible/mecha/nkarrdem
 	result = "/obj/mecha/janitor/nkarrdem"
