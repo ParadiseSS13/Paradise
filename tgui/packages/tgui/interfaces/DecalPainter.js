@@ -56,7 +56,9 @@ export const DecalPainter = (props, context) => {
               <Button icon="chevron-right" onClick={() => act('cycle_style', { offset: 1 })} />
             </Flex.Item>
             <Flex.Item>
-              <Button icon="eraser" color={removalMode ? 'green' : 'transparent'} onClick={() => act('removal_mode')} />
+              <Button icon="eraser" color={removalMode ? 'green' : 'transparent'} onClick={() => act('removal_mode')}>
+                Remove decals
+              </Button>
             </Flex.Item>
           </Flex>
 

@@ -1,15 +1,24 @@
 /datum/painter/decal
 	module_name = "decal painter"
-	module_state = "floor_painter"
-
+	module_state = "decal_painter"
+	/// icon that contains the decal sprites
 	var/decal_icon = 'icons/turf/decals.dmi'
-	var/decal_state = "/obj/effect/turf_decal/stripes/box"
+	/// icon_state of the selected decal
+	var/decal_state = "warn_box"
 	var/decal_dir = SOUTH
+	/// When removal_mode is TRUE the decal painter will remove decals instead
 	var/removal_mode = FALSE
-	//TODO: Make blacklist
-	var/static/list/decal_blacklist = typecacheof(list(/obj/effect/turf_decal/raven, /obj/effect/turf_decal/weather, /obj/effect/turf_decal/stripes/asteroid, /obj/effect/turf_decal/tile))
-	var/static/list/allowed_decals = list()
-	// This is a double-list. First entry is the type key, second is the direction, with the final value being the b64 of the icon
+	var/max_decals = 3
+	var/static/list/decal_blacklist = typecacheof(
+		list(
+			/obj/effect/turf_decal/raven,
+			/obj/effect/turf_decal/weather,
+			/obj/effect/turf_decal/stripes/asteroid,
+			/obj/effect/turf_decal/tile,
+			/obj/effect/turf_decal/sand
+		)
+	)
+	/// Assoc list with icon_state of the decal as the key, and decal path as the value.
 	var/static/list/lookup_cache_decals = list()
 
 /datum/painter/decal/New(obj/item/painter/parent_painter)
@@ -19,22 +28,20 @@
 			var/obj/effect/turf_decal/decal = D
 			if(decal in decal_blacklist)
 				continue
-			allowed_decals += decal
-			if(!(decal in lookup_cache_decals))
-				lookup_cache_decals[decal::icon_state] = decal
+			lookup_cache_decals[decal::icon_state] = decal
 
 /datum/painter/decal/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor))
 		to_chat(user, "<span class='warning'>[holder] can only be used on flooring.</span>")
 		return FALSE
 	var/decals = target.GetComponents(/datum/component/decal)
-	if(length(decals) > 4)
-		to_chat(user, "<span class='warning'>You can't fit more decals on the [target].</span>")
-		return FALSE
 	if(removal_mode)
 		remove_decals(target)
 		return TRUE
-	var/typepath = lookup_cache_decals["[decal_state]"]
+	if(length(decals) >= max_decals)
+		to_chat(user, "<span class='warning'>You can't fit more decals on [target].</span>")
+		return FALSE
+	var/typepath = lookup_cache_decals[decal_state]
 	new typepath(get_turf(target), decal_dir)
 	return TRUE
 
@@ -50,9 +57,6 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DecalPainter", module_name)
-		// Disable automatic updates, because:
-		// 1) we are the only user of the item, and don't expect to observe external changes
-		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -68,10 +72,9 @@
 /datum/painter/decal/ui_static_data(mob/user)
 	var/list/data = list()
 	data["icon"] = decal_icon
-	var/list/decal_names = list()
+	data["availableStyles"] = list()
 	for(var/decal in lookup_cache_decals)
-		decal_names += decal
-	data["availableStyles"] = decal_names
+		data["availableStyles"] += decal
 
 	return data
 
@@ -86,13 +89,14 @@
 			removal_mode = FALSE
 
 	if(action == "cycle_style")
-		var/index = allowed_decals.Find(decal_state)
-		index += text2num(params["offset"])
+		var/index = lookup_cache_decals.Find(decal_state)
+		index += params["offset"]
 		while(index < 1)
-			index += length(allowed_decals)
-		while(index > length(allowed_decals))
-			index -= length(allowed_decals)
-		decal_state = allowed_decals[index]
+			index += length(lookup_cache_decals)
+		while(index > length(lookup_cache_decals))
+			index -= length(lookup_cache_decals)
+		decal_state = lookup_cache_decals[index]
+		removal_mode = FALSE
 
 	if(action == "select_direction")
 		var/dir = params["direction"]
