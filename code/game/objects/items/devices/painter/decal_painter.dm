@@ -39,7 +39,7 @@
 		remove_decals(target)
 		return TRUE
 	if(length(decals) >= max_decals)
-		to_chat(user, "<span class='warning'>You can't fit more decals on the [target].</span>")
+		to_chat(user, "<span class='warning'>You can't fit more decals on [target].</span>")
 		return FALSE
 	var/typepath = lookup_cache_decals[decal_state]
 	new typepath(get_turf(target), decal_dir)
