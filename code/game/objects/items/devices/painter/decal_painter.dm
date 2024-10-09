@@ -1,6 +1,6 @@
 /datum/painter/decal
 	module_name = "decal painter"
-	module_state = "floor_painter"
+	module_state = "decal_painter"
 	/// icon that contains the decal sprites
 	var/decal_icon = 'icons/turf/decals.dmi'
 	/// icon_state of the selected decal

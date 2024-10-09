@@ -21,7 +21,7 @@
 		"Pipe Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "pipe_painter"),
 		"Window Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "window_painter"),
 		"Airlock Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "airlock_painter"),
-		"Decal Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "airlock_painter"))
+		"Decal Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "decal_painter"))
 
 	/// The [/datum/painter] which is currently active.
 	var/datum/painter/selected_module = null
