@@ -957,11 +957,16 @@
 	return ..()
 
 /datum/status_effect/flayer_rejuv/tick()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/flayer = owner
-		flayer.adjustBruteLoss(-heal_amount, robotic = TRUE)
-		flayer.adjustFireLoss(-heal_amount, robotic = TRUE)
-		flayer.updatehealth()
+	if(!ishuman(owner))
+		return
+
+	var/mob/living/carbon/human/flayer = owner
+	flayer.adjustBruteLoss(-heal_amount, robotic = TRUE)
+	flayer.adjustFireLoss(-heal_amount, robotic = TRUE)
+	flayer.updatehealth()
+	if(flayer.has_status_effect(STATUS_EFFECT_TERMINATOR_FORM))
+		// Massive healing when in terminator mode
+		flayer.adjustStaminaLoss(-60)
 
 /datum/status_effect/quicksilver_form
 	id = "quicksilver_form"
@@ -1002,7 +1007,7 @@
 /datum/status_effect/terminator_form
 	id = "terminator_form"
 	duration = 1 MINUTES
-	tick_interval = 0
+	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/terminator_form
 	var/mutable_appearance/eye
