@@ -34,7 +34,7 @@
 	if(!user.drop_item())
 		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
 		return FALSE
-	if(!do_install(user, R))
+	if(!do_install(R))
 		return
 	after_install(R)
 	if(delete_after_install)
