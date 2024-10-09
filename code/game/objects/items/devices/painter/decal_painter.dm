@@ -88,14 +88,14 @@
 			decal_state = new_style
 			removal_mode = FALSE
 
-	if(action == "cycle_style")
-		var/index = lookup_cache_decals.Find(decal_state)
-		index += params["offset"]
-		while(index < 1)
-			index += length(lookup_cache_decals)
-		while(index > length(lookup_cache_decals))
-			index -= length(lookup_cache_decals)
-		decal_state = lookup_cache_decals[index]
+	if(action == "cycle_style") // Cycles through the available styles one at a time
+		var/index = lookup_cache_decals.Find(decal_state) // Find the index of the currently selected style in the lookup cache
+		index += params["offset"] // Offset is either -1 or 1. Add this to the index to get the style before or after the current style.
+		if(index < 1) // If the index is below 1, loop back to the last item in the cache.
+			index = length(lookup_cache_decals)
+		if(index > length(lookup_cache_decals)) // If the index is above the length of the cache, loop back to the first item in the cache.
+			index = 1
+		decal_state = lookup_cache_decals[index] // Then set our state to the index
 		removal_mode = FALSE
 
 	if(action == "select_direction")
