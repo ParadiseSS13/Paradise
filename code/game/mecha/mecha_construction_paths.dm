@@ -1924,7 +1924,7 @@
 			"desc" = "The hydraulic systems are disconnected.")
 	)
 
-/datum/construction/reversible/mecha/nkarrdem/action(atom/used_atom,mob/user as mob)
+/datum/construction/reversible/mecha/nkarrdem/action(atom/used_atom, mob/user)
 	return check_step(used_atom,user)
 
 /datum/construction/reversible/mecha/nkarrdem/custom_action(index, diff, atom/used_atom, mob/user)
