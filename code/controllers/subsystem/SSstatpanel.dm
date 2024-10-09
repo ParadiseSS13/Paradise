@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(statpanels)
 	actively_tracking = TRUE
 
 /datum/object_window_info/proc/stop_turf_tracking()
-	qdel(GetComponent(/datum/component/connect_mob_behalf))
+	DeleteComponent(/datum/component/connect_mob_behalf)
 	actively_tracking = FALSE
 
 /datum/object_window_info/proc/on_mob_move(mob/source)
