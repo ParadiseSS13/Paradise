@@ -237,7 +237,7 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you but otherwise function normally."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you, but otherwise function normally. Provides immunity to remote detonation and allow overriding lockdowns if the cyborg is not also emagged."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 10
