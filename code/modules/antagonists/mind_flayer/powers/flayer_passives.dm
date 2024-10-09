@@ -320,7 +320,7 @@
 		if(POWER_LEVEL_TWO)
 			hands.attack_sound = 'sound/effects/meteorimpact.ogg'
 			hands.attack_verb = list("blugeoned", "beat")
-		if(POWER_LEVEL_FOUR)
+		if(POWER_LEVEL_THREE)
 			hands.attack_sound = 'sound/misc/demon_attack1.ogg'
 			hands.attack_verb = list("destroyed", "demolished", "hammered")
 
