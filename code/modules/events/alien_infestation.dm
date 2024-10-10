@@ -41,4 +41,5 @@
 
 			spawncount--
 			successSpawn = TRUE
-	SSevents.biohazards_this_round += "Xenomorphs"
+	SSticker.record_biohazard_start(BIOHAZARD_XENO)
+	SSevents.biohazards_this_round += BIOHAZARD_XENO
