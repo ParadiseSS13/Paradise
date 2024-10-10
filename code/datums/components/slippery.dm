@@ -51,7 +51,7 @@
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
 /datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
-	if(istype(victim) && !victim.flying)
+	if(istype(victim) && !HAS_TRAIT(victim, TRAIT_FLYING))
 		var/atom/movable/owner = parent
 		if(!isturf(owner.loc))
 			return

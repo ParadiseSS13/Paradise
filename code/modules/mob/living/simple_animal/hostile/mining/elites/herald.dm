@@ -209,8 +209,8 @@
 	del_on_death = TRUE
 	is_mirror = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING // no dragging your mirror around
-	flying = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()

@@ -261,7 +261,7 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = FALSE
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS

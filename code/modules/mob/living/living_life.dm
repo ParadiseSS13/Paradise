@@ -2,7 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(flying && !floating) //TODO: Better floating
+	if(HAS_TRAIT(src, TRAIT_FLYING) && !floating) //TODO: Better floating
 		float(TRUE)
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything

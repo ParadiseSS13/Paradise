@@ -359,7 +359,7 @@
 		src.can_ventcrawl = living_construct.ventcrawler == VENTCRAWLER_ALWAYS || living_construct.ventcrawler == VENTCRAWLER_NUDE
 		src.mob_size = living_construct.mob_size
 		src.incorporeal_move = living_construct.incorporeal_move
-		is_flying = living_construct.flying
+		is_flying = HAS_TRAIT(living_construct, TRAIT_FLYING)
 	if(iscameramob(construct_from))
 		src.camera_type = construct_from.type
 	src.is_bot = isbot(construct_from)

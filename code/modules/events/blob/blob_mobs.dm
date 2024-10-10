@@ -67,7 +67,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()

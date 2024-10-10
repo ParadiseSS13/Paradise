@@ -34,7 +34,6 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
-	flying = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
@@ -42,6 +41,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	del_on_death = TRUE
+
+	initial_traits = list(TRAIT_FLYING)
 
 	var/datum/reagent/beegent = null //hehe, beegent
 	var/obj/structure/beebox/beehome = null

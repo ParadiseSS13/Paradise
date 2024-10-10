@@ -124,7 +124,7 @@
 			if(IS_HORIZONTAL(M))
 				return 1
 
-			if(M.flying)
+			if(HAS_TRAIT(M, TRAIT_FLYING))
 				return ..()
 
 			switch(src.wet)

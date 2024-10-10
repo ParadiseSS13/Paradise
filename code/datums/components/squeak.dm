@@ -78,7 +78,7 @@
 		return
 	if(ismob(crossing))
 		var/mob/M = crossing
-		if(M.flying)
+		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
 		if(isliving(crossing))
 			var/mob/living/L = M
@@ -94,7 +94,7 @@
 				return
 	if(ismob(source))
 		var/mob/M = source
-		if(M.flying)
+		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
 		if(isliving(source))
 			var/mob/living/L = M

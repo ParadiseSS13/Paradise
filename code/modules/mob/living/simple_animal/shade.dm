@@ -27,10 +27,10 @@
 	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH
-	flying = TRUE
 	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
+	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 	var/holy = FALSE
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
