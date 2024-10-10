@@ -26,7 +26,8 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
-	var/mouse_color //brown, gray and white, leave blank for random
+	/// Brown, gray and white, leave blank for random
+	var/mouse_color
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -318,79 +319,3 @@
 	set category = "Mouse"
 
 	emote("mshakeass", intentional = TRUE)
-
-// Admin only
-
-/mob/living/simple_animal/mouse/proc/thumb_up()
-	set name = "Thumb Up"
-	set desc = "Give a thumb up"
-	set category = "Mouse"
-
-	emote("mthumbup", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/flower()
-	set name = "Show a Flower"
-	set desc = "Show a flower"
-	set category = "Mouse"
-
-	emote("mshowflower", intentional = TRUE)
-
-// Admin mouse
-/mob/living/simple_animal/mouse/admin
-	name = "suspicious mouse"
-	sentient = TRUE
-	var/jetpack = FALSE
-	var/datum/action/innate/mouse_jetpack/jetpack_action = new
-
-/mob/living/simple_animal/mouse/admin/Initialize(mapload)
-	. = ..()
-	jetpack_action.Grant(src)
-	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
-
-/mob/living/simple_animal/mouse/admin/update_icons()
-	if(jetpack)
-		icon_state = "mouse_[mouse_color]_jet"
-	else
-		icon_state = "mouse_[mouse_color]"
-
-/mob/living/simple_animal/mouse/admin/give_idle_verbs()
-	add_verb(src, list(
-		/mob/living/simple_animal/mouse/proc/sniff,
-		/mob/living/simple_animal/mouse/proc/shake,
-		/mob/living/simple_animal/mouse/proc/scratch,
-		/mob/living/simple_animal/mouse/proc/washup,
-		/mob/living/simple_animal/mouse/proc/shakeass,
-		/mob/living/simple_animal/mouse/proc/flower,
-		/mob/living/simple_animal/mouse/proc/smoke,
-		/mob/living/simple_animal/mouse/proc/thumb_up,
-		/mob/living/simple_animal/mouse/proc/dance,
-		))
-
-/mob/living/simple_animal/mouse/admin/death(gibbed)
-	toggle_jet(TRUE)
-	. = ..(gibbed)
-
-/mob/living/simple_animal/mouse/admin/proc/toggle_jet(force_disable = FALSE)
-	if(jetpack || force_disable)
-		jetpack = FALSE
-		ventcrawler = initial(ventcrawler)
-		speed = initial(speed)
-		update_icons()
-	else
-		jetpack = FALSE
-		ventcrawler = VENTCRAWLER_NONE
-		speed -= 0.5
-		update_icons()
-
-/mob/living/simple_animal/mouse/admin/Process_Spacemove(movement_dir = NONE)
-	return jetpack ? TRUE : ..()
-
-/datum/action/innate/mouse_jetpack
-	name = "Use jetpack"
-	button_overlay_icon_state = "mouse_gray_jet"
-
-/datum/action/innate/mouse_jetpack/Activate()
-	var/mob/living/simple_animal/mouse/admin/mouse = owner
-	if(!istype(mouse))
-		stack_trace("This mob can't use mouse jet")
-	mouse.toggle_jet()
