@@ -118,6 +118,7 @@
 				update_sight()
 		head_update(I)
 		update_inv_head()
+		update_misc_effects()
 	else if(I == r_ear)
 		r_ear = null
 		update_inv_ears()
@@ -140,6 +141,7 @@
 			internal = null
 		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
+		update_misc_effects()
 		update_inv_wear_mask()
 	else if(I == wear_id)
 		wear_id = null
@@ -211,6 +213,7 @@
 			if(length(hud_list))
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
+			update_misc_effects()
 			update_inv_wear_mask()
 		if(SLOT_HUD_HANDCUFFED)
 			handcuffed = I
@@ -279,6 +282,7 @@
 				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
 			// this calls update_inv_head() on its own
+			update_misc_effects()
 			head_update(I)
 		if(SLOT_HUD_SHOES)
 			shoes = I
