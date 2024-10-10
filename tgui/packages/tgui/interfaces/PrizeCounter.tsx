@@ -70,8 +70,7 @@ export const PrizeCounter = (props, context) => {
                     title={prize.name}
                     dmIcon={prize.icon}
                     dmIconState={prize.icon_state}
-                    buttonsAlt
-                    buttons={
+                    buttonsAlt={
                       <Button
                         bold
                         translucent
