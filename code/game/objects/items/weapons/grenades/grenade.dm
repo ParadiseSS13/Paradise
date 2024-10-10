@@ -8,7 +8,7 @@
 	throw_speed = 3
 	throw_range = 20
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	/// Has the pin been pulled?

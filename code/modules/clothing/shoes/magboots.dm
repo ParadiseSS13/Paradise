@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-
+	no_slip = FALSE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -24,7 +24,7 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
 		return
 	check_mag_pulse()
 
@@ -38,6 +38,7 @@
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
+	magpulse = !magpulse
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
 		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
@@ -143,7 +144,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
@@ -301,7 +302,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_SHOES && cell && core)
+	if(slot == ITEM_SLOT_SHOES && cell && core)
 		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
@@ -309,14 +310,14 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
 			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
