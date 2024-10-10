@@ -17,10 +17,6 @@
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
-	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.mind in possible_changelings)
-			possible_changelings -= player.mind
-
 	if(!length(possible_changelings))
 		return ..()
 
