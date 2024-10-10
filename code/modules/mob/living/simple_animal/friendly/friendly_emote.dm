@@ -74,14 +74,6 @@
 	var/anim_type = "idle1"
 	var/duration = 2 SECONDS
 
-/datum/emote/living/simple_animal/mouse/idle/try_run_emote(mob/user, emote_arg, type_override, intentional)
-	if(istype(user, /mob/living/simple_animal/mouse/admin))
-		var/mob/living/simple_animal/mouse/admin/admin_mouse = user
-		if(admin_mouse.jetpack)
-			to_chat(user, "<span class='warning'>You can't emote, while you use jetpack.</span>")
-			return FALSE
-	. = ..()
-
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type, duration)
 	. = ..()
@@ -107,26 +99,12 @@
 	message = "washes up itself!"
 	anim_type = "idle4"
 
-/datum/emote/living/simple_animal/mouse/idle/flower
-	key = "mshowflower"
-	key_third_person = "mshowsflower"
-	message = "shows a flower!"
-	anim_type = "flower"
-	duration = 4 SECONDS
-
 /datum/emote/living/simple_animal/mouse/idle/smoke
 	key = "msmoke"
 	key_third_person = "msmokes"
 	message = "smokes!"
 	anim_type = "smoke"
 	duration = 7 SECONDS
-
-/datum/emote/living/simple_animal/mouse/idle/thumb_up
-	key = "mthumbup"
-	key_third_person = "mthumbup"
-	message = "gives a thumbs-up!"
-	anim_type = "thumb_up"
-	duration = 4 SECONDS
 
 /datum/emote/living/simple_animal/mouse/idle/dance
 	key = "mdance"
