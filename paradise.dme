@@ -698,6 +698,7 @@
 #include "code\game\area\areas\ruins\lavaland_areas.dm"
 #include "code\game\area\areas\ruins\space_areas.dm"
 #include "code\game\area\areas\ruins\syndicate_space_base_areas.dm"
+#include "code\game\area\ss13_areas\station_area.dm"
 #include "code\game\area\ss13_areas\ai_areas.dm"
 #include "code\game\area\ss13_areas\command_areas.dm"
 #include "code\game\area\ss13_areas\engineering_areas.dm"
