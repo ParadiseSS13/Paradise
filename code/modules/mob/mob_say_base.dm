@@ -39,11 +39,14 @@
 
 
 /mob/proc/say_dead(message)
+	var/span_class = "message"
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE))
 			if(!GLOB.dsay_enabled)
 				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
 				return
+		else
+			span_class = "message linkify"
 
 		if(check_mute(client.ckey, MUTE_DEADCHAT))
 			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
@@ -65,13 +68,13 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src)
+	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='[span_class]'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
 /**
  * Checks if the mob can understand the other speaker
- * 
+ *
  * If it return FALSE, then the message will have some letters replaced with stars from the heard message
 */
 /mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)

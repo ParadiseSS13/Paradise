@@ -120,7 +120,7 @@
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
-	to_chat(world, "[msg]")
+	to_chat(world, "<span class='emoji_enabled linkify'>[msg]</span>")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -143,7 +143,7 @@
 		return
 	msg = admin_pencode_to_html(msg)
 
-	to_chat(M, msg)
+	to_chat(M, "<span class='emoji_enabled linkify'>[msg]</span>")
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
 	message_admins("<span class='boldnotice'>DirectNarrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<BR></span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
