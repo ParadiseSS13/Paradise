@@ -442,17 +442,17 @@
 	},
 /area/syndicate_depot/core)
 "bq" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/syndicate_depot/core)
 "br" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -561,9 +561,9 @@
 	name = "Sealed Doors";
 	protected = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -647,8 +647,7 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

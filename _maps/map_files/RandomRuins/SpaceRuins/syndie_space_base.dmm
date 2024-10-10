@@ -78,8 +78,8 @@
 	name = "Vault Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	req_access_txt = "150";
-	specialfunctions = 4
+	specialfunctions = 4;
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -1082,7 +1082,7 @@
 	id = "SSBrestricted";
 	name = "Shutters Control";
 	pixel_x = -24;
-	req_access_txt = "151"
+	req_access = list(151)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1274,8 +1274,7 @@
 "gW" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "Animal Storage";
-	req_access_txt = "150";
-	req_one_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -1553,7 +1552,7 @@
 	id = "SSBrestricted";
 	name = "Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "151"
+	req_access = list(151)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1581,7 +1580,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "iB" = (
 /obj/structure/closet/crate/secure/gear{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/clothing/suit/space/syndicate,
 /obj/item/clothing/suit/space/syndicate,
@@ -1728,7 +1727,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "je" = (
 /obj/structure/closet/crate/secure/gear{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/clothing/suit/space/syndicate,
 /obj/item/clothing/suit/space/syndicate,
@@ -4979,7 +4978,7 @@
 	dir = 4;
 	network = list("SyndicateTestLab","SyndicateToxinsTest","SyndicateCaves","SyndicateInterior");
 	name = "syndicate security camera console";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5290,7 +5289,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Ed" = (
 /obj/structure/closet/crate/secure/gear{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/light{
 	dir = 1
@@ -5332,8 +5331,7 @@
 "Ei" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "Animal Storage";
-	req_access_txt = "150";
-	req_one_access_txt = "150"
+	req_access = list(150)
 	},
 /mob/living/simple_animal/chicken{
 	faction = list("neutral","syndicate")
@@ -5456,10 +5454,10 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "ES" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
-	locked = 1;
-	req_access_txt = "150"
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6140,7 +6138,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "Iz" = (
 /obj/structure/closet/crate/secure/gear{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/light,
 /obj/item/clothing/gloves/combat,
@@ -6396,7 +6394,7 @@
 	pixel_y = -24;
 	name = "Caves Turret Control Panel";
 	control_area = "Syndicate Space Base Cave";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/chair{
 	dir = 8
@@ -7028,8 +7026,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "NT" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -7692,7 +7689,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Sv" = (
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/ammo_box/magazine/m10mm/hp,
 /obj/item/ammo_box/magazine/m10mm/hp,
@@ -7793,7 +7790,7 @@
 /area/ruin/unpowered/syndicate_space_base/storage)
 "SN" = (
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/ammo_box/magazine/m10mm/hp,
 /obj/item/ammo_box/magazine/m10mm/hp,

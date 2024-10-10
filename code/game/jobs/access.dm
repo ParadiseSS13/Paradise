@@ -15,26 +15,6 @@
 	else
 		return check_access_list(acc)
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -44,8 +24,6 @@
 	return check_access_list(L)
 
 /obj/proc/check_access_list(list/L)
-	generate_req_lists()
-
 	if(!L)
 		return 0
 	if(!istype(L, /list))

@@ -275,9 +275,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "aR" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -771,9 +770,8 @@
 	},
 /area/ruin/space/deepstorage)
 "co" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -1029,9 +1027,8 @@
 	},
 /area/ruin/space/deepstorage)
 "eq" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "es" = (
@@ -1440,8 +1437,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "hp" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "512";
 	name = "Guard Wing"
 	},
 /obj/structure/barricade/wooden/crude{
@@ -1692,8 +1689,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "jj" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Guard Store Room"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1856,9 +1853,9 @@
 /area/ruin/space/deepstorage)
 "jT" = (
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "512"
+	locked = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
@@ -2170,9 +2167,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "mf" = (
@@ -2690,8 +2686,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/airless,
 /area/ruin/space/unpowered)
 "pz" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "512";
 	name = "Floor Administrator's Office"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -2743,9 +2739,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -2975,9 +2970,8 @@
 /area/ruin/space/deepstorage)
 "rK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -3777,9 +3771,8 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/deepstorage)
 "wH" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "DS_Quartermaster"
@@ -3859,8 +3852,8 @@
 	},
 /area/ruin/space/deepstorage)
 "xC" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Interrogation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -4111,9 +4104,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "zh" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Incinerator";
-	req_access_txt = "512"
+	name = "Incinerator"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -4172,9 +4165,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "zy" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "512"
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/catwalk,
@@ -4195,9 +4188,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4324,9 +4316,9 @@
 /area/ruin/space/deepstorage)
 "As" = (
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	name = "Auxiliary Power Room";
-	req_access_txt = "512"
+	name = "Auxiliary Power Room"
 	},
 /obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "DS_Engineering"
@@ -4359,8 +4351,8 @@
 	},
 /area/ruin/space/deepstorage)
 "AA" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Evidence Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -5373,9 +5365,8 @@
 	},
 /area/ruin/space/deepstorage)
 "Hx" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6902,9 +6893,8 @@
 	},
 /area/ruin/space/deepstorage)
 "To" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Tq" = (
@@ -6930,9 +6920,8 @@
 	},
 /area/ruin/space/deepstorage)
 "TK" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
 /obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "DS_Storage"
 	},
@@ -7008,9 +6997,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
 /obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "DS_Storage"
 	},
@@ -7925,9 +7913,8 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "ZW" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"

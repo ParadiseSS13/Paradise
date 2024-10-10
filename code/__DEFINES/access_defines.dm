@@ -88,3 +88,4 @@
 #define ACCESS_AWAY01					271	//! Access used for moonoutpost19 ruin.
 #define ACCESS_FREE_GOLEMS				300	//! Ghost role: free golems.
 #define ACCESS_THETA_STATION			301	//! Ghost role: Theta station.
+#define ACCESS_DEEPSTORAGE				512	//! Space ruin: Deep Storage
