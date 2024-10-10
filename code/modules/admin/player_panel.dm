@@ -443,6 +443,9 @@
 		// SS220 EDIT - START
 		if(length(SSticker.mode.blood_brothers))
 			dat += check_role_table("Blood Brothers", SSticker.mode.blood_brothers)
+
+		if(length(SSticker.mode.vox_raiders))
+			dat += check_role_table("Vox Raiders", SSticker.mode.vox_raiders)
 		// SS220 EDIT - END
 
 		if(length(SSticker.mode.implanted))
