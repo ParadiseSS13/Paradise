@@ -244,6 +244,6 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
-			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
+			rendered = "<span class='blob'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span>"
 			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/blob/blobbernaut))
 				M.show_message(rendered, EMOTE_AUDIBLE)
