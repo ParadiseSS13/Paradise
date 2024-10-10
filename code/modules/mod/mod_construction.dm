@@ -250,7 +250,7 @@
 				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly unscrewed.</span>")
 					construction_step = SCREWED_ASSEMBLY_STEP
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/construction/shell/update_icon_state()
 	. = ..()

@@ -285,8 +285,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon(UPDATE_OVERLAYS)
-	target.update_name()
+	target.update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	qdel(source)
 
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)

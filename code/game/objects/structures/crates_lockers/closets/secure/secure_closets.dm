@@ -83,7 +83,7 @@
 	else
 		toggle(user)
 
-/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
+/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	cut_overlays()
 	if(opened)
 		add_overlay(open_door_sprite)
@@ -113,7 +113,7 @@
 
 
 	spawn(0)
-		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE)) 
+		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 

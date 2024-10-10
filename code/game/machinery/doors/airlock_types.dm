@@ -197,8 +197,7 @@
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
 		DA.glass = TRUE
-	DA.update_icon()
-	DA.update_name()
+	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)

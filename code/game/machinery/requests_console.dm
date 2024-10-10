@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
-	sp.update_desc()
+	sp.update_appearance(UPDATE_DESC)
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
 
 /obj/machinery/requests_console/proc/view_messages()
