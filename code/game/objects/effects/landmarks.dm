@@ -242,7 +242,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
 	spawner_list = GLOB.roundstart_observer_start
 	return ..()
-	
+
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
@@ -659,24 +659,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot
 	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
-
-// Damage tiles
-/obj/effect/landmark/damageturf
-	icon_state = "damaged"
-
-/obj/effect/landmark/damageturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.break_tile()
-
-/obj/effect/landmark/burnturf
-	icon_state = "burned"
-
-/obj/effect/landmark/burnturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	T.burn_tile()
-
-/obj/effect/landmark/free_golem_spawn
-	name = "Free Golem Spawn Point"
