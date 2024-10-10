@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Free Objective."
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom" + "random"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target)
 		return
@@ -636,12 +636,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target_theft_objective.name = theft_objective_name
 		steal_target = target_theft_objective
 		explanation_text = "Steal [theft_objective_name]."
-	else
-		steal_target = new new_target
-		update_explanation_text()
-		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+		return steal_target
+	else if(new_target == "random")
+		return TRUE
+
+	steal_target = new new_target
+	update_explanation_text()
+	if(steal_target.special_equipment) // We have to do it with a callback because mind/Topic creates the objective without an owner
+		addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
 	return steal_target
+
+/datum/objective/steal/proc/hand_out_equipment()
+	give_kit(steal_target?.special_equipment)
 
 /datum/objective/steal/update_explanation_text()
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
@@ -679,7 +685,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
 		if(!kit_receiver)
 			continue
-
 		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
 		if(!where)
 			continue
