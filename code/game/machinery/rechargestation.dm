@@ -147,7 +147,7 @@
 			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 	else if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if(H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismachineperson(H))
 			if(H.nutrition < NUTRITION_LEVEL_FULL - 1)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
 			if(repairs)
@@ -206,7 +206,7 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(ismodcontrol(H.back) || H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismodcontrol(H.back) || ismachineperson(H))
 			can_accept_user = TRUE
 
 	if(!can_accept_user)

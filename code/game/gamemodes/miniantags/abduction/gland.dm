@@ -6,7 +6,7 @@
 	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
-	organ_datums = list(/datum/organ/heart/always_beating) // alien glands are immune to stopping
+	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
 
 	var/cooldown_low = 300
