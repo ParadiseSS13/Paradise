@@ -58,12 +58,11 @@
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
-	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
-	reference = "FT"
-	item = /obj/item/flamethrower/full/tank
-	cost = 3
+	desc = "A chemical flamethrower, fueled by a volatile mix of fuel and napalm. Comes prefilled with two canisters. Do not use with caution."
+	reference = "CHEM_THROWER"
+	item = /obj/item/chemical_flamethrower/extended/nuclear
+	cost = 40 // In contrary to the gas flamethrower, this one is a very strong area denial tool that can't be countered by an AI
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 40
 
 /datum/uplink_item/dangerous/combat_defib
 	name = "Combat Defibrillator Module"
@@ -275,6 +274,14 @@
 	desc = "An extra shell for your RPG. Make sure your bestie isn't standing in front of you."
 	reference = "HE"
 	item = /obj/item/ammo_casing/rocket
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/chemical_canister
+	name = "Box of chemical flamethrower canisters"
+	desc = "A box filled with 2 canisters of flamethrower fuel, exactly enough to fully refill your flamethrower once!"
+	reference = "CHEM_CAN"
+	item = /obj/item/storage/box/syndie_kit/chemical_canister
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -664,7 +671,6 @@
 	cost = 55
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
@@ -676,11 +682,10 @@
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
-	hijack_only = FALSE
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
+	hijack_only = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"

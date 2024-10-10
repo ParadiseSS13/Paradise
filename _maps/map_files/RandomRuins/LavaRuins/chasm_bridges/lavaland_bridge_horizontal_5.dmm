@@ -9,20 +9,14 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "v" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
-/area/lavaland/surface/outdoors/unexplored/danger)
-"C" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 
 (1,1,1) = {"
 c
 a
-C
+v
 a
 c
 "}

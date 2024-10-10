@@ -54,6 +54,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/default_blocks = list()
 	/// The flavor text of the person. We store this here for polymorph and changelings.
 	var/flavor_text
+	/// The chat color to load for when a character is cloned, a changeling transforms, or when a character is created
+	var/chat_color
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -66,6 +68,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
 	new_dna.flavor_text = flavor_text
+	new_dna.chat_color = chat_color
 
 	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]

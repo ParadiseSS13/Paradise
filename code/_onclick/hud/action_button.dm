@@ -19,7 +19,7 @@
 	/// Whether or not this should be shown to observers
 	var/shown_to_observers = FALSE
 	/// Whether or not this button is locked, preventing it from being dragged.
-	var/locked = FALSE
+	var/locked = TRUE
 
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
@@ -178,10 +178,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+		to_chat(user, "<span class='notice'>[src] has been binded to [keybind_to_set_to]!</span>")
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
+		to_chat(user, "<span class='notice'>Your active keybinding on [src] has been cleared.</span>")
 
 /atom/movable/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()

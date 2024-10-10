@@ -1,11 +1,9 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/CanPass(atom/movable/mover, turf/target)
 	var/horizontal = FALSE
 	if(isliving(src))
 		var/mob/living/L = src
 		horizontal = IS_HORIZONTAL(L)
 
-	if(height==0)
-		return 1
 	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)

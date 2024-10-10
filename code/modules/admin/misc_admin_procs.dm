@@ -1,5 +1,9 @@
-GLOBAL_VAR_INIT(BSACooldown, 0)
-GLOBAL_VAR_INIT(nologevent, 0)
+/// Is admin BSA (damage a user) currently on cooldown?
+GLOBAL_VAR_INIT(BSACooldown, FALSE)
+/// Are we in a no-log event (EORG, highlander, etc)?
+GLOBAL_VAR_INIT(nologevent, FALSE)
+/// Are explosions currently disabled for EORG?
+GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ////////////////////////////////
 /proc/message_admins(msg)
@@ -202,7 +206,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					<A href='byond://?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
 					<A href='byond://?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
 					<A href='byond://?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
-					<A href='byond://?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A>
+					<A href='byond://?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A> |
 				"}
 
 			//Simple Animals
@@ -405,7 +409,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
 	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
-	SSticker.event_blackbox(outcome = ROUND_END_FORCED)
+	SSticker.record_biohazard_results()
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"

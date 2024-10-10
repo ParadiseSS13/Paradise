@@ -1,6 +1,6 @@
 /obj/item/grenade/syndieminibomb
-	name = "syndicate minibomb"
-	desc = "A syndicate manufactured explosive used to sow destruction and chaos."
+	name = "\improper Syndicate minibomb"
+	desc = "A Syndicate-manufactured high-explosive grenade used to sow destruction and chaos."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "grenade"
@@ -12,6 +12,7 @@
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/fake
+	origin_tech = "materials=3;magnets=4;syndicate=1" // no clown, this bomb not exactly the same
 
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
 	. = ..()

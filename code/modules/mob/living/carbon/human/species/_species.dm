@@ -337,7 +337,7 @@
 	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
 	leftover -= .
 
-	var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
+	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
 	if(H.reagents)
 		for(var/datum/reagent/R in H.reagents.reagent_list)
 			if(R.shock_reduction)
@@ -1049,21 +1049,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
 	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	H.Weaken(60 SECONDS)
-
-/**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
-/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
-	if(bodyflags & HAS_SKIN_COLOR)
-		return H.skin_colour
-	else
-		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD?.hair_colour
 
 /datum/species/proc/handle_harm_antag(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!istype(target))

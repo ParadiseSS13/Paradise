@@ -9,6 +9,18 @@
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
+		MiddleShiftControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"])
+		MiddleShiftClickOn(A)
+		return
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(A)
+		return
+	if(modifiers["shift"] && modifiers["alt"])
+		AltShiftClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
@@ -441,7 +453,7 @@
 	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
@@ -456,7 +468,7 @@
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(usr)
 	else if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
 	..(cause_emp = FALSE)
@@ -472,7 +484,7 @@
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /turf/defile()
 	if(flags & BLESSED_TILE)

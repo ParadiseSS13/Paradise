@@ -688,7 +688,7 @@
 			SEND_SOUND(M, loud_crash_sound)
 	for(var/turf/T in L2)
 		for(var/atom/movable/A in T.contents)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 			if(istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 				var/obj/machinery/atmospherics/supermatter_crystal/bakoom = A
 				addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)

@@ -78,7 +78,7 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		if(loaded_pill_bottle)
@@ -570,8 +570,8 @@
 			P.name = "[medicine_name][name_suffix]"
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
-		reagents.trans_to(P, amount_per_item)
 		configure_item(data, reagents, P)
+		reagents.trans_to(P, amount_per_item)
 
 		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))

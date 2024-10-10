@@ -55,6 +55,8 @@
 		return
 	create(ckey = user.ckey, user = user)
 
+	return TRUE
+
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(instant || roundstart)	//at some point we should probably re-introduce the (ticker && ticker.current_state > GAME_STATE_SETTING_UP) portion of this check, but for now it was preventing the corpses from spawning at roundstart and resulting in ghost role spawners that made dead bodies.
@@ -378,6 +380,20 @@
 	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
+
+/obj/effect/mob_spawn/human/corpse/skeleton/security_officer
+	outfit = /datum/outfit/job/officer
+	id_access = "Assistant" //no brig access for explorers
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner
+	uniform = /obj/item/clothing/under/color/orange/prison
+	shoes = /obj/item/clothing/shoes/orange
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner/equip(mob/living/carbon/human/prisoner) //put cuffs on the corpse
+	. = ..()
+	var/obj/item/restraints/handcuffs/cuffs = new(prisoner)
+	prisoner.handcuffed = cuffs
+	prisoner.update_handcuffed()
 
 //////////Corpses, they can be used for "decoration" purpose.//////////
 

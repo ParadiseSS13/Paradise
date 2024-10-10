@@ -7,12 +7,13 @@
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
 	icon_living = "fleshling"
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	death_sound = 'sound/misc/demon_dies.ogg'
 	icon_dead = ""
 	speed = 5
 	move_to_delay = 4
 	ranged = TRUE
 	pixel_x = -16
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	wander = TRUE
@@ -23,8 +24,6 @@
 	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	del_on_death = TRUE
-	death_sound = 'sound/misc/demon_dies.ogg'
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 
 	/// Is the boss charging right now?
 	var/charging = FALSE
@@ -282,6 +281,26 @@
 /obj/effect/portal/advanced/deepstorage
 	name = "portal"
 	desc = "Good luck."
+
+// loot spawners
+
+/obj/effect/spawner/random/deepstorage_reward
+	name = "warehouse fashion reward"
+	loot = list(
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/clothing/suit/pimpcoat,
+			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/clothing/glasses/sunglasses/yeah
+	)
+
+/obj/effect/spawner/random/deepstorage_reward/main
+	name = "warehouse main reward"
+	loot = list(
+			/obj/item/storage/belt/champion/wrestling,
+			/obj/item/storage/box/weaver_kit,
+			/obj/item/gun/medbeam,
+			/obj/item/storage/lockbox/experimental_weapon
+	)
 
 // paper stuff & lore
 

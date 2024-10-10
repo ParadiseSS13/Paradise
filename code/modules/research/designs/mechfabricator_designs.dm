@@ -615,6 +615,15 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_crusher
+	name = "Exosuit Mining Equipment (Mounted crusher)"
+	id = "mech_crusher"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_crusher
+	materials = list(MAT_METAL= 23000, MAT_TITANIUM = 8000)
+	construction_time = 25 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_extinguisher
 	name = "Exosuit Engineering Equipment (Extinguisher)"
 	id = "mech_extinguisher"
@@ -904,8 +913,8 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_carbine
-	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
-	desc = "Allows for the construction of FNX-99 \"Hades\" Carbine."
+	name = "Exosuit Weapon (FNX-66 \"Hades\" Carbine)"
+	desc = "Allows for the construction of FNX-66 \"Hades\" Carbine."
 	id = "mech_carbine"
 	build_type = MECHFAB
 	req_tech = list("combat" = 5, "materials" = 4)
@@ -1255,14 +1264,14 @@
 	category = list("Misc")
 
 /datum/design/synthetic_flash
-	name = "Synthetic Flash"
-	desc = "A synthetic flash used mostly in borg construction."
-	id = "sflash"
+	name = "Flash"
+	desc = "A flash used mostly in borg construction."
+	id = "sflash" // Keeping this ID as is because we might have something tracking it
 	req_tech = list("magnets" = 3, "combat" = 2)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
 	construction_time = 10 SECONDS
-	build_path = /obj/item/flash/synthetic
+	build_path = /obj/item/flash
 	category = list("Misc")
 
 /datum/design/voice_standard

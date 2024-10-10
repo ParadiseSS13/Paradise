@@ -600,8 +600,8 @@ Difficulty: Hard
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)
-					A.ex_act(3) //Body is immune to explosions of this strength.
-				T.ex_act(3)
+					A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+				T.ex_act(EXPLODE_LIGHT)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
 				S.MakeSlippery(TURF_WET_ICE, enraged ? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))

@@ -187,6 +187,7 @@ As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure vic
 Remote signalers are extremely versatile. They can be used in bombs, hacking, counteracting anomalies, and much more. Get creative!
 Need to perform surgery? No surgery kit? No worries! You can use a wide variety of improvised tools to perform ghetto surgery! For example, using a wrench as a stand-in for a bone setter, or a cigarette as a cautery. You can even use alcohol as a makeshift painkiller. Just be aware that these tools may not work as well as proper ones.
 If you examine something twice in quick succession, you will perform an extended examination. Many items have extended descriptions that give you more information about the world.
+You can dip cigarettes into beakers or inject reagents into them. This can be used to infuse cigarettes with powerful medications or poisons which will slowly release over time. Welding fuel and plasma make them explode when lit!
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.

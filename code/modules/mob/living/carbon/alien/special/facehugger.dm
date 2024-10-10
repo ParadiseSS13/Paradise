@@ -141,7 +141,6 @@
 		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
-			M.EyeBlind(impregnation_time + 2 SECONDS)
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
@@ -204,7 +203,7 @@
 	icon_state = "[initial(icon_state)]_dead"
 	item_state = "facehugger_inactive"
 	stat = DEAD
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	DeleteComponent(/datum/component/proximity_monitor)
 
 	visible_message("<span class='danger'>[src] curls up into a ball!</span>")
 

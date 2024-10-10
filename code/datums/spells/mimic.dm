@@ -132,7 +132,11 @@
 	selected_form = form
 
 /datum/spell/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] contorts and slowly becomes [new_name]!</span>", "<span class='sinister'>You take form of [new_name].</span>", "You hear loud cracking noises!")
+	user.visible_message(
+		"<span class='warning'>[old_name] contorts and slowly becomes [new_name]!</span>",
+		"<span class='sinister'>You take the form of [new_name].</span>",
+		"<span class='warning'>You hear loud cracking noises!</span>"
+	)
 
 /datum/spell/mimic/proc/restore_form(mob/user, show_message = TRUE)
 	selected_form = null
@@ -157,7 +161,11 @@
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_MOB_DEATH))
 
 /datum/spell/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] shakes and contorts and quickly becomes [new_name]!</span>", "<span class='sinister'>You take return to your normal self.</span>", "You hear loud cracking noises!")
+	user.visible_message(
+		"<span class='warning'>[old_name] shakes and contorts and quickly becomes [new_name]!</span>",
+		"<span class='sinister'>You return to your normal self.</span>",
+		"<span class='warning'>You hear loud cracking noises!</span>"
+	)
 
 /datum/spell/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
 	examine_list.Cut()
@@ -171,7 +179,11 @@
 		show_death_message(user)
 
 /datum/spell/mimic/proc/show_death_message(mob/user)
-	user.visible_message("<span class='warning'>[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!</span>", "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
+	user.visible_message(
+		"<span class='warning'>[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!</span>",
+		"<span class='deadsay'>Your disguise fails as your life forces drain away.</span>",
+		"<span class='warning'>You hear loud cracking noises followed by a thud!</span>"
+	)
 
 
 /datum/mimic_form
@@ -208,13 +220,22 @@
 	user.restore()
 
 /datum/spell/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!</span>", \
-					"<span class='notice'>You twist your body and assume the form of [new_name].</span>")
+	user.visible_message(
+		"<span class='warning'>[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!</span>",
+		"<span class='notice'>You twist your body and assume the form of [new_name].</span>",
+		"<span class='warning'>You hear loud cracking noises!</span>"
+	)
 
 /datum/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
-					"<span class='notice'>You reform to your normal body.</span>")
+	user.visible_message(
+		"<span class='warning'>[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>",
+		"<span class='notice'>You reform to your normal body.</span>",
+		"<span class='warning'>You hear loud cracking noises followed by a thud!</span>"
+	)
 
 /datum/spell/mimic/morph/show_death_message(mob/user)
-	user.visible_message("<span class='warning'>[user] twists and dissolves into a pile of green flesh!</span>", \
-						"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")
+	user.visible_message(
+		"<span class='warning'>[user] twists and dissolves into a pile of green flesh!</span>",
+		"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>",
+		"<span class='warning'>You hear loud cracking noises followed by a thud!</span>"
+	)

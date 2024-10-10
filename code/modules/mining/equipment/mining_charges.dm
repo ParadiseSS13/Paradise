@@ -5,6 +5,7 @@
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
 	det_time = 5
+	origin_tech = "materials=1"
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
 	/// When TRUE, charges won't detonate on it's own. Used for mining detonator
 	var/timer_off = FALSE
@@ -107,7 +108,7 @@
 		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
-		location.ex_act(2, target)
+		location.ex_act(EXPLODE_HEAVY, target)
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()

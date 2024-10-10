@@ -223,7 +223,7 @@ CONTENTS:
 		if(isradio(I))
 			var/obj/item/radio/R = I
 			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+			R.emp_act(EMP_HEAVY)
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
@@ -626,6 +626,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An ultrasonic screwdriver."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
+	belt_icon = null
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
@@ -635,6 +636,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wrench"
+	belt_icon = null
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
@@ -644,6 +646,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
+	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	light_intensity = 0
@@ -657,6 +660,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "crowbar"
+	belt_icon = null
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -667,6 +671,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
+	belt_icon = null
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
@@ -680,6 +685,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
+	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
@@ -779,7 +785,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "mop_abductor"
 	mopcap = 100
-	origin_tech = "materials=3;engineering=3;abductor=3"
+	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
 	refill_reagent = "water"
 	mopspeed = 10
@@ -795,7 +801,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "It's important to keep all the mysterious lights on a UFO functional when flying over backwater country."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "lightreplacer_abductor"
-	origin_tech = "magnets=3;engineering=4;abductor=3"
+	origin_tech = "magnets=3;engineering=4;abductor=2"
 	max_uses = 40
 	uses = 20
 
@@ -869,27 +875,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/structure/table_frame/abductor/try_make_table(obj/item/stack/stack, mob/user)
-	if(!istype(stack, /obj/item/stack/sheet/mineral/abductor) && !istype(stack, /obj/item/stack/sheet/mineral/silver))
-		return FALSE
-
-	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return TRUE
-
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(!(do_after(user, 50, target = src) && stack.use(1)))
-		return TRUE
-
-	if(istype(stack, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
-		make_new_table(stack.table_type)
-		return TRUE
-
-	new /obj/machinery/optable/abductor(loc)
-	qdel(src)
-	return TRUE
+	restrict_table_types = list(/obj/item/stack/sheet/mineral/silver = /obj/machinery/optable/abductor, /obj/item/stack/sheet/mineral/abductor = /obj/item/stack/sheet/mineral/abductor::table_type)
 
 /obj/structure/table/abductor
 	name = "alien table"

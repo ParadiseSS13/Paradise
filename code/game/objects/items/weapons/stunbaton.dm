@@ -184,7 +184,7 @@
 
 	if(user.a_intent == INTENT_HARM)
 		. = ..() // Whack them too if in harm intent
-		if(.) // True is returned when blocked, false when not. I know.
+		if(!isnull(.)) // Attack returns null when successful
 			return
 		if(turned_on)
 			baton_stun(L, user, ignore_shield_check = TRUE)
@@ -203,7 +203,6 @@
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
-
 	var/user_UID = user.UID()
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE

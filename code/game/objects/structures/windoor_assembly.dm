@@ -47,8 +47,8 @@
 			else
 				. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
 
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-	. += "<span class='info'><b>Alt-Shift-Click</b> to flip it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to flip it.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -72,7 +72,7 @@
 /obj/structure/windoor_assembly/update_icon_state()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border

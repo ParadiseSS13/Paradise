@@ -149,7 +149,7 @@
 	else if(isturf(T) && T.density)
 		if(!(istype(T, /turf/simulated/wall/indestructible)))
 			CreateDoor(T)
-	else if(istype(target, /obj/machinery/door))
+	else if(isairlock(target))
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)

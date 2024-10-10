@@ -556,6 +556,8 @@
 			var/mole_crunch_bonus = 0
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
 				mole_crunch_bonus = 7000 //This adds 7000 EER worth of power to the SM. This should make mole crunch potentially worthy as a SM setup, if not risky. More stable than the anomalies, but very easy to push over the edge. Don't forget, a high EER setup can harvest power through zaps
+				if(!has_been_powered) // Nice try, no free no risk power
+					enable_for_the_first_time()
 			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + mole_crunch_bonus)
 
 		//Power * 0.55 * a value between 1 and 0.8
@@ -681,19 +683,19 @@
 			countdown()
 	return 1
 
-/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/proj)
 	var/turf/L = loc
 	if(!istype(L))
 		return FALSE
-	if(!istype(Proj.firer, /obj/machinery/power/emitter) && power_changes)
-		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", "supermatter")
-	if(Proj.flag != BULLET)
+	if(!istype(proj, /obj/item/projectile/beam/emitter/hitscan) && power_changes)
+		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", "supermatter")
+	if(proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
-			power += Proj.damage * bullet_energy
+			power += proj.damage * bullet_energy
 			if(!has_been_powered)
 				enable_for_the_first_time()
 	else if(takes_damage)
-		damage += Proj.damage * bullet_energy
+		damage += proj.damage * bullet_energy
 	return FALSE
 
 /obj/machinery/atmospherics/supermatter_crystal/singularity_act()

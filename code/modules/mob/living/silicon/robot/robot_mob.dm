@@ -965,11 +965,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
 		else
-			if(!user.drop_item())
-				return
-			if(U.action(src))
+			if(U.action(user, src))
 				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
-				U.forceMove(src)
+
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
@@ -1765,7 +1763,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return cell.is_powered() || externally_powered
 
 /mob/living/silicon/robot/can_be_flashed(intensity, override_blindness_check)
-	return eye_protection
+	return !eye_protection
 
 /mob/living/silicon/robot/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)

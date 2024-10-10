@@ -8,7 +8,7 @@
  */
 /datum/element/ridable
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// The specific riding component subtype we're loading our instructions from, don't leave this as default please!
 	var/riding_component_type = /datum/component/riding
 	/// If we have a xenobio red potion applied to us, we get split off so we can pass our special status onto new riding components

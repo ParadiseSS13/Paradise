@@ -26,7 +26,7 @@
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))
 			register_camera(wearer)
-	..()
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
@@ -211,18 +211,18 @@
 // Solgov
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
-	name = "\improper Trans-Solar Federation Specops Marine helmet"
+	name = "\improper MARSOC helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	desc = "A helmet worn by marines of the Trans-Solar Federation. Armored, space ready, and fireproof."
+	desc = "A helmet worn by marines of the Trans-Solar Federation's Marine Special Operations Command. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
-	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
+	name = "\improper MARSOC hardsuit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	desc = "A suit worn by marines of the Trans-Solar Federation. Armored, space ready, and fireproof."
+	desc = "A suit worn by marines of the Trans-Solar Federation's Marine Special Operations Command. Armored, space ready, and fireproof."
 	icon_state = "ert_solgov_marine"
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
@@ -230,15 +230,15 @@
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
-	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"
-	desc = "A helmet worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
+	name = "\improper MARSOC officer's helmet"
+	desc = "A helmet worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovcommand"
 	item_state = "hardsuit0-solgovcommand"
 	item_color = "solgovcommand"
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
-	name = "\improper Trans-Solar Federation Specops Lieutenant hardsuit"
-	desc = "A suit worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
+	name = "\improper MARSOC officer's hardsuit"
+	desc = "A suit worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "ert_solgov_command"
 	item_state = "ert_solgov_command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command

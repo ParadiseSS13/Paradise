@@ -13,7 +13,7 @@
 	if(can_opened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Ctrl-click to shake it up!</span>"
+		. += "<span class='notice'>Ctrl-click to shake it up!</span>"
 
 /obj/item/reagent_containers/drinks/cans/attack_self(mob/user)
 	if(can_opened)

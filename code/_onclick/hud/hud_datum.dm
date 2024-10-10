@@ -134,6 +134,7 @@
 	mymob.throw_icon = null
 	mymob.healths = null
 	mymob.healthdoll = null
+	mymob.staminas = null
 	mymob.pullin = null
 	mymob.nutrition_display = null
 
@@ -281,7 +282,7 @@
 		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(src, "<span class='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
+		to_chat(src, "<span class='notice'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
 	else
 		to_chat(src, "<span class='warning'>This mob type does not use a HUD.</span>")
 

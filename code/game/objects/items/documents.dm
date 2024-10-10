@@ -1,6 +1,6 @@
 /obj/item/documents
 	name = "secret documents"
-	desc = "\"Top Secret\" documents printed on special copy-protected paper."
+	desc = "Documents printed on special copy-protected paper."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
 	item_state = "paper"
@@ -16,36 +16,56 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/documents/nanotrasen
-	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
+	desc = "Nanotrasen documents printed on special copy-protected paper. They are filled with complex diagrams, technical documentation, and lists of names, dates, and coordinates."
 	icon_state = "docs_verified"
 
+/obj/item/documents/nanotrasen/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>These documents are marked \"<b>TOP SECRET</b> - property of Nanotrasen\".</span>"
+
 /obj/item/documents/syndicate
-	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence."
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 
 /obj/item/documents/syndicate/red
 	name = "'Red' secret documents"
-	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Red\"."
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_red"
+
+/obj/item/documents/syndicate/red/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - RED</b>\" and the logo of the Syndicate.</span>"
 
 /obj/item/documents/syndicate/blue
 	name = "'Blue' secret documents"
-	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Blue\"."
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_blue"
+
+/obj/item/documents/syndicate/blue/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - BLUE</b>\" and the logo of the Syndicate.</span>"
 
 /obj/item/documents/syndicate/yellow
 	name = "'Yellow' secret documents"
-	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\"."
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_yellow"
 	resistance_flags = NONE
 
+/obj/item/documents/syndicate/yellow/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>These documents are marked with \"<b>TOP SECRET - YELLOW</b>\" and the logo of the Syndicate.</span>"
+
 /obj/item/documents/syndicate/yellow/trapped
-	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\", and have a thin film of clear material covering their surface."
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence, and have a thin film of clear material covering their surface."
 	var/poison_type = "amanitin"
 	var/poison_dose = 20
 	var/poison_total = 60
 
 /obj/item/documents/syndicate/mining
-	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
+	desc = "Documents detailing Syndicate plasma mining operations."
+
+/obj/item/documents/syndicate/mining/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>These documents are marked with \"<b>SECRET</b>\" and the logo of the Syndicate.</span>"
 
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)

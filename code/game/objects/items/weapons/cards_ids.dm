@@ -54,7 +54,7 @@
 	origin_tech = "magnets=2"
 
 /obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
-	if(!istype(target, /obj/machinery/door))
+	if(!isairlock(target))
 		return
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
@@ -662,7 +662,7 @@
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
-	desc = "The spare ID of the captain."
+	desc = "The spare ID of the captain. Keep this secured."
 	icon_state = "gold"
 	item_state = "gold_id"
 	registered_name = "Captain"
@@ -704,7 +704,8 @@
 	assignment = "Prisoner"
 	registered_name = "Scum"
 	access = list(ACCESS_LIBRARY)
-	var/goal = 0 //How far from freedom?
+	/// How many mining points you need to be released from the labour camp.
+	var/goal = 0
 
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()

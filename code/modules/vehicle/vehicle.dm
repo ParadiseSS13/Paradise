@@ -34,7 +34,7 @@
 	return ..()
 
 // So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+/obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSMOB))
 		return TRUE
 	else
@@ -209,7 +209,7 @@
 		return FALSE
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
+		if(isairlock(M) && has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 

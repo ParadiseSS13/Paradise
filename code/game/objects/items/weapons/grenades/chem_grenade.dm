@@ -221,7 +221,7 @@
 		return TRUE
 
 	else if(stage == READY && !nadeassembly)
-		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		det_time = det_time == 5 SECONDS ? 3 SECONDS : 5 SECONDS	// Toggle between 3 and 5 seconds.
 		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 		return TRUE
 

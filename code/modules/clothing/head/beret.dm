@@ -84,7 +84,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
-/obj/item/clothing/head/beret/sec/warden
+/obj/item/clothing/head/beret/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
@@ -180,7 +180,7 @@
 
 //Special Roles
 /obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+	name = "\improper TSF Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "beret_solgovc"
 	item_color = "solgovc"
@@ -189,8 +189,8 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+	name = "\improper MARSOC Lieutenant's beret"
+	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"

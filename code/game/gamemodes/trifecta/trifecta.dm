@@ -6,7 +6,7 @@
 /datum/game_mode/trifecta
 	name = "Trifecta"
 	config_tag = "trifecta"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Trans-Solar Federation General")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI")
 	required_players = 25
@@ -107,14 +107,18 @@
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
 
-	for(var/datum/mind/traitor as anything in pre_traitors)
-		var/datum/antagonist/traitor/tot_datum = new()
-		tot_datum.delayed_objectives = TRUE
-		traitor.add_antag_datum(tot_datum)
-
+	var/random_time
 	if(length(pre_traitors))
-		var/random_time = rand(5 MINUTES, 15 MINUTES)
+		random_time = rand(5 MINUTES, 15 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(fill_antag_slots)), random_time)
+
+	for(var/datum/mind/traitor in pre_traitors)
+		var/datum/antagonist/traitor/traitor_datum = new(src)
+		if(ishuman(traitor.current))
+			traitor_datum.delayed_objectives = TRUE
+			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
+
+		traitor.add_antag_datum(traitor_datum)
 
 	..()
 
