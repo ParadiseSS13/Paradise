@@ -16,7 +16,8 @@
 	var/requires_master = TRUE
 	var/mob/living/carbon/human/imprinted_master = null
 	var/ejected_flavor_text = "circuit"
-
+	/// If this is a posibrain, which will reject attempting to put a new ghost in it, because this a real brain we care about, not a robobrain
+	var/can_be_reinhabited = TRUE
 	dead_icon = "boris_blank"
 
 /obj/item/mmi/robotic_brain/Destroy()
@@ -31,7 +32,7 @@
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		imprinted_master = user
 		return
-	if(brainmob && !brainmob.key && !searching)
+	if(brainmob && !brainmob.key && !searching && can_be_reinhabited)
 		//Start the process of searching for a new user.
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
 		request_player()
@@ -93,7 +94,7 @@
 	become_occupied(occupied_icon)
 
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
-	if(brainmob && brainmob.key)
+	if(brainmob && brainmob.key || !searching)
 		return
 
 	searching = FALSE
@@ -104,6 +105,8 @@
 /obj/item/mmi/robotic_brain/proc/volunteer(mob/dead/observer/user)
 	if(!searching)
 		return
+	if(brainmob && brainmob.key)
+		return // No, something is wrong, abort.
 	if(!istype(user) && !HAS_TRAIT(user, TRAIT_RESPAWNABLE))
 		to_chat(user, "<span class='warning'>Seems you're not a ghost. Could you please file an exploit report on the forums?</span>")
 		return
@@ -182,11 +185,11 @@
 	..()
 
 /obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)
+	if(brainmob && brainmob.key)
+		return // No point pinging a posibrain with a player already inside
 	if(searching)
 		volunteer(O)
 		return
-	if(brainmob && brainmob.key)
-		return // No point pinging a posibrain with a player already inside
 	if(validity_checks(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
@@ -204,3 +207,4 @@
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
+	can_be_reinhabited = FALSE
