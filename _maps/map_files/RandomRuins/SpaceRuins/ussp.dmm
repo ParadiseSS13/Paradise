@@ -260,7 +260,7 @@
 "aL" = (
 /obj/structure/table/reinforced,
 /obj/item/phone{
-	desc = "An old Russian phone. The dial tone is still humming.";
+	desc = "An old Soviet phone. The dial tone is still humming.";
 	name = "spin-dial phone"
 	},
 /turf/simulated/floor/plasteel{
@@ -272,7 +272,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/russian/ranged/mosin,
+/mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aN" = (
@@ -317,7 +317,7 @@
 /area/ruin/space/derelict/bridge)
 "aS" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -351,11 +351,11 @@
 "aX" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/suit/space/syndicate/blue{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Command Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/blue{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Command Helmet"
 	},
 /turf/simulated/floor/wood,
@@ -725,7 +725,7 @@
 /area/ruin/space/derelict/arrival)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -880,7 +880,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -953,11 +953,11 @@
 "cz" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Helmet"
 	},
 /turf/simulated/floor/plasteel{
@@ -1410,7 +1410,7 @@
 /obj/item/pen,
 /obj/structure/window/reinforced,
 /obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
 	layer = 3.3;
 	name = "custom placement";
 	pixel_x = 27
@@ -1831,7 +1831,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
 /obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
 	layer = 3.3;
 	name = "custom placement";
 	pixel_x = 30
@@ -2269,7 +2269,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/mob/living/simple_animal/hostile/russian/ranged/mosin,
+/mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fF" = (
@@ -2380,7 +2380,7 @@
 	name = "suspicious button"
 	},
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
@@ -3028,7 +3028,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "hC" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hD" = (
@@ -3102,7 +3102,7 @@
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3278,11 +3278,11 @@
 "ik" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/syndicate/black/engie{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Engineering Helmet"
 	},
 /obj/item/clothing/suit/space/syndicate/black/engie{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Engineering Suit"
 	},
 /turf/simulated/floor/plasteel{
@@ -3635,7 +3635,7 @@
 /area/ruin/space/derelict/arrival)
 "jj" = (
 /obj/item/paper/djstation{
-	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry Russian security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
+	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry commie security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
 	name = "unknown report"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4291,7 +4291,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "kF" = (
@@ -4629,7 +4629,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lw" = (
-/obj/structure/statue/russian_mulebot,
+/obj/structure/statue/soviet_mulebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lx" = (
@@ -4995,7 +4995,7 @@
 "mx" = (
 /obj/structure/closet/crate/can,
 /obj/item/clothing/under/costume/mankini{
-	desc = "No honest Russian would wear this abomination";
+	desc = "No honest comrade would wear this abomination";
 	name = "lucky underwear"
 	},
 /turf/simulated/floor/plasteel{
@@ -5174,7 +5174,7 @@
 /area/space/nearstation)
 "mY" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5967,7 +5967,7 @@
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
 /obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
 	layer = 3.3;
 	name = "custom placement";
 	pixel_x = 27
@@ -6402,7 +6402,7 @@
 /area/ruin/space/derelict/arrival)
 "ql" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -6498,7 +6498,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
 	layer = 3.3;
 	name = "custom placement";
 	pixel_x = 27
@@ -6942,7 +6942,7 @@
 /obj/structure/statue/diamond/captain{
 	anchored = 1;
 	desc = "A statue in honour of those who rose against the tyranny of the Trans-Solar Federation in 2443.";
-	icon_state = "russian";
+	icon_state = "soviet";
 	layer = 4;
 	name = "Cygni Commemorative Statue";
 	pixel_y = 16
@@ -7400,7 +7400,7 @@
 /area/ruin/space/derelict/solar_control)
 "sv" = (
 /obj/item/gps/ruin{
-	gpstag = "Russian Distress Signal"
+	gpstag = "Soviet Distress Signal"
 	},
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
@@ -7469,7 +7469,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "Ye" = (

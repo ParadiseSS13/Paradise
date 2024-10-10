@@ -336,11 +336,10 @@ do {\
 
 
 /obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(new_name))
-			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
-			return
+	..()
+
+	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
+		return
 
 	if(!istype(I, /obj/item/food))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
