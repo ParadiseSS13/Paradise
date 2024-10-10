@@ -102,6 +102,86 @@
 	display_name = "Jumpsuit, darkred"
 	path = /obj/item/clothing/under/color/darkred
 
+/datum/gear/uniform/suit/jumpskirtblack
+	display_name = "Jumpskirt, black"
+	path = /obj/item/clothing/under/color/jumpskirt/black
+
+/datum/gear/uniform/suit/jumpskirtblue
+	display_name = "Jumpskirt, blue"
+	path = /obj/item/clothing/under/color/jumpskirt/blue
+
+/datum/gear/uniform/suit/jumpskirtgreen
+	display_name = "Jumpskirt, green"
+	path = /obj/item/clothing/under/color/jumpskirt/green
+
+/datum/gear/uniform/suit/jumpskirtgrey
+	display_name = "Jumpskirt, grey"
+	path = /obj/item/clothing/under/color/jumpskirt/grey
+
+/datum/gear/uniform/suit/jumpskirtorange
+	display_name = "Jumpskirt, orange"
+	path = /obj/item/clothing/under/color/jumpskirt/orange
+
+/datum/gear/uniform/suit/jumpskirtpink
+	display_name = "Jumpskirt, pink"
+	path = /obj/item/clothing/under/color/jumpskirt/pink
+
+/datum/gear/uniform/suit/jumpskirtred
+	display_name = "Jumpskirt, red"
+	path = /obj/item/clothing/under/color/jumpskirt/red
+
+/datum/gear/uniform/suit/jumpskirtwhite
+	display_name = "Jumpskirt, white"
+	path = /obj/item/clothing/under/color/jumpskirt/white
+
+/datum/gear/uniform/suit/jumpskirtyellow
+	display_name = "Jumpskirt, yellow"
+	path = /obj/item/clothing/under/color/jumpskirt/yellow
+
+/datum/gear/uniform/suit/jumpskirtlightblue
+	display_name = "Jumpskirt, lightblue"
+	path = /obj/item/clothing/under/color/jumpskirt/lightblue
+
+/datum/gear/uniform/suit/jumpskirtaqua
+	display_name = "Jumpskirt, aqua"
+	path = /obj/item/clothing/under/color/jumpskirt/aqua
+
+/datum/gear/uniform/suit/jumpskirtpurple
+	display_name = "Jumpskirt, purple"
+	path = /obj/item/clothing/under/color/jumpskirt/purple
+
+/datum/gear/uniform/suit/jumpskirtlightpurple
+	display_name = "Jumpskirt, lightpurple"
+	path = /obj/item/clothing/under/color/jumpskirt/lightpurple
+
+/datum/gear/uniform/suit/jumpskirtlightgreen
+	display_name = "Jumpskirt, lightgreen"
+	path = /obj/item/clothing/under/color/jumpskirt/lightgreen
+
+/datum/gear/uniform/suit/jumpskirtlightbrown
+	display_name = "Jumpskirt, lightbrown"
+	path = /obj/item/clothing/under/color/jumpskirt/lightbrown
+
+/datum/gear/uniform/suit/jumpskirtbrown
+	display_name = "Jumpskirt, brown"
+	path = /obj/item/clothing/under/color/jumpskirt/brown
+
+/datum/gear/uniform/suit/jumpskirtyellowgreen
+	display_name = "Jumpskirt, yellowgreen"
+	path = /obj/item/clothing/under/color/jumpskirt/yellowgreen
+
+/datum/gear/uniform/suit/jumpskirtdarkblue
+	display_name = "Jumpskirt, darkblue"
+	path = /obj/item/clothing/under/color/jumpskirt/darkblue
+
+/datum/gear/uniform/suit/jumpskirtlightred
+	display_name = "Jumpskirt, lightred"
+	path = /obj/item/clothing/under/color/jumpskirt/lightred
+
+/datum/gear/uniform/suit/jumpskirtdarkred
+	display_name = "Jumpskirt, darkred"
+	path = /obj/item/clothing/under/color/jumpskirt/darkred
+
 /datum/gear/uniform/suit/soviet
 	display_name = "Old USSP uniform"
 	path = /obj/item/clothing/under/costume/soviet
