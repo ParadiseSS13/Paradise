@@ -872,7 +872,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/swarms/check_completion()
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/mindflayer/flayer = M.has_antag_datum(/datum/antagonist/mindflayer)
-		return (flayer?.total_swarms_gathered >= target_amount)
+		return flayer?.total_swarms_gathered >= target_amount
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
