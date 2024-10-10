@@ -340,8 +340,6 @@
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -528,6 +526,7 @@
 		"<span class='notice'>You fasten [src].</span>",
 		"<span class='notice'>You hear a ratchet.</span>")
 	qdel(src)	// remove the pipe item
+	return TRUE
 
 /obj/item/pipe_meter
 	name = "meter"
@@ -540,7 +539,7 @@
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
-		return TRUE
+		return
 
 	new /obj/machinery/atmospherics/meter(loc)
 	I.play_tool_sound(src)
