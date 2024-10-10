@@ -1,5 +1,5 @@
-use crate::constants::*;
-use crate::model::*;
+use crate::milla::constants::*;
+use crate::milla::model::*;
 use byondapi::map::ByondXYZ;
 use eyre::eyre;
 use scc::Bag;
@@ -437,7 +437,7 @@ pub(crate) fn apply_tile_mode(
                 my_inactive_tile.thermal_energy *= 1.0 - SPACE_COOLING_FACTOR;
             }
         }
-		AtmosMode::NoDecay => {} // No special interactions
+        AtmosMode::NoDecay => {} // No special interactions
     }
     Ok(())
 }
