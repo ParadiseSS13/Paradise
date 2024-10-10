@@ -480,8 +480,7 @@
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
 		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
 		return
-	else
-		. = ..()
+	return ..()
 
 /obj/item/storage/belt/military/assault/marines/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g(src)
