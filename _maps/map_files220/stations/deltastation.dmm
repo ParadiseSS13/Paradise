@@ -98653,7 +98653,7 @@
 	},
 /area/station/service/kitchen)
 "sAs" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/window/classic/normal{
 	dir = 4;
 	name = "Kitchen Desk"

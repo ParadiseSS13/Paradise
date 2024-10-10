@@ -88822,7 +88822,7 @@
 	},
 /area/station/supply/office)
 "ylG" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/window/classic/normal{
 	name = "Anti-Theft Shield";
 	dir = 1
