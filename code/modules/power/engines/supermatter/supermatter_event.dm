@@ -66,7 +66,7 @@
 
 /datum/supermatter_event/delta_tier/sleeping_gas/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_sleeping_agent(200)
+	air.set_sleeping_agent(2000)
 	supermatter_turf.blind_release_air(air)
 
 // nitrogen
@@ -75,7 +75,7 @@
 
 /datum/supermatter_event/delta_tier/nitrogen/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_nitrogen(200)
+	air.set_nitrogen(2000)
 	supermatter_turf.blind_release_air(air)
 
 // carbon dioxide
@@ -84,7 +84,7 @@
 
 /datum/supermatter_event/delta_tier/carbon_dioxide/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_carbon_dioxide(250)
+	air.set_carbon_dioxide(2000)
 	supermatter_turf.blind_release_air(air)
 
 
@@ -103,7 +103,7 @@
 
 /datum/supermatter_event/charlie_tier/oxygen/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_oxygen(250)
+	air.set_oxygen(2000)
 	supermatter_turf.blind_release_air(air)
 
 // plasma
@@ -112,7 +112,7 @@
 
 /datum/supermatter_event/charlie_tier/plasma/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_toxins(200)
+	air.set_toxins(2000)
 	supermatter_turf.blind_release_air(air)
 
 // lowers the temp required for the SM to take damage.
@@ -121,7 +121,7 @@
 	duration = 5 MINUTES
 
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold/on_start()
-	supermatter.heat_penalty_threshold -= -73
+	supermatter.heat_penalty_threshold -= -173
 
 //Class B events
 /datum/supermatter_event/bravo_tier
@@ -137,14 +137,14 @@
 	name = "B-1"
 
 /datum/supermatter_event/bravo_tier/gas_multiply/on_start()
-	supermatter.gas_multiplier = 1.5
+	supermatter.gas_multiplier = 3
 
 
 /datum/supermatter_event/bravo_tier/heat_multiplier
 	name = "B-2"
 
 /datum/supermatter_event/bravo_tier/heat_multiplier/on_start()
-	supermatter.heat_multiplier = 1.25
+	supermatter.heat_multiplier = 3
 
 /datum/supermatter_event/bravo_tier/power_additive
 	name = "B-3"
@@ -216,4 +216,6 @@
 
 /datum/supermatter_event/sierra_tier/laminate/start_sierra_event()
 	..()
-	supermatter.heat_multiplier = 10
+	supermatter.heat_multiplier = 25
+	supermatter.gas_multiplier = 25
+	empulse(supermatter, 3, 6, TRUE, "S-laminite event")
