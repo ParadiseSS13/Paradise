@@ -16,7 +16,7 @@
 "an" = (
 /mob/living/simple_animal/hostile/malf_drone,
 /turf/space,
-/area/space)
+/area/space/no_teleport)
 "ao" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
@@ -38,7 +38,7 @@
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "aN" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -117,7 +117,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "ca" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -174,7 +174,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "dn" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
@@ -195,7 +195,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "dv" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -304,7 +304,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "fc" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/bluegrid{
@@ -332,7 +332,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "fv" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -353,7 +353,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "gi" = (
 /obj/item/radio/intercom{
 	pixel_y = 25
@@ -391,9 +391,9 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "gv" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/computer)
 "gG" = (
@@ -446,7 +446,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "hU" = (
 /obj/machinery/computer/teleporter,
 /obj/effect/turf_decal/delivery,
@@ -458,7 +458,7 @@
 /area/ruin/space/telecomms/computer)
 "ik" = (
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "il" = (
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -474,7 +474,7 @@
 /area/ruin/space/telecomms/computer)
 "iD" = (
 /turf/simulated/wall/indestructible/riveted,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "iE" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -577,7 +577,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "li" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -587,7 +587,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "lo" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -649,7 +649,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "mb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -684,7 +684,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "mD" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
@@ -695,7 +695,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "mN" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -710,7 +710,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "mZ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Core Access";
@@ -814,7 +814,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "ob" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/computer)
 "oe" = (
@@ -829,7 +829,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "ou" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -874,7 +874,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "oG" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -903,7 +903,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "pa" = (
 /obj/machinery/computer/borgupload,
 /turf/simulated/floor/bluegrid{
@@ -938,7 +938,7 @@
 /obj/structure/grille/broken,
 /mob/living/simple_animal/hostile/malf_drone,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "pU" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -948,7 +948,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "pV" = (
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel,
@@ -988,7 +988,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "qD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/powercontrol)
 "qE" = (
@@ -1038,7 +1038,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "rd" = (
 /obj/item/pen/gray,
 /turf/simulated/floor/plasteel,
@@ -1050,7 +1050,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "rL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1079,7 +1079,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "sq" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1143,7 +1143,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "to" = (
 /obj/machinery/porta_turret/ai_turret/disable{
 	check_synth = 1;
@@ -1433,7 +1433,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "wX" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms)
 "wY" = (
@@ -1458,7 +1458,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "xj" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1533,7 +1533,7 @@
 "yo" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "yq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1587,9 +1587,9 @@
 	},
 /area/ruin/space/telecomms/foyer)
 "yG" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "yJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1635,7 +1635,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "za" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
@@ -1645,7 +1645,7 @@
 /obj/structure/lattice,
 /obj/effect/abstract/cheese_trap,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "zq" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
@@ -1725,7 +1725,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Aj" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/engine,
 /area/ruin/space/telecomms/computer)
 "Ay" = (
@@ -1738,7 +1738,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Az" = (
 /obj/structure/lattice,
 /obj/structure/cable{
@@ -1749,7 +1749,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "AJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1832,7 +1832,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "BW" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -1885,7 +1885,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "CG" = (
 /obj/machinery/power/grounding_rod,
 /turf/simulated/floor/plasteel{
@@ -1919,7 +1919,7 @@
 /area/ruin/space/telecomms/powercontrol)
 "CU" = (
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Dd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1965,7 +1965,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "DT" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1990,14 +1990,14 @@
 /area/ruin/space/telecomms/tele)
 "Ed" = (
 /turf/space,
-/area/space)
+/area/space/no_teleport)
 "EF" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "EK" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2005,7 +2005,7 @@
 /obj/structure/lattice,
 /obj/effect/abstract/cheese_trap,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "EM" = (
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -2017,7 +2017,7 @@
 "EO" = (
 /obj/structure/window/reinforced,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "EQ" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -2033,7 +2033,7 @@
 	},
 /obj/machinery/power/tracker,
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Ff" = (
 /obj/machinery/light{
 	dir = 8
@@ -2096,13 +2096,13 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Gd" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Gf" = (
 /obj/machinery/light{
 	dir = 4
@@ -2121,7 +2121,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -2152,7 +2152,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "GH" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -2162,7 +2162,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "GQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -2193,7 +2193,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Hr" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/computer)
@@ -2214,7 +2214,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Hu" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/catwalk,
@@ -2237,7 +2237,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "HK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2296,7 +2296,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "IE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2339,9 +2339,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Jb" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/foyer)
 "Jm" = (
@@ -2436,7 +2436,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Ky" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -2451,7 +2451,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "KQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2492,7 +2492,7 @@
 /area/ruin/space/telecomms)
 "Lp" = (
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Lq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2538,7 +2538,7 @@
 	level = 1
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Ml" = (
 /obj/structure/cable,
 /obj/machinery/power/terminal{
@@ -2558,7 +2558,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "ME" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2653,7 +2653,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Od" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2674,14 +2674,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "On" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "OS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2757,7 +2757,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Qa" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
@@ -2821,7 +2821,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "QP" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -2829,7 +2829,7 @@
 	},
 /obj/effect/abstract/cheese_trap,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "QR" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2865,7 +2865,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Ra" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2875,7 +2875,7 @@
 	dir = 6
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Rh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2916,7 +2916,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "RB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -2988,7 +2988,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "SA" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/powercontrol)
@@ -3004,7 +3004,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Ta" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -3045,7 +3045,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "TT" = (
 /obj/machinery/doppler_array,
 /turf/simulated/floor/plasteel{
@@ -3067,7 +3067,7 @@
 "TY" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/no_teleport)
 "Uw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3112,7 +3112,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Vb" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32;
@@ -3136,7 +3136,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/catwalk/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Vm" = (
 /obj/machinery/light/small,
 /obj/machinery/light_switch{
@@ -3149,13 +3149,13 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Vp" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/no_teleport)
 "VB" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel,
@@ -3180,7 +3180,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "Wp" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/delivery,
@@ -3247,7 +3247,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "XB" = (
 /obj/structure/environmental_storytelling_holopad/core_room,
 /turf/simulated/floor/bluegrid{
@@ -3259,7 +3259,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "XJ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/tele)
 "XP" = (
@@ -3288,11 +3288,11 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "YC" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "YF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/abstract/bot_trap,
@@ -3316,14 +3316,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "YQ" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/no_teleport)
 "YW" = (
 /obj/structure/cable{
 	d2 = 2;

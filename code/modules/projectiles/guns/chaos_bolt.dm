@@ -247,6 +247,7 @@
 			H.electrocute_act(CHAOS_STAFF_DAMAGE, src)
 
 /datum/status_effect/teleport_roulette
+	id = "teleport_roulette"
 	duration = 16 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	tick_interval = 2 SECONDS

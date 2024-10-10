@@ -1284,6 +1284,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2664,9 +2665,10 @@
 	},
 /area/ruin/space/deepstorage)
 "pk" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/structure/rack,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2675,9 +2677,8 @@
 "ps" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -3939,8 +3940,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "ye" = (
-/obj/structure/table/reinforced,
-/obj/item/salvage/ruin/russian,
+/obj/structure/rack,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -4673,10 +4676,10 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Cn" = (
-/obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random_spawners/ruin/deepstorage_award,
+/obj/structure/rack,
+/obj/effect/spawner/random/deepstorage_reward,
+/obj/effect/spawner/random/deepstorage_reward,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -5482,8 +5485,8 @@
 /area/ruin/space/deepstorage)
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/safe,
-/obj/item/stack/spacecash/c500,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6016,6 +6019,7 @@
 /obj/structure/rack,
 /obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/deepstorage_reward/main,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7685,7 +7689,7 @@
 /area/ruin/space/deepstorage)
 "Yk" = (
 /obj/structure/table/reinforced,
-/obj/item/salvage/ruin/nanotrasen,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"

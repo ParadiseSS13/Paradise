@@ -59,14 +59,7 @@
 		. += "You can feel a bright spark of life in this one!"
 		return
 	if(brainmob?.mind)
-		var/foundghost = FALSE
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(G.mind == brainmob.mind)
-				foundghost = TRUE
-				if(!G.can_reenter_corpse)
-					foundghost = FALSE
-				break
-		if(foundghost)
+		if(brainmob.get_ghost())
 			. += "You can feel the small spark of life still left in this one."
 			return
 
@@ -148,7 +141,7 @@
 		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
 	else if(prob(4))
 		owner.vomit()
-		to_chat(owner, "<span class='warning'>'You feel nauseous.</span>")
+		to_chat(owner, "<span class='warning'>You feel nauseous.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 	if(prob(4))
