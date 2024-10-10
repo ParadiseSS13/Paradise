@@ -227,8 +227,8 @@
 /area/shuttle/administration)
 "bg" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/adv,
 /turf/simulated/floor/mineral/titanium,

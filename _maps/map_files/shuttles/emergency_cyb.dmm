@@ -442,7 +442,7 @@
 /area/shuttle/escape)
 "by" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
