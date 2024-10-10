@@ -46,6 +46,11 @@
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	if(flipped)
 		update_icon()
 
@@ -101,7 +106,7 @@
 		clear_smooth_overlays()
 
 // Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
-/obj/structure/table/set_smoothed_icon_state(new_junction) 
+/obj/structure/table/set_smoothed_icon_state(new_junction)
 	if(flipped)
 		return
 	..()
@@ -136,9 +141,10 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target)
+/obj/structure/table/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover,/obj/item/projectile))
-		return (check_cover(mover,target))
+		return check_cover(mover, border_dir)
+
 	var/mob/living/living_mover = mover
 	if(istype(living_mover) && (living_mover.flying || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
 		return TRUE
@@ -151,7 +157,7 @@
 		if(!T.flipped)
 			return TRUE
 	if(flipped)
-		if(get_dir(loc, target) == dir)
+		if(border_dir == dir)
 			return !density
 		else
 			return TRUE
@@ -168,30 +174,28 @@
  *
  * Arguments:
  * * P - The projectile trying to cross.
- * * from - Where the projectile is located.
+ * * proj_dir - The incoming direction of the projectile.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P, turf/from)
+/obj/structure/table/proc/check_cover(obj/item/projectile/P, proj_dir)
 	. = TRUE
 	if(!flipped)
 		return
 	if(get_dist(P.starting, loc) <= 1) // Tables won't help you if people are THIS close
 		return
-	var/proj_dir = get_dir(from, loc)
-	var/block_dir = get_dir(get_step(loc, dir), loc)
-	if(proj_dir != block_dir) // Back/side shots may pass
+	if(proj_dir != dir) // Back/side shots may pass
 		return
 	if(prob(40))
 		return FALSE // Blocked
 
-/obj/structure/table/CheckExit(atom/movable/O, turf/target)
-	if(istype(O) && O.checkpass(PASSTABLE))
-		return 1
+/obj/structure/table/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSTABLE))
+		return
+
 	if(flipped)
-		if(get_dir(loc, target) == dir)
-			return !density
-		else
-			return 1
-	return 1
+		if(direction == dir && density)
+			return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	if(..())
@@ -471,27 +475,27 @@
 	. = ..()
 	debris += new frame
 	debris += new shardtype
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /obj/structure/table/glass/Destroy()
 	for(var/i in debris)
 		qdel(i)
 	. = ..()
 
-/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
-	. = ..()
+/obj/structure/table/glass/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(flags & NODECONSTRUCT)
 		return
-	if(!isliving(AM))
+	if(!isliving(crossed))
 		return
-	var/mob/living/L = AM
+	var/mob/living/L = crossed
 	if(L.incorporeal_move || L.flying || L.floating)
 		return
 
 	// Don't break if they're just flying past
-	if(AM.throwing)
-		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
+	if(crossed.throwing)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), crossed), 5)
 	else
-		check_break(AM)
+		check_break(crossed)
 
 /obj/structure/table/glass/proc/throw_check(mob/living/M)
 	if(M.loc == get_turf(src))
@@ -910,7 +914,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target)
+/obj/structure/rack/CanPass(atom/movable/mover, border_dir)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover))
