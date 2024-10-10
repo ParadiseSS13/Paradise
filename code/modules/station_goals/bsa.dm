@@ -223,7 +223,7 @@
 	reload()
 
 /obj/machinery/bsa/full/proc/reload()
-	if(machine_powernet && machine_powernet.powernet_apc && machine_powernet.powernet_apc.cell.charge KJ >= energy_used_per_shot)
+	if(machine_powernet?.powernet_apc?.cell?.charge KJ >= energy_used_per_shot)
 		try_reload = FALSE
 		use_power(energy_used_per_shot)
 		COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
