@@ -500,16 +500,6 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
-	var/f_name = "\a [src]."
-	if(blood_DNA && !istype(src, /obj/effect/decal))
-		if(gender == PLURAL)
-			f_name = "some "
-		else
-			f_name = "a "
-		f_name += "<span class='danger'>blood-stained</span> [name]!"
-
-	. = list("[bicon(src)] That's [f_name]")
-
-	if(desc)
-		. += desc
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user)
+	// So that it is stealthy
+	return build_base_description()

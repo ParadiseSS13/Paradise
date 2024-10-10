@@ -43,6 +43,7 @@
 	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
+	var/flipped_table_icon_base = "table"
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -78,19 +79,7 @@
 				type++
 				if(type == 1)
 					subtype = direction == turn(dir,90) ? "-" : "+"
-		var/base = "table"
-		if(istype(src, /obj/structure/table/wood))
-			base = "wood"
-		if(istype(src, /obj/structure/table/reinforced))
-			base = "rtable"
-		if(istype(src, /obj/structure/table/wood/poker))
-			base = "poker"
-		if(istype(src, /obj/structure/table/wood/fancy))
-			base = "fancy"
-		if(istype(src, /obj/structure/table/wood/fancy/black))
-			base = "fancyblack"
-
-		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
+		icon_state = "[flipped_table_icon_base]flip[type][type == 1 ? subtype : ""]"
 
 /obj/structure/table/proc/update_smoothing()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
@@ -101,7 +90,7 @@
 		clear_smooth_overlays()
 
 // Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
-/obj/structure/table/set_smoothed_icon_state(new_junction) 
+/obj/structure/table/set_smoothed_icon_state(new_junction)
 	if(flipped)
 		return
 	..()
@@ -650,6 +639,7 @@
 	icon = 'icons/obj/smooth_structures/tables/wood_table.dmi'
 	icon_state = "wood_table-0"
 	base_icon_state = "wood_table"
+	flipped_table_icon_base = "wood"
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
@@ -669,6 +659,7 @@
 	icon = 'icons/obj/smooth_structures/tables/poker_table.dmi'
 	icon_state = "poker_table-0"
 	base_icon_state = "poker_table"
+	flipped_table_icon_base = "poker"
 	buildstack = /obj/item/stack/tile/carpet
 
 /obj/structure/table/wood/poker/narsie_act()
@@ -684,6 +675,7 @@
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table.dmi'
 	icon_state = "fancy_table-0"
 	base_icon_state = "fancy_table"
+	flipped_table_icon_base = "fancy"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
@@ -700,6 +692,7 @@
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black-0"
 	base_icon_state = "fancy_table_black"
+	flipped_table_icon_base = "fancyblack"
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table_black.dmi'
 
@@ -762,6 +755,7 @@
 	icon = 'icons/obj/smooth_structures/tables/reinforced_table.dmi'
 	icon_state = "reinforced_table-0"
 	base_icon_state = "reinforced_table"
+	flipped_table_icon_base = "rtables"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
