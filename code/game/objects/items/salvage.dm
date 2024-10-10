@@ -27,7 +27,7 @@
 	icon_state = "barrel"
 	color = "#7e5c00" // So that it's slightly different from normal kegs
 
-/obj/item/salvage/ruin/russian
+/obj/item/salvage/ruin/soviet
 	name = "armaments cache"
 	desc = "A crate of old disused Belastrav ballistic firearms that have been weathered into uselessness. They still may be of value to collectors, however."
 	icon_state = "weapon_crate"
@@ -85,7 +85,7 @@
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
-/obj/item/salvage/loot/russian
+/obj/item/salvage/loot/soviet
 	name = "\improper Cygni manifesto"
 	desc = "A small book, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
 	icon_state = "ussp_manual"

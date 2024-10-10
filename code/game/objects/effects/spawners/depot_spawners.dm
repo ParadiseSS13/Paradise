@@ -37,14 +37,14 @@
 	name = "33pc trap pizza"
 	icon_state = "pizzabox"
 	loot = list(
-		/obj/item/pizzabox/pepperoni = 7, // Higher weight as a pizza bomb looks like pepperoni by default
-		/obj/item/pizzabox/pizza_bomb/autoarm = 7,
+		/obj/item/pizzabox/pizza_bomb/autoarm = 4,
 		/obj/item/pizzabox/firecracker = 1,
 		/obj/item/pizzabox/garlic = 1,
 		/obj/item/pizzabox/hawaiian = 1,
 		/obj/item/pizzabox/margherita = 1,
 		/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/mushroom = 1,
+		/obj/item/pizzabox/pepperoni = 1,
 		/obj/item/pizzabox/vegetable = 1,
 	)
 
@@ -58,12 +58,16 @@
 /obj/effect/spawner/random/syndicate/trapped_documents
 	name = "50pc trapped documents"
 	icon_state = "folder"
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
 	loot = list(
 		/obj/item/documents/syndicate/yellow,
 		/obj/item/documents/syndicate/yellow/trapped,
 	)
 
 // Loot
+/obj/effect/spawner/random/syndicate/loot
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
+
 /obj/effect/spawner/random/syndicate/loot/common
 	name = "syndicate depot loot, common"
 	icon_state = "loot"
@@ -87,6 +91,7 @@
 /obj/effect/spawner/random/syndicate/loot/stetchkin
 	name = "syndicate depot loot, 20pct stetchkin"
 	icon_state = "stetchkin"
+	spawn_inside = null
 	spawn_loot_chance = 80
 	loot = list(
 		/obj/item/gun/projectile/automatic/pistol,
@@ -155,6 +160,7 @@
 
 /obj/effect/spawner/random/syndicate/loot/armory
 	name = "syndicate depot loot, armory"
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	loot = list(
 		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
@@ -167,6 +173,7 @@
 		/obj/item/shield/energy,
 		/obj/item/storage/box/syndie_kit/teleporter,
 		/obj/item/weaponcrafting/gunkit/universal_gun_kit,
+		/obj/item/mod/control/pre_equipped/traitor_elite
 	)
 
 // Layout-affecting spawns
