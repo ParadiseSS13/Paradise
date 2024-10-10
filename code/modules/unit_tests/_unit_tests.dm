@@ -24,6 +24,7 @@
 #include "spawn_humans.dm"
 #include "spell_targeting_test.dm"
 #include "sql.dm"
+#include "status_effect_ids.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "test_runner.dm"

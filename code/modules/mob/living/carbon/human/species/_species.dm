@@ -337,7 +337,7 @@
 	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
 	leftover -= .
 
-	var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
+	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
 	if(H.reagents)
 		for(var/datum/reagent/R in H.reagents.reagent_list)
 			if(R.shock_reduction)
@@ -586,7 +586,7 @@
 	if(target.anchored)
 		return FALSE
 	if(target.buckled)
-		target.buckled.unbuckle_mob(target)
+		target.unbuckle()
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)

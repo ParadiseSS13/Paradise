@@ -319,7 +319,7 @@
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (usr in get_turf(src) || loc.Adjacent(usr))))
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && ((usr in get_turf(src)) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
@@ -651,11 +651,11 @@
 	name = "Teleporter Instructions"
 	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
-/obj/item/paper/russiantraitorobj
+/obj/item/paper/soviettraitorobj
 	name = "paper- 'Mission Objectives'"
 	info = "The Syndicate have cunningly disguised a Syndicate Uplink as your PDA. Simply enter the code \"678 Bravo\" into the ringtone select to unlock its hidden features. <br><br><b>Objective #1</b>. Kill the God damn AI in a fire blast that it rocks the station. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
-/obj/item/paper/russiannuclearoperativeobj
+/obj/item/paper/sovietnuclearoperativeobj
 	name = "paper- 'Objectives of a Nuclear Operative'"
 	info = "<b>Objective #1</b>: Destroy the station with a nuclear device."
 

@@ -516,17 +516,6 @@
 
 				mode = SHUTTLE_ENDGAME
 				timer = 0
-				open_dock()
-
-/obj/docking_port/mobile/emergency/proc/open_dock()
-	pass()
-/*
-	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
-		var/turf/T = get_step(D, D.checkdir)
-		if(!istype(T,/turf/space))
-			spawn(0)
-				D.open()
-*/ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
 
 /obj/docking_port/mobile/emergency/proc/random_docking_go()
 	var/cycles = 1000
