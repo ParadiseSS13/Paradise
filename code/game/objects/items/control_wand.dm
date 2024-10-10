@@ -196,6 +196,10 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
+/obj/item/door_remote/omni/access_tuner/flayer
+	name = "integrated access tuner"
+	hack_speed = 5 SECONDS
+
 /// How long before you can "jangle" your keyring again (to prevent spam)
 #define JANGLE_COOLDOWN 10 SECONDS
 

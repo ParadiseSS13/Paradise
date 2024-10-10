@@ -7,17 +7,16 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General")
-	protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
 	/// The total number of changelings allowed to be picked.
 	var/changeling_amount = 4
-	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
-	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/changeling/Destroy(force, ...)
 	pre_changelings.Cut()
+	pre_mindflayers.Cut()
 	return ..()
 
 /datum/game_mode/changeling/announce()
@@ -36,11 +35,15 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		if(!length(possible_changelings))
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
-		pre_changelings += changeling
 		changeling.restricted_roles = restricted_jobs
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
+			pre_mindflayers += changeling
+			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
+			continue
+		pre_changelings += changeling
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
-	if(!length(pre_changelings))
+	if(!(length(pre_changelings) + length(pre_mindflayers)))
 		return FALSE
 
 	return TRUE

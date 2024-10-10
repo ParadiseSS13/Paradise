@@ -46,7 +46,7 @@
 * Arguments:
 * * I - item to load into the cannon
 * * user - the person loading the item in
-* Returns:
+* * Returns:
 * * True if item was loaded, false if it failed
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
@@ -59,7 +59,6 @@
 	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
@@ -181,3 +180,41 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_weight_class = 7
 	gas_per_throw = 5
+
+// Mind Flayer Flak Cannon
+// Not used anymore, really just for adminbus
+/obj/item/pneumatic_cannon/flayer
+	name = "\improper Pneumatic Flak Cannon"
+	desc = "An arm-mounted cannon that can shoot a concentrated burst of flak."
+	flags = ABSTRACT | NODROP
+	requires_tank = FALSE
+	max_weight_class = 6 //Lets you load upto 3 shrapnel at once
+	pressure_setting = 2
+	var/charge_time = 10 SECONDS
+	COOLDOWN_DECLARE(charge_cooldown)
+
+/obj/item/pneumatic_cannon/flayer/New()
+	START_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/pneumatic_cannon/flayer/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/pneumatic_cannon/flayer/process()
+	if(!COOLDOWN_FINISHED(src, charge_cooldown))
+		return
+	if(loaded_weight_class >= max_weight_class)
+		return
+	COOLDOWN_START(src, charge_cooldown, charge_time)
+	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel()
+	load_item(to_load)
+
+/obj/item/pneumatic_cannon/flayer/load_item(obj/item/I)
+	loaded_items += I
+	loaded_weight_class += I.w_class
+	I.forceMove(src)
+
+
+/obj/item/pneumatic_cannon/flayer/wrench_act(mob/living/user, obj/item/I)
+	return FALSE

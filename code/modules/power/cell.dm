@@ -375,3 +375,10 @@
 	name = "reactive armor power cell"
 	desc = "A cell used to power reactive armors."
 	maxcharge = 2400
+
+/obj/item/stock_parts/cell/flayerprod
+	name = "mind flayer internal cell"
+	desc = "you shouldn't be seeing this, contact a coder"
+	maxcharge = 4000
+	self_recharge = TRUE
+	chargerate = 200 //This self charges it 50 power per tick at the base level
