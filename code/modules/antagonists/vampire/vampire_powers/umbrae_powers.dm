@@ -173,6 +173,8 @@
 		user.make_invisible()
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 	else
+		if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, end_turf) & COMPONENT_BLOCK_TELEPORT) //You can fake it out, but no teleporting
+			return FALSE
 		user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
@@ -226,6 +228,8 @@
 
 /datum/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
 
