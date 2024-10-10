@@ -207,4 +207,5 @@
 /// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
 
+/// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
