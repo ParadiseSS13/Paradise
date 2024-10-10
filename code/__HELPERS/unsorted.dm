@@ -1950,13 +1950,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Radio Noise"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
+		if(CHANNEL_SURGERY_SOUNDS)
+			return "Surgery Sounds"
 		// SS220 ADDITON START
 		if(CHANNEL_TTS_LOCAL)
 			return "TTS Local"
 		if(CHANNEL_TTS_RADIO)
 			return "TTS Radio"
 		if(CHANNEL_CINEMATIC)
-			return "Cinematic music"
+			return "Cinematic Music"
 		// SS220 ADDITION END
 
 
