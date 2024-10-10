@@ -90,7 +90,8 @@
 		saved.shoot_inventory = FALSE
 		saved.aggressive = FALSE
 		if(saved.tiltable)
-			qdel(saved.GetComponent(/datum/component/proximity_monitor))
+			saved.DeleteComponent(/datum/component/proximity_monitor)
+
 	if(originMachine)
 		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 		originMachine.visible_message("[originMachine] beeps and seems lifeless.")

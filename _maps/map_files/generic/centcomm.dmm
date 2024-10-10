@@ -8001,7 +8001,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Cu" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "Cv" = (
