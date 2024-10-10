@@ -12,9 +12,8 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
-	icon_state = "black"
-	icon_opened = "generic_open"
-	open_door_sprite = "generic_door"
+	icon_state = "generic"
+	closed_door_sprite = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
@@ -40,9 +39,9 @@
 /obj/structure/closet/chefcloset
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
-	icon_state = "black"
-	icon_opened = "generic_open"
-	open_door_sprite = "generic_door"
+	icon_state = "generic"
+	closed_door_sprite = "black"
+
 
 /obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/misc/waiter(src)
@@ -68,9 +67,9 @@
 /obj/structure/closet/jcloset
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
-	icon_state = "mixed"
-	icon_opened = "generic_open"
-	open_door_sprite = "generic_door"
+	icon_state = "generic"
+	closed_door_sprite = "mixed"
+
 
 /obj/structure/closet/jcloset/populate_contents()
 	new /obj/item/flashlight(src)
@@ -104,9 +103,9 @@
 /obj/structure/closet/paramedic
 	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
-	icon_state = "blue"
-	icon_opened = "generic_open"
-	open_door_sprite = "generic_door"
+	icon_state = "generic"
+	closed_door_sprite = "blue"
+
 
 
 /obj/structure/closet/paramedic/populate_contents()

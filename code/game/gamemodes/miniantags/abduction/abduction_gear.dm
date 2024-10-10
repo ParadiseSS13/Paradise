@@ -903,8 +903,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
-	icon_closed = "abductor"
-	icon_opened = "abductor_open"
+	door_anim_time = 0
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 
 /obj/structure/door_assembly/door_assembly_abductor

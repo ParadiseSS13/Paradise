@@ -3,9 +3,9 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	open_door_sprite = "secure_door"
 	opened = FALSE
 	locked = TRUE
+	secure = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -17,14 +17,6 @@
 	if(locked)
 		return FALSE
 	return ..()
-
-/obj/structure/closet/secure_closet/close()
-	if(..())
-		if(broken)
-			update_icon()
-		return TRUE
-	else
-		return FALSE
 
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/O in src)
@@ -83,20 +75,6 @@
 	else
 		toggle(user)
 
-/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	cut_overlays()
-	if(opened)
-		add_overlay(open_door_sprite)
-		return
-	if(welded)
-		add_overlay("welded")
-	if(broken)
-		return
-	if(locked)
-		add_overlay("locked")
-	else
-		add_overlay("unlocked")
-
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 MINUTES
 	if(opened)
@@ -113,7 +91,7 @@
 
 
 	spawn(0)
-		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE)) 
+		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 

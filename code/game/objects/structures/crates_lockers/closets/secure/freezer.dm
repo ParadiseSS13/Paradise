@@ -1,5 +1,8 @@
 /obj/structure/closet/secure_closet/freezer
 	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
+	door_anim_squish = 0.22
+	door_anim_angle = 123
+	door_anim_time = 2.50
 
 /obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
@@ -40,7 +43,6 @@
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
 	icon_state = "freezer"
-	open_door_sprite = "freezer_door"
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
@@ -53,7 +55,6 @@
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
 	icon_state = "freezer"
-	open_door_sprite = "freezer_door"
 
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
@@ -69,7 +70,6 @@
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"
 	icon_state = "freezer"
-	open_door_sprite = "freezer_door"
 	req_access = list(ACCESS_HEADS_VAULT)
 
 /obj/structure/closet/secure_closet/freezer/money/populate_contents()

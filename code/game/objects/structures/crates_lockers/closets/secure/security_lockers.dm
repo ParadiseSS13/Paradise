@@ -2,7 +2,6 @@
 	name = "captain's locker"
 	req_access = list(ACCESS_CAPTAIN)
 	icon_state = "cap"
-	open_door_sprite = "cap_door"
 
 /obj/structure/closet/secure_closet/captains/populate_contents()
 	if(prob(50))
@@ -25,7 +24,6 @@
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
-	open_door_sprite = "hop_door"
 
 /obj/structure/closet/secure_closet/hop/populate_contents()
 	new /obj/item/cartridge/hop(src)
@@ -43,7 +41,6 @@
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
-	open_door_sprite = "hos_door"
 
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
@@ -72,7 +69,7 @@
 	name = "warden's locker"
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "warden"
-	open_door_sprite = "sec_door"
+	opened_door_sprite = "sec"
 
 /obj/structure/closet/secure_closet/warden/populate_contents()
 	if(prob(50))
@@ -94,7 +91,6 @@
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "sec"
-	open_door_sprite = "sec_door"
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
@@ -123,9 +119,8 @@
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
-	icon_state = "bs"
-	open_door_sprite = "hop_door"
-	icon_opened = "hop_open"
+	icon_state = "hop"
+	closed_door_sprite = "bs"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/backpack/blueshield(src)
@@ -145,9 +140,8 @@
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
-	icon_state = "ntr"
-	open_door_sprite = "hop_door"
-	icon_opened = "hop_open"
+	icon_state = "hop"
+	closed_door_sprite = "ntr"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -188,7 +182,7 @@
 	name = "detective's cabinet"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinet"
-	open_door_sprite = "cabinet_door"
+	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -305,7 +299,7 @@
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magi"
-	open_door_sprite = "chaplain_door"
+	opened_door_sprite = "chaplain"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -322,9 +316,9 @@
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
 	req_access = list(ACCESS_INTERNAL_AFFAIRS)
-	icon_opened = "magi_open"
-	icon_state = "iaa"
-	open_door_sprite = "chaplain_door"
+	icon_state = "magi"
+	opened_door_sprite = "chaplain"
+	closed_door_sprite = "iaa"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
