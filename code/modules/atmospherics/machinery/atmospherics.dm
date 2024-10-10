@@ -77,6 +77,7 @@ Pipelines + Other Objects -> Pipe network
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
+	var/datum/pipeline/current_pipenet = returnPipenet(src)
 	SSair.atmos_machinery -= src
 	SSair.pipenets_to_build -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
@@ -325,6 +326,7 @@ Pipelines + Other Objects -> Pipe network
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	var/datum/pipeline/current_pipenet = returnPipenet(src)
 	direction &= initialize_directions
 	if(!direction || !(direction in GLOB.cardinal)) //cant go this way.
 		return
@@ -335,6 +337,7 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
@@ -347,6 +350,7 @@ Pipelines + Other Objects -> Pipe network
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
