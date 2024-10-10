@@ -248,7 +248,7 @@
 	select_fire(user)
 	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
-/obj/item/gun/energy/lwap/attack_self()
+/obj/item/gun/energy/lwap/attack_self__legacy__attackchain()
 	return //no manual ammo changing.
 
 /obj/item/ammo_casing/energy/laser/sniper

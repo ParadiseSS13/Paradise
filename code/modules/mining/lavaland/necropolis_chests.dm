@@ -321,7 +321,7 @@
 	var/usedHand
 	var/mob/living/carbon/owner
 
-/obj/item/rod_of_asclepius/attack_self(mob/user)
+/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
 	if(activated)
 		return
 	if(!iscarbon(user))
@@ -435,7 +435,7 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
@@ -546,11 +546,11 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self(mob/user)
+/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reset_inputs(user, TRUE)
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))

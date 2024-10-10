@@ -74,7 +74,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
-/obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/seed_extractor/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
 		return
 

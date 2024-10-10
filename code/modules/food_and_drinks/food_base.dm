@@ -159,10 +159,10 @@
 /obj/item/food/proc/Post_Consume(mob/living/M)
 	return
 
-/obj/item/food/attack_self(mob/user)
+/obj/item/food/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/food/attack(mob/M, mob/user, def_zone)
+/obj/item/food/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM && force)
 		return ..()
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
@@ -179,10 +179,10 @@
 			return TRUE
 	return FALSE
 
-/obj/item/food/afterattack(obj/target, mob/user, proximity)
+/obj/item/food/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	return
 
-/obj/item/food/attackby(obj/item/W, mob/user, params)
+/obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
@@ -305,7 +305,7 @@
 	add_fingerprint(user)
 	I.forceMove(src)
 
-/obj/item/food/sliceable/attackby(obj/item/I, mob/user, params)
+/obj/item/food/sliceable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return FALSE
 

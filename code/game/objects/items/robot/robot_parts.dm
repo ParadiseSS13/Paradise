@@ -25,7 +25,7 @@
 
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
-/obj/item/robot_parts/attack_self(mob/user)
+/obj/item/robot_parts/attack_self__legacy__attackchain(mob/user)
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!choice)
 		return
@@ -117,7 +117,7 @@
 	forced_ai = null
 	return ..()
 
-/obj/item/robot_parts/robot_suit/attack_self(mob/user)
+/obj/item/robot_parts/robot_suit/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/robot_parts/robot_suit/update_overlays()
@@ -143,7 +143,7 @@
 				return 1
 	return 0
 
-/obj/item/robot_parts/robot_suit/attackby(obj/item/W, mob/user, params)
+/obj/item/robot_parts/robot_suit/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/sheet/metal/M = W
@@ -368,7 +368,7 @@
 	Interact(usr)
 	return
 
-/obj/item/robot_parts/chest/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/robot_parts/chest/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(cell)
@@ -390,7 +390,7 @@
 			to_chat(user, "<span class='notice'>You insert the wire!</span>")
 	return
 
-/obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/robot_parts/head/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/flash))
 		if(isrobot(user))

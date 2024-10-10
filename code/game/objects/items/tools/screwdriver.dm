@@ -50,7 +50,7 @@
 	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/screwdriver/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M) || user.a_intent == INTENT_HELP)
 		return ..()
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
@@ -117,7 +117,7 @@
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/power/attack_self(mob/user)
+/obj/item/screwdriver/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")

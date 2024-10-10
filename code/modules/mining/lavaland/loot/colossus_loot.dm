@@ -49,7 +49,7 @@
 	..()
 	ActivationReaction(user,"touch")
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/anomalous_crystal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	ActivationReaction(user,"weapon")
 	return ..()
 

@@ -46,7 +46,7 @@
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
@@ -463,7 +463,7 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(cult_girder_icon_state, initial(icon_state))
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/cult/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")

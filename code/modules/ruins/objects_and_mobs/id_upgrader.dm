@@ -8,7 +8,7 @@
 	/// Have we been used?
 	var/used = FALSE
 
-/obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/id_upgrader/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/D = I
 		if(!length(access_to_give))

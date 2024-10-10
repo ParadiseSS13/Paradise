@@ -62,7 +62,7 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
+/turf/simulated/floor/chasm/attackby__legacy__attackchain(obj/item/C, mob/user, params, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)

@@ -58,17 +58,17 @@
 	gripped_item = null
 	return TRUE
 
-/obj/item/gripper/attack_self(mob/user)
+/obj/item/gripper/attack_self__legacy__attackchain(mob/user)
 	if(!gripped_item)
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 		return
-	gripped_item.attack_self(user)
+	gripped_item.attack_self__legacy__attackchain(user)
 
 // This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 /obj/item/gripper/forceMove(atom/destination)
 	return
 
-/obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gripper/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity, params)
 	// Target is invalid or we are not adjacent.
 	if(!target || !proximity)
 		return
@@ -76,8 +76,8 @@
 	// Does the gripper already have an item?
 	if(gripped_item)
 		// Pass the attack on to the target. This might delete/relocate gripped_item. If the attackby doesn't resolve or delete the target or gripped_item, afterattack.
-		if(!target.attackby(gripped_item, user, params))
-			gripped_item?.afterattack(target, user, 1, params)
+		if(!target.attackby__legacy__attackchain(gripped_item, user, params))
+			gripped_item?.afterattack__legacy__attackchain(target, user, 1, params)
 		// Check to see if there is still an item in the gripper (stackable items trigger this).
 		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
@@ -157,7 +157,7 @@
 	..()
 	return TRUE
 
-/obj/item/gripper/attack(mob/living/M, mob/living/silicon/robot/user, params)
+/obj/item/gripper/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user, params)
 	if(gripped_item)
 		return
 
@@ -194,7 +194,7 @@
 		if(isanimal(M) && !M.holder_type)
 			var/list/modifiers = params2list(params)
 			// This enables borgs to get the floating heart icon and mob emote from simple_animals that have petbonus == TRUE.
-			M.attack_hand(user, modifiers) 
+			M.attack_hand(user, modifiers)
 
 		if(user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
@@ -279,10 +279,10 @@
 
 // MARK: Gripper Types
 
-/* 
+/*
 * Universal Gripper
-* Not supplied to any cyborg by default. 
-* Can be varedited onto a borg for event stuff. 
+* Not supplied to any cyborg by default.
+* Can be varedited onto a borg for event stuff.
 * Functions almost like a real hand!
 */
 /obj/item/gripper/universal

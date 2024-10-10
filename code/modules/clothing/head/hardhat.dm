@@ -17,7 +17,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/hardhat/attack_self(mob/living/user)
+/obj/item/clothing/head/hardhat/attack_self__legacy__attackchain(mob/living/user)
 	toggle_helmet_light(user)
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)

@@ -45,7 +45,7 @@
 	AddComponent(/datum/component/caltrop, force)
 	set_initial_icon_state()
 
-/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/shard/afterattack__legacy__attackchain(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))

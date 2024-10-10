@@ -31,7 +31,7 @@
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
-/obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
+/obj/item/wirecutters/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		QDEL_NULL(C.handcuffed)
@@ -145,7 +145,7 @@
 
 	return OXYLOSS
 
-/obj/item/wirecutters/power/attack_self(mob/user)
+/obj/item/wirecutters/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")

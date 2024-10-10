@@ -43,10 +43,10 @@
 
 
 
-/obj/item/laser_pointer/attack(mob/living/M, mob/user)
+/obj/item/laser_pointer/attack__legacy__attackchain(mob/living/M, mob/user)
 	laser_act(M, user)
 
-/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
+/obj/item/laser_pointer/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
 			user.drop_item()
@@ -65,7 +65,7 @@
 	diode = null
 	return TRUE
 
-/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)

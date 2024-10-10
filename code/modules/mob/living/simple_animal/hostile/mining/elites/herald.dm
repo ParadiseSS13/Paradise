@@ -268,7 +268,7 @@
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
 
-/obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
+/obj/item/clothing/accessory/necklace/herald_cloak/attack_self__legacy__attackchain()
 	if(has_suit)
 		mirror_walk()
 

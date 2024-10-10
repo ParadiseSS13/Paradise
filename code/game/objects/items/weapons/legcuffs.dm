@@ -39,7 +39,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
+/obj/item/restraints/legcuffs/beartrap/attack_self__legacy__attackchain(mob/user)
 	..()
 
 	if(!ishuman(user) || user.restrained())
@@ -50,7 +50,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
-/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
+/obj/item/restraints/legcuffs/beartrap/attackby__legacy__attackchain(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")

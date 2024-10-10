@@ -288,7 +288,7 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
@@ -539,7 +539,7 @@
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -906,13 +906,13 @@
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user, params)
+			A.attackby__legacy__attackchain(I, user, params)
 		return TRUE
 
 	. = ..()

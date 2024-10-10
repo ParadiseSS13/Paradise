@@ -58,7 +58,7 @@
 	desc = "The hunger..."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/consume_resin/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/consume_resin/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You stop trying to consume resin.</span>")
 		..()

@@ -9,7 +9,7 @@
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
+/obj/structure/ore_box/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore))
 		if(!user.drop_item())
 			return

@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = req_grind
 
-/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
+/obj/machinery/monkey_recycler/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
 		return
 

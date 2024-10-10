@@ -69,7 +69,7 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
@@ -106,7 +106,7 @@
 
 
 // Various gene procs
-/obj/item/food/grown/attack_self(mob/user)
+/obj/item/food/grown/attack_self__legacy__attackchain(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
 	..()
@@ -174,7 +174,7 @@
 	return ..()
 
 // For item-containing growns such as eggy or gatfruit
-/obj/item/food/grown/shell/attack_self(mob/user)
+/obj/item/food/grown/shell/attack_self__legacy__attackchain(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.unEquip(src)

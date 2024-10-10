@@ -34,7 +34,7 @@
 		return
 	check_mag_pulse()
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user, forced = FALSE)
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
@@ -173,7 +173,7 @@
 	magpulse_name = "gripping ability"
 	magical = TRUE
 
-/obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/wizard/attack_self__legacy__attackchain(mob/user)
 	if(!user)
 		return
 	if(!iswizard(user))
@@ -229,7 +229,7 @@
 	else
 		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
 
-/obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/gravity/attack_self__legacy__attackchain(mob/user)
 	if(!cell)
 		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
 		return
@@ -249,7 +249,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user, TRUE)
+			attack_self__legacy__attackchain(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -271,7 +271,7 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
@@ -313,7 +313,7 @@
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user, TRUE)
+			attack_self__legacy__attackchain(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_SHOES)

@@ -60,7 +60,7 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)

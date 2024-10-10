@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	update_icon()
 
 // Step 2
-/obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/main/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(construction_state != GRAV_NEEDS_PLASTEEL)
 		return ..()
 	if(istype(I, /obj/item/stack/sheet/plasteel))

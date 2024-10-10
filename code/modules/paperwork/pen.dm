@@ -74,7 +74,7 @@
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon()
 
-/obj/item/pen/multi/attack_self(mob/living/user as mob)
+/obj/item/pen/multi/attack_self__legacy__attackchain(mob/living/user as mob)
 	select_colour(user)
 
 /obj/item/pen/multi/update_overlays()
@@ -146,7 +146,7 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/sleepy/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
@@ -183,7 +183,7 @@
 	origin_tech = "engineering=4;syndicate=2"
 	transfer_amount = 25 // 4 Dosages instead of 2
 
-/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
+/obj/item/pen/sleepy/love/attack__legacy__attackchain(mob/living/M, mob/user)
 	var/can_transfer = reagents.total_volume && M.reagents
 	. = ..()
 	if(can_transfer && .)
@@ -210,7 +210,7 @@
 	armour_penetration_flat = 20
 	throw_speed = 4
 
-/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(cigarette_lighter_act(user, M))
 		return
 
@@ -264,7 +264,7 @@
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE
 
-/obj/item/pen/edagger/attack_self(mob/living/user)
+/obj/item/pen/edagger/attack_self__legacy__attackchain(mob/living/user)
 	if(active)
 		active = FALSE
 		force = initial(force)
@@ -308,7 +308,7 @@
 /obj/item/pen/multi/poison
 	var/current_poison = null
 
-/obj/item/pen/multi/poison/attack_self(mob/living/user)
+/obj/item/pen/multi/poison/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	switch(colour)
 		if("black")

@@ -50,7 +50,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(on_tool_attack))
+	RegisterSignal(src, COMSIG_ATTACK_BY, PROC_REF(on_attack_by))
 
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
@@ -79,14 +79,15 @@
 	materials.retrieve_all()
 	return ..()
 
-/obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
-	SIGNAL_HANDLER
-	var/obj/item/I = tool
-	if(!istype(I))
+/obj/machinery/autolathe/proc/on_attack_by(datum/source, obj/item/attacking, mob/user)
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
+
+	if(!istype(attacking))
 		return
+
 	// Allows screwdrivers to be recycled on harm intent
-	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
-		return COMPONENT_CANCEL_TOOLACT
+	if(attacking.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
+		return COMPONENT_SKIP_AFTERATTACK
 
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
@@ -262,7 +263,7 @@
 		data["queue"] = null
 	return data
 
-/obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
+/obj/machinery/autolathe/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE

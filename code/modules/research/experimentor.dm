@@ -98,7 +98,7 @@
 			return FALSE
 	return TRUE
 
-/obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/r_n_d/experimentor/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/storage/part_replacer))
 		return ..()
 
