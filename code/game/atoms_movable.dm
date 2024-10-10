@@ -661,6 +661,7 @@
 
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SHOVE_IMPACT, target, attacker)
 	return FALSE
 
 /**
@@ -676,9 +677,7 @@
 
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		qdel(comp)
+	DeleteComponent(/datum/component/deadchat_control)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()
