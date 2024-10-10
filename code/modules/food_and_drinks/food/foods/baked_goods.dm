@@ -259,6 +259,259 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
+/obj/item/food/sliceable/holy_cake
+	name = "angel food cake"
+	desc = "A cake made for angels and chaplains alike! Contains holy water."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "holy_cake"
+	slice_path = /obj/item/food/holy_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#ffffff"
+	list_reagents = list("nutriment" = 1, "vitamin" = 3, "holywater" = 10)
+	tastes = list("cake" = 5, "sweetness" = 1, "clouds" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/holy_cake_slice
+	name = "holy cake slice"
+	desc = "A slice of heavenly cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "holy_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#ffffff"
+	tastes = list("cake" = 5, "sweetness" = 1, "clouds" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/liars_cake
+	name = "strawberry chocolate cake"
+	desc = "A chocolate cake with five strawberries on top. For some reason, this configuration of cake is particularly aesthetically pleasing to AIs in SELF."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "liars_cake"
+	slice_path = /obj/item/food/liars_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#240606c7"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5, "cocoa" = 5)
+	tastes = list("blackberry" = 2, "strawberries" = 2, "chocolate" = 2, "sweetness" = 2, "cake" = 3)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/liars_slice
+	name = "strawberry chocolate cake slice"
+	desc = "Just a slice of cake with five strawberries on top. \
+		For some reason, this configuration of cake is particularly aesthetically pleasing to AIs in SELF."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "liars_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#ffffff"
+	tastes = list("strawberries" = 2, "chocolate" = 2, "sweetness" = 2, "cake" = 3)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/vanilla_berry_cake
+	name = "blackberry and strawberry vanilla cake"
+	desc = "A plain cake, filled with assortment of blackberries and strawberries!"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "vanilla_berry_cake"
+	slice_path = /obj/item/food/vanilla_berry_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#f0e3e3c7"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5, "vanilla" = 5)
+	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2, "cake" = 3)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/vanilla_berry_cake_slice
+	name = "blackberry and strawberry vanilla cake slice"
+	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "vanilla_berry_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#ffffff"
+	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2, "cake" = 3)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/hardware_cake
+	name = "hardware cake"
+	desc = "A \"cake\" that is made with electronic boards and leaks acid..."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "hardware_cake"
+	slice_path = /obj/item/food/hardware_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#4ac25e"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5, "sacid" = 15, "oil" = 15)
+	tastes = list("acid" = 3, "metal" = 4, "glass" = 5)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/hardware_cake_slice
+	name = "hardware cake slice"
+	desc = "A slice of electronic boards and some acid."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "hardware_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#4ac25e"
+	tastes = list("acid" = 3, "metal" = 4, "glass" = 5)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/plum_cake
+	name = "plum cake"
+	desc = "A cake centred with Plums."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "plum_cake"
+	slice_path = /obj/item/food/plum_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#a128c5"
+	list_reagents = list("nutriment" = 20, "vitamin" = 10)
+	tastes = list("cake" = 5, "sweetness" = 1, "plum" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/plum_cake_slice
+	name = "plum cake slice"
+	desc = "A slice of plum cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "plum_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#a128c5"
+	tastes = list("cake" = 5, "sweetness" = 1, "plum" = 2)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/pound_cake
+	name = "pound cake"
+	desc = "A condensed cake made for filling people up quickly."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "pound_cake"
+	slice_path = /obj/item/food/pound_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#c4cab7"
+	list_reagents = list("nutriment" = 60, "vitamin" = 20)
+	tastes = list("cake" = 5, "sweetness" = 5, "batter" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/pound_cake_slice
+	name = "pound cake slice"
+	desc = "A slice of condensed cake made for filling people up quickly."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "pound_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#ffffff"
+	tastes = list("cake" = 5, "sweetness" = 5, "batter" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/pumpkin_spice_cake
+	name = "pumpkin spice cake"
+	desc = "A hollow cake with real pumpkin."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "pumpkin_spice_cake"
+	slice_path = /obj/item/food/pumpkin_spice_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#ee710a"
+	list_reagents = list("nutriment" = 20, "vitamin" = 10)
+	tastes = list("cake" = 5, "sweetness" = 1, "pumpkin" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/pumpkin_spice_cake_slice
+	name = "pumpkin spice cake slice"
+	desc = "A spicy slice of pumpkin goodness."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "pumpkin_spice_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#ee710a"
+	tastes = list("cake" = 5, "sweetness" = 1, "pumpkin" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/slime_cake
+	name = "slime cake"
+	desc = "A cake made of slimes. Probably not electrified."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "slime_cake"
+	slice_path = /obj/item/food/slime_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#0adfee"
+	list_reagents = list("nutriment" = 20, "vitamin" = 10)
+	tastes = list("cake" = 5, "sweetness" = 1, "slime" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/slime_cake_slice
+	name = "slime cake slice"
+	desc = "A slice of slime cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "slime_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#0adfee"
+	tastes = list("cake" = 5, "sweetness" = 1, "slime" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/spaceman_cake
+	name = "spaceman's cake"
+	desc = "A spaceman's trumpet frosted cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "trumpet_cake"
+	slice_path = /obj/item/food/spaceman_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#610977"
+	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice", 5)
+	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/spaceman_cake_slice
+	name = "spaceman's cake slice"
+	desc = "A slice of spaceman's trumpet frosted cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "trumpet_cake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#610977"
+	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/vanilla_cake
+	name = "vanilla cake"
+	desc = "A vanilla frosted cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "vanilla_cake"
+	slice_path = /obj/item/food/vanilla_cake_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#ece7ee"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5, "sugar" = 15, "vanilla" = 15)
+	tastes = list("cake" = 1, "sugar" = 1, "vanilla" = 10)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/vanilla_cake_slice
+	name = "vanilla cake slice"
+	desc = "A slice of vanilla frosted cake."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "vanilla_cake_slice"
+	filling_color = "#ece7ee"
+	tastes = list("cake" = 1, "sugar" = 1, "vanilla" = 10)
+	goal_difficulty = FOOD_GOAL_EASY
+
+/obj/item/food/sliceable/mothmallow
+	name = "mothmallow tray"
+	desc = "A light and fluffy vegan marshmallow flavoured with vanilla and rum and topped with soft chocolate. These are known to the moths as höllflöfstarkken: cloud squares." //höllflöf = cloud (höll = wind, flöf = cotton), starkken = squares
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "mothmallow_tray"
+	list_reagents = list("nutriment" = 20, "sugar" = 20)
+	slice_path = /obj/item/food/mothmallowslice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#eebe98"
+	tastes = list("vanilla" = 1, "clouds" = 1, "chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
+
+/obj/item/food/mothmallowslice
+	name = "mothmallow"
+	desc = "Fluffy little clouds of joy- in a strangely moth-like colour."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "mothmallow_slice"
+	filling_color = "#ece7ee"
+	filling_color = "#eebe98"
+	tastes = list("vanilla" = 1, "clouds" = 1, "chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
+
 
 //////////////////////
 //		Cookies		//
@@ -295,6 +548,32 @@
 	tastes = list("sweetness" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
+/obj/item/food/oatmeal_cookie
+	name = "oatmeal cookie"
+	desc = "The best of both cookie and oat."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "oatmeal_cookie"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("cookie" = 2, "oat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/raisin_cookie
+	name = "raisin cookie"
+	desc = "Why would you put raisins on a cookie?"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "raisin_cookie"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("cookie" = 1, "raisins" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/peanut_butter_cookie
+	name = "peanut butter cookie"
+	desc = "A tasty, chewy peanut butter cookie."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "peanut_butter_cookie"
+	list_reagents = list("nutriment" = 6, "peanutbutter" = 5)
+	tastes = list("cookie" = 1, "peanut butter" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 //////////////////////
 //		Pies		//
@@ -429,6 +708,85 @@
 	tastes = list("pie" = 1, "pumpkin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/beary_pie
+	name = "beary pie"
+	desc = "No brown bears, this is a good sign."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "beary_pie"
+	filling_color = "#F5B951"
+	list_reagents = list("nutriment" = 12, "vitamin" = 5, "protein" = 5)
+	tastes = list("pie" = 1, "meat" = 1, "salmon" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/sliceable/blumpkin_pie
+	name = "blumpkin pie"
+	desc = "An odd blue pie made with toxic blumpkin."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "blumpkin_pie"
+	slice_path = /obj/item/food/blumpkin_pie_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#102d8b"
+	list_reagents = list("nutriment" = 13, "vitamin" = 6, "blumpkinjuice" = 5)
+	tastes = list("pie" = 1, "a mouthful of pool water" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/blumpkin_pie_slice
+	name = "blumpkin pie slice"
+	desc = "A slice of blumpkin pie, with whipped cream on top. Is this edible?"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "blumpkin_pie_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#102d8b"
+	tastes = list("pie" = 1, "a mouthful of pool water" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/sliceable/french_silk_pie
+	name = "french silk pie"
+	desc = "A decadent pie made of a creamy chocolate mousse filling topped with a layer of whipped cream and chocolate shavings. Sliceable."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "french_silk_pie"
+	slice_path = /obj/item/food/french_silk_pie_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#5e4337"
+	list_reagents = list("nutriment" = 12, "vitamin" = 4)
+	tastes = list("pie" = 1, "smooth chocolate" = 1, "whipped cream" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/french_silk_pie_slice
+	name = "french silk pie slice"
+	desc = "A slice of french silk pie, filled with a chocolate mousse and topped with a layer of whipped cream and chocolate shavings. Delicious enough to make you cry."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "french_silk_pie_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#5e4337"
+	tastes = list("pie" = 1, "smooth chocolate" = 1, "whipped cream" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/sliceable/frosty_pie
+	name = "frosty pie"
+	desc = "Tastes like blue and cold."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "frosty_pie"
+	slice_path = /obj/item/food/frosty_pie_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#5e4337"
+	list_reagents = list("nutriment" = 14, "vitamin" = 6)
+	tastes = list("mint" = 1, "pie" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/frosty_pie_slice
+	name = "frosty pie slice"
+	desc = "Tasty blue, like my favourite crayon!"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "frosty_pie_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#338cb6"
+	tastes = list("mint" = 1, "pie" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
 //////////////////////
 //		Donuts		//
 //////////////////////
@@ -442,7 +800,7 @@
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
 	var/extra_reagent = null
 	filling_color = "#D2691E"
-	var/randomized_sprinkles = 1
+	var/randomized_sprinkles = TRUE
 	var/donut_sprite_type = DONUT_NORMAL
 	tastes = list("donut" = 1)
 
@@ -461,7 +819,7 @@
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
 	donut_sprite_type = DONUT_FROSTED
-	randomized_sprinkles = 0
+	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/chaos
 	name = "chaos donut"
@@ -511,6 +869,232 @@
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/apple
+	name = "apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "donut_green"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "applejuice" = 2)
+	filling_color = "#24d21e"
+	tastes = list("donut" = 1, "apples" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/apple/jelly
+	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "jelly_green"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/apple/jelly/cherry
+	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "jelly_green"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/apple/jelly/slime
+	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "jelly_green"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/pink
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "donut_pink"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "berryjuice" = 3)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "berries" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/pink/jelly
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "jelly_pink"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/pink/jelly/cherry
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "jelly_pink"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/pink/jelly/slime
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "jelly_pink"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/blumpkin
+	name = "blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "donut_blue"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "blumpkinjuice" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "blumpkin" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/blumpkin/jelly
+	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "jelly_blue"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/blumpkin/jelly/cherry
+	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "jelly_blue"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/blumpkin/jelly/slime
+	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "jelly_blue"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/caramel
+	name = "caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "donut_beige"
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "buttery sweetness" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/caramel/jelly
+	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "jelly_beige"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/caramel/jelly/cherry
+	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "jelly_beige"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/caramel/jelly/slime
+	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "jelly_beige"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/chocolate
+	name = "chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "donut_choc"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "hot_coco" = 3)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "bitterness" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/chocolate/jelly
+	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "jelly_choc"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/chocolate/jelly/cherry
+	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "jelly_choc"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/chocolate/jelly/slime
+	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "jelly_choc"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/matcha
+	name = "matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "donut_olive"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "teapowder" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "matcha" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/matcha/jelly
+	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "jelly_olive"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/matcha/jelly/cherry
+	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "jelly_olive"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/matcha/jelly/slime
+	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "jelly_olive"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/bungo
+	name = "bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "donut_yellow"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "bungojuice" = 3)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "tropical sweetness" = 1, "an acidic, poisonous tang" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/bungo/jelly
+	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "jelly_yellow"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/bungo/jelly/cherry
+	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "jelly_yellow"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/bungo/jelly/slime
+	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "jelly_yellow"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/spaceman
+	name = "spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "donut_purple"
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1, "violets" = 1)
+	randomized_sprinkles = FALSE
+
+/obj/item/food/donut/spaceman/jelly
+	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "jelly_purple"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/donut/spaceman/jelly/cherry
+	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "jelly_purple"
+	extra_reagent = "cherryjelly"
+
+/obj/item/food/donut/spaceman/jelly/slime
+	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "jelly_purple"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/donut/meat
+	name = "Meat Donut"
+	desc = "Tastes as gross as it looks."
+	icon_state = "donut_meat"
+	list_reagents = list("nutriment" = 3, "protein" = 3, "ketchup" = 3)
+	filling_color = "#D2691E"
+	tastes = list("meat" = 1, "ketchup" = 1)
+	randomized_sprinkles = FALSE
+
 
 //////////////////////
 //		Pancakes	//
@@ -572,6 +1156,37 @@
 	tastes = list("muffin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/berry_muffin
+	name = "berry_muffin"
+	desc = "A delicious and spongy little cake, with berries."
+	icon = 'icons/obj/food/breakfast.dmi'
+	icon_state = "berry_muffin"
+	filling_color = "#ad2bbe"
+	list_reagents = list("nutriment" = 6, "berryjuice" = 2)
+	tastes = list("muffin" = 3, "berry" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/booberry_muffin
+	name = "booberry muffin"
+	desc = "My stomach is a graveyard! No living being can quench my bloodthirst!"
+	icon = 'icons/obj/food/breakfast.dmi'
+	alpha = 125
+	icon_state = "berry_muffin"
+	filling_color = "#d9b6f5"
+	list_reagents = list("nutriment" = 6)
+	tastes = list("muffin" = 3, "spookiness" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/moffin
+	name = "moffin"
+	desc = "A delicious and spongy little cake."
+	icon = 'icons/obj/food/breakfast.dmi'
+	icon_state = "moffin"
+	filling_color = "#c7ab56"
+	list_reagents = list("nutriment" = 6)
+	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
 /obj/item/food/berryclafoutis
 	name = "berry clafoutis"
 	desc = "No black birds, this is a good sign."
@@ -623,6 +1238,120 @@
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/grape_tart
+	name = "grape tart"
+	desc = "A tasty dessert that reminds you of the wine you didn't make."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "grape_tart"
+	trash = /obj/item/trash/plate
+	filling_color = "#8c00ff"
+	bitesize = 3
+	list_reagents = list("nutriment" = 4, "vitamin" = 4)
+	tastes = list("pie" = 1, "grape" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/mime_tart
+	name = "mime tart"
+	desc = "..."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "mime_tart"
+	trash = /obj/item/trash/plate
+	filling_color = "#8c00ff"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 5, "nothing" = 5)
+	tastes = list("nothing" = 3)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/cherry_cupcake
+	name = "cherry cupcake"
+	desc = "A sweet cupcake with cherry bits."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "cherry_cupcake"
+	filling_color = "#8b1236"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("cake" = 3, "cherry" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/cherry_cupcake/blue
+	name = "blue cherry cupcake"
+	desc = "Blue cherries inside a delicious cupcake."
+	icon_state = "bluecherry_cupcake"
+	filling_color = "#0d1694"
+	tastes = list("cake" = 3, "bluecherry" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/honey_bun
+	name = "honey bun"
+	desc = "A sticky pastry bun glazed with honey."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "honey_bun"
+	filling_color = "#d88e06"
+	list_reagents = list("nutriment" = 6, "honey" = 6)
+	tastes = list("pastry" = 1, "sweetness" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/cannoli
+	name = "cannoli"
+	desc = "A Sicilian treat that turns you into a wise guy."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "cannoli"
+	filling_color = "#d88e06"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("pastry" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/chocolate_lava_tart
+	name = "chocolate lava tart"
+	desc = "A tasty dessert made of chocolate, with a liquid core."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "coco_lava_tart"
+	filling_color = "#411b02"
+	list_reagents = list("nutriment" = 4, "vitamin" = 4)
+	tastes = list("pie" = 1, "dark chocolate" = 3)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/chocolate_cornet
+	name = "chocolate cornet"
+	desc = "Which side's the head, the fat end or the thin end?"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "choco_cornet"
+	filling_color = "#411b02"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("biscuit" = 3, "chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/sliceable/dulce_de_batata
+	name = "dulce de batata"
+	desc = "A delicious jelly made with sweet potatoes."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "dulce_de_batata"
+	slice_path = /obj/item/food/dulce_de_batata_slice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#411b02"
+	list_reagents = list("nutriment" = 14, "vitamin" = 8)
+	tastes = list("jelly" = 1, "sweet potato" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/dulce_de_batata_slice
+	name = "dulce de batata slice"
+	desc = "Tasty blue, like my favourite crayon!"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "dulce_de_batata_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#411b02"
+	tastes = list("jelly" = 1, "sweet potato" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/cheese_balls
+	name = "\improper ælorölen" //ælo = cheese, rölen = balls
+	desc = "Ælorölen (cheese balls) are a traditional mothic dessert, made of soft cheese, powdered sugar and flour, rolled into balls, battered and then deep fried. They're often served with either chocolate sauce or honey, or sometimes both!"
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "moth_cheese_cakes"
+	filling_color = "#411b02"
+	list_reagents = list("protein" = 8, "sugar" = 12)
+	tastes = list("cheesecake" = 1, "chocolate" = 1, "honey" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/cracker
 	name = "cracker"

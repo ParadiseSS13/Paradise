@@ -2222,7 +2222,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aqO" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -3202,7 +3202,7 @@
 /turf/simulated/wall,
 /area/station/public/mrchangs)
 "avs" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "avv" = (
@@ -4095,7 +4095,7 @@
 	},
 /area/station/command/office/captain/bedroom)
 "ayk" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "ayr" = (
@@ -4415,7 +4415,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -4541,7 +4541,7 @@
 	},
 /area/station/public/dorms)
 "aAf" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -5808,7 +5808,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "aFM" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6829,7 +6829,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "aJl" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aJm" = (
@@ -7334,7 +7334,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "aLc" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -7880,7 +7880,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "aMB" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -32592,7 +32592,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -35823,7 +35823,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "cAP" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "cAS" = (
@@ -42415,7 +42415,7 @@
 /area/station/maintenance/starboard)
 "dcC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "dcD" = (
@@ -44465,7 +44465,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dHr" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "dHE" = (
@@ -48595,7 +48595,7 @@
 	},
 /area/station/security/range)
 "fuy" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "fuC" = (
@@ -55662,7 +55662,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "iot" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "ioy" = (
@@ -56974,7 +56974,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "iRX" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -58414,7 +58414,7 @@
 /turf/space,
 /area/space/nearstation)
 "jEA" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "jEC" = (
@@ -65301,7 +65301,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "msw" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "msD" = (
@@ -67455,7 +67455,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "niC" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -70764,7 +70764,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "oNn" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -73032,7 +73032,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pHF" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "pHM" = (
@@ -74342,7 +74342,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "qiP" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -75166,7 +75166,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "qyW" = (
@@ -77627,7 +77627,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "rCD" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "rDd" = (
@@ -78729,7 +78729,7 @@
 /area/station/engineering/atmos/distribution)
 "rXf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "rXj" = (
@@ -81082,7 +81082,7 @@
 	},
 /area/station/hallway/primary/aft/north)
 "sZV" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -83635,7 +83635,7 @@
 	},
 /area/station/security/main)
 "uhI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "uhJ" = (
@@ -86647,7 +86647,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "vxx" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vxI" = (
@@ -87235,7 +87235,7 @@
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "vOJ" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -87891,7 +87891,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "wfa" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "wfs" = (
@@ -89005,7 +89005,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "wFC" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "wFW" = (
@@ -89285,7 +89285,7 @@
 /turf/space,
 /area/space/nearstation)
 "wPS" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/window/classic/normal{
 	name = "Anti-Theft Shield";
 	dir = 1
@@ -91584,7 +91584,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "xNa" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -92334,7 +92334,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "yaL" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
