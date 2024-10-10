@@ -62,6 +62,12 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		list(1, 1,		   1),
 		list(1, MACH_CENTER, 1),
 	))
+
+	var/area/machine_area = get_area(src)
+	parent_area_type = machine_area.get_top_parent_type()
+	if(parent_area_type)
+		areas = typesof(parent_area_type)
+
 	update_gen_list()
 	set_power()
 
@@ -86,6 +92,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/current_overlay = null
 	var/construction_state = GRAV_NEEDS_WELDING
 	var/overlay_state = "activated"
+	var/parent_area_type
+	var/areas = list()
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()
@@ -267,24 +275,21 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 
 	if(gravity) // If we turned on
-		if(generators_in_level() == 0) // And there's no other gravity generators on this z level
+		if(generators_in_area() == 0) // And there's no other gravity generators on this z level
 			alert = TRUE
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
-				if(!is_station_level(A.z))
-					continue
-				A.gravitychange(TRUE, A)
+				if((A.type in areas) && A.z == z)
+					A.gravitychange(TRUE, A)
 
-	else if(generators_in_level() == 1) // Turned off, and there is only one gravity generator on the Z level
+	else if(generators_in_area() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
 		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
 		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
-			if(!is_station_level(A.z))
-				continue
-			A.gravitychange(FALSE, A)
-
+			if((A.type in areas) && A.z == z)
+				A.gravitychange(FALSE, A)
 	update_icon()
 	update_gen_list()
 	if(alert)
@@ -339,7 +344,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		radiation_pulse(get_turf(L), 600, 2)
 
 /**
-  * Shake everyone on the z level and play an alarm to let them know that gravity was enagaged/disenagaged.
+  * Shake everyone on the area list and play an alarm to let them know that gravity was enagaged/disenagaged.
   */
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
@@ -348,30 +353,27 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
 		var/turf/their_turf = get_turf(M)
-		if(their_turf?.z == our_turf.z)
+		if(their_turf && ((get_area(their_turf)).type in typesof(parent_area_type)) && (M.z == z))
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)
 				M.playsound_local(our_turf, null, 100, TRUE, 0.5, S = alert_sound)
 
-// TODO: Make the gravity generator cooperate with the space manager
-/obj/machinery/gravity_generator/main/proc/generators_in_level()
-	var/turf/T = get_turf(src)
-	if(!T)
-		return FALSE
-	if(GLOB.gravity_generators["[T.z]"])
-		return length(GLOB.gravity_generators["[T.z]"])
-	return FALSE
-
 /obj/machinery/gravity_generator/main/proc/update_gen_list()
-	var/turf/T = get_turf(src)
-	if(T)
-		if(!GLOB.gravity_generators["[T.z]"])
-			GLOB.gravity_generators["[T.z]"] = list()
+	if(parent_area_type)
+		if(!GLOB.gravity_generators["[parent_area_type]"])
+			GLOB.gravity_generators["[parent_area_type]"] = list()
 		if(on)
-			GLOB.gravity_generators["[T.z]"] |= src
+			GLOB.gravity_generators["[parent_area_type]"] |= src
 		else
-			GLOB.gravity_generators["[T.z]"] -= src
+			GLOB.gravity_generators["[parent_area_type]"] -= src
+
+/obj/machinery/gravity_generator/main/proc/generators_in_area()
+	if(!parent_area_type)
+		return FALSE
+	if(GLOB.gravity_generators["[parent_area_type]"])
+		return length(GLOB.gravity_generators["[parent_area_type]"])
+	return FALSE
 
 // Misc
 
@@ -383,7 +385,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	transform = M
 	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128)
 	QDEL_IN(src, 0.8 SECONDS)
-
 
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"
