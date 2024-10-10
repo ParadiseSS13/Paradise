@@ -547,7 +547,7 @@
 
 /obj/item/grenade/chem_grenade/cleaner/organic
 	payload_name = "organic dissolving"
-	desc = "Inside of this grenade are black-market Syndicate nanites that have an appetite for living creatures and their organs, be them silicon or organic, dead or alive.<br>Now with a new foaming applicator!"
+	desc = "Inside of this grenade are black-market Syndicate nanites that have an appetite for living creatures and their organs, be they silicon or organic, dead or alive.<br>Now with a new foaming applicator!"
 	cleaning_chem = "admincleaner_mob"
 
 
