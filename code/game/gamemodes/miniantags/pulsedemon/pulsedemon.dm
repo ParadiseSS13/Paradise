@@ -6,8 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 /// Conversion ratio from Watt ticks to joules.
-/// Should be a pulse demon's life tick length in seconds.
-#define WATT_TICK_TO_JOULE 2
 
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
@@ -867,4 +865,3 @@
 #undef PULSEDEMON_PLATING_SPARK_CHANCE
 #undef PULSEDEMON_APC_CHARGE_MULTIPLIER
 #undef PULSEDEMON_SMES_DRAIN_MULTIPLIER
-#undef WATT_TICK_TO_JOULE
