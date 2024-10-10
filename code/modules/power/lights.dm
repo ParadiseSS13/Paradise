@@ -14,6 +14,10 @@
 #define MAXIMUM_SAFE_BACKUP_CHARGE 600
 #define EMERGENCY_LIGHT_POWER_USE 0.5
 
+#define LIGHT_CONSTRUCT_EMPTY_FRAME 1
+#define LIGHT_CONSTRUCT_WIRED 2
+#define LIGHT_CONSTRUCT_COMPLETED 3
+
 /**
   * # Light fixture frame
   *
@@ -27,84 +31,73 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-stage1"
 	anchored = TRUE
-	layer = 5
+	layer = FLY_LAYER
 	max_integrity = 200
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
-	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
-	var/stage = 1
+	/// Construction stage
+	var/stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	/// Light bulb type
 	var/fixture_type = "tube"
 	/// How many metal sheets get given after deconstruction
 	var/sheets_refunded = 2
 	/// Holder for the completed fixture
-	var/obj/machinery/light/newlight = null
+	var/obj/machinery/light/construct_type = /obj/machinery/light/built
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
-	if(fixture_type == "bulb")
-		icon_state = "bulb-construct-stage1"
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/light_construct/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		switch(stage)
-			if(1)
+			if(LIGHT_CONSTRUCT_EMPTY_FRAME)
 				. += "<span class='notice'>It's an empty frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
-			if(2)
+			if(LIGHT_CONSTRUCT_WIRED)
 				. += "<span class='notice'>The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
-			if(3)
+			if(LIGHT_CONSTRUCT_COMPLETED)
 				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	switch(stage)
-		if(1)
+		if(LIGHT_CONSTRUCT_EMPTY_FRAME)
 			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
 			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
 			qdel(src)
-		if(2)
+		if(LIGHT_CONSTRUCT_WIRED)
 			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
-		if(3)
+		if(LIGHT_CONSTRUCT_COMPLETED)
 			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
 
 /obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
-	if(stage != 2)
+	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	. = TRUE
-	stage = 1
-	switch(fixture_type)
-		if("tube")
-			icon_state = "tube-construct-stage1"
-		if("bulb")
-			icon_state = "bulb-construct-stage1"
+
+	stage = LIGHT_CONSTRUCT_EMPTY_FRAME
+	update_icon(UPDATE_ICON_STATE)
 	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
-	if(stage != 2)
+	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	switch(fixture_type)
-		if("tube")
-			icon_state = "tube-empty"
-		if("bulb")
-			icon_state = "bulb-empty"
-	stage = 3
+
+	stage = LIGHT_CONSTRUCT_COMPLETED
+	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
 		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 
-	switch(fixture_type)
-		if("tube")
-			newlight = new /obj/machinery/light/built(loc)
-		if("bulb")
-			newlight = new /obj/machinery/light/small/built(loc)
+	var/obj/machinery/light/newlight = new construct_type(loc)
 	newlight.setDir(dir)
 	transfer_fingerprints_to(newlight)
 	qdel(src)
@@ -112,16 +105,12 @@
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
-		if(stage != 1)
+		if(stage != LIGHT_CONSTRUCT_EMPTY_FRAME)
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		coil.use(1)
-		switch(fixture_type)
-			if("tube")
-				icon_state = "tube-construct-stage2"
-			if("bulb")
-				icon_state = "bulb-construct-stage2"
-		stage = 2
+		stage = LIGHT_CONSTRUCT_WIRED
+		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
 			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
@@ -138,6 +127,13 @@
 		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
 	qdel(src)
 
+/obj/machinery/light_construct/update_icon_state()
+	. = ..()
+	if(stage == LIGHT_CONSTRUCT_COMPLETED)
+		icon_state = "[fixture_type]-empty"
+		return
+	icon_state = "[fixture_type]-construct-stage[stage]"
+
 /**
   * # Small light fixture frame
   *
@@ -148,13 +144,28 @@
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-stage1"
 	anchored = TRUE
-	layer = 5
-	stage = 1
+	layer = FLY_LAYER
 	fixture_type = "bulb"
 	sheets_refunded = 1
+	construct_type = /obj/machinery/light/small/built
+
+/obj/machinery/light_construct/floor
+	name = "floor light fixture frame"
+	desc = "A floor light fixture under construction."
+	icon_state = "floor-construct-stage1"
+	anchored = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+	fixture_type = "floor"
+	sheets_refunded = 3
+	construct_type = /obj/machinery/light/floor/built
+
+
+#undef LIGHT_CONSTRUCT_EMPTY_FRAME
+#undef LIGHT_CONSTRUCT_WIRED
+#undef LIGHT_CONSTRUCT_COMPLETED
 
 
 /**
@@ -170,7 +181,7 @@
 	glow_icon_state = "tube"
 	exposure_icon_state = "cone"
 	anchored = TRUE
-	layer = 5
+	layer = FLY_LAYER
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 2  //when in low power mode
@@ -198,6 +209,8 @@
 	var/light_type = /obj/item/light/tube
 	/// Type of light bulb that goes into the fixture
 	var/fitting = "tube"
+	/// What light construct type to turn into when we are deconstructed
+	var/obj/machinery/light_construct/deconstruct_type = /obj/machinery/light_construct
 	/// How many times has the light been switched on/off? (This is used to calc the probability the light burns out)
 	var/switchcount = 0
 	/// Is the light rigged to explode?
@@ -238,6 +251,7 @@
 	brightness_color = "#a0a080"
 	nightshift_light_range = 4
 	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/small
 
 /obj/machinery/light/spot
 	name = "spotlight"
@@ -245,13 +259,30 @@
 	brightness_range = 12
 	brightness_power = 4
 
-/obj/machinery/light/built/Initialize(mapload)
-	status = LIGHT_EMPTY
-	return ..()
+/obj/machinery/light/floor
+	name = "floor light"
+	desc = "A lightbulb you can walk on without breaking it, amazing."
+	icon_state = "floor1"
+	glow_icon_state = "floor"
+	exposure_icon_state = "floor_circle"
+	base_state = "floor"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/floor
+	brightness_range = 6
+	nightshift_light_range = 6
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
 
-/obj/machinery/light/small/built/Initialize(mapload)
+/obj/machinery/light/built
 	status = LIGHT_EMPTY
-	return ..()
+
+/obj/machinery/light/small/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/floor/built
+	status = LIGHT_EMPTY
+
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -265,7 +296,7 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
-	switch(fitting)
+	switch(base_state)
 		if("tube")
 			brightness_range = 8
 			if(prob(2))
@@ -274,6 +305,11 @@
 			brightness_range = 4
 			brightness_color = "#a0a080"
 			if(prob(5))
+				break_light_tube(TRUE)
+		if("floor")
+			brightness_range = 6
+			brightness_color = "#a0a080"
+			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
 
@@ -557,18 +593,10 @@
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		var/obj/machinery/light_construct/newlight = null
 		var/cur_stage = 2
 		if(!disassembled)
 			cur_stage = 1
-		switch(fitting)
-			if("tube")
-				newlight = new /obj/machinery/light_construct(loc)
-				newlight.icon_state = "tube-construct-stage2"
-
-			if("bulb")
-				newlight = new /obj/machinery/light_construct/small(loc)
-				newlight.icon_state = "bulb-construct-stage2"
+		var/obj/machinery/light_construct/newlight = new deconstruct_type(loc)
 		newlight.setDir(dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
@@ -578,6 +606,7 @@
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
 			new /obj/item/stack/cable_coil(loc, 1, "red")
+		newlight.update_icon(UPDATE_ICON_STATE)
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
@@ -822,6 +851,22 @@
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
+/obj/machinery/light/extinguish_light(force = FALSE)
+	on = FALSE
+	extinguished = TRUE
+	emergency_mode = FALSE
+	no_emergency = TRUE
+	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	update(FALSE)
+
+/obj/machinery/light/proc/enable_emergency_lighting()
+	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	extinguished = FALSE
+	no_emergency = FALSE
+	update(FALSE)
+
+
 /**
   * MARK: Light item
   *
@@ -908,14 +953,6 @@
 	..()
 	shatter()
 
-/obj/item/light/bulb/fire
-	name = "fire bulb"
-	desc = "A replacement fire bulb."
-	icon_state = "fbulb"
-	base_state = "fbulb"
-	item_state = "egg4"
-	brightness_range = 5
-
 // update the icon state and description of the light
 
 /obj/item/light/proc/update()
@@ -933,11 +970,6 @@
 
 /obj/item/light/New()
 	..()
-	switch(name)
-		if("light tube")
-			brightness_range = rand(6,9)
-		if("light bulb")
-			brightness_range = rand(4,6)
 	update()
 
 
@@ -989,21 +1021,6 @@
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
-
-/obj/machinery/light/extinguish_light(force = FALSE)
-	on = FALSE
-	extinguished = TRUE
-	emergency_mode = FALSE
-	no_emergency = TRUE
-	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-	update(FALSE)
-
-/obj/machinery/light/proc/enable_emergency_lighting()
-	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
-	extinguished = FALSE
-	no_emergency = FALSE
-	update(FALSE)
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE

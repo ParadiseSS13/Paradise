@@ -15,7 +15,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "aaN" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -1708,7 +1708,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cmE" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -2277,7 +2277,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cVe" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/stack/rods,
 /obj/item/shard{
 	icon_state = "small"
@@ -4026,7 +4026,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "fqK" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -4191,7 +4191,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "fCt" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -4735,7 +4735,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/abandoned)
 "gop" = (
@@ -5022,7 +5022,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "gKv" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "CMDgate"
@@ -5461,7 +5461,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "hkE" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -6896,7 +6896,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iXz" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard,
 /obj/item/stack/rods{
 	amount = 2
@@ -6945,7 +6945,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "jaD" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -7048,7 +7048,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "jhW" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -7775,7 +7775,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kby" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -7857,7 +7857,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "khp" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
@@ -10188,7 +10188,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/jungle_planet/outside/abandoned)
 "mTI" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -10386,7 +10386,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "nfW" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -10448,7 +10448,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "njs" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -10653,7 +10653,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nBO" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "nBY" = (
@@ -11018,7 +11018,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "oeY" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "ofe" = (
@@ -11265,7 +11265,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "ouM" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = 9;
@@ -11277,7 +11277,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "ovS" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/stack/rods,
 /obj/item/shard{
 	icon_state = "medium";
@@ -13130,7 +13130,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qPT" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -13486,7 +13486,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "rnw" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/glass,
@@ -13865,7 +13865,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "rKg" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "rKR" = (
@@ -14607,7 +14607,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "sCe" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/shard,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
@@ -15257,7 +15257,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "tqZ" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/shard,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/decal/cleanable/glass,
@@ -17124,7 +17124,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "vEC" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -18876,7 +18876,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xPM" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /obj/item/stack/rods,
 /obj/item/shard,
 /obj/item/shard{

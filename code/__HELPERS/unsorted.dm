@@ -1141,41 +1141,23 @@ Checks if that loc and dir has a item on the wall
 */
 GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
-	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
+	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign, /obj/machinery/barsign)))
+	/obj/structure/sign, /obj/machinery/barsign, /obj/machinery/light, /obj/machinery/light_construct)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
-		if(is_type_in_typecache(O, GLOB.wall_items))
-			//Direction works sometimes
-			if(O.dir == dir)
-				return 1
+		if(is_type_in_typecache(O, GLOB.wall_items) && dir == O.dir)
+			return TRUE
 
-			//Some stuff doesn't use dir properly, so we need to check pixel instead
-			switch(dir)
-				if(SOUTH)
-					if(O.pixel_y > 10)
-						return 1
-				if(NORTH)
-					if(O.pixel_y < -10)
-						return 1
-				if(WEST)
-					if(O.pixel_x > 10)
-						return 1
-				if(EAST)
-					if(O.pixel_x < -10)
-						return 1
-
-	//Some stuff is placed directly on the wallturf (signs)
+	// Some stuff is placed directly on the wallturf (signs)
 	for(var/obj/O in get_step(loc, dir))
 		if(is_type_in_typecache(O, GLOB.wall_items))
-			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
-				return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/atan2(x, y)
 	if(!x && !y) return 0
@@ -1874,9 +1856,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-/proc/pass()
-	return
-
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
@@ -1971,14 +1950,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Radio Noise"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
+		if(CHANNEL_SURGERY_SOUNDS)
+			return "Surgery Sounds"
 		// SS220 ADDITON START
 		if(CHANNEL_TTS_LOCAL)
 			return "TTS Local"
 		if(CHANNEL_TTS_RADIO)
 			return "TTS Radio"
 		if(CHANNEL_CINEMATIC)
-			return "Cinematic music"
+			return "Cinematic Music"
 		// SS220 ADDITION END
+
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

@@ -872,7 +872,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/caves/build/reqpower_build)
 "dX" = (
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "ea" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord{
@@ -8153,7 +8153,7 @@
 /area/awaymission/caves)
 "RX" = (
 /obj/machinery/hydroponics/soil,
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "RY" = (
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -8315,7 +8315,7 @@
 "SV" = (
 /obj/structure/sink/puddle,
 /obj/item/reagent_containers/glass/bucket/wooden,
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "SX" = (
 /obj/machinery/power/smes,
