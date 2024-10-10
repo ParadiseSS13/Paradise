@@ -15,7 +15,7 @@
 /datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE)
 	var/amount = rand(drop_min, drop_max)
 
-	if(ispath(drop_type, /obj/item/stack/ore/iron))
+	if(ispath(drop_type, /obj/item/stack/ore))
 		new drop_type(source, amount)
 		SSticker.score?.score_ore_mined++
 		SSblackbox.record_feedback("tally", "ore_mined", amount, type)

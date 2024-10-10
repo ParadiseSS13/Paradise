@@ -377,6 +377,9 @@
 	)
 
 // Actual minerals
+/turf/simulated/mineral/clown
+	preset_ore_type = /datum/ore/bananium
+
 /turf/simulated/mineral/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
