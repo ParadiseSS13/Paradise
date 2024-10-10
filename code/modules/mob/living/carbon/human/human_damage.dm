@@ -12,6 +12,7 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_limb_damage
 
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 

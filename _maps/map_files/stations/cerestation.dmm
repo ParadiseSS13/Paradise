@@ -1256,7 +1256,7 @@
 	},
 /area/station/security/permabrig)
 "ahX" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "aia" = (
@@ -3908,7 +3908,7 @@
 /turf/simulated/wall,
 /area/station/security/range)
 "azv" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -7963,7 +7963,7 @@
 /area/station/hallway/primary/central/north)
 "bbw" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/south)
 "bbH" = (
@@ -9152,7 +9152,7 @@
 /area/station/hallway/spacebridge/dockmed)
 "bis" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -11063,7 +11063,7 @@
 /area/station/science/hallway)
 "bsU" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "bsV" = (
@@ -14163,7 +14163,7 @@
 	},
 /area/station/service/library)
 "bGB" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bGF" = (
@@ -16702,7 +16702,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "bSc" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/hallway/primary/aft/west)
 "bSg" = (
@@ -17117,7 +17117,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "bTQ" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/maintcentral)
 "bTR" = (
@@ -18502,7 +18502,7 @@
 /area/station/maintenance/apmaint)
 "caX" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "caY" = (
@@ -32974,7 +32974,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "dYD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
 "dYK" = (
@@ -33753,10 +33753,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "enw" = (
-/obj/machinery/smartfridge/secure{
-	name = "\improper Kitchen Delivery SmartFridge";
-	req_one_access_txt = "28;35"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen";
@@ -33768,6 +33764,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -34518,7 +34515,7 @@
 /turf/simulated/floor/plating,
 /area/station/service/bar)
 "ezr" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -34674,7 +34671,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "eBq" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -35968,7 +35965,7 @@
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
 "eTL" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/gambling_den)
 "eTM" = (
@@ -37351,7 +37348,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "fsV" = (
-/obj/effect/spawner/random_barrier/wall_probably,
+/obj/effect/spawner/random/barrier/wall_probably,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "fsW" = (
@@ -37800,7 +37797,7 @@
 	},
 /area/station/engineering/break_room)
 "fzh" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
 "fzj" = (
@@ -38465,7 +38462,7 @@
 	},
 /area/station/medical/break_room)
 "fLv" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "fLy" = (
@@ -39500,7 +39497,7 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "fZZ" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/aisat/interior/secondary)
 "gah" = (
@@ -40508,7 +40505,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gsr" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "gsx" = (
@@ -40533,7 +40530,7 @@
 	pixel_y = -24;
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -40574,7 +40571,7 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/aft/west)
 "gtZ" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
@@ -43001,7 +42998,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hgx" = (
@@ -45186,7 +45183,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "hLx" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "hLB" = (
@@ -48895,7 +48892,7 @@
 /area/station/hallway/primary/fore/east)
 "iJM" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "iJY" = (
@@ -49246,7 +49243,7 @@
 	},
 /area/station/service/library)
 "iPn" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/southwest)
 "iPr" = (
@@ -51410,7 +51407,7 @@
 	},
 /area/station/maintenance/asmaint)
 "jrT" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/security/checkpoint/secondary)
 "jrX" = (
@@ -53231,7 +53228,7 @@
 /area/station/science/xenobiology)
 "jNU" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -55658,7 +55655,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "kyz" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/south)
 "kyK" = (
@@ -55713,7 +55710,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "kzK" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/east)
 "kzP" = (
@@ -58558,7 +58555,7 @@
 	},
 /area/station/supply/warehouse)
 "lqj" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "lqq" = (
@@ -59746,7 +59743,7 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "lHD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "lHG" = (
@@ -61689,7 +61686,7 @@
 	},
 /area/station/science/robotics)
 "mmv" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -62362,7 +62359,7 @@
 /area/station/turret_protected/aisat/interior)
 "mvD" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "mvF" = (
@@ -62843,7 +62840,7 @@
 	},
 /area/station/medical/morgue)
 "mCg" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/asmaint)
 "mCo" = (
@@ -69164,7 +69161,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "oyh" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "oyo" = (
@@ -73703,7 +73700,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "pMv" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/cargo)
 "pMB" = (
@@ -76034,7 +76031,7 @@
 /area/station/maintenance/apmaint)
 "qpx" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "qpM" = (
@@ -78123,7 +78120,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qVx" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
@@ -79118,7 +79115,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "rnP" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/civilian)
@@ -79705,7 +79702,7 @@
 	},
 /area/station/medical/paramedic)
 "rwZ" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/disposal/south)
 "rxb" = (
@@ -80857,7 +80854,7 @@
 /turf/simulated/wall,
 /area/station/public/toilet)
 "rNW" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
 "rOc" = (
@@ -81349,7 +81346,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "rVD" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -82426,7 +82423,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "sip" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/engineering)
 "sit" = (
@@ -83773,10 +83770,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/civilian)
-"sCn" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "sCr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -84299,7 +84292,7 @@
 	},
 /area/station/maintenance/apmaint)
 "sKo" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "sKz" = (
@@ -84722,7 +84715,7 @@
 /area/station/hallway/primary/starboard/south)
 "sPm" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "sPp" = (
@@ -88140,7 +88133,7 @@
 	},
 /area/station/medical/surgery)
 "tOn" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "tOo" = (
@@ -91055,7 +91048,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "uBs" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "uBA" = (
@@ -91685,7 +91678,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/hallway/primary/aft/west)
 "uKL" = (
@@ -95559,7 +95552,7 @@
 /area/station/public/storage/tools)
 "vPd" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vPj" = (
@@ -99582,7 +99575,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "wRk" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/civilian)
 "wRo" = (
@@ -100915,7 +100908,7 @@
 	},
 /area/station/hallway/primary/aft/west)
 "xmz" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random/fungus/probably,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/port)
@@ -101199,7 +101192,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "xrI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "xrN" = (
@@ -101866,7 +101859,7 @@
 	},
 /area/station/science/misc_lab)
 "xAK" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "xAO" = (
@@ -102198,7 +102191,7 @@
 	},
 /area/station/command/teleporter)
 "xEX" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/asmaint)
 "xEZ" = (
@@ -150816,7 +150809,7 @@ aXn
 aXn
 wLr
 vpJ
-sCn
+vpJ
 vpJ
 vRX
 rao

@@ -75,8 +75,6 @@
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null //Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living
