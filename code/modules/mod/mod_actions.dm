@@ -131,6 +131,6 @@
 	module.on_select()
 
 /datum/action/item_action/mod/pinned_module/proc/linked_button_update()
-	if(module.module_type == MODULE_TOGGLE)
+	if(module.module_type != MODULE_PASSIVE)
 		button_background_icon_state = (module.active ? "bg_mod_active" : "bg_mod")
 		UpdateButtons()
