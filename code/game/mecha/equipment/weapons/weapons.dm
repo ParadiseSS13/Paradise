@@ -391,6 +391,37 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
+	name = "\improper N23 Rotary Janitation Launcher"
+	desc = "A tool of mass cleaning. Launches primed cleaning foam grenades. Major slipping hazard."
+	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
+	projectile = /obj/item/grenade/chem_grenade/cleaner
+	fire_sound = 'sound/effects/bang.ogg'
+	equip_cooldown = 6 SECONDS
+	projectiles = 6
+	missile_speed = 1.5
+	projectile_energy_cost = 1000
+	size = 1
+	/// Time until grenade detonates
+	var/det_time = 2 SECONDS
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/action(target, params)
+	if(!action_checks(target))
+		return
+	set_ready_state(0)
+	var/obj/item/grenade/chem_grenade/cleaner/grenade = new projectile(chassis.loc)
+	playsound(chassis, fire_sound, 50, TRUE)
+	grenade.throw_at(target, missile_range, missile_speed)
+	projectiles--
+	log_message("Fired from [name], targeting [target].")
+	log_attack(chassis.occupant, target, "Cleaning grenade fired from [name], targeting [target].")
+	addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade/chem_grenade/cleaner, prime)), det_time)
+	do_after_cooldown()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/can_attach(obj/mecha/nkarrdem/M as obj)
+	return ..() && istype(M)
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	equip_cooldown = 2 SECONDS
 	name = "banana mortar"

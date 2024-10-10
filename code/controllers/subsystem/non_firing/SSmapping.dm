@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(mapping)
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
-	var/cave_theme
+	var/datum/caves_theme/caves_theme
 	// Tells if all maintenance airlocks have emergency access enabled
 	var/maint_all_access = FALSE
 	// Tells if all station airlocks have emergency access enabled
@@ -55,10 +55,15 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
-	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[lavaland_theme_type]")
 
-	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
-	log_startup_progress("We feel like [cave_theme] today...")
+	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
+	ASSERT(caves_theme_type)
+	caves_theme = new caves_theme_type
+	log_startup_progress("We feel like [caves_theme.name] today...")
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[caves_theme_type]")
+
 	// Load all Z level templates
 	preloadTemplates()
 	preloadTemplates(path = "code/modules/unit_tests/atmos/")
@@ -89,7 +94,8 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		if(lavaland_theme)
 			lavaland_theme.setup()
-			lavaland_theme.setup_caves()
+		if(caves_theme)
+			caves_theme.setup()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
@@ -169,7 +175,7 @@ SUBSYSTEM_DEF(mapping)
 		/obj/item/salvage/ruin/carp,
 		/obj/item/salvage/ruin/tablet,
 		/obj/item/salvage/ruin/pirate,
-		/obj/item/salvage/ruin/russian
+		/obj/item/salvage/ruin/soviet
 	)
 
 	for(var/z_level in space_z_levels)
