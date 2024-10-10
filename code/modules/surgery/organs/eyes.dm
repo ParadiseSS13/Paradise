@@ -126,6 +126,7 @@
 /obj/item/organ/internal/eyes/cybernetic/meson
 	name = "meson eyes"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
+	icon_state = "eyes-c-meson"
 	eye_color = "#199900"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
@@ -141,6 +142,7 @@
 /obj/item/organ/internal/eyes/cybernetic/xray
 	name = "\improper X-ray eyes"
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile."
+	icon_state = "eyes-c-xray"
 	see_in_dark = 8
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
@@ -148,13 +150,15 @@
 /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 	name = "hardened X-ray eyes"
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. This pair has been hardened for special operations personnel."
+	eye_color = "#FFCC00"
 	emp_proof = TRUE
 	origin_tech = "materials=6;programming=5;biotech=7;magnets=6;syndicate=3"
 
 /obj/item/organ/internal/eyes/cybernetic/thermals
 	name = "thermal eyes"
 	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included."
-	eye_color = "#FFCC00"
+	icon_state = "eyes-c-thermal"
+	eye_color = "#E12224"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
@@ -170,6 +174,7 @@
 /obj/item/organ/internal/eyes/cybernetic/scope
 	name = "\improper Kaleido Optics eyes"
 	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active."
+	icon_state = "eyes-c-kaleido"
 	eye_color = "#6f00ff"
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"

@@ -42,12 +42,13 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop
 	name = "Anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
+	icon_state = "brain_implant_antidrop"
 	var/active = FALSE
 	var/l_hand_ignore = FALSE
 	var/r_hand_ignore = FALSE
 	var/obj/item/l_hand_obj = null
 	var/obj/item/r_hand_obj = null
-	implant_color = "#DE7E00"
+	implant_overlay = null
 	slot = "brain_antidrop"
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -133,7 +134,7 @@
 /obj/item/organ/internal/cyberimp/brain/anti_stam
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter."
-	implant_color = "#FFFF00"
+	icon_state = "brain_implant_rebooter"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
 	/// How much we multiply the owners stamina regen block modifier by.
@@ -594,7 +595,8 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
-	implant_color = "#00AA00"
+	icon_state = "nutriment_implant"
+	implant_overlay = null
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
@@ -643,7 +645,7 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
-	implant_color = "#006607"
+	icon_state = "adv_nutriment_implant"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
@@ -659,7 +661,8 @@
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
-	implant_color = "#AD0000"
+	icon_state = "reviver_implant"
+	implant_overlay = null
 	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
 	var/revive_cost = 0
