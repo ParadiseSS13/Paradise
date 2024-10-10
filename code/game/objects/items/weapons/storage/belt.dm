@@ -484,7 +484,7 @@
 		/obj/item/detective_scanner
 	)
 
-/obj/item/storage/belt/military/assault/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/military/assault/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
 		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
 		return
