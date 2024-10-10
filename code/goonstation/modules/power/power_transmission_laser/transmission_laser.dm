@@ -85,9 +85,6 @@
 		if(NORTH)
 			pixel_x = -64
 			pixel_y = 0
-			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			if(oldmap)
-				qdel(oldmap)
 			AddComponent(/datum/component/multitile, list(
 				list(0, 1, 			0,		),
 				list(1, 1, 			1,		),
@@ -96,9 +93,6 @@
 		if(SOUTH)
 			pixel_x = 0
 			pixel_y = -64
-			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			if(oldmap)
-				qdel(oldmap)
 			AddComponent(/datum/component/multitile, list(
 				list(MACH_CENTER, 	1, 1),
 				list(1, 			1, 1),
@@ -107,9 +101,6 @@
 		if(WEST)
 			pixel_x = -64
 			pixel_y = 0
-			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			if(oldmap)
-				qdel(oldmap)
 			AddComponent(/datum/component/multitile, list(
 				list(0, 1, 			1,		),
 				list(1, 1, 			1,		),
@@ -118,9 +109,6 @@
 		if(EAST)
 			pixel_x = 0
 			pixel_y = 0
-			var/datum/component/oldmap = GetComponent(/datum/component/multitile)
-			if(oldmap)
-				qdel(oldmap)
 			AddComponent(/datum/component/multitile, list(
 				list(1,				1, 0),
 				list(1,				1, 1),
@@ -152,16 +140,18 @@
 	// o-x-x
 	//which would mean finding the true front turf would require centering than taking a step in the primary direction
 	var/turf/center = locate(x + 1 + round(pixel_x / 32), y + 1 + round(pixel_y / 32), z)
-	if(!center)///what
-		return
 	return get_step(center, dir)
+
+
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.<span/>"
 	. += "<span class='notice'>Laser has generated [total_earnings] credits.<span/>"
 	. += "<span class='notice'>Laser has sold [total_energy] Joules<span/>"
-///appearance changes are here
+
+
+/// Appearance changes are here
 
 /obj/machinery/power/transmission_laser/update_overlays()
 	. = ..()
@@ -186,14 +176,14 @@
 		. += "charge_[charge_level]"
 		. += emissive_appearance(icon, "charge_[charge_level]", src)
 
-///returns the charge level from [0 to 6]
+/// Returns the charge level from [0 to 6]
 /obj/machinery/power/transmission_laser/proc/return_charge()
 	if(!output_level)
 		return 0
 	return min(round((charge / abs(output_level)) * 6), 6)
 
 /obj/machinery/power/transmission_laser/proc/send_ptl_announcement()
-	/// The message we send
+	// The message we send
 	var/message
 	var/flavor_text
 	if(announcement_threshold == 1 MJ)
@@ -205,7 +195,7 @@
 
 	announcer.Announce(message)
 
-	announcement_threshold *= 50
+	announcement_threshold = min(announcement_threshold * 5, announcement_threshold + 200 GJ)
 
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
@@ -298,7 +288,7 @@
 		update_icon()
 
 	if(powernet && input_attempt && turned_on)
-		input_pulling = min(input_available , input_number * power_format_multi)
+		input_pulling = min(input_available, input_number * power_format_multi)
 
 		if(inputting)
 			if(input_pulling > 0)
@@ -352,7 +342,7 @@
 	if(generated_cash < 0)
 		return
 
-	total_energy += mega_joules
+	total_energy += joules
 	total_earnings += generated_cash
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
@@ -376,7 +366,7 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
-	/// This is why we set the range we did
+	// This is why we set the range we did
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	for(var/num = 1 to range + 1)
 		var/obj/effect/transmission_beam/new_beam = new(last_step)
@@ -427,6 +417,7 @@
 
 /obj/effect/transmission_beam/Destroy(force)
 	. = ..()
+	host = null
 	var/turf/source_turf = get_turf(src)
 	if(source_turf)
 		UnregisterSignal(source_turf, COMSIG_ATOM_ENTERED)
