@@ -148,6 +148,13 @@
 	damage = 30
 	icon_state = "toxin"
 
+/obj/item/projectile/neurotox/condensed // cheesed to meet you
+
+/obj/item/projectile/neurotox/condensed/on_hit(atom/target)
+	. = ..()
+	if(istype(target, /obj/structure/window))
+		target.ex_act(EXPLODE_DEVASTATE)
+
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
 	melee_damage_lower = 0
