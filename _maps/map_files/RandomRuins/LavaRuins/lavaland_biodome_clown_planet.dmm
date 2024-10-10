@@ -656,7 +656,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/powered/clownplanet)
 "bf" = (
-/turf/simulated/mineral/clown/volcanic,
+/turf/simulated/mineral/volcanic/clown,
 /area/ruin/powered/clownplanet)
 "bg" = (
 /obj/item/pickaxe,
@@ -1006,7 +1006,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/turf/simulated/mineral/clown/volcanic,
+/turf/simulated/mineral/volcanic/clown,
 /area/ruin/powered/clownplanet)
 "pv" = (
 /obj/machinery/light{
