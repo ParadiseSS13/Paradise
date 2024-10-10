@@ -479,10 +479,9 @@
 
 /obj/item/kinetic_crusher/mecha/Initialize(mapload)
 	. = ..()
-	var/datum/component/unwanted = GetComponent(/datum/component/parry)
-	unwanted?.RemoveComponent()
-	unwanted = GetComponent(/datum/component/two_handed)
-	unwanted?.RemoveComponent()
+	DeleteComponent(/datum/component/parry)
+	DeleteComponent(/datum/component/two_handed)
+
 	/// This is only for the sake of internal checks in the crusher itself.
 	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
 

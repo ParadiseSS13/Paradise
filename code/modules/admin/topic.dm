@@ -1936,7 +1936,7 @@
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
@@ -2338,7 +2338,7 @@
 		P.update_icon()
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
@@ -2387,7 +2387,7 @@
 				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
 				return
 			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
+			to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
 			owner.response_team()
 
@@ -2583,7 +2583,7 @@
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+				to_chat(sender, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)

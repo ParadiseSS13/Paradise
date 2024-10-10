@@ -21,7 +21,7 @@
 	if(!mind)
 		return FALSE
 	if(mind.miming)
-		qdel(GetComponent(/datum/component/footstep))
+		DeleteComponent(/datum/component/footstep)
 	return TRUE
 
 /**

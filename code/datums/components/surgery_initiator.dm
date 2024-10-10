@@ -67,8 +67,8 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
 	if(!P.sharp)
+		UnlinkComponent()
 		RemoveComponent()
-		qdel(src)
 
 /// Does the surgery initiation.
 /datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)

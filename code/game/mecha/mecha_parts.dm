@@ -349,6 +349,44 @@
 	icon_state = "odysseus_armour"
 	origin_tech = "materials=3;engineering=3")*/
 
+///////// Nkarrdem
+/obj/item/mecha_parts/chassis/nkarrdem
+	name = "\improper Nkarrdem Chassis"
+
+/obj/item/mecha_parts/chassis/nkarrdem/New()
+	..()
+	construct = new /datum/construction/mecha/nkarrdem_chassis(src)
+
+/obj/item/mecha_parts/part/nkarrdem_head
+	name = "\improper Nkarrdem head"
+	icon_state = "nkarrdem_head"
+
+/obj/item/mecha_parts/part/nkarrdem_torso
+	name = "\improper Nkarrdem torso"
+	desc = "A torso part of Nkarrdem. Contains power unit, processing core and life support systems."
+	icon_state = "nkarrdem_harness"
+	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+
+/obj/item/mecha_parts/part/nkarrdem_left_arm
+	name = "\improper Nkarrdem left arm"
+	desc = "A Nkarrdem left arm. Data and power sockets are compatible with most exosuit tools."
+	icon_state = "nkarrdem_l_arm"
+
+/obj/item/mecha_parts/part/nkarrdem_right_arm
+	name = "\improper Nkarrdem right arm"
+	desc = "A Nkarrdem right arm. Data and power sockets are compatible with most exosuit tools."
+	icon_state = "nkarrdem_r_arm"
+
+/obj/item/mecha_parts/part/nkarrdem_left_leg
+	name = "\improper Nkarrdem left leg"
+	desc = "A Nkarrdem left leg. Contains somewhat complex servodrives and balance maintaining systems."
+	icon_state = "nkarrdem_l_leg"
+
+/obj/item/mecha_parts/part/nkarrdem_right_leg
+	name = "\improper Nkarrdem right leg"
+	desc = "A Nkarrdem right leg. Contains somewhat complex servodrives and balance maintaining systems."
+	icon_state = "nkarrdem_r_leg"
+
 
 ///////// Circuitboards
 
@@ -373,6 +411,16 @@
 	board_name = "Ripley Peripherals Control Module"
 	icon_state = "mcontroller"
 
+/obj/item/circuitboard/mecha/nkarrdem
+	origin_tech = "programming=2"
+
+/obj/item/circuitboard/mecha/nkarrdem/main
+	board_name = "Nkarrdem Central Control Module"
+	icon_state = "mainboard"
+
+/obj/item/circuitboard/mecha/nkarrdem/peripherals
+	board_name = "Nkarrdem Peripherals Control Module"
+	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/gygax
 	origin_tech = "programming=4;combat=3;engineering=3"

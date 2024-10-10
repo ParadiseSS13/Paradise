@@ -271,10 +271,16 @@
 	var/is_messy = FALSE // Fancy mess on the lid
 	var/obj/item/food/sliceable/pizza/pizza // Content pizza
 	var/list/boxes = list() // If the boxes are stacked, they come here
+	/// The name that shows on the box lid, describing the pizza type.
 	var/box_tag = ""
+	/// The type of pizza that's spawned in the box.
+	var/pizza_type
 
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()
+	if(!isnull(pizza_type))
+		pizza = new pizza_type(src)
+
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/update_desc()
@@ -409,46 +415,37 @@
 		return
 	..()
 
-
-/obj/item/pizzabox/margherita/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/margheritapizza(src)
+/obj/item/pizzabox/margherita
+	pizza_type = /obj/item/food/sliceable/pizza/margheritapizza
 	box_tag = "margherita deluxe"
-	. = ..()
 
-/obj/item/pizzabox/vegetable/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/vegetablepizza(src)
+/obj/item/pizzabox/vegetable
+	pizza_type = /obj/item/food/sliceable/pizza/vegetablepizza
 	box_tag = "gourmet vegetable"
-	. = ..()
 
-/obj/item/pizzabox/mushroom/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/mushroompizza(src)
+/obj/item/pizzabox/mushroom
+	pizza_type = /obj/item/food/sliceable/pizza/mushroompizza
 	box_tag = "mushroom special"
-	. = ..()
 
-/obj/item/pizzabox/meat/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/meatpizza(src)
+/obj/item/pizzabox/meat
+	pizza_type = /obj/item/food/sliceable/pizza/meatpizza
 	box_tag = "meatlover's supreme"
-	. = ..()
 
-/obj/item/pizzabox/hawaiian/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/hawaiianpizza(src)
+/obj/item/pizzabox/hawaiian
+	pizza_type = /obj/item/food/sliceable/pizza/hawaiianpizza
 	box_tag = "Hawaiian feast"
-	. = ..()
 
-/obj/item/pizzabox/pepperoni/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/pepperonipizza(src)
+/obj/item/pizzabox/pepperoni
+	pizza_type = /obj/item/food/sliceable/pizza/pepperonipizza
 	box_tag = "classic pepperoni"
-	. = ..()
 
-/obj/item/pizzabox/garlic/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/garlicpizza(src)
+/obj/item/pizzabox/garlic
+	pizza_type = /obj/item/food/sliceable/pizza/garlicpizza
 	box_tag = "triple garlic"
-	. = ..()
 
-/obj/item/pizzabox/firecracker/Initialize(mapload)
-	pizza = new /obj/item/food/sliceable/pizza/firecrackerpizza(src)
+/obj/item/pizzabox/firecracker
+	pizza_type = /obj/item/food/sliceable/pizza/firecrackerpizza
 	box_tag = "extra spicy pie"
-	. = ..()
 
 //////////////////////////
 //		Pizza bombs		//
@@ -582,7 +579,8 @@
 
 /obj/item/pizzabox/pizza_bomb/Initialize(mapload)
 	correct_wire = pick(wires)
-	box_tag = "classic pepperoni"
+	var/obj/item/pizzabox/mimic_box = pick(subtypesof(/obj/item/pizzabox) - typesof(/obj/item/pizzabox/pizza_bomb))
+	box_tag = mimic_box.box_tag
 	. = ..()
 
 /obj/item/pizzabox/pizza_bomb/autoarm

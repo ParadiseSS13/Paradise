@@ -84,11 +84,11 @@
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 		invisibility = INVISIBILITY_REVENANT
-		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
+		to_chat(src, "<span class='revennotice bold'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		notransform = FALSE
-		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
+		to_chat(src, "<span class='revennotice bold'>You can move again!</span>")
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/ex_act(severity)

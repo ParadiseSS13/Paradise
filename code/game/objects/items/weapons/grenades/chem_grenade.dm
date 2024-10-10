@@ -519,6 +519,8 @@
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
+	/// The chemical used to clean things
+	var/cleaning_chem = "cleaner"
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
@@ -526,12 +528,27 @@
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("fluorosurfactant", 40)
-	B2.reagents.add_reagent("cleaner", 10)
+	B2.reagents.add_reagent(cleaning_chem, 10)
 	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 	beakers += B1
 	beakers += B2
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/chem_grenade/cleaner/everything
+	payload_name = "melter"
+	desc = "Inside of this grenade are black-market Syndicate nanites that consume everything they come in cross with. Organs, clothes, consoles, people. Nothing is safe.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_all"
+
+/obj/item/grenade/chem_grenade/cleaner/object
+	payload_name = "object dissolving"
+	desc = "Inside of this grenade are black-market Syndicate nanites that curiously only consume objects, leaving living creatures and larger machinery alone.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_item"
+
+/obj/item/grenade/chem_grenade/cleaner/organic
+	payload_name = "organic dissolving"
+	desc = "Inside of this grenade are black-market Syndicate nanites that have an appetite for living creatures and their organs, be they silicon or organic, dead or alive.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_mob"
 
 
 /obj/item/grenade/chem_grenade/teargas

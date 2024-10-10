@@ -433,7 +433,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			if(L.buckled && istype(L.buckled, /obj/structure/chair))
-				L.buckled.unbuckle_mob(L)
+				L.unbuckle()
 		next_command = world.time + cooldown_meme
 
 	//DANCE

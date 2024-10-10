@@ -39,6 +39,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+	// values for slapping
+	var/slap_sound = 'sound/effects/woodhit.ogg'
+	COOLDOWN_DECLARE(slap_cooldown)
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
@@ -57,6 +60,29 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/melee/saber/attack(mob/living/target, mob/living/user)
+	if(user.a_intent != INTENT_HELP || !ishuman(target))
+		return ..()
+	if(!COOLDOWN_FINISHED(src, slap_cooldown))
+		return
+	var/mob/living/carbon/human/H = target
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
+							"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+		slap(user, user)
+	else
+		user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
+							"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+		slap(target, user)
+
+/obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(loc, slap_sound, 50, TRUE, -1)
+	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	target.apply_damage(10, STAMINA)
+	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
+	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
 /obj/item/melee/saber/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \

@@ -538,7 +538,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.unbuckle_mob(src, force = TRUE)
+		unbuckle(force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -802,6 +802,10 @@
 /*//////////////////////
 	END RESIST PROCS
 *///////////////////////
+
+/// Unbuckle the mob from whatever it is buckled to.
+/mob/living/proc/unbuckle(force)
+	buckled.unbuckle_mob(src, force)
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
