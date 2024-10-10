@@ -14,7 +14,7 @@
 	var/mutable_appearance/standard_background
 	var/const/max_dimensions = 10
 
-/atom/movable/screen/movable/pic_in_pic/Initialize()
+/atom/movable/screen/movable/pic_in_pic/Initialize(mapload)
 	. = ..()
 	make_backgrounds()
 

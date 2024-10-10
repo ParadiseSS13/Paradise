@@ -71,7 +71,7 @@ GLOBAL_VAR(bomb_set)
 	extended = FALSE
 	anchored = FALSE
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
@@ -87,7 +87,7 @@ GLOBAL_VAR(bomb_set)
 	radio.follow_target = src
 	radio.config(list("Special Ops" = 0))
 
-/obj/machinery/nuclearbomb/syndicate/Initialize()
+/obj/machinery/nuclearbomb/syndicate/Initialize(mapload)
 	. = ..()
 	wires.labelled = FALSE
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
@@ -793,7 +793,7 @@ GLOBAL_VAR(bomb_set)
 	training = TRUE
 	sprite_prefix = "t_"
 
-/obj/machinery/nuclearbomb/training/Initialize()
+/obj/machinery/nuclearbomb/training/Initialize(mapload)
 	. = ..()
 	r_code = 11111 //Uuh.. one!
 

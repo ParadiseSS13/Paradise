@@ -45,7 +45,7 @@
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
-/obj/item/clothing/head/bearpelt/bearserk/Initialize()
+/obj/item/clothing/head/bearpelt/bearserk/Initialize(mapload)
 	. = ..()
 	style = new()
 

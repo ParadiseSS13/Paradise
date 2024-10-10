@@ -127,7 +127,7 @@
 	var/current_color
 
 // We pick a random color when we are spawned
-/turf/simulated/floor/light/disco/Initialize()
+/turf/simulated/floor/light/disco/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

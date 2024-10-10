@@ -186,7 +186,7 @@
 		update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
 	return ..()
 
