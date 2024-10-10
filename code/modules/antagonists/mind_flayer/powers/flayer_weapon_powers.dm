@@ -70,6 +70,7 @@
 	desc = "We shape our arm into an extended mass of sparking nanites."
 	action_icon_state = "elecarm"
 	max_level = 3
+	base_cost = 50
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`
 	upgrade_info = "Upgrading it recharges the internal power cell faster."
 	power_type = FLAYER_INNATE_POWER

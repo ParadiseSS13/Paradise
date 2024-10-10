@@ -10,6 +10,7 @@
 	max_level = 4
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
+	base_cost = 50
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`
 	static_upgrade_increase = 25
 	/// Any extra duration we get from upgrading the spell.
