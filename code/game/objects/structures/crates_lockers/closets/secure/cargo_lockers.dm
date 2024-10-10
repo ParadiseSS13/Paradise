@@ -22,6 +22,7 @@
 /obj/structure/closet/secure_closet/explorer/populate_contents()
 	new /obj/item/radio/headset/headset_cargo/expedition(src)
 	new /obj/item/gun/energy/kinetic_accelerator/pistol(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/beacon(src)
