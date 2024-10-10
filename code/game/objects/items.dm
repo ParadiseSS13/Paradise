@@ -914,12 +914,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(rankName in special)
 		return rankName
 
+	if(rankName in job_icons)
+		return rankName
+
 	// Check if the job has a hud icon
 	if(assignmentName in job_icons)
 		return assignmentName
-
-	if(rankName in job_icons)
-		return rankName
 
 	// Return unknown hud if none of the above apply
 	return "unknown"
