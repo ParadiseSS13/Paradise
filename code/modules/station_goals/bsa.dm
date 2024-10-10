@@ -146,9 +146,9 @@
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
-			return locate(x - 6,y,z)
+			return locate(x - 7,y,z)
 		if(EAST)
-			return locate(x + 4,y,z)
+			return locate(x + 5,y,z)
 	return get_turf(src)
 
 /obj/machinery/bsa/full/proc/get_back_turf()
@@ -206,6 +206,7 @@
 			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
+	new /obj/effect/temp_visual/bsa_splash(point, dir)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	if(istype(target, /obj/item/gps))
 		var/obj/item/gps/G = target
