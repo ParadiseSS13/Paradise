@@ -1209,6 +1209,7 @@
 #include "code\game\objects\items\weapons\tape.dm"
 #include "code\game\objects\items\weapons\teleportation.dm"
 #include "code\game\objects\items\weapons\teleprod.dm"
+#include "code\game\objects\items\weapons\thurible.dm"
 #include "code\game\objects\items\weapons\twohanded.dm"
 #include "code\game\objects\items\weapons\vending_items.dm"
 #include "code\game\objects\items\weapons\weaponry.dm"
