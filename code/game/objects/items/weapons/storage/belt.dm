@@ -184,6 +184,11 @@
 	new /obj/item/stack/cable_coil(src, 30, COLOR_BLUE)
 	update_icon()
 
+/obj/item/storage/belt/utility/expedition/vendor
+
+/obj/item/storage/belt/utility/expedition/vendor/populate_contents()
+	return // only cool-looking belt, nothing more
+
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
@@ -294,6 +299,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = TRUE
 	can_hold = list(
+		/obj/item/radio,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -344,29 +350,9 @@
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	storage_slots = 6
+	max_combined_w_class = 15
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
-	can_hold = list(
-		/obj/item/grenade/flashbang,
-		/obj/item/grenade/chem_grenade/teargas,
-		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/restraints/handcuffs,
-		/obj/item/flash,
-		/obj/item/clothing/glasses,
-		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
-		/obj/item/food/donut,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
-		/obj/item/flashlight/seclite,
-		/obj/item/holosign_creator/security,
-		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola,
-		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner,
-		/obj/item/ammo_box/magazine/wt550m9
-		)
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -485,6 +471,24 @@
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 6
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/ammo_box,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/detective_scanner
+	)
+
+/obj/item/storage/belt/military/assault/attackby(obj/item/I, mob/user)
+	if(I.w_class > WEIGHT_CLASS_NORMAL)
+		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
+		return
+	return ..()
 
 /obj/item/storage/belt/military/assault/marines/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g(src)

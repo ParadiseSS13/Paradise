@@ -1002,7 +1002,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!QDELETED(healthy_green_glow))
 		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
 		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
-			qdel(healthy_green_glow)
+			healthy_green_glow.RemoveComponent()
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
