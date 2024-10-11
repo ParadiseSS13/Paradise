@@ -384,7 +384,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "WI" = (
-/turf/simulated/wall/mineral/plastitanium/nosmooth,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 
 (1,1,1) = {"
