@@ -433,7 +433,7 @@
 		var/turf/simulated/wall/target_turf = beam_target
 		target_turf.take_damage(mw_power)
 	else
-		beam_target.fire_act(exposed_temperature = 10000 * mw_power, exposed_volume = 500)
+		beam_target.fire_act(500, 3000 * mw_power)
 
 	if(QDELETED(blocker))// We just destroyed our blocker
 		var/old_range = range
