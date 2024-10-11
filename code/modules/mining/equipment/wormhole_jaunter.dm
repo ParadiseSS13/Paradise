@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver
 	duration = 5 SECONDS
 
-/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize()
+/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize(mapload)
 	. = ..()
 	GLOB.wormhole_effect += src
 	playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
