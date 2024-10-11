@@ -36,8 +36,8 @@
 	var/firing = FALSE
 	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	/// List of all blocking turfs or objects
-	var/list/blocked_objects = list()
+	/// An object blocking the beam
+	var/atom/blocker = null
 	/// Our max load we can set
 	var/max_grid_load = 0
 	/// Our current grid load
@@ -74,11 +74,29 @@
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
-	range = get_dist(get_step(get_front_turf(), dir), get_edge_target_turf(get_front_turf(), dir))
+	find_blocker()
 	if(!powernet)
 		connect_to_network()
 	handle_offset()
 	update_icon()
+
+/// Go in the direction we shoot the lasers until we find something dense that isn't a window or a transparent turf
+/obj/machinery/power/transmission_laser/proc/find_blocker()
+	var/turf/edge_turf = get_edge_target_turf(get_front_turf(), dir)
+	var/turf/current_turf = get_step(get_front_turf(), dir)
+	blocker = null
+	while(!blocker && current_turf != edge_turf)
+		if(current_turf?.density && current_turf?.opacity)
+			blocker = current_turf
+		for(var/atom/candidate in current_turf.contents)
+			if(candidate.density && !istype(candidate, /obj/structure/window))
+				blocker = candidate
+				break
+		current_turf = get_step(current_turf, dir)
+	var/turf/end_turf = (blocker ? blocker.loc : get_edge_target_turf(get_front_turf(), dir))
+	range = get_dist(get_step(get_front_turf(), dir), end_turf)
+
+
 
 /obj/machinery/power/transmission_laser/proc/handle_offset()
 	switch(dir)
@@ -119,7 +137,6 @@
 	. = ..()
 	if(length(laser_effects))
 		destroy_lasers()
-	blocked_objects = null
 
 /obj/machinery/power/transmission_laser/proc/get_back_turf()
 	//this is weird as i believe byond sets the bottom left corner as the source corner like
@@ -315,14 +332,18 @@
 	if(!length(laser_effects))
 		setup_lasers()
 
-	if(length(blocked_objects))
-		var/atom/listed_atom = blocked_objects[1]
-		if(prob(max((abs(output_level) * 0.1) / 500 KW, 1))) ///increased by a single % per 500 KW
-			listed_atom.visible_message("<span class='danger'>[listed_atom] is melted away by the [src]!<span/>")
-			blocked_objects -= listed_atom
-			qdel(listed_atom)
+	if(QDELETED(blocker))// Checking here in case the blocker was destroyed by means other than the laser
+		var/old_range = range
+		find_blocker()
+		if(range > old_range) // Create new lasers if the new blocker is further away
+			setup_lasers()
 
-	else
+	if(length(laser_effects))
+		for(var/obj/effect/transmission_beam in laser_effects)
+			for(var/atom/beamed in get_turf(transmission_beam))
+				atom_beam_effect(beamed)
+
+	if(!blocker)
 		sell_power(output_level * WATT_TICK_TO_JOULE)
 
 	charge -= output_level
@@ -366,13 +387,14 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
-	// This is why we set the range we did
 	var/turf/last_step = get_step(get_front_turf(), dir)
+	// Create new lasers from the starting point to either the blocker or the edge of the map
 	for(var/num = 1 to range + 1)
-		var/obj/effect/transmission_beam/new_beam = new(last_step)
-		new_beam.host = src
-		new_beam.dir = dir
-		laser_effects += new_beam
+		if(!(locate(/obj/effect/transmission_beam/) in last_step))
+			var/obj/effect/transmission_beam/new_beam = new(last_step, src)
+			new_beam.host = src
+			new_beam.dir = dir
+			laser_effects += new_beam
 
 		last_step = get_step(last_step, dir)
 
@@ -381,24 +403,45 @@
 		laser_effects -= listed_beam
 		qdel(listed_beam)
 
-/// This is called every time something enters our beams
-/obj/machinery/power/transmission_laser/proc/atom_entered_beam(obj/effect/transmission_beam/triggered, atom/movable/potential_victim)
-	var/mw_power = (output_number * power_format_multi_output) / (1 MW)
-	if(!isliving(potential_victim))
+/obj/machinery/power/transmission_laser/proc/shorten_beam()
+	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
+		if(get_dist(get_front_turf(), listed_beam.loc) > range)
+			laser_effects -= listed_beam
+			qdel(listed_beam)
+
+/// Affect the atom according to it's type and the ouput power of the laser.
+/obj/machinery/power/transmission_laser/proc/atom_beam_effect(atom/beam_target)
+	if(QDELETED(beam_target) || istype(beam_target, /obj/structure/window))
 		return
-	var/mob/living/victim = potential_victim
-	switch(mw_power)
-		if(0 to 25)
-			victim.adjustFireLoss(-mw_power * 15)
-			return
-		if(26 to 50)
-			victim.gib(FALSE)
-		else
-			explosion(victim, 3, 2, 2)
-			victim.gib(FALSE)
+	var/mw_power = (output_number * power_format_multi_output) / (1 MW)
+	if(isliving(beam_target))
+		var/mob/living/victim = beam_target
+		switch(mw_power)
+			if(0 to 25)
+				victim.adjustFireLoss(-mw_power * 15)
+				victim.adjust_fire_stacks(mw_power)
+			if(26 to 50)
+				victim.gib(FALSE)
+			else
+				explosion(victim, 3, 2, 2)
+				victim.gib(FALSE)
+
+	else if(istype(beam_target,/obj/))
+		var/obj/target_object = beam_target
+		target_object.take_damage(mw_power)
+	else if(istype(beam_target, /turf/simulated/wall)) // We don't want to damage floors
+		var/turf/simulated/wall/target_turf = beam_target
+		target_turf.take_damage(mw_power)
+	else
+		beam_target.fire_act(exposed_temperature = 10000 * mw_power, exposed_volume = 500)
+
+	if(QDELETED(blocker))// We just destroyed our blocker
+		var/old_range = range
+		find_blocker()
+		if(range > old_range) // Create new lasers if the new blocker is further away
+			setup_lasers()
 
 // Beam
-
 /obj/effect/transmission_beam
 	name = "Shimmering beam"
 	icon = 'icons/goonstation/effects/pt_beam.dmi'
@@ -412,28 +455,67 @@
 	. = ..()
 	var/turf/source_turf = get_turf(src)
 	if(source_turf)
+		RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
+		RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave))
 		RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	update_appearance()
 
 /obj/effect/transmission_beam/Destroy(force)
 	. = ..()
-	host = null
 	var/turf/source_turf = get_turf(src)
+	host = null
 	if(source_turf)
+		UnregisterSignal(source_turf, COMSIG_TURF_CHANGE)
 		UnregisterSignal(source_turf, COMSIG_ATOM_ENTERED)
+		UnregisterSignal(source_turf, COMSIG_ATOM_EXITED)
 
 /obj/effect/transmission_beam/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, "ptl_beam", src)
 
+/// Apply beam effects to the atom and register it as being in the beam if it survives. If it can also block the beam make it block it.
 /obj/effect/transmission_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+
 	SIGNAL_HANDLER
 
-	host.atom_entered_beam(src, arrived)
+	if(istype(arrived, /obj/structure/window))
+		return
+	host.atom_beam_effect(arrived)
+	if(arrived?.density) // If it survived and can block the beam it should block it
+		host.blocker = arrived
+		host.range = get_dist(host.get_front_turf() , host.blocker.loc)
+		host.shorten_beam() // Remove the laser effects beyond the blocked part
+
+/// Remove the atoms from the list of the atoms in the beam. This is called every time something leaves our beam.
+/obj/effect/transmission_beam/proc/on_leave(datum/source, atom/movable/left, atom/old_loc, list/atom/old_locs)
+
+	SIGNAL_HANDLER
+
+	if(istype(left, /obj/structure/window))
+		return
+	if(host.blocker && (host.blocker.UID() == left.UID()))
+		var/old_range = host.range
+		host.find_blocker()
+		if(host.range > old_range)
+			host.setup_lasers()
+
+
+/// Register signals on the new turf and if it is dense make it the new blocker
+/obj/effect/transmission_beam/proc/on_turf_change()
+	var/turf/source_turf = get_turf(src)
+	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
+	RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave), TRUE)
+	RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered), TRUE)
+	if(source_turf.density && source_turf.opacity)
+		host.find_blocker()
+		var/old_range = host.range
+		host.range = get_dist(host.get_front_turf() , host.blocker.loc)
+		if(host.range < old_range)
+			host.shorten_beam()
+
 
 /// Explosions aren't supposed to make holes in a beam.
 /obj/effect/transmission_beam/ex_act(severity)
 	return
-
 
 #undef MINIMUM_POWER
