@@ -27,7 +27,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "ec" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "fJ" = (
@@ -48,10 +48,6 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
-"hc" = (
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/bar)
 "he" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -75,6 +71,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "iF" = (
@@ -162,6 +159,7 @@
 "ny" = (
 /obj/item/stack/rods,
 /obj/structure/table_frame,
+/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/space,
 /area/ruin/space/unathi_breacher/engineering)
 "nU" = (
@@ -214,6 +212,7 @@
 /area/ruin/space/unathi_breacher/hold)
 "rv" = (
 /obj/structure/chair/stool/bar,
+/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "rx" = (
@@ -240,10 +239,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
-"tC" = (
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unathi_breacher/bridge)
 "tT" = (
 /turf/space,
 /area/ruin/space/unathi_breacher/engineering)
@@ -429,12 +424,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
-"JG" = (
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/dorms)
 "Kf" = (
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
@@ -490,7 +482,6 @@
 /area/ruin/space/unathi_breacher/engineering)
 "Pr" = (
 /obj/item/stack/sheet/mineral/plasma,
-/mob/living/simple_animal/hostile/pirate,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
@@ -532,6 +523,10 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
+"QS" = (
+/mob/living/simple_animal/hostile/drakehound_breacher,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "Sg" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/plastitanium,
@@ -1111,7 +1106,7 @@ UX
 UX
 PE
 CZ
-JG
+CZ
 LX
 MI
 fJ
@@ -1119,7 +1114,7 @@ Uk
 AA
 MI
 Wu
-hc
+mH
 mH
 SR
 UX
@@ -1133,7 +1128,7 @@ UX
 UX
 QK
 CZ
-CZ
+QS
 XA
 MI
 yi
@@ -1267,11 +1262,11 @@ UX
 NT
 zC
 zC
-tC
+zC
 yx
 yx
 yx
-tC
+zC
 zC
 zC
 NT
