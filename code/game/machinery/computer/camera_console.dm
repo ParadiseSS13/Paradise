@@ -305,7 +305,7 @@
 	network = list()
 	circuit = /obj/item/circuitboard/camera/engineering
 
-/obj/machinery/computer/security/engineering/Initialize()
+/obj/machinery/computer/security/engineering/Initialize(mapload)
 	. = ..()
 	network = list()
 	var/area/console_area = get_area(src)
