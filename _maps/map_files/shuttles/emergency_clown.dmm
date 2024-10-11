@@ -383,6 +383,9 @@
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
+"WI" = (
+/turf/simulated/wall/mineral/plastitanium/nosmooth,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -495,7 +498,7 @@ MA
 ak
 ao
 at
-Dr
+WI
 tH
 aI
 tH
