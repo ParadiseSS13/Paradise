@@ -305,8 +305,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
-	icon = 'icons/effects/effects.dmi'
-	icon_state = null
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
 	duration = 2
 

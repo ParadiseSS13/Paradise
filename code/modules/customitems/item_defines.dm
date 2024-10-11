@@ -1441,7 +1441,7 @@
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chaps" // ctodo
+	icon_state = "chaps"
 	item_color = "combat_pants"
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/donator.dmi',
