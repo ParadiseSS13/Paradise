@@ -420,7 +420,10 @@
 	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/can_attach(obj/mecha/nkarrdem/M as obj)
-	return ..() && istype(M)
+	if(istype(M))
+		if(length(M.equipment)<M.max_equip)
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	equip_cooldown = 2 SECONDS
