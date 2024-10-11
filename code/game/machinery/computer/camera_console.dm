@@ -302,8 +302,16 @@
 	icon_keyboard = "power_key"
 	icon_screen = "engie_cams"
 	light_color = "#FAC54B"
-	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
+	network = list()
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/engineering/Initialize()
+	. = ..()
+	network = list()
+	var/area/console_area = get_area(src)
+	network += console_area.fire_cam_network
+	network += console_area.power_cam_network
+	network += console_area.atmos_cam_network
 
 /obj/machinery/computer/security/telescreen/engine
 	name = "engine monitor"

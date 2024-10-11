@@ -19,9 +19,10 @@
 	item_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
-	max_combined_w_class = 6
+	max_combined_w_class = 7
 	var/datum/martial_art/judo/style
 	can_hold = list(
+		/obj/item/radio,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
