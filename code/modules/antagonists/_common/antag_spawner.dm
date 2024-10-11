@@ -310,11 +310,11 @@
 		message_admins("Warning: No suitable vents detected for spawning morphs. Force picking from station vents regardless of state!")
 		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
 	var/obj/vent = pick(vents)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
+	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(vent)
 	M.key = C.key
 	M.make_morph_antag(FALSE)
-	S.forceMove(vent)
-	S.add_ventcrawl(vent)
+	M.forceMove(vent)
+	M.add_ventcrawl(vent)
 
 	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
