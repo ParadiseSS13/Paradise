@@ -186,7 +186,7 @@
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
-	icon_state = "thermoncle"
+	icon_state = "thermonocle"
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -1440,7 +1440,7 @@
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chaps"
+	icon_state = "chaps" // ctodo
 	item_color = "combat_pants"
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/donator.dmi',
@@ -1770,6 +1770,7 @@
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 	fluff_material = TRUE
 
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
