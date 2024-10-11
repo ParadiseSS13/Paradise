@@ -1,5 +1,5 @@
 /datum/ore
-	/// The type of ore that is sropped. Expected to be a subtype of [/obj/item/stack/ore].
+	/// The type of ore that is dropped. Expected to be a subtype of [/obj/item/stack/ore].
 	var/drop_type
 	/// The lower bound for the amount of randomized ore dropped.
 	var/drop_min = 1
