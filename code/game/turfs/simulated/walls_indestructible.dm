@@ -178,6 +178,10 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	/// Used to define what file the edging sprite is contained within
+	var/edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
+	/// Tracks the edging appearence sprite
+	var/mutable_appearance/edge_overlay
 
 /turf/simulated/wall/indestructible/fakeglass/Initialize(mapload)
 	. = ..()
@@ -194,12 +198,20 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
 
+/turf/simulated/wall/indestructible/fakeglass/update_overlays()
+	if(!edge_overlay_file)
+		return
+
+	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
+	return list(edge_overlay)
+
 /turf/simulated/wall/indestructible/fakeglass/brass
 	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	edge_overlay_file = null
 
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
