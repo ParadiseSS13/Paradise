@@ -14,3 +14,4 @@
 	new /obj/item/storage/fancy/candle_box/eternal(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)
 	new /obj/item/storage/fancy/candle_box/eternal(src)
+	new /obj/item/thurible(src)

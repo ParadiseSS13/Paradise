@@ -359,6 +359,6 @@
 	name = "ant popsicle"
 	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
 	icon_state = "ant_pop"
-	trash = /obj/item/stack/rods
-	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3,)
+	trash = /obj/item/trash/popsicle_stick
+	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3)
 	tastes = list("candy" = 1, "ants" = 2)

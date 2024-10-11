@@ -5,6 +5,8 @@
 	return
 
 /datum/proc/key_loop(client/C)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. The subsystem sets waitfor=FALSE, which works around this, but we'd rather avoid the sleeps in the first place.
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /client/key_loop()
