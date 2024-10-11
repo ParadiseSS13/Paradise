@@ -327,10 +327,6 @@
 	icon_state = "firing_effect_energy"
 	duration = 3
 
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
-	duration = 3
-
 /obj/effect/temp_visual/impact_effect
 	icon_state = "impact_bullet"
 	duration = 5
