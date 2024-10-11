@@ -28,7 +28,8 @@
 /area/ruin/space/unathi_breacher/engineering)
 "ec" = (
 /mob/living/simple_animal/hostile/drakehound_breacher,
-/turf/simulated/floor/plating/damaged/airless,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "fJ" = (
 /obj/structure/rack,
@@ -168,6 +169,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
+"oa" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/space/unathi_breacher/engineering)
 "ol" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/damaged/airless,
@@ -179,7 +184,7 @@
 /area/ruin/space/unathi_breacher/hold)
 "pP" = (
 /obj/structure/girder,
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/dorms)
 "pW" = (
 /obj/item/stack/rods,
@@ -245,7 +250,8 @@
 "uN" = (
 /obj/item/stack/rods,
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/damaged/airless,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "vc" = (
 /obj/machinery/suit_storage_unit,
@@ -294,7 +300,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/damaged/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "za" = (
 /obj/structure/chair/stool/bar,
@@ -393,11 +399,12 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating/damaged/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Hr" = (
 /obj/item/cigbutt/roach,
-/turf/simulated/floor/plating/burnt/airless,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "HK" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/west,
@@ -438,7 +445,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "Mt" = (
-/turf/simulated/floor/plating/damaged/airless,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "MI" = (
 /turf/simulated/wall/mineral/iron,
@@ -474,6 +482,7 @@
 /area/ruin/space/unathi_breacher/engineering)
 "OW" = (
 /obj/effect/decal/cleanable/ash,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Pq" = (
@@ -572,7 +581,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/damaged/airless,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "YO" = (
 /obj/item/stack/rods,
@@ -591,7 +600,8 @@
 /area/ruin/space/unathi_breacher/dorms)
 "ZY" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/burnt/airless,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 
 (1,1,1) = {"
@@ -934,7 +944,7 @@ Eq
 jo
 YO
 OW
-Mt
+oa
 ec
 Mt
 zX
@@ -1000,7 +1010,7 @@ hB
 hB
 Zl
 GX
-Mt
+PV
 rI
 GR
 mH
