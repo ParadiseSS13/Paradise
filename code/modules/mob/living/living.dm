@@ -662,7 +662,7 @@
 				if(H.dna.species.blood_color)
 					existing_trail.color = H.dna.species.blood_color
 			else if(isalien(src))
-				existing_trail.color = "#00FF32"
+				existing_trail.color = "#05EE05"
 			else
 				existing_trail.color = "#A10808"
 
