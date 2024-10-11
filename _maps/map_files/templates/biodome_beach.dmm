@@ -352,7 +352,7 @@
 /turf/simulated/floor/beach/water,
 /area/ruin/powered/beach)
 "bM" = (
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/powered/beach)
 "bN" = (
 /obj/structure/flora/ausbushes/reedbush,
