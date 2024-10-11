@@ -27,7 +27,10 @@
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
 
+	/// The ore type, if any, that should spawn in the wall on Initialize.
+	/// Expected to be a subtype of [/datum/ore].
 	var/preset_ore_type
+	/// The representation of the unmined ore in the wall, if any.
 	var/datum/ore/ore
 
 /turf/simulated/mineral/Initialize(mapload)
@@ -96,7 +99,7 @@
 	return ore.on_mine(src, user, triggered_by_explosion)
 
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
-	if(!mine_ore(user, triggered_by_explosion))
+	if(mine_ore(user, triggered_by_explosion) == ORE_PREVENT_DIG)
 		return
 
 	ChangeTurf(turf_type, defer_change)

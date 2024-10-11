@@ -11,7 +11,7 @@
 	var/scan_icon_state = ""
 
 /// Called when the containing turf is "mined", such as with a pickaxe or other digging implement.
-/// Returns `TRUE` if the containing turf should be changed to its "dug" state, `FALSE` if it should remain as is.
+/// Returns [ORE_ALLOW_DIG] if the containing turf should be changed to its "dug" state, [ORE_PREVENT_DIG] if it should remain as is.
 /datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE)
 	var/amount = rand(drop_min, drop_max)
 
@@ -22,7 +22,7 @@
 	else
 		stack_trace("[source.type] [COORD(source)] had non-ore stack [drop_type]")
 
-	return TRUE
+	return ORE_ALLOW_DIG
 
 /datum/ore/iron
 	drop_type = /obj/item/stack/ore/iron
@@ -137,11 +137,11 @@
 		if(GIBTONITE_UNSTRUCK)
 			playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 			explosive_reaction(source, user, triggered_by_explosion)
-			return FALSE
+			return ORE_PREVENT_DIG
 		if(GIBTONITE_ACTIVE)
 			detonate(source)
 
-			return TRUE
+			return ORE_ALLOW_DIG
 		if(GIBTONITE_STABLE)
 			var/obj/item/gibtonite/gibtonite = new(source)
 			if(remaining_time <= 0)
@@ -151,9 +151,9 @@
 				gibtonite.quality = 2
 				gibtonite.icon_state = "Gibtonite ore 2"
 
-			return TRUE
+			return ORE_ALLOW_DIG
 
-	return FALSE
+	return ORE_PREVENT_DIG
 
 /datum/ore/gibtonite/proc/on_parent_attackby(turf/source, obj/item/attacker, mob/user)
 	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
