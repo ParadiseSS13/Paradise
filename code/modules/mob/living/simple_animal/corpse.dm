@@ -93,25 +93,25 @@
 	name = "Corpse of a Pirate Gunner"
 
 
-/obj/effect/mob_spawn/human/corpse/soviet
-	name = "Soviet"
-	mob_name = "Soviet"
+/obj/effect/mob_spawn/human/corpse/russian
+	name = "Russian"
+	mob_name = "Russian"
 	hair_style = "bald"
 	facial_hair_style = "shaved"
-	outfit = /datum/outfit/sovietcorpse
+	outfit = /datum/outfit/russiancorpse
 
-/datum/outfit/sovietcorpse
-	name = "Corpse of a Soviet"
+/datum/outfit/russiancorpse
+	name = "Corpse of a Russian"
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
 
 
-/obj/effect/mob_spawn/human/corpse/soviet/ranged
-	outfit = /datum/outfit/sovietcorpse/ranged
+/obj/effect/mob_spawn/human/corpse/russian/ranged
+	outfit = /datum/outfit/russiancorpse/ranged
 
-/datum/outfit/sovietcorpse/ranged
-	name = "Corpse of a Ranged Soviet"
+/datum/outfit/russiancorpse/ranged
+	name = "Corpse of a Ranged Russian"
 	head = /obj/item/clothing/head/ushanka
 
 
