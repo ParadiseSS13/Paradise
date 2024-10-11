@@ -421,7 +421,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			generator_field = locate(/obj/machinery/field/containment) in T
 			if(generator_field)
 				var/obj/machinery/field/containment/field = generator_field
-				return(field.FG1.find_containment_gens(turn(_dir, -90), src))
+				return field.FG1.find_containment_gens(turn(_dir, -90), src)
 
 /obj/singularity/proc/can_move(turf/T)
 	if(!T)
@@ -587,6 +587,10 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	. = ..()
 	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)
 
+/**
+* Gets a list of field generators that generate the field that contains the singularity
+* and returns their most extreme coordinates.
+**/
 /obj/singularity/proc/in_containment(list/containment_gens)
 	if(!containment_gens)
 		return FALSE
