@@ -73,15 +73,3 @@
 	..()
 	item_state = "horsebroom[HAS_TRAIT(src, TRAIT_WIELDED) ? 1 : 0]"
 
-/obj/item/staff/stick
-	name = "stick"
-	desc = "A great tool to drag someone else's drinks across the bar."
-	icon_state = "stick"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	item_state = "stick"
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL

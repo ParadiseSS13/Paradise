@@ -45,11 +45,6 @@
 	var/damage = 0.0
 	var/range = 10.0
 
-/obj/effect/begin
-	name = "begin"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "begin"
-
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
@@ -99,7 +94,7 @@
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright
 	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
+	icon_state = null // null iconstate is white by default
 	plane = LIGHTING_PLANE
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD

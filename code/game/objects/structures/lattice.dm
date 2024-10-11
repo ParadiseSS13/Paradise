@@ -58,9 +58,7 @@
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
 	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-
-/obj/structure/lattice/clockwork/Initialize(mapload)
-	. = ..()
+	icon_state = "lattice"
 
 /obj/structure/lattice/catwalk
 	name = "catwalk"
@@ -107,6 +105,7 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	icon_state = "catwalk"
 	smoothing_flags = SMOOTH_CORNERS
 	smoothing_groups = null
 

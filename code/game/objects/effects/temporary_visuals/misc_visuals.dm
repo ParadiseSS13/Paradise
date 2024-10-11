@@ -1,5 +1,6 @@
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 5
 	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
@@ -305,6 +306,7 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect
 	icon = 'icons/effects/effects.dmi'
+	icon_state = null
 	icon_state = "firing_effect"
 	duration = 2
 

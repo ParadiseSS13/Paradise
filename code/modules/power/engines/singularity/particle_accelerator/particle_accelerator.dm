@@ -63,7 +63,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	icon_state = "none"
+	icon_state = null
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 500

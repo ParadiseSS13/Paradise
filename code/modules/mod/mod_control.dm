@@ -8,6 +8,7 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "mod_control"
 	item_state = "mod_control"
 	base_icon_state = "control"

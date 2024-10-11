@@ -2,7 +2,6 @@
 	name = "robot parts"
 	icon = 'icons/obj/robot_parts.dmi'
 	item_state = "buildpipe"
-	icon_state = "blank"
 	flags = CONDUCT
 	slot_flags = SLOT_FLAG_BELT
 	var/list/part = null

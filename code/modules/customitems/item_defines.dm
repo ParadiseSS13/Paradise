@@ -216,6 +216,7 @@
 	name = "custom zippo"
 	desc = "A custom made zippo lighter."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 
 /// GodOfOreos: Jason Conrad
 /obj/item/lighter/zippo/fluff/purple
