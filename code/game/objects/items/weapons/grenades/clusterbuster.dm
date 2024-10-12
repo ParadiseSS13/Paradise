@@ -254,3 +254,14 @@
 	desc = "Proving once and for all that the maximum bomb explosion radius is just a suggestion."
 	payload = /obj/item/grenade/clusterbuster/syndieminibomb
 
+/obj/item/grenade/clusterbuster/admincleaner
+	desc = "For cleaning <b>really</b> big messes."
+	payload = /obj/item/grenade/chem_grenade/cleaner/everything
+
+/obj/item/grenade/clusterbuster/admincleaner/organic
+	desc = "For cleaning remnants of many, many crime scenes."
+	payload = /obj/item/grenade/chem_grenade/cleaner/organic
+
+/obj/item/grenade/clusterbuster/admincleaner/object
+	desc = "For cleaning up after a typical Nanotrasen office party."
+	payload = /obj/item/grenade/chem_grenade/cleaner/object

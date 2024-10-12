@@ -626,6 +626,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An ultrasonic screwdriver."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
+	belt_icon = null
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
@@ -635,6 +636,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wrench"
+	belt_icon = null
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
@@ -644,6 +646,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
+	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	light_intensity = 0
@@ -657,6 +660,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "crowbar"
+	belt_icon = null
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -667,6 +671,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
+	belt_icon = null
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
@@ -680,6 +685,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
+	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"

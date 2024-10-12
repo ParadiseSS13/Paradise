@@ -42,6 +42,11 @@
 		if(!V.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+	if(!sanctify_force)
+		return
+	if(isliving(M))
+		var/mob/living/L = M
+		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -95,14 +100,6 @@
 	if(!src || !user.is_in_hands(src) || user.incapacitated() || reskinned)
 		return FALSE
 	return TRUE
-
-/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(!sanctify_force)
-		return
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
 /// fluff subtype to be used for all donator nullrods
 /obj/item/nullrod/fluff

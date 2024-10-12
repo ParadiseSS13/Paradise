@@ -29,6 +29,7 @@
 /datum/surgery_step/extract_bio_chip
 	name = "extract bio-chip"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 6.4 SECONDS
 	repeatable = TRUE
 	var/obj/item/bio_chip/I = null

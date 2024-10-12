@@ -114,10 +114,20 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "You will now hear a sound when mentorhelp is sent."
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
+
+/datum/preference_toggle/toggle_prayer_sound
+	name = "Prayer sound"
+	description = "Toggle hearing a notification when prayers are received"
+	preftoggle_bitflag = SOUND_PRAYERNOTIFY
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	enable_message = "You will now hear a sound when prayers are made."
+	disable_message = "You will no longer hear a sound when prayers are made."
+	blackbox_message = "Toggle Prayer Sound"
 
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Toggle Deadchat visibility"
@@ -554,13 +564,16 @@
 	. = ..()
 	if(length(user.screen))
 		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
 
 		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
 		exposure_master.backdrop(user.mob)
-		glow_master.backdrop(user.mob)
-		glare_master.backdrop(user.mob)
+
+		for(var/atom/movable/screen/plane_master/lamps_selfglow/glow_master in user.screen)
+			glow_master.backdrop(user.mob)
+
+		for(var/atom/movable/screen/plane_master/lamps_glare/glare_master in user.screen)
+			glare_master.backdrop(user.mob)
+
 
 /datum/preference_toggle/special_toggle/set_glow_level
 	name = "Set Glow Level"
@@ -581,8 +594,8 @@
 	user.prefs.glowlevel = glow_levels[new_level]
 	to_chat(usr, "Glow level: [new_level].")
 	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		glow_master.backdrop(user.mob)
+		for(var/atom/movable/screen/plane_master/lamps_selfglow/glow_master in user.screen)
+			glow_master.backdrop(user.mob)
 	return ..()
 
 /datum/preference_toggle/toggle_lamp_exposure
@@ -613,6 +626,7 @@
 
 /datum/preference_toggle/toggle_lamps_glare/set_toggles(client/user)
 	. = ..()
-	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+	if(!length(user.screen))
+		return
+	for(var/atom/movable/screen/plane_master/lamps_glare/glare_master in user.screen)
 		glare_master.backdrop(user.mob)

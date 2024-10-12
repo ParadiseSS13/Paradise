@@ -105,7 +105,7 @@
 #define STAGE_SIX 11 //From supermatter shard
 
 /// A define for the center of the coordinate map of big machinery
-#define MACH_CENTER 0
+#define MACH_CENTER 2
 
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
@@ -423,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 59
+#define SQL_VERSION 60
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -592,12 +592,6 @@
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
 
-// Lavaland cave design defines
-
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"
-
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 // Request console message priority defines
@@ -734,3 +728,7 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define LAVALAND_TENDRIL_COLLAPSE_RANGE 2 //! The radius of the chasm created by killed tendrils.
+
+#define ALPHA_VISIBLE 255 // the max alpha

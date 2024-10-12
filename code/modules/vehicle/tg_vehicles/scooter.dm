@@ -33,6 +33,11 @@
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
+		if(istype(get_turf(src), /turf/simulated/floor/plating/asteroid)) //Rocks are bad for wheels mkay?
+			if(!HAS_TRAIT(src, TRAIT_NO_BREAK_GLASS_TABLES))
+				buckled_mob.adjustStaminaLoss(2)
+				if(prob(7)) //Not to much spam.
+					to_chat(buckled_mob, "<span class='warning'>The rocky terrain you are riding on is tiring you out!</span>")
 
 /obj/tgvehicle/scooter/skateboard
 	name = "skateboard"
@@ -51,6 +56,8 @@
 	var/instability = 10
 	///If true, riding the skateboard with walk intent on will prevent crashing.
 	var/can_slow_down = TRUE
+	///Is this board cursed, preventing the cheeser from picking it up right away and using it again. Can not get on it while cursed either.
+	var/cursed = FALSE
 
 /obj/tgvehicle/scooter/skateboard/Initialize(mapload)
 	. = ..()
@@ -191,6 +198,9 @@
 /obj/tgvehicle/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
 	if(skater.incapacitated() || !Adjacent(skater))
 		return
+	if(cursed)
+		to_chat(skater, "<span class='danger'>Some magic burns your hands whenever you go to pick [src] up!</span>")
+		return
 	if(has_buckled_mobs())
 		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
 		return
@@ -214,6 +224,7 @@
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	var/mutable_appearance/curse_overlay
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
 	. = ..()
@@ -221,6 +232,27 @@
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/necropolis_curse()
+	cursed = TRUE
+	can_buckle = FALSE
+	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	curse_overlay.pixel_y = -10
+
+	add_overlay(curse_overlay)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/remove_rider()
+	visible_message("<span class='warning'>The boosters on [src] burn out as the magic extinguishes it!</span>")
+	if(has_buckled_mobs())
+		var/mob/living/carbon/skaterboy = buckled_mobs[1]
+		unbuckle_mob(skaterboy)
+	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS,TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/clear_curse()
+	can_buckle = TRUE
+	cursed = FALSE
+	cut_overlay(curse_overlay)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"

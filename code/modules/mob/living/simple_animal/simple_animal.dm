@@ -365,6 +365,7 @@
 	if(!.)
 		return FALSE
 	flying = FALSE
+	walk(src, 0)
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null

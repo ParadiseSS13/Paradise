@@ -61,7 +61,7 @@
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
-		var/obj/item/stack/plank = new plank_type(user.loc, 1 + seed_modifier)
+		new plank_type(user.loc, 1 + seed_modifier)
 		to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack.</span>")
 		qdel(src)
 

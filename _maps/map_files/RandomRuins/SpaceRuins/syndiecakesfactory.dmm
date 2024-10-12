@@ -628,7 +628,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "wW" = (
-/obj/machinery/suit_storage_unit/syndicate,
+/obj/machinery/suit_storage_unit/mining,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "xy" = (

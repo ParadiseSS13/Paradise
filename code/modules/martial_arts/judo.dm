@@ -19,9 +19,10 @@
 	item_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
-	max_combined_w_class = 6
+	max_combined_w_class = 7
 	var/datum/martial_art/judo/style
 	can_hold = list(
+		/obj/item/radio,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -74,11 +75,6 @@
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
-
-/datum/martial_art/judo/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
-	if(IS_HORIZONTAL(attacker))
-		return FALSE
-	return ..()
 
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")

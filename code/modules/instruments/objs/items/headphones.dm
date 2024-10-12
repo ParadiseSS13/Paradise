@@ -23,9 +23,17 @@
 /obj/item/clothing/ears/headphones/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/change_headphones_song)
 		ui_interact(user)
-	else
-		on = !on
-		update_icon(UPDATE_ICON_STATE)
+	else if(actiontype == /datum/action/item_action/toggle_music_notes)
+		toggle_visual_notes(user)
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtons()
+
+/obj/item/clothing/ears/headphones/proc/toggle_visual_notes(mob/user)
+	on = !on
+	update_icon(UPDATE_ICON_STATE)
+	user.regenerate_icons()
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)

@@ -69,8 +69,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-
-
 /datum/job/warden
 	title = "Warden"
 	flag = JOB_WARDEN
@@ -81,7 +79,15 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_ARMORY,
+		ACCESS_BRIG,
+		ACCESS_COURT,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+		ACCESS_WEAPONS
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
@@ -113,8 +119,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-
-
 /datum/job/detective
 	title = "Detective"
 	flag = JOB_DETECTIVE
@@ -126,7 +130,16 @@
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_BRIG,
+		ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MORGUE,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+		ACCESS_WEAPONS
+	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
@@ -183,7 +196,14 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_BRIG,
+		ACCESS_COURT,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+		ACCESS_WEAPONS
+	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)

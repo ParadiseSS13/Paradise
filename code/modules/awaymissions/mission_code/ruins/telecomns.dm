@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	loot = list(
 			/obj/item/rcd/combat,
 			/obj/item/gun/medbeam,
-			/obj/item/mod/module/energy_shield,
+			/obj/item/gun/energy/wormhole_projector,
 			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
 	)
 
@@ -430,7 +430,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	DeleteComponent(/datum/component/proximity_monitor)
+
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))
@@ -495,6 +496,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			soundblock = "kerberos"
 		if("NSS Farragus")
 			soundblock = "farragus"
+		if("NSS Diagoras")
+			soundblock = "diagoras"
 	if(!soundblock)
 		things_to_say = list("Either you are using the tiny test map, or someone has made a new station and it got merged!", "If this is the case, you'll want to issue report this if a new map is merged", "Lines 2 and 3 here are always the same, only the first line will need a new generation")
 

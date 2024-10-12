@@ -36,7 +36,7 @@
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		QDEL_NULL(C.handcuffed)
 		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.buckled.unbuckle_mob(C)
+			C.unbuckle()
 		C.update_handcuffed()
 		return
 	else
