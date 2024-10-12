@@ -19,13 +19,38 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
+"cI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
 "dg" = (
-/turf/simulated/floor/mineral/plastitanium/red/airless,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
 "dt" = (
 /obj/item/cigbutt/roach,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
+"dK" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "ec" = (
 /mob/living/simple_animal/hostile/drakehound_breacher,
 /obj/effect/landmark/damageturf,
@@ -64,15 +89,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "hP" = (
-/obj/machinery/light/small{
-	dir = 8
+/obj/machinery/computer/nonfunctional,
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"hT" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/turf_decal/siding{
+	dir = 1
 	},
-/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "iF" = (
@@ -85,11 +112,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "jo" = (
-/obj/item/toy/plushie/voxplushie{
-	has_stuffing = 0
-	},
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/space/unathi_breacher/dorms)
 "jz" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -146,23 +171,41 @@
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
+"li" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "lq" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/bottle/random_drink,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
-"mC" = (
-/turf/simulated/wall/mineral/plastitanium,
+"lJ" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
+"mj" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/drakehound_breacher,
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"mC" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/bar)
 "mH" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "ny" = (
-/obj/item/stack/rods,
-/obj/structure/table_frame,
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/area/space)
 "nU" = (
 /obj/structure/shuttle/engine/large{
 	dir = 8
@@ -187,18 +230,15 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/dorms)
 "pW" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unathi_breacher/bridge)
 "pZ" = (
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "qp" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -215,6 +255,12 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
+"rl" = (
+/obj/item/toy/plushie/voxplushie{
+	has_stuffing = 0
+	},
+/turf/space,
+/area/space)
 "rv" = (
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/drakehound_breacher,
@@ -245,8 +291,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "tT" = (
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "uN" = (
 /obj/item/stack/rods,
 /obj/item/stack/rods,
@@ -258,9 +307,11 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "vY" = (
-/obj/item/stack/cable_coil/ten,
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "wV" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -268,20 +319,17 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "xJ" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/plastitanium/red/airless,
-/area/ruin/space/unathi_breacher/bridge)
+/obj/item/stack/rods,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/space,
+/area/space)
 "yi" = (
-/obj/machinery/power/apc/off_station/empty_charge/directional/north,
-/obj/machinery/power/terminal{
-	dir = 1
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/unathi_breacher/hold)
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "yx" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
@@ -303,41 +351,43 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "za" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/spawner/random/food_trash,
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "zC" = (
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "zQ" = (
-/obj/machinery/power/apc/off_station/empty_charge/directional/south,
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/dorms)
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unathi_breacher/bridge)
 "zX" = (
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Ah" = (
-/obj/structure/window/full/plastitanium,
-/turf/simulated/floor/plating,
-/area/ruin/space/unathi_breacher/bar)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
 "Aj" = (
-/obj/machinery/power/apc/off_station/empty_charge/directional/north,
-/obj/machinery/power/terminal{
-	dir = 1
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-4"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/bar)
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
 "AA" = (
 /obj/structure/rack,
 /obj/item/salvage/loot/pirate,
@@ -345,16 +395,29 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "AL" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/unathi_breacher/bridge)
-"Bg" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/ruin/space/unathi_breacher/bar)
-"CC" = (
-/obj/structure/window/full/plastitanium,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
+"Bg" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/hostile/drakehound_breacher,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
+"CC" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
 "CM" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/gold,
@@ -376,70 +439,76 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "Eq" = (
-/obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
-"FR" = (
-/obj/structure/table/reinforced,
-/obj/item/salvage/loot/pirate,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
+"FR" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "Gb" = (
 /turf/space,
 /area/space)
-"GR" = (
-/turf/simulated/wall/mineral/plastitanium/interior,
-/area/ruin/space/unathi_breacher/bar)
-"GX" = (
-/obj/machinery/power/apc/off_station/empty_charge/directional/north,
-/obj/machinery/power/terminal{
-	dir = 1
-	},
+"GH" = (
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"GR" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/unathi_breacher/hold)
 "Hr" = (
 /obj/item/cigbutt/roach,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "HK" = (
-/obj/machinery/power/apc/off_station/empty_charge/directional/west,
-/obj/machinery/power/terminal{
-	dir = 8
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	d2 = 8;
+	icon_state = "0-4"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"Ik" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/unathi_breacher/bridge)
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "IN" = (
 /obj/item/toy/plushie/lizardplushie,
 /obj/structure/bed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "Jy" = (
-/obj/machinery/light/small{
-	dir = 8
+/obj/effect/turf_decal/siding{
+	dir = 4
 	},
-/mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "Kf" = (
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "LO" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
+/area/ruin/space/unathi_breacher/bridge)
 "LX" = (
 /obj/structure/bed,
 /turf/simulated/floor/plasteel/dark,
@@ -449,8 +518,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "MI" = (
-/turf/simulated/wall/mineral/iron,
-/area/ruin/space/unathi_breacher/hold)
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/bridge)
 "MN" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 1
@@ -458,22 +527,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
 "MX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/window/full/shuttle/survival_pod/tinted,
+/turf/simulated/floor/plating,
 /area/ruin/space/unathi_breacher/bar)
 "NT" = (
-/obj/structure/window/full/plastitanium,
-/turf/simulated/floor/plating,
-/area/ruin/space/unathi_breacher/bridge)
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/ruin/space/unathi_breacher/engineering)
 "Oe" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -490,20 +549,21 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Pr" = (
-/obj/item/stack/sheet/mineral/plasma,
-/obj/machinery/light_construct/small{
-	dir = 4
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/unathi_breacher/hold)
 "Pt" = (
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "PE" = (
-/obj/machinery/door/airlock/hatch,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/dorms)
+/area/ruin/space/unathi_breacher/bar)
 "PV" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
@@ -512,14 +572,26 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "Qh" = (
-/obj/machinery/computer/nonfunctional{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unathi_breacher/bridge)
+/obj/item/stack/cable_coil/ten,
+/turf/space,
+/area/space)
+"QI" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/turf/space,
+/area/space)
 "QK" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/ruin/space/unathi_breacher/dorms)
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unathi_breacher/engineering)
 "QL" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "secure hold door";
@@ -536,31 +608,60 @@
 /mob/living/simple_animal/hostile/drakehound_breacher,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
+"RI" = (
+/obj/item/stack/rods,
+/obj/structure/table_frame,
+/mob/living/simple_animal/hostile/drakehound_breacher,
+/turf/space,
+/area/space)
 "Sg" = (
-/obj/machinery/computer/nonfunctional,
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "SR" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/bar)
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
 "Tg" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
+"Tk" = (
+/obj/machinery/barsign,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/unathi_breacher/hold)
 "Uk" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
+"UV" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "UX" = (
-/turf/space,
-/area/ruin/space)
+/obj/structure/chair/stool/bar,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/turf_decal/stripes/red/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
+"VI" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "VX" = (
-/obj/machinery/barsign,
-/turf/simulated/wall/mineral/iron,
-/area/ruin/space/unathi_breacher/hold)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "Wu" = (
 /obj/effect/spawner/random/food_trash,
 /obj/structure/cable{
@@ -570,6 +671,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
+"Xq" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "XA" = (
 /obj/item/toy/plushie/lizardplushie,
 /obj/structure/table,
@@ -584,15 +692,16 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "YO" = (
-/obj/item/stack/rods,
-/obj/item/stack/sheet/mineral/plastitanium,
-/turf/space,
-/area/ruin/space/unathi_breacher/engineering)
+/obj/effect/turf_decal/siding{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unathi_breacher/bridge)
 "Za" = (
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "Zl" = (
-/turf/simulated/wall/mineral/plastitanium/interior,
+/turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/space/unathi_breacher/dorms)
 "ZR" = (
 /obj/machinery/light/small,
@@ -620,11 +729,6 @@ Gb
 Gb
 Gb
 Gb
-Gb
-Gb
-Gb
-Gb
-Gb
 "}
 (2,1,1) = {"
 Gb
@@ -635,15 +739,10 @@ Gb
 Gb
 Gb
 Gb
+Mt
 Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
+PV
+nU
 Gb
 Gb
 Gb
@@ -656,314 +755,55 @@ Gb
 Gb
 Gb
 Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
+QI
+Mt
+wV
+PV
+PV
+NT
 Gb
 Gb
 "}
 (4,1,1) = {"
 Gb
 Gb
+xJ
 Gb
+CC
 Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
+Qh
+ol
+ol
+NT
+NT
+NT
+NT
 Gb
 Gb
 "}
 (5,1,1) = {"
 Gb
 Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(6,1,1) = {"
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(7,1,1) = {"
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(8,1,1) = {"
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(9,1,1) = {"
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(10,1,1) = {"
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-Gb
-"}
-(11,1,1) = {"
-Gb
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-Gb
-"}
-(12,1,1) = {"
-Gb
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-tT
-tT
-tT
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-Gb
-"}
-(13,1,1) = {"
-Gb
-UX
-UX
-UX
-UX
-tT
-tT
-tT
-tT
-tT
-Mt
-tT
-PV
-nU
-UX
-UX
-UX
-UX
-UX
-Gb
-"}
-(14,1,1) = {"
-Gb
-UX
-UX
-UX
-tT
-tT
-tT
-tT
-tT
-pZ
-Mt
-wV
-PV
-PV
-LO
-UX
-UX
-UX
-UX
-Gb
-"}
-(15,1,1) = {"
-Gb
-UX
-UX
-UX
-YO
-tT
-pW
-tT
-vY
-ol
-ol
-LO
-LO
-LO
-LO
-UX
-UX
-UX
-UX
-Gb
-"}
-(16,1,1) = {"
-Gb
-UX
-UX
-UX
-YO
-Eq
-jo
-YO
+xJ
+ny
+rl
+xJ
 OW
 oa
 ec
 Mt
 zX
 kt
-LO
-UX
-UX
-UX
-UX
+NT
+Gb
 Gb
 "}
-(17,1,1) = {"
+(6,1,1) = {"
 Gb
-UX
-UX
-UX
-LO
-ny
-Pr
+Gb
+NT
+RI
+FR
 ZY
 Hr
 uN
@@ -971,84 +811,64 @@ Mt
 dt
 Oe
 qp
-LO
-UX
-UX
-UX
-UX
+NT
+Gb
 Gb
 "}
-(18,1,1) = {"
+(7,1,1) = {"
 Gb
-UX
-UX
-UX
-QK
-QK
-QK
+Gb
+Zl
+Zl
+Zl
 pP
 Mt
 Mt
 Yf
-GR
-Bg
-Bg
-Bg
-UX
-UX
-UX
-UX
+mC
+mC
+mC
+mC
+Gb
 Gb
 "}
-(19,1,1) = {"
+(8,1,1) = {"
 Gb
-UX
-UX
-UX
-QK
+Gb
+Zl
 hB
 hB
 Zl
-GX
+QK
 PV
 rI
-GR
-mH
-mH
-Bg
-UX
-UX
-UX
-UX
+mC
+PE
+PE
+mC
+Gb
 Gb
 "}
-(20,1,1) = {"
+(9,1,1) = {"
 Gb
-UX
-UX
-QK
-QK
+Zl
+Zl
 CZ
-zQ
+UV
 Zl
 yB
 Kf
 rI
-GR
-Aj
+mC
+HK
 mH
-Bg
-Bg
-UX
-UX
-UX
+mC
+mC
 Gb
 "}
-(21,1,1) = {"
+(10,1,1) = {"
 Gb
-UX
-UX
-QK
+Zl
 hB
 CZ
 iF
@@ -1057,417 +877,302 @@ fN
 yy
 kf
 aZ
-MX
+dK
 mH
 mH
-Bg
-UX
-UX
-UX
+mC
 Gb
 "}
-(22,1,1) = {"
+(11,1,1) = {"
 Gb
-UX
-UX
-QK
-Pt
+Zl
+AL
 CZ
-CZ
+VX
 Zl
 vc
 Pq
 vc
-GR
+mC
 rJ
 lq
-FR
-Bg
-UX
-UX
-UX
+VI
+mC
 Gb
 "}
-(23,1,1) = {"
+(12,1,1) = {"
 Gb
-UX
-UX
-QK
-CZ
+Zl
+tT
 CZ
 ZR
-MI
-MI
-MI
-MI
-VX
+GR
+GR
+GR
+GR
+Tk
 bF
 rv
-za
-Bg
 UX
-UX
-UX
+mC
 Gb
 "}
-(24,1,1) = {"
+(13,1,1) = {"
 Gb
-UX
-UX
-PE
-CZ
+Xq
+li
 CZ
 LX
-MI
+GR
 fJ
 Uk
 AA
-MI
+GR
 Wu
 mH
-mH
-SR
-UX
-UX
-UX
+pZ
+yi
 Gb
 "}
-(25,1,1) = {"
+(14,1,1) = {"
 Gb
-UX
-UX
-QK
-CZ
+Zl
+vY
 QS
 XA
-MI
-yi
+GR
+Pr
 ri
 Za
-MI
-rJ
+GR
+Ik
 mH
-mH
-Bg
-UX
-UX
-UX
+za
+mC
 Gb
 "}
-(26,1,1) = {"
+(15,1,1) = {"
 Gb
-UX
-UX
-CC
+jo
 Pt
 CZ
 hB
-MI
+GR
 CM
 rx
 oK
-MI
-rJ
+GR
+GH
 mH
 mH
-Ah
-UX
-UX
-UX
+MX
 Gb
 "}
-(27,1,1) = {"
+(16,1,1) = {"
 Gb
-UX
-UX
-CC
+jo
 CZ
+VX
 CZ
-CZ
-MI
+GR
 Za
 rx
 Za
-MI
+GR
 rJ
 mH
 mH
-Ah
-UX
-UX
-UX
+MX
 Gb
 "}
-(28,1,1) = {"
+(17,1,1) = {"
 Gb
-UX
-UX
-QK
+Zl
 IN
 CZ
-CZ
-MI
+VX
+GR
 jC
 rx
 kb
-MI
-rJ
-mH
+GR
+Eq
+PE
 Tg
-Bg
-UX
-UX
-UX
+mC
 Gb
 "}
-(29,1,1) = {"
+(18,1,1) = {"
 Gb
-UX
-UX
-QK
-QK
+Zl
+Zl
 Zl
 Qa
-MI
-MI
-QL
-MI
-MI
-jA
 GR
-Bg
-Bg
-UX
-UX
-UX
+GR
+QL
+GR
+GR
+jA
+mC
+mC
+mC
 Gb
 "}
-(30,1,1) = {"
+(19,1,1) = {"
 Gb
-UX
-UX
-UX
-mC
+Gb
+MI
 zC
 zC
-Jy
+mj
 yx
 he
-HK
-hP
+Aj
+Bg
 Dp
 zC
-mC
-UX
-UX
-UX
-UX
+MI
+Gb
 Gb
 "}
-(31,1,1) = {"
+(20,1,1) = {"
 Gb
-UX
-UX
-UX
-NT
-zC
-zC
-zC
-yx
-yx
-yx
-zC
-zC
-zC
-NT
-UX
-UX
-UX
-UX
 Gb
-"}
-(32,1,1) = {"
-Gb
-UX
-UX
-UX
-mC
+LO
+zC
+Jy
 Sg
 yx
 yx
 yx
-yx
-yx
-yx
-yx
-Qh
-mC
-UX
-UX
-UX
-UX
+YO
+Jy
+zC
+LO
+Gb
 Gb
 "}
-(33,1,1) = {"
+(21,1,1) = {"
 Gb
-UX
-UX
-UX
-mC
-mC
-yx
-MN
-mC
-AL
-mC
-jz
-yx
-mC
-mC
-UX
-UX
-UX
-UX
 Gb
-"}
-(34,1,1) = {"
-Gb
-UX
-UX
-UX
-UX
-mC
+MI
+hP
+SR
 yx
-MN
-mC
+yx
 dg
-mC
-jz
 yx
-mC
-UX
-UX
-UX
-UX
-UX
+yx
+lJ
+hT
+MI
+Gb
 Gb
 "}
-(35,1,1) = {"
+(22,1,1) = {"
 Gb
-UX
-UX
-UX
-UX
-mC
-mC
-mC
-mC
-xJ
-mC
-mC
-mC
-mC
-UX
-UX
-UX
-UX
-UX
+Gb
+MI
+MI
+lJ
+MN
+MI
+Ah
+MI
+jz
+cI
+MI
+MI
+Gb
 Gb
 "}
-(36,1,1) = {"
+(23,1,1) = {"
 Gb
-UX
-UX
-UX
-UX
-UX
-mC
-mC
-UX
-UX
-UX
-mC
-mC
-UX
-UX
-UX
-UX
-UX
-UX
+Gb
+Gb
+MI
+lJ
+MN
+MI
+pW
+MI
+jz
+SR
+MI
+Gb
+Gb
 Gb
 "}
-(37,1,1) = {"
+(24,1,1) = {"
 Gb
-UX
-UX
-UX
-UX
-UX
-UX
-mC
-UX
-UX
-UX
-mC
-UX
-UX
-UX
-UX
-UX
-UX
-UX
+Gb
+Gb
+MI
+MI
+MI
+MI
+zQ
+MI
+MI
+MI
+MI
+Gb
+Gb
 Gb
 "}
-(38,1,1) = {"
+(25,1,1) = {"
 Gb
-UX
-UX
-UX
-UX
-UX
-UX
-mC
-UX
-UX
-UX
-mC
-UX
-UX
-UX
-UX
-UX
-UX
-UX
+Gb
+Gb
+Gb
+MI
+MI
+Gb
+Gb
+Gb
+MI
+MI
+Gb
+Gb
+Gb
 Gb
 "}
-(39,1,1) = {"
+(26,1,1) = {"
 Gb
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
-UX
+Gb
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+Gb
 Gb
 "}
-(40,1,1) = {"
+(27,1,1) = {"
 Gb
 Gb
 Gb
 Gb
 Gb
+MI
+Gb
+Gb
+Gb
+MI
+Gb
+Gb
+Gb
+Gb
+Gb
+"}
+(28,1,1) = {"
 Gb
 Gb
 Gb
