@@ -40,7 +40,6 @@
 	name = "soviet surplus closet"
 	desc = "A storage unit for surplus USSP equipment."
 	icon_state = "syndicate1"
-	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/gimmick/soviet/populate_contents()
 	new /obj/item/clothing/head/sovietsidecap(src)
