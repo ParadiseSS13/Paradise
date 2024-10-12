@@ -626,15 +626,16 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
-/atom/movable/screen/alert/ghost/cryo
-	name = "Ghost"
-	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+/atom/movable/screen/alert/ghost/proc/handle_ghosting(mob/living/carbon/human/target)
+	target.ghost()
 
-/atom/movable/screen/alert/ghost/cryo/Click()
+/atom/movable/screen/alert/ghost/Click()
 	if(!..())
 		return
-	var/mob/living/carbon/human/target = usr
-	target.ghost()
+	handle_ghosting(usr)
+
+/atom/movable/screen/alert/ghost/cryo
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
 
 /atom/movable/screen/alert/ghost/xeno
 	name = "Ghost"
