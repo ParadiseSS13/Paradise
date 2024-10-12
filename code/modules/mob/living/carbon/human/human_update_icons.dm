@@ -303,20 +303,26 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+		if(body_marking_style && body_marking_style.species_allowed && (dna.species.sprite_sheet_name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
+			if(istype(src.dna.species, /datum/species/slime))
+				b_marking_s.GrayScale()
+				b_marking_s.Blend("[skin_colour]A0", ICON_AND)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(istype(head_organ) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
+		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.sprite_sheet_name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
+			if(istype(src.dna.species, /datum/species/slime))
+				h_marking_s.GrayScale()
+				h_marking_s.Blend("[skin_colour]A0", ICON_AND)
 			markings_standing.Blend(h_marking_s, ICON_OVERLAY)
 
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
@@ -341,10 +347,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(head_organ.ha_style && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY))
 		var/datum/sprite_accessory/head_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
-			if(head_organ.dna.species.name in head_accessory_style.species_allowed)
+			if(head_organ.dna.species.sprite_sheet_name in head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+				if(istype(src.dna.species, /datum/species/slime)) // Slimifies head acc
+					head_accessory_s.GrayScale()
+					head_accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 				if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 					head_accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 					head_accessory_s.SetIntensity(0.7)
@@ -376,7 +385,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	MA.layer = -HAIR_LAYER
 	if(O.h_style && !(head?.flags & BLOCKHEADHAIR && !ismachineperson(src)))
 		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[O.h_style]
-		if(hair?.species_allowed && ((O.dna.species.name in hair.species_allowed) || (O.dna.species.bodyflags & ALL_RPARTS)))
+		if(hair?.species_allowed && ((O.dna.species.sprite_sheet_name in hair.species_allowed) || (O.dna.species.bodyflags & ALL_RPARTS)))
 			// Base hair
 			var/icon/hair_icon = new /icon(hair.icon, "[hair.icon_state]_s")
 			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
@@ -425,8 +434,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	var/species_name = ""
-	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
-		species_name = "_[lowertext(dna.species.name)]"
+	if(dna.species.sprite_sheet_name in list("Drask", "Grey", "Vox", "Kidan"))
+		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
 
 	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
 
@@ -468,7 +477,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.dna.species.sprite_sheet_name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
 					facial_s.Blend("[skin_colour]A0", ICON_AND)
@@ -1244,7 +1253,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 		wings_icon.SetIntensity(0.7)
-	if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+	if(istype(src.dna.species, /datum/species/slime)) // Slimifies the wings
 		wings_icon.GrayScale()
 		wings_icon.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
@@ -1257,7 +1266,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 			under_wing_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 			under_wing_icon.SetIntensity(0.7)
-		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+		if(istype(src.dna.species, /datum/species/slime)) // Slimifies the wings
 			under_wing_icon.GrayScale()
 			under_wing_icon.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		var/mutable_appearance/under_wing = mutable_appearance(under_wing_icon, layer = -WING_UNDERLIMBS_LAYER)
@@ -1295,7 +1304,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 
-			if(istype(src.dna.species, /datum/species/slime)) // Slimfies the tail
+			if(istype(src.dna.species, /datum/species/slime)) // Slimifies the body acc
 				accessory_s.GrayScale()
 				accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha. Less alpha here because the tail is generally stubborn...
 
@@ -1381,7 +1390,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		if(dna.species.bodyflags & HAS_SKIN_COLOR)
 			accessory_s.Blend(skin_colour, body_accessory.blend_mode)
-		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+		if(istype(src.dna.species, /datum/species/slime)) // Slimifies the wings
 			accessory_s.GrayScale()
 			accessory_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
@@ -1390,8 +1399,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
 
-			if(body_accessory.allowed_species && (dna.species.name in body_accessory.allowed_species))
-				under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
+			if(body_accessory.allowed_species && (dna.species.sprite_sheet_name in body_accessory.allowed_species))
+				under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.sprite_sheet_name]_tail_delay")
 			under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
 			under.Insert(new/icon(accessory_s, dir=EAST), dir=EAST)
 			under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
@@ -1403,8 +1412,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
 			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
-			if(body_accessory.allowed_species && (dna.species.name in body_accessory.allowed_species)) // If the user's species is in the list of allowed species for the currently selected body accessory, use the appropriate animation timing blank
-				over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
+			if(body_accessory.allowed_species && (dna.species.sprite_sheet_name in body_accessory.allowed_species)) // If the user's species is in the list of allowed species for the currently selected body accessory, use the appropriate animation timing blank
+				over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.sprite_sheet_name]_tail_delay")
 			over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 			var/mutable_appearance/tail = mutable_appearance(over, layer = -TAIL_LAYER)
@@ -1421,14 +1430,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]w_s")
 		if(dna.species.bodyflags & HAS_SKIN_COLOR)
 			tailw_s.Blend(skin_colour, ICON_ADD)
-		if(istype(src.dna.species, /datum/species/slime)) // Slimfies the wings
+		if(istype(src.dna.species, /datum/species/slime)) // Slimifies the tail
 			tailw_s.GrayScale()
 			tailw_s.Blend("[skin_colour]A0", ICON_AND) //DC = 160 alpha.
 		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
-			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
+			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.sprite_sheet_name]_tail_delay")
 			under.Insert(new/icon(tailw_s, dir=SOUTH), dir=SOUTH)
 			under.Insert(new/icon(tailw_s, dir=EAST), dir=EAST)
 			under.Insert(new/icon(tailw_s, dir=WEST), dir=WEST)
@@ -1436,7 +1445,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[TAIL_UNDERLIMBS_LAYER] = mutable_appearance(under, layer = -TAIL_UNDERLIMBS_LAYER)
 
 			// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
-			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
+			var/icon/over = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.sprite_sheet_name]_tail_delay")
 			over.Insert(new/icon(tailw_s, dir=NORTH), dir=NORTH)
 
 			overlays_standing[TAIL_LAYER] = mutable_appearance(over, layer = -TAIL_LAYER)

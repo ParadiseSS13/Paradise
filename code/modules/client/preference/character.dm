@@ -831,19 +831,42 @@
 	//Icon-based species colour.
 	var/coloured_tail
 	if(current_species)
-		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			var/mob/living/carbon/human/H = new
-			H.dna.species = current_species
+		if(species_subtype != "None" && current_species.bodyflags & HAS_SPECIES_SUBTYPE  && istype(current_species, /datum/species/slime))
+			var/datum/species/subtype_species = GLOB.all_species[species_subtype]
+			if(subtype_species)
+				current_species.sprite_sheet_name = subtype_species.sprite_sheet_name
+				current_species.icobase = subtype_species.icobase
+				current_species.tail = subtype_species.tail
+				current_species.wing = subtype_species.wing
+				current_species.eyes = subtype_species.eyes
+				current_species.scream_verb = subtype_species.scream_verb
+				current_species.male_scream_sound = subtype_species.male_scream_sound
+				current_species.female_scream_sound = subtype_species.female_scream_sound
+				current_species.default_headacc = subtype_species.default_headacc
+				current_species.default_bodyacc = subtype_species.default_bodyacc
+				current_species.male_cough_sounds = subtype_species.male_cough_sounds
+				current_species.female_cough_sounds = subtype_species.female_cough_sounds
+				current_species.male_sneeze_sound = subtype_species.male_sneeze_sound
+				current_species.female_sneeze_sound = subtype_species.female_sneeze_sound
+				current_species.bodyflags = subtype_species.bodyflags
+				current_species.bodyflags |= HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
+		else
+			current_species = initial(current_species)
+		var/mob/living/carbon/human/H = new
+		H.dna.species = current_species
+		if(current_species.bodyflags & HAS_SPECIES_SUBTYPE)
+			H.dna.species.updatespeciessubtype(H)
+			icobase = H.dna.species.icobase
+		else if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 			var/obj/item/organ/external/chest/C = H.get_organ("chest")
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-
-			qdel(H)
 		else
 			icobase = current_species.icobase
+		qdel(H)
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 

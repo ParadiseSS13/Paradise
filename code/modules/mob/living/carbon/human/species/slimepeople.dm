@@ -36,7 +36,7 @@
 	species_traits = list(LIPS, NO_CLONESCAN, EXOTIC_COLOR)
 	inherent_traits = list(TRAIT_WATERBREATH, TRAIT_NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE | HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_ACCESSORY
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
@@ -70,6 +70,7 @@
 	)
 
 	var/reagent_skin_coloring = FALSE
+	var/static_bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -100,10 +101,6 @@
 		if(H.species_subtype == species_subtype) // No update, no need to go further.
 			return
 		species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
-		if(species_subtype != "None") // Update our species display and reference name to match the subtype. Used for species specific clothing and accessories.
-			sprite_sheet_name = species_subtype
-		else
-			sprite_sheet_name = name // Resets sprite sheet back to slime people.
 
 		var/datum/species/s = GLOB.all_species[species_subtype]
 		if(isnull(s))
@@ -123,12 +120,19 @@
 		female_cough_sounds = s.female_cough_sounds
 		male_sneeze_sound = s.male_sneeze_sound
 		female_sneeze_sound = s.female_sneeze_sound
+		bodyflags = s.bodyflags
+		if(species_subtype != "None") // Update our species display and reference name to match the subtype. Used for species specific clothing and accessories.
+			sprite_sheet_name = species_subtype
+			bodyflags |= static_bodyflags
+		else
+			sprite_sheet_name = name // Resets sprite sheet back to slime people.
 
-		H.body_accessory = default_bodyacc
+		H.body_accessory = GLOB.body_accessory_by_name[default_bodyacc]
 		H.tail = tail
 		H.wing = wing
 		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base in the case they have robotic limbs
 			limb.icobase = s.icobase // update their icobase for when we apply the slimfy effect
+			limb.dna.species = src // Update limb to match our newly modified species
 			limb.set_company(limb.model, sprite_sheet_name)
 
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...

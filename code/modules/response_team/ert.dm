@@ -196,8 +196,8 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
 	head_organ.headacc_colour = pick("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
 
 	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
 	M.age = rand(23,35)
