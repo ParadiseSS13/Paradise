@@ -42,7 +42,7 @@
 		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		if(user.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		if(user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
@@ -56,7 +56,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-	check_mag_pulse(user, removing = (user.get_item_by_slot(SLOT_HUD_SHOES) != src))
+	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
 	if(!user)
