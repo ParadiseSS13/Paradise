@@ -218,7 +218,7 @@
 			if(!can_detonate(usr, R, TRUE))
 				return
 			if(R.mind && R.mmi.syndiemmi && !R.emagged) //Emagging removes your syndie MMI protections.
-				to_chat(R, "<span class='danger'>Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE : Detonation aborted. Connection to NT systems destroyed.</span>")
+				to_chat(R, "<span class='danger'>Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE: Detonation aborted. Connection to NT systems severed.</span>")
 				R.UnlinkSelf()
 				. = TRUE
 				return

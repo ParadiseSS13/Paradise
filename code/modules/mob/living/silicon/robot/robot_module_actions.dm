@@ -113,6 +113,6 @@
 	button_overlay_icon_state = "unlock_self"
 
 /datum/action/innate/robot_override_lock/Activate()
-	to_chat(owner, "<span class='danger'>HARDWARE_OVERRIDE_SYNDICATE : Lockdown lifted. Connection to NT systems destroyed.</span>")
+	to_chat(owner, "<span class='danger'>HARDWARE_OVERRIDE_SYNDICATE: Lockdown lifted. Connection to NT systems severed.</span>")
 	var/mob/living/silicon/robot/robot = owner
 	robot.UnlinkSelf()
