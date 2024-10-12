@@ -297,7 +297,7 @@ CONTENTS:
 	user.do_attack_animation(L)
 
 	if(isrobot(L))
-		L.apply_damage(120, STAMINA) //Force a reboot instantly
+		L.apply_damage(80, STAMINA) //Force a reboot on two hits for consitancy.
 		return
 
 	if(ishuman(L))
@@ -327,8 +327,8 @@ CONTENTS:
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
 
-	L.Stun(14 SECONDS)
-	L.Weaken(14 SECONDS)
+	L.KnockDown(7 SECONDS)
+	L.apply_damage(80, STAMINA)
 	L.Stuttering(14 SECONDS)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
@@ -338,16 +338,20 @@ CONTENTS:
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.IsStunned() || L.IsSleeping())
-		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-		L.Sleeping(120 SECONDS)
-		add_attack_logs(user, L, "Put to sleep with [src]")
-	else
-		L.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
-		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
+	if(!iscarbon(L))
+		return
+	var/mob/living/carbon/C = L
+	if(do_mob(user, C, 25))
+		if(C.getStaminaLoss() > 100 || C.IsSleeping())
+			C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
+								"<span class='userdanger'>You suddenly feel very drowsy!</span>")
+			playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+			C.Sleeping(120 SECONDS)
+			add_attack_logs(user, C, "Put to sleep with [src]")
+		else
+			C.AdjustDrowsy(2 SECONDS)
+			to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
+			C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
