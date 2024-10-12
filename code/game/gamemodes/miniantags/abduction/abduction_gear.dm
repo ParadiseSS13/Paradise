@@ -297,7 +297,7 @@ CONTENTS:
 	user.do_attack_animation(L)
 
 	if(isrobot(L))
-		L.apply_damage(80, STAMINA) //Force a reboot on two hits for consitancy.
+		L.apply_damage(80, STAMINA) //Force a reboot on two hits for consistency.
 		return
 
 	if(ishuman(L))
@@ -341,7 +341,7 @@ CONTENTS:
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
-	if(do_mob(user, C, 25))
+	if(do_mob(user, C, 2.5 SECONDS))
 		if(C.getStaminaLoss() > 100 || C.IsSleeping())
 			C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 								"<span class='userdanger'>You suddenly feel very drowsy!</span>")
@@ -362,7 +362,7 @@ CONTENTS:
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-		if(do_mob(user, C, 30))
+		if(do_mob(user, C, 3 SECONDS))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy(C)
 				C.update_handcuffed()
