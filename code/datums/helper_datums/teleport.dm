@@ -140,7 +140,7 @@
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
-	
+
 	// Make sure the target tile does not contain a teleporter on it
 	for(var/teleporter_type in blacklisted)
 		var/teleporters = destturf.search_contents_for(teleporter_type)
@@ -167,7 +167,7 @@
 	if(isliving(teleatom))
 		var/mob/living/target_mob = teleatom
 		if(target_mob.buckled)
-			target_mob.buckled.unbuckle_mob(target_mob, force = TRUE)
+			target_mob.unbuckle(force = TRUE)
 		if(target_mob.has_buckled_mobs())
 			target_mob.unbuckle_all_mobs(force = TRUE)
 		if(ismachinery(target_mob.loc) || istype(target_mob.loc, /obj/item/mecha_parts/mecha_equipment/medical/sleeper))

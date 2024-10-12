@@ -2666,6 +2666,7 @@
 /area/ruin/space/deepstorage)
 "pk" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/salvage/ruin/soviet,
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
@@ -3533,7 +3534,7 @@
 	},
 /area/ruin/space/deepstorage)
 "vo" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3940,6 +3941,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "ye" = (
+/obj/structure/table/reinforced,
+/obj/item/salvage/ruin/soviet,
 /obj/structure/rack,
 /obj/item/grenade/confetti,
 /obj/item/grenade/confetti,
@@ -4815,7 +4818,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6188,7 +6191,7 @@
 /area/ruin/space/unpowered)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "Oh" = (

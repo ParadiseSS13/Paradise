@@ -218,3 +218,15 @@
 			/obj/item/mecha_parts/part/odysseus_right_arm,
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
+
+/obj/structure/mecha_wreckage/nkarrdem
+	name = "\improper Nkarrdem wreckage"
+	icon_state = "nkarrdem-broken"
+	parts = list(
+			/obj/item/mecha_parts/part/nkarrdem_torso,
+			/obj/item/mecha_parts/part/nkarrdem_head,
+			/obj/item/mecha_parts/part/nkarrdem_left_arm,
+			/obj/item/mecha_parts/part/nkarrdem_right_arm,
+			/obj/item/mecha_parts/part/nkarrdem_left_leg,
+			/obj/item/mecha_parts/part/nkarrdem_right_leg
+	)

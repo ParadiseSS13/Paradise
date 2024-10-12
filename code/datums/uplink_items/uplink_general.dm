@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		return
 
 	// If the uplink's holder is in the user's contents
-	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
+	if(((U.loc in user.contents) || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
 			return
 

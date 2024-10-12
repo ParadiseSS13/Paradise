@@ -140,6 +140,15 @@
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
+/datum/reagent/consumable/bungojuice
+	name = "Bungo Juice"
+	id = "bungojuice"
+	description = "Exotic! You feel like you are on vacation already."
+	color = "#F9E43D"
+	drink_name = "Bungo Juice"
+	drink_desc = "Exotic! You feel like you are on vacation already."
+	taste_description = "succulent bungo with an acidic poisonous tang"
+
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
 	id = "watermelonjuice"

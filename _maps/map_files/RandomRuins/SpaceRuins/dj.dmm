@@ -310,11 +310,11 @@
 "aQ" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Helmet"
 	},
 /obj/item/clothing/mask/breath,
@@ -367,7 +367,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -512,7 +512,7 @@
 /area/ruin/space/djstation)
 "bp" = (
 /obj/structure/chair/office/light,
-/mob/living/simple_animal/hostile/russian/ranged/mosin,
+/mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bq" = (
@@ -583,7 +583,7 @@
 	pixel_y = 17
 	},
 /obj/item/phone{
-	desc = "An old Russian phone. The dial tone is still humming.";
+	desc = "An old Soviet phone. The dial tone is still humming.";
 	name = "spin-dial phone";
 	pixel_x = 1;
 	pixel_y = 1
@@ -797,11 +797,11 @@
 /area/ruin/space/djstation)
 "yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "Zp" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 

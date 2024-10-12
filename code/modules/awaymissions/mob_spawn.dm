@@ -55,6 +55,8 @@
 		return
 	create(ckey = user.ckey, user = user)
 
+	return TRUE
+
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(instant || roundstart)	//at some point we should probably re-introduce the (ticker && ticker.current_state > GAME_STATE_SETTING_UP) portion of this check, but for now it was preventing the corpses from spawning at roundstart and resulting in ghost role spawners that made dead bodies.
