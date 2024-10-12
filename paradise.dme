@@ -2072,6 +2072,7 @@
 #include "code\modules\martial_arts\muscle_implant.dm"
 #include "code\modules\martial_arts\plasma_fist.dm"
 #include "code\modules\martial_arts\sleeping_carp.dm"
+#include "code\modules\martial_arts\torque_enhancer.dm"
 #include "code\modules\martial_arts\wrestling.dm"
 #include "code\modules\martial_arts\combos\martial_combo.dm"
 #include "code\modules\martial_arts\combos\adminfu\healing_palm.dm"

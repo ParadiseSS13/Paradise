@@ -303,32 +303,20 @@
 	max_level = 3
 	stage = 3
 	category = FLAYER_CATEGORY_DESTROYER
-	var/datum/unarmed_attack/attack_holder
+	/// A reference to our martial art
+	var/datum/martial_art/torque/style
 
 /datum/mindflayer_passive/torque_enhancer/on_apply()
 	..()
-	var/mob/living/carbon/human/user = owner
-	var/datum/unarmed_attack/hands = user.get_unarmed_attack()
-	if(!attack_holder)
-		var/datum/unarmed_attack/hands_copy = hands.copy_attack()
-		attack_holder = hands_copy
-	hands.damage += 5
-	switch(level)
-		if(POWER_LEVEL_ONE)
-			hands.attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
-			hands.attack_verb = list("bashed", "battered")
-		if(POWER_LEVEL_TWO)
-			hands.attack_sound = 'sound/effects/meteorimpact.ogg'
-			hands.attack_verb = list("blugeoned", "beat")
-		if(POWER_LEVEL_THREE)
-			hands.attack_sound = 'sound/misc/demon_attack1.ogg'
-			hands.attack_verb = list("destroyed", "demolished", "hammered")
+	if(!style)
+		style = new()
+		style.teach(owner)
+
+	style.level = level
 
 /datum/mindflayer_passive/torque_enhancer/on_remove()
-	var/mob/living/carbon/human/user = owner
-	if(attack_holder)
-		user.dna.species.unarmed = attack_holder
-	attack_holder = null
+	style.remove(owner)
+	QDEL_NULL(style)
 
 /datum/mindflayer_passive/radio_jammer
 	name = "Destructive Interference"
