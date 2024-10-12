@@ -208,6 +208,9 @@
 	new /obj/item/holosign_creator/detective(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/reagent_containers/drinks/flask/detflask(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

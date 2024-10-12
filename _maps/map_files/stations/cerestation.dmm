@@ -36,6 +36,7 @@
 /area/station/maintenance/solar_maintenance/port)
 "aan" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/closet/secure_closet/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -16208,8 +16209,6 @@
 /area/station/engineering/smes)
 "bPO" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -70074,6 +70073,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/obj/effect/landmark/start/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -73973,6 +73973,9 @@
 /area/station/public/toilet)
 "pPN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -80309,7 +80312,6 @@
 "rHk" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 4;
