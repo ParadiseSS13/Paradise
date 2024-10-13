@@ -179,7 +179,7 @@
 /turf/template_noop,
 /area/template_noop)
 "R" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "U" = (

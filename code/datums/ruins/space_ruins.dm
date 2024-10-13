@@ -212,8 +212,8 @@
 /datum/map_template/ruin/space/dj
 	id = "dj"
 	suffix = "dj.dmm"
-	name = "Russian DJ Station"
-	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	name = "Soviet DJ Station"
+	description = "An old soviet era listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
 	cost = 2
 
 /datum/map_template/ruin/space/druglab
@@ -249,7 +249,7 @@
 	id = "ussp"
 	suffix = "ussp.dmm"
 	name = "USSP"
-	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
+	description = "A decript station of seemingly Soviet origin. The last contact had with this station was a distress signal, and the rest was dark."
 	allow_duplicates = FALSE // One of these has enough loot
 	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
 

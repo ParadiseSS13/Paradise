@@ -113,7 +113,7 @@
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
-			if(allowed in starting_tools && !(allowed in overriding_tools))
+			if((allowed in starting_tools) && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
 			else
 				starting_tools.Add(allowed)
