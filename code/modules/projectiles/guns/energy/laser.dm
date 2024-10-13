@@ -258,7 +258,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	select_name = null
 	fire_sound = 'sound/weapons/marauder.ogg'
-	delay = 5 SECONDS
+	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/laser/sniper/pierce
 	projectile_type = /obj/item/projectile/beam/laser/sniper/pierce
@@ -289,6 +289,7 @@
 	speed = 0.5
 	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
 	var/hit_a_r_wall = FALSE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 
 /obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
 	if(istype(target, /turf/simulated/wall/r_wall))
@@ -296,7 +297,7 @@
 			hit_a_r_wall = TRUE
 			if(!forcedodge)
 				forcedodge++
-	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin) || istype(target, /obj/structure/spider)) && !forcedodge)
 		forcedodge++
 	..()
 
