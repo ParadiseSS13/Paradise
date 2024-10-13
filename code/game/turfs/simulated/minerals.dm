@@ -48,6 +48,9 @@
 	if(!ore_type)
 		return
 
+	if(ore)
+		qdel(ore)
+
 	ore = new ore_type()
 	if(ore.spread_chance)
 		for(var/dir in GLOB.cardinal)
