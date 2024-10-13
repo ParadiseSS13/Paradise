@@ -54,7 +54,7 @@
           - any-glob-to-any-file: ['code/**', 'icons/**', 'sounds/**', '_maps/map_files/**', 'tgui/**']
           - any-glob-to-any-file: [modular_ss220/**]
       - base-branch: 'master'
-      - head-branch: '^(?!merge-upstream$).*'
+      - head-branch: '^(?!merge[-_]upstream$).*'
 
 ':finnadie: НЕ МОДУЛЬНО':
   - all:
@@ -62,12 +62,12 @@
           - any-glob-to-any-file: ['code/**', 'icons/**', 'sounds/**', '_maps/map_files/**']
           - all-globs-to-all-files: '!modular_ss220/**'
       - base-branch: 'master'
-      - head-branch: '^(?!merge-upstream$).*'
+      - head-branch: '^(?!merge[-_]upstream$).*'
 
 ':pray: Слияние с восходящим потоком':
   - all:
       - base-branch: 'master'
-      - head-branch: 'merge-upstream'
+      - head-branch: 'merge[-_]upstream'
 
 ':pencil: Перевод':
   - base-branch: 'translate'
