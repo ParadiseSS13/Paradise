@@ -146,7 +146,7 @@
 	user.cut_overlays()
 	user.icon = initial(user.icon)
 	user.icon_state = initial(user.icon_state)
-	user.density = TRUE
+	user.density = initial(user.density)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.name_override = null
