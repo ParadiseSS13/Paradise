@@ -419,7 +419,7 @@
 	var/obj/item/clothing/head/hat
 	if(length(attached_hats) > 1)
 		var/pick = radial_menu_helper(usr, src, attached_hats, custom_check = FALSE, require_near = TRUE)
-		if(!pick)
+		if(!pick || !istype(pick, /obj/item/clothing/head) || !Adjacent(usr))
 			return
 		hat = pick
 	else
