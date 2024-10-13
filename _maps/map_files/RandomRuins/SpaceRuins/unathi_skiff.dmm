@@ -21,16 +21,19 @@
 /area/ruin/space/unathi_breacher/bar)
 "cI" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
 "dg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
+"dq" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
 "dt" = (
@@ -89,8 +92,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "hP" = (
-/obj/machinery/computer/nonfunctional,
 /obj/effect/turf_decal/siding,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "hT" = (
@@ -115,10 +118,6 @@
 /obj/structure/window/full/shuttle/survival_pod/tinted,
 /turf/simulated/floor/plating,
 /area/ruin/space/unathi_breacher/dorms)
-"jz" = (
-/obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/unathi_breacher/bridge)
 "jA" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -474,6 +473,15 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
+"Hz" = (
+/obj/structure/shelf,
+/obj/item/weldingtool/largetank,
+/obj/item/weldingtool/largetank,
+/obj/item/weldingtool/largetank,
+/obj/item/reagent_containers/glass/bottle/thermite,
+/obj/item/reagent_containers/glass/bottle/thermite,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unathi_breacher/bridge)
 "HK" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
@@ -519,12 +527,6 @@
 /area/ruin/space/unathi_breacher/engineering)
 "MI" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
-/area/ruin/space/unathi_breacher/bridge)
-"MN" = (
-/obj/machinery/computer/nonfunctional{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
 "MX" = (
 /obj/structure/window/full/shuttle/survival_pod/tinted,
@@ -1060,7 +1062,7 @@ MI
 hP
 SR
 yx
-yx
+Hz
 dg
 yx
 yx
@@ -1075,12 +1077,12 @@ Gb
 Gb
 MI
 MI
-lJ
-MN
+cI
+cI
 MI
 Ah
 MI
-jz
+cI
 cI
 MI
 MI
@@ -1092,13 +1094,13 @@ Gb
 Gb
 Gb
 MI
-lJ
-MN
+dq
+dq
 MI
 pW
 MI
-jz
-SR
+dq
+dq
 MI
 Gb
 Gb

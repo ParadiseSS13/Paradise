@@ -268,6 +268,12 @@
 	desc = "A bottle of glowing fluid."
 	list_reagents = list("lazarus_reagent" = 30)
 
+/obj/item/reagent_containers/glass/bottle/thermite
+	name = "thermite bottle"
+	desc = "A small bottle of thermite, a substance that burns extremely hot."
+	icon_state = "bottle"
+	list_reagents = list("thermite" = 50)
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/reagent_containers/glass/bottle/traitor
