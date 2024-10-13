@@ -366,7 +366,7 @@
 
 			back_to_idle()
 
-		if(BOT_ARREST)
+		if(BOT_ARREST) // Fun fact: This is not called
 			if(!target || target.handcuffed)
 				back_to_idle()
 				return

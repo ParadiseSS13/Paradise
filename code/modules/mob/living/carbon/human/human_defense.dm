@@ -841,4 +841,4 @@ emp_act
 	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
 
 /mob/living/carbon/human/canBeHandcuffed()
-	return TRUE
+	return (has_left_hand() || has_right_hand())
