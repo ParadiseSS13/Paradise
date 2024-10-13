@@ -1658,14 +1658,6 @@
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/chamber)
-"zM" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'SERVER ROOM'.";
-	name = "SERVER ROOM";
-	pixel_y = 0
-	},
-/turf/simulated/wall/r_wall,
-/area/ruin/space/telecomms/chamber)
 "zY" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -3011,9 +3003,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
-"To" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/space/telecomms/chamber)
 "Tw" = (
 /obj/machinery/computer/telescience{
 	dir = 4
@@ -7958,7 +7947,7 @@ ux
 Ad
 tF
 iy
-To
+Zu
 mZ
 FA
 EM
@@ -8050,7 +8039,7 @@ ux
 ux
 ux
 ux
-To
+Zu
 ME
 Zj
 EM
@@ -8142,9 +8131,9 @@ pE
 sv
 ia
 kl
-To
-To
-zM
+Zu
+Zu
+FA
 EM
 il
 dn
