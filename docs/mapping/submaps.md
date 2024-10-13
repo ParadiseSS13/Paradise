@@ -26,7 +26,13 @@ even whole layouts, making it so a map looks different every time it is visited.
     to insert it. Here, we want to add some variation to the small warehouse storage
     room.
 
-    ![](./images/mapmanip_types.png)
+    ```dm
+    /obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/warehouse_small_storage
+    	name = "Boxstation, Cargo Warehouse Small Storage"
+
+    /obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/warehouse_small_storage
+    	name = "Boxstation, Cargo Warehouse Small Storage"
+    ```
 
 2.  Figure out the area that the submap will be inserted into on the map, and add
     the insert marker there. In this case the map is
@@ -70,7 +76,20 @@ even whole layouts, making it so a map looks different every time it is visited.
       be `false`, or else there may not be enough submaps to insert, and map
       manipulation will fail.
 
-    ![](./images/mapmanip_config.png)
+    ```json
+    [
+    	{
+    		// Boxstation warehouse, intended for randomized items
+    		"type": "SubmapExtractInsert",
+    		"submap_size_x": 3,
+    		"submap_size_y": 5,
+    		"submaps_dmm": "stations/submaps/warehouse_small_storage.dmm",
+    		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/warehouse_small_storage",
+    		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/warehouse_small_storage",
+    		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+    	}
+    ]
+    ```
 
 5.  Run the server locally and observe the results.
 
