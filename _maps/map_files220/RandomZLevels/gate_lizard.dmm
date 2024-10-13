@@ -6716,7 +6716,7 @@
 "iMH" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iMN" = (
@@ -8754,7 +8754,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "liA" = (
 /obj/effect/turf_decal/plaque,
-/obj/structure/statue/russian_mulebot{
+/obj/structure/statue/soviet_mulebot{
 	name = "CargoMULE"
 	},
 /turf/simulated/floor/plasteel,
@@ -12769,7 +12769,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -13084,7 +13084,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave/small)
 "qOq" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/river)
 "qOs" = (
@@ -13270,7 +13270,7 @@
 "qYR" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14208,7 +14208,7 @@
 "sba" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sbj" = (
@@ -14317,7 +14317,7 @@
 "sjJ" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18517,7 +18517,7 @@
 /area/awaymission/jungle_planet/inside)
 "xtn" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -19174,7 +19174,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "ykF" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ylm" = (

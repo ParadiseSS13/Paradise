@@ -23,7 +23,7 @@
 "aj" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/delivery,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2338,7 +2338,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "we" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2674,7 +2674,7 @@
 "zP" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
