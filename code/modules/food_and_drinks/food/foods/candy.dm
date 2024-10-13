@@ -654,6 +654,6 @@
 	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
 	icon_state = "choco_OFS"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 5, "sugar" = 10)
+	list_reagents = list("chocolate" = 5, "sugar" = 10)
 	tastes = list("chocolate" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
