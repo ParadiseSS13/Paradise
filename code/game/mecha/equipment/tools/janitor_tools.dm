@@ -62,7 +62,7 @@
 		if(!istype(target_turf) || iswallturf(target_turf))
 			return
 		chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
-		if(do_after(chassis.occupant, mop_speed, target = target))
+		if(do_after(chassis.occupant, mop_speed, target = target, allow_moving = 0))
 			for(var/turf/current_target_turf in view(1, target))
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
