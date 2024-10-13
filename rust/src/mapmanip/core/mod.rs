@@ -68,7 +68,7 @@ impl TileGrid {
     pub fn new(size_x: i32, size_y: i32, size_z: i32) -> TileGrid {
         Self {
             size: Coord3::new(size_x, size_y, size_z),
-            grid: vec![Tile::default(); (size_x * size_y * size_y) as usize],
+            grid: vec![Tile::default(); (size_x * size_y * size_z) as usize],
         }
     }
 
