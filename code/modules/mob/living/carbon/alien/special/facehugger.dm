@@ -203,7 +203,7 @@
 	icon_state = "[initial(icon_state)]_dead"
 	item_state = "facehugger_inactive"
 	stat = DEAD
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	DeleteComponent(/datum/component/proximity_monitor)
 
 	visible_message("<span class='danger'>[src] curls up into a ball!</span>")
 

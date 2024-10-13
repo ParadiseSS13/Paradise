@@ -141,7 +141,7 @@
 /turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "U" = (
-/obj/effect/spawner/random_barrier/wall_probably,
+/obj/effect/spawner/random/barrier/wall_probably,
 /turf/space,
 /area/space)
 "V" = (

@@ -774,6 +774,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!isturf(loc))
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
+		if(M.occupant && !can_dominate_mechs)
+			to_chat(src, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
+			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 

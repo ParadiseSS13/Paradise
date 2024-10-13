@@ -86,7 +86,7 @@
 	if(cell)
 		install_cell(cell)
 	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(mod, COMSIG_CLICK_CTRL, PROC_REF(on_ctrl_click))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
 		on_wearer_set(mod, mod.wearer)
@@ -94,7 +94,7 @@
 /obj/item/mod/core/standard/uninstall()
 	if(!QDELETED(cell))
 		cell.forceMove(drop_location())
-	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_MOD_WEARER_SET))
+	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_CLICK_CTRL, COMSIG_MOD_WEARER_SET))
 	if(mod.wearer)
 		on_wearer_unset(mod, mod.wearer)
 	return ..()
@@ -179,10 +179,10 @@
 
 	if(!mod.open)
 		return
-	examine_text += cell ? "You could remove the cell with an empty hand." : "You could use a cell on it to install one."
+	examine_text += cell ? "You could remove the cell while in hand or being worn with <b>Ctrl-Click</b>." : "You could use a <b>cell</b> on it to install one."
 
-/obj/item/mod/core/standard/proc/on_attack_hand(datum/source, mob/living/user)
-	SIGNAL_HANDLER
+/obj/item/mod/core/standard/proc/on_ctrl_click(datum/source, mob/living/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_CTRL
 
 	if(mod.seconds_electrified && charge_amount() && mod.shock(user))
 		return COMPONENT_CANCEL_ATTACK_CHAIN

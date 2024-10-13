@@ -679,6 +679,22 @@
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/food/weirdcheesewedge(T)
 
+/datum/reagent/consumable/cheese_curds
+	name = "Cheese Curds"
+	id = "cheese_curds"
+	description = "Some mushed up cheese curds. You're not quite sure why you did this."
+	reagent_state = SOLID
+	color = "#FFFF00"
+	taste_description = "salty cheese"
+
+/datum/reagent/consumable/yogurt
+	name = "yogurt"
+	id = "yogurt"
+	description = "Some yogurt, produced by bacterial fermentation of milk. Yum."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+	taste_description = "yogurt"
+
 /datum/reagent/consumable/beans
 	name = "Refried beans"
 	id = "beans"
