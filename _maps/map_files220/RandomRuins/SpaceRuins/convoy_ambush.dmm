@@ -742,7 +742,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "FP" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "FZ" = (

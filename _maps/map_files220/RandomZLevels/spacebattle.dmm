@@ -511,7 +511,7 @@
 /area/awaymission/space_battle/cruiser)
 "bw" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "bx" = (
@@ -4732,7 +4732,7 @@
 /area/awaymission/space_battle/hallway6)
 "os" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "ou" = (
@@ -5582,7 +5582,7 @@
 /area/awaymission/space_battle/syndicate/syndicate1)
 "ro" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "rp" = (
@@ -8334,7 +8334,7 @@
 "zX" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "zY" = (
@@ -10975,7 +10975,7 @@
 "HU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small/directional/east,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "HV" = (

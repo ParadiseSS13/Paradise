@@ -1064,7 +1064,7 @@
 		step_towards(P,center)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
-	var/turf/L = pick(orange(anomalyrange, anomalycenter))
+	var/turf/L = pick(RANGE_TURFS(anomalyrange, anomalycenter))
 	if(L)
 		switch(type)
 			if(FLUX_ANOMALY)

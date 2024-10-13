@@ -87,7 +87,7 @@
 /area/awaymission/black_mesa/tram_room)
 "ajf" = (
 /obj/machinery/light_construct/directional/west,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "ajx" = (
@@ -457,7 +457,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_decon_room)
 "aEC" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "aED" = (
@@ -3816,7 +3816,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/black_mesa/hecu_zone_test_chambers)
 "eFJ" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/dorm_tunnel)
 "eFO" = (
@@ -4314,7 +4314,7 @@
 /area/awaymission/black_mesa/hecu_zone_towards_facility)
 "fkH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/tram_tunnel)
 "flK" = (
@@ -6087,7 +6087,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "hvE" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
 "hwz" = (
@@ -6825,7 +6825,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/entering_zone)
 "ivV" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "ivZ" = (
@@ -8772,7 +8772,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "kMu" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "kNg" = (
@@ -10093,7 +10093,7 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "mpn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "mpu" = (
@@ -10805,7 +10805,7 @@
 /area/awaymission/black_mesa/entrance)
 "ngU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
 "nhd" = (
@@ -10857,7 +10857,7 @@
 "njE" = (
 /obj/machinery/light_construct/directional/west,
 /obj/effect/gibspawner/human,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "njT" = (
@@ -10917,7 +10917,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "noB" = (
@@ -11652,7 +11652,7 @@
 	},
 /area/awaymission/black_mesa/genetics_elevator)
 "ohx" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "oih" = (
@@ -12503,7 +12503,7 @@
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/genetics_elevator)
 "pfy" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
 "pfE" = (
@@ -12528,7 +12528,7 @@
 	},
 /area/awaymission/black_mesa/resonant_chamber)
 "pgX" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "phm" = (
@@ -12691,7 +12691,7 @@
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "psS" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "ptr" = (
@@ -15944,7 +15944,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "tuo" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/tram_tunnel)
 "tuH" = (
@@ -17377,7 +17377,7 @@
 /area/awaymission/black_mesa/resonant_chamber)
 "viz" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "viD" = (
@@ -17671,7 +17671,7 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "vEG" = (
 /obj/machinery/light/directional/west,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "vEP" = (
@@ -17863,7 +17863,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "vPi" = (
@@ -18898,7 +18898,7 @@
 /area/awaymission/black_mesa/hecu_zone_external_sec)
 "xaE" = (
 /obj/machinery/light/directional/east,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "xaY" = (
@@ -18964,7 +18964,7 @@
 /area/awaymission/black_mesa/xen/acid_lake)
 "xdF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/dorm_tunnel)
 "xdZ" = (
@@ -19283,7 +19283,7 @@
 /area/awaymission/black_mesa/science_internal)
 "xyX" = (
 /obj/effect/decal/remains/human,
-/obj/item/salvage/loot/russian,
+/obj/item/salvage/loot/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
 "xzz" = (

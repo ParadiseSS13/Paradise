@@ -1026,7 +1026,7 @@
 /area/awaymission/beach)
 "mP" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "mQ" = (
@@ -1888,7 +1888,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "zw" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "zF" = (
@@ -2619,7 +2619,7 @@
 /area/awaymission/beach)
 "Iz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "IA" = (

@@ -7500,7 +7500,7 @@
 "Od" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -8541,7 +8541,7 @@
 "TV" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
