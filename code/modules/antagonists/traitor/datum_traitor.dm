@@ -83,6 +83,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/select_organization()
+	if(isAI(owner.current))
+		return
 	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type

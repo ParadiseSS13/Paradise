@@ -26,45 +26,46 @@
 	. = ..()
 	if(slot != SLOT_HUD_SHOES || !ishuman(user))
 		return
-	check_mag_pulse()
+	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
 	if(!ishuman(user))
 		return
-	check_mag_pulse()
+	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
-	toggle_magpulse(user, forced)
+/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+	toggle_magpulse(user)
 
-/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
 		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
+		if(user.get_item_by_slot(SLOT_HUD_SHOES) == src)
+			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	no_slip = !no_slip
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
-	if(!forced)
+	if(!no_message)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-	check_mag_pulse(user)
+	check_mag_pulse(user, removing = (user.get_item_by_slot(SLOT_HUD_SHOES) != src))
 
-/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
 	if(!user)
 		return
-	if(magpulse)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+	if(magpulse && !removing)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
 		return
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -173,17 +174,17 @@
 	magpulse_name = "gripping ability"
 	magical = TRUE
 
-/obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/wizard/toggle_magpulse(mob/user, no_message)
 	if(!user)
 		return
 	if(!iswizard(user))
 		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
 		return
-	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-		set_light(0)
-	else
-		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
 	..()
+	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+	else
+		set_light(0)
 
 
 /obj/item/clothing/shoes/magboots/gravity
@@ -229,7 +230,7 @@
 	else
 		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
 
-/obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, no_message)
 	if(!cell)
 		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
 		return
@@ -249,7 +250,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user, TRUE)
+			toggle_magpulse(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -313,7 +314,7 @@
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user, TRUE)
+			toggle_magpulse(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_SHOES)
