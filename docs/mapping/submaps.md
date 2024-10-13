@@ -1,10 +1,10 @@
 # Guide to Submaps
 
-!!! note
-
-    This guide was originally written by developer Dreamix for Aurora Station, the
-    original codebase the `mapmanip` library was written in. Despite the difference
-    in appearance of the screenshots, the guide is still applicable.
+> [!NOTE]
+>
+> This guide was originally written by developer Dreamix for Aurora Station, the
+> original codebase the `mapmanip` library was written in. Despite the difference
+> in appearance of the screenshots, the guide is still applicable.
 
 Submaps are a mechanism to allow copy-pasting parts of maps (submaps) into other
 maps, implemented with the `mapmanip` library. `mapmanip` is a library for map
@@ -30,7 +30,7 @@ even whole layouts, making it so a map looks different every time it is visited.
 
 2.  Figure out the area that the submap will be inserted into on the map, and add
     the insert marker there. In this case the map is
-    `maps/sccv_horizon/sccv_horizon-1_deck_1.dmm`, and the size of that area is 3x5
+    `maps/stations/boxstation.dmm`, and the size of that area is 3x5
     tiles, being the little side warehouse. Here, we want the submaps to only be the
     "cargo" or "contents" of the warehouse. So this room is already fully
     functional, with lights, cameras, pipes, etc. Do note that the "submap edge"
@@ -39,7 +39,7 @@ even whole layouts, making it so a map looks different every time it is visited.
     ![](./images/mapmanip_inplace.png)
 
 3.  Create a new map file that will contain the submap variants to extract from.
-    In this case it is `maps/sccv_horizon/submaps/ops_warehouse_small_storage.dmm`.
+    In this case it is `maps/stations/submaps/warehouse_small_storage.dmm`.
     Add all the possible variants here, each having the same extract marker. They
     must all be the chosen size, in this case being 3x5 tiles. We want the submaps
     to only contain "cargo" or "contents" of the warehouse, so both the turf and
@@ -50,9 +50,9 @@ even whole layouts, making it so a map looks different every time it is visited.
 
 4.  Create the mapmanip configuration file, that will actually define the map
     manipulation, and make it happen. In this case it is
-    `maps/sccv_horizon/sccv_horizon-1_deck_1.jsonc`. Do notice how the path and
+    `maps/stations/boxstation.jsonc`. Do notice how the path and
     name of this config file is exactly the same as of the map
-    `.../sccv_horizon-1_deck_1.dmm`, just with a different extension. Each
+    `.../boxstation.dmm`, just with a different extension. Each
     submap manipulation has these vars defined:
 
     - `type` - Map manipulation type. For submap manipulations it is "SubmapExtractInsert".
@@ -122,7 +122,7 @@ If a map manipulation fails, it should do both these things:
   and have breakpoints on runtime errors. It should show a stack trace like
   below, with information about what happened.
 
-    ![](./images/mapmanip_error.png)
+  ![](./images/mapmanip_error.png)
 
 ## Other Notes
 
@@ -135,7 +135,7 @@ If a map manipulation fails, it should do both these things:
   for one map. Every submap manipulation is going to require its own set of
   markers. In that case the `.jsonc` would look roughly like this.
 
-    ![](./images/mapmanip_markers.png)
+  ![](./images/mapmanip_markers.png)
 
 - If a map has multiple submap operations defined, they can be all in the same
   submap dmm file, or can be in different ones. They can also be in the same
