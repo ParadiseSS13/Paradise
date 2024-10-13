@@ -9,24 +9,26 @@ pub use map_to_string::map_to_string;
 use dmmtools::dmm;
 use dmmtools::dmm::Coord3;
 
-///
+/// A representation of a single tile on a map that may or may not be mapped to an existing key.
 #[derive(Clone, Debug, Default)]
 pub struct Tile {
-    ///
+    /// A key temporarily assigned to the tile until an appropriate new/existing
+    /// key can be assigned to it, or if it is already being used by a different
+    /// prefab list in the file.
     pub key_suggestion: dmm::Key,
-    ///
+    /// The prefabs on the tile.
     pub prefabs: Vec<dmm::Prefab>,
 }
 
 impl Tile {
-    ///
+    /// Return the first /area that exists in the prefab.
     pub fn get_area(&self) -> Option<&dmm::Prefab> {
         self.prefabs
             .iter()
             .find(|prefab| prefab.path.starts_with("/area/"))
     }
 
-    ///
+    /// Remove and return the first /area that exists in the prefab.
     pub fn remove_area(&mut self) -> Option<dmm::Prefab> {
         let area = self.get_area().cloned();
         if area.is_some() {
@@ -36,14 +38,14 @@ impl Tile {
         area
     }
 
-    ///
+    /// Return the first /turf that exists in the prefab.
     pub fn get_turf(&self) -> Option<&dmm::Prefab> {
         self.prefabs
             .iter()
             .find(|prefab| prefab.path.starts_with("/turf/"))
     }
 
-    ///
+    /// Remove and return the first /turf that exists in the prefab.
     pub fn remove_turf(&mut self) -> Option<dmm::Prefab> {
         let turf = self.get_turf().cloned();
         if turf.is_some() {
