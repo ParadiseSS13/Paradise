@@ -738,7 +738,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
+			unbuckle()
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
@@ -999,7 +999,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	handcuffed = null
 	if(buckled && buckled.buckle_requires_restraints)
-		buckled.unbuckle_mob(src)
+		unbuckle()
 	update_handcuffed()
 
 	if(client)

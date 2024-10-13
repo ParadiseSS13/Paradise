@@ -175,7 +175,7 @@ SUBSYSTEM_DEF(mapping)
 		/obj/item/salvage/ruin/carp,
 		/obj/item/salvage/ruin/tablet,
 		/obj/item/salvage/ruin/pirate,
-		/obj/item/salvage/ruin/russian
+		/obj/item/salvage/ruin/soviet
 	)
 
 	for(var/z_level in space_z_levels)

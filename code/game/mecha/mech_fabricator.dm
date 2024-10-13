@@ -71,6 +71,7 @@
 		"MODsuit Modules",
 		"Ripley",
 		"Firefighter",
+		"Nkarrdem",
 		"Odysseus",
 		"Gygax",
 		"Durand",
