@@ -51,5 +51,5 @@
 
 /datum/gear/racial/plasmamansuit_tacticool
 	display_name = "Tactical Suit"
-	description = "Plasmaman envirosuit supplied by black markets. Forged on Boron."
+	description = "Plasmaman envirosuit supplied by black markets. Forged on Boron. Does not have suit sensors."
 	path = /obj/item/storage/box/tacticool_envirosuit
