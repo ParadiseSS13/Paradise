@@ -296,13 +296,13 @@
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped blue command stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped blue Command stripes."
 	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
 	name = "emergency response team security helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped red security stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped red Security stripes."
 	icon_state = "erthelmet_sec"
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
@@ -314,17 +314,17 @@
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange engineering stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange Engineering stripes."
 	icon_state = "erthelmet_eng"
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white medical stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white Medical stripes."
 	icon_state = "erthelmet_med"
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple janitorial stripes."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple Janitorial stripes."
 	icon_state = "erthelmet_jan"
