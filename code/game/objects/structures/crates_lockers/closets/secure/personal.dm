@@ -60,4 +60,3 @@
 
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-	
