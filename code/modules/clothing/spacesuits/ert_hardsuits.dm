@@ -83,7 +83,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
-	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in blue command livery."
+	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in blue Command livery."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
