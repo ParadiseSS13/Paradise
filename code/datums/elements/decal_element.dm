@@ -147,7 +147,10 @@
 	// This is much saner and more flexible, but would require refactoring
 	// many many uses of update_overlay() across the code base, which is left
 	// as an exercise for the next poor sap to touch this code (probably me).
-	LAZYDISTINCTADD(source.managed_overlays, pic)
+	if(source.managed_overlays && !islist(source.managed_overlays))
+		source.managed_overlays = list(source.managed_overlays, pic)
+	else
+		LAZYDISTINCTADD(source.managed_overlays, pic)
 
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER  // COMSIG_COMPONENT_CLEAN_ACT
