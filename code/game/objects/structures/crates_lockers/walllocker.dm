@@ -5,7 +5,7 @@
 	desc = "A wall mounted storage locker."
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
-	icon_state = "wall-locker"
+	icon_state = null
 	door_anim_time = 0
 	enable_door_overlay = FALSE
 	density = FALSE
