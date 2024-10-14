@@ -286,3 +286,23 @@
 	desc = "A plasmaman envirohelm designed by Space Cola Co for the plasmamen."
 	icon_state = "coke_envirohelm"
 	item_state = "coke_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/diver
+	name = "diver envirosuit helmet"
+	desc = "A plasmaman helm resembling old diver helms."
+	icon_state = "diver_envirohelm"
+	item_state = "diver_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/knight
+	name = "knight envirosuit helmet"
+	desc = "A plasmaman envirohelm designed in the shape of a knight helm."
+	icon_state = "knight_envirohelm"
+	item_state = "knight_envirohelm"
+	visor_icon = "knight_envisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/skull
+	name = "skull envirosuit helmet"
+	desc = "A plasmaman envirohelm designed in the shape of a skull."
+	icon_state = "skull_envirohelm"
+	item_state = "skull_envirohelm"
+	visor_icon = "skull_envisor"

@@ -1240,6 +1240,17 @@
 	new /obj/item/clothing/under/plasmaman/coke(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
 
+/obj/item/storage/box/tacticool_envirosuit
+	name = "tactical suit box"
+	desc = "A box with a special envirosuit usually supplied by black markets."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/tacticool_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/tacticool(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/diver(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/knight(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/skull(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

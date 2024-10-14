@@ -48,3 +48,8 @@
 	display_name = "Coke Suit"
 	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an elaborate advertisement campaign."
 	path = /obj/item/storage/box/coke_envirosuit
+
+/datum/gear/racial/plasmamansuit_tacticool
+	display_name = "Tactical Suit"
+	description = "Plasmaman envirosuit supplied by black markets. Forged on Boron."
+	path = /obj/item/storage/box/tacticool_envirosuit
