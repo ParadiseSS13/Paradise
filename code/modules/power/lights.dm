@@ -2,12 +2,6 @@
 //
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
 
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
 #define LIGHT_ON_DELAY_LOWER 1 SECONDS
 #define LIGHT_ON_DELAY_UPPER 3 SECONDS
 
@@ -376,6 +370,17 @@
 	else
 		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
+/obj/machinery/light/fix(mob/user, obj/used_tool, emagged = FALSE)
+	if(status != LIGHT_OK)
+		to_chat(user, "<span class='notice'>You replace the [fitting] with [used_tool].</span>")
+		status = LIGHT_OK
+		switchcount = 0
+		rigged = emagged
+		on = has_power()
+		update(TRUE, TRUE, FALSE)
+	else
+		to_chat(user, "<span class='notice'>There is a working [fitting] already inserted!</span>")
+		return
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
   *
@@ -1024,9 +1029,5 @@
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED
 #undef LIGHT_ON_DELAY_LOWER
 #undef LIGHT_ON_DELAY_UPPER

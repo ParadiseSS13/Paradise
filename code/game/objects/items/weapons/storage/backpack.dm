@@ -805,6 +805,7 @@
 	desc = "Stimulate your senses."
 	list_reagents = list("nutriment" = 5, "stimulants" = 25)
 	bitesize = 100
+	goal_difficulty = FOOD_GOAL_SKIP
 
 /obj/item/food/plum_pie
 	name = "perfect plum pie"
