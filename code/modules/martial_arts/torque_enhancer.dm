@@ -28,6 +28,10 @@
 	var/picked_hit_type = pick(attack_verb)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(damage, BRUTE)
+
+	if(level >= 2) // This is to mimic species unarmed attacks, if you deal more than 10 damage the attackee is knocked down
+		D.KnockDown(4 SECONDS) // The threshold for a knockdown is 9 damage, so at level 2 your minimum is already higher than that
+
 	if(attack_sound)
 		playsound(get_turf(D), attack_sound, 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
