@@ -102,6 +102,9 @@
 	user.do_attack_animation(target)
 
 	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+	if(!affecting)
+		affecting = target.get_organ("chest")
+
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 	target.apply_damage(force * fisto_setting, BRUTE, affecting, armor_block)
 
