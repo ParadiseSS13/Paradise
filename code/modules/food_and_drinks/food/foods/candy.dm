@@ -651,5 +651,5 @@
 	icon_state = "choco"
 	filling_color = "#7D5F46"
 	list_reagents = list("chocolate" = 5, "sugar" = 10)
-	tastes = list("chocolate" = 3)
+	tastes = list("chocolate" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
