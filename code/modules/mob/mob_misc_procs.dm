@@ -215,8 +215,8 @@
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
+	var/random_zone = rand(1, 18) // randomly pick a different zone, or maybe the same one
+	switch(random_zone)
 		if(1)
 			return "head"
 		if(2)
