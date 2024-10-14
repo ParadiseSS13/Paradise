@@ -648,7 +648,7 @@
 /obj/item/food/candy/chocolate_bar
 	name = "Chocolate bar"
 	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
-	icon_state = "choco_OFS"
+	icon_state = "choco"
 	filling_color = "#7D5F46"
 	list_reagents = list("chocolate" = 5, "sugar" = 10)
 	tastes = list("chocolate" = 3)
