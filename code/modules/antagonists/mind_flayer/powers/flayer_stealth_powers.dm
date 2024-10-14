@@ -157,17 +157,17 @@
 	if(istype(user.l_hand, hand_type))
 		qdel(user.l_hand)
 		flayer.send_swarm_message("We dissipate the nanites.")
-		return FALSE
+		return
 	if(istype(user.r_hand, hand_type))
 		qdel(user.r_hand)
 		flayer.send_swarm_message("We dissipate the nanites.")
-		return FALSE
+		return
 
 	var/obj/item/melee/swarm_hand/funny_hand = new hand_type
 	if(!user.put_in_hands(funny_hand))
 		flayer.send_swarm_message("Our hands are currently full.")
 		qdel(funny_hand)
-		return FALSE
+		return
 
 /obj/item/melee/swarm_hand
 	name = "Nanite Mass"

@@ -41,7 +41,7 @@
 #define DATA_HUD_DIAGNOSTIC_BASIC		5
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC				7
-#define DATA_HUD_JANITOR			8
+#define DATA_HUD_JANITOR				8
 //antag HUD defines
 #define ANTAG_HUD_CULT					9
 #define ANTAG_HUD_REV					10
@@ -56,7 +56,7 @@
 #define DATA_HUD_ABDUCTOR				19
 #define ANTAG_HUD_EVENTMISC 			20
 #define ANTAG_HUD_BLOB 					21
-#define ANTAG_HUD_ZOMBIE 22
+#define ANTAG_HUD_ZOMBIE 				22
 #define ANTAG_HUD_MIND_FLAYER 			23
 
 // Notification action types

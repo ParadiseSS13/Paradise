@@ -295,8 +295,8 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/input_num = input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0) as num
-	if(!input_num || input_num <= 0)
-		temp = null
+	if(input_num <= 0)
+		qdel(temp)
 		return FALSE
 
 	log_admin("[key_name(owner)] tried making [input_num] Mindflayers with One-Click-Antag")
@@ -308,7 +308,7 @@
 	for(var/i in 1 to num_mindflayers)
 		var/datum/mind/flayer = pick_n_take(possible_mindflayers)
 		flayer.make_mind_flayer()
-	temp = null
+	qdel(temp)
 	return TRUE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.

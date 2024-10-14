@@ -90,7 +90,7 @@
 	camera.network = list("camera_bug[camera_bug.UID()]")
 	camera.c_tag = "[camera_tag] [index]"
 
-///Created by a mindflayer ability
+/// Created by a mindflayer ability
 /obj/item/wall_bug/computer_bug
 	name = "nanobot"
 	desc = "A small droplet of a shimmering metallic slurry."

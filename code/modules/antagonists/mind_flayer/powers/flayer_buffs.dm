@@ -50,9 +50,9 @@
 /datum/spell/flayer/self/quicksilver_form/on_apply()
 	..()
 	switch(level)
-		if(POWER_LEVEL_TWO)
+		if(FLAYER_POWER_LEVEL_TWO)
 			should_get_reflection = TRUE
-		if(POWER_LEVEL_THREE)
+		if(FLAYER_POWER_LEVEL_THREE)
 			extra_duration += 10 SECONDS
 
 /// A toggle ability that makes you speedy and attack faster while heating up, level one cast is guaranteed to hurt a bit.
@@ -88,7 +88,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 5 MINUTES // Base uptime is 20%
 	category = FLAYER_CATEGORY_DESTROYER
-	stage = CAPSTONE_STAGE
+	stage = FLAYER_CAPSTONE_STAGE
 	action_icon = "mutate"
 	base_cost = 200
 	static_upgrade_increase = 50 // Total cost of 750 swarms
