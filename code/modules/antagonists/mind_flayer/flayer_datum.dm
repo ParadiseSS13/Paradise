@@ -331,13 +331,13 @@
 
 	switch(adding_spell.category)
 		if(FLAYER_CATEGORY_DESTROYER)
-			if(has_spell(/datum/spell/flayer/self/weapon/vortex_arm))
-				return // We already have it
-			add_ability(new /datum/spell/flayer/self/weapon/vortex_arm, src)
+			if(has_spell(/datum/spell/flayer/techno_wall))
+				return
+			add_ability(new /datum/spell/flayer/techno_wall, src)
 			send_swarm_message("We gain the ability to crystallize nanites into a reflective shell around our arm.")
 
 		if(FLAYER_CATEGORY_INTRUDER)
 			if(has_spell(/datum/spell/flayer/self/weapon/access_tuner))
-				return // We already have it
+				return
 			add_ability(new /datum/spell/flayer/self/weapon/access_tuner, src)
 			send_swarm_message("We gain the ability to manipulate airlocks from a distance.")

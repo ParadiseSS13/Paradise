@@ -75,3 +75,88 @@
 /datum/spell/flayer/computer_recall/on_apply()
 	..()
 	cooldown_handler.recharge_duration -= 30 SECONDS
+
+/*
+ * Ok so this is slightly a stretch, but it hinders enemy mobility while not hindering the flayer
+ * It works like the hemomancer wall, creating up to 3 temporary walls
+ * Obtained for free in the Destroyer tree when reaching stage 3
+ */
+/datum/spell/flayer/techno_wall
+	name = "Technowall"
+	desc = "Allows us to create a wall between two points. The wall is fragile and allows only ourselves to pass through."
+	base_cooldown = 60 SECONDS
+	action_icon_state = "pd_cablehop"
+	upgrade_info = "Double the health of the barrier."
+	category = FLAYER_CATEGORY_DESTROYER
+	power_type = FLAYER_UNOBTAINABLE_POWER
+	base_cost = 100
+	current_cost = 100
+	max_level = 2
+	should_recharge_after_cast = FALSE
+	/// How big can we make our wall
+	var/max_walls = 3
+	/// Starting turf for the wall. Should be nulled after each cast or the cancelling of a cast
+	var/turf/start_turf
+
+/datum/spell/flayer/techno_wall/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /atom
+	T.try_auto_target = FALSE
+	return T
+
+/datum/spell/flayer/techno_wall/remove_ranged_ability(mob/user, msg)
+	. = ..()
+	if(msg) // this is only true if the user intentionally turned off the spell
+		start_turf = null
+		should_recharge_after_cast = FALSE
+
+/datum/spell/flayer/techno_wall/should_remove_click_intercept()
+	return start_turf
+
+/datum/spell/flayer/techno_wall/cast(list/targets, mob/user)
+	var/turf/target_turf = get_turf(targets[1])
+	if(target_turf == start_turf)
+		flayer.send_swarm_message("<span class='notice'>You deselect the targeted turf.</span>")
+		start_turf = null
+		should_recharge_after_cast = FALSE
+		return
+	if(!start_turf)
+		start_turf = target_turf
+		should_recharge_after_cast = TRUE
+		return
+	var/wall_count
+	for(var/turf/T as anything in get_line(target_turf, start_turf))
+		if(wall_count >= max_walls)
+			break
+		new /obj/structure/blood_barrier(T)
+		wall_count++
+
+	start_turf = null
+	should_recharge_after_cast = FALSE
+
+/obj/structure/blood_barrier
+	name = "blood barrier"
+	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+	max_integrity = 100
+	icon_state = "blood_barrier"
+	icon = 'icons/effects/vampire_effects.dmi'
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
+
+/obj/structure/tech_barrier/Initialize(mapload, health)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+	if(health)
+		max_integrity = health
+		obj_integrity = health
+
+/obj/structure/tech_barrier/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/structure/tech_barrier/process()
+	take_damage(20, sound_effect = FALSE)
+
+/obj/structure/tech_barrier/CanPass(atom/movable/mover, turf/target)
+	return IS_MINDFLAYER(mover)
