@@ -164,8 +164,10 @@
 	var/mob/living/target = targets[1]
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	target.forceMove(user_turf)
-	user.forceMove(target_turf)
+	if(!(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, user_turf) & COMPONENT_BLOCK_TELEPORT))
+		target.forceMove(user_turf)
+	if(!(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, target_turf) & COMPONENT_BLOCK_TELEPORT))
+		user.forceMove(target_turf)
 
 /datum/spell/vampire/self/decoy
 	name = "Deploy Decoy (30)"
