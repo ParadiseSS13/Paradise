@@ -645,10 +645,6 @@
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-// ***********************************************************
-// OmniForge Solutions - Candy
-// ***********************************************************
-
 /obj/item/food/candy/chocolate_bar
 	name = "Chocolate bar - OFS"
 	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
