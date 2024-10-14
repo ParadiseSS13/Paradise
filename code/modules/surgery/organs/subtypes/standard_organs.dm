@@ -266,7 +266,7 @@
 
 /obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
 	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
-	. = ..(clean, disintegrate, ignore_children, nodamage)
+	return ..(clean, disintegrate, ignore_children, nodamage)
 
 /obj/item/organ/external/head/remove()
 	if(owner)

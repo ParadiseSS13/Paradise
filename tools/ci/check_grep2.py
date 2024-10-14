@@ -154,7 +154,7 @@ def check_href_styles(idx, line):
 CONDITIONAL_ISTYPE_SRC = re.compile(r"if.+istype\(src,\s?\/[^turf]")
 def check_istype_src(idx, line):
     if CONDITIONAL_ISTYPE_SRC.search(line):
-        return [(idx + 1, "Our coding requirements prohibits use of istype(src, /any_type).")]
+        return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
 
 CODE_CHECKS = [
     check_space_indentation,
