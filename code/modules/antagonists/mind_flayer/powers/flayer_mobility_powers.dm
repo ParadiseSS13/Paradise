@@ -128,15 +128,15 @@
 	for(var/turf/T as anything in get_line(target_turf, start_turf))
 		if(wall_count >= max_walls)
 			break
-		new /obj/structure/blood_barrier(T)
+		new /obj/structure/tech_barrier(T)
 		wall_count++
 
 	start_turf = null
 	should_recharge_after_cast = FALSE
 
-/obj/structure/blood_barrier
-	name = "blood barrier"
-	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+/obj/structure/tech_barrier
+	name = "tech barrier"
+	desc = "a grotesque structure of crystalised ... tech? It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
