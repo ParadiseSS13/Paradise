@@ -1022,7 +1022,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	// Only matches and cigars can light fancy smokables.
-	if(length(cig.fancy_lighters) && is_type_in_list(src, cig.fancy_lighters))
+	if(length(cig.fancy_lighters) && !is_type_in_list(src, cig.fancy_lighters))
 		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
 		return FALSE
 

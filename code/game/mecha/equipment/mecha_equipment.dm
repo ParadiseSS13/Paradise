@@ -40,9 +40,6 @@
 /obj/item/mecha_parts/mecha_equipment/proc/get_destroy_sound()
 	return chassis.critdestrsound
 
-/obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
-	return chassis.weapdestrsound
-
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
 	if(!chassis)
 		return

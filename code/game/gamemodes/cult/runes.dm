@@ -100,13 +100,6 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/proc/can_dagger_erase_rune(mob/user)
 	return TRUE
 
-/obj/effect/rune/teleport/can_dagger_erase_rune(mob/user)
-	// Can't erase telerunes if they have a portal open
-	if(inner_portal || outer_portal)
-		to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
-		return FALSE
-	return TRUE
-
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
 	if(!IS_CULTIST(user))
@@ -457,6 +450,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	QDEL_NULL(inner_portal)
 	QDEL_NULL(outer_portal)
 	return ..()
+
+/obj/effect/rune/teleport/can_dagger_erase_rune(mob/user)
+	// Can't erase telerunes if they have a portal open
+	if(inner_portal || outer_portal)
+		to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+		return FALSE
+	return TRUE
 
 /obj/effect/rune/teleport/invoke(list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user

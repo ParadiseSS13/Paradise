@@ -530,13 +530,6 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/fancy/remove_from_storage(obj/item/I, atom/new_location)
-	if(!istype(I))
-		return FALSE
-
-	update_icon()
-	return ..()
-
 /obj/item/storage/Exited(atom/A, loc)
 	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
 	..()

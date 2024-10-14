@@ -89,9 +89,6 @@
 	var/turf/T = get_turf(src)
 	return ((T && (T.density)) || !gravity_check || locate(/obj/structure/window/full) in T || locate(/obj/structure/grille) in T)
 
-/obj/effect/decal/cleanable/blood/footprints/should_be_off_floor()
-	return FALSE
-
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
