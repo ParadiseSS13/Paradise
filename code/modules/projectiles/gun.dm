@@ -406,7 +406,7 @@
 					qdel(TGL)
 		else if(bayonet && can_bayonet) // if it has a bayonet, and the bayonet can be removed
 			bayonet.forceMove(get_turf(user))
-			to_chat(user, "<span class='notice'>You remove bayonet from [src].</span>")
+			to_chat(user, "<span class='notice'>You remove [bayonet] from [src].</span>")
 			clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
