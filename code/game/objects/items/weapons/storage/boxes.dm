@@ -1247,9 +1247,7 @@
 
 /obj/item/storage/box/tacticool_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/tacticool(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/diver(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/knight(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/skull(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

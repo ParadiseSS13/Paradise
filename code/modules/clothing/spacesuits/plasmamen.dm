@@ -287,6 +287,65 @@
 	icon_state = "coke_envirohelm"
 	item_state = "coke_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool
+	name = "diver envirosuit helmet"
+	desc = "A plasmaman helm resembling old diver helms."
+	icon_state = "diver_envirohelm"
+	base_icon_state = "diver_envirohelm"
+	item_state = "diver_envirohelm"
+	var/list/plasmaman_helm_options = list("Diver" = "diver_envirohelm", "Knight" = "knight_envirohelm", "Skull" = "skull_envirohelm")
+	var/reskinned = FALSE
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+	..()
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if((loc == user) && !reskinned)
+		reskin(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/update_icon_state()
+	if(!up)
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state][on ? "-light":""]"
+	item_state = icon_state
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin(mob/M)
+	var/list/skins = list()
+	for(var/I in plasmaman_helm_options)
+		skins[I] = image(icon, icon_state = plasmaman_helm_options[I])
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
+
+	if(choice && reskin_radial_check(M))
+
+		switch(choice)
+			if("Diver")
+				name = "diver envirosuit helmet"
+				desc = "A plasmaman helm resembling old diver helms."
+				base_icon_state = "diver_envirohelm"
+			if("Knight")
+				name = "knight envirosuit helmet"
+				desc = "A plasmaman envirohelm designed in the shape of a knight helm."
+				base_icon_state = "knight_envirohelm"
+				visor_icon = "knight_envisor"
+			if("Skull")
+				name = "skull envirosuit helmet"
+				desc = "A plasmaman envirohelm designed in the shape of a skull."
+				base_icon_state = "skull_envirohelm"
+				visor_icon = "skull_envisor"
+		update_icon()
+		M.update_inv_head()
+		reskinned = TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin_radial_check(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE
+
 /obj/item/clothing/head/helmet/space/plasmaman/diver
 	name = "diver envirosuit helmet"
 	desc = "A plasmaman helm resembling old diver helms."
