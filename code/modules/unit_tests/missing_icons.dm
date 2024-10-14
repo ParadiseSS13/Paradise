@@ -13,12 +13,11 @@
 /datum/unit_test/missing_icons/Run()
 	generate_possible_icon_states_list()
 	generate_possible_icon_states_list("icons/effects/")
-	generate_possible_icon_states_list("icons/mob/")
 
 	//Add EVEN MORE paths if needed here!
 	//generate_possible_icon_states_list("your/folder/path/")
 	var/list/bad_list = list()
-	for(var/obj/obj_path as anything in subtypesof(/obj))
+	for(var/obj/obj_path as anything in subtypesof(/obj)) // maybe someday a subtype of this test can cover mobs too (hell maybe atom/movable)
 		if(initial(obj_path.flags) & ABSTRACT)
 			continue
 
