@@ -1840,7 +1840,7 @@
 	qdel(src)
 
 /datum/construction/reversible/mecha/nkarrdem
-	result = "/obj/mecha/janitor/nkarrdem"
+	result = "/obj/mecha/nkarrdem"
 	steps = list(
 		//1
 		list(

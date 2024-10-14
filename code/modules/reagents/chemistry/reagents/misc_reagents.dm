@@ -731,3 +731,56 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/admin_cleaner
+	name = "WD-2381"
+	color = "#da9eda"
+	description = "Extra-bubbly cleaner designed to clear all objects. Or, well. Anything that isn't bolted down. Or is, for that matter. In other words: if you're seeing this, how'd you get your hands on it?"
+
+/datum/reagent/admin_cleaner/organic
+	name = "WD-2381-MOB"
+	id = "admincleaner_mob"
+	description = "A bottle of strange nanites that instantly devour bodies, both living and dead, as well as organs."
+
+/datum/reagent/admin_cleaner/organic/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+/datum/reagent/admin_cleaner/organic/reaction_obj(obj/O, volume)
+	if(is_organ(O))
+		qdel(O)
+	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
+		qdel(O)
+	if(istype(O, /obj/item/mmi))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/item
+	name = "WD-2381-ITM"
+	id = "admincleaner_item"
+	description = "A bottle of strange nanites that instantly devour items, while curiously leaving everything else untouched."
+
+/datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
+	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all
+	name = "WD-2381-ALL"
+	id = "admincleaner_all"
+	description = "An incredibly dangerous set of nanites engineered by Syndicate Janitors which devour everything they touch."
+
+/datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/grenade/clusterbuster/segment))
+		// don't clear clusterbang segments
+		// I'm allowed to make this hack because this is admin only anyway
+		return
+	if(!iseffect(O))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+
+
