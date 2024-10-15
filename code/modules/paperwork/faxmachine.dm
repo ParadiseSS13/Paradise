@@ -378,8 +378,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			page_count ++
 		return
 
-
-
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_consumption)
 
