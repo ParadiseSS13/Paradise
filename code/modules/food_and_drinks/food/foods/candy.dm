@@ -644,4 +644,3 @@
 	icon_state = "toolerone"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
-
