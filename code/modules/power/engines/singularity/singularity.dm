@@ -417,7 +417,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			generator_field = locate(/obj/machinery/field/generator) in T
 			if(generator_field)
 				var/obj/machinery/field/generator/gen = generator_field
-				return(gen.find_containment_gens(turn(_dir, -90), src))
+				return gen.find_containment_gens(turn(_dir, -90), src)
 			generator_field = locate(/obj/machinery/field/containment) in T
 			if(generator_field)
 				var/obj/machinery/field/containment/field = generator_field
