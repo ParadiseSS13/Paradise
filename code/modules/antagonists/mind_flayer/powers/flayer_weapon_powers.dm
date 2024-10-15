@@ -105,27 +105,6 @@
 	var/obj/item/gun/energy/laser/mounted/laser = weapon_ref
 	laser.charge_delay = initial(laser.charge_delay) - 1 * level
 
-/datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
-	name = "Pneumatic Flak Gun"
-	desc = "Allows us to melt our hand away, replacing it with a makeshift cannon that automatically loads with shrapnel."
-	action_icon = 'icons/obj/pneumaticCannon.dmi'
-	action_icon_state = "pneumaticCannon"
-	power_type = FLAYER_UNOBTAINABLE_POWER
-	weapon_type = /obj/item/pneumatic_cannon/flayer
-	category = FLAYER_CATEGORY_DESTROYER
-	base_cost = 50
-	static_upgrade_increase = 50
-	max_level = 3
-	upgrade_info = "Upgrading it reduces the time needed for us to recycle scrap into ammo."
-
-/datum/spell/flayer/self/weapon/flak_gun/on_apply()
-	..()
-	if(!weapon_ref)
-		create_new_weapon()
-
-	var/obj/item/pneumatic_cannon/flayer/cannon = weapon_ref
-	cannon.charge_time = initial(cannon.charge_time) - 2 SECONDS * level
-
 /datum/spell/flayer/self/weapon/grapple_arm
 	name = "Integrated Grappling Mechanism"
 	desc = "Allows us to shoot out our arm attached by a cable. We will drag ourself over to wherever or whoever it hits."
