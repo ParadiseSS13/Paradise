@@ -24,13 +24,13 @@
 		if(length(pre_changelings) >= secondary_enemies)
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
+		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += changeling
 			secondary_enemies -= 1 // Again, since we aren't increasing pre_changeling we'll just decrement what it's compared to.
 			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue
 		pre_changelings += changeling
-		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	return ..()
