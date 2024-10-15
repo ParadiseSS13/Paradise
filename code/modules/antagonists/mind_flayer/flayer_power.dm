@@ -179,7 +179,7 @@
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell && (existing_spell.level >= existing_spell.max_level))
-		send_swarm_message("That function is already at it's strongest.")
+		send_swarm_message("That function is already at its strongest.")
 		return FALSE
 
 	if(to_add.current_cost > get_swarms())
@@ -189,7 +189,7 @@
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this.")
 		return FALSE
-	if(to_add.stage == CAPSTONE_STAGE)
+	if(to_add.stage == FLAYER_CAPSTONE_STAGE)
 		if(!can_pick_capstone && !existing_spell)
 			send_swarm_message("We have already forsaken that knowledge.")
 			return FALSE
@@ -224,7 +224,7 @@
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
 
-	if(to_add.stage == CAPSTONE_STAGE)
+	if(to_add.stage == FLAYER_CAPSTONE_STAGE)
 		if(!can_pick_capstone && !existing_passive)
 			send_swarm_message("We have already forsaken that knowledge.")
 			return FALSE

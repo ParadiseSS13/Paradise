@@ -9,13 +9,13 @@
 	var/attack_sound
 	var/list/attack_verb = list()
 	switch(level)
-		if(POWER_LEVEL_ONE)
+		if(FLAYER_POWER_LEVEL_ONE)
 			attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 			attack_verb = list("bashed", "battered")
-		if(POWER_LEVEL_TWO)
+		if(FLAYER_POWER_LEVEL_TWO)
 			attack_sound = 'sound/effects/meteorimpact.ogg'
 			attack_verb = list("blugeoned", "beat")
-		if(POWER_LEVEL_THREE)
+		if(FLAYER_POWER_LEVEL_THREE)
 			attack_sound = 'sound/misc/demon_attack1.ogg'
 			attack_verb = list("destroyed", "demolished", "hammered")
 

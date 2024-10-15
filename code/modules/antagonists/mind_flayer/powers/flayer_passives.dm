@@ -94,9 +94,9 @@
 /datum/mindflayer_passive/fluid_feet/on_apply()
 	..()
 	switch(level)
-		if(POWER_LEVEL_ONE)
+		if(FLAYER_POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
-		if(POWER_LEVEL_TWO)
+		if(FLAYER_POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/fluid_feet/on_remove()
@@ -133,9 +133,9 @@
 /datum/mindflayer_passive/emp_resist/on_apply()
 	..()
 	switch(level)
-		if(POWER_LEVEL_ONE)
+		if(FLAYER_POWER_LEVEL_ONE)
 			ADD_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
-		if(POWER_LEVEL_TWO)
+		if(FLAYER_POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_EMP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/emp_resist/on_remove()
@@ -207,9 +207,9 @@
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	..()
 	switch(level)
-		if(POWER_LEVEL_ONE)
+		if(FLAYER_POWER_LEVEL_ONE)
 			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
-		if(POWER_LEVEL_TWO)
+		if(FLAYER_POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
 	var/mob/living/carbon/human/to_enhance = owner //Gotta make sure it calls the right update_sight()
 	to_enhance.update_sight()
@@ -280,7 +280,7 @@
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
-	stage = CAPSTONE_STAGE
+	stage = FLAYER_CAPSTONE_STAGE
 	category = FLAYER_CATEGORY_INTRUDER
 	/// How much do we multiply the drain amount?
 	var/drain_multiplier_amount = 10
@@ -344,7 +344,7 @@
 
 	internal_jammer.range = 15 + ((level - 1) * 5) //Base range of the jammer is 15, each level adds 5 tiles for a max of 25 if you want to be REALLY annoying
 
-	if(level == POWER_LEVEL_THREE)
+	if(level == FLAYER_POWER_LEVEL_THREE)
 		ADD_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		stored_invis = owner.invisibility
 		owner.set_invisible(SEE_INVISIBLE_LIVING)

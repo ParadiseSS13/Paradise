@@ -134,7 +134,7 @@
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad
 
-// Steam smoke
+/// Steam smoke
 /datum/effect_system/smoke_spread/steam
 	effect_type = /obj/effect/particle_effect/smoke/steam
 
@@ -148,7 +148,7 @@
 	if(!isliving(AM))
 		return
 	var/mob/living/crosser = AM
-	if(ismindflayer(crosser))
+	if(IS_MINDFLAYER(crosser))
 		return // Mindflayers are fully immune to steam
 	if(!ishuman(crosser))
 		crosser.adjustFireLoss(5)
@@ -156,7 +156,7 @@
 
 	var/mob/living/carbon/human/human_crosser = AM
 	var/fire_armour = human_crosser.get_thermal_protection()
-	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT)
+	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
 		return
 
 	crosser.adjustFireLoss(3)

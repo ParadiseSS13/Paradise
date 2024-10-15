@@ -8,5 +8,3 @@
 #define SMOKE_HARMLESS	1
 #define SMOKE_COUGHING	2
 #define SMOKE_SLEEPING	3
-
-#define isspell(A)			(istype(A, /datum/spell))

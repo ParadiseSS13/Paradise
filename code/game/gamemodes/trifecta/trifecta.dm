@@ -37,7 +37,7 @@
 	for(var/datum/mind/vampire as anything in shuffle(possible_vampires))
 		if(length(pre_vampires) >= amount_vamp)
 			break
-		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs)
+		vampire.restricted_roles = restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs
 		if(vampire.current.client.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += vampire
 			amount_vamp -= 1 //It's basically the same thing as incrementing pre_vampires

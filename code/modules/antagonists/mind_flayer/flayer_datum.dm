@@ -27,9 +27,6 @@
 	/// Have we notified that our victim does not give swarms from draining
 	var/has_notified = FALSE
 
-/proc/ismindflayer(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
-
 /datum/antagonist/mindflayer/New()
 	. = ..()
 	if(!length(ability_list))
@@ -326,7 +323,7 @@
 * Checks if we are eligible to get a special ability for reaching the third stage in a given subclass
 */
 /datum/antagonist/mindflayer/proc/check_special_stage_ability(datum/spell/flayer/adding_spell)
-	if(!adding_spell || category_stage[adding_spell.category] < 3)
+	if(!istype(adding_spell) || category_stage[adding_spell.category] < 3)
 		return
 
 	switch(adding_spell.category)
