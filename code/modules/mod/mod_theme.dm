@@ -225,7 +225,7 @@
 	extended_desc = "A product of the bloated generosity of several prominent Nanotrasen executives and their desire to upstage Cybersun at their own game, the NA-20 'Daedalus' represents the peak of powered industrial protection. The thick, double-insulated plastitanium composite carapace offers complete protection from most electrical hazards \
 		in addition to enhanced resistance against heavy impacts, mid-grade explosive detonations, and a slight resistance to directed energy blasts. An underlayer of lead overlain with depleted uranium offers unparalleled protection from even \
 		the most intense radiation exposure, whilst the advanced thermal control system and thermally-reflective surface coating allows the suit to withstand full flame engulfment. The built-in magboots also feature advanced predictive algorithms \
-		so that they can activate and deactivate as the user moves their feet, removing the heavy slogging motion caused by standard magboots.This entire package is supported by a combination of custom joint motors and pseudo-muscle bundles \
+		so that they can activate and deactivate as the user moves their feet, removing the heavy slogging motion caused by standard magboots. This entire package is supported by a combination of custom joint motors and pseudo-muscle bundles \
 		that are capable of supporting the full weight of the suit and moving it just as fast as the user inside could without any encumbrance, making it so unobtrusive that many users feel absolutely no need to remove the suit, even at times when there's really no point in wearing it."
 	default_skin = "advanced"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
