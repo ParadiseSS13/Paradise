@@ -592,7 +592,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 * and returns their most extreme coordinates.
 **/
 /obj/singularity/proc/in_containment(list/containment_gens)
-	if(!containment_gens)
+	if(!length(containment_gens))
 		return FALSE
 	var/max_x = -1
 	var/max_y = -1
