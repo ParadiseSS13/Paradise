@@ -48,7 +48,7 @@
 				. += gun
 		if(broken)
 			. += "off"
-	. += ..()
+	. += ..() // Parent call at the end instead of the beginning because we need the gun overlays to be drawn first, then the door.
 
 /obj/structure/closet/secure_closet/guncabinet/cc
 	req_access = list(ACCESS_CENT_SPECOPS_COMMANDER)
