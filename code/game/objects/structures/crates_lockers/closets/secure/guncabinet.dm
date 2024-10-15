@@ -2,6 +2,7 @@
 	name = "gun cabinet"
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
+	door_anim_time = 0
 	icon_state = "base"
 	anchored = TRUE
 
@@ -22,7 +23,7 @@
 		return TRUE
 
 /obj/structure/closet/secure_closet/guncabinet/update_overlays()
-	. = list()
+	. = ..()
 	if(!opened)
 		var/lasers = 0
 		var/ballistics = 0
@@ -45,12 +46,8 @@
 
 				gun.pixel_x = i*4
 				. += gun
-
-		. += "door"
 		if(broken)
 			. += "off"
-		else if(locked)
-			. += "locked"
 
 /obj/structure/closet/secure_closet/guncabinet/cc
 	req_access = list(ACCESS_CENT_SPECOPS_COMMANDER)

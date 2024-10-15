@@ -2,9 +2,9 @@
 	name = "critter crate"
 	desc = "A crate designed for safe transport of animals. Only openable from the the outside."
 	icon_state = "critter"
-	icon_opened = "critter_open"
-	icon_closed = "critter"
-	open_door_sprite = null
+	has_opened_overlay = FALSE
+	closed_door_sprite = "critter"
+	door_anim_time = 0
 	var/already_opened = FALSE
 	var/content_mob = null
 	var/amount = 1
