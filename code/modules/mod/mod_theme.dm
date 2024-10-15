@@ -1039,13 +1039,13 @@
 /datum/mod_theme/prototype
 	name = "'Ogre' prototype"
 	desc = "A prototype modular suit developed many years ago. Incredibly heavy, power inefficient, and lacking in protection. At the very least, it's easy to modify."
-	extended_desc = "Quite possibly the first true modsuit ever created, the CSX-001 'Ogre' is a positively ancient mechanized exosuit that represents the very beginning of \
-		Cybersun Industries's foray into powered exosuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
+	extended_desc = "Quite possibly the first true modsuit ever created, the 'Ogre', as its mostly-faded ID label calls it, is a positively ancient mechanized exosuit that represents the very beginning of \
+		the Sector's foray into powered exosuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
 		The first-generation servodrives are woefully underpowered and exceptionally inefficient, leading to a ponderous top speed and an average battery life entirely \
 		unsuited to extended EVA usage. As little more than technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
 		more suited to deflecting micrometeorites than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
-		increased cancer risks after several hours of sustained use. Today, it is exceptionally rare to find this suit anywhere outside a museum exhibit or disused Cybersun \
-		warehouse, but isolated models can still sometimes be found in abandoned storage units floating through the void, waiting for a desperate salvager to claim them."
+		increased cancer risks after several hours of sustained use. Today, it is exceptionally rare to find this suit anywhere outside a museum exhibit or disused \
+		warehouses, but isolated models can still sometimes be found in abandoned storage units floating through the void, waiting for a desperate salvager to claim them."
 	default_skin = "prototype"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_prototype
 	resistance_flags = FIRE_PROOF
