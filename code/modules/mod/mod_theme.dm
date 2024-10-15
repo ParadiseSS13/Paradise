@@ -497,7 +497,7 @@
 	name = "'Valkyrie' rescue"
 	desc = "An next-generation medical suit for casualty care in even the most hostile of conditions. Fast, chemically sealed, and decently armored to boot."
 	extended_desc = "A direct upgrade to the older Apollo line, the D-112 'Valkyrie' is an advanced medical modsuit produced by the DeForest Medical Corporation. Offering iterative improvement over earlier lines, \
-		the Valkyrie uses improved servor systems and drive motors to deliver faster movement speed than the Apollo line, while a high-efficiency energy core significantly reduces the high power draw of the line. \
+		the Valkyrie uses improved servo systems and drive motors to deliver faster movement speed than the Apollo line, while a high-efficiency energy core significantly reduces the high power draw of the line. \
 		The suit's armor has also seen large improvement, incorporating ballistic polymer impact panels in key areas, offering moderate protection against melee and projectile attacks, while a chemically-treated \
 		aramid bodysuit provides near-complete safety against fire and caustic chemicals. For added protection in chemical and biological hazard zones, the helmet incorporates an integrated CBRN filtration system rated \
 		top halt even the most virulent of chemical weapons or infectious diseases. Today, the Valkyrie is a mainstay of numerous corporate and governmental medical units across the Sector, though the high price tag means \
