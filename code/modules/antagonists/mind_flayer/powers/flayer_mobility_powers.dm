@@ -82,11 +82,11 @@
  * Obtained for free in the Destroyer tree when reaching stage 3
  */
 /datum/spell/flayer/techno_wall
-	name = "Technowall"
+	name = "Crystalized Firewall"
 	desc = "Allows us to create a wall between two points. The wall is fragile and allows only ourselves to pass through."
 	base_cooldown = 60 SECONDS
 	action_icon_state = "pd_cablehop"
-	upgrade_info = "Double the health of the barrier."
+	upgrade_info = "Double the health of the barrier by reinforcing it with ICE."
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cost = 100
@@ -128,28 +128,46 @@
 	for(var/turf/T as anything in get_line(target_turf, start_turf))
 		if(wall_count >= max_walls)
 			break
-		new /obj/structure/tech_barrier(T)
+		new /obj/structure/tech_barrier(T, 100 * level)
 		wall_count++
 
 	start_turf = null
 	should_recharge_after_cast = FALSE
 
 /obj/structure/tech_barrier
-	name = "tech barrier"
-	desc = "a grotesque structure of crystalised ... tech? It's slowly melting away..."
+	name = "crystalized firewall"
+	desc = "a strange structure of crystalised ... firewall? It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
+	alpha = 200
+	var/upgraded_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
+	var/mutable_appearance/theme_icon
 
 /obj/structure/tech_barrier/Initialize(mapload, health)
 	. = ..()
-	START_PROCESSING(SSobj, src)
 	if(health)
 		max_integrity = health
 		obj_integrity = health
+	START_PROCESSING(SSobj, src)
+	var/icon/our_icon = icon('icons/effects/vampire_effects.dmi', "blood_barrier")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") //Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) //Finally, let's mix in a distortion effect.
+	icon = our_icon
+	if(health > 100)
+		name = "frozen ICE-firewall"
+		desc = "a crystalized... ICE-9-Firewall? It's slowly melting away..."
+		color = list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 1,1,1,1, 0,0,0,0)
+		armor = armor.setRating(50, 50, 50, 50, 50, 50, 50, 50, 0)
+	else
+		color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", FLOAT_LAYER - 1, appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
 
 /obj/structure/tech_barrier/Destroy()
 	STOP_PROCESSING(SSobj, src)

@@ -334,7 +334,7 @@
 			if(has_spell(/datum/spell/flayer/techno_wall))
 				return
 			add_ability(new /datum/spell/flayer/techno_wall, src)
-			send_swarm_message("We gain the ability to crystallize nanites into a reflective shell around our arm.")
+			send_swarm_message("We gain the ability to bring our internal firewalls into a crystalized form in the physical world")
 
 		if(FLAYER_CATEGORY_INTRUDER)
 			if(has_spell(/datum/spell/flayer/self/weapon/access_tuner))
