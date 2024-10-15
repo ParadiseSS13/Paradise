@@ -14,7 +14,7 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	/// If TRUE, the hypospray can inject through most hardsuits/modsuits and people with the gene that gives TRAIT_PIERCEIMMUNE.
+	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
 	var/ignore_hypospray_immunity = FALSE
