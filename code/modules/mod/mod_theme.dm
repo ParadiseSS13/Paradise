@@ -500,7 +500,7 @@
 		the Valkyrie uses improved servo systems and drive motors to deliver faster movement speed than the Apollo line, while a high-efficiency energy core significantly reduces the high power draw of the line. \
 		The suit's armor has also seen large improvement, incorporating ballistic polymer impact panels in key areas, offering moderate protection against melee and projectile attacks, while a chemically-treated \
 		aramid bodysuit provides near-complete safety against fire and caustic chemicals. For added protection in chemical and biological hazard zones, the helmet incorporates an integrated CBRN filtration system rated \
-		top halt even the most virulent of chemical weapons or infectious diseases. Today, the Valkyrie is a mainstay of numerous corporate and governmental medical units across the Sector, though the high price tag means \
+		to halt even the most virulent of chemical weapons or infectious diseases. Today, the Valkyrie is a mainstay of numerous corporate and governmental medical units across the Sector, though the high price tag means \
 		that many less-funded medical practices continue to operate the Apollo series."
 	default_skin = "rescue"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_rescue
