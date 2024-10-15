@@ -192,6 +192,9 @@
 	var/mob/living/carbon/human/flayer = owner
 	for(var/obj/item/organ/internal/I in flayer.internal_organs)
 		I.heal_internal_damage(heal_modifier * level, TRUE)
+		if(istype(I, /obj/item/organ/internal/cyberimp))
+			var/obj/item/organ/internal/cyberimp/implant = I
+			implant.crit_fail = FALSE
 
 /datum/mindflayer_passive/eye_enhancement
 	name = "Enhanced Optical Sensitivity"
