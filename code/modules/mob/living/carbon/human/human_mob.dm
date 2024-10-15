@@ -813,7 +813,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, defeat_all_protection = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -822,12 +822,6 @@
 			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
 		else
 			target_zone = user.zone_selected
-
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		. = FALSE
-
-	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
-		return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
@@ -838,8 +832,16 @@
 		. = FALSE
 		fail_msg = "That limb is robotic."
 
-	if(piercing)
+	// If there is flesh, inject.
+	if(defeat_all_protection)
 		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE && !penetrate_thick))
+		. = FALSE
+		fail_msg = "[p_their(TRUE)] skin is too tough to inject into!"
+
+	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
+		return FALSE
 
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)

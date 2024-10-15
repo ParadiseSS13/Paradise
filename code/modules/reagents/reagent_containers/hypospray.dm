@@ -14,10 +14,12 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
-	var/can_pierce_hardsuits = FALSE
+	/// If TRUE, the hypospray can inject through most hardsuits/modsuits and people with the gene that gives TRAIT_PIERCEIMMUNE.
+	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
 	var/ignore_hypospray_immunity = FALSE
+	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits.
+	var/defeat_all_protection = FALSE
 	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
 	// List of SOSHA-approved medicines.
@@ -32,6 +34,7 @@
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+
 	if(!iscarbon(M))
 		return
 
@@ -41,7 +44,7 @@
 			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 			return
 
-	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
+	if(reagents.total_volume && M.can_inject(user, TRUE, penetrate_thick, defeat_all_protection))
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -99,7 +102,7 @@
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
-		can_pierce_hardsuits = TRUE
+		penetrate_thick = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
@@ -124,7 +127,8 @@
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
 	icon_state = "combat_hypo"
 	volume = 90
-	can_pierce_hardsuits = TRUE // So they can heal their comrades.
+	penetrate_thick = TRUE // So they can heal their comrades.
+	defeat_all_protection = TRUE
 	ignore_hypospray_immunity = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
@@ -148,7 +152,7 @@
 	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
 	volume = 100
-	can_pierce_hardsuits = TRUE
+	penetrate_thick = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
@@ -177,8 +181,9 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
-	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
+	penetrate_thick = TRUE
 	ignore_hypospray_immunity = TRUE
+	defeat_all_protection = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
 	flags = null
 
