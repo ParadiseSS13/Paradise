@@ -8,7 +8,7 @@ field_generator energy level display
  *   -Aygar
 */
 
-#define field_generator_max_energy 125
+#define FIELD_GENERATOR_MAX_ENERGY 125
 
 #define FG_UNSECURED 0
 #define FG_SECURED 1
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
 	if(Proj.flag != BULLET && !Proj.nodamage)
-		energy = min(energy + Proj.damage, field_generator_max_energy)
+		energy = min(energy + Proj.damage, FIELD_GENERATOR_MAX_ENERGY)
 		check_energy_level()
 	return 0
 
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 
 /obj/machinery/field/generator/proc/check_energy_level()
-	var/new_level = round(num_energy_levels * energy / field_generator_max_energy)
+	var/new_level = round(num_energy_levels * energy / FIELD_GENERATOR_MAX_ENERGY)
 	if(new_level != energy_level)
 		energy_level = new_level
 		update_icon()
@@ -219,16 +219,16 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 			if(FG == last)// We just asked you
 				continue
 			else// We are askin another for energy
-				if(FG.draw_power(draw,failsafe,src))
+				if(FG.draw_power(draw, failsafe, src))
 					return 1
 				else
 					return 0
 
 /// Sends energy to every neighbour that has less energy
 /obj/machinery/field/generator/proc/spread_energy()
-	for(var/obj/machinery/field/generator/gen in connected_gens)
+	for(var/obj/machinery/field/generator/gen as anything in connected_gens)
 		if(energy > gen.energy)
-			var/diff = min(energy - gen.energy, field_generator_max_energy - gen.energy)// We don't want to delete energy
+			var/diff = min(energy - gen.energy, FIELD_GENERATOR_MAX_ENERGY - gen.energy)// We don't want to delete energy
 			gen.energy += diff / 2
 			energy -= diff / 2
 
