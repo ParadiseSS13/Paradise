@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
 		message_admins("[owner] ([owner.key]) has been converted into [name] with an active antagonist jobban for said role since no ghost has volunteered to take [owner.p_their()] place.")
-		to_chat(owner.current, "<span class='biggerdanger'>You have been converted into [name] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You are allowed to play as [name], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
