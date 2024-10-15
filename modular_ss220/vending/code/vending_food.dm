@@ -45,6 +45,9 @@
 		/obj/item/poster/mac_vulpix = 3,
 	)
 
+/obj/machinery/economy/vending/vulpix/free
+	prices = list()
+
 // MARK: Nanotrasen Food
 /obj/machinery/economy/vending/nt_food
 	name = "\improper Nanotrasen Food"
