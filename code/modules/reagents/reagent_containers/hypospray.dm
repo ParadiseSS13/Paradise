@@ -18,7 +18,7 @@
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
 	var/ignore_hypospray_immunity = FALSE
-	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits.
+	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits (except for TRAIT_HYPOSPRAY_IMMUNE).
 	var/defeat_all_protection = FALSE
 	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
@@ -40,11 +40,12 @@
 
 	var/mob/living/carbon/human/H = M
 	if(H.wear_suit)
-		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
+		// This check is here entirely to stop goobers injecting Nukies, the SST, and the Deathsquad with meme chems.
+		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)
 			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 			return
 
-	if(reagents.total_volume && M.can_inject(user, TRUE, penetrate_thick, defeat_all_protection))
+	if(reagents.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick, defeat_all_protection))
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -103,6 +104,7 @@
 	if(safety_hypo && !emagged)
 		emagged = TRUE
 		penetrate_thick = TRUE
+		defeat_all_protection = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
@@ -128,8 +130,8 @@
 	icon_state = "combat_hypo"
 	volume = 90
 	penetrate_thick = TRUE // So they can heal their comrades.
-	defeat_all_protection = TRUE
 	ignore_hypospray_immunity = TRUE
+	defeat_all_protection = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites

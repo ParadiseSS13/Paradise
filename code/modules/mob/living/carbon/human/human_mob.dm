@@ -836,12 +836,11 @@
 	if(defeat_all_protection)
 		return TRUE
 
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE && !penetrate_thick))
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE) && !penetrate_thick)
 		. = FALSE
-		fail_msg = "[p_their(TRUE)] skin is too tough to inject into!"
 
 	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
-		return FALSE
+		. = FALSE
 
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
