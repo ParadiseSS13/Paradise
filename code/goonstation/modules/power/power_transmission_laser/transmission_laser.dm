@@ -16,7 +16,7 @@
 	pixel_y = -64
 
 	/// Variables go below here
-	/// The range we have this basically determines how far the beam goes its redone on creation so its set to a small number here
+	/// How far we shoot the beam. If it isn't blocked it should go to the end of the screen.
 	var/range = 5
 	/// Amount of power we are outputting
 	var/output_level = 0
@@ -67,13 +67,14 @@
 	/// Our set input pulling
 	var/input_pulling = 0
 	/// Announcement configuration for updates
-	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/ptl)
+	var/datum/announcer/announcer
 	/// Last direction the laser was pointing. So offset doesn't get handles when it doesn't need to
 	var/last_dir = 0
 
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
+	announcer = new(config_type = /datum/announcement_configuration/ptl)
 	find_blocker()
 	if(!powernet)
 		connect_to_network()
@@ -93,7 +94,7 @@
 				blocker = candidate
 				break
 		current_turf = get_step(current_turf, dir)
-	var/turf/end_turf = (blocker ? blocker.loc : get_edge_target_turf(get_front_turf(), dir))
+	var/turf/end_turf = (blocker ? get_turf(blocker) : get_edge_target_turf(get_front_turf(), dir))
 	range = get_dist(get_step(get_front_turf(), dir), end_turf)
 
 
@@ -135,6 +136,7 @@
 
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
+	qdel(announcer)
 	if(length(laser_effects))
 		destroy_lasers()
 
@@ -163,9 +165,9 @@
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.<span/>"
-	. += "<span class='notice'>Laser has generated [total_earnings] credits.<span/>"
-	. += "<span class='notice'>Laser has sold [total_energy] Joules<span/>"
+	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.\s<span/>"
+	. += "<span class='notice'>Laser has generated [total_earnings] credits.\s<span/>"
+	. += "<span class='notice'>Laser has sold [total_energy] Joules\s<span/>"
 
 
 /// Appearance changes are here
@@ -339,9 +341,10 @@
 			setup_lasers()
 
 	if(length(laser_effects))
-		for(var/obj/effect/transmission_beam in laser_effects)
+		for(var/obj/effect/transmission_beam as anything in laser_effects)
 			for(var/atom/beamed in get_turf(transmission_beam))
-				atom_beam_effect(beamed)
+				if(!istype(beamed, /obj/effect))
+					atom_beam_effect(beamed)
 
 	if(!blocker)
 		sell_power(output_level * WATT_TICK_TO_JOULE)
@@ -414,7 +417,7 @@
 	if(QDELETED(beam_target) || istype(beam_target, /obj/structure/window))
 		return
 	var/mw_power = (output_number * power_format_multi_output) / (1 MW)
-	if(isliving(beam_target))
+	if(isliving(beam_target) && !istype(beam_target, /mob/living/simple_animal/revenant))
 		var/mob/living/victim = beam_target
 		switch(mw_power)
 			if(0 to 25)
@@ -475,33 +478,33 @@
 
 /// Apply beam effects to the atom and register it as being in the beam if it survives. If it can also block the beam make it block it.
 /obj/effect/transmission_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_ENTERED
 
 	if(istype(arrived, /obj/structure/window))
 		return
 	host.atom_beam_effect(arrived)
 	if(arrived?.density) // If it survived and can block the beam it should block it
 		host.blocker = arrived
-		host.range = get_dist(host.get_front_turf() , host.blocker.loc)
+		host.range = get_dist(host.get_front_turf(), host.blocker.loc)
 		host.shorten_beam() // Remove the laser effects beyond the blocked part
 
 /// Remove the atoms from the list of the atoms in the beam. This is called every time something leaves our beam.
 /obj/effect/transmission_beam/proc/on_leave(datum/source, atom/movable/left, atom/old_loc, list/atom/old_locs)
-
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_EXITED
 
 	if(istype(left, /obj/structure/window))
 		return
 	if(host.blocker && (host.blocker.UID() == left.UID()))
 		var/old_range = host.range
 		host.find_blocker()
-		if(host.range > old_range)
+		if(host.range >= old_range)
 			host.setup_lasers()
 
 
 /// Register signals on the new turf and if it is dense make it the new blocker
 /obj/effect/transmission_beam/proc/on_turf_change()
+	SIGNAL_HANDLER //COMSIG_TURF_CHANGE
+
 	var/turf/source_turf = get_turf(src)
 	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
 	RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave), TRUE)
