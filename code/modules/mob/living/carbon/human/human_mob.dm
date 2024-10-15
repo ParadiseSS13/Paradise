@@ -836,7 +836,7 @@
 	if(defeat_all_protection)
 		return TRUE
 
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE) && !penetrate_thick)
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
 	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
