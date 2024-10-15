@@ -354,3 +354,6 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 #undef FG_OFFLINE
 #undef FG_CHARGING
 #undef FG_ONLINE
+
+#undef FIELD_GENERATOR_MAX_ENERGY
+
