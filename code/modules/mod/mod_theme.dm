@@ -12,7 +12,7 @@
 	/// Description added to the MOD.
 	var/desc = "A basic civilian modsuit by Cybersun Industries. Environmentally sealed, but not much in the way of protection beyond that."
 	/// Extended description on examine_more
-	var/extended_desc = "Easily the most common civilian exosuit in the Sector today, the Cybersun Industries CS-11 'Wanderer' is a cheap, reliable, and lightweight EVA unit suited for all manner \
+	var/extended_desc = "Easily the most common civilian modsuit in the Sector today, the Cybersun Industries CS-11 'Wanderer' is a cheap, reliable, and lightweight EVA unit suited for all manner \
 		of standard extravehicular tasks. As little more than a hard-shelled space suit, the Wanderer offers little in the way of remarkable features. Its thin armor panelling is rated for micrometeoroids and little \
 		else, easily faltering before any dedicated melee, projectile, or energy weapon. Its mass-produced servo systems, while quite efficient, are also underpowered, leading to mildly reduced movement, \
 		though this is somewhat offset by the suit's lightweight design. Today, the Wanderer is found nearly everywhere where space travel occurs, as its low price tag and ease of use makes it \
@@ -105,7 +105,7 @@
 
 /// We don't want the civilian skin to apply to all modsuits, that causes issues.
 /datum/mod_theme/standard
-	name = "'Wanderer' civilian"
+	name = "'Wanderer' standard"
 
 
 /datum/mod_theme/New()
@@ -118,7 +118,7 @@
 /datum/mod_theme/engineering
 	name = "'Spark' engineering"
 	desc = "A standard industrial modsuit. Fire-resistant, shockproof, and fitted with lead insulation for additional radiation protection."
-	extended_desc = "The flagship product of Cybersun Industries's industrial exosuit lineup, the CS-15 'Spark' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
+	extended_desc = "The flagship product of Cybersun Industries's industrial modsuit lineup, the CS-15 'Spark' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
 		The double-insulated carapace renders the user immune to most electrical hazards, while an additional layer of lead plating massively reduces (but does not eliminate) radiation exposure from high-intensity sources, permitting work to be performed in \
 		active radiological zones as long as exposure is properly managed. An inner layer of nomex provides some protection against exposure to the radiant heat of active fires, \
 		but is not rated for full fire engulfment. It also offers some minor protection against low-grade explosive detonations."
@@ -283,7 +283,7 @@
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
 	desc = "A Nanotrasen mining suit for extracting resources in even the harshest of environments. Highly mobile with decent protection against fire and melee attackers. Its external ports have been replaced by an opening on the upper chest, which accepts plasma sheets to recharge its specialized plasma energy core."
-	extended_desc = "A fairly recent innovation from Nanotrasen's research division, the NA-10 'Pioneer' is a rugged and reliable mining exosuit specialized for extraction operations in extreme conditions. \
+	extended_desc = "A fairly recent innovation from Nanotrasen's research division, the NA-10 'Pioneer' is a rugged and reliable mining suit specialized for extraction operations in extreme conditions. \
 		Incorporating a durable kevlar bodysuit under strategically placed armor panels, the Pioneer offers sound protection against melee attacks, while additional attachment points allow for specialized armor to be \
 		attached at user discretion. As an extra protective measure against the vicious ash storms of Lavaland, an experimental ash accretion system has also been integrated, protecting the wearer with a shell of ablative ash. \
 		This particular variant of the Pioneer has also been fitted with a specialized plasma-fueled energy core, allowing for surface miners to quickly recharge \
@@ -368,7 +368,7 @@
 /datum/mod_theme/loader
 	name = "'Heracles' loader"
 	desc = "An unsealed industrial exoframe developed by Aussec Armory for munitions loading and heavy equipment transport. Incredible carrying capacity, but lackluster armor and modability."
-	extended_desc = "Aussec Armory's first foray into the field of powered exosuits, the AX-05 'Heracles' was designed from the ground-up for transporting heavy equipment and munitions. Incorporating a suite \
+	extended_desc = "Aussec Armory's first foray into the field of powered modsuits, the AX-05 'Heracles' was designed from the ground-up for transporting heavy equipment and munitions. Incorporating a suite \
 		of exceptionally powerful hydraulic systems and myomer synth-muscle, the Heracles's two massive lifting arms are capable of carrying loads up to 250 tons without hampering mobility. \
 		High-grade servomotors round out the package, ensuring complete freedom of movement even when transporting the largest of crates or artillery shells. Unfortunately, the Heracles is severely lacking \
 		in the protection department, with only a simple steel outer shell that may deflect a crude melee weapon at most. The suit also entirely lacks environmental sealing, a point Aussec makes very clear \
@@ -670,7 +670,7 @@
 /datum/mod_theme/safeguard
 	name = "'Safeguard' bulwark"
 	desc = "A current-gen suit of powered armor by Shellguard Munitions. Offers substantially improved protection over the base security modsuit, and is completely fireproof."
-	extended_desc = "A fairly recent development by Shellguard Munitions, the SA-350 'Safeguard' modsuit is a largely iterative powered exosuit that builds off of and offers improvement \
+	extended_desc = "A fairly recent development by Shellguard Munitions, the SA-350 'Safeguard' modsuit is a largely iterative powered armor suit that builds off of and offers improvement \
 		over the older Takabara series of corporate security suits. Expanding the ceramic and steel plating further provides significantly improved conventional defenses, while the addition of \
 		an advanced temperature regulation system makes the Safeguard completely immune to extreme heat. The suit's internals were also iterated upon, with improved servo systems for added mobility, \
 		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimidating appearance, incorporating \
@@ -1039,8 +1039,8 @@
 /datum/mod_theme/prototype
 	name = "'Ogre' prototype"
 	desc = "A prototype modular suit developed many years ago. Incredibly heavy, power inefficient, and lacking in protection. At the very least, it's easy to modify."
-	extended_desc = "Quite possibly the first true modsuit ever created, the 'Ogre', as its mostly-faded ID label calls it, is a positively ancient mechanized exosuit that represents the very beginning of \
-		the Sector's foray into powered exosuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
+	extended_desc = "Quite possibly the first true modsuit ever created, the 'Ogre', as its mostly-faded ID label calls it, is a positively ancient mechanized suit that represents the very beginning of \
+		the Sector's foray into powered modsuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
 		The first-generation servodrives are woefully underpowered and exceptionally inefficient, leading to a ponderous top speed and an average battery life entirely \
 		unsuited to extended EVA usage. As little more than technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
 		more suited to deflecting micrometeoroids than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
@@ -1182,7 +1182,7 @@
 		Incorporating a durable plasteel-alloy outer shell overlaying a duraweave-nanomesh bodysuit, all protected by a prototype EM defense system, the \
 		Charon offers physical protection that is unmatched by nearly every other modsuit existing in the Sector today. Despite this weight, advanced \
 		servo and weight distribution systems allow the wearer to move as if unencumbered, while a custom-tuned high-efficiency power distribution system \
-		means that the NA-000 has better mileage than most civilian exosuits. Today, less than a hundred of these mighty war machines exist, all of which \
+		means that the NA-000 has better mileage than most civilian modsuits. Today, less than a hundred of these mighty war machines exist, all of which \
 		reside deep in the secure armories of Nanotrasen Asset Protection."
 	default_skin = "apocryphal"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_apocryphal
