@@ -221,7 +221,7 @@
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"
-	desc = "A highly advanced successor to the standard engineering modsuit. Completely radiation, fire, and electricity-proof, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
+	desc = "A highly advanced successor to the standard engineering modsuit. Completely resistant to radiation, fire, and electricity, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
 	extended_desc = "A product of the bloated generosity of several prominent Nanotrasen executives and their desire to upstage Cybersun at their own game, the NA-20 'Daedalus' represents the peak of powered industrial protection. The thick, double-insulated plastitanium composite carapace offers complete protection from most electrical hazards \
 		in addition to enhanced resistance against heavy impacts, mid-grade explosive detonations, and a slight resistance to directed energy blasts. An underlayer of lead overlain with depleted uranium offers unparalleled protection from even \
 		the most intense radiation exposure, whilst the advanced thermal control system and thermally-reflective surface coating allows the suit to withstand full flame engulfment. The built-in magboots also feature advanced predictive algorithms \
