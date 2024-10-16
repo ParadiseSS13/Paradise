@@ -473,7 +473,7 @@
 	if(visualsOnly)
 		return
 
-	qdel(H.GetComponent(/datum/component/footstep))
+	H.DeleteComponent(/datum/component/footstep)
 
 /datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

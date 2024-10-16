@@ -174,7 +174,9 @@
 		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-#define BASE_ENERGY_CONVERSION 4e-6
+/// Points generated per cycle for each Watt of power consumption
+#define POINTS_PER_W 4e-6
+/// Amount of points generated per cycle per 50KW for the first 500KW
 #define BASE_POINTS 2
 
 /**
@@ -199,13 +201,6 @@
 	interact_offline = TRUE
 	luminosity = 1
 
-	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 KW, 2 KW, 5 KW, 10 KW, 15 KW,
-								25 KW, 50 KW, 100 KW, 250 KW, 500 KW,
-								1 MW, 2 MW, 5 MW, 10 MW, 15 MW,
-								20 MW, 25 MW, 30 MW, 40 MW, 50 MW,
-								60 MW, 70 MW, 80 MW, 90 MW, 100 MW)
-
 	/// list of possible products
 	var/static/product_list = list(
 	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
@@ -214,37 +209,31 @@
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
 
-	/// The level the machine is currently mining at. 0 means off
-	var/input_level = 0
-	/// The machine you WANT the machine to mine at. It will try to match this.
-	var/desired_level = 0
+	/// The amount of power being used for mining at the moment (Watts)
+	var/mining_power = 0
+	/// The power you WANT the machine to use for mining. It will try to match this. (Watts)
+	var/desired_mining_power = 0
+	/// Points mined this cycle
+	var/mined_points = 0
 	/// Available mining points
 	var/points = 0
 	/// The total points earned by this machine so far, for tracking station goal and highscore
 	var/total_points = 0
-	/// How much power the machine needs per processing tick at the current level.
-	var/actual_power_usage = 0
 
 	// Tweak these and active_power_consumption to balance power generation
 
-	/// Max power input level, I don't expect this to be ever reached. It has been reached.
-	var/max_level = 25
-	/// amount of points generated per level for the first 10 levels
-	var/base_points = BASE_POINTS
-	/// amount of points generated per process cycle per unit of energy consumed
-	var/conversion_ratio = BASE_ENERGY_CONVERSION
-	/// How high the machine can be run before it starts having a chance for dimension breaches.
-	var/safe_levels = 15
 	/// Whether or not auto shutdown will engage when portals open
 	var/auto_shutdown = TRUE
 	/// Whether or not stabilizers will engage to prevent or reduce the chance of portals opening
 	var/stabilizers = TRUE
-	/// Amount of power the stabilizers consume
+	/// Amount of power the stabilizers consume (Watts)
 	var/stabilizer_power = 0
-	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
-	var/overhead = 0
+	/// Whether or not mining power will be prevented from exceedingn stabilizer power
+	var/stabilizer_priority = TRUE
 	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
+	/// The amount of portals waiting to be spawned. Used mostly for UI and icon stuff.
+	var/spawning = 0
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -256,7 +245,7 @@
 	if(!powernet)
 		connect_to_network()
 
-	AddComponent(/datum/component/multitile, 1, list(
+	AddComponent(/datum/component/multitile, list(
 		list(1, 1,		   1),
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
@@ -280,7 +269,7 @@
 
 	underlays.Cut()
 
-	if(length(active_nether_portals))
+	if(length(active_nether_portals) || spawning)
 		. += "cascade"
 		set_light(15, 5, "#ff0000")
 		return
@@ -296,19 +285,19 @@
 			underlays += emissive_appearance(icon, "light_mask")
 
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
-	switch(input_level)
-		if(0)
-			return 0
-		if(1 to 3)
+	switch(mining_power)
+		if(50 KW to 3 MW)
 			return 1
-		if(4 to 8)
+		if(3 MW to 8 MW)
 			return 2
-		if(9 to 11)
+		if(8 MW to 11 MW)
 			return 3
-		if(12 to 15)
+		if(11 MW to 15 MW)
 			return 4
-		if(16 to INFINITY)
+		if(15 MW to INFINITY)
 			return 5
+		else
+			return 0
 
 /obj/machinery/power/bluespace_tap/power_change()
 	. = ..()
@@ -331,99 +320,96 @@
 		update_icon()
 
 /**
-  * Increases the desired mining level
+  * Sets the desired mining power (Watts)
   *
-  * Increases the desired mining level, that
+  * Sets the desired mining power, that
   * the machine tries to reach if there
   * is enough power for it. Note that it does
-  * NOT increase the actual mining level directly.
-  */
-/obj/machinery/power/bluespace_tap/proc/increase_level()
-	if(desired_level < max_level)
-		desired_level++
-/**
-  * Decreases the desired mining level
-  *
-  * Decreases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT decrease the actual mining level directly.
-  */
-/obj/machinery/power/bluespace_tap/proc/decrease_level()
-	if(desired_level > 0)
-		desired_level--
-
-/**
-  * Sets the desired mining level
-  *
-  * Sets the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT change the actual mining level directly.
+  * NOT change the actual mining power directly.
   * Arguments:
-  * * t_level - The level we try to set it at, between 0 and max_level
+  * * t_power - The power we try to set it at, between 0 and max_level
  */
-/obj/machinery/power/bluespace_tap/proc/set_level(t_level)
-	if(t_level < 0)
-		return
-	if(t_level > max_level)
-		return
-	desired_level = t_level
 
-/**
-  * Gets the amount of power at a set input level
-  *
-  * Gets the amount of power (in W) a set input level needs.
-  * Note that this is not necessarily the current power use.
-  * * i_level - The hypothetical input level for which we want to know the power use.
-  */
-/obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
-	if(!i_level)
-		return 0
-	return power_needs[i_level]
+/obj/machinery/power/bluespace_tap/proc/set_power(t_power)
+	desired_mining_power = max(t_power, 0)
+	// Round down to nearest MW if above 1 MW
+	if(desired_mining_power > 1 MW)
+		desired_mining_power = desired_mining_power - (desired_mining_power % (1 MW))
 
 /obj/machinery/power/bluespace_tap/process()
-	actual_power_usage = get_power_use(input_level)
-	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
-		input_level--
-		update_icon()
-		return	// and no mining gets done
-	if(actual_power_usage)
-		consume_direct_power(actual_power_usage)
-		//2 points per level up to level 10 and 4 points per MW (or 5 when emmaged).
-		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)
-		points += points_to_add	// point generation, emagging gets you 'free' points at the cost of higher anomaly chance
-		total_points += points_to_add
-	// Between levels 15 and 18 get one level of overhead per 5MW of surplus power. Above level 18 get 1 level per 10MW of surplus power.
-	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7
-	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18 ? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
-	consume_direct_power(stabilizer_power)
-	// actual input level changes slowly
-	// holy shit every proccess this
-	if(input_level < desired_level && (get_surplus() + get_power_use(input_level) + stabilizer_power >= get_power_use(input_level + 1)))
-		input_level++
-		update_icon()
-	else if(input_level > desired_level)
-		input_level--
-		update_icon()
-	// Stabilizers reduce the chance of portals. prob with values less than 0 treat it as 0.
-	if(prob(input_level - (safe_levels + stabilizers * overhead) + (emagged * 5)))
+	// Power we could mine with (Watts)
+	mining_power = get_surplus()
+
+	// Round down to the nearest MW if above a MW
+	if(mining_power > 1 MW)
+		mining_power = mining_power - mining_power % (1 MW)
+
+	// Always try to use all available power for mining if emagged
+	if(emagged)
+		desired_mining_power = mining_power
+
+	/*
+	* Stabilizers activate above 15MW of mining power
+	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15 and 30MW of mining power
+	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
+	* Emagging disables stabilizers
+	*/
+	if(stabilizer_priority)
+		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
+		stabilizer_power = \
+		clamp(\
+		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), \
+		0, \
+		mining_power / 2) \
+		* (stabilizers && !emagged)
+	else
+		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
+		stabilizer_power = \
+		clamp(mining_power - desired_mining_power, \
+		0, \
+		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) \
+		* (stabilizers && !emagged)
+
+	// Actual mining power is what the desired mining power we set, unless we don't have enough power to satisfty that.
+	mining_power = min(desired_mining_power, mining_power - stabilizer_power)
+
+	consume_direct_power(mining_power + stabilizer_power)
+
+	// 2 points per 50 KW up to 20 and 4 points per MW (or 5 when emmaged).
+	mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
+	points += mined_points
+	total_points += mined_points
+	update_icon()
+	/*
+	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
+	* This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
+	* And about every 3:20 minutes for a 10MW difference
+	* Emagging guarantees a chance of at least 5%
+	* Prob treats values less than 0 as 0.
+	* Emagging garuantees a chance of at least 5%.
+	* Prob treats values less than 0 as 0.
+	*/
+
+	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW)) + (emagged * 5))
 		var/area/our_area = get_area(src)
-		if(!length(active_nether_portals))
+		if((!spawning || !length(active_nether_portals)))
 			GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : auto_shutdown ? "Emergency shutdown initiated." : "Automatic shutdown disabled."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged && auto_shutdown)
-			input_level = 0	//emergency shutdown unless it is disabled
-			desired_level = 0
-		start_nether_portaling(rand(1 , 3) + max((level - 15 - overhead) / 3 , 0))
+			desired_mining_power = 0	//emergency shutdown unless it is disabled
+		// An extra portal for each 30MW above 15
+		start_nether_portaling(rand(1 , 3) + round(max((mining_power - 15 MW) / (30 MW) , 0)), TRUE)
 
-/obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
+/obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount, new_incursion = FALSE)
+	if(new_incursion)
+		spawning += amount
 	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 	var/obj/structure/spawner/nether/bluespace_tap/P = new /obj/structure/spawner/nether/bluespace_tap(location)
 	amount--
+	spawning--
 	active_nether_portals += P
 	P.linked_source_object = src
-	// 1 Extra mob for each 2 levels above 15.
-	P.max_mobs = 5 + max((input_level - 15) / 2, 0)
+	// 1 Extra mob for each 20 MW of mining power above 15MW.
+	P.max_mobs = 5 + max((mining_power - 15 MW) / (20 MW), 0)
 	update_icon()
 	if(amount)
 		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3, 5) SECONDS)
@@ -431,20 +417,18 @@
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
 
-	data["desiredLevel"] = desired_level
-	data["inputLevel"] = input_level
+	data["desiredMiningPower"] = desired_mining_power
+	data["miningPower"] = mining_power
 	data["points"] = points
 	data["totalPoints"] = total_points
-	data["powerUse"] = actual_power_usage + stabilizer_power
+	data["powerUse"] = mining_power + stabilizer_power
 	data["availablePower"] = get_surplus()
-	data["maxLevel"] = max_level
 	data["emagged"] = emagged
-	data["safeLevels"] = safe_levels
-	data["nextLevelPower"] = get_power_use(input_level + 1)
 	data["autoShutown"] = auto_shutdown
-	data["overhead"] = overhead
 	data["stabilizers"] = stabilizers
 	data["stabilizerPower"] = stabilizer_power
+	data["stabilizerPriority"]  = stabilizer_priority
+	data["portaling"] = (length(active_nether_portals) || spawning)
 
 	/// A list of lists, each inner list equals a datum
 	var/list/listed_items = list()
@@ -460,18 +444,12 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
-		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
-		return
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/bluespace_tap/attack_ai(mob/user)
-	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
-		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
-		return
+/obj/machinery/power/bluespace_tap/attack_ai(mob/user)	//this would be cool if we made unique TGUI for this
 	ui_interact(user)
 
 /**
@@ -499,12 +477,8 @@
 		return
 	. = TRUE	// we want to refresh in all the cases below
 	switch(action)
-		if("decrease")
-			decrease_level()
-		if("increase")
-			increase_level()
 		if("set")
-			set_level(text2num(params["set_level"]))
+			set_power(text2num(params["set_power"]))
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
 			produce(key)
@@ -512,6 +486,8 @@
 			auto_shutdown = !auto_shutdown
 		if("stabilizers")
 			stabilizers = !stabilizers
+		if("stabilizer_priority")
+			stabilizer_priority = !stabilizer_priority
 
 /obj/machinery/power/bluespace_tap/ui_state(mob/user)
 	return GLOB.default_state
@@ -527,7 +503,6 @@
 	if(emagged)
 		return
 	emagged = TRUE
-	desired_level = max_level
 	do_sparks(5, FALSE, src)
 	if(user)
 		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
@@ -568,5 +543,6 @@
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
 
-#undef BASE_ENERGY_CONVERSION
+#undef POINTS_PER_W
 #undef BASE_POINTS
+ER_W

@@ -41,10 +41,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"j" = (
-/obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "k" = (
 /obj/machinery/sleeper/survival_pod,
 /turf/simulated/floor/pod/dark,
@@ -127,6 +123,10 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"L" = (
+/obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -218,8 +218,8 @@ d
 d
 d
 y
-j
-j
+L
+L
 "}
 (8,1,1) = {"
 a
@@ -229,8 +229,8 @@ b
 i
 b
 i
-j
-j
+L
+L
 b
 b
 "}
@@ -239,7 +239,7 @@ a
 a
 b
 b
-j
+L
 n
 s
 b
@@ -254,7 +254,7 @@ a
 a
 a
 o
-j
+L
 b
 a
 a

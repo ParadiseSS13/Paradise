@@ -51,6 +51,13 @@
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90
 	)
+
+	preop_sound = list(
+		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+	)
+
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
@@ -93,6 +100,7 @@
 		TOOL_WRENCH = 90
 	)
 
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/set_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -164,6 +172,13 @@
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90
 	)
+
+	preop_sound = list(
+		TOOL_BONEGEL = 'sound/surgery/organ1.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+	)
+
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
