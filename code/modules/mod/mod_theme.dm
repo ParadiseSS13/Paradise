@@ -725,7 +725,7 @@
 /datum/mod_theme/magnate
 	name = "'Magnate' command"
 	desc = "An advanced command modsuit developed by Nanotrasen for station directors. Heavily armored, highly mobile, and plenty of space for modifications."
-	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
+	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside a shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
 		An under-layer of ultra low-conductivity ceramic provides protection against the heat of raging fires and high intensity electrical discharges.\
 		The use of custom articulation first utilized in the NA-20 'Daedalus' means that the Magnate will not encumber the user under most circumstances, allowing them to move freely despite the mass of the suit. \
 		The over-engineered electrical and hydraulic systems also gives it exceptional capacity for modification, allowing endless choice in how exactly a captain may wish to drain the resources of their robotics department. \
