@@ -647,16 +647,8 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		// No ID, no luck
-		if(!M.wear_id)
-			return
-		// Try to get the ID
-		var/obj/item/card/id/ID
-		if(istype(M.wear_id, /obj/item/pda))
-			var/obj/item/pda/P = M.wear_id
-			ID = P.id
-		else if(istype(M.wear_id, /obj/item/card/id))
-			ID = M.wear_id
-		if(istype(ID))
+		var/obj/item/card/id/ID = M.get_id_card()
+		if(ID)
 			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
