@@ -56,7 +56,7 @@
 	var/mob/living/carbon/human/H = user
 	if(slot == SLOT_HUD_HEAD)
 		style.teach(H, TRUE)
-		H.faction |= "russian" // Russian Hardbass Begins
+		H.faction |= "soviet"
 		H.physiology.stun_mod *= 0.80
 		ADD_TRAIT(H, TRAIT_RESISTHEAT, "bearserk")
 
@@ -67,7 +67,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 		style.remove(H)
-		H.faction -= "russian" // Hardbass stops
+		H.faction -= "soviet"
 		H.physiology.stun_mod /= 0.80
 		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
@@ -75,4 +75,4 @@
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>Wearing this armored pelt grants you the strength of the space bear. \
-		It also makes wild bears and Russians neutral towards you.</span>"
+		It also makes wild bears and wild communists neutral towards you.</span>"
