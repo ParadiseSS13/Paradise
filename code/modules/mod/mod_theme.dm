@@ -413,7 +413,7 @@
 /datum/mod_theme/medical
 	name = "'Apollo' medical"
 	desc = "A lightweight medical modsuit. Environmentally sealed and acid-resistant but little else in the way of armor. Luckily, the light materials and motors keep mobility high."
-	extended_desc = "A lightweight medical suit produced by the DeForest Medical Corporation, the D-101 'Apollo' is a fairly unremarkable powered medical suit intended for recovering and treating \
+	extended_desc = "A lightweight medical suit produced by the DeForest Medical Corporation, the D-101 'Apollo' is a simple powered medical suit intended for recovering and treating \
 		patients in environmentally risky zones, such as space stations, chemical facilities, and disease outbreak sites. Composed of a lightweight aluminum frame supporting a polymer & carbon fiber \
 		outer shell, the Apollo maintains a surpisingly light weight that allows its underpowered and inefficient servomotors to easily keep the wearer operating at maximum speed. \
 		This comes at a cost in protection, however, as though the Apollo's treated paneling offers excellent defense against caustic chemicals, it is entirely ineffective against \
@@ -724,7 +724,7 @@
 
 /datum/mod_theme/magnate
 	name = "'Magnate' command"
-	desc = "An advanced command modsuit developed by Nanotrasen for station directors. Heavily armored, highly mobile, and plenty of space for modifications."
+	desc = "An advanced command modsuit developed by Nanotrasen for high-ranking corporate officers. Heavily armored, highly mobile, and plenty of space for modifications."
 	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
 		An under-layer of ultra low-conductivity ceramic provides protection against the heat of raging fires and high intensity electrical discharges.\
 		The use of custom articulation first utilized in the NA-20 'Daedalus' means that the Magnate will not encumber the user under most circumstances, allowing them to move freely despite the mass of the suit. \
