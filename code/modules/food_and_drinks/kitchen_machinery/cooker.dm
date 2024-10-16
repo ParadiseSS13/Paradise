@@ -237,6 +237,7 @@
 		if(istype(I, /obj/item/reagent_containers))
 			setRegents(I, newfood)
 		if(istype(I, /obj/item/food))
+			setRegents(I, newfood)
 			setCooked(I, newfood)
 		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)

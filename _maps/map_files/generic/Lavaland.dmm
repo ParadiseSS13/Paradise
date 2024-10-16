@@ -9158,10 +9158,6 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "Sd" = (
