@@ -15,7 +15,7 @@
 	var/extended_desc = "Easily the most common civilian modsuit in the Sector today, the Cybersun Industries CS-11 'Wanderer' is a cheap, reliable, and lightweight EVA unit suited for all manner \
 		of standard extravehicular tasks. As little more than a hard-shelled space suit, the Wanderer offers little in the way of remarkable features. Its thin armor panelling is rated for micrometeoroids and little \
 		else, easily faltering before any dedicated melee, projectile, or energy weapon. Its mass-produced servo systems, while quite efficient, are also underpowered, leading to mildly reduced movement, \
-		though this is somewhat offset by the suit's lightweight design. Today, the Wanderer is found nearly everywhere where space travel occurs, as its low price tag and ease of use makes it \
+		though this is somewhat offset by the suit's lightweight design. Today, the Wanderer is found nearly everywhere space travel occurs, as its low price tag and ease of use make it \
 		perfect for small-time traders, frontier colonies, and other civilian spacecraft."
 	/// Default skin of the MOD.
 	var/default_skin = "standard"
