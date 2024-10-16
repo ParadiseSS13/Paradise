@@ -728,7 +728,7 @@
 	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside a shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
 		An under-layer of ultra low-conductivity ceramic provides protection against the heat of raging fires and high intensity electrical discharges.\
 		The use of custom articulation first utilized in the NA-20 'Daedalus' means that the Magnate will not encumber the user under most circumstances, allowing them to move freely despite the mass of the suit. \
-		The over-engineered electrical and hydraulic systems also gives it exceptional capacity for modification, allowing endless choice in how exactly a captain may wish to drain the resources of their robotics department. \
+		The over-engineered electrical and hydraulic systems also give it exceptional capacity for modification, allowing endless choice in how exactly a captain may wish to drain the resources of their robotics department. \
 		Overall, the Magnate provides protection rivalled only by the 'Jaeger' MODsuit of Syndicate infamy. Nanotrasen's public relations department continues to reiterate that any resemblance that parts of the suit may have to designs used by Gorlex are <b>purely</b> coincidental."
 	default_skin = "magnate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
