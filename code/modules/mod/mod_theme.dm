@@ -889,7 +889,7 @@
 	desc = "An intimidating suit of powered armor in Gorlex blood-red & black, primarily used by the Syndicate. Offers substantial protection in all areas, and looks great while doing so."
 	extended_desc = "One of the Syndicate's most recognizable symbols, the CSC-22 'Raider' was commissioned by the Gorlex Marauders in conjunction with an unknown benefactor, \
 		rumored by some to be Cybersun Industries, a claim the company vigorously denies. The suit itself is purpose-built for fast-paced, high-intensity combat, and is armored to match. \
-		Though offering substantial conventional armor with a durathread-kevlar underlayer overlayed with steel armor panels and ceramic strike plates, the Raider's most notable armor comes from its advanced Armor Booster in-built module. \
+		Though offering substantial conventional armor with a durathread-kevlar underlayer overlaid with steel armor panels and ceramic strike plates, the Raider's most notable armor comes from its advanced Armor Booster in-built module. \
 		Consisting of a miniaturized electromagnetic defense system and combat servomotors, the module allows the user to switch to 'Combat Mode' at the press of a button, massively improving movement speed and defense capability. \
 		Unfortunately, doing so requires sacrificing EVA capability, as power is diverted from the environmental regulation systems, while auxiliary vents open to keep the EM defenses' motor cooled. \
 		Today, the Raider is used almost exclusively by the Syndicate, and is the standard combat suit for their Nuclear Strike Teams. In particular, the Gorlex Marauders use the Raider as their standard assault suit, \
