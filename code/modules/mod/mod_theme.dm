@@ -673,7 +673,7 @@
 	extended_desc = "A fairly recent development by Shellguard Munitions, the SA-350 'Safeguard' modsuit is a largely iterative powered exosuit that builds off of and offers improvement \
 		over the older Takabara series of corporate security suits. Expanding the ceramic and steel plating further provides significantly improved conventional defenses, while the addition of \
 		an advanced temperature regulation system makes the Safeguard completely immune to extreme heat. The suit's internals were also iterated upon, with improved servo systems for added mobility, \
-		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimdating appearance, incorporating \
+		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimidating appearance, incorporating \
 		pronounced armored pauldrons and replacing the traditional eyeholes with a camera-equipped blank faceplate. Today, the Safeguard is most commonly seen in well-funded corporate security units, most \
 		notably the Nanotrasen Corporation, which has purchased a large stock of the suits for high-ranking security personnel."
 	default_skin = "safeguard"
