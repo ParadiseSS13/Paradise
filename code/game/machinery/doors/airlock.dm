@@ -760,7 +760,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(user)
 			attack_ai(user)
 
-/obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/airlock/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && !locked)
 		if(mover.checkpass(PASSDOOR))
 			return TRUE

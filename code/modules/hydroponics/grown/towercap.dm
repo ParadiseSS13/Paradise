@@ -133,6 +133,13 @@
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/bonfire/dense
 	density = TRUE
 
@@ -199,11 +206,13 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
+/obj/structure/bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(burning)
 		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
+		if(ishuman(entered))
+			var/mob/living/carbon/human/H = entered
 			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 
 /obj/structure/bonfire/proc/Burn()

@@ -21,6 +21,7 @@
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
@@ -50,9 +51,9 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_movable_cross(crossed)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)

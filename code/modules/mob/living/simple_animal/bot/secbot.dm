@@ -49,6 +49,7 @@
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -453,9 +454,9 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(ismob(crossed) && target)
+		var/mob/living/carbon/C = crossed
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \
@@ -467,6 +468,5 @@
 						"[C] leaps out of [src]'s way!")]</span>")
 		C.KnockDown(4 SECONDS)
 		return
-	..()
 
 #undef BATON_COOLDOWN
