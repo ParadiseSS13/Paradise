@@ -371,7 +371,7 @@
 	extended_desc = "Aussec Armory's first foray into the field of powered exosuits, the AX-05 'Heracles' was designed from the ground-up for transporting heavy equipment and munitions. Incorporating a suite \
 		of exceptionally powerful hydraulic systems and myomer synth-muscle, the Heracles's two massive lifting arms are capable of carrying loads up to 250 tons without hampering mobility. \
 		High-grade servomotors round out the package, ensuring complete freedom of movement even when transporting the largest of crates or artillery shells. Unfortunately, the Heracles is severely lacking \
-		in the protection department, with only a simple steel outer shell that may deflect a crude melee weapon at most. The suit also entirely lacks enivronmental sealing, a point Aussec makes very clear \
+		in the protection department, with only a simple steel outer shell that may deflect a crude melee weapon at most. The suit also entirely lacks environmental sealing, a point Aussec makes very clear \
 		in their user agreement, while the immense space demands of the hydraulics drastically cut the suit's modification potential. Despite these shortcomings, the Heracles was a breakout success, and now \
 		sees extensive use within the Trans-Solar Federation's logistics corps, and in loading bays across the Sector."
 	default_skin = "loader"
