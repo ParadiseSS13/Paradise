@@ -10,7 +10,7 @@
 	/// Theme name for the MOD.
 	var/name = "BASE"
 	/// Description added to the MOD.
-	var/desc = "A basic civilian modsuit by Cybersun Industries. Environmentally sealed, but not much in the way of protection beyond that."
+	var/desc = "A basic civilian modsuit by Cybersun Industries. Environmentally sealed but doesn't offer much in the way of protection."
 	/// Extended description on examine_more
 	var/extended_desc = "Easily the most common civilian modsuit in the Sector today, the Cybersun Industries CS-11 'Wanderer' is a cheap, reliable, and lightweight EVA unit suited for all manner \
 		of standard extravehicular tasks. As little more than a hard-shelled space suit, the Wanderer offers little in the way of remarkable features. Its thin armor panelling is rated for micrometeoroids and little \
