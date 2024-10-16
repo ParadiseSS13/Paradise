@@ -127,7 +127,7 @@
 		return
 	for(var/obj/singularity/S in GLOB.singularities)
 		// not within coverage, not on a tile, not a gravitational singularity
-		if((S.type == /obj/singularity) || !(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T)))
+		if(!(S.type == /obj/singularity) || !(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T)))
 			continue
 		singularities.Add(S)
 

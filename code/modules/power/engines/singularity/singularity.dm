@@ -413,14 +413,14 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		var/turf/T = loc
 		for(var/i in 1 to 10)
 			T = get_step(T, _dir)
-			var/obj/generator_field
-			generator_field = locate(/obj/machinery/field/generator) in T
-			if(generator_field)
-				var/obj/machinery/field/generator/gen = generator_field
+			var/obj/cur_field_obj
+			cur_field_obj = locate(/obj/machinery/field/generator) in T
+			if(cur_field_obj)
+				var/obj/machinery/field/generator/gen = cur_field_obj
 				return gen.find_containment_gens(turn(_dir, -90), src)
-			generator_field = locate(/obj/machinery/field/containment) in T
-			if(generator_field)
-				var/obj/machinery/field/containment/field = generator_field
+			cur_field_obj = locate(/obj/machinery/field/containment) in T
+			if(cur_field_obj)
+				var/obj/machinery/field/containment/field = cur_field_obj
 				return field.FG1.find_containment_gens(turn(_dir, -90), src)
 
 /obj/singularity/proc/can_move(turf/T)
