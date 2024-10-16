@@ -185,7 +185,7 @@
 	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 
-	if(H.floating || H.flying || H.buckled)
+	if(H.floating || HAS_TRAIT(H, TRAIT_FLYING) || H.buckled)
 		return
 
 	if(!IS_HORIZONTAL(H) && (H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
