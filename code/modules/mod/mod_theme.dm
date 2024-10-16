@@ -560,7 +560,7 @@
 	desc = "A powered EOD suit produced by Aussec Armory. Absolutely unmatched explosive and acid protection, along with heavy conventional armor and high modding potential."
 	extended_desc = "Developed following the surprising success of the 'Heracles' powerloader suit, the AX-1-0 'Minerva' was originally intended as a competitor to ongoing TSF trials for a new generation \
 		of bomb-disposal armor. While the original design would fail to meet Federation maintenance standards, Aussec's board of directors saw sufficient potential in the suit to market it instead as a \
-		heavy-duty research platform. Equipped with double-layered blast foam paneling encased in a durable plasteel outer carapace, the AX-1-0 offers outstanding protection against explosives and indutrial chemicals, \
+		heavy-duty research platform. Equipped with double-layered blast foam paneling encased in a durable plasteel outer carapace, the AX-1-0 offers outstanding protection against explosives and industrial chemicals, \
 		and will even deflect some low-caliber ballistic rounds and melee weaponry. Unfortunately, underperforming heat dissipation materials mean that the suit offers little in the way of directed energy \
 		protection. Today, the Minerva is most often seen in high-profile research laboratories, given its high price tag and maintenance requirements. Notably, Nanotrasen has purchased a significant number of the suits \
 		for high-ranking science personnel, shipping most to the advanced testing labs of Epsilon Eridani."
