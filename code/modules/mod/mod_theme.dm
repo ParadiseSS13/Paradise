@@ -13,7 +13,7 @@
 	var/desc = "A basic civilian modsuit by Cybersun Industries. Environmentally sealed, but not much in the way of protection beyond that."
 	/// Extended description on examine_more
 	var/extended_desc = "Easily the most common civilian exosuit in the Sector today, the Cybersun Industries CS-11 'Wanderer' is a cheap, reliable, and lightweight EVA unit suited for all manner \
-		of standard extravehicular tasks. As little more than a hard-shelled space suit, the Wanderer offers little in the way of remarkable features. Its thin armor panelling is rated for micrometorites and little \
+		of standard extravehicular tasks. As little more than a hard-shelled space suit, the Wanderer offers little in the way of remarkable features. Its thin armor panelling is rated for micrometeoroids and little \
 		else, easily faltering before any dedicated melee, projectile, or energy weapon. Its mass-produced servo systems, while quite efficient, are also underpowered, leading to mildly reduced movement, \
 		though this is somewhat offset by the suit's lightweight design. Today, the Wanderer is found nearly everywhere where space travel occurs, as its low price tag and ease of use makes it \
 		perfect for small-time traders, frontier colonies, and other civilian spacecraft."
@@ -221,7 +221,7 @@
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"
-	desc = "A highly advanced successor to the standard engineering modsuit. Completely radiation, fire, and electricity-proof, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
+	desc = "A highly advanced successor to the standard engineering modsuit. Completely resistant to radiation, fire, and electricity, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
 	extended_desc = "A product of the bloated generosity of several prominent Nanotrasen executives and their desire to upstage Cybersun at their own game, the NA-20 'Daedalus' represents the peak of powered industrial protection. The thick, double-insulated plastitanium composite carapace offers complete protection from most electrical hazards \
 		in addition to enhanced resistance against heavy impacts, mid-grade explosive detonations, and a slight resistance to directed energy blasts. An underlayer of lead overlain with depleted uranium offers unparalleled protection from even \
 		the most intense radiation exposure, whilst the advanced thermal control system and thermally-reflective surface coating allows the suit to withstand full flame engulfment. The built-in magboots also feature advanced predictive algorithms \
@@ -282,7 +282,7 @@
 
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
-	desc = "A Nanotrasen mining suit for extracting resources in even the harshest of environments. Highly mobile with decent protection against melee attackers, and fitted with a specialized plasma energy core."
+	desc = "A Nanotrasen mining suit for extracting resources in even the harshest of environments. Highly mobile with decent protection against fire and melee attackers. Its external ports have been replaced by an opening on the upper chest, which accepts plasma sheets to recharge its specialized plasma energy core."
 	extended_desc = "A fairly recent innovation from Nanotrasen's research division, the NA-10 'Pioneer' is a rugged and reliable mining exosuit specialized for extraction operations in extreme conditions. \
 		Incorporating a durable kevlar bodysuit under strategically placed armor panels, the Pioneer offers sound protection against melee attacks, while additional attachment points allow for specialized armor to be \
 		attached at user discretion. As an extra protective measure against the vicious ash storms of Lavaland, an experimental ash accretion system has also been integrated, protecting the wearer with a shell of ablative ash. \
@@ -371,7 +371,7 @@
 	extended_desc = "Aussec Armory's first foray into the field of powered exosuits, the AX-05 'Heracles' was designed from the ground-up for transporting heavy equipment and munitions. Incorporating a suite \
 		of exceptionally powerful hydraulic systems and myomer synth-muscle, the Heracles's two massive lifting arms are capable of carrying loads up to 250 tons without hampering mobility. \
 		High-grade servomotors round out the package, ensuring complete freedom of movement even when transporting the largest of crates or artillery shells. Unfortunately, the Heracles is severely lacking \
-		in the protection department, with only a simple steel outer shell that may deflect a crude melee weapon at most. The suit also entirely lacks enivronmental sealing, a point Aussec makes very clear \
+		in the protection department, with only a simple steel outer shell that may deflect a crude melee weapon at most. The suit also entirely lacks environmental sealing, a point Aussec makes very clear \
 		in their user agreement, while the immense space demands of the hydraulics drastically cut the suit's modification potential. Despite these shortcomings, the Heracles was a breakout success, and now \
 		sees extensive use within the Trans-Solar Federation's logistics corps, and in loading bays across the Sector."
 	default_skin = "loader"
@@ -415,7 +415,7 @@
 	desc = "A lightweight medical modsuit. Environmentally sealed and acid-resistant but little else in the way of armor. Luckily, the light materials and motors keep mobility high."
 	extended_desc = "A lightweight medical suit produced by the DeForest Medical Corporation, the D-101 'Apollo' is a simple powered medical suit intended for recovering and treating \
 		patients in environmentally risky zones, such as space stations, chemical facilities, and disease outbreak sites. Composed of a lightweight aluminum frame supporting a polymer & carbon fiber \
-		outer shell, the Apollo maintains a surpisingly light weight that allows its underpowered and inefficient servomotors to easily keep the wearer operating at maximum speed. \
+		outer shell, the Apollo maintains a surprisingly light weight that allows its underpowered and inefficient servomotors to easily keep the wearer operating at maximum speed. \
 		This comes at a cost in protection, however, as though the Apollo's treated paneling offers excellent defense against caustic chemicals, it is entirely ineffective against \
 		any form of conventional attack or weapon. Today, the Apollo is an exceptionally common suit seen in medical bays across the Orion Arm, and is well-loved by EMTs and virologists \
 		alike for its ease of use and movement."
@@ -560,8 +560,8 @@
 	desc = "A powered EOD suit produced by Aussec Armory. Absolutely unmatched explosive and acid protection, along with heavy conventional armor and high modding potential."
 	extended_desc = "Developed following the surprising success of the 'Heracles' powerloader suit, the AX-1-0 'Minerva' was originally intended as a competitor to ongoing TSF trials for a new generation \
 		of bomb-disposal armor. While the original design would fail to meet Federation maintenance standards, Aussec's board of directors saw sufficient potential in the suit to market it instead as a \
-		heavy-duty research platform. Equipped with double-layered blast foam paneling encased in a durable plasteel outer carapace, the AX-1-0 offers outstanding protection against explosives and indutrial chemicals, \
-		and will even deflect some low-caliber ballistic rounds and melee weaponry. Unfortunately, underpreforming heat disspiation materials mean that the suit offers little in the way of directed energy \
+		heavy-duty research platform. Equipped with double-layered blast foam paneling encased in a durable plasteel outer carapace, the AX-1-0 offers outstanding protection against explosives and industrial chemicals, \
+		and will even deflect some low-caliber ballistic rounds and melee weaponry. Unfortunately, underperforming heat dissipation materials mean that the suit offers little in the way of directed energy \
 		protection. Today, the Minerva is most often seen in high-profile research laboratories, given its high price tag and maintenance requirements. Notably, Nanotrasen has purchased a significant number of the suits \
 		for high-ranking science personnel, shipping most to the advanced testing labs of Epsilon Eridani."
 	default_skin = "research"
@@ -615,7 +615,7 @@
 	name = "'Takabara' security"
 	desc = "A last-gen Shellguard Munitions combat modsuit intended for corporate security forces. Decently armored and highly mobile, but somewhat lackluster in modification potential."
 	extended_desc = "A fairly average private security modsuit, the SA-330 'Takabara' is a Shellguard Munitions workhorse, and a recognizable symbol of Nanotrasen corporate security. \
-		Equipped with kevlar paneling in vital areas and ceramic strike plates in the chest and back, the Takabara offers sufficent protection to deter most petty criminals and improvised melee weapons, \
+		Equipped with kevlar paneling in vital areas and ceramic strike plates in the chest and back, the Takabara offers sufficient protection to deter most petty criminals and improvised melee weapons, \
 		but quickly falters in the face of gunfire or dedicated melee devices, though an unusual choice to add a nomex underlayer and chemically treated plating provides deceptively high fire \
 		and acid protection. While the suit is quite easy to maintain, it is also very much a last-gen design, with easily-taxed servos and restrictive hardware that limits its modification potential. \
 		Despite these flaws, however, the Takabara has seen immense success in the private security market across the Sector thanks to its low price and ease of operation. In particular, Nanotrasen \
@@ -673,7 +673,7 @@
 	extended_desc = "A fairly recent development by Shellguard Munitions, the SA-350 'Safeguard' modsuit is a largely iterative powered exosuit that builds off of and offers improvement \
 		over the older Takabara series of corporate security suits. Expanding the ceramic and steel plating further provides significantly improved conventional defenses, while the addition of \
 		an advanced temperature regulation system makes the Safeguard completely immune to extreme heat. The suit's internals were also iterated upon, with improved servo systems for added mobility, \
-		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimdating appearance, incorporating \
+		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimidating appearance, incorporating \
 		pronounced armored pauldrons and replacing the traditional eyeholes with a camera-equipped blank faceplate. Today, the Safeguard is most commonly seen in well-funded corporate security units, most \
 		notably the Nanotrasen Corporation, which has purchased a large stock of the suits for high-ranking security personnel."
 	default_skin = "safeguard"
@@ -725,7 +725,7 @@
 /datum/mod_theme/magnate
 	name = "'Magnate' command"
 	desc = "An advanced command modsuit developed by Nanotrasen for high-ranking corporate officers. Heavily armored, highly mobile, and plenty of space for modifications."
-	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
+	extended_desc = "An in-house design by Nanotrasen R&D, the Magnate encases the user inside a shell of plastitanum alloy with an ablative surface coating, giving robust protection against ballistic and energy-based threats in equal measure, and granting respectable protection from corrosive substances as well. \
 		An under-layer of ultra low-conductivity ceramic provides protection against the heat of raging fires and high intensity electrical discharges.\
 		The use of custom articulation first utilized in the NA-20 'Daedalus' means that the Magnate will not encumber the user under most circumstances, allowing them to move freely despite the mass of the suit. \
 		The over-engineered electrical and hydraulic systems also gives it exceptional capacity for modification, allowing endless choice in how exactly a captain may wish to drain the resources of their robotics department. \
@@ -889,7 +889,7 @@
 	desc = "An intimidating suit of powered armor in Gorlex blood-red & black, primarily used by the Syndicate. Offers substantial protection in all areas, and looks great while doing so."
 	extended_desc = "One of the Syndicate's most recognizable symbols, the CSC-22 'Raider' was commissioned by the Gorlex Marauders in conjunction with an unknown benefactor, \
 		rumored by some to be Cybersun Industries, a claim the company vigorously denies. The suit itself is purpose-built for fast-paced, high-intensity combat, and is armored to match. \
-		Though offering substantial conventional armor with a durathread-kevlar underlayer overlayed with steel armor panels and ceramic strike plates, the Raider's most notable armor comes from its advanced Armor Booster in-built module. \
+		Though offering substantial conventional armor with a durathread-kevlar underlayer overlaid with steel armor panels and ceramic strike plates, the Raider's most notable armor comes from its advanced Armor Booster in-built module. \
 		Consisting of a miniaturized electromagnetic defense system and combat servomotors, the module allows the user to switch to 'Combat Mode' at the press of a button, massively improving movement speed and defense capability. \
 		Unfortunately, doing so requires sacrificing EVA capability, as power is diverted from the environmental regulation systems, while auxiliary vents open to keep the EM defenses' motor cooled. \
 		Today, the Raider is used almost exclusively by the Syndicate, and is the standard combat suit for their Nuclear Strike Teams. In particular, the Gorlex Marauders use the Raider as their standard assault suit, \
@@ -977,7 +977,7 @@
 	desc = "A terrifying, jet-black suit of advanced power armor, used by the Syndicate's elite forces. Completely fireproof, and offers phenomenal protection in all areas."
 	extended_desc = "Following the incredible success of the Raider-series combat modsuit, several other prominent mercenary and pirate groups began to look into procuring their own personal combat modsuits, most notably the mysterious Inner Circle PMC. \
 		The resulting design, known as the CSC-25 'Jaeger', is one of the finest suits of powered armor ever devised, and a herald of imminent death for any opposed to the Inner Circle and the Syndicate. \
-		Replacing the earlier steel and ceramic armor panels with a reinforced plastitanium-alloy carapace and strengthened sorbothane impact absorbtion panels over the traditional kevlar weave undersuit, the Jaeger offers massively improved \
+		Replacing the earlier steel and ceramic armor panels with a reinforced plastitanium-alloy carapace and strengthened sorbothane impact absorption panels over the traditional kevlar weave undersuit, the Jaeger offers massively improved \
 		protection over the Raider, including complete immunity to extreme heat. The Armor Booster subsystem has seen similar improvements, increasing protection to such an extent that only armor-piercing rifle rounds can reliably penetrate. \
 		Even the suit's helmet has seen massive changes, replacing the iconic quad-camera faceplate with a polarized plasmaglass visor, and incorporating an advanced filtration system to counteract chemical attacks. \
 		Altogether, the Jaeger offers some of the best personal protection in the Sector, and has a price tag to match. Only the wealthiest of Syndicate clients can even hope to purchase one of these suits, let alone outfit an entire company with them."
@@ -1043,7 +1043,7 @@
 		the Sector's foray into powered exosuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
 		The first-generation servodrives are woefully underpowered and exceptionally inefficient, leading to a ponderous top speed and an average battery life entirely \
 		unsuited to extended EVA usage. As little more than technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
-		more suited to deflecting micrometeorites than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
+		more suited to deflecting micrometeoroids than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
 		increased cancer risks after several hours of sustained use. Today, it is exceptionally rare to find this suit anywhere outside a museum exhibit or disused \
 		warehouses, but isolated models can still sometimes be found in abandoned storage units floating through the void, waiting for a desperate salvager to claim them."
 	default_skin = "prototype"
