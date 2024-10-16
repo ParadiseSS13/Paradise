@@ -613,7 +613,7 @@
 
 /datum/mod_theme/security
 	name = "'Takabara' security"
-	desc = "A last-gen Shellguard Munitions combat modsuit intended for corporate security forces. Decently armored and highly mobile, but somewhat lackluster in modification potential."
+	desc = "An older-model Shellguard Munitions combat modsuit intended for corporate security forces. Decently armored and highly mobile, but somewhat lackluster in modification potential."
 	extended_desc = "A fairly average private security modsuit, the SA-330 'Takabara' is a Shellguard Munitions workhorse, and a recognizable symbol of Nanotrasen corporate security. \
 		Equipped with kevlar paneling in vital areas and ceramic strike plates in the chest and back, the Takabara offers sufficient protection to deter most petty criminals and improvised melee weapons, \
 		though it stands little match in the face of gunfire or advanced melee weapons. An unconventional nomex underlayer and chemically treated plating provides deceptively high fire \
