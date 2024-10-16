@@ -169,7 +169,7 @@
 	desc = "A reinforced atmospherics modsuit meant for extreme environments. Completely fireproof, but somewhat lacking in modification potential and power efficiency."
 	extended_desc = "Developed from the popular 'Spark' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
 		underlain with multiple layers of insulating fiberglass, which, in combination with a high-powered thermal regulation system, provides the user complete protection from even full engulfment inside a raging plasma fire. \
-		The helmet contains integrated filtration systems that protect the user from sudden releases of gaseous substances, as sometimes encountered during scrubber system backflows - a feature not present in the Engineering MOD. \
+		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the Engineering MOD. \
 		Cybersun Industries reminds users that this model features minimal radiation shielding - it is not suitable PPE for use in radiological hazard zones."
 	default_skin = "atmospheric"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
@@ -978,7 +978,7 @@
 	extended_desc = "Following the incredible success of the Raider-series combat modsuit, several other prominent mercenary and pirate groups began to look into procuring their own personal combat modsuits, most notably the mysterious Inner Circle PMC. \
 		The resulting design, known as the CSC-25 'Jaeger', is one of the finest suits of powered armor ever devised, and a herald of imminent death for any opposed to the Inner Circle and the Syndicate. \
 		Replacing the earlier steel and ceramic armor panels with a reinforced plastitanium-alloy carapace and strengthened sorbothane impact absorption panels over the traditional kevlar weave undersuit, the Jaeger offers massively improved \
-		protection over the Raider, including complete immunity to extreme heat. The Armor Booster subsystem has seen similar improvements, increasing protection to such an extent that only armor-piercing rifle rounds can reliably penetrate. \
+		protection over the Raider, including complete immunity to extreme heat. The Armor Booster subsystem has seen similar improvements, increasing protection to such an extent that only armor-piercing rifle rounds can reliably penetrate the armor. \
 		Even the suit's helmet has seen massive changes, replacing the iconic quad-camera faceplate with a polarized plasmaglass visor, and incorporating an advanced filtration system to counteract chemical attacks. \
 		Altogether, the Jaeger offers some of the best personal protection in the Sector, and has a price tag to match. Only the wealthiest of Syndicate clients can even hope to purchase one of these suits, let alone outfit an entire company with them."
 	default_skin = "elite"
