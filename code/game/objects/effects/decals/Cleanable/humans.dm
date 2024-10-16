@@ -320,6 +320,7 @@
 		if(i > 0)
 			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(loc)
 			b.basecolor = src.basecolor
+			b.gravity_check = ALWAYS_IN_GRAVITY
 			b.update_icon()
 		if(step_to(src, get_step(src, direction), 0))
 			break
