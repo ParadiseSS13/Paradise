@@ -412,7 +412,7 @@
 
 /datum/mod_theme/medical
 	name = "'Apollo' medical"
-	desc = "A lightweight medical modsuit. Environmentally sealed and acid-resistant but little else in the way of armor. Luckily, the light materials and motors keep mobility high."
+	desc = "A lightweight medical modsuit. Environmentally sealed and acid-resistant but offering little else in the way of armor. Thankfully, the light materials and motors keep mobility high."
 	extended_desc = "A lightweight medical suit produced by the DeForest Medical Corporation, the D-101 'Apollo' is a simple powered medical suit intended for recovering and treating \
 		patients in environmentally risky zones, such as space stations, chemical facilities, and disease outbreak sites. Composed of a lightweight aluminum frame supporting a polymer & carbon fiber \
 		outer shell, the Apollo maintains a surprisingly light weight that allows its underpowered and inefficient servomotors to easily keep the wearer operating at maximum speed. \
