@@ -178,13 +178,17 @@
 	addtimer(CALLBACK(source, TYPE_PROC_REF(/turf, AfterChange)), 1, TIMER_UNIQUE)
 
 /datum/ore/gibtonite/proc/defuse(turf/source)
+	var/world_time = world.time // Grab this immediately so we're fairly calculating countdown time
 	if(stage == GIBTONITE_ACTIVE)
 		source.cut_overlay(activated_overlay)
 		activated_overlay.icon_state = "rock_Gibtonite_inactive"
 		source.add_overlay(activated_overlay)
 		source.desc = "An inactive gibtonite reserve. The ore can be extracted."
 		stage = GIBTONITE_STABLE
-		remaining_time = floor((detonate_time - (world.time - detonate_start_time)) / 2)
+
+		// ticks remaining / 10 = seconds remaining * 2 countdown decrements every second
+		remaining_time = floor((detonate_time - (world_time - detonate_start_time)) / 5)
+
 		if(remaining_time < 0)
 			remaining_time = 0
 		source.visible_message("<span class='notice'>The chain reaction was stopped! The gibtonite had [remaining_time] reactions left till the explosion!</span>")
