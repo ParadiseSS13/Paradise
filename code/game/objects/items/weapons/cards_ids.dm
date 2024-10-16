@@ -361,7 +361,7 @@
 
 /obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
-	if(!possible_jobs) 
+	if(!length(possible_jobs)) 
 		possible_jobs = sortTim(GLOB.joblist, GLOBAL_PROC_REF(cmp_text_asc))
 
 /obj/item/card/id/syndicate/researcher
@@ -556,7 +556,7 @@
 			new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", possible_jobs)
 			new_rank = new_job
 		else
-			new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+			new_job = sanitize(tgui_input_text(registered_human, "Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 			tgui_message = "What SecHUD icon would you like to be shown on this card?"
 			new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.joblist + "Prisoner" + "Centcom" + "Solgov" + "Soviet" + "Unknown")
 
