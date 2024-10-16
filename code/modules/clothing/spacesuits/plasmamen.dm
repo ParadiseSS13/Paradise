@@ -289,7 +289,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool
 	name = "diver envirosuit helmet"
-	desc = "A plasmaman helm resembling old diver helms."
+	desc = "A plasmaman helm resembling old diver helms. Its form can be changed by using it in your hand."
 	icon_state = "diver_envirohelm"
 	base_icon_state = "diver_envirohelm"
 	item_state = "diver_envirohelm"
