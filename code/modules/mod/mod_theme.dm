@@ -780,7 +780,7 @@
 /datum/mod_theme/praetorian
 	name = "'Praetorian' escort"
 	desc = "A Nanotrasen refit of the Takabara modsuit line. Offers higher mobility than the base model, and comes with a snazzy blue-and-black paint job."
-	extended_desc = "A licensed copy of the Shellguard Munitions 'Takabara' modsuit, the NA-35 'Praetorian' is specially issued to Nanotrasen Asset Protection's Blueshield Corps, \
+	extended_desc = "A licensed copy of the Shellguard Munitions 'Takabara' modsuit, the NA-35 'Praetorian' is specially issued to Nanotrasen Asset Protection's Blueshield Corps: \
 		elite protective agents charged with guarding Nanotrasen VIPs. As such, the suit's motor and weight distribution systems have seen a measure of improvement, to allow for the \
 		Blueshields to more effectively respond to threats facing their charges. Beyond this, and a stylish blue & black paint job, however, the Praetorian differs little \
 		from its Shellguard roots, retaining its middling armor ratings and restrictive hardware. Even so, Nanotrasen is more than happy with the design, and has proceeded \
