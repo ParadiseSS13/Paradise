@@ -282,7 +282,7 @@
 
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
-	desc = "A Nanotrasen mining suit for extracting resources in even the harshest of environments. Highly mobile with decent protection against melee attackers, and fitted with a specialized plasma energy core."
+	desc = "A Nanotrasen mining suit for extracting resources in even the harshest of environments. Highly mobile with decent protection against fire and melee attackers. Its external ports have been replaced by an opening on the upper chest, which accepts plasma sheets to recharge its specialized plasma energy core."
 	extended_desc = "A fairly recent innovation from Nanotrasen's research division, the NA-10 'Pioneer' is a rugged and reliable mining exosuit specialized for extraction operations in extreme conditions. \
 		Incorporating a durable kevlar bodysuit under strategically placed armor panels, the Pioneer offers sound protection against melee attacks, while additional attachment points allow for specialized armor to be \
 		attached at user discretion. As an extra protective measure against the vicious ash storms of Lavaland, an experimental ash accretion system has also been integrated, protecting the wearer with a shell of ablative ash. \
