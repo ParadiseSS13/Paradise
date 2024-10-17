@@ -39,4 +39,4 @@
 	to_chat(B, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")
 	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE
-	SSevents.biohazards_this_round += "Blob"
+	SSevents.biohazards_this_round += BIOHAZARD_BLOB
