@@ -166,10 +166,12 @@
 		spawn(rand(20,50))
 			if(stat == CONSCIOUS && M)
 				icon_state = icon_living
-				var/list/responses = list(	"[src] looks at you imploringly.",
-											"[src] looks at you pleadingly",
-											"[src] looks at you with a resigned expression.",
-											"[src] seems resigned to its fate.")
+				var/list/responses = list(
+					"[src] looks at you imploringly.",
+					"[src] looks at you pleadingly",
+					"[src] looks at you with a resigned expression.",
+					"[src] seems resigned to its fate."
+				)
 				to_chat(M, pick(responses))
 	else
 		..()
