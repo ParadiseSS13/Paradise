@@ -63,6 +63,62 @@
 	var/mob/living/simple_animal/mouse/M = user
 	return M.squeak_sound
 
+/datum/emote/living/simple_animal/mouse/idle
+	key = "msniff"
+	key_third_person = "msniffs"
+	message = "sniffs!"
+	emote_type = EMOTE_VISIBLE
+	cooldown = 20 SECONDS
+	audio_cooldown = 20 SECONDS
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
+	var/anim_type = "idle1"
+	var/duration = 2 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type, duration)
+	. = ..()
+
+/datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
+	return user.squeak_sound
+
+/datum/emote/living/simple_animal/mouse/idle/shake
+	key = "mshake"
+	key_third_person = "mshakes"
+	message = "shakes!"
+	anim_type = "idle2"
+
+/datum/emote/living/simple_animal/mouse/idle/scratch
+	key = "mscratch"
+	key_third_person = "mscratches"
+	message = "scratches itseld!"
+	anim_type = "idle3"
+
+/datum/emote/living/simple_animal/mouse/idle/washup
+	key = "mwashup"
+	key_third_person = "mwashesup"
+	message = "washes up itself!"
+	anim_type = "idle4"
+
+/datum/emote/living/simple_animal/mouse/idle/smoke
+	key = "msmoke"
+	key_third_person = "msmokes"
+	message = "smokes!"
+	anim_type = "smoke"
+	duration = 7 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/dance
+	key = "mdance"
+	key_third_person = "mdances"
+	message = "dances!"
+	anim_type = "dance"
+	duration = 7 SECONDS
+
+/datum/emote/living/simple_animal/mouse/idle/shakeass
+	key = "mshakeass"
+	key_third_person = "mshakesass"
+	message = "shakes ass!"
+	anim_type = "ass"
+
 // cat
 
 /datum/emote/living/simple_animal/pet/cat
