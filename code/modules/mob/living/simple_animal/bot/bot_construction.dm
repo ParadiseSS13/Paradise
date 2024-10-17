@@ -252,7 +252,7 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
-	if(!istype(src, /obj/item/storage/toolbox))
+	if(QDELETED(src))
 		return
 	if(length(contents) >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
