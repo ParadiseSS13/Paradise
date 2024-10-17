@@ -12,6 +12,7 @@
 	base_cost = 150
 	static_upgrade_increase = 25
 	max_level = 2
+	should_recharge_after_cast = FALSE
 	/// The console we currently have a mark on
 	var/obj/machinery/computer/marked_computer
 
@@ -31,14 +32,15 @@
 	if(!marked_computer)
 		marked_computer = target
 		to_chat(user, "<span class='notice'>You discreetly tap [targets[1]] and mark it as your home computer.</span>")
+		should_recharge_after_cast = FALSE
 		return
 
 	var/turf/start_turf = get_turf(target)
 	var/turf/end_turf = get_turf(marked_computer)
 	if(end_turf.z != start_turf.z)
 		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!</span>")
-		return
-	if(!is_teleport_allowed(end_turf.z))
+	if(!is_teleport_allowed(start_turf.z) || !is_teleport_allowed(end_turf.z))
+		should_recharge_after_cast = FALSE
 		return
 	user.visible_message(
 		"<span class='danger'>[user] de-materializes and jumps through the screen of [target]!</span>",
@@ -65,6 +67,7 @@
 		"<span class='warning'>[user] suddenly crawls through the monitor of [marked_computer]!</span>",
 		"<span class='notice'>As you reform yourself at [marked_computer] you feel the mark you left on it fade.</span>")
 	marked_computer = null
+	should_recharge_after_cast = TRUE
 
 /datum/spell/flayer/computer_recall/AltClick(mob/user)
 	if(!marked_computer)

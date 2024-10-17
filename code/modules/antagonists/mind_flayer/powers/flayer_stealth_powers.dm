@@ -40,7 +40,7 @@
 /datum/spell/flayer/surveillance_monitor/cast(list/targets, mob/user)
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
-		internal_camera.integrated_console.network = list("camera_bug[internal_camera.UID()]")
+
 	if(length(active_bugs) >= maximum_hacked_computers)
 		var/to_destroy = tgui_input_list(user, "Choose an active camera to destroy.", "Maximum Camera Limit Reached.", active_bugs)
 		if(to_destroy)
@@ -65,7 +65,7 @@
 	desc = "Allows for the configuration of our vocal modulator to sound like a different person. We can amplify our voice slightly as well."
 	action_icon = 'icons/obj/clothing/masks.dmi'
 	action_icon_state = "voice_modulator"
-	power_type = FLAYER_PURCHASABLE_POWER
+	power_type = FLAYER_UNOBTAINABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 	base_cost = 40
@@ -117,7 +117,7 @@
 	action_icon_state = "genetic_poly"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
-	base_cooldown = 120 SECONDS // Debug blah blah blah
+	base_cooldown = 120 SECONDS
 	base_cost = 80
 	static_upgrade_increase = 50
 	stage = 2
@@ -139,7 +139,13 @@
 
 /datum/spell/flayer/skin_suit/on_apply()
 	..()
+	if(level == FLAYER_POWER_LEVEL_ONE)
+		flayer.add_ability(new /datum/spell/flayer/self/voice_synthesizer)
 	cooldown_handler.recharge_duration -= 30 SECONDS
+
+/datum/spell/flayer/skin_suit/Destroy(force, ...)
+	. = ..()
+	flayer.remove_ability(/datum/spell/flayer/self/voice_synthesizer)
 
 /// After a 7 second channel time you can emag a borg
 /datum/spell/flayer/self/override_key
