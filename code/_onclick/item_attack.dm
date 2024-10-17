@@ -41,10 +41,12 @@
 /obj/item/proc/finish_attack_chain(mob/user, atom/target, proximity_flag, params)
 	PRIVATE_PROC(TRUE)
 
-	// At this point it means the attack was "successful", or at least
-	// unhandled, in some way. This can mean nothing happened, this can mean the
-	// target took damage, etc.
-	target.attacked_by(src, user, params)
+	// Legacy /attacked_by is already called in legacy /attack
+	if(target.new_attack_chain)
+		// At this point it means the attack was "successful", or at least
+		// handled, in some way. This can mean nothing happened, this can mean the
+		// target took damage, etc.
+		target.attacked_by(src, user, params)
 
 	// Finally deal with anything that should happen after a successful attack.
 	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, target, user, proximity_flag, params)
