@@ -205,79 +205,10 @@
 	weapon_type = /obj/item/door_remote/omni/access_tuner/flayer
 
 /*
- * 15-hit V1 vortex arm. Only goes on cooldown if it has less than 10 durability or it ran out of durability
+ * Shotgun that reloads itself over time with shells that contain 3 pieces of shrapnel
  */
-/datum/spell/flayer/self/weapon/vortex_arm
-	name = "Integrated Feedback Arm"
-	desc = "Allows us to extend armor around our arm, which can parry and reflect enemy projectiles. Can only reflect 15 projectiles, after which it must recharge."
-	upgrade_info = ""
-	action_icon = 'icons/obj/items.dmi'
-	action_icon_state = "v1_arm"
-	base_cooldown = 30 SECONDS
-	category = FLAYER_CATEGORY_DESTROYER
-	power_type = FLAYER_UNOBTAINABLE_POWER
-	weapon_type = /obj/item/shield/v1_arm/flayer
-
-/datum/spell/flayer/self/weapon/vortex_arm/create_new_weapon()
-	if(!QDELETED(weapon_ref))
-		return
-	weapon_ref = new weapon_type(src, src)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_weapon_ref))
-
-/datum/spell/flayer/self/weapon/vortex_arm/cast(list/targets, mob/living/carbon/human/user)
-	var/obj/item/shield/v1_arm/flayer/arm = ..()
-	if(arm)
-		arm.durability = initial(arm.durability)
-		return
-
-	if(QDELETED(weapon_ref))
-		return
-	arm = weapon_ref
-	arm.durability = initial(arm.durability)
-	cooldown_handler.start_recharge(1 SECONDS)
-
-/datum/spell/flayer/self/weapon/vortex_arm/retract(mob/owner, any_hand, force = FALSE)
-	..()
-	var/obj/item/shield/v1_arm/flayer/arm = weapon_ref
-	if(!force || arm.durability > 10) // Quick recharge if not forcibly retracted or 10 or more hits remaining
-		cooldown_handler.start_recharge(1 SECONDS)
-
-/*
- * The flayer version of the V1 arm
- */
-/obj/item/shield/v1_arm/flayer
-	name = "reflective nanite V1 shielding"
-	desc = "A modification to a users arm, allowing them to parry, reflect, and even empower projectile attacks."
-	/// How many hits do we get until it has to retract?
-	var/durability = 15
-	/// Reference to the ability that spawned us so we can retract
-	var/datum/spell/flayer/self/weapon/vortex_arm/parent
-
-/obj/item/shield/v1_arm/flayer/Initialize(mapload, datum/spell/flayer/parent_spell)
-	. = ..()
-	if(!parent_spell) // No ability without a parent spell
-		return INITIALIZE_HINT_QDEL
-
-	parent = parent_spell
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_refs))
-
-/obj/item/shield/v1_arm/flayer/proc/clear_refs()
-	if(!QDELETED(parent))
-		parent.clear_weapon_ref()
-	parent = null
-
-/obj/item/shield/v1_arm/flayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	. = ..()
-	if(!.) // We didn't parry, no durability lost
-		return FALSE
-	if(--durability <= 0)
-		if(QDELETED(parent))
-			qdel(src)
-			return
-		parent.retract(owner, TRUE, TRUE)
-
 /datum/spell/flayer/self/weapon/shotgun
-	name = "Integrated Shrapnel Cannon."
+	name = "Integrated Shrapnel Cannon"
 	desc = "Allows us to propel pieces of shrapnel from our arm."
 	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
 	action_icon = 'icons/obj/guns/projectile.dmi'
@@ -309,7 +240,6 @@
 	flags = NODROP | ABSTRACT
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/flayer
 	unique_reskin = FALSE
