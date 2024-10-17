@@ -24,35 +24,25 @@
 	if(pre_attack(target, user, params))
 		return
 
-	// Deal with objects which haven't been migrated to the new attack chain.
-	// This is the only stanza here that's allowed to call legacy code.
+	var/resolved = target.new_attack_chain \
+		? target.attack_by(src, user, params) \
+		: target.attackby__legacy__attackchain(src, user, params)
+
+	// We were asked to cancel the rest of the attack chain.
+	if(resolved)
+		return
+
+	// At this point it means the attack was "successful", or at least
+	// handled, in some way. This can mean nothing happened, this can mean the
+	// target took damage, etc.
+	// if(new_attack_chain && !target.new_attack_chain)
+	// 	target.attacked_by__legacy__attackchain(src, user)
 	if(target.new_attack_chain)
-		if(!target.attack_by(src, user, params))
-			finish_attack_chain(user, target, proximity_flag, params)
+		target.attacked_by(src, user)
+		after_attack(target, user, proximity_flag, params)
 	else
-		var/resolved = target.attackby__legacy__attackchain(src, user, params)
-		if(!resolved && target && !QDELETED(src))
-			if(new_attack_chain)
-				finish_attack_chain(user, target, proximity_flag, params)
-			else
-				afterattack__legacy__attackchain(target, user, proximity_flag, params) // 1: clicking something Adjacent
-
-/// Post-attack behavior for objects using the new attack chain.
-/obj/item/proc/finish_attack_chain(mob/user, atom/target, proximity_flag, params)
-	PRIVATE_PROC(TRUE)
-
-	// Legacy /attacked_by is already called in legacy /attack
-	if(target.new_attack_chain)
-		// At this point it means the attack was "successful", or at least
-		// handled, in some way. This can mean nothing happened, this can mean the
-		// target took damage, etc.
-		target.attacked_by(src, user, params)
-
-	// Finally deal with anything that should happen after a successful attack.
-	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, target, user, proximity_flag, params)
-	SEND_SIGNAL(target, COMSIG_AFTER_ATTACKED_BY, src, user, proximity_flag, params)
-
-	after_attack(target, user, proximity_flag, params)
+		// target.attacked_by__legacy__attackchain(src, user, proximity_flag, params)
+		afterattack__legacy__attackchain(target, user, proximity_flag, params)
 
 /// Called when the item is in the active hand, and clicked; alternately, there
 /// is an 'activate held object' verb or you can hit pagedown.
@@ -108,7 +98,15 @@
 		return FINISH_ATTACK
 
 /obj/attack_by(obj/item/attacking, mob/user, params)
-	return ..() || (can_be_hit && attacking.attack_obj(src, user, params))
+	. = ..()
+
+	if(.)
+		return FINISH_ATTACK
+
+	if(!can_be_hit)
+		return FINISH_ATTACK
+
+	return attacking.attack_obj(src, user, params)
 
 /mob/living/attack_by(obj/item/attacking, mob/living/user, params)
 	if(..())
@@ -130,8 +128,17 @@
 
 	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FINISH_ATTACK
+
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return FALSE
+
+	. = __attack_core(target_mob, user)
+
+	if(!target_mob.new_attack_chain)
+		return target_mob.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
+
+/obj/item/proc/__attack_core(mob/living/target_mob, mob/living/user)
+	PRIVATE_PROC(TRUE)
 
 	if(flags & (NOBLUDGEON))
 		return FALSE
@@ -168,8 +175,12 @@
 		return FALSE
 	if(flags & NOBLUDGEON)
 		return FALSE
+
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(attacked_obj)
+
+	if(!attacked_obj.new_attack_chain)
+		attacked_obj.attacked_by__legacy__attackchain(src, user)
 
 /**
  * Called *after* we have been attacked with the item `attacker` by `user`.
@@ -237,8 +248,10 @@
  * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
  */
 /obj/item/proc/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
-	PROTECTED_PROC(TRUE)
-	return
+	PRIVATE_PROC(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, target, user, proximity_flag, click_parameters)
+	SEND_SIGNAL(target, COMSIG_AFTER_ATTACKED_BY, src, user, proximity_flag, click_parameters)
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
