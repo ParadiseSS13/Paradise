@@ -1065,6 +1065,10 @@
 /obj/structure/sign/mech,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"cM" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
 "cN" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
@@ -3644,11 +3648,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 "jl" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	locked = 1;
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -7429,10 +7433,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
-"El" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "Mi" = (
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -8624,7 +8624,7 @@ aW
 bn
 ed
 en
-El
+cM
 fg
 fB
 fX
@@ -8900,7 +8900,7 @@ dQ
 do
 do
 cm
-El
+cM
 de
 fE
 fZ
@@ -9443,7 +9443,7 @@ aW
 bn
 cm
 cA
-El
+cM
 cA
 do
 dD
@@ -9627,7 +9627,7 @@ bF
 bT
 co
 cA
-El
+cM
 dg
 ds
 bn
