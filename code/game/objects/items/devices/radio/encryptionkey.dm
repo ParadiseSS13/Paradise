@@ -23,7 +23,7 @@
 	var/fake_name = "Agent ALERT_A_CODER"
 	var/static/list/fakename_list
 
-/obj/item/encryptionkey/syndicate/Initialize()
+/obj/item/encryptionkey/syndicate/Initialize(mapload)
 	if(!LAZYLEN(fakename_list))
 		fakename_list = GLOB.html_colors.Copy()
 	. = ..()

@@ -252,7 +252,7 @@
 	max_integrity = 20
 	var/metal = METAL_FOAM_ALUMINUM
 
-/obj/structure/foamedmetal/Initialize()
+/obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
 	recalculate_atmos_connectivity()
 

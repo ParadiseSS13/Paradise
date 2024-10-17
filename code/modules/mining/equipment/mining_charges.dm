@@ -15,7 +15,7 @@
 	var/boom_sizes = list(2, 3, 5)
 	var/hacked = FALSE
 
-/obj/item/grenade/plastic/miningcharge/Initialize()
+/obj/item/grenade/plastic/miningcharge/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance(icon, "[icon_state]_active", ON_EDGED_TURF_LAYER)
 
