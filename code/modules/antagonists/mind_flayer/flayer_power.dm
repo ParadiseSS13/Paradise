@@ -102,7 +102,7 @@
 /datum/antagonist/mindflayer/proc/get_powers_of_category(category)
 	var/list/list/powers = list()
 	for(var/path in ability_list)
-		if(is_path_spell(path))
+		if(ispath(path, /datum/spell))
 			var/datum/spell/flayer/spell = path
 			if(spell.category == category)
 				powers += list(list(
@@ -167,10 +167,6 @@
 	static_data["ability_tabs"] = flayer.build_ability_tabs()
 	return static_data
 
-// Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
-/datum/antagonist/mindflayer/proc/is_path_spell(path)
-	return ispath(path, /datum/spell)
-
 /*
 * Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
 * If so it adds the ability and increments the category stage if needed, then returns TRUE
@@ -180,21 +176,28 @@
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell && (existing_spell.level >= existing_spell.max_level))
 		send_swarm_message("That function is already at its strongest.")
+		qdel(to_add)
 		return FALSE
 
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarm\s for this...")
+		qdel(to_add)
 		return FALSE
 
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this.")
+		qdel(to_add)
 		return FALSE
+
 	if(to_add.stage == FLAYER_CAPSTONE_STAGE)
 		if(!can_pick_capstone && !existing_spell)
 			send_swarm_message("We have already forsaken that knowledge.")
+			qdel(to_add)
 			return FALSE
+
 		can_pick_capstone = FALSE
 		send_swarm_message("We evolve to the ultimate being.")
+
 	if(category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 
@@ -247,7 +250,7 @@
 	if(!istype(user) || !user.mind || !flayer)
 		qdel(src)
 		return FALSE
-	if(flayer.is_path_spell(path))
+	if(ispath(path, /datum/spell))
 		var/datum/spell/flayer/to_add = new path(user)
 		. = flayer.try_purchase_spell(to_add)
 	else

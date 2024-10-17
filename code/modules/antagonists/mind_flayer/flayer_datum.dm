@@ -156,7 +156,6 @@
 	harvesting = null
 	has_notified = FALSE
 
-
 /datum/antagonist/mindflayer/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
@@ -178,6 +177,7 @@
 			continue
 		spells += spell_path
 	return spells
+
 /**
  * Gets a list of mind flayer passive typepaths based on the passed in `passive_type`.
  *
@@ -209,11 +209,17 @@
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
 	if(spell)
-		force_upgrade_ability(spell, upgrade_type)
+		spell.on_apply()
 		qdel(to_add)
 		return
 
-	force_add_ability(to_add, set_owner)
+	if(set_owner)
+		to_add.flayer = src
+	to_add.level = 1
+	to_add.current_cost += to_add.static_upgrade_increase
+	owner.AddSpell(to_add)
+	powers += to_add
+
 	check_special_stage_ability(to_add)
 	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))
 
@@ -228,49 +234,21 @@
 		return
 	var/datum/mindflayer_passive/passive = has_passive(to_add)
 	if(passive)
-		force_upgrade_passive(passive, upgrade_type)
+		passive.on_apply()
 		qdel(to_add)
 		return
 
-	force_add_passive(to_add)
-	check_special_stage_ability(to_add)
-	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))
-
-/**
-* Adds an ability to a mindflayer, and sets the owner.
-* Arguments:
-* * to_add - The spell datum you want to add to the flayer
-* * set_owner - if the spells owner needs to be manually set, mostly for innate spells.
-*/
-/datum/antagonist/mindflayer/proc/force_add_ability(datum/spell/flayer/to_add, set_owner = FALSE)
-	if(!to_add)
-		return
-	if(set_owner)
-		to_add.flayer = src
-	to_add.level = 1
-	to_add.current_cost += to_add.static_upgrade_increase
-	owner.AddSpell(to_add)
-	powers += to_add
-
-/**
-* Adds a passive to a mindflayer, and sets the owner.
-* Arguments:
-* * to_add - The passive datum you want to add to the flayer
-*/
-/datum/antagonist/mindflayer/proc/force_add_passive(datum/mindflayer_passive/to_add)
-	if(!to_add)
-		return
 	to_add.flayer = src
-	to_add.owner = owner.current //Passives always need to have their owners set here
+	to_add.owner = owner.current // Passives always need to have their owners set here
 	to_add.on_apply()
 	powers += to_add
 
-/datum/antagonist/mindflayer/proc/force_upgrade_ability(datum/spell/flayer/to_upgrade, upgrade_type)
-	to_upgrade.on_apply()
+	check_special_stage_ability(to_add)
+	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))
 
-/datum/antagonist/mindflayer/proc/force_upgrade_passive(datum/mindflayer_passive/to_upgrade)
-	to_upgrade.on_apply()
-
+/*
+ * Removing abilities/passives starts here
+ */
 /datum/antagonist/mindflayer/proc/remove_all_abilities()
 	for(var/datum/spell/flayer/spell in powers)
 		remove_ability(spell)
@@ -294,8 +272,9 @@
 */
 /datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
 	for(var/datum/spell/flayer/spell in powers)
-		if(to_get.name == spell.name)
+		if(istype(spell, to_get))
 			return spell
+
 /**
 * Checks if a mindflayer has a given passive already
 * * Arguments: to_get - Some datum/mindflayer_passive to check if a mindflayer has
