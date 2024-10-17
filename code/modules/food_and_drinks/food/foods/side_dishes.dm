@@ -117,7 +117,7 @@
 	tastes = list("rice" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/boiledrice/attackby(obj/item/I, mob/user, params)
+/obj/item/food/boiledrice/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/seaweed))
 		return ..()
 	var/obj/item/stack/seaweed/S = I

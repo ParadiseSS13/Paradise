@@ -2003,7 +2003,7 @@
 					possible_guardians -= "Random"
 					scarab.possible_guardians = list()
 					scarab.possible_guardians += typechoice
-				scarab.attack_self(H)
+				scarab.attack_self__legacy__attackchain(H)
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."

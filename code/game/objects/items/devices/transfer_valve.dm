@@ -25,7 +25,7 @@
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return 1
 
-/obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
+/obj/item/transfer_valve/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
@@ -88,7 +88,7 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/transfer_valve/attack_self(mob/user)
+/obj/item/transfer_valve/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/transfer_valve/ui_state(mob/user)
@@ -137,7 +137,7 @@
 			toggle_valve(usr)
 		if("device")
 			if(attached_device)
-				attached_device.attack_self(usr)
+				attached_device.attack_self__legacy__attackchain(usr)
 		if("remove_device")
 			if(attached_device)
 				attached_device.forceMove(get_turf(src))

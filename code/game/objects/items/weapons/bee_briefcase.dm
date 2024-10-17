@@ -30,7 +30,7 @@
 		. += "<span class='warning'>A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it. Exotic blood cannot be used.</span>"
 
 
-/obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
+/obj/item/bee_briefcase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 		if(!bees_left)
@@ -55,7 +55,7 @@
 		to_chat(user, "You spray [I] into [src].")
 		playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
 
-/obj/item/bee_briefcase/attack_self(mob/user)
+/obj/item/bee_briefcase/attack_self__legacy__attackchain(mob/user)
 	var/bees_released
 	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")

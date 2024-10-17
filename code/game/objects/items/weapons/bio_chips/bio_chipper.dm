@@ -21,7 +21,7 @@
 		icon_state = "implanter0"
 		origin_tech = initial(origin_tech)
 
-/obj/item/bio_chip_implanter/attack(mob/living/carbon/M, mob/user)
+/obj/item/bio_chip_implanter/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(!iscarbon(M))
 		return
 	if(user && imp)
@@ -39,7 +39,7 @@
 					imp = null
 					update_icon(UPDATE_ICON_STATE)
 
-/obj/item/bio_chip_implanter/attackby(obj/item/W, mob/user, params)
+/obj/item/bio_chip_implanter/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(is_pen(W))
 		rename_interactive(user, W)

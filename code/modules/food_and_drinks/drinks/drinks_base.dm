@@ -14,10 +14,10 @@
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/drinks/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/reagent_containers/drinks/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/drinks/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return FALSE
@@ -54,7 +54,7 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/drinks/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/drinks/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(chugging)
@@ -277,7 +277,7 @@
 	. = ..()
 	reagents.set_reacting(FALSE)
 
-/obj/item/reagent_containers/drinks/shaker/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/shaker/attack_self__legacy__attackchain(mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
 		return

@@ -21,7 +21,7 @@
 		'sound/effects/pageturn3.ogg'
 	)
 
-/obj/item/book/granter/attack_self(mob/living/user)
+/obj/item/book/granter/attack_self__legacy__attackchain(mob/living/user)
 	if(reading)
 		to_chat(user, "<span class='warning'>You're already reading this!</span>")
 		return FALSE

@@ -15,7 +15,7 @@
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
-/obj/item/reagent_containers/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/drinks/drinkingglass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/egg)) //breaking eggs
 		var/obj/item/food/egg/E = I
 		if(reagents)

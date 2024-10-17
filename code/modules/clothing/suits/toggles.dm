@@ -12,7 +12,7 @@
 	if(ishuman(helmet.loc))
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
-			helmet.attack_self(H)
+			helmet.attack_self__legacy__attackchain(H)
 		H.unEquip(helmet, TRUE)
 		helmet.forceMove(src)
 		H.update_inv_wear_suit()

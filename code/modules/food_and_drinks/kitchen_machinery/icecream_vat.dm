@@ -29,7 +29,7 @@
 	. = ..()
 	create_reagents(500)
 
-/obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/icemachine/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")

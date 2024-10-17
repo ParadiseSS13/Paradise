@@ -16,7 +16,7 @@
 	var/declaring_war = FALSE
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
-/obj/item/nuclear_challenge/attack_self(mob/living/user)
+/obj/item/nuclear_challenge/attack_self__legacy__attackchain(mob/living/user)
 	if(!check_allowed(user))
 		return
 

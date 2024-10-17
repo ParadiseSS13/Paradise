@@ -37,7 +37,7 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
@@ -74,7 +74,7 @@
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
-	. = COMPONENT_NO_AFTERATTACK
+	. = COMPONENT_SKIP_AFTERATTACK
 	var/datum/callback/pc = precondition
 	if(pc && !pc.Invoke(user))
 		return

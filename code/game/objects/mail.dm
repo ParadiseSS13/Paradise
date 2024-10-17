@@ -24,7 +24,7 @@
 	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/envelope/attack_self(mob/user)
+/obj/item/envelope/attack_self__legacy__attackchain(mob/user)
 	if(!user?.mind)
 		return
 	if(user.real_name != recipient)
@@ -251,10 +251,10 @@
 	. = ..()
 	. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.</span>"
 
-/obj/item/mail_scanner/attack()
+/obj/item/mail_scanner/attack__legacy__attackchain()
 	return
 
-/obj/item/mail_scanner/afterattack(atom/A, mob/user)
+/obj/item/mail_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
 	if(get_dist(A, user) > scanner_range)
 		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
 		return

@@ -71,7 +71,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
+/obj/machinery/kitchen_machine/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(operating)
 		return
 

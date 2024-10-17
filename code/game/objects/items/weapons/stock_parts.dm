@@ -43,7 +43,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, proximity_flag, params)
+/obj/item/storage/part_replacer/afterattack__legacy__attackchain(obj/machinery/M, mob/user, proximity_flag, params)
 	if(!istype(M))
 		return ..()
 

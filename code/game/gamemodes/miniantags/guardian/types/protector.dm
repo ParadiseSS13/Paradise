@@ -137,7 +137,7 @@
 	P.on_hit(src, 0)
 	return FALSE
 
-/obj/effect/guardianshield/attacked_by(obj/item/I, mob/living/user)
+/obj/effect/guardianshield/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
 	linked_guardian.apply_damage(I.force, I.damtype)

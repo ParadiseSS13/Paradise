@@ -48,7 +48,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
-/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+/obj/item/clothing/mask/gas/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/explorer
@@ -73,7 +73,7 @@
 /obj/item/clothing/mask/gas/explorer/marines
 	name = "military gas mask"
 
-/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+/obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
@@ -136,7 +136,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
+/obj/item/clothing/mask/gas/clown_hat/attack_self__legacy__attackchain(mob/living/user)
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -234,7 +234,7 @@
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
-/obj/item/clothing/mask/gas/owl_mask/attack_self()
+/obj/item/clothing/mask/gas/owl_mask/attack_self__legacy__attackchain()
 	hoot()
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
@@ -364,7 +364,7 @@
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
@@ -394,7 +394,7 @@
 			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
 	return TRUE
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
+/obj/item/clothing/mask/gas/sechailer/attack_self__legacy__attackchain()
 	halt()
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)

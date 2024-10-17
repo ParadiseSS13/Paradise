@@ -22,7 +22,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		)
 
-/obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/backpack/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(Adjacent(user))
 		playsound(src.loc, "rustle", 50, TRUE, -5)
 		return ..()
@@ -63,7 +63,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
 	allow_same_size = TRUE
 
-/obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/backpack/holding/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
 		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")

@@ -26,7 +26,7 @@
 	QDEL_NULL(song)
 	return ..()
 
-/obj/item/thermal_drill/attack_self(mob/user)
+/obj/item/thermal_drill/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 

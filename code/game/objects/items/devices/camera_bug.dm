@@ -31,7 +31,7 @@
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/camera_bug/attack_self(mob/user as mob)
+/obj/item/camera_bug/attack_self__legacy__attackchain(mob/user as mob)
 	ui_interact(user)
 
 /obj/item/camera_bug/ui_state(mob/user)

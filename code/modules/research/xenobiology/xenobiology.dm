@@ -18,7 +18,7 @@
 	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
 	var/mob/living/injector_mob
 
-/obj/item/slime_extract/attackby(obj/item/O, mob/user)
+/obj/item/slime_extract/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
 		if(Uses >= 5)
 			to_chat(user, "<span class='warning'>You cannot enhance this extract further!</span>")
@@ -133,7 +133,7 @@
 	origin_tech = "biotech=4"
 	var/being_used = FALSE
 
-/obj/item/slimepotion/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>[src] only works on slimes!</span>")
 		return FALSE
@@ -145,7 +145,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
+/obj/item/slimepotion/afterattack__legacy__attackchain(obj/item/reagent_containers/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(istype(target))
@@ -157,7 +157,7 @@
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon_state = "bottle19"
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	. = ..()
 	if(!.)
 		return
@@ -200,10 +200,10 @@
 		if(2)
 			. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
 
-/obj/item/slimepotion/sentience/attack()
+/obj/item/slimepotion/sentience/attack__legacy__attackchain()
 	return
 
-/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
+/obj/item/slimepotion/sentience/afterattack__legacy__attackchain(mob/living/M, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(being_used || !ismob(M))
@@ -285,7 +285,7 @@
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag)
+/obj/item/slimepotion/transference/afterattack__legacy__attackchain(mob/living/M, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(prompted || !ismob(M))
@@ -326,7 +326,7 @@
 	desc = "A potent chemical mix that will cause a baby slime to generate more extract."
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	. = ..()
 	if(!.)
 		return
@@ -352,7 +352,7 @@
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	. = ..()
 	if(!.)
 		return
@@ -370,7 +370,7 @@
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	. = ..()
 	if(!.)
 		return
@@ -394,7 +394,7 @@
 	desc = "A monkey-shaped treat that heats up your little slime friend!"
 	icon_state = "slime_treat"
 
-/obj/item/slimepotion/speed/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/speed/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
 	. = ..()
 	if(!.)
 		return
@@ -421,7 +421,7 @@
 	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
-/obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/fireproof/afterattack__legacy__attackchain(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -448,7 +448,7 @@
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
+		afterattack__legacy__attackchain(over_object, usr, TRUE)
 
 /obj/item/slimepotion/oil_slick
 	name = "slime oil potion"
@@ -457,7 +457,7 @@
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/oil_slick/afterattack(obj/O, mob/user, proximity_flag)
+/obj/item/slimepotion/oil_slick/afterattack__legacy__attackchain(obj/O, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	..()
@@ -501,7 +501,7 @@
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
+		afterattack__legacy__attackchain(over_object, usr, TRUE)
 
 /obj/effect/timestop
 	anchored = TRUE

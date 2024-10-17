@@ -176,7 +176,7 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/camera_advanced/xenobio/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/food/monkeycube))
 		if(user.drop_item())
 			monkeys++

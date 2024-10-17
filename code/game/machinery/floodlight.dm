@@ -90,7 +90,7 @@
 		set_light(brightness_on)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/floodlight/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)

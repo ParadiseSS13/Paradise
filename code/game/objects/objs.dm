@@ -162,7 +162,7 @@
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
-		src.attack_self(M)
+		src.attack_self__legacy__attackchain(M)
 
 /obj/proc/hide(h)
 	return
