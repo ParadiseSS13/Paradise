@@ -510,7 +510,9 @@
 
 /// Register signals on the new turf and if it is dense make it the new blocker
 /obj/effect/transmission_beam/proc/on_turf_change()
-	SIGNAL_HANDLER //COMSIG_TURF_CHANGE
+	//COMSIG_TURF_CHANGE
+
+	sleep(0.1 SECONDS) // allow the new turf to form
 
 	var/turf/source_turf = get_turf(src)
 	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
