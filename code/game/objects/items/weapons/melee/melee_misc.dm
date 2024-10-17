@@ -174,11 +174,11 @@
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
 	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
 	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded

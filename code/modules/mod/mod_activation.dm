@@ -223,7 +223,7 @@
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
 	update_speed()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	wearer.regenerate_icons()
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.
