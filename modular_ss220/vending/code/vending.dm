@@ -249,10 +249,10 @@
 /obj/machinery/economy/vending/shoedispenser/free
 	prices = list()
 
-/obj/machinery/economy/vending/tool/Initialize(mapload)
+/obj/machinery/economy/vending/engidrobe/Initialize(mapload)
 	contraband |= list(/obj/item/clothing/gloves/color/yellow/vox = 1)
-	prices |= list(/obj/item/clothing/gloves/color/yellow/vox = 500)
+	prices |= list(/obj/item/clothing/gloves/color/yellow/vox = 300)
 	. = ..()
 
-/obj/machinery/economy/vending/tool/free
+/obj/machinery/economy/vending/engidrobe/free
 	prices = list()
