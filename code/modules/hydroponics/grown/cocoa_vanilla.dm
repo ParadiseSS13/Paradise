@@ -15,7 +15,7 @@
 	icon_grow = "cocoapod-grow"
 	icon_dead = "cocoapod-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod)
+	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod, /obj/item/seeds/cocoapod/bungotree)
 	reagents_add = list("cocoa" = 0.25, "plantmatter" = 0.1)
 
 /obj/item/food/grown/cocoapod

@@ -16,7 +16,6 @@
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
 	stop_automated_movement = TRUE
-	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -31,6 +30,7 @@
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/food/ectoplasm = 1)
 	hud_type = /datum/hud/guardian
+	initial_traits = list(TRAIT_FLYING)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner

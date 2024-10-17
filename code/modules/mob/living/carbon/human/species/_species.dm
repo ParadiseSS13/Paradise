@@ -293,7 +293,7 @@
 	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
 		ignoreslow = TRUE
 
-	var/flight = H.flying	//Check for flight and flying items
+	var/flight = HAS_TRAIT(H, TRAIT_FLYING)	//Check for flight and flying items
 
 	ADD_SLOWDOWN(speed_mod)
 
