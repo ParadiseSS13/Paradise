@@ -435,6 +435,9 @@
 /area/station/legal/magistrate)
 "afw" = (
 /obj/machinery/requests_console/directional/north,
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "afy" = (
@@ -588,10 +591,7 @@
 /area/station/engineering/solar/fore_port)
 "agY" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/alarm/directional/south,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2599,7 +2599,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "asV" = (
-/obj/machinery/economy/vending/detdrobe,
+/obj/structure/closet/secure_closet/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -57823,12 +57823,12 @@
 	},
 /area/station/engineering/control)
 "jnZ" = (
-/obj/item/kirbyplants/plant24,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/camera{
 	c_tag = "Brig Detective's Office";
 	dir = 8
 	},
+/obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "joD" = (
@@ -70185,6 +70185,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
+/obj/effect/landmark/start/detective,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "oyY" = (

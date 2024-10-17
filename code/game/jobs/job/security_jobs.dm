@@ -123,8 +123,8 @@
 	title = "Detective"
 	flag = JOB_DETECTIVE
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
@@ -190,8 +190,8 @@
 	title = "Security Officer"
 	flag = JOB_OFFICER
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 7
-	spawn_positions = 7
+	total_positions = 6
+	spawn_positions = 6
 	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")

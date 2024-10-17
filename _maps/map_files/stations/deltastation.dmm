@@ -30811,6 +30811,9 @@
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bLt" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bLu" = (
@@ -32337,7 +32340,6 @@
 "bPp" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bPq" = (
@@ -76156,13 +76158,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "kSJ" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera/detective,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/secure_closet/detective,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
 "kSO" = (
@@ -78143,6 +78143,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
+/obj/item/camera/detective,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
 "mek" = (
@@ -79129,6 +79130,20 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"mJR" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/detective,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/security/detective)
 "mJY" = (
 /obj/structure/table/glass,
 /obj/item/soap/nanotrasen,
@@ -147828,7 +147843,7 @@ bLn
 mef
 bJy
 bNr
-bNr
+mJR
 bPn
 gXp
 eOO
