@@ -228,7 +228,6 @@
 		use_power(energy_used_per_shot)
 		COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
 	else
-		firing_cooldown = reload_cooldown_time
 		try_reload = TRUE
 
 /// If we failed a reload keep trying until the APC has enough energy available.
