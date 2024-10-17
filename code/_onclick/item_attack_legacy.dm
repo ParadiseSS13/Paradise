@@ -125,17 +125,6 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-/mob/living/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(attempt_harvest(I, user))
-		return TRUE
-
-	if(I.new_attack_chain)
-		return I.attack(src, user, params)
-
-	return I.attack__legacy__attackchain(src, user)
-
-
 /**
  * Called when `user` has us in the active hand, and has clicked on us.
  *
