@@ -6,8 +6,6 @@
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
-	var/list/datum/mind/pre_traitors = list()
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 	/// How much the amount of players get divided by to determine the number of traitors.
@@ -25,7 +23,7 @@
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	for(var/datum/mind/candidate in possible_traitors)
-		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING || candidate.special_role == SPECIAL_ROLE_MIND_FLAYER) // no traitor vampires, changelings, or mindflayers
 			possible_traitors.Remove(candidate)
 
 	// stop setup if no possible traitors

@@ -42,8 +42,6 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 20
-	/// A name that will display in place of the changeling's real name when speaking.
-	var/mimicing = ""
 	/// If the changeling can respec their purchased abilities.
 	var/can_respec = FALSE
 	/// The current sting power the changeling has active.
@@ -221,7 +219,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = null
+	mimicking = null
 
 /**
  * Removes a changeling's abilities.
