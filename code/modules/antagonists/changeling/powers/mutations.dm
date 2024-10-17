@@ -248,6 +248,7 @@
 	desc = "a tentacle."
 	projectile_type = /obj/item/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	muzzle_flash_color = null

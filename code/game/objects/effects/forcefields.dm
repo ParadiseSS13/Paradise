@@ -60,7 +60,7 @@
 	max_integrity = 80
 
 /obj/effect/forcefield/mime/advanced
-	icon_state = "empty"
+	icon_state = null
 	name = "invisible blockade"
 	desc = "You might be here a while."
 	lifetime = 60 SECONDS

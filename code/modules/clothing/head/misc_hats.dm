@@ -412,6 +412,7 @@
 /obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 

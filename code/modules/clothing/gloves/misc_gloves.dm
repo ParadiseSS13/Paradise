@@ -107,13 +107,6 @@
 	transfer_prints = TRUE
 	clipped = TRUE
 
-/obj/item/clothing/gloves/batmangloves
-	name = "batgloves"
-	desc = "Used for handling all things bat related."
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color="bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."

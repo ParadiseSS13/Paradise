@@ -2,7 +2,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	icon_state = "hardsuit0-engineering"
+	icon_state = null
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
@@ -143,7 +143,7 @@
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
 	desc = "A special space suit for environments that might pose hazards beyond just the vacuum of space. Provides more protection than a standard space suit."
-	icon_state = "hardsuit-engineering"
+	icon_state = null
 	item_state = "eng_hardsuit"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
@@ -451,37 +451,37 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
 
 //Security
-/obj/item/clothing/head/helmet/space/hardsuit/security
-	name = "security hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-	icon_state = "hardsuit0-sec"
-	item_state = "sec_helm"
-	item_color = "sec"
-	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
+// /obj/item/clothing/head/helmet/space/hardsuit/security
+// 	name = "security hardsuit helmet"
+// 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+// 	icon_state = "hardsuit0-sec"
+// 	item_state = "sec_helm"
+// 	item_color = "sec"
+// 	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
 
-/obj/item/clothing/suit/space/hardsuit/security
-	name = "security hardsuit"
-	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-	icon_state = "hardsuit-sec"
-	item_state = "sec_hardsuit"
-	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
-	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
+// /obj/item/clothing/suit/space/hardsuit/security
+// 	name = "security hardsuit"
+// 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+// 	icon_state = "hardsuit-sec"
+// 	item_state = "sec_hardsuit"
+// 	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
+// 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
+// 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
-/obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	name = "head of security's hardsuit helmet"
-	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-	icon_state = "hardsuit0-hos"
-	item_color = "hos"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+// /obj/item/clothing/head/helmet/space/hardsuit/security/hos
+// 	name = "head of security's hardsuit helmet"
+// 	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+// 	icon_state = "hardsuit0-hos"
+// 	item_color = "hos"
+// 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
-/obj/item/clothing/suit/space/hardsuit/security/hos
-	name = "head of security's hardsuit"
-	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-	icon_state = "hardsuit-hos"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	jetpack = /obj/item/tank/jetpack/suit
+// /obj/item/clothing/suit/space/hardsuit/security/hos
+// 	name = "head of security's hardsuit"
+// 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+// 	icon_state = "hardsuit-hos"
+// 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+// 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
+// 	jetpack = /obj/item/tank/jetpack/suit
 
 
 //Singuloth armor
