@@ -87,14 +87,16 @@
 	var/turf/current_turf = get_step(get_front_turf(), dir)
 	blocker = null
 	while(!blocker && current_turf != edge_turf)
-		if(current_turf?.density && current_turf?.opacity)
+		if(iswallturf(current_turf))
 			blocker = current_turf
+			break
 		for(var/atom/candidate in current_turf.contents)
 			if(candidate.density && !istype(candidate, /obj/structure/window))
 				blocker = candidate
 				break
 		current_turf = get_step(current_turf, dir)
-	var/turf/end_turf = (blocker ? get_turf(blocker) : get_edge_target_turf(get_front_turf(), dir))
+	// If we didn't find a blocker the end turf is the edge of the z level. If the blocker is a turf(wall) then we simply use it as the end turf. Otherwise we use the blocker's location.
+	var/turf/end_turf = (blocker ? ( iswallturf(blocker) ? blocker : get_turf(blocker)) : get_edge_target_turf(get_front_turf(), dir))
 	range = get_dist(get_step(get_front_turf(), dir), end_turf)
 
 
@@ -332,6 +334,7 @@
 
 	output_level = min(charge, output_number * power_format_multi_output)
 	if(!length(laser_effects))
+		find_blocker() // We aren't registering turf changes or atoms in the beam path while the beam is off.
 		setup_lasers()
 
 	if(QDELETED(blocker))// Checking here in case the blocker was destroyed by means other than the laser
@@ -342,9 +345,12 @@
 
 	if(length(laser_effects))
 		for(var/obj/effect/transmission_beam as anything in laser_effects)
-			for(var/atom/beamed in get_turf(transmission_beam))
+			var/turf/beam_turf = get_turf(transmission_beam)
+			for(var/atom/beamed in beam_turf)
 				if(!istype(beamed, /obj/effect))
 					atom_beam_effect(beamed)
+			if(iswallturf(beam_turf))
+				atom_beam_effect(beam_turf)
 
 	if(!blocker)
 		sell_power(output_level * WATT_TICK_TO_JOULE)
@@ -393,7 +399,7 @@
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	// Create new lasers from the starting point to either the blocker or the edge of the map
 	for(var/num = 1 to range + 1)
-		if(!(locate(/obj/effect/transmission_beam/) in last_step))
+		if(!(locate(/obj/effect/transmission_beam) in last_step))
 			var/obj/effect/transmission_beam/new_beam = new(last_step, src)
 			new_beam.host = src
 			new_beam.dir = dir
@@ -429,10 +435,11 @@
 				explosion(victim, 3, 2, 2)
 				victim.gib(FALSE)
 
-	else if(istype(beam_target,/obj/))
+	else if(isobj(beam_target))
 		var/obj/target_object = beam_target
 		target_object.take_damage(mw_power)
-	else if(istype(beam_target, /turf/simulated/wall)) // We don't want to damage floors
+
+	else if(iswallturf(beam_target)) // We don't want to damage floors
 		var/turf/simulated/wall/target_turf = beam_target
 		target_turf.take_damage(mw_power)
 	else
@@ -509,12 +516,11 @@
 	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
 	RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave), TRUE)
 	RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered), TRUE)
-	if(source_turf.density && source_turf.opacity)
-		host.find_blocker()
-		var/old_range = host.range
-		host.range = get_dist(host.get_front_turf() , host.blocker.loc)
-		if(host.range < old_range)
-			host.shorten_beam()
+
+	var/old_range = host.range
+	host.find_blocker()
+	if(host.range < old_range)
+		host.shorten_beam()
 
 
 /// Explosions aren't supposed to make holes in a beam.
