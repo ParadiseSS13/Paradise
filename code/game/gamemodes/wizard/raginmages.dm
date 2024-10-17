@@ -118,7 +118,7 @@
 		wizard.additional_text = "Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour."
 		new_character.mind.add_antag_datum(wizard)
 		new_character.forceMove(pick(GLOB.wizardstart))
-		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
+		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/mugwort(harry), ITEM_SLOT_IN_BACKPACK)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++
 		dust_if_respawnable(harry)

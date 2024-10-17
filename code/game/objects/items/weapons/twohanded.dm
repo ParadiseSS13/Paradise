@@ -14,7 +14,7 @@
 	throwforce = 15
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -267,7 +267,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	var/force_unwielded = 10
 	var/force_wielded = 18
 	throwforce = 20
@@ -579,7 +579,7 @@
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -650,7 +650,7 @@
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
 	throw_range = 7
@@ -699,7 +699,7 @@
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -854,7 +854,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
@@ -1058,7 +1058,7 @@
 	sharp = TRUE
 	damtype = BURN
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	throwforce = 15
 	toolspeed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
