@@ -205,7 +205,12 @@
 		qdel(src)
 		return
 	to_chat(user, "<span class='notice'>The mass of swarms vanish into the cyborg's internals. Success.</span>")
+	INVOKE_ASYNC(src, PROC_REF(emag_borg), borg, user)
 	qdel(src)
+
+/obj/item/melee/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
+	if(QDELETED(borg) || QDELETED(user))
+		return
 	sleep(6)
 	borg.SetEmagged(TRUE) // This was mostly stolen from mob/living/silicon/robot/emag_act(), its functionally an emagging anyway.
 	borg.SetLockdown(TRUE)
