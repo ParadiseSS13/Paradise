@@ -2,7 +2,7 @@
 	name = "generic vehicle"
 	desc = "Yell at coding chat."
 	icon = 'icons/obj/tgvehicles.dmi'
-	icon_state = "error"
+	icon_state = null
 	max_integrity = 300
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 60, ACID = 60)
 	density = TRUE

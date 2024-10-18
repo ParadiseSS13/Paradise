@@ -266,15 +266,6 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/customizable/candy/bar
-	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
-	baseicon = "barcustom"
-	basename = "flavored chocolate bar"
-	snack_overlays = 0
-	top = 0
-
 /obj/item/food/customizable/candy/sucker
 	name = "flavored sucker"
 	desc = "Suck suck suck."
