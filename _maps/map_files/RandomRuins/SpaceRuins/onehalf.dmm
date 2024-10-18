@@ -1244,7 +1244,7 @@
 /obj/structure/safe/floor,
 /obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
-/obj/item/mod/control/pre_equipped/traitor,
+/obj/item/mod/control/pre_equipped/mining/asteroid,
 /obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/folder/syndicate/blue,
