@@ -604,6 +604,11 @@
 	materials = list(MAT_METAL = 20000)
 	var/charge = 1000
 
+// Overwrite description so shells aren't displayed
+/obj/item/ammo_box/magazine/detective/speedcharger/update_desc()
+	. = ..()
+	desc = "[initial(desc)]"
+
 /obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
 	return
 
