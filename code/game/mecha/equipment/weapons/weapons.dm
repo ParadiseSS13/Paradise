@@ -25,6 +25,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
+/obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
+	return chassis.weapdestrsound
+
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
 		return
