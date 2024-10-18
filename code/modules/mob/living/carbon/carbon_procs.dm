@@ -1053,7 +1053,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/slip(description, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
-	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+	if(HAS_TRAIT(src, TRAIT_FLYING) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if(IS_HORIZONTAL(src) && !tilesSlipped)
