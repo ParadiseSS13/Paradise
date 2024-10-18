@@ -40,6 +40,7 @@
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
 	var/forge_name_forger = null
+
 	/// Width of the window that opens
 	var/paper_width = 600
 	/// Height of the window that opens

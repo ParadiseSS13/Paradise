@@ -576,4 +576,4 @@
 
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pen/chamel(src)
+	new /obj/item/pen/chameleon(src)
