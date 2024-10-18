@@ -299,22 +299,22 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
-			success = F.receivefax(copyitem)
-	if(success)
-		var/datum/fax/F = new /datum/fax()
-		F.name = copyitem.name
-		F.from_department = department
-		F.to_department = destination
-		F.origin = src
-		F.message = copyitem
-		F.sent_by = sender
-		F.sent_at = world.time
+			var/datum/fax/A = new /datum/fax()
+			A.name = copyitem.name
+			A.from_department = department
+			A.to_department = destination
+			A.origin = src
+			A.message = copyitem
+			A.sent_by = sender
+			A.sent_at = world.time
 
+			success = F.receivefax(A)
+	if(success)
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(datum/fax/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
@@ -327,15 +327,30 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	addtimer(CALLBACK(src, PROC_REF(print_fax), incoming), 2 SECONDS)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)
-	if(istype(incoming, /obj/item/paper))
-		papercopy(incoming)
-	else if(istype(incoming, /obj/item/photo))
-		photocopy(incoming)
-	else if(istype(incoming, /obj/item/paper_bundle))
-		bundlecopy(incoming)
+/obj/machinery/photocopier/faxmachine/proc/print_fax(datum/fax/incoming)
+	var/obj/item/new_copy = null
+	if(istype(incoming.message, /obj/item/paper))
+		new_copy = papercopy(incoming.message)
+	else if(istype(incoming.message, /obj/item/photo))
+		new_copy = photocopy(incoming.message)
+	else if(istype(incoming.message, /obj/item/paper_bundle))
+		new_copy = bundlecopy(incoming.message)
 	else
 		return
+
+	// Store the fax that was received in the admin room in adminfaxes
+	// Fixes issue where deleting the original would make it unreadable in the admin panel
+	if(istype(incoming, /datum/fax/admin))
+		var/datum/fax/admin/A = new /datum/fax/admin()
+		A.name = new_copy.name
+		A.from_department = incoming.from_department
+		A.to_department = incoming.to_department
+		A.origin = incoming.origin
+		A.message = new_copy
+		A.sent_by = incoming.sent_by
+		A.sent_at = incoming.sent_at
+
+		GLOB.adminfaxes += A
 
 	use_power(active_power_consumption)
 
@@ -387,7 +402,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
-			F.receivefax(copyitem)
+			F.receivefax(A)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")
 	log_fax(sender, destination)
 
