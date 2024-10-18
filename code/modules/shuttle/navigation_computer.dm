@@ -22,7 +22,7 @@
 	var/designate_time = 0
 	var/turf/designating_target_loc
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
+/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize(mapload)
 	. = ..()
 	GLOB.navigation_computers += src
 	if(access_station)

@@ -359,7 +359,7 @@
 	icon_state = "random_book"
 	var/amount = 1
 
-/obj/item/book/random/Initialize()
+/obj/item/book/random/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(spawn_books)), 0)
 

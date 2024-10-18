@@ -8,7 +8,7 @@
 	)
 	record_spawn = TRUE
 
-/obj/effect/spawner/random/dice/Initialize()
+/obj/effect/spawner/random/dice/Initialize(mapload)
 	. = ..()
 	spawn_loot_count = rand(1, 2)
 

@@ -208,7 +208,7 @@
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
-/obj/item/clothing/shoes/magboots/gravity/Initialize()
+/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
 

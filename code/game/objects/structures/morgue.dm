@@ -38,7 +38,7 @@
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
 
-/obj/structure/morgue/Initialize()
+/obj/structure/morgue/Initialize(mapload)
 	. = ..()
 	update_icon(update_state())
 	set_light(1, LIGHTING_MINIMUM_POWER)

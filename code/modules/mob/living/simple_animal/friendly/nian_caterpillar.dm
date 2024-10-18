@@ -48,7 +48,7 @@
 	/// The amount of nutrition the nian caterpillar needs to evolve, default is 500.
 	var/nutrition_need = 500
 
-/mob/living/simple_animal/nian_caterpillar/Initialize()
+/mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	real_name = name
 	add_language("Tkachi")
