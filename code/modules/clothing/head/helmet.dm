@@ -296,35 +296,35 @@
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
-	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped blue Command stripes."
 	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
 	name = "emergency response team security helmet"
-	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped red Security stripes."
 	icon_state = "erthelmet_sec"
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
 	name = "paranormal emergency response team helmet"
-	desc = "An in-atmosphere helmet worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
+	desc = "An antique steel helmet that looks straight out of a poorly-funded documentary about the Crusades. Where the hell did they even find this?"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange Engineering stripes."
 	icon_state = "erthelmet_eng"
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white Medical stripes."
 	icon_state = "erthelmet_med"
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple Janitorial stripes."
 	icon_state = "erthelmet_jan"
