@@ -536,12 +536,12 @@
 		else if(C.mind.assigned_role == "Clown")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			C.mind.miming=!C.mind.miming
+			C.mind.miming = TRUE
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			C.mind.miming=!C.mind.miming // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing, minus Mimestrogen.
+			C.mind.miming = TRUE // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing, minus Mimestrogen.
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
@@ -581,7 +581,7 @@
 /datum/reagent/mimestrogen/on_mob_delete(mob/living/M)
 	..()
 	if(M.mind?.assigned_role != "Mime")
-		M.mind.miming=!M.mind.miming
+		M.mind.miming = FALSE
 		M.client.color = null
 		REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
 		M.update_client_colour() // You get stuck with permanent greyscale if it's not separated from client.color by at least one line
