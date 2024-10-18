@@ -374,6 +374,9 @@
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
+"MA" = (
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/area/shuttle/escape)
 "Uo" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -430,7 +433,7 @@ ab
 aw
 bf
 bj
-ab
+MA
 ab
 "}
 (3,1,1) = {"
@@ -464,7 +467,7 @@ aa
 aa
 ab
 ac
-ab
+MA
 as
 Dr
 aB
@@ -488,11 +491,11 @@ bt
 (5,1,1) = {"
 aa
 ab
-ab
+MA
 ak
 ao
 at
-Dr
+tH
 tH
 aI
 tH
@@ -513,7 +516,7 @@ bt
 "}
 (6,1,1) = {"
 ab
-ab
+MA
 ah
 ai
 am
@@ -565,7 +568,7 @@ aa
 "}
 (8,1,1) = {"
 ab
-ab
+MA
 aj
 ai
 ap
@@ -592,7 +595,7 @@ ab
 (9,1,1) = {"
 aa
 ab
-ab
+MA
 an
 aq
 av
@@ -620,7 +623,7 @@ aa
 aa
 ab
 ac
-ab
+MA
 Uo
 ab
 aD
@@ -690,7 +693,7 @@ ac
 be
 bi
 aw
-ab
+MA
 ab
 "}
 (13,1,1) = {"
