@@ -24,7 +24,7 @@
 				return
 	if(ismob(AM))
 		var/mob/M = AM
-		if(M.flying)
+		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
 		if(isliving(AM))
 			var/mob/living/L = M

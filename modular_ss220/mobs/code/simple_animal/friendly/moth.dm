@@ -16,7 +16,7 @@
 	see_in_dark = 100
 	friendly = "nudges"
 	density = 0
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY

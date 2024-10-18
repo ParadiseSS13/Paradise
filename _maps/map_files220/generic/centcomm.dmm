@@ -3735,7 +3735,6 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "ckX" = (

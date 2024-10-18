@@ -566,7 +566,7 @@
 	melee_damage_upper = 25
 	attacktext = "моргает на"
 	attack_sound = 'sound/weapons/pierce.ogg'
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 
 	faction = list("spooky")
 	del_on_death = TRUE
@@ -1092,7 +1092,7 @@
 	status_flags = NONE
 	wander = TRUE
 	loot = list(/obj/effect/gibspawner/xeno, /obj/item/stack/ore/bluespace_crystal/refined = 30, /obj/item/card/id/xen_key, /obj/item/gun/energy/wormhole_projector)
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	death_sound = 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_pain01.ogg'
 
 /obj/item/card/id/xen_key

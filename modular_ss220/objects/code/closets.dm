@@ -1,10 +1,8 @@
 /obj/structure/closet/secure_closet/expedition
 	name = "expeditors locker"
-	req_access = list(ACCESS_EXPEDITION)
 	icon = 'modular_ss220/objects/icons/closets.dmi'
 	icon_state = "explorer"
-	icon_opened = "explorer_open"
-	open_door_sprite = "explorer_door"
+	req_access = list(ACCESS_EXPEDITION)
 
 /obj/structure/closet/secure_closet/expedition/populate_contents()
 	new /obj/item/gun/energy/laser/awaymission_aeg/rnd(src)
@@ -14,9 +12,7 @@
 /obj/structure/closet/secure_closet/geneticist
 	name = "geneticist's locker"
 	icon = 'modular_ss220/objects/icons/closets.dmi'
-	icon_state = "gen_secure"
-	icon_opened = "gen_open"
-	open_door_sprite = "white_secure_door"
+	icon_state = "gen"
 	req_access = list(ACCESS_GENETICS)
 
 /obj/structure/closet/secure_closet/geneticist/populate_contents()

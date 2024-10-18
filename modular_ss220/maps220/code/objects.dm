@@ -124,9 +124,6 @@
 	name = "Syndicate Medical Doctor's Locker"
 	req_access = list(ACCESS_SYNDICATE)
 	icon_state = "tac"
-	icon_closed = "tac"
-	icon_opened = "tac_open"
-	open_door_sprite = "syndicate_door"
 
 /obj/structure/closet/secure_closet/syndicate/medbay/populate_contents()
 	new /obj/item/storage/backpack/duffel/syndie/med/surgery

@@ -70,7 +70,7 @@
 	fire_damage = 1
 	unsuitable_atmos_damage = 0
 	mob_size = MOB_SIZE_TINY
-	flying = FALSE
+	initial_traits = list(TRAIT_FLYING)
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 
