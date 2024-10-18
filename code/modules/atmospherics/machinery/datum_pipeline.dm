@@ -7,6 +7,8 @@
 
 	var/update = TRUE
 
+	var/list/crawlers = list()
+
 /datum/pipeline/New()
 	SSair.pipenets += src
 
@@ -220,3 +222,12 @@
 				GL += C.portableConnectorReturnAir()
 
 	share_many_airs(GL)
+
+/datum/pipeline/proc/add_ventcrawler(mob/living/crawler)
+	if(!(crawler in crawlers))
+		RegisterSignal(crawler, COMSIG_LIVING_EXIT_VENTCRAWL, PROC_REF(remove_ventcrawler), crawler)
+		crawlers += crawler
+
+/datum/pipeline/proc/remove_ventcrawler(mob/living/crawler)
+	UnregisterSignal(crawler, COMSIG_LIVING_EXIT_VENTCRAWL)
+	crawlers -= crawler
