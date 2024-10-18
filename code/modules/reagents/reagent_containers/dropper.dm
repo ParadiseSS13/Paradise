@@ -18,10 +18,10 @@
 	else
 		icon_state = "[initial(icon_state)]1"
 
-/obj/item/reagent_containers/dropper/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/dropper/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity)
+/obj/item/reagent_containers/dropper/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	var/to_transfer = 0
@@ -113,7 +113,7 @@
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
-/obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/dropper/precision/viral_injector/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(M.can_inject(user, TRUE))
 		to_chat(user, "<span class='warning'>You stealthily stab [M] with [src].</span>")
 		if(reagents.total_volume && M.reagents)

@@ -115,7 +115,7 @@
 		Move(get_step(src, chosen_dir))
 		face_atom(target) //Looks better if they keep looking at you when dodging
 
-/mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
 	return ..()

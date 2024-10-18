@@ -56,7 +56,7 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/economy/arcade/attackby(obj/item/O, mob/user, params)
+/obj/machinery/economy/arcade/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!freeplay)
 		if(isspacecash(O))
 			insert_cash(O, user, token_price)

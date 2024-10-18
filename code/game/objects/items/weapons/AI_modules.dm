@@ -116,7 +116,7 @@ AI MODULES
 	icon_state = "light_blue_medium"
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/aiModule/safeguard/attack_self(mob/user as mob)
+/obj/item/aiModule/safeguard/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	var/new_targetName = tgui_input_text(user, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
 	if(!new_targetName)
@@ -145,7 +145,7 @@ AI MODULES
 	icon_state = "green_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/aiModule/oneCrewMember/attack_self(mob/user as mob)
+/obj/item/aiModule/oneCrewMember/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	var/new_targetName = tgui_input_text(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
 	if(!new_targetName)
@@ -178,7 +178,7 @@ AI MODULES
 	icon_state = "red_high"
 	origin_tech = "programming=4;materials=4" //made of gold
 
-/obj/item/aiModule/protectStation/attack_self(mob/user as mob)
+/obj/item/aiModule/protectStation/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 
 /obj/item/aiModule/protectStation/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
@@ -194,7 +194,7 @@ AI MODULES
 	icon_state = "light_blue_high"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
-/obj/item/aiModule/oxygen/attack_self(mob/user as mob)
+/obj/item/aiModule/oxygen/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 
 /obj/item/aiModule/oxygen/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
@@ -213,7 +213,7 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/aiModule/freeform/attack_self(mob/user as mob)
+/obj/item/aiModule/freeform/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
 	if(isnull(new_lawpos) || new_lawpos == lawpos)
@@ -423,7 +423,7 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
 
-/obj/item/aiModule/freeformcore/attack_self(mob/user as mob)
+/obj/item/aiModule/freeformcore/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	var/new_targetName = tgui_input_text(usr, "Please enter a new core law for the AI.", "Freeform Law Entry")
 	if(!new_targetName)
@@ -452,7 +452,7 @@ AI MODULES
 	icon_state = "syndicate"
 	origin_tech = "programming=5;materials=5;syndicate=2"
 
-/obj/item/aiModule/syndicate/attack_self(mob/user as mob)
+/obj/item/aiModule/syndicate/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	var/new_targetName = tgui_input_text(usr, "Please enter a new law for the AI.", "Freeform Law Entry", max_length = MAX_MESSAGE_LEN)
 	if(!new_targetName)
@@ -492,7 +492,7 @@ AI MODULES
 	target.add_ion_law(ion_law)
 	return ion_law
 
-/obj/item/aiModule/toyAI/attack_self(mob/user)
+/obj/item/aiModule/toyAI/attack_self__legacy__attackchain(mob/user)
 	ion_law = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)

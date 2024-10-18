@@ -126,7 +126,7 @@
 		E += M.rating
 	efficiency = E / 6
 
-/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/compressor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_change_direction_wrench(user, I))
 		turbine = null
 		inturf = get_step(src, dir)
@@ -328,7 +328,7 @@
 		return
 	. += image(icon, "turb-o", FLY_LAYER)
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/turbine/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
 

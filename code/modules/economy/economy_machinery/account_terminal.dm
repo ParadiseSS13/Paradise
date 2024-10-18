@@ -24,7 +24,7 @@
 /obj/machinery/computer/account_database/proc/reconnect_database()
 	account_db = GLOB.station_money_database
 
-/obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
+/obj/machinery/computer/account_database/attackby__legacy__attackchain(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
 		return
 	return ..()

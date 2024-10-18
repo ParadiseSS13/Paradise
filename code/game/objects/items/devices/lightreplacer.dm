@@ -61,7 +61,7 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/I, mob/user)
+/obj/item/lightreplacer/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(uses >= max_uses)
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
@@ -142,7 +142,7 @@
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/item/lightreplacer/attack_self(mob/user)
+/obj/item/lightreplacer/attack_self__legacy__attackchain(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
@@ -210,10 +210,10 @@
 	else
 		return 0
 
-/obj/item/lightreplacer/afterattack(atom/target, mob/U, proximity)
+/obj/item/lightreplacer/afterattack__legacy__attackchain(atom/target, mob/U, proximity)
 	. = ..()
 	if(isitem(target))
-		attackby(target, U)
+		attackby__legacy__attackchain(target, U)
 		return
 
 	if(!proximity && !bluespace_toggle)

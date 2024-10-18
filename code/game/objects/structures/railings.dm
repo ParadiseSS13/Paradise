@@ -33,7 +33,7 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
 

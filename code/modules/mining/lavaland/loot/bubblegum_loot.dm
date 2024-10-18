@@ -85,7 +85,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
-/obj/item/mayhem/attack_self(mob/user)
+/obj/item/mayhem/attack_self__legacy__attackchain(mob/user)
 	for(var/mob/living/carbon/human/H in range(7,user))
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
@@ -104,7 +104,7 @@
 	desc = "Mark your target for death."
 	var/used = FALSE
 
-/obj/item/blood_contract/attack_self(mob/user)
+/obj/item/blood_contract/attack_self__legacy__attackchain(mob/user)
 	if(used)
 		return
 

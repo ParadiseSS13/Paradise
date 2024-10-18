@@ -317,7 +317,7 @@
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(shocked)
 		if(shock(user, 100))
 			return

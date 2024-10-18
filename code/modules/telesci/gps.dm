@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	return data
 
-/obj/item/gps/attack_self(mob/user)
+/obj/item/gps/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/gps/ui_state(mob/user)

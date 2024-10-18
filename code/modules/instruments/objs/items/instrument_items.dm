@@ -91,7 +91,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trumpet/spectral/attack(mob/living/carbon/C, mob/user)
+/obj/item/instrument/trumpet/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	playsound(src, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
 	..()
 
@@ -114,7 +114,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/saxophone/spectral/attack(mob/living/carbon/C, mob/user)
+/obj/item/instrument/saxophone/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	playsound(src, 'sound/instruments/saxophone/En4.mid', 100, TRUE,-1)
 	..()
 
@@ -137,7 +137,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trombone/spectral/attack(mob/living/carbon/C, mob/user)
+/obj/item/instrument/trombone/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	playsound (src, 'sound/instruments/trombone/Cn4.mid', 100,1,-1)
 	..()
 
@@ -147,7 +147,7 @@
 	force = 0
 	attack_verb = list("Wahed", "Waahed", "Waaahed", "Honked")
 
-/obj/item/instrument/trombone/sad/attack(mob/living/carbon/C, mob/user)
+/obj/item/instrument/trombone/sad/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 	..()
 

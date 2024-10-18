@@ -57,7 +57,7 @@
 	if(temperature > T0C+100)
 		burst()
 
-/obj/item/latexballon/attackby(obj/item/W, mob/user, params)
+/obj/item/latexballon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		var/obj/item/tank/T = W
 		blow(T, user)

@@ -416,7 +416,7 @@
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
@@ -801,7 +801,7 @@
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
-/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
 		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
