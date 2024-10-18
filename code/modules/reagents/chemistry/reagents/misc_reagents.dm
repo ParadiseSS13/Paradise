@@ -554,12 +554,13 @@
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
-		M.client.color = MATRIX_GREYSCALE
-		M.update_client_colour() // TRAIT_COLORBLIND only makes you colourblind for the wires, this fully makes it greyscale
+		if(M.client)
+			M.client.color = MATRIX_GREYSCALE
+			M.update_client_colour() // TRAIT_COLORBLIND only makes you colourblind for the wires, this fully makes it greyscale
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
-			var/list/mime_message = list("You feel light-headed.",
+			var/static/list/mime_message = list("You feel light-headed.",
 			"You can't see straight.",
 			"You feel about as funny as the station mime.",
 			"Muted colours and berets cloud your vision.",
