@@ -34,10 +34,11 @@
 	var/emagged = FALSE
 
 	// Access-related fields
+
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. All accesses are required when checking.
 	var/list/req_access = null
-	var/req_access_txt = "0"
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. At least one access is required when checking.
 	var/list/req_one_access = null
-	var/req_one_access_txt = "0"
 
 /obj/Initialize(mapload)
 	. = ..()
