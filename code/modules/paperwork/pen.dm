@@ -332,3 +332,15 @@
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
 			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+
+// CHAMELEON PEN
+/obj/item/pen/chamel
+	name = "chameleon pen"
+	desc = "It's a surprisingly boring-looking pen! Try using it to leave a signature."
+	var/forge_name = null
+
+/obj/item/pen/chamel/attack_self(mob/living/user)
+	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
+
+/obj/item/pen/chamel/on_write(obj/item/paper/P, mob/user)
+	P.forge_name_forger = user.name
