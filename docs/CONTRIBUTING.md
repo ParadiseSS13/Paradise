@@ -133,25 +133,34 @@ Status of your pull request will be communicated via PR labels. This includes:
 All PRs which modify maps are expected to follow all of our
 [mapping requirements](./mapping/requirements.md).
 
-## Modifying MILLA
+## Modifying Rust Code
 
-Our atmos engine, MILLA, is in the `milla/` directory. It's written in Rust for
-performance reasons, which means it's not compiled the same way as the rest of
-the code. If you're on Windows, you get a pre-built copy by default. If you're
-on Linux, you built one already to run the server.
+Some parts of Paradise are written in [Rust][] for performance or reliability
+reasons:
 
-If you make changes to MILLA, you'll want to rebuild. This will be very similar
-to RUSTG: https://github.com/ParadiseSS13/rust-g The only difference is that you
-run `cargo` from the `milla/` directory, and don't need to specify
-`--all-features` (though it doesn't hurt).
+- Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
+- The `mapmanip` library, an Aurora Station module used for automating DMM
+  modification, is in the `rust/src/mapmanip` library.
+
+The Rust parts of our codebase are compiled into a single library,
+separate from the rest of the code. If you're on Windows, you get a pre-built
+copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to the Rust library, you'll want to rebuild. This will be
+very similar to [rust-g][]. The only difference is that you run `cargo` from the
+`rust/` directory, and don't need to specify `--all-features` (though it doesn't
+hurt).
 
 The server will automatically detect that you have a local build, and use that
 over the default Windows one.
 
-When you're ready to make a PR, please DO NOT modify `milla.dll` or
-`tools/ci/libmilla_ci.so`. Leave "Allow edits and access to secrets by
-maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot
+When you're ready to make a PR, please DO NOT modify `rustlibs.dll` or
+`tools/ci/librustlibs_ci.so`. Leave "Allow edits and access to secrets by
+maintainers" enabled, and post a comment on your PR saying `!build_rust`. A bot
 will automatically build them for you and update your branch.
+
+[Rust]: https://www.rust-lang.org/
+[rust-g]: https://github.com/ParadiseSS13/rust-g
 
 ## Other Notes
 

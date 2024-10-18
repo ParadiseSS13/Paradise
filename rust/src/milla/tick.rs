@@ -1,7 +1,7 @@
-use crate::constants::*;
-use crate::model::*;
-use crate::simulate;
-use crate::statics::*;
+use crate::milla::constants::*;
+use crate::milla::model::*;
+use crate::milla::simulate;
+use crate::milla::statics::*;
 use scc::Bag;
 use std::sync::RwLock;
 use std::thread;
