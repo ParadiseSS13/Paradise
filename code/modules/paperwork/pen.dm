@@ -335,8 +335,6 @@
 
 // CHAMELEON PEN
 /obj/item/pen/chameleon
-	name = "chameleon pen"
-	desc = "It's a surprisingly boring-looking pen! Try using it to leave a signature."
 	var/forge_name = null
 
 /obj/item/pen/chameleon/attack_self(mob/living/user)
