@@ -25,7 +25,7 @@
 			console.vest = V
 			V.flags |= NODROP
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(SLOT_HUD_BACK)
+		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)
 			console.gizmo = G
 			G.console = console
