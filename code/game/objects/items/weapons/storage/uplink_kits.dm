@@ -572,7 +572,7 @@
 		new /obj/item/grenade/firecracker/decoy(src)
 
 /obj/item/storage/box/syndie_kit/forgers_kit
-	name = "\improper Forger's Kit"
+	name = "\improper Forger's kit"
 
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)

@@ -333,7 +333,7 @@
 			add_attack_logs(user, P, "Poison pen'ed")
 			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 
-// CHAMELEON PEN
+// MARK: CHAMELEON PEN
 /obj/item/pen/chameleon
 	var/forge_name = null
 
