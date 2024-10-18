@@ -522,7 +522,7 @@
 	description = "Mimestrogen is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to clowns."
 	color = "#353535" // Should be dark grey, there are already a fair number of white chemicals
 	process_flags = ORGANIC | SYNTHETIC
-	drink_desc = "The colour of the glass' surroundings seem to drain as you look at it."
+	drink_desc = "The color of the glass' surroundings seem to drain as you look at it."
 	taste_description = "an entertaining flavour"
 
 /datum/reagent/mimestrogen/on_new()
