@@ -320,6 +320,8 @@
 	desc = "A full set of labelled components for assembling an R&D setup with. There are wordless picrographs of how to assemble everything on the back."
 
 /obj/item/storage/box/large/rnd_parts/populate_contents()
+	new /obj/item/circuitboard/rnd_network_controller(src)
+	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/destructive_analyzer(src)
@@ -332,6 +334,7 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/stock_parts/scanning_module(src)
+	new /obj/item/stock_parts/scanning_module(src)
 	new /obj/item/stock_parts/micro_laser(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
@@ -339,6 +342,7 @@
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/stack/sheet/glass/fifty(src)
 	new /obj/item/stack/sheet/metal/fifty(src)
+	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/box/large/glowstick/emergency
