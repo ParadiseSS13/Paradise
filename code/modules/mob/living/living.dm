@@ -1180,3 +1180,18 @@
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
+
+/mob/living/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	switch(mw_power)
+		if(0 to 25)
+			src.adjustFireLoss(-mw_power * 15)
+			src.adjust_fire_stacks(mw_power)
+		if(26 to 50)
+			src.gib(FALSE)
+		else
+			explosion(src, 3, 2, 2)
+			src.gib(FALSE)
+	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()
+

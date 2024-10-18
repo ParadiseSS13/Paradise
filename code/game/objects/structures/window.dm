@@ -495,6 +495,10 @@
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/// The beam goes through windows without damaging them
+/obj/structure/window/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	return
+
 /obj/structure/window/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 

@@ -657,3 +657,13 @@
 
 /turf/return_analyzable_air()
 	return get_readonly_air()
+
+/// Non dense turfs are unaffected by default so we don't destroy floors. Dense turfs have chance to be destroyed.
+/turf/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	if(!density)
+		return
+	if(prob(mw_power))
+		src.ChangeTurf(src.baseturf)
+	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()

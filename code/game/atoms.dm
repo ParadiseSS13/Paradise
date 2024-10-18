@@ -545,6 +545,13 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
+/// This is the default PTL action on atoms.
+/atom/proc/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	fire_act(null, 3000 * mw_power, 500)
+	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()
+
 /// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
