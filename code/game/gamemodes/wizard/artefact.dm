@@ -168,12 +168,12 @@
 
 /obj/item/scrying
 	name = "scrying orb"
-	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
+	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means. Also works well as a throwing weapon."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
-	throwforce = 15
+	throwforce = 25
 	damtype = BURN
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
@@ -183,6 +183,7 @@
 /obj/item/scrying/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)
 
 /obj/item/scrying/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -236,6 +237,17 @@
 		return
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
 	REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
+
+/obj/item/scrying/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!ishuman(hit_atom) || !throwingdatum || iswizard(hit_atom))
+		return
+	var/mob/living/carbon/human/crushee = hit_atom
+	var/zone = ran_zone(throwingdatum.target_zone) // Base 80% to hit the zone you're aiming for
+	var/obj/item/organ/external/hit_limb = crushee.get_organ(zone)
+	if(hit_limb)
+		hit_limb.fracture()
+
 
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
