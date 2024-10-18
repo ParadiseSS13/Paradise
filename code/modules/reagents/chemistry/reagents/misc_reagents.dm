@@ -583,9 +583,12 @@
 	..()
 	if(M.mind?.assigned_role != "Mime")
 		M.mind.miming = FALSE
-		M.client.color = null
-		REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
-		M.update_client_colour() // You get stuck with permanent greyscale if it's not separated from client.color by at least one line
+		if(M.client)
+			M.client.color = null
+			REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
+			M.update_client_colour() // You get stuck with permanent greyscale if it's not separated from client.color by at least one line
+		else
+			REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
