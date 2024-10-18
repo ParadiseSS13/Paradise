@@ -217,6 +217,8 @@
 	if(!gibbed)
 		gib()
 
+	SSticker.record_biohazard_start(BIOHAZARD_BLOB)
+
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
