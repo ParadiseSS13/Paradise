@@ -53,10 +53,12 @@
 #define COMSIG_SONG_END		"song_end"
 
 
-// /datum/component/decal
+// /datum/element/decal
 
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+///called on an object to clean it of cleanables.
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+	///Returned by cleanable components when they are cleaned.
+	#define COMPONENT_CLEANED (1<<0)
 
 
 // /datum/component/two_handed
