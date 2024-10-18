@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/associated_account_number = 0
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/card/proc/get_card_account()
 	return GLOB.station_money_database.find_user_account(associated_account_number)
