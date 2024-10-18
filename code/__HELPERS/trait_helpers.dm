@@ -237,6 +237,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
+#define TRAIT_EMP_IMMUNE "emp_immune" //The mob will take no damage from EMPs
+#define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
+#define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
 #define TRAIT_FLYING "flying"
 
 //***** MIND TRAITS *****/

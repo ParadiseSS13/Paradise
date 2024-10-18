@@ -74,6 +74,14 @@
 
 #define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
 
+#define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
+
+#define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
+
+#define STATUS_EFFECT_TERMINATOR_FORM /datum/status_effect/terminator_form
+
+#define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
+
 /////////////
 // DEBUFFS //
 /////////////

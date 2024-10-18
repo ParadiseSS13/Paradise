@@ -12,11 +12,8 @@
 	required_players = 25
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	secondary_protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 	var/vampire_restricted_jobs = list("Chaplain")
-	var/list/datum/mind/pre_traitors = list()
-	var/list/datum/mind/pre_changelings = list()
-	var/list/datum/mind/pre_vampires = list()
 	var/amount_vamp = 1
 	var/amount_cling = 1
 	var/amount_tot = 1
@@ -40,11 +37,14 @@
 	for(var/datum/mind/vampire as anything in shuffle(possible_vampires))
 		if(length(pre_vampires) >= amount_vamp)
 			break
-		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+		vampire.restricted_roles = restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs
+		if(vampire.current.client.prefs.active_character.species in species_to_mindflayer)
+			pre_mindflayers += vampire
+			amount_vamp -= 1 //It's basically the same thing as incrementing pre_vampires
+			vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue
 		pre_vampires += vampire
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs)
 
 	//Vampires made, off to changelings
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
@@ -55,10 +55,15 @@
 	for(var/datum/mind/changeling as anything in shuffle(possible_changelings))
 		if(length(pre_changelings) >= amount_cling)
 			break
-		if((changeling.current.client.prefs.active_character.species in secondary_protected_species) || changeling.special_role == SPECIAL_ROLE_VAMPIRE)
+		if(changeling.special_role == SPECIAL_ROLE_VAMPIRE || changeling.special_role == SPECIAL_ROLE_MIND_FLAYER)
+			continue
+		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
+			pre_mindflayers += changeling
+			amount_cling -= 1
+			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue
 		pre_changelings += changeling
-		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	//And now traitors
@@ -71,7 +76,7 @@
 	for(var/datum/mind/traitor as anything in shuffle(possible_traitors))
 		if(length(pre_traitors) >= amount_tot)
 			break
-		if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+		if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING || traitor.special_role == SPECIAL_ROLE_MIND_FLAYER) // no traitor vampires or changelings
 			continue
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR

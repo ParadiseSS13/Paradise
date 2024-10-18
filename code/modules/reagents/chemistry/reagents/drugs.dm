@@ -1172,6 +1172,24 @@
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags
 
+/// Used to test if an IPC is a mindflayer or not
+/datum/reagent/lube/conductive
+	name = "Conductive Lubricant"
+	id = "conductivelube"
+	description = "This is a special lubricant designed to attract onto and excite parasitic mindflayer swarms, revealing if someone hosts a hive. Doesn't include a cooling agent, so tends to cause overheating."
+	harmless = FALSE
+	color = "#163b39"
+	taste_description = "batteries"
+	process_flags = SYNTHETIC
+
+/datum/reagent/lube/conductive/on_mob_life(mob/living/M)
+	var/datum/antagonist/mindflayer/flayer = M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer && (flayer.total_swarms_gathered > 0)) // Like vampires, give flayers who haven't done anything yet a pass
+		M.Jitter(30 SECONDS_TO_JITTER)
+		if(prob(20))
+			do_sparks(5, FALSE, M)
+	M.bodytemperature += 40
+	return ..()
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)

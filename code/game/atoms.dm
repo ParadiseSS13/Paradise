@@ -340,7 +340,7 @@
  * Proc which will make the atom act accordingly to an EMP.
  * This proc can sleep depending on the implementation. So assume it sleeps!
  *
- * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
  */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
