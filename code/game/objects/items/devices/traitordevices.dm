@@ -113,6 +113,8 @@
 	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
 		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
 		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, starting) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()

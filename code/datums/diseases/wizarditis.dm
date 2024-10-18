@@ -90,6 +90,8 @@
 /datum/disease/wizarditis/proc/teleport()
 	if(!is_teleport_allowed(affected_mob.z))
 		return
+	if(SEND_SIGNAL(affected_mob, COMSIG_MOVABLE_TELEPORTING, get_turf(affected_mob)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	var/list/possible_areas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in possible_areas)

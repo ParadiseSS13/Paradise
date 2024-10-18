@@ -242,6 +242,8 @@
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to, TRUE))
 		return
+	if(SEND_SIGNAL(M, COMSIG_MOVABLE_TELEPORTING, turf_to_teleport_to) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.set_alpha_tracking(0, src, update_alpha = FALSE)

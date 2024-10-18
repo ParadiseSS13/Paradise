@@ -149,6 +149,10 @@
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
+	if(!ignore_area_flag) // Admin or contractor portal, let em through without running signals
+		if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
+			return FALSE
+
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
 	var/area/destarea = get_area(destturf)
