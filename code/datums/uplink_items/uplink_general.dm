@@ -494,8 +494,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools/forgers_kit
 	name = "Forger's Kit"
 	desc = "A set consisting of a stamp and a special pen. The stamp can be activated to imitate an official Nanotrasen Stamp, \
-	allowing you to forge false documents for access or equipment, and can also be used in a washing machine to create counterfeit clothing. \
-	 The included pen lets you create fake signatures, further enhancing your forgery capabilities."
+		allowing you to forge false documents for access or equipment, and can also be used in a washing machine to create counterfeit clothing. \
+			The included pen lets you create fake signatures, further enhancing your forgery capabilities."
 	reference = "CHST"
 	item = /obj/item/storage/box/syndie_kit/forgers_kit
 	cost = 1
