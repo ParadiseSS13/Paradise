@@ -27,7 +27,7 @@
 		icon_state = "scard_loser"
 	playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
 	scratched = TRUE
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/scratch/attack_obj(obj/O, mob/living/user, params)
 	if(winner && istype(O, /obj/machinery/economy/atm))
