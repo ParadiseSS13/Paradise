@@ -1185,13 +1185,13 @@
 	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
 	switch(mw_power)
 		if(0 to 25)
-			src.adjustFireLoss(-mw_power * 15)
-			src.adjust_fire_stacks(mw_power)
+			adjustFireLoss(-mw_power * 15)
+			adjust_fire_stacks(mw_power)
 		if(26 to 50)
-			src.gib(FALSE)
+			gib(FALSE)
 		else
 			explosion(src, 3, 2, 2)
-			src.gib(FALSE)
+			gib(FALSE)
 	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 
