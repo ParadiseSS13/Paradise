@@ -15,7 +15,7 @@
 	pixel_x = 0
 	pixel_y = -64
 
-	/// Variables go below here
+	// Variables go below here
 	/// How far we shoot the beam. If it isn't blocked it should go to the end of the screen.
 	var/range = 0
 	/// Amount of power we are outputting
@@ -24,7 +24,7 @@
 	var/capacity = INFINITY
 	/// Our current charge
 	var/charge = 0
-	/// Should we try to input charge paired with the var below to check if its fully inputing
+	/// Are we trying to provide power to the laser
 	var/input_attempt = TRUE
 	/// Are we currently inputting
 	var/inputting = TRUE
@@ -60,16 +60,16 @@
 	/// The amount of money we haven't sent to cargo yet
 	var/unsent_earnings = 0
 
-	/// How much we are inputing pre multiplier
+	/// Gives our power input when multiplied with power_format_multi. The multiplier signifies the units of power, and this is how many of them we are inputting.
 	var/input_number = 0
-	/// How much we are outputting pre multiplier
+	/// Gives our power output when multiplied with power_format_multi_output. The multiplier signifies the units of power, and this is how many of them we are outputting.
 	var/output_number = 0
 	/// Our set input pulling
 	var/input_pulling = 0
 	/// Announcement configuration for updates
 	var/datum/announcer/announcer
 	/// Last direction the laser was pointing. So offset doesn't get handles when it doesn't need to
-	var/last_dir = 0
+	var/last_dir = NO_DIRECTION
 
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
@@ -143,6 +143,7 @@
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
 	qdel(announcer)
+	blocker = null
 	if(length(laser_effects))
 		destroy_lasers()
 
@@ -177,7 +178,6 @@
 
 
 /// Appearance changes are here
-
 /obj/machinery/power/transmission_laser/update_overlays()
 	. = ..()
 	if((stat & BROKEN) || !charge)
@@ -388,10 +388,10 @@
 	var/medium_cut = generated_cash * 0.25
 	var/high_cut = generated_cash * 0.75
 
-	cargo_bank_account.deposit_credits(medium_cut, "Transmission Laser Payout")
+	GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
 	unsent_earnings -= medium_cut
 
-	engineering_bank_account.deposit_credits(high_cut, "Transmission Laser Payout")
+	GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
 	unsent_earnings -= high_cut
 
 #undef A1_CURVE
@@ -403,7 +403,7 @@
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	// Create new lasers from the starting point to either the blocker or the edge of the map
-	for(var/num = 1 to range + 1)
+	for(var/num in 1 to range + 1)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
 			var/obj/effect/transmission_beam/new_beam = new(last_step, src)
 			new_beam.host = src

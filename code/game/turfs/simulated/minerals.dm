@@ -265,12 +265,12 @@
 		return
 	return ..()
 
-/// Ancient rock has a chance to be destroyed by the laser from 50 MW output and above
+/// Cold ancient rock has a chance to be destroyed by the laser from 50 MW output and above
 /turf/simulated/mineral/ancient/outer/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
-	if(prob(mw_power - 50))
-		src.ChangeTurf(src.baseturf)
-	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW) // Laser output power in megawatts
+	if(prob(mw_power - 50))// Chance to destroy the rock increases with power output, starting at 50MW
+		ChangeTurf(baseturf)
+	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 
 
