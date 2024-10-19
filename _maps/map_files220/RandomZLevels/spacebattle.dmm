@@ -3119,7 +3119,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "jq" = (
-/obj/machinery/cooker/foodgrill,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
