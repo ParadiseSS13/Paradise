@@ -813,7 +813,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, defeat_all_protection = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, penetrate_everything = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -833,7 +833,7 @@
 		fail_msg = "That limb is robotic."
 
 	// If there is flesh, inject.
-	if(defeat_all_protection)
+	if(penetrate_everything)
 		return TRUE
 
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))

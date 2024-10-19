@@ -14,12 +14,12 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
+	/// If TRUE, the hypospray can inject any clothing without TRAIT_HYPOSPRAY_IMMUNE.
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
 	var/ignore_hypospray_immunity = FALSE
-	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits (except for TRAIT_HYPOSPRAY_IMMUNE).
-	var/defeat_all_protection = FALSE
+	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits such as the thick skin gene (except for TRAIT_HYPOSPRAY_IMMUNE).
+	var/penetrate_everything = FALSE
 	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
 	// List of SOSHA-approved medicines.
@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 			return
 
-	if(reagents.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick, defeat_all_protection))
+	if(reagents.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick, penetrate_everything))
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -104,7 +104,7 @@
 	if(safety_hypo && !emagged)
 		emagged = TRUE
 		penetrate_thick = TRUE
-		defeat_all_protection = TRUE
+		penetrate_everything = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
@@ -131,7 +131,7 @@
 	volume = 90
 	penetrate_thick = TRUE // So they can heal their comrades.
 	ignore_hypospray_immunity = TRUE
-	defeat_all_protection = TRUE
+	penetrate_everything = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -185,7 +185,7 @@
 	volume = 10
 	penetrate_thick = TRUE
 	ignore_hypospray_immunity = TRUE
-	defeat_all_protection = TRUE // Autoinjectors bypass everything.
+	penetrate_everything = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
 	flags = null
 
