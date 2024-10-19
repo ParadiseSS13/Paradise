@@ -264,3 +264,7 @@
 	current_cost += static_upgrade_increase
 
 	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(name, "upgraded", level))
+
+/// This is a proc that is called when the ability is purchased and first added to the flayer
+/datum/spell/flayer/proc/spell_purchased() // I'd call it `on_purchased` but that is already taken
+	return

@@ -218,6 +218,7 @@
 	to_add.current_cost += to_add.static_upgrade_increase
 	owner.AddSpell(to_add)
 	powers += to_add
+	to_add.spell_purchased()
 
 	check_special_stage_ability(to_add)
 	SSblackbox.record_feedback("nested tally", "mindflayer_abilities", 1, list(to_add.name, "purchased"))

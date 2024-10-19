@@ -136,10 +136,11 @@
 	var/mob/living/target = targets[1]
 	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE, target)
 
+/datum/spell/flayer/skin_suit/spell_purchased()
+	flayer.add_ability(new /datum/spell/flayer/self/voice_synthesizer)
+
 /datum/spell/flayer/skin_suit/on_apply()
 	..()
-	if(level == FLAYER_POWER_LEVEL_TWO)
-		flayer.add_ability(new /datum/spell/flayer/self/voice_synthesizer)
 	cooldown_handler.recharge_duration -= 30 SECONDS
 
 /datum/spell/flayer/skin_suit/Destroy(force, ...)
