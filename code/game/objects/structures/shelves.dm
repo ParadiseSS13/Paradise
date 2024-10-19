@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 		return ..()
 
 	// Spraypaint cannot turn brass into steel.
-	if(style == "clockwork")
+	if(shelf_style == "clockwork")
 		return ..()
 
 	if(!COOLDOWN_FINISHED(src, spraypaint_cd))
