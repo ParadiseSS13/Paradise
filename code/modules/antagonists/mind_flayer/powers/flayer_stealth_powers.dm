@@ -119,7 +119,6 @@
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS
 	base_cost = 80
-	static_upgrade_increase = 50
 	stage = 2
 	max_level = 3
 	upgrade_info = "Decrease the time between castings by 30 seconds."
@@ -139,13 +138,13 @@
 
 /datum/spell/flayer/skin_suit/on_apply()
 	..()
-	if(level == FLAYER_POWER_LEVEL_ONE)
+	if(level == FLAYER_POWER_LEVEL_TWO)
 		flayer.add_ability(new /datum/spell/flayer/self/voice_synthesizer)
 	cooldown_handler.recharge_duration -= 30 SECONDS
 
 /datum/spell/flayer/skin_suit/Destroy(force, ...)
-	flayer.remove_ability(/datum/spell/flayer/self/voice_synthesizer)
-	. = ..()
+	flayer?.remove_ability(/datum/spell/flayer/self/voice_synthesizer)
+	return ..()
 
 /// After a 7 second channel time you can emag a borg
 /datum/spell/flayer/self/override_key

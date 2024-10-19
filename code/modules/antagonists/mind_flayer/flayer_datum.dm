@@ -51,7 +51,7 @@
 	var/list/innate_powers = get_spells_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path as anything in innate_powers)
 		var/datum/spell/flayer/to_add = new power_path
-		add_ability(to_add, src)
+		add_ability(to_add)
 	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 
 /datum/antagonist/mindflayer/give_objectives()
@@ -202,9 +202,8 @@
 * Arguments:
 * * to_add - The spell datum you want to add to the flayer
 * * set_owner - The antagonist datum of the mindflayer you want to add the spell to
-* * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, datum/antagonist/mindflayer/set_owner, upgrade_type)
+/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add)
 	if(!to_add)
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
@@ -213,8 +212,8 @@
 		qdel(to_add)
 		return
 
-	if(set_owner)
-		to_add.flayer = src
+	to_add.flayer = src
+
 	to_add.level = 1
 	to_add.current_cost += to_add.static_upgrade_increase
 	owner.AddSpell(to_add)
@@ -309,11 +308,11 @@
 		if(FLAYER_CATEGORY_DESTROYER)
 			if(has_spell(/datum/spell/flayer/techno_wall))
 				return
-			add_ability(new /datum/spell/flayer/techno_wall, src)
+			add_ability(new /datum/spell/flayer/techno_wall)
 			send_swarm_message("We gain the ability to bring our internal firewalls into a crystalized form in the physical world")
 
 		if(FLAYER_CATEGORY_INTRUDER)
 			if(has_spell(/datum/spell/flayer/self/weapon/access_tuner))
 				return
-			add_ability(new /datum/spell/flayer/self/weapon/access_tuner, src)
+			add_ability(new /datum/spell/flayer/self/weapon/access_tuner)
 			send_swarm_message("We gain the ability to manipulate airlocks from a distance.")

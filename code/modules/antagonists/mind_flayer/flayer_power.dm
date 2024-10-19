@@ -203,7 +203,7 @@
 
 	to_add.current_cost = to_add.base_cost
 	adjust_swarms(-to_add.current_cost)
-	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
+	add_ability(to_add) // Level gets set to 1 when AddSpell is called later, it also handles the cost
 	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
 
 /*
