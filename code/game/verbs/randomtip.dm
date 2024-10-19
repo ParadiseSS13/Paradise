@@ -1,7 +1,7 @@
 /client/verb/randomtip()
 	set category = "OOC"
 	set name = "Give Random Tip"
-	set desc = "Shows you a random tip."
+	set desc = "Shows you a random tip"
 
 	var/m
 
