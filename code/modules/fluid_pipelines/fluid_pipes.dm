@@ -37,19 +37,17 @@
 	if(QDELETED(pipe_to_connect_to))
 		return
 
-	// Both pipes have fluid datums
-	if(fluid_datum && pipe_to_connect_to.fluid_datum)
-		fluid_datum.merge(pipe_to_connect_to.fluid_datum)
+	if(isnull(fluid_datum) && pipe_to_connect_to.fluid_datum)
+		pipe_to_connect_to.fluid_datum.add_pipe(src)
 
-	// Merging pipe (or both) don't have fluid datums
-	else if(!pipe_to_connect_to.fluid_datum)
+	else if(fluid_datum && pipe_to_connect_to.fluid_datum)
+		if(fluid_datum != pipe_to_connect_to.fluid_datum)
+			fluid_datum.merge(pipe_to_connect_to.fluid_datum)
+
+	else if(isnull(pipe_to_connect_to.fluid_datum))
 		if(!fluid_datum)
 			fluid_datum = new(src)
 		fluid_datum.add_pipe(pipe_to_connect_to)
-
-	// Merging pipe has a fluid datum
-	else
-		pipe_to_connect_to.fluid_datum.add_pipe(src)
 
 	neighbours++
 	pipe_to_connect_to.neighbours++
@@ -64,7 +62,7 @@
 		fluid_datum = null
 		return
 
-	fluid_datum.connected_pipes -= src
+	fluid_datum.remove_pipe(src)
 	var/datum/fluid_pipe/temp_datum = fluid_datum
 	fluid_datum = null
 	qdel(src) // Forcefully delete ourselves so we don't reconnect to us again by accident
