@@ -120,6 +120,7 @@ Anyone can choose to migrate attack chains if they so desire to help complete
 the migration.
 
 > [!NOTE]
+>
 > If you are working in code that touches the legacy attack chain, it is
 > expected that you migrate the code to the new attack chain first.
 
@@ -209,11 +210,11 @@ tape, then skipping the rest of the attack chain.
 Not only does this make the resultant code much more clear, but we don't even
 need an `/obj/item/attackby` anymore. We can simply remove it.
 
-!!! note
-
-    When migrating to `interact_with_atom()` and `item_interaction()`, it is not
-    necessary to set `new_attack_chain` to `TRUE` if they have no other
-    legacy attack chain procs. These procs are exclusive to the new attack chain.
+> [!NOTE]
+>
+> When migrating to `interact_with_atom()` and `item_interaction()`, it is not
+> necessary to set `new_attack_chain` to `TRUE` if they have no other
+> legacy attack chain procs. These procs are exclusive to the new attack chain.
 
 ### `attack_self`
 
