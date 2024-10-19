@@ -67,7 +67,7 @@
 
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
-	desc = "Your food will be taste-tested.  All of it."
+	desc = "Your food will be taste-tested. All of it."
 
 
 /datum/dog_fashion/head/captain

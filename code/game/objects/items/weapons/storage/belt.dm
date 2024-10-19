@@ -384,7 +384,7 @@
 
 /obj/item/storage/belt/military
 	name = "military belt"
-	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
+	desc = "A syndicate belt designed to be used by boarding parties. Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -844,7 +844,7 @@
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
-	desc = "Sometimes people choose justice.  Sometimes, justice chooses you..."
+	desc = "Sometimes people choose justice. Sometimes, justice chooses you..."
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6

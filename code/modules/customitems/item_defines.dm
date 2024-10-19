@@ -234,7 +234,7 @@
 /// Duckchan: Rybys Romney
 /obj/item/lighter/zippo/fluff/duckchan
 	name = "Monogrammed Zippo"
-	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	desc = "A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
 	icon_state = "zippo-duckchan"
 	item_state = "zippo-purple"
 
@@ -832,7 +832,7 @@
 /// Denthamos: Henry Grandpa Gadow
 /obj/item/clothing/suit/fluff/supplymaster_jacket
 	name = "faded NT Supply Master's Coat"
-	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
+	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front. A tarnished gold nameplate says H.Gadow on it."
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0

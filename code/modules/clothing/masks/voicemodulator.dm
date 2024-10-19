@@ -16,7 +16,7 @@
 
 /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	name = "chameleon voice modulator mask"
-	desc =  "A tactical mask equipped with chameleon technology and a sound modulator that disguises the user's voice when active"
+	desc = "A tactical mask equipped with chameleon technology and a sound modulator that disguises the user's voice when active."
 	icon_state = "swat"
 	item_state = "swat"
 
