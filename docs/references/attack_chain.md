@@ -59,6 +59,10 @@ For a high-level flowchart of the attack chain, see below. Note that this
 flowchart may not be 100% accurate/up-to-date. When in doubt, check the
 implementation.
 
+<!-- To modify this flowchart, see the file `attack_chain_flowchart.drawio` -->
+<!-- The flowchart may be modified with draw.io for Desktop:                -->
+<!-- https://github.com/jgraph/drawio-desktop/releases/                     -->
+
 ![](./images/attack_chain_flowchart.png)
 
 [clickon]: https://codedocs.paradisestation.org/mob.html#proc/ClickOn
