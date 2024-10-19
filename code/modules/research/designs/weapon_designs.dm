@@ -203,7 +203,7 @@
 
 /datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
-	desc = "A 20 round encased projector magazine for the IK Laser Rifle series.."
+	desc = "A 20 round encased projector magazine for the IK Laser Rifle series."
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)

@@ -1137,7 +1137,7 @@
 /obj/item/clothing/under/fluff/benjaminfallout
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Pretzel's dress"
-	desc = "A nice looking dress.."
+	desc = "A nice looking dress."
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
