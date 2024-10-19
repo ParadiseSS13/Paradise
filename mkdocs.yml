@@ -93,4 +93,4 @@ nav:
       - 'Autodoc Guide': './references/autodoc.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
-      - 'Attack Chain Refactoring': './references/attack_chain_refactor.md'
+      - 'Attack Chain': './references/attack_chain.md'

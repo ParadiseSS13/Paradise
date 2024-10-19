@@ -1,29 +1,9 @@
-# Attack Chain Refactoring
+# The Attack Chain
 
 The vast majority of things that happen when a player performs an action on an
 object or another player occurs within the _attack chain_. The attack chain is
 the set of procs and signals that determine what should happen when an action is
 performed, if an attack should occur, and what to do afterwards.
-
-Prior to the attack chain refactoring, this system was disorganized and its
-behavior was not unified. Some procs would call their parent procs, some
-wouldn't. Some would send out signals at the right time, some wouldn't. The
-attack chain refactor unified all this behavior, but it did not do it across the
-entire codebase, all at once.
-
-Instead, a separate codepath was introduced, and all existing uses of the attack
-chain were placed in separate procs. These are easily identified by procs which
-contain `legacy__attackchain` in the name. The goal is to move all uses of the
-legacy attack chain onto the new one, but it would be infeasible to attempt to
-do this all at once.
-
-Anyone can choose to migrate attack chains if they so desire to help complete
-the migration.
-
-!!! note
-
-    If you are working in code that touches the legacy attack chain, it is
-    expected that you migrate the code to the new attack chain first.
 
 ## Overview
 
@@ -82,6 +62,62 @@ implementation.
 ![](./images/attack_chain_flowchart.png)
 
 [clickon]: https://codedocs.paradisestation.org/mob.html#proc/ClickOn
+
+## Why?
+
+A reasonable question to ask would be, why do we need all of these procs and
+signals?
+
+A good way to think of the attack chain is as a series of suggestions, rather
+than a series of instructions. If a player attacks a mob with an object, there
+are many things in the game world that may want to have a say in whether that
+will happen, and how it will happen.
+
+For example, there may be a component attached to the player that wants to
+intercept whenever an attack is attempted in order to cancel it or substitute
+its own action. The item being used to attack may want to cancel the attack
+based on its own internal state. The mob or object being attacked may have
+specific ways to react to the attack.
+
+By having as many procs and signals as we do, we're allowing all involved
+objects and any attached components or elements to contribute their own behavior
+into the attack chain.
+
+### ITEM_INTERACT flags
+
+One may also ask why there are several `ITEM_INTERACT_` flags if returning any
+of them always results in the end of the attack chain. This is for two reasons:
+
+1. To make it clear at the call site what the intent of the code is, and
+2. So that in the future, if we do wish to separate the behavior of these flags,
+   we do not need to refactor all of the call sites.
+
+## Attack Chain Refactor
+
+The attack chain was overhauled in [#26834][]. This overhaul introduced several
+safeties, renamed many procs and signals, and helped to ensure consistent
+handling of signals in order to help make the attack chain more reliable.
+
+[#26834]: https://github.com/ParadiseSS13/Paradise/pull/26834
+
+Prior to the attack chain refactoring, this system was disorganized and its
+behavior was not unified. Some procs would call their parent procs, some
+wouldn't. Some would send out signals at the right time, some wouldn't. The
+attack chain refactor unified all this behavior, but it did not do it across the
+entire codebase, all at once.
+
+Instead, a separate codepath was introduced, and all existing uses of the attack
+chain were placed in separate procs. These are easily identified by procs which
+contain `legacy__attackchain` in the name. The goal is to move all uses of the
+legacy attack chain onto the new one, but it would be infeasible to attempt to
+do this all at once.
+
+Anyone can choose to migrate attack chains if they so desire to help complete
+the migration.
+
+> [!NOTE]
+> If you are working in code that touches the legacy attack chain, it is
+> expected that you migrate the code to the new attack chain first.
 
 ## Performing Migrations
 
