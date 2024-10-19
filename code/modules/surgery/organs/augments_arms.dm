@@ -425,12 +425,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	if(H.get_int_organ(/obj/item/organ/internal/cell) || H.get_int_organ(/obj/item/organ/internal/heart))
-		var/obj/item/organ/internal/heart/robotic = H.get_int_organ(/obj/item/organ/internal/heart)
-		if(robotic)
-			if(!(robotic.status & ORGAN_ROBOT) && !H.get_int_organ(/obj/item/organ/internal/heart/demon/pulse))
-				to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
-				return
+	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
+	if(istype(power_source))
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
@@ -443,7 +439,7 @@
 		else
 			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
 	else
-		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+		to_chat(user, "<span class='warning'>You lack a power source in which to store charge!</span>")
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
