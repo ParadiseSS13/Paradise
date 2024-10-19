@@ -254,3 +254,8 @@
 
 /area/ruin/space/clown_mime_ruin
 	name = "\improper Derelict Transport Vessel"
+
+/area/ruin/space/clockwork_site
+	name "\improper Abandoned Clockwork Monastery"
+	there_can_be_many = FALSE
+	requires_power = FALSE
