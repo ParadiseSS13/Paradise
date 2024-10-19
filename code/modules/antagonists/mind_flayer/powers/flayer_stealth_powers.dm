@@ -144,8 +144,8 @@
 	cooldown_handler.recharge_duration -= 30 SECONDS
 
 /datum/spell/flayer/skin_suit/Destroy(force, ...)
-	. = ..()
 	flayer.remove_ability(/datum/spell/flayer/self/voice_synthesizer)
+	. = ..()
 
 /// After a 7 second channel time you can emag a borg
 /datum/spell/flayer/self/override_key
