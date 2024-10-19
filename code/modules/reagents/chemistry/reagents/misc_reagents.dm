@@ -562,7 +562,7 @@
 		if(prob(6))
 			var/static/list/mime_message = list("You feel light-headed.",
 			"You can't see straight.",
-			"You feel about as funny as the station mime.",
+			"You feel about as entertaining as the station mime.",
 			"Muted colours and berets cloud your vision.",
 			"Your voice box feels numb.",
 			"What was that?!",
