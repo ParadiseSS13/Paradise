@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/gas/voice_modulator
 	name = "modified gas mask"
-	desc = "A gas mask modified with a sound modulator that disguises the user's voice when active"
+	desc = "A gas mask modified with a sound modulator that disguises the user's voice when active."
 	icon_state = "voice_modulator"
 	item_state = "voice_modulator"
 

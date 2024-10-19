@@ -467,7 +467,7 @@
 /// IK3I: Yakikatachi
 /obj/item/fluff/k3_webbing_modkit
 	name = "webbing modkit"
-	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
+	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing."
 	icon_state = "modkit"
 	w_class = 2
 	force = 0
@@ -660,7 +660,7 @@
 /// MrFroztee: Stumpy
 /obj/item/clothing/head/pirate/fluff/stumpy
 	name = "The Sobriety Skullcap"
-	desc = "A hat suited for the king of the pirates"
+	desc = "A hat suited for the king of the pirates."
 	icon_state = "pirate"
 	item_state = "pirate"
 
@@ -1137,7 +1137,7 @@
 /obj/item/clothing/under/fluff/benjaminfallout
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Pretzel's dress"
-	desc = "A nice looking dress"
+	desc = "A nice looking dress.."
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
@@ -1262,7 +1262,7 @@
 /// sasanek12: Dar'Konr
 /obj/item/clothing/mask/bandana/fluff/dar
 	name = "camo bandana"
-	desc = "It's a worn-out bandana in camo paint"
+	desc = "It's a worn-out bandana in camo paint."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bandcamo"
 
@@ -1360,7 +1360,7 @@
 
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"
-	desc = "These boots were made for crawlin'"
+	desc = "These boots were made for crawlin'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_boots"
 	item_state = "superior_boots"

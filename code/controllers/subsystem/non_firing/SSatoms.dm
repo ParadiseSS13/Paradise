@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(atoms)
 /client/proc/debug_atom_init()
 	set name = "Atom Init Log"
 	set category = "Debug"
-	set desc = "Shows what failed to init this round"
+	set desc = "Shows what failed to init this round."
 
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return

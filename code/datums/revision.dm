@@ -85,7 +85,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 /client/verb/get_revision_info()
 	set name = "Get Revision Info"
 	set category = "OOC"
-	set desc = "Retrieve technical information about the server"
+	set desc = "Retrieve technical information about the server."
 
 	var/list/msg = list()
 	msg += "<span class='notice'><b>Server Revision Info</b></span>"

@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 		A.icon = ui_style2icon(M.client?.prefs.UI_style)
 		A.name = "Looking for candidates"
-		A.desc = "[question]\n\n(expires in [poll_time / 10] seconds)"
+		A.desc = "[question]\n\n(expires in [poll_time / 10] seconds)."
 		A.show_time_left = TRUE
 		A.poll = alert_poll
 

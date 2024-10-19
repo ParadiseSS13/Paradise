@@ -252,7 +252,7 @@
 
 /datum/dog_fashion/head/not_ian
 	name = "Definitely Not REAL_NAME"
-	desc = "That's Definitely Not Dogname"
+	desc = "That's Definitely Not Dogname."
 
 /datum/dog_fashion/head/not_ian/New(mob/M)
 	..()

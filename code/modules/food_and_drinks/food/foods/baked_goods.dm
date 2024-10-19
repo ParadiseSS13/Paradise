@@ -228,7 +228,7 @@
 
 /obj/item/food/birthdaycakeslice
 	name = "birthday cake slice"
-	desc = "A slice of your birthday"
+	desc = "A slice of your birthday!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "birthdaycakeslice"
 	trash = /obj/item/trash/plate

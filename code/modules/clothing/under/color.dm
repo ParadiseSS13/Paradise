@@ -67,7 +67,7 @@
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
-	desc = "Don't wear this near paranoid security officers"
+	desc = "Don't wear this near paranoid security officers."
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
@@ -178,7 +178,7 @@
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow"
-	desc = "rainbow"
+	desc = "rainbow."
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"

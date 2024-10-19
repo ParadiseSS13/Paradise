@@ -137,7 +137,7 @@
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
-	desc = "Holds tools, looks snazzy, and fits nicely into a bag"
+	desc = "Holds tools, looks snazzy, and fits nicely into a bag."
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storable = TRUE
@@ -356,7 +356,7 @@
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
-	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
+	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
