@@ -1176,7 +1176,7 @@
 	return FALSE
 
 /mob/living/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	var/mw_power = max((ptl.output_number * ptl.power_format_multi_output) / (1 MW), 0)
 	switch(mw_power)
 		if(0 to 25)
 			adjustFireLoss(-mw_power * 15)
