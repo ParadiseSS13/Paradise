@@ -388,21 +388,23 @@ SLIME SCANNER
 	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
+/obj/item/robotanalyzer/attack_obj(obj/O, mob/living/user) // Scanning a machine object
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with [src].</span>", "<span class='notice'>You analyze [M]'s components with [src].</span>")
-	machine_scan(user, M)
+	user.visible_message("<span class='notice'>[user] has analyzed [O]'s components with [src].</span>", "<span class='notice'>You analyze [O]'s components with [src].</span>")
+	machine_scan(user, O)
 	add_fingerprint(user)
 
-/obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/machinery/M)
-	if(M.obj_integrity == M.max_integrity)
-		to_chat(user, "<span class='notice'>[M] is at full integrity.</span>")
+/obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/O)
+	if(O.obj_integrity == O.max_integrity)
+		to_chat(user, "<span class='notice'>[O] is at full integrity.</span>")
 		return
-	to_chat(user, "<span class='notice'>Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%.</span>")
-	if(ismachinery(M) && M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
-		to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
+	to_chat(user, "<span class='notice'>Structural damage detected! [O]'s overall estimated integrity is [round((O.obj_integrity / O.max_integrity) * 100)]%.</span>")
+	if(ismachinery(O))
+		var/obj/machinery/M = O
+		if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
+			to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
 
 /obj/item/robotanalyzer/attack(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
