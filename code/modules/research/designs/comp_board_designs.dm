@@ -304,7 +304,7 @@
 
 /datum/design/singulo_monitor
 	name = "Console Board (Singularity Monitoring)"
-	desc = "Allows for the construction of circuit boards used to build a singularity monitoring console"
+	desc = "Allows for the construction of circuit boards used to build a singularity monitoring console."
 	id = "singulo_monitor"
 	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
