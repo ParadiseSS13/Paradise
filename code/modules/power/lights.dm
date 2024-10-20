@@ -909,7 +909,7 @@
 /obj/item/light/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	var/mob/living/living_crossed = crossed
 	if(istype(living_crossed) && has_gravity(loc))
-		if(living_crossed.incorporeal_move || living_crossed.flying || living_crossed.floating)
+		if(living_crossed.incorporeal_move || HAS_TRAIT(living_crossed, TRAIT_FLYING) || living_crossed.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)

@@ -108,7 +108,7 @@
 	if(!armed || !isturf(loc) || !istype(entered))
 		return
 
-	if((iscarbon(entered) || isanimal(entered)) && !entered.flying)
+	if((iscarbon(entered) || isanimal(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
 		spring_trap(entered)
 
 		if(ishuman(entered))

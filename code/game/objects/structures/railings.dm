@@ -114,7 +114,7 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
-		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
@@ -142,7 +142,7 @@
 	if(isprojectile(leaving))
 		return
 	if(istype(M))
-		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return
 	if(leaving.throwing)
 		return

@@ -57,7 +57,8 @@
 */
 /datum/component/slippery/proc/slip(datum/source, mob/living/carbon/human/victim)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
-	if(istype(victim) && !victim.flying)
+
+	if(istype(victim) && !HAS_TRAIT(victim, TRAIT_FLYING))
 		var/atom/movable/owner = parent
 		if(!isturf(owner.loc))
 			return

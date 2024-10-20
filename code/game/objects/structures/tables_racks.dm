@@ -146,7 +146,7 @@
 		return check_cover(mover, border_dir)
 
 	var/mob/living/living_mover = mover
-	if(istype(living_mover) && (living_mover.flying || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
+	if(istype(living_mover) && (HAS_TRAIT(living_mover, TRAIT_FLYING) || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
@@ -488,7 +488,7 @@
 	if(!isliving(crossed))
 		return
 	var/mob/living/L = crossed
-	if(L.incorporeal_move || L.flying || L.floating)
+	if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
 		return
 
 	// Don't break if they're just flying past
