@@ -105,6 +105,9 @@
 	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
 	var/advanced_bullet_dodge_chance = 0
 
+	/// List of traits that should be applied on Initialize
+	var/list/initial_traits = list()
+
 	/*
 	Taste Vars
 	*/
