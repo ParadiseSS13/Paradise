@@ -388,7 +388,7 @@ SLIME SCANNER
 	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/robotanalyzer/attack_obj(obj/O, mob/living/user) // Scanning a machine object
+/obj/item/robotanalyzer/attack_obj(obj/O, mob/living/user) // Scanning a machine, mech and other structures
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return
