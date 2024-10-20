@@ -5,7 +5,6 @@
 	anchored = TRUE
 	req_access = list()
 	icon_state = "tac"
-	open_door_sprite = "tac_door"
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
@@ -61,4 +60,3 @@
 	req_access = list(ACCESS_SYNDICATE)
 	is_armory = TRUE
 	icon_state = "armory"
-	open_door_sprite = "armory_door"
