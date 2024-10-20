@@ -53,7 +53,7 @@
 	/// How much energy have we sold in total (Joules)
 	var/total_energy = 0
 	/// How much energy do you have to sell in order to get an announcement
-	var/announcement_threshold = 1 MJ
+	var/static/announcement_threshold = 1 MJ
 
 	/// How much credits we have earned in total
 	var/total_earnings = 0
