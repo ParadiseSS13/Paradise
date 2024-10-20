@@ -337,12 +337,9 @@
 /obj/item/melee/baton/flayerprod
 	name = "stunprod"
 	desc = "A mechanical mass which you can use to incapacitate someone with."
-	icon = 'icons/mob/robot_items.dmi'
-	icon_state = "elecarm"
-	base_icon = "elecarm"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	item_state = "stunprod_active"
+	icon_state = "swarmprod"
+	base_icon = "swarmprod"
+	item_state = "swarmprod"
 	force = 10
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS

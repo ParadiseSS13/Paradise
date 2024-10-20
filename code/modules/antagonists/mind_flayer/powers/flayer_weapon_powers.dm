@@ -68,7 +68,8 @@
 /datum/spell/flayer/self/weapon/swarmprod
 	name = "Swarmprod"
 	desc = "We shape our arm into an extended mass of sparking nanites."
-	action_icon_state = "elecarm"
+	action_icon = 'icons/mob/actions/flayer_actions.dmi'
+	action_icon_state = "swarmprod"
 	max_level = 3
 	base_cost = 50
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`

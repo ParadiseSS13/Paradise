@@ -5,7 +5,8 @@
 	desc = "Heal and remove any incapacitating effects from yourself."
 	power_type = FLAYER_INNATE_POWER
 	checks_nullification = FALSE
-	action_icon_state = "vampire_rejuvinate"
+	action_icon = 'icons/mob/actions/flayer_actions.dmi'
+	action_icon_state = "quick_reboot"
 	upgrade_info = "Increase the amount you heal, decrease time between uses, and increase how long you heal for."
 	max_level = 4
 	base_cooldown = 30 SECONDS

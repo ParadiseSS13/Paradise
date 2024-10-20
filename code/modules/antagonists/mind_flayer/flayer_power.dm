@@ -1,7 +1,7 @@
 // POWERS// OOORAAAH WE HAVE POWERS
 
 /datum/spell/flayer
-	action_background_icon_state = "bg_tech_blue"
+	action_background_icon_state = "bg_flayer"
 	desc = "This spell needs a description!"
 	human_req = TRUE
 	clothes_req = FALSE
