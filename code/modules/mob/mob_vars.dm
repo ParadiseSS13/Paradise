@@ -63,7 +63,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -75,8 +74,6 @@
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null //Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living
