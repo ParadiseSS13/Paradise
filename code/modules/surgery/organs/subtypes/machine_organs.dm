@@ -112,6 +112,7 @@
 	vital = TRUE
 	status = ORGAN_ROBOT
 	requires_robotic_bodypart = TRUE
+	organ_datums = list(/datum/organ/battery)
 
 /obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
