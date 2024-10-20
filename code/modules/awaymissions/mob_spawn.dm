@@ -672,29 +672,6 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	return ..()
 
-////////Non-human spawners////////
-
-/obj/effect/mob_spawn/mouse
-	name = "sleeper"
-	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Squeak!"
-
-/obj/effect/mob_spawn/cow
-	name = "sleeper"
-	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
-	death = FALSE
-	roundstart = FALSE
-	mob_gender = FEMALE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Moo!"
-
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
 /obj/effect/mob_spawn/corpse
 	/// when this mob spawn should auto trigger.
