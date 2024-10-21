@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	/// Signal freqency itself
 	var/frequency = RSD_FREQ
 
-/obj/item/assembly/signaler/Initialize()
+/obj/item/assembly/signaler/Initialize(mapload)
 	. = ..()
 	GLOB.remote_signalers |= src
 

@@ -36,7 +36,7 @@
 	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize()
+/obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize(mapload)
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
 	announcer.follow_target = src

@@ -433,7 +433,7 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/Initialize()
+/obj/structure/alien/weeds/node/Initialize(mapload)
 	add_overlay("weednode")
 	return ..(loc, src)
 

@@ -163,7 +163,7 @@
 /turf/simulated/floor/chasm/straight_down
 	var/obj/effect/abstract/chasm_storage/storage
 
-/turf/simulated/floor/chasm/straight_down/Initialize()
+/turf/simulated/floor/chasm/straight_down/Initialize(mapload)
 	. = ..()
 	var/found_storage = FALSE
 	for(var/obj/effect/abstract/chasm_storage/C in contents)
@@ -187,7 +187,7 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right. Ignore the fact the people you pull out are not burning.
 
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
 	. = ..()
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 

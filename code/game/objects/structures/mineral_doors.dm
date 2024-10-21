@@ -25,7 +25,7 @@
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
 
-/obj/structure/mineral_door/Initialize()
+/obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	recalculate_atmos_connectivity()
@@ -217,7 +217,7 @@
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
-/obj/structure/mineral_door/wood/Initialize()
+/obj/structure/mineral_door/wood/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 

@@ -29,7 +29,7 @@
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Initialize map objects
 	map_name = "camera_console_[UID()]_map"
@@ -230,7 +230,7 @@
 	/// Used to detect how many video cameras are active
 	var/feeds_on = 0
 
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
 	. = ..()
 	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
 
@@ -305,7 +305,7 @@
 	network = list()
 	circuit = /obj/item/circuitboard/camera/engineering
 
-/obj/machinery/computer/security/engineering/Initialize()
+/obj/machinery/computer/security/engineering/Initialize(mapload)
 	. = ..()
 	network = list()
 	var/area/console_area = get_area(src)

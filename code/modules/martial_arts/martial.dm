@@ -261,7 +261,7 @@
 	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
-/obj/item/storage/belt/champion/wrestling/Initialize()
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
 	. = ..()
 	style = new()
 

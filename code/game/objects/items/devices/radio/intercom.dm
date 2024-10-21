@@ -67,7 +67,7 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/item/radio/intercom/Initialize()
+/obj/item/radio/intercom/Initialize(mapload)
 	. = ..()
 	if(!custom_name)
 		name = "station intercom (General)"

@@ -17,7 +17,7 @@
 	///station account database
 	var/datum/money_account_database/account_db
 
-/obj/machinery/computer/account_database/Initialize()
+/obj/machinery/computer/account_database/Initialize(mapload)
 	. = ..()
 	reconnect_database()
 

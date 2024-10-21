@@ -431,7 +431,7 @@
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
 
-/obj/item/handheld_chem_dispenser/Initialize()
+/obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)

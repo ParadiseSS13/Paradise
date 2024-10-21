@@ -81,7 +81,7 @@
 	item_state = "clown"
 	item_color = "clown"
 
-/obj/item/clothing/under/rank/civilian/clown/Initialize()
+/obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
