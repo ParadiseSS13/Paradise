@@ -53,7 +53,7 @@
 /obj/effect/acid/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(L.flying)
+		if(HAS_TRAIT(L, TRAIT_FLYING))
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level * 0.05, 20)
