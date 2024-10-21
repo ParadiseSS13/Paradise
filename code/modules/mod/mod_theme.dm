@@ -1113,13 +1113,14 @@
 	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/responsory
-	name = "responsory"
-	desc = "A high-speed rescue suit by Nanotrasen, intended for its' emergency response teams."
-	extended_desc = "A streamlined suit of Nanotrasen design, these sleek black suits are only worn by \
-		elite emergency response personnel to help save the day. While the slim and nimble design of the suit \
-		cuts the ceramics and ablatives in it down, dropping the protection, \
-		it keeps the wearer safe from the harsh void of space while sacrificing no speed whatsoever. \
-		While wearing it you feel an extreme deference to darkness. "
+	name = "\improper 'Ward' responsory"
+	desc = "A high-tech combat modsuit designed and produced by Nanotrasen. Well armored, environmentally sealed, and outfitted with all manner of useful gadgetry. \
+		The pinnacle of corporate security hardware."
+	extended_desc = "A streamlined suit of powered armor produced entirely in-house by the Nanotrasen Corporation, the NA-22 'Ward' rapid response suit is one of the finest combat modsuits available on the market today. \
+		Equipped with a fire-resistant polybenzimidazole bodyglove and lightweight nano-polymer impact panels underneath a steel armored shell, the NA-22 offers reliable protection \
+		while retaining combat mobility. Internally, the NA-22 comes pre-loaded with NTOS-11 on a five-year subscription, which enables unparallelled customization options in conjunction \
+		with the Ward's unusually generous design specifications. Naturally, the NA-22 has a price tag to match its quality, and is thus only found within Nanotrasen's \
+		personal response units, as well as among the wealthiest of Sector PMCs and mercenary groups."
 	default_skin = "responsory"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
 
