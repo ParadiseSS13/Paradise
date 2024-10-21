@@ -754,6 +754,13 @@
 	name = "Lava Field Observations"
 	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
 
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Clockwork Justiciar is not truly dead, His divine mechanism is simply seized in a deep slumber. The other priests and I have visited Him and still hear the spark of life deep within, waiting to be reignited.<br><br>\
+	The Eminence has decreed that all brothers and sisters return to Rebee so that we may gather our strength. We shall turn the gears to set about the great work of restoration. Soon, He shall rise again, and all the nonbelievers and heretics shall quake and bow before Him!<br><br>\
+	The monastery and any supplies within are yours to use. Prepare for our return."
+
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
 

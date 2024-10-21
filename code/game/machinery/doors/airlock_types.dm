@@ -488,6 +488,28 @@
 	security_level = 1
 	paintable = FALSE
 
+// MARK: Clockwork Airlocks
+
+/obj/machinery/door/airlock/clockwork
+	name = "pinion airlock"
+	desc = "A massive cogwheel set into two heavy slabs of brass."
+	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
+
+/obj/machinery/door/airlock/clockwork/Initialize()
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/door(loc)
+
+///obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+//	if(..())
+//		new /obj/effect/temp_visual/ratvar/door(loc)
+//		return TRUE
+
+/obj/machinery/door/airlock/clockwork/glass
+	glass = TRUE
+	opacity = FALSE
+
 //////////////////////////////////
 /*
 	MARK: Cult Airlocks
@@ -623,23 +645,6 @@
 	normal_integrity = 150
 	damage_deflection = 5
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
-
-/obj/machinery/door/airlock/cult/clockwork
-	name = "pinion airlock"
-	desc = "A massive cogwheel set into two heavy slabs of brass."
-	friendly = TRUE // If/when clockwork cult becomes a game mode, we can make unfriendly versions.
-	icon = 'icons/obj/doors/airlocks/cult/clockwork/clockwork.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/clockwork/clockwork-overlays.dmi'
-//	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
-	openingoverlaytype = /obj/effect/temp_visual/ratvar/door
-
-/obj/machinery/door/airlock/cult/clockwork/glass
-	glass = TRUE
-	opacity = FALSE
-
-/obj/machinery/door/airlock/cult/clockwork/glass/Initialize()
-	. = ..()
-	update_icon()
 
 //////////////////////////////////
 /*

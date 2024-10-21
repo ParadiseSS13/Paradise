@@ -187,10 +187,10 @@
 	update_icon()
 
 /obj/structure/door_assembly/door_assembly_clockwork
-	icon = 'icons/obj/doors/airlocks/cult/clockwork/clockwork.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/clockwork/clockwork-overlays.dmi'
-	airlock_type = /obj/machinery/door/airlock/cult/clockwork
-	glass_type = /obj/machinery/door/airlock/cult/clockwork/glass
+	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/clockwork
+	glass_type = /obj/machinery/door/airlock/clockwork/glass
 
 /obj/structure/door_assembly/door_assembly_centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
