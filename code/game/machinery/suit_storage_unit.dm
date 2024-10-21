@@ -372,7 +372,7 @@
   *
 **/
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
-	if((istype(I, /obj/item/clothing/suit)|| istype(I, /obj/item/mod/control)) && !suit)
+	if((istype(I, /obj/item/clothing/suit) || istype(I, /obj/item/mod/control) || istype(I, /obj/item/storage/backpack)) && !suit)
 		if(try_store_item(I, user))
 			suit = I
 			return TRUE

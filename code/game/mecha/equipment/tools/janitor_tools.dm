@@ -62,7 +62,7 @@
 		if(!istype(target_turf) || iswallturf(target_turf))
 			return
 		chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
-		if(do_after(chassis.occupant, mop_speed, target = target))
+		if(do_after(chassis.occupant, mop_speed, target = target, allow_moving = 0))
 			for(var/turf/current_target_turf in view(1, target))
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
@@ -256,8 +256,15 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/action(atom/target)
-	if(get_dist(chassis, target) > max_range)
+	var/target_distance = get_dist(chassis, target)
+	if(target_distance > max_range)
 		return
+
+	for(var/turf/tested_turf in get_line(chassis, target)) // Check if the path is blocked
+		if(iswallturf(tested_turf) || locate(/obj/structure/window) in tested_turf || locate(/obj/machinery/door) in tested_turf) // walls, windows, and doors
+			chassis.occupant_message("<span class='warning'>The target is out of reach of the magnet!</span>")
+			return
+
 	if(istype(target, /obj/machinery/disposal)) // Emptying stuff into disposals
 		chassis.occupant.visible_message(
 			"<span class='notice'>[chassis.occupant] empties [src] into the disposal unit.</span>",
