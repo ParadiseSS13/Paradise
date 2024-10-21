@@ -136,7 +136,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/wood
-	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon = 'icons/turf/walls/32x40wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -171,7 +171,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 
 /turf/simulated/wall/indestructible/fakeglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "fake_window"
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
