@@ -386,7 +386,7 @@ This function completely restores a damaged organ to perfect condition.
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
-	else if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+	else if(owner && HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
 		status = ORGAN_DEAD
 	else
 		status = 0
@@ -394,8 +394,10 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	if(!HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // zombies's wounds don't close. Because thats cool.
-		open = ORGAN_CLOSED //Closing all wounds.
+	if(owner && !HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // zombies's wounds don't close. Because thats cool.
+		open = ORGAN_CLOSED
+	else
+		open = ORGAN_CLOSED //Closing all wounds for detached limbs.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
