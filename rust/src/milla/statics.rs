@@ -1,4 +1,4 @@
-use crate::model::*;
+use crate::milla::model::*;
 use std::sync::{atomic::AtomicUsize, Mutex, OnceLock};
 
 /// The buffers that contain the atmos model.

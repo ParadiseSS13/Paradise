@@ -86,6 +86,7 @@ nav:
       - 'Mapping Quickstart': './mapping/quickstart.md'
       - 'Mapping Requirements': './mapping/requirements.md'
       - 'Design Guidelines': './mapping/design.md'
+      - 'Guide to Submaps': './mapping/submaps.md'
 
   - 'References':
       - 'Glossary': './references/glossary.md'
