@@ -77,6 +77,19 @@
 	T.flags |= NO_LAVA_GEN
 	..()
 
+/obj/effect/mapping_helpers/lava_magnet
+	name = "lava magnet"
+	icon_state = "lava_magnet"
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/mapping_helpers/lava_magnet/New()
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T) && T.z == level_name_to_num(MINING))
+		var/obj/effect/landmark/river_waypoint/waypoint = new(T)
+		GLOB.river_waypoint_presets += waypoint
+
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
