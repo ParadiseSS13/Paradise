@@ -45,6 +45,9 @@
 #define INFORM_ADMINS_ON_RELOCATE_2	(1<<5)
 #define BANG_PROTECT_2				(1<<6)
 #define BLOCKS_LIGHT_2				(1<<7) // Light sources placed in anything with that flag will not emit light through them.
+/// Whether a decal element's parent has already been initialized and thus has already had its decals attached.
+/// see https://github.com/tgstation/tgstation/pull/71658 for a detailed explanation of the flag.
+#define DECAL_INIT_UPDATE_EXPERIENCED_2 (1<<8)
 
 // A mob with OMNITONGUE has no restriction in the ability to speak
 // languages that they know. So even if they wouldn't normally be able to
