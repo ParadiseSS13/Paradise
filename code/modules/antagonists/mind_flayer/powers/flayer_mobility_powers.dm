@@ -28,7 +28,6 @@
 									/obj/item/radio/intercom,
 									/obj/machinery/economy/vending,
 									/obj/machinery/economy/atm,
-									/obj/machinery/arcade,
 									/obj/machinery/chem_dispenser,
 									/obj/machinery/chem_master,
 									/obj/machinery/reagentgrinder,
