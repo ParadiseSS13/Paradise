@@ -48,7 +48,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	return temp_list
 
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/r_n_d/destructive_analyzer/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/storage/part_replacer))
 		return ..()
 

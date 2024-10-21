@@ -12,7 +12,26 @@
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/stack/tape_roll/interact_with_atom(obj/item/interacting_with, mob/living/user, list/modifiers)
+	if(!istype(interacting_with))
+		return ITEM_INTERACT_BLOCKING
+
+	var/x_offset = text2num(modifiers["icon-x"])
+	var/y_offset = text2num(modifiers["icon-y"])
+	if(interacting_with.GetComponent(/datum/component/ducttape))
+		to_chat(user, "<span class='notice'>[interacting_with] already has some tape attached!</span>")
+		return ITEM_INTERACT_BLOCKING
+	if(use(1))
+		to_chat(user, "<span class='notice'>You apply some tape to [interacting_with].</span>")
+		interacting_with.AddComponent(/datum/component/ducttape, interacting_with, user, x_offset, y_offset)
+		interacting_with.anchored = TRUE
+		user.transfer_fingerprints_to(interacting_with)
+		return ITEM_INTERACT_SUCCESS
+	else
+		to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/stack/tape_roll/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
 		return
 	if(M.wear_mask)

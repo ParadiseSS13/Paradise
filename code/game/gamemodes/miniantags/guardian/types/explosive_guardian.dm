@@ -90,7 +90,7 @@
 	user.Stun(3 SECONDS)//A bomb went off in your hands. Actually lets people follow up with it if they bait someone, right now it is unreliable.
 	qdel(src)
 
-/obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
+/obj/item/guardian_bomb/attackby__legacy__attackchain(obj/item/W, mob/living/user)
 	detonate(user)
 
 /obj/item/guardian_bomb/attack_hand(mob/user)

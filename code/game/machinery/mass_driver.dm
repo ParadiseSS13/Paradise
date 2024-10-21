@@ -83,7 +83,7 @@
 	anchored = FALSE
 	var/build = 0
 
-/obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/mass_driver_frame/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
 			if(iswrench(W))

@@ -115,7 +115,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/RangedAttack(atom/A, params)
 	if(inventory_back)
-		inventory_back.afterattack(A, src)
+		inventory_back.afterattack__legacy__attackchain(A, src)
 
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
 	if(istype(inventory_back, /obj/item/extinguisher))
@@ -184,7 +184,7 @@
 			armorval += inventory_back.armor.getRating(type)
 	return armorval * 0.5
 
-/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/razor))
 		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")

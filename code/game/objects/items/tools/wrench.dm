@@ -69,7 +69,7 @@
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/wrench/power/attack_self(mob/user)
+/obj/item/wrench/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")

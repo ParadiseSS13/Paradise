@@ -561,7 +561,7 @@
 	return FALSE
 
 //Attackby and x_acts
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/clonepod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_open_container())
 		return
 

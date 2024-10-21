@@ -30,7 +30,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += "<span class='warning'>Yellow ooze seems to be seeping from the speaker...</span>"
 
-/obj/item/megaphone/attack_self(mob/living/user)
+/obj/item/megaphone/attack_self__legacy__attackchain(mob/living/user)
 	if(check_mute(user.ckey, MUTE_IC))
 		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 		return

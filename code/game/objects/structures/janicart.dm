@@ -47,7 +47,7 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_robot_module())
 		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
@@ -89,7 +89,7 @@
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 
 	else if(mybag)
-		mybag.attackby(I, user, params)
+		mybag.attackby__legacy__attackchain(I, user, params)
 
 	else
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")

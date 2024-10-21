@@ -38,10 +38,10 @@
 
 	..()
 
-/obj/item/electropack/attack_self(mob/user)
+/obj/item/electropack/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/electropack/attackby(obj/item/W, mob/user, params)
+/obj/item/electropack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 
 	if(istype(W, /obj/item/clothing/head/helmet))

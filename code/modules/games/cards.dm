@@ -64,7 +64,7 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/attackby(obj/O, mob/user)
+/obj/item/deck/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if(H.parentdeck != src)
@@ -234,7 +234,7 @@
 		)
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
-/obj/item/deck/attack_self()
+/obj/item/deck/attack_self__legacy__attackchain()
 	deckshuffle()
 
 /obj/item/deck/AltClick()
@@ -293,7 +293,7 @@
 	var/parentdeck = null // For future card pack that need to be compatible with eachother i.e. cardemon
 
 
-/obj/item/pack/attack_self(mob/user as mob)
+/obj/item/pack/attack_self__legacy__attackchain(mob/user as mob)
 	user.visible_message(
 		"<span class='notice'>[name] rips open [src]!</span>",
 		"<span class='notice'>You rip open [src]!</span>",
@@ -337,7 +337,7 @@
 	attack_verb = D.card_attack_verb
 	resistance_flags = D.card_resistance_flags
 
-/obj/item/cardhand/attackby(obj/O, mob/user)
+/obj/item/cardhand/attackby__legacy__attackchain(obj/O, mob/user)
 	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
@@ -362,7 +362,7 @@
 			return
 	..()
 
-/obj/item/cardhand/attack_self(mob/user)
+/obj/item/cardhand/attack_self__legacy__attackchain(mob/user)
 	if(length(cards) == 1)
 		turn_hand(user)
 		return

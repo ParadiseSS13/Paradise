@@ -77,10 +77,10 @@
 							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
-/obj/item/stack/medical/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/attack__legacy__attackchain(mob/living/M, mob/user)
 	return apply(M, user)
 
-/obj/item/stack/medical/attack_self(mob/user)
+/obj/item/stack/medical/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
@@ -135,7 +135,7 @@
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/medical/bruise_pack/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")

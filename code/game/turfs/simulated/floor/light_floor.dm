@@ -50,7 +50,7 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/light/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/light/bulb)) //only for light tiles
 		if(!light_broken)
 			qdel(C)

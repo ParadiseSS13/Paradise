@@ -34,7 +34,7 @@
 			var/pp = replacetext(replacetext("[merch.typepath]", "/obj/item/", ""), "/", "-")
 			imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 
-/obj/machinery/economy/merch/attackby(obj/item/I, mob/user)
+/obj/machinery/economy/merch/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(isspacecash(I))
 		insert_cash(I, user)
 		return TRUE

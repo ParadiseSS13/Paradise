@@ -336,7 +336,7 @@
 	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return COMPONENT_BLOCK_UNTILT
 
-/obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
+/obj/machinery/economy/vending/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")

@@ -40,7 +40,7 @@
 			else
 				qdel(recipe)
 
-/obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
+/obj/machinery/bottler/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!user.canUnEquip(O, 0))
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0

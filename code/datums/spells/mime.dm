@@ -134,7 +134,7 @@
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
 	icon_state = "bookmime"
 
-/obj/item/spellbook/oneuse/mime/attack_self(mob/user)
+/obj/item/spellbook/oneuse/mime/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)

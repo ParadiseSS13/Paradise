@@ -47,7 +47,7 @@
 	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
-/obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/teleporter/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
@@ -625,7 +625,7 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
+/obj/machinery/teleport/station/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
 		if(!teleporter_console)
 			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")

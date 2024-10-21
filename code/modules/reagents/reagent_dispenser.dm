@@ -24,7 +24,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
-/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
 	return ..()
@@ -158,7 +158,7 @@
 			lastrigger = null
 			overlays.Cut()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
@@ -282,7 +282,7 @@
 	/// If TRUE, prevents the player from inserting the disk again while it is currently exploding.
 	var/exploding = FALSE
 
-/obj/structure/reagent_dispensers/beerkeg/nuke/attackby(obj/item/O, mob/user, params)
+/obj/structure/reagent_dispensers/beerkeg/nuke/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	. = ..()
 	if(exploding)
 		return

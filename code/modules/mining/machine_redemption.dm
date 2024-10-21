@@ -180,7 +180,7 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/ore_redemption/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		return ..()
 

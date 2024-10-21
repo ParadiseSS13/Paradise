@@ -313,7 +313,7 @@
 	domutcheck(H, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/transformer/gene_applier/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")

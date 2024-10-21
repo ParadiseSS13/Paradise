@@ -22,7 +22,7 @@
 	if(dummy_active)
 		. += "<span class='warning'>It doesn't look quite right...</span>"
 
-/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
+/obj/item/chameleon_counterfeiter/afterattack__legacy__attackchain(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
 	if(dummy_active || !isitem(target))
@@ -73,5 +73,5 @@
 	can_use = FALSE
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
-/obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
+/obj/item/chameleon_counterfeiter/attack_self__legacy__attackchain(mob/living/user)
 	matter_toggle(user)

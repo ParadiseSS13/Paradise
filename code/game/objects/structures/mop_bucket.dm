@@ -23,7 +23,7 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
+/obj/structure/mopbucket/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.is_robot_module())
 		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return

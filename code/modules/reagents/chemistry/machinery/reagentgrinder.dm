@@ -157,7 +157,7 @@
 		return
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
+/obj/machinery/reagentgrinder/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		..()
 		SStgui.update_uis(src)

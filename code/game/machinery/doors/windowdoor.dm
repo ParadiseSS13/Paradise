@@ -304,7 +304,7 @@
 	operating = NONE
 	return TRUE
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		return

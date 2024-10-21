@@ -165,7 +165,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
+/obj/structure/closet/crate/secure/loot/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(locked)
 		if(istype(W, /obj/item/card/emag))
 			boom(user)

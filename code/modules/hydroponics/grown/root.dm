@@ -31,7 +31,7 @@
 	filling_color = "#FFA500"
 	bitesize_mod = 2
 
-/obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
+/obj/item/food/grown/carrot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
 		var/obj/item/kitchen/knife/shiv/carrot/Shiv = new ()

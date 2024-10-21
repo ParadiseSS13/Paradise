@@ -46,7 +46,7 @@
 /**
   * Used to select telepad location.
   */
-/obj/item/rcs/attack_self(mob/user)
+/obj/item/rcs/attack_self__legacy__attackchain(mob/user)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
 		return

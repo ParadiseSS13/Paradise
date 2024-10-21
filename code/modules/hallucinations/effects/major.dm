@@ -68,7 +68,7 @@
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
 						"<span class='userdanger'>You get stuck in [src]!</span>")
 
-/obj/effect/hallucination/tripper/spider_web/attackby(obj/item/I, mob/user, params)
+/obj/effect/hallucination/tripper/spider_web/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(user != target)
 		return
 

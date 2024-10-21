@@ -23,7 +23,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nuke_core/attackby(obj/item/nuke_core_container/container, mob/user)
+/obj/item/nuke_core/attackby__legacy__attackchain(obj/item/nuke_core_container/container, mob/user)
 	if(istype(container))
 		container.load(src, user)
 	else
@@ -106,7 +106,7 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
 
-/obj/item/nuke_core_container/attackby(obj/item/nuke_core/plutonium/core, mob/user)
+/obj/item/nuke_core_container/attackby__legacy__attackchain(obj/item/nuke_core/plutonium/core, mob/user)
 	if(!istype(core) || cracked)
 		return ..()
 
@@ -177,7 +177,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
+/obj/item/nuke_core/supermatter_sliver/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
@@ -279,7 +279,7 @@
 	icon_state = "core_container_cracked_empty"
 	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
 
-/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
+/obj/item/nuke_core_container/supermatter/attackby__legacy__attackchain(obj/item/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
 		if(cracked)
 			//lets take that shard out
@@ -348,7 +348,7 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity)
+/obj/item/retractor/supermatter/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
 	. = ..()
 	if(!sliver)
 		return

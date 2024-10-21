@@ -43,7 +43,7 @@
 		var/image/implant_overlay = image('icons/obj/bio_chips.dmi', imp.implant_state)
 		. += implant_overlay
 
-/obj/item/bio_chip_case/attackby(obj/item/W, mob/user)
+/obj/item/bio_chip_case/attackby__legacy__attackchain(obj/item/W, mob/user)
 	..()
 
 	if(is_pen(W))

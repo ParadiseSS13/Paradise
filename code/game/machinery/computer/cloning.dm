@@ -47,7 +47,7 @@
 			P.console = null
 	return ..()
 
-/obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/cloning/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	if(!ismultitool(I))
 		return ..()

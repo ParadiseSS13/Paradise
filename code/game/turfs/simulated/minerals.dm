@@ -50,7 +50,7 @@
 /turf/simulated/mineral/shuttleRotate(rotation)
 	QUEUE_SMOOTH(src)
 
-/turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -103,15 +103,15 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
-			attackby(H.l_hand,H)
+			attackby__legacy__attackchain(H.l_hand,H)
 		else if((istype(H.r_hand,/obj/item/pickaxe)) && H.hand)
-			attackby(H.r_hand,H)
+			attackby__legacy__attackchain(H.r_hand,H)
 		return
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		if(istype(R.module_active, /obj/item/pickaxe))
-			attackby(R.module_active, R)
+			attackby__legacy__attackchain(R.module_active, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM
@@ -173,7 +173,7 @@
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
-/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -231,7 +231,7 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/outer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
@@ -259,7 +259,7 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
@@ -557,7 +557,7 @@
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
 
-/turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
 		user.visible_message("<span class='notice'>[user] holds [I] to [src]...</span>", "<span class='notice'>You use [I] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse()
