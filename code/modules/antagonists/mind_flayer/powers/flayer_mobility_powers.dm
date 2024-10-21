@@ -14,7 +14,33 @@
 	max_level = 2
 	should_recharge_after_cast = FALSE
 	/// The console we currently have a mark on
-	var/obj/machinery/computer/marked_computer
+	var/obj/marked_computer
+	/// The typecache of things we are allowed to teleport to and from
+	var/list/machine_typecache = list(/obj/machinery/computer,
+										/obj/machinery/power/apc,
+										/obj/machinery/alarm,
+										/obj/machinery/autolathe,
+										/obj/machinery/newscaster,
+										/obj/machinery/mecha_part_fabricator,
+										/obj/machinery/status_display,
+										/obj/machinery/requests_console,
+										/obj/item/radio/intercom,
+										/obj/machinery/economy/vending,
+										/obj/machinery/economy/atm,
+										/obj/machinery/arcade,
+										/obj/machinery/chem_dispenser,
+										/obj/machinery/chem_master,
+										/obj/machinery/reagentgrinder,
+										/obj/machinery/sleeper,
+										/obj/machinery/bodyscanner,
+										/obj/machinery/photocopier, // HI YES ONE FLAYER FAXED TO MY OFFICE PLEASE
+										/obj/machinery/r_n_d/experimentor, // Like anyone is ever gonna teleport to this
+										/obj/machinery/barsign
+									)
+
+/datum/spell/flayer/computer_recall/New()
+	. = ..()
+	machine_typecache = typecacheof(machine_typecache)
 
 /datum/spell/flayer/computer_recall/Destroy(force, ...)
 	marked_computer = null
@@ -22,23 +48,33 @@
 
 /datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
-	T.allowed_type = /obj/machinery/computer
+	T.allowed_type = /obj
 	T.try_auto_target = TRUE
 	T.range = 1
 	return T
 
 /datum/spell/flayer/computer_recall/cast(list/targets, mob/living/user)
-	var/obj/machinery/computer/target = targets[1]
+	var/obj/target
+	for(var/obj/thing as anything in targets)
+		if(is_type_in_typecache(thing, machine_typecache))
+			target = thing
+			break
+
+	if(!target)
+		should_recharge_after_cast = FALSE
+		flayer.send_swarm_message("That is not a valid target!")
+		return
+
 	if(!marked_computer)
 		marked_computer = target
-		to_chat(user, "<span class='notice'>You discreetly tap [targets[1]] and mark it as your home computer.</span>")
+		flayer.send_swarm_message("You discreetly tap [targets[1]] and mark it as your home computer.")
 		should_recharge_after_cast = FALSE
 		return
 
 	var/turf/start_turf = get_turf(target)
 	var/turf/end_turf = get_turf(marked_computer)
 	if(end_turf.z != start_turf.z)
-		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!</span>")
+		flayer.send_swarm_message("The connection between [target] and [marked_computer] is too unstable!")
 	if(!is_teleport_allowed(start_turf.z) || !is_teleport_allowed(end_turf.z))
 		should_recharge_after_cast = FALSE
 		return
@@ -71,9 +107,9 @@
 
 /datum/spell/flayer/computer_recall/AltClick(mob/user)
 	if(!marked_computer)
-		to_chat(user, "<span class='notice'>You do not current have a marked computer.</span>")
+		flayer.send_swarm_message("You do not current have a marked computer.")
 		return
-	to_chat(user, "<span class='notice'>Your current mark is [marked_computer].</span>")
+	flayer.send_swarm_message("Your current mark is [marked_computer].")
 
 /datum/spell/flayer/computer_recall/on_apply()
 	..()
