@@ -127,8 +127,8 @@
 	gain_text = "Faraday cage operational."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	base_cost = 40
-	static_upgrade_increase = 20
+	base_cost = 30
+	static_upgrade_increase = 30
 
 /datum/mindflayer_passive/emp_resist/on_apply()
 	..()
