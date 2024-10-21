@@ -4,11 +4,6 @@
 
 // To do: Allow customizing the bodies appearance (they're all bald and white right now).
 
-/// this mob spawn creates the corpse instantly
-#define CORPSE_INSTANT 1
-/// this mob spawn creates the corpse during GAME_STATE_PLAYING
-#define CORPSE_ROUNDSTART 2
-
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
@@ -723,7 +718,3 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12
-
-
-#undef CORPSE_INSTANT
-#undef CORPSE_ROUNDSTART
