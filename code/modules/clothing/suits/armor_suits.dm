@@ -248,7 +248,8 @@
 	desc = "An old style captain tunic. Makes you look and feel like you're wearing a cardboard box with arm holes cut in it but looks like it would be great for a wedding... or a funeral."
 	icon_state = "captain_white"
 
-	sprite_sheets = list( //Drask look fine in the regular human version
+	// Drask look fine in the regular human version
+	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',

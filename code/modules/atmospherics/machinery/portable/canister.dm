@@ -1,5 +1,7 @@
 /datum/canister_icons
-	var/list/possiblemaincolor = list( //these lists contain the possible colors of a canister
+	// these lists contain the possible colors of a canister
+
+	var/list/possiblemaincolor = list(
 		list("name" = "\[N2O\]", "icon" = "redws"),
 		list("name" = "\[N2\]", "icon" = "red"),
 		list("name" = "\[O2\]", "icon" = "blue"),
@@ -10,7 +12,8 @@
 		list("name" = "\[SPECIAL\]", "icon" = "whiters")
 	)
 
-	var/list/possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+	// no point in having the N2O and "whiters" ones in these lists
+	var/list/possibleseccolor = list(
 		list("name" = "\[None\]", "icon" = "none"),
 		list("name" = "\[N2\]", "icon" = "red-c"),
 		list("name" = "\[O2\]", "icon" = "blue-c"),
