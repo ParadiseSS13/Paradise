@@ -201,7 +201,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
-	if(ishuman(M) && slot == SLOT_HUD_HEAD)
+	if(ishuman(M) && slot == ITEM_SLOT_HEAD)
 		update_icon(NONE, M)
 
 /obj/item/clothing/head/kitty/mouse
