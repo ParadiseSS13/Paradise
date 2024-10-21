@@ -522,7 +522,7 @@
 
 /obj/item/clothing/shoes/equipped(mob/user, slot)
 	. = ..()
-	if(!no_slip || slot != SLOT_HUD_SHOES)
+	if(!no_slip || slot != ITEM_SLOT_SHOES)
 		return
 	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 
@@ -533,7 +533,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!user)
 		return
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
