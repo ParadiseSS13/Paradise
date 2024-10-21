@@ -179,6 +179,13 @@
 /obj/effect/mapping_helpers/turfs
 	icon = 'icons/turf/overlays.dmi'
 
+/obj/effect/mapping_helpers/turfs/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T))
+		payload(T)
+
 /obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/T)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("root turf mapping_helper payload called")
@@ -186,25 +193,13 @@
 /obj/effect/mapping_helpers/turfs/damage
 	icon_state = "damaged"
 
-/obj/effect/mapping_helpers/turfs/damage/Initialize(mapload)
-	. = ..()
-
-	var/turf/simulated/T = get_turf(src)
-	if(!istype(T))
-		return
-
+/obj/effect/mapping_helpers/turfs/damage/payload(turf/simulated/T)
 	T.break_tile()
 
 /obj/effect/mapping_helpers/turfs/burn
 	icon_state = "burned"
 
-/obj/effect/mapping_helpers/turfs/burn/Initialize(mapload)
-	. = ..()
-
-	var/turf/simulated/T = get_turf(src)
-	if(!istype(T))
-		return
-
+/obj/effect/mapping_helpers/turfs/burn/payload(turf/simulated/T)
 	T.burn_tile()
 
 /obj/effect/mapping_helpers/turfs/rust
@@ -212,8 +207,6 @@
 	var/spawn_probability = 100
 
 /obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
-	. = ..()
-
 	if(!istype(T))
 		return
 
