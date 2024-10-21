@@ -35,9 +35,9 @@
 	var/mob/living/carbon/human/new_wiz = owner.current
 	new_wiz.equip_to_slot_or_del(new /obj/item/radio/headset(new_wiz), ITEM_SLOT_LEFT_EAR)
 	if(class_type == "stealth")
-		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(new_wiz), ITEM_SLOT_ICLOTHING)
+		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(new_wiz), ITEM_SLOT_JUMPSUIT)
 	else
-		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), ITEM_SLOT_ICLOTHING)
+		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), ITEM_SLOT_JUMPSUIT)
 	new_wiz.equip_to_slot_or_del(new /obj/item/storage/backpack(new_wiz), ITEM_SLOT_BACK)
 	new_wiz.equip_to_slot_or_del(new /obj/item/storage/box(new_wiz), ITEM_SLOT_IN_BACKPACK)
 	new_wiz.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(new_wiz), ITEM_SLOT_RIGHT_POCKET)
@@ -51,7 +51,7 @@
 			ADD_TRAIT(new_wiz, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 			new_wiz.mind.AddSpell(new /datum/spell/ethereal_jaunt(null))
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(new_wiz), ITEM_SLOT_OCLOTHING)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(new_wiz), ITEM_SLOT_OUTER_SUIT)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. Under the tutelage of [my_teacher.real_name], you've acquired proficiency in the fundamentals of Firebending, enabling you to cast spells like Fireball, Sacred Flame, and Ethereal Jaunt.</b>"
 			messages += "<b>You are immune to fire, but you are NOT immune to the explosions caused by your fireballs. Neither is your teacher, for that matter. Be careful!</b>"
@@ -60,7 +60,7 @@
 			new_wiz.mind.AddSpell(new /datum/spell/turf_teleport/blink(null))
 			new_wiz.mind.AddSpell(new /datum/spell/ethereal_jaunt(null))
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OCLOTHING)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OUTER_SUIT)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. While studying under [my_teacher.real_name], you mastered reality-bending mobility spells, allowing you to cast Teleport, Blink, and Ethereal Jaunt.</b>"
 		if("restoration")
@@ -71,7 +71,7 @@
 			new_wiz.mind.AddSpell(S)
 			new_wiz.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(new_wiz), ITEM_SLOT_RIGHT_HAND)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(new_wiz), ITEM_SLOT_SHOES)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(new_wiz), ITEM_SLOT_OCLOTHING)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(new_wiz), ITEM_SLOT_OUTER_SUIT)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/marisa(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. Under the guidance of [my_teacher.real_name], you've acquired life-saving survival spells. You can now cast Charge and Knock, and possess the ability to teleport back to your mentor.</b>"
 			messages += "<b>Your Charge spell can be used to recharge your Staff of Healing or reduce the cooldowns of your teacher, if you are grabbing them with empty hands.</b>"
@@ -91,7 +91,7 @@
 			new_wiz.mind.AddSpell(new /datum/spell/summonitem(null))
 			new_wiz.equip_to_slot_or_del(new /obj/item/gun/magic/staff/slipping(new_wiz), ITEM_SLOT_RIGHT_HAND)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical/nodrop(new_wiz), ITEM_SLOT_SHOES)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown(new_wiz), ITEM_SLOT_OCLOTHING)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown(new_wiz), ITEM_SLOT_OUTER_SUIT)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown(new_wiz), ITEM_SLOT_HEAD)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz(new_wiz), ITEM_SLOT_MASK)
 			messages += "<b>Your dedication pays off! Under [my_teacher.real_name]'s guidance, you've mastered magical honkings, seamlessly casting spells like Banana Touch, Ethereal Jaunt, and Instant Summons, while skillfully wielding a Staff of Slipping. Honk!</b>"

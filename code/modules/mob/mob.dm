@@ -306,8 +306,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		ITEM_SLOT_BACK,\
 		ITEM_SLOT_PDA,\
 		ITEM_SLOT_ID,\
-		ITEM_SLOT_ICLOTHING,\
-		ITEM_SLOT_OCLOTHING,\
+		ITEM_SLOT_JUMPSUIT,\
+		ITEM_SLOT_OUTER_SUIT,\
 		ITEM_SLOT_MASK,\
 		ITEM_SLOT_HEAD,\
 		ITEM_SLOT_SHOES,\
@@ -375,8 +375,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(ITEM_SLOT_OCLOTHING)
-				if(!(slot_flags & ITEM_SLOT_OCLOTHING))
+			if(ITEM_SLOT_OUTER_SUIT)
+				if(!(slot_flags & ITEM_SLOT_OUTER_SUIT))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -451,8 +451,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(ITEM_SLOT_ICLOTHING)
-				if(!(slot_flags & ITEM_SLOT_ICLOTHING))
+			if(ITEM_SLOT_JUMPSUIT)
+				if(!(slot_flags & ITEM_SLOT_JUMPSUIT))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))

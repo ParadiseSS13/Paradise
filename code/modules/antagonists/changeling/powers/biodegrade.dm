@@ -35,7 +35,7 @@
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
-		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)
 		if(!istype(S))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \

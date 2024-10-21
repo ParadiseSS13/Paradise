@@ -91,7 +91,7 @@
 	var/exotic_blood
 	var/own_species_blood = FALSE // Can it only use blood from it's species?
 	var/skinned_type
-	var/list/no_equip = list()	// slots the race can't equip stuff to
+	var/no_equip	// bitflags of slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/can_craft = TRUE // Can this mob using crafting or not?
 
@@ -358,7 +358,11 @@
 #undef SLOWDOWN_MULTIPLIER
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
-	for(var/slot_id in no_equip)
+	for(var/slot_id in GLOB.bitflags) // Iterate through all bitflags
+		if(slot_id > ITEM_SLOT_AMOUNT_FLAG) // If the slot_id bitflag is larger than the largest ITEM_SLOT flag we're done
+			break
+		if(!(slot_id & no_equip)) // If the slot_id bitflag isn't in the no_equip flag, check the next bitflag
+			continue
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
 			H.unEquip(thing)
@@ -722,7 +726,7 @@
 	animation_type = ATTACK_EFFECT_BITE
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
-	if(slot in no_equip)
+	if(slot & no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 
@@ -738,8 +742,8 @@
 			return !H.wear_mask && (I.slot_flags & ITEM_SLOT_MASK)
 		if(ITEM_SLOT_BACK)
 			return !H.back && (I.slot_flags & ITEM_SLOT_BACK)
-		if(ITEM_SLOT_OCLOTHING)
-			return !H.wear_suit && (I.slot_flags & ITEM_SLOT_OCLOTHING)
+		if(ITEM_SLOT_OUTER_SUIT)
+			return !H.wear_suit && (I.slot_flags & ITEM_SLOT_OUTER_SUIT)
 		if(ITEM_SLOT_GLOVES)
 			return !H.gloves && (I.slot_flags & ITEM_SLOT_GLOVES)
 		if(ITEM_SLOT_SHOES)
@@ -764,8 +768,8 @@
 			return !H.l_ear && (I.slot_flags & ITEM_SLOT_LEFT_EAR) && !((I.slot_flags & ITEM_SLOT_RIGHT_EAR) && H.r_ear)
 		if(ITEM_SLOT_RIGHT_EAR)
 			return !H.r_ear && (I.slot_flags & ITEM_SLOT_RIGHT_EAR) && !((I.slot_flags & ITEM_SLOT_LEFT_EAR) && H.l_ear)
-		if(ITEM_SLOT_ICLOTHING)
-			return !H.w_uniform && (I.slot_flags & ITEM_SLOT_ICLOTHING)
+		if(ITEM_SLOT_JUMPSUIT)
+			return !H.w_uniform && (I.slot_flags & ITEM_SLOT_JUMPSUIT)
 		if(ITEM_SLOT_ID)
 			if(H.wear_id)
 				return FALSE

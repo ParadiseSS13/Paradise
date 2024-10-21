@@ -14,8 +14,8 @@
 #define ITEM_SLOT_GLOVES 		(1<<10) // gloves
 #define ITEM_SLOT_HEAD 			(1<<11) // head
 #define ITEM_SLOT_SHOES 		(1<<12) // shoes
-#define ITEM_SLOT_OCLOTHING 	(1<<13) // wear_suit
-#define ITEM_SLOT_ICLOTHING	 	(1<<14) // w_uniform
+#define ITEM_SLOT_OUTER_SUIT 	(1<<13) // wear_suit
+#define ITEM_SLOT_JUMPSUIT	 	(1<<14) // w_uniform
 #define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store
 #define ITEM_SLOT_RIGHT_POCKET 	(1<<16) // r_store
 #define ITEM_SLOT_BOTH_POCKETS	(ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET)
@@ -27,6 +27,9 @@
 #define ITEM_SLOT_COLLAR 		(1<<22) // pet collar
 #define ITEM_SLOT_AMOUNT_FLAG	(1<<ITEM_SLOT_AMOUNT)
 #define ITEM_SLOT_AMOUNT 		22 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
+
+/// Translates an ITEM_SLOT back to an index that can be looked up in inv_slots
+#define ITEM_SLOT_2_INDEX(slot) (log(2, slot) + 1)
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
 #define HIDEGLOVES		(1<<0)	//APPLIES ONLY TO THE EXTERIOR SUIT!!

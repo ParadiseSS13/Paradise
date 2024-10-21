@@ -856,17 +856,17 @@
 /**
  * Gets the obscured ITEM_SLOTs on a human
  *
- * Returns: 
+ * Returns:
  * * A bitfield containing the ITEM_SLOTS bitflags that are obscured.
  */
 /mob/living/carbon/human/proc/check_obscured_slots()
-	var/obscured // CHAP-TODO: Make this a bitfield maybe?
+	var/obscured = NONE
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			obscured |= ITEM_SLOT_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			obscured |= ITEM_SLOT_ICLOTHING
+			obscured |= ITEM_SLOT_JUMPSUIT
 		if(wear_suit.flags_inv & HIDESHOES)
 			obscured |= ITEM_SLOT_SHOES
 
@@ -876,13 +876,10 @@
 		if(head.flags_inv & HIDEEYES)
 			obscured |= ITEM_SLOT_EYES
 		if(head.flags_inv & HIDEEARS)
-			obscured |= ITEM_SLOT_RIGHT_EAR
-			obscured |= ITEM_SLOT_LEFT_EAR
+			obscured |= ITEM_SLOT_BOTH_EARS
 
 	if(obscured)
 		return obscured
-	else
-		return NONE
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
@@ -892,9 +889,8 @@
 	return TRUE
 
 /mob/living/carbon/human/proc/get_visible_gender()
-	var/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((ITEM_SLOT_ICLOTHING & obscured) && skipface)
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_JUMPSUIT))
 		return PLURAL
 	return gender
 
@@ -1858,16 +1854,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[ITEM_SLOT_ICLOTHING]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_ICLOTHING], T)
-		equip_to_slot_if_possible(C, ITEM_SLOT_ICLOTHING)
+	if(islist(equip_list[ITEM_SLOT_JUMPSUIT]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_JUMPSUIT], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_JUMPSUIT)
 
-	if(islist(equip_list[ITEM_SLOT_OCLOTHING]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_OCLOTHING], T)
-		equip_to_slot_if_possible(C, ITEM_SLOT_OCLOTHING)
+	if(islist(equip_list[ITEM_SLOT_OUTER_SUIT]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_OUTER_SUIT], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_OUTER_SUIT)
 
 	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
-		if(i == ITEM_SLOT_ICLOTHING || i == ITEM_SLOT_OCLOTHING)
+		if(i == ITEM_SLOT_JUMPSUIT || i == ITEM_SLOT_OUTER_SUIT)
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)

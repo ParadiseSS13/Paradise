@@ -533,7 +533,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			A.Grant(user)
 	in_inventory = TRUE
 	if(!initial)
-		if(equip_sound && slot & slot_flags)
+		if(equip_sound && (slot & slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot & ITEM_SLOT_BOTH_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
@@ -853,9 +853,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & ITEM_SLOT_OCLOTHING)
+	if(flags & ITEM_SLOT_OUTER_SUIT)
 		owner.update_inv_wear_suit()
-	if(flags & ITEM_SLOT_ICLOTHING)
+	if(flags & ITEM_SLOT_JUMPSUIT)
 		owner.update_inv_w_uniform()
 	if(flags & ITEM_SLOT_GLOVES)
 		owner.update_inv_gloves()

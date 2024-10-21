@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/jumpsuit
 	key = STRIPPABLE_ITEM_JUMPSUIT
-	item_slot = ITEM_SLOT_ICLOTHING
+	item_slot = ITEM_SLOT_JUMPSUIT
 
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_actions(atom/source, mob/user)
 	var/list/multiple_options = list()
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/suit
 	key = STRIPPABLE_ITEM_SUIT
-	item_slot = ITEM_SLOT_OCLOTHING
+	item_slot = ITEM_SLOT_OUTER_SUIT
 
 /datum/strippable_item/mob_item_slot/gloves
 	key = STRIPPABLE_ITEM_GLOVES

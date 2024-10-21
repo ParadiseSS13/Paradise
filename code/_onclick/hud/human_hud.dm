@@ -113,7 +113,7 @@
 	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "i_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = ITEM_SLOT_ICLOTHING
+	inv_box.slot_id = ITEM_SLOT_JUMPSUIT
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.color = ui_color
@@ -123,7 +123,7 @@
 	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "o_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = ITEM_SLOT_OCLOTHING
+	inv_box.slot_id = ITEM_SLOT_OUTER_SUIT
 	inv_box.icon_state = "suit"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.color = ui_color
@@ -377,7 +377,7 @@
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv_slots[ITEM_SLOT_2_INDEX(inv.slot_id)] = inv
 			inv.update_icon()
 
 	update_locked_slots()
@@ -391,7 +391,7 @@
 	var/datum/species/S = H.dna.species
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
-			if(inv.slot_id in S.no_equip)
+			if(inv.slot_id & S.no_equip)
 				inv.alpha = hud_alpha / 2
 			else
 				inv.alpha = hud_alpha

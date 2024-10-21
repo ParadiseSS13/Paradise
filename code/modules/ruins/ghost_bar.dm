@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		else
 			H.equip_or_collect(G.spawn_item(null, save_to_load.loadout_gear[G.display_name]))
 	if(!H.w_uniform)
-		equip_item(H, /obj/item/clothing/under/color/random, ITEM_SLOT_ICLOTHING)
+		equip_item(H, /obj/item/clothing/under/color/random, ITEM_SLOT_JUMPSUIT)
 	if(!H.shoes)
 		equip_item(H, /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES)
 	equip_item(H, /obj/item/stack/spacecash/c1000, ITEM_SLOT_LEFT_POCKET)

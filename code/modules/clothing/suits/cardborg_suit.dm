@@ -205,7 +205,7 @@ CONTENTS:
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(ishuman(user) && slot == ITEM_SLOT_OCLOTHING)
+	if(ishuman(user) && slot == ITEM_SLOT_OUTER_SUIT)
 		var/mob/living/carbon/human/H = user
 		if(!istype(H.head, /obj/item/clothing/head/cardborg))
 			return

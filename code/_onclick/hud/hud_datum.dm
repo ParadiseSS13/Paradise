@@ -205,10 +205,10 @@
 				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			if(inv_slots[TOBITSHIFT(ITEM_SLOT_LEFT_HAND) + 1])
-				screenmob.client.screen += inv_slots[TOBITSHIFT(ITEM_SLOT_LEFT_HAND) + 1]	//we want the hands to be visible
-			if(inv_slots[TOBITSHIFT(ITEM_SLOT_RIGHT_HAND) + 1])
-				screenmob.client.screen += inv_slots[TOBITSHIFT(ITEM_SLOT_RIGHT_HAND) + 1]	//we want the hands to be visible
+			if(inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_LEFT_HAND)])
+				screenmob.client.screen += inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_LEFT_HAND)]	//we want the hands to be visible
+			if(inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)])
+				screenmob.client.screen += inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)]	//we want the hands to be visible
 			if(action_intent)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.

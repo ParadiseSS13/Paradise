@@ -30,7 +30,7 @@
 		if(!team_toggle)
 			GLOB.team_alpha += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_ICLOTHING)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_JUMPSUIT)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -43,7 +43,7 @@
 		else
 			GLOB.team_bravo += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_ICLOTHING)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_JUMPSUIT)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"

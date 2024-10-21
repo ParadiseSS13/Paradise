@@ -51,9 +51,9 @@
 			return has_organ("head")
 		if(ITEM_SLOT_SHOES)
 			return has_organ("r_foot") && has_organ("l_foot")
-		if(ITEM_SLOT_OCLOTHING)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return has_organ("chest")
-		if(ITEM_SLOT_ICLOTHING)
+		if(ITEM_SLOT_JUMPSUIT)
 			return has_organ("chest")
 		if(ITEM_SLOT_LEFT_POCKET)
 			return has_organ("chest")
@@ -282,12 +282,12 @@
 		if(ITEM_SLOT_SHOES)
 			shoes = I
 			update_inv_shoes()
-		if(ITEM_SLOT_OCLOTHING)
+		if(ITEM_SLOT_OUTER_SUIT)
 			wear_suit = I
 			if(wear_suit.flags_inv & HIDESHOES)
 				update_inv_shoes()
 			update_inv_wear_suit()
-		if(ITEM_SLOT_ICLOTHING)
+		if(ITEM_SLOT_JUMPSUIT)
 			w_uniform = I
 			update_inv_w_uniform()
 		if(ITEM_SLOT_LEFT_POCKET)
@@ -364,9 +364,9 @@
 			return head
 		if(ITEM_SLOT_SHOES)
 			return shoes
-		if(ITEM_SLOT_OCLOTHING)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return wear_suit
-		if(ITEM_SLOT_ICLOTHING)
+		if(ITEM_SLOT_JUMPSUIT)
 			return w_uniform
 		if(ITEM_SLOT_LEFT_POCKET)
 			return l_store
@@ -402,10 +402,10 @@
 		return ITEM_SLOT_SHOES
 
 	if(looking_for == wear_suit)
-		return ITEM_SLOT_OCLOTHING
+		return ITEM_SLOT_OUTER_SUIT
 
 	if(looking_for == w_uniform)
-		return ITEM_SLOT_ICLOTHING
+		return ITEM_SLOT_JUMPSUIT
 
 	if(looking_for == r_store)
 		return ITEM_SLOT_BOTH_POCKETS

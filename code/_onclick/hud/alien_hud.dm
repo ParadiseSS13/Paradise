@@ -143,7 +143,7 @@
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv_slots[ITEM_SLOT_2_INDEX(inv.slot_id)] = inv
 			inv.update_icon()
 
 /datum/hud/alien/persistent_inventory_update(mob/viewer)

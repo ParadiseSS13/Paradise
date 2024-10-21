@@ -88,13 +88,13 @@
 		new_wiz.internal = new_wiz.r_hand
 		new_wiz.update_action_buttons_icon()
 	else
-		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), ITEM_SLOT_ICLOTHING)
+		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), ITEM_SLOT_JUMPSUIT)
 		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(new_wiz), ITEM_SLOT_HEAD)
 		new_wiz.dna.species.after_equip_job(null, new_wiz)
 	new_wiz.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
 	new_wiz.equip_to_slot_or_del(new /obj/item/radio/headset(new_wiz), ITEM_SLOT_LEFT_EAR)
 	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
-	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OCLOTHING)
+	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OUTER_SUIT)
 	new_wiz.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(new_wiz), ITEM_SLOT_BACK)
 	if(new_wiz.dna.species.speciesbox)
 		new_wiz.equip_to_slot_or_del(new new_wiz.dna.species.speciesbox(new_wiz), ITEM_SLOT_IN_BACKPACK)

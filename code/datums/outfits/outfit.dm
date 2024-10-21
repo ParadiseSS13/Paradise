@@ -70,9 +70,9 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		equip_item(H, uniform, ITEM_SLOT_ICLOTHING)
+		equip_item(H, uniform, ITEM_SLOT_JUMPSUIT)
 	if(suit)
-		equip_item(H, suit, ITEM_SLOT_OCLOTHING)
+		equip_item(H, suit, ITEM_SLOT_OUTER_SUIT)
 	if(back)
 		equip_item(H, back, ITEM_SLOT_BACK)
 	if(belt)

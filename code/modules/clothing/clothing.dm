@@ -92,7 +92,7 @@
 		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_IN_BACKPACK, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET))
+	if(slot & (ITEM_SLOT_RIGHT_HAND | ITEM_SLOT_LEFT_HAND | ITEM_SLOT_IN_BACKPACK | ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET))
 		return TRUE
 
 	if(species_restricted && ishuman(M))
@@ -613,7 +613,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = ITEM_SLOT_OCLOTHING
+	slot_flags = ITEM_SLOT_OUTER_SUIT
 	dyeable = FALSE
 
 	var/fire_resist = T0C + 100
@@ -713,7 +713,7 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_OCLOTHING)
+	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_OUTER_SUIT)
 		if("modsuit" in hide_tail_by_species)
 			return
 		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
@@ -817,7 +817,7 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = ITEM_SLOT_ICLOTHING
+	slot_flags = ITEM_SLOT_JUMPSUIT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
@@ -859,7 +859,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(ITEM_SLOT_ICLOTHING) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -867,7 +867,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == ITEM_SLOT_ICLOTHING)
+	if(slot == ITEM_SLOT_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -881,7 +881,7 @@
 	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
 	for(var/obj/item/clothing/accessory/AC in accessories)
-		if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+		if((A.slot && (ACCESSORY_SLOT_UTILITY | ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
 			return FALSE
 		if(!A.allow_duplicates && AC.type == A.type)
 			return FALSE
@@ -976,7 +976,7 @@
 	if(copytext(item_color,-2) != "_d")
 		basecolor = item_color
 
-	if(user.get_item_by_slot(ITEM_SLOT_ICLOTHING) != src)
+	if(user.get_item_by_slot(ITEM_SLOT_JUMPSUIT) != src)
 		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 	else

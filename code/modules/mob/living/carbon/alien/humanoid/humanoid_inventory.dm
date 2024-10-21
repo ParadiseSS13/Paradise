@@ -11,7 +11,7 @@
 	var/obj/item/W = get_active_hand()
 	if(!W)
 		switch(slot_id)
-			if(ITEM_SLOT_OCLOTHING)
+			if(ITEM_SLOT_OUTER_SUIT)
 				if(wear_suit)	wear_suit.attack_alien(src)
 			if(ITEM_SLOT_HEAD)
 				if(head)		head.attack_alien(src)

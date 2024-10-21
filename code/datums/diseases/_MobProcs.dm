@@ -102,8 +102,8 @@
 				if(isobj(H.wear_suit))
 					Cl = H.wear_suit
 					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(ITEM_SLOT_ICLOTHING))
-					Cl = ITEM_SLOT_ICLOTHING
+				if(passed && isobj(ITEM_SLOT_JUMPSUIT))
+					Cl = ITEM_SLOT_JUMPSUIT
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 			if(3)
 				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)

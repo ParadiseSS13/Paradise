@@ -11,11 +11,11 @@
 
 /datum/outfit/varedit/proc/set_equipment_by_slot(slot, item_path)
 	switch(slot)
-		if(ITEM_SLOT_ICLOTHING)
+		if(ITEM_SLOT_JUMPSUIT)
 			uniform = item_path
 		if(ITEM_SLOT_BACK)
 			back = item_path
-		if(ITEM_SLOT_OCLOTHING)
+		if(ITEM_SLOT_OUTER_SUIT)
 			suit = item_path
 		if(ITEM_SLOT_BELT)
 			belt = item_path
@@ -70,7 +70,7 @@
 
 	// Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(ITEM_SLOT_ICLOTHING, ITEM_SLOT_BACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_BELT, ITEM_SLOT_GLOVES, ITEM_SLOT_SHOES, ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_ID, ITEM_SLOT_PDA, ITEM_SLOT_SUIT_STORE, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET)
+	var/list/slots_to_check = list(ITEM_SLOT_JUMPSUIT, ITEM_SLOT_BACK, ITEM_SLOT_OUTER_SUIT, ITEM_SLOT_BELT, ITEM_SLOT_GLOVES, ITEM_SLOT_SHOES, ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_ID, ITEM_SLOT_PDA, ITEM_SLOT_SUIT_STORE, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -129,7 +129,7 @@
 		O.cybernetic_implants |= aug.type
 
 	// Copy accessories
-	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_ICLOTHING)
+	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_JUMPSUIT)
 	if(uniform_slot)
 		O.accessories = list()
 		for(var/obj/item/clothing/accessory/A in uniform_slot.accessories)
