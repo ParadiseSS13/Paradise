@@ -9,10 +9,10 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "c" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	name = "Shuttle Hatch"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -176,10 +176,10 @@
 	},
 /area/ruin/space/sec_shuttle)
 "T" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	name = "Shuttle Hatch"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)

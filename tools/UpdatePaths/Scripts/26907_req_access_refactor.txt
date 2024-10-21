@@ -1,0 +1,96 @@
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="101"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/general, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="104"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/security, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="106"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="109"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/specops, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="114"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/commander, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="48"} : /obj/effect/mapping_helpers/airlock/access/all/supply/mining, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="61"} : /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="150"} : /obj/effect/mapping_helpers/airlock/access/all/syndicate, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="152"} : /obj/effect/mapping_helpers/airlock/access/all/shuttles/vox, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="160"} : /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="271"} : /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="301"} : /obj/effect/mapping_helpers/airlock/access/all/ruins/theta, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt="512"} : /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt="301"} : /obj/effect/mapping_helpers/airlock/access/all/ruins/theta, /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+
+/obj/@SUBTYPES{req_access_txt="0"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/@SUBTYPES{req_access_txt="1"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(1)}
+/obj/@SUBTYPES{req_access_txt="10;11"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(10,11)}
+/obj/@SUBTYPES{req_access_txt="10;13"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(10,13)}
+/obj/@SUBTYPES{req_access_txt="10"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(10)}
+/obj/@SUBTYPES{req_access_txt="101"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(101)}
+/obj/@SUBTYPES{req_access_txt="102"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(102)}
+/obj/@SUBTYPES{req_access_txt="104"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(104)}
+/obj/@SUBTYPES{req_access_txt="109"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(109)}
+/obj/@SUBTYPES{req_access_txt="11"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(11)}
+/obj/@SUBTYPES{req_access_txt="114"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(114)}
+/obj/@SUBTYPES{req_access_txt="12"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(12)}
+/obj/@SUBTYPES{req_access_txt="13"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(13)}
+/obj/@SUBTYPES{req_access_txt="150"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(150)}
+/obj/@SUBTYPES{req_access_txt="151"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(151)}
+/obj/@SUBTYPES{req_access_txt="152"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(152)}
+/obj/@SUBTYPES{req_access_txt="153"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(153)}
+/obj/@SUBTYPES{req_access_txt="160"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(160)}
+/obj/@SUBTYPES{req_access_txt="17;75"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(17,75)}
+/obj/@SUBTYPES{req_access_txt="17"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(17)}
+/obj/@SUBTYPES{req_access_txt="19"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(19)}
+/obj/@SUBTYPES{req_access_txt="2"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(2)}
+/obj/@SUBTYPES{req_access_txt="22"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(22)}
+/obj/@SUBTYPES{req_access_txt="24;13"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(24,13)}
+/obj/@SUBTYPES{req_access_txt="24"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(24)}
+/obj/@SUBTYPES{req_access_txt="25"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(25)}
+/obj/@SUBTYPES{req_access_txt="26"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(26)}
+/obj/@SUBTYPES{req_access_txt="271"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(271)}
+/obj/@SUBTYPES{req_access_txt="28"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(28)}
+/obj/@SUBTYPES{req_access_txt="29"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(29)}
+/obj/@SUBTYPES{req_access_txt="3"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(3)}
+/obj/@SUBTYPES{req_access_txt="30"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(30)}
+/obj/@SUBTYPES{req_access_txt="31"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(31)}
+/obj/@SUBTYPES{req_access_txt="32"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(32)}
+/obj/@SUBTYPES{req_access_txt="33"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(33)}
+/obj/@SUBTYPES{req_access_txt="35"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(35)}
+/obj/@SUBTYPES{req_access_txt="37"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(37)}
+/obj/@SUBTYPES{req_access_txt="38"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(38)}
+/obj/@SUBTYPES{req_access_txt="39"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(39)}
+/obj/@SUBTYPES{req_access_txt="4"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(4)}
+/obj/@SUBTYPES{req_access_txt="40"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(40)}
+/obj/@SUBTYPES{req_access_txt="41"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(41)}
+/obj/@SUBTYPES{req_access_txt="45"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(45)}
+/obj/@SUBTYPES{req_access_txt="47"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(47)}
+/obj/@SUBTYPES{req_access_txt="48"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(48)}
+/obj/@SUBTYPES{req_access_txt="54"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(54)}
+/obj/@SUBTYPES{req_access_txt="55"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(55)}
+/obj/@SUBTYPES{req_access_txt="56"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(56)}
+/obj/@SUBTYPES{req_access_txt="57"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(57)}
+/obj/@SUBTYPES{req_access_txt="58"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(58)}
+/obj/@SUBTYPES{req_access_txt="62"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(62)}
+/obj/@SUBTYPES{req_access_txt="63"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(63)}
+/obj/@SUBTYPES{req_access_txt="64"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(64)}
+/obj/@SUBTYPES{req_access_txt="66"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(66)}
+/obj/@SUBTYPES{req_access_txt="67"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(67)}
+/obj/@SUBTYPES{req_access_txt="7"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(7)}
+/obj/@SUBTYPES{req_access_txt="73"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(73)}
+/obj/@SUBTYPES{req_access_txt="74"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(74)}
+/obj/@SUBTYPES{req_access_txt="75;13"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(75,13)}
+/obj/@SUBTYPES{req_access_txt="75"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(75)}
+/obj/@SUBTYPES{req_access_txt="8"} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP;req_access=list(8)}
+/obj/@SUBTYPES{req_access_txt=null} : /obj/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/@SUBTYPES{req_access="0"} : /obj/@SUBTYPES{@OLD;req_access=@SKIP}
+/obj/@SUBTYPES{req_one_access_txt="150"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(150)}
+/obj/@SUBTYPES{req_one_access_txt="150"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(150)}
+/obj/@SUBTYPES{req_one_access_txt="152"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(152)}
+/obj/@SUBTYPES{req_one_access_txt="152"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(152)}
+/obj/@SUBTYPES{req_one_access_txt="17;75"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(17,75)}
+/obj/@SUBTYPES{req_one_access_txt="18"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(18)}
+/obj/@SUBTYPES{req_one_access_txt="19;14"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(19,14)}
+/obj/@SUBTYPES{req_one_access_txt="19;41"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(19,41)}
+/obj/@SUBTYPES{req_one_access_txt="19"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(19)}
+/obj/@SUBTYPES{req_one_access_txt="2"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(2)}
+/obj/@SUBTYPES{req_one_access_txt="20"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(20)}
+/obj/@SUBTYPES{req_one_access_txt="28;35"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(28,35)}
+/obj/@SUBTYPES{req_one_access_txt="33;41"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(33,41)}
+/obj/@SUBTYPES{req_one_access_txt="39"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(39)}
+/obj/@SUBTYPES{req_one_access_txt="57"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(57)}
+/obj/@SUBTYPES{req_one_access_txt="62"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(62)}
+/obj/@SUBTYPES{req_one_access_txt="74;3"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_one_access=list(74,3)}
+/obj/@SUBTYPES{req_one_access_txt="75"} : /obj/@SUBTYPES{@OLD;req_one_access_txt=@SKIP;req_access=list(75)}
