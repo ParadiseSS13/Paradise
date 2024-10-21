@@ -23,8 +23,8 @@
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
-	var/list/protected_species = list() // Species that can't be traitors
-	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
+	/// Species that will become mindflayers if they're picked, instead of the regular antagonist
+	var/list/species_to_mindflayer = list()
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
@@ -56,6 +56,17 @@
 	var/list/datum/mind/vampires = list()
 	/// A list of all minds which are thralled by a vampire
 	var/list/datum/mind/vampire_enthralled = list()
+	/// A list of all minds which have the mindflayer antag datum
+	var/list/datum/mind/mindflayers = list()
+
+	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
+	var/list/datum/mind/pre_traitors = list()
+	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
+	var/list/datum/mind/pre_changelings = list()
+	///list of minds of soon to be vampires
+	var/list/datum/mind/pre_vampires = list()
+	/// A list containing references to the minds of soon-to-be mindflayers.
+	var/list/datum/mind/pre_mindflayers = list()
 	/// A list of all minds which have the wizard special role
 	var/list/datum/mind/wizards = list()
 	/// A list of all minds that are wizard apprentices
@@ -132,6 +143,10 @@
 
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
+
+	for(var/datum/mind/flayer as anything in pre_mindflayers) //Mindflayers need to be all the way out here since they could come from most gamemodes
+		flayer.make_mind_flayer()
+
 	return TRUE
 
 ///process()
@@ -259,7 +274,7 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE, species_exclusive = null)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -272,22 +287,29 @@
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, roletext))
+			continue
+		if(player_old_enough_antag(player.client, role))
+			players += player
+
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
-
-	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
-	for(var/mob/new_player/player in players)
-		if(!player.client.skip_antag)
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
-				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-				candidates += player.mind
-				players -= player
+	// Get a list of all the people who want to be the antagonist for this round
+	for(var/mob/eligible_player in players)
+		if(!eligible_player.client.skip_antag)
+			if(species_exclusive && (eligible_player.client.prefs.active_character.species != species_exclusive))
+				continue
+			if(role in eligible_player.client.prefs.be_special)
+				player_draft_log += "[eligible_player.key] had [roletext] enabled, so we are drafting them."
+				candidates += eligible_player.mind
+				players -= eligible_player
 
 	// Remove candidates who want to be antagonist but have a job (or other antag datum) that precludes it
 	if(restricted_jobs)
-		for(var/datum/mind/player in candidates)
-			if((player.assigned_role in restricted_jobs) || player.special_role)
-				candidates -= player
+		for(var/datum/mind/player_mind in candidates)
+			if((player_mind.assigned_role in restricted_jobs) || player_mind.special_role)
+				candidates -= player_mind
 
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
@@ -317,7 +339,7 @@
 		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
 			continue
 
-		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in protected_species))
+		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in species_to_mindflayer))
 			continue
 
 		player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
@@ -620,6 +642,7 @@
 	. += auto_declare_completion_traitor()
 	. += auto_declare_completion_vampire()
 	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_mindflayer()
 	. += auto_declare_completion_changeling()
 	. += auto_declare_completion_nuclear()
 	. += auto_declare_completion_wizard()
