@@ -1,5 +1,6 @@
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 5
 	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
@@ -304,7 +305,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
 	duration = 2
 
@@ -324,10 +325,6 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"
-	duration = 3
-
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
 	duration = 3
 
 /obj/effect/temp_visual/impact_effect
