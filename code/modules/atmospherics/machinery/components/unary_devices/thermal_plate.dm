@@ -8,7 +8,7 @@
 	can_unwrench = TRUE
 
 	name = "thermal tansfer plate"
-	desc = "Transfers heat to and from an area"
+	desc = "Transfers heat to and from an area."
 
 /obj/machinery/atmospherics/unary/thermal_plate/update_icon_state()
 	var/prefix = ""

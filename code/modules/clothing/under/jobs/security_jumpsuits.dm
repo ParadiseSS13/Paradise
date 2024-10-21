@@ -42,7 +42,7 @@
 
 /obj/item/clothing/under/rank/security/officer/skirt
 	name = "security officer's jumpskirt"
-	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
+	desc = "Standard feminine fashion for Security Officers. It's made of sturdier material than the standard jumpskirts."
 	icon_state = "security_skirt"
 	item_state = "r_suit"
 	item_color = "security_skirt"

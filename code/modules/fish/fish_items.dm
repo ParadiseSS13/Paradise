@@ -101,7 +101,7 @@
 
 /obj/item/fish
 	name = "fish"
-	desc = "A generic fish"
+	desc = "A generic fish."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "fish"
 	throwforce = 1

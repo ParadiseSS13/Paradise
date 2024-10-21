@@ -24,7 +24,7 @@
 
 /obj/item/clothing/under/syndicate/greyman
 	name = "greyman henley"
-	desc = "Attire for someone who finds it hard to survive in the safest place known to man - urban environment "
+	desc = "Attire for someone who finds it hard to survive in the safest place known to man - urban environment."
 	icon_state = "greyman"
 	item_color = "greyman"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 40, ACID = 35)

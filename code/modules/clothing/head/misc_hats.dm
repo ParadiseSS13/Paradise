@@ -64,7 +64,7 @@
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
-	desc = "It's unspeakably stylish"
+	desc = "It's unspeakably stylish."
 	icon_state = "hasturhood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
@@ -411,7 +411,7 @@
 /// Fluff?
 /obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it."
+	desc = "A purple beret, with a small golden crescent moon sewn onto it."
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 

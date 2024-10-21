@@ -486,7 +486,7 @@
 
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
-	desc = "Makes you s-s-stuttterrr"
+	desc = "Makes you s-s-stuttterrr."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE

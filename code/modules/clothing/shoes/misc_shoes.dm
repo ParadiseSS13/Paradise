@@ -265,7 +265,7 @@
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
-	desc = "Shoes for a cyborg costume"
+	desc = "Shoes for a cyborg costume."
 	icon_state = "boots"
 	dyeable = FALSE
 
@@ -390,7 +390,7 @@
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
-	desc = "A pair a' black rustlers' boots"
+	desc = "A pair a' black rustlers' boots."
 	icon_state = "cowboy_black"
 	item_color = "cowboy_black"
 
@@ -425,7 +425,7 @@
 
 /obj/effect/spawner/lootdrop/lizardboots
 	name = "random lizard boot quality"
-	desc = "Which ever gets picked, the lizard race loses"
+	desc = "Which ever gets picked, the lizard race loses."
 	icon = 'icons/obj/clothing/shoes.dmi'
 	icon_state = "lizardboots_green"
 	loot = list(

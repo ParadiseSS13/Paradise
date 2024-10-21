@@ -13,7 +13,7 @@
 
 /datum/merch_item/snap_pops
 	name = "Snap-Pops"
-	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE"
+	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE!"
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
 	category = MERCH_CAT_TOY

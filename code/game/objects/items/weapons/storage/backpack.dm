@@ -255,7 +255,7 @@
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
-	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
+	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch."
 	icon_state = "nt_deluxe"
 	item_state = "satchel"
 

@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bunny
 	name = "bunny"
 	real_name = "bunny"
-	desc = "Awww a cute bunny"
+	desc = "Awww a cute bunny."
 	icon_state = "m_bunny"
 	icon_living = "m_bunny"
 	icon_dead = "bunny_dead"

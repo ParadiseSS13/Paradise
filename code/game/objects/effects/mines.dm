@@ -101,7 +101,7 @@
 
 /obj/effect/mine/pickup
 	name = "pickup"
-	desc = "pick me up"
+	desc = "pick me up."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 	density = FALSE

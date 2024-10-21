@@ -1,7 +1,7 @@
 // TODO: Refactor these into spawners
 /obj/random
 	name = "Random Object"
-	desc = "This item type is used to spawn random objects at round-start"
+	desc = "This item type is used to spawn random objects at round-start."
 	icon = 'icons/misc/mark.dmi'
 	icon_state = "rup"
 	var/spawn_nothing_percentage = 0 // this variable determines the likelyhood that this random object will not spawn anything
@@ -28,7 +28,7 @@
 
 /obj/random/tool
 	name = "Random Tool"
-	desc = "This is a random tool"
+	desc = "This is a random tool."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "random_tool"
 

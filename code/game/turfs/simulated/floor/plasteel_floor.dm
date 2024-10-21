@@ -44,7 +44,7 @@
 
 /turf/simulated/floor/plasteel/goonplaque/commission
 	name = "Commission Plaque"
-	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron"
+	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron."
 
 /turf/simulated/floor/plasteel/goonplaque/nosey
 	name = "Nosey little bastard aren't you?"
@@ -52,7 +52,7 @@
 
 /turf/simulated/floor/plasteel/goonplaque/violence
 	name = "Violence Free Area"
-	desc = "Violence Free Area"
+	desc = "Violence Free Area."
 
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white

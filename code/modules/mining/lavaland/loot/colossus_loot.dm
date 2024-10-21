@@ -376,7 +376,7 @@
 
 /datum/spell/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing"
+	desc = "Exits the body you are possessing."
 	base_cooldown = 60
 	clothes_req = FALSE
 	invocation_type = "none"
