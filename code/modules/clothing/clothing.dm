@@ -168,25 +168,11 @@
 	if(!usr.canUnEquip(src))
 		return
 
-	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_FLAG_TWOEARS)
-		O = (H.l_ear == src ? H.r_ear : H.l_ear)
-		user.unEquip(O)
-		if(!istype(src, /obj/item/clothing/ears/offear))
-			qdel(O)
-			O = src
-	else
-		O = src
-
 	user.unEquip(src)
 
-	if(O)
-		user.put_in_hands(O)
-		O.add_fingerprint(user)
-
-	if(istype(src, /obj/item/clothing/ears/offear))
-		qdel(src)
-
+	if(src)
+		user.put_in_hands(src)
+		add_fingerprint(user)
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
