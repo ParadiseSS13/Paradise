@@ -95,7 +95,7 @@
 	..()
 	switch(level)
 		if(FLAYER_POWER_LEVEL_ONE)
-			qdel(owner.GetComponent(/datum/component/footstep))
+			owner.DeleteComponent(/datum/component/footstep)
 		if(FLAYER_POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
@@ -268,12 +268,14 @@
 /datum/mindflayer_passive/telescopic_eyes/on_apply()
 	. = ..()
 	user_eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
+	if(!user_eyes)
+		return // TODO, add a refund proc?
 	user_eyes.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 	for(var/datum/action/action in user_eyes.actions)
 		action.Grant(owner)
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
-	qdel(user_eyes.GetComponent(/datum/component/scope))
+	user_eyes.DeleteComponent(/datum/component/scope)
 	user_eyes = null // I made sure this doesn't accidentally delete the user's eyes
 
 /datum/mindflayer_passive/ultimate_drain
