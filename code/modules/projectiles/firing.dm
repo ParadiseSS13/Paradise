@@ -38,10 +38,12 @@
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
-	if(!istype(curloc)) // False-bottomed briefcase check.
+	if(!istype(curloc)) // False-bottomed briefcase check / shell launch system check.
 		var/obj/item/holding = user.get_active_hand()
 		if(istype(holding, /obj/item/storage/briefcase/false_bottomed))
 			curloc = get_turf(holding)
+		if(istype(firer_source_atom, /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher))
+			curloc = get_turf(user)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 	BB.ammo_casing = src

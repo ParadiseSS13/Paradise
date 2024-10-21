@@ -453,6 +453,7 @@
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "a funny flavour"
 
 /datum/reagent/jestosterone/on_new()
@@ -475,14 +476,14 @@
 			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
-/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
 	if(!M.mind)
 		return ..() | update_flags
 	if(M.mind.assigned_role == "Clown")
-		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 		M.Druggy(30 SECONDS)
@@ -502,7 +503,10 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M.mind.assigned_role == "Mime")
-			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
+				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+			else
+				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
@@ -510,8 +514,8 @@
 	if(M.mind?.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
-	qdel(M.GetComponent(/datum/component/squeak))
 
+	M.DeleteComponent(/datum/component/squeak)
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
@@ -727,3 +731,56 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/admin_cleaner
+	name = "WD-2381"
+	color = "#da9eda"
+	description = "Extra-bubbly cleaner designed to clear all objects. Or, well. Anything that isn't bolted down. Or is, for that matter. In other words: if you're seeing this, how'd you get your hands on it?"
+
+/datum/reagent/admin_cleaner/organic
+	name = "WD-2381-MOB"
+	id = "admincleaner_mob"
+	description = "A bottle of strange nanites that instantly devour bodies, both living and dead, as well as organs."
+
+/datum/reagent/admin_cleaner/organic/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+/datum/reagent/admin_cleaner/organic/reaction_obj(obj/O, volume)
+	if(is_organ(O))
+		qdel(O)
+	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
+		qdel(O)
+	if(istype(O, /obj/item/mmi))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/item
+	name = "WD-2381-ITM"
+	id = "admincleaner_item"
+	description = "A bottle of strange nanites that instantly devour items, while curiously leaving everything else untouched."
+
+/datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
+	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all
+	name = "WD-2381-ALL"
+	id = "admincleaner_all"
+	description = "An incredibly dangerous set of nanites engineered by Syndicate Janitors which devour everything they touch."
+
+/datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/grenade/clusterbuster/segment))
+		// don't clear clusterbang segments
+		// I'm allowed to make this hack because this is admin only anyway
+		return
+	if(!iseffect(O))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+
+

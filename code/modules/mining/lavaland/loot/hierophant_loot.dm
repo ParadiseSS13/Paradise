@@ -153,7 +153,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				user.update_action_buttons_icon()
 				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
-				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!</span>\n\
+				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any of your allies to it at any time! Beware! The Horrors of Lavaland can still be teleported with you.</span>\n\
 				<span class='notice'>You can remove the beacon to place it again by striking it with the club.</span>")
 			else
 				timer = world.time
@@ -242,6 +242,9 @@
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to, TRUE))
 		return
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.set_alpha_tracking(0, src, update_alpha = FALSE)
 	animate(M, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	sleep(1)
 	if(!M)
@@ -254,7 +257,12 @@
 	sleep(1)
 	if(!M)
 		return
-	animate(M, alpha = 255, time = 2, easing = EASE_IN) //fade IN
+	var/our_alpha = 255
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
+		our_alpha = H.get_alpha()
+	animate(M, alpha = our_alpha, time = 2, easing = EASE_IN) //fade IN
 	sleep(1)
 	if(!M)
 		return

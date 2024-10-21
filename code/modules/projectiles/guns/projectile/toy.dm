@@ -99,6 +99,7 @@
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
+	origin_tech = "combat=3;materials=2;syndicate=2"
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -133,6 +134,7 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "combat=3;materials=2;syndicate=2"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"

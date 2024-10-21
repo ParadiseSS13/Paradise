@@ -221,13 +221,7 @@
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				var/foundghost = FALSE
-				if(mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.mind == mind && G.can_reenter_corpse)
-							foundghost = TRUE
-							break
-				if(!foundghost)
+				if(!get_ghost())
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 

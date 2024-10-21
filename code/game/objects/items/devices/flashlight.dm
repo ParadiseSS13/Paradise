@@ -345,7 +345,7 @@
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	icon_state = "slime-on"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6

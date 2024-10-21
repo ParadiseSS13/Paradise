@@ -234,19 +234,15 @@
 				return
 
 			if(!M.brainmob.key)
-				var/ghost_can_reenter = FALSE
-				if(M.brainmob.mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.can_reenter_corpse && G.mind == M.brainmob.mind)
-							ghost_can_reenter = TRUE
-							if(M.next_possible_ghost_ping < world.time)
-								G.notify_cloning("Somebody is trying to borg you! Re-enter your corpse if you want to be borged!", 'sound/voice/liveagain.ogg', src)
-								M.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
-							break
-				if(!ghost_can_reenter)
-					to_chat(user, "<span class='notice'>[M] is completely unresponsive; there's no point.</span>")
+				var/mob/dead/observer/G = M.brainmob.get_ghost()
+				if(G)
+					if(M.next_possible_ghost_ping < world.time)
+						G.notify_cloning("Somebody is trying to borg you! Re-enter your corpse if you want to be borged!", 'sound/voice/liveagain.ogg', src)
+						M.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
 				else
-					to_chat(user, "<span class='warning'>[M] is currently inactive. Try again later.</span>")
+					to_chat(user, "<span class='notice'>[M] is completely unresponsive; there's no point.</span>")
+					return
+				to_chat(user, "<span class='warning'>[M] is currently inactive. Try again later.</span>")
 				return
 
 			if(M.brainmob.stat == DEAD)

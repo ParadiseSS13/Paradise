@@ -311,13 +311,14 @@
 		return
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
-		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-			return TRUE
-		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
-		return -1
+		if(P.reflectability == REFLECTABILITY_ENERGY)
+			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+			return -1
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return TRUE
+
 	return TRUE
 
 //////////////////////////////
@@ -345,12 +346,17 @@
 //////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
-	desc = "Arrrr matey."
+	desc = "A crude copy of syndicate technology. Favored among space pirates for its small form factor while inactive. Arrrr, matey!"
 	force_on = 20
+	throwforce_on = 10 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
+	embed_chance = 45
+	embedded_impact_pain_multiplier = 4
+	armour_penetration_percentage = 0
+	armour_penetration_flat = 0
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
-	origin_tech = "combat=3;magnets=4;syndicate=2"
+	origin_tech = "combat=3;magnets=4"
 
 //////////////////////////////
 // MARK: HARDLIGHT BLADE
