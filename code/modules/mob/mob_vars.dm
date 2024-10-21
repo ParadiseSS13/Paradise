@@ -63,7 +63,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.

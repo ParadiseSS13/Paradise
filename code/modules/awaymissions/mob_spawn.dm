@@ -4,11 +4,6 @@
 
 // To do: Allow customizing the bodies appearance (they're all bald and white right now).
 
-/// this mob spawn creates the corpse instantly
-#define CORPSE_INSTANT 1
-/// this mob spawn creates the corpse during GAME_STATE_PLAYING
-#define CORPSE_ROUNDSTART 2
-
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
@@ -697,24 +692,10 @@
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
 /obj/effect/mob_spawn/corpse
-	/// when this mob spawn should auto trigger.
-	var/spawn_when = CORPSE_INSTANT
-
 	/// what environmental storytelling script should this corpse have
 	var/corpse_description = ""
 	/// optionally different text to display if the target is a clown
 	var/naive_corpse_description = ""
-
-/obj/effect/mob_spawn/corpse/Initialize(mapload, no_spawn)
-	. = ..()
-	if(no_spawn)
-		return
-	switch(spawn_when)
-		if(CORPSE_INSTANT)
-			INVOKE_ASYNC(src, PROC_REF(create))
-		if(CORPSE_ROUNDSTART)
-			if(mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))
-				INVOKE_ASYNC(src, PROC_REF(create))
 
 /obj/effect/mob_spawn/corpse/special(mob/living/spawned_mob)
 	. = ..()
@@ -737,7 +718,3 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12
-
-
-#undef CORPSE_INSTANT
-#undef CORPSE_ROUNDSTART

@@ -9,6 +9,9 @@
 	if(advanced_bullet_dodge_chance)
 		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
+	for(var/initial_trait in initial_traits)
+		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
+
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
 /mob/living/proc/determine_move_and_pull_forces()
@@ -824,7 +827,7 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /atom/movable/screen/alert/weightless)
-	if(!flying)
+	if(!HAS_TRAIT(src, TRAIT_FLYING))
 		float(!has_gravity)
 
 /mob/living/proc/float(on)
@@ -1112,7 +1115,7 @@
 	return ..()
 
 /mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || flying || !density)
+	if(C == src || HAS_TRAIT(src, TRAIT_FLYING) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	if(mob_hurt)
