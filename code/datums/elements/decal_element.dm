@@ -21,9 +21,39 @@
 	/// The overlay applied by this decal to the target.
 	var/mutable_appearance/pic
 
+/datum/element/decal/Attach(atom/target, _icon, _icon_state, _dir, _layer=TURF_LAYER, _alpha=255, _color, _cleanable=FALSE, _description, mutable_appearance/_pic)
+	. = ..()
+	if(!isatom(target))
+		return ELEMENT_INCOMPATIBLE
+	if(_pic)
+		pic = _pic
+	else if(!generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, target))
+		return ELEMENT_INCOMPATIBLE
+	description = _description
+	cleanable = _cleanable
+	directional = _dir
+	base_icon_state = _icon_state
+
+	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_overlay), TRUE)
+	if(target.initialized)
+		target.update_appearance(UPDATE_OVERLAYS) //could use some queuing here now maybe.
+	else
+		RegisterSignal(target, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE, PROC_REF(late_update_icon), TRUE)
+	if(isitem(target))
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/obj/item/, update_slot_icon), TRUE)
+	if(_dir)
+		RegisterSignal(target, COMSIG_ATOM_DECALS_ROTATING, PROC_REF(shuttle_rotate), TRUE)
+		SSdcs.RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, rotate_decals), override=TRUE)
+	if(_cleanable)
+		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react), TRUE)
+	if(_description)
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examine), TRUE)
+
+	RegisterSignal(target, COMSIG_TURF_ON_SHUTTLE_MOVE, PROC_REF(shuttle_move_react), TRUE)
+
 /// Remove old decals and apply new decals after rotation as necessary
 /datum/controller/subsystem/processing/dcs/proc/rotate_decals(datum/source, old_dir, new_dir)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATOM_DIR_CHANGE
 
 	if(old_dir == new_dir)
 		return
@@ -62,37 +92,6 @@
 		"cleanable" = cleanable,
 		"desc" = description
 	)
-
-/datum/element/decal/Attach(atom/target, _icon, _icon_state, _dir, _layer=TURF_LAYER, _alpha=255, _color, _cleanable=FALSE, _description, mutable_appearance/_pic)
-	. = ..()
-	if(!isatom(target))
-		return ELEMENT_INCOMPATIBLE
-	if(_pic)
-		pic = _pic
-	else if(!generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, target))
-		return ELEMENT_INCOMPATIBLE
-	description = _description
-	cleanable = _cleanable
-	directional = _dir
-	base_icon_state = _icon_state
-
-	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_overlay), TRUE)
-	if(target.initialized)
-		target.update_appearance(UPDATE_OVERLAYS) //could use some queuing here now maybe.
-	else
-		RegisterSignal(target, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE, PROC_REF(late_update_icon), TRUE)
-	if(isitem(target))
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/obj/item/, update_slot_icon), TRUE)
-	if(_dir)
-		RegisterSignal(target, COMSIG_ATOM_DECALS_ROTATING, PROC_REF(shuttle_rotate), TRUE)
-		SSdcs.RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, rotate_decals), override=TRUE)
-	if(_cleanable)
-		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react), TRUE)
-	if(_description)
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examine), TRUE)
-
-	RegisterSignal(target, COMSIG_TURF_ON_SHUTTLE_MOVE, PROC_REF(shuttle_move_react), TRUE)
-
 
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER  // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE
@@ -133,7 +132,7 @@
 	return ..()
 
 /datum/element/decal/proc/apply_overlay(atom/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_OVERLAYS
 
 	source.add_overlay(pic)
 	// TODO: Fix this disgusting hack
