@@ -94,7 +94,7 @@
 
 /turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion)
 	if(!ore)
-		return TRUE
+		return MINERAL_ALLOW_DIG
 
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
@@ -102,7 +102,7 @@
 	return ore.on_mine(src, user, triggered_by_explosion)
 
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
-	if(mine_ore(user, triggered_by_explosion) == ORE_PREVENT_DIG)
+	if(mine_ore(user, triggered_by_explosion) == MINERAL_PREVENT_DIG)
 		return
 
 	ChangeTurf(turf_type, defer_change)

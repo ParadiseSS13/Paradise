@@ -11,5 +11,5 @@
 /// Returns a list of around us
 #define TURF_NEIGHBORS(turf) (CORNER_BLOCK_OFFSET(turf, 3, 3, -1, -1) - turf)
 
-#define ORE_PREVENT_DIG	0	//! A turf with ore in it should not be changed when mined.
-#define ORE_ALLOW_DIG	1	//! A turf with ore in it should be dug out when mined.
+#define MINERAL_PREVENT_DIG	0	//! A mineral turf should not be changed when mined.
+#define MINERAL_ALLOW_DIG	1	//! A mineral turf should be dug out when mined.
