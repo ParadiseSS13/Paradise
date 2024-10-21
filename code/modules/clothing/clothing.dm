@@ -520,6 +520,22 @@
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 
+/obj/item/clothing/shoes/equipped(mob/user, slot)
+	. = ..()
+	if(!no_slip || slot != SLOT_HUD_SHOES)
+		return
+	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
+
+/obj/item/clothing/shoes/dropped(mob/user)
+	..()
+	if(!no_slip)
+		return
+	var/mob/living/carbon/human/H = user
+	if(!user)
+		return
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
