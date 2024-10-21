@@ -29,6 +29,8 @@
 		return
 	if(!isliving(user))
 		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_JAUNT, get_turf(user)) & COMPONENT_BLOCK_JAUNT)
+		return FALSE
 
 /datum/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
