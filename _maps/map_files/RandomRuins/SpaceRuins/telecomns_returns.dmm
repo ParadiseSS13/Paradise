@@ -77,7 +77,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "bP" = (
-/obj/effect/spawner/lootdrop/telecomms_core_table,
+/obj/effect/spawner/random/telecomms_core_table,
 /obj/machinery/ai_slipper,
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel{
@@ -670,7 +670,7 @@
 /area/space/nearstation/no_teleport)
 "mD" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "mH" = (
@@ -788,9 +788,13 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
+"ob" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "oe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1065,10 +1069,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
-"si" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/computer)
 "sn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2321,6 +2321,10 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
+"Jb" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
 "Jm" = (
 /obj/machinery/computer/sm_monitor{
 	dir = 1
@@ -2745,7 +2749,7 @@
 /area/ruin/space/telecomms/tele)
 "Qg" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "Qx" = (
@@ -3002,10 +3006,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
-"Ux" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/foyer)
 "UD" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7454,7 +7454,7 @@ Zu
 eb
 nD
 Ri
-Ux
+Jb
 PQ
 Qf
 PQ
@@ -8267,7 +8267,7 @@ Pl
 Pl
 qo
 Pl
-si
+ob
 Zu
 Zu
 Zu
@@ -8815,7 +8815,7 @@ xa
 ik
 ux
 ux
-si
+ob
 ux
 ux
 iR

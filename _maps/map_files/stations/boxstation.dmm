@@ -54198,7 +54198,7 @@
 /area/station/engineering/atmos)
 "eUk" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food/three_course_meal,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -65582,7 +65582,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "kzB" = (
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food/three_course_meal,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)

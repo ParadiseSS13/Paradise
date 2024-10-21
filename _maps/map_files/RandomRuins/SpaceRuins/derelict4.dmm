@@ -36,7 +36,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "k" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "l" = (
