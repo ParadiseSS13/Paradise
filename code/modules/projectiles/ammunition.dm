@@ -128,7 +128,7 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
+	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state for details
 	var/caliber
 	var/multiload = 1
 	var/slow_loading = FALSE
