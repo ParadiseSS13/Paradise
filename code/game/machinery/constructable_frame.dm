@@ -625,11 +625,13 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/cell = 1)
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell = 1
+	)
 
 /obj/item/circuitboard/chem_master
 	board_name = "ChemMaster 3000"

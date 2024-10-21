@@ -102,7 +102,7 @@
 		return ..()
 
 	var/mob/living/L = AM
-	if((iscarbon(AM) || isanimal(AM)) && HAS_TRAIT(L, TRAIT_FLYING))
+	if((iscarbon(AM) || isanimal(AM)) && !HAS_TRAIT(L, TRAIT_FLYING))
 		spring_trap(AM)
 
 		if(ishuman(AM))
