@@ -16,27 +16,28 @@
 	/// The console we currently have a mark on
 	var/obj/marked_computer
 	/// The typecache of things we are allowed to teleport to and from
-	var/list/machine_typecache = list(/obj/machinery/computer,
-										/obj/machinery/power/apc,
-										/obj/machinery/alarm,
-										/obj/machinery/autolathe,
-										/obj/machinery/newscaster,
-										/obj/machinery/mecha_part_fabricator,
-										/obj/machinery/status_display,
-										/obj/machinery/requests_console,
-										/obj/item/radio/intercom,
-										/obj/machinery/economy/vending,
-										/obj/machinery/economy/atm,
-										/obj/machinery/arcade,
-										/obj/machinery/chem_dispenser,
-										/obj/machinery/chem_master,
-										/obj/machinery/reagentgrinder,
-										/obj/machinery/sleeper,
-										/obj/machinery/bodyscanner,
-										/obj/machinery/photocopier, // HI YES ONE FLAYER FAXED TO MY OFFICE PLEASE
-										/obj/machinery/r_n_d/experimentor, // Like anyone is ever gonna teleport to this
-										/obj/machinery/barsign
-									)
+	var/list/machine_typecache = list(
+									/obj/machinery/computer,
+									/obj/machinery/power/apc,
+									/obj/machinery/alarm,
+									/obj/machinery/autolathe,
+									/obj/machinery/newscaster,
+									/obj/machinery/mecha_part_fabricator,
+									/obj/machinery/status_display,
+									/obj/machinery/requests_console,
+									/obj/item/radio/intercom,
+									/obj/machinery/economy/vending,
+									/obj/machinery/economy/atm,
+									/obj/machinery/arcade,
+									/obj/machinery/chem_dispenser,
+									/obj/machinery/chem_master,
+									/obj/machinery/reagentgrinder,
+									/obj/machinery/sleeper,
+									/obj/machinery/bodyscanner,
+									/obj/machinery/photocopier, // HI YES ONE FLAYER FAXED TO MY OFFICE PLEASE
+									/obj/machinery/r_n_d/experimentor, // Like anyone is ever gonna teleport to this
+									/obj/machinery/barsign
+								)
 
 /datum/spell/flayer/computer_recall/New()
 	. = ..()
