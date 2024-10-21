@@ -80,6 +80,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 
@@ -97,6 +98,7 @@
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 /obj/item/mod/control/pre_equipped/loader
