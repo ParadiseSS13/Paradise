@@ -9,7 +9,7 @@
 	category = FLAYER_CATEGORY_INTRUDER
 	centcom_cancast = FALSE
 	stage = 2
-	base_cost = 150
+	base_cost = 125
 	static_upgrade_increase = 25
 	max_level = 2
 	should_recharge_after_cast = FALSE
