@@ -310,6 +310,10 @@
 	// No other state is happening, therefore we are stunned
 	icon_state = icon_stun
 
+/// Spooky ghost can go through lasers
+/mob/living/simple_animal/revenant/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	return
+
 /datum/objective/revenant
 	needs_target = FALSE
 	var/targetAmount = 100
