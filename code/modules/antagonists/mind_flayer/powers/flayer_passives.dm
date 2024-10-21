@@ -356,5 +356,6 @@
 /datum/mindflayer_passive/radio_jammer/on_remove()
 	QDEL_NULL(internal_jammer)
 	REMOVE_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
-	owner.set_invisible(stored_invis)
+	if(stored_invis)
+		owner.set_invisible(stored_invis)
 	to_chat(owner, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")
