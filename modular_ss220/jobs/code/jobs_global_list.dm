@@ -16,6 +16,11 @@ GLOBAL_LIST_INIT(security_positions_ss220, list(
 	"Security Cadet",
 ))
 
+// ====================== EVENT ======================
+GLOBAL_LIST_INIT(event_ss220, list(
+	"SDTF Raskinta Katish",
+	"Emperor Guard",
+))
 
 // ====================== DONOR ======================
 GLOBAL_LIST_INIT(donor_tier_1_jobs, list(
@@ -92,13 +97,13 @@ GLOBAL_LIST_INIT(jobs_excluded_from_selection, list("Donor"))
 // ====================== SPECIAL ======================
 // cant be antags
 GLOBAL_LIST_INIT(restricted_jobs_ss220, security_positions_ss220 + (
-	donor_tier_4_jobs + donor_tier_5_jobs + jobs_excluded_from_selection
+	donor_tier_4_jobs + donor_tier_5_jobs + jobs_excluded_from_selection + event_ss220
 ))
 
 // ===================== ALL JOBS =====================
 
 GLOBAL_LIST_INIT(all_jobs_ss220, (list() + (
-	medical_positions_ss220 + science_positions_ss220 + engineering_positions_ss220 + security_positions_ss220 + all_donor_jobs)))
+	medical_positions_ss220 + science_positions_ss220 + engineering_positions_ss220 + security_positions_ss220 + all_donor_jobs + event_ss220)))
 
 
 // ====================== TITLE ======================
@@ -133,5 +138,8 @@ GLOBAL_LIST_INIT(all_jobs_ss220, (list() + (
 /proc/get_all_assistant_titles_ss220()
 	return GLOB.assistant_donor_jobs + get_alt_titles(GLOB.assistant_donor_jobs)
 
+/proc/get_all_event_titles_ss220()
+	return GLOB.event_ss220 + get_alt_titles(GLOB.event_ss220)
+
 /proc/get_all_titles_ss220()
-	return get_all_medical_titles_ss220() + get_all_security_titles_ss220() + get_all_engineering_titles_ss220() + get_all_science_titles_ss220() + get_all_service_titles_ss220() + get_all_supply_titles_ss220() + get_all_assistant_titles_ss220()
+	return get_all_medical_titles_ss220() + get_all_security_titles_ss220() + get_all_engineering_titles_ss220() + get_all_science_titles_ss220() + get_all_service_titles_ss220() + get_all_supply_titles_ss220() + get_all_assistant_titles_ss220() + get_all_event_titles_ss220()
