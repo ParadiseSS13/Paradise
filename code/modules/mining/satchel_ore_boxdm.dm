@@ -83,8 +83,8 @@
 	if(Adjacent(user))
 		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to empty the ore box.</span>"
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	return ..()
 
 /obj/structure/ore_box/AltShiftClick(mob/user)
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

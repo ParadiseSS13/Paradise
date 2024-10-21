@@ -405,6 +405,7 @@
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	color = "#ffffff"
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -512,15 +513,15 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(!isliving(crosser))
+/obj/structure/spacevine/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(!isliving(crossed))
 		return
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		SM.on_cross(src, crosser)
+		SM.on_cross(src, crossed)
 
 	if(prob(30 * energy))
-		entangle(crosser)
+		entangle(crossed)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)
@@ -705,7 +706,7 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target)
+/obj/structure/spacevine/CanPass(atom/movable/mover, border_dir)
 	if(isvineimmune(mover))
 		. = TRUE
 	else

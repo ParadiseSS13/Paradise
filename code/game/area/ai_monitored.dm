@@ -10,7 +10,6 @@
 		for(var/obj/machinery/camera/M in src)
 			if(M.isMotion())
 				motioncameras.Add(M)
-				M.AddComponent(/datum/component/proximity_monitor)
 				M.set_area_motion(src)
 
 /area/station/ai_monitored/Entered(atom/movable/O)

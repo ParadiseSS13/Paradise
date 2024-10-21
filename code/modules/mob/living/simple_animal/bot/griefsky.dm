@@ -48,10 +48,9 @@
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
-	..()
-	if(ismob(AM) && AM == target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/griefsky/on_movable_cross(datum/source, atom/movable/crossed)
+	if(iscarbon(crossed) && crossed == target)
+		var/mob/living/carbon/C = crossed
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
 		C.KnockDown(4 SECONDS)
 
@@ -61,6 +60,7 @@
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention

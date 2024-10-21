@@ -92,3 +92,4 @@ nav:
       - 'Autodoc Guide': './references/autodoc.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
+      - 'Movement Signals': './references/movement_signals.md'

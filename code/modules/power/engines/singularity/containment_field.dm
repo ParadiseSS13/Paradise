@@ -14,6 +14,10 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
+/obj/machinery/field/containment/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/machinery/field/containment/Destroy()
 	FG1.fields -= src
 	FG2.fields -= src
@@ -55,12 +59,12 @@
 	else
 		..()
 
-/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
-	if(isliving(mover))
-		shock_field(mover)
+/obj/machinery/field/containment/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isliving(crossed))
+		shock_field(crossed)
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+	if(ismachinery(crossed) || isstructure(crossed) || ismecha(crossed))
+		bump_field(crossed)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
@@ -84,7 +88,7 @@
 /obj/machinery/field
 	var/hasShocked = 0 //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
-/obj/machinery/field/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/field/CanPass(atom/movable/mover, border_dir)
 	if(hasShocked)
 		return 0
 	if(isliving(mover)) // Don't let mobs through

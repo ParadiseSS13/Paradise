@@ -286,7 +286,7 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
+/turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return 1
 
 /turf/simulated/floor/chasm/pride/Initialize(mapload)
