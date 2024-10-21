@@ -293,7 +293,7 @@
 	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
 		ignoreslow = TRUE
 
-	var/flight = H.flying	//Check for flight and flying items
+	var/flight = HAS_TRAIT(H, TRAIT_FLYING)	//Check for flight and flying items
 
 	ADD_SLOWDOWN(speed_mod)
 
@@ -586,7 +586,7 @@
 	if(target.anchored)
 		return FALSE
 	if(target.buckled)
-		target.buckled.unbuckle_mob(target)
+		target.unbuckle()
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)

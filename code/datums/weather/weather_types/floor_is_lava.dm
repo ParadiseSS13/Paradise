@@ -35,7 +35,7 @@
 		return
 	if(!L.client) //Only sentient people are going along with it!
 		return
-	if(L.flying)
+	if(HAS_TRAIT(L, TRAIT_FLYING))
 		return
 	L.adjustFireLoss(3)
 
