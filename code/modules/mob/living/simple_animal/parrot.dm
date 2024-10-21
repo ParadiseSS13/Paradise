@@ -84,7 +84,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/parrot/New()

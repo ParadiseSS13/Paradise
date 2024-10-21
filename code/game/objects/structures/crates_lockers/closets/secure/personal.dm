@@ -23,7 +23,7 @@
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinet"
-	open_door_sprite = "cabinet_door"
+	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -39,10 +39,6 @@
 	if(opened || !istype(W, /obj/item/card/id))
 		return ..()
 
-	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return
-
 	if(istype(W, /obj/item/card/id/guest))
 		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
 		return
@@ -51,24 +47,16 @@
 	if(!I || !I.registered_name)
 		return
 
-	if(src == user.loc)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
-
 	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
-		cut_overlays()
-
 		//they can open all lockers, or nobody owns this, or they own this locker
-		locked = !locked
-		if(locked)
-			add_overlay("locked")
-		else
-			add_overlay("unlocked")
-			icon_state = icon_closed
+		togglelock(user)
+		if(!locked)
 			registered_name = null
 			desc = initial(desc)
 
 		if(!registered_name && locked)
 			registered_name = I.registered_name
-			desc = "Owned by [I.registered_name]."
+			desc = "Owned by [I.registered_name]." 
+
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")

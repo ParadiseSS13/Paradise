@@ -51,7 +51,7 @@
 	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mecha/odysseus/main
+	build_path = /obj/item/circuitboard/mecha/nkarrdem/main
 	category = list("Exosuit Modules")
 
 /datum/design/nkarrdem_peri
@@ -61,7 +61,7 @@
 	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
+	build_path = /obj/item/circuitboard/mecha/nkarrdem/peripherals
 	category = list("Exosuit Modules")
 
 // Gygax
