@@ -1192,7 +1192,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "ahB" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -6949,7 +6949,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "aVo" = (
 /obj/structure/table/wood,
 /obj/item/megaphone,
@@ -12226,7 +12226,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "byx" = (
 /obj/machinery/light{
 	dir = 4
@@ -13583,7 +13583,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "bEC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
@@ -18220,7 +18220,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "bYC" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
@@ -31217,7 +31217,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "dCe" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -35786,13 +35786,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"eQv" = (
-/obj/effect/spawner/random/maintenance,
-/obj/structure/rack,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/mine/unexplored/cere/civilian)
 "eQA" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
@@ -37535,7 +37528,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "fvb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -39539,7 +39532,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "gav" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -43661,14 +43654,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
-"hrm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/mine/unexplored/cere/civilian)
 "hrn" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
@@ -54038,7 +54023,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "kad" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 10
@@ -62589,9 +62574,6 @@
 	icon_state = "neutral"
 	},
 /area/station/public/storage/tools)
-"myi" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "myn" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -68802,7 +68784,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "osy" = (
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -72920,7 +72902,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "pBi" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/brute,
@@ -75153,9 +75135,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/gravitygenerator)
-"qeS" = (
-/turf/simulated/mineral/ancient,
-/area/space)
 "qeX" = (
 /obj/item/reagent_containers/drinks/bottle/patron,
 /obj/structure/table/wood,
@@ -76664,7 +76643,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "qyO" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -78853,14 +78832,6 @@
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fore)
-"rjf" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/mine/unexplored/cere/civilian)
 "rji" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79831,11 +79802,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"rAc" = (
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/mine/unexplored/cere/civilian)
 "rAg" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -88362,7 +88328,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "tTl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88776,7 +88742,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "tXS" = (
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
@@ -90454,7 +90420,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "uvp" = (
 /obj/machinery/camera{
 	c_tag = "SM East";
@@ -91485,7 +91451,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "uJd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -100590,7 +100556,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port2)
 "xgU" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -124521,7 +124487,7 @@ hUU
 ncn
 xdr
 nIF
-aXn
+cEM
 mJl
 vPV
 xsS
@@ -124777,8 +124743,8 @@ hUU
 fgt
 ncn
 xdr
-aXn
-aXn
+cEM
+cEM
 mJl
 rvT
 mvM
@@ -125034,7 +125000,7 @@ aXn
 wZC
 nIF
 xdr
-aXn
+cEM
 uSv
 uSv
 gav
@@ -125291,7 +125257,7 @@ aXn
 aXn
 dQZ
 xdr
-aXn
+cEM
 uSv
 pDn
 pDn
@@ -125548,7 +125514,7 @@ mNT
 aXn
 eyh
 xdr
-aXn
+cEM
 uSv
 pDn
 pDn
@@ -125805,7 +125771,7 @@ djz
 aZF
 dQZ
 tHQ
-aXn
+cEM
 uSv
 pDn
 pDn
@@ -126062,7 +126028,7 @@ fYh
 lOr
 sQV
 uaM
-aXn
+cEM
 uSv
 pDn
 pDn
@@ -126319,7 +126285,7 @@ tmR
 qAJ
 nIF
 xdr
-aXn
+cEM
 uSv
 pDn
 pDn
@@ -126332,7 +126298,7 @@ pDn
 pDn
 pDn
 uSv
-aXn
+cEM
 fmz
 qxQ
 jjb
@@ -126576,7 +126542,7 @@ djz
 qpx
 nIF
 xdr
-aXn
+cEM
 uSv
 uSv
 uSv
@@ -126589,7 +126555,7 @@ uSv
 uSv
 uSv
 uSv
-aXn
+cEM
 pFj
 hzj
 acY
@@ -126828,12 +126794,12 @@ rNK
 hUU
 aXn
 aXn
-mic
-mic
-mic
+aZF
+aZF
+aZF
 nIF
 hXc
-cEM
+aXn
 aXn
 aXn
 aXn
@@ -126843,10 +126809,10 @@ tsz
 sBQ
 loA
 uSv
-aXn
-aXn
-aXn
-aXn
+cEM
+cEM
+cEM
+cEM
 dQZ
 tpB
 qxQ
@@ -127090,8 +127056,8 @@ fuZ
 dQZ
 lHU
 xdr
-cEM
-cEM
+aXn
+aXn
 aXn
 aXn
 uSv
@@ -127103,7 +127069,7 @@ oyg
 jfe
 kUi
 rAQ
-aXn
+cEM
 nIF
 gnS
 uCw
@@ -127339,7 +127305,7 @@ abE
 rNK
 rNK
 rNK
-myi
+hUU
 aXn
 aht
 jZY
@@ -127348,19 +127314,19 @@ mOV
 nIF
 xdr
 lzs
-cEM
-cEM
 aXn
 aXn
 aXn
 aXn
 aXn
 aXn
-mic
+aXn
+aXn
+aZF
 qxQ
 rqr
 msv
-aXn
+cEM
 nIF
 gnS
 bBI
@@ -127596,8 +127562,8 @@ abE
 rNK
 rNK
 rNK
-myi
-qeS
+hUU
+aXn
 uuY
 ost
 bEA
@@ -127608,12 +127574,12 @@ puu
 wvM
 nIF
 aZF
-mic
+aZF
 aXn
 aXn
 aXn
 aXn
-aXn
+cEM
 nIF
 rqr
 dYK
@@ -127853,9 +127819,9 @@ abE
 rNK
 rNK
 rNK
-myi
-qeS
-hrm
+hUU
+aXn
+gxa
 uIR
 tXQ
 uIR
@@ -128110,9 +128076,9 @@ abE
 rNK
 rNK
 rNK
-myi
-qeS
-qeS
+hUU
+aXn
+aXn
 gan
 qst
 gxa
@@ -128367,9 +128333,9 @@ abE
 rNK
 rNK
 rNK
-myi
-myi
-qeS
+hUU
+hUU
+aXn
 aXn
 aZF
 aZF
@@ -128377,8 +128343,8 @@ tyk
 kTF
 aZF
 aZF
-rjf
-jNX
+eyh
+ncn
 aXn
 aXn
 aXn
@@ -128625,17 +128591,17 @@ rNK
 rNK
 rNK
 rNK
-myi
+hUU
 aXn
 aXn
-mic
+aZF
 uGz
 lRc
 uyi
 rte
 aZF
-rAc
-eQv
+nIF
+quf
 aXn
 aXn
 aXn
@@ -128882,7 +128848,7 @@ rNK
 rNK
 rNK
 rNK
-myi
+hUU
 hUU
 aXn
 aXn
@@ -128891,7 +128857,7 @@ dQZ
 aiS
 hNJ
 tOn
-rAc
+nIF
 aXn
 aXn
 aXn
@@ -129140,7 +129106,7 @@ rNK
 rNK
 rNK
 rNK
-myi
+hUU
 aXn
 aXn
 xxs
@@ -129148,7 +129114,7 @@ aAT
 dQZ
 dQZ
 rrc
-rAc
+nIF
 aXn
 aXn
 aXn
@@ -129397,7 +129363,7 @@ cRv
 rNK
 rNK
 rNK
-myi
+hUU
 hUU
 aXn
 tTh
@@ -129655,7 +129621,7 @@ abE
 rNK
 rNK
 rNK
-myi
+hUU
 hUU
 aXn
 aXn
@@ -129912,14 +129878,14 @@ abE
 rNK
 rNK
 rNK
-myi
-myi
-myi
 hUU
 hUU
 hUU
-myi
-myi
+hUU
+hUU
+hUU
+hUU
+hUU
 rNK
 lzH
 rNK
