@@ -66,8 +66,7 @@
 	action_icon_state = "strained_muscles"
 	stage = 3
 	max_level = 3
-	base_cost = 150
-	static_upgrade_increase = 25
+	base_cost = 125
 	upgrade_info = "Upgrading this improves our heat sinks, making us heat up slower."
 	var/heat_per_tick = 22
 
