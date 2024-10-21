@@ -532,6 +532,7 @@
 	if(I.maptext)
 		I.maptext = ""
 	I.on_exit_storage(src)
+	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
 
