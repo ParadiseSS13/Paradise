@@ -89,9 +89,9 @@
 	if(_cleanable)
 		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react), TRUE)
 	if(_description)
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examine),TRUE)
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examine), TRUE)
 
-	RegisterSignal(target, COMSIG_TURF_ON_SHUTTLE_MOVE, PROC_REF(shuttle_move_react),TRUE)
+	RegisterSignal(target, COMSIG_TURF_ON_SHUTTLE_MOVE, PROC_REF(shuttle_move_react), TRUE)
 
 
 /datum/element/decal/proc/late_update_icon(atom/source)
