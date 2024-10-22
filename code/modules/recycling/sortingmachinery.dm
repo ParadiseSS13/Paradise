@@ -450,7 +450,7 @@
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
 				icon_state = "shippack_sealed"
 				sealed = 1
-				update_desc()
+				update_appearance(UPDATE_DESC)
 	else
 		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")

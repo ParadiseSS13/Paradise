@@ -1,9 +1,9 @@
-use crate::constants::*;
-use crate::conversion;
 use crate::logging;
-use crate::model::*;
-use crate::statics::*;
-use crate::tick;
+use crate::milla::constants::*;
+use crate::milla::conversion;
+use crate::milla::model::*;
+use crate::milla::statics::*;
+use crate::milla::tick;
 use byondapi::global_call::call_global;
 use byondapi::map::byond_xyz;
 use byondapi::prelude::*;
@@ -14,7 +14,7 @@ use std::time::Instant;
 
 /// BYOND API for ensuring the buffers are usable.
 #[byondapi::bind]
-fn initialize(byond_z: ByondValue) {
+fn milla_initialize(byond_z: ByondValue) {
     logging::setup_panic_handler();
     let z = f32::try_from(byond_z)? as i32 - 1;
     internal_initialize(z)?;
@@ -36,7 +36,7 @@ pub(crate) fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
 
 /// BYOND API for defining an environment that a tile can be exposed to.
 #[byondapi::bind]
-fn create_environment(
+fn milla_create_environment(
     oxygen: ByondValue,
     carbon_dioxide: ByondValue,
     nitrogen: ByondValue,
@@ -96,7 +96,7 @@ pub(crate) fn internal_create_environment(
 
 /// BYOND API for setting the atmos details of a tile.
 #[byondapi::bind]
-fn set_tile(
+fn milla_set_tile(
     turf: ByondValue,
     airtight_north: ByondValue,
     airtight_east: ByondValue,
@@ -143,7 +143,7 @@ fn set_tile(
 /// BYOND API for setting the directions a tile is airtight in.
 /// Like set_tile, just with a smaller set of fields.
 #[byondapi::bind]
-fn set_tile_airtight(
+fn milla_set_tile_airtight(
     turf: ByondValue,
     airtight_north: ByondValue,
     airtight_east: ByondValue,
@@ -239,7 +239,7 @@ pub(crate) fn internal_set_tile(
                     };
                 }
             }
-			3 => tile.mode = AtmosMode::NoDecay,
+            3 => tile.mode = AtmosMode::NoDecay,
             _ => return Err(eyre!("Invalid atmos_mode: {}", value)),
         }
     }
@@ -278,7 +278,7 @@ pub(crate) fn internal_set_tile(
 
 /// BYOND API for fetching the atmos details of a tile.
 #[byondapi::bind]
-fn get_tile(turf: ByondValue, list: ByondValue) {
+fn milla_get_tile(turf: ByondValue, list: ByondValue) {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let tile = internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
@@ -308,7 +308,7 @@ pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
 /// * Turfs that just passed the threshold for showing plasma or sleeping gas.
 /// * Turfs with strong airflow out.
 #[byondapi::bind]
-fn get_interesting_tiles() {
+fn milla_get_interesting_tiles() {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let byond_interesting_tiles = interesting_tiles
@@ -320,7 +320,7 @@ fn get_interesting_tiles() {
 
 /// BYOND API for getting a single random interesting tile.
 #[byondapi::bind]
-fn get_random_interesting_tile() {
+fn milla_get_random_interesting_tile() {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let length = interesting_tiles.len() as f32;
@@ -336,7 +336,7 @@ fn get_random_interesting_tile() {
 
 /// BYOND API for capping the superconductivity of a tile.
 #[byondapi::bind]
-fn reduce_superconductivity(
+fn milla_reduce_superconductivity(
     turf: ByondValue,
     north: ByondValue,
     east: ByondValue,
@@ -404,7 +404,7 @@ pub(crate) fn internal_reduce_superconductivity(
 
 /// BYOND API for resetting the superconductivity of a tile.
 #[byondapi::bind]
-fn reset_superconductivity(turf: ByondValue) {
+fn milla_reset_superconductivity(turf: ByondValue) {
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     internal_reset_superconductivity(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
     Ok(Default::default())
@@ -436,7 +436,7 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 
 /// BYOND API for starting an atmos tick.
 #[byondapi::bind]
-fn spawn_tick_thread() {
+fn milla_spawn_tick_thread() {
     logging::setup_panic_handler();
     thread::spawn(|| -> Result<(), eyre::Error> {
         let now = Instant::now();
@@ -454,7 +454,7 @@ fn spawn_tick_thread() {
 
 /// BYOND API for asking how long the prior tick took.
 #[byondapi::bind]
-fn get_tick_time() {
+fn milla_get_tick_time() {
     logging::setup_panic_handler();
     Ok(ByondValue::from(
         TICK_TIME.load(std::sync::atomic::Ordering::Relaxed) as f32,
