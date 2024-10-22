@@ -154,7 +154,13 @@
 		var/list/cat_items = list()
 		for(var/prize_name in prize_list[cat])
 			var/datum/data/mining_equipment/prize = prize_list[cat][prize_name]
-			cat_items[prize_name] = list("name" = prize_name, "price" = prize.cost)
+			var/obj/item = prize.equipment_path
+			cat_items[prize_name] = list(
+				"name" = prize_name,
+				"price" = prize.cost,
+				"icon" = item.icon,
+				"icon_state" = item.icon_state
+			)
 		static_data["items"][cat] = cat_items
 
 	return static_data

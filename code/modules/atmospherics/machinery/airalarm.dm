@@ -209,7 +209,9 @@
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+
+	if(!mapload)
+		GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
 	wires = new(src)
 
