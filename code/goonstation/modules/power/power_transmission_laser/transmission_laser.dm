@@ -379,20 +379,20 @@
 
 	total_energy += joules
 	total_earnings += generated_cash
-	generated_cash += unsent_earnings
-	unsent_earnings = generated_cash
+	unsent_earnings += generated_cash
 
 	var/datum/money_account/engineering_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_ENGINEERING)
 	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 
-	var/medium_cut = generated_cash * 0.25
-	var/high_cut = generated_cash * 0.75
+	if(unsent_earnings > 200)
+		var/medium_cut = round(unsent_earnings * 0.25)
+		var/high_cut = round(unsent_earnings * 0.75)
 
-	GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= medium_cut
+		GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		unsent_earnings -= medium_cut
 
-	GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= high_cut
+		GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		unsent_earnings -= high_cut
 
 #undef A1_CURVE
 #undef PROCESS_CAP
