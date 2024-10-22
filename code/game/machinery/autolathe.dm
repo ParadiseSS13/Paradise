@@ -416,6 +416,8 @@
 			new_item.materials[MAT_GLASS] /= coeff
 			new_item.pixel_y = rand(-5, 5)
 			new_item.pixel_x = rand(-5, 5)
+		if(is_station_level(z))
+			SSblackbox.record_feedback("tally", "station_autolathe_production", 1, "[D.type]")
 	SStgui.update_uis(src)
 	desc = initial(desc)
 
