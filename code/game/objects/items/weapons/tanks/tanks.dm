@@ -137,7 +137,7 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/tank/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	add_fingerprint(user)
@@ -147,7 +147,7 @@
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
-/obj/item/tank/attack_self(mob/user as mob)
+/obj/item/tank/attack_self__legacy__attackchain(mob/user as mob)
 	if(!(air_contents))
 		return
 

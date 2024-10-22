@@ -38,7 +38,7 @@
 	. = ..()
 	. += extended_desc
 
-/obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/mmi/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/golem))
 		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
 		return
@@ -126,7 +126,7 @@
 						"<span class='notice'>You uninstall the radio from [src].</span>")
 
 
-/obj/item/mmi/attack_self(mob/user as mob)
+/obj/item/mmi/attack_self__legacy__attackchain(mob/user as mob)
 	if(!brainmob)
 		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
 	else
@@ -307,7 +307,7 @@
 	Whilst these specialty MMIs are rarely used owing to the far greater applicability and convenience of the mindslave implant, they do see occasional employment by undercover agents that wish to stealthily convert the AI-slaved cyborgs of Nanotrasen. \
 	Just like the mindslave implant, these are extremely illegal in most regions of space. Simple possession (to say nothing of actual use) generally warrants a very long prison sentence."
 
-/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
+/obj/item/mmi/syndie/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		master_uid = user.mind.UID()

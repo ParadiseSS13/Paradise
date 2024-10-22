@@ -179,7 +179,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = 0
 	return ..()
 
-/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby__legacy__attackchain(obj/item/D as obj, mob/user as mob, params)
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))

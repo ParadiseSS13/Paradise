@@ -56,7 +56,7 @@
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 
-/obj/item/cautery/attack(mob/living/target, mob/living/user)
+/obj/item/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -168,7 +168,7 @@
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/scalpel/laser/attack(mob/living/carbon/target, mob/living/user)
+/obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 

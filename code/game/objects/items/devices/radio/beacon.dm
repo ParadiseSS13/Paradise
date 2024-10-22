@@ -56,7 +56,7 @@
 		mycomputer.mybeacon = null
 	return ..()
 
-/obj/item/beacon/syndicate/attack_self(mob/user)
+/obj/item/beacon/syndicate/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
@@ -87,7 +87,7 @@
 	var/list/selected = list()
 	var/list/unselected = list()
 
-/obj/item/beacon/syndicate/bundle/attack_self(mob/user)
+/obj/item/beacon/syndicate/bundle/attack_self__legacy__attackchain(mob/user)
 	if(!user)
 		return
 
@@ -115,7 +115,7 @@
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
 
-/obj/item/beacon/syndicate/power_sink/attack_self(mob/user)
+/obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/item/powersink(user.loc)
@@ -129,7 +129,7 @@
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
 
-/obj/item/beacon/syndicate/bomb/attack_self(mob/user)
+/obj/item/beacon/syndicate/bomb/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new bomb(user.loc)

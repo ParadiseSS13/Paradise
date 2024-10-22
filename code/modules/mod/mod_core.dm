@@ -213,13 +213,13 @@
 		if(cell)
 			to_chat(user, "<span class='warning'>Cell already installed!</span>")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return COMPONENT_NO_AFTERATTACK
+			return COMPONENT_SKIP_AFTERATTACK
 		user.drop_item()
 		install_cell(attacking_item)
 		to_chat(user, "<span class='notice'>You install the cell.</span>")
 		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		mod.update_charge_alert()
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 	return NONE
 
 /obj/item/mod/core/standard/proc/on_wearer_set(datum/source, mob/user)
@@ -252,7 +252,7 @@
 	/// Associated list of charge sources, only stacks allowed.
 	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
-/obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/mod/core/plasma/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
 	if(charge_plasma(attacking_item, user))
 		return TRUE
 	return ..()

@@ -745,7 +745,7 @@
 			visible_message("<span class='warning'>[M] [response_harm] [src].</span>")
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/demon/pulse_demon/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(is_under_tile())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
@@ -821,7 +821,7 @@
 	. = ..()
 	set_light(13, 2, "#bbbb00")
 
-/obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/pulse/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

@@ -168,7 +168,7 @@
 	STOP_PROCESSING(SSobj, src)
 	temp_air_contents = air_contents
 
-/obj/item/tank/jetpack/suit/attack_self()
+/obj/item/tank/jetpack/suit/attack_self__legacy__attackchain()
 	return
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)

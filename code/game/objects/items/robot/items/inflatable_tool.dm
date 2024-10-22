@@ -17,7 +17,7 @@
 	. = ..()
 	. += "<span class='notice'>As a synthetic, you can restore them at a <b>cyborg recharger</b>.</span>"
 
-/obj/item/inflatable/cyborg/attack_self(mob/user)
+/obj/item/inflatable/cyborg/attack_self__legacy__attackchain(mob/user)
 	if(locate(/obj/structure/inflatable) in get_turf(user))
 		to_chat(user, "<span class='warning'>There's already an inflatable structure!</span>")
 		return FALSE

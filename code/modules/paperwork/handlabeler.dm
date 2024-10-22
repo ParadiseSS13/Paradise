@@ -12,7 +12,7 @@
 	var/labels_left = 30
 	var/mode = LABEL_MODE_OFF
 
-/obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity)
+/obj/item/hand_labeler/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(mode == LABEL_MODE_OFF)	//if it's off, give up.
@@ -48,7 +48,7 @@
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
-/obj/item/hand_labeler/attack_self(mob/user as mob)
+/obj/item/hand_labeler/attack_self__legacy__attackchain(mob/user as mob)
 	// off -> normal
 	// normal or goal -> off
 	mode = !mode
@@ -65,7 +65,7 @@
 	else
 		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
 
-/obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
+/obj/item/hand_labeler/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		user.drop_item()

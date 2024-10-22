@@ -90,13 +90,13 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
 
-/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack__legacy__attackchain(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 	else
 		..()
 
-/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attackby(obj/item/W)
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attackby__legacy__attackchain(obj/item/W)
 	..()
 	if(W.get_heat())
 		fire_act()
@@ -104,7 +104,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)
 	..()
 
-/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack_self(mob/living/carbon/human/user)
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	..()
 	if(!(resistance_flags & ON_FIRE))
 		return

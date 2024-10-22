@@ -971,7 +971,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
 
-/obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return

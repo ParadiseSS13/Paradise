@@ -19,7 +19,7 @@
 	flipped = FALSE
 	..()
 
-/obj/item/clothing/head/soft/attack_self(mob/user)
+/obj/item/clothing/head/soft/attack_self__legacy__attackchain(mob/user)
 	flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)

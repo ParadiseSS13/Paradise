@@ -24,13 +24,13 @@
 
 /obj/item/melee/touch_attack/banana/apprentice
 
-/obj/item/melee/touch_attack/banana/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/banana/apprentice/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(iswizard(target) && target != user)
 		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
 		return
 	..()
 
-/obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/banana/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

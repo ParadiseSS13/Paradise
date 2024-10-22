@@ -17,7 +17,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
+/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
 	return
 
 /obj/item/trash/raisins

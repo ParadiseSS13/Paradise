@@ -35,7 +35,7 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
+/obj/machinery/door_control/attackby__legacy__attackchain(obj/item/W, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
 	return ..()

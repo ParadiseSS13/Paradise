@@ -13,7 +13,7 @@
 	flags = CONDUCT
 	max_amount = 60
 
-/obj/item/stack/light_w/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/light_w/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/wirecutters))
 		var/obj/item/stack/cable_coil/CC = new(user.loc)

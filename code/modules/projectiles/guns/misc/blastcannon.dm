@@ -16,7 +16,7 @@
 	QDEL_NULL(bomb)
 	return ..()
 
-/obj/item/gun/blastcannon/attack_self(mob/user)
+/obj/item/gun/blastcannon/attack_self__legacy__attackchain(mob/user)
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
@@ -45,7 +45,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
+/obj/item/gun/blastcannon/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/transfer_valve))
 		var/obj/item/transfer_valve/T = O
 		if(!T.tank_one || !T.tank_two)
@@ -76,7 +76,7 @@
 		return 0
 	return (pressure / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
 	if((!bomb) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = calculate_bomb()

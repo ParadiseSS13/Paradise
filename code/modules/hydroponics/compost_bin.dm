@@ -66,7 +66,7 @@
 	qdel(O)
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
-/obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
+/obj/machinery/compost_bin/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

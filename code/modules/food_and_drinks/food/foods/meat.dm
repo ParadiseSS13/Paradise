@@ -15,7 +15,7 @@
 	ingredient_name = "slab of meat"
 	ingredient_name_plural = "slabs of meat"
 
-/obj/item/food/meat/attackby(obj/item/W, mob/user, params)
+/obj/item/food/meat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		new /obj/item/food/rawcutlet(src)
 		new /obj/item/food/rawcutlet(src)
@@ -99,7 +99,7 @@
 	bitesize = 1
 	list_reagents = list("protein" = 1)
 
-/obj/item/food/rawcutlet/attackby(obj/item/W, mob/user, params)
+/obj/item/food/rawcutlet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		user.visible_message( \
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
@@ -426,7 +426,7 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/food/egg/attackby(obj/item/W, mob/user, params)
+/obj/item/food/egg/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		var/clr = C.dye_color

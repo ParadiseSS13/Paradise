@@ -76,7 +76,7 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/r_n_d/protolathe/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/storage/part_replacer))
 		return ..()
 

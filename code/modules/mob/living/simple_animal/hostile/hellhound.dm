@@ -92,7 +92,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
+/mob/living/simple_animal/hostile/hellhound/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	. = ..()
 	if(target && isliving(target))
 		var/mob/living/L = target

@@ -734,7 +734,7 @@
 	..()
 	initialize()
 
-/obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/spellbook/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))
 		var/obj/item/contract/contract = O
 		if(contract.used)
@@ -850,7 +850,7 @@
 	dat += {"[content]</body></html>"}
 	return dat
 
-/obj/item/spellbook/attack_self(mob/user as mob)
+/obj/item/spellbook/attack_self__legacy__attackchain(mob/user as mob)
 	if(!owner)
 		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
 		owner = user
@@ -953,7 +953,7 @@
 				tab = loadout_categories[1]
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
-	attack_self(H)
+	attack_self__legacy__attackchain(H)
 	return 1
 
 //Single Use Spellbooks
@@ -972,7 +972,7 @@
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
 
-/obj/item/spellbook/oneuse/attack_self(mob/user)
+/obj/item/spellbook/oneuse/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
@@ -998,7 +998,7 @@
 	used = TRUE
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
-/obj/item/spellbook/oneuse/attackby()
+/obj/item/spellbook/oneuse/attackby__legacy__attackchain()
 	return
 
 /obj/item/spellbook/oneuse/fireball

@@ -95,7 +95,7 @@
 				H.put_in_l_hand(src)
 	return
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
+/obj/item/watertank/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W == noz)
 		remove_noz()
 		return
@@ -138,7 +138,7 @@
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/reagent_containers/spray/mister/attack_self()
+/obj/item/reagent_containers/spray/mister/attack_self__legacy__attackchain()
 	return
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
@@ -152,7 +152,7 @@
 	if(loc != tank.loc)
 		loc = tank.loc
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/spray/mister/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -182,7 +182,7 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self__legacy__attackchain(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -255,7 +255,7 @@
 	if(tank && loc != tank.loc)
 		forceMove(tank)
 
-/obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
+/obj/item/extinguisher/mini/nozzle/attack_self__legacy__attackchain(mob/user)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
@@ -276,7 +276,7 @@
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/nozzle/afterattack__legacy__attackchain(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return

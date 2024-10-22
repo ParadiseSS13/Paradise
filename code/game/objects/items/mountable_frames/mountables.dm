@@ -6,7 +6,7 @@
 	var/allow_floor_mounting = FALSE
 
 
-/obj/item/mounted/afterattack(atom/A, mob/user, proximity_flag)
+/obj/item/mounted/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
 	if(is_type_in_list(A, buildon_types))
 		if(try_build(A, user, proximity_flag))
 			return do_build(A, user)

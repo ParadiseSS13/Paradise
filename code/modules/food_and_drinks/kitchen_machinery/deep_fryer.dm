@@ -43,7 +43,7 @@
 	var/obj/item/food/deepfryholder/type = new(get_turf(src))
 	return type
 
-/obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cooker/deepfryer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/ice))
 		var/ice_amount = I.reagents.get_reagent_amount("ice")
 		if(ice_amount)

@@ -20,7 +20,7 @@
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -69,7 +69,7 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
+/obj/structure/kitchenspike/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
