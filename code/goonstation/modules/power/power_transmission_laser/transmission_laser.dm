@@ -225,7 +225,7 @@
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/apc/attack_ghost(mob/user)
+/obj/machinery/power/transmission_laser/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/transmission_laser/ui_interact(mob/user, datum/tgui/ui)
