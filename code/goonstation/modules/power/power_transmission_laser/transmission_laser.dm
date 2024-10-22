@@ -210,13 +210,12 @@
 /obj/machinery/power/transmission_laser/proc/send_ptl_announcement()
 	// The message we send
 	var/message
-	var/flavor_text
 	if(announcement_threshold == 1 MJ)
-		message = "PTL account successfully made"
-		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
+		message = "PTL account successfully made \
+		From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
 		announcement_threshold = 100 MJ
-
-	message = "New milestone reached!\n[DisplayJoules(announcement_threshold)]\n[flavor_text]"
+	else
+		message = "New milestone reached!\n[DisplayJoules(announcement_threshold)]"
 
 	announcer.Announce(message)
 
