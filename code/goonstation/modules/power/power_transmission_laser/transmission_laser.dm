@@ -391,24 +391,15 @@
 
 	medium_cut += generated_cash * 0.25
 	high_cut += generated_cash * 0.75
-	for(var/mob/living/player in GLOB.player_list)
-		to_chat(player, "<font size='5' color='red'><b>PRE</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> medium_cut = [medium_cut]</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> high_cut = [high_cut]</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> unsent_earnings = [unsent_earnings]</b></font>")
+
 	if(medium_cut >= 100)
-		unsent_earnings = 0
 		GLOB.station_money_database.credit_account(cargo_bank_account, round(medium_cut), "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(engineering_bank_account, round(high_cut), "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+
+		unsent_earnings = 0
+		high_cut = 0
 		medium_cut = 0
 
-		GLOB.station_money_database.credit_account(engineering_bank_account, round(high_cut), "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-		high_cut = 0
-
-	for(var/mob/living/player in GLOB.player_list)
-		to_chat(player, "<font size='5' color='red'><b>POST</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> medium_cut = [medium_cut]</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> high_cut = [high_cut]</b></font>")
-		to_chat(player, "<font size='3' color='red'><b> unsent_earnings = [unsent_earnings]</b></font>")
 #undef A1_CURVE
 #undef PROCESS_CAP
 #undef MINIMUM_BAR
