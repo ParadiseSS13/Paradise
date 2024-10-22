@@ -39,10 +39,6 @@
 	if(opened || !istype(W, /obj/item/card/id))
 		return ..()
 
-	if(opened)
-		to_chat(user, "<span class='notice'>Close the locker first.</span>")
-		return
-
 	if(broken)
 		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
 		return
