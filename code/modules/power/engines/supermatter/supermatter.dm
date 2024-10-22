@@ -140,8 +140,10 @@
 	var/explosion_power = 35
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	///Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
+	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
 	var/power = 0
+	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
+	var/mole_crunch_bonus
 	///Determines the rate of positve change in gas comp values
 	var/gas_change_rate = 0.05
 
@@ -558,8 +560,7 @@
 		if(power_changes)
 			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
-		// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
-		var/mole_crunch_bonus = power * (combined_gas / MOLE_CRUNCH_THRESHOLD) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
+		mole_crunch_bonus = power * (combined_gas / MOLE_CRUNCH_THRESHOLD) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
 		if(prob(50))
 			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + mole_crunch_bonus)
 
