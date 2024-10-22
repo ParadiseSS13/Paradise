@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "ab" = (
@@ -125,6 +126,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"dq" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/r_wall,
 /area/lavaland/surface/outdoors)
 "du" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -357,12 +363,6 @@
 /obj/item/storage/box/donkpockets/empty,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"lr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "lZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_ext{
@@ -380,6 +380,12 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
+"nj" = (
+/obj/structure/grille,
+/obj/item/shard,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "nm" = (
 /obj/structure/disposalpipe/broken{
 	dir = 2
@@ -405,6 +411,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "nQ" = (
@@ -418,6 +425,7 @@
 /area/ruin/unpowered/althland_processing)
 "oG" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "pn" = (
@@ -437,6 +445,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"pQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "qh" = (
@@ -491,6 +506,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/item/paper/fluff/ruins/althland/journal,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "sa" = (
@@ -503,6 +519,7 @@
 /area/ruin/unpowered/althland_processing)
 "sg" = (
 /obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "su" = (
@@ -513,6 +530,7 @@
 	amount = 5
 	},
 /obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "sB" = (
@@ -529,6 +547,7 @@
 /obj/structure/marker_beacon/dock_marker,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "tv" = (
@@ -627,6 +646,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "vM" = (
@@ -634,6 +654,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "wZ" = (
@@ -710,6 +731,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "zR" = (
@@ -752,6 +774,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "BB" = (
@@ -767,6 +790,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "BM" = (
@@ -927,6 +951,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Gt" = (
@@ -1020,6 +1045,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
+"JJ" = (
+/obj/effect/mapping_helpers/lava_magnet,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "JT" = (
 /obj/structure/grille,
 /obj/item/shard,
@@ -1087,6 +1117,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Mu" = (
@@ -1175,14 +1206,10 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"PJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "PY" = (
 /obj/structure/marker_beacon/dock_marker,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Qj" = (
@@ -1223,15 +1250,27 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
+"Tn" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "TN" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "TX" = (
 /obj/structure/disposalpipe/broken{
 	dir = 2
 	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_processing)
+"Uq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "UP" = (
@@ -1253,6 +1292,13 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
+"VA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "VJ" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/sign/nosmoking_1{
@@ -1293,6 +1339,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "WQ" = (
@@ -1327,6 +1374,7 @@
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "XO" = (
@@ -1528,10 +1576,10 @@ bU
 ab
 KZ
 ab
-ab
+yh
 bT
-ab
-cb
+yh
+yh
 ab
 ab
 ab
@@ -1566,8 +1614,8 @@ ab
 ab
 bT
 bT
-ab
-bL
+yh
+yh
 bL
 ab
 Dg
@@ -1602,7 +1650,7 @@ ui
 ui
 bT
 bT
-ab
+yh
 ab
 bL
 ab
@@ -1805,7 +1853,7 @@ bV
 bL
 ab
 af
-hI
+dq
 bT
 ab
 ab
@@ -1895,7 +1943,7 @@ ab
 bT
 bT
 af
-be
+Tn
 af
 ui
 vf
@@ -1946,9 +1994,9 @@ bL
 "}
 (15,1,1) = {"
 bV
-ab
-ab
-ab
+yh
+yh
+yh
 bT
 bT
 bL
@@ -1981,10 +2029,10 @@ ab
 bL
 "}
 (16,1,1) = {"
-bV
-bL
-ab
-ab
+yh
+yh
+yh
+yh
 bT
 bT
 ab
@@ -2017,10 +2065,10 @@ ab
 bL
 "}
 (17,1,1) = {"
-bV
-bL
-bL
-ab
+yh
+yh
+yh
+yh
 bT
 bT
 ab
@@ -2034,7 +2082,7 @@ sQ
 ui
 ab
 ab
-ab
+JJ
 ab
 cb
 ab
@@ -2053,10 +2101,10 @@ ab
 bL
 "}
 (18,1,1) = {"
-bV
-bL
-bL
-ab
+yh
+yh
+yh
+yh
 bT
 bT
 ab
@@ -2085,14 +2133,14 @@ rd
 af
 bT
 ab
-ab
-bL
+yh
+yh
 "}
 (19,1,1) = {"
 bV
-bL
-bV
-ab
+yh
+yh
+yh
 bT
 bT
 ab
@@ -2121,8 +2169,8 @@ af
 bT
 bT
 hI
-ab
-bL
+yh
+yh
 "}
 (20,1,1) = {"
 bV
@@ -2156,9 +2204,9 @@ ui
 af
 bT
 bT
-ab
-ab
-bL
+yh
+yh
+yh
 "}
 (21,1,1) = {"
 bV
@@ -2190,18 +2238,18 @@ bT
 bT
 bT
 bT
-hI
+dq
 af
-bT
-ab
-bL
+yh
+yh
+yh
 "}
 (22,1,1) = {"
 bV
 bL
 ab
 ab
-hI
+dq
 af
 bT
 bT
@@ -2228,9 +2276,9 @@ bT
 bT
 bT
 bT
-ab
-ab
-bL
+yh
+yh
+yh
 "}
 (23,1,1) = {"
 bV
@@ -2242,7 +2290,7 @@ ab
 bT
 bT
 bT
-hI
+dq
 bT
 bT
 bT
@@ -2264,9 +2312,9 @@ bT
 bT
 bT
 ab
-ab
-ab
-bL
+yh
+yh
+yh
 "}
 (24,1,1) = {"
 bV
@@ -2290,19 +2338,19 @@ nK
 um
 lZ
 ui
-Yd
+nj
 nN
 hI
 af
 AL
 af
 af
-hI
+dq
 bT
 ab
-ab
-ab
-bL
+yh
+yh
+yh
 "}
 (25,1,1) = {"
 bV
@@ -2317,7 +2365,7 @@ bT
 bT
 af
 af
-hI
+dq
 af
 bT
 ui
@@ -2329,16 +2377,16 @@ ui
 af
 af
 zO
-PJ
+pQ
 AL
-PJ
-lr
+pQ
+VA
 to
 bT
 bT
 bT
-ab
-bL
+yh
+yh
 "}
 (26,1,1) = {"
 bV
@@ -2347,7 +2395,7 @@ bV
 cb
 ab
 bT
-PJ
+pQ
 ui
 ui
 ui
@@ -2364,17 +2412,17 @@ Fa
 ui
 bT
 Gk
-PJ
+pQ
 af
 af
 XD
-PJ
+pQ
 af
 bT
 bT
 bT
-ab
-bU
+yh
+yh
 "}
 (27,1,1) = {"
 bV
@@ -2382,8 +2430,8 @@ bL
 bL
 ab
 bT
-lr
-lr
+VA
+VA
 ui
 zp
 vl
@@ -2398,7 +2446,7 @@ fm
 Jw
 fc
 bP
-BV
+Uq
 BG
 vM
 bT
@@ -2435,12 +2483,12 @@ Io
 hj
 ui
 vo
-BV
+Uq
 rY
 bT
-PJ
-PJ
-lr
+pQ
+pQ
+VA
 af
 bT
 bT
@@ -2475,7 +2523,7 @@ bT
 PY
 pP
 bT
-PJ
+pQ
 bT
 af
 bT
@@ -2489,7 +2537,7 @@ bV
 bL
 ab
 ab
-lr
+VA
 bT
 bT
 bT
@@ -2526,7 +2574,7 @@ bL
 ab
 ab
 ab
-lr
+VA
 bT
 sg
 ui
@@ -2607,7 +2655,7 @@ bT
 bT
 bT
 bT
-hI
+dq
 bT
 bT
 bT
@@ -2716,9 +2764,9 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
+yh
+yh
+yh
 cM
 cM
 cM
@@ -2752,9 +2800,9 @@ bV
 bV
 bV
 bV
-bV
-bV
-bV
+yh
+yh
+yh
 cM
 cM
 cM
