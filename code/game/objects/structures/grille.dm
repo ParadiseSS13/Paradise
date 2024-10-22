@@ -30,29 +30,6 @@
 	else
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
-/obj/structure/grille/fence
-	var/width = 3
-
-/obj/structure/grille/fence/Initialize(mapload)
-	. = ..()
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
-
-/obj/structure/grille/fence/east_west
-	//width=80
-	//height=42
-	icon='icons/fence-ew.dmi'
-
-/obj/structure/grille/fence/north_south
-	//width=80
-	//height=42
-	icon='icons/fence-ns.dmi'
-
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)

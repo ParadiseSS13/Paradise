@@ -65,7 +65,7 @@
 /obj/effect/snow
 	desc = "Perfect for making snow angels, or throwing at other people!"
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "snow"
+	icon_state = "snow1"
 	layer = ABOVE_ICYOVERLAY_LAYER
 
 /obj/effect/snow/New()

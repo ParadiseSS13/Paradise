@@ -2,7 +2,7 @@
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "watertank"
+	icon_state = "water"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE

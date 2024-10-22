@@ -1242,7 +1242,7 @@
 	name = "grape tart"
 	desc = "A tasty dessert that reminds you of the wine you didn't make."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "grape_tart"
+	icon_state = "grapetart"
 	trash = /obj/item/trash/plate
 	filling_color = "#8c00ff"
 	bitesize = 3
