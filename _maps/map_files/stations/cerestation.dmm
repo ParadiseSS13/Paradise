@@ -32008,7 +32008,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/bananium,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
+/obj/effect/mapping_helpers/airlock/access/all/service/clown,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
@@ -56667,7 +56667,7 @@
 "kMH" = (
 /obj/machinery/door/airlock/tranquillite,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
+/obj/effect/mapping_helpers/airlock/access/all/service/mime,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
