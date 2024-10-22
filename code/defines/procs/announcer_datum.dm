@@ -137,10 +137,6 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	log_game("[key_name(usr)] has made \a [config.log_name]: [message_title] - [message] - [author]")
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].", 1)
 
-/proc/GetNameAndAssignmentFromId(obj/item/card/id/I)
-	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
-	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name
-
 /datum/announcement_configuration/event
 	default_title = ANNOUNCE_KIND_EVENT
 	sound = sound('sound/misc/notice2.ogg')
