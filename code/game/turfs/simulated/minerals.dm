@@ -137,7 +137,7 @@
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,
 		/turf/simulated/mineral/silver = 12, /turf/simulated/mineral/plasma = 20, /turf/simulated/mineral/iron = 40, /turf/simulated/mineral/titanium = 11,
-		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
+		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 13
 
@@ -264,6 +264,15 @@
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
 	return ..()
+
+/// Cold ancient rock has a chance to be destroyed by the laser from 50 MW output and above
+/turf/simulated/mineral/ancient/outer/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW) // Laser output power in megawatts
+	if(prob(mw_power - 50))// Chance to destroy the rock increases with power output, starting at 50MW
+		ChangeTurf(baseturf)
+	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()
+
 
 /turf/simulated/mineral/random/high_chance
 	color = COLOR_YELLOW

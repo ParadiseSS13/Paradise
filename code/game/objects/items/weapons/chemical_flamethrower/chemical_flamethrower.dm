@@ -39,7 +39,7 @@
 	if(should_start_with_canisters && !length(canisters))
 		canisters += new /obj/item/chemical_canister
 	update_canister_stats()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/chemical_flamethrower/Destroy()
 	QDEL_LIST_CONTENTS(canisters)
