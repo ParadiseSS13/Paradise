@@ -11,7 +11,6 @@
 	light_range = 3
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
-	flying = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
@@ -29,6 +28,7 @@
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	mouse_opacity = MOUSE_OPACITY_ICON
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
+	initial_traits = list(TRAIT_FLYING)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
