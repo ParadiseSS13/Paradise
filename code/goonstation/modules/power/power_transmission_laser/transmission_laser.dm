@@ -57,8 +57,12 @@
 
 	/// How much credits we have earned in total
 	var/total_earnings = 0
-	/// The amount of money we haven't sent to cargo yet
+	/// The amount of money we haven't sent yet
 	var/unsent_earnings = 0
+	/// The money we'll send to cargo
+	var/medium_cut = 0
+	/// The money we'll send to engineering
+	var/high_cut = 0
 
 	/// Gives our power input when multiplied with power_format_multi. The multiplier signifies the units of power, and this is how many of them we are inputting.
 	var/input_number = 0
@@ -385,15 +389,26 @@
 	var/datum/money_account/engineering_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_ENGINEERING)
 	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 
-	var/medium_cut = generated_cash * 0.25
-	var/high_cut = generated_cash * 0.75
+	medium_cut += generated_cash * 0.25
+	high_cut += generated_cash * 0.75
+	for(var/mob/living/player in GLOB.player_list)
+		to_chat(player, "<font size='5' color='red'><b>PRE</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> medium_cut = [medium_cut]</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> high_cut = [high_cut]</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> unsent_earnings = [unsent_earnings]</b></font>")
+	if(medium_cut >= 100)
+		unsent_earnings = 0
+		GLOB.station_money_database.credit_account(cargo_bank_account, round(medium_cut), "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		medium_cut = 0
 
-	GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= medium_cut
+		GLOB.station_money_database.credit_account(engineering_bank_account, round(high_cut), "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		high_cut = 0
 
-	GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= high_cut
-
+	for(var/mob/living/player in GLOB.player_list)
+		to_chat(player, "<font size='5' color='red'><b>POST</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> medium_cut = [medium_cut]</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> high_cut = [high_cut]</b></font>")
+		to_chat(player, "<font size='3' color='red'><b> unsent_earnings = [unsent_earnings]</b></font>")
 #undef A1_CURVE
 #undef PROCESS_CAP
 #undef MINIMUM_BAR
