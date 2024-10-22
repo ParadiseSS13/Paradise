@@ -5,9 +5,6 @@
 
 // These are mutually exclusive; can't have req_any and req_all
 /obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/airlock/airlock)
-	if(is_type_in_list(airlock, blacklist))
-		return
-
 	if(length(airlock.req_access))
 		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 		return
@@ -16,9 +13,6 @@
 	airlock.req_one_access |= access
 
 /obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/airlock/airlock)
-	if(is_type_in_list(airlock, blacklist))
-		return
-
 	if(length(airlock.req_one_access))
 		log_world("[src] at [AREACOORD(src)] tried to set req_access, but req_one_access was already set!")
 		return
