@@ -155,7 +155,7 @@
 				"name" = prize_name,
 				"price" = prize.cost,
 				"icon" = item.icon,
-				"icon_state" = item.icon_state,
+				"icon_state" = item.icon_state
 			)
 		static_data["items"][cat] = cat_items
 
