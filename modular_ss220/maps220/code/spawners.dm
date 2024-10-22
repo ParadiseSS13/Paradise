@@ -41,34 +41,6 @@
 /obj/effect/spawner/random/maintenance
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 
-/obj/effect/spawner/random/maintenance/one
-	icon_state = "loot"
-
-/obj/effect/spawner/random/maintenance/one/Initialize(mapload)
-	. = ..()
-	spawn_loot_count = 1
-
-/obj/effect/spawner/random/maintenance/two
-	icon_state = "doubleloot"
-
-/obj/effect/spawner/random/maintenance/two/Initialize(mapload)
-	. = ..()
-	spawn_loot_count = 2
-
-/obj/effect/spawner/random/maintenance/three
-	icon_state = "tripleloot"
-
-/obj/effect/spawner/random/maintenance/three/Initialize(mapload)
-	. = ..()
-	spawn_loot_count = 3
-
-/obj/effect/spawner/random/maintenance/five
-	icon_state = "moreloot"
-
-/obj/effect/spawner/random/maintenance/five/Initialize(mapload)
-	. = ..()
-	spawn_loot_count = 5
-
 /obj/effect/spawner/random/trash
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 

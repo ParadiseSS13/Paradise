@@ -36,3 +36,13 @@
 	icon_opened = "organ_freezer_open"
 	icon_closed = "organ_freezer"
 	storage_capacity = 60
+
+/obj/structure/closet/secure_closet/freezer/products
+	name = "refrigerator"
+	icon_state = "freezer"
+
+/obj/structure/closet/secure_closet/freezer/products/populate_contents()
+	new /obj/item/storage/box/donkpockets(src)
+	new /obj/item/storage/box/donkpockets(src)
+	new /obj/item/storage/fancy/egg_box(src)
+	new /obj/item/storage/fancy/egg_box(src)

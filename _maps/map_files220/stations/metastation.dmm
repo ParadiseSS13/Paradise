@@ -4568,18 +4568,15 @@
 /area/station/maintenance/fore)
 "azI" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty{
 	pixel_x = 2;
 	pixel_y = 2
 	},
@@ -6780,8 +6777,7 @@
 	},
 /area/station/telecomms/computer)
 "aIS" = (
-/obj/item/stack/sheet/plasteel{
-	amount = 10;
+/obj/item/stack/sheet/plasteel/fifteen{
 	pixel_x = -2;
 	pixel_y = 2
 	},
@@ -7580,15 +7576,9 @@
 /area/station/maintenance/fsmaint)
 "aLp" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass{
 	amount = 12
 	},
@@ -9639,15 +9629,11 @@
 /area/station/engineering/secure_storage)
 "aSh" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/rods{
 	amount = 50
 	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
+/obj/item/stack/sheet/glass/fifty,
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
 /obj/item/stock_parts/cell/high{
@@ -15635,12 +15621,8 @@
 /area/station/public/storage/tools/auxiliary)
 "bjq" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -15664,9 +15646,7 @@
 /area/station/public/storage/tools/auxiliary)
 "bjt" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
+/obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/rods{
 	amount = 50
 	},
@@ -21888,11 +21868,8 @@
 "bAW" = (
 /obj/machinery/firealarm/directional/west,
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -30060,9 +30037,7 @@
 "cdi" = (
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console/directional/north,
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
+/obj/item/stack/sheet/plasteel/fifteen,
 /obj/item/assembly/prox_sensor{
 	pixel_x = 5;
 	pixel_y = 7
@@ -31943,9 +31918,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
+/obj/item/stack/sheet/metal/ten,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cjx" = (
@@ -36494,14 +36467,11 @@
 /obj/item/clothing/mask/gas,
 /obj/item/crowbar,
 /obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/glass{
-	amount = 50;
+/obj/item/stack/sheet/glass/fifty{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/metal/fifty,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39919,30 +39889,19 @@
 /area/station/maintenance/asmaint)
 "cNi" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty{
 	pixel_x = -2;
 	pixel_y = -2
 	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/rglass{
-	amount = 50;
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/rglass/fifty{
 	pixel_x = -2;
 	pixel_y = 2
 	},
@@ -60931,21 +60890,11 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -66900,11 +66849,8 @@
 /area/space/nearstation)
 "nzv" = (
 /obj/structure/table/wood,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -68810,15 +68756,9 @@
 /area/station/engineering/atmos/distribution)
 "oCX" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/machinery/alarm/directional/north,
@@ -71824,9 +71764,7 @@
 /area/station/security/brig)
 "pYx" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
+/obj/item/stack/sheet/metal/ten,
 /obj/item/electropack,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/engine,
