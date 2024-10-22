@@ -207,14 +207,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		// Since airlocks are created first, we steal the payload logic
 		// to apply to the controls later
 		req_access = airlock.req_access
-		req_access_txt = airlock.req_access_txt
 		req_one_access = airlock.req_one_access
-		req_one_access_txt = airlock.req_one_access_txt
 	else
 		I.req_access = req_access
-		I.req_access_txt = req_access_txt
 		I.req_one_access = req_one_access
-		I.req_one_access_txt = req_one_access_txt
 
 // MARK: AIRLOCK HELPERS
 
