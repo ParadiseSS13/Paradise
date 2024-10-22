@@ -151,6 +151,14 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
+# TODO: This finds most cases except for e.g. `list(1, 2, 3 )`
+# Find a way to include this without breaking macro/tab-aligned versions such as `list(		\`
+# Maybe even make sure it doesn't include comments, idk
+EMPTY_LIST_WHITESPACE = re.compile(r"list\([^\S\n\r\f]+.*?[^\\]\n")
+def check_empty_list_whitespace(idx, line):
+    if EMPTY_LIST_WHITESPACE.search(line):
+        return [(idx + 1, "Empty list declarations should not have any whitespace within their parentheses.")]
+
 IGNORE_ATOM_ICON_FILE = "atoms.dm"
 NO_MANUAL_ICON_UPDATES = re.compile(r"([\s.])(update_icon_state|update_desc|update_overlays|update_name)\(.*\)")
 def check_manual_icon_updates(idx, line):
@@ -174,6 +182,7 @@ CODE_CHECKS = [
     check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
+    check_empty_list_whitespace,
 ]
 
 
