@@ -159,16 +159,16 @@
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
-								// Determines the organs that the species spawns with and
-	var/list/has_organ = list(  // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
-		)
+	/// Determines the organs that the species spawns with and which required-organ checks are conducted.
+	var/list/has_organ = list(
+		"heart"		= /obj/item/organ/internal/heart,
+		"lungs"		= /obj/item/organ/internal/lungs,
+		"liver"		= /obj/item/organ/internal/liver,
+		"kidneys"	= /obj/item/organ/internal/kidneys,
+		"brain"		= /obj/item/organ/internal/brain,
+		"appendix"	= /obj/item/organ/internal/appendix,
+		"eyes"		= /obj/item/organ/internal/eyes
+	)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest, "descriptor" = "chest"),
@@ -293,7 +293,7 @@
 	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
 		ignoreslow = TRUE
 
-	var/flight = H.flying	//Check for flight and flying items
+	var/flight = HAS_TRAIT(H, TRAIT_FLYING)	//Check for flight and flying items
 
 	ADD_SLOWDOWN(speed_mod)
 

@@ -35,7 +35,15 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(lastchar == "/" || lastchar == "\\")
 			log_debug("Attempted to load map template without filename (Attempted [tfile])")
 			return
-		tfile = wrap_file2text(tfile)
+
+		// use rustlib to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		tfile = mapmanip_read_dmm(fname)
+		// if rustlib for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!tfile)
+			tfile = wrap_file2text(fname)
+
 		if(!length(tfile))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 

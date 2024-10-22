@@ -31,11 +31,11 @@
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	flying = TRUE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	initial_traits = list(TRAIT_FLYING)
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -309,6 +309,10 @@
 		return
 	// No other state is happening, therefore we are stunned
 	icon_state = icon_stun
+
+/// Spooky ghost can go through lasers
+/mob/living/simple_animal/revenant/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	return
 
 /datum/objective/revenant
 	needs_target = FALSE

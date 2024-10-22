@@ -63,9 +63,9 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		add_overlay("sparking")
+		flick_overlay_view(image(icon, src, "sparking"), src, 1 SECONDS)
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS) // Update the icon so the lock actually appears broken
 		return TRUE
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)

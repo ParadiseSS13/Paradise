@@ -268,7 +268,7 @@
 			. += sheet
 
 	. += "clip"
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/paper_bundle/proc/get_page(page_override)
 	if(page_override)
