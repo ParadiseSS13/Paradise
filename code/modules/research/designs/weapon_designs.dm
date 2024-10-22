@@ -350,16 +350,18 @@
 	desc = "An implant that enhances your muscles to punch harder and throw people back."
 	id = "muscle_implant"
 	req_tech = list("combat" = 7, "syndicate" = 4, "biotech" = 7)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
+	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/muscle
-	category = list("Weapons")
+	category = list("Medical", "Weapons")
 
 /datum/design/upgraded_chemical_flamethrower
 	name = "Extended Capacity Chemical Flamethrower Parts"
 	desc = "Parts for a flamethrower that accepts two chemical cartridges to create lasting fires."
 	id = "chem_flamethrower_extended"
 	req_tech = list("combat" = 6, "engineering" = 7, "plasmatech" = 5)
+	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
 	build_path = /obj/item/weaponcrafting/gunkit/chemical_flamethrower
 	category = list("Weapons")

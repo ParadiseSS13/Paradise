@@ -49,7 +49,6 @@ SUBSYSTEM_DEF(atoms)
 		log_startup_progress("Initialized [count] atoms in [stop_watch(watch)]s")
 	else
 		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
-	pass(count)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 

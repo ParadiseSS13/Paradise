@@ -3,7 +3,7 @@
 	department = "Robotics"
 	progress_type = /datum/secondary_goal_progress/random_ripley
 	should_send_crate = FALSE
-	abstract = FALSE
+	weight = 1
 	var/list/modules = list()
 	var/static/list/general_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/repair_droid,

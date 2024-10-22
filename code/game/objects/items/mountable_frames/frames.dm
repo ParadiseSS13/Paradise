@@ -22,15 +22,15 @@
 
 /obj/item/mounted/frame/try_build(turf/on_wall, mob/user)
 	if(!..())
-		return
+		return FALSE
 
 	var/turf/build_turf = get_turf(user)
 	if((mount_requirements & MOUNTED_FRAME_SIMFLOOR) && !isfloorturf(build_turf))
 		to_chat(user, "<span class='warning'>[src] cannot be placed on this spot.</span>")
-		return
+		return FALSE
 	if(mount_requirements & MOUNTED_FRAME_NOSPACE)
 		var/area/my_area = get_area(build_turf)
 		if(!istype(my_area) || !my_area.requires_power || isspacearea(my_area))
 			to_chat(user, "<span class='warning'>[src] cannot be placed in this area.</span>")
-			return
+			return FALSE
 	return TRUE

@@ -237,12 +237,12 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
 		if(faction_check_mob(blocker))
 			return 1
-	return ..(mover, target, height)
+	return ..()
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
@@ -411,11 +411,12 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
-	flying = TRUE
 	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
+
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()

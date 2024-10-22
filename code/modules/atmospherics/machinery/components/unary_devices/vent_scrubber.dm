@@ -35,6 +35,15 @@
 	on = TRUE
 	icon_state = "map_scrubber"
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon
+	scrubbing = FALSE
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
 	. = ..()
 	icon = null
@@ -73,7 +82,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()

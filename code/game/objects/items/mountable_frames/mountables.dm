@@ -3,35 +3,31 @@
 		/turf/simulated/mineral/ancient,
 		/turf/simulated/wall
 	)
+	var/allow_floor_mounting = FALSE
 
 
 /obj/item/mounted/afterattack(atom/A, mob/user, proximity_flag)
-	var/found_type = 0
-	for(var/turf_type in src.buildon_types)
-		if(istype(A, turf_type))
-			found_type = 1
-			break
-
-	if(found_type)
+	if(is_type_in_list(A, buildon_types))
 		if(try_build(A, user, proximity_flag))
 			return do_build(A, user)
-	else
-		..()
+	..()
 
 /obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag) //checks
 	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
-	if(!( get_dir(on_wall,user) in GLOB.cardinal))
-		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
-		return
+		return FALSE
+	if(!proximity_flag) //if we aren't next to the turf
+		return FALSE
 
-	if(gotwallitem(get_turf(user), get_dir(on_wall,user)))
-		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
-		return
+	if(!allow_floor_mounting)
+		if(!(get_dir(on_wall, user) in GLOB.cardinal))
+			to_chat(user, "<span class='warning'>You need to be standing next to [on_wall] to place [src].</span>")
+			return FALSE
 
-	return 1
+		if(gotwallitem(get_turf(user), get_dir(user, on_wall)))
+			to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+			return FALSE
+
+	return TRUE
 
 /obj/item/mounted/proc/do_build(turf/on_wall, mob/user) //the buildy bit after we pass the checks
 	return

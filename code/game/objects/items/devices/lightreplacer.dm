@@ -31,13 +31,6 @@
 // access to them, and only one of them can emag their device.
 //
 // The explosion cannot insta-kill anyone with 30% or more health.
-
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
-
 /obj/item/lightreplacer
 	name = "light replacer"
 	desc = "A device to automatically replace lights. Refill with broken or working light bulbs, or sheets of glass."
@@ -198,21 +191,10 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
-
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
 				target.status = LIGHT_EMPTY
-
-			var/obj/item/light/replacement = target.light_type
-			target.status = LIGHT_OK
-			target.switchcount = 0
-			target.rigged = emagged
-			target.brightness_range = initial(replacement.brightness_range)
-			target.brightness_power = initial(replacement.brightness_power)
-			target.brightness_color = initial(replacement.brightness_color)
-			target.on = target.has_power()
-			target.update(TRUE, TRUE, FALSE)
+			target.fix(U, src, emagged)
 
 		else
 			to_chat(U, "[src]'s refill light blinks red.")
@@ -270,8 +252,3 @@
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED

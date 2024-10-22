@@ -431,7 +431,7 @@
 				slowdown = 1
 			if(antidrop_on_zip)
 				flags ^= NODROP
-			update_icon_state(UPDATE_ICON_STATE)
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 		slowdown = 0
@@ -440,7 +440,7 @@
 			container.hide_from_all() // Hide everything inside the bag too
 		if(antidrop_on_zip)
 			flags |= NODROP
-		update_icon_state(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/backpack/duffel/update_icon_state()
 	. = ..()
@@ -805,6 +805,7 @@
 	desc = "Stimulate your senses."
 	list_reagents = list("nutriment" = 5, "stimulants" = 25)
 	bitesize = 100
+	goal_difficulty = FOOD_GOAL_SKIP
 
 /obj/item/food/plum_pie
 	name = "perfect plum pie"
@@ -909,30 +910,30 @@
 //Commander
 /obj/item/storage/backpack/ert/commander
 	name = "emergency response team commander backpack"
-	desc = "A spacious backpack with lots of pockets, worn by the commander of a Nanotrasen Emergency Response Team."
+	desc = "A spacious blue-striped combat backpack with plenty of easily-accessible pockets."
 
 //Security
 /obj/item/storage/backpack/ert/security
 	name = "emergency response team security backpack"
-	desc = "A spacious backpack with lots of pockets, worn by security members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious red-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_security"
 
 //Engineering
 /obj/item/storage/backpack/ert/engineer
 	name = "emergency response team engineer backpack"
-	desc = "A spacious backpack with lots of pockets, worn by engineering members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious orange-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_engineering"
 
 //Medical
 /obj/item/storage/backpack/ert/medical
 	name = "emergency response team medical backpack"
-	desc = "A spacious backpack with lots of pockets, worn by medical members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious white-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_medical"
 
 //Janitorial
 /obj/item/storage/backpack/ert/janitor
 	name = "emergency response team janitor backpack"
-	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
+	desc = "A spacious purple-striped combat backpack with plenty of easily-accessible pockets."
 	icon_state = "ert_janitor"
 
 //Solgov
@@ -943,6 +944,6 @@
 
 /obj/item/storage/backpack/ert/deathsquad
 	name = "Deathsquad backpack"
-	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
+	desc = "A spacious red & black combat rucksack made of lightweight nanomesh. Likely the most intimidating backpack one will ever see."
 	icon_state = "ert_security"
 

@@ -127,6 +127,9 @@
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
 	src.add_fingerprint(user)
 
 	if(istype(I, /obj/item/melee/energy/blade))
@@ -610,7 +613,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))
@@ -634,7 +637,7 @@
 		return
 
 	else
-		return ..(mover, target, height)
+		return ..()
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -1608,7 +1611,7 @@
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
-		dirs = list( direction, turn(direction, -45), turn(direction, 45))
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
 	else
 		dirs = GLOB.alldirs.Copy()
 
@@ -1617,7 +1620,7 @@
 /obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
-		dirs = list( direction, turn(direction, -45), turn(direction, 45))
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
 	else
 		dirs = GLOB.alldirs.Copy()
 

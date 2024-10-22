@@ -33,6 +33,10 @@
 	var/spawn_random_offset_max_pixels = 16
 	/// Whether the spawned items should be rotated randomly.
 	var/spawn_random_angle = FALSE
+	/// Whether blackbox should record when the spawner spawns.
+	var/record_spawn = FALSE
+	/// Where do we want to spawn an item (closet, safe etc.)
+	var/spawn_inside
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
@@ -55,6 +59,9 @@
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
 
+	if(spawn_inside)
+		new spawn_inside(loc)
+
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
 		spawn_loot_double = FALSE
@@ -69,6 +76,8 @@
 		var/loot_spawned = 0
 		var/pixel_divider = FLOOR(spawn_random_offset_max_pixels / spawn_loot_split_pixel_offsets, 1)
 		while((spawn_loot_count-loot_spawned) && length(loot))
+			loot_spawned++
+
 			var/lootspawn = pick_weight_recursive(loot)
 			if(!spawn_loot_double)
 				loot.Remove(lootspawn)
@@ -76,6 +85,10 @@
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))
 					spawn_loc = pick(spawn_locations)
+
+				if(ispath(lootspawn, /turf))
+					spawn_loc.ChangeTurf(lootspawn)
+					continue
 
 				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
 				spawned_loot.setDir(dir)
@@ -93,10 +106,10 @@
 						var/column = FLOOR(loot_spawned / pixel_divider, 1)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
-			loot_spawned++
 
 /**
- *  Makes the actual item related to our spawner.
+ *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,
+ *  this is when the items spawned are recorded to blackbox (except for `/obj/effect`s).
  *
  * spawn_loc - where are we spawning it?
  * type_path_to_make - what are we spawning?
@@ -104,7 +117,8 @@
 /obj/effect/spawner/random/proc/make_item(spawn_loc, type_path_to_make)
 	var/result = new type_path_to_make(spawn_loc)
 
-	record_item(type_path_to_make)
+	if(record_spawn)
+		record_item(type_path_to_make)
 
 	var/atom/item = result
 	if(spawn_random_angle && istype(item))

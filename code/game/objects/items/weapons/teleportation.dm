@@ -17,7 +17,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
-	origin_tech = "magnets=3;bluespace=4"
+	origin_tech = null
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/icon_state_inactive = "hand_tele_inactive"
@@ -52,14 +52,14 @@
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	var/list/L = list(  )
+	var/list/L = list()
 	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
 		if(com.target)
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
 				L["[com.id] (Active)"] = com.target
 			else
 				L["[com.id] (Inactive)"] = com.target
-	var/list/turfs = list(	)
+	var/list/turfs = list()
 	var/area/A
 	for(var/turf/T in orange(10))
 		if(T.x>world.maxx-8 || T.x<8)

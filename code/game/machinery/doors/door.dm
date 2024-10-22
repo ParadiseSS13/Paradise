@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE
@@ -145,9 +145,11 @@
 	return !density
 
 /obj/machinery/door/get_superconductivity(direction)
-	if(density)
-		return superconductivity
-	return ..()
+	if(!density)
+		return ..()
+	if(heat_proof)
+		return ZERO_HEAT_TRANSFER_COEFFICIENT
+	return superconductivity
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
@@ -608,6 +610,6 @@
 			blockage.max_integrity += 25
 		foam_level++
 		blockage.icon_state = "foamed_[foam_level]"
-		blockage.update_icon_state()
+		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL
