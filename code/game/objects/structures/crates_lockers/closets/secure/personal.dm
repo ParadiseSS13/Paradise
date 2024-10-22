@@ -39,10 +39,6 @@
 	if(opened || !istype(W, /obj/item/card/id))
 		return ..()
 
-	if(istype(W, /obj/item/card/id/guest))
-		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
-		return
-
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the locker first.</span>")
 		return
@@ -54,7 +50,11 @@
 	if(user.loc == src)
 		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
 		return
-		
+
+	if(istype(W, /obj/item/card/id/guest))
+		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
+		return
+
 	var/obj/item/card/id/I = W
 	if(!I || !I.registered_name)
 		return
@@ -69,7 +69,7 @@
 
 		if(!registered_name && locked)
 			registered_name = I.registered_name
-			desc = "Owned by [I.registered_name]." 
+			desc = "Owned by [I.registered_name]."
 
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
