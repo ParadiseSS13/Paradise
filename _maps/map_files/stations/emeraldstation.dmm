@@ -1612,13 +1612,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "aqN" = (
-/obj/structure/rack,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_y = -3;
 	pixel_x = -3
 	},
@@ -1626,6 +1625,8 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/storage/fancy/shell/tranquilizer,
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -11139,7 +11140,6 @@
 	},
 /area/station/hallway/secondary/garden)
 "cbf" = (
-/obj/structure/dispenser/oxygen,
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera{
 	c_tag = "Brig Secure Armory North"
@@ -40587,13 +40587,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "hAf" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -40604,6 +40603,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -121847,8 +121847,6 @@
 	},
 /area/station/public/construction)
 "wwv" = (
-/obj/structure/rack,
-/obj/item/storage/box/tranquilizer,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -121856,6 +121854,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

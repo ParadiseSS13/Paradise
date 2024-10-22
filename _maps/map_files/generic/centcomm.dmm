@@ -9965,7 +9965,7 @@
 /area/centcom/suppy)
 "Jq" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/beanbag,
+/obj/item/storage/fancy/shell/beanbag,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
