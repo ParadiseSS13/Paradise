@@ -840,3 +840,5 @@ emp_act
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
 	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
 
+/mob/living/carbon/human/canBeHandcuffed()
+	return has_left_hand() || has_right_hand()

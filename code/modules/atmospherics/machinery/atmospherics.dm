@@ -297,7 +297,7 @@ Pipelines + Other Objects -> Pipe network
 		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)

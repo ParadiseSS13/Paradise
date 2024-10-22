@@ -175,7 +175,7 @@
 	icon_state = "corgisuit"
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/en

@@ -160,8 +160,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 	if(id)
 		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+
 	if(length(notifying_programs))
-		. += image('icons/obj/pda.dmi', "pda-r")
+		if(icon_state == "pda-library")
+			. += image('icons/obj/pda.dmi', "pda-r-library")
+		else
+			. += image('icons/obj/pda.dmi', "pda-r")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)

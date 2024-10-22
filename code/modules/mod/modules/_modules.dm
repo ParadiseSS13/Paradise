@@ -362,7 +362,7 @@
 		return
 	var/core_path = pick(accepted_anomalies)
 	core = new core_path(src)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/Destroy()
 	QDEL_NULL(core)
@@ -407,7 +407,7 @@
 		core = item
 		to_chat(user, "<span class='notice'>You install [item].</span>")
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		core.forceMove(src)
 	else
 		return ..()
@@ -424,7 +424,7 @@
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
 	core = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/update_icon_state()
 	icon_state = initial(icon_state) + (core ? "-core" : "")

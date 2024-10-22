@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
-	update_name()
+	update_appearance(UPDATE_NAME)
 	slime_mutation = mutation_table(colour)
 	var/sanitizedcolour = replacetext(colour, " ", "")
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")

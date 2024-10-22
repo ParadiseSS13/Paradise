@@ -131,7 +131,6 @@
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
-	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
 
@@ -179,6 +178,7 @@
 		A.powernet.powernet_apc = src
 
 	if(!mapload)
+		GLOB.apcs = sortAtom(GLOB.apcs)
 		return
 
 	electronics_state = APC_ELECTRONICS_SECURED

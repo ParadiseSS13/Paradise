@@ -34,10 +34,11 @@
 	var/emagged = FALSE
 
 	// Access-related fields
+
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. All accesses are required when checking.
 	var/list/req_access = null
-	var/req_access_txt = "0"
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. At least one access is required when checking.
 	var/list/req_one_access = null
-	var/req_one_access_txt = "0"
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -295,3 +296,10 @@
 		return O.return_obj_air()
 	else
 		return null
+
+/// Objects take damage equal to the amount of megawatts being output by the beam.
+/obj/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	take_damage(mw_power)
+	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()
