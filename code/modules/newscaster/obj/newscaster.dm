@@ -646,7 +646,6 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	. = list(name = "Unknown", security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		// No ID, no luck
 		var/obj/item/card/id/ID = human_user.get_id_card()
 		if(ID)
 			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
