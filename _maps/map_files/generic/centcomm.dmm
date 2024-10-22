@@ -862,6 +862,9 @@
 "ds" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/centcom)
+"dt" = (
+/turf/simulated/floor/plasteel/stairs/right,
+/area/syndicate_mothership)
 "du" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/shaker,
@@ -5565,7 +5568,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "sK" = (
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/plasteel/stairs/left,
 /area/syndicate_mothership)
 "sL" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
@@ -62442,7 +62445,7 @@ ab
 ab
 ab
 ab
-BZ
+sK
 hG
 UO
 iT
@@ -65789,7 +65792,7 @@ BY
 BY
 BY
 BY
-sK
+dt
 XJ
 XJ
 tW
