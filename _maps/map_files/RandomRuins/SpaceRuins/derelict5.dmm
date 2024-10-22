@@ -167,7 +167,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "xs" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "xQ" = (

@@ -545,6 +545,13 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
+/// This is the default Power Transmission Laser action on atoms. Called when an atom enters the beam and while it's in the beam.
+/atom/proc/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	fire_act(null, 3000 * mw_power, 2500) // Equivalent to being in a fire at a temperature of 3000 degrees kelvin per MW.
+	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+		ptl.check_blocker()
+
 /// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
@@ -1002,7 +1009,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!QDELETED(healthy_green_glow))
 		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
 		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
-			qdel(healthy_green_glow)
+			healthy_green_glow.RemoveComponent()
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
