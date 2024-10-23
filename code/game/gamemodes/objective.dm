@@ -857,6 +857,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+#define SWARM_GOAL_LOWER_BOUND	130
+#define SWARM_GOAL_UPPER_BOUND	400
 
 /datum/objective/swarms
 	name = "Gain swarms"
@@ -866,7 +868,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	gen_amount_goal()
 	return ..()
 
-/datum/objective/swarms/proc/gen_amount_goal(low = 130, high = 400)
+/datum/objective/swarms/proc/gen_amount_goal(low = SWARM_GOAL_LOWER_BOUND, high = SWARM_GOAL_UPPER_BOUND)
 	target_amount = round(rand(low, high), 5)
 	update_explanation_text()
 	return target_amount
@@ -878,6 +880,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/mindflayer/flayer = M.has_antag_datum(/datum/antagonist/mindflayer)
 		return flayer?.total_swarms_gathered >= target_amount
+
+#undef SWARM_GOAL_LOWER_BOUND
+#undef SWARM_GOAL_UPPER_BOUND
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
