@@ -337,7 +337,7 @@ CONTENTS:
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
-/obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/SleepAttack(mob/living/L, mob/living/user)
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
