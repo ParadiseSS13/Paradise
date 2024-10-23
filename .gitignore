@@ -73,7 +73,7 @@ $RECYCLE.BIN
 *.swp
 
 # Rust output.
-/milla/target/*
+/rust/target/*
 
 # mkdocs output.
 site

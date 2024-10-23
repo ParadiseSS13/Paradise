@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/scoreboard/score = null
 	/// List of ckeys who had antag rolling issues flagged
 	var/list/flagged_antag_rollers = list()
+	/// List of biohazards keyed to the last time their population was sampled.
+	var/list/biohazard_pop_times = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -111,6 +113,10 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
+
+			for(var/biohazard in biohazard_pop_times)
+				if(world.time - biohazard_pop_times[biohazard] > BIOHAZARD_POP_INTERVAL)
+					sample_biohazard_population(biohazard)
 
 			if(world.time > next_autotransfer)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
@@ -834,22 +840,45 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		.++
 
-/// Return whether or not a given biohazard is an active threat.
-/// For blobs, this is simply if there are any overminds left. For terrors and
-/// xenomorphs, this is whether they have overwhelming numbers.
-/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+/datum/controller/subsystem/ticker/proc/sample_biohazard_population(biohazard)
+	SSblackbox.record_feedback("ledger", "biohazard_pop_[BIOHAZARD_POP_INTERVAL_STR]_interval", biohazard_count(biohazard), biohazard)
+	biohazard_pop_times[biohazard] = world.time
+
+/// Record the initial time that a biohazard spawned.
+/datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
+	SSblackbox.record_feedback("associative", "biohazard_starts", 1, list("type" = biohazard, "time_ds" = world.time - time_game_started))
+	sample_biohazard_population(biohazard)
+
+/datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
 		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 			var/spiders = 0
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spiders++
-			return spiders >= 5
+			return spiders
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			return length(GLOB.ts_spiderlist)
 		if(BIOHAZARD_XENO)
-			return count_xenomorps() > 5
+			return count_xenomorps()
 		if(BIOHAZARD_BLOB)
 			return length(SSticker.mode.blob_overminds)
+
+	CRASH("biohazard_count got unexpected [biohazard]")
+
+/// Return whether or not a given biohazard is an active threat.
+/// For blobs, this is simply if there are any overminds left. For terrors and
+/// xenomorphs, this is whether they have overwhelming numbers.
+/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+	var/count = biohazard_count(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+			return count >= 5
+		if(TS_INFESTATION_PRINCE_SPIDER)
+			return count > 0
+		if(BIOHAZARD_XENO)
+			return count > 5
+		if(BIOHAZARD_BLOB)
+			return count > 0
 
 	return FALSE
