@@ -6,7 +6,8 @@
 	var/list/ignored_emote_types = list(
 		/datum/emote/living/simple_animal/slime,  // The emotes are usable if you are a slime, but I don't think we need to flood the keybind list with them
 		/datum/emote/help,
-		/datum/emote/living/custom  // This one's handled by its own set of keybinds
+		/datum/emote/living/custom,  // This one's handled by its own set of keybinds
+		/datum/emote/living/simple_animal/mouse/idle, // We don't need nine keybinding for mouse ass shaking.
 	)
 
 	var/list/keybound_emotes = get_emote_keybinds()

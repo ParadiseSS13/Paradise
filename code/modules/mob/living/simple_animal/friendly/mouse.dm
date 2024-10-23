@@ -2,6 +2,7 @@
 	name = "mouse"
 	real_name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
+	icon = 'icons/mob/mouse.dmi'
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
@@ -25,7 +26,8 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
-	var/mouse_color //brown, gray and white, leave blank for random
+	/// Brown, gray and white, leave blank for random
+	var/mouse_color
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -37,6 +39,8 @@
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	/// Is our mouse smart?
+	var/sentient = FALSE
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -70,6 +74,7 @@
 	if(IS_HORIZONTAL(src))
 		if(prob(1))
 			stand_up()
+			do_idle_animation(pick("idle1", "idle2", "idle3", "idle4"))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
@@ -83,7 +88,27 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
+	give_idle_verbs()
 	update_appearance(UPDATE_DESC)
+
+/mob/living/simple_animal/mouse/proc/give_idle_verbs()
+	add_verb(src, list(
+		/mob/living/simple_animal/mouse/proc/sniff,
+		/mob/living/simple_animal/mouse/proc/shake,
+		/mob/living/simple_animal/mouse/proc/scratch,
+		/mob/living/simple_animal/mouse/proc/washup,
+		))
+	if(sentient)
+		add_verb(src, list(
+			/mob/living/simple_animal/mouse/proc/smoke,
+			/mob/living/simple_animal/mouse/proc/shakeass,
+			/mob/living/simple_animal/mouse/proc/dance,
+			))
+
+/mob/living/simple_animal/mouse/sentience_act()
+	. = ..()
+	sentient = TRUE
+	give_idle_verbs()
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -167,6 +192,7 @@
 	response_harm = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	sentient = TRUE
 
 /mob/living/simple_animal/mouse/white/Brain/update_desc()
 	. = ..()
@@ -178,6 +204,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
+	sentient = TRUE
 	var/bursted = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
@@ -233,3 +260,64 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/* IDLE ANIMATION THING */
+
+/mob/living/simple_animal/mouse/proc/do_idle_animation(anim, duration = 2 SECONDS)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+	flick("mouse_[mouse_color]_[anim]",src)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), duration)
+
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+
+/mob/living/simple_animal/mouse/proc/sniff()
+	set name = "Sniff"
+	set desc = "Sniff around"
+	set category = "Mouse"
+
+	emote("msniff", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shake()
+	set name = "Shake"
+	set desc = "Shake yourself"
+	set category = "Mouse"
+
+	emote("mshake", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/scratch()
+	set name = "Scratch"
+	set desc = "Scratch yourself"
+	set category = "Mouse"
+
+	emote("mscratch", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/washup()
+	set name = "Wash Up"
+	set desc = "Wash up yourself"
+	set category = "Mouse"
+
+	emote("mwashup", intentional = TRUE)
+
+// Sentient only
+
+/mob/living/simple_animal/mouse/proc/smoke()
+	set name = "Smoke"
+	set desc = "Smoke a cigarette"
+	set category = "Mouse"
+
+	emote("msmoke", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/dance()
+	set name = "Dance"
+	set desc = "Dance with a pair of maracas"
+	set category = "Mouse"
+
+	emote("mdance", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shakeass()
+	set name = "Shake Ass"
+	set desc = "Shake your ass"
+	set category = "Mouse"
+
+	emote("mshakeass", intentional = TRUE)
