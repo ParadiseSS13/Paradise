@@ -330,9 +330,9 @@
 
 		switch(choice)
 			if("Diver")
-				name = "diver envirosuit helmet"
-				desc = "A plasmaman helm resembling old diver helms."
-				base_icon_state = "diver_envirohelm"
+				name = initial(name)
+				desc = initial(desc)
+				base_icon_state = initial(base_icon_state)
 			if("Knight")
 				name = "knight envirosuit helmet"
 				desc = "A plasmaman envirohelm designed in the shape of a knight helm."
