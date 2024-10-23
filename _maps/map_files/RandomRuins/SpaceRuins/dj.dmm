@@ -19,14 +19,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"ae" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
 "af" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -220,14 +212,14 @@
 /area/ruin/space/djstation/solars)
 "aH" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -512,7 +504,10 @@
 	},
 /area/ruin/space/djstation)
 "bn" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -853,6 +848,13 @@
 	},
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
+"dg" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
 "gx" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
@@ -1057,18 +1059,15 @@
 	},
 /area/ruin/space/djstation)
 "UP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -1728,8 +1727,8 @@ ab
 aL
 rn
 aH
-av
-av
+dg
+at
 qj
 aS
 bi
@@ -1763,7 +1762,7 @@ aN
 mL
 aS
 Mj
-ae
+av
 bn
 UP
 uf
