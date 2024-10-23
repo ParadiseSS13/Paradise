@@ -17,15 +17,17 @@
 	icon = 'icons/obj/food/containers.dmi'
 	resistance_flags = FLAMMABLE
 	var/icon_type
-	/// Do we let the fancy subtype handle the examine?
-	var/special_examine = TRUE
 
 /obj/item/storage/fancy/update_icon_state()
 	icon_state = "[icon_type]box[length(contents)]"
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
-	if(special_examine && in_range(user, src))
+	. += special_examine(user)
+
+/obj/item/storage/fancy/proc/special_examine(mob/user)
+	. = list()
+	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
 			. += "There are no [icon_type]s left in the box."

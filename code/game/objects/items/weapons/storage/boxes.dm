@@ -709,12 +709,11 @@
 	storage_slots = 8
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
 	can_hold = list(/obj/item/ammo_casing/shotgun)
-	special_examine = FALSE
 	/// What shell do we fill the box with
 	var/shell_type
 
-/obj/item/storage/fancy/shell/examine(mob/user)
-	. = ..()
+/obj/item/storage/fancy/shell/special_examine(mob/user)
+	. = list()
 	if(!length(contents))
 		. += "There are no shells in the box."
 		return
