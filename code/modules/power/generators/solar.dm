@@ -297,7 +297,7 @@
 	track = TRACKER_AUTO
 	autostart = TRUE // Automatically search for connected devices
 
-/obj/machinery/power/solar_control/Initialize()
+/obj/machinery/power/solar_control/Initialize(mapload)
 	SSsun.solars |= src
 	setup()
 	. = ..()

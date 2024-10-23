@@ -834,7 +834,7 @@
 	///The Article title of the wiki page being opened in the <iframe>, must use underscores '_' and not whitespace for spaces in title
 	var/wiki_article_title = "Space_Law"
 
-/obj/item/book/manual/wiki/Initialize()
+/obj/item/book/manual/wiki/Initialize(mapload)
 	. = ..()
 	pages = list({"
 		<html><meta charset='utf-8'><head></head><body bgcolor='[book_bgcolor]'>
@@ -1010,7 +1010,7 @@
 	icon_state = "random_book"
 	var/static/list/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 
-/obj/item/book/manual/random/Initialize()
+/obj/item/book/manual/random/Initialize(mapload)
 	..()
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
