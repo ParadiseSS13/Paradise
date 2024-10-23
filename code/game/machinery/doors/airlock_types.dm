@@ -197,8 +197,7 @@
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
 		DA.glass = TRUE
-	DA.update_icon()
-	DA.update_name()
+	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
@@ -367,11 +366,11 @@
 
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
-	req_access_txt = "150"
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/door/airlock/hatch/syndicate/command
 	name = "Command Center"
-	req_access_txt = "153"
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
@@ -398,7 +397,7 @@
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
-	req_access_txt = "151"
+	req_access = list(ACCESS_SYNDICATE)
 	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
