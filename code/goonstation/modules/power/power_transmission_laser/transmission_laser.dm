@@ -172,10 +172,9 @@
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.\s<span/>"
-	. += "<span class='notice'>Laser has generated [total_earnings] credits.\s<span/>"
-	. += "<span class='notice'>Laser has sold [total_energy] Joules\s<span/>"
-
+	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.<span/>"
+	. += "<span class='notice'>Laser has generated [total_earnings] credits.<span/>"
+	. += "<span class='notice'>Laser has sold [total_energy] Joules.<span/>"
 
 /// Appearance changes are here
 /obj/machinery/power/transmission_laser/update_overlays()
