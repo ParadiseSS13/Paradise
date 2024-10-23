@@ -147,18 +147,6 @@
 	if(length(laser_effects))
 		destroy_lasers()
 
-/obj/machinery/power/transmission_laser/proc/get_back_turf()
-	//this is weird as i believe byond sets the bottom left corner as the source corner like
-	// x-x-x
-	// x-x-x
-	// o-x-x
-	//which would mean finding the true back turf would require centering than taking a step in the inverse direction
-	var/turf/center = locate(x + 1, y + 1, z)
-	if(!center)///what
-		return
-	var/inverse_direction = turn(dir, 180)
-	return get_step(center, inverse_direction)
-
 /obj/machinery/power/transmission_laser/proc/get_front_turf()
 	//this is weird as i believe byond sets the bottom left corner as the source corner like
 	// x-x-x
