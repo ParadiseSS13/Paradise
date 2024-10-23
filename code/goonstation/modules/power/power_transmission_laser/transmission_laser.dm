@@ -1,4 +1,5 @@
 #define MINIMUM_POWER 1 MW
+#define DEFAULT_CAPACITY 2000 GJ
 
 /obj/machinery/power/transmission_laser
 	name = "power transmission laser"
@@ -21,7 +22,7 @@
 	/// Amount of power we are outputting
 	var/output_level = 0
 	/// The total capacity of the laser
-	var/capacity = INFINITY
+	var/capacity = DEFAULT_CAPACITY
 	/// Our current stored energy
 	var/charge = 0
 	/// Are we trying to provide power to the laser
@@ -499,3 +500,4 @@
 	return
 
 #undef MINIMUM_POWER
+#undef DEFAULT_CAPACITY
