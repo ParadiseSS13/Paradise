@@ -8,7 +8,7 @@
 	icon = 'icons/goonstation/objects/pt_laser.dmi'
 	icon_state = "ptl"
 
-	max_integrity = 10000
+	max_integrity = 500
 
 	density = TRUE
 	anchored = TRUE
@@ -18,7 +18,7 @@
 
 	// Variables go below here
 	/// How far we shoot the beam. If it isn't blocked it should go to the end of the z level.
-	var/range = 0
+	var/range = -1
 	/// Amount of power we are outputting
 	var/output_level = 0
 	/// The total capacity of the laser
@@ -69,8 +69,6 @@
 	var/input_pulling = 0
 	/// Announcement configuration for updates
 	var/datum/announcer/announcer
-	/// Last direction the laser was pointing. So offset doesn't get handled when it doesn't need to
-	var/last_dir = NO_DIRECTION
 
 /obj/machinery/power/transmission_laser/north
 	pixel_x = -64
@@ -87,14 +85,74 @@
 	pixel_y = 0
 	dir = WEST
 
+/obj/item/circuitboard/machine/transmission_laser
+	board_name = "Power Transmission Laser"
+	icon_state = "command"
+	build_path = /obj/machinery/power/transmission_laser
+	origin_tech = "engineering=2;combat=3;"
+	req_components = list(
+							/obj/item/stock_parts/capacitor = 3,
+							/obj/item/stock_parts/micro_laser = 3)
+
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/transmission_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/capacitor
+	component_parts += new /obj/item/stock_parts/capacitor
+	component_parts += new /obj/item/stock_parts/capacitor
 	announcer = new(config_type = /datum/announcement_configuration/ptl)
 	find_blocker()
 	if(!powernet)
 		connect_to_network()
 	handle_offset()
 	update_icon()
+
+/obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/I)
+	if(firing)
+		to_chat(user,"<span class='info'>Turn the laser off first<span/>")
+		return
+	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
+		return TRUE
+
+/obj/machinery/power/transmission_laser/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/power/transmission_laser/wrench_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(rotate())
+		return TRUE
+	to_chat(user,"<span class='info'>Target area blocked, please clear all objects and personnel.<span/>")
+	return TRUE
+
+/// Rotates the laser if we have the space to do so.
+/obj/machinery/power/transmission_laser/proc/rotate()
+	var/new_dir = turn(dir, -90)
+
+	var/x_offset = (new_dir == WEST) ? -2 : 2
+	var/y_offset = (new_dir == SOUTH) ? -2 : 2
+	var/datum/component/multitile/tiles = GetComponent(/datum/component/multitile)
+	// Make sure the area we want to rotate to has enough free tiles
+	for(var/turf/tile in block(x, y, z, x + x_offset, y + y_offset))
+		if(tile?.density)
+			return FALSE
+		for(var/atom/thing as anything in tile.contents)
+			// If it's the machine or one of its multitile components fillers skip it
+			if(thing.UID() == UID() || (istype(thing, /obj/structure/filler/) && (thing in tiles.all_fillers)))
+				continue
+			if(thing?.density)
+				return FALSE
+
+	dir = new_dir
+	handle_offset()
+	return TRUE
 
 /// Go in the direction we shoot the lasers until we find something dense that isn't a window or a transparent turf
 /obj/machinery/power/transmission_laser/proc/find_blocker()
@@ -118,7 +176,7 @@
 	var/turf/end_turf = (blocker_ref ? ( isturf(blocker_ref) ? blocker_ref : get_turf(blocker_ref)) : get_edge_target_turf(get_front_turf(), dir))
 	range = get_dist(get_front_turf(), end_turf)
 
-	if(range > old_range || !length(laser_effects)) // Create new lasers if the new blocker_ref is further away, or if we just turned on the laser
+	if(old_range > -1 && (range > old_range || !length(laser_effects))) // Create new lasers if the new blocker is further away, or if we just turned on the laser
 		setup_lasers()
 	if(range < old_range) // Destroy lasers beyond the blocked point
 		shorten_beam()
@@ -410,6 +468,8 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
+	if(charge < 1 MW && !inputting) // We don't have enough power to setup the beam and we aren't receiving any.
+		return
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	// Create new lasers from the starting point to either the blocker or the edge of the map
 	for(var/num in 1 to range)
