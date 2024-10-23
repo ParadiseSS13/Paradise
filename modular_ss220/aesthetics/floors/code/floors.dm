@@ -23,9 +23,6 @@
 	icon_state = "smooth"
 
 // MARK: LIGHT FLOORS
-/obj/item/stack/light_w
-	icon = 'modular_ss220/aesthetics/floors/icons/tiles.dmi'
-
 /turf/simulated/floor/light/red
 	color = "#f23030"
 	light_color = "#f23030"
