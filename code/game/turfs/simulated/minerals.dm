@@ -270,7 +270,7 @@
 	var/mw_power = ptl.output_level / (1 MW) // Laser output power in megawatts
 	if(prob(mw_power - 50))// Chance to destroy the rock increases with power output, starting at 50MW
 		ChangeTurf(baseturf)
-	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+	if(ptl.blocker && (ptl.blocker == UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 
 

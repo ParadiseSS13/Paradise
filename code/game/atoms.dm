@@ -553,7 +553,7 @@
 /atom/proc/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
 	var/mw_power = ptl.output_level / (1 MW)
 	fire_act(null, 3000 * mw_power, 2500) // Equivalent to being in a fire at a temperature of 3000 degrees kelvin per MW.
-	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+	if(ptl.blocker && (ptl.blocker == UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 
 /// If it returns TRUE, attack chain stops

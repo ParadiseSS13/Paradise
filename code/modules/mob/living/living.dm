@@ -1194,6 +1194,6 @@
 		else
 			visible_message("<span class='danger'>You see [src] as they make contact with the beam, causing a massive steam explosion!</span>", "", "<span class='danger'>You hear something explode!</span>")
 			explosion(src, 3, 4, 5)
-	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
+	if(ptl.blocker && (ptl.blocker == src.UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 

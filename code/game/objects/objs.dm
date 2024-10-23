@@ -302,5 +302,5 @@
 	var/mw_power = ptl.output_level / (1 MW)
 	if(!QDELETED(src)) // In case it was destroyed by something else, like an explosion
 		take_damage(mw_power)
-	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
+	if(ptl.blocker && (ptl.blocker == UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()

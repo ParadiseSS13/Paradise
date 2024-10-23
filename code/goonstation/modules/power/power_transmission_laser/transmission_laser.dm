@@ -36,8 +36,8 @@
 	var/firing = FALSE
 	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	/// An atom blocking the beam
-	var/atom/blocker = null
+	/// UID of an atom blocking the beam
+	var/blocker = null
 	/// Our max load we can set
 	var/max_grid_load = 0
 	/// The load we place on the power grid we are connected to
@@ -86,21 +86,24 @@
 	var/old_range = range
 	var/turf/edge_turf = get_edge_target_turf(get_front_turf(), dir)
 	var/turf/current_turf = get_step(get_front_turf(), dir)
+	var/atom/blocker_ref = null
 	blocker = null
 	while(!blocker && current_turf != edge_turf)
 		if(current_turf?.density && current_turf?.opacity)
-			blocker = current_turf
+			blocker = current_turf.UID()
+			blocker_ref = current_turf
 			break
 		for(var/atom/candidate in current_turf.contents)
 			if(candidate.density && !istype(candidate, /obj/structure/window) && !istype(candidate, /obj/structure/grille))
-				blocker = candidate
+				blocker = candidate.UID()
+				blocker_ref = candidate
 				break
 		current_turf = get_step(current_turf, dir)
 	// If we didn't find a blocker the end turf is the edge of the z level. If the blocker is a turf(wall) then we simply use it as the end turf. Otherwise we use the blocker's location.
-	var/turf/end_turf = (blocker ? ( isturf(blocker) ? blocker : get_turf(blocker)) : get_edge_target_turf(get_front_turf(), dir))
+	var/turf/end_turf = (blocker_ref ? ( isturf(blocker_ref) ? blocker_ref : get_turf(blocker_ref)) : get_edge_target_turf(get_front_turf(), dir))
 	range = get_dist(get_front_turf(), end_turf)
 
-	if(range > old_range || !length(laser_effects)) // Create new lasers if the new blocker is further away, or if we just turned on the laser
+	if(range > old_range || !length(laser_effects)) // Create new lasers if the new blocker_ref is further away, or if we just turned on the laser
 		setup_lasers()
 	if(range < old_range) // Destroy lasers beyond the blocked point
 		shorten_beam()
@@ -329,8 +332,10 @@
 	if(!length(laser_effects))
 		find_blocker() // We aren't registering turf changes or atoms in the beam path while the beam is off.
 
-	if(blocker && QDELETED(blocker))// Checking here in case the blocker was destroyed by means other than the laser
-		find_blocker()
+	if(blocker)// Checking here in case the blocker was destroyed by means other than the laser
+		var/atom/check_if_destroyed = locateUID(blocker)
+		if(!check_if_destroyed || QDELETED(check_if_destroyed))
+			find_blocker()
 
 	if(length(laser_effects))
 		for(var/obj/effect/transmission_beam as anything in laser_effects)
@@ -392,7 +397,7 @@
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	// Create new lasers from the starting point to either the blocker or the edge of the map
-	for(var/num in 1 to range + 1)
+	for(var/num in 1 to range)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
 			var/obj/effect/transmission_beam/new_beam = new(last_step, src)
 			new_beam.host = src
@@ -414,7 +419,8 @@
 
 /// Called after the blocker gets affected by the beam to check if it was destroyed
 /obj/machinery/power/transmission_laser/proc/check_blocker()
-	if(QDELETED(blocker))
+	var/atom/check_if_destroyed = locateUID(blocker)
+	if(!check_if_destroyed || QDELETED(check_if_destroyed))
 		find_blocker()
 
 // Beam
@@ -457,8 +463,8 @@
 		return
 	arrived.ptl_beam_act(host)
 	if(arrived?.density) // If it survived and can block the beam it should block it
-		host.blocker = arrived
-		host.range = get_dist(host.get_front_turf(), get_turf(host.blocker))
+		host.blocker = arrived.UID()
+		host.range = get_dist(host.get_front_turf(), get_turf(src))
 		host.shorten_beam() // Remove the laser effects beyond the blocked part
 
 /// Remove the atoms from the list of the atoms in the beam. This is called every time something leaves our beam.
@@ -467,7 +473,7 @@
 
 	if(istype(left, /obj/structure/window))
 		return
-	if(host.blocker && (host.blocker.UID() == left.UID()))
+	if(host.blocker && (host.blocker == left.UID()))
 		host.find_blocker()
 
 
