@@ -16,19 +16,19 @@
 	pixel_y = -64
 
 	// Variables go below here
-	/// How far we shoot the beam. If it isn't blocked it should go to the end of the screen.
+	/// How far we shoot the beam. If it isn't blocked it should go to the end of the z level.
 	var/range = 0
 	/// Amount of power we are outputting
 	var/output_level = 0
 	/// The total capacity of the laser
 	var/capacity = INFINITY
-	/// Our current charge
+	/// Our current stored energy
 	var/charge = 0
 	/// Are we trying to provide power to the laser
 	var/input_attempt = TRUE
-	/// Are we currently inputting
+	/// Are we currently inputting power into the laser
 	var/inputting = TRUE
-	/// The amount of charge coming in from the inputs last tick
+	/// The amount of energy coming in from the inputs last tick
 	var/input_available = 0
 	/// Have we been switched on?
 	var/turned_on = FALSE
@@ -36,15 +36,15 @@
 	var/firing = FALSE
 	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	/// An object blocking the beam
+	/// An atom blocking the beam
 	var/atom/blocker = null
 	/// Our max load we can set
 	var/max_grid_load = 0
-	/// Our current grid load
+	/// The load we place on the power grid we are connected to
 	var/current_grid_load = 0
-	/// Out power formatting multiplier used inside tgui to convert to things like mW gW to watts for ease of setting
+	/// Signifies which unit we are using for output power. Used both in TGUI for formatting purposes and output power calculations.
 	var/power_format_multi = 1
-	/// Same as above but for output
+	/// Signifies which unit we are using for input power. Used both in TGUI for formatting purposes and input power calculations.
 	var/power_format_multi_output = 1
 
 	/// Are we selling the energy or just sending it into the ether
@@ -55,9 +55,9 @@
 	/// How much energy do you have to sell in order to get an announcement
 	var/static/announcement_threshold = 1 MJ
 
-	/// How much credits we have earned in total
+	/// How many credits we have earned in total
 	var/total_earnings = 0
-	/// The amount of money we haven't sent to cargo yet
+	/// The amount of money we haven't sent yet
 	var/unsent_earnings = 0
 
 	/// Gives our power input when multiplied with power_format_multi. The multiplier signifies the units of power, and this is how many of them we are inputting.
@@ -68,7 +68,7 @@
 	var/input_pulling = 0
 	/// Announcement configuration for updates
 	var/datum/announcer/announcer
-	/// Last direction the laser was pointing. So offset doesn't get handles when it doesn't need to
+	/// Last direction the laser was pointing. So offset doesn't get handled when it doesn't need to
 	var/last_dir = NO_DIRECTION
 
 
@@ -354,7 +354,6 @@
 			// Make sure we beam the turf itself as well, in case it's a wall or something else that could be affected.
 			if(beam_turf)
 				beam_turf.ptl_beam_act(src)
-
 
 	if(!blocker)
 		sell_power(output_level * WATT_TICK_TO_JOULE)
