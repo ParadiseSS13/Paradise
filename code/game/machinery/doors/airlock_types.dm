@@ -501,10 +501,10 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(loc)
 
-///obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
-//	if(..())
-//		new /obj/effect/temp_visual/ratvar/door(loc)
-//		return TRUE
+/obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+	if(..())
+		new /obj/effect/temp_visual/ratvar/door(loc)
+		return TRUE
 
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
