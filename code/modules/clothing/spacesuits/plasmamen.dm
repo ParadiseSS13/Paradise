@@ -300,6 +300,11 @@
 	/// Checks if the helm has been reskinned already
 	var/reskinned = FALSE
 
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
+	. = ..()
+	if(!reskinned)
+		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it.</span>"
+
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
