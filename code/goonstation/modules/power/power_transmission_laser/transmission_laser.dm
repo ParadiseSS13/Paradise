@@ -92,7 +92,7 @@
 			blocker = current_turf
 			break
 		for(var/atom/candidate in current_turf.contents)
-			if(candidate.density && !istype(candidate, /obj/structure/window))
+			if(candidate.density && !istype(candidate, /obj/structure/window) && !istype(candidate, /obj/structure/grille))
 				blocker = candidate
 				break
 		current_turf = get_step(current_turf, dir)
