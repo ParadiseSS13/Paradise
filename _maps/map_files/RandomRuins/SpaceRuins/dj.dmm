@@ -102,24 +102,6 @@
 "ao" = (
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
-"ap" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
-"aq" = (
-/obj/effect/spawner/window/shuttle,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
 "as" = (
 /obj/structure/lattice,
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -797,11 +779,6 @@
 "bS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/shelf,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/item/storage/toolbox/mechanical,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/storage/toolbox/electrical,
@@ -878,15 +855,6 @@
 	},
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
-"ct" = (
-/obj/effect/spawner/window/shuttle,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
 "gx" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
@@ -958,11 +926,6 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "tp" = (
@@ -977,15 +940,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
-"vB" = (
-/obj/effect/spawner/window/shuttle,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -1043,6 +997,14 @@
 /obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/djstation)
+"FR" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
 "Mj" = (
 /obj/machinery/light{
 	dir = 1
@@ -1073,15 +1035,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/space/djstation)
-"RT" = (
-/obj/effect/spawner/window/shuttle,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "Sf" = (
 /obj/structure/cable{
@@ -1121,6 +1074,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
+"VG" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/ruin/space/djstation/solars)
 "Zp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1651,10 +1618,10 @@ af
 aa
 aa
 ad
-ac
-ac
-ac
 aB
+aN
+aN
+VG
 bY
 ad
 aa
@@ -1687,7 +1654,7 @@ af
 af
 aa
 aa
-ac
+ab
 ao
 aL
 aE
@@ -1723,10 +1690,10 @@ ac
 aA
 aa
 aa
-ac
-aq
+ab
+aL
 bS
-aH
+FR
 Do
 av
 tp
@@ -1759,8 +1726,8 @@ ac
 af
 aa
 aa
-aB
-ct
+ab
+aL
 rn
 aH
 av
@@ -1831,8 +1798,8 @@ ac
 af
 aa
 aa
-aK
-vB
+ab
+aL
 aC
 uf
 Sf
@@ -1867,10 +1834,10 @@ ac
 af
 aa
 aa
-ac
-RT
+ab
+aL
 sZ
-ap
+at
 an
 at
 xR
@@ -1903,10 +1870,10 @@ af
 af
 aa
 aa
-ac
+ab
 ao
 aL
-aE
+aL
 aS
 aL
 aL
@@ -1939,10 +1906,10 @@ af
 aa
 aa
 ad
-ac
-ac
-ac
 aK
+aN
+aN
+aN
 au
 ad
 aa
