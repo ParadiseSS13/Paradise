@@ -23,9 +23,9 @@
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
-	. += special_examine(user)
+	. += fancy_storage_examine(user)
 
-/obj/item/storage/fancy/proc/special_examine(mob/user)
+/obj/item/storage/fancy/proc/fancy_storage_examine(mob/user)
 	. = list()
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)

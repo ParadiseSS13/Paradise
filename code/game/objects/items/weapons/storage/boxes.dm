@@ -712,7 +712,7 @@
 	/// What shell do we fill the box with
 	var/shell_type
 
-/obj/item/storage/fancy/shell/special_examine(mob/user)
+/obj/item/storage/fancy/shell/fancy_storage_examine(mob/user)
 	. = list()
 	if(!length(contents))
 		. += "There are no shells in the box."
