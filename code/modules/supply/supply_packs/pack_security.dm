@@ -278,15 +278,15 @@
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
-	contains = list(/obj/item/storage/box/tranquilizer,
-					/obj/item/storage/box/tranquilizer)
+	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
+					/obj/item/storage/fancy/shell/tranquilizer)
 	cost = 400
 	containername = "tranquilizer shell crate"
 
 /datum/supply_packs/security/armory/holyammo
 	name = "Holy Water Shell Crate"
-	contains = list(/obj/item/storage/box/holy,
-					/obj/item/storage/box/holy)
+	contains = list(/obj/item/storage/fancy/shell/holy,
+					/obj/item/storage/fancy/shell/holy)
 	cost = 400
 	containername = "holy water shell crate"
 

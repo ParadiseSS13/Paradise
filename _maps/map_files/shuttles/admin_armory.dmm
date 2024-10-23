@@ -53,11 +53,11 @@
 /area/shuttle/administration)
 "df" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/storage/fancy/shell/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -221,7 +221,7 @@
 	id = "adminshuttlebridge";
 	name = "Bridge Privacy Shutters";
 	pixel_x = 25;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -267,7 +267,7 @@
 	name = "External Window Shutter Control";
 	pixel_x = -5;
 	pixel_y = 35;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/machinery/keycard_auth{
 	pixel_y = 24
@@ -277,7 +277,7 @@
 	name = "Airlock Blast Door Control";
 	pixel_x = 5;
 	pixel_y = 35;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -356,11 +356,11 @@
 /area/shuttle/administration)
 "xF" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/storage/fancy/shell/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -555,11 +555,11 @@
 /area/shuttle/administration)
 "FT" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/storage/fancy/shell/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -789,7 +789,7 @@
 	id = "adminarmoryshutters";
 	name = "Armory Internal Shutters";
 	pixel_x = -26;
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
