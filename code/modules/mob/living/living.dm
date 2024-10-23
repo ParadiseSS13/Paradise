@@ -1121,8 +1121,12 @@
 		C.Weaken(3 SECONDS)
 	else
 		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
-		var/armor_block = C.run_armor_check(affecting, MELEE)
-		C.apply_damage(damage, BRUTE, affecting, armor_block)
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.adjustBruteLoss(damage)
+
 		C.KnockDown(3 SECONDS)
 
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
