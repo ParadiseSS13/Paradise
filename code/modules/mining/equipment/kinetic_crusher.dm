@@ -510,9 +510,6 @@
 	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
 	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
 
-/obj/effect/temp_visual/hierophant/wall/crusher
-	duration = 75
-
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"
 	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
