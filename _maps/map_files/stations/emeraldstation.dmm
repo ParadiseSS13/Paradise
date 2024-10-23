@@ -33034,7 +33034,7 @@
 /turf/simulated/wall,
 /area/station/science/research)
 "ggS" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel{
@@ -34410,7 +34410,7 @@
 /area/station/public/dorms)
 "gtw" = (
 /obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -47419,7 +47419,7 @@
 	},
 /area/station/security/range)
 "iOO" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -48378,7 +48378,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "iXG" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -64161,7 +64161,7 @@
 "lWJ" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "lWR" = (
@@ -71165,7 +71165,7 @@
 /area/station/supply/lobby)
 "npe" = (
 /obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -91040,7 +91040,7 @@
 	},
 /area/station/hallway/primary/central/sw)
 "qVm" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -94775,7 +94775,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/trash/liquidfood,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/item/trash/spacetwinkie,
 /obj/item/trash/raisins,
 /obj/item/trash/raisins,
@@ -95898,7 +95898,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "rMs" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plating,
@@ -103797,7 +103797,7 @@
 /area/station/supply/sorting)
 "tic" = (
 /obj/item/circuitboard/arcade/orion_trail,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -110318,7 +110318,7 @@
 /area/station/science/research)
 "utj" = (
 /obj/item/chair/stool,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/candy/coin,
 /obj/effect/landmark/burnturf,
@@ -112476,7 +112476,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "uMC" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -119147,7 +119147,7 @@
 "vYs" = (
 /obj/item/dice/d6,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "vYu" = (
