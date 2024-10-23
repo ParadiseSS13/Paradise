@@ -286,7 +286,7 @@
 			var/armor_block = C.run_armor_check(affecting, MELEE)
 			C.apply_damage(damage, BRUTE, affecting, armor_block)
 		else
-			C.adjustBruteLoss(damage)
+			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
 /obj/handle_ricochet(obj/item/projectile/P)
