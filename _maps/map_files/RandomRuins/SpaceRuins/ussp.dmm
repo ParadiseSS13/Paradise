@@ -7413,13 +7413,6 @@
 /obj/effect/spawner/airlock,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"NK" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/template_noop,
-/area/template_noop)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -14024,7 +14017,7 @@ ac
 ac
 ac
 ac
-NK
+ac
 ac
 ac
 ac
