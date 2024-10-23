@@ -1262,7 +1262,6 @@
 	var/mw_power = ptl.output_level / (1 MW)
 	power += (mw_power * 10)
 
-
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
