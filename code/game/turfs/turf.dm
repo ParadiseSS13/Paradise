@@ -271,7 +271,7 @@
 	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE, keep_filters = FALSE, keep_layer = FALSE)
 	if(!path)
 		return
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -285,6 +285,8 @@
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
 	var/old_corners = corners
+	var/old_filter_data = filter_data
+	var/old_layer = layer
 
 	BeforeChange()
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
@@ -320,6 +322,13 @@
 			S.update_starlight()
 
 	obscured = old_obscured
+
+	if(keep_layer)
+		layer = old_layer
+
+	if(keep_filters && old_filter_data)
+		filter_data = old_filter_data
+		update_filters()
 
 	return W
 
