@@ -295,8 +295,10 @@
 	icon_state = "diver_envirohelm"
 	base_icon_state = "diver_envirohelm"
 	item_state = "diver_envirohelm"
-	var/list/static/plasmaman_helm_options = list("Diver" = "diver_envirohelm", "Knight" = "knight_envirohelm", "Skull" = "skull_envirohelm") //Different icons and names for the helm to use when reskinning
-	var/reskinned = FALSE //Checks if the helm has been reskinned already
+	/// Different icons and names for the helm to use when reskinning
+	var/list/static/plasmaman_helm_options = list("Diver" = "diver_envirohelm", "Knight" = "knight_envirohelm", "Skull" = "skull_envirohelm")
+	/// Checks if the helm has been reskinned already
+	var/reskinned = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()
