@@ -3085,7 +3085,7 @@
 /area/awaymission/space_battle/bridge)
 "jm" = (
 /obj/machinery/light/directional/north,
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -3514,8 +3514,8 @@
 "kD" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
+/obj/item/storage/fancy/shell/buck,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "kF" = (
@@ -3703,7 +3703,7 @@
 /area/awaymission/space_battle/prhallway1)
 "lh" = (
 /obj/structure/rack,
-/obj/item/storage/box/slug,
+/obj/item/storage/fancy/shell/slug,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 5
@@ -13107,7 +13107,7 @@
 /area/space)
 "Oy" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck,
+/obj/item/storage/fancy/shell/buck,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/turret2)

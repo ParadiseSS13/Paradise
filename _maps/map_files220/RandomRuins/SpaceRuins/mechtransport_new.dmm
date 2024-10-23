@@ -992,9 +992,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "wF" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -2422,7 +2421,7 @@
 /area/ruin/space/powered)
 "WD" = (
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "7"
+	req_access = list(7)
 	},
 /obj/item/mecha_parts/mecha_equipment/weapon/honker,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,

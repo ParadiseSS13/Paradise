@@ -764,7 +764,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_one_access_txt = "79"
+	req_access = list(79)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -1607,9 +1607,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "yE" = (
-/obj/machinery/economy/vending/nta/admin{
-	req_access = "0"
-	},
+/obj/machinery/economy/vending/nta/admin,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "yH" = (
@@ -2546,7 +2544,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_one_access_txt = "79"
+	req_access = list(79)
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile/supply{

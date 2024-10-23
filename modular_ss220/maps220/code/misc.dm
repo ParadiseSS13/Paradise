@@ -52,7 +52,7 @@
 	else if(!insisting)
 		to_chat(user, span_cult("Ваше первое прикосновение заставляет [name] зашевелиться, прислушиваясь к вам. Вы действительно уверены, что хотите это сделать?"))
 		insisting = TRUE
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	insisting = FALSE
@@ -60,7 +60,7 @@
 	if(!wish)
 		return
 	charges--
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/mob/living/carbon/human/human = user
 	var/become_shadow = TRUE

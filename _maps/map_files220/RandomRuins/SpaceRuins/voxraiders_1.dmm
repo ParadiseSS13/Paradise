@@ -102,9 +102,8 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "iD" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen{
 	icon_state = "plastitanium"
 	},
@@ -262,15 +261,13 @@
 /turf/template_noop,
 /area/template_noop)
 "yO" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/ruin/space/powered)
 "Ao" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/nitrogen,
 /area/ruin/space/powered)

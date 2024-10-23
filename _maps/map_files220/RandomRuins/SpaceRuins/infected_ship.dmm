@@ -385,7 +385,6 @@
 "iL" = (
 /obj/machinery/light_construct/directional/west,
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = null;
 	req_access = list(150)
 	},
 /obj/effect/turf_decal/stripes/white/line{
@@ -1653,8 +1652,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "UK" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "150";
 	locked = 1
 	},
 /obj/structure/fans/tiny,

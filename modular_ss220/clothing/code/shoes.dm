@@ -93,7 +93,7 @@
 		set_light(0)
 		glow_active = FALSE
 
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /// Opens user input for changing neon color
 /obj/item/clothing/shoes/black/neon/proc/change_color(mob/user)
@@ -101,7 +101,7 @@
 	color = temp
 	light_color = temp
 	reload_neon_overlay(user)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /* Shark Shoes */
 /obj/item/clothing/shoes/shark

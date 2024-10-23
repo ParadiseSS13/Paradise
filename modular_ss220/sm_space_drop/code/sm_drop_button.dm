@@ -72,7 +72,7 @@
 			user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			glass = FALSE
 			playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, TRUE)
-			update_icon_state()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			user.visible_message(span_notice("[user] дружески похлопывает по [name]."), span_notice("Вы дружески похлопываете по [name]."))
 			playsound(loc, 'sound/effects/glassknock.ogg', 50, TRUE)
@@ -85,7 +85,7 @@
 				playsound(loc, "modular_ss220/sm_space_drop/sound/button[rand(1, 5)].ogg", 100, TRUE)
 				visible_message(span_notice("Кнопка громко щелкает."))
 				launch_sequence()
-				update_icon_state()
+				update_icon(UPDATE_ICON_STATE)
 				if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 					var/area/area = get_area(src)
 					if(area)
