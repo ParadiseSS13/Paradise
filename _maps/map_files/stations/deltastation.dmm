@@ -65693,9 +65693,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/transmission_laser{
-	dir = 8
-	},
+/obj/machinery/power/transmission_laser/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "eFE" = (

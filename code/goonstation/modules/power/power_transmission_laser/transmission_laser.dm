@@ -72,6 +72,20 @@
 	/// Last direction the laser was pointing. So offset doesn't get handled when it doesn't need to
 	var/last_dir = NO_DIRECTION
 
+/obj/machinery/power/transmission_laser/north
+	pixel_x = -64
+	pixel_y = 0
+	dir = NORTH
+
+/obj/machinery/power/transmission_laser/east
+	pixel_x = 0
+	pixel_y = 0
+	dir = EAST
+
+/obj/machinery/power/transmission_laser/west
+	pixel_x = -64
+	pixel_y = 0
+	dir = WEST
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()

@@ -92109,9 +92109,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/transmission_laser{
-	dir = 4
-	},
+/obj/machinery/power/transmission_laser/east,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "xPZ" = (

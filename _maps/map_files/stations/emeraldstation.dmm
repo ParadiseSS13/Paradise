@@ -47133,9 +47133,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/transmission_laser{
-	dir = 8
-	},
+/obj/machinery/power/transmission_laser/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "iLD" = (
