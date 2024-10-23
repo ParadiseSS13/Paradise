@@ -249,24 +249,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
-"aI" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "aJ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/under/retro/security,
+/obj/item/taperecorder{
+	pixel_x = 5;
+	pixel_y = 5
 	},
-/turf/template_noop,
-/area/space/nearstation)
+/obj/structure/shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/ruin/space/djstation)
 "aK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -1074,18 +1068,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/space/djstation)
-"Qf" = (
-/obj/structure/rack,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/retro/security,
-/obj/item/taperecorder{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/ruin/space/djstation)
 "RH" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
@@ -1162,6 +1144,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 bO
 bO
 bO
@@ -1171,7 +1156,6 @@ bl
 bO
 bO
 bO
-aa
 aa
 aa
 aa
@@ -1195,6 +1179,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 bO
 bO
 aa
@@ -1206,7 +1193,6 @@ ad
 aa
 bO
 bO
-aa
 aa
 aa
 aa
@@ -1229,6 +1215,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 bl
 aa
 aa
@@ -1240,7 +1229,6 @@ aj
 aa
 aa
 bO
-aa
 aa
 aa
 aa
@@ -1263,18 +1251,20 @@ aa
 aa
 aa
 aa
-bO
-ad
-bd
-ax
-az
-ad
-bd
-ax
-az
-ad
-bO
 aa
+aa
+aa
+bO
+ad
+bd
+ax
+az
+ad
+bd
+ax
+az
+ad
+bO
 aa
 aa
 aa
@@ -1288,6 +1278,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 af
 af
 af
@@ -1316,9 +1309,11 @@ aa
 aa
 aa
 aa
-aa
 "}
 (6,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1350,13 +1345,15 @@ aa
 aa
 aa
 aa
-aa
 "}
 (7,1,1) = {"
 aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 ac
 af
@@ -1376,7 +1373,6 @@ ax
 az
 ad
 bO
-aa
 aa
 aa
 aa
@@ -1387,6 +1383,9 @@ aa
 aa
 "}
 (8,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1418,9 +1417,11 @@ aa
 aa
 aa
 aa
-aa
 "}
 (9,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1437,10 +1438,9 @@ aa
 aa
 aa
 aa
-aG
-aI
-aG
-aa
+ad
+ab
+ad
 aa
 aa
 aa
@@ -1461,6 +1461,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 ac
 af
@@ -1471,17 +1474,16 @@ aa
 aa
 aa
 aa
-aG
-aI
-aG
+ad
+ab
+ad
 aa
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1496,6 +1498,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 aa
@@ -1505,20 +1510,19 @@ aa
 aa
 aa
 aa
-aG
-aI
-aG
-aa
 ad
+ab
+ad
+aa
+aa
 ao
 aV
 br
 bF
 ao
-ad
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 "}
@@ -1530,6 +1534,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 af
@@ -1539,11 +1546,11 @@ aa
 aa
 aa
 aa
-aG
-aI
-aG
-aa
 ad
+ab
+ad
+aa
+aa
 aS
 bo
 bw
@@ -1552,7 +1559,6 @@ ao
 ao
 ao
 ao
-ad
 aa
 aa
 "}
@@ -1564,6 +1570,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 ac
 af
@@ -1573,11 +1582,11 @@ aa
 aa
 aa
 aa
-aG
-aI
-aG
-aa
 ad
+ab
+ad
+aa
+aa
 aS
 RH
 bx
@@ -1586,7 +1595,6 @@ aS
 bT
 bP
 ao
-ad
 aa
 aa
 "}
@@ -1599,19 +1607,22 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 aa
 ad
 ad
+ad
 aa
-aa
-aa
-aG
-aI
-aG
 aa
 ad
+ab
+ad
+aa
+aa
 aS
 ba
 bx
@@ -1620,7 +1631,6 @@ aS
 aY
 bQ
 aS
-ad
 aa
 aa
 "}
@@ -1633,19 +1643,22 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 aa
 aa
 ad
-ad
+ac
+ac
+ac
+aB
+bY
 ad
 aa
-aB
-aJ
-aG
-ad
-ad
+aa
 ao
 TF
 bx
@@ -1654,7 +1667,6 @@ bE
 aY
 bR
 aS
-ad
 aa
 aa
 "}
@@ -1667,12 +1679,15 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 af
 aa
 aa
-ad
+ac
 ao
 aL
 aE
@@ -1688,11 +1703,13 @@ aS
 aS
 aS
 ao
-ad
 aa
 aa
 "}
 (17,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1706,7 +1723,7 @@ ac
 aA
 aa
 aa
-aa
+ac
 aq
 bS
 aH
@@ -1721,12 +1738,14 @@ bv
 aW
 OC
 aS
-ad
-ad
-ad
-ad
+aa
+aa
+aa
 "}
 (18,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1753,15 +1772,17 @@ be
 bB
 aZ
 ai
-Qf
+aJ
 aS
 ao
 ao
 aT
-ad
 "}
 (19,1,1) = {"
 as
+aG
+aG
+aG
 aG
 aG
 aG
@@ -1792,9 +1813,11 @@ bU
 bV
 bW
 al
-ad
 "}
 (20,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1826,9 +1849,11 @@ aS
 ao
 ao
 aT
-ad
 "}
 (21,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1842,7 +1867,7 @@ ac
 af
 aa
 aa
-aa
+ac
 RT
 sZ
 ap
@@ -1857,12 +1882,14 @@ bz
 bL
 bq
 ao
-ad
-ad
-ad
-ad
+aa
+aa
+aa
 "}
 (22,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1876,7 +1903,7 @@ af
 af
 aa
 aa
-ad
+ac
 ao
 aL
 aE
@@ -1891,7 +1918,6 @@ aL
 aS
 bN
 aS
-ad
 aa
 aa
 aa
@@ -1905,19 +1931,22 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 aa
 aa
 ad
-ad
-ad
-aa
+ac
+ac
+ac
 aK
 au
 ad
-ad
-ad
+aa
+aa
 ao
 bA
 Zp
@@ -1925,7 +1954,6 @@ vI
 aS
 aS
 ao
-ad
 aa
 aa
 aa
@@ -1939,32 +1967,37 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 aP
 aa
 ad
 ad
-aa
+ad
 aa
 aa
 ad
 ab
 ad
 aa
-ad
+aa
 aS
 DD
 Zp
 by
 aS
-ad
-ad
-ad
+aa
+aa
 aa
 aa
 aa
 "}
 (25,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1985,13 +2018,12 @@ ad
 ab
 ad
 aa
-ad
+aa
 aS
 yr
 Zp
 bC
 aS
-ad
 aa
 aa
 aa
@@ -2006,6 +2038,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 af
@@ -2019,13 +2054,12 @@ ad
 ab
 ad
 aa
-ad
+aa
 aS
 bk
 Zp
 bD
 aS
-ad
 aa
 aa
 aa
@@ -2040,6 +2074,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 aa
@@ -2053,13 +2090,12 @@ ad
 ab
 ad
 aa
-ad
+aa
 ao
 aV
 am
 bF
 ao
-ad
 aa
 aa
 aa
@@ -2073,6 +2109,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 ac
 af
@@ -2087,13 +2126,12 @@ ad
 ab
 ad
 aa
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2107,6 +2145,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 af
 af
@@ -2120,7 +2161,6 @@ aa
 ad
 ab
 ad
-aa
 aa
 aa
 aa
@@ -2135,6 +2175,9 @@ aa
 aa
 "}
 (30,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2166,13 +2209,15 @@ aa
 aa
 aa
 aa
-aa
 "}
 (31,1,1) = {"
 aa
 aa
 aa
 aa
+aa
+aa
+aa
 ac
 ac
 af
@@ -2192,7 +2237,6 @@ aF
 az
 ad
 bO
-aa
 aa
 aa
 aa
@@ -2203,6 +2247,9 @@ aa
 aa
 "}
 (32,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2234,9 +2281,11 @@ aa
 aa
 aa
 aa
-aa
 "}
 (33,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2268,7 +2317,6 @@ aa
 aa
 aa
 aa
-aa
 "}
 (34,1,1) = {"
 aa
@@ -2283,18 +2331,20 @@ aa
 aa
 aa
 aa
-bO
-ad
-bd
-aF
-az
-ad
-bd
-aF
-az
-ad
-bO
 aa
+aa
+aa
+bO
+ad
+bd
+aF
+az
+ad
+bd
+aF
+az
+ad
+bO
 aa
 aa
 aa
@@ -2317,6 +2367,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 bO
 aa
 aa
@@ -2336,9 +2389,11 @@ aa
 aa
 aa
 aa
-aa
 "}
 (36,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2362,7 +2417,6 @@ ad
 aa
 bO
 bO
-aa
 aa
 aa
 aa
@@ -2386,6 +2440,9 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 aQ
 bO
 bO
@@ -2395,7 +2452,6 @@ bO
 bO
 bO
 bl
-aa
 aa
 aa
 aa
