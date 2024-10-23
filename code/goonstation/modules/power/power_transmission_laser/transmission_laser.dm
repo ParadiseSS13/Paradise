@@ -367,6 +367,9 @@
 
 #define A1_CURVE 20
 
+#define HIGH_CUT_RATIO 0.75
+#define MEDIUM_CUT_RATIO 0.25
+
 /obj/machinery/power/transmission_laser/proc/sell_power(joules)
 	var/mega_joules = joules / (1 MW)
 
@@ -383,8 +386,8 @@
 	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 
 	if(unsent_earnings > 200)
-		var/medium_cut = round(unsent_earnings * 0.25)
-		var/high_cut = round(unsent_earnings * 0.75)
+		var/medium_cut = round(unsent_earnings * MEDIUM_CUT_RATIO)
+		var/high_cut = round(unsent_earnings * HIGH_CUT_RATIO)
 
 		GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
 		unsent_earnings -= medium_cut
@@ -395,6 +398,8 @@
 #undef A1_CURVE
 #undef PROCESS_CAP
 #undef MINIMUM_BAR
+#undef HIGH_CUT_RATIO
+#undef MEDIUM_CUT_RATIO
 
 // Beam related procs
 
