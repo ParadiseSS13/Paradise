@@ -1185,7 +1185,7 @@
 	var/mw_power = max((ptl.output_number * ptl.power_format_multi_output) / (1 MW), 0)
 	switch(mw_power)
 		if(0 to 25)
-			adjustFireLoss(-mw_power * 15)
+			adjustFireLoss(mw_power * 15)
 			adjust_fire_stacks(mw_power)
 		if(26 to 50)
 			gib(FALSE)
