@@ -217,7 +217,7 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_detonate(usr, R, TRUE))
 				return
-			if(R.mind && R.mmi.syndiemmi && !R.emagged) //Emagging removes your syndie MMI protections.
+			if(R.mind && R.mmi.syndiemmi && !R.emagged) // Emagging removes your syndie MMI protections.
 				to_chat(R, "<span class='danger'>Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE: Detonation aborted. Connection to NT systems severed.</span>")
 				R.UnlinkSelf()
 				. = TRUE

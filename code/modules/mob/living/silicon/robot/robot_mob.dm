@@ -1431,7 +1431,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
-		if(mmi.syndiemmi && !emagged) //Being emagged remove your syndie MMI protections
+		if(mmi.syndiemmi && !emagged) // Being emagged removes your syndie MMI protections
 			to_chat(src, "<span class='userdanger'>You can override your lockdown, permanently cutting your connection to NT's systems. You will be undetectable to the station's robotics control and camera monitoring systems.</span>")
 			var/datum/action/override = new /datum/action/innate/robot_override_lock()
 			override.Grant(src)
