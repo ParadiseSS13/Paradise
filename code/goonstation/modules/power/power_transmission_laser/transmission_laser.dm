@@ -372,7 +372,6 @@
 
 	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / ((2 * mega_joules) + (PROCESS_CAP * A1_CURVE))
 	generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
-	generated_cash = round(generated_cash)
 	if(generated_cash < 0)
 		return
 
