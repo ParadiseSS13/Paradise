@@ -46,7 +46,7 @@
 	/// Signifies which unit we are using for output power. Used both in TGUI for formatting purposes and output power calculations.
 	var/power_format_multi = 1
 	/// Signifies which unit we are using for input power. Used both in TGUI for formatting purposes and input power calculations.
-	var/power_format_multi_output = 1
+	var/power_format_multi_output = 1 MW
 
 	/// Are we selling the energy or just sending it into the ether
 	var/selling_energy = FALSE

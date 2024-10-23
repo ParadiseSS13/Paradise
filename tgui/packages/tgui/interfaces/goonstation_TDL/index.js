@@ -6,7 +6,7 @@
  */
 
 import { useBackend } from '../../backend';
-import { Box, Button, Knob, LabeledList, NoticeBox, ProgressBar, Section } from '../../components';
+import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Section } from '../../components';
 import { formatMoney, formatSiUnit, formatPower } from '../../format';
 import { Window } from '../../layouts';
 
@@ -87,17 +87,17 @@ const InputControls = (props, context) => {
         <LabeledList.Item label="Input Level">{input_total ? formatPower(input_total) : '0 W'}</LabeledList.Item>
       </LabeledList>
       <Box mt="0.5em">
-        <Knob
+        <NumberInput
           mr="0.5em"
           animated
           size={1.25}
           inline
-          step={5}
+          step={1}
           stepPixelSize={2}
           minValue={0}
           maxValue={999}
           value={input_number}
-          onDrag={(e, set_input) => act('set_input', { set_input })}
+          onChange={(e, set_input) => act('set_input', { set_input })}
         />
         <Button content={'W'} selected={power_format === 1} onClick={() => act('inputW')} />
         <Button content={'kW'} selected={power_format === 10 ** 3} onClick={() => act('inputKW')} />
@@ -139,18 +139,18 @@ const OutputControls = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       <Box mt="0.5em">
-        <Knob
+        <NumberInput
           mr="0.5em"
           size={1.25}
           animated
           inline
-          step={5}
+          step={1}
           stepPixelSize={2}
           minValue={0}
           maxValue={999}
           ranges={{ bad: [-Infinity, -1] }}
           value={output_number}
-          onDrag={(e, set_output) => act('set_output', { set_output })}
+          onChange={(e, set_output) => act('set_output', { set_output })}
         />
         <Button content={'MW'} selected={output_multiplier === 10 ** 6} onClick={() => act('outputMW')} />
         <Button content={'GW'} selected={output_multiplier === 10 ** 9} onClick={() => act('outputGW')} />
