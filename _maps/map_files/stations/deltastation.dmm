@@ -36426,9 +36426,7 @@
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caM" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/prisoner,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -59216,6 +59214,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
+"dzl" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "dzo" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -76299,6 +76304,11 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -118189,7 +118199,7 @@ aaa
 aaa
 aaa
 reg
-srS
+dzl
 srS
 srS
 srS

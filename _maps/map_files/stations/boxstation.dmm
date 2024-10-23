@@ -58650,6 +58650,15 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"gVS" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "gVT" = (
 /obj/structure/table,
 /obj/item/ashtray/glass,
@@ -63934,6 +63943,11 @@
 "jEc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -116902,7 +116916,7 @@ hYH
 upX
 sqN
 lPx
-scI
+gVS
 mnN
 aaa
 aaa

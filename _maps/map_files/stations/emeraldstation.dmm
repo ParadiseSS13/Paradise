@@ -14094,6 +14094,11 @@
 /area/station/service/clown)
 "cFI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "cFM" = (
@@ -24771,9 +24776,7 @@
 	},
 /area/station/engineering/break_room/secondary)
 "eHF" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -31429,8 +31432,7 @@
 /area/station/public/shops)
 "fPs" = (
 /obj/machinery/computer/prisoner{
-	dir = 8;
-	req_access = list(2)
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54460,8 +54462,7 @@
 /area/station/hallway/primary/fore/north)
 "kcA" = (
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -68901,8 +68902,7 @@
 /area/station/command/meeting_room)
 "mSw" = (
 /obj/machinery/computer/prisoner{
-	dir = 1;
-	req_access = list(2)
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -75276,8 +75276,7 @@
 /area/station/maintenance/asmaint)
 "nYy" = (
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -109946,6 +109945,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"unq" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Antechamber South";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "unt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -122637,9 +122643,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wFX" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -140855,7 +140859,7 @@ mJM
 cth
 cth
 cth
-cth
+unq
 cth
 mJM
 gDq
