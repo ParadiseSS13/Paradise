@@ -41,7 +41,7 @@
 		bag.red = src
 		bag.blue = blue
 
-/obj/item/shared_storage/Initialize()
+/obj/item/shared_storage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
@@ -426,7 +426,7 @@
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
-/obj/effect/immortality_talisman/Initialize()
+/obj/effect/immortality_talisman/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
