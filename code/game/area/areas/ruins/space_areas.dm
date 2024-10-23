@@ -47,7 +47,6 @@
 /area/ruin/space/djstation
 	name = "\improper Ruskie DJ Station"
 	icon_state = "DJ"
-	there_can_be_many = TRUE
 
 /area/ruin/space/djstation/solars
 	name = "\improper Ruskie DJ Station Solars"
@@ -57,7 +56,6 @@
 /area/ruin/space/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
-	there_can_be_many = TRUE
 
 // Space Bar
 /area/ruin/space/powered/bar
