@@ -879,6 +879,9 @@
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
+/obj/structure/disposalpipe/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
+	return
+
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
 /obj/structure/disposalpipe/proc/nextdir(fromdir)
