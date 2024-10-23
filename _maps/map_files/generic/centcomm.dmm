@@ -19,9 +19,9 @@
 /turf/simulated/wall/indestructible/fakedoor,
 /area/ninja/holding)
 "ah" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Security";
-	req_access_txt = "101"
+	name = "CentCom Security"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
@@ -434,7 +434,7 @@
 /area/ninja/holding)
 "bO" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access_txt = "25"
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
@@ -862,6 +862,9 @@
 "ds" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/centcom)
+"dt" = (
+/turf/simulated/floor/plasteel/stairs/right,
+/area/syndicate_mothership)
 "du" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/shaker,
@@ -906,12 +909,12 @@
 "dD" = (
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
-	req_access_txt = "150";
 	vent_link_id = "syndishuttle_vent";
 	ext_door_link_id = "syndishuttle_door_ext";
 	int_door_link_id = "syndishuttle_door_int";
 	ext_button_link_id = "syndishuttle_btn_ext";
-	int_button_link_id = "syndishuttle_btn_int"
+	int_button_link_id = "syndishuttle_btn_int";
+	req_access = list(150)
 	},
 /obj/machinery/light{
 	dir = 4
@@ -1069,10 +1072,10 @@
 	},
 /area/ninja/holding)
 "ei" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Workshop";
-	req_access_txt = "101"
+	name = "Workshop"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -1934,10 +1937,10 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "hl" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -1945,7 +1948,7 @@
 	id_tag = "syndicate_sit_1";
 	name = "Side Hull Door";
 	opacity = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -1960,7 +1963,7 @@
 	id = "syndicate_sit_1";
 	name = "Blast Doors";
 	pixel_y = -23;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -1976,9 +1979,9 @@
 "hm" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
 	pixel_y = 24;
-	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
-	id = "SpecopsEngineering"
+	id = "SpecopsEngineering";
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1999,7 +2002,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "tdome1";
 	pixel_x = 24;
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2016,9 +2019,9 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "hq" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sit_away";
-	req_access_txt = "150"
+	id_tag = "sit_away"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2080,17 +2083,17 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "hA" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "hB" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -2098,7 +2101,7 @@
 	id_tag = "syndicate_elite";
 	name = "Side Hull Door";
 	opacity = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/mobile{
 	dir = 4;
@@ -2129,10 +2132,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "hE" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/security,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Holding Cell";
-	req_access_txt = "104"
+	name = "Holding Cell"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -2142,7 +2145,7 @@
 	name = "Shuttle Blast Doors";
 	pixel_x = -26;
 	pixel_y = -2;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2179,7 +2182,7 @@
 	name = "Shuttle Blast Doors";
 	pixel_x = 26;
 	pixel_y = -2;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2221,7 +2224,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "tdome2";
 	pixel_x = -24;
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2246,16 +2249,16 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "hX" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_elite";
 	name = "Blast Doors";
 	pixel_x = -25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -2263,22 +2266,22 @@
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
 	opacity = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_elite)
 "hY" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_sit_1";
 	name = "Blast Doors";
 	pixel_x = -25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -2287,7 +2290,7 @@
 	id_tag = "syndicate_sit_1";
 	name = "Front Hull Door";
 	opacity = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
@@ -2307,9 +2310,9 @@
 	},
 /area/tdome/tdomeobserve)
 "ic" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/centcom{
-	name = "Administrative Office";
-	req_access_txt = "109"
+	name = "Administrative Office"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -2448,14 +2451,14 @@
 	name = "SIT Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "sit_tele";
 	name = "SIT Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2482,28 +2485,28 @@
 	name = "SST Extra Weapons";
 	pixel_x = -6;
 	pixel_y = -4;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "sst_ready";
 	name = "SST Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "sst_tele";
 	name = "SST Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "sst_mechbay";
 	name = "SST Mech Bay";
 	pixel_x = 6;
 	pixel_y = -4;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2667,11 +2670,11 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Syndicate Jail Access Controller";
 	pixel_y = 24;
-	req_access_txt = "150";
 	ext_door_link_id = "syndijail_door_ext";
 	int_door_link_id = "syndijail_door_int";
 	ext_button_link_id = "syndijail_btn_ext";
-	int_button_link_id = "syndijail_btn_int"
+	int_button_link_id = "syndijail_btn_int";
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2714,7 +2717,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "commandcenter";
 	name = "Privacy Shutters";
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2803,14 +2806,14 @@
 	name = "Nuclear Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "nukeop_ready";
 	name = "Nuclear Shuttle Access";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2926,7 +2929,7 @@
 /area/syndicate_mothership)
 "kk" = (
 /obj/structure/closet/secure_closet{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -3263,16 +3266,16 @@
 	name = "Bolt Cell Doors";
 	normaldoorcontrol = 1;
 	pixel_x = 6;
-	req_access_txt = "150";
-	specialfunctions = 4
+	specialfunctions = 4;
+	req_access = list(150)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_jail";
 	name = "Bolt Jail Door";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access_txt = "150";
-	specialfunctions = 4
+	specialfunctions = 4;
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -3459,7 +3462,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "syndieshutters";
 	name = "remote shutter control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -3830,9 +3833,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
 "mT" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/centcom{
-	name = "Restroom";
-	req_access_txt = "150"
+	name = "Restroom"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3869,7 +3872,7 @@
 "mX" = (
 /obj/machinery/door/window{
 	name = "Cockpit";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -4153,7 +4156,7 @@
 	dir = 8;
 	name = "Tactical Toilet";
 	opacity = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
@@ -4342,7 +4345,7 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	req_one_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/assault_pod)
@@ -4535,9 +4538,9 @@
 /turf/space/transit,
 /area/space/centcomm)
 "pg" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /obj/machinery/door/airlock/titanium/glass{
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
 	security_level = 6
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -4662,9 +4665,9 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "pK" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/commander,
 /obj/machinery/door/airlock/centcom{
-	name = "Shuttle Control Office";
-	req_access_txt = "114"
+	name = "Shuttle Control Office"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
@@ -4692,14 +4695,14 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = -8;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "trader_privacy";
 	name = "Privacy Shutters Control";
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -4729,7 +4732,7 @@
 	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -4846,10 +4849,10 @@
 	name = "Security Doors";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "soltrader_north";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
 	security_level = 6
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -4941,7 +4944,7 @@
 	name = "Mission Launch Control";
 	pixel_x = -26;
 	pixel_y = -2;
-	req_access_txt = "151"
+	req_access = list(151)
 	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -5059,9 +5062,8 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "rc" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5192,14 +5194,14 @@
 	name = "CentCom Security Shutters";
 	pixel_x = 8;
 	pixel_y = 36;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC";
 	name = "Thunderdome Shutters";
 	pixel_x = 8;
 	pixel_y = 24;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control/no_emag{
 	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
@@ -5207,7 +5209,7 @@
 	name = "Nanotrasen Asset Protection Shutters";
 	pixel_x = -8;
 	pixel_y = 30;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -5484,10 +5486,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "su" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Bridge";
-	req_access_txt = "101"
+	name = "Bridge"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -5545,9 +5547,9 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "sE" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Equipment Room";
-	req_access_txt = "150"
+	name = "Equipment Room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5566,7 +5568,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "sK" = (
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/plasteel/stairs/left,
 /area/syndicate_mothership)
 "sL" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
@@ -5641,7 +5643,7 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	req_one_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/mobile/assault_pod,
 /turf/simulated/floor/plating,
@@ -5668,8 +5670,8 @@
 "th" = (
 /obj/machinery/door/window/reinforced/normal{
 	color = "#d70000";
-	req_access_txt = "104";
-	dir = 8
+	dir = 8;
+	req_access = list(104)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -5809,7 +5811,7 @@
 	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_y = -24;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -5905,7 +5907,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Tool Storage";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6015,7 +6017,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Secure Storage";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6265,7 +6267,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/flasher_button{
 	id = "soltraderflash";
@@ -6285,10 +6287,10 @@
 	name = "Security Doors";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "soltrader_south";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
 	security_level = 6
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -6360,6 +6362,12 @@
 /obj/item/dice/d20,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
+"vC" = (
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Central Command"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "vD" = (
 /obj/structure/railing,
 /obj/effect/landmark/spawner/trader,
@@ -6906,6 +6914,12 @@
 	icon_state = "white"
 	},
 /area/centcom/control)
+"xx" = (
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "xy" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light/small,
@@ -7148,10 +7162,10 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "yZ" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
-	opacity = 0;
-	req_access_txt = "106"
+	opacity = 0
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -7302,9 +7316,9 @@
 "zK" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
 	pixel_x = 24;
-	req_access_txt = "114";
 	name = "Specops Teleporter Shutters";
-	id = "CCTELE"
+	id = "CCTELE";
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -7347,8 +7361,8 @@
 "zW" = (
 /obj/machinery/door/window{
 	name = "Uplink Management Control";
-	req_access_txt = "151";
-	dir = 4
+	dir = 4;
+	req_access = list(151)
 	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
@@ -7423,8 +7437,8 @@
 "Am" = (
 /obj/machinery/door/window/classic/normal{
 	name = "cell door";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -7603,9 +7617,9 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "AU" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/commander,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom BSA Control";
-	req_access_txt = "114"
+	name = "CentCom BSA Control"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
@@ -7648,9 +7662,9 @@
 /turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "Be" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Supply";
-	req_access_txt = "106"
+	name = "CentCom Supply"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
@@ -7692,8 +7706,8 @@
 	base_state = "right";
 	icon_state = "right";
 	name = "Infirmary";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -7854,9 +7868,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "BV" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "syndicate_away";
-	req_access_txt = "150"
+	id_tag = "syndicate_away"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -8044,7 +8058,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdome";
 	name = "Main Blast Doors Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -8119,7 +8133,7 @@
 	id = "CCcustoms2";
 	name = "CentCom Inner Customs Shutters";
 	pixel_x = 24;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8132,10 +8146,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "CM" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
-	opacity = 0;
-	req_access_txt = "106"
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -8230,14 +8244,14 @@
 	name = "Privacy Shutters";
 	pixel_x = 6;
 	pixel_y = 10;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control/no_emag{
 	pixel_x = -6;
 	pixel_y = -17;
 	name = "Engineering Storage";
 	id = "SpecopsEngineering";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -8426,9 +8440,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "DV" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/commander,
 /obj/machinery/door/airlock/centcom{
-	name = "Administrative Office";
-	req_access_txt = "114"
+	name = "Administrative Office"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "specopsoffice";
@@ -8459,9 +8473,9 @@
 	},
 /area/centcom/specops)
 "Ea" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/centcom{
-	name = "Shuttle Control Office";
-	req_access_txt = "109"
+	name = "Shuttle Control Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8507,7 +8521,7 @@
 "Ej" = (
 /obj/machinery/door/window/reinforced/normal{
 	name = "Cell Door";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
@@ -8517,13 +8531,13 @@
 /area/shuttle/administration)
 "El" = (
 /obj/effect/mapping_helpers/airlock/unres,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	auto_close_time = 25;
 	hackProof = 1;
 	max_integrity = 3000;
-	name = "Escape Pod Dock";
-	req_access_txt = "101"
+	name = "Escape Pod Dock"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -8774,8 +8788,8 @@
 "Fp" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "Tool Storage";
-	req_access_txt = "150";
-	dir = 8
+	dir = 8;
+	req_access = list(150)
 	},
 /obj/machinery/light/spot{
 	dir = 1
@@ -8803,8 +8817,8 @@
 "Ft" = (
 /obj/machinery/door/window{
 	name = "Infirmary";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access = list(150)
 	},
 /obj/machinery/light/spot{
 	dir = 1
@@ -8994,7 +9008,7 @@
 /obj/structure/table/wood,
 /obj/machinery/photocopier{
 	icon_state = "fax";
-	name = "fax machine"
+	name = "fake fax machine"
 	},
 /obj/item/photo{
 	name = "butts"
@@ -9202,7 +9216,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Cell A";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -9212,9 +9226,9 @@
 "GO" = (
 /obj/machinery/door_control/no_emag{
 	pixel_y = -24;
-	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
-	id = "SpecopsEngineering"
+	id = "SpecopsEngineering";
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -9614,7 +9628,7 @@
 	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -9859,10 +9873,10 @@
 	},
 /area/centcom/specops)
 "Jb" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	name = "Shuttle Hatch"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -9954,7 +9968,7 @@
 /area/centcom/suppy)
 "Jq" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/beanbag,
+/obj/item/storage/fancy/shell/beanbag,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10095,7 +10109,7 @@
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = 32;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
@@ -10535,7 +10549,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdomehea";
 	name = "Heavy Supply Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -10573,7 +10587,7 @@
 	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_y = -24;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -10816,7 +10830,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdomegen";
 	name = "General Supply Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -10839,9 +10853,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Mn" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/commander,
 /obj/machinery/door/airlock/centcom{
-	name = "Gamma Armory";
-	req_access_txt = "114"
+	name = "Gamma Armory"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "CCGAMMA";
@@ -10945,9 +10959,9 @@
 /area/centcom/specops)
 "Mz" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Supply";
-	req_access_txt = "106"
+	name = "CentCom Supply"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
@@ -11039,28 +11053,28 @@
 	name = "Station Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = -6;
 	pixel_y = -3;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_x = 6;
 	pixel_y = -3;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -11072,10 +11086,10 @@
 	},
 /area/holodeck/source_desert)
 "MS" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "syndishuttle_door_ext";
-	name = "Ship External Access";
-	req_access_txt = "150"
+	name = "Ship External Access"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -11089,7 +11103,7 @@
 	name = "External Door Control";
 	pixel_x = -26;
 	pixel_y = 2;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/mobile{
 	dheight = 9;
@@ -11656,8 +11670,8 @@
 "OM" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "In";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -11692,12 +11706,12 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "adminshuttleblast";
 	name = "Blast Doors";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "General Access";
-	req_access_txt = "101"
+	name = "General Access"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -11719,7 +11733,7 @@
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_y = 24;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -12365,8 +12379,8 @@
 "Rl" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Out";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -12467,7 +12481,7 @@
 	name = "Hanger Bay Shutters";
 	pixel_x = 24;
 	pixel_y = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -12552,7 +12566,7 @@
 	id = "CCcustoms2";
 	name = "CentCom Inner Customs Shutters";
 	pixel_x = -24;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12587,7 +12601,7 @@
 	id = "CCcustoms1";
 	name = "CentCom Outer Customs Shutters";
 	pixel_x = 24;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12693,7 +12707,7 @@
 	name = "Specops Teleporter Shutters";
 	pixel_x = -24;
 	pixel_y = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12995,7 +13009,7 @@
 	id = "SpecopsFerry";
 	name = "Hanger Bay Shutters";
 	pixel_y = 24;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13090,9 +13104,9 @@
 	},
 /area/centcom/control)
 "Uj" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/centcom{
-	name = "CentCom Bridge";
-	req_access_txt = "109"
+	name = "CentCom Bridge"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -13151,10 +13165,10 @@
 	},
 /area/shuttle/escape)
 "Us" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
-	name = "Medbay";
-	req_access_txt = "101"
+	name = "Medbay"
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -13361,8 +13375,8 @@
 	base_state = "right";
 	icon_state = "right";
 	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -13592,7 +13606,7 @@
 	id = "CCcustoms1";
 	name = "CentCom Outer Customs Shutters";
 	pixel_x = -24;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13696,10 +13710,10 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "WD" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	name = "Shuttle Hatch"
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -13991,7 +14005,7 @@
 	id = "SPECOPS";
 	name = "Nanotrasen Asset Protection Shutters";
 	pixel_y = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -14232,7 +14246,7 @@
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_y = -24;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -14294,8 +14308,8 @@
 "Ys" = (
 /obj/machinery/door/window{
 	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access = list(150)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -14383,7 +14397,7 @@
 "YJ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Cell B";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -14423,11 +14437,11 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "YS" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "syndishuttle_door_int";
 	locked = 1;
-	name = "Ship External Access";
-	req_access_txt = "150"
+	name = "Ship External Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -62431,7 +62445,7 @@ ab
 ab
 ab
 ab
-BZ
+sK
 hG
 UO
 iT
@@ -65778,7 +65792,7 @@ BY
 BY
 BY
 BY
-sK
+dt
 XJ
 XJ
 tW
@@ -69406,7 +69420,7 @@ vH
 lZ
 wR
 wk
-lZ
+vC
 lZ
 lZ
 lZ
@@ -69663,7 +69677,7 @@ lZ
 lZ
 lZ
 wk
-lZ
+xx
 lZ
 lZ
 lZ
