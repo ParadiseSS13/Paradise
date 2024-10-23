@@ -299,7 +299,7 @@
 
 /// Objects take damage equal to the amount of megawatts being output by the beam.
 /obj/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	var/mw_power = ptl.output_level / (1 MW)
 	take_damage(mw_power)
 	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()

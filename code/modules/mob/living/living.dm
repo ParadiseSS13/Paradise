@@ -1182,16 +1182,18 @@
 	return FALSE
 
 /mob/living/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = max((ptl.output_number * ptl.power_format_multi_output) / (1 MW), 0)
+	var/mw_power = max(ptl.output_level / (1 MW), 0)
 	switch(mw_power)
 		if(0 to 25)
 			adjustFireLoss(mw_power * 15)
 			adjust_fire_stacks(mw_power)
+			IgniteMob()
 		if(26 to 50)
-			gib(FALSE)
+			visible_message("You see [src] as they make contact with the beam, causing a steam explosion!")
+			explosion(src, 1, 2, 3)
 		else
-			explosion(src, 3, 2, 2)
-			gib(FALSE)
+			visible_message("You see [src] as they make contact with the beam, causing a massive steam explosion!")
+			explosion(src, 3, 4, 5)
 	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
 		ptl.check_blocker()
 

@@ -660,7 +660,7 @@
 
 /// What happens to a turf when it is hit by a power transmission laser, depends on the density of the turf
 /turf/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
+	var/mw_power = ptl.output_level / (1 MW)
 	if(!density)
 		return // Non dense turfs are unaffected by default so we don't destroy floors. Dense turfs have chance to be destroyed.
 	if(prob(mw_power))
