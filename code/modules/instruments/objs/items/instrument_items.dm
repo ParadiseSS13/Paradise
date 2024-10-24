@@ -40,7 +40,7 @@
 	item_state = "guitar"
 	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
 	hitsound = 'sound/weapons/guitarslam.ogg'
-	allowed_instrument_ids = list("guitar", "csteelgt", "cnylongt", "ccleangt", "cmutedgt")
+	allowed_instrument_ids = list("guitar", "csteelgt", "cnylongt", "ccleangt", "cmutedgt", "sleggt", "piclgt")
 
 /// This is a special guitar for the emagged service borg that hits pretty hard and can still play music. Clonk.
 /obj/item/instrument/guitar/cyborg
