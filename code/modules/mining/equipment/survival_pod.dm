@@ -99,6 +99,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"
