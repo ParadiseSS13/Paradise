@@ -57,6 +57,7 @@
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
 
+
 // Space Bar
 /area/ruin/space/powered/bar
 	name = "\improper Space Bar"
