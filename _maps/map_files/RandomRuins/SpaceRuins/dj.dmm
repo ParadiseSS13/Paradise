@@ -12,35 +12,30 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "ac" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/grille,
+/obj/structure/grille,
+/obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/space/djstation/solars)
+/area/space/nearstation)
 "ad" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "af" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
+/obj/effect/spawner/airlock,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/djstation)
 "ag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/machinery/access_button{
-	autolink_id = "djstation_btn_int";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = -25
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "ah" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
+/obj/structure/cable/yellow,
+/obj/machinery/power/terminal,
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
 "ai" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
@@ -55,15 +50,10 @@
 	},
 /area/ruin/space/djstation/solars)
 "al" = (
-/obj/machinery/access_button{
-	autolink_id = "djstation_btn_ext";
-	name = "exterior access button";
-	pixel_x = 23;
-	pixel_y = 35
-	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
 /turf/template_noop,
-/area/ruin/space/djstation)
+/area/space/nearstation)
 "am" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
@@ -84,23 +74,51 @@
 /area/ruin/space/djstation)
 "an" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/power/apc/off_station/directional/east,
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "ao" = (
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "as" = (
-/obj/structure/lattice,
-/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "at" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "au" = (
@@ -156,11 +174,21 @@
 	},
 /area/ruin/space/djstation/solars)
 "aA" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 8
+	},
+/area/ruin/space/djstation)
 "aB" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -172,18 +200,28 @@
 /area/ruin/space/djstation/solars)
 "aC" = (
 /obj/machinery/computer/monitor,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/machinery/light{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 1
+	},
 /area/ruin/space/djstation)
 "aE" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -207,21 +245,21 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "aG" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
-"aH" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
+/obj/effect/spawner/window/shuttle,
+/obj/structure/cable{
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/space/djstation)
+"aH" = (
+/obj/effect/spawner/airlock/s_to_n,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/space/djstation)
 "aJ" = (
 /obj/item/clothing/head/ushanka,
@@ -290,11 +328,9 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "aP" = (
-/obj/structure/lattice,
-/obj/structure/grille/broken,
-/obj/item/stack/rods,
+/obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/ruin/space/djstation/solars)
+/area/space/nearstation)
 "aQ" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -339,7 +375,6 @@
 	},
 /area/ruin/space/djstation)
 "aX" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/shelf,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
@@ -347,7 +382,10 @@
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "aY" = (
 /turf/simulated/floor/plasteel{
@@ -386,7 +424,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/status_display/supply_display{
+/obj/item/flag/ussp,
+/obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -432,9 +471,9 @@
 "bg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -446,7 +485,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/ai_status_display{
+/obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -562,14 +601,19 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/item/gps/ruin{
+	gpstag = "Soviet Entertainment Broadcast";
+	pixel_x = -32;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
 	},
 /area/ruin/space/djstation)
 "bt" = (
-/obj/structure/closet/crate/can,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -683,11 +727,13 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "bI" = (
-/obj/machinery/door/airlock/engineering,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -703,14 +749,17 @@
 	},
 /area/ruin/space/djstation)
 "bL" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 32
+/obj/effect/spawner/window/shuttle,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
+/turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "bM" = (
 /obj/structure/cable{
@@ -771,14 +820,14 @@
 /area/ruin/space/djstation)
 "bS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/shelf,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/reagent_containers/drinks/bottle/vodka,
-/obj/item/storage/toolbox/electrical,
-/obj/item/storage/toolbox/emergency,
-/obj/item/multitool,
-/obj/item/clothing/gloves/color/fyellow,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "bT" = (
 /obj/machinery/shower{
@@ -793,39 +842,38 @@
 	},
 /area/ruin/space/djstation)
 "bU" = (
-/obj/machinery/door/airlock/external{
-	icon_state = "door_locked";
-	id_tag = "djstation_door_int";
-	locked = 1;
-	name = "DJ Station Interior Access"
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "bV" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "djstation_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "djstation_btn_ext";
-	ext_door_link_id = "djstation_door_ext";
-	int_button_link_id = "djstation_btn_int";
-	int_door_link_id = "djstation_door_int";
-	pixel_x = -25;
-	vent_link_id = "djstation_vent"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "bW" = (
-/obj/machinery/door/airlock/external{
-	icon_state = "door_locked";
-	id_tag = "djstation_door_ext";
-	locked = 1;
-	name = "DJ Station External Access"
+/obj/effect/spawner/window/shuttle,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -849,11 +897,16 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "dg" = (
-/obj/machinery/power/terminal{
-	dir = 4
+/obj/structure/shelf,
+/obj/item/vending_refill/snack,
+/obj/item/vending_refill/snack,
+/obj/item/vending_refill/snack,
+/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill/sovietsoda,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
 	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "gx" = (
 /obj/item/radio/intercom/pirate,
@@ -864,19 +917,16 @@
 	},
 /area/ruin/space/djstation)
 "mL" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+/obj/machinery/light/small{
+	dir = 8
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
 "nJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Cabin"
@@ -905,20 +955,6 @@
 	},
 /area/ruin/space/djstation)
 "qj" = (
-/obj/structure/table,
-/obj/item/storage/box/tapes,
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
-"rn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/solar_control/autostart,
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/djstation)
-"sZ" = (
 /obj/structure/shelf,
 /obj/item/salvage/ruin/soviet,
 /obj/item/salvage/ruin/soviet,
@@ -926,14 +962,51 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/ruin/space/djstation)
+"rn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/solar_control/autostart,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 1
+	},
+/area/ruin/space/djstation)
+"sZ" = (
+/obj/machinery/tcomms/relay/ruskie,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plating,
+/obj/structure/shelf,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/emergency,
+/obj/item/multitool,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/storage/box/tapes,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "uf" = (
 /obj/structure/cable{
@@ -941,7 +1014,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "vI" = (
 /obj/item/gun/projectile/automatic/pistol,
@@ -964,7 +1037,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "yr" = (
 /obj/item/kirbyplants,
@@ -991,29 +1067,49 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 8
+	},
 /area/ruin/space/djstation)
 "DD" = (
 /obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/djstation)
 "FR" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
+/obj/structure/cable{
+	d1 = 2;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating,
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 8
+	},
 /area/ruin/space/djstation)
 "Mj" = (
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
-/obj/machinery/tcomms/relay/ruskie,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "OC" = (
 /obj/structure/table,
@@ -1032,22 +1128,29 @@
 /area/ruin/space/djstation)
 "RH" = (
 /obj/machinery/economy/vending/snack/free,
+/obj/structure/sign/poster/contraband/cc64k_ad{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/ruin/space/djstation)
 "Sf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
 /area/ruin/space/djstation)
 "TF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1060,31 +1163,30 @@
 /area/ruin/space/djstation)
 "UP" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
+"VG" = (
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
-"VG" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/template_noop,
-/area/ruin/space/djstation/solars)
 "Zp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1095,6 +1197,8 @@
 /area/ruin/space/djstation)
 
 (1,1,1) = {"
+aa
+aa
 aa
 aa
 aa
@@ -1146,6 +1250,8 @@ aa
 aa
 aa
 aa
+aa
+aa
 bO
 bO
 aa
@@ -1167,6 +1273,8 @@ aa
 aa
 "}
 (3,1,1) = {"
+aa
+aa
 aa
 aa
 aa
@@ -1218,6 +1326,8 @@ aa
 aa
 aa
 aa
+aa
+aa
 bO
 ad
 bd
@@ -1245,9 +1355,11 @@ aa
 aa
 aa
 aa
-af
-af
-af
+aQ
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1281,10 +1393,12 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
-af
+aP
+aP
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1318,10 +1432,12 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
-af
+aP
+aP
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1355,9 +1471,11 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1392,9 +1510,11 @@ aa
 aa
 aa
 aa
-ac
 aP
-af
+bl
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1428,9 +1548,11 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1465,8 +1587,10 @@ aa
 aa
 aa
 aa
-ac
-af
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -1501,10 +1625,12 @@ aa
 aa
 aa
 aa
-ac
-af
-af
+aP
+aQ
+aQ
 ad
+aa
+aa
 aa
 aa
 aa
@@ -1522,7 +1648,7 @@ bt
 aS
 ao
 aS
-aS
+ao
 aa
 aa
 "}
@@ -1537,11 +1663,13 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
 ad
 ad
+aa
+aa
 aa
 aa
 aa
@@ -1574,12 +1702,14 @@ aa
 aa
 aa
 aa
-ac
-af
+aP
+aQ
 aa
 ad
 ad
-ad
+aa
+aa
+aa
 aa
 aa
 ad
@@ -1591,7 +1721,7 @@ aS
 ba
 bx
 bm
-aS
+bE
 aY
 bQ
 aS
@@ -1610,15 +1740,17 @@ aa
 aa
 aa
 aa
-ac
-af
+aP
+aQ
 aa
 aa
 ad
+ad
+aa
 aB
 aN
 aN
-VG
+aN
 bY
 ad
 aa
@@ -1626,11 +1758,11 @@ aa
 ao
 TF
 bx
-bm
-bE
+dg
+aS
 aY
 bR
-aS
+ao
 aa
 aa
 "}
@@ -1646,18 +1778,20 @@ aa
 aa
 aa
 aa
-ac
-af
-af
+aP
+aQ
+aQ
 aa
 aa
+ad
+ad
 ab
-ao
-aL
+aS
+aV
 aE
 aS
-aL
-aL
+bL
+bF
 ao
 aS
 aL
@@ -1682,17 +1816,19 @@ aa
 aa
 aa
 aa
+aP
+aP
 ac
-ac
-aA
 aa
 aa
-ab
-aL
+aB
+aN
+bY
+ao
 bS
 FR
 Do
-av
+aA
 tp
 aS
 bh
@@ -1701,7 +1837,7 @@ bM
 bv
 aW
 OC
-aS
+ao
 aa
 aa
 aa
@@ -1718,16 +1854,18 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
 aa
 aa
 ab
-aL
-rn
+aS
+ao
 aH
-dg
+rn
+av
+av
 at
 qj
 aS
@@ -1738,31 +1876,33 @@ aZ
 ai
 aJ
 aS
-ao
 aS
+af
 aT
 "}
 (19,1,1) = {"
-as
-aG
-aG
-aG
-aG
-aG
-aG
-aG
-aG
-aG
-aG
+al
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 bH
 aN
 aN
 aN
 aN
+as
+VG
 mL
-aS
+VG
 Mj
-av
+ah
 bn
 UP
 uf
@@ -1773,10 +1913,10 @@ bp
 aR
 ai
 ag
-bU
+av
 bV
-bW
-al
+av
+aT
 "}
 (20,1,1) = {"
 aa
@@ -1790,16 +1930,18 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
 aa
 aa
 ab
-aL
+aS
+ao
+aS
 aC
-uf
-Sf
+av
+av
 bg
 aX
 aS
@@ -1826,24 +1968,26 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
 aa
 aa
-ab
-aL
+aK
+aN
+au
+ao
 sZ
-at
+Sf
 an
-at
+bU
 xR
 aS
 bb
 CQ
 bG
 bz
-bL
+bz
 bq
 ao
 aa
@@ -1862,18 +2006,20 @@ aa
 aa
 aa
 aa
-ac
-af
-af
+aP
+aQ
+aQ
 aa
 aa
+ad
+ad
 ab
-ao
-aL
-aL
 aS
-aL
-aL
+aV
+aG
+aS
+bW
+bF
 ao
 aS
 aL
@@ -1898,11 +2044,13 @@ aa
 aa
 aa
 aa
-ac
-af
+aP
+aQ
 aa
 aa
 ad
+ad
+aa
 aK
 aN
 aN
@@ -1916,7 +2064,7 @@ bA
 Zp
 vI
 aS
-aS
+ao
 ao
 aa
 aa
@@ -1934,12 +2082,14 @@ aa
 aa
 aa
 aa
-ac
 aP
+bl
 aa
 ad
 ad
-ad
+aa
+aa
+aa
 aa
 aa
 ad
@@ -1951,7 +2101,7 @@ aS
 DD
 Zp
 by
-aS
+ao
 aa
 aa
 aa
@@ -1969,11 +2119,13 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
 ad
 ad
+aa
+aa
 aa
 aa
 aa
@@ -2005,10 +2157,12 @@ aa
 aa
 aa
 aa
-ac
-af
-af
+aP
+aQ
+aQ
 ad
+aa
+aa
 aa
 aa
 aa
@@ -2041,8 +2195,10 @@ aa
 aa
 aa
 aa
-ac
-af
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2076,9 +2232,11 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2112,9 +2270,11 @@ aa
 aa
 aa
 aa
-ac
-af
-af
+aP
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2147,9 +2307,11 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
+aP
+aP
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2182,10 +2344,12 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
-af
+aP
+aP
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2217,10 +2381,12 @@ aa
 aa
 aa
 aa
-ac
-ac
-af
-af
+aP
+aP
+aQ
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2253,9 +2419,11 @@ aa
 aa
 aa
 aa
-af
-ah
-af
+aQ
+bO
+aQ
+aa
+aa
 aa
 aa
 aa
@@ -2283,6 +2451,8 @@ aa
 aa
 "}
 (34,1,1) = {"
+aa
+aa
 aa
 aa
 aa
@@ -2334,6 +2504,8 @@ aa
 aa
 aa
 aa
+aa
+aa
 bO
 aa
 aa
@@ -2370,6 +2542,8 @@ aa
 aa
 aa
 aa
+aa
+aa
 aQ
 bO
 aa
@@ -2391,6 +2565,8 @@ aa
 aa
 "}
 (37,1,1) = {"
+aa
+aa
 aa
 aa
 aa

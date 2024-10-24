@@ -45,11 +45,11 @@
 
 //DJSTATION
 /area/ruin/space/djstation
-	name = "\improper Ruskie DJ Station"
+	name = "\improper Soviet DJ Station"
 	icon_state = "DJ"
 
 /area/ruin/space/djstation/solars
-	name = "\improper Ruskie DJ Station Solars"
+	name = "\improper Soviet DJ Station Solars"
 	icon_state = "DJ"
 
 //Methlab
