@@ -313,7 +313,7 @@
 /area/shuttle/escape)
 "by" = (
 /obj/structure/table/wood,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bz" = (

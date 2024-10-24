@@ -50179,7 +50179,7 @@
 /area/station/maintenance/starboard)
 "jqS" = (
 /obj/structure/closet/crate,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "jqU" = (
@@ -120465,7 +120465,7 @@
 /area/station/maintenance/starboard)
 "wpd" = (
 /obj/structure/closet/crate,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wpk" = (

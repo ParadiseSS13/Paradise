@@ -260,8 +260,8 @@
 "Ab" = (
 /obj/structure/closet/syndicate,
 /obj/item/clothing/glasses/regular,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
