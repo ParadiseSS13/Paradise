@@ -1202,3 +1202,9 @@
 		deconstruct(FALSE)
 	else
 		..()
+
+/obj/item/clothing/neck
+	name = "necklace"
+	icon = 'icons/obj/clothing/neck.dmi'
+	body_parts_covered = UPPER_TORSO
+	slot_flags = SLOT_FLAG_NECK

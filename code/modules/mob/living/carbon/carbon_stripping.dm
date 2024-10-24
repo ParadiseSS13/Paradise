@@ -82,6 +82,10 @@
 						"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
 
 
+/datum/strippable_item/mob_item_slot/neck
+	key = STRIPPABLE_ITEM_NECK
+	item_slot = SLOT_HUD_NECK
+
 /datum/strippable_item/mob_item_slot/handcuffs
 	key = STRIPPABLE_ITEM_HANDCUFFS
 	item_slot = SLOT_HUD_HANDCUFFED

@@ -1979,6 +1979,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return SLOT_HUD_WEAR_PDA
 		if(SLOT_FLAG_TIE)
 			return SLOT_HUD_TIE
+		if(SLOT_FLAG_NECK)
+			return SLOT_HUD_NECK
 
 
 /**

@@ -309,6 +309,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_JUMPSUIT,\
 		SLOT_HUD_OUTER_SUIT,\
 		SLOT_HUD_WEAR_MASK,\
+		SLOT_HUD_NECK,\
 		SLOT_HUD_HEAD,\
 		SLOT_HUD_SHOES,\
 		SLOT_HUD_GLOVES,\
@@ -389,6 +390,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(SLOT_HUD_NECK)
+				if(!(slot_flags & SLOT_FLAG_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
 						return 2
 					else
 						return 0

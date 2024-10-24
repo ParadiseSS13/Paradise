@@ -111,6 +111,12 @@ const SLOTS: Record<
     image: 'inventory-mask.png',
   },
 
+  neck: {
+    displayName: 'neck',
+    gridSpot: getGridSpotKey([0, 0]),
+    image: 'inventory-neck.png',
+  },
+
   pet_collar: {
     displayName: 'collar',
     gridSpot: getGridSpotKey([1, 1]),
@@ -251,6 +257,12 @@ const ALTERNATIVE_SLOTS: Record<
     displayName: 'mask',
     gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-mask.png',
+  },
+
+  neck: {
+    displayName: 'neck',
+    gridSpot: getGridSpotKey([0, 0]),
+    image: 'inventory-neck.png',
   },
 
   pet_collar: {

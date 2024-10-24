@@ -35,7 +35,8 @@
 #define SLOT_HUD_WEAR_PDA 21
 #define SLOT_HUD_TIE 22
 #define SLOT_HUD_COLLAR 23
-#define SLOT_HUD_AMOUNT 23
+#define SLOT_HUD_NECK 24
+#define SLOT_HUD_AMOUNT 24
 
 // Boolean defines for hands
 #define HAND_BOOL_RIGHT 0

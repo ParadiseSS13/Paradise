@@ -15,6 +15,7 @@
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/clothing/mask/facehugger, //Why would you do this
+		/obj/item/clothing/neck/cloak/,
 		/obj/item/clothing/accessory/medal,
 		/obj/item/clothing/suit/armor/riot,
 		/obj/item/clothing/suit/armor/reactive,
@@ -33,6 +34,7 @@
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/neck/cloak/captain(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic(src)
@@ -56,6 +58,7 @@
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hop(src)
 	new /obj/item/clothing/head/beret/hop(src)
+	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
 	new /obj/item/clothing/suit/mantle/armor/hop(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hopcoat(src)
@@ -79,6 +82,7 @@
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/head/beret/hos(src)
+	new /obj/item/clothing/neck/cloak/head_of_security(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/suit/mantle/armor(src)
@@ -95,6 +99,7 @@
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/head/beret/sci(src)
+	new /obj/item/clothing/neck/cloak/research_director(src)
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
@@ -114,6 +119,7 @@
 	new /obj/item/clothing/head/surgery/blue(src)
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
+	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/under/rank/medical/scrubs(src)
@@ -133,6 +139,7 @@
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/neck/cloak/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
@@ -207,6 +214,7 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/head/qm(src)
 	new /obj/item/clothing/head/beret/qm(src)
+	new /obj/item/clothing/neck/cloak/quartermaster(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/qmcoat(src)
 	new /obj/item/clothing/suit/mantle/qm(src)
