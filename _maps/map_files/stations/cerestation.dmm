@@ -476,14 +476,6 @@
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
-"acK" = (
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
 "acM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2016,12 +2008,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
-"amu" = (
-/obj/machinery/conveyor/auto{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
 "amw" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 4
@@ -2349,12 +2335,6 @@
 /obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
-"aoF" = (
-/obj/machinery/conveyor/auto{
-	dir = 9
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
 "aoH" = (
 /obj/machinery/conveyor/auto/ccw{
 	dir = 9
@@ -2516,6 +2496,12 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "apz" = (
@@ -45407,6 +45393,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
+"hLv" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/disposal/northeast)
 "hLx" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
@@ -67701,6 +67696,14 @@
 "nVW" = (
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/maintcentral)
+"nWh" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/disposal/northeast)
 "nWj" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -70762,18 +70765,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
-"oPQ" = (
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/directional/south,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
 "oPR" = (
 /obj/structure/sign/custodian,
 /turf/simulated/wall,
@@ -77146,15 +77137,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
-"qxA" = (
-/obj/machinery/conveyor/auto/ccw{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/cobweb{
-	icon_state = "cobweb2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
 "qxB" = (
 /obj/machinery/conveyor/auto,
 /obj/machinery/light/small{
@@ -88694,16 +88676,16 @@
 	},
 /area/station/hallway/primary/aft/east)
 "tNQ" = (
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "tNT" = (
@@ -100183,14 +100165,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"wPF" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fore)
 "wPJ" = (
 /obj/machinery/shower{
 	pixel_y = 20
@@ -140904,7 +140878,7 @@ oMU
 oAO
 xkY
 oAO
-oAO
+xkY
 oAO
 cRv
 rNK
@@ -141418,7 +141392,7 @@ sDk
 obB
 aog
 vYQ
-aog
+nWh
 arm
 dQr
 cDp
@@ -141930,16 +141904,16 @@ rNK
 oAO
 aoH
 anC
+hLv
 anC
-aoF
-oPQ
-aqT
-cMH
-atD
-gKc
-gKc
-gKc
-wPF
+qtu
+anC
+anC
+anC
+oXd
+anC
+anC
+oAO
 abW
 lEk
 bVM
@@ -142188,15 +142162,15 @@ xkY
 qKz
 qKz
 aqT
-amu
-anB
-acK
-wSn
-aqT
-aqT
-qKz
-qKz
-aqT
+oAO
+ivS
+cRv
+cRv
+cRv
+cRv
+cRv
+apW
+oAO
 abW
 uBs
 aWH
@@ -142445,14 +142419,14 @@ lzH
 lzH
 lzH
 qKz
-qxA
-qtu
-anC
-anC
-anC
-oXd
-anC
-anC
+oAO
+cRv
+cRv
+lzH
+cRv
+rNK
+rNK
+oMU
 oAO
 abW
 cDp
@@ -142702,14 +142676,14 @@ rNK
 rNK
 lzH
 oAO
-oAO
+lzH
+rNK
+rNK
+lzH
 ivS
-cRv
-cRv
-cRv
-cRv
-cRv
-apW
+rNK
+rNK
+apX
 oAO
 abW
 abW
@@ -142959,15 +142933,15 @@ rNK
 rNK
 lzH
 lzH
-oAO
-cRv
-cRv
 lzH
-cRv
 rNK
 rNK
-oMU
-oAO
+rNK
+rNK
+rNK
+aRh
+fwi
+rNK
 rNK
 xEE
 xEE
@@ -143215,16 +143189,16 @@ rNK
 rNK
 rNK
 rNK
-lzH
-lzH
 rNK
 rNK
-lzH
-ivS
 rNK
 rNK
-apX
-oAO
+rNK
+rNK
+rNK
+aRh
+fwi
+rNK
 rNK
 fYw
 fDs
