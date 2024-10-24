@@ -95,7 +95,7 @@ const SLOTS: Record<
 > = {
   eyes: {
     displayName: 'eyewear',
-    gridSpot: getGridSpotKey([1, 0]),
+    gridSpot: getGridSpotKey([0, 0]),
     image: 'inventory-glasses.png',
   },
 
@@ -113,7 +113,7 @@ const SLOTS: Record<
 
   neck: {
     displayName: 'neck',
-    gridSpot: getGridSpotKey([0, 0]),
+    gridSpot: getGridSpotKey([1, 0]),
     image: 'inventory-neck.png',
   },
 
@@ -243,7 +243,7 @@ const ALTERNATIVE_SLOTS: Record<
 > = {
   eyes: {
     displayName: 'eyewear',
-    gridSpot: getGridSpotKey([1, 0]),
+    gridSpot: getGridSpotKey([0, 0]),
     image: 'inventory-glasses.png',
   },
 
@@ -261,7 +261,7 @@ const ALTERNATIVE_SLOTS: Record<
 
   neck: {
     displayName: 'neck',
-    gridSpot: getGridSpotKey([0, 0]),
+    gridSpot: getGridSpotKey([1, 0]),
     image: 'inventory-neck.png',
   },
 
