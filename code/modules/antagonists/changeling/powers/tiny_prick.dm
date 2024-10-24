@@ -1,6 +1,6 @@
 /datum/action/changeling/sting
 	name = "Tiny Prick"
-	desc = "Stabby stabby"
+	desc = "Stabby stabby."
 	power_type = CHANGELING_UNOBTAINABLE_POWER
 	category = /datum/changeling_power_category/stings
 	var/sting_icon = null

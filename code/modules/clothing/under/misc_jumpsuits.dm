@@ -26,7 +26,7 @@
 
 /obj/item/clothing/under/misc/scratch
 	name = "white suit"
-	desc = "A white suit, suitable for an excellent host"
+	desc = "A white suit, suitable for an excellent host."
 	icon_state = "scratch"
 	item_state = "scratch"
 	item_color = "scratch"

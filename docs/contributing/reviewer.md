@@ -133,7 +133,7 @@ out for as a beginner code reviewer.
 ```dm
 /obj/item/omega
 	name = "Omega Item"
-	desc  = "This object is super duper cool!!!"
+	desc = "This object is super duper cool!!!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "omega"
 	w_class = WEIGHT_CLASS_SMALL
@@ -170,7 +170,7 @@ correct this to be `list(cool, epic, sick, spectacular)`
 ```dm
 /obj/item/omega
 	name = "Omega Item"
-	desc  = "This object is super duper cool!!!"
+	desc = "This object is super duper cool!!!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "omega"
 	w_class = WEIGHT_CLASS_SMALL
@@ -251,7 +251,7 @@ Lets put all of our suggested changes together!
 ```dm
 /obj/item/omega
 	name = "Omega Item"
-	desc  = "This object is super duper cool!!!"
+	desc = "This object is super duper cool!!!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "omega"
 	w_class = WEIGHT_CLASS_SMALL

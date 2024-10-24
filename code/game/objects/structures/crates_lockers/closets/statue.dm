@@ -1,7 +1,7 @@
 /// this type path is a crime, ponies what the fuck
 /obj/structure/closet/statue
 	name = "statue"
-	desc = "An incredibly lifelike marble carving"
+	desc = "An incredibly lifelike marble carving."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
 	density = TRUE

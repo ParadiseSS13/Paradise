@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/effect/gateway
 	name = "gateway"
-	desc = "You're pretty sure that the abyss is staring back"
+	desc = "You're pretty sure that the abyss is staring back."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE

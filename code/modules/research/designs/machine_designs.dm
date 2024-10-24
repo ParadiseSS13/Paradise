@@ -14,7 +14,7 @@
 
 /datum/design/recharger
 	name = "Machine Board (Weapon Recharger)"
-	desc = "The circuit board for a weapon recharger"
+	desc = "The circuit board for a weapon recharger."
 	id = "recharger"
 	build_path = /obj/item/circuitboard/recharger
 	materials = list(MAT_GLASS = 1000)
@@ -24,7 +24,7 @@
 
 /datum/design/cell_charger
 	name = "Machine Board (Cell Charger)"
-	desc = "The circuit board for a cell charger"
+	desc = "The circuit board for a cell charger."
 	id = "cell_charger"
 	build_path = /obj/item/circuitboard/cell_charger
 	materials = list(MAT_GLASS = 1000)
@@ -304,7 +304,7 @@
 
 /datum/design/mechfab
 	name = "Machine Board (Exosuit Fabricator)"
-	desc = "The circuit board for an Exosuit Fabricator"
+	desc = "The circuit board for an Exosuit Fabricator."
 	id = "mechfab"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
@@ -344,7 +344,7 @@
 
 /datum/design/rdserver
 	name = "Machine Board (R&D Server)"
-	desc = "The circuit board for an R&D Server"
+	desc = "The circuit board for an R&D Server."
 	id = "rdserver"
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER

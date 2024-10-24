@@ -949,7 +949,7 @@
 
 /datum/tarot/reversed/judgement
 	name = "XX - Judgement?"
-	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	desc = "May you redeem those found wanting." //Who wants more, but ghosts for something interesting
 	extended_desc = "nudges the future events of this shift to be more... interesting."
 	card_icon = "judgement?"
 

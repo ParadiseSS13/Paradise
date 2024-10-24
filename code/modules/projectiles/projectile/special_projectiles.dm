@@ -33,7 +33,7 @@
 
 /obj/item/projectile/bullet/a40mm
 	name ="40mm grenade"
-	desc = "USE A WEEL GUN"
+	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
 	damage = 60

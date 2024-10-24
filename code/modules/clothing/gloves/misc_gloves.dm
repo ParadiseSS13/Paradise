@@ -19,7 +19,7 @@
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
-	desc = "beep boop borp"
+	desc = "beep boop borp."
 	icon_state = "black"
 	item_state = "r_hands"
 

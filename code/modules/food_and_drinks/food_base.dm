@@ -6,7 +6,7 @@
 
 /obj/item/food
 	name = "snack"
-	desc = "yummy"
+	desc = "yummy!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = null
 	resistance_flags = FLAMMABLE

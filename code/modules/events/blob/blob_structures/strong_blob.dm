@@ -2,7 +2,7 @@
 	name = "strong blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_shield"
-	desc = "Some blob creature thingy"
+	desc = "Some blob creature thingy."
 	max_integrity = 150
 	brute_resist = 0.25
 	explosion_block = 3

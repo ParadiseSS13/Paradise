@@ -151,7 +151,7 @@
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"
-	desc = "Meteor Point Defense Satellite"
+	desc = "Meteor Point Defense Satellite."
 	mode = "M-SHIELD"
 	speed_process = TRUE
 	var/kill_range = 14

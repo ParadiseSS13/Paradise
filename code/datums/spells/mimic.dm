@@ -1,6 +1,6 @@
 /datum/spell/mimic
 	name = "Mimic"
-	desc =  "Learn a new form to mimic or become one of your known forms"
+	desc = "Learn a new form to mimic or become one of your known forms."
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "morph_mimic"

@@ -462,7 +462,7 @@
 
 /obj/structure/sign/poster/official/work_for_a_future
 	name = "Work For A Future"
-	desc = " A poster encouraging you to work for your future."
+	desc = "A poster encouraging you to work for your future."
 	icon_state = "poster17_legit"
 
 /obj/structure/sign/poster/official/soft_cap_pop_art
@@ -512,7 +512,7 @@
 
 /obj/structure/sign/poster/official/fruit_bowl
 	name = "Fruit Bowl"
-	desc = " Simple, yet awe-inspiring."
+	desc = "Simple, yet awe-inspiring."
 	icon_state = "poster27_legit"
 
 /obj/structure/sign/poster/official/pda_ad
@@ -527,7 +527,7 @@
 
 /obj/structure/sign/poster/official/nanomichi_ad
 	name = "Nanomichi Ad"
-	desc = " A poster advertising Nanomichi brand audio cassettes."
+	desc = "A poster advertising Nanomichi brand audio cassettes."
 	icon_state = "poster30_legit"
 
 /obj/structure/sign/poster/official/twelve_gauge

@@ -110,7 +110,7 @@
 //Draw rune
 /datum/action/innate/cult/use_dagger
 	name = "Draw Blood Rune"
-	desc = "Use the ritual dagger to create a powerful blood rune"
+	desc = "Use the ritual dagger to create a powerful blood rune."
 	button_overlay_icon_state = "blood_dagger"
 	default_button_position = "10:29,4:-2"
 

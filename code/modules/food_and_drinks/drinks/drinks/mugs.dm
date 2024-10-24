@@ -143,7 +143,7 @@
 
 /obj/item/reagent_containers/drinks/mug/rd
 	name = "research director's mug"
-	desc = "Energy tech level: 99"
+	desc = "Energy tech level: 99."
 	icon_state = "mug_rd"
 	preset = TRUE
 

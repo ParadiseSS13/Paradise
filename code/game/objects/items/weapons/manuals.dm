@@ -22,7 +22,7 @@
 	copyright = TRUE
 	protected = FALSE //No reason players shouldn't write in regular manuals
 	name = "Book Manual"
-	desc = "Please make a report on the github if you somehow get ahold of one of these in-game"
+	desc = "Please make a report on the github if you somehow get ahold of one of these in-game."
 	summary = "This is a manual procured by Nanotrasen, it contains important information!"
 	//Pages has to be a list of strings, it will break the book otherwise
 	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not
@@ -824,7 +824,7 @@
 
 /obj/item/book/manual/wiki
 	name = "Wiki Book Manual"
-	desc = "This REALLY shouldn't exist in-game, please contact a coder"
+	desc = "This REALLY shouldn't exist in-game, please contact a coder."
 	copyright = TRUE
 	protected = TRUE //We absolutely do not want players editing these books, it might fuck up the iframes in them :)
 	pages = null //we don't want people opening this book until it fully initializes
@@ -901,7 +901,7 @@
 
 /obj/item/book/manual/wiki/hydroponics
 	name = "General Hydroponics"
-	desc = "A guide outlining the principles of hydroponics"
+	desc = "A guide outlining the principles of hydroponics."
 	icon_state ="bookHydroponicsGeneral"
 	author = "Nanotrasen"
 	title = "General Hydroponics"
@@ -909,7 +909,7 @@
 
 /obj/item/book/manual/wiki/botanist
 	name = "The Station Botanist Handbook"
-	desc = "A handbook with instructions and tips for station botanists"
+	desc = "A handbook with instructions and tips for station botanists."
 	icon_state ="bookHydroponicsBotanist"
 	author = "Nanotrasen"
 	title = "The Station Botanist Handbook"

@@ -211,7 +211,7 @@
 
 /obj/item/food/firecrackerpizzaslice
 	name = "firecracker pizza slice"
-	desc = "A spicy slice of something quite nice"
+	desc = "A spicy slice of something quite nice."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "firecrackerpizzaslice"
 	filling_color = "#BAA14C"
@@ -505,7 +505,7 @@
 		return
 	if(!primed)
 		name = "pizza bomb"
-		desc = "OH GOD THAT'S NOT A PIZZA"
+		desc = "OH GOD THAT'S NOT A PIZZA!"
 		icon_state = "pizzabox_bomb_active"
 		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")

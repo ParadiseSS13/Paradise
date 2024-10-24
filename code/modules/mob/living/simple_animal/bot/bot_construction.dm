@@ -230,8 +230,8 @@
 
 //Floorbot assemblies
 /obj/item/toolbox_tiles
-	desc = "It's a toolbox with tiles sticking out the top"
 	name = "tiles and toolbox"
+	desc = "It's a toolbox with tiles sticking out the top."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "toolbox_tiles"
 	force = 3
@@ -244,8 +244,8 @@
 	var/toolbox_color = "" //Blank for blue, r for red, y for yellow, etc.
 
 /obj/item/toolbox_tiles/sensor
-	desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
 	name = "tiles, toolbox and sensor arrangement"
+	desc = "It's a toolbox with tiles sticking out the top and a sensor attached."
 	icon_state = "toolbox_tiles_sensor"
 
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)

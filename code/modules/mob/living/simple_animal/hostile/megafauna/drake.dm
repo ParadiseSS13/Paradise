@@ -600,10 +600,10 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
+	desc = "A space carp turned dragon by vile magic. Has the same ferocity of a space carp, but also a much more enabling body."
 	maxHealth = 1000
 	health = 1000
 	faction = list("carp")
-	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"

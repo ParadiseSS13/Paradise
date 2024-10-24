@@ -281,7 +281,7 @@
 //The legionnaire's bonfire, which can be swapped positions with.  Also sets flammable living beings on fire when they walk over it.
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
-	desc = "A pile of bones which seems to occasionally move a little.  It's probably a good idea to smash them."
+	desc = "A pile of bones which seems to occasionally move a little. It's probably a good idea to smash them."
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
