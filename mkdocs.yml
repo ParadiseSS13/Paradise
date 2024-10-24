@@ -91,5 +91,6 @@ nav:
   - 'References':
       - 'Glossary': './references/glossary.md'
       - 'Autodoc Guide': './references/autodoc.md'
+      - 'Bitflags': './references/bitflags.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
