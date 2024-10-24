@@ -25,8 +25,8 @@ Binary is a series of 1s and 0s, and any number can be represented in binary. By
 representing TRUE as 1 and FALSE as 0, we can then use any number to represent a
 series of TRUE/FALSE values.
 
-Bitflags are defined with the bitshift operator (`<<`) to make reading them
-easier:
+Bitflags are defined with the *bitwise shift left* operator (`<<`) to make
+reading them easier:
 
 ```dm
 #define WALK   (1 << 0)  // 000001 =  1 in binary
@@ -37,10 +37,10 @@ easier:
 #define READ   (1 << 5)  // 100000 = 32 in binary
 ```
 
-A bitshift essentially "shifts" the value 1 to each place in a binary digit. If
-our binary value has 6 places, i.e. `000000`, then `(1 << 0)` represents a `1`
-in the "zeroth" place: `000001`. Then `(1 << 1)` represents a `1` in the first
-place: `000010`, and so on.
+A bitwise shift left essentially "shifts" the value 1 to each place in a binary
+digit. If our binary value has 6 places, i.e. `000000`, then `(1 << 0)`
+represents a `1` in the "zeroth" place: `000001`. Then `(1 << 1)` represents a
+`1` in the first place: `000010`, and so on.
 
 Because every combination of 1s and 0s is a distinct number, this means that you
 will always be able to look at the number and pull the individual values from it
