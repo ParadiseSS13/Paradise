@@ -319,15 +319,6 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
-"bj" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/assault_pod)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -5315,7 +5306,7 @@
 /area/shuttle/assault_pod)
 "rJ" = (
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
 "rK" = (
 /obj/effect/spawner/lootdrop/trade_sol/sci,
@@ -68871,11 +68862,11 @@ aN
 Yi
 nO
 ov
-bj
+qs
 qo
 rL
 qo
-bj
+qs
 ov
 tp
 Yi
@@ -69131,7 +69122,7 @@ ou
 ov
 qs
 qo
-qo
+qs
 ov
 ou
 tp
