@@ -21638,6 +21638,7 @@
 "bzV" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/teleport/hub,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "bzW" = (
@@ -26895,10 +26896,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -27557,10 +27554,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
-"bVe" = (
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel,
-/area/station/ai_monitored/storage/eva)
 "bVf" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -64333,6 +64326,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"mwD" = (
+/obj/structure/closet/secure_closet/exile,
+/obj/machinery/alarm/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkneutralfull"
+	},
+/area/station/ai_monitored/storage/eva)
 "mwH" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
@@ -85085,11 +85088,6 @@
 "wyn" = (
 /turf/simulated/wall,
 /area/station/medical/paramedic)
-"wyB" = (
-/obj/structure/extinguisher_cabinet/directional/south,
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plasteel,
-/area/station/command/teleporter)
 "wyE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88261,6 +88259,7 @@
 	name = "Teleporter Shutters Access Control";
 	req_access = list(62)
 	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "yap" = (
@@ -112846,7 +112845,7 @@ bMS
 bxq
 bOS
 bSi
-bVe
+bOR
 bOR
 bOR
 jGU
@@ -113103,7 +113102,7 @@ bMS
 bMS
 bMS
 bMS
-bMS
+mwD
 bYw
 bYw
 bYw
@@ -113359,8 +113358,8 @@ bOJ
 xYo
 bzV
 yaj
-wyB
 bMW
+bMS
 bMS
 bMS
 bMS
