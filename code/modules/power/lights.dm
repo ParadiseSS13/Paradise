@@ -129,6 +129,51 @@
 	icon_state = "[fixture_type]-construct-stage[stage]"
 
 /**
+  * # Brass fixture frame
+  *
+  * Incomplete brass light tube fixture
+  *
+  * Becomes a [Brass light fixture] when completed
+  */
+
+/obj/machinery/light_construct/clockwork
+	name = "brass light fixture frame"
+	desc = "A brass light fixture under construction."
+	icon_state = "clockwork_tube-construct-stage1"
+	construct_type = /obj/machinery/light/clockwork/built
+	fixture_type = "clockwork_tube"
+
+/obj/machinery/light_construct/clockwork/examine(mob/user)
+	if(get_dist(user, src) <= 2)
+		switch(stage)
+			if(1)
+				. += "<span class='notice'>It's an empty brass frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
+			if(2)
+				. += "<span class='notice'>The brass frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
+			if(3)
+				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
+
+/obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	switch(stage)
+		if(1)
+			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
+			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+				return
+			new /obj/item/stack/tile/brass(get_turf(loc), sheets_refunded)
+			TOOL_DISMANTLE_SUCCESS_MESSAGE
+			qdel(src)
+		if(2)
+			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+		if(3)
+			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
+
+/obj/machinery/light_construct/clockwork/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/tile/brass(loc, sheets_refunded)
+	qdel(src)
+
+/**
   * # Small light fixture frame
   *
   * Incomplete light bulb fixture
@@ -156,6 +201,17 @@
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/floor/built
 
+/obj/machinery/light_construct/clockwork/small
+	name = "small brass light fixture frame"
+	desc = "A small brass light fixture under construction."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "clockwork_bulb-construct-stage1"
+	anchored = TRUE
+	layer = 5
+	stage = 1
+	fixture_type = "clockwork_bulb"
+	sheets_refunded = 1
+	construct_type = /obj/machinery/light/clockwork/small/built
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
@@ -268,6 +324,22 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 
+/obj/machinery/light/clockwork
+	icon_state = "clockwork_tube1"
+	desc = "An industrial brass light fixture."
+	glow_icon_state = "clockwork_tube"
+	base_state = "clockwork_tube"
+	deconstruct_type = /obj/machinery/light_construct/clockwork
+
+/obj/machinery/light/clockwork/small
+	icon_state = "clockwork_bulb1"
+	desc = "A brass light fixture."
+	glow_icon_state = "clockwork_bulb"
+	base_state = "clockwork_bulb"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/small
+
 /obj/machinery/light/built
 	status = LIGHT_EMPTY
 
@@ -277,6 +349,11 @@
 /obj/machinery/light/floor/built
 	status = LIGHT_EMPTY
 
+/obj/machinery/light/clockwork/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/small/built
+	status = LIGHT_EMPTY
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)

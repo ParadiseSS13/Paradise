@@ -24,6 +24,10 @@
 			newlight = new /obj/machinery/light_construct(constrloc)
 		if("floor")
 			newlight = new /obj/machinery/light_construct/floor(on_wall)
+		if("clockwork_bulb")
+			newlight = new /obj/machinery/light_construct/clockwork/small(constrloc)
+		if("clockwork_tube")
+			newlight = new /obj/machinery/light_construct/clockwork(constrloc)
 		else
 			newlight = new /obj/machinery/light_construct/small(constrloc)
 	newlight.dir = constrdir
@@ -52,3 +56,20 @@
 	metal_sheets_refunded = 3
 	buildon_types = list(/turf/simulated/floor)
 	allow_floor_mounting = TRUE
+
+/obj/item/mounted/frame/light_fixture/clockwork
+	name = "brass light fixture frame"
+	desc = "Used for building brass lights."
+	icon_state = "clockwork_tube-construct-item"
+	fixture_type = "clockwork_tube"
+	metal_sheets_refunded = 0
+	brass_sheets_refunded = 2
+
+/obj/item/mounted/frame/light_fixture/clockwork/small
+	name = "brass small light fixture frame"
+	desc = "Used for building small brass lights."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "clockwork_bulb-construct-item"
+	fixture_type = "clockwork_bulb"
+	metal_sheets_refunded = 0
+	brass_sheets_refunded = 1
