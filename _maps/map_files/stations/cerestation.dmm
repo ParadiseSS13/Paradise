@@ -3187,6 +3187,26 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
+"auC" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/station/hallway/spacebridge/cargocom)
 "auF" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -50629,15 +50649,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
-"jcG" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "jcQ" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
@@ -143210,10 +143221,10 @@ bmG
 gCQ
 tgp
 abW
-rNK
-rNK
-rNK
-rNK
+abW
+abW
+abW
+abW
 cDp
 cDp
 cDp
@@ -143467,17 +143478,17 @@ xEE
 jYq
 uVK
 abW
+rRg
+amz
+amz
+amz
+amz
+jOL
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+aKp
 vml
 cwJ
 gDe
@@ -143724,12 +143735,12 @@ xEE
 abW
 abW
 abW
+xdd
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+xdd
 rNK
 rNK
 npV
@@ -143979,14 +143990,14 @@ clv
 xEE
 abW
 abW
+rRg
+amz
+mzg
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
+xdd
 dmA
 npV
 oFQ
@@ -144235,15 +144246,15 @@ xEE
 iPL
 xEE
 abW
+rRg
+mzg
 rNK
 rNK
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
+xdd
 dmA
 npV
 npV
@@ -144489,7 +144500,10 @@ rNK
 rNK
 rNK
 rNK
-jcG
+xki
+amz
+amz
+mzg
 rNK
 rNK
 rNK
@@ -144497,10 +144511,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
+xdd
 dmA
 cSi
 cSj
@@ -144746,18 +144757,18 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 xdd
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 dmA
 cSp
 cWx
@@ -145003,18 +145014,18 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 xdd
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 dmA
 cWz
 cWz
@@ -145260,18 +145271,18 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 xdd
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 dmA
 cSm
 ckx
@@ -145517,18 +145528,18 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 xdd
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 dmA
 uts
 ieC
@@ -145774,18 +145785,18 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 xdd
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 dmA
 aKp
 qBa
@@ -146031,7 +146042,6 @@ rNK
 rNK
 rNK
 rNK
-xdd
 rNK
 rNK
 rNK
@@ -146043,8 +146053,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+xki
+amz
+jOL
 jSL
 dku
 aKp
@@ -146288,12 +146299,6 @@ rNK
 ahF
 ahF
 ahF
-xki
-amz
-amz
-amz
-amz
-jOL
 rNK
 rNK
 rNK
@@ -146302,6 +146307,12 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+xdd
 wZL
 sok
 dnA
@@ -146550,7 +146561,6 @@ wIp
 ahF
 ahF
 ahF
-eLc
 rNK
 rNK
 rNK
@@ -146559,8 +146569,9 @@ rNK
 rNK
 rNK
 rNK
-euP
-dkw
+xki
+qwx
+uBB
 wqc
 dBd
 bCJ
@@ -146807,7 +146818,7 @@ aaf
 aaf
 aaf
 ahF
-eLc
+rNK
 rNK
 rNK
 rNK
@@ -146817,7 +146828,7 @@ rNK
 rNK
 rNK
 euP
-dkw
+auC
 wqc
 dBd
 bCJ
@@ -147064,17 +147075,17 @@ rRM
 aaf
 aaf
 aaf
-xki
-amz
-amz
-amz
-amz
-amz
-amz
-amz
-amz
-qwx
-uBB
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+euP
+auC
 cXJ
 dBd
 cXi
@@ -147321,7 +147332,7 @@ rRM
 aaf
 aaf
 aaf
-ahF
+rNK
 rNK
 rNK
 rNK
