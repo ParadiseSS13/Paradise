@@ -417,7 +417,7 @@
 "tW" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /obj/item/gun/energy/laser/retro/old,
 /turf/simulated/floor/plasteel/airless{

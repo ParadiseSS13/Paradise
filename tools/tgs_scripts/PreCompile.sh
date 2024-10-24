@@ -51,8 +51,8 @@ env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --all-features -
 mv target/i686-unknown-linux-gnu/release/librust_utils.so "$1/librust_utils.so"
 cd ../../
 
-echo "Deploying MILLA..."
-cd $1/milla
+echo "Deploying Rustlibs..."
+cd $1/rust
 env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --features all --target=i686-unknown-linux-gnu
-mv target/i686-unknown-linux-gnu/release/libmilla.so "$1/libmilla.so"
+mv target/i686-unknown-linux-gnu/release/librustlibs.so "$1/librustlibs.so"
 cd ..

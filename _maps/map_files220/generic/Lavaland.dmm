@@ -1468,9 +1468,9 @@
 /obj/effect/turf_decal/delivery/hollow/right,
 /obj/machinery/door_control/shutter/east{
 	id = "mining_mechbay";
-	req_access_txt = "54";
 	name = "Mech Bay Shutters";
-	pixel_y = 5
+	pixel_y = 5;
+	req_access = list(54)
 	},
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -9588,7 +9588,7 @@
 /obj/machinery/door_control/shutter/south{
 	id = "Labor";
 	name = "Labor Camp Lockdown";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

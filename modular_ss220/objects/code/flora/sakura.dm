@@ -135,7 +135,7 @@
 
 /obj/effect/decal/sakura_leaves/New()
 	. = ..()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/effect/decal/sakura_leaves/examine(mob/user)
 	. = ..()

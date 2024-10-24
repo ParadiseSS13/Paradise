@@ -133,9 +133,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "t" = (
-/obj/machinery/economy/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "w" = (

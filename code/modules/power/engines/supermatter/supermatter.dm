@@ -604,7 +604,7 @@
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
-	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000 or if the damage is above 550
+	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point || combined_gas > MOLE_CRUNCH_THRESHOLD) //If the power is above 5000, if the damage is above 550, or mole crushing
 		var/range = 4
 		zap_cutoff = 1500
 		if(removed && removed.return_pressure() > 0 && removed.temperature() > 0)
@@ -643,9 +643,9 @@
 
 		if(prob(5))
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
-		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
+		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1) || combined_gas > MOLE_CRUNCH_THRESHOLD && prob(5))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
-		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
+		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD) || combined_gas > MOLE_CRUNCH_THRESHOLD && prob(2))
 			supermatter_anomaly_gen(src, BLUESPACE_ANOMALY, rand(5, 10))
 
 	if(prob(15))

@@ -10,27 +10,27 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 	products = list(
-		/obj/item/storage/box/slug = 4,
+		/obj/item/storage/fancy/shell/slug = 4,
 		/obj/item/grenade/flashbang = 4,
 		/obj/item/flash = 5,
-		/obj/item/storage/box/buck = 4,
+		/obj/item/storage/fancy/shell/buck = 4,
 		/obj/item/ammo_box/magazine/enforcer = 8,
 		/obj/item/flashlight/seclite = 4,
 		/obj/item/restraints/legcuffs/bola/energy = 8,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 8,
 		/obj/item/ammo_box/magazine/laser = 12,
 		/obj/item/ammo_box/magazine/wt550m9 = 8,
-		/obj/item/storage/box/rubbershot = 4,
+		/obj/item/storage/fancy/shell/rubbershot = 4,
 		/obj/item/ammo_box/magazine/m556/arg = 12,
 		/obj/item/ammo_box/a40mm = 4,
 		/obj/item/ammo_box/magazine/smgm9mm = 12)
 
 /obj/machinery/economy/vending/nta/admin/Initialize(mapload)
 	products = list()
-	var/list/new_products = list() + subtypesof(/obj/item/ammo_box) + /obj/item/storage/box/rubbershot +\
-	/obj/item/storage/box/buck + /obj/item/storage/box/dragonsbreath + /obj/item/storage/box/holy +\
-	/obj/item/storage/box/rubbershot + /obj/item/storage/box/slug + /obj/item/storage/box/stun +\
-	/obj/item/storage/box/tranquilizer - /obj/item/ammo_box/magazine - typesof(/obj/item/ammo_box/magazine/internal)
+	var/list/new_products = list() + subtypesof(/obj/item/ammo_box) + /obj/item/storage/fancy/shell/rubbershot +\
+	/obj/item/storage/fancy/shell/buck + /obj/item/storage/fancy/shell/dragonsbreath + /obj/item/storage/fancy/shell/holy +\
+	/obj/item/storage/fancy/shell/rubbershot + /obj/item/storage/fancy/shell/slug + /obj/item/storage/fancy/shell/stun +\
+	/obj/item/storage/fancy/shell/tranquilizer - /obj/item/ammo_box/magazine - typesof(/obj/item/ammo_box/magazine/internal)
 	for(var/ammo_type in new_products)
 		products[ammo_type] = 999
 	. = ..()
@@ -48,9 +48,9 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/storage/box/rubbershot = 6,
-		/obj/item/storage/box/beanbag = 4,
-		/obj/item/storage/box/tranquilizer = 4)
+		/obj/item/storage/fancy/shell/rubbershot = 6,
+		/obj/item/storage/fancy/shell/beanbag = 4,
+		/obj/item/storage/fancy/shell/tranquilizer = 4)
 
 /obj/machinery/economy/vending/nta/red
 	name = "NT ERT Heavy Gear & Ammunition"
@@ -63,9 +63,9 @@
 		/obj/item/gun/energy/immolator = 3,
 		/obj/item/gun/energy/gun/nuclear = 3,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/storage/box/slug = 4,
-		/obj/item/storage/box/buck = 4,
-		/obj/item/storage/box/dragonsbreath = 2,
+		/obj/item/storage/fancy/shell/slug = 4,
+		/obj/item/storage/fancy/shell/buck = 4,
+		/obj/item/storage/fancy/shell/dragonsbreath = 2,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4)
@@ -83,7 +83,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/ammo_box/magazine/enforcer = 12,
 		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/storage/box/rubbershot = 3)
+		/obj/item/storage/fancy/shell/rubbershot = 3)
 
 /obj/machinery/economy/vending/nta/yellow
 	name = "NT ERT Death Wish Gear & Ammunition"
@@ -172,55 +172,6 @@
 	icon_state = "Cola_Machine_Red"
 	icon_lightmask = "Cola_Machine_Red"
 	slogan_list = list("Кола в космосе!")
-
-/obj/machinery/economy/vending/suitdispenser/Initialize(mapload)
-	products += list(/obj/item/clothing/under/yellowgreen_skirt = 10,
-						/obj/item/clothing/under/black_skirt = 10,
-						/obj/item/clothing/under/aqua_skirt = 10,
-						/obj/item/clothing/under/blue_skirt = 10,
-						/obj/item/clothing/under/brown_skirt = 10,
-						/obj/item/clothing/under/darkblue_skirt = 10,
-						/obj/item/clothing/under/darkred_skirt = 10,
-						/obj/item/clothing/under/green_skirt = 10,
-						/obj/item/clothing/under/grey_skirt = 10,
-						/obj/item/clothing/under/lightblue_skirt = 10,
-						/obj/item/clothing/under/lightbrown_skirt = 10,
-						/obj/item/clothing/under/lightgreen_skirt = 10,
-						/obj/item/clothing/under/lightpurple_skirt = 10,
-						/obj/item/clothing/under/lightred_skirt = 10,
-						/obj/item/clothing/under/orange_skirt = 10,
-						/obj/item/clothing/under/pink_skirt = 10,
-						/obj/item/clothing/under/purple_skirt = 10,
-						/obj/item/clothing/under/red_skirt = 10,
-						/obj/item/clothing/under/white_skirt = 10,
-						/obj/item/clothing/under/yellow_skirt = 10,
-						/obj/item/clothing/under/rainbow_skirt = 1)
-
-	contraband += list(/obj/item/clothing/under/prisoner_skirt = 1)
-
-	prices += list(/obj/item/clothing/under/yellowgreen_skirt = 30,
-						/obj/item/clothing/under/aqua_skirt = 50,
-						/obj/item/clothing/under/black_skirt = 30,
-						/obj/item/clothing/under/blue_skirt = 50,
-						/obj/item/clothing/under/brown_skirt = 30,
-						/obj/item/clothing/under/darkblue_skirt = 50,
-						/obj/item/clothing/under/darkred_skirt = 50,
-						/obj/item/clothing/under/green_skirt = 50,
-						/obj/item/clothing/under/grey_skirt = 30,
-						/obj/item/clothing/under/lightblue_skirt = 30,
-						/obj/item/clothing/under/lightbrown_skirt = 30,
-						/obj/item/clothing/under/lightgreen_skirt = 50,
-						/obj/item/clothing/under/lightpurple_skirt = 50,
-						/obj/item/clothing/under/lightred_skirt = 50,
-						/obj/item/clothing/under/orange_skirt = 50,
-						/obj/item/clothing/under/pink_skirt = 50,
-						/obj/item/clothing/under/purple_skirt = 50,
-						/obj/item/clothing/under/red_skirt = 50,
-						/obj/item/clothing/under/white_skirt = 50,
-						/obj/item/clothing/under/yellow_skirt = 50,
-						/obj/item/clothing/under/prisoner_skirt = 175,
-						/obj/item/clothing/under/rainbow_skirt = 100)
-	. = ..()
 
 /obj/machinery/economy/vending/suitdispenser/free
 	prices = list()

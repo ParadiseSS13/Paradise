@@ -46,11 +46,11 @@
 
 /datum/team/blood_brothers_team/handle_adding_member(datum/mind/new_member)
 	. = ..()
-	update_name()
+	update_brother_name()
 
 /datum/team/blood_brothers_team/handle_removing_member(datum/mind/member, force)
 	. = ..()
-	update_name()
+	update_brother_name()
 
 /datum/team/blood_brothers_team/proc/get_brother_names_text(datum/mind/brother_to_exclude)
 	var/list/brother_names = list()
@@ -68,7 +68,7 @@
 	if(istext(chosen_meeting_area))
 		meeting_area = chosen_meeting_area
 
-/datum/team/blood_brothers_team/proc/update_name()
+/datum/team/blood_brothers_team/proc/update_brother_name()
 	PRIVATE_PROC(TRUE)
 	var/new_name = get_brother_names_text()
 	if(!new_name)

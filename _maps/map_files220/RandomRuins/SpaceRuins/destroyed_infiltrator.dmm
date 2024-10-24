@@ -680,10 +680,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "UY" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "syndishuttle_door_ext";
-	name = "Ship External Access";
-	req_access_txt = "150"
+	name = "Ship External Access"
 	},
 /obj/machinery/door_control/no_emag{
 	pixel_y = 28

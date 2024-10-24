@@ -235,9 +235,9 @@
 	dir = 2;
 	pixel_y = 11
 	},
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxwest_door_ext";
-	req_access_txt = "152";
 	aiControlDisabled = 1;
 	hackProof = 1
 	},
@@ -252,7 +252,7 @@
 	},
 /obj/machinery/access_button/west{
 	autolink_id = "voxwest_btn_ext";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -421,15 +421,15 @@
 /area/ninja/holding)
 "bE" = (
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
 	},
 /obj/machinery/access_button/east{
 	autolink_id = "voxwest_btn_ext";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
@@ -882,8 +882,8 @@
 	},
 /area/vox_base)
 "dr" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -945,7 +945,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdomegen";
 	name = "General Supply Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -1763,8 +1763,8 @@
 /turf/simulated/floor/plating/dirt,
 /area/ghost_bar/outdoor)
 "gn" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -2431,7 +2431,6 @@
 /area/ninja/holding)
 "iF" = (
 /obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160";
 	id_tag = "soltrader_north"
 	},
 /obj/effect/turf_decal/siding/wood/birch{
@@ -2439,6 +2438,7 @@
 	},
 /obj/effect/turf_decal/siding/wood/cherry,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "iG" = (
@@ -2496,8 +2496,8 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "iO" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -2569,8 +2569,8 @@
 	},
 /area/admin)
 "iZ" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -2791,10 +2791,10 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ghost_bar/outdoor/beach)
 "jO" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxeast_door_int";
 	locked = 1;
-	req_access_txt = "152";
 	aiControlDisabled = 1;
 	hackProof = 1
 	},
@@ -2809,7 +2809,7 @@
 	},
 /obj/machinery/access_button/east{
 	autolink_id = "voxeast_btn_int";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
@@ -3169,9 +3169,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "kX" = (
-/obj/machinery/door/airlock/titanium{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium,
 /obj/effect/turf_decal/siding/wood/birch{
 	dir = 8
 	},
@@ -3179,6 +3177,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "kY" = (
@@ -3374,9 +3373,9 @@
 	ext_door_link_id = "voxeast_door_ext";
 	int_door_link_id = "voxeast_door_int";
 	pixel_x = -24;
-	req_access_txt = "152";
 	ext_button_link_id = "voxeast_btn_ext";
-	int_button_link_id = "voxeast_btn_int"
+	int_button_link_id = "voxeast_btn_int";
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -3889,7 +3888,6 @@
 /area/ghost_bar/outdoor/beach)
 "nz" = (
 /obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160";
 	id_tag = "soltrader_south"
 	},
 /obj/effect/turf_decal/siding/wood/birch,
@@ -3897,6 +3895,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "nA" = (
@@ -4198,11 +4197,11 @@
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
 "oF" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/survival_pod/glass{
 	hackProof = 1;
 	aiControlDisabled = 1;
 	name = "vox door";
-	req_access_txt = "152";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium{
@@ -4264,8 +4263,8 @@
 "oO" = (
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4;
-	req_access_txt = "152";
-	name = "vox glassdoor"
+	name = "vox glassdoor";
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
@@ -4437,21 +4436,19 @@
 	id = "trader_privacy";
 	name = "Privacy Shutters Control";
 	pixel_y = 8;
-	req_access_txt = "160";
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/door_control/no_emag/east{
 	id = "soltrader_south";
 	name = "Trade Deposits Door";
 	normaldoorcontrol = 1;
 	pixel_y = -8;
-	req_access_txt = "160";
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/flasher_button{
 	id = "soltraderflash";
 	pixel_x = 24;
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
@@ -4865,10 +4862,10 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "rd" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxwest_door_int";
 	locked = 1;
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -4884,7 +4881,7 @@
 	},
 /obj/machinery/access_button/east{
 	autolink_id = "voxwest_btn_int";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -6534,8 +6531,8 @@
 "wv" = (
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 4;
-	req_access_txt = "152";
-	name = "vox glassdoor"
+	name = "vox glassdoor";
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
@@ -6722,8 +6719,8 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "xf" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -6930,11 +6927,11 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "xM" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/survival_pod/glass{
 	hackProof = 1;
 	aiControlDisabled = 1;
-	name = "vox door";
-	req_access_txt = "152"
+	name = "vox door"
 	},
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
@@ -7202,9 +7199,7 @@
 	},
 /area/shuttle/vox)
 "yE" = (
-/obj/machinery/economy/vending/nta/admin{
-	req_access = "0"
-	},
+/obj/machinery/economy/vending/nta/admin,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "yF" = (
@@ -7485,8 +7480,8 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "zC" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -7646,7 +7641,7 @@
 	int_button_link_id = "voxwest_btn_int";
 	int_door_link_id = "voxwest_door_int";
 	pixel_x = 24;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
@@ -8457,7 +8452,7 @@
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag/east{
 	id = "tdome1";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8797,10 +8792,9 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
-/obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "DU" = (
@@ -8825,10 +8819,10 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "DX" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxeast_door_ext";
 	locked = 1;
-	req_access_txt = "152";
 	aiControlDisabled = 1;
 	hackProof = 1
 	},
@@ -8843,7 +8837,7 @@
 	},
 /obj/machinery/access_button/west{
 	autolink_id = "voxeast_btn_ext";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
@@ -8971,8 +8965,8 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ghost_bar/indoor)
 "ED" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -9203,8 +9197,8 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/outdoor/beach)
 "Fx" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -9805,7 +9799,6 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/ghost_bar/indoor)
 "Hz" = (
-/turf/simulated/floor/plasteel/stairs/old,
 /area/ghost_bar/outdoor/beach)
 "HA" = (
 /obj/item/pickaxe,
@@ -10208,7 +10201,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdome";
 	name = "Main Blast Doors Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -10707,7 +10700,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "thunderdomehea";
 	name = "Heavy Supply Control";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -11092,20 +11085,18 @@
 	name = "Trade Deposits Door";
 	normaldoorcontrol = 1;
 	pixel_y = 8;
-	req_access_txt = "160";
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/door_control/no_emag/east{
 	id = "trader_privacy";
 	name = "Privacy Shutters Control";
 	pixel_y = -8;
-	req_access_txt = "160";
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/flasher_button{
 	id = "soltraderflash";
 	pixel_x = 24;
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
@@ -11215,9 +11206,9 @@
 "Mr" = (
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 1;
-	req_access_txt = "152";
 	name = "vox glassdoor";
-	color = "red"
+	color = "red";
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -11244,8 +11235,8 @@
 /turf/simulated/floor/light/disco,
 /area/ghost_bar/outdoor/beach)
 "Mz" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -11532,10 +11523,9 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
-/obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "NM" = (
@@ -11623,7 +11613,7 @@
 /obj/machinery/door/window{
 	dir = 4;
 	name = "Стойка";
-	req_one_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
@@ -11915,9 +11905,9 @@
 "OV" = (
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
-	req_access_txt = "152";
 	name = "vox glassdoor";
-	color = "red"
+	color = "red";
+	req_access = list(152)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -12407,8 +12397,8 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ghost_bar/outdoor/beach)
 "Qz" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	name = "vox hatch";
 	aiControlDisabled = 1;
 	hackProof = 1
@@ -12706,9 +12696,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/economy/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -12758,11 +12746,11 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "RJ" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/survival_pod/glass{
 	hackProof = 1;
 	aiControlDisabled = 1;
 	name = "vox door";
-	req_access_txt = "152";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium{
@@ -12801,14 +12789,13 @@
 	},
 /area/ghost_bar/indoor)
 "RP" = (
-/obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /obj/effect/turf_decal/siding/wood/birch,
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "RQ" = (
@@ -12995,14 +12982,13 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ghost_bar/indoor)
 "SJ" = (
-/obj/machinery/door/airlock/titanium/glass{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /obj/effect/turf_decal/siding/wood/birch{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood/cherry,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "SK" = (
@@ -13090,7 +13076,7 @@
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag/west{
 	id = "tdome2";
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -13206,11 +13192,11 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ninja/holding)
 "Tl" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/survival_pod/glass{
 	hackProof = 1;
 	aiControlDisabled = 1;
 	name = "vox door";
-	req_access_txt = "152";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -14109,7 +14095,7 @@
 /area/trader_station/sol)
 "Wn" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access_txt = "25"
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -14656,10 +14642,9 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
-/obj/machinery/door/airlock/titanium{
-	req_one_access_txt = "160"
-	},
+/obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "Yj" = (
@@ -34215,7 +34200,7 @@ pO
 dB
 Ld
 Ld
-dX
+hN
 dX
 dX
 FU

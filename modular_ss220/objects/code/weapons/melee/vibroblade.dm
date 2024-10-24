@@ -151,7 +151,7 @@
 /obj/item/melee/vibroblade/proc/set_charge_level(charge_level)
 	src.charge_level = charge_level
 	force = initial(force) * get_damage_factor()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/vibroblade/sardaukar
 	name = "\improper emperor guard vibroblade"
