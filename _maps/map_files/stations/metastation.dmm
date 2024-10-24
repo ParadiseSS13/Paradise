@@ -44635,6 +44635,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"dMB" = (
+/obj/structure/sign/radiation/rad_area,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "dMK" = (
 /obj/machinery/atmospherics/binary/valve/open,
 /turf/simulated/floor/plating,
@@ -60075,6 +60079,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"kgN" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "kgS" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/light/small{
@@ -64925,6 +64936,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/science/toxins/launch)
+"mgE" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fsmaint)
 "mgZ" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "air_sensor";
@@ -68121,6 +68139,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"nuP" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/structure/sign/radiation/rad_area,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fsmaint)
 "nvB" = (
 /turf/simulated/wall,
 /area/station/security/prison/cell_block/A)
@@ -76942,6 +76965,13 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
+"rla" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "rll" = (
 /obj/structure/table/glass,
 /obj/machinery/camera{
@@ -82035,6 +82065,10 @@
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"toc" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fsmaint)
 "toy" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/central/north)
@@ -85241,6 +85275,10 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"uOd" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "uOg" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -138604,7 +138642,7 @@ vum
 vum
 vum
 pWg
-aBZ
+mgE
 avA
 qYk
 ksb
@@ -138855,7 +138893,7 @@ aaa
 aef
 aaa
 aaa
-vum
+rla
 rAu
 nZV
 uJG
@@ -139118,7 +139156,7 @@ wyk
 wyk
 xPV
 rPn
-aBZ
+toc
 avA
 avA
 aBZ
@@ -139375,7 +139413,7 @@ wyk
 wyk
 wyk
 eaC
-ksb
+nuP
 vnQ
 wME
 ksb
@@ -139888,7 +139926,7 @@ wyk
 iWt
 wyk
 wyk
-wyk
+kgN
 bre
 aLl
 xQV
@@ -140142,9 +140180,9 @@ aaa
 aaa
 vum
 vum
-vum
+dMB
 uHr
-vum
+uOd
 vum
 bre
 aLl

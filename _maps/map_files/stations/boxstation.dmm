@@ -55651,6 +55651,10 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
+"fzl" = (
+/obj/structure/sign/radiation/rad_area,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "fzC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/valve/open{
@@ -63095,6 +63099,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
+"jlS" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "jlW" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -73542,7 +73550,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/wirecutters,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "ooa" = (
@@ -76086,6 +76095,12 @@
 	icon_state = "green"
 	},
 /area/station/medical/virology)
+"pyC" = (
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "pyI" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
@@ -83293,6 +83308,7 @@
 /obj/item/stack/cable_coil{
 	color = "#FFFF00"
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "sTF" = (
@@ -92296,6 +92312,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"xAk" = (
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/transmission_laser)
 "xAn" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -115628,8 +115650,8 @@ cVd
 cRA
 mnN
 mnN
-mnN
-mnN
+jlS
+xAk
 mnN
 mnN
 mnN
@@ -116145,7 +116167,7 @@ bFa
 tdO
 scI
 scI
-scI
+pyC
 mnN
 aaa
 aaa
@@ -116397,7 +116419,7 @@ iKY
 hgj
 eNV
 cLi
-mnN
+fzl
 lIl
 scI
 scI
@@ -116660,7 +116682,7 @@ scI
 scI
 scI
 scI
-mnN
+fzl
 aaa
 aaa
 aaa
@@ -116911,7 +116933,7 @@ cNB
 cNB
 nME
 cUf
-mnN
+jlS
 hYH
 upX
 sqN
