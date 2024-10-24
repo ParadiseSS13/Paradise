@@ -21,6 +21,8 @@ For consistency's sake, we do this for CODE_OF_CONDUCT, despite no worry about
 collisions in this case, because the URL looks nicer.
 """
 
+import re
+
 transforms = {
     "CONTRIBUTING": "contributing",
     "CODE_OF_CONDUCT": "code_of_conduct",
@@ -34,3 +36,11 @@ def on_page_markdown(markdown, *, page, config, files):
             page.file.url = page.file.url.replace(old, new)
             page.file.dest_uri = page.file.dest_uri.replace(old, new)
             page.file.abs_dest_path = page.file.abs_dest_path.replace(old, new)
+
+        # Can't just replace filename and keep extension,
+        # mkdocs will get upset it can't find a file with
+        # that exact name. So we just give it a URL and it
+        # complains, but ignores it and chugs along.
+        markdown = re.sub(f"\.+/{old}.md", f"/{new}/", markdown)
+
+    return markdown

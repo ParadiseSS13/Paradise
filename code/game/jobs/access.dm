@@ -15,26 +15,6 @@
 	else
 		return check_access_list(acc)
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -44,8 +24,6 @@
 	return check_access_list(L)
 
 /obj/proc/check_access_list(list/L)
-	generate_req_lists()
-
 	if(!L)
 		return 0
 	if(!istype(L, /list))
@@ -154,13 +132,13 @@
 		if(REGION_MEDBAY) //medbay
 			return list(ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_PSYCHIATRIST, ACCESS_VIROLOGY, ACCESS_SURGERY, ACCESS_CMO, ACCESS_PARAMEDIC)
 		if(REGION_RESEARCH) //research
-			return list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
+			return list(ACCESS_AI_UPLOAD, ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
 		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE)
 		if(REGION_SUPPLY) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
+			return list(ACCESS_EXPEDITION, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
 		if(REGION_COMMAND) //command
-			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
+			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
 

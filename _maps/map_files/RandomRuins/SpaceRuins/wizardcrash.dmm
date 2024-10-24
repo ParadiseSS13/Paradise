@@ -14,10 +14,10 @@
 	icon_state = "small"
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ae" = (
-/turf/simulated/wall/mineral/titanium/nodecon/wizard,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/ruin/space/powered)
 "af" = (
 /obj/structure/computerframe,
@@ -32,7 +32,7 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "aj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -447,8 +447,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium/nodecon/wizard,
-/area/space/nearstation)
+/turf/simulated/wall/indestructible/titanium,
+/area/ruin/space/powered)
 "bI" = (
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/mineral/plasma,
@@ -588,7 +588,7 @@ aa
 aa
 aa
 aa
-ae
+bH
 ae
 ae
 ae
@@ -624,7 +624,7 @@ aa
 aa
 aa
 aa
-ae
+bH
 ae
 aY
 aS
@@ -654,13 +654,13 @@ ac
 ac
 ac
 ac
-ae
-ae
-al
-ae
+bH
 ae
 al
 ae
+ae
+al
+bH
 ae
 ae
 bc
@@ -1024,13 +1024,13 @@ ac
 ac
 ac
 ac
-ae
+bH
 ae
 al
 ae
 ae
 aM
-ae
+bH
 ae
 ae
 bd
@@ -1068,7 +1068,7 @@ aa
 aa
 aa
 aa
-ae
+bH
 ae
 bC
 bk
@@ -1106,7 +1106,7 @@ aa
 aa
 aa
 aa
-ae
+bH
 ae
 ae
 ae

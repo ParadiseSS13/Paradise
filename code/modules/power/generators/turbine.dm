@@ -113,12 +113,6 @@
 #define COMPFRICTION 5e5
 #define COMPSTARTERLOAD 2800
 
-
-// Crucial to make things work!!!!
-// OLD FIX - explanation given down below.
-// /obj/machinery/power/compressor/CanPass(atom/movable/mover, turf/target, height=0)
-// 		return !density
-
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
 		return
@@ -406,7 +400,7 @@
 /////COMPUTER/////
 /////////////////
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 

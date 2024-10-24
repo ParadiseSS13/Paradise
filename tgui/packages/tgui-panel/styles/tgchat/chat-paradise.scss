@@ -7,37 +7,26 @@
 }
 
 .boxed_message {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid #a3b9d9;
-  margin: 0.5em;
-  padding: 0.5em 0.75em;
-  text-align: center;
-}
-
-.boxed_message.left_align_text {
-  text-align: left;
+  background: hsla(0, 0%, 0%, 0.25);
+  border-color: hsla(20, 50%, 75%, 0.25);
 }
 
 .boxed_message.red_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #aa0000;
+  background: hsla(0, 75%, 5%, 0.25);
+  border-color: hsla(0, 100%, 50%, 0.5);
 }
 
 .boxed_message.green_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #00ff00;
+  background: hsla(140, 75%, 5%, 0.25);
+  border-color: hsla(120, 100%, 50%, 0.5);
 }
 
 .boxed_message.purple_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #8000ff;
+  background: hsla(260, 75%, 5%, 0.25);
+  border-color: hsla(260, 100%, 65%, 0.5);
 }
 
 .boxed_message.notice_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #6685f5;
-}
-
-.boxed_message.thick_border {
-  border-width: thick;
+  background: hsla(220, 75%, 5%, 0.25);
+  border-color: hsla(225, 90%, 65%, 0.5);
 }

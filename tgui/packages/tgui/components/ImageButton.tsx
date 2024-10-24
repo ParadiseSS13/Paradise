@@ -10,6 +10,8 @@ import { InfernoNode } from 'inferno';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps, computeBoxProps } from './Box';
 import { Icon } from './Icon';
+import { Image } from './Image';
+import { DmIcon } from './DmIcon';
 import { Stack } from './Stack';
 import { Tooltip } from './Tooltip';
 
@@ -35,6 +37,12 @@ type Props = Partial<{
   color: string;
   /** Makes button disabled and dark red if true. Also disables onClick. */
   disabled: BooleanLike;
+  /** Optional. Adds a "stub" when loading DmIcon. */
+  dmFallback: InfernoNode;
+  /** Parameter `icon` of component `DmIcon`. */
+  dmIcon: string | null;
+  /** Parameter `icon_state` of component `DmIcon`. */
+  dmIconState: string | null;
   /**
    * Changes the layout of the button, making it fill the entire horizontally available space.
    * Allows the use of `title`
@@ -69,6 +77,9 @@ export const ImageButton = (props: Props) => {
     className,
     color,
     disabled,
+    dmFallback,
+    dmIcon,
+    dmIconState,
     fluid,
     imageSize = 64,
     imageSrc,
@@ -116,15 +127,21 @@ export const ImageButton = (props: Props) => {
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
       <div className={classes(['image'])}>
-        {(base64 || imageSrc) && !asset ? (
-          <img
+        {base64 || asset || imageSrc ? (
+          <Image
+            className={classes((!base64 && !imageSrc && asset) || [])}
             src={base64 ? `data:image/jpeg;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}
           />
-        ) : asset ? (
-          /* Not a <img> cause assets made some shit with it on Byond 516 */
-          <div className={classes(asset)} />
+        ) : dmIcon && dmIconState ? (
+          <DmIcon
+            icon={dmIcon}
+            icon_state={dmIconState}
+            fallback={dmFallback ? dmFallback : getFallback('spinner', true)}
+            height={`${imageSize}px`}
+            width={`${imageSize}px`}
+          />
         ) : (
           getFallback('question', false)
         )}

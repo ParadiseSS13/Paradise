@@ -38,7 +38,7 @@
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
 
-/obj/structure/morgue/Initialize()
+/obj/structure/morgue/Initialize(mapload)
 	. = ..()
 	update_icon(update_state())
 	set_light(1, LIGHTING_MINIMUM_POWER)
@@ -294,9 +294,7 @@
 	connected = null
 	return ..()
 
-/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover))
 		if(mover.checkpass(PASSTABLE))
 			return TRUE

@@ -51,7 +51,8 @@
 				OB = thing
 				break
 	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		F.attackby(OB, AM)
+		var/turf/simulated/floor/plating/asteroid/FA = F
+		FA.attempt_ore_pickup(OB, AM)
 		// Then, if the user is dragging an ore box, empty the satchel
 		// into the box.
 		var/mob/living/L = AM

@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	//Has someone put an item in the autolathe, breaking the hologram?
 	var/disguise_broken = FALSE
 
-/obj/machinery/autolathe/trapped/Initialize()
+/obj/machinery/autolathe/trapped/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
 
@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
-/obj/item/bombcore/doomsday/Initialize()
+/obj/item/bombcore/doomsday/Initialize(mapload)
 	. = ..()
 	if(!istype(loc, /obj/machinery/syndicatebomb/doomsday))
 		log_debug("something tried to spawn a telecomms doomsday ruin payload outside the ruin, deleting!")
@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	loot = list(
 			/obj/item/rcd/combat,
 			/obj/item/gun/medbeam,
-			/obj/item/mod/module/energy_shield,
+			/obj/item/gun/energy/wormhole_projector,
 			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
 	)
 
@@ -430,7 +430,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	DeleteComponent(/datum/component/proximity_monitor)
+
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))
@@ -495,6 +496,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			soundblock = "kerberos"
 		if("NSS Farragus")
 			soundblock = "farragus"
+		if("NSS Diagoras")
+			soundblock = "diagoras"
 	if(!soundblock)
 		things_to_say = list("Either you are using the tiny test map, or someone has made a new station and it got merged!", "If this is the case, you'll want to issue report this if a new map is merged", "Lines 2 and 3 here are always the same, only the first line will need a new generation")
 

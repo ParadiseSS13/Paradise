@@ -248,7 +248,7 @@
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/card_preview/Initialize(atom/mapload, new_icon_state)
+/obj/effect/temp_visual/card_preview/Initialize(mapload, new_icon_state)
 	. = ..()
 	if(new_icon_state)
 		icon_state = new_icon_state
@@ -493,10 +493,10 @@
 	card_icon = "the_hanged_man"
 
 /datum/tarot/the_hanged_man/activate(mob/living/target)
-	if(target.flying)
+	if(HAS_TRAIT(target, TRAIT_FLYING))
 		return
-	target.flying = TRUE
-	addtimer(VARSET_CALLBACK(target, flying, FALSE), 60 SECONDS)
+	ADD_TRAIT(target, TRAIT_FLYING, "tarot")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), target, TRAIT_FLYING, "tarot"), 60 SECONDS)
 
 /datum/tarot/death
 	name = "XIII - Death"

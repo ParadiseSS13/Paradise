@@ -40,7 +40,7 @@
 	if(icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
 
-/obj/item/shard/Initialize()
+/obj/item/shard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 	set_initial_icon_state()
@@ -66,21 +66,13 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	var/obj/item/stack/sheet/NG = new welded_type(user.loc)
-	for(var/obj/item/stack/sheet/G in user.loc)
-		if(!istype(G, welded_type))
-			continue
-		if(G == NG)
-			continue
-		if(G.amount >= G.max_amount)
-			continue
-		G.attackby(NG, user)
-	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+	new welded_type(user.loc)
+	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack.</span>")
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()

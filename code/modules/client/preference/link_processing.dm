@@ -322,7 +322,7 @@
 					active_character.metadata = new_metadata
 
 				if("b_type")
-					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
 					if(!new_b_type)
 						return
 					active_character.b_type = new_b_type
@@ -476,6 +476,9 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+						if(!length(valid_markings)) // Some IPC head models do have head markings, some don't; This is here to prevent us from attempting to open an empty TGUI list
+							tgui_alert(user, "No head markings available for this head!", "Character Preference")
+							return
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
@@ -1052,6 +1055,9 @@
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
+
+				if("mute_end_of_round")
+					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY

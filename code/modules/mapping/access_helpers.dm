@@ -5,29 +5,20 @@
 
 // These are mutually exclusive; can't have req_any and req_all
 /obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/airlock/airlock)
-	if(is_type_in_list(airlock, blacklist))
+	if(length(airlock.req_access))
+		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 		return
 
-	if(airlock.req_access_txt == "0")
-		// Overwrite if there is no access set, otherwise add onto existing access
-		if(airlock.req_one_access_txt == "0")
-			airlock.req_one_access_txt = "[access]"
-		else
-			airlock.req_one_access_txt += ";[access]"
-	else
-		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
+	LAZYINITLIST(airlock.req_one_access)
+	airlock.req_one_access |= access
 
 /obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/airlock/airlock)
-	if(is_type_in_list(airlock, blacklist))
+	if(length(airlock.req_one_access))
+		log_world("[src] at [AREACOORD(src)] tried to set req_access, but req_one_access was already set!")
 		return
 
-	if(airlock.req_one_access_txt == "0")
-		if(airlock.req_access_txt == "0")
-			airlock.req_access_txt = "[access]"
-		else
-			airlock.req_access_txt += ";[access]"
-	else
-		log_world("[src] at [AREACOORD(src)] tried to set req_access, but req_one_access was already set!")
+	LAZYINITLIST(airlock.req_access)
+	airlock.req_access |= access
 
 // -------------------- Req Any (Only requires ONE of the given accesses to open)
 // -------------------- Command access helpers
@@ -467,3 +458,37 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/mule_bot
 	access = ACCESS_CARGO_BOT
+
+// Miscellaneous access helpers
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage
+	access = ACCESS_DEEPSTORAGE
+
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19
+	access = ACCESS_AWAY01
+
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta
+	access = ACCESS_THETA_STATION
+
+/obj/effect/mapping_helpers/airlock/access/all/syndicate
+	access = ACCESS_SYNDICATE
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general
+	access = ACCESS_CENT_GENERAL
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/security
+	access = ACCESS_CENT_SECURITY
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles
+	access = ACCESS_CENT_SHUTTLES
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops
+	access = ACCESS_CENT_SPECOPS
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/commander
+	access = ACCESS_CENT_COMMANDER
+
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox
+	access = ACCESS_VOX
+
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders
+	access = ACCESS_TRADE_SOL

@@ -4,6 +4,7 @@
 	name = "Mecha"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
+
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -37,8 +38,11 @@
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
-	var/lights = 0
+	var/lights = FALSE
 	var/lights_power = 6
+	var/lights_range = 6
+	var/lights_power_ambient = LIGHTING_MINIMUM_POWER
+	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
@@ -81,6 +85,9 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
+	/// DMI containing greyscale emissive overlays, responsible for what parts of the mech glow in the dark
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
+
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
@@ -102,6 +109,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	/// How much speed the mech loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -120,7 +131,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()
@@ -146,6 +157,14 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	set_light(lights_range_ambient, lights_power_ambient)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/mecha/update_overlays()
+	. = ..()
+	underlays.Cut()
+	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 
 ////////////////////////
 ////// Helpers /////////
@@ -1018,6 +1037,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	icon_state = reset_icon(icon_state)
+	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1086,9 +1106,9 @@
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
-		set_light(light_range + lights_power)
+		set_light(lights_range, lights_power)
 	else
-		set_light(light_range - lights_power)
+		set_light(lights_range_ambient, lights_power_ambient)
 	if(show_message)
 		occupant_message("Toggled lights [lights ? "on" : "off"].")
 		log_message("Toggled lights [lights ? "on" : "off"].")
@@ -1175,6 +1195,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	else
 		return FALSE
@@ -1230,6 +1251,7 @@
 		Move(loc)
 		icon_state = reset_icon()
 		dir = dir_in
+		update_icon(UPDATE_OVERLAYS)
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1319,6 +1341,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()

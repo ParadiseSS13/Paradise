@@ -177,7 +177,7 @@
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "\improper Crew Reawakening Report"
 
-/obj/item/paper/fluff/ruins/oldstation/report/Initialize()
+/obj/item/paper/fluff/ruins/oldstation/report/Initialize(mapload)
 	. = ..()
 	init_current_date_string()
 	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
@@ -395,6 +395,7 @@
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/circuitboard/rnd_network_controller(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)

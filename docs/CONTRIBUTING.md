@@ -123,8 +123,9 @@ Status of your pull request will be communicated via PR labels. This includes:
   should never have this label
 - `Status: Awaiting review` - This will be displayed when your PR has passed the
   design vote and is now waiting for someone in the review team to approve it
-- `Status: Awaiting merge` - Your PR is done and is waiting for someone with
-  commit access to merge it. **Note: Your PR may be delayed if it is pending
+- `Status: Awaiting merge` - Your PR is done and is waiting for a maintainer to merge it
+
+  **Note: Your PR may be delayed if it is pending
   testmerge or in the mapping queue**
 
 ### Mapping Standards
@@ -132,25 +133,34 @@ Status of your pull request will be communicated via PR labels. This includes:
 All PRs which modify maps are expected to follow all of our
 [mapping requirements](./mapping/requirements.md).
 
-## Modifying MILLA
+## Modifying Rust Code
 
-Our atmos engine, MILLA, is in the `milla/` directory. It's written in Rust for
-performance reasons, which means it's not compiled the same way as the rest of
-the code. If you're on Windows, you get a pre-built copy by default. If you're
-on Linux, you built one already to run the server.
+Some parts of Paradise are written in [Rust][] for performance or reliability
+reasons:
 
-If you make changes to MILLA, you'll want to rebuild. This will be very similar
-to RUSTG: https://github.com/ParadiseSS13/rust-g The only difference is that you
-run `cargo` from the `milla/` directory, and don't need to specify
-`--all-features` (though it doesn't hurt).
+- Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
+- The `mapmanip` library, an Aurora Station module used for automating DMM
+  modification, is in the `rust/src/mapmanip` library.
+
+The Rust parts of our codebase are compiled into a single library,
+separate from the rest of the code. If you're on Windows, you get a pre-built
+copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to the Rust library, you'll want to rebuild. This will be
+very similar to [rust-g][]. The only difference is that you run `cargo` from the
+`rust/` directory, and don't need to specify `--all-features` (though it doesn't
+hurt).
 
 The server will automatically detect that you have a local build, and use that
 over the default Windows one.
 
-When you're ready to make a PR, please DO NOT modify `milla.dll` or
-`tools/ci/libmilla_ci.so`. Leave "Allow edits and access to secrets by
-maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot
+When you're ready to make a PR, please DO NOT modify `rustlibs.dll` or
+`tools/ci/librustlibs_ci.so`. Leave "Allow edits and access to secrets by
+maintainers" enabled, and post a comment on your PR saying `!build_rust`. A bot
 will automatically build them for you and update your branch.
+
+[Rust]: https://www.rust-lang.org/
+[rust-g]: https://github.com/ParadiseSS13/rust-g
 
 ## Other Notes
 
@@ -180,11 +190,11 @@ will automatically build them for you and update your branch.
 There are three roles on the GitHub:
 
 - Headcoder
-- Commit Access
+- Maintainer
 - Review Team
 
-Each role inherits the lower role's responsibilities (IE: Headcoders also have
-commit access, and members of commit access are also part of the review team)
+Each role inherits the lower role's responsibilities
+(IE: Headcoders are also maintainers, and maintainers are also part of the review team)
 
 `Headcoders` are the overarching "administrators" of the repository. People
 included in this role are:
@@ -195,7 +205,7 @@ included in this role are:
 
 ---
 
-`Commit Access` members have write access to the repository and can merge your
+`Maintainers` have write access to the repository and can merge your
 PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
@@ -219,6 +229,7 @@ affect mergeability status. People included in this role are:
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)
 - [Warriorstar](https://github.com/warriorstar-orion)
+- [Wilkson](https://github.com/BiancaWilkson)
 
 ---
 
