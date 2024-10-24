@@ -641,6 +641,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
 
+	if(stat) // Can't toggle bolts if you're dead
+		return
+
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
