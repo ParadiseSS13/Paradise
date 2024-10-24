@@ -318,6 +318,12 @@
 	cost = 500
 	containername = "chemical bio-chip crate"
 
+/datum/supply_packs/security/armory/bluespace_anchor
+	name = "Bluespace Anchor Crate"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+	cost = 250
+	containername = "bluespace anchor crate"
+
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
 	contains = list(/obj/item/grenade/barrier,
