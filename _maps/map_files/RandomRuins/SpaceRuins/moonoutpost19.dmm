@@ -34,7 +34,7 @@
 	},
 /area/ruin/space/moonbase19)
 "af" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "ag" = (
@@ -286,7 +286,7 @@
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aN" = (
@@ -790,7 +790,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cq" = (
@@ -802,7 +802,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "cs" = (
@@ -899,7 +899,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cF" = (
@@ -1361,7 +1361,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -1837,14 +1837,14 @@
 "fX" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "fY" = (
 /obj/item/stack/sheet/mineral/titanium,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/molten_object/large,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "gb" = (
@@ -2053,7 +2053,7 @@
 /area/ruin/space/moonbase19)
 "gC" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
@@ -2150,7 +2150,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
@@ -3111,7 +3111,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -3319,7 +3319,7 @@
 /area/ruin/space/moonbase19)
 "kg" = (
 /obj/item/kirbyplants,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -4181,7 +4181,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ny" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nz" = (
@@ -5110,7 +5110,7 @@
 /area/ruin/space/moonbase19)
 "rk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
@@ -5524,7 +5524,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "sF" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/moonbase19)
 "sK" = (
@@ -5653,7 +5653,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "to" = (
@@ -6134,7 +6134,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -6385,7 +6385,7 @@
 	},
 /area/ruin/space/moonbase19)
 "xi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 8
 	},
@@ -6738,7 +6738,7 @@
 /area/ruin/space/moonbase19)
 "yE" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
@@ -6907,8 +6907,8 @@
 	},
 /area/ruin/space/moonbase19)
 "zn" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "zr" = (
@@ -7403,7 +7403,7 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/alien/resin/wall,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Bu" = (
@@ -8545,7 +8545,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -8580,7 +8580,7 @@
 /area/ruin/space/moonbase19)
 "GD" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -9027,7 +9027,7 @@
 /area/ruin/space/moonbase19)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "IO" = (
@@ -9554,7 +9554,7 @@
 /area/ruin/space/moonbase19)
 "Lb" = (
 /obj/structure/rack,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Ld" = (
@@ -10585,7 +10585,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "PP" = (
@@ -10639,7 +10639,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -10665,14 +10665,14 @@
 /obj/structure/railing/cap{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
 "Qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -10878,7 +10878,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "QP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "QQ" = (
@@ -11227,7 +11227,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -12723,7 +12723,7 @@
 /area/ruin/space/moonbase19)
 "Za" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Zb" = (
@@ -12761,7 +12761,7 @@
 "Zh" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "awayscilock1"
 	},

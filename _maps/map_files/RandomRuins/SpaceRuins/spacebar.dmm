@@ -58,7 +58,7 @@
 /obj/machinery/chem_dispenser/beer{
 	pixel_y = 8
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "ar" = (
@@ -191,7 +191,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aU" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/powered/bar)
 "aV" = (
@@ -207,7 +207,7 @@
 	pixel_x = -12;
 	pixel_y = -8
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -318,7 +318,7 @@
 	},
 /area/ruin/space/powered/bar)
 "bn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/mineral,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
@@ -381,7 +381,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "eG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
@@ -415,7 +415,7 @@
 	},
 /area/ruin/space/powered/bar)
 "jm" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -534,7 +534,7 @@
 	},
 /area/ruin/space/powered/bar)
 "tv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
@@ -575,12 +575,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "wy" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "wL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/crowbar/small,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
@@ -608,13 +608,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
 "yW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "yX" = (
@@ -775,7 +775,7 @@
 	},
 /area/ruin/space/powered/bar)
 "KM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
@@ -839,7 +839,7 @@
 "Ni" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table/wood,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "Nl" = (
@@ -869,7 +869,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "Of" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -898,7 +898,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "QU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/mineral,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -932,7 +932,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "UO" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/structure/computerframe{
 	dir = 8
 	},
@@ -953,7 +953,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "VU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/light_construct/small{
 	dir = 8
