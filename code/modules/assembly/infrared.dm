@@ -213,6 +213,9 @@
 	anchored = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /obj/effect/beam/i_beam/proc/hit()
 	if(master)
@@ -267,10 +270,10 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
+/obj/effect/beam/i_beam/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(!isobj(crossed) && !isliving(crossed))
 		return
-	if(iseffect(AM))
+	if(iseffect(crossed))
 		return
 	hit()
 

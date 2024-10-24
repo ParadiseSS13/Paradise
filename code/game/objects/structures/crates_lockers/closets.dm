@@ -165,7 +165,7 @@
 	QDEL_NULL(door_obj)
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+/obj/structure/closet/CanPass(atom/movable/mover, border_dir)
 	if(wall_mounted)
 		return TRUE
 	return (!density)
@@ -514,9 +514,19 @@
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
-/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
-	UpdateTransparency(AM, loc)
-	return TRUE
+/obj/structure/closet/bluespace/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/structure/closet/bluespace/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+	UpdateTransparency(leaving, loc)
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
 	transparent = FALSE
@@ -529,8 +539,10 @@
 	alpha = 255
 	update_icon()
 
-/obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
-	if(AM.density)
+/obj/structure/closet/bluespace/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_CROSS
+
+	if(crossed.density)
 		UpdateTransparency(location = loc)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.

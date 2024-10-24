@@ -24,6 +24,9 @@
 	var/wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
+/obj/item/assembly/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /// Called when the holder is moved
 /obj/item/assembly/proc/holder_movement()
@@ -31,6 +34,9 @@
 
 /// Called when attack_self is called
 /obj/item/assembly/interact(mob/user)
+	return
+
+/obj/item/assembly/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	return
 
 /// Called to constantly step down the countdown/cooldown
@@ -89,6 +95,29 @@
 	secured = !secured
 	update_icon()
 	return secured
+
+/**
+ * on_attach: Called when attached to a holder, wiring datum, or other special assembly
+ *
+ * Will also be called if the assembly holder is attached to a plasma (internals) tank or welding fuel (dispenser) tank.
+ */
+/obj/item/assembly/proc/on_attach()
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(!holder && connected)
+		holder = connected.holder
+
+/**
+ * on_detach: Called when removed from an assembly holder or wiring datum
+ */
+/obj/item/assembly/proc/on_detach()
+	if(connected)
+		connected = null
+	if(!holder)
+		return FALSE
+	forceMove(holder.drop_location())
+	holder = null
+	return TRUE
 
 /// Called when an assembly is attacked by another
 /obj/item/assembly/proc/attach_assembly(obj/item/assembly/A, mob/user)

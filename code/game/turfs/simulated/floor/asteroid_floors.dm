@@ -57,7 +57,7 @@
 		if(1)
 			getDug()
 
-/turf/simulated/floor/plating/asteroid/proc/attempt_ore_pickup(obj/item/storage/bag/ore/S, mob/user)
+/turf/simulated/floor/plating/asteroid/proc/attempt_ore_pickup(obj/item/storage/bag/ore/S, mob/user, params)
 	if(!istype(S))
 		return
 
@@ -90,7 +90,7 @@
 			return TRUE
 
 	else if(istype(I, /obj/item/storage/bag/ore))
-		attempt_ore_pickup(I, user)
+		attempt_ore_pickup(I, user, params)
 
 	else if(istype(I, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = I
