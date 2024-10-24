@@ -12075,6 +12075,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
+/obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -16947,13 +16948,6 @@
 	},
 /turf/simulated/wall,
 /area/station/engineering/equipmentstorage)
-"djk" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/flask/detflask,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/station/security/detective)
 "djB" = (
 /obj/structure/table,
 /obj/structure/window/reinforced{
@@ -65919,6 +65913,12 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/security/west)
+"mqV" = (
+/obj/structure/closet/secure_closet/detective,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/security/detective)
 "mqW" = (
 /obj/structure/table,
 /obj/machinery/firealarm/directional/south,
@@ -78630,6 +78630,12 @@
 	icon_state = "dark"
 	},
 /area/station/service/theatre)
+"oIl" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/security/detective)
 "oIo" = (
 /obj/effect/landmark/spawner/rev,
 /obj/machinery/camera{
@@ -81231,10 +81237,10 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/landmark/start/warden,
 /obj/structure/sign/poster/official/kill_syndicate{
 	pixel_x = 32
 	},
+/obj/effect/landmark/start/detective,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -107842,9 +107848,6 @@
 /area/station/maintenance/starboard)
 "tYT" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
-/obj/item/clothing/gloves/color/latex,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -173395,7 +173398,7 @@ bRF
 fKd
 uLJ
 sIm
-mwV
+mqV
 qZT
 cIe
 cIe
@@ -173658,7 +173661,7 @@ ajN
 naK
 jlo
 ojG
-iNz
+mwV
 gyi
 vFy
 rsa
@@ -173914,7 +173917,7 @@ agx
 uLN
 xWj
 api
-cIe
+oIl
 uji
 gyi
 pAd
@@ -174172,7 +174175,7 @@ lDR
 cIe
 api
 nJN
-djk
+iNz
 gyi
 qqq
 wno

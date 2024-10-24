@@ -7220,7 +7220,6 @@
 	pixel_y = 7
 	},
 /obj/item/pen/multi,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -10727,6 +10726,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -11038,21 +11038,19 @@
 /area/station/hallway/primary/fore)
 "aKB" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
 "aKC" = (
-/obj/machinery/photocopier,
 /obj/machinery/light,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
 "aKD" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/closet/secure_closet/detective,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
@@ -54895,6 +54893,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"fiE" = (
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/detective,
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "fjd" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel,
@@ -124231,7 +124234,7 @@ aHE
 aEn
 aFB
 aGy
-ayV
+fiE
 ayA
 axe
 aCz
