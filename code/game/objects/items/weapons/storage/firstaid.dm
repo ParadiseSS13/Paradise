@@ -11,7 +11,7 @@
 /obj/item/storage/firstaid
 	name = "generic first-aid kit"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
-	icon_state = "firstaid"
+	icon_state = "genericfirstaid"
 	throw_speed = 2
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
@@ -27,6 +27,7 @@
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
+	icon_state = "firstaid"
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
 
 /obj/item/storage/firstaid/regular/populate_contents()
@@ -195,6 +196,8 @@
 /obj/item/storage/firstaid/surgery
 	name = "field surgery kit"
 	icon_state = "duffel-med"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	desc = "A kit for surgery in the field."
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
@@ -232,6 +235,7 @@
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
+	icon_state = "firstaid"
 	desc = "A medical kit used by Amber level emergency response team personnel."
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
