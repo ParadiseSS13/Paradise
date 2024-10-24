@@ -127896,8 +127896,7 @@
 /area/station/legal/courtroom)
 "xNL" = (
 /obj/structure/closet/crate/secure{
-	req_one_access = list(33,41);
-	req_one_access_txt = "33;41"
+	req_one_access = list(33,41)
 	},
 /obj/item/circuitboard/thermomachine{
 	pixel_x = -5
