@@ -73959,10 +73959,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
-"juM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
-/area/space)
 "juN" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -119357,7 +119353,7 @@ reg
 abj
 acF
 abj
-juM
+aaa
 aaa
 aaa
 aaa
