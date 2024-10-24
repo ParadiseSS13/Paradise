@@ -27,8 +27,8 @@
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
+	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid"
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
 
 /obj/item/storage/firstaid/regular/populate_contents()
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -43,7 +43,7 @@
 	return
 
 /obj/item/storage/firstaid/regular/doctor
-	desc = "A medical kit designed for Nanotrasen medical personnel"
+	desc = "A medical kit designed for Nanotrasen medical personnel."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
@@ -171,8 +171,8 @@
 
 /obj/item/storage/firstaid/tactical
 	name = "first-aid kit"
-	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
+	icon_state = "bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -195,10 +195,10 @@
 
 /obj/item/storage/firstaid/surgery
 	name = "field surgery kit"
+	desc = "A kit for surgery in the field."
 	icon_state = "duffel-med"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	desc = "A kit for surgery in the field."
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
@@ -219,8 +219,8 @@
 
 /obj/item/storage/firstaid/ert
 	name = "ert first-aid kit"
-	icon_state = "bezerk"
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
+	icon_state = "bezerk"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ert/populate_contents()
@@ -235,8 +235,8 @@
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
-	icon_state = "firstaid"
 	desc = "A medical kit used by Amber level emergency response team personnel."
+	icon_state = "firstaid"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -249,8 +249,8 @@
 
 /obj/item/storage/firstaid/fake_tactical
 	name = "tactical first-aid kit"
-	icon_state = "bezerk"
 	desc = "I hope you've got insurance. The paint is still wet."
+	icon_state = "bezerk"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/fake_tactical/populate_contents()
