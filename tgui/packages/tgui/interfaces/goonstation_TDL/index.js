@@ -110,7 +110,7 @@ const InputControls = (props, context) => {
 
 const OutputControls = (props, context) => {
   const { act, data } = useBackend(context);
-  const { output_total, firing, accepting_power, output_number, output_multiplier, target } = data;
+  const { output_total, firing, accepting_power, output_number, output_multiplier, target, held_power } = data;
 
   return (
     <Section title="Output Controls">
@@ -129,6 +129,7 @@ const OutputControls = (props, context) => {
                 icon="power-off"
                 content={firing ? 'Enabled' : 'Disabled'}
                 color={firing ? 'green' : 'red'}
+                disabled={!firing && held_power < 10 ** 6}
                 onClick={() => act('toggle_output')}
               />
             </Stack>

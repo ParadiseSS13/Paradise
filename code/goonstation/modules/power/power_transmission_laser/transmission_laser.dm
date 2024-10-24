@@ -363,7 +363,7 @@
 	target = target_list[choose]
 	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(untarget))
 	if(firing)
-		orbital_strike = image('icons/goonstation/effects/pt_beam.dmi', target, "ptl_beam", FLY_LAYER, SOUTH)
+		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
 		target.add_overlay(orbital_strike)
 
 /// Stop targeting a mob once it dies
@@ -419,8 +419,14 @@
 		if(!target)
 			sell_power(output_level * WATT_TICK_TO_JOULE)
 		else
-			if(!QDELETED(target))
-				target.adjustFireLoss(10 * output_level / (1 MW))
+			if(!QDELETED(target)) // Just for safety.
+				target.loot = list() // disable loot drops form the target to prevent cheese
+				if(10 * output_level * target.damage_coeff[BURN] / (1 MW) > target.health) // If we would kill the target dust it.
+					target.health = 0 // We need this so can_die() won't prevent dusting
+					visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
+					target.dust()
+				else
+					target.adjustFireLoss(10 * output_level / (1 MW))
 			else
 				target = null
 
@@ -469,10 +475,8 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
-	if(charge < 1 MJ) // We don't have enough power to setup the beam and we aren't receiving any.
-		return
 	if(target)
-		orbital_strike = image('icons/goonstation/effects/pt_beam.dmi', target, "ptl_beam", FLY_LAYER, SOUTH)
+		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
 		target.add_overlay(orbital_strike)
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	for(var/num in 1 to range)
