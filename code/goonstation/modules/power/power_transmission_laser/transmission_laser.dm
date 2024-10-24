@@ -1,7 +1,8 @@
-#define MINIMUM_POWER 1 MW
-#define DEFAULT_CAPACITY 2000 GJ
-#define EYE_DAMAGE_THRESHOLD 5MW
-#define EYE_DAMAGE_THRESHOLD 30MW
+// Without these brackets division breaks.
+#define MINIMUM_POWER (1 MW)
+#define DEFAULT_CAPACITY (2000 GJ)
+#define EYE_DAMAGE_THRESHOLD (5 MW)
+#define RAD_THRESHOLD (30 MW)
 
 /obj/machinery/power/transmission_laser
 	name = "power transmission laser"
@@ -433,10 +434,14 @@
 				target = null
 		if(output_level > EYE_DAMAGE_THRESHOLD)
 			for(var/mob/living/carbon/someone in oview(min(output_level / EYE_DAMAGE_THRESHOLD, 8), get_front_turf()))// Flash targets that can see the exit of the emitter
-				someone.flash_eyes(min(round(output_level / EYE_DAMAGE_THRESHOLD), 3) ,TRUE, TRUE, TRUE)
-		if(output_level > RAD_THRESHOLD)
-			for(var/atom/thing in orange(output_level / RAD_THRESHOLD, get_front_turf())) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
-				radiation_pulse((get_front_turf(), output_level / RAD_THRESHOLD) * 100, RAD_DISTANCE_COEFFICIENT * 2)
+				var/turf/front = get_front_turf()
+				var/turf/step = get_step(get_front_turf(), dir)
+				if(someone.dir == dir || (((dir == NORTH || dir == SOUTH) && (SIGN(someone.y - front.y) != SIGN(step.y - front.y))))  || ((dir == WEST || dir == EAST && (SIGN(someone.x - front.x) != SIGN(step.x - front.x)))))// Make sure they are in front of it
+					continue
+				var/flashmod = someone.dir == turn(dir, 180) ? 0.5 : 1 // Halve the flash strength if they aren't facing it
+				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
+		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
+			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 50, RAD_DISTANCE_COEFFICIENT * 2)
 
 
 	charge -= output_level
@@ -531,3 +536,5 @@
 
 #undef MINIMUM_POWER
 #undef DEFAULT_CAPACITY
+#undef EYE_DAMAGE_THRESHOLD
+#undef RAD_THRESHOLD
