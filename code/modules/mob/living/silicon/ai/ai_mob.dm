@@ -641,7 +641,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
 
-	if(stat == DEAD)
+	if(check_unable())
 		to_chat(src, "<span class='warning'>You are dead!</span>")
 		return
 
