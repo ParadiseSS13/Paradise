@@ -296,7 +296,7 @@
 	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "nothing" = 1, "capulettium_plus" = 1) // Or one freshly-squeezed mime
 	min_temp = T0C + 100
 	result_amount = 5
-	mix_message = "The mixture seems to drain of colour before stopping at a dark grey."
+	mix_message = "The mixture seems to drain of color before stopping at a dark grey."
 
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"

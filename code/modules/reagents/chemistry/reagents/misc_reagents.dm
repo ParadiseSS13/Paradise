@@ -563,7 +563,7 @@
 			var/static/list/mime_message = list("You feel light-headed.",
 			"You can't see straight.",
 			"You feel about as entertaining as the station mime.",
-			"Muted colours and berets cloud your vision.",
+			"Muted colors and berets cloud your vision.",
 			"Your voice box feels numb.",
 			"What was that?!",
 			"You can hear silence in the distance, somehow.",
