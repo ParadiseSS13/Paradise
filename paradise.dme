@@ -1743,6 +1743,7 @@
 #include "code\modules\clothing\masks\gasmask.dm"
 #include "code\modules\clothing\masks\misc_masks.dm"
 #include "code\modules\clothing\masks\voicemodulator.dm"
+#include "code\modules\clothing\neck\cloaks.dm"
 #include "code\modules\clothing\patreon\hats.dm"
 #include "code\modules\clothing\patreon\patreon_glasses.dm"
 #include "code\modules\clothing\shoes\colour.dm"

@@ -616,6 +616,10 @@
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
 
+/datum/action/item_action/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it."
+
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
@@ -637,9 +641,6 @@
 	name = "View Storage"
 
 
-/datum/action/item_action/accessory/herald
-	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action

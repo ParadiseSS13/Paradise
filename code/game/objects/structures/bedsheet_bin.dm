@@ -9,7 +9,6 @@ LINEN BINS
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/bedsheet.dmi'
 	icon_state = "sheet"
-	item_state = "bedsheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = 4
@@ -19,7 +18,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = SLOT_FLAG_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
 	dyeing_key = DYE_REGISTRY_BEDSHEET
 
