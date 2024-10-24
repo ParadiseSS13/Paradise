@@ -73,7 +73,7 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "an" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
+/turf/simulated/mineral/random/volcanic/labormineral,
 /area/lavaland/surface/outdoors)
 "ao" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,

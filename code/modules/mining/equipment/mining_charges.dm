@@ -81,8 +81,9 @@
 	S.start()
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location, rock)
-		if(distance <= boom_sizes[3])
-			rock.mineralAmt += 3 // if rock is going to get drilled, add bonus mineral amount
+		if(distance <= boom_sizes[3] && rock.ore)
+			rock.ore.drop_max += 3 // if rock is going to get drilled, add bonus mineral amount
+			rock.ore.drop_min += 3
 			rock.gets_drilled()
 	for(var/mob/living/carbon/C in circlerange(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location, C)

@@ -1,0 +1,2 @@
+/turf/simulated/mineral/random/labormineral/volcanic : /turf/simulated/mineral/random/volcanic/labormineral
+/turf/simulated/mineral/clown/volcanic : /turf/simulated/mineral/volcanic/clown
