@@ -37,8 +37,6 @@
 	var/firing = FALSE
 	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	/// UID of an atom blocking the beam
-	var/blocker = null
 	/// Our max load we can set
 	var/max_grid_load = 0
 	/// The load we place on the power grid we are connected to
@@ -105,7 +103,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	component_parts += new /obj/item/stock_parts/capacitor
 	announcer = new(config_type = /datum/announcement_configuration/ptl)
-	find_blocker()
 	if(!powernet)
 		connect_to_network()
 	handle_offset()
@@ -153,33 +150,6 @@
 	dir = new_dir
 	handle_offset()
 	return TRUE
-
-/// Go in the direction we shoot the lasers until we find something dense that isn't a window or a transparent turf
-/obj/machinery/power/transmission_laser/proc/find_blocker()
-	var/old_range = range
-	var/turf/edge_turf = get_edge_target_turf(get_front_turf(), dir)
-	var/turf/current_turf = get_step(get_front_turf(), dir)
-	var/atom/blocker_ref = null
-	blocker = null
-	while(!blocker && current_turf != edge_turf)
-		if(current_turf?.density && current_turf?.opacity)
-			blocker = current_turf.UID()
-			blocker_ref = current_turf
-			break
-		for(var/atom/candidate in current_turf.contents)
-			if(candidate.density && !istype(candidate, /obj/structure/window) && !istype(candidate, /obj/structure/grille))
-				blocker = candidate.UID()
-				blocker_ref = candidate
-				break
-		current_turf = get_step(current_turf, dir)
-	// If we didn't find a blocker the end turf is the edge of the z level. If the blocker is a turf(wall) then we simply use it as the end turf. Otherwise we use the blocker's location.
-	var/turf/end_turf = (blocker_ref ? ( isturf(blocker_ref) ? blocker_ref : get_turf(blocker_ref)) : get_edge_target_turf(get_front_turf(), dir))
-	range = get_dist(get_front_turf(), end_turf)
-
-	if(old_range > -1 && (range > old_range || !length(laser_effects))) // Create new lasers if the new blocker is further away, or if we just turned on the laser
-		setup_lasers()
-	if(range < old_range) // Destroy lasers beyond the blocked point
-		shorten_beam()
 
 /obj/machinery/power/transmission_laser/proc/handle_offset()
 	switch(dir)
@@ -402,26 +372,8 @@
 		return
 
 	output_level = min(charge, output_number * power_format_multi_output)
-	if(!length(laser_effects))
-		find_blocker() // We aren't registering turf changes or atoms in the beam path while the beam is off.
 
-	if(blocker)// Checking here in case the blocker was destroyed by means other than the laser
-		var/atom/check_if_destroyed = locateUID(blocker)
-		if(!check_if_destroyed || QDELETED(check_if_destroyed))
-			find_blocker()
-
-	if(length(laser_effects))
-		for(var/obj/effect/transmission_beam as anything in laser_effects)
-			var/turf/beam_turf = get_turf(transmission_beam)
-			for(var/atom/beamed in beam_turf)
-				if(beamed)
-					beamed.ptl_beam_act(src)
-			// Make sure we beam the turf itself as well, in case it's a wall or something else that could be affected.
-			if(beam_turf)
-				beam_turf.ptl_beam_act(src)
-
-	if(!blocker)
-		sell_power(output_level * WATT_TICK_TO_JOULE)
+	sell_power(output_level * WATT_TICK_TO_JOULE)
 
 	charge -= output_level
 
@@ -486,18 +438,6 @@
 		laser_effects -= listed_beam
 		qdel(listed_beam)
 
-/obj/machinery/power/transmission_laser/proc/shorten_beam()
-	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
-		if(get_dist(get_front_turf(), listed_beam.loc) > range)
-			laser_effects -= listed_beam
-			qdel(listed_beam)
-
-/// Called after the blocker gets affected by the beam to check if it was destroyed
-/obj/machinery/power/transmission_laser/proc/check_blocker()
-	var/atom/check_if_destroyed = locateUID(blocker)
-	if(!check_if_destroyed || QDELETED(check_if_destroyed))
-		find_blocker()
-
 // Beam
 /obj/effect/transmission_beam
 	name = "Shimmering beam"
@@ -510,64 +450,14 @@
 
 /obj/effect/transmission_beam/Initialize(mapload, obj/machinery/power/transmission_laser/creator)
 	. = ..()
-	var/turf/source_turf = get_turf(src)
-	if(source_turf)
-		RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
-		RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave))
-		RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	update_appearance()
 
 /obj/effect/transmission_beam/Destroy(force)
 	. = ..()
-	var/turf/source_turf = get_turf(src)
-	host = null
-	if(source_turf)
-		UnregisterSignal(source_turf, COMSIG_TURF_CHANGE)
-		UnregisterSignal(source_turf, COMSIG_ATOM_ENTERED)
-		UnregisterSignal(source_turf, COMSIG_ATOM_EXITED)
 
 /obj/effect/transmission_beam/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, "ptl_beam", src)
-
-/// Apply beam effects to the atom and register it as being in the beam if it survives. If it can also block the beam make it block it.
-/obj/effect/transmission_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER //COMSIG_ATOM_ENTERED
-
-	if(istype(arrived, /obj/structure/window))
-		return
-	arrived.ptl_beam_act(host)
-	if(arrived?.density) // If it survived and can block the beam it should block it
-		host.blocker = arrived.UID()
-		host.range = get_dist(host.get_front_turf(), get_turf(src))
-		host.shorten_beam() // Remove the laser effects beyond the blocked part
-
-/// Remove the atoms from the list of the atoms in the beam. This is called every time something leaves our beam.
-/obj/effect/transmission_beam/proc/on_leave(datum/source, atom/movable/left, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER //COMSIG_ATOM_EXITED
-
-	if(istype(left, /obj/structure/window))
-		return
-	if(host.blocker && (host.blocker == left.UID()))
-		host.find_blocker()
-
-
-/// Register signals on the new turf and if it is dense make it the new blocker
-/obj/effect/transmission_beam/proc/on_turf_change()
-	SIGNAL_HANDLER //COMSIG_TURF_CHANGE
-
-	// We can't sleep here so we call a timer to wait for the new turf to form
-	addtimer(CALLBACK(src, PROC_REF(do_turf_change)), 0)
-
-/obj/effect/transmission_beam/proc/do_turf_change()
-	var/turf/source_turf = get_turf(src)
-	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
-	RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave), TRUE)
-	RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered), TRUE)
-
-	source_turf.ptl_beam_act(host)
-
-	host.find_blocker()
 
 /// Explosions aren't supposed to make holes in a beam.
 /obj/effect/transmission_beam/ex_act(severity)
