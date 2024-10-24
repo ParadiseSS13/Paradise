@@ -70715,7 +70715,7 @@
 /area/station/security/permabrig)
 "oMo" = (
 /obj/structure/lattice,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/space,
 /area/space/nearstation)
 "oMJ" = (
