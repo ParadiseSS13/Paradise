@@ -2496,12 +2496,11 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/power/apc/directional/west,
+/obj/structure/cable/orange{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "apz" = (
