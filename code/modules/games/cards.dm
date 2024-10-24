@@ -188,7 +188,7 @@
 	qdel(other_deck)
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(user)
-		add_most_recent_action(user, "merged [src] and [other_deck]")
+		add_most_recent_action(user, "merged with [other_deck]")
 		user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
 /obj/item/deck/attack_hand(mob/user)
