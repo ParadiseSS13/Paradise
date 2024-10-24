@@ -676,7 +676,7 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/bsg/pickup(mob/user)
+/obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
 	. = ..()
 	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
 
