@@ -3187,26 +3187,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
-"auC" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/station/hallway/spacebridge/cargocom)
 "auF" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -32432,6 +32412,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
+"dRk" = (
+/obj/structure/railing,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/space,
+/area/space/nearstation)
 "dRs" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -41750,9 +41740,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/space,
 /area/station/hallway/spacebridge/cargocom)
@@ -42688,6 +42678,16 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
+"gYk" = (
+/obj/structure/railing,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space/nearstation)
 "gYt" = (
 /obj/machinery/light{
 	dir = 8
@@ -45363,8 +45363,8 @@
 "hKN" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
@@ -68101,6 +68101,16 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"odf" = (
+/obj/structure/railing,
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
 "odg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -91678,26 +91688,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"uBB" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/station/hallway/spacebridge/cargocom)
 "uBC" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet{
@@ -98846,15 +98836,6 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/station/maintenance/maintcentral)
-"wxk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "wxn" = (
 /obj/structure/disposalpipe/segment,
@@ -139974,7 +139955,7 @@ ijC
 cNB
 sTi
 hKN
-wxk
+fLT
 irM
 rNK
 lzH
@@ -140230,8 +140211,8 @@ uqt
 hxE
 hxE
 woy
-woy
 gNR
+woy
 mJM
 rNK
 rNK
@@ -140487,8 +140468,8 @@ aXR
 aXR
 xbO
 rNK
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -140744,8 +140725,8 @@ aXR
 aXR
 xbO
 rNK
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -141001,8 +140982,8 @@ aXR
 aXR
 xbO
 xbO
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -141258,8 +141239,8 @@ aXR
 aXR
 aXR
 xbO
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -141515,8 +141496,8 @@ aXR
 aXR
 aXR
 xbO
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -141772,8 +141753,8 @@ xbO
 xbO
 xbO
 xbO
-rNK
 xdd
+rNK
 rNK
 rNK
 rNK
@@ -142029,8 +142010,8 @@ rRg
 amz
 amz
 amz
-amz
 mzg
+rNK
 rNK
 rNK
 rNK
@@ -144850,8 +144831,8 @@ aXR
 aXR
 aXR
 xbO
-rNK
-eLc
+rRg
+mzg
 rNK
 rNK
 rNK
@@ -145107,8 +145088,8 @@ aXR
 aXR
 aXR
 xbO
+xdd
 rNK
-eLc
 rNK
 rNK
 rNK
@@ -145364,8 +145345,8 @@ aXR
 aXR
 aXR
 xbO
+xdd
 rNK
-eLc
 rNK
 rNK
 rNK
@@ -145621,8 +145602,8 @@ xbO
 xbO
 xbO
 xbO
+xdd
 rNK
-eLc
 rNK
 rNK
 rNK
@@ -145876,10 +145857,10 @@ aXR
 aXR
 xbO
 aXD
+rRg
+amz
+mzg
 rNK
-rNK
-rNK
-eLc
 rNK
 rNK
 aXn
@@ -146132,11 +146113,11 @@ aXR
 aXR
 aXR
 xbO
+rRg
+mzg
 rNK
 rNK
 rNK
-rNK
-eLc
 rNK
 rNK
 bhO
@@ -146389,11 +146370,11 @@ aXR
 aXR
 aXR
 xbO
+xdd
 rNK
 rNK
 rNK
 rNK
-eLc
 bhO
 bhO
 bhO
@@ -146570,8 +146551,8 @@ rNK
 rNK
 rNK
 xki
-qwx
-uBB
+dRk
+dkw
 wqc
 dBd
 bCJ
@@ -146646,11 +146627,11 @@ aXR
 xbO
 xbO
 xbO
+xdd
 rNK
 rNK
 rNK
 rNK
-eLc
 bhO
 bhO
 bhO
@@ -146827,8 +146808,8 @@ rNK
 rNK
 rNK
 rNK
-euP
-auC
+odf
+dkw
 wqc
 dBd
 bCJ
@@ -146901,13 +146882,13 @@ xbO
 xbO
 xbO
 xbO
+rRg
+amz
+mzg
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-eLc
 bhO
 hUU
 hUU
@@ -147084,8 +147065,8 @@ rNK
 rNK
 rNK
 rNK
-euP
-auC
+odf
+dkw
 cXJ
 dBd
 cXi
@@ -147158,13 +147139,13 @@ amz
 amz
 amz
 amz
-amz
-amz
-amz
-amz
-amz
-amz
 mzg
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 bhO
 hUU
 aXn
@@ -147341,7 +147322,7 @@ rNK
 rNK
 rNK
 rNK
-euP
+gYk
 gJr
 nJW
 wEh
