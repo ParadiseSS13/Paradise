@@ -62,7 +62,7 @@ bitflags when it makes sense to toggle any or all of the flags simultaneously.
 
 > [!WARNING]
 >
-> Because of how BYOND represents numbers, a single variable can only 24 flags.
+> Because of how BYOND represents numbers, a single variable can only hold 24 flags.
 > In other words, once the number of flags you wish to represent in a number reaches
 > `(1 << 23)`, you have run out of available places to store flags in that variable.
 >
