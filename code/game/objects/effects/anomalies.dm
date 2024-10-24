@@ -170,9 +170,9 @@
 /obj/effect/anomaly/grav/detonate()
 	if(!drops_core)
 		return
-	var/turf/T = get_turf(src)
-	if(T && length(GLOB.gravity_generators["[T.z]"]))
-		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
+	var/area/A = get_area(src)
+	if(A && length(GLOB.gravity_generators["[A.get_top_parent_type()]"]))
+		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[A.get_top_parent_type()]"])
 		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
 		log_and_message_admins("A [name] has detonated a gravity generator")
 
