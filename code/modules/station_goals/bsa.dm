@@ -116,7 +116,7 @@
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	/// Amount of energy required to reload the BSA (Joules)
-	var/energy_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
+	var/energy_used_per_shot = 2 MJ //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	/// The gun's cooldown
 	var/reload_cooldown_time = 10 MINUTES
 	/// Are we trying to reload? Should only be true if we failed to reload due to lack of power.
