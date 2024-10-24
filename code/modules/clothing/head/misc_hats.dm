@@ -281,7 +281,7 @@
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)

@@ -32,11 +32,11 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 		return
 
 	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+		"left hand" = ITEM_SLOT_LEFT_HAND,
+		"right hand" = ITEM_SLOT_RIGHT_HAND,
 	)
 
 	var/flashloc_name

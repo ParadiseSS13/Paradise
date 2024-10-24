@@ -58,7 +58,7 @@
 
 /obj/item/clothing/head/helmet/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
 
 /obj/item/clothing/head/helmet/meson/dropped(mob/user)

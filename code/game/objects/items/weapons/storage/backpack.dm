@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
+	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21

@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
