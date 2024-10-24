@@ -85377,16 +85377,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
-"sRC" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space/nearstation)
 "sRH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -144379,7 +144369,7 @@ mJM
 hxE
 hxE
 xbO
-sRC
+rRg
 mzg
 rNK
 rNK

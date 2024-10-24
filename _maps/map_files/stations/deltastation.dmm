@@ -82789,11 +82789,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/incinerator)
-"ozi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/engineering,
-/turf/simulated/wall,
-/area/station/maintenance/port)
 "ozn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -119599,7 +119594,7 @@ cHA
 pVK
 mjt
 dhG
-ozi
+svE
 reg
 euL
 srS
