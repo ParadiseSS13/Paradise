@@ -1,5 +1,7 @@
 #define MINIMUM_POWER 1 MW
 #define DEFAULT_CAPACITY 2000 GJ
+#define EYE_DAMAGE_THRESHOLD 5MW
+#define EYE_DAMAGE_THRESHOLD 30MW
 
 /obj/machinery/power/transmission_laser
 	name = "power transmission laser"
@@ -429,6 +431,13 @@
 					target.adjustFireLoss(10 * output_level / (1 MW))
 			else
 				target = null
+		if(output_level > EYE_DAMAGE_THRESHOLD)
+			for(var/mob/living/carbon/someone in oview(min(output_level / EYE_DAMAGE_THRESHOLD, 8), get_front_turf()))// Flash targets that can see the exit of the emitter
+				someone.flash_eyes(min(round(output_level / EYE_DAMAGE_THRESHOLD), 3) ,TRUE, TRUE, TRUE)
+		if(output_level > RAD_THRESHOLD)
+			for(var/atom/thing in orange(output_level / RAD_THRESHOLD, get_front_turf())) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
+				radiation_pulse((get_front_turf(), output_level / RAD_THRESHOLD) * 100, RAD_DISTANCE_COEFFICIENT * 2)
+
 
 	charge -= output_level
 
