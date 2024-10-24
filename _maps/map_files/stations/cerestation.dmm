@@ -32848,12 +32848,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/north)
-"dVt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space/nearstation/disposals)
 "dVv" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigRight";
@@ -36048,15 +36042,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"eUd" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/space/nearstation/disposals)
 "eUk" = (
 /obj/effect/spawner/grouped_spawner{
 	group_id = "tunnelbats";
@@ -78506,9 +78491,6 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/robotics)
-"qWY" = (
-/turf/space,
-/area/space/nearstation/disposals)
 "qXa" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 4;
@@ -98445,16 +98427,6 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/station/hallway/secondary/exit)
-"wwL" = (
-/obj/machinery/disposal/deliveryChute{
-	dir = 8;
-	name = "cadaver delivery chute"
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation/disposals)
 "wxb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -141973,8 +141945,8 @@ rNK
 rNK
 rNK
 rNK
-qWY
-wwL
+lez
+fwi
 rNK
 rNK
 rNK
@@ -142230,8 +142202,8 @@ rNK
 rNK
 rNK
 rNK
-qWY
-dVt
+lez
+fwi
 rNK
 rNK
 rNK
@@ -142487,8 +142459,8 @@ rNK
 rNK
 rNK
 rNK
-qWY
-eUd
+lez
+fwi
 rNK
 rNK
 rNK
