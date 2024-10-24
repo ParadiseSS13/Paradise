@@ -48,19 +48,29 @@ using binary arithmetic.
 
 ![](./images/bitflags.png)
 
-> [!NOTE]
+Bitflags should be used when it makes sense that multiple flags can be set
+simultaneously. For example, it would not make sense to make the following
+bitflag:
+
+```dm
+#define CAN_WALK    (1 << 0)
+#define CANNOT_WALK (1 << 1)
+```
+
+Because then both values can be toggled on in a single variable. Only use
+bitflags when it makes sense to toggle any or all of the flags simultaneously.
+
+> [!WARNING]
 >
-> Bitflags should be used when it makes sense that multiple flags can be set
-> simultaneously. For example, it would not make sense to make the following
-> bitflag:
+> Because of how BYOND represents numbers, a single variable can only 24 flags.
+> In other words, once the number of flags you wish to represent in a number reaches
+> `(1 << 23)`, you have run out of available places to store flags in that variable.
 >
-> ```dm
-> #define CAN_WALK    (1 << 0)
-> #define CANNOT_WALK (1 << 1)
-> ```
->
-> Because then both values can be toggled on in a single variable. Only use
-> bitflags when it makes sense to toggle any or all of the flags simultaneously.
+> The technical explanation is: BYOND has a single numeric datatype stored as
+> 32-bit IEEE 754 floating point. Performing bitwise operations on numbers in
+> BYOND converts the number to its integer representation, using the 24 bits of
+> the significand in the floating point representation, and then back to
+> floating point afterwards.
 
 ## Operating on Bitflags
 
