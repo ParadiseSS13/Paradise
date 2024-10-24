@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
 /turf/simulated/mineral/random/low_chance,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ac" = (
 /obj/structure/chair{
 	dir = 1
@@ -11,7 +11,7 @@
 "ad" = (
 /obj/structure/railing,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ae" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -20,7 +20,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "af" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
@@ -28,7 +28,7 @@
 	icon_state = "caution";
 	dir = 5
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ag" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -40,9 +40,6 @@
 /mob/living/simple_animal/hostile/spaceinfected/default,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
-"ai" = (
-/turf/simulated/wall/indestructible/rock,
-/area/ruin/space/unpowered)
 "aj" = (
 /obj/structure/railing{
 	dir = 4
@@ -51,7 +48,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ak" = (
 /obj/structure/railing{
 	dir = 9
@@ -60,14 +57,14 @@
 	dir = 9
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "al" = (
 /obj/machinery/atmospherics/air_sensor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "am" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/chasm/space_ruin/airless,
@@ -102,19 +99,13 @@
 	icon_state = "browncorner"
 	},
 /area/ruin/space/deepstorage)
-"aq" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreen"
-	},
-/area/ruin/space/deepstorage)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "caution";
 	dir = 10
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "as" = (
 /obj/structure/blob/normal/deepstorage,
 /obj/structure/blob/normal/deepstorage,
@@ -123,7 +114,7 @@
 "au" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "av" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -139,7 +130,7 @@
 	},
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -163,7 +154,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aA" = (
 /obj/structure/railing{
 	dir = 4
@@ -171,7 +162,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "stairs"
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aB" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/window/reinforced,
@@ -180,7 +171,7 @@
 "aC" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aD" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -197,7 +188,7 @@
 	icon_state = "stairs";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aG" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -225,7 +216,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aK" = (
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
@@ -246,7 +237,7 @@
 /area/ruin/space/deepstorage)
 "aM" = (
 /turf/simulated/mineral,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aN" = (
 /obj/structure/railing{
 	dir = 9
@@ -258,11 +249,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aO" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aP" = (
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
@@ -287,7 +278,7 @@
 	icon_state = "stairs";
 	dir = 1
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aT" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/combat/survival,
@@ -295,7 +286,7 @@
 	icon_state = "caution";
 	dir = 4
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aU" = (
 /obj/structure/chair{
 	dir = 1
@@ -325,7 +316,7 @@
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "aX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -353,7 +344,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ba" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -362,7 +353,7 @@
 	icon_state = "caution";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bb" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/no_creep,
@@ -378,7 +369,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "be" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -401,14 +392,14 @@
 	icon_state = "caution";
 	dir = 9
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bh" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bi" = (
 /obj/structure/railing{
 	dir = 1
@@ -421,7 +412,7 @@
 	pixel_x = -2
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bj" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
@@ -429,13 +420,13 @@
 	icon_state = "caution";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bk" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -445,11 +436,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bn" = (
 /obj/structure/flora/ash/rock/style_random,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bo" = (
 /obj/machinery/light/small,
 /obj/structure/rack,
@@ -463,19 +454,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered/teleproof)
 "br" = (
 /obj/structure/table/reinforced,
 /obj/item/t_scanner/adv_mining_scanner,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bs" = (
 /obj/structure/rack,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bu" = (
 /obj/structure/railing{
 	dir = 6
@@ -485,7 +476,7 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bv" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
@@ -494,30 +485,30 @@
 /area/ruin/space/deepstorage)
 "bw" = (
 /turf/simulated/floor/chasm/space_ruin/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bx" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "caution";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "by" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "caution"
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bz" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bA" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bB" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -530,10 +521,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "bD" = (
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bE" = (
 /obj/structure/railing{
 	dir = 6
@@ -542,7 +533,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -551,17 +542,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bG" = (
 /obj/structure/railing/cap,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bH" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "stairs"
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bI" = (
 /obj/structure/rack,
 /obj/item/pickaxe,
@@ -569,7 +560,7 @@
 	icon_state = "caution";
 	dir = 4
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bJ" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced,
@@ -590,13 +581,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bM" = (
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bN" = (
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bO" = (
 /obj/structure/railing{
 	dir = 6
@@ -605,7 +596,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -618,7 +609,7 @@
 	pixel_x = 5
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -643,7 +634,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "bU" = (
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
@@ -656,13 +647,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bW" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bX" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
@@ -674,7 +665,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "bZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -722,7 +713,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ce" = (
 /obj/structure/railing{
 	dir = 1
@@ -752,7 +743,7 @@
 	icon_state = "stairs";
 	dir = 1
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "cm" = (
 /obj/structure/railing/cap{
 	dir = 1
@@ -885,7 +876,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "dd" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/spaceinfected/default,
@@ -981,10 +972,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/deepstorage)
-"dR" = (
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
 "dT" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -1057,7 +1044,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1091,7 +1078,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "eS" = (
 /obj/structure/railing/cap{
 	dir = 9
@@ -1100,7 +1087,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
+"eW" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/deepstorage/teleport_allowed)
 "eZ" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -1155,7 +1147,7 @@
 	pixel_x = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "ft" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -1191,7 +1183,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "fK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -1282,6 +1274,7 @@
 "gq" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1307,11 +1300,11 @@
 /area/ruin/space/deepstorage)
 "gE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/chair{
-	pixel_y = -5;
-	pixel_x = -2;
-	dir = 4
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/obj/structure/closet/crate{
+	layer = 2.7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
@@ -1355,12 +1348,12 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "gS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
 /obj/item/shard,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "gZ" = (
@@ -1427,7 +1420,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ho" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
@@ -1456,11 +1449,14 @@
 	},
 /area/ruin/space/deepstorage)
 "hu" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 4;
+	icon_state = "bulb-broken";
+	status = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner";
 	dir = 1
@@ -1576,7 +1572,7 @@
 	},
 /obj/structure/window/reinforced/survival_pod,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ih" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1637,7 +1633,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "iK" = (
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
@@ -1667,11 +1663,11 @@
 /area/ruin/space/deepstorage)
 "iZ" = (
 /turf/simulated/mineral/random/high_chance,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ja" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "je" = (
 /obj/structure/table,
 /obj/item/fan{
@@ -1763,10 +1759,6 @@
 	dir = 10;
 	icon_state = "vault"
 	},
-/area/ruin/space/deepstorage)
-"jv" = (
-/obj/machinery/economy/vending/snack,
-/turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "jy" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -1860,11 +1852,13 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "jZ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/spaceinfected/default/ranged,
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 4;
+	icon_state = "bulb-broken";
+	status = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner";
 	dir = 1
@@ -1878,18 +1872,22 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "kc" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ke" = (
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
+"kg" = (
+/mob/living/simple_animal/hostile/spaceinfected/default,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/deepstorage)
 "kh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -1928,7 +1926,7 @@
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ks" = (
 /obj/structure/rack,
 /obj/item/storage/box/donkpockets,
@@ -1971,6 +1969,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2002,7 +2001,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "kR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2078,6 +2077,10 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
+"ln" = (
+/obj/structure/spawner/mining/hivelord,
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage)
 "lo" = (
 /obj/item/bedsheet,
 /obj/effect/decal/remains/human,
@@ -2095,6 +2098,17 @@
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
+"lA" = (
+/obj/structure/table/flipped{
+	dir = 4
+	},
+/obj/machinery/economy/vending/cola{
+	layer = 2.7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "lE" = (
@@ -2183,7 +2197,7 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "mx" = (
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
@@ -2236,7 +2250,7 @@
 "mL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "mM" = (
 /obj/structure/chair{
 	dir = 8
@@ -2256,7 +2270,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "mO" = (
 /obj/structure/railing{
 	dir = 4
@@ -2306,15 +2320,13 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
-"ne" = (
-/obj/machinery/economy/vending/cola,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
 "nh" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/can,
 /obj/item/trash/waffles,
+/obj/structure/table/flipped{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -2371,12 +2383,6 @@
 /obj/structure/railing,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
-"nE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteredcorner";
-	dir = 1
-	},
 /area/ruin/space/deepstorage)
 "nF" = (
 /obj/item/chair/stool{
@@ -2461,7 +2467,7 @@
 	pixel_x = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "nW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter{
@@ -2476,11 +2482,20 @@
 /obj/item/trash/tapetrash,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
+"oe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
 "oj" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2513,7 +2528,9 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "ou" = (
-/obj/structure/table,
+/obj/structure/table/flipped{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 1
@@ -2557,7 +2574,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "oI" = (
 /obj/structure/railing{
 	dir = 8
@@ -2651,7 +2668,7 @@
 	},
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "pj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -2666,9 +2683,18 @@
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
+"pl" = (
+/obj/structure/railing,
+/mob/living/simple_animal/hostile/spaceinfected/default,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "white"
 	},
 /area/ruin/space/deepstorage)
 "ps" = (
@@ -2676,6 +2702,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2684,7 +2711,13 @@
 "pv" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
+"pw" = (
+/obj/effect/decal/cleanable/blood/splatter{
+	color = "red"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/deepstorage/teleport_allowed)
 "pz" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/command/glass{
@@ -2692,10 +2725,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "DScmoffice"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "DScmoffice1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2723,7 +2752,7 @@
 "pP" = (
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "pQ" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -2771,7 +2800,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "qm" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -2796,10 +2825,6 @@
 	dir = 4
 	},
 /area/ruin/space/deepstorage)
-"qw" = (
-/mob/living/simple_animal/hostile/spaceinfected/gateopener,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
 "qz" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
@@ -2865,13 +2890,13 @@
 "qR" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "qV" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "qZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -2881,7 +2906,7 @@
 "rb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "re" = (
 /obj/item/kirbyplants/plant18,
 /obj/effect/decal/cleanable/dirt,
@@ -2903,7 +2928,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "ri" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2955,8 +2980,13 @@
 	},
 /area/ruin/space/deepstorage)
 "rE" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame{
+	layer = 2.7
+	},
+/obj/structure/table/flipped{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 8
@@ -3026,6 +3056,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -3065,7 +3096,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "sE" = (
 /obj/structure/table/glass/reinforced,
 /obj/item/paper_bin,
@@ -3162,7 +3193,7 @@
 	icon_state = "caution";
 	dir = 1
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ta" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/random/maintenance,
@@ -3175,7 +3206,7 @@
 	icon_state = "stairs";
 	dir = 4
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "tc" = (
 /obj/machinery/hydroponics/constructable{
 	pixel_y = 9
@@ -3194,7 +3225,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/hooded/explorer,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "tg" = (
 /obj/structure/railing{
 	dir = 10
@@ -3224,6 +3255,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/shield/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
@@ -3307,7 +3339,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/table,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/obj/machinery/economy/vending/snack{
+	layer = 2.7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 1
@@ -3359,22 +3396,25 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "tO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "caution";
 	dir = 6
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "tP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/item/kirbyplants/plant22,
 /obj/structure/sign/biohazard{
 	pixel_x = -32
+	},
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 8;
+	icon_state = "bulb-broken";
+	status = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3426,7 +3466,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "uo" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -3443,7 +3483,9 @@
 /area/ruin/space/deepstorage)
 "uu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
+/obj/structure/table/flipped{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 10
@@ -3461,6 +3503,7 @@
 /area/ruin/space/deepstorage)
 "uz" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreencorner"
@@ -3481,6 +3524,9 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/deepstorage)
+"uK" = (
+/turf/simulated/floor/catwalk,
+/area/ruin/space/deepstorage/teleport_allowed)
 "uR" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3490,6 +3536,13 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"uS" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/spaceinfected/default,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/deepstorage/teleport_allowed)
 "uT" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/spaceinfected/default,
@@ -3538,6 +3591,12 @@
 /obj/machinery/door/poddoor/shutters,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/deepstorage)
+"vs" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/chasm/space_ruin/airless,
+/area/ruin/space/unpowered/teleproof)
 "vt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3641,7 +3700,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "vS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -3701,27 +3760,17 @@
 	},
 /area/ruin/space/deepstorage)
 "wi" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
-	},
-/area/ruin/space/deepstorage)
-"wj" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitegreen"
 	},
 /area/ruin/space/deepstorage)
 "wo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -3751,7 +3800,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3842,7 +3891,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "xw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
@@ -3867,6 +3916,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
+/area/ruin/space/deepstorage)
+"xL" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/damageturf,
+/obj/structure/blob/normal/deepstorage,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "xM" = (
 /obj/machinery/door/poddoor/preopen,
@@ -3923,6 +3979,7 @@
 	id_tag = "DS_BossStorage";
 	name = "warehouse valuables storage blast door"
 	},
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "yd" = (
@@ -3940,6 +3997,7 @@
 /obj/item/grenade/confetti,
 /obj/item/grenade/confetti,
 /obj/item/grenade/confetti,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -3985,6 +4043,10 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"yo" = (
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/deepstorage)
 "yp" = (
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
@@ -3998,7 +4060,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "yu" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
@@ -4007,7 +4069,7 @@
 	icon_state = "caution";
 	dir = 4
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "yz" = (
 /obj/structure/chair{
 	dir = 8
@@ -4033,7 +4095,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "caution"
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "yN" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4059,8 +4121,12 @@
 /area/ruin/space/deepstorage)
 "yS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/chair,
+/obj/item/chair{
+	layer = 2.7
+	},
+/obj/structure/table/flipped{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4075,7 +4141,7 @@
 	icon_state = "stairs";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "yY" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4158,7 +4224,7 @@
 	icon_state = "caution";
 	dir = 1
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "zv" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen,
@@ -4207,24 +4273,17 @@
 /obj/structure/blob/normal/deepstorage,
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
-"zK" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitegreen"
-	},
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "zL" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/item/chair{
-	dir = 1
+	dir = 1;
+	layer = 2.7
+	},
+/obj/structure/table/flipped{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4257,8 +4316,17 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
+	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
+"Ac" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
@@ -4269,7 +4337,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "stairs"
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ai" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4388,7 +4456,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "AJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4443,7 +4511,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Bf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4509,13 +4577,6 @@
 	},
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/engine,
-/area/ruin/space/deepstorage)
-"BC" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitegreen"
-	},
 /area/ruin/space/deepstorage)
 "BE" = (
 /turf/simulated/floor/plating,
@@ -4612,7 +4673,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/explorer,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Cf" = (
 /obj/machinery/light/small{
 	active_power_consumption = 0;
@@ -4625,6 +4686,14 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"Cg" = (
+/obj/structure/blob/normal/deepstorage,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/deepstorage)
 "Ch" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -4633,8 +4702,8 @@
 	},
 /area/ruin/space/deepstorage)
 "Ci" = (
-/obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -4645,7 +4714,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ck" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -4675,6 +4744,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/deepstorage_reward,
 /obj/effect/spawner/random/deepstorage_reward,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4858,7 +4928,7 @@
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ds" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/blob/normal/deepstorage,
@@ -4877,6 +4947,10 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/space/deepstorage)
+"Dv" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/deepstorage/teleport_allowed)
 "Dx" = (
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/shower{
@@ -4913,7 +4987,7 @@
 	pixel_x = -2
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "DF" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4931,7 +5005,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "DJ" = (
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -4953,16 +5027,6 @@
 /obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
-"DR" = (
-/obj/structure/table/glass,
-/obj/item/scalpel{
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "white"
-	},
-/area/ruin/space/deepstorage)
 "DZ" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -4970,8 +5034,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "Ei" = (
-/obj/structure/table,
 /obj/item/chair,
+/obj/structure/table/flipped{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -5028,7 +5094,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ez" = (
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -5122,7 +5188,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Fw" = (
 /obj/machinery/door/airlock/glass{
 	name = "Medical Wing";
@@ -5144,7 +5210,7 @@
 	},
 /obj/structure/engineeringcart,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "FE" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -5161,12 +5227,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "FS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/blob/normal/deepstorage,
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
@@ -5199,6 +5264,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
+"Gp" = (
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
 "Gt" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
@@ -5220,7 +5292,11 @@
 	},
 /area/ruin/space/deepstorage)
 "GB" = (
-/obj/structure/blob/normal/deepstorage,
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/box,
+/obj/item/documents/syndicate/unknown_specimen{
+	pixel_y = 5
+	},
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "GD" = (
@@ -5228,7 +5304,7 @@
 /obj/structure/table,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "GE" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -5301,7 +5377,8 @@
 	},
 /area/ruin/space/deepstorage)
 "GR" = (
-/obj/structure/railing/corner,
+/obj/structure/blob/normal/deepstorage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"
@@ -5387,9 +5464,15 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"HI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/deepstorage/teleport_allowed)
 "HK" = (
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "HN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/dark{
@@ -5418,7 +5501,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ik" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs"
@@ -5467,6 +5550,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
+"IK" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/deepstorage/teleport_allowed)
 "IN" = (
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel{
@@ -5481,6 +5567,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5529,7 +5616,10 @@
 "Jl" = (
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
+"Jo" = (
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage/teleport_allowed)
 "Js" = (
 /obj/item/bedsheet,
 /turf/simulated/floor/plasteel,
@@ -5558,7 +5648,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "JF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
@@ -5626,13 +5716,11 @@
 /area/ruin/space/deepstorage)
 "JW" = (
 /obj/machinery/door/poddoor/preopen,
-/obj/machinery/door/airlock/virology/glass{
-	name = "Virology"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "white"
-	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/molten_object/large,
+/obj/effect/landmark/damageturf,
+/obj/structure/blob/normal/deepstorage,
+/turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "JZ" = (
 /obj/structure/chair,
@@ -5676,12 +5764,21 @@
 	icon_state = "browncorner"
 	},
 /area/ruin/space/deepstorage)
+"Kk" = (
+/obj/structure/blob/normal/deepstorage,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "white"
+	},
+/area/ruin/space/deepstorage)
 "Kq" = (
 /obj/structure/railing/cap{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Kv" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -5759,6 +5856,14 @@
 	dir = 4
 	},
 /area/ruin/space/deepstorage)
+"KJ" = (
+/obj/structure/blob/normal/deepstorage,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/deepstorage)
 "KP" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/decal/cleanable/dirt,
@@ -5834,7 +5939,10 @@
 /area/ruin/space/deepstorage)
 "Li" = (
 /obj/machinery/light/small{
-	dir = 1
+	active_power_consumption = 0;
+	dir = 1;
+	icon_state = "bulb-broken";
+	status = 2
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/deepstorage)
@@ -5849,7 +5957,7 @@
 "Ln" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Lo" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -5874,7 +5982,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "LA" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5904,7 +6012,7 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "DScmoffice"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "DScmoffice1"
 	},
@@ -6009,11 +6117,18 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"Ms" = (
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
 "MR" = (
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/deepstorage_reward/main,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6152,7 +6267,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "NZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -6179,7 +6294,7 @@
 	icon_state = "stairs";
 	dir = 8
 	},
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/salvage/ruin/soviet,
@@ -6204,6 +6319,9 @@
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
 /area/ruin/space/deepstorage)
+"Om" = (
+/turf/simulated/mineral,
+/area/ruin/space/deepstorage/teleport_allowed)
 "Oo" = (
 /obj/item/trash/chips,
 /turf/simulated/floor/plasteel{
@@ -6223,7 +6341,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/t_scanner/adv_mining_scanner,
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Ot" = (
 /obj/structure/window/reinforced,
 /obj/structure/bed,
@@ -6256,11 +6374,23 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"OT" = (
+/obj/machinery/door/poddoor/preopen,
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/deepstorage)
 "OU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/deepstorage)
+"Pf" = (
+/obj/structure/blob/normal/deepstorage,
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage/teleport_allowed)
 "Pg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6298,6 +6428,7 @@
 /area/ruin/space/deepstorage)
 "Po" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
@@ -6336,7 +6467,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "PA" = (
 /obj/structure/rack,
 /obj/item/grown/log{
@@ -6371,6 +6502,7 @@
 /obj/structure/rack,
 /obj/machinery/disco,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6392,7 +6524,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "PK" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -6449,7 +6581,7 @@
 "Qa" = (
 /mob/living/simple_animal/hostile/megafauna/fleshling,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Qb" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -6458,7 +6590,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Qe" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/plasteel{
@@ -6497,6 +6629,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage/teleport_allowed)
+"Qr" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/firedoor,
+/obj/effect/abstract/deepstorage_cheese_detector,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Qt" = (
 /obj/structure/filingcabinet,
@@ -6558,11 +6696,22 @@
 	},
 /area/ruin/space/deepstorage)
 "QJ" = (
-/obj/structure/table,
-/obj/item/chair,
+/obj/item/chair{
+	layer = 2.7
+	},
+/obj/structure/table/flipped{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
+	},
+/area/ruin/space/deepstorage)
+"QK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal/deepstorage,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteredcorner"
 	},
 /area/ruin/space/deepstorage)
 "QL" = (
@@ -6609,12 +6758,6 @@
 	dir = 1
 	},
 /area/ruin/space/powered)
-"Rd" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitegreen"
-	},
-/area/ruin/space/deepstorage)
 "Ri" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6650,7 +6793,7 @@
 "Ru" = (
 /obj/structure/railing/corner,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Rw" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/closet/crate/trashcart,
@@ -6707,7 +6850,9 @@
 	},
 /area/ruin/space/deepstorage)
 "RJ" = (
-/obj/structure/table,
+/obj/structure/table/flipped{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "black"
@@ -6758,6 +6903,7 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner"
 	},
@@ -6810,6 +6956,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6834,7 +6981,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Tb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/small{
@@ -6863,7 +7010,7 @@
 	},
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Tk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/glass,
@@ -6950,6 +7097,7 @@
 /area/ruin/space/deepstorage)
 "TQ" = (
 /obj/structure/blob/normal/deepstorage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -7077,7 +7225,7 @@
 	pixel_x = -3
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "UC" = (
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/deepstorage)
@@ -7100,7 +7248,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "UM" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -7137,7 +7285,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Vb" = (
 /obj/structure/railing{
 	dir = 5
@@ -7173,7 +7321,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Vv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
@@ -7515,7 +7663,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Xp" = (
 /obj/structure/railing{
 	dir = 1
@@ -7546,7 +7694,7 @@
 	},
 /obj/item/paper/fluff/ruins/deepstorage/log1,
 /turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "Xu" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -7581,6 +7729,10 @@
 /obj/item/storage/firstaid/brute,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
+"XE" = (
+/mob/living/simple_animal/hostile/spaceinfected/gateopener_candidate,
+/turf/simulated/floor/plating/asteroid/basalt/airless,
+/area/ruin/space/unpowered/teleproof)
 "XF" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -7620,7 +7772,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/catwalk/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "XQ" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7665,6 +7817,7 @@
 "Yc" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/tile/disco_light/thirty,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -7681,6 +7834,7 @@
 "Yk" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/researchnotes,
+/obj/effect/abstract/deepstorage_cheese_detector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7714,7 +7868,7 @@
 	},
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
-/area/ruin/space/deepstorage)
+/area/ruin/space/deepstorage/teleport_allowed)
 "Yw" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/glass{
@@ -7745,7 +7899,11 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "YA" = (
-/obj/structure/closet/crate,
+/obj/item/chair{
+	pixel_y = -5;
+	pixel_x = -2;
+	dir = 4
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "YB" = (
@@ -7776,6 +7934,9 @@
 	},
 /turf/simulated/floor/chasm,
 /area/ruin/space/deepstorage)
+"YT" = (
+/turf/simulated/wall/indestructible/rock,
+/area/ruin/space/unpowered/teleproof)
 "YU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7802,6 +7963,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Zf" = (
+/obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner"
 	},
@@ -7851,10 +8013,6 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
-"ZH" = (
-/mob/living/simple_animal/hostile/spaceinfected/default,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/unpowered)
 "ZI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -7911,7 +8069,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/unpowered/teleproof)
 "ZW" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch,
@@ -8145,8 +8303,8 @@ ab
 ab
 ab
 ab
-ab
-ab
+YT
+YT
 qn
 ab
 ab
@@ -8180,8 +8338,8 @@ ab
 iZ
 iZ
 ab
-aM
-aM
+ab
+ab
 ab
 ab
 ab
@@ -8215,46 +8373,46 @@ jB
 jB
 jB
 jB
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-qn
-ab
-ab
-ab
-qn
-qn
-qn
-qn
-qn
-ab
-ab
-ab
-aM
-iZ
-iZ
+YT
+YT
+YT
+YT
+YT
+YT
+YT
 iZ
 ab
-aM
-aM
-aM
-aM
 ab
-aM
-aM
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+ab
+ab
+iZ
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 qn
 qn
@@ -8284,21 +8442,14 @@ UC
 UC
 TX
 jB
-ab
-ab
-ab
-ab
-ab
-ab
-iZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+sk
+Ol
+Ol
+eB
+eB
+eB
+YT
+YT
 ab
 ab
 ab
@@ -8311,20 +8462,27 @@ ab
 ab
 ab
 ab
-aM
-aM
-aM
-aM
 ab
 ab
 ab
-aM
-aM
 ab
 ab
-aM
-aM
-aM
+ab
+ab
+ab
+ab
+YT
+YT
+YT
+YT
+YT
+YT
+YT
+YT
+YT
+YT
+ab
+ab
 ab
 ab
 qn
@@ -8353,36 +8511,36 @@ Bv
 LR
 hN
 jB
+Ol
+Ol
+eB
+eB
+eB
+eB
+eB
+YT
+YT
+iZ
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 iZ
 iZ
 ab
-ab
-iZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-iZ
-iZ
-ab
-aM
-aM
-aM
-ab
+YT
+YT
+YT
+YT
 bD
 bD
 bD
@@ -8391,9 +8549,9 @@ ab
 iZ
 ab
 bD
-ab
-ab
-ab
+YT
+YT
+YT
 iZ
 iZ
 ab
@@ -8421,7 +8579,16 @@ sG
 GB
 vx
 hN
-jB
+xL
+Ol
+eB
+eB
+eB
+eB
+eB
+eB
+eB
+YT
 iZ
 iZ
 ab
@@ -8435,39 +8602,30 @@ iZ
 ab
 ab
 ab
-ab
-ab
-ab
-ab
 iZ
 iZ
-ab
-ab
-ab
-iZ
-iZ
-ab
-ab
-aM
+YT
+YT
+YT
 bD
 bD
 bD
 bD
-ZH
-bD
-bD
-iZ
-iZ
-bD
-bD
-bD
+XE
 bD
 ab
+iZ
+iZ
+bD
+bD
+bD
+bD
+YT
+YT
+YT
+iZ
+iZ
 ab
-iZ
-iZ
-iZ
-aM
 ab
 qn
 qn
@@ -8491,8 +8649,17 @@ FS
 fV
 hN
 jB
-ab
-ab
+Ol
+Ol
+eB
+eB
+eB
+eB
+eB
+eB
+YT
+iZ
+iZ
 ab
 ab
 ab
@@ -8501,21 +8668,12 @@ ab
 iZ
 iZ
 iZ
-ab
-ab
-ab
-ab
-ab
-ab
-iZ
-iZ
-iZ
 iZ
 ab
 iZ
 iZ
 iZ
-ab
+YT
 bD
 bD
 bD
@@ -8524,17 +8682,17 @@ bD
 bD
 bD
 bD
-bD
-iZ
-iZ
-bD
-bD
-bD
-bD
-bD
-bD
 ab
-aM
+iZ
+iZ
+bD
+bD
+XE
+bD
+bD
+bD
+YT
+YT
 iZ
 iZ
 ab
@@ -8554,14 +8712,23 @@ ab
 ab
 jB
 Li
-UC
+kg
 hN
 hN
 hN
 QQ
 jB
-ab
-ab
+Ol
+Ol
+eB
+eB
+eB
+ln
+eB
+YT
+YT
+iZ
+iZ
 ab
 ab
 ab
@@ -8570,21 +8737,12 @@ ab
 iZ
 iZ
 iZ
-ab
-ab
-ab
-ab
-ab
-ab
-iZ
-iZ
-iZ
 iZ
 ab
 iZ
-iZ
-ab
-ab
+YT
+YT
+YT
 bD
 bD
 bQ
@@ -8593,17 +8751,17 @@ bD
 bD
 bD
 ab
-aM
+ab
 iZ
 ab
 ab
 bD
 bD
-ZH
 bD
 bD
-aM
-aM
+bD
+ab
+YT
 iZ
 iZ
 ab
@@ -8630,13 +8788,15 @@ mf
 jB
 jB
 jB
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+Ol
+Ol
+eB
+eB
+eB
+eB
+YT
+YT
+iZ
 ab
 ab
 ab
@@ -8646,12 +8806,10 @@ ab
 ab
 ab
 iZ
-iZ
-iZ
 ab
-ab
-ab
-ab
+YT
+YT
+YT
 bD
 bD
 bD
@@ -8659,10 +8817,10 @@ bn
 bD
 bD
 bD
+bD
 ab
-aM
 ab
-aM
+ab
 ab
 ab
 iZ
@@ -8672,7 +8830,7 @@ bD
 bA
 bD
 bD
-ab
+YT
 iZ
 ab
 ab
@@ -8693,12 +8851,19 @@ jB
 jB
 nk
 tP
-aq
 nk
 nk
+Cg
 Tn
 wV
 jB
+Ol
+Ol
+Ol
+eB
+eB
+YT
+YT
 ab
 ab
 ab
@@ -8710,27 +8875,20 @@ ab
 ab
 ab
 ab
-ab
+YT
+YT
+bD
+bD
+bD
+bD
+bD
+XE
+bD
+bD
 ab
 ab
 ab
 iZ
-iZ
-ab
-ab
-ab
-bD
-ZH
-bD
-bD
-bD
-bD
-bD
-bD
-ab
-ab
-ab
-iZ
 ab
 bD
 bD
@@ -8741,8 +8899,8 @@ bD
 bD
 bD
 bD
-ab
-ab
+YT
+YT
 ab
 ab
 qn
@@ -8760,7 +8918,7 @@ lQ
 jB
 jB
 DJ
-tT
+hH
 hH
 hH
 hH
@@ -8772,11 +8930,8 @@ jB
 jB
 jB
 jB
-ab
-ab
-iZ
-ab
-ab
+sk
+YT
 ab
 ab
 ab
@@ -8786,24 +8941,27 @@ ab
 ab
 ab
 ab
+ab
+ab
+ab
+YT
 bD
 bD
 bD
 bD
 bD
 bD
-bD
-bD
-bD
-bD
-ab
-iZ
-ab
 bD
 bD
 bD
 ab
 iZ
+ab
+bD
+bD
+bD
+ab
+iZ
 iZ
 iZ
 ab
@@ -8811,7 +8969,7 @@ bD
 bD
 bD
 bD
-ab
+YT
 ab
 ab
 qn
@@ -8831,7 +8989,7 @@ jB
 ff
 Pu
 uz
-hH
+GR
 Jx
 Tk
 GR
@@ -8842,24 +9000,24 @@ hj
 Qt
 jB
 jB
+YT
+ab
+ab
+YT
+YT
+YT
+YT
+YT
+YT
+YT
 ab
 ab
 ab
-sk
-sk
-sk
-sk
-sk
-sk
-sk
-ab
-ab
-ab
+YT
 bD
 bD
 bD
 bD
-qw
 bD
 bD
 bD
@@ -8880,8 +9038,8 @@ ab
 bm
 az
 bm
-ab
-aM
+YT
+YT
 ab
 qn
 ab
@@ -8897,7 +9055,7 @@ Vw
 Qh
 cE
 jB
-zK
+ff
 Po
 TQ
 hH
@@ -8911,33 +9069,33 @@ LA
 LA
 KQ
 jB
-ab
-ab
-sk
-sk
-Ol
-Ol
+YT
+YT
+YT
+YT
+Pf
+Pf
 zI
-Ol
+Pf
 wv
-sk
-sk
-ab
-ab
+YT
+YT
+YT
+YT
+YT
 bD
-ZH
-bD
+XE
 bA
 bD
 bD
-aM
-aM
+ab
+ab
 ab
 iZ
 iZ
-aM
+ab
 bD
-bD
+XE
 bD
 bD
 bn
@@ -8950,8 +9108,8 @@ bD
 bD
 bD
 bD
-aM
-aM
+YT
+ab
 ab
 qn
 qn
@@ -8970,9 +9128,9 @@ Av
 LX
 hH
 BU
-DR
-nQ
-Pi
+Kk
+Kk
+pl
 LK
 GH
 nK
@@ -8980,30 +9138,30 @@ ZN
 lf
 vh
 jB
-ab
-sk
-sk
-Ol
+YT
+YT
+YT
+Pf
 zI
-Ol
-Ol
-eB
+Pf
+Pf
+Jo
 un
 tJ
-sk
+YT
+iZ
+iZ
 ab
 bD
 bD
 bD
 bD
 bD
-bD
-ZH
-aM
+ab
 ab
 iZ
 iZ
-aM
+ab
 bA
 bD
 bD
@@ -9015,11 +9173,11 @@ ab
 ab
 bD
 bD
-ZH
 bD
 bD
+XE
 bD
-ab
+YT
 ab
 qn
 qn
@@ -9036,11 +9194,11 @@ Qh
 cE
 jB
 ZM
-Rd
-BC
 iL
-Rd
-wj
+Ci
+KJ
+iL
+iL
 Ci
 LK
 Xj
@@ -9049,20 +9207,20 @@ CI
 xn
 ft
 jB
-sk
-sk
-Ol
-Ol
-Ol
-Ol
-eB
-eB
-eB
+YT
+YT
+Pf
+Pf
+Pf
+Pf
+Jo
+Jo
+Jo
 AD
-sk
+YT
+iZ
 ab
 ab
-bD
 bD
 bD
 bn
@@ -9088,8 +9246,8 @@ bD
 bD
 bA
 bD
-ab
-iZ
+YT
+YT
 ab
 qn
 qn
@@ -9105,9 +9263,9 @@ jB
 jB
 jB
 jB
-zv
+OT
 JW
-zv
+OT
 jB
 jB
 jB
@@ -9118,21 +9276,21 @@ Dy
 GI
 sE
 sk
-sk
-Ol
-Ol
-Ol
-eB
-eB
-eB
-eB
-eB
+YT
+Pf
+Pf
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
 AD
-sk
+YT
 ab
 ab
 ab
-bD
+ab
 ab
 ab
 ab
@@ -9158,7 +9316,7 @@ bD
 bD
 bn
 bD
-iZ
+YT
 iZ
 qn
 qn
@@ -9171,14 +9329,14 @@ jB
 ta
 Zf
 Sl
-Bf
+QK
 WH
 Zf
 Zf
 Zf
-Bf
+QK
 Zf
-Bf
+QK
 Zf
 pz
 bP
@@ -9187,22 +9345,22 @@ nK
 We
 sk
 sk
-Ol
-Ol
-eB
-eB
-eB
-eB
-eB
-eB
-eB
+Pf
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 AD
-sk
-sk
-ab
-ab
+YT
+YT
 ab
 iZ
+ab
+ab
 iZ
 iZ
 bD
@@ -9227,7 +9385,7 @@ ab
 bD
 bD
 bD
-ab
+YT
 ab
 qn
 qn
@@ -9240,14 +9398,14 @@ jB
 Zx
 qG
 PR
-nE
-nE
-nE
+RC
+RC
+RC
 jZ
 Ck
 Ck
 hu
-tt
+RC
 tt
 jB
 qQ
@@ -9256,26 +9414,26 @@ sk
 sk
 sk
 Va
-eB
-eB
-eB
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 oH
-eB
+Jo
 ka
 JA
-sk
+YT
 ab
-ab
-ab
-ab
+iZ
+iZ
 bD
 bD
 bD
 bD
+XE
 bD
 bD
 bD
@@ -9287,16 +9445,16 @@ iZ
 iZ
 ab
 bD
-ZH
+bD
 bD
 bD
 bD
 iZ
 iZ
-aM
+ab
 bD
-ab
-ab
+YT
+YT
 ab
 qn
 qn
@@ -9322,32 +9480,32 @@ jB
 sk
 sk
 sk
-Ol
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 NY
 UB
-eB
-eB
+Jo
+Jo
 AD
-sk
-sk
+YT
+YT
+iZ
+bD
+bD
+bD
+bD
+bD
+bD
+ab
 ab
 iZ
-bD
-bD
-bD
-bD
-bD
-ab
-ab
-iZ
 iZ
 iZ
 iZ
@@ -9359,12 +9517,12 @@ bD
 bD
 bD
 bD
-ZH
+bD
 Ln
 ab
-aM
 ab
-ab
+YT
+YT
 qn
 ab
 qn
@@ -9389,26 +9547,26 @@ GM
 oP
 jB
 sk
-Ol
-Ol
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
+Pf
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 ka
 tJ
-sk
+YT
 ab
-iZ
+bD
 bD
 bD
 bD
@@ -9432,7 +9590,7 @@ bA
 bD
 bD
 ab
-ab
+YT
 qn
 qn
 qn
@@ -9458,26 +9616,26 @@ zs
 BN
 jB
 jB
-jB
+IK
 Lz
 NY
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 NY
 qR
 AD
-sk
+YT
 ab
-ab
+bD
 bD
 bD
 bD
@@ -9501,7 +9659,7 @@ bD
 bD
 bn
 ab
-ab
+YT
 qn
 ab
 qn
@@ -9528,28 +9686,28 @@ Ik
 No
 LJ
 FN
-eB
+Jo
 nR
 oH
 NY
-eB
-eB
-eB
+Jo
+Jo
+Jo
 rh
-eB
-eB
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
 NY
 AD
-sk
-ab
+YT
 ab
 bD
 bD
-ab
+bD
+bD
 iZ
 ab
 aC
@@ -9568,9 +9726,9 @@ iZ
 iZ
 bD
 bD
-bD
-ab
-ab
+XE
+YT
+YT
 qn
 qn
 qn
@@ -9597,28 +9755,28 @@ Ik
 No
 na
 FN
-eB
-eB
+Jo
+Jo
 NY
-eB
-eB
-eB
-rj
-rj
-Ol
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Om
+Om
+Pf
+Jo
+Jo
+Jo
 NY
-eB
-eB
+Jo
+Jo
 AD
-sk
-iZ
-bD
-bD
-bD
+YT
 ab
+ab
+bD
+bD
+bD
 ab
 bg
 bj
@@ -9637,8 +9795,8 @@ iZ
 ab
 ab
 bD
-ab
-iZ
+YT
+YT
 iZ
 ab
 qn
@@ -9666,28 +9824,28 @@ Ik
 No
 na
 FN
-eB
-eB
-eB
-eB
-eB
-rj
-rj
-rj
-rj
-rj
-eB
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Jo
+Jo
+Om
+Om
+Om
+Om
+Om
+Jo
+Jo
+Jo
+Jo
+Jo
 AD
-sk
-sk
-bD
-ZH
-bD
+YT
+YT
 ab
+bD
+XE
+bD
 ab
 zt
 Dr
@@ -9706,7 +9864,7 @@ iZ
 ab
 ab
 ab
-ab
+YT
 iZ
 iZ
 iZ
@@ -9734,29 +9892,29 @@ Iv
 Ra
 jB
 jB
-jB
+IK
 Lz
 oH
-eB
-eB
-eB
-rj
-Ol
-Ol
-rj
-Ol
-Ol
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Om
+Pf
+Pf
+Om
+Pf
+Pf
+Jo
+Jo
+Jo
+Jo
 ka
 AZ
-sk
-bD
-bD
-bD
+YT
 ab
+bD
+bD
+bD
 ab
 Rc
 pP
@@ -9772,10 +9930,10 @@ bD
 ab
 aM
 iZ
-ab
-ab
-ab
-ab
+YT
+YT
+YT
+YT
 ab
 iZ
 iZ
@@ -9803,29 +9961,29 @@ jB
 jB
 jB
 rj
-Ol
-Ol
-eB
-eB
+Pf
+Pf
+Jo
+Jo
 NY
-eB
-eB
-rj
-Ol
-Ol
-Ol
-rj
-rj
+Jo
+Jo
+Om
+Pf
+Pf
+Pf
+Om
+Om
 Va
-eB
-eB
-eB
-eB
-sk
-bn
+Jo
+Jo
+Jo
+Jo
+YT
+iZ
+ab
 bD
-bA
-bD
+ab
 ab
 sZ
 tf
@@ -9839,9 +9997,9 @@ bD
 bD
 aM
 aM
-aM
-aM
-aM
+YT
+YT
+YT
 bD
 bD
 bD
@@ -9873,28 +10031,28 @@ sk
 sk
 sk
 sk
-Ol
-Ol
-eB
-eB
-eB
-eB
-eB
-Ol
-rj
-rj
-rj
-rj
-eB
-eB
-eB
-eB
-eB
-sk
+Pf
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
+Pf
+Om
+Om
+Om
+Om
+Jo
+Jo
+Jo
+Jo
+Jo
+YT
+iZ
+iZ
 ab
-bD
-bD
-bD
+ab
 ab
 af
 aT
@@ -9904,11 +10062,11 @@ tO
 bM
 bY
 bD
-aM
-aM
-aM
-aM
-aM
+YT
+YT
+YT
+YT
+YT
 bD
 bD
 bD
@@ -9945,24 +10103,24 @@ sk
 sk
 sk
 sk
-Ol
-eB
-eB
-eB
-eB
-eB
-rj
-rj
-eB
-eB
-eB
-eB
-eB
-eB
-sk
+Pf
+Jo
+Jo
+Jo
+Jo
+Jo
+Om
+Om
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+YT
 ab
 ab
-iZ
+ab
 ab
 ab
 Jl
@@ -9971,11 +10129,11 @@ bM
 XO
 tb
 tb
-aM
-aM
-aM
-aM
-aM
+YT
+YT
+YT
+YT
+YT
 bD
 bD
 bD
@@ -10017,22 +10175,22 @@ sk
 sk
 Th
 Qk
-eB
-eB
-eB
-eB
+Jo
+Jo
+Jo
+Jo
 vQ
-eB
-eB
-eB
+Jo
+Jo
+Jo
 NY
-eB
-eB
-sk
+Jo
+Jo
+YT
+YT
 ab
 ab
-iZ
-iZ
+ab
 ab
 ab
 bz
@@ -10040,10 +10198,10 @@ bh
 bu
 bD
 bD
+YT
+YT
 aM
-aM
-aM
-ai
+YT
 bD
 bD
 bD
@@ -10087,22 +10245,22 @@ sk
 rj
 gP
 Qk
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-sk
-sk
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+YT
+YT
+YT
+YT
+YT
 ab
-aM
-aM
-aM
 ab
 bD
 bD
@@ -10110,9 +10268,9 @@ bD
 bD
 bD
 bD
+YT
 aM
-aM
-ai
+YT
 bw
 bD
 bD
@@ -10156,22 +10314,22 @@ sk
 rj
 rj
 bT
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-sk
-sk
-aM
-aM
-ab
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+YT
+YT
+YT
+YT
+YT
 iZ
 iZ
 bD
@@ -10179,9 +10337,9 @@ bQ
 bA
 bD
 bD
-aM
-ai
-ai
+YT
+YT
+YT
 bw
 bw
 bD
@@ -10223,24 +10381,24 @@ Fk
 MS
 sk
 rj
-Ol
+Pf
 gP
 Qk
-eB
+Jo
 NY
 fp
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-Ol
-sk
-aM
-ab
-ab
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Pf
+YT
+YT
+YT
+YT
 iZ
 bD
 bD
@@ -10248,8 +10406,8 @@ bn
 bD
 bD
 bD
-aM
-ai
+YT
+YT
 bw
 bw
 bw
@@ -10292,24 +10450,24 @@ Fk
 Fk
 sk
 sk
-Ol
-Ol
+Pf
+Pf
 bT
-eB
-eB
+Jo
+Jo
 oH
-eB
-eB
+Jo
+Jo
 Qa
-eB
-eB
+Jo
+Jo
 NY
-eB
-Ol
-sk
-ab
-iZ
-ab
+Jo
+Pf
+YT
+YT
+YT
+YT
 bD
 bD
 bD
@@ -10318,8 +10476,8 @@ bD
 bD
 bn
 bD
-ai
-bR
+YT
+vs
 bw
 bw
 bD
@@ -10362,23 +10520,23 @@ Fk
 Fk
 sk
 rj
-Ol
+Pf
 Yv
 ph
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-Ol
-Ol
-sk
-ab
-iZ
-ab
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Pf
+Pf
+YT
+YT
+YT
+YT
 bD
 bD
 bD
@@ -10387,7 +10545,7 @@ bD
 bD
 bD
 bD
-ai
+YT
 bw
 bw
 bD
@@ -10432,21 +10590,21 @@ Fk
 sk
 rj
 rj
-Ol
+Pf
 gP
 Qk
-eB
-eB
-eB
-eB
-eB
-eB
-eB
-Ol
-sk
-ai
-aM
-ab
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+Pf
+YT
+YT
+YT
+YT
 bD
 bA
 bD
@@ -10456,7 +10614,7 @@ bD
 bD
 bD
 bD
-ai
+YT
 bw
 bw
 bD
@@ -10504,19 +10662,19 @@ rj
 rj
 rj
 bT
-eB
-eB
+Jo
+Jo
 qV
-eB
-eB
-eB
+Jo
+Jo
+Jo
 qV
-Ol
-sk
-aM
-aM
-aM
-aM
+Pf
+YT
+YT
+YT
+YT
+YT
 bD
 bn
 bD
@@ -10524,8 +10682,8 @@ bD
 Kq
 bD
 bD
-ai
-ai
+YT
+YT
 bw
 bw
 bD
@@ -10574,18 +10732,18 @@ sk
 rj
 rj
 rj
-eB
+Jo
 jB
 fF
 fF
 fF
 jB
-sk
-sk
-aM
-aM
-aM
-aM
+YT
+YT
+YT
+YT
+YT
+YT
 bD
 bD
 bQ
@@ -10593,7 +10751,7 @@ bD
 aF
 Oe
 bD
-ai
+YT
 aM
 bw
 bA
@@ -10642,18 +10800,18 @@ Tg
 sk
 sk
 sk
-jB
-jB
-jB
-na
-na
+yo
+yo
+yo
+Qr
+Qr
 yb
-jB
-jB
-jB
-aM
-aM
-aM
+yo
+yo
+yo
+YT
+YT
+YT
 aM
 aM
 aM
@@ -10661,8 +10819,8 @@ bD
 bD
 bF
 bN
-ai
-ai
+YT
+YT
 aM
 aM
 bD
@@ -10711,7 +10869,7 @@ Tg
 Tg
 sk
 sk
-jB
+yo
 PE
 kE
 Sz
@@ -10719,18 +10877,18 @@ wo
 wo
 oj
 gq
-jB
+yo
+YT
+YT
+YT
 aM
 aM
-aM
-aM
-aM
-ai
-ai
+YT
+YT
 bw
 cZ
 bN
-ai
+YT
 aM
 aM
 aM
@@ -10780,27 +10938,27 @@ Tg
 Tg
 Tg
 sk
-jB
+yo
 Yc
-aY
+oe
 ps
-nK
+Gp
 Cn
-aY
+oe
 pk
-jB
-aM
-aM
-aM
-ai
-ai
-ai
+yo
+YT
+YT
+YT
+YT
+YT
+YT
 bw
 bw
 cZ
 bN
-ai
-ai
+YT
+YT
 aM
 aM
 bn
@@ -10849,19 +11007,19 @@ UA
 cm
 Tg
 sk
-jB
+yo
 ye
-LA
+Ms
 IR
-Fi
+Ac
 MR
-LA
+Ms
 Yk
-jB
-ai
-ai
-ai
-ai
+yo
+YT
+YT
+YT
+YT
 bw
 bw
 bw
@@ -10869,7 +11027,7 @@ bw
 cZ
 bN
 jA
-ai
+YT
 aM
 aM
 aM
@@ -10918,17 +11076,17 @@ Ch
 Tg
 Tg
 Tg
-jB
-jB
+yo
+yo
 zY
-nK
-aY
-nK
+Gp
+oe
+Gp
 rT
-jB
-jB
-ai
-ai
+yo
+yo
+YT
+YT
 bw
 bw
 bw
@@ -10938,7 +11096,7 @@ bw
 Xo
 Qb
 bN
-ai
+YT
 aM
 bw
 bw
@@ -10988,15 +11146,15 @@ Tg
 sk
 Tg
 Tg
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-sk
-ai
+yo
+yo
+yo
+yo
+yo
+yo
+yo
+YT
+YT
 lY
 bw
 bw
@@ -11007,7 +11165,7 @@ bw
 bw
 cZ
 bN
-ai
+YT
 bw
 bw
 bw
@@ -11058,20 +11216,20 @@ sk
 Tg
 Tg
 mg
-sk
-sk
-ai
-ai
-ai
-ai
-ai
+YT
+YT
+YT
+YT
+YT
+YT
+YT
 bw
 bw
 bw
 bw
 bw
 bw
-ai
+YT
 bw
 bw
 cZ
@@ -11128,8 +11286,8 @@ mg
 vu
 mg
 sk
-ai
-ai
+YT
+YT
 lY
 bw
 bw
@@ -11139,9 +11297,9 @@ bw
 bw
 bw
 am
-ai
-ai
-ai
+YT
+YT
+YT
 bw
 Xo
 Qb
@@ -11207,10 +11365,10 @@ bw
 bw
 bw
 bw
-ai
-ai
-ai
-ai
+YT
+YT
+YT
+YT
 bR
 bw
 cZ
@@ -11276,9 +11434,9 @@ jB
 FC
 sv
 bw
-ai
-ai
-ai
+YT
+YT
+YT
 bn
 bw
 bw
@@ -11346,8 +11504,8 @@ jB
 ad
 bw
 bn
-ai
-ai
+YT
+YT
 bw
 bw
 ak
@@ -11415,8 +11573,8 @@ jB
 GL
 bw
 bw
-ai
-ai
+YT
+YT
 bR
 bw
 cZ
@@ -11474,7 +11632,7 @@ ZS
 vc
 sk
 sk
-ai
+YT
 jB
 pg
 es
@@ -11542,8 +11700,8 @@ sk
 sk
 sk
 sk
-ai
-ai
+YT
+YT
 jB
 Kh
 VX
@@ -11610,9 +11768,9 @@ Od
 sk
 jB
 sk
-ai
-ai
-ai
+YT
+YT
+YT
 jB
 aV
 ax
@@ -11679,9 +11837,9 @@ Wn
 Wn
 jB
 jB
-ai
-ai
-ai
+YT
+YT
+YT
 jB
 ap
 yf
@@ -11748,9 +11906,9 @@ Wn
 Wn
 Wn
 jB
-ai
-ai
-ai
+YT
+YT
+YT
 jB
 ao
 sh
@@ -11817,9 +11975,9 @@ MU
 YQ
 qm
 jB
-ai
-ai
-ai
+YT
+YT
+YT
 jB
 eF
 LM
@@ -11829,8 +11987,8 @@ Mf
 dA
 xY
 jB
-ai
-ai
+YT
+YT
 bw
 bw
 bw
@@ -11882,7 +12040,7 @@ nJ
 pj
 VP
 CG
-ne
+bU
 yP
 wh
 jB
@@ -11898,9 +12056,9 @@ jB
 jB
 jB
 jB
-ai
-ai
-ai
+YT
+YT
+YT
 bw
 bw
 bw
@@ -11951,7 +12109,7 @@ bP
 Zp
 tF
 zL
-rI
+lA
 yS
 Yo
 jB
@@ -11967,11 +12125,11 @@ JH
 JH
 je
 jB
-ai
-ai
-ai
-ai
-ai
+YT
+YT
+YT
+YT
+YT
 bw
 jB
 SX
@@ -12036,12 +12194,12 @@ jF
 ew
 DC
 jB
-ai
-ai
-ai
-ai
-ai
-ai
+YT
+YT
+YT
+YT
+YT
+YT
 jB
 jB
 bR
@@ -12390,11 +12548,11 @@ oI
 oI
 yZ
 To
-bc
+pw
 al
-wh
+eW
 al
-bU
+uK
 To
 wh
 Fi
@@ -12459,11 +12617,11 @@ bU
 vL
 nM
 jB
-bP
-wh
-dd
-bP
-bP
+HI
+eW
+uS
+HI
+HI
 jB
 LT
 aQ
@@ -12528,11 +12686,11 @@ aY
 bU
 ag
 mc
-aQ
+Dv
 iJ
 mN
 iJ
-bU
+uK
 To
 bP
 nK
@@ -12598,9 +12756,9 @@ aQ
 rQ
 jB
 Fr
-aQ
-bU
-bU
+Dv
+uK
+uK
 ja
 jB
 cc
@@ -12939,7 +13097,7 @@ RK
 RK
 jB
 AT
-dR
+bU
 Ld
 sH
 UM
@@ -13019,7 +13177,7 @@ bU
 aQ
 vL
 aQ
-jv
+bU
 YA
 wz
 jB
