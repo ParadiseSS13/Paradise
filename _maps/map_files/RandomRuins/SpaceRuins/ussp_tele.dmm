@@ -275,6 +275,7 @@
 /obj/structure/railing/cap/reversed{
 	dir = 1
 	},
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
