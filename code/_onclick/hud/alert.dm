@@ -615,9 +615,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/ghost
 	name = "Ghost"
-	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	desc = "Would you like to ghost?"
 	icon_state = "template"
-	timeout = 5 MINUTES // longer than any infection should be
+	timeout = 5 MINUTES
 
 /atom/movable/screen/alert/ghost/Initialize(mapload)
 	. = ..()
@@ -626,7 +626,21 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
+/atom/movable/screen/alert/ghost/proc/handle_ghosting(mob/living/carbon/human/target)
+	target.ghost()
+
 /atom/movable/screen/alert/ghost/Click()
+	if(!..())
+		return
+	handle_ghosting(usr)
+
+/atom/movable/screen/alert/ghost/cryo
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+
+/atom/movable/screen/alert/ghost/xeno
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+
+/atom/movable/screen/alert/ghost/xeno/Click()
 	if(!..())
 		return
 	var/mob/living/carbon/human/infected_user = usr
