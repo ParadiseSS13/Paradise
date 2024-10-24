@@ -180,17 +180,17 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 /obj/machinery/field/generator/proc/calc_energy()
 	var/power_draw = 2 + length(fields)
 
-	if(draw_power(round(power_draw/2, 1)))
+	if(draw_power(round(power_draw / 2, 1)))
 		spread_energy()
 		check_energy_level()
-		return 1
+		return TRUE
 	else
 		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of energy and <font color='red'>deactivated</font>","singulo")
 		energy = 0
 		check_energy_level()
-		return 0
+		return FALSE
 
 /**
 * Draws power. If there isn't enough energy to sustain the draw, draw from connected generators, up to 3 generators away.
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 /// Sends energy to every neighbour that has less energy
 /obj/machinery/field/generator/proc/spread_energy()
 	for(var/obj/machinery/field/generator/gen as anything in connected_gens)
-		if(energy > gen.energy)
+		if(energy > gen.energy + 3)
 			var/diff = min(energy - gen.energy, FIELD_GENERATOR_MAX_ENERGY - gen.energy)// We don't want to delete energy
 			gen.energy += diff / 2
 			energy -= diff / 2
