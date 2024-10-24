@@ -96,6 +96,5 @@
 				return
 			decalselection = replacetext(decalselection, " ", "_")
 			decalselection = lowertext(decalselection)
-			icon_opened = ("cardboard_open_"+decalselection)
-			icon_closed = ("cardboard_"+decalselection)
+			custom_skin = "_[decalselection]"
 			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
