@@ -642,7 +642,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Toggle Floor Bolts"
 
 	if(check_unable())
-		to_chat(src, "<span class='warning'>You are dead!</span>")
 		return
 
 	if(!isturf(loc)) // if their location isn't a turf
