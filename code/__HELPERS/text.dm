@@ -463,7 +463,12 @@
 			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
 			text = replacetext(text, "\[/signfont\]",		"</i></font>")
 	if(sign)
-		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
+		if(istype(P, /obj/item/pen/chameleon)) // if we are using chameleon pen use fake name from the pen
+			var/obj/item/pen/chameleon/chameleon_pen = P
+			// small tip for a player if the left forge_name empty
+			text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[chameleon_pen.forge_name ? chameleon_pen.forge_name : "No name was provided"]</i></font>")
+		else
+			text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
 		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 	if(format)
