@@ -6,7 +6,7 @@
  */
 
 import { useBackend } from '../../backend';
-import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Section } from '../../components';
+import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Section, Stack } from '../../components';
 import { formatMoney, formatSiUnit, formatPower } from '../../format';
 import { Window } from '../../layouts';
 
@@ -110,7 +110,7 @@ const InputControls = (props, context) => {
 
 const OutputControls = (props, context) => {
   const { act, data } = useBackend(context);
-  const { output_total, firing, accepting_power, output_number, output_multiplier } = data;
+  const { output_total, firing, accepting_power, output_number, output_multiplier, target } = data;
 
   return (
     <Section title="Output Controls">
@@ -118,12 +118,20 @@ const OutputControls = (props, context) => {
         <LabeledList.Item
           label="Laser Circuit"
           buttons={
-            <Button
-              icon="power-off"
-              content={firing ? 'Enabled' : 'Disabled'}
-              color={firing ? 'green' : 'red'}
-              onClick={() => act('toggle_output')}
-            />
+            <Stack Horizontal>
+              <Button
+                icon="crosshairs"
+                content={target}
+                color={target === '' ? 'green' : 'red'}
+                onClick={() => act('target')}
+              />
+              <Button
+                icon="power-off"
+                content={firing ? 'Enabled' : 'Disabled'}
+                color={firing ? 'green' : 'red'}
+                onClick={() => act('toggle_output')}
+              />
+            </Stack>
           }
         >
           <Box color={(firing && 'good') || (accepting_power && 'average') || 'bad'}>

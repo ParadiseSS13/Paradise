@@ -67,6 +67,15 @@
 	var/input_pulling = 0
 	/// Announcement configuration for updates
 	var/datum/announcer/announcer
+	/// Targetable areas in lavaland
+	var/list/targetable_areas = list(/area/lavaland/surface/outdoors/outpost,
+									/area/lavaland/surface/outdoors/targetable,
+									/area/mine/outpost,
+									/area/shuttle/mining)
+	/// Megafauna being targeted
+	var/mob/living/simple_animal/hostile/megafauna/target
+	/// Overlay that goes over the mob that gets beamed
+	var/image/orbital_strike
 
 /obj/machinery/power/transmission_laser/north
 	pixel_x = -64
@@ -111,7 +120,7 @@
 
 /obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/I)
 	if(firing)
-		to_chat(user,"<span class='info'>Turn the laser off first<span/>")
+		to_chat(user,"<span class='info'>Turn the laser off first.<span/>")
 		return
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
@@ -283,6 +292,7 @@
 	data["accepting_power"] = turned_on
 	data["sucking_power"] = inputting
 	data["firing"] = firing
+	data["target"] = target ? target.internal_gps.gpstag : ""
 
 	data["power_format"] = power_format_multi
 	data["input_number"] = input_number
@@ -309,6 +319,8 @@
 			else
 				setup_lasers()
 			update_icon()
+		if("target")
+			target(usr)
 
 		if("set_input")
 			input_number = clamp(params["set_input"], 0, 999) //multiplies our input by if input
@@ -332,6 +344,34 @@
 			power_format_multi_output = 1 MW
 		if("outputGW")
 			power_format_multi_output = 1 GW
+
+/// Target a megafauna in the mining base or its immediate vicinity
+/obj/machinery/power/transmission_laser/proc/target(mob/user)
+	var/list/target_list = list()
+	for(var/monster_id in GLOB.alive_megafauna_list)
+		var/mob/living/simple_animal/hostile/megafauna/monster = locateUID(monster_id)
+		var/area/boss_loc = get_area(monster)
+		for(var/area_type in targetable_areas)
+			if(istype(boss_loc, area_type))
+				target_list[monster.internal_gps.gpstag] = monster
+	// Target CC to sell power
+	target_list["Collection Terminal"] = null
+
+	var/choose = tgui_input_list(user, "Select target", "Target", target_list)
+	if(!choose)
+		return
+	target = target_list[choose]
+	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(untarget))
+	if(firing)
+		orbital_strike = image('icons/goonstation/effects/pt_beam.dmi', target, "ptl_beam", FLY_LAYER, SOUTH)
+		target.add_overlay(orbital_strike)
+
+/// Stop targeting a mob once it dies
+/obj/machinery/power/transmission_laser/proc/untarget()
+	SIGNAL_HANDLER
+	target.cut_overlay(orbital_strike)
+	UnregisterSignal(target, COMSIG_MOB_DEATH)
+	target = null
 
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = get_surplus()
@@ -375,7 +415,14 @@
 
 	output_level = min(charge, output_number * power_format_multi_output)
 
-	sell_power(output_level * WATT_TICK_TO_JOULE)
+	if(firing)
+		if(!target)
+			sell_power(output_level * WATT_TICK_TO_JOULE)
+		else
+			if(!QDELETED(target))
+				target.adjustFireLoss(10 * output_level / (1 MW))
+			else
+				target = null
 
 	charge -= output_level
 
@@ -424,6 +471,9 @@
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
 	if(charge < 1 MJ) // We don't have enough power to setup the beam and we aren't receiving any.
 		return
+	if(target)
+		orbital_strike = image('icons/goonstation/effects/pt_beam.dmi', target, "ptl_beam", FLY_LAYER, SOUTH)
+		target.add_overlay(orbital_strike)
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	for(var/num in 1 to range)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
@@ -435,6 +485,8 @@
 		last_step = get_step(last_step, dir)
 
 /obj/machinery/power/transmission_laser/proc/destroy_lasers()
+	if(target)
+		target.cut_overlay(orbital_strike)
 	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
 		laser_effects -= listed_beam
 		qdel(listed_beam)

@@ -47,6 +47,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
+	GLOB.alive_megafauna_list |= UID()
 	if(internal_gps && true_spawn)
 		internal_gps = new internal_gps(src)
 	for(var/action_type in attack_action_types)
@@ -57,6 +58,7 @@
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
 	UnregisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET)
+	GLOB.alive_megafauna_list -= UID()
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
@@ -86,6 +88,7 @@
 					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
+	GLOB.alive_megafauna_list -= UID()
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
