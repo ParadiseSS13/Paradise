@@ -116,7 +116,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/output
-	output += "<!DOCTYPE html><form method='GET' name='search' action='?'>\
+	output += "<!DOCTYPE html><meta charset='UTF-8'><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
@@ -142,6 +142,6 @@
 		output += "<b>[ckey]</b> | Added by <b>[adminckey]</b> on <b>[timestamp]</b> <a href='byond://?_src_=holder;watchremovebrowse=[ckey]'>\[Remove\]</a> <a href='byond://?_src_=holder;watcheditbrowse=[ckey]'>\[Edit Reason\]</a>"
 		if(last_editor)
 			output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
-		output += "<html><meta charset='utf-8'><br>[reason]<hr style='background:#000000; border:0; height:1px'>"
+		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
 	usr << browse(output, "window=watchwin;size=900x500")
 	qdel(query_watchlist)
