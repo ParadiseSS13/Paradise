@@ -18,7 +18,7 @@
 
 	// Variables go below here
 	/// How far we shoot the beam. If it isn't blocked it should go to the end of the z level.
-	var/range = -1
+	var/range = 0
 	/// Amount of power we are outputting
 	var/output_level = 0
 	/// The total capacity of the laser
@@ -103,6 +103,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	component_parts += new /obj/item/stock_parts/capacitor
 	announcer = new(config_type = /datum/announcement_configuration/ptl)
+	range = get_dist(get_front_turf(), get_edge_target_turf(get_front_turf(), dir))
 	if(!powernet)
 		connect_to_network()
 	handle_offset()
@@ -189,7 +190,6 @@
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
 	qdel(announcer)
-	blocker = null
 	if(length(laser_effects))
 		destroy_lasers()
 
@@ -306,6 +306,8 @@
 			firing = !firing
 			if(!firing)
 				destroy_lasers()
+			else
+				setup_lasers()
 			update_icon()
 
 		if("set_input")
@@ -420,10 +422,9 @@
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
-	if(charge < 1 MW && !inputting) // We don't have enough power to setup the beam and we aren't receiving any.
+	if(charge < 1 MJ) // We don't have enough power to setup the beam and we aren't receiving any.
 		return
 	var/turf/last_step = get_step(get_front_turf(), dir)
-	// Create new lasers from the starting point to either the blocker or the edge of the map
 	for(var/num in 1 to range)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
 			var/obj/effect/transmission_beam/new_beam = new(last_step, src)

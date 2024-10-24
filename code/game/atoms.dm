@@ -549,13 +549,6 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
-/// This is the default Power Transmission Laser action on atoms. Called when an atom enters the beam and while it's in the beam.
-/atom/proc/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = ptl.output_level / (1 MW)
-	fire_act(null, 3000 * mw_power, 2500) // Equivalent to being in a fire at a temperature of 3000 degrees kelvin per MW.
-	if(ptl.blocker && (ptl.blocker == UID())) // If this is the blocker we need to check if it was destroyed
-		ptl.check_blocker()
-
 /// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)

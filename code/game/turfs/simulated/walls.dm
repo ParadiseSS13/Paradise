@@ -568,11 +568,4 @@
 /turf/simulated/wall/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
 
-/// Walls take damage equivalent to power in megawatts divided by 5.
-/turf/simulated/wall/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = ptl.output_level / (1 MW)
-	take_damage(mw_power / 5) // Walls have less hp than machines yet are supposed to be harder to destroy. We compensate by making them take less damage.
-	if(ptl.blocker && (ptl.blocker == UID())) // If this is the blocker we need to check if it was destroyed
-		ptl.check_blocker()
-
 #undef MAX_DENT_DECALS

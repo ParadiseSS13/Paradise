@@ -452,12 +452,4 @@ Pipelines + Other Objects -> Pipe network
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
 
-/// Pipes, vents and other floor level things shouldn't be affected by the beam. Thing like thermomachine should be.
-/obj/machinery/atmospherics/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	// If we can walk over it the beam shouldn't touch it
-	if(!density)
-		return
-	. = ..()
-
-
 #undef VENT_SOUND_DELAY

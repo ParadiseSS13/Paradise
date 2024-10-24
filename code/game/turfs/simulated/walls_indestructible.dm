@@ -49,9 +49,6 @@
 /turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
-/turf/simulated/wall/indestructible/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	return
-
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
