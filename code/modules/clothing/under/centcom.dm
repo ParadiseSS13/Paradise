@@ -28,8 +28,8 @@
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom/ert/chaplain
-	name = "response team inquisitor uniform"
-	desc = "An armoured uniform designed for emergency response teams. This one belongs to an inquisitor."
+	name = "response team chaplain uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to a chaplain."
 	icon_state = "ert_chaplain"
 	item_state = "ert_chaplain"
 	item_color = "ert_chaplain"

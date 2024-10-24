@@ -249,7 +249,7 @@
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
+/obj/effect/temp_visual/tarot_preview/Initialize(mapload, new_icon_state)
 	. = ..()
 	if(new_icon_state)
 		icon_state = "tarot_[new_icon_state]"

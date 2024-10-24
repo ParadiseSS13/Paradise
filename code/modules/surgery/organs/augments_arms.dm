@@ -820,7 +820,7 @@
 	actions_types = list()
 	var/datum/martial_art/muscle_implant/muscle_implant
 
-/obj/item/organ/internal/cyberimp/arm/muscle/Initialize()
+/obj/item/organ/internal/cyberimp/arm/muscle/Initialize(mapload)
 	. = ..()
 	muscle_implant = new()
 
