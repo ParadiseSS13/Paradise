@@ -641,7 +641,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
 
-	if(stat) // Can't toggle bolts if you're dead
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>You are dead!</span>")
 		return
 
 	if(!isturf(loc)) // if their location isn't a turf
