@@ -9799,6 +9799,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/ghost_bar/indoor)
 "Hz" = (
+/turf/simulated/floor/plasteel/stairs,
 /area/ghost_bar/outdoor/beach)
 "HA" = (
 /obj/item/pickaxe,
