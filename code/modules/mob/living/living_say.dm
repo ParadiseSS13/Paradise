@@ -237,6 +237,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/list/listening = list()
 	var/list/listening_obj = list()
 
+	message_range += extra_message_range
+
 	if(T)
 		//make sure the air can transmit speech - speaker's side
 		var/datum/gas_mixture/environment = T.get_readonly_air()

@@ -91,3 +91,15 @@
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	icon_prefix = "plasma"
 	welded_type = /obj/item/stack/sheet/plasmaglass
+
+/obj/item/shard/scrap
+	name = "sharpened scrap"
+	desc = "Some discarded scrap metal. It has sharp, jagged edges."
+	icon_state = "scrap"
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
+	welded_type = /obj/item/stack/sheet/metal
+	force = 9
+	throwforce = 15 //owie
+
+/obj/item/shard/scrap/set_initial_icon_state()
+	return
