@@ -82,7 +82,7 @@ const CrewMonitorDataView = (_properties, context) => {
   const crew = sortBy(
     (cm) => !highlightedNames.includes(cm.name),
     (cm) => cm.name
-  )(data.crewmembers || []);
+  )(data.crewmembers || []);-
   const [search, setSearch] = useLocalState(context, 'search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
