@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(maprotate)
 				for(var/datum/god_I_hate as anything in potential_maps)
 					if("[god_I_hate]" == "[this_map]")
 						placed_vote = TRUE
-						potential_maps[god_I_hate] ++ // We give it an assigned value that increases
+						potential_maps[god_I_hate]++ // We give it an assigned value that increases
 						break // We found the right map
 					continue
 				if(placed_vote)

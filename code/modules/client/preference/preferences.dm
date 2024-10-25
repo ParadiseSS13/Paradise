@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Map Settings</h2>"
-			dat += " - <b>Chose your map preferences!:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
+			dat += " - <b>Choose your map preferences:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
