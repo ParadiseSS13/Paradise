@@ -24,3 +24,8 @@
 	name = "mapmanip helper marker, edge of submap"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mapmanip_submap_edge"
+
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge/Initialize(mapload)
+	. = ..()
+	qdel(src)
+
