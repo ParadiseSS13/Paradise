@@ -40,7 +40,7 @@
 	if(icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
 
-/obj/item/shard/Initialize()
+/obj/item/shard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 	set_initial_icon_state()
