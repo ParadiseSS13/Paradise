@@ -951,8 +951,8 @@
 						potential_maps += M
 
 					var/loops = 0
-					for(var/i = length(potential_maps), i--)
-						var/their_pick = input("Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps") as null|anything in potential_maps
+					var/list/output = tgui_input_ranked_list(usr, "Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps", potential_maps)
+					for(var/their_pick in output)
 						loops++
 						potential_maps -= their_pick
 						map_vote_pref_json += their_pick
