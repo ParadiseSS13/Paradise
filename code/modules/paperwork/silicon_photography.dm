@@ -114,7 +114,7 @@
 
 /obj/item/camera/siliconcam/ai_camera/verb/change_lens()
 	set category = "AI Commands"
-	set name = "Change Photo Size"
+	set name = "Set Photo Focus"
 	set desc = "Changes the lens size of your photo camera"
 
 	change_size()
@@ -142,7 +142,7 @@
 
 /obj/item/camera/siliconcam/robot_camera/verb/change_lens()
 	set category = "Robot Commands"
-	set name = "Change Photo Size"
+	set name = "Set Photo Focus"
 	set desc = "Changes the lens size of your photo camera"
 
 	change_size()
