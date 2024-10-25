@@ -253,15 +253,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
-"es" = (
-/obj/structure/bed,
-/obj/item/bedsheet/brown,
-/obj/machinery/status_display{
-	pixel_x = 0;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "eA" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/foyer)
@@ -390,10 +381,6 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
-"gv" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/telecomms/computer)
 "gG" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -474,6 +461,12 @@
 "iE" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"iP" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "iR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -746,12 +739,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
-"nB" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "nD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -809,10 +796,6 @@
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
-"ob" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/computer)
 "oe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1257,11 +1240,6 @@
 "ux" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/computer)
-"uF" = (
-/obj/machinery/economy/vending/cola,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "uM" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/foyer)
@@ -1363,12 +1341,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
-"wd" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "wh" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1504,10 +1476,7 @@
 	id = "dvorak";
 	id_tag = "dvorak"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/computer)
 "yh" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -1544,12 +1513,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
-"yB" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "yC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1654,11 +1617,6 @@
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/chamber)
-"zY" = (
-/obj/structure/bed,
-/obj/item/bedsheet/green,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Ac" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1711,7 +1669,6 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Aj" = (
-/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/engine,
 /area/ruin/space/telecomms/computer)
 "Ay" = (
@@ -1945,6 +1902,12 @@
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
+"Dv" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "Dy" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -2064,14 +2027,6 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
-"FP" = (
-/obj/item/cigbutt,
-/obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Ga" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2248,6 +2203,10 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/tele)
+"HQ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/vendor_room,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "HR" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2338,12 +2297,6 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
-"Jo" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Jz" = (
 /obj/structure/closet/malf/suits,
 /turf/simulated/floor/plasteel,
@@ -2392,12 +2345,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
-"Kb" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Kc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -2676,10 +2623,6 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
-"Pe" = (
-/obj/machinery/economy/vending/wallmed/directional/south,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Pl" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
@@ -2704,12 +2647,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
-"PL" = (
-/obj/structure/bed,
-/obj/item/bedsheet/red,
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "PQ" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/tele)
@@ -2773,17 +2710,6 @@
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
-"Qr" = (
-/obj/machinery/economy/vending/snack/trapped,
-/obj/item/radio/intercom{
-	name = "station intercom (General)";
-	pixel_x = -28;
-	pixel_y = 0;
-	broadcasting = 1
-	},
-/obj/structure/environmental_storytelling_holopad/vendor,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "Qx" = (
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
@@ -2885,12 +2811,6 @@
 /area/space/nearstation/no_teleport)
 "RB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
-"RD" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
-/obj/item/storage/firstaid/ert,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "RW" = (
@@ -3117,10 +3037,6 @@
 	},
 /turf/space,
 /area/space/no_teleport)
-"VB" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "VO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3347,12 +3263,6 @@
 /obj/effect/spawner/random_spawners/oil_often,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
-"ZE" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
 "ZQ" = (
 /obj/machinery/power/solar_control/autostart{
 	name = "Telecoms Solar Control"
@@ -8193,10 +8103,10 @@ ik
 ux
 ux
 Aj
+Hr
 ux
 ux
-ux
-ux
+HQ
 Zu
 fq
 EM
@@ -8283,12 +8193,12 @@ XP
 xa
 ik
 ux
-zY
-VB
-Qr
+Pl
+Pl
+Pl
 qo
-wd
-gv
+Pl
+ux
 Zu
 Zu
 Zu
@@ -8375,12 +8285,12 @@ XP
 xa
 ik
 ux
-nB
+Pl
 Pl
 Pl
 SH
-Pe
-Hr
+Pl
+ux
 QN
 QN
 QN
@@ -8466,8 +8376,8 @@ XP
 XP
 xa
 ik
-ux
-es
+iP
+Pl
 Pl
 Pl
 Kc
@@ -8562,9 +8472,9 @@ ux
 Pl
 Pl
 Pl
-Jo
-FP
-Hr
+Pl
+Pl
+ux
 EF
 PZ
 PZ
@@ -8651,12 +8561,12 @@ XP
 xa
 ik
 ux
-PL
 Pl
 Pl
-RD
-Kb
-Hr
+Pl
+Pl
+Pl
+ux
 yo
 Ed
 yh
@@ -8743,12 +8653,12 @@ XP
 xa
 ik
 ux
-uF
 Pl
-yB
-ZE
+Pl
+Pl
+Pl
 ul
-Hr
+ux
 WC
 yo
 yh
@@ -8836,8 +8746,8 @@ xa
 ik
 ux
 ux
-ob
 ux
+Dv
 ux
 iR
 ux
