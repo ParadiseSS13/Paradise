@@ -503,7 +503,7 @@
 	category = list("Misc. Machinery")
 
 /datum/design/nt_recruiter
-	name = "Machine Board (NT Recruiter Simulator Arcade Machine)"
+	name = "Machine Board (\improper NT Recruiter Simulator Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new NT Recruiter Simulator machine."
 	id = "arcademachinerecruiter"
 	req_tech = list("programming" = 1)

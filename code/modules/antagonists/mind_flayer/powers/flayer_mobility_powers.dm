@@ -61,22 +61,22 @@
 			break
 
 	if(!target)
-		should_recharge_after_cast = FALSE
 		flayer.send_swarm_message("That is not a valid target!")
 		return
 
 	if(!marked_computer)
 		marked_computer = target
 		flayer.send_swarm_message("You discreetly tap [targets[1]] and mark it as your home computer.")
-		should_recharge_after_cast = FALSE
 		return
+
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(user)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	var/turf/start_turf = get_turf(target)
 	var/turf/end_turf = get_turf(marked_computer)
 	if(end_turf.z != start_turf.z)
 		flayer.send_swarm_message("The connection between [target] and [marked_computer] is too unstable!")
 	if(!is_teleport_allowed(start_turf.z) || !is_teleport_allowed(end_turf.z))
-		should_recharge_after_cast = FALSE
 		return
 	user.visible_message(
 		"<span class='danger'>[user] de-materializes and jumps through the screen of [target]!</span>",
@@ -103,7 +103,7 @@
 		"<span class='warning'>[user] suddenly crawls through the monitor of [marked_computer]!</span>",
 		"<span class='notice'>As you reform yourself at [marked_computer] you feel the mark you left on it fade.</span>")
 	marked_computer = null
-	should_recharge_after_cast = TRUE
+	cooldown_handler.start_recharge()
 
 /datum/spell/flayer/computer_recall/AltClick(mob/user)
 	if(!marked_computer)
