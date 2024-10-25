@@ -4,6 +4,11 @@
 		/obj/item/seeds/cucumber = 3,)
 	. = ..()
 
+// Unsorted seeds
+/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
+	icon = template.icon
+
 // Buckwheat
 /obj/item/seeds/wheat/oat
 	mutatelist = list(/obj/item/seeds/wheat/buckwheat)
