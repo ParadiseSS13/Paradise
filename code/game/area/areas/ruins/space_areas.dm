@@ -219,6 +219,7 @@
 	name = "\improper Telecommunications Sat"
 	icon_state = "tcomms"
 	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
+	ambientsounds = list('sound/ambience/dvorak_ambience_final.ogg')
 
 /area/ruin/space/telecomms/powercontrol
 	name = "\improper Telecommunications Power Control"

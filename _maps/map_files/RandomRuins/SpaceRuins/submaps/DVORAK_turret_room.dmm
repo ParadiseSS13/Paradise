@@ -15,6 +15,10 @@
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
 /turf/template_noop,
 /area/template_noop)
+"d" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/template_noop,
+/area/template_noop)
 "g" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
@@ -4157,7 +4161,7 @@ a
 a
 a
 a
-a
+d
 a
 a
 a
@@ -4321,7 +4325,7 @@ a
 a
 a
 Y
-a
+d
 a
 a
 a
