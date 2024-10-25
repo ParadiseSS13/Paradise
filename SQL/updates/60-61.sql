@@ -1,4 +1,4 @@
-# Updates the DB from 59 to 60 ~Qwertytoforty
+# Updates the DB from 60 to 61 ~Qwertytoforty
 # Makes a table for map picks
 
 # Adds the table for it.
