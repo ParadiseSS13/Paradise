@@ -60,6 +60,51 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	if(active == FG_ONLINE)
 		calc_power()
 
+/**
+ * Gets a list of generators that form a field that is enclosing a given singularity, if such a field exists.
+ *
+ * Arguments:
+ * * _dir - The direction in which we are currently going
+ * * singulo - The singularity we are looking to contain
+ * * containment_gens - A list of generators which is the portion of the potential result we have so far.
+ */
+/obj/machinery/field/generator/proc/find_containment_gens(_dir, obj/singularity/singulo, list/containment_gens = list())
+	// We can't go in a direction that doesn't exist
+	if(!dir)
+		return
+
+	containment_gens |= src
+	// This is used to evaluate a path before returning it. We don't want to stop after the first dead end.
+	var/list/temp_gens = list()
+
+	for(var/obj/machinery/field/generator/gen in connected_gens)
+		// We don't ever want to do anything with the generator behind us so this check comes first
+		if(get_dir(src, gen) == turn(_dir, 180))
+			continue
+		// If we completed a full circle and it contains the singularity return it. Otherwise continue
+		if(gen in containment_gens)
+			if(singulo.in_containment(containment_gens))
+				return containment_gens
+			continue
+
+		// Go right if we can, forward if we can't go right, and left if we can't go forward
+		if(get_dir(src, gen) == turn(_dir, -90))
+			temp_gens = gen.find_containment_gens(turn(_dir, -90), singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+		if(get_dir(src, gen) == _dir)
+			temp_gens = gen.find_containment_gens(_dir, singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+		if(get_dir(src, gen) == turn(_dir, 90))
+			temp_gens = gen.find_containment_gens(turn(_dir, 90), singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+
+	// We got to a dead end, temp_gens should be empty here.
+	return temp_gens
+
+
 /obj/machinery/field/generator/attack_hand(mob/user)
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
@@ -71,7 +116,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
+				investigate_log("<font color='green'>activated</font> by [user.key].", "singulo")
 
 				add_fingerprint(user)
 	else
@@ -186,12 +231,12 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	else
 		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
-		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
+		investigate_log("ran out of power and <font color='red'>deactivated</font>", "singulo")
 		power = 0
 		check_power_level()
 		return 0
 
-//This could likely be better, it tends to start loopin if you have a complex generator loop setup.  Still works well enough to run the engine fields will likely recode the field gens and fields sometime -Mport
+// This could likely be better, it tends to start loopin if you have a complex generator loop setup.  Still works well enough to run the engine fields will likely recode the field gens and fields sometime -Mport
 /obj/machinery/field/generator/proc/draw_power(draw = 0, failsafe = 0, obj/machinery/field/generator/G = null, obj/machinery/field/generator/last = null)
 	if((G && (G == src)) || (failsafe >= 8))//Loopin, set fail
 		return 0
@@ -210,12 +255,12 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 			if(FG == last)//We just asked you
 				continue
 			if(G)//Another gen is askin for power and we dont have it
-				if(FG.draw_power(draw,failsafe,G,src))//Can you take the load
+				if(FG.draw_power(draw, failsafe ,G , src))//Can you take the load
 					return 1
 				else
 					return 0
 			else//We are askin another for power
-				if(FG.draw_power(draw,failsafe,src,src))
+				if(FG.draw_power(draw, failsafe, src, src))
 					return 1
 				else
 					return 0
@@ -272,11 +317,11 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 	T = loc
 	for(var/dist in 0 to steps) // creates each field tile
-		var/field_dir = get_dir(T,get_step(G.loc, NSEW))
+		var/field_dir = get_dir(T, get_step(G.loc, NSEW))
 		T = get_step(T, NSEW)
 		if(!locate(/obj/machinery/field/containment) in T)
 			var/obj/machinery/field/containment/CF = new/obj/machinery/field/containment()
-			CF.set_master(src,G)
+			CF.set_master(src, G)
 			CF.loc = T
 			CF.dir = field_dir
 			fields += CF
@@ -325,7 +370,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
 				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
 				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
-				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.", "singulo")
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
