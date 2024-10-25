@@ -17,6 +17,36 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	GLOB.telecomms_bots -= src
 	return ..()
 
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba
+	name = "A FUCKING DOOMBA"
+	desc = "IT'S GOT A BOMB RUN!"
+	var/obj/structure/reagent_dispensers/fueltank/internal_tank
+	var/obj/structure/marker_beacon/dock_marker/collision/decorative_eye
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
+	. = ..()
+	internal_tank = new /obj/structure/reagent_dispensers/fueltank(src)
+	internal_tank.forceMove(src)
+	decorative_eye = new /obj/structure/marker_beacon/dock_marker/collision(src)
+	decorative_eye.forceMove(src)
+	vis_contents += internal_tank
+	vis_contents += decorative_eye
+	internal_tank.pixel_y = 10
+	decorative_eye.pixel_y = -8
+	decorative_eye.pixel_x = 1
+	decorative_eye.layer = 4
+	internal_tank.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
+	visible_message("<span class='userdanger'>[src] EXPLODES!</span>")
+	var/your_doom = get_turf(src)
+	new /obj/item/grenade/frag(your_doom)
+	internal_tank.forceMove(your_doom)
+	explosion(your_doom, 1, 0, 0, 6, FALSE, 6)
+	qdel(decorative_eye)
+	qdel(src)
+
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
@@ -171,8 +201,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(1 SECONDS)
-	for(var/obj/machinery/shieldgen/telecomms/shield in urange(15, get_turf(src)))
-		shield.shields_up()
+	for(var/obj/structure/telecomms_shield_cover/shield in urange(15, get_turf(src)))
+		shield.activate()
 	if(ruin_cheese_attempted)
 		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
@@ -246,6 +276,26 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	if(istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
+
+/obj/structure/telecomms_shield_cover
+	name = "turret"
+	desc = "Looks like the cover to a turret. Not deploying, however?"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "turretCover"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	anchored = TRUE
+
+/obj/structure/telecomms_shield_cover/proc/activate()
+	invisibility = 90
+	var/obj/machinery/shieldgen/telecomms/trap = new /obj/machinery/shieldgen/telecomms(get_turf(src))
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = trap.layer + 0.1
+	flick("popup", flick_holder)
+	sleep(1 SECONDS)
+	trap.shields_up()
+	qdel(flick_holder)
+	qdel(src)
+
 
 /turf/simulated/floor/catwalk/airless
 	oxygen = 0
@@ -390,6 +440,18 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	result = list(
 		/datum/nothing = 4,
 		/obj/item/melee/baton/cattleprod/teleprod = 1)
+
+/obj/effect/spawner/random_spawners/telecomms_weldertank_maybe
+	name = "weldertank maybe"
+	result = list(
+		/datum/nothing = 3,
+		/obj/structure/reagent_dispensers/fueltank = 1)
+
+/obj/effect/spawner/random_spawners/telecomms_doomba_one_in_twenty
+	name = "weldertank maybe"
+	result = list(
+		/datum/nothing = 19,
+		/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba = 1)
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad

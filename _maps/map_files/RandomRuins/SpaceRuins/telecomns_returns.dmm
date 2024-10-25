@@ -17,23 +17,6 @@
 /mob/living/simple_animal/hostile/malf_drone,
 /turf/space,
 /area/space/no_teleport)
-"ao" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
-	name = "LETHAL TURRETS";
-	pixel_x = 32;
-	pixel_y = 0
-	},
-/obj/machinery/porta_turret/ai_turret{
-	check_synth = 1;
-	lethal = 1;
-	faction = "malf_drone";
-	ailock = 1;
-	check_borgs = 1
-	},
-/obj/effect/turf_decal/box/white,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/foyer)
 "ax" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
@@ -126,10 +109,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
-"cj" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/foyer)
 "cz" = (
 /obj/machinery/floodlight,
 /turf/simulated/floor/plasteel{
@@ -899,7 +878,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/environmental_storytelling_holopad/first_turret_room,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
 	initialize_directions = 11;
@@ -1311,6 +1289,10 @@
 	pixel_x = 0
 	},
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "vU" = (
@@ -1476,7 +1458,7 @@
 	id = "dvorak";
 	id_tag = "dvorak"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "yh" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -1511,6 +1493,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "yC" = (
@@ -1540,6 +1526,9 @@
 	name = "Telecoms East Wing"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1574,6 +1563,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/random_spawners/telecomms_weldertank_maybe,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "yU" = (
@@ -1899,7 +1889,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "Dv" = (
@@ -1928,10 +1917,6 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "DV" = (
-/obj/machinery/status_display{
-	pixel_x = 0;
-	pixel_y = 32
-	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -2012,7 +1997,8 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms)
 "FG" = (
-/obj/machinery/shieldgen/telecomms,
+/obj/structure/telecomms_shield_cover,
+/obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomms)
 "FN" = (
@@ -2064,10 +2050,6 @@
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
-	},
-/obj/machinery/status_display{
-	pixel_x = 0;
-	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
@@ -2281,10 +2263,6 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
-"Jb" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/foyer)
 "Jm" = (
 /obj/machinery/computer/sm_monitor{
 	dir = 1
@@ -2673,23 +2651,6 @@
 	},
 /turf/space,
 /area/space/nearstation/no_teleport)
-"Qa" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'LETHAL TURRETS'. Enter at your own risk!";
-	name = "LETHAL TURRETS";
-	pixel_x = -32;
-	pixel_y = 0
-	},
-/obj/machinery/porta_turret/ai_turret{
-	check_synth = 1;
-	lethal = 1;
-	faction = "malf_drone";
-	ailock = 1;
-	check_borgs = 1
-	},
-/obj/effect/turf_decal/box/white,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/foyer)
 "Qf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2716,6 +2677,17 @@
 "Qz" = (
 /obj/machinery/door_control{
 	id = "dvorak"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
+"QK" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/chamber)
@@ -2875,6 +2847,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation/no_teleport)
+"Sx" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/turret_room,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
 "SA" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/powercontrol)
@@ -3018,13 +2994,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
-"Vm" = (
-/obj/machinery/light/small,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/foyer)
 "Vn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3173,6 +3142,12 @@
 "YF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/abstract/bot_trap,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "YN" = (
@@ -7201,7 +7176,7 @@ Zu
 uM
 IL
 uM
-eA
+Sx
 yJ
 BZ
 PQ
@@ -7290,7 +7265,7 @@ il
 il
 EM
 Zu
-Qa
+eJ
 nD
 eJ
 eA
@@ -7384,8 +7359,8 @@ EM
 Zu
 eb
 nD
-Vm
-Jb
+Ri
+eA
 PQ
 Qf
 PQ
@@ -7565,7 +7540,7 @@ Nv
 aa
 Rv
 nQ
-zG
+QK
 Dr
 ph
 UE
@@ -7752,7 +7727,7 @@ qe
 Zu
 Gt
 GQ
-cj
+Ri
 eA
 Yr
 VO
@@ -7842,7 +7817,7 @@ il
 il
 qe
 Zu
-ao
+Bf
 nD
 Bf
 eA
@@ -8027,7 +8002,7 @@ yC
 rT
 Zu
 EO
-yr
+rL
 Xf
 Lk
 oW
