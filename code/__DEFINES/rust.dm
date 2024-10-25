@@ -39,14 +39,19 @@
 		// Then check in the current directory.
 		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
 			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
-		// And elsewhere.
-		return __rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll"
 
-#undef RUSTLIBS_SUFFIX
+		// And elsewhere.
+		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
+		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
+		return assignment_confirmed
+
 
 #define RUSTLIB (__rustlib || __detect_rustlib())
 
 #define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]_ffi")(args)
+
+// This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
+#undef RUSTLIBS_SUFFIX
 
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
