@@ -456,13 +456,13 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, mob/user, pin)
+/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/custo	mer_account, mob/user, pin)
 	if(customer_account.security_level > ACCOUNT_SECURITY_RESTRICTED)
 		return FALSE
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = 99999)
 		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
