@@ -74,7 +74,7 @@
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
 
-///Reapplies label when update_name() is called on the parent object. Attempts to remove it first just in case.
+///Reapplies label when update_name is called on the parent object. Attempts to remove it first just in case.
 /datum/component/label/proc/on_update_name()
 	remove_label()
 	apply_label()
