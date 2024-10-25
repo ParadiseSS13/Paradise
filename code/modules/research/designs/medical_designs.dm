@@ -634,6 +634,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
 	category = list("Medical")
 
+/datum/design/bluespace_anchor
+	name = "Bluespace Anchor Implant"
+	desc = "This large cybernetic implant anchors you in bluespace, preventing almost any teleportation effects from working. It disrupts GPS systems however."
+	id = "bluespace_anchor_implant"
+	req_tech = list("bluespace" = 7, "biotech" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/bluespace_anchor
+	category = list("Medical")
+
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
