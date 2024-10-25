@@ -206,3 +206,7 @@
 
 /// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+
+/// Sent from datum/spell/ethereal_jaunt/cast, before the mob enters jaunting as a pre-check: (mob/jaunter)
+#define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
+	#define COMPONENT_BLOCK_JAUNT (1<<0)
