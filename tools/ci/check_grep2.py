@@ -151,6 +151,13 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
+INITIALIZE_MISSING_MAPLOAD = re.compile(
+    r"^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)"
+)
+def check_initialize_missing_mapload(idx, line):
+    if INITIALIZE_MISSING_MAPLOAD.search(line):
+        return [(idx + 1, "Initialize override without 'mapload' argument.")]
+
 # TODO: This finds most cases except for e.g. `list(1, 2, 3 )`
 # Find a way to include this without breaking macro/tab-aligned versions such as `list(		\`
 # Maybe even make sure it doesn't include comments, idk
@@ -182,6 +189,7 @@ CODE_CHECKS = [
     check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
+    check_initialize_missing_mapload,
     check_empty_list_whitespace,
 ]
 
