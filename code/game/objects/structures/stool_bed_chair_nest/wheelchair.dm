@@ -17,6 +17,16 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(dir)
 
+/obj/structure/chair/wheelchair/post_buckle_mob(mob/living/M)
+	. = ..()
+	handle_layer()
+	density = TRUE
+
+/obj/structure/chair/wheelchair/post_unbuckle_mob()
+	. = ..()
+	handle_layer()
+	density = FALSE
+
 /obj/structure/chair/wheelchair/relaymove(mob/user, direction)
 	if(propelled)
 		return 0

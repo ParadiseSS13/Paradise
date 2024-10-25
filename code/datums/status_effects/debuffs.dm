@@ -523,6 +523,7 @@
 	id = "cult_slurring"
 
 /datum/status_effect/incapacitating
+	id = "incapacitating"
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
@@ -1346,7 +1347,7 @@
 	icon_state = "rift"
 	color = "red"
 
-/obj/effect/bubblegum_warning/Initialize()
+/obj/effect/bubblegum_warning/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
 

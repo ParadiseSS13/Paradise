@@ -71,10 +71,16 @@ GLOBAL_LIST_EMPTY(safes)
 	// Combination generation
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
+	if(mapload)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+/obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
 	for(var/obj/item/I in loc)
+		if(I.density || I.anchored)
+			continue
 		if(space >= maxspace)
-			return
+			break
 		if(I.w_class + space <= maxspace)
 			space += I.w_class
 			I.forceMove(src)
@@ -339,14 +345,14 @@ GLOBAL_LIST_EMPTY(safes)
 	if(get_dist(src, driller) >= 9)
 		return //You need to be near the drill if you want to get the buff.
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
 	for(var/mob/living/carbon/human/H in view(9, driller))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
@@ -435,7 +441,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)

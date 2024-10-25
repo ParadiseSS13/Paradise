@@ -2,7 +2,7 @@
 	name = "chief engineer's locker"
 	req_access = list(ACCESS_CE)
 	icon_state = "ce"
-	open_door_sprite = "white_secure_door"
+	opened_door_sprite = "white_secure"
 
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents()
 	if(prob(50))
@@ -36,9 +36,8 @@
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng_elec"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	closed_door_sprite = "eng_elec"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow(src)
@@ -58,9 +57,8 @@
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "welding supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng_weld"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	closed_door_sprite = "eng_weld"
 
 /obj/structure/closet/secure_closet/engineering_welding/populate_contents()
 	new /obj/item/clothing/head/welding(src)
@@ -74,8 +72,8 @@
 /obj/structure/closet/secure_closet/engineering_personal
 	name = "engineer's locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng_secure"
-	open_door_sprite = "eng_secure_door"
+	icon_state = "eng"
+	closed_door_sprite = "eng_secure"
 
 /obj/structure/closet/secure_closet/engineering_personal/populate_contents()
 	if(prob(50))
@@ -100,7 +98,7 @@
 	name = "technician's locker"
 	req_access = list(ACCESS_ATMOSPHERICS)
 	icon_state = "atmos"
-	open_door_sprite = "eng_secure_door"
+	opened_door_sprite = "eng_secure"
 
 /obj/structure/closet/secure_closet/atmos_personal/populate_contents()
 	new /obj/item/radio/headset/headset_eng(src)
@@ -119,7 +117,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/watertank/atmos(src)
-	new /obj/item/clothing/suit/fire/atmos(src)
+	new /obj/item/clothing/suit/fire/firefighter/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/rpd(src)
