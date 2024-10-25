@@ -4,7 +4,7 @@
 
 /obj/effect/map_effect/marker/mapmanip/Initialize(mapload)
 	. = ..()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract
 	name = "mapmanip marker, extract submap"
@@ -26,7 +26,7 @@
 
 /obj/effect/map_effect/marker_helper/Initialize(mapload)
 	. = ..()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge
 	name = "mapmanip marker helper, submap edge"
