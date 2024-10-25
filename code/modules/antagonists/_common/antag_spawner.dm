@@ -388,7 +388,7 @@
 
 /obj/item/antag_spawner/pulse_demon
 	name = "living lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature. It is *heavily* advised not to summon it in maints."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. It is *heavily* advised not to summon it in maintenance areas."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
