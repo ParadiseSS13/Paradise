@@ -456,7 +456,7 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/custo	mer_account, mob/user, pin)
+/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, mob/user, pin)
 	if(customer_account.security_level > ACCOUNT_SECURITY_RESTRICTED)
 		return FALSE
 	var/attempt_pin = pin
