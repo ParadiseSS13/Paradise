@@ -356,6 +356,12 @@
 	suffix = "unathi_skiff.dmm"
 	name = "Damaged Drakehound Skiff"
 	description = "A small Drakehound craft, damaged from an engine malfunction."
+
+/datum/map_template/ruin/space/sieged_lab
+	id = "sieged_lab"
+	suffix = "sieged_lab.dmm"
+	name = "Sieged Lab"
+	description = "A destroyed laboratory, under siege from forces unknown."
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/clockwork_monastery

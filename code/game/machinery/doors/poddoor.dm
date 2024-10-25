@@ -89,8 +89,8 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
-	layer = CLOSED_DOOR_LAYER
-	closingLayer = CLOSED_DOOR_LAYER
+	layer = CLOSED_BLASTDOOR_LAYER
+	closingLayer = CLOSED_BLASTDOOR_LAYER
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'
