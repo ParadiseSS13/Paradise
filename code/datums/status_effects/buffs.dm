@@ -935,7 +935,7 @@
 
 /atom/movable/screen/alert/status_effect/flayer_rejuv
 	name = "Regenerating"
-	desc = "A ray of hope beyond disrepair."
+	desc = "You are regenerating."
 	icon_state = "drunk2"
 
 /datum/status_effect/flayer_rejuv/on_creation(mob/living/new_owner, extra_duration, extra_heal_amount)
