@@ -38,7 +38,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 	var/board_type = /obj/item/circuitboard/autolathe
 
-/obj/machinery/autolathe/Initialize()
+/obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	component_parts = list()
@@ -56,7 +56,7 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-/obj/machinery/autolathe/upgraded/Initialize()
+/obj/machinery/autolathe/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new board_type(null)
@@ -67,7 +67,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/autolathe/upgraded/gamma/Initialize()
+/obj/machinery/autolathe/upgraded/gamma/Initialize(mapload)
 	. = ..()
 	files = new /datum/research/autolathe/gamma(src)
 	adjust_hacked(TRUE)
@@ -524,7 +524,7 @@
 	name = "syndicate autolathe"
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
-/obj/machinery/autolathe/syndicate/Initialize()
+/obj/machinery/autolathe/syndicate/Initialize(mapload)
 	. = ..()
 	files = new /datum/research/autolathe/syndicate(src)
 
