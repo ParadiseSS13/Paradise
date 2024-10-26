@@ -6,11 +6,9 @@
 //! MILLA takes the majority of atmos out of BYOND and puts it here, in Rust code.
 //! It stores its own model of the air distribution, and BYOND will call in to view and make
 //! adjustments, as well as to trigger atmos ticks.
-
 mod api;
 mod constants;
 mod conversion;
-mod logging;
 mod model;
 mod simulate;
 mod statics;

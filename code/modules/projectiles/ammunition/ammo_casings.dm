@@ -178,14 +178,13 @@
 	variance = 25
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "rubbershot shell"
 	desc = "A 12 gauge shell filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 35
 	materials = list(MAT_METAL=4000)
-
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -298,7 +297,7 @@
 	reagents.add_reagent("sodium_thiopental", 6)
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
+	name = "tranquilizer dart"
 	desc = "A 12 gauge dart shell loaded with powerful tranquilizers."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
@@ -307,7 +306,7 @@
 	materials = list(MAT_METAL=250)
 
 /obj/item/ammo_casing/shotgun/holy
-	name = "holy water darts"
+	name = "holy water dart"
 	desc = "A 12 gauge dart shell loaded with holy water."
 	icon_state = "hshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/holy
