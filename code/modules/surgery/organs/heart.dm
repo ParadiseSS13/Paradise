@@ -36,6 +36,7 @@
 	base_icon_state = "cursedheart"
 	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
+	organ_datums = list(/datum/organ/heart, /datum/organ/battery) // This doesn't actually work for IPCs but it also doesn't kill you, and it's funny
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
 	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
@@ -191,6 +192,7 @@
 	base_icon_state = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
+	organ_datums = list(/datum/organ/heart, /datum/organ/battery)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"

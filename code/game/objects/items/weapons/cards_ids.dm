@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/associated_account_number = 0
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/card/proc/get_card_account()
 	return GLOB.station_money_database.find_user_account(associated_account_number)
@@ -1191,3 +1191,7 @@
 			return "Thunderdome Green"
 		else
 			return capitalize(skin)
+
+/proc/GetNameAndAssignmentFromId(obj/item/card/id/I)
+	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
+	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name
