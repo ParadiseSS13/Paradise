@@ -71,7 +71,7 @@ var/player_abilities = WALK | SING | READ
 ```
 
 This "toggles" the slots for the provided flags and returns the result. In this
-case, the value of `player_abilities` is now the number 26, because that is the
+case, the value of `player_abilities` is now the number 41, because that is the
 sum of the values represented by those three individual flags.
 
 The OR bitwise operator can also be used in assignment. For example:
