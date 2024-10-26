@@ -86,36 +86,25 @@ SUBSYSTEM_DEF(maprotate)
 			// Or the map from last round
 		if(istype(SSmapping.last_map, M))
 			continue
-		potential_maps[M] = 1
+		potential_maps[M] = 0
 	// We now have 3 maps. We then pick your highest priority map in the list. Does this mean votes 4 and 5 don't matter? Yeah, with this current system only your top 3 votes will ever be used. 4 and 5 are good info to know however!
-	for(var/mob/player in GLOB.player_list)
-		if(player.client)
-			var/placed_vote = FALSE
-			for(var/this_map as anything in player.client.prefs.map_vote_pref_json)
-				for(var/datum/god_I_hate as anything in potential_maps)
-					if("[god_I_hate]" == "[this_map]")
-						placed_vote = TRUE
-						potential_maps[god_I_hate]++ // We give it an assigned value that increases
-						break // We found the right map
-					continue
-				if(placed_vote)
-					break
-	var/list/returned_text = list()
-	returned_text += "Map Preference Vote Results:"
-	for(var/maps in potential_maps)
-		var/votes = potential_maps[maps]
+	for(var/client/user_client in GLOB.clients)
+		for(var/preferred_text as anything in user_client.prefs.map_vote_pref_json) // stored as a list of text
+			var/datum/map/preferred_map = text2path(preferred_text)
+			if(isnull(preferred_map)) // this map datum doesn't exist!!
+				continue
+			if(preferred_map in potential_maps)
+				potential_maps[preferred_map]++
+				break
+	var/list/returned_text = list("Map Preference Vote Results:")
+	for(var/possible_next_map in potential_maps)
+		var/votes = potential_maps[possible_next_map]
 		var/percentage_text = ""
-		if(votes > 1)
-			var/actual_percentage = round(((votes - 1) / length(GLOB.clients)) * 100, 0.1) // Note: Some players will not have this filled out. Too bad. We subtract 1 from votes as they have 1 in them by default
-			var/text = "[actual_percentage]"
-			var/spaces_needed = 5 - length(text)
-			for(var/_ in 1 to spaces_needed)
-				returned_text += " "
-			percentage_text += "[text]%"
-		else
-			percentage_text = "    0%"
-		returned_text += "[percentage_text] | <b>[maps]</b>: [potential_maps[maps] - 1]"
-	var/datum/map/winner = pickweight(potential_maps) //Other note: Weighted random sets 0 to 1 to some ungodly reason, so uh, a map that no one votes on (should never happen hopefully), will have 1 vote in it.
+		if(votes > 0)
+			var/actual_percentage = round((votes / length(GLOB.clients)) * 100, 0.1) // Note: Some players will not have this filled out. Too bad.
+			percentage_text += "[add_lspace(actual_percentage, 5 - length("[actual_percentage]"))]%"
+		returned_text += "[percentage_text] | <b>[possible_next_map]</b>: [potential_maps[possible_next_map]]"
+	var/datum/map/winner = pickweight(potential_maps) // Even if no one votes, pickweight will pick from them evenly. This means a map with zero votes *can* be chosen
 	to_chat(world, "[returned_text.Join("\n")]")
 	SSmapping.next_map = new winner
 	to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
