@@ -49221,9 +49221,6 @@
 	},
 /area/station/medical/storage/secondary)
 "iIS" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -55536,9 +55533,6 @@
 /area/station/maintenance/asmaint)
 "kpK" = (
 /obj/effect/decal/cleanable/blood/drip,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -68622,14 +68616,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/control)
-"ohJ" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "ohL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -115598,7 +115584,7 @@ lrW
 whg
 gUw
 eHn
-ohJ
+eCI
 gUw
 xZV
 eTI
