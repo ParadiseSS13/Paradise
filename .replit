@@ -1,0 +1,8 @@
+modules = ["nodejs-20", "python-3.12"]
+run = "dotnet run"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "dotnet run"]
