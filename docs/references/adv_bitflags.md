@@ -13,7 +13,7 @@ The Or operator can be used merge bitflags, even if they contain the same flag.
 ```
 var/a = 5     // 0b101
 var/b = 6     // 0b110
-var/c = a & b // 0b111 = 7
+var/c = a | b // 0b111 = 7
 ```
 
 The Or operator can be used in conjunction with each other to reduce line count.
