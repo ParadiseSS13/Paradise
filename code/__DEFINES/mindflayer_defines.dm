@@ -6,7 +6,9 @@
 /// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/spell/flayer/weapon].
 #define FLAYER_UNOBTAINABLE_POWER	3
 
+/// How many swarms can you drain per person?
 #define BRAIN_DRAIN_LIMIT 120
+/// The time per harvesting tick
 #define DRAIN_TIME (1/4 SECONDS)
 /// If we want to keep draining someone but we don't have any swarms to gain
 #define DRAIN_BUT_NO_SWARMS 2
