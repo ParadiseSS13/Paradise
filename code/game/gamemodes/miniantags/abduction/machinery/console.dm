@@ -28,7 +28,7 @@
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/Initialize()
+/obj/machinery/abductor/console/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 

@@ -151,6 +151,31 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
+INITIALIZE_MISSING_MAPLOAD = re.compile(
+    r"^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)"
+)
+def check_initialize_missing_mapload(idx, line):
+    if INITIALIZE_MISSING_MAPLOAD.search(line):
+        return [(idx + 1, "Initialize override without 'mapload' argument.")]
+
+# TODO: This finds most cases except for e.g. `list(1, 2, 3 )`
+# Find a way to include this without breaking macro/tab-aligned versions such as `list(		\`
+# Maybe even make sure it doesn't include comments, idk
+EMPTY_LIST_WHITESPACE = re.compile(r"list\([^\S\n\r\f]+.*?[^\\]\n")
+def check_empty_list_whitespace(idx, line):
+    if EMPTY_LIST_WHITESPACE.search(line):
+        return [(idx + 1, "Empty list declarations should not have any whitespace within their parentheses.")]
+
+IGNORE_ATOM_ICON_FILE = "atoms.dm"
+NO_MANUAL_ICON_UPDATES = re.compile(r"([\s.])(update_icon_state|update_desc|update_overlays|update_name)\(.*\)")
+def check_manual_icon_updates(idx, line):
+    if result := NO_MANUAL_ICON_UPDATES.search(line):
+        proc_result = result.group(2)
+        target = "update_icon"
+        if(proc_result == "update_name" or proc_result == "update_desc"):
+            target = "update_appearance"
+        return [(idx + 1, f"{proc_result}() should not be called manually. Use {target}({proc_result.upper()}) instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -164,6 +189,8 @@ CODE_CHECKS = [
     check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
+    check_initialize_missing_mapload,
+    check_empty_list_whitespace,
 ]
 
 
@@ -187,6 +214,8 @@ if __name__ == "__main__":
             extra_checks = []
             if filename != IGNORE_515_PROC_MARKER_FILENAME:
                 extra_checks.append(check_515_proc_syntax)
+            if filename != IGNORE_ATOM_ICON_FILE:
+                extra_checks.append(check_manual_icon_updates)
 
             last_line = None
             for idx, line in enumerate(code):
