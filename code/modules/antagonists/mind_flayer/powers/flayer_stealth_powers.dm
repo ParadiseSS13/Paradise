@@ -21,8 +21,9 @@
 
 /datum/spell/flayer/surveillance_monitor/Destroy(force, ...)
 	. = ..()
-	active_bugs = null
-	internal_camera = null
+	QDEL_LIST_CONTENTS(active_bugs)
+	if(!QDELETED(internal_camera))
+		QDEL_NULL(internal_camera)
 
 /datum/spell/flayer/surveillance_monitor/AltClick(mob/user)
 	if(!internal_camera)
@@ -195,7 +196,7 @@
 	var/mob/living/silicon/robot/borg = target
 	target.visible_message(
 		"<span class='danger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>",
-		"<span class='userdanger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>")
+		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
 	if(borg.emagged || !borg.is_emaggable)
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)

@@ -11,13 +11,13 @@
 	switch(level)
 		if(FLAYER_POWER_LEVEL_ONE)
 			attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
-			attack_verb = list("bashed", "battered")
+			attack_verb = list("bashes", "batters")
 		if(FLAYER_POWER_LEVEL_TWO)
 			attack_sound = 'sound/effects/meteorimpact.ogg'
-			attack_verb = list("blugeoned", "beat")
+			attack_verb = list("blugeons", "beats")
 		if(FLAYER_POWER_LEVEL_THREE)
 			attack_sound = 'sound/misc/demon_attack1.ogg'
-			attack_verb = list("destroyed", "demolished", "hammered")
+			attack_verb = list("destroys", "demolishes", "hammers")
 
 	var/datum/species/attacking = A.dna?.species
 	var/damage = 5 // In case the attacker doesn't have a species somehow

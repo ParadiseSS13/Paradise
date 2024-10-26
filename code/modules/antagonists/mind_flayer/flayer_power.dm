@@ -57,7 +57,7 @@
 
 	if(user.stat == DEAD)
 		if(show_message)
-			flayer_datum.send_swarm_message("You can't cast this while you are dead...")
+			flayer_datum.send_swarm_message("We can't cast this while you are dead...")
 		return FALSE
 
 	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
@@ -252,10 +252,10 @@
 		return FALSE
 	if(ispath(path, /datum/spell))
 		var/datum/spell/flayer/to_add = new path(user)
-		. = flayer.try_purchase_spell(to_add)
-	else
-		var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
-		. =  flayer.try_purchase_passive(to_add)
+		return flayer.try_purchase_spell(to_add)
+
+	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
+	return flayer.try_purchase_passive(to_add)
 
 /// This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
 /datum/spell/flayer/proc/on_apply()

@@ -184,7 +184,6 @@
 	opacity = FALSE
 	alpha = 200
 	var/upgraded_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
-	var/mutable_appearance/theme_icon
 
 /obj/structure/tech_barrier/Initialize(mapload, health)
 	. = ..()
@@ -204,7 +203,7 @@
 		armor = armor.setRating(50, 50, 50, 50, 50, 50, 50, 50, 0)
 	else
 		color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
-	theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", FLOAT_LAYER - 1, appearance_flags = appearance_flags | RESET_TRANSFORM)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", FLOAT_LAYER - 1, appearance_flags = appearance_flags | RESET_TRANSFORM)
 	theme_icon.blend_mode = BLEND_INSET_OVERLAY
 	overlays += theme_icon
 

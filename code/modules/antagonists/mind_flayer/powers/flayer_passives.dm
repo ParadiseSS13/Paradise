@@ -10,7 +10,7 @@
 	var/level = 0
 	var/max_level = 1
 	///The mob who the passive affects, usually an IPC. Set in force_add_abillity
-	var/mob/living/owner
+	var/mob/living/carbon/human/owner
 	///The mindflayer datum we'll reference back to. Set in force_add_abillity
 	var/datum/antagonist/mindflayer/flayer
 	///The text shown to the player character when bought

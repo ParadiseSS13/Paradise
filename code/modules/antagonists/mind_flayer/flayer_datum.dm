@@ -35,6 +35,7 @@
 
 /datum/antagonist/mindflayer/Destroy(force, ...)
 	QDEL_NULL(owner.current?.hud_used?.vampire_blood_display)
+	harvesting = null
 	remove_all_abilities()
 	remove_all_passives()
 	..()
@@ -124,6 +125,8 @@
 /datum/antagonist/mindflayer/proc/handle_harvest(mob/living/carbon/human/H)
 	harvesting = H
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
+	if(!istype(drained_brain))
+		return
 	var/unique_drain_id = H.UID()
 	owner.current.visible_message(
 		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>",
@@ -270,7 +273,7 @@
 * * Arguments: to_get - Some datum/spell/flayer to check if a mindflayer has
 * * Returns: The datum/spell/mindflayer if the mindflayer has the power already, null otherwise
 */
-/datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
+/datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get)
 	for(var/datum/spell/flayer/spell in powers)
 		if(istype(spell, to_get))
 			return spell
@@ -285,7 +288,7 @@
 		if(to_get.name == spell.name)
 			return spell
 
-// This is the proc that gets called every tick of life(), use this for updating something that should update every few seconds
+/// This is the proc that gets called every tick of life(), use this for updating something that should update every few seconds
 /datum/antagonist/mindflayer/proc/handle_mindflayer()
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used

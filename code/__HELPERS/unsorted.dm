@@ -198,7 +198,6 @@
 	var/current_y_step = starting_atom.y
 	var/starting_z = starting_atom.z
 
-//	var/list/line = list(get_step(starting_atom, 0))//get_turf(atom) is faster than locate(x, y, z) //Get turf isn't defined yet so we use get step
 	var/list/line = list(get_turf(starting_atom))
 	var/x_distance = ending_atom.x - current_x_step //x distance
 	var/y_distance = ending_atom.y - current_y_step
