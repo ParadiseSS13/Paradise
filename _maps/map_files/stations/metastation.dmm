@@ -44371,6 +44371,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"dEx" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/safety_eye_protection{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "dEG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -45252,10 +45264,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eaC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "eaG" = (
@@ -49732,6 +49745,14 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"fRA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "fRT" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -57290,14 +57311,6 @@
 	icon_state = "neutral"
 	},
 /area/station/hallway/secondary/garden)
-"iWt" = (
-/obj/machinery/camera{
-	c_tag = "AI Satellite Service Bay";
-	dir = 8;
-	network = list("SS13","MiniSat")
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "iWv" = (
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel/dark,
@@ -58721,6 +58734,9 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "jIf" = (
@@ -60080,10 +60096,7 @@
 	},
 /area/station/medical/medbay)
 "kgN" = (
-/obj/structure/rack,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/obj/item/storage/toolbox/mechanical,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "kgS" = (
@@ -64525,10 +64538,13 @@
 /turf/simulated/floor/plating,
 /area/station/security/main)
 "lZY" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -65956,6 +65972,14 @@
 	icon_state = "blackcorner"
 	},
 /area/station/security/permabrig)
+"mDU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "mDX" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -69027,6 +69051,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "nOR" = (
@@ -69526,6 +69553,9 @@
 "nZV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/alarm/directional/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "oab" = (
@@ -70299,6 +70329,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"owM" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "owQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -71423,6 +71462,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/fitness)
+"oVV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "oWa" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Containment Pen #7";
@@ -73952,7 +73999,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/station/engineering/transmission_laser)
 "pWK" = (
 /obj/effect/landmark/damageturf,
@@ -76429,7 +76476,7 @@
 	name = "Power Transmission Laser"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "rak" = (
 /obj/structure/table/glass,
@@ -77747,6 +77794,20 @@
 	icon_state = "dark"
 	},
 /area/station/aisat)
+"rzV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "rzW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -77791,6 +77852,9 @@
 "rAu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -78590,6 +78654,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "rPt" = (
@@ -79861,6 +79926,12 @@
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"sts" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "stW" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -84235,6 +84306,9 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "upe" = (
@@ -84414,6 +84488,15 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/robotics)
+"uvz" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "uvM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -84472,6 +84555,11 @@
 	icon_state = "dark"
 	},
 /area/station/medical/surgery/observation)
+"uxg" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/engineering/transmission_laser)
 "uxo" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -84876,7 +84964,7 @@
 /area/station/science/rnd)
 "uHr" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/station/engineering/transmission_laser)
 "uHv" = (
 /obj/structure/closet/emcloset,
@@ -85008,6 +85096,9 @@
 /obj/machinery/camera{
 	c_tag = "AI Satellite Antechamber South";
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -88969,6 +89060,13 @@
 	},
 /area/station/science/xenobiology)
 "wyk" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/poster/official/safety_eye_protection{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "wyB" = (
@@ -91211,6 +91309,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/paramedic)
+"xwi" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -92148,7 +92250,12 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/transmission_laser/east,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
 /area/station/engineering/transmission_laser)
 "xPZ" = (
 /obj/structure/chair,
@@ -139152,8 +139259,8 @@ aaa
 aaa
 vum
 jHX
-wyk
-wyk
+mDU
+oVV
 xPV
 rPn
 toc
@@ -139409,9 +139516,9 @@ aaa
 aaa
 vum
 lZY
-wyk
-wyk
-wyk
+fRA
+uxg
+sts
 eaC
 nuP
 vnQ
@@ -139665,10 +139772,10 @@ aef
 aaa
 aaa
 vum
-wyk
-wyk
-wyk
-wyk
+dEx
+uvz
+rzV
+owM
 wyk
 aLl
 gbM
@@ -139922,10 +140029,10 @@ ajo
 aaa
 aaa
 vum
-wyk
-iWt
-wyk
-wyk
+kgN
+kgN
+xwi
+kgN
 kgN
 bre
 aLl
