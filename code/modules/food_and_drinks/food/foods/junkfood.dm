@@ -124,6 +124,7 @@
 /obj/item/food/chocolate_bar
 	name = "Delux Chocolate-bar"
 	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
+	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "choco"
 	filling_color = "#7D5F46"
 	antable = FALSE
