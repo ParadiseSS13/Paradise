@@ -202,7 +202,7 @@
 		to_chat(user, "There's already a guest pass attached to this ID.")
 		return
 	if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
-		to_chat(user, "The guest pass cannot be attached to this ID")
+		to_chat(user, "The guest pass cannot be attached to this ID.")
 		return
 	if(!user.unEquip(G))
 		return

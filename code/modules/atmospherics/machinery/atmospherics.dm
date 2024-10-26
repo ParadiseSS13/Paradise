@@ -249,6 +249,9 @@ Pipelines + Other Objects -> Pipe network
 			unsafe_pressure_release(user,internal_pressure)
 	deconstruct(TRUE)
 
+/**
+ * This proc is to tell if an atmospheric device is in a state that should be unwrenchable because its under the floor.
+ **/
 /obj/machinery/atmospherics/proc/wrench_floor_check()
 	return FALSE
 
