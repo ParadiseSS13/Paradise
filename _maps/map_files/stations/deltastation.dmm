@@ -1998,7 +1998,7 @@
 /area/station/maintenance/fore2)
 "aoe" = (
 /obj/structure/table,
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -2159,7 +2159,7 @@
 /area/station/maintenance/fore)
 "aoS" = (
 /obj/structure/table,
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -77031,9 +77031,9 @@
 "pFX" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
-/obj/random/tool,
-/obj/random/tool,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
+/obj/effect/spawner/random/engineering/tools,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)

@@ -461,15 +461,6 @@
 		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
 		cooldown = world.time
 
-/obj/random/therapy
-	name = "Random Therapy Doll"
-	desc = "This is a random therapy doll."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "therapyred"
-
-/obj/random/therapy/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
-
 /obj/item/toy/therapy/red
 	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
@@ -524,15 +515,6 @@
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	poof_sound = list('sound/weapons/bite.ogg' = 1)
 
-
-/obj/random/carp_plushie
-	name = "Random Carp Plushie"
-	desc = "This is a random plushie."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "carpplushie"
-
-/obj/random/carp_plushie/item_to_spawn()
-	return pick(typesof(/obj/item/toy/plushie/carpplushie)) //can pick any carp plushie, even the original.
 
 /obj/item/toy/plushie/carpplushie/ice
 	icon_state = "icecarp"
@@ -641,28 +623,6 @@
 		add_attack_logs(user, user, "placed a hidden grenade in [src].", ATKLOG_ALMOSTALL)
 		return
 	return ..()
-
-/obj/random/plushie
-	name = "Random Plushie"
-	desc = "This is a random plushie."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "redfox"
-
-/obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
-
-/obj/random/plushie/explosive
-	var/explosive_chance = 1 // 1% to spawn a blahbomb!
-
-/obj/random/plushie/explosive/spawn_item()
-	var/obj/item/toy/plushie/plushie = ..()
-	if(!prob(explosive_chance))
-		return plushie
-	var/obj/item/I = new /obj/item/grenade/syndieminibomb
-	plushie.has_stuffing = FALSE
-	plushie.grenade = I
-	I.forceMove(plushie)
-	return plushie
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -879,13 +839,13 @@
 	visible_message("<span class='danger'>Buzzzz!</span>")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
-	
+
 /obj/item/toy/plushie/nianplushie/monarch
 	name = "monarch nian plushie"
 	desc = "A monarch nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_monarch"
 	item_state = "plushie_nian_monarch"
-	
+
 /obj/item/toy/plushie/nianplushie/luna
 	name = "luna nian plushie"
 	desc = "A luna nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
@@ -897,31 +857,31 @@
 	desc = "An atlas nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_atlas"
 	item_state = "plushie_nian_atlas"
-	
+
 /obj/item/toy/plushie/nianplushie/reddish
 	name = "reddish nian plushie"
 	desc = "A reddish nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_reddish"
 	item_state = "plushie_nian_reddish"
-	
+
 /obj/item/toy/plushie/nianplushie/royal
 	name = "royal nian plushie"
 	desc = "A royal nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_royal"
 	item_state = "plushie_nian_royal"
-	
+
 /obj/item/toy/plushie/nianplushie/gothic
 	name = "gothic nian plushie"
 	desc = "A gothic nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_gothic"
 	item_state = "plushie_nian_gothic"
-	
+
 /obj/item/toy/plushie/nianplushie/lovers
 	name = "lovers nian plushie"
 	desc = "A lovers nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_lovers"
 	item_state = "plushie_nian_lovers"
-	
+
 /obj/item/toy/plushie/nianplushie/whitefly
 	name = "whitefly nian plushie"
 	desc = "A whitefly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
@@ -933,7 +893,7 @@
 	desc = "A punnished nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_punished"
 	item_state = "plushie_nian_punished"
-	
+
 /obj/item/toy/plushie/nianplushie/firewatch
 	name = "firewatch nian plushie"
 	desc = "A firewtach nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
@@ -945,43 +905,43 @@
 	desc = "A deathshead nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_deadhead"
 	item_state = "plushie_nian_deadhead"
-	
+
 /obj/item/toy/plushie/nianplushie/poison
 	name = "poison nian plushie"
 	desc = "A poison nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_poison"
 	item_state = "plushie_nian_poison"
-	
+
 /obj/item/toy/plushie/nianplushie/ragged
 	name = "ragged nian plushie"
 	desc = "A ragged nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_ragged"
 	item_state = "plushie_nian_ragged"
-	
+
 /obj/item/toy/plushie/nianplushie/snow
 	name = "snow nian plushie"
 	desc = "A snow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_snow"
 	item_state = "plushie_nian_snow"
-	
+
 /obj/item/toy/plushie/nianplushie/clockwork
 	name = "clockwork nian plushie"
 	desc = "A clockwork nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_clockwork"
 	item_state = "plushie_nian_clockwork"
-	
+
 /obj/item/toy/plushie/nianplushie/moonfly
 	name = "moonfly nian plushie"
 	desc = "A moonfly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_moonfly"
 	item_state = "plushie_nian_moonfly"
-	
+
 /obj/item/toy/plushie/nianplushie/rainbow
 	name = "rainbow nian plushie"
 	desc = "A rainbow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_rainbow"
 	item_state = "plushie_nian_rainbow"
-	
+
 /obj/item/toy/plushie/shark
 	name = "shark plushie"
 	desc = "A plushie depicting a somewhat cartoonish shark. The tag calls it a 'hákarl', noting that it was made by an obscure furniture manufacturer in old Scandinavia."
@@ -1430,16 +1390,6 @@
  */
 
 
-/obj/random/figure
-	name = "Random Action Figure"
-	desc = "This is a random toy action figure."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "nuketoy"
-
-/obj/random/figure/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure/crew))
-
-
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
@@ -1754,15 +1704,6 @@
 /obj/item/toy/figure/mech/activate(mob/user)
 	to_chat(user, "<span class='notice'>You play with [src].</span>")
 	playsound(src, 'sound/mecha/mechstep.ogg', 20, TRUE)
-
-/obj/random/mech
-	name = "Random Mech Prize"
-	desc = "This is a random prize."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "ripleytoy"
-
-/obj/random/mech/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure/mech)) //exclude the base type.
 
 /obj/item/toy/figure/mech/ripley
 	name = "toy Ripley"
