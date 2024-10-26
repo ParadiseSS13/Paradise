@@ -174,6 +174,8 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// From /obj/effect/temp_visual/resonance/burst() : (mob/creator, mob/living/hit_living)
+#define COMSIG_LIVING_RESONATOR_BURST "living_resonator_burst"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
