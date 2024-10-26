@@ -1718,6 +1718,7 @@
 #include "code\modules\client\preference\loadout\loadout_suit.dm"
 #include "code\modules\client\preference\loadout\loadout_uniform.dm"
 #include "code\modules\clothing\chameleon.dm"
+#include "code\modules\clothing\chameleon_system.dm"
 #include "code\modules\clothing\clothing.dm"
 #include "code\modules\clothing\ears\earmuffs.dm"
 #include "code\modules\clothing\glasses\engine_goggles.dm"
