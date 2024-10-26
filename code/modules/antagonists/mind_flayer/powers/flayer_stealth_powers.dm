@@ -212,7 +212,6 @@
 /obj/item/melee/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
 	if(QDELETED(borg) || QDELETED(user))
 		return
-	sleep(6)
 	borg.SetEmagged(TRUE) // This was mostly stolen from mob/living/silicon/robot/emag_act(), its functionally an emagging anyway.
 	borg.SetLockdown(TRUE)
 	if(borg.hud_used)
