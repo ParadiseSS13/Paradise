@@ -1000,8 +1000,7 @@
 	return TRUE
 
 /datum/status_effect/quicksilver_form/on_remove()
-	if(should_deflect)
-		REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	owner.pass_flags = temporary_flag_storage
 	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
 
@@ -1014,9 +1013,6 @@
 	var/mutable_appearance/eye
 
 /datum/status_effect/terminator_form/on_apply()
-	if(owner.status_flags & TERMINATOR_FORM)
-		qdel(src)
-		return FALSE
 	owner.status_flags |= TERMINATOR_FORM
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
 	var/mutable_appearance/overlay = mutable_appearance('icons/mob/clothing/eyes.dmi', "terminator", ABOVE_MOB_LAYER)
