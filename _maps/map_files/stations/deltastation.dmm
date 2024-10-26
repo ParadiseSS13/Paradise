@@ -74871,6 +74871,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/rack,
 /obj/item/stack/cable_coil,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 1

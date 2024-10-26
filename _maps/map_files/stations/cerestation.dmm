@@ -87499,6 +87499,7 @@
 	dir = 8;
 	layer = 2.9
 	},
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
