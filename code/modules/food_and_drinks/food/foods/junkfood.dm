@@ -121,8 +121,8 @@
 	user.put_in_hands(L)
 	qdel(src)
 
-/obj/item/food/chocolate_bar
-	name = "Delux Chocolate-bar"
+/obj/item/food/deluxe_chocolate_bar
+	name = "Deluxe Chocolate-bar"
 	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "choco"
