@@ -1,59 +1,62 @@
-// milla.dm - DM API for milla extension library
+// DM API for Rust extension modules
+// Current modules:
+// - MILLA, an asynchronous replacement for BYOND atmos
+// - Mapmanip, a parse-time DMM file reader and modifier
 
-// Default automatic MILLA detection.
+// Default automatic library detection.
 // Look for it in the build location first, then in `.`, then in standard places.
 
-/* This comment bypasses grep checks */ /var/__milla
+/* This comment bypasses grep checks */ /var/__rustlib
 
-/proc/__detect_milla()
+/proc/__detect_rustlib()
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
-		// CI override, use libmilla_ci.so if possible.
-		if(fexists("./tools/ci/libmilla_ci.so"))
-			return __milla = "tools/ci/libmilla_ci.so"
+		// CI override, use librustlibs_ci.so if possible.
+		if(fexists("./tools/ci/librustlibs_ci.so"))
+			return __rustlib = "tools/ci/librustlibs_ci.so"
 #endif
 		// First check if it's built in the usual place.
-		if(fexists("./milla/target/i686-unknown-linux-gnu/release/libmilla.so"))
-			return __milla = "./milla/target/i686-unknown-linux-gnu/release/libmilla.so"
+		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"))
+			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"
 		// Then check in the current directory.
-		if(fexists("./libmilla.so"))
-			return __milla = "./libmilla.so"
+		if(fexists("./librustlibs.so"))
+			return __rustlib = "./librustlibs.so"
 		// And elsewhere.
-		return __milla = "libmilla.so"
+		return __rustlib = "librustlibs.so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./milla/target/i686-pc-windows-msvc/release/milla.dll"))
-			return __milla = "./milla/target/i686-pc-windows-msvc/release/milla.dll"
+		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
-		if(fexists("./milla.dll"))
-			return __milla = "./milla.dll"
+		if(fexists("./rustlibs.dll"))
+			return __rustlib = "./rustlibs.dll"
 		// And elsewhere.
-		return __milla = "milla.dll"
+		return __rustlib = "rustlibs.dll"
 
-#define MILLA (__milla || __detect_milla())
+#define RUSTLIB (__rustlib || __detect_rustlib())
 
-#define MILLA_CALL(func, args...) call_ext(MILLA, "byond:[#func]_ffi")(args)
+#define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]_ffi")(args)
 
 /proc/milla_init_z(z)
-	return MILLA_CALL(initialize, z)
+	return RUSTLIB_CALL(milla_initialize, z)
 
 /proc/is_milla_synchronous(tick)
-	return MILLA_CALL(is_synchronous, tick)
+	return RUSTLIB_CALL(milla_is_synchronous, tick)
 
 /proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return MILLA_CALL(set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
 
 /proc/get_tile_atmos(turf/T, list/L)
-	return MILLA_CALL(get_tile, T, L)
+	return RUSTLIB_CALL(milla_get_tile, T, L)
 
 /proc/spawn_milla_tick_thread()
-	return MILLA_CALL(spawn_tick_thread)
+	return RUSTLIB_CALL(milla_spawn_tick_thread)
 
 /proc/get_milla_tick_time()
-	return MILLA_CALL(get_tick_time)
+	return RUSTLIB_CALL(milla_get_tick_time)
 
 /proc/get_interesting_atmos_tiles()
-	return MILLA_CALL(get_interesting_tiles)
+	return RUSTLIB_CALL(milla_get_interesting_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -61,10 +64,10 @@
 	var/south = superconductivity[3]
 	var/west = superconductivity[4]
 
-	return MILLA_CALL(reduce_superconductivity, T, north, east, south, west)
+	return RUSTLIB_CALL(milla_reduce_superconductivity, T, north, east, south, west)
 
 /proc/reset_superconductivity(turf/T)
-	return MILLA_CALL(reset_superconductivity, T)
+	return RUSTLIB_CALL(milla_reset_superconductivity, T)
 
 /proc/set_tile_airtight(turf/T, list/airtight)
 	var/north = airtight[1]
@@ -72,16 +75,19 @@
 	var/south = airtight[3]
 	var/west = airtight[4]
 
-	return MILLA_CALL(set_tile_airtight, T, north, east, south, west)
+	return RUSTLIB_CALL(milla_set_tile_airtight, T, north, east, south, west)
 
 /proc/get_random_interesting_tile()
-	return MILLA_CALL(get_random_interesting_tile)
+	return RUSTLIB_CALL(milla_get_random_interesting_tile)
 
 /proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
-	return MILLA_CALL(create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 
-#undef MILLA
-#undef MILLA_CALL
+/proc/mapmanip_read_dmm(mapname)
+	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
+
+#undef RUSTLIB
+#undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
 // Must match the order in milla/src/model.rs

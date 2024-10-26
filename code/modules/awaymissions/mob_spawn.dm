@@ -211,7 +211,7 @@
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -471,7 +471,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/corpse/clown/Initialize()
+/obj/effect/mob_spawn/human/corpse/clown/Initialize(mapload)
 	mob_name = pick(GLOB.clown_names)
 	return ..()
 
@@ -480,7 +480,7 @@
 	name = "Clown Officer"
 	outfit = /datum/outfit/clownofficer
 
-/obj/effect/mob_spawn/human/corpse/clown/officer/Initialize()
+/obj/effect/mob_spawn/human/corpse/clown/officer/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
 /datum/outfit/clownofficer
@@ -499,7 +499,7 @@
 	name = "Clown Soldier"
 	outfit = /datum/outfit/clownsoldier
 
-/obj/effect/mob_spawn/human/corpse/clown/soldier/Initialize()
+/obj/effect/mob_spawn/human/corpse/clown/soldier/Initialize(mapload)
 	mob_name = "Officer [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -560,7 +560,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/corpse/mime/Initialize()
+/obj/effect/mob_spawn/human/corpse/mime/Initialize(mapload)
 	mob_name = pick(GLOB.mime_names)
 	return ..()
 
@@ -666,29 +666,6 @@
 /obj/effect/mob_spawn/human/alive/zombie/non_infectious/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	return ..()
-
-////////Non-human spawners////////
-
-/obj/effect/mob_spawn/mouse
-	name = "sleeper"
-	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Squeak!"
-
-/obj/effect/mob_spawn/cow
-	name = "sleeper"
-	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
-	death = FALSE
-	roundstart = FALSE
-	mob_gender = FEMALE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Moo!"
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
 /obj/effect/mob_spawn/corpse

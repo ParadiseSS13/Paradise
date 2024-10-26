@@ -23,7 +23,7 @@
 	throw_range = 15
 	attack_verb = list("HONKED")
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
