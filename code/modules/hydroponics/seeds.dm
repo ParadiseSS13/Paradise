@@ -427,7 +427,7 @@
 	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
 		N = "experimental " + N
 	name = N + V
-	update_name() //Append name additives such as from labels
+	update_appearance(UPDATE_NAME) //Append name additives such as from labels
 
 
 

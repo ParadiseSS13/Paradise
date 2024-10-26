@@ -117,7 +117,7 @@
 		icon_state = "emptycondiment"
 		name = "condiment bottle"
 		desc = "An empty condiment bottle."
-	update_name()
+	update_appearance(UPDATE_NAME)
 
 /obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
