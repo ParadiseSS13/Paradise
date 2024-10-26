@@ -21356,7 +21356,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/catwalk,
 /area/station/engineering/transmission_laser)
 "eaD" = (
 /turf/simulated/floor/plasteel{

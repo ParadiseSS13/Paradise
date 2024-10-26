@@ -91471,10 +91471,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
-	},
+/turf/simulated/floor/catwalk,
 /area/station/engineering/transmission_laser)
 "sZp" = (
 /obj/structure/cable/yellow{

@@ -78655,7 +78655,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/catwalk,
 /area/station/engineering/transmission_laser)
 "rPt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{

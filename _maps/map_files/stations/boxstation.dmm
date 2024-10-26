@@ -26059,7 +26059,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/catwalk,
 /area/station/engineering/transmission_laser)
 "bFd" = (
 /obj/structure/rack{
@@ -30371,6 +30371,12 @@
 /obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
+"bVw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "bVA" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -54575,6 +54581,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/safety_eye_protection{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "fct" = (
@@ -58655,12 +58664,10 @@
 	},
 /area/station/security/brig)
 "gVS" = (
-/obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
-	dir = 1;
-	network = list("SS13","MiniSat")
-	},
 /obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "gVT" = (
@@ -58783,6 +58790,12 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"gXh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "gXD" = (
 /obj/item/kirbyplants,
 /obj/machinery/requests_console/directional/north,
@@ -63952,11 +63965,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/camera{
-	c_tag = "AI Satellite Exterior South East";
-	dir = 4;
-	network = list("SS13","MiniSat")
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "jFf" = (
@@ -67344,7 +67353,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "lmM" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -68284,6 +68293,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/camera{
+	c_tag = "Prison Solitary Confinement 2";
+	dir = 6;
+	network = list("Prison","SS13")
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "lIV" = (
@@ -68559,7 +68573,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/alarm/directional/east,
+/obj/structure/sign/poster/official/safety_eye_protection{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "lPC" = (
@@ -76099,6 +76115,9 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "pyI" = (
@@ -82603,6 +82622,12 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"sDe" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "sDp" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -83309,6 +83334,7 @@
 	color = "#FFFF00"
 	},
 /obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "sTF" = (
@@ -83684,6 +83710,9 @@
 "tdO" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/transmission_laser,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "ten" = (
@@ -86092,7 +86121,10 @@
 	d1 = 1;
 	d2 = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
 /area/station/engineering/transmission_laser)
 "upZ" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -87415,6 +87447,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"vbt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "vbD" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop,
@@ -88820,7 +88859,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
 /area/station/engineering/gravitygenerator)
 "vLm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -89429,7 +89471,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/station/engineering/transmission_laser)
 "wcA" = (
 /obj/structure/closet/emcloset,
@@ -92312,12 +92354,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"xAk" = (
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
-/turf/simulated/wall/r_wall,
-/area/station/engineering/transmission_laser)
 "xAn" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -92495,6 +92531,12 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
+"xEw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "xEG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -93718,6 +93760,12 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/hos)
+"yfP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "yfT" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
@@ -115651,7 +115699,7 @@ cRA
 mnN
 mnN
 jlS
-xAk
+mnN
 mnN
 mnN
 mnN
@@ -115910,7 +115958,7 @@ jEc
 tjG
 tHE
 fcp
-scI
+xEw
 mnN
 aaa
 aaa
@@ -116165,8 +116213,8 @@ sdw
 onZ
 bFa
 tdO
-scI
-scI
+sDe
+bVw
 pyC
 mnN
 aaa
@@ -116421,10 +116469,10 @@ eNV
 cLi
 fzl
 lIl
+xEw
 scI
 scI
-scI
-scI
+vbt
 dmr
 aaa
 aaa
@@ -116678,10 +116726,10 @@ ikK
 fxA
 wct
 ahz
-scI
-scI
-scI
-scI
+bVw
+yfP
+gXh
+xEw
 fzl
 aaa
 aaa
