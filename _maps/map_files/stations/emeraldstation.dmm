@@ -20386,6 +20386,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/starboard)
+"dPN" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/shotgun,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "dPQ" = (
 /obj/structure/closet/secure_closet/evidence,
 /obj/structure/sign/poster/official/random{
@@ -22975,6 +22981,14 @@
 	icon_state = "dark"
 	},
 /area/station/medical/storage/secondary)
+"eqR" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/item/trash/spentcasing/shotgun,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
+/area/station/maintenance/dorms/port)
 "eqW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -32965,14 +32979,6 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
 /area/station/science/research)
-"ggS" = (
-/obj/item/trash/spentcasing,
-/obj/effect/spawner/random/blood/maybe,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
-	},
-/area/station/maintenance/dorms/port)
 "ggT" = (
 /obj/structure/morgue{
 	dir = 2
@@ -34325,12 +34331,6 @@
 "gtu" = (
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
-"gtw" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/item/trash/spentcasing,
-/obj/effect/spawner/random/cobweb/left/rare,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "gtz" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -44777,6 +44777,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
+"iqK" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/shotgun,
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/port)
 "iqL" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/radio/intercom{
@@ -47326,14 +47331,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/range)
-"iOO" = (
-/obj/item/trash/spentcasing,
-/obj/effect/spawner/random/blood/maybe,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
-	},
-/area/station/maintenance/dorms/port)
 "iOR" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -48280,7 +48277,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "iXG" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -50729,6 +50726,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
+"jvX" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/shotgun,
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
+/area/station/maintenance/dorms/port)
 "jwc" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
@@ -63996,7 +64001,7 @@
 "lWJ" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "lWR" = (
@@ -70988,12 +70993,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"npe" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/item/trash/spentcasing,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "npi" = (
 /turf/simulated/wall/r_wall,
 /area/station/ai_monitored/storage/eva)
@@ -83052,6 +83051,14 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
+"pvG" = (
+/obj/item/food/candy/coin,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/chair/stool,
+/obj/item/trash/spentcasing/shotgun,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/starboard)
 "pvK" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/barricade/wooden,
@@ -90759,11 +90766,6 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/central/sw)
-"qVm" = (
-/obj/item/trash/spentcasing,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/port)
 "qVn" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass/jungle,
@@ -94472,7 +94474,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/trash/liquidfood,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/item/trash/spacetwinkie,
 /obj/item/trash/raisins,
 /obj/item/trash/raisins,
@@ -95592,7 +95594,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "rMs" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plating,
@@ -103426,16 +103428,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/sorting)
-"tic" = (
-/obj/item/circuitboard/arcade/orion_trail,
-/obj/item/trash/spentcasing,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood,
-/area/station/maintenance/aft2)
 "tih" = (
 /obj/structure/rack,
 /obj/item/apc_electronics,
@@ -108116,6 +108108,12 @@
 /obj/machinery/economy/vending/cart,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"ubc" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/cobweb/left/rare,
+/obj/item/trash/spentcasing/shotgun,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "ubg" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -109894,14 +109892,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
-"utj" = (
-/obj/item/chair/stool,
-/obj/item/trash/spentcasing,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/food/candy/coin,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/starboard)
 "utm" = (
 /obj/effect/decal/cleanable/crayon,
 /obj/item/cardboard_cutout{
@@ -112030,7 +112020,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "uMC" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -118025,6 +118015,16 @@
 /obj/item/ashtray/glass,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
+"vRQ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/circuitboard/arcade/orion_trail,
+/obj/item/trash/spentcasing/shotgun,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft2)
 "vRS" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -118665,7 +118665,7 @@
 "vYs" = (
 /obj/item/dice/d6,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "vYu" = (
@@ -155437,7 +155437,7 @@ oJN
 arS
 xDS
 kZq
-qVm
+iqK
 pwK
 hdT
 fwH
@@ -155952,7 +155952,7 @@ edg
 arS
 iXG
 fMq
-iOO
+eqR
 wwP
 dQk
 fwH
@@ -156207,7 +156207,7 @@ cDt
 eSN
 uUB
 arS
-ggS
+jvX
 nRs
 izg
 sXZ
@@ -166993,7 +166993,7 @@ tZO
 tZO
 tZO
 xqT
-utj
+pvG
 uMC
 bIH
 sQj
@@ -170125,7 +170125,7 @@ eNH
 tCt
 gsg
 iYE
-gtw
+ubc
 bae
 qHM
 nCK
@@ -170640,8 +170640,8 @@ kVU
 hIT
 iYE
 cCo
-tic
-npe
+vRQ
+dPN
 qXW
 rZj
 hda
