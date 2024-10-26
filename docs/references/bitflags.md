@@ -51,20 +51,35 @@ represents a `1` in the "zeroth" place: `000001`. Then `(1 << 1)` represents a
 we are just representing them in a unique way. For example, `(1 << 3)` is equal
 to 8 in base ten, and is equal to `001000` in binary.
 
-> [!NOTE]
->
-> For a deeper dive into binary arithmetic and operators like the bitwise shift
-> left, see the [Advanced Bitflags](./adv_bitflags.md) reference.
-
 ![](./images/bitflags.png)
+
+> [!WARNING]
+>
+> Because of how BYOND represents numbers, a single number can only hold 24
+> flags. In other words, once the amount of flags you wish to represent in a
+> number reaches `(1 << 23)`, you have run out of available places to store
+> flags in that variable.
+>
+> The technical explanation is: BYOND has a single numeric datatype stored as
+> 32-bit IEEE 754 floating point. Performing bitwise operations on numbers in
+> BYOND converts the number to its integer representation, using the 24 bits of
+> the significand in the floating point representation, and then back to
+> floating point afterwards.
 
 ## Operating on Bitflags
 
+There will be several kinds of operations you'll want to perform on bitflags.
+These operations are performed using _binary arithemetic operators_.
+
+> [!NOTE]
+>
+> This guide only describes the most common bitflag operations. For a deeper
+> dive into binary arithmetic and more complex operators, see the
+> [Advanced Bitflags](./adv_bitflags.md) reference.
+
 ### Setting and Unsetting
 
-There will be several kinds of operations you'll want to perform on bitflags.
-The first will be setting them. This can be done by setting them all at once
-using the OR bitwise operator, `|`:
+In order to set flags, use the OR bitwise operator, `|`:
 
 ```dm
 var/player_abilities = WALK | SING | READ
@@ -73,6 +88,13 @@ var/player_abilities = WALK | SING | READ
 This "toggles" the slots for the provided flags and returns the result. In this
 case, the value of `player_abilities` is now the number 41, because that is the
 sum of the values represented by those three individual flags.
+
+In other words, the value of these two variables is the same:
+
+```dm
+var/alice_abilities = 41
+var/brian_abilities = WALK | SING | READ
+```
 
 The OR bitwise operator can also be used in assignment. For example:
 
@@ -122,16 +144,3 @@ bitflag:
 
 Because then both values can be toggled on in a single variable. Only use
 bitflags when it makes sense to toggle any or all of the flags simultaneously.
-
-### Only use 24 settings per bitflag
-
-Because of how BYOND represents numbers, a single number can only hold 24 flags.
-In other words, once the amount of flags you wish to represent in a number
-reaches `(1 << 23)`, you have run out of available places to store flags in that
-variable.
-
-The technical explanation is: BYOND has a single numeric datatype stored as
-32-bit IEEE 754 floating point. Performing bitwise operations on numbers in
-BYOND converts the number to its integer representation, using the 24 bits of
-the significand in the floating point representation, and then back to floating
-point afterwards.
