@@ -400,7 +400,7 @@
 
 /obj/item/food/jellysandwich/cherry
 	name = "cherry jelly sandwich"
-	desc = "A sandwich with cherry jelly.
+	desc = "A sandwich with cherry jelly."
 	list_reagents = list("nutriment" = 2, "cherryjelly" = 5, "vitamin" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
