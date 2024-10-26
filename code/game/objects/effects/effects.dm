@@ -213,7 +213,3 @@
 
 	// Readd to ourselves
 	attached_to.vis_contents |= src
-
-/// The PTL beam shouldn't affect effects
-/obj/effect/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	return

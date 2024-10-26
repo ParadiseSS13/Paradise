@@ -249,7 +249,7 @@
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
+/obj/effect/temp_visual/tarot_preview/Initialize(mapload, new_icon_state)
 	. = ..()
 	if(new_icon_state)
 		icon_state = "tarot_[new_icon_state]"
@@ -287,6 +287,8 @@
 	card_icon = "the_fool"
 
 /datum/tarot/the_fool/activate(mob/living/target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(GLOB.latejoin))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -364,7 +366,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No bridge? Well, that sucks.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -440,7 +443,8 @@
 	if(!length(viable_vendors))
 		to_chat(target, "<span class='warning'>No vending machines? Well, with luck cargo will have something to offer. If you go there yourself.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(viable_vendors)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -554,7 +558,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No evidence? Well, that means they can't charge you with a crime, right?</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 	for(var/obj/structure/closet/C in shuffle(view(9, target)))
@@ -573,6 +578,8 @@
 /datum/tarot/the_moon/activate(mob/living/target)
 	var/list/funny_ruin_list = list()
 	var/turf/target_turf = get_turf(target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	for(var/I in GLOB.ruin_landmarks)
 		var/obj/effect/landmark/ruin/ruin_landmark = I
 		if(ruin_landmark.z == target_turf.z)
@@ -722,7 +729,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No command members? I hope you didn't kill them all already...</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(L)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -975,6 +983,7 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Hmm. No base? A miner issue.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")

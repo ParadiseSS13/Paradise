@@ -138,7 +138,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 

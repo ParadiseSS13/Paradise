@@ -98,7 +98,7 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-/obj/structure/bookcase/manuals/medical/Initialize()
+/obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -107,7 +107,7 @@
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-/obj/structure/bookcase/manuals/engineering/Initialize()
+/obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/wiki/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
@@ -120,7 +120,7 @@
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-/obj/structure/bookcase/manuals/research_and_development/Initialize()
+/obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -128,7 +128,7 @@
 /obj/structure/bookcase/sop
 	name = "bookcase (Standard Operating Procedures)"
 
-/obj/structure/bookcase/sop/Initialize()
+/obj/structure/bookcase/sop/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/wiki/sop_command(src)
 	new /obj/item/book/manual/wiki/sop_engineering(src)

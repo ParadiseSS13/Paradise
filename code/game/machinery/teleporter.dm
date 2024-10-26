@@ -29,7 +29,7 @@
 	/// When the teleporter is upgraded, it can lock onto beacons directly, rather than turfs. This is the variable for it.
 	var/advanced_beacon_locking = FALSE
 
-/obj/machinery/computer/teleporter/Initialize()
+/obj/machinery/computer/teleporter/Initialize(mapload)
 	. = ..()
 	link_power_station()
 	update_icon()

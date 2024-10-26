@@ -741,10 +741,10 @@
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/secure/chemistry
+	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
-	req_access = list(ACCESS_CHEMISTRY)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/storage/pill_bottle,
