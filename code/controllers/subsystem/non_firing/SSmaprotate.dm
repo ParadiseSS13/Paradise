@@ -97,14 +97,18 @@ SUBSYSTEM_DEF(maprotate)
 				potential_maps[preferred_map]++
 				break
 	var/list/returned_text = list("Map Preference Vote Results:")
+	var/list/pickable_maps = list()
 	for(var/possible_next_map in potential_maps)
 		var/votes = potential_maps[possible_next_map]
 		var/percentage_text = ""
 		if(votes > 0)
 			var/actual_percentage = round((votes / length(GLOB.clients)) * 100, 0.1) // Note: Some players will not have this filled out. Too bad.
 			percentage_text += "[add_lspace(actual_percentage, 5 - length("[actual_percentage]"))]%"
+			pickable_maps[possible_next_map] = votes
 		returned_text += "[percentage_text] | <b>[possible_next_map]</b>: [potential_maps[possible_next_map]]"
-	var/datum/map/winner = pickweight(potential_maps) // Even if no one votes, pickweight will pick from them evenly. This means a map with zero votes *can* be chosen
+	if(!length(pickable_maps))
+		pickable_maps = potential_maps // potential_maps should probably be renamed to `available_maps` or `voteable_maps`
+	var/datum/map/winner = pickweight(pickable_maps) // Even if no one votes, pickweight will pick from them evenly. This means a map with zero votes *can* be chosen
 	to_chat(world, "[returned_text.Join("\n")]")
 	SSmapping.next_map = new winner
 	to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
