@@ -108,7 +108,7 @@
 #include "code\__DEFINES\reagents_defines.dm"
 #include "code\__DEFINES\regex.dm"
 #include "code\__DEFINES\revolution_defines.dm"
-#include "code\__DEFINES\resonator.dm"
+#include "code\__DEFINES\resonator_defines.dm"
 #include "code\__DEFINES\role_preferences.dm"
 #include "code\__DEFINES\rolebans.dm"
 #include "code\__DEFINES\rust.dm"
