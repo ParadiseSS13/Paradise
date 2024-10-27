@@ -85248,7 +85248,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "pVI" = (
 /obj/structure/plasticflaps{
