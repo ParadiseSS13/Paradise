@@ -991,8 +991,9 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "ahE" = (
-/obj/machinery/camera/autoname{
-	dir = 10
+/obj/machinery/camera{
+	c_tag = "Arrivals Fore Central";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -1366,8 +1367,9 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "als" = (
-/obj/machinery/camera/autoname{
-	dir = 10
+/obj/machinery/camera{
+	c_tag = "Arrivals Aft Starboard";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -49770,8 +49772,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/camera/autoname{
-	dir = 10
+/obj/machinery/camera{
+	c_tag = "Arrivals Fore Starboard";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -74359,8 +74362,9 @@
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/lounge)
 "jOW" = (
-/obj/machinery/camera/autoname{
-	dir = 10
+/obj/machinery/camera{
+	c_tag = "Arrivals Aft Port";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -76071,6 +76075,15 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"kOD" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals Aft Central";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "kPl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -84257,9 +84270,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "pvf" = (
-/obj/machinery/camera/autoname,
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Fore Port"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84554,7 +84569,8 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
 "pCM" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Arrivals Hall Aft";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -88692,6 +88708,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
+"rVD" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals Hall Fore";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/east)
 "rVL" = (
 /obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/delivery,
@@ -137057,7 +137083,7 @@ dGS
 aAr
 aAr
 anp
-jOW
+kOD
 aoo
 aoo
 aoo
@@ -142441,7 +142467,7 @@ amL
 rQS
 amB
 rQS
-pCM
+rVD
 bld
 rQS
 akb
