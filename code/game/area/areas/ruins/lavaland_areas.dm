@@ -46,7 +46,8 @@
 /area/ruin/powered/seedvault
 	icon_state = "yellow"
 
-
+/area/ruin/powered/lust
+	icon_state = "yellow"
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest

@@ -1,0 +1,147 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"c" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"i" = (
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/lust)
+"j" = (
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/wood/glass,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/lust)
+"o" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/lust)
+"p" = (
+/turf/simulated/wall/indestructible/wood{
+	desc = "This building looks cozy. You WANT to go in."
+	},
+/area/ruin/powered/lust)
+"w" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/lust)
+"A" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"G" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/lust)
+
+(1,1,1) = {"
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+"}
+(2,1,1) = {"
+a
+c
+c
+p
+p
+p
+p
+c
+c
+a
+"}
+(3,1,1) = {"
+c
+c
+p
+p
+o
+o
+p
+p
+c
+a
+"}
+(4,1,1) = {"
+c
+p
+p
+o
+o
+o
+o
+p
+p
+A
+"}
+(5,1,1) = {"
+c
+p
+i
+w
+o
+G
+o
+o
+j
+A
+"}
+(6,1,1) = {"
+c
+p
+p
+o
+o
+o
+o
+p
+p
+A
+"}
+(7,1,1) = {"
+c
+c
+p
+p
+o
+o
+p
+p
+c
+a
+"}
+(8,1,1) = {"
+a
+c
+c
+p
+p
+p
+p
+c
+c
+a
+"}
+(9,1,1) = {"
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+"}
