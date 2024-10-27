@@ -77332,7 +77332,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
