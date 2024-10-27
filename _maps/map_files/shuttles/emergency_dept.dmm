@@ -770,10 +770,34 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"hH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/shuttle/escape)
 "ja" = (
 /obj/item/flag/atmos,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"mj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
 /area/shuttle/escape)
 "mD" = (
 /obj/item/flag/med,
@@ -794,6 +818,18 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
+	},
+/area/shuttle/escape)
+"pS" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
 	},
 /area/shuttle/escape)
 "qU" = (
@@ -899,6 +935,18 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/shuttle/escape)
+"yG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "whitepurple"
 	},
 /area/shuttle/escape)
@@ -1325,7 +1373,7 @@ re
 sP
 ja
 vU
-vU
+pS
 vU
 by
 WP
@@ -1449,7 +1497,7 @@ re
 sP
 bR
 Di
-Di
+hH
 Di
 bA
 RW
@@ -1511,7 +1559,7 @@ re
 Rq
 Bb
 Us
-Us
+yG
 Us
 bI
 xz
@@ -1635,7 +1683,7 @@ vv
 bZ
 bR
 yh
-yh
+mj
 yh
 bK
 SN
