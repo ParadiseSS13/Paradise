@@ -90,7 +90,7 @@
 	instant = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/alt/deathsquad/Initialize()
+/obj/item/radio/headset/alt/deathsquad/Initialize(mapload)
 	. = ..()
 	set_frequency(DTH_FREQ)
 
@@ -346,7 +346,7 @@
 
 /obj/item/radio/headset/ert/alt
 	name = "emergency response team's bowman headset"
-	desc = "The headset of the boss. Protects ears from flashbangs."
+	desc = "An ergonomic tactical headset used by Nanotrasen-affiliated PMCs. Protects against loud noises."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"

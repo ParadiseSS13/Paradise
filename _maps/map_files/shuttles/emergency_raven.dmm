@@ -693,7 +693,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = 24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -721,7 +721,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = 24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1303,7 +1303,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1458,7 +1458,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
