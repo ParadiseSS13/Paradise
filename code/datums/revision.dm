@@ -91,6 +91,11 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	msg += "<span class='notice'><b>Server Revision Info</b></span>"
 	// Round ID first
 	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
+	#ifdef PARADISE_PRODUCTION_HARDWARE
+	msg += "<b>Production-hardware specific compile:</b> Yes"
+	#else
+	msg += "<b>Production-hardware specific compile:</b> No"
+	#endif
 
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date && GLOB.configuration.url.github_url)
