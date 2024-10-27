@@ -132,7 +132,7 @@
 	job = list("Chaplain")
 	surplus = 0 // Controversial maybe, but with the ease of mindslaving with this item I'd prefer it stay chaplain specific.
 
-/datum/uplink_item/jobspecific/artistic_toolbox
+/datum/uplink_item/dangerous/artistic_toolbox
 	name = "His Grace"
 	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
 	His Grace grants gradual regeneration and complete stun immunity to His wielder, but be wary: if He gets too hungry, He will become impossible to drop and eventually kill you if not fed. \
@@ -141,7 +141,7 @@
 	reference = "HG"
 	item = /obj/item/his_grace
 	cost = 100
-	job = list("Chaplain")
+//	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
