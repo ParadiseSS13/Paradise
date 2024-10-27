@@ -335,11 +335,13 @@
 	var/static/list/options = list("Lightning" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "chain_lightning"),/// todo add icons for these
 							"Fire" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "fire"),
 							"Bluespace" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "blink"),
-							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),)
+							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),
+							"Temporal Slash" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "spacetime"),)
 	var/static/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
 									"Fire" = /datum/enchantment/fire,
 									"Bluespace" = /datum/enchantment/bluespace,
-									"Forcewall" = /datum/enchantment/forcewall,)
+									"Forcewall" = /datum/enchantment/forcewall,
+									"Temporal Slash" = /datum/enchantment/time_slash,)
 
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice)
@@ -349,6 +351,7 @@
 /obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
 	var/datum/enchantment/E = new new_enchant
 	enchant = E
+	E.on_apply_to_blade(src)
 	E.on_gain(src, user)
 	E.power *= power
 	if(intentional)
@@ -378,6 +381,8 @@
 	var/cooldown = -1
 	/// If the spellblade has traits, has it applied them?
 	var/applied_traits = FALSE
+	/// A modifier that can be appled to the cooldown after the enchantment has been initialized. Used by the forcewall spellblade
+	var/cooldown_multiplier = 1
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	if(world.time < cooldown)
@@ -388,7 +393,8 @@
 		return FALSE
 	if(!ranged && !proximity)
 		return FALSE
-	cooldown = world.time + initial(cooldown)
+	cooldown = world.time + (initial(cooldown) * cooldown_multiplier)
+	message_admins("[(initial(cooldown) * cooldown_multiplier)]")
 	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
@@ -397,9 +403,12 @@
 /datum/enchantment/proc/toggle_traits(obj/item/I, mob/living/user)
 	return
 
+/datum/enchantment/proc/on_apply_to_blade(obj/item/melee/spellblade)
+	return
+
 /datum/enchantment/lightning
 	name = "lightning"
-	desc = "this blade conducts arcane energy to arc between its victims. It also makes the user immune to shocks."
+	desc = "this blade conducts arcane energy to arc between its victims. It also makes the user immune to shocks"
 	// the damage of the first lighting arc.
 	power = 20
 	cooldown = 3 SECONDS
@@ -428,6 +437,7 @@
 	source.Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = 2 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
 	if(!target.electrocute_act(voltage, "lightning", flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
 		return
+	target.KnockDown(4 SECONDS * (power / 20)) //Power is 20 by default, 10 in a random blade
 	protected_mobs += target
 	addtimer(CALLBACK(src, PROC_REF(arc), target, voltage, protected_mobs), 2.5 SECONDS)
 
@@ -473,6 +483,11 @@
 	name = "forcewall"
 	desc = "this blade will partially shield you against attacks and stuns for a short duration after striking a foe"
 	cooldown = 4 SECONDS
+	// multiplier for how much the cooldown is reduced by. A miner spellblade can only buff every 4 seconds, making it more vunerable, the wizard one is much more consistant.
+	power = 2
+
+/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade)
+	cooldown_multiplier /= power
 
 /datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	. = ..()
@@ -482,7 +497,7 @@
 
 /datum/enchantment/bluespace
 	name = "bluespace"
-	desc = "this the fabric of space, transporting its wielder over medium distances to strike foes"
+	desc = "this blade will cut through the fabric of space, transporting its wielder over medium distances to strike foes"
 	cooldown = 2.5 SECONDS
 	ranged = TRUE
 	// the number of deciseconds of stun applied by the teleport strike
@@ -511,6 +526,51 @@
 	S.melee_attack_chain(user, target)
 	target.Weaken(power)
 
+/datum/enchantment/time_slash
+	name = "temporal slash"
+	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
+	power = 15 // This should come out to 40 damage per hit. However, delayed.
+
+/datum/enchantment/time_slash/on_apply_to_blade(obj/item/melee/spellblade)
+	spellblade.force /= 2
+
+/datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+	user.changeNext_move(CLICK_CD_MELEE * 0.5)
+	. = ..()
+	if(!.)
+		return
+	target.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH, power)
+
+/obj/effect/temp_visual/temporal_slash
+	name = "temporal slash"
+	desc = "A cut through spacetime"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "arcane_barrage"
+	layer = FLY_LAYER
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	duration = 0.5 SECONDS
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT // Let us not have this visual block clicks
+	/// Who we are orbiting
+	var/target
+	/// A funky colour matrix to recolor the slash to
+	var/list/funky_colour_matrix = list(0.4,0,0,0, 0,1.1,0,0, 0,0,1.65,0, -0.3,0.15,0,1, 0,0,0,0)
+
+/obj/effect/temp_visual/temporal_slash/Initialize(mapload, new_target)
+	. = ..()
+	target = new_target
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
+	var/matrix/M = matrix()
+	M.Scale(1, 2)
+	M.Turn(rand(0, 360))
+	transform = M
+	addtimer(CALLBACK(src, PROC_REF(animate_slash)), 0.25 SECONDS)
+
+/obj/effect/temp_visual/temporal_slash/proc/animate_slash()
+	plane = -1
+	color = funky_colour_matrix
+	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
+
 /obj/item/melee/spellblade/random
 	power = 0.5
 
@@ -519,6 +579,7 @@
 	var/list/options = list(/datum/enchantment/lightning,
 							/datum/enchantment/fire,
 							/datum/enchantment/forcewall,
-							/datum/enchantment/bluespace,)
+							/datum/enchantment/bluespace,
+							/datum/enchantment/time_slash,)
 	var/datum/enchantment/E = pick(options)
 	add_enchantment(E, intentional = FALSE)
