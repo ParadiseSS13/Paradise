@@ -39,8 +39,12 @@
 
 /obj/item/his_grace/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
+	SSblackbox.record_feedback("ledger", "his_grace", victims, "victim_count")
+	var/mob_counter = 0
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
+		mob_counter++
+	SSblackbox.record_feedback("ledger", "his_grace", mob_counter, "mob_count")
 	GLOB.poi_list -= src
 	return ..()
 
