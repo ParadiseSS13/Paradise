@@ -21,6 +21,9 @@
 		if(!length(vents))
 			message_admins("Warning: No suitable vents detected for spawning morphs. Force picking from station vents regardless of state!")
 			vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
+			if(!length(vents))
+				message_admins("Warning: No vents detected for spawning morphs at all!")
+				return
 		var/obj/vent = pick(vents)
 		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(vent.loc)
 		player_mind.transfer_to(S)
