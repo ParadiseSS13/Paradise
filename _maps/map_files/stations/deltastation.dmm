@@ -300,7 +300,8 @@
 /area/station/hallway/secondary/entry/north)
 "adO" = (
 /obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating,
+/obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "adU" = (
 /turf/simulated/floor/plasteel{
@@ -1853,7 +1854,8 @@
 /area/station/hallway/secondary/entry/south)
 "anu" = (
 /obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/plating,
+/obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "anv" = (
 /turf/simulated/floor/plasteel{
@@ -68534,6 +68536,27 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass,
 /area/station/medical/medbay)
+"gnm" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/east)
 "gns" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -79494,6 +79517,11 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
+"mQO" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker,
+/turf/space,
+/area/space/nearstation)
 "mRb" = (
 /obj/machinery/airlock_controller/access_controller{
 	ext_button_link_id = "turbine_btn_ext";
@@ -83646,9 +83674,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"pam" = (
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "pax" = (
 /obj/structure/sink{
 	dir = 1;
@@ -137315,7 +137340,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abj
 ovL
 doS
 ovL
@@ -137572,7 +137597,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+mQO
 abj
 abj
 ovL
@@ -138857,7 +138882,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+mQO
 abj
 abj
 ovL
@@ -139114,7 +139139,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abj
 ovL
 doS
 ovL
@@ -142216,7 +142241,7 @@ kLd
 kNa
 vcE
 vcE
-vcE
+gnm
 fPG
 vcE
 wvH
@@ -142473,7 +142498,7 @@ inH
 xyI
 rQS
 pCM
-amL
+inH
 amB
 rQS
 afh
@@ -142969,7 +142994,7 @@ abj
 abj
 abj
 abj
-pam
+acF
 akA
 sMV
 aeA
