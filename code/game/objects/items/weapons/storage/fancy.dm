@@ -23,6 +23,10 @@
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
+	. += fancy_storage_examine(user)
+
+/obj/item/storage/fancy/proc/fancy_storage_examine(mob/user)
+	. = list()
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
@@ -103,8 +107,9 @@
 	throwforce = 2
 	slot_flags = SLOT_FLAG_BELT
 
-/obj/item/storage/fancy/candle_box/full
-	icon_state = "candlebox5"
+/obj/item/storage/fancy/candle_box/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I in 1 to storage_slots)

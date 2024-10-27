@@ -1810,4 +1810,249 @@
 				holder.icon_state = "odysseus12"
 	return 1
 
+// NKARRDEM
+
+/datum/construction/mecha/nkarrdem_chassis
+	steps = list(list("key"=/obj/item/mecha_parts/part/nkarrdem_torso), // 1
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_head), // 2
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_arm), // 3
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_arm), // 4
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_leg), // 5
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_leg) // 6
+	)
+
+/datum/construction/mecha/nkarrdem_chassis/custom_action(step, atom/used_atom, mob/user)
+	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
+	holder.overlays += used_atom.icon_state + "+o"
+	qdel(used_atom)
+	return TRUE
+
+/datum/construction/mecha/nkarrdem_chassis/action(atom/used_atom,mob/user as mob)
+	return check_all_steps(used_atom,user)
+
+/datum/construction/mecha/nkarrdem_chassis/spawn_result(mob/user, result_name)
+	..(user, "Nkarrdem")
+	var/obj/item/mecha_parts/chassis/const_holder = holder
+	const_holder.construct = new /datum/construction/reversible/mecha/nkarrdem(const_holder)
+	const_holder.icon = 'icons/mecha/mech_construction.dmi'
+	const_holder.icon_state = "nkarrdem0"
+	const_holder.density = TRUE
+	qdel(src)
+
+/datum/construction/reversible/mecha/nkarrdem
+	result = "/obj/mecha/nkarrdem"
+	steps = list(
+		//1
+		list(
+			"key" = TOOL_WELDER,
+			"backkey" = TOOL_WRENCH,
+			"desc" = "External armor is wrenched."),
+		//2
+		list(
+			"key" = TOOL_WRENCH,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "External armor is installed."),
+		//3
+		list(
+			"key" = /obj/item/stack/sheet/plasteel,
+			"backkey" = TOOL_WELDER,
+			"desc" = "Internal armor is welded."),
+		//4
+		list(
+			"key" = TOOL_WELDER,
+			"backkey" = TOOL_WRENCH,
+			"desc" = "Internal armor is wrenched."),
+		//5
+		list(
+			"key" = TOOL_WRENCH,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "Internal armor is installed."),
+		//6
+		list(
+			"key" = /obj/item/stack/sheet/metal,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "Floor buffer is secured."),
+		//7
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "Floor buffer is installed."),
+		//8
+		list(
+			"key" = /obj/item/borg/upgrade/floorbuffer,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "Peripherals control module is secured."),
+		//9
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "Peripherals control module is installed."),
+		//10
+		list(
+			"key" = /obj/item/circuitboard/mecha/nkarrdem/peripherals,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "Central control module is secured."),
+
+		//11
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "Central control module is installed."),
+		//12
+		list(
+			"key" = /obj/item/circuitboard/mecha/nkarrdem/main,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "The wiring is adjusted."),
+		//13
+		list(
+			"key" = /obj/item/wirecutters,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "The wiring is added."),
+		//14
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "The hydraulic systems are active."),
+		//15
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"backkey" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are connected."),
+		//16
+		list(
+			"key" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are disconnected.")
+	)
+
+/datum/construction/reversible/mecha/nkarrdem/action(atom/used_atom, mob/user)
+	return check_step(used_atom,user)
+
+/datum/construction/reversible/mecha/nkarrdem/custom_action(index, diff, atom/used_atom, mob/user)
+	if(!..())
+		return FALSE
+
+	switch(index)
+		if(16)
+			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
+			holder.icon_state = "nkarrdem1"
+		if(15)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
+				holder.icon_state = "nkarrdem2"
+			else
+				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
+				holder.icon_state = "nkarrdem0"
+		if(14)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
+				holder.icon_state = "nkarrdem3"
+			else
+				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
+				holder.icon_state = "nkarrdem1"
+		if(13)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
+				holder.icon_state = "nkarrdem4"
+			else
+				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
+				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				coil.amount = 4
+				holder.icon_state = "nkarrdem2"
+		if(12)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
+				qdel(used_atom)
+				holder.icon_state = "nkarrdem5"
+			else
+				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
+				holder.icon_state = "nkarrdem3"
+		if(11)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
+				holder.icon_state = "nkarrdem6"
+			else
+				user.visible_message("[user] removes the central control module from the [holder].", "You remove the central computer mainboard from the [holder].")
+				new /obj/item/circuitboard/mecha/nkarrdem/main(get_turf(holder))
+				holder.icon_state = "nkarrdem4"
+		if(10)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
+				qdel(used_atom)
+				holder.icon_state = "nkarrdem7"
+			else
+				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
+				holder.icon_state = "nkarrdem5"
+		if(9)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
+				holder.icon_state = "nkarrdem8"
+			else
+				user.visible_message("[user] removes the peripherals control module from the [holder].", "You remove the peripherals control module from the [holder].")
+				new /obj/item/circuitboard/mecha/nkarrdem/peripherals(get_turf(holder))
+				holder.icon_state = "nkarrdem6"
+		if(8)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] installs a floor buffer into [holder].", "You install a floor buffer into [holder].")
+				qdel(used_atom)
+				holder.icon_state = "nkarrdem9"
+			else
+				user.visible_message("[user] unfastens the peripherals control module.", "You unfasten the peripherals control module.")
+				holder.icon_state = "nkarrdem7"
+		if(7)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] secures a floor buffer into [holder].", "You secure the floor buffer into [holder].")
+				holder.icon_state = "nkarrdem10"
+			else
+				user.visible_message("[user] removes the floor buffer from the [holder].", "You unfasten  the floor buffer from the [holder].")
+				new /obj/item/borg/upgrade/floorbuffer(get_turf(holder))
+				holder.icon_state = "nkarrdem8"
+		if(6)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
+				holder.icon_state = "nkarrdem11"
+			else
+				user.visible_message("[user] unfastens the floor buffer.", "You unfasten the floor buffer.")
+				holder.icon_state = "nkarrdem9"
+		if(5)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] secures the internal armor layer.", "You secure the internal armor layer.")
+				holder.icon_state = "nkarrdem12"
+			else
+				user.visible_message("[user] pries internal armor layer from the [holder].", "You pry internal armor layer from the [holder].")
+				var/obj/item/stack/sheet/metal/MS = new /obj/item/stack/sheet/metal(get_turf(holder))
+				MS.amount = 5
+				holder.icon_state = "nkarrdem10"
+		if(4)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] welds the internal armor layer to the [holder].", "You weld the internal armor layer to the [holder].")
+				holder.icon_state = "nkarrdem13"
+			else
+				user.visible_message("[user] unfastens the internal armor layer.", "You unfasten the internal armor layer.")
+				holder.icon_state = "nkarrdem11"
+		if(3)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] installs [used_atom] layer to the [holder].", "You install the external reinforced armor layer to the [holder].")
+
+				holder.icon_state = "nkarrdem14"
+			else
+				user.visible_message("[user] cuts the internal armor layer from the [holder].", "You cut the internal armor layer from the [holder].")
+				holder.icon_state = "nkarrdem12"
+		if(2)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] secures the external armor layer.", "You secure the external reinforced armor layer.")
+				holder.icon_state = "nkarrdem15"
+			else
+				var/obj/item/stack/sheet/plasteel/MS = new /obj/item/stack/sheet/plasteel(get_turf(holder))
+				MS.amount = 5
+				user.visible_message("[user] pries [MS] from the [holder].", "You pry [MS] from the [holder].")
+				holder.icon_state = "nkarrdem13"
+		if(1)
+			if(diff == CONSTRUCTION_PATH_FORWARDS)
+				user.visible_message("[user] welds the external armor layer to the [holder].", "You weld the external armor layer to the [holder].")
+				holder.icon_state = "nkarrdem16"
+			else
+				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
+				holder.icon_state = "nkarrdem14"
+	return TRUE
+
 #undef STANDARD_STACK_AMOUNT

@@ -1,4 +1,5 @@
-GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
+/// Minimum age (in days) for accounts to play these roles.
+GLOBAL_LIST_INIT(special_role_times, list(
 	ROLE_PAI = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
@@ -87,7 +88,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1016" = 100, // CHANNEL_FIREALARM
 		"1015" = 100, // CHANNEL_ASH_STORM
 		"1014" = 100, // CHANNEL_RADIO_NOISE
-		"1013" = 100 // CHANNEL_BOSS_MUSIC
+		"1013" = 100, // CHANNEL_BOSS_MUSIC
+		"1011" = 100 // CHANNEL_SURGERY_SOUNDS
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null

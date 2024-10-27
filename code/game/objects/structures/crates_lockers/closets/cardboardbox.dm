@@ -3,7 +3,8 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
-	open_door_sprite = null
+	enable_door_overlay = FALSE
+	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0

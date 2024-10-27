@@ -64,7 +64,8 @@
 		ant_suppressors = typecacheof(list(
 			/obj/structure/table,
 			/obj/structure/rack,
-			/obj/structure/closet
+			/obj/structure/closet,
+			/obj/structure/shelf
 		))
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
@@ -197,8 +198,8 @@
 			return
 
 		user.visible_message( \
-			"[user] scoops up some [src] with \the [U]!", \
-			"<span class='notice'>You scoop up some [src] with \the [U]!" \
+			"[user] scoops up some [name] with [U]!", \
+			"<span class='notice'>You scoop up some [name] with [U]!" \
 		)
 
 		bitecount++
