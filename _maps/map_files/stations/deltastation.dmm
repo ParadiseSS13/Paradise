@@ -215,10 +215,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
-"adb" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry/north)
 "add" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
@@ -134750,7 +134746,7 @@ aaa
 aaa
 aaa
 aaa
-adb
+ovL
 doS
 ovL
 vYz
