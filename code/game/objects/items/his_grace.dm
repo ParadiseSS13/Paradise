@@ -275,7 +275,7 @@
 	icon_state = "his_grace_ascended"
 	item_state = "toolbox_gold"
 	ascended = TRUE
-	SSblackbox.record_feedback("tally", "his_grace", 1, "Ascended")
+	SSblackbox.record_feedback("tally", "his_grace", 1, "ascended")
 	update_icon()
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
 	var/mob/living/carbon/human/master = loc
