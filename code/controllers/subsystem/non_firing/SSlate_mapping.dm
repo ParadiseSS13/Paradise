@@ -12,6 +12,10 @@ SUBSYSTEM_DEF(late_mapping)
 	var/list/obj/effect/spawner/bridge/bridge_spawners = list()
 
 /datum/controller/subsystem/late_mapping/Initialize()
+	// Sort all the air machines we initialized during mapload by name all at once
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+	GLOB.apcs = sortAtom(GLOB.apcs)
+
 	if(length(maze_generators))
 		var/watch = start_watch()
 		log_startup_progress("Generating mazes...")

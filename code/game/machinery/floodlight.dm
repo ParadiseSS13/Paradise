@@ -18,7 +18,7 @@
 /obj/machinery/floodlight/get_cell()
 	return cell
 
-/obj/machinery/floodlight/Initialize()
+/obj/machinery/floodlight/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	mapVarInit()

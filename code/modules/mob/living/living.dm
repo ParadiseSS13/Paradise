@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -8,6 +8,9 @@
 	GLOB.mob_living_list += src
 	if(advanced_bullet_dodge_chance)
 		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+
+	for(var/initial_trait in initial_traits)
+		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -824,7 +827,7 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /atom/movable/screen/alert/weightless)
-	if(!flying)
+	if(!HAS_TRAIT(src, TRAIT_FLYING))
 		float(!has_gravity)
 
 /mob/living/proc/float(on)
@@ -835,8 +838,7 @@
 		fixed = TRUE
 	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		sleep(10)
-		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		animate(pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
 	else if(((!on || fixed) && floating))
 		animate(src, pixel_y = get_standard_pixel_y_offset(), time = 10)
@@ -1113,7 +1115,7 @@
 	return ..()
 
 /mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || flying || !density)
+	if(C == src || HAS_TRAIT(src, TRAIT_FLYING) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	if(mob_hurt)
