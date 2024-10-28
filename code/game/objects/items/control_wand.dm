@@ -187,7 +187,7 @@
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
-	if(range && get_dist(src, D) > range)
+	if(!isnull(range) && get_dist(src, D) > range)
 		return
 
 	if(busy)
