@@ -47,7 +47,7 @@
 				/obj/item/salvage/loot/soviet)
 	casingtype = /obj/item/ammo_casing/a762
 
-/mob/living/simple_animal/hostile/sovietnian
+/mob/living/simple_animal/hostile/soviet_nian
 	name = "Soviet Nian"
 	desc = "Buzz!"
 	icon = 'icons/mob/simple_human.dmi'
@@ -72,7 +72,7 @@
 	faction = list("soviet")
 	status_flags = CANPUSH
 	loot = list(
-		/obj/effect/mob_spawn/human/corpse/sovietnian,
+		/obj/effect/mob_spawn/human/corpse/soviet_nian,
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/salvage/loot/soviet
 	)
