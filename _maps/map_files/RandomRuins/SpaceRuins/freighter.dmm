@@ -123,6 +123,9 @@
 "mA" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/powered)
 "mG" = (
@@ -484,7 +487,9 @@
 /area/ruin/space/powered)
 "JW" = (
 /obj/structure/closet/cabinet,
-/mob/living/simple_animal/nian_caterpillar,
+/obj/item/clothing/under/new_soviet/sovietofficer,
+/obj/item/salvage/ruin/soviet,
+/obj/item/clothing/suit/sovietcoat,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Kh" = (
@@ -502,6 +507,12 @@
 "Kv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
@@ -534,6 +545,7 @@
 /area/ruin/space/powered)
 "Mu" = (
 /obj/machinery/light,
+/mob/living/simple_animal/hostile/soviet_nian,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "MX" = (
@@ -657,12 +669,6 @@
 "UZ" = (
 /mob/living/simple_animal/hostile/soviet_nian,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered)
-"Wb" = (
-/mob/living/simple_animal/hostile/soviet_nian,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
 /area/ruin/space/powered)
 "WF" = (
 /obj/machinery/door/airlock/external,
@@ -983,8 +989,8 @@ Kh
 Kh
 Kh
 Kh
-Kv
-Kv
+JC
+JC
 LW
 sZ
 zd
@@ -995,7 +1001,7 @@ Nl
 Nl
 LW
 Kv
-Kv
+JC
 Kh
 Kh
 "}
@@ -1106,7 +1112,7 @@ Kh
 Kh
 fY
 sB
-Wb
+xJ
 HX
 La
 Ob
