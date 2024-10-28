@@ -11,12 +11,6 @@
 	},
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
-"ac" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "ad" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -1818,7 +1812,7 @@ aa
 aa
 aP
 aP
-ac
+aQ
 aa
 aa
 aB
