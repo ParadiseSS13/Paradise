@@ -2,7 +2,10 @@
 /// spawners that need to keep track globally of the number of any specific item
 /// that they spawn.
 /datum/spawn_pool
+	/// The ID of the spawn pool. All spawners registered to this pool must use this ID.
 	var/id
+	/// The number of points left for the spawner to use. Starts at its initial value.
+	///
 	var/available_points = 0
 	var/list/known_spawners = list()
 	var/list/unique_spawners = list()
@@ -38,5 +41,4 @@
 		spawner.spawn_loot()
 		qdel(spawner)
 
-	log_chat_debug("ending spawner process with [available_points] pts and [length(known_spawners)] unfilled spawners")
 	QDEL_LIST_CONTENTS(known_spawners)

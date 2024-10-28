@@ -1,11 +1,15 @@
+/// A random spawner managed by a [/datum/spawn_pool].
 /obj/effect/spawner/random/pool
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
+	/// How much this spawner will subtract from the available budget if it spawns.
+	/// A value of `INFINITY`
 	var/point_value = INFINITY
 	/// Whether non-spawner items should be removed from the shared loot pool after spawning.
 	var/unique_picks = FALSE
 	/// If a pool spawner is guaranteed, it will always proc, and always proc first.
 	var/guaranteed = FALSE
+	/// The ID of the spawn pool. Must match the pool's [/datum/spawn_pool/var/id].
 	var/spawn_pool_id
 
 /obj/effect/spawner/random/pool/Initialize(mapload)
