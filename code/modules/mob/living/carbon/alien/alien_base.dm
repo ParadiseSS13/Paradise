@@ -5,6 +5,7 @@
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
+	faction = list("alien")
 
 	var/nightvision = TRUE
 	see_in_dark = 4
@@ -25,7 +26,6 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	faction = list("alien")
 
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
