@@ -69,7 +69,8 @@ to use weights in these spawners, as well as all the other features of
 
 Armed with these three spawners, we can now use them on any ruin we want, in any
 quantity. We may put the tier 3 spawner in a difficult, popular ruin, and the
-tier 1 spawner in a less popular ruin. Importantly, we can place many of these spawners, with a guarantee that only a handful will actually receive loot.
+tier 1 spawner in a less popular ruin. Importantly, we can place many of these
+spawners, with a guarantee that only a handful will actually receive loot.
 
 Let's examine through some sample runs. Let's say we have:
 
