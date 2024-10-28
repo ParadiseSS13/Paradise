@@ -726,6 +726,7 @@ active_lava_ruins = [
 	##SIN
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_lust.dmm",
 	# Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
