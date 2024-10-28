@@ -301,6 +301,10 @@
 	target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
 
+/obj/item/melee/baseball_bat/dropped(mob/user, silent)
+	. = ..()
+	deflectmode = FALSE
+
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
 	desc = "This bat is made of highly reflective, highly armored material."
