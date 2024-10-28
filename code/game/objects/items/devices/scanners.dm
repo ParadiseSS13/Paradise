@@ -389,6 +389,8 @@ SLIME SCANNER
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
+	if(!ismachinery(M))
+		return
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return
