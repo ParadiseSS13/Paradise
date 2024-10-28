@@ -621,7 +621,21 @@
 
 /obj/item/paper/djstation
 	name = "DJ Listening Outpost"
-	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"
+	info = {"<b>Welcome new owner!</b><br>
+	<br>
+	You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. 
+	Here is a step by step guide to start listening in on those saucy radio channels:
+	<br>
+	<ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.
+	</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.
+	<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - 
+	Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"}
+
+/obj/item/paper/djstation/diary_note
+	name = "communications update"
+	info = {"Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br>
+	<br>
+	Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."}
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
