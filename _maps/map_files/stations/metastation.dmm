@@ -211,8 +211,7 @@
 	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -19868,9 +19867,7 @@
 	},
 /area/station/service/barber)
 "buI" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -39386,9 +39383,7 @@
 /area/station/science/toxins/launch)
 "cOA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -82316,8 +82311,7 @@
 /area/station/security/permabrig)
 "tAF" = (
 /obj/machinery/computer/prisoner{
-	dir = 1;
-	req_access = list(2)
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -86514,6 +86508,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "vug" = (
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -88772,8 +88767,7 @@
 /area/station/maintenance/fsmaint)
 "wAJ" = (
 /obj/machinery/computer/prisoner{
-	dir = 8;
-	req_access = list(2)
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

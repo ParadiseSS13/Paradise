@@ -40524,7 +40524,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "gtz" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

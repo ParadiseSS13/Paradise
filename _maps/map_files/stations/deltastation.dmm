@@ -31211,6 +31211,7 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -36398,9 +36399,7 @@
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caM" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/prisoner,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
