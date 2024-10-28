@@ -625,18 +625,18 @@
 
 /obj/item/paper/ussp_tele
 	name = "Report - Bluespace Translocation Apparatus"
-	info = "Despite a lot of headaches and delays, the BTA is finally in a functional enough state to demonstrate to the Committee, although be warned that it has multiple limitations:<br>\
-	<br>\
-	* The highly sensitive electronics are affected by a translocation event, which will throw off any acquired locks.\
-	The station must be recalibrated after every use to avoid the possibility of being translocated to a random point in space.\
-	<br>\
-	* Currently the system is only able to function with the help of locator beacons, we have been unable to safely generate arbitrary targeting coordinates.\
-	<br>\
-	* We cannot retrieve targets remotely, even with the aid of a locator beacon, energy consumption is too high to maintain a remote portal.<br>\
-	<br>\
-	Doctors Danielius and Hoang both believe that the first point can be worked out with some relatively minor technological improvements.\
-	Arbitrary targeting is technically possible but will remain infeasible for decades. Remote target retrieval will require an entirely different technique, \
-	although accounts of Syndicate contractor operations suggests that they possess a functioning apparatus capable of such a feat."
+	info = {"Despite a lot of headaches and delays, the BTA is finally in a functional enough state to demonstrate to the Committee, although be warned that it has multiple limitations:<br>
+	<br>
+	* The highly sensitive electronics are affected by a translocation event, which will throw off any acquired locks.
+	The station must be recalibrated after every use to avoid the possibility of being translocated to a random point in space.
+	<br>
+	* Currently the system is only able to function with the help of locator beacons, we have been unable to safely generate arbitrary targeting coordinates.
+	<br>
+	* We cannot retrieve targets remotely, even with the aid of a locator beacon, energy consumption is too high to maintain a remote portal.<br>
+	<br>
+	Doctors Danielius and Hoang both believe that the first point can be worked out with some relatively minor technological improvements.
+	Arbitrary targeting is technically possible but will remain infeasible for decades. Remote target retrieval will require an entirely different technique,
+	although accounts of Syndicate contractor operations suggests that they possess a functioning apparatus capable of such a feat."}
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
