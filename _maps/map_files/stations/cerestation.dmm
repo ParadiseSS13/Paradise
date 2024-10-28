@@ -38248,7 +38248,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/command)
+/area/station/maintenance/fore)
 "fFu" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -42070,7 +42070,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/command)
+/area/station/hallway/primary/fore/north)
 "gLD" = (
 /obj/machinery/light{
 	dir = 8
@@ -67350,7 +67350,7 @@
 /obj/machinery/cell_charger,
 /obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/command)
+/area/station/maintenance/fore)
 "nLG" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -68342,7 +68342,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/command)
+/area/station/maintenance/fore)
 "odF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -70258,10 +70258,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
-"oFQ" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/mineral/ancient,
-/area/station/hallway/primary/fore/north)
 "oFV" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
@@ -81347,6 +81343,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"rKi" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "rKq" = (
 /obj/machinery/light{
 	dir = 8
@@ -96555,12 +96561,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -141191,10 +141196,10 @@ aVS
 aVS
 aVS
 abW
-rBH
-rBH
-rBH
-rBH
+cMz
+cMz
+cMz
+cMz
 dmA
 dwg
 tiu
@@ -141448,7 +141453,7 @@ abW
 abW
 abW
 abW
-rBH
+cMz
 nLx
 fFt
 odx
@@ -141709,7 +141714,7 @@ cMz
 cRT
 bIl
 bIl
-cMz
+dmA
 dxw
 dTI
 qtB
@@ -141951,9 +141956,9 @@ bqj
 bvD
 rBk
 rUq
-wUI
-dIW
-dIW
+rKi
+rBk
+rBk
 vPY
 wlG
 wUI
@@ -141966,7 +141971,7 @@ cMz
 cRT
 aTb
 rjd
-cMz
+dmA
 dyD
 tiu
 qtB
@@ -142475,7 +142480,7 @@ iDW
 czt
 axi
 xyW
-sxa
+cMH
 flF
 cSh
 naY
@@ -143508,7 +143513,7 @@ cDp
 cDp
 cDp
 cDp
-cDp
+aKp
 xIm
 pqi
 oPw
@@ -144277,7 +144282,7 @@ rNK
 rNK
 dmA
 npV
-oFQ
+npV
 djH
 dmY
 dzo
