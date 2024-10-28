@@ -1653,6 +1653,7 @@
 #include "code\modules\awaymissions\mission_code\ruins\derelict5.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gps_ruin.dm"
 #include "code\modules\awaymissions\mission_code\ruins\moonoutpost19.dm"
+#include "code\modules\awaymissions\mission_code\ruins\nian_freighter.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\processing_facility.dm"
 #include "code\modules\awaymissions\mission_code\ruins\snowbiodome.dm"
