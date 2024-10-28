@@ -90,9 +90,9 @@ At this point, neither tier 2 or tier 3 spawners can be afforded. If they are
 chosen in the random selection, they are discarded, and do not spawn anything.
 When the pool reaches the remainin tier 1 spawner, it will proc:
 
-1. Tier 2 spawner chosen, cost too high, does not spawn.
-2. Tier 3 spawner chosen, cost too high, does not spawn.
-3. Tier 1 spawner chosen, chameleon stamp spawns, budget is now 30.
+4. Tier 2 spawner chosen, cost too high, does not spawn.
+5. Tier 3 spawner chosen, cost too high, does not spawn.
+6. Tier 1 spawner chosen, chameleon stamp spawns, budget is now 30.
 
 The pool has now exhausted all its spawners and stops.
 
