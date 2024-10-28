@@ -5,10 +5,15 @@
 	/// The ID of the spawn pool. All spawners registered to this pool must use this ID.
 	var/id
 	/// The number of points left for the spawner to use. Starts at its initial value.
-	///
 	var/available_points = 0
+	/// A list of all spawners registered to this pool.
 	var/list/known_spawners = list()
+	/// A key-value list of spawners with TRUE `unique_picks` to a shared copy of their
+	/// loot pool. When items from one of these spawners are spawned, it is removed
+	/// from the shared loot pool so it never spawns again.
 	var/list/unique_spawners = list()
+	/// A list of spawners whose `guaranteed` is `TRUE`. These spawners will
+	/// always spawn, and always before anything else,
 	var/list/guaranteed_spawners = list()
 
 /datum/spawn_pool/proc/can_afford(points)
@@ -21,7 +26,6 @@
 	available_points -= points
 
 /datum/spawn_pool/proc/process_spawners()
-	log_chat_debug("spawn_pool [type] processing spawners")
 	for(var/obj/effect/spawner/random/pool/spawner in guaranteed_spawners)
 		spawner.spawn_loot()
 

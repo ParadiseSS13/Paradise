@@ -2,12 +2,16 @@
 /obj/effect/spawner/random/pool
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
-	/// How much this spawner will subtract from the available budget if it spawns.
-	/// A value of `INFINITY`
+
+	/// How much this spawner will subtract from the available budget if it
+	/// spawns. A value of `INFINITY` (i.e., not setting the value on a subtype)
+	/// does not attempt to subtract from the budget. This is useful for
+	/// spawners which themselves spawn other spawners.
 	var/point_value = INFINITY
-	/// Whether non-spawner items should be removed from the shared loot pool after spawning.
+	/// Whether non-spawner items should be removed from the shared loot pool
+	/// after spawning.
 	var/unique_picks = FALSE
-	/// If a pool spawner is guaranteed, it will always proc, and always proc first.
+	/// Guaranteed spawners will always proc, and always proc first.
 	var/guaranteed = FALSE
 	/// The ID of the spawn pool. Must match the pool's [/datum/spawn_pool/var/id].
 	var/spawn_pool_id
@@ -59,7 +63,6 @@
 		return FALSE
 
 	pool.consume(point_value)
-	log_chat_debug("type_path=[type_path_to_make] point_value=[point_value] remaining=[pool.available_points]")
 
 	if(unique_picks)
 		// We may have multiple instances of a given type so just remove the first instance we find

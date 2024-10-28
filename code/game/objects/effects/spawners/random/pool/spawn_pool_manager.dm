@@ -1,5 +1,8 @@
 GLOBAL_DATUM_INIT(spawn_pool_manager, /datum/spawn_pool_manager, new)
 
+/// The singleton which keeps track of all spawn pools.
+/// All known [/datum/spawn_pool] subtypes are registered
+/// to it and are processed in SSlate_mapping.
 /datum/spawn_pool_manager
 	var/list/spawn_pools = list()
 
