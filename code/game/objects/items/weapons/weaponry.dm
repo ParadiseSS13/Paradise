@@ -265,7 +265,7 @@
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
 	if(homerun_ready)
