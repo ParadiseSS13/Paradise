@@ -23,7 +23,7 @@
 			<img width="15%" alt="Discord" hspace="3%" src=".github/assets/discord-dark.png">
 		</picture>
 	</a>
-	<a href="https://ss220club.github.io/Paradise-SS220">
+	<a href="https://devdocs.paradisestation.org">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
@@ -50,15 +50,15 @@
 
 Этот справочный сайт от создателей BYOND содержит подробную информацию о языке DM, используемом синтаксисе, функциональности нативных процедур (proc) и многом другом. Это всегда полезно иметь под рукой, когда вы вносите свой вклад.
 
-- ### [Autodocumentation Guide](./docs/references/autodoc.md)
+- ### [Autodocumentation Guide](https://devdocs.paradisestation.org/references/autodoc/)
 
 Это руководство покажет вам, как оставлять комментарии к коду, соответствующие "автодокументации" - системе, призванной облегчить всем жизнь при чтении и ревью кода!
 
-- ### [Code of Conduct](./docs/CODE_OF_CONDUCT.md)
+- ### [Code of Conduct](https://devdocs.paradisestation.org/code_of_conduct/)
 
 Все участники должны ознакомиться с нашим "Кодексом поведения", прежде чем принимать участие в жизни нашего сообщества.
 
-- ### [Contribution Guide](./docs/CONTRIBUTING.md)
+- ### [Contribution Guide](https://devdocs.paradisestation.org/contributing/)
 
 Не знаете, как принять участие и внести свой вклад? В этом руководстве дается обзор того, как делать комментарии, открывать Pull Requests и Issues.
 

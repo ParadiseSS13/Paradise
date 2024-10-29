@@ -56,7 +56,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 
-/turf/simulated/wall/clockwork/Initialize()
+/turf/simulated/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)

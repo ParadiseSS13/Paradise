@@ -63,3 +63,9 @@
 // Note that this is only defined for actions because this could be a good bit expensive otherwise
 /// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
 #define COMSIG_ACTION_SCROLLED "action_scrolled"
+
+/// Called before a movable is being teleported from multiple sources: (destination)
+#define COMSIG_MOVABLE_TELEPORTING "movable_teleporting"
+/// Called when blocking a teleport
+#define COMSIG_ATOM_INTERCEPT_TELEPORTED "intercept_teleported"
+	#define COMPONENT_BLOCK_TELEPORT (1<<0)
