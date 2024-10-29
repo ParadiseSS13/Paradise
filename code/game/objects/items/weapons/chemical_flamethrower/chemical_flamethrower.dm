@@ -30,7 +30,7 @@
 	/// How many firestacks will our reagent apply
 	var/canister_fire_applications = 1
 	/// How much ammo do we use per tile?
-	var/ammo_usage = 2
+	var/ammo_usage = 1
 	/// Is this a syndicate flamethrower
 	var/syndicate = FALSE
 
@@ -39,7 +39,7 @@
 	if(should_start_with_canisters && !length(canisters))
 		canisters += new /obj/item/chemical_canister
 	update_canister_stats()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/chemical_flamethrower/Destroy()
 	QDEL_LIST_CONTENTS(canisters)

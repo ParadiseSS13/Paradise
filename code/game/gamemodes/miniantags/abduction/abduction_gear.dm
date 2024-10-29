@@ -425,7 +425,7 @@ CONTENTS:
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/abductor/Initialize()
+/obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
 	make_syndie() // Why the hell is this a proc why cant it just be a subtype
 
@@ -903,8 +903,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
-	icon_closed = "abductor"
-	icon_opened = "abductor_open"
+	door_anim_time = 0
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 
 /obj/structure/door_assembly/door_assembly_abductor

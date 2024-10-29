@@ -641,6 +641,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
 
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>You are dead!</span>")
+		return
+
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
@@ -773,6 +777,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		if(!isturf(loc))
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
+			return
+		if(M.occupant && !can_dominate_mechs)
+			to_chat(src, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.

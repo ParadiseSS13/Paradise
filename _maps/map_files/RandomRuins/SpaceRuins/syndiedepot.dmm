@@ -147,14 +147,12 @@
 	on = 1
 	},
 /obj/effect/spawner/random/syndicate/loot/common,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "aB" = (
 /obj/effect/spawner/random/syndicate/loot/common,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -345,7 +343,6 @@
 /area/syndicate_depot/core)
 "bc" = (
 /obj/effect/spawner/random/syndicate/loot/rare,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -371,7 +368,6 @@
 	on = 1
 	},
 /obj/effect/spawner/random/syndicate/loot/rare,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -418,7 +414,6 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/syndicate/loot/common,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -428,7 +423,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/syndicate/loot/common,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -448,17 +442,17 @@
 	},
 /area/syndicate_depot/core)
 "bq" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/syndicate_depot/core)
 "br" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -539,7 +533,6 @@
 /area/syndicate_depot/core)
 "bE" = (
 /obj/effect/spawner/random/syndicate/loot/officer,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -568,16 +561,15 @@
 	name = "Sealed Doors";
 	protected = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
 "bJ" = (
-/obj/structure/closet/secure_closet/syndicate/depot,
 /obj/effect/spawner/random/syndicate/trapped_documents,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -655,8 +647,7 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -800,7 +791,6 @@
 /area/syndicate_depot/core)
 "cm" = (
 /obj/effect/spawner/random/syndicate/loot/armory,
-/obj/structure/closet/secure_closet/syndicate/depot/armory,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -812,14 +802,12 @@
 	on = 1
 	},
 /obj/effect/spawner/random/syndicate/loot/armory,
-/obj/structure/closet/secure_closet/syndicate/depot/armory,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "co" = (
 /obj/effect/spawner/random/syndicate/loot/armory,
-/obj/structure/closet/secure_closet/syndicate/depot/armory,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1129,7 +1117,6 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/syndicate/loot/rare,
-/obj/structure/closet/secure_closet/syndicate/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1173,12 +1160,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
-"dg" = (
-/obj/item/gps/ruin{
-	gpstag = "ERR#UNKWN"
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "Te" = (
 /turf/simulated/mineral/random/high_chance,
 /area/syndicate_depot/outer)
@@ -1913,7 +1894,7 @@ aj
 aj
 ao
 ad
-dg
+at
 aL
 aD
 aZ

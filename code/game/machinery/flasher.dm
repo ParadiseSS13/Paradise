@@ -16,7 +16,7 @@
 	var/base_state = "mflash"
 	anchored = TRUE
 
-/obj/machinery/flasher/Initialize()
+/obj/machinery/flasher/Initialize(mapload)
 	. = ..()
 	update_icon()
 

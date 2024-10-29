@@ -55,6 +55,8 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
+	var/xenomorph_acid_boosted = FALSE
+	var/heal_boost = 1
 	var/datum/spell/vampire/self/vamp_claws/parent_spell
 
 /obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
@@ -80,20 +82,38 @@
 
 	if(!V)
 		return
-
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+	if(xenomorph_acid_boosted)
+		target.acid_act(42, 10) // 42 is the acid power of facid, 10 is equal to 100 units.
+	if(!iscarbon(target))
+		return ..()
+	var/mob/living/carbon/C = target
+	if(isalien(target))
+		if(!xenomorph_acid_boosted)
+			if(C.ckey && C.stat != DEAD)
+				to_chat(user, "<span class='warning'>As [C] bleeds acid, you mix it into your claws!</span>")
+				xenomorph_acid_boosted = TRUE
+				durability += 5 // Small boost in durability once.
+				blood_drain_amount *= 1.5
+				blood_absorbed_amount *= 1.5
+				force *= 1.5 // 15 force
+				heal_boost = 2 // This *might* let you survive xeno disarms. Maybe.
+				damtype = BURN
+				hitsound = 'sound/weapons/sear.ogg'
+				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
+				user.update_inv_r_hand()
+				user.update_inv_l_hand()
+	if(C.ckey && C.stat != DEAD && C.affects_vampire())
+		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-			attacker.adjustStaminaLoss(-20) // security is dead
-			attacker.heal_overall_damage(4, 4) // the station is full
-			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
-		if(!V.get_ability(/datum/vampire_passive/blood_spill))
-			durability--
-			if(durability <= 0)
-				qdel(src)
-				to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			attacker.adjustStaminaLoss(-20 * heal_boost) // security is dead
+			attacker.heal_overall_damage(4 * heal_boost, 4 * heal_boost) // the station is full
+			attacker.AdjustKnockDown(-1 SECONDS * heal_boost) // blood is fuel
+	if(!V.get_ability(/datum/vampire_passive/blood_spill))
+		durability--
+		if(durability <= 0)
+			qdel(src)
+			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
@@ -287,8 +307,12 @@
 /datum/spell/vampire/predator_senses/cast(list/targets, mob/user)
 	var/targets_by_name = list()
 	for(var/mob/living/carbon/human/H as anything in targets)
+		if(H == user)
+			continue
 		targets_by_name[H.real_name] = H
-
+	if(!length(targets_by_name))
+		to_chat(user, "<span class='cultlarge'>There is no prey to be hunted here...</span>")
+		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
 	if(!target_name)
 		return
