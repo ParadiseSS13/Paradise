@@ -14,7 +14,8 @@
 	With a constant desire to colonize and spread their influence onto other species, they have begun to develop alliances and enemies, \
 	making humans one of the most recognizable and socially diverse species in the sector."
 
-	icon_skin_tones = list( //Organized to be from Light to Dark.
+	/// Organized to be from Light to Dark.
+	icon_skin_tones = list(
 		1 = "Default White",
 		2 = "Pale",
 		3 = "Classic",
@@ -28,7 +29,7 @@
 		11 = "Caramel",
 		12 = "Coffee",
 		13 = "Chestnut"
-		)
+	)
 	reagent_tag = PROCESS_ORG
 
 

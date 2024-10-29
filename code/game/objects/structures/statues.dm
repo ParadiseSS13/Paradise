@@ -308,11 +308,11 @@
 	anchored = TRUE
 	oreAmount = 0
 
-/obj/structure/statue/russian_mulebot
+/obj/structure/statue/soviet_mulebot
 	name = "OXENbot"
-	desc = "Like a MULEbot, but more Russian and less functional.";
-	icon = 'icons/obj/aibots.dmi';
-	icon_state = "mulebot0";
+	desc = "Like a MULEbot, but more socialist and less functional."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "mulebot0"
 	anchored = TRUE
 	oreAmount = 10
 

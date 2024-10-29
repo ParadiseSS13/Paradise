@@ -237,7 +237,7 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you but otherwise function normally."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's inside. Cyborgs made with this MMI will be permanently slaved to you, but will appear to have a normal set of laws and be synchronised to the station AI, if present. Provides immunity to remote detonation and allows overriding lockdowns if the cyborg is not also emagged. It can also be inserted into a mech, but will not fit inside an AI core."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 10
@@ -337,7 +337,7 @@
 //skrell
 /datum/uplink_item/species_restricted/lovepen
 	name = "Aggression Suppression Pen"
-	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	desc = "A hypospray disguised as a functional pen which is filled with a potent aggression suppressing chemical. The pen holds four doses of the mixture which slowly regenerates over time, but cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
 	cost = 20
