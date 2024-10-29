@@ -287,6 +287,7 @@
 /obj/item/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
+	always_hit_living_nondense = TRUE //This means if you are scoped in sniping at crit xenomorphs or crit humans, you can always hit them even if you do not directly click on them
 	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
 	var/hit_a_r_wall = FALSE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
