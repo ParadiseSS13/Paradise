@@ -26,9 +26,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
 	. = ..()
 	internal_tank = new /obj/structure/reagent_dispensers/fueltank(src)
-	internal_tank.forceMove(src)
 	decorative_eye = new /obj/structure/marker_beacon/dock_marker/collision(src)
-	decorative_eye.forceMove(src)
 	vis_contents += internal_tank
 	vis_contents += decorative_eye
 	internal_tank.pixel_y = 10
@@ -295,7 +293,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	trap.shields_up()
 	qdel(flick_holder)
 	qdel(src)
-
 
 /turf/simulated/floor/catwalk/airless
 	oxygen = 0
