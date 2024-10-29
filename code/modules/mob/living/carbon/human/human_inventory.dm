@@ -79,6 +79,8 @@
 			update_inv_w_uniform()
 		if(I.flags_inv & HIDESHOES)
 			update_inv_shoes()
+		if(I.flags_inv & HIDEGLOVES)
+			update_inv_gloves()
 		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
@@ -289,8 +291,12 @@
 			update_inv_shoes()
 		if(SLOT_HUD_OUTER_SUIT)
 			wear_suit = I
+			if(wear_suit.flags_inv & HIDEJUMPSUIT)
+				update_inv_w_uniform()
 			if(wear_suit.flags_inv & HIDESHOES)
 				update_inv_shoes()
+			if(wear_suit.flags_inv & HIDEGLOVES)
+				update_inv_gloves()
 			update_inv_wear_suit()
 		if(SLOT_HUD_JUMPSUIT)
 			w_uniform = I

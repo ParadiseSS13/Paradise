@@ -585,34 +585,35 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_color)
 			t_color = icon_state
 
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
+			var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
 
-		if(w_uniform.icon_override)
-			standing.icon = w_uniform.icon_override
-		if(w_uniform.sprite_sheets)
-			standing.icon = w_uniform.sprite_sheets["Human"]
-			if(w_uniform.sprite_sheets[dna.species.sprite_sheet_name] && icon_exists(w_uniform.sprite_sheets[dna.species.sprite_sheet_name], "[t_color]_s"))
-				standing.icon = w_uniform.sprite_sheets[dna.species.sprite_sheet_name]
+			if(w_uniform.icon_override)
+				standing.icon = w_uniform.icon_override
+			if(w_uniform.sprite_sheets)
+				standing.icon = w_uniform.sprite_sheets["Human"]
+				if(w_uniform.sprite_sheets[dna.species.sprite_sheet_name] && icon_exists(w_uniform.sprite_sheets[dna.species.sprite_sheet_name], "[t_color]_s"))
+					standing.icon = w_uniform.sprite_sheets[dna.species.sprite_sheet_name]
 
-		if(w_uniform.blood_DNA)
-			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
-			bloodsies.color = w_uniform.blood_color
-			standing.overlays += bloodsies
+			if(w_uniform.blood_DNA)
+				var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
+				bloodsies.color = w_uniform.blood_color
+				standing.overlays += bloodsies
 
-		if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
-			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
-				var/tie_color = A.item_color
-				if(!tie_color)
-					tie_color = A.icon_state
-				if(A.icon_override)
-					standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
-				else if(A.sprite_sheets && A.sprite_sheets[dna.species.sprite_sheet_name])
-					standing.overlays += image("icon" = A.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[A.icon_state]")
-				else
-					standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
-		standing.alpha = w_uniform.alpha
-		standing.color = w_uniform.color
-		overlays_standing[UNIFORM_LAYER] = standing
+			if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
+				for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
+					var/tie_color = A.item_color
+					if(!tie_color)
+						tie_color = A.icon_state
+					if(A.icon_override)
+						standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
+					else if(A.sprite_sheets && A.sprite_sheets[dna.species.sprite_sheet_name])
+						standing.overlays += image("icon" = A.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[A.icon_state]")
+					else
+						standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+			standing.alpha = w_uniform.alpha
+			standing.color = w_uniform.color
+			overlays_standing[UNIFORM_LAYER] = standing
 
 	else if(!dna.species.nojumpsuit)
 		var/list/uniform_slots = list()
@@ -671,22 +672,23 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gloves)
 		update_hud_gloves(gloves)
 
-		var/t_state = gloves.item_state
-		if(!t_state)	t_state = gloves.icon_state
+		if(!wear_suit || !(wear_suit.flags_inv & HIDEGLOVES))
+			var/t_state = gloves.item_state
+			if(!t_state)	t_state = gloves.icon_state
 
-		var/mutable_appearance/standing
-		if(gloves.icon_override)
-			standing = mutable_appearance(gloves.icon_override, "[gloves.icon_state]", layer = -GLOVES_LAYER)
-		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.sprite_sheet_name])
-			standing = mutable_appearance(gloves.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -GLOVES_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
+			var/mutable_appearance/standing
+			if(gloves.icon_override)
+				standing = mutable_appearance(gloves.icon_override, "[gloves.icon_state]", layer = -GLOVES_LAYER)
+			else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.sprite_sheet_name])
+				standing = mutable_appearance(gloves.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -GLOVES_LAYER)
+			else
+				standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
 
-		if(gloves.blood_DNA) // No need to check for hands here because we won't have gloves on.
-			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
-			bloodsies.color = gloves.blood_color
-			standing.overlays += bloodsies
-		overlays_standing[GLOVES_LAYER]	= standing
+			if(gloves.blood_DNA) // No need to check for hands here because we won't have gloves on.
+				var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
+				bloodsies.color = gloves.blood_color
+				standing.overlays += bloodsies
+			overlays_standing[GLOVES_LAYER]	= standing
 	else
 		if(blood_DNA) // Checks for hands to make sure we don't get mysterious floating blood.
 			if(get_organ("l_hand"))

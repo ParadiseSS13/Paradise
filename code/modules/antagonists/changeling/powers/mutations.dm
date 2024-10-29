@@ -516,7 +516,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT | HIDESHOES
 	cold_protection = 0
 	heat_protection = 0
 	sprite_sheets = null
