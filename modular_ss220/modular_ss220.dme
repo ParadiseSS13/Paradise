@@ -73,6 +73,7 @@
 #include "sm_space_drop/sm_space_drop.dme"
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
+#include "translations/_translations.dme"
 #include "verbs/_verbs.dme"
 #include "whitelist/_whitelist.dme"
 #include "outfits/_outfits.dme"

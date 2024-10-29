@@ -3,5 +3,4 @@
 #include "code/discord_configuration.dm"
 #include "code/global_procs.dm"
 #include "code/icons.dm"
-#include "code/pronouns.dm"
 #include "code/ss220_general_config.dm"
