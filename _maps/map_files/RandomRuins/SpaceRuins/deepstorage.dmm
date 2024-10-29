@@ -5997,9 +5997,8 @@
 /area/ruin/space/deepstorage)
 "MR" = (
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/deepstorage_reward/main,
+/obj/effect/spawner/random/pool/spaceloot/deepstorage/main,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7663,7 +7662,6 @@
 /area/ruin/space/deepstorage)
 "Yk" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"

@@ -293,15 +293,6 @@
 			/obj/item/clothing/glasses/sunglasses/yeah
 	)
 
-/obj/effect/spawner/random/deepstorage_reward/main
-	name = "warehouse main reward"
-	loot = list(
-			/obj/item/storage/belt/champion/wrestling,
-			/obj/item/storage/box/weaver_kit,
-			/obj/item/gun/medbeam,
-			/obj/item/storage/lockbox/experimental_weapon
-	)
-
 // paper stuff & lore
 
 /obj/item/paper/fluff/ruins/deepstorage/log1
