@@ -169,7 +169,7 @@
 		/obj/item/toy/crayon/white,
 		)
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize(mapload)
 	l_pocket = pick(pocketloot)
 	r_pocket = pick(pocketloot)
 	return ..()
@@ -193,7 +193,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel_sec
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize(mapload)
 	var/secgun = rand(1,10)
 	switch(secgun)
 		//70%
@@ -235,7 +235,7 @@
 	back = /obj/item/storage/backpack/duffel/engineering
 	backpack_contents = /obj/item/storage/box/engineer
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize(mapload)
 	var/engstaff = rand(1,3)
 	switch(engstaff)
 		if(1)
@@ -276,7 +276,7 @@
 	id = /obj/item/card/id/medical
 	back = /obj/item/storage/backpack/satchel_med
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
@@ -295,7 +295,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/reagent_containers/patch/silver_sulf/small,
 		/obj/item/reagent_containers/patch/styptic/small,

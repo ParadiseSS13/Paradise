@@ -185,7 +185,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/Initialize()
+/obj/machinery/gateway/centeraway/Initialize(mapload)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines

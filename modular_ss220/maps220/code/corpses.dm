@@ -18,7 +18,7 @@
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
-/obj/effect/mob_spawn/human/corpse/tacticool/Initialize()
+/obj/effect/mob_spawn/human/corpse/tacticool/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
@@ -40,7 +40,7 @@
 	mask = /obj/item/clothing/mask/balaclava
 	suit = /obj/item/clothing/suit/armor/vest/combat
 
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize()
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize(mapload)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()
