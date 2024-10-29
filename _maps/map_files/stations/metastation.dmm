@@ -216,8 +216,7 @@
 	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -5806,17 +5805,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
-"aFM" = (
-/obj/effect/spawner/random/barrier/grille_often,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/maintenance/fsmaint)
 "aFO" = (
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
@@ -19857,9 +19845,7 @@
 	},
 /area/station/service/barber)
 "buI" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -34147,19 +34133,6 @@
 /obj/effect/spawner/random/janitor/supplies,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
-"cub" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/fungus/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/service/janitor)
 "cuc" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -39388,9 +39361,7 @@
 /area/station/science/toxins/launch)
 "cOA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -81589,24 +81560,6 @@
 /obj/item/transfer_valve,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"thb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/barrier/grille_often,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/service/janitor)
 "thc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -82471,8 +82424,7 @@
 /area/station/security/permabrig)
 "tAF" = (
 /obj/machinery/computer/prisoner{
-	dir = 1;
-	req_access = list(2)
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -88928,8 +88880,7 @@
 /area/station/maintenance/fsmaint)
 "wAJ" = (
 /obj/machinery/computer/prisoner{
-	dir = 8;
-	req_access = list(2)
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -127223,11 +127174,11 @@ aYK
 aVc
 alb
 eTo
-aIo
-aLl
-aLl
-aLl
-bez
+bhq
+bhq
+bhq
+bhq
+bhq
 bni
 dnS
 wwo
@@ -128251,8 +128202,8 @@ auO
 aLl
 aaT
 bdr
-aFM
-aWf
+bhq
+xbS
 aWf
 bmR
 bhq
@@ -128508,11 +128459,11 @@ bbv
 aLl
 wVi
 bPb
-aIo
-aLl
-edZ
-gbM
-aLl
+bhq
+bhq
+bhq
+bhq
+bhq
 bnk
 gcq
 lhu
