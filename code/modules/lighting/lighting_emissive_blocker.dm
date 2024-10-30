@@ -11,6 +11,7 @@
 	layer = FLOAT_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+	flags_2 = RAD_NO_CONTAMINATE_2
 
 /atom/movable/emissive_blocker/Initialize(mapload, source)
 	. = ..()

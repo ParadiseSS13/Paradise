@@ -108,15 +108,22 @@
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-
+	var/turf/starting = get_turf(src)
+	var/area/starting_area = get_area(starting)
+	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
+		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
+		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, starting) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
-		if(!is_teleport_allowed(T.z))
-			break
+		var/area/dropping_area = get_area(T)
+		if(dropping_area.tele_proof) //There might be some valid turfs before / after you reach such an area, so we continue, not break.
+			continue
 		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
 			if(get_dir(M, T) != M.dir)
 				continue
@@ -316,7 +323,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>The injector is empty!</span>")
 		return
-	used = TRUE 
+	used = TRUE
 	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 

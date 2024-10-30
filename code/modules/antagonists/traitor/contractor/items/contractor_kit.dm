@@ -62,7 +62,7 @@
 /obj/item/paper/contractor_guide
 	name = "contractor guide"
 
-/obj/item/paper/contractor_guide/Initialize()
+/obj/item/paper/contractor_guide/Initialize(mapload)
 	info = {"<p>Welcome agent, congratulations on your new position as a Syndicate contractor. On top of your already assigned objectives,
 			this kit will provide you contracts to take on for telecrystal payments.</p>
 			<p>Provided within is your specialist contractor space suit. It's even more compact, being able to fit into a pocket, and faster than the

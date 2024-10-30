@@ -48,6 +48,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(!area.outdoors)
 			to_chat(user, "<span class='warning'>[src] can only be used on things that are outdoors!</span>")
 			return
+		if(area.tele_proof || !is_teleport_allowed(A.z))
+			to_chat(user, "<span class='warning'>Bluespace distortions prevent the fulton from inflating!</span>")
+			return
 	if(!flag)
 		return
 	if(!istype(A))
@@ -178,7 +181,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	desc = "you shouldnt see this"
 	var/atom/movable/stored_obj
 
-/obj/effect/extraction_holder/Initialize()
+/obj/effect/extraction_holder/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 

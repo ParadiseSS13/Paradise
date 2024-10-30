@@ -216,7 +216,7 @@ AI MODULES
 /obj/item/aiModule/freeform/attack_self(mob/user as mob)
 	..()
 	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
-	if(isnull(new_lawpos) || new_lawpos == lawpos)
+	if(isnull(new_lawpos))
 		return
 	lawpos = new_lawpos
 

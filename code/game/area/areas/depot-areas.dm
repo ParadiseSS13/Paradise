@@ -183,7 +183,7 @@
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
-			A.req_access_txt = "[ACCESS_SYNDICATE_LEADER]"
+			A.req_access = list(ACCESS_SYNDICATE_LEADER)
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
 			if(L.locked)
 				L.locked = !L.locked
