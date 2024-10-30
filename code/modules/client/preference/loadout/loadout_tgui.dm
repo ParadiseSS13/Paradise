@@ -15,15 +15,15 @@ GLOBAL_LIST_EMPTY(gear_tgui_info)
 
 /datum/ui_module/loadout/ui_data(mob/user)
 	var/list/data = list()
-	data["gear_slots"] = user.client.prefs.build_loadout()
-	data["selected_gears"] = user.client.prefs.active_character.loadout_gear
+	data["gear_slots"] = user?.client?.prefs.build_loadout()
+	data["selected_gears"] = user?.client?.prefs?.active_character?.loadout_gear
 	return data
 
 /datum/ui_module/loadout/ui_static_data(mob/user)
 	var/list/data = list()
 	data["gears"] = GLOB.gear_tgui_info
-	data["max_gear_slots"] = user.client.prefs.max_gear_slots
-	data["user_tier"] = user.client.donator_level
+	data["max_gear_slots"] = user?.client?.prefs?.max_gear_slots
+	data["user_tier"] = user?.client?.donator_level
 	return data
 
 /datum/ui_module/loadout/ui_act(action, list/params)

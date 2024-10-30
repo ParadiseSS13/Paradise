@@ -94,7 +94,7 @@
 		gear = new gear_type
 		var/obj/gear_item = gear.path
 		var/list/tweaks = list()
-		for(var/datum/gear_tweak/tweak in gear.gear_tweaks)
+		for(var/datum/gear_tweak/tweak as anything in gear.gear_tweaks)
 			tweaks[tweak.type] += list(list(
 				"name" = tweak.display_type,
 				"icon" = tweak.fa_icon,

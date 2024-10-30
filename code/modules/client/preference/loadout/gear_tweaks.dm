@@ -1,9 +1,9 @@
 /datum/gear_tweak
-	// Displayed in TGUI name
+	/// Displayed in TGUI name
 	var/display_type
-	// Font Awesome icon
+	/// Font Awesome icon
 	var/fa_icon
-	// Explains what is this do in TGUI tooltip
+	/// Explains what is this do in TGUI tooltip
 	var/info
 
 /datum/gear_tweak/proc/get_metadata(user, metadata)
