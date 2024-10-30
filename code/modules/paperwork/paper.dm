@@ -47,7 +47,7 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
-	var/regex/blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
+	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -316,11 +316,10 @@
 	</BODY></HTML>"}, "window=paper_help")
 
 /obj/item/paper/vv_edit_var(var_name, var_value)
-	if(var_name == "info")
-		if(blacklist.Find(var_value)) //uh oh, they tried to be naughty
-			message_admins("<span class='danger'>EXPLOIT WARNING: ADMIN</span> [usr.ckey] attempted to write paper containing JS abusable tags!")
-			log_admin("EXPLOIT WARNING: ADMIN [usr.ckey] attempted to write paper containing JS abusable tags")
-			return FALSE
+	if((var_name == "info") && blacklist.Find(var_value)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: ADMIN</span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: ADMIN [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
 	return ..()
 
 /obj/item/paper/proc/topic_href_write(id, input_element)
