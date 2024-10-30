@@ -43613,7 +43613,7 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -25;
-	req_access_txt = "80";
+	req_access = list(80);
 	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{

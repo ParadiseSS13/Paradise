@@ -51121,7 +51121,7 @@
 	id = "nct";
 	name = "Office Door";
 	normaldoorcontrol = 1;
-	req_access_txt = "80";
+	req_access = list(80);
 	pixel_y = -2;
 	pixel_x = 7
 	},
