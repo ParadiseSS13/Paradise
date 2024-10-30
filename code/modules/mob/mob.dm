@@ -670,7 +670,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					G.affecting.ret_grab(L, 1)
 		if(!flag)
 			if(L.master == src)
-				var/list/temp = list(  )
+				var/list/temp = list()
 				temp += L.container
 				//L = null
 				qdel(L)
@@ -792,7 +792,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
-	..()
+	if(usr != src)
+		return TRUE
+	if(..())
+		return TRUE
 	if(href_list["mach_close"])
 		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
@@ -1359,6 +1362,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = initial(invisibility)
 	alpha = initial(alpha)
 	add_to_all_human_data_huds()
+
+/mob/living/carbon/human/reset_visibility()
+	..()
+	alpha = get_alpha()
 
 /mob/proc/make_invisible()
 	invisibility = INVISIBILITY_LEVEL_TWO

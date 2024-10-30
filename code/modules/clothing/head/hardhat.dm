@@ -90,9 +90,11 @@
 /obj/item/clothing/head/hardhat/atmos
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "hardhat0_atmos"
-	item_state = "hardhat0_atmos"
 	item_color = "atmos"
+	item_state = 'icons/mob/clothing/head/utility.dmi'
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
@@ -101,6 +103,11 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
+	)

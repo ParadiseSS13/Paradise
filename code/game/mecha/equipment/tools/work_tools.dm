@@ -280,7 +280,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		switch(mode)
@@ -375,7 +376,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle"])
 		set_ready_state(!equip_ready)
 		occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
@@ -479,10 +481,9 @@
 
 /obj/item/kinetic_crusher/mecha/Initialize(mapload)
 	. = ..()
-	var/datum/component/unwanted = GetComponent(/datum/component/parry)
-	unwanted?.RemoveComponent()
-	unwanted = GetComponent(/datum/component/two_handed)
-	unwanted?.RemoveComponent()
+	DeleteComponent(/datum/component/parry)
+	DeleteComponent(/datum/component/two_handed)
+
 	/// This is only for the sake of internal checks in the crusher itself.
 	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
 

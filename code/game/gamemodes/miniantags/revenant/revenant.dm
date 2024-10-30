@@ -31,11 +31,11 @@
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	flying = TRUE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	initial_traits = list(TRAIT_FLYING)
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -84,11 +84,11 @@
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 		invisibility = INVISIBILITY_REVENANT
-		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
+		to_chat(src, "<span class='revennotice bold'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		notransform = FALSE
-		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
+		to_chat(src, "<span class='revennotice bold'>You can move again!</span>")
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/ex_act(severity)

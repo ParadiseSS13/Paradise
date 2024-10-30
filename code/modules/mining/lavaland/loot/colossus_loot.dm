@@ -79,7 +79,7 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/Initialize() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize(mapload) //Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
@@ -261,7 +261,7 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = FALSE
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS

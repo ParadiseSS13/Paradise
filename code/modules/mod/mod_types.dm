@@ -80,6 +80,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 
@@ -92,10 +93,12 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 /obj/item/mod/control/pre_equipped/loader
@@ -483,7 +486,8 @@
 /obj/item/mod/control/pre_equipped/debug
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list( //one of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
+	/// One of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
+	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
