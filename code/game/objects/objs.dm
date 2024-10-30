@@ -275,12 +275,19 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
-	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
+
 	if(issilicon(C))
 		C.Weaken(3 SECONDS)
+		C.adjustBruteLoss(damage)
 	else
+		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
 /obj/handle_ricochet(obj/item/projectile/P)
