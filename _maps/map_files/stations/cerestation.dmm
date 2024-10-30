@@ -20907,6 +20907,12 @@
 /obj/structure/closet/toolcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
+"crG" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/station/hallway/spacebridge/scidock)
 "crR" = (
 /obj/structure/table/reinforced{
 	layer = 2.5
@@ -32113,6 +32119,12 @@
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
+"dNX" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/mineral/ancient/outer,
+/area/station/hallway/spacebridge/scidock)
 "dOa" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -34412,6 +34424,9 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
+"eyc" = (
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/hallway/secondary/entry/north)
 "eye" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -35647,6 +35662,12 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"eOr" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/station/hallway/spacebridge/scidock)
 "eOu" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -39293,6 +39314,13 @@
 "fXC" = (
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
+"fXI" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/mineral/ancient,
+/area/station/hallway/spacebridge/scidock)
 "fXO" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -43052,6 +43080,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"hhI" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/mineral/ancient,
+/area/station/hallway/spacebridge/scidock)
 "hhV" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/item/flashlight/seclite,
@@ -57709,6 +57743,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/warden)
+"lgx" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/civilian)
 "lgC" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -58025,6 +58068,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
+"ljY" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/mineral/ancient,
+/area/station/maintenance/maintcentral)
 "lkg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -68855,6 +68907,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/east)
+"oud" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/station/hallway/spacebridge/scidock)
 "oul" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72567,6 +72625,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"pvY" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints,
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/civilian)
 "pwc" = (
 /obj/machinery/light,
 /obj/structure/cable{
@@ -78116,6 +78178,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"qVT" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/civilian)
 "qVW" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -81065,6 +81133,10 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
+"rRF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/civilian)
 "rRJ" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -85233,6 +85305,16 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"sXU" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/station/maintenance/maintcentral)
 "sYg" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -93350,6 +93432,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
+"vlE" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/civilian)
 "vlP" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -99958,6 +100047,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
+"wZu" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/cerestation/engineering_science,
+/turf/simulated/mineral/ancient,
+/area/station/hallway/spacebridge/scidock)
 "wZv" = (
 /turf/simulated/wall,
 /area/station/medical/paramedic)
@@ -138146,7 +138239,7 @@ nVW
 mJM
 mkk
 fYW
-nVW
+ljY
 aXR
 xbO
 xbO
@@ -138154,22 +138247,22 @@ rNK
 rNK
 rNK
 rNK
-cYw
+eOr
 cYw
 cYw
 hBQ
 hBQ
-hBQ
+dNX
+cYB
+cYB
+hhI
 cYB
 cYB
 cYB
 cYB
-cYB
-cYB
-cYB
-cYB
-cYB
-cYB
+wZu
+cYC
+cYC
 lHC
 cYB
 cYB
@@ -138425,8 +138518,8 @@ wCj
 jGj
 rCm
 cYB
-cYB
-cYB
+cYC
+cYC
 nUh
 cYB
 cYB
@@ -139431,7 +139524,7 @@ fLT
 eAS
 eAS
 uqt
-hxE
+sXU
 hxE
 woy
 woy
@@ -139439,20 +139532,20 @@ woy
 mJM
 rNK
 rNK
-uwf
+crG
 cYB
 cYB
 cYB
 cYB
+oud
+cYB
+cYB
+oud
 cYB
 cYB
 cYB
 cYB
-cYB
-cYB
-cYB
-cYB
-cYB
+fXI
 cYB
 cYB
 cYB
@@ -149715,7 +149808,7 @@ bio
 upz
 pQa
 pQa
-pQa
+eyc
 pHf
 pQa
 pQa
@@ -150750,7 +150843,7 @@ dPj
 dPj
 aXn
 aXn
-aXn
+pvY
 aXn
 aXn
 aXn
@@ -151776,9 +151869,9 @@ aXn
 aXn
 aXn
 aXn
+qVT
 aXn
-aXn
-aXn
+rRF
 aXn
 aXn
 aXn
@@ -152804,9 +152897,9 @@ nKr
 wLr
 aXn
 vpJ
+lgx
 aXn
-aXn
-aXn
+vlE
 aXn
 tVf
 djo
@@ -153577,7 +153670,7 @@ aXn
 aXn
 aXn
 aXn
-wLr
+eyx
 aXn
 aXn
 aXn

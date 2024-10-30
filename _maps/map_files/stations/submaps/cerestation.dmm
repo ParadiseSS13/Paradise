@@ -1,0 +1,146 @@
+"bB" = (/obj/item/reagent_containers/glass/beaker/large{pixel_x = 9; pixel_y = -8},/obj/structure/table/reinforced,/obj/machinery/light/built{dir = 4},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"bH" = (/turf/simulated/floor/plating/asteroid/ancient,/area/station/maintenance/asmaint)
+"cc" = (/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/engineering)
+"co" = (/obj/item/chair,/obj/item/reagent_containers/dropper/precision{pixel_x = 9; pixel_y = 5},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"cM" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"dz" = (/obj/item/clothing/glasses/science,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"dA" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/floor/plating/asteroid/ancient/airless,/area/station/hallway/spacebridge/scidock)
+"dL" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/maintenance/maintcentral)
+"dO" = (/obj/machinery/chem_master,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"fh" = (/turf/simulated/mineral/ancient,/area/station/hallway/spacebridge/scidock)
+"fu" = (/obj/effect/spawner/random/maintenance,/turf/simulated/floor/plating/asteroid/ancient,/area/station/hallway/spacebridge/scidock)
+"fQ" = (/obj/machinery/light/small{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"gE" = (/turf/simulated/floor/plating,/area/station/hallway/secondary/entry/north)
+"gL" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/simulated/wall,/area/station/hallway/spacebridge/scidock)
+"ho" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"hA" = (/obj/machinery/door/airlock/glass,/obj/structure/barricade/wooden,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"ie" = (/obj/structure/falsewall,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"iv" = (/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"kV" = (/obj/machinery/door/airlock/glass,/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"ld" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"ly" = (/obj/structure/barricade/wooden,/obj/machinery/door/airlock/glass,/obj/structure/fans/tiny,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"mL" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/glass/beaker/drugs,/obj/machinery/light/built{dir = 8},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"mU" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/turf/simulated/floor/plating/asteroid/ancient,/area/station/maintenance/asmaint)
+"nb" = (/obj/effect/spawner/random/food_trash,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"ny" = (/obj/effect/decal/cleanable/blood/tracks/mapped,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"nC" = (/obj/effect/spawner/random/maintenance,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"ok" = (/obj/effect/spawner/window/reinforced/grilled,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"pk" = (/obj/machinery/floodlight{light_power = 1},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"py" = (/turf/simulated/mineral/ancient/outer,/area/mine/unexplored/cere/engineering)
+"pS" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"rd" = (/turf/simulated/wall,/area/station/hallway/spacebridge/scidock)
+"tZ" = (/obj/machinery/chem_heater,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"uw" = (/obj/structure/closet/secure_closet/reagents,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"vx" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/simulated/mineral/ancient,/area/station/hallway/spacebridge/scidock)
+"vC" = (/obj/item/reagent_containers/glass/beaker/large{pixel_x = -8},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"vM" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/turf/simulated/floor/plating,/area/station/hallway/secondary/entry/north)
+"vR" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/mineral/ancient,/area/station/maintenance/maintcentral)
+"vW" = (/obj/structure/table,/obj/effect/spawner/random/food_trash,/obj/machinery/light/small{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"wy" = (/turf/simulated/wall,/area/station/maintenance/maintcentral)
+"xc" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/mineral/ancient,/area/station/hallway/spacebridge/scidock)
+"xS" = (/obj/item/reagent_containers/glass/beaker/large{pixel_x = -8},/obj/effect/decal/cleanable/blood/tracks/mapped,/obj/effect/decal/cleanable/blood/tracks/mapped{dir = 10},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"yu" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"zq" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/simulated/mineral/ancient,/area/station/hallway/spacebridge/scidock)
+"zC" = (/obj/machinery/door/airlock/glass,/obj/structure/barricade/wooden,/obj/structure/fans/tiny,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"Af" = (/obj/machinery/door/airlock/research,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"BP" = (/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"Cy" = (/turf/simulated/floor/plating/asteroid/ancient,/area/station/hallway/spacebridge/scidock)
+"DD" = (/obj/structure/closet/secure_closet/freezer/fridge,/obj/effect/spawner/random/food_trash,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"DV" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Ee" = (/obj/item/chair,/obj/item/reagent_containers/dropper/precision{pixel_x = 9; pixel_y = 5},/obj/effect/decal/cleanable/blood/tracks/mapped,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Ev" = (/obj/effect/decal/cleanable/blood/tracks/mapped,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"ET" = (/turf/template_noop,/area/template_noop)
+"EV" = (/obj/structure/lattice/catwalk,/turf/space,/area/space/nearstation)
+"EX" = (/obj/effect/spawner/random/maintenance,/obj/effect/decal/cleanable/blood/tracks/mapped{dir = 6},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"EZ" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"Fb" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Ff" = (/obj/structure/cable/orange{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/decal/cleanable/dirt,/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,/obj/machinery/door/airlock/maintenance{name = "Aft Asteroid Maintenance"},/turf/simulated/floor/plating,/area/station/maintenance/asmaint)
+"Fg" = (/obj/effect/spawner/random_spawners/wall_rusted_always,/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/simulated/wall,/area/station/maintenance/maintcentral)
+"Fy" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"Gp" = (/obj/structure/chair/comfy/corp{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Id" = (/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"IY" = (/turf/simulated/mineral/ancient/outer,/area/station/hallway/spacebridge/scidock)
+"Ju" = (/obj/structure/girder,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"Kf" = (/obj/effect/spawner/random/maintenance,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"KO" = (/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Ms" = (/obj/item/kirbyplants,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Pe" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/pill/random_drugs,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"PA" = (/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"Qu" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/turf/simulated/floor/plating/asteroid/ancient,/area/station/maintenance/asmaint)
+"QJ" = (/obj/item/reagent_containers/dropper{pixel_x = -10; pixel_y = 5},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"QY" = (/obj/machinery/door/airlock/research,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Rl" = (/obj/effect/spawner/random_spawners/wall_rusted_always,/turf/simulated/wall,/area/station/maintenance/maintcentral)
+"RH" = (/obj/effect/spawner/grouped_spawner{group_id = "tunnelbats"; max_per_spawner = 1; name = "bat spawner"; path_to_spawn = /mob/living/simple_animal/hostile/scarybat; total_amount = 20},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"Sn" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/floor/plating,/area/station/hallway/secondary/entry/north)
+"Ss" = (/obj/machinery/chem_master,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"SC" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"SR" = (/turf/simulated/floor/plating/asteroid/ancient/airless,/area/station/hallway/spacebridge/scidock)
+"SS" = (/obj/item/reagent_containers/glass/beaker/large{pixel_x = 9; pixel_y = -8},/turf/simulated/floor/plating/asteroid/ancient,/area/station/hallway/spacebridge/scidock)
+"Tg" = (/obj/effect/spawner/random/maintenance,/obj/structure/table/reinforced,/obj/machinery/light/built{dir = 8},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"Tj" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,/turf/simulated/floor/plating,/area/station/hallway/secondary/entry/north)
+"UR" = (/turf/simulated/mineral/ancient,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"US" = (/obj/item/chair{dir = 1},/obj/effect/decal/cleanable/blood/tracks/mapped{dir = 8},/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"UX" = (/obj/item/chair/wood{dir = 4},/obj/item/reagent_containers/dropper{pixel_x = -10; pixel_y = 5},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"Vb" = (/obj/structure/lattice,/turf/space,/area/space/nearstation)
+"Vo" = (/turf/space,/area/space)
+"VG" = (/obj/structure/closet/secure_closet/reagents,/obj/item/reagent_containers/glass/beaker/drugs{pixel_x = 7; pixel_y = -7},/obj/item/reagent_containers/glass/beaker/drugs{pixel_x = 4; pixel_y = -4},/obj/item/reagent_containers/glass/beaker/drugs{pixel_x = 1; pixel_y = -1},/obj/effect/decal/cleanable/blood/tracks/mapped{dir = 9},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"VM" = (/obj/structure/falsewall/rock_ancient,/obj/effect/decal/cleanable/blood/tracks/mapped,/turf/space,/area/station/hallway/spacebridge/scidock)
+"WL" = (/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/engineering_science,/turf/simulated/mineral/ancient,/area/station/hallway/spacebridge/scidock)
+"Xf" = (/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
+"Yg" = (/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints,/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
+"YQ" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"Zc" = (/obj/machinery/chem_heater,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"ZH" = (/obj/structure/chair/comfy/corp,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+
+(1,1,1) = {"
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETSnvMvMSCSCSCSCSCFyETyuSCSCSCSCSCSCSCFyETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETgEgEgEgEFfbHbHbHEZETPAPAPAPAPAPAPAPAEZETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETYgPATjTjFfQuQuQumUETYgPApSpSpSpSpSpScMETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETvRJuRlwyzCFgETETETETvRJuRlwyzCFgETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETccpypywyfQRlETETETETccpypywyfQRlETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETpypyVookldokETETETETpypyEVokldokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETpyVoVookXfokETETETETpyVoEVokXfokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETVoVoVookldokETETETETVoVoEVokldokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETVoVoVbwykVwyETETETETVoVoEVwyiewyETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETVoVoVoVoVoVoETETETETVoVoEVokdLokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETVoVoEVVbVbVoETETETETVoVoEVokdLokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETdAIYIYrdhAgLETETETETdAIYIYrdQYgLETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETSRIYIYfhIdfhETETETETIYIYIYfhivfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETSRSRIYfhYQfhETETETETIYZHMsDDFbfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETIYIYIYfhlyfhETETETETIYvWivivhofhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETIYfhfhfhIdfhETETETETIYGpnbFbivfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETIYfhfhfhKffhETETETETIYfhfhfhnCfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhfhfhfhIdfhETETETETfhfhfhfhFbfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETxcfhfhfhIdzqETETETETxcfhfhfhAfzqETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhBPcoIdCyfhETETETETfhKOEeFbivfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhKfCypkCyfhETETETETfhTgEvDVFbfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhSsvCCyIdfhETETETETfhdOxSUSPefhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhCyRHIdSSfhETETETETfhmLnydzbBfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETfhuwfuUXtZfhETETETETfhVGEXQJZcfhETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETWLfhfhfhfhvxETETETETWLVMURfhfhvxETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+"}
