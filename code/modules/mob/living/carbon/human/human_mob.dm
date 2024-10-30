@@ -656,14 +656,6 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
-
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
