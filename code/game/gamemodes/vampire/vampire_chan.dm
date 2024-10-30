@@ -3,14 +3,12 @@
 	config_tag = "vampchan"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
-	protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	vampire_penalty = 0.4 // Cut out 40% of the vampires since we'll replace some with changelings
-	/// A list of all soon-to-be changelings
-	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/vampire/changeling/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
@@ -19,10 +17,6 @@
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_changelings) && (player.client.prefs.active_character.species in secondary_protected_species))
-			possible_changelings -= player.mind
-
 	if(!length(possible_changelings))
 		return ..()
 
@@ -30,8 +24,13 @@
 		if(length(pre_changelings) >= secondary_enemies)
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
-		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		if(changeling.current?.client?.prefs.active_character.species in species_to_mindflayer)
+			pre_mindflayers += changeling
+			secondary_enemies -= 1 // Again, since we aren't increasing pre_changeling we'll just decrement what it's compared to.
+			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
+			continue
+		pre_changelings += changeling
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	return ..()
