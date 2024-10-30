@@ -10265,6 +10265,11 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/meter,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aQZ" = (
@@ -10608,8 +10613,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -11218,10 +11225,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Port Mix to Port Ports"
-	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -13402,12 +13406,6 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/plasma,
-/area/station/engineering/atmos)
-"beJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/engineering/atmos)
 "beK" = (
 /obj/structure/table/reinforced,
@@ -22738,7 +22736,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58469,10 +58474,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -67952,6 +67961,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "jhJ" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "jhM" = (
@@ -74227,6 +74241,11 @@
 "kXZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
@@ -87695,6 +87714,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -88882,8 +88906,8 @@
 "pih" = (
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
@@ -108322,20 +108346,6 @@
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
-"uQB" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "uQJ" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "stationai_door_int";
@@ -113247,18 +113257,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/maintenance/starboard2)
-"wpy" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "wpz" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -141073,7 +141071,7 @@ aIA
 aJR
 hLA
 pih
-izz
+aOb
 nPe
 brz
 aSD
@@ -141330,13 +141328,13 @@ leZ
 aJS
 hgs
 jhJ
-aOb
+izz
 kXZ
 aQW
 aSE
 gsz
 aVG
-beJ
+bgc
 aYA
 aYA
 aYA
@@ -141590,7 +141588,7 @@ aMK
 aOg
 aPy
 aQT
-wpy
+aSD
 bMF
 aSI
 aXl
@@ -141848,7 +141846,7 @@ aOg
 aPz
 aQT
 aSD
-uQB
+qYd
 aVF
 bgd
 ban
