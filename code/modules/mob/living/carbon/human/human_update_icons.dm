@@ -1061,7 +1061,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(neck)
 		update_hud_neck(neck)
-
 		if(neck.icon_override)
 			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
 		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.sprite_sheet_name])
