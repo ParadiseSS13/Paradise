@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked `"[x] has been [z.attack_verb] by [y] with [z]"`
 	var/list/attack_verb
 	/// Determines how big/small items are to fit in storage containers
 	var/w_class = WEIGHT_CLASS_NORMAL

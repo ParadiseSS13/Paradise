@@ -42,7 +42,7 @@
 	var/door_hinge_x = -6.5
 	/// Amount of time it takes for the door animation to play
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
-	/// Whether this closet uses a door overlay at all. If FALSE, it'll switch to a system where the entire icon_state is replaced with [icon_state]_open instead.
+	/// Whether this closet uses a door overlay at all. If `FALSE`, it'll switch to a system where the entire icon_state is replaced with `[icon_state]_open` instead.
 	var/enable_door_overlay = TRUE
 	/// Whether this closet uses a door overlay for when it is opened
 	var/has_opened_overlay = TRUE

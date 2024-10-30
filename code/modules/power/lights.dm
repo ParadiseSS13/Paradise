@@ -17,7 +17,7 @@
   *
   * Incomplete light tube fixture
   *
-  * Becomes a [Light fixture] when completed
+  * Becomes a [/obj/machinery/light/built] when completed.
   */
 /obj/machinery/light_construct
 	name = "light fixture frame"
@@ -133,7 +133,7 @@
   *
   * Incomplete light bulb fixture
   *
-  * Becomes a [Small light fixture] when completed
+  * Becomes a [/obj/machinery/light/small/built] when completed
   */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
