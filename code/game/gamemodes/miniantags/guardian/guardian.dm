@@ -283,7 +283,7 @@
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)

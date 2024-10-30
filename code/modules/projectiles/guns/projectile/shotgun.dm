@@ -57,18 +57,20 @@
 	COOLDOWN_START(src, pump_cooldown, pump_time)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
+	if(QDELETED(M))
+		return
 	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
-	pump_unload(M)
-	pump_reload(M)
+	pump_unload()
+	pump_reload()
 
-/obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
+/obj/item/gun/projectile/shotgun/proc/pump_unload()
 	if(chambered)//We have a shell in the chamber
 		chambered.forceMove(get_turf(src))
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
-/obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
+/obj/item/gun/projectile/shotgun/proc/pump_reload()
 	if(!magazine.ammo_count())
 		return FALSE
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.

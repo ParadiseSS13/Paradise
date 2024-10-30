@@ -320,6 +320,12 @@
 	icon_state = "partyshell"
 	projectile_type = /obj/item/projectile/bullet/confetti
 
+/obj/item/ammo_casing/shotgun/shrapnel
+	name = "shrapnel rounds"
+	projectile_type = /obj/item/projectile/bullet/shrapnel
+	pellets = 3
+	variance = 20
+
 /obj/item/ammo_casing/a556
 	name = "5.56mm round"
 	desc = "A 5.56mm rifle round, produced in incredible quantities by the Trans-Solar Federation."
