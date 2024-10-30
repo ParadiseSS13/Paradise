@@ -200,12 +200,15 @@
 * * target - the pipe/device/tube being placed by the RPD.
 */
 /obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target)
-	if(auto_wrench_toggle)
-		if(mode != RPD_TRANSIT_MODE && target.wrench_act(user, src))
+	if(!auto_wrench_toggle)
+		return
+	if(mode == RPD_TRANSIT_MODE)
+		if(target.screwdriver_act(user, src) & RPD_TOOL_SUCCESS)
 			playsound(src, 'sound/items/impactwrench.ogg', 50, TRUE)
 			return
-		if(target.screwdriver_act(user, src))
-			playsound(src, 'sound/items/impactwrench.ogg', 50, TRUE)
+	if(target.wrench_act(user, src) & RPD_TOOL_SUCCESS)
+		playsound(src, 'sound/items/impactwrench.ogg', 50, TRUE)
+		return
 // TGUI stuff
 
 /obj/item/rpd/attack_self(mob/user)

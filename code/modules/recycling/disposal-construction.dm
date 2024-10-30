@@ -138,6 +138,7 @@
 // weldingtool: convert to real pipe
 
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
 	var/turf/T = get_turf(src)
@@ -153,7 +154,7 @@
 	else
 		var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
 		if(!CT)
-			to_chat(user, "<span class='warning'>The [nicetype] requires a constructed trunk in order to be anchored.</span>")
+			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to be anchored.</span>")
 			return
 		anchored = !anchored
 		density = anchored
@@ -161,7 +162,7 @@
 
 	I.play_tool_sound(src, I.tool_volume)
 	update()
-	return TRUE
+	. |= RPD_TOOL_SUCCESS
 
 /obj/structure/disposalconstruct/proc/is_pipe()
 	switch(ptype)
@@ -192,7 +193,17 @@
 	var/turf/T = get_turf(src)
 	add_fingerprint(user)
 
-	if(ispipe)
+	if(T.intact)
+		to_chat(user, ",span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
+		return
+
+
+	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
+		var/obj/structure/disposalpipe/trunk/CP = locate() in T
+		if(!CP) // There's no trunk
+			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to work.</span>")
+			return
+	else
 		for(var/obj/structure/disposalpipe/CP in T)
 			if(CP)
 				update()

@@ -340,6 +340,7 @@
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
+	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -526,7 +527,7 @@
 		"<span class='notice'>You fasten [src].</span>",
 		"<span class='notice'>You hear a ratchet.</span>")
 	qdel(src)	// remove the pipe item
-	return TRUE
+	. |= RPD_TOOL_SUCCESS
 
 /obj/item/pipe_meter
 	name = "meter"

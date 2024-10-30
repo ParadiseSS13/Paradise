@@ -9,6 +9,7 @@
 	var/installed_type = null
 	var/installed_type_flipped = null
 	var/flipped = FALSE
+	var/is_station = FALSE
 
 /obj/structure/transit_tube_construction/proc/rotate()
 	setDir(turn(dir, -90))
@@ -40,6 +41,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
 	var/turf/T = get_turf(src)
 	if(!isfloorturf(T) && !isspaceturf(T))
 		to_chat(user, "<span class='warning'>You cannot install [src] here.</span>")
@@ -49,7 +51,7 @@
 		if(!istype(turf_contents, /obj/structure/transit_tube_pod) && turf_contents.density)
 			to_chat(user, "<span class='warning'>There is not enough space to install [src] here.</span>")
 			return
-	if(!user.can_reach(src) && (istype(src, /obj/structure/transit_tube_construction/terminus) || istype(src, /obj/structure/transit_tube_construction/station)))
+	if(is_station && !user.can_reach(src))
 		to_chat(user, "<span class='warning'>[src] must be installed manually.</span>")
 		return
 
@@ -60,7 +62,7 @@
 
 	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
-	return TRUE
+	. |= RPD_TOOL_SUCCESS
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -125,14 +127,17 @@
 	installed_type = /obj/structure/transit_tube/station
 	base_icon_state = "transit_station"
 	icon_state = "transit_station"
+	is_station = TRUE
 
 /obj/structure/transit_tube_construction/terminus/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser/reverse
 	installed_type_flipped = /obj/structure/transit_tube/station/dispenser/reverse/flipped
 	base_icon_state = "transit_dispenser_terminus"
 	icon_state = "transit_dispenser_terminus"
+	is_station = TRUE
 
 /obj/structure/transit_tube_construction/station/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser
 	base_icon_state = "transit_dispenser_station"
 	icon_state = "transit_dispenser_station"
+	is_station =  TRUE

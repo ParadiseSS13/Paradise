@@ -1,4 +1,6 @@
-//Atmospherics pipes
+//////////////////////////////
+// MARK: Atmospherics pipes
+//////////////////////////////
 
 #define PIPE_SIMPLE_STRAIGHT		0
 #define PIPE_SIMPLE_BENT			1
@@ -41,7 +43,9 @@
 #define PIPE_GAS_SENSOR				98
 #define PIPE_METER					99
 
-//Disposals pipes
+//////////////////////////////
+// MARK: Disposals pipes
+//////////////////////////////
 
 #define PIPE_DISPOSALS_STRAIGHT			100
 #define PIPE_DISPOSALS_BENT				101
@@ -55,7 +59,10 @@
 #define PIPE_DISPOSALS_SORT_RIGHT		109
 #define PIPE_DISPOSALS_SORT_LEFT		110
 
-// Transit tubes
+//////////////////////////////
+// MARK: Transit tubes
+//////////////////////////////
+
 #define PIPE_TRANSIT_POD						200
 #define PIPE_TRANSIT_TUBE						201
 #define PIPE_TRANSIT_TUBE_DIAGONAL				202
@@ -65,7 +72,9 @@
 #define PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER	206
 #define PIPE_TRANSIT_TUBE_DISPENSER_STATION		207
 
-//RPD stuff
+//////////////////////////////
+// MARK: RPD stuff
+//////////////////////////////
 
 #define RPD_ATMOS_MODE		1
 #define RPD_DISPOSALS_MODE	2
@@ -84,7 +93,11 @@
 #define PIPETYPE_DISPOSAL	2
 #define PIPETYPE_TRANSIT	3
 
-// Connection types
+#define RPD_TOOL_SUCCESS    (1<<1)
+
+//////////////////////////////
+// MARK: Connection types
+//////////////////////////////
 
 #define CONNECT_TYPE_NORMAL 1
 #define CONNECT_TYPE_SUPPLY 2
