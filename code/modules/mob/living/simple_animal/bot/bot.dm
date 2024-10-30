@@ -947,6 +947,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return has_access(list(), req_access, acc)
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
+	..()
 	if(href_list["close"]) // HUE HUE
 		if(usr in users)
 			users.Remove(usr)
