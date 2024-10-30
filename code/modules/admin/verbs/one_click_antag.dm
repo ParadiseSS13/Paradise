@@ -294,8 +294,8 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
-	var/input_num = input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0) as num
-	if(input_num <= 0)
+	var/input_num = input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0) as num|null
+	if(input_num <= 0 || isnull(input_num))
 		qdel(temp)
 		return FALSE
 
