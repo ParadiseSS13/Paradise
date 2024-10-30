@@ -52505,6 +52505,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "cVG" = (
@@ -69444,6 +69447,10 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"gKj" = (
+/obj/structure/disaster_counter/toxins,
+/turf/simulated/wall/r_wall,
+/area/station/science/toxins/launch)
 "gKs" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -77650,7 +77657,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
@@ -80747,6 +80754,9 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/disaster_counter/scichem{
+	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
@@ -85722,7 +85732,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -85944,6 +85953,7 @@
 /area/station/medical/virology)
 "qgC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/structure/disaster_counter/supermatter,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
 "qhG" = (
@@ -93538,7 +93548,6 @@
 "uhI" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -96492,7 +96501,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -129830,7 +129838,7 @@ sVv
 gQW
 gQW
 sYB
-gQW
+gKj
 gQW
 gQW
 gQW
