@@ -25,6 +25,13 @@
 	if(!spawn_pool_id)
 		stack_trace("No spawn pool ID provided to [src]([type])")
 
+	if(GLOB.spawn_pool_manager.finalized)
+		// We've already gotten through SSlate_mapping, so someone probably spawned this manually.
+		// Skip all the shit and just spawn it.
+		spawn_loot()
+		qdel(src)
+		return
+
 	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool_id)
 	if(!pool)
 		stack_trace("Could not find spawn pool with ID [spawn_pool_id]")
@@ -49,22 +56,47 @@
 	return ..()
 
 /obj/effect/spawner/random/pool/check_safe(type_path_to_make)
+	// TODO: Spawners with `spawn_all_loot` set will subtract the
+	// point value for each item spawned. This needs to change so
+	// that the budget is only checked once initially, and then
+	// all of the loot is spawned after.
 	if(!..())
 		return FALSE
 
-	if(ispath(type_path_to_make, /obj/effect/spawner/random/pool))
-		return TRUE
-
+	var/is_safe = FALSE
+	var/deduct_points = TRUE
 	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool_id)
 	if(!pool)
 		stack_trace("Could not find spawn pool with ID [spawn_pool_id]")
 
-	if(!pool.can_afford(point_value))
+	if(ispath(type_path_to_make, /obj/effect/spawner/random/pool))
+		return TRUE
+
+	// If we're past SSlate_mapping, we're safe and don't have a pool
+	// to deduct points from
+	if(GLOB.spawn_pool_manager.finalized)
+		is_safe = TRUE
+		deduct_points = FALSE
+
+	// If we don't have a sane point value, don't deduct points
+	if(point_value == INFINITY)
+		deduct_points = FALSE
+
+	// If we deduct points, we need to check affordability
+	if(deduct_points)
+		if(pool.can_afford(point_value))
+			is_safe = TRUE
+	else
+		is_safe = TRUE
+
+	// Early breakout if we're not safe
+	if(!is_safe)
 		return FALSE
 
-	pool.consume(point_value)
+	if(deduct_points)
+		pool.consume(point_value)
 
-	if(unique_picks)
+	if(pool && unique_picks)
 		// We may have multiple instances of a given type so just remove the first instance we find
 		var/list/unique_spawners = pool.unique_spawners[type]
 		unique_spawners.Remove(type_path_to_make)

@@ -5,6 +5,7 @@ GLOBAL_DATUM_INIT(spawn_pool_manager, /datum/spawn_pool_manager, new)
 /// to it and are processed in SSlate_mapping.
 /datum/spawn_pool_manager
 	var/list/spawn_pools = list()
+	var/finalized = FALSE
 
 /datum/spawn_pool_manager/New()
 	for(var/spawn_pool_type in subtypesof(/datum/spawn_pool))
@@ -18,6 +19,8 @@ GLOBAL_DATUM_INIT(spawn_pool_manager, /datum/spawn_pool_manager, new)
 	for(var/pool_id in spawn_pools)
 		var/datum/spawn_pool/pool = spawn_pools[pool_id]
 		pool.process_spawners()
+
+	finalized = TRUE
 
 /datum/spawn_pool_manager/Destroy()
 	QDEL_LIST_CONTENTS(spawn_pools)

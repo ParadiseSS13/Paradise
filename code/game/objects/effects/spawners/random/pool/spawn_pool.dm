@@ -25,11 +25,17 @@
 /datum/spawn_pool/proc/consume(points)
 	available_points -= points
 
-/datum/spawn_pool/proc/process_spawners()
-	for(var/obj/effect/spawner/random/pool/spawner in guaranteed_spawners)
+/datum/spawn_pool/proc/process_guaranteed_spawners()
+	while(length(guaranteed_spawners))
+		var/obj/effect/spawner/random/pool/spawner = guaranteed_spawners[length(guaranteed_spawners)]
+		guaranteed_spawners.len--
 		spawner.spawn_loot()
+		qdel(spawner)
 
 	QDEL_LIST_CONTENTS(guaranteed_spawners)
+
+/datum/spawn_pool/proc/process_spawners()
+	process_guaranteed_spawners()
 
 	shuffle_inplace(known_spawners)
 	while(length(known_spawners))
@@ -43,6 +49,11 @@
 			continue
 
 		spawner.spawn_loot()
+		if(length(guaranteed_spawners))
+			WARNING("non-guaranteed spawner [spawner.type] spawned a guaranteed spawner, this should be avoided")
+			process_guaranteed_spawners()
+
 		qdel(spawner)
+
 
 	QDEL_LIST_CONTENTS(known_spawners)
