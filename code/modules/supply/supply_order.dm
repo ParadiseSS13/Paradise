@@ -91,8 +91,6 @@
 
 	return crate
 
-
-
 /obj/item/paper/manifest
 	name = "supply manifest"
 	var/points = 0
