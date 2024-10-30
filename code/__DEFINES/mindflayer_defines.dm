@@ -9,7 +9,7 @@
 /// How many swarms can you drain per person?
 #define BRAIN_DRAIN_LIMIT 120
 /// The time per harvesting tick
-#define DRAIN_TIME (1/4 SECONDS)
+#define DRAIN_TIME 0.25 SECONDS
 /// If we want to keep draining someone but we don't have any swarms to gain
 #define DRAIN_BUT_NO_SWARMS 2
 
