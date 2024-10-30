@@ -15,7 +15,7 @@
 
 #define isflayerpassive(A)		(istype(A, /datum/mindflayer_passive))
 
-//For organizing what spells are available for what trees
+// For organizing what spells are available for what trees
 #define FLAYER_CATEGORY_GENERAL "general"
 #define FLAYER_CATEGORY_DESTROYER "destroyer"
 #define FLAYER_CATEGORY_INTRUDER "intruder"

@@ -151,7 +151,7 @@
 	if(IS_MINDFLAYER(crosser))
 		return // Mindflayers are fully immune to steam
 	if(!ishuman(crosser))
-		crosser.adjustFireLoss(5)
+		crosser.adjustFireLoss(8)
 		return
 
 	var/mob/living/carbon/human/human_crosser = AM
@@ -159,7 +159,7 @@
 	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
 		return
 
-	crosser.adjustFireLoss(3)
+	crosser.adjustFireLoss(5)
 	if(prob(20))
 		to_chat(crosser, "<span class='warning'>You are being scalded by the hot steam!</span>")
 

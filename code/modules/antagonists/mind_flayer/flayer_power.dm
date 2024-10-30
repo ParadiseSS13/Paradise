@@ -1,5 +1,3 @@
-// POWERS// OOORAAAH WE HAVE POWERS
-
 /datum/spell/flayer
 	action_background_icon_state = "bg_flayer"
 	desc = "This spell needs a description!"
@@ -7,21 +5,23 @@
 	clothes_req = FALSE
 	/// A reference to the owner mindflayer's antag datum.
 	var/datum/antagonist/mindflayer/flayer
+
+	/// What level is our spell currently at
 	var/level = 0
+	/// Max level of our spell
 	var/max_level = 1
 	/// Determines whether the power is always given to the mind flayer or if it must be purchased.
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	/// The initial cost of purchasing the spell.
 	var/base_cost = 0
-	/// Should this spell's cost increase by a static amount every purchase? 0 means it will multiply the base cost by the level + 1.
+	/// Should this spell's cost increase by a static amount every purchase? 0 means it will stay the base cost for every upgrade.
 	var/static_upgrade_increase = 0
 	/// The current price to upgrade the spell
 	var/current_cost = 0
-	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
-	var/req_stat = CONSCIOUS
+
 	/// The class that this spell is for or FLAYER_CATEGORY_GENERAL to make it unrelated to a specific tree
 	var/category = FLAYER_CATEGORY_GENERAL
-	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
+	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage.
 	var/stage = 1
 	/// A brief description of what the spell's upgrades do
 	var/upgrade_info = "This spell needs upgrade info!"
@@ -30,8 +30,6 @@
 
 /datum/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
-
-// Behold, a copypaste from changeling, might need some redoing
 
 /datum/spell/flayer/Destroy(force, ...)
 	if(!flayer)
@@ -100,7 +98,7 @@
 
 // Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
 /datum/antagonist/mindflayer/proc/get_powers_of_category(category)
-	var/list/list/powers = list()
+	var/list/powers = list()
 	for(var/path in ability_list)
 		if(ispath(path, /datum/spell))
 			var/datum/spell/flayer/spell = path
@@ -128,7 +126,7 @@
 	return powers
 
 /datum/antagonist/mindflayer/proc/build_ability_tabs()
-	var/list/list/ability_tabs = list()
+	var/list/ability_tabs = list()
 	for(var/category in category_stage)
 		ability_tabs += list(list(
 			"category_name" = category,
@@ -138,40 +136,41 @@
 	return ability_tabs
 
 /datum/spell/flayer/self/augment_menu/ui_data(mob/user)
-	var/list/list/data = list()
+	var/list/data = list()
 	var/list/known_abilities = list()
 	data["usable_swarms"] = flayer.usable_swarms
 	for(var/datum/mindflayer_passive/passive in flayer.powers)
 		known_abilities += list(list(
-			"name" = passive.name,
-			"current_level" = passive.level,
-			"max_level" = passive.max_level,
-			"cost" = passive.current_cost,
-			"upgrade_text" = passive.upgrade_info,
-			"ability_path" = passive.type
-		))
+									"name" = passive.name,
+										"current_level" = passive.level,
+										"max_level" = passive.max_level,
+										"cost" = passive.current_cost,
+										"upgrade_text" = passive.upgrade_info,
+										"ability_path" = passive.type
+									))
+
 	for(var/datum/spell/flayer/spell in flayer.powers)
 		known_abilities += list(list(
-			"name" = spell.name,
-			"current_level" = spell.level,
-			"max_level" = spell.max_level,
-			"cost" = spell.current_cost,
-			"upgrade_text" = spell.upgrade_info,
-			"ability_path" = spell.type
-		))
+									"name" = spell.name,
+									"current_level" = spell.level,
+									"max_level" = spell.max_level,
+									"cost" = spell.current_cost,
+									"upgrade_text" = spell.upgrade_info,
+									"ability_path" = spell.type
+								))
 	data["known_abilities"] = known_abilities
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
-	var/list/list/static_data = list()
+	var/list/static_data = list()
 	static_data["ability_tabs"] = flayer.build_ability_tabs()
 	return static_data
 
 /*
-* Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
-* If so it adds the ability and increments the category stage if needed, then returns TRUE
-* otherwise, returns FALSE
-*/
+ * Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+ * If so it adds the ability and increments the category stage if needed, then returns TRUE
+ * otherwise, returns FALSE
+ */
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell && (existing_spell.level >= existing_spell.max_level))
@@ -207,10 +206,10 @@
 	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
 
 /*
-* Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
-* If so it adds the ability and increments the category stage if needed, then returns TRUE
-* otherwise, returns FALSE
-*/
+ * Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+ * If so it adds the ability and increments the category stage if needed, then returns TRUE
+ * otherwise, returns FALSE
+ */
 /datum/antagonist/mindflayer/proc/try_purchase_passive(datum/mindflayer_passive/to_add)
 	var/datum/mindflayer_passive/existing_passive = has_passive(to_add)
 	if(existing_passive)
