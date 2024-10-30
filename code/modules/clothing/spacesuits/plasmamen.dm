@@ -288,3 +288,9 @@
 	desc = "A plasmaman envirohelm designed by Space Cola Co for the plasmamen."
 	icon_state = "coke_envirohelm"
 	item_state = "coke_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/trainer
+	name = "trainer envirosuit helmet"
+	desc = "A plasmaman envirohelm designed for the nanotrasen career trainer."
+	icon_state = "trainer_envirohelm"
+	item_state = "trainer_envirohelm"
