@@ -90,7 +90,7 @@
 	animate(user, 0.5 SECONDS, 0, transform = shrank, pixel_x = 32 * direction_signs[1], pixel_y = 32 * direction_signs[2], dir = direction, easing = BACK_EASING|EASE_IN) //Blue skadoo, we can too!
 	user.Immobilize(0.5 SECONDS)
 	sleep(0.5 SECONDS)
-	target.Beam(marked_computer, icon_state = "rped_upgrade", icon ='icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = INFINITY)
+	target.Beam(marked_computer, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = INFINITY)
 	playsound(start_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	playsound(end_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
