@@ -4,7 +4,7 @@
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI") // Allows AI to roll traitor, but not changeling
-	required_players = 1
+	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
