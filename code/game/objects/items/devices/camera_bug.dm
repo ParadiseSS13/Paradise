@@ -55,7 +55,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wall_bug"
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/machinery/camera/portable/camera
+	var/obj/machinery/camera/portable/camera_bug/camera
 	var/index = "REPORT THIS TO CODERS"
 
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
@@ -81,9 +81,12 @@
 	camera_bug.connections++
 	index = camera_bug.connections
 
-	camera = new /obj/machinery/camera/portable(src)
+	camera = new /obj/machinery/camera/portable/camera_bug(src)
 	camera.network = list("camera_bug[camera_bug.UID()]")
 	camera.c_tag = "Hidden Camera [index]"
+
+/obj/machinery/camera/portable/camera_bug
+	non_chunking_camera = TRUE
 
 /obj/item/paper/camera_bug
 	name = "Camera Bug Guide"

@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	/// The network password for this device
 	var/network_password
 
-/obj/machinery/computer/rnd_network_controller/Initialize()
+/obj/machinery/computer/rnd_network_controller/Initialize(mapload)
 	. = ..()
 	GLOB.rnd_network_managers += src
 	research_files = new

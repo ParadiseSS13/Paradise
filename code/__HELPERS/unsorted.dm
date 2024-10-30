@@ -1856,9 +1856,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-/proc/pass()
-	return
-
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y

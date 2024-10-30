@@ -294,7 +294,7 @@
 					active_character.metadata = new_metadata
 
 				if("b_type")
-					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
 					if(!new_b_type)
 						return
 					active_character.b_type = new_b_type
