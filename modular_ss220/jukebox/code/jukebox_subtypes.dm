@@ -66,7 +66,7 @@
 	else
 		icon_state = "[base_icon_state][music_player.active_song_sound ? "_active" : null]"
 
-/obj/machinery/jukebox/concertspeaker/Initialize()
+/obj/machinery/jukebox/concertspeaker/Initialize(mapload)
 	. = ..()
 	GLOB.remote_signalers |= src
 

@@ -24,6 +24,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/moth
 
-/mob/living/simple_animal/nian_caterpillar/Initialize()
+/mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	butcher_results |= list(/obj/item/stack/sheet/animalhide/mothroach = 1)

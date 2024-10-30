@@ -194,6 +194,8 @@ SUBSYSTEM_DEF(mapping)
 				for(var/obj/structure/table/table in T)
 					if(locate(/obj/machinery) in T)
 						continue // Machinery on tables tend to take up all the visible space
+					if(table.flipped)
+						continue // Looks very silly
 					seeded_salvage_surfaces |= table
 
 	var/max_salvage_attempts = rand(10, 15)

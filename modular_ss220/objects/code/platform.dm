@@ -24,7 +24,7 @@
 	. = ..()
 	CheckLayer()
 
-/obj/structure/platform/Initialize()
+/obj/structure/platform/Initialize(mapload)
 	. = ..()
 	CheckLayer()
 

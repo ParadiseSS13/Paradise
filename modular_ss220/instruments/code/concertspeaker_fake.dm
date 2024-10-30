@@ -50,7 +50,7 @@
 	return TRUE
 
 
-/obj/structure/concertspeaker_fake/Initialize()
+/obj/structure/concertspeaker_fake/Initialize(mapload)
 	. = ..()
 	GLOB.remote_signalers |= src
 

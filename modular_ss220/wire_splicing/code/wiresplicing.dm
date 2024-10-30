@@ -8,7 +8,7 @@
 	/// From 0 to 100
 	var/spawn_probability = 100
 
-/obj/effect/spawner/wire_splicing/Initialize()
+/obj/effect/spawner/wire_splicing/Initialize(mapload)
 	. = ..()
 	if(prob(spawn_probability))
 		new /obj/structure/wire_splicing(get_turf(src))

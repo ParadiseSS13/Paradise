@@ -88,7 +88,7 @@
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
-/obj/item/t_scanner/mod/security/Initialize()
+/obj/item/t_scanner/mod/security/Initialize(mapload)
 	. = ..()
 	//Sets up a spark system
 	spark_system = new /datum/effect_system/spark_spread

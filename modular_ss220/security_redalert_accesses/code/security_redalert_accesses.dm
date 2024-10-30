@@ -1,7 +1,7 @@
 /obj/item/card/id
 	var/list/red_alert_given_access // Accesses that were given on red alert
 
-/obj/item/card/id/Initialize()
+/obj/item/card/id/Initialize(mapload)
 	. = ..()
 	red_alert_given_access = list()
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))

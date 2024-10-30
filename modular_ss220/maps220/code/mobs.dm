@@ -1339,7 +1339,7 @@
 	//Лут с дальников
 	var/SynRange
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	var/RollForLoot = rand(1,50)
 	switch(RollForLoot)
 		// 16%
@@ -1381,7 +1381,7 @@
 			SynMobDrop = /obj/item/ammo_casing/c10mm
 	. = ..()
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	switch(rand(1,100))
 		// 1%
 		if(1)
@@ -1390,7 +1390,7 @@
 			SynSpace = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/Initialize(mapload)
 	switch(rand(1,100))
 		// 1%
 		if(1)
@@ -1402,7 +1402,7 @@
 			SynMelee = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/ranged/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/Initialize(mapload)
 	switch(rand(rand(1,100)))
 		// 10%
 		if(25 to 35)
@@ -1430,7 +1430,7 @@
 	maxHealth = 160
 	health = 160
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, SynMobDrop, SynMelee)
 	return .
@@ -1442,7 +1442,7 @@
 	maxHealth = 200
 	health = 200
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, SynMobDrop, SynMelee, SynSpace)
 	return .
@@ -1452,7 +1452,7 @@
 	maxHealth = 150
 	health = 150
 
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, SynMobDrop, SynRange)
 	return .
@@ -1461,7 +1461,7 @@
 	maxHealth = 180
 	health = 180
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, SynMobDrop, SynRange, SynSpace)
 	return .

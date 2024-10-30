@@ -19,21 +19,13 @@
 	suit_type = null;
 	req_access = null
 	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "aF" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_left"
 	},
@@ -52,11 +44,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /obj/effect/decal/cleanable/blood/gibs/xeno,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "bk" = (
@@ -96,10 +84,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "cB" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 9
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "cC" = (
@@ -151,11 +136,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "dI" = (
@@ -190,11 +171,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "eq" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "ez" = (
@@ -240,23 +217,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "eR" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "eT" = (
 /obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/glass,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 10
-	},
+/obj/item/trash/spentcasing/bullet,
 /obj/item/stack/sheet/cloth,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -428,15 +396,8 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/generic,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 4
-	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "jp" = (
@@ -481,10 +442,7 @@
 "kx" = (
 /obj/item/chair/stool,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 9
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_left"
 	},
@@ -494,14 +452,8 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "kK" = (
@@ -512,7 +464,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "kP" = (
@@ -553,10 +505,7 @@
 /area/ruin/space/powered/requires_power_space)
 "lm" = (
 /obj/machinery/light_construct/directional/west,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "lt" = (
@@ -615,15 +564,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "ne" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5
-	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
 /obj/item/stack/sheet/cardboard,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -695,13 +637,6 @@
 	icon_state = "small";
 	pixel_x = 10;
 	pixel_y = 9
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/requires_power_space)
-"oL" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 6
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -916,10 +851,7 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/generic,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 9
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "vg" = (
@@ -966,10 +898,7 @@
 "wY" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 6
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "xb" = (
@@ -984,11 +913,7 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "xy" = (
@@ -1000,11 +925,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/gibs/xeno,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "xD" = (
@@ -1016,10 +937,7 @@
 /obj/item/paper/crumpled,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/storage/secure/briefcase/syndie,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 1
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "yd" = (
@@ -1077,10 +995,6 @@
 /obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
-"zL" = (
-/obj/item/trash/spentcasing,
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/requires_power_space)
 "zT" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -1133,13 +1047,6 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/requires_power_space)
-"Bc" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 4
-	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "BA" = (
@@ -1333,11 +1240,7 @@
 "Je" = (
 /obj/machinery/light_construct/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 8;
-	pixel_x = 2
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Jp" = (
@@ -1377,14 +1280,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "KH" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 6
-	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 9
-	},
+/obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet,
 /obj/structure/sign/poster/contraband/random/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -1421,14 +1318,6 @@
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/template_noop,
 /area/template_noop)
-"Me" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5;
-	pixel_x = -8
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/requires_power_space)
 "Mu" = (
 /obj/structure/closet/syndicate,
 /obj/item/clothing/under/syndicate/tacticool,
@@ -1511,10 +1400,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 9
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Po" = (
@@ -1581,10 +1467,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "RN" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 4
-	},
+/obj/item/trash/spentcasing/bullet,
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -1598,9 +1481,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Tb" = (
@@ -1702,10 +1583,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "Wd" = (
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 1
-	},
+/obj/item/trash/spentcasing/bullet,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
@@ -1744,10 +1622,7 @@
 "Xe" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 4
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Xx" = (
@@ -1816,7 +1691,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "Zd" = (
@@ -2111,7 +1986,7 @@ iB
 iB
 iB
 HH
-eq
+cB
 cB
 vX
 Cg
@@ -2454,7 +2329,7 @@ NN
 nd
 FM
 jb
-oL
+cB
 jb
 iB
 iB
@@ -2475,7 +2350,7 @@ sA
 um
 Mu
 jb
-Me
+cB
 jb
 iB
 iB
@@ -2553,7 +2428,7 @@ iB
 iB
 iB
 jw
-zL
+eq
 hc
 jb
 HY
@@ -2745,7 +2620,7 @@ jb
 cM
 XJ
 XJ
-Bc
+cB
 Pq
 sb
 YF

@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
-			camera.status = FALSE
+			camera.turn_off(src, FALSE)
 
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
@@ -1169,7 +1169,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
 			else
 				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-
+			if(mmi.syndiemmi)
+				to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
 			SetLockdown(0)
 			if(module)
 				module.emag_act(user)
@@ -1397,7 +1398,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = FALSE
 	lockcharge = 0
+	clear_alert("locked")
 	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+	for(var/datum/action/innate/robot_override_lock/override in actions)
+		override.Remove(src)
 	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(camera)
@@ -1405,18 +1409,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// Instead of being listed as "deactivated". The downside is that I'm going
 	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
-
-/mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = "Robot Commands"
-	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
-
-	var/mob/living/silicon/robot/R = src
-
-	if(R)
-		R.UnlinkSelf()
-		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
@@ -1439,8 +1431,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+		if(mmi.syndiemmi && !emagged) // Being emagged removes your syndie MMI protections
+			to_chat(src, "<span class='userdanger'>You can override your lockdown, permanently cutting your connection to NT's systems. You will be undetectable to the station's robotics control and camera monitoring systems.</span>")
+			var/datum/action/override = new /datum/action/innate/robot_override_lock()
+			override.Grant(src)
 	else
 		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+		for(var/datum/action/innate/robot_override_lock/override in actions)
+			override.Remove(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
