@@ -194,11 +194,11 @@
 	activate_rpd()
 
 /**
-* Automatically wrenches down an atmos device/pipe if the auto_wrench_toggle is TRUE.
-* Arguments:
-* * user - the user of the RPD.
-* * target - the pipe/device/tube being placed by the RPD.
-*/
+ * Automatically wrenches down an atmos device/pipe if the auto_wrench_toggle is TRUE.
+ * Arguments:
+ * * user - the user of the RPD.
+ * * target - the pipe/device/tube being placed by the RPD.
+ */
 /obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target)
 	if(!auto_wrench_toggle)
 		return

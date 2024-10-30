@@ -194,9 +194,8 @@
 	add_fingerprint(user)
 
 	if(T.intact)
-		to_chat(user, ",span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
+		to_chat(user, "span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
 		return
-
 
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T

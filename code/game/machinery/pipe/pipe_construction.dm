@@ -540,7 +540,7 @@
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
-		return
+		return TRUE
 
 	new /obj/machinery/atmospherics/meter(loc)
 	I.play_tool_sound(src)
