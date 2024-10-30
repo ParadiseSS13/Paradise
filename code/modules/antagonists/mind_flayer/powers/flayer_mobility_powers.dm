@@ -16,7 +16,13 @@
 	/// The console we currently have a mark on
 	var/obj/marked_computer
 	/// The typecache of things we are allowed to teleport to and from
-	var/list/machine_typecache = list(
+	var/static/list/machine_typecache = list()
+
+/datum/spell/flayer/computer_recall/New()
+	. = ..()
+	if(length(machine_typecache))
+		return
+	machine_typecache = typecacheof(list(
 									/obj/machinery/computer,
 									/obj/machinery/power/apc,
 									/obj/machinery/alarm,
@@ -36,11 +42,7 @@
 									/obj/machinery/photocopier, // HI YES ONE FLAYER FAXED TO MY OFFICE PLEASE
 									/obj/machinery/r_n_d/experimentor, // Like anyone is ever gonna teleport to this
 									/obj/machinery/barsign
-								)
-
-/datum/spell/flayer/computer_recall/New()
-	. = ..()
-	machine_typecache = typecacheof(machine_typecache)
+								))
 
 /datum/spell/flayer/computer_recall/Destroy(force, ...)
 	marked_computer = null
