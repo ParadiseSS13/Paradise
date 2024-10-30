@@ -1,10 +1,14 @@
 /obj/structure/closet/walllocker
 	icon = 'modular_ss220/aesthetics/wallcloset/icons/wallclosets.dmi'
+	door_anim_time = 2.0
+	enable_door_overlay = TRUE
+
+/obj/structure/closet/walllocker/emerglocker
+	door_anim_time = 2.0
 
 /obj/structure/closet/walllocker/firelocker
 	icon_state = "firecloset"
-	icon_closed = "firecloset"
-	icon_opened = "firecloset_open"
+	door_anim_time = 2.0
 
 /obj/structure/closet/walllocker/firelocker/north
 	pixel_y = 32
@@ -31,8 +35,7 @@
 
 /obj/structure/closet/walllocker/medlocker
 	icon_state = "medcloset"
-	icon_closed = "medcloset"
-	icon_opened = "medcloset_open"
+	door_anim_time = 2.0
 
 /obj/structure/closet/walllocker/medlocker/north
 	pixel_y = 32

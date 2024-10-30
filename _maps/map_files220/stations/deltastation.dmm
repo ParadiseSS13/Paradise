@@ -1101,6 +1101,7 @@
 "ahW" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/hologram/holopad,
+/obj/structure/closet/walllocker/emerglocker/south,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aik" = (
@@ -1329,6 +1330,7 @@
 /area/space)
 "aka" = (
 /obj/machinery/light/directional/north,
+/obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akb" = (
