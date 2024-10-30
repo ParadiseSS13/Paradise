@@ -270,7 +270,8 @@
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["rearm"])
 		rearm()
 

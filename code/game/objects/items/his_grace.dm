@@ -39,8 +39,12 @@
 
 /obj/item/his_grace/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
+	SSblackbox.record_feedback("ledger", "his_grace", victims, "victim_count")
+	var/mob_counter = 0
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
+		mob_counter++
+	SSblackbox.record_feedback("ledger", "his_grace", mob_counter, "mob_count")
 	GLOB.poi_list -= src
 	return ..()
 
@@ -275,6 +279,7 @@
 	icon_state = "his_grace_ascended"
 	item_state = "toolbox_gold"
 	ascended = TRUE
+	SSblackbox.record_feedback("amount", "his_grace_ascended", 1)
 	update_icon()
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
 	var/mob/living/carbon/human/master = loc

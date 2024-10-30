@@ -181,10 +181,15 @@
 	item_state = "hacktool"
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
+	/// How far can we use this. Leave `null` for infinite range
+	var/range
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
+	if(!isnull(range) && get_dist(src, D) > range)
+		return
+
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
 		return
@@ -195,6 +200,11 @@
 		. = ..()
 	busy = FALSE
 	icon_state = "hacktool"
+
+/obj/item/door_remote/omni/access_tuner/flayer
+	name = "integrated access tuner"
+	hack_speed = 5 SECONDS
+	range = 10
 
 /// How long before you can "jangle" your keyring again (to prevent spam)
 #define JANGLE_COOLDOWN 10 SECONDS
