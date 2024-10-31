@@ -925,3 +925,153 @@
 			var/obj/item/projectile/P = AM
 			if(P.flag == ENERGY || P.flag == LASER)
 				P.damage *= 0.85
+
+/datum/status_effect/flayer_rejuv
+	id = "rejuvination"
+	duration = 5 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/flayer_rejuv
+	var/heal_amount = 5 // 25 total healing of both brute and burn at base
+
+/atom/movable/screen/alert/status_effect/flayer_rejuv
+	name = "Regenerating"
+	desc = "You are regenerating."
+	icon_state = "drunk2"
+
+/datum/status_effect/flayer_rejuv/on_creation(mob/living/new_owner, extra_duration, extra_heal_amount)
+	if(isnum(extra_duration))
+		duration += extra_duration
+	if(isnum(extra_heal_amount))
+		heal_amount += extra_heal_amount
+	return ..()
+
+/datum/status_effect/flayer_rejuv/on_apply()
+	owner.SetWeakened(0)
+	owner.SetStunned(0)
+	owner.SetKnockDown(0)
+	owner.SetParalysis(0)
+	owner.SetSleeping(0)
+	owner.SetConfused(0)
+	owner.setStaminaLoss(0)
+	owner.stand_up(TRUE)
+	SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
+	return ..()
+
+/datum/status_effect/flayer_rejuv/tick()
+	if(!ishuman(owner))
+		return
+
+	var/mob/living/carbon/human/flayer = owner
+	flayer.adjustBruteLoss(-heal_amount, robotic = TRUE)
+	flayer.adjustFireLoss(-heal_amount, robotic = TRUE)
+	flayer.updatehealth()
+	if(flayer.has_status_effect(STATUS_EFFECT_TERMINATOR_FORM))
+		// Massive healing when in terminator mode
+		flayer.adjustStaminaLoss(-60)
+
+/datum/status_effect/quicksilver_form
+	id = "quicksilver_form"
+	duration = 10 SECONDS
+	tick_interval = 0
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/quicksilver_form
+	/// Temporary storage of the owner's flags to restore them properly after the ability is over
+	var/temporary_flag_storage
+	/// Do we also reflect projectiles
+	var/should_deflect = FALSE
+
+/atom/movable/screen/alert/status_effect/quicksilver_form
+	name = "Quicksilver body"
+	desc = "Your body is much less solid."
+	icon_state = "high"
+
+/datum/status_effect/quicksilver_form/on_creation(mob/living/new_owner, extra_duration, reflect_projectiles)
+	if(isnum(extra_duration))
+		duration += extra_duration
+	should_deflect = reflect_projectiles
+	return ..()
+
+/datum/status_effect/quicksilver_form/on_apply()
+	if(should_deflect)
+		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	temporary_flag_storage = owner.pass_flags
+	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE | PASSBARRICADE)
+	owner.add_atom_colour(COLOR_ALUMINIUM, TEMPORARY_COLOUR_PRIORITY)
+	return TRUE
+
+/datum/status_effect/quicksilver_form/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	owner.pass_flags = temporary_flag_storage
+	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
+
+/datum/status_effect/terminator_form
+	id = "terminator_form"
+	duration = 1 MINUTES
+	tick_interval = 1 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/terminator_form
+	var/mutable_appearance/eye
+
+/datum/status_effect/terminator_form/on_apply()
+	owner.status_flags |= TERMINATOR_FORM
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+	var/mutable_appearance/overlay = mutable_appearance('icons/mob/clothing/eyes.dmi', "terminator", ABOVE_MOB_LAYER)
+	owner.add_overlay(overlay)
+	eye = overlay
+	return TRUE
+
+/datum/status_effect/terminator_form/on_remove()
+	owner.status_flags &= ~TERMINATOR_FORM
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+	owner.cut_overlay(eye)
+
+/atom/movable/screen/alert/status_effect/terminator_form
+	name = "Terminator form"
+	desc = "Your body can surpass its limits briefly. You have to repair yourself before it ends, however."
+	icon_state = "high"
+
+#define COMBUSTION_TEMPERATURE 500
+/datum/status_effect/overclock
+	id = "overclock"
+	duration = -1
+	tick_interval = 1 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/overclock
+	/// How much do we heat up per tick?
+	var/heat_per_tick = 5
+	/// How many ticks has the ability been turned on?
+	var/stacks = 0
+	/// How many stacks until we start heating up even more?
+	var/danger_stack_amount = 20
+
+/datum/status_effect/overclock/on_creation(mob/living/new_owner, new_heating)
+	if(isnum(new_heating))
+		heat_per_tick = new_heating
+	..()
+
+/datum/status_effect/overclock/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	owner.next_move_modifier -= 0.3 // Same attack speed buff as mephedrone
+	return TRUE
+
+/datum/status_effect/overclock/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	owner.next_move_modifier += 0.3
+
+/datum/status_effect/overclock/tick()
+	owner.bodytemperature += heat_per_tick * ((stacks >= danger_stack_amount) ? 2 : 1) // After 20 seconds the heat penalty doubles
+	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
+		owner.adjust_fire_stacks(5)
+		owner.IgniteMob()
+		to_chat(owner, "<span class='userdanger'>Your components can't handle the heat and combust!</span>")
+		qdel(src)
+	stacks += 1
+	if(stacks == danger_stack_amount)
+		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!</span>")
+
+/atom/movable/screen/alert/status_effect/overclock
+	name = "Overclocked"
+	desc = "You feel energized, and hot."
+	icon_state = "high"
+
+#undef COMBUSTION_TEMPERATURE
