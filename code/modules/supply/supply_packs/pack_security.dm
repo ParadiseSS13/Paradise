@@ -318,6 +318,14 @@
 	cost = 500
 	containername = "chemical bio-chip crate"
 
+/datum/supply_packs/security/armory/flayer_nullifer
+	name = "Mindflayer Containment Kit"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification,
+					/obj/item/storage/box/handcuffs,
+					/obj/item/toy/plushie/ipcplushie) // For practicing takedowns
+	cost = 250
+	containername = "mindflayer containment kit"
+
 /datum/supply_packs/security/armory/bluespace_anchor
 	name = "Bluespace Anchor Crate"
 	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)

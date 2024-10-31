@@ -119,7 +119,7 @@
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
-		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.layer = MOB_LAYER // Avoids weirdness when mimicking something below the vent layer
 		user.density = form.density
 
 	playsound(user, "bonebreak", 75, TRUE)
