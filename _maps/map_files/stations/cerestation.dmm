@@ -20909,10 +20909,10 @@
 /area/station/maintenance/maintcentral)
 "crG" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
+	dir = 8
 	},
-/turf/simulated/wall,
-/area/station/hallway/spacebridge/scidock)
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/asmaint)
 "crR" = (
 /obj/structure/table/reinforced{
 	layer = 2.5
@@ -35666,8 +35666,8 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/station/hallway/spacebridge/scidock)
+/turf/simulated/mineral/ancient,
+/area/mine/unexplored/cere/engineering)
 "eOu" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -39318,9 +39318,8 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/simulated/mineral/ancient,
-/area/station/hallway/spacebridge/scidock)
+/turf/space,
+/area/space)
 "fXO" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -57744,14 +57743,13 @@
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "lgx" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
+	dir = 8
 	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/asmaint)
 "lgC" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -58070,13 +58068,10 @@
 /area/station/security/storage)
 "ljY" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
 	},
 /turf/simulated/mineral/ancient,
-/area/station/maintenance/maintcentral)
+/area/station/hallway/spacebridge/scidock)
 "lkg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -71544,6 +71539,23 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/storage)
+"phr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/maintcentral)
 "phw" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
@@ -80877,6 +80889,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/east)
+"rOt" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/station/maintenance/maintcentral)
 "rOM" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -85306,15 +85324,11 @@
 	},
 /area/station/service/barber)
 "sXU" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
-/turf/simulated/wall,
-/area/station/maintenance/maintcentral)
+/turf/simulated/mineral/ancient/outer,
+/area/station/hallway/spacebridge/scidock)
 "sYg" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90145,6 +90159,7 @@
 /area/station/engineering/solar/fore_starboard)
 "uqt" = (
 /obj/machinery/light/small,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "uqv" = (
@@ -93433,12 +93448,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "vlE" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
+/turf/simulated/wall,
+/area/station/maintenance/asmaint)
 "vlP" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -137982,7 +137994,7 @@ bDR
 nVW
 nVW
 fYW
-nVW
+rOt
 aXR
 aXR
 xbO
@@ -137990,15 +138002,15 @@ rNK
 rNK
 rNK
 rNK
+fXI
 rNK
-rNK
 ayb
 ayb
 ayb
-hBQ
+sXU
 cYB
 cYB
-cYB
+oud
 cYB
 cYB
 cYB
@@ -138238,8 +138250,8 @@ mJM
 nVW
 mJM
 mkk
-fYW
-ljY
+phr
+nVW
 aXR
 xbO
 xbO
@@ -138247,15 +138259,15 @@ rNK
 rNK
 rNK
 rNK
-eOr
+cYw
 cYw
 cYw
 hBQ
 hBQ
-dNX
+hBQ
 cYB
 cYB
-hhI
+cYB
 cYB
 cYB
 cYB
@@ -139524,7 +139536,7 @@ fLT
 eAS
 eAS
 uqt
-sXU
+hxE
 hxE
 woy
 woy
@@ -139532,21 +139544,21 @@ woy
 mJM
 rNK
 rNK
-crG
+uwf
 cYB
 cYB
 cYB
 cYB
-oud
-cYB
-cYB
-oud
 cYB
 cYB
 cYB
 cYB
-fXI
 cYB
+cYB
+cYB
+cYB
+cYB
+ljY
 cYB
 cYB
 cYB
@@ -139781,7 +139793,7 @@ mkk
 mJM
 aXR
 aXR
-aXR
+eOr
 xbO
 rNK
 rNK
@@ -139789,20 +139801,20 @@ rNK
 rNK
 rNK
 rNK
+dNX
 hBQ
 hBQ
 hBQ
 hBQ
+dNX
+hBQ
+hBQ
+dNX
 hBQ
 hBQ
 hBQ
 hBQ
-hBQ
-hBQ
-hBQ
-hBQ
-hBQ
-cYB
+hhI
 cYB
 cYB
 cYB
@@ -151868,11 +151880,11 @@ aXn
 aXn
 aXn
 aXn
-aXn
-qVT
-aXn
 rRF
 aXn
+aXn
+aXn
+qVT
 aXn
 aXn
 aXn
@@ -152896,11 +152908,11 @@ xvx
 nKr
 wLr
 aXn
-vpJ
-lgx
-aXn
 vlE
 aXn
+aXn
+aXn
+qVT
 tVf
 djo
 djo
@@ -153154,9 +153166,9 @@ iJa
 imG
 imG
 imG
-gge
+lgx
 aXn
-imG
+crG
 vRX
 tVf
 djo
