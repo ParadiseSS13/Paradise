@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
 import { createLogger } from 'tgui/logging';
@@ -29,9 +28,6 @@ const logger = createLogger('chatRenderer');
 // We consider this as the smallest possible scroll offset
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
-
-// List of blacklisted tags
-const blacklisted_tags = ['iframe', 'video'];
 
 const findNearestScrollableParent = (startingNode) => {
   const body = document.body;
@@ -363,9 +359,6 @@ class ChatRenderer {
         // Payload is HTML
         else if (message.html) {
           node.innerHTML = message.html;
-          node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
-            FORBID_TAGS: blacklisted_tags,
-          });
         } else {
           logger.error('Error: message is missing text payload', message);
         }
