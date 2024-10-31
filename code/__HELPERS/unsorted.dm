@@ -20,6 +20,21 @@
 
 	return 0
 
+/*
+* For getting coordinate signs from a direction define. I.E. NORTHWEST is (-1,1), SOUTH is (0,-1)
+* Returns a length 2 list where the first value is the sign of x, and the second is the sign of y
+*/
+/proc/get_signs_from_direction(direction)
+	var/x_sign = 1
+	var/y_sign = 1
+	x_sign = ((direction & EAST) ? 1 : -1)
+	y_sign = ((direction & NORTH) ? 1 : -1)
+	if(DIR_JUST_VERTICAL(direction))
+		x_sign = 0
+	if(DIR_JUST_HORIZONTAL(direction))
+		y_sign = 0
+	return list(x_sign, y_sign)
+
 //Returns the middle-most value
 /proc/dd_range(low, high, num)
 	return max(low,min(high,num))
@@ -183,8 +198,7 @@
 	var/current_y_step = starting_atom.y
 	var/starting_z = starting_atom.z
 
-	var/list/line = list(get_step(starting_atom, 0))//get_turf(atom) is faster than locate(x, y, z) //Get turf isn't defined yet so we use get step
-
+	var/list/line = list(get_turf(starting_atom))
 	var/x_distance = ending_atom.x - current_x_step //x distance
 	var/y_distance = ending_atom.y - current_y_step
 
