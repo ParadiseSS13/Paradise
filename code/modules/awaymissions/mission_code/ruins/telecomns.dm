@@ -25,8 +25,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
 	. = ..()
-	internal_tank = new /obj/structure/reagent_dispensers/fueltank(src)
-	decorative_eye = new /obj/structure/marker_beacon/dock_marker/collision(src)
+	internal_tank = new(src)
+	decorative_eye = new(src)
 	vis_contents += internal_tank
 	vis_contents += decorative_eye
 	internal_tank.pixel_y = 10
