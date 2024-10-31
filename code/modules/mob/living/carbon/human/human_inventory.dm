@@ -118,6 +118,8 @@
 			var/obj/item/clothing/head/hat = I
 			if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 				update_sight()
+		if(I.flags_inv & HIDEEARS)
+			update_inv_ears()
 		head_update(I)
 		update_inv_head()
 		update_misc_effects()
@@ -141,6 +143,8 @@
 			update_head_accessory()
 		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
+		if(I.flags_inv & HIDEEARS)
+			update_inv_ears()
 		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_misc_effects()
@@ -214,6 +218,8 @@
 				update_head_accessory()
 			if(length(hud_list))
 				sec_hud_set_ID()
+			if(wear_mask.flags_inv & HIDEEARS)
+				update_inv_ears()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_misc_effects()
 			update_inv_wear_mask()
@@ -284,6 +290,8 @@
 				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
 			// this calls update_inv_head() on its own
+			if(head.flags_inv & HIDEEARS)
+				update_inv_ears()
 			update_misc_effects()
 			head_update(I)
 		if(SLOT_HUD_SHOES)

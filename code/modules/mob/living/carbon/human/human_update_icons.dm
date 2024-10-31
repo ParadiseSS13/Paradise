@@ -581,11 +581,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
 		update_hud_uniform(w_uniform)
 
-		var/t_color = w_uniform.item_color
-		if(!t_color)
-			t_color = icon_state
-
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
+
+			var/t_color = w_uniform.item_color
+			if(!t_color)
+				t_color = icon_state
+
 			var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
 
 			if(w_uniform.icon_override)
@@ -673,6 +674,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_gloves(gloves)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEGLOVES))
+
 			var/t_state = gloves.item_state
 			if(!t_state)	t_state = gloves.icon_state
 
@@ -757,28 +759,32 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(l_ear)
 		update_hud_l_ear(l_ear)
 
-		var/left_ear_item_state = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
-		var/left_ear_icon = 'icons/mob/clothing/ears.dmi'
-		if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
-			left_ear_icon = l_ear.sprite_sheets[dna.species.sprite_sheet_name]
-		if(l_ear.icon_override)
-			left_ear_item_state = "[left_ear_item_state]_l"
-			left_ear_icon = l_ear.icon_override
+		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)))
 
-		overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(left_ear_icon, left_ear_item_state, layer = -LEFT_EAR_LAYER)
+			var/left_ear_item_state = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
+			var/left_ear_icon = 'icons/mob/clothing/ears.dmi'
+			if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
+				left_ear_icon = l_ear.sprite_sheets[dna.species.sprite_sheet_name]
+			if(l_ear.icon_override)
+				left_ear_item_state = "[left_ear_item_state]_l"
+				left_ear_icon = l_ear.icon_override
+
+			overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(left_ear_icon, left_ear_item_state, layer = -LEFT_EAR_LAYER)
 
 	if(r_ear)
 		update_hud_r_ear(r_ear)
 
-		var/right_ear_item_state = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
-		var/right_ear_icon = 'icons/mob/clothing/ears.dmi'
-		if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
-			right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
-		if(r_ear.icon_override)
-			right_ear_icon = "[right_ear_item_state]_l"
-			right_ear_icon = r_ear.icon_override
+		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)))
 
-		overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
+			var/right_ear_item_state = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
+			var/right_ear_icon = 'icons/mob/clothing/ears.dmi'
+			if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
+				right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
+			if(r_ear.icon_override)
+				right_ear_icon = "[right_ear_item_state]_l"
+				right_ear_icon = r_ear.icon_override
+
+			overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
 
 	apply_overlay(LEFT_EAR_LAYER)
 	apply_overlay(RIGHT_EAR_LAYER)
