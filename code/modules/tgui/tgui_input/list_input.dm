@@ -73,6 +73,8 @@
 	var/datum/ui_state/state
 	/// Whether the tgui list input is invalid or not (i.e. due to all list entries being null)
 	var/invalid = FALSE
+	/// The TGUI modal to use for this popup
+	var/modal_type = "ListInputModal"
 
 /datum/tgui_list_input/New(mob/user, message, title, list/items, default, timeout, ui_state)
 	src.title = title
@@ -122,7 +124,7 @@
 /datum/tgui_list_input/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ListInputModal")
+		ui = new(user, src, modal_type)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -152,9 +154,8 @@
 
 	switch(action)
 		if("submit")
-			if(!(params["entry"] in items))
+			if(!handle_submit_action(params))
 				return
-			set_choice(items_map[params["entry"]])
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
@@ -162,6 +163,13 @@
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
+
+
+/datum/tgui_list_input/proc/handle_submit_action(params)
+	if(!(params["entry"] in items))
+		return FALSE
+	set_choice(items_map[params["entry"]])
+	return TRUE
 
 /datum/tgui_list_input/proc/set_choice(choice)
 	src.choice = choice

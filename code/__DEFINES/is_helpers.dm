@@ -1,6 +1,8 @@
 // Datums
 #define isdatum(thing) (istype(thing, /datum))
 
+#define isspell(A) (istype(A, /datum/spell))
+
 // Atoms
 #define isatom(A) (isloc(A))
 

@@ -33,7 +33,7 @@
 	. = ..()
 	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
-/obj/structure/inflatable/Initialize(location)
+/obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
 	recalculate_atmos_connectivity()
 

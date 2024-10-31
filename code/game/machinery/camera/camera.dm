@@ -41,6 +41,8 @@
 	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 	var/datum/proximity_monitor/proximity_monitor
+	/// If this camera doesnt add to camera chunks. Used by camera bugs.
+	var/non_chunking_camera = FALSE
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()

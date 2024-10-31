@@ -255,7 +255,6 @@
 	if(enable_door_overlay)
 		animate_door(TRUE)
 	update_appearance()
-	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE
 
 	return TRUE

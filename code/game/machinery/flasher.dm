@@ -17,7 +17,7 @@
 	anchored = TRUE
 	var/datum/proximity_monitor/proximity_monitor
 
-/obj/machinery/flasher/Initialize()
+/obj/machinery/flasher/Initialize(mapload)
 	. = ..()
 	update_icon()
 
