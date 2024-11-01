@@ -1269,6 +1269,46 @@
 	H.update_mutations()
 	H.gene_stability = 100
 
+/datum/outfit/admin/ancient_mindflayer
+	name = "Ancient Mindflayer"
+
+	// Shamelessly stolen from the `Dark Lord`
+	uniform = /obj/item/clothing/under/color/black
+	back = /obj/item/storage/backpack
+	gloves = /obj/item/clothing/gloves/color/yellow
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/flashlight = 1,
+	)
+
+/datum/outfit/admin/ancient_mindflayer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = new(H.loc)
+	if(istype(C))
+		C.name = "ancient robes"
+		C.hood.name = "ancient hood"
+		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
+
+/datum/outfit/admin/ancient_mindflayer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.make_mind_flayer()
+	var/datum/antagonist/mindflayer/flayer = H.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	flayer.usable_swarms = 9999
+	H.dna.SetSEState(GLOB.jumpblock, TRUE)
+	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+	H.update_mutations()
+	H.gene_stability = 100
+
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple

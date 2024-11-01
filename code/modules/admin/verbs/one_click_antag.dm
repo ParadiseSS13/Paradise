@@ -20,6 +20,7 @@
 		<a href='byond://?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
 		"}
 	// SS220 ADD - Start
 	dat += {"
@@ -37,7 +38,7 @@
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
-		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.protected_species))
+		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.species_to_mindflayer))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
 		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
@@ -292,6 +293,29 @@
 
 		return 1
 	return 0
+
+/datum/admins/proc/makeMindflayers()
+	var/datum/game_mode/vampire/temp = new()
+
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/input_num = input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0) as num|null
+	if(input_num <= 0 || isnull(input_num))
+		qdel(temp)
+		return FALSE
+
+	log_admin("[key_name(owner)] tried making [input_num] Mindflayers with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [input_num] Mindflayers with One-Click-Antag")
+	var/list/possible_mindflayers = temp.get_players_for_role(ROLE_MIND_FLAYER, FALSE, "Machine")
+	var/num_mindflayers = min(length(possible_mindflayers), input_num)
+	if(!num_mindflayers)
+		return FALSE
+	for(var/i in 1 to num_mindflayers)
+		var/datum/mind/flayer = pick_n_take(possible_mindflayers)
+		flayer.make_mind_flayer()
+	qdel(temp)
+	return TRUE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 	var/max_thunderdome_players = 10

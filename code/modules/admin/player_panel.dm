@@ -460,6 +460,9 @@
 		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
 
+		if(length(SSticker.mode.mindflayers))
+			dat += check_role_table("Mindflayers", SSticker.mode.mindflayers)
+
 		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
