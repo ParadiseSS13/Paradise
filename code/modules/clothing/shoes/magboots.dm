@@ -348,5 +348,5 @@
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
 		REMOVE_TRAIT(user, TRAIT_FLYING, "gravity_boots")
+		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
