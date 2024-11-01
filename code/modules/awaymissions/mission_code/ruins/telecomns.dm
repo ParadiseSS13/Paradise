@@ -438,17 +438,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		/datum/nothing = 4,
 		/obj/item/melee/baton/cattleprod/teleprod = 1)
 
-/obj/effect/spawner/random_spawners/telecomms_weldertank_maybe
+/obj/effect/spawner/random/telecomms_weldertank_maybe
 	name = "weldertank maybe"
-	result = list(
-		/datum/nothing = 3,
-		/obj/structure/reagent_dispensers/fueltank = 1)
+	loot = list(/obj/structure/reagent_dispensers/fueltank)
+	spawn_loot_chance = 25
 
-/obj/effect/spawner/random_spawners/telecomms_doomba_one_in_twenty
-	name = "weldertank maybe"
-	result = list(
-		/datum/nothing = 19,
-		/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba = 1)
+/obj/effect/spawner/random/telecomms_doomba_one_in_twenty
+	name = "doomba very rarely"
+	loot = list(/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba)
+	spawn_loot_chance = 5
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad

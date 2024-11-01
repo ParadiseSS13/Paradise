@@ -126,7 +126,7 @@
 /turf/template_noop,
 /area/template_noop)
 "mE" = (
-/obj/effect/spawner/random_spawners/telecomms_weldertank_maybe,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "mR" = (
@@ -287,7 +287,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/effect/spawner/random_spawners/telecomms_doomba_one_in_twenty,
+/obj/effect/spawner/random/telecomms_doomba_one_in_twenty,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "DH" = (
@@ -441,7 +441,7 @@
 /area/template_noop)
 "WK" = (
 /obj/effect/decal/cleanable/dirt/blackpowder,
-/obj/effect/spawner/random_spawners/telecomms_weldertank_maybe,
+/obj/effect/spawner/random/telecomms_weldertank_maybe,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "WO" = (
