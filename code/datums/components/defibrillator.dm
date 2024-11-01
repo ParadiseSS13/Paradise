@@ -298,8 +298,9 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
+		var/obj/item/organ/internal/brain/sponge = target.get_int_organ(/obj/item/organ/internal/brain)
 		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
-		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
+		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > sponge.damage)
 			target.setBrainLoss(defib_time_brain_damage)
 
 		target.set_heartattack(FALSE)
@@ -308,7 +309,8 @@
 		target.Paralyse(10 SECONDS)
 		target.emote("gasp")
 
-		if(target.getBrainLoss() >= 100)
+		// Check if the brain has more than a critical amount of brain damage
+		if(target.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL))
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 			playsound(get_turf(defib_ref), safety_off_sound, 50, FALSE)
 			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
