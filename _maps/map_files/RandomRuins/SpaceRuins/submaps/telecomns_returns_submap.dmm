@@ -20,12 +20,6 @@
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/template_noop,
 /area/template_noop)
-"ec" = (
-/obj/machinery/door_control{
-	id = "dvorak"
-	},
-/turf/template_noop,
-/area/template_noop)
 "fm" = (
 /obj/machinery/light{
 	dir = 1
@@ -48,12 +42,6 @@
 /area/template_noop)
 "fM" = (
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
-/turf/template_noop,
-/area/template_noop)
-"gD" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
 /turf/template_noop,
 /area/template_noop)
 "gY" = (
@@ -103,13 +91,6 @@
 "jV" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine,
-/area/template_noop)
-"kq" = (
-/obj/machinery/status_display{
-	pixel_x = 0;
-	pixel_y = 32
-	},
-/turf/template_noop,
 /area/template_noop)
 "lq" = (
 /obj/machinery/light{
@@ -163,16 +144,6 @@
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
-"pD" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/syndicate,
-/area/template_noop)
-"pM" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/wall/indestructible/syndicate,
-/area/template_noop)
 "qr" = (
 /turf/template_noop,
 /area/template_noop)
@@ -201,12 +172,6 @@
 "rv" = (
 /obj/structure/alien/weeds/node,
 /turf/template_noop,
-/area/template_noop)
-"rM" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "sl" = (
 /obj/machinery/economy/vending/wallmed/directional/south,
@@ -308,7 +273,7 @@
 /area/template_noop)
 "EH" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
+	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -329,7 +294,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Gh" = (
-/obj/effect/spawner/random/fungus/maybe,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
 /area/template_noop)
 "Gx" = (
@@ -656,7 +621,7 @@ NZ
 FD
 qr
 LC
-Gh
+qr
 qr
 qr
 qr
@@ -733,8 +698,8 @@ qr
 qr
 "}
 (7,1,1) = {"
+Gh
 qr
-gD
 iv
 qr
 qr
@@ -748,7 +713,7 @@ qr
 qr
 qr
 Jo
-Gh
+qr
 qr
 qr
 qr
@@ -827,8 +792,8 @@ gY
 qr
 qr
 qr
+Gh
 qr
-gD
 Gx
 ir
 qr
@@ -870,7 +835,7 @@ qr
 qr
 qr
 qr
-ec
+qr
 qr
 qr
 qr
@@ -904,8 +869,6 @@ qr
 qr
 qr
 qr
-Gh
-EH
 qr
 qr
 qr
@@ -913,7 +876,9 @@ qr
 qr
 qr
 qr
-kq
+qr
+qr
+qr
 qr
 mR
 qr
@@ -947,7 +912,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -998,7 +963,7 @@ qr
 qr
 qr
 qr
-EH
+qr
 qr
 qr
 qr
@@ -1034,13 +999,13 @@ wT
 Vd
 SS
 lq
-pD
+yC
 qr
 qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -1111,8 +1076,8 @@ qr
 qr
 "}
 (16,1,1) = {"
-qr
-rM
+Gh
+yC
 oU
 OI
 OI
@@ -1168,7 +1133,7 @@ qr
 qr
 qr
 Jo
-Gh
+qr
 qr
 qr
 qr
@@ -1247,8 +1212,8 @@ SX
 yC
 qr
 qr
+Gh
 qr
-gD
 qC
 ir
 qr
@@ -1282,15 +1247,15 @@ qr
 qr
 da
 yC
-pD
-pM
+yC
+yC
 SE
 yC
 da
 qr
 qr
 qr
-ec
+qr
 qr
 qr
 qr
@@ -1325,6 +1290,7 @@ qr
 qr
 qr
 qr
+EH
 qr
 qr
 qr
@@ -1333,7 +1299,6 @@ qr
 qr
 qr
 qr
-kq
 qr
 mR
 qr
@@ -1412,13 +1377,13 @@ qr
 dD
 qr
 qr
-Gh
 qr
 qr
 qr
 qr
 qr
-EH
+qr
+qr
 qr
 qr
 qr
@@ -1460,7 +1425,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -1489,8 +1454,8 @@ qr
 qr
 "}
 (25,1,1) = {"
+Gh
 qr
-gD
 qr
 cl
 qr
@@ -1630,7 +1595,7 @@ qr
 qr
 qr
 Jo
-Gh
+qr
 qr
 qr
 qr
@@ -1660,8 +1625,8 @@ qr
 qr
 qr
 qr
-Gh
-EH
+qr
+qr
 qr
 qr
 qr
@@ -1703,14 +1668,14 @@ qr
 qr
 qr
 qr
+EH
 qr
 qr
 qr
 qr
 qr
+Gh
 qr
-qr
-gD
 Gx
 ir
 qr
@@ -1752,7 +1717,7 @@ WO
 qr
 qr
 qr
-ec
+qr
 LV
 qr
 qr
@@ -1790,12 +1755,12 @@ OT
 qV
 jV
 Bc
-Gh
 qr
 qr
 qr
 qr
-kq
+qr
+qr
 qr
 mR
 qr
@@ -1867,8 +1832,8 @@ qr
 qr
 "}
 (34,1,1) = {"
+Gh
 qr
-gD
 Dm
 qV
 XJ
@@ -1880,7 +1845,7 @@ qr
 qr
 qr
 qr
-EH
+qr
 qr
 qr
 qr
@@ -1922,7 +1887,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -2038,8 +2003,8 @@ qr
 qr
 qr
 qr
-Gh
-EH
+qr
+qr
 qr
 qr
 qr
@@ -2050,7 +2015,7 @@ qr
 qr
 qr
 Jo
-Gh
+qr
 qr
 qr
 qr
@@ -2081,7 +2046,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -2129,8 +2094,8 @@ qr
 qr
 qr
 qr
+Gh
 qr
-gD
 Gx
 ir
 qr
@@ -2172,7 +2137,7 @@ qr
 qr
 qr
 qr
-ec
+qr
 qr
 ia
 qr
@@ -2215,7 +2180,7 @@ qr
 qr
 qr
 qr
-kq
+qr
 qr
 mR
 qr
@@ -2300,7 +2265,7 @@ qr
 qr
 qr
 qr
-EH
+qr
 qr
 qr
 qr
@@ -2342,7 +2307,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr
@@ -2470,7 +2435,7 @@ qr
 qr
 qr
 Jo
-Gh
+qr
 qr
 qr
 qr
@@ -2549,8 +2514,8 @@ qr
 qr
 qr
 qr
+Gh
 qr
-gD
 fM
 ir
 qr
@@ -2592,7 +2557,7 @@ qr
 qr
 qr
 qr
-ec
+qr
 wp
 qr
 qr
@@ -2635,7 +2600,7 @@ qr
 qr
 qr
 qr
-kq
+qr
 qr
 mR
 qr
@@ -2720,7 +2685,7 @@ qr
 qr
 qr
 qr
-EH
+qr
 qr
 qr
 qr
@@ -2762,7 +2727,7 @@ qr
 qr
 qr
 qr
-qr
+EH
 qr
 qr
 qr

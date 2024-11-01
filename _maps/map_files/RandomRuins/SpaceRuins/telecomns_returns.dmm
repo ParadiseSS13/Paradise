@@ -440,12 +440,6 @@
 "iE" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
-"iP" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/computer)
 "iR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -759,6 +753,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -1029,6 +1024,23 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"sh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomms)
+"si" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "sn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1526,9 +1538,6 @@
 	name = "Telecoms East Wing"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1891,12 +1900,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
-"Dv" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/computer)
 "Dy" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -2050,6 +2053,10 @@
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/machinery/status_display{
+	pixel_x = 0;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
@@ -2368,6 +2375,10 @@
 /obj/item/reagent_containers/syringe,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
+"Le" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
 "Lh" = (
 /obj/machinery/tcomms/relay/dvorak,
 /obj/effect/abstract/loot_trap,
@@ -2422,6 +2433,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"LS" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/space/nearstation/no_teleport)
 "LW" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/catwalk,
@@ -2680,17 +2697,6 @@
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/chamber)
-"QK" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/chamber)
 "QN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2936,6 +2942,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"Ux" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
 "UD" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7360,7 +7370,7 @@ Zu
 eb
 nD
 Ri
-eA
+Ux
 PQ
 Qf
 PQ
@@ -7540,7 +7550,7 @@ Nv
 aa
 Rv
 nQ
-QK
+zG
 Dr
 ph
 UE
@@ -8002,7 +8012,7 @@ yC
 rT
 Zu
 EO
-rL
+sh
 Xf
 Lk
 oW
@@ -8173,7 +8183,7 @@ Pl
 Pl
 qo
 Pl
-ux
+si
 Zu
 Zu
 Zu
@@ -8350,8 +8360,8 @@ XP
 XP
 XP
 xa
-ik
-iP
+Le
+ux
 Pl
 Pl
 Pl
@@ -8721,8 +8731,8 @@ xa
 ik
 ux
 ux
+si
 ux
-Dv
 ux
 iR
 ux
@@ -8814,7 +8824,7 @@ pU
 ik
 ik
 ik
-ik
+LS
 ik
 Vn
 ik
