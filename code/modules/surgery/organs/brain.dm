@@ -20,6 +20,8 @@
 
 	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
 	var/decoy_brain = FALSE
+	/// Do we have temporary brain max hp reduction?
+	var/temporary_damage = 0
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -123,17 +125,27 @@
 		owner.setBrainLoss(120)
 
 /obj/item/organ/internal/brain/on_life()
-	if(decoy_brain || damage < 10)
+	if(decoy_brain)
 		return
-	switch(damage)
-		if(10 to 30)
+
+	var/ratio = damage / max_damage // Get our damage as a percentage of max HP
+	if(ratio < BRAIN_DAMAGE_RATIO_LIGHT)
+		return
+
+	switch(ratio)
+		if(BRAIN_DAMAGE_RATIO_LIGHT to BRAIN_DAMAGE_RATIO_MINOR)
 			handle_minor_brain_damage()
-		if(31 to 60)
+		if(BRAIN_DAMAGE_RATIO_MINOR to BRAIN_DAMAGE_RATIO_MODERATE)
 			handle_moderate_brain_damage()
-		if(61 to 80)
+		if(BRAIN_DAMAGE_RATIO_MODERATE to BRAIN_DAMAGE_RATIO_SEVERE)
 			handle_severe_brain_damage()
-		if(81 to 100)
+		if(BRAIN_DAMAGE_RATIO_SEVERE to BRAIN_DAMAGE_RATIO_CRITICAL)
 			handle_critical_brain_damage()
+
+	if(temporary_damage) // Heal our max hp limit by one per cycle
+		// We use `clamp()` here because `temporary_damage` can have decimals
+		temporary_damage = clamp(temporary_damage - 0.25, 0, 120)
+		max_damage = clamp(max_damage + 0.25, 0, 120)
 
 /obj/item/organ/internal/brain/proc/handle_minor_brain_damage()
 	if(prob(5))

@@ -13,7 +13,7 @@
 #define RECRUITER_STATUS_GAMEOVER 3
 
 /obj/machinery/computer/arcade/recruiter
-	name = "NT Recruiter Simulator"
+	name = "\improper NT Recruiter Simulator"
 	desc = "Weed out the good from bad employees and build the perfect manifest to work aboard the station."
 	icon_state = "arcade_recruiter"
 	icon_screen = "nanotrasen"
@@ -311,7 +311,7 @@
 		to_chat(user, "<span class='notice'>You override the menu and revert the game to its previous version.</span>")
 		add_hiddenprint(user)
 	game_status = RECRUITER_STATUS_START
-	name = "NT Recruiter Simulator HARDCORE EDITION"
+	name = "\improper NT Recruiter Simulator HARDCORE EDITION"
 	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
 	total_curriculums = 14
 	emagged = TRUE

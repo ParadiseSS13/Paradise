@@ -112,6 +112,10 @@
 	if(!client)
 		return FALSE
 
+	if(usr != src)
+		message_admins("[key_name_admin(usr)] may have attempted to href exploit with [key_name_admin(src)]'s new_player mob.")
+		return
+
 	if(href_list["consent_signed"])
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
 			"ckey" = ckey

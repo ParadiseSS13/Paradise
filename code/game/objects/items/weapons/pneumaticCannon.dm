@@ -46,7 +46,7 @@
 * Arguments:
 * * I - item to load into the cannon
 * * user - the person loading the item in
-* Returns:
+* * Returns:
 * * True if item was loaded, false if it failed
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
@@ -59,7 +59,6 @@
 	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
