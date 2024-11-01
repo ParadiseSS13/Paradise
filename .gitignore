@@ -74,6 +74,7 @@ $RECYCLE.BIN
 
 # Rust output.
 /rust/target/*
+rustlibs_panic.txt
 
 # mkdocs output.
 site
