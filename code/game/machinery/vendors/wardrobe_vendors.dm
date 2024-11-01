@@ -333,7 +333,6 @@
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
-					/obj/item/clothing/under/plasmaman/genetics = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/white = 3,
 					/obj/item/clothing/shoes/sandal/white = 3,
@@ -341,7 +340,8 @@
 					/obj/item/storage/backpack/satchel_gen = 2,
 					/obj/item/storage/backpack/duffel/genetics = 2,
 					/obj/item/clothing/suit/storage/labcoat/genetics = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 3)
+					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 3,
+					/obj/item/clothing/under/plasmaman/genetics = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/geneticist = 1)
 
