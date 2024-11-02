@@ -24688,9 +24688,7 @@
 	},
 /area/station/engineering/break_room/secondary)
 "eHF" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -31285,8 +31283,7 @@
 /area/station/public/shops)
 "fPs" = (
 /obj/machinery/computer/prisoner{
-	dir = 8;
-	req_access = list(2)
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54193,8 +54190,7 @@
 /area/station/hallway/primary/fore/north)
 "kcA" = (
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -68522,8 +68518,7 @@
 /area/station/command/meeting_room)
 "mSw" = (
 /obj/machinery/computer/prisoner{
-	dir = 1;
-	req_access = list(2)
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -74858,8 +74853,7 @@
 /area/station/maintenance/asmaint)
 "nYy" = (
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = list(2)
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -81214,7 +81208,7 @@
 /area/station/hallway/secondary/exit)
 "pdF" = (
 /obj/structure/bookcase{
-	name = "bookcase (Adult)"
+	name = "bookcase (Romance)"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -121862,9 +121856,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wFX" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -164486,7 +164478,7 @@ frO
 vKF
 pdF
 pdF
-nEg
+gEN
 arj
 mWA
 vHx
@@ -164741,9 +164733,9 @@ xdJ
 gBS
 fNn
 vKF
-gEN
-gEN
 nEg
+nEg
+gEN
 sux
 mEj
 qTh

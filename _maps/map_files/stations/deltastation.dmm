@@ -26064,7 +26064,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -36398,9 +36398,7 @@
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caM" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/prisoner,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -40307,7 +40305,9 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/library)
 "clC" = (
-/obj/structure/bookcase,
+/obj/structure/bookcase{
+	name = "bookcase (Romance)"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "clD" = (
@@ -41388,9 +41388,11 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
 "cow" = (
-/obj/structure/bookcase,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/bookcase{
+	name = "bookcase (Fiction)"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -64455,7 +64457,7 @@
 /area/station/medical/virology)
 "ebU" = (
 /obj/machinery/computer/general_air_control{
-	autolink_sensors = list("burn_sensor" = "Burn Mix");
+	autolink_sensors = list("burn_sensor"="Burn Mix");
 	dir = 1;
 	name = "Bomb Mix Monitor"
 	},
@@ -65839,6 +65841,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
+"eNh" = (
+/obj/structure/bookcase{
+	name = "bookcase (Fiction)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "eNk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -67605,7 +67613,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("n2o_sensor" = "Tank");
+	autolink_sensors = list("n2o_sensor"="Tank");
 	dir = 4;
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
@@ -70174,6 +70182,12 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"hnG" = (
+/obj/structure/bookcase{
+	name = "bookcase (Reference)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "hnH" = (
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -30
@@ -70586,7 +70600,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("air_sensor" = "Tank");
+	autolink_sensors = list("air_sensor"="Tank");
 	dir = 8;
 	inlet_injector_autolink_id = "air_in";
 	name = "Mixed Air Supply Control";
@@ -74044,7 +74058,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("n2_sensor" = "Tank");
+	autolink_sensors = list("n2_sensor"="Tank");
 	dir = 8;
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
@@ -75224,6 +75238,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/starboard)
+"koD" = (
+/obj/structure/bookcase{
+	name = "bookcase (Non-Fiction)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "koT" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -79498,6 +79518,12 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/starboard/north)
+"mSB" = (
+/obj/structure/bookcase{
+	name = "bookcase (Religious)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "mSF" = (
 /obj/effect/turf_decal{
 	dir = 1
@@ -79866,7 +79892,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("tox_sensor" = "Tank");
+	autolink_sensors = list("tox_sensor"="Tank");
 	dir = 4;
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
@@ -81983,7 +82009,7 @@
 /area/station/supply/miningdock)
 "olZ" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("waste_sensor" = "Tank");
+	autolink_sensors = list("waste_sensor"="Tank");
 	dir = 4;
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
@@ -85294,7 +85320,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("o2_sensor" = "Tank");
+	autolink_sensors = list("o2_sensor"="Tank");
 	dir = 8;
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
@@ -88699,7 +88725,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("co2_sensor" = "Tank");
+	autolink_sensors = list("co2_sensor"="Tank");
 	dir = 4;
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
@@ -130887,11 +130913,11 @@ cfq
 cgW
 cgX
 cni
-clC
+eNh
 cnh
 cow
 cpH
-clC
+eNh
 bYj
 bZO
 cvh
@@ -131144,11 +131170,11 @@ cfr
 cgX
 ciu
 cni
-clC
+eNh
 cni
-clC
+eNh
 bvL
-clC
+eNh
 bYk
 ctH
 crn
@@ -131915,9 +131941,9 @@ cfs
 crn
 ciz
 ckj
-clC
+hnG
 ckj
-clC
+mSB
 ckj
 clC
 bYk
@@ -132172,9 +132198,9 @@ cft
 crn
 ciy
 ckj
-clC
+hnG
 ckj
-clC
+mSB
 ckj
 clC
 bYj
@@ -132686,11 +132712,11 @@ cfv
 crn
 ciz
 ckj
-clC
+koD
 ckj
-clC
+koD
 ckj
-clC
+koD
 bYj
 ctL
 cvn
@@ -132943,11 +132969,11 @@ ckj
 crn
 ciz
 ckj
-clC
+koD
 ckj
-clC
+koD
 ckj
-clC
+koD
 bYj
 bYj
 bYj

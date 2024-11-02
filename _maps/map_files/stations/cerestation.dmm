@@ -14989,7 +14989,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -17582,7 +17582,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor" = "Tank");
+	autolink_sensors = list("co2_sensor"="Tank");
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -17767,7 +17767,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor" = "Tank")
+	autolink_sensors = list("waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -27119,7 +27119,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor" = "Tank")
+	autolink_sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -27192,7 +27192,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor" = "Tank")
+	autolink_sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -27344,7 +27344,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor" = "Tank")
+	autolink_sensors = list("air_sensor"="Tank")
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -27392,7 +27392,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor" = "Tank")
+	autolink_sensors = list("tox_sensor"="Tank")
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -27427,7 +27427,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor" = "Tank")
+	autolink_sensors = list("n2o_sensor"="Tank")
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -29259,7 +29259,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "dsc" = (
-/obj/structure/bookcase/random,
+/obj/structure/bookcase{
+	name = "bookcase (Reference)"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "dsd" = (
@@ -36540,7 +36542,7 @@
 /obj/machinery/camera{
 	c_tag = "Supply Dock External";
 	dir = 5;
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /turf/space,
 /area/space)
@@ -50168,7 +50170,7 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Delivery Office";
 	dir = 4;
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57211,7 +57213,7 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Bay Storage";
 	dir = 8;
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -60575,6 +60577,12 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
+"lVz" = (
+/obj/structure/bookcase{
+	name = "bookcase (Religious)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "lVB" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -62895,6 +62903,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "mEc" = (
@@ -63296,6 +63305,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
+"mKF" = (
+/obj/structure/bookcase{
+	name = "bookcase (Romance)"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -71999,7 +72014,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -72310,7 +72325,7 @@
 /obj/structure/filingcabinet,
 /obj/machinery/camera{
 	c_tag = "Quartermaster's Office";
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76958,6 +76973,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northwest)
+"qEx" = (
+/obj/structure/bookcase{
+	name = "bookcase (Fiction)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "qEA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79463,6 +79484,12 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/engineering/smes)
+"rum" = (
+/obj/structure/bookcase{
+	name = "bookcase (Non-Fiction)"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "rux" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80523,7 +80550,7 @@
 /obj/machinery/camera{
 	c_tag = "Mining Dock";
 	dir = 10;
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
@@ -90836,7 +90863,7 @@
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
 	dir = 8;
-	network = list("SS13", "QM")
+	network = list("SS13","QM")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -117552,11 +117579,11 @@ vjL
 xaR
 lhM
 aEe
-dsc
+mKF
 kiv
-dsc
+rum
 kiv
-dsc
+qEx
 kiv
 dsc
 bHZ
@@ -117809,11 +117836,11 @@ wzC
 eCI
 aXn
 xOy
-dsc
+lVz
 ybP
-dsc
+rum
 ybP
-dsc
+qEx
 ybP
 dsc
 bHZ
