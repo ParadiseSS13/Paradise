@@ -220,7 +220,7 @@
 	icon_state = "tcomms"
 	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
 	ambientsounds = list('sound/ambience/dvorak_ambience_final.ogg')
-	min_ambience_cooldown 110 SECONDS // 3 seconds longer than the length of the song
+	min_ambience_cooldown = 110 SECONDS // 3 seconds longer than the length of the song
 	max_ambience_cooldown = 170 SECONDS // A minute break at most
 
 /area/ruin/space/telecomms/powercontrol
