@@ -17,12 +17,7 @@ type ListInputData = {
 interface CheckboxData {
   key: string;
   checked: BooleanLike;
-
 }
-
-const logger = createLogger('checkbox');
-
-
 export const CheckboxListInputModal = (props, context) => {
   const { act, data } = useBackend<ListInputData>(context);
   const { items = [], message = '', init_value, timeout, title } = data;
@@ -31,14 +26,10 @@ export const CheckboxListInputModal = (props, context) => {
   const windowHeight = 330 + Math.ceil(message.length / 3);
 
   const onClick = (new_item: CheckboxData | null = null) => {
-    logger.log(new_item)
     let updatedItems = [...edittedItems];
     updatedItems = updatedItems.map((item) =>
-      item.key === new_item.key
-        ? { ...item, checked: !new_item.checked}
-        : item
+      item.key === new_item.key ? { ...item, checked: !new_item.checked } : item
     );
-    logger.log(updatedItems)
     setEdittedItems(updatedItems);
   };
 
