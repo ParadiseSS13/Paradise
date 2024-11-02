@@ -425,7 +425,7 @@
 	},
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -3953,7 +3953,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "vV" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/book/manual/wiki/sop_service,
 /obj/item/pen/blue{
 	pixel_y = 4
@@ -4741,7 +4741,7 @@
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
 /obj/item/bonesetter,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

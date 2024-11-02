@@ -660,8 +660,8 @@
 /area/ruin/space/syndicakefactory)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /obj/machinery/light/small{
@@ -748,8 +748,8 @@
 /area/ruin/space/syndicakefactory)
 "CW" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
@@ -1044,8 +1044,8 @@
 /area/ruin/space/syndicakefactory)
 "Nx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{

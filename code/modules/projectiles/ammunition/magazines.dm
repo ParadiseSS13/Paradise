@@ -487,7 +487,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
+/obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
@@ -495,12 +495,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
 	icon_state = "m12gXlBs"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath

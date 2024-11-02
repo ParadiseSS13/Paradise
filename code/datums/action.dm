@@ -314,7 +314,7 @@
 /datum/action/item_action/toggle_barrier_spread
 	name = "Toggle Barrier Spread"
 
-/datum/action/item_action/equip_unequip_TED_Gun
+/datum/action/item_action/equip_unequip_ted_gun
 	name = "Equip/Unequip TED Gun"
 
 /datum/action/item_action/toggle_paddles
@@ -435,7 +435,7 @@
 /datum/action/item_action/noir
 	name = "Noir"
 
-/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
+/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh
 	name = "YEAH!"
 
 /datum/action/item_action/laugh_track

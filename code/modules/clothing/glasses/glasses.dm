@@ -381,7 +381,7 @@
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
 	var/punused = FALSE
-	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
+	actions_types = list(/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
 	pun(user)

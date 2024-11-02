@@ -77,7 +77,7 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the head of security."
 
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hos(src)
 	new /obj/item/clothing/head/beret/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/alt(src)

@@ -189,7 +189,7 @@
 
 	SSticker.mode.traitors |= mind //Necessary for announcing
 	mind.add_mind_objective(/datum/objective/revenant)
-	mind.add_mind_objective(/datum/objective/revenantFluff)
+	mind.add_mind_objective(/datum/objective/revenant_fluff)
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
@@ -330,10 +330,10 @@
 		return FALSE
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 	needs_target = FALSE
 
-/datum/objective/revenantFluff/New()
+/datum/objective/revenant_fluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
 									"Cause as much chaos and anger as you can without being killed.", \
 									"Damage and render as much of the station rusted and unusable as possible.", \
@@ -351,7 +351,7 @@
 	explanation_text = pick(explanationTexts)
 	..()
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE
 
 /obj/item/ectoplasm/revenant

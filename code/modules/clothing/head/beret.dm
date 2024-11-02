@@ -74,7 +74,7 @@
 	icon_state = "beret_hos_black"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"

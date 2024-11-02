@@ -99,7 +99,7 @@
 /obj/random/tech_supply/item_to_spawn()
 	return pick(prob(3);/obj/random/powercell,\
 				prob(2);/obj/random/technology_scanner,\
-				prob(1);/obj/item/stack/packageWrap,\
+				prob(1);/obj/item/stack/package_wrap,\
 				prob(2);/obj/random/bomb_supply,\
 				prob(1);/obj/item/extinguisher,\
 				prob(1);/obj/item/clothing/gloves/color/fyellow,\

@@ -3018,7 +3018,7 @@
 /area/station/command/customs)
 "aqT" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4444,7 +4444,7 @@
 /area/station/maintenance/fore2)
 "auy" = (
 /obj/structure/table/wood,
-/obj/item/toy/AI,
+/obj/item/toy/ai,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6345,7 +6345,7 @@
 /area/station/supply/warehouse)
 "azG" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/door_control{
 	id = "qm_warehouse";
@@ -7756,7 +7756,7 @@
 /area/station/maintenance/abandoned_garden)
 "aDr" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/food/grown/tea,
 /obj/item/food/grown/grapes,
@@ -10843,7 +10843,7 @@
 /area/station/service/bar)
 "aLP" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
@@ -12310,7 +12310,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/power/apc/directional/west,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12983,7 +12983,7 @@
 "aRM" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = -4
 	},
 /obj/item/rcs{
@@ -13016,7 +13016,7 @@
 	},
 /area/station/supply/sorting)
 "aRP" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk{
@@ -13601,7 +13601,7 @@
 /area/station/supply/storage)
 "aTt" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13911,7 +13911,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -15033,7 +15033,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -17789,7 +17789,7 @@
 /area/station/service/kitchen)
 "bdN" = (
 /obj/machinery/alarm/directional/west,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
@@ -20557,7 +20557,7 @@
 /area/station/supply/lobby)
 "bls" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light{
 	dir = 8
@@ -23738,7 +23738,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/delivery/hollow,
@@ -25721,7 +25721,7 @@
 	},
 /obj/item/flash,
 /obj/item/storage/box/ids,
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -26171,7 +26171,7 @@
 /area/station/maintenance/fore)
 "bAp" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /obj/item/flash,
 /obj/item/flash,
 /obj/effect/turf_decal/delivery,
@@ -29129,7 +29129,7 @@
 /area/station/engineering/tech_storage)
 "bGZ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -31430,7 +31430,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bMW" = (
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -31456,7 +31456,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "bNa" = (
-/obj/item/aiModule/nanotrasen,
+/obj/item/ai_module/nanotrasen,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -32083,7 +32083,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "bOO" = (
-/obj/item/aiModule/crewsimov,
+/obj/item/ai_module/crewsimov,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -32115,7 +32115,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bOS" = (
-/obj/item/aiModule/corp,
+/obj/item/ai_module/corp,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -32131,7 +32131,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/mob/living/simple_animal/pet/dog/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/renault,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/captain)
 "bOV" = (
@@ -32251,7 +32251,7 @@
 /area/station/public/storage/tools/auxiliary)
 "bPh" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -37637,7 +37637,7 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/hop,
 /obj/item/megaphone,
-/obj/item/storage/box/PDAs,
+/obj/item/storage/box/pdas,
 /obj/item/storage/box/ids,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -39237,7 +39237,7 @@
 "ciE" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/alarm/directional/east,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/ian,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "ciF" = (
@@ -39887,7 +39887,7 @@
 /area/station/command/teleporter)
 "ckA" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -45384,7 +45384,7 @@
 /area/station/engineering/hardsuitstorage)
 "czr" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -46728,7 +46728,7 @@
 /area/station/public/fitness)
 "cDs" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
 	dir = 8;
@@ -46920,7 +46920,7 @@
 /area/station/engineering/hardsuitstorage)
 "cDN" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -48194,7 +48194,7 @@
 	},
 /area/station/public/fitness)
 "cHb" = (
-/obj/machinery/computer/HolodeckControl{
+/obj/machinery/computer/holodeck_control{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -51489,7 +51489,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -52863,7 +52863,7 @@
 /area/station/public/fitness)
 "cXP" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cXQ" = (
@@ -54416,7 +54416,7 @@
 /area/station/science/rnd)
 "ddD" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -56126,7 +56126,7 @@
 	name = "west bump";
 	pixel_x = -30
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -56813,7 +56813,7 @@
 /area/station/maintenance/port2)
 "dmV" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -57486,7 +57486,7 @@
 	name = "west bump";
 	pixel_x = -30
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -57931,7 +57931,7 @@
 	},
 /area/station/science/research)
 "dsv" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/rd,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -62361,7 +62361,7 @@
 /area/station/maintenance/solar_maintenance/aft_port)
 "dQN" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/drinks/coffee,
 /obj/effect/decal/cleanable/cobweb,
@@ -64823,7 +64823,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/mob/living/simple_animal/crab/Coffee,
+/mob/living/simple_animal/crab/coffee,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -65179,7 +65179,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler{
 	pixel_x = 2;
 	pixel_y = 3
@@ -66924,7 +66924,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80932,7 +80932,7 @@
 	},
 /area/station/security/prisonershuttle)
 "nEb" = (
-/obj/structure/closet/secure_closet/CMO,
+/obj/structure/closet/secure_closet/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -86900,7 +86900,7 @@
 /area/station/security/permabrig)
 "rbC" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/mouse/white/Brain,
+/mob/living/simple_animal/mouse/white/brain,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -89890,7 +89890,7 @@
 "szb" = (
 /obj/structure/table,
 /obj/item/clothing/accessory/armband/science,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/book/manual/wiki/sop_science,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -90568,7 +90568,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "sQA" = (
-/mob/living/simple_animal/parrot/Poly,
+/mob/living/simple_animal/parrot/poly,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -91041,7 +91041,7 @@
 	c_tag = "Vault";
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/simple_animal/mouse/brown/tom,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "tdA" = (
@@ -92869,7 +92869,7 @@
 /area/station/science/storage)
 "ueK" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/crowbar,
 /obj/machinery/newscaster{
@@ -93460,7 +93460,7 @@
 	dir = 6
 	},
 /obj/structure/table/glass,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_scanner/adv,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
@@ -95260,7 +95260,7 @@
 /area/station/maintenance/fsmaint)
 "vET" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -96656,7 +96656,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/alarm/directional/south,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "wsg" = (

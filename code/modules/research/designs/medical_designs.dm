@@ -300,7 +300,7 @@
 	desc = "An advanced FixOVein obtained through Abductor technology."
 	id = "alien_fixovein"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/FixOVein/alien
+	build_path = /obj/item/fix_o_vein/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")

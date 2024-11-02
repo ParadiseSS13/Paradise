@@ -762,7 +762,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/FixOVein/alien
+/obj/item/fix_o_vein/alien
 	name = "alien FixOVein"
 	desc = "Bloodless aliens would totally know how to stop internal bleeding... Right?"
 	icon = 'icons/obj/abductor.dmi'

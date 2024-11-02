@@ -143,7 +143,7 @@
 //////////////////////////////
 // MARK: CMO HYPO
 //////////////////////////////
-/obj/item/reagent_containers/hypospray/CMO
+/obj/item/reagent_containers/hypospray/cmo
 	name = "advanced hypospray"
 	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
@@ -151,11 +151,11 @@
 	can_pierce_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+/obj/item/reagent_containers/hypospray/cmo/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
+/obj/item/reagent_containers/hypospray/cmo/examine_more(mob/user)
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""

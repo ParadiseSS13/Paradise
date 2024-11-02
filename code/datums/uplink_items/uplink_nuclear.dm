@@ -8,7 +8,7 @@
 	name = "Stechkin APS Pistol"
 	reference = "APS"
 	desc = "The automatic machine pistol version of the FK-69 'Stechkin' chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
-	item = /obj/item/gun/projectile/automatic/pistol/APS
+	item = /obj/item/gun/projectile/automatic/pistol/aps
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -229,11 +229,11 @@
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/ammo/bulldog_XLmagsbag
+/datum/uplink_item/ammo/bulldog_xl_magsbag
 	name = "Bulldog - 12g XL Magazine Duffel Bag"
 	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
 	reference = "12XLDB"
-	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
+	item = /obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -613,7 +613,7 @@
 // MARK: BUNDLES
 ////////////////////////////////////////
 
-/datum/uplink_item/bundles_TC/bulldog
+/datum/uplink_item/bundles_tc/bulldog
 	name = "Bulldog Bundle"
 	desc = "Lean and mean: Optimized for people that want to get up close and personal. Contains the popular \
 			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
@@ -622,7 +622,7 @@
 	cost = 45 // normally 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/c20r
+/datum/uplink_item/bundles_tc/c20r
 	name = "C-20r Bundle"
 	desc = "Old Faithful: The classic C-20r, bundled with three magazines and a (surplus) suppressor at discount price."
 	reference = "C20B"
@@ -630,7 +630,7 @@
 	cost = 90 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/cyber_implants
+/datum/uplink_item/bundles_tc/cyber_implants
 	name = "Cybernetic Implants Bundle"
 	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	reference = "CIB"
@@ -638,7 +638,7 @@
 	cost = 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/medical
+/datum/uplink_item/bundles_tc/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
 			a medical beam gun and a pair of syndicate magboots."
@@ -647,7 +647,7 @@
 	cost = 80 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/sniper
+/datum/uplink_item/bundles_tc/sniper
 	name = "Sniper bundle"
 	desc = "Elegant and refined: Contains a collapsed sniper rifle in an expensive carrying case, \
 			two soporific knockout magazines, a free surplus suppressor, and a sharp-looking tactical turtleneck suit. \

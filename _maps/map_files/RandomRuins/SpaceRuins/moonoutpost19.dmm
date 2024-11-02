@@ -6570,7 +6570,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xZ" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
@@ -9415,7 +9415,7 @@
 	},
 /area/ruin/space/moonbase19)
 "KC" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},

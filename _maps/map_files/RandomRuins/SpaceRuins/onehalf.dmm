@@ -1217,8 +1217,8 @@
 /obj/structure/closet/crate/medical,
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/healthanalyzer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

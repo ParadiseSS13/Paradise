@@ -166,7 +166,7 @@
 		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
 		/obj/item/chameleon,
 		/obj/item/clothing/gloves/fingerless/rapid,
-		/obj/item/CQC_manual,
+		/obj/item/cqc_manual,
 		/obj/item/gun/medbeam,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants,

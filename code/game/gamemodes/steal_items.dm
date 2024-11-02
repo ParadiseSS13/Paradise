@@ -126,7 +126,7 @@
 
 /datum/theft_objective/hypospray
 	name = "the chief medical officer's advanced hypospray"
-	typepath = /obj/item/reagent_containers/hypospray/CMO
+	typepath = /obj/item/reagent_containers/hypospray/cmo
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 

@@ -1089,7 +1089,7 @@
 					/obj/item/camera_film = 6,
 					/obj/item/storage/photo_album = 2,
 					/obj/item/stack/wrapping_paper = 4,
-					/obj/item/stack/packageWrap = 4,
+					/obj/item/stack/package_wrap = 4,
 					/obj/item/c_tube = 10,
 					/obj/item/hand_labeler = 4,
 					/obj/item/stack/tape_roll = 5,
