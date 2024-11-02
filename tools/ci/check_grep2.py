@@ -176,6 +176,11 @@ def check_manual_icon_updates(idx, line):
             target = "update_appearance"
         return [(idx + 1, f"{proc_result}() should not be called manually. Use {target}({proc_result.upper()}) instead.")]
 
+ATOM_OVERRIDING_NEW = re.compile(r"^(/obj|/atom|/turf|/mob)/(.*)/New\(")
+def check_atom_overriding_new(idx, line):
+    if match := ATOM_OVERRIDING_NEW.search(line):
+        return [(idx + 1, f"Type {match.group(1)}/{match.group(2)} overrides /New. Use /Initialize instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -191,6 +196,7 @@ CODE_CHECKS = [
     check_href_styles,
     check_initialize_missing_mapload,
     check_empty_list_whitespace,
+    check_atom_overriding_new,
 ]
 
 
