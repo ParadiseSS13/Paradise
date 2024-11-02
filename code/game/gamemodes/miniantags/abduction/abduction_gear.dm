@@ -338,21 +338,26 @@ CONTENTS:
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L, mob/living/user)
+	var/mob/living/carbon/C = L
 	if(!iscarbon(L))
 		return
-	var/mob/living/carbon/C = L
+	if(C.IsSleeping())
+		C.visible_message("<span class='notice'>[C] is already asleep!</span>")
+		return
+	if(C.getStaminaLoss() < 100)
+		C.AdjustDrowsy(2 SECONDS)
+		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
+		C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
+						"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		return
 	if(do_mob(user, C, 2.5 SECONDS))
-		if(C.getStaminaLoss() > 100 || C.IsSleeping())
-			C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
-								"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-			playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-			C.Sleeping(120 SECONDS)
-			add_attack_logs(user, C, "Put to sleep with [src]")
-		else
-			C.AdjustDrowsy(2 SECONDS)
-			to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
-			C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
+							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+		C.Sleeping(120 SECONDS)
+		add_attack_logs(user, C, "Put to sleep with [src]")
+	else
+		return
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
