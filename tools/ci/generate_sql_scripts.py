@@ -61,6 +61,8 @@ for file in orderedSqlFiles:
             scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
         elif file == "38-39.py":
             scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
+        elif file == "60-61.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
         else:
             print("ERROR: CI failed due to invalid python file in SQL/updates")
             exit(1)
