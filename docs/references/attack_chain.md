@@ -131,13 +131,16 @@ order to migrate them properly. This is not just a matter of renaming procs; it
 is expected that a migration preserve all existing behavior while fixing any
 potential bugs that were a result of the original implementation.
 
-It is also important to remember: any subtype which is being migrated must have
-all of its parent types (up to but not including `/obj/item`) migrated as well.
+There are several important points:
 
-If you are migrating
-`/obj/item/foo/bar/baz/proc/attacked_by__legacy__attackchain()`, then you must
-also migrate `/obj/item/foo/bar/proc/attacked_by__legacy__attackchain()` and
-`/obj/item/foo/proc/attacked_by__legacy__attackchain()`.
+1. Any subtype which is being migrated must have all of its parent types (up to
+   but not including `/obj/item`) migrated as well. If you are migrating
+   `/obj/item/foo/bar/baz/proc/attacked_by__legacy__attackchain()`, then you
+   must also migrate `/obj/item/foo/bar/proc/attacked_by__legacy__attackchain()`
+   and `/obj/item/foo/proc/attacked_by__legacy__attackchain()`.
+2. Once a tree of items has been updated to the new attack chain, its
+   `new_attack_chain` var must be set to `TRUE`.
+3. All legacy attack chain procs in an object tree must be migrated at once.
 
 While this may seem overwhelming, the good news is that most migrations are
 straightforward, and because you are only migrating a small part of the codebase
