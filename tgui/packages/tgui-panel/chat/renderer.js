@@ -364,7 +364,9 @@ class ChatRenderer {
         else if (message.html) {
           node.innerHTML = message.html;
           node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
+            // No iframes in my chat kkthxbye
             FORBID_TAGS: blacklisted_tags,
+            ALLOW_UNKNOWN_PROTOCOLS: true,
           });
         } else {
           logger.error('Error: message is missing text payload', message);
