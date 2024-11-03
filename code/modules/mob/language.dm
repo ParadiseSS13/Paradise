@@ -413,7 +413,7 @@
 
 /datum/language/common
 	name = "Galactic Common"
-	desc = "A carefully crafted fusion of various Human and Skrell dialects, Galactic Common is one of the most commonly spoken languages in the Sector today."
+	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species.."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
