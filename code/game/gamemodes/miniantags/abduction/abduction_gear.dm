@@ -341,12 +341,9 @@ CONTENTS:
 	var/mob/living/carbon/C = L
 	if(!iscarbon(L))
 		return
-	if(C.IsSleeping())
-		C.visible_message("<span class='notice'>[C] is already asleep!</span>")
-		return
 	if(C.getStaminaLoss() < 100)
 		C.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
+		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned or asleep specimens!</span>")
 		C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 						"<span class='userdanger'>You suddenly feel drowsy!</span>")
 		return
