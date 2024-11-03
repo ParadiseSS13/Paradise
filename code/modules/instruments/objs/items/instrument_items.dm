@@ -87,7 +87,7 @@
 	force = 0
 	attack_verb = list("played", "jazzed", "trumpeted", "mourned", "dooted", "spooked")
 
-/obj/item/instrument/trumpet/spectral/Initialize()
+/obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -110,7 +110,7 @@
 	force = 0
 	attack_verb = list("played", "jazzed", "saxxed", "mourned", "dooted", "spooked")
 
-/obj/item/instrument/saxophone/spectral/Initialize()
+/obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -133,7 +133,7 @@
 	force = 0
 	attack_verb = list("played", "jazzed", "tromboned", "mourned", "dooted", "spooked")
 
-/obj/item/instrument/trombone/spectral/Initialize()
+/obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 

@@ -241,8 +241,7 @@
 	id = "syndicatedruglab";
 	name = "Syndicate Drug Lab Hangar";
 	pixel_x = 24;
-	pixel_y = 4;
-	req_access_txt = null
+	pixel_y = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)

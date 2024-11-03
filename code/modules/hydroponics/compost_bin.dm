@@ -96,7 +96,7 @@
 			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
 	if(istype(O, /obj/item/food/grown))
@@ -110,7 +110,7 @@
 		make_biomass(O)
 		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	if(istype(O, /obj/item/reagent_containers))
 		var/proportion = 0
@@ -154,7 +154,7 @@
 			to_chat(user, "<span class='notice'>[src] has been nearly filled with potash.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 
 		return TRUE
 
@@ -199,7 +199,7 @@
 
 	biomass -= conversion_amount + potash_saltpetre_conversion + potassium_saltpetre_conversion
 	compost += conversion_amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 // Makes soil from compost
@@ -209,7 +209,7 @@
 		return
 	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/compost_bin/attack_hand(mob/user)

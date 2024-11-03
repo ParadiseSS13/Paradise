@@ -352,6 +352,7 @@
 				if(!user.unEquip(I))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
+				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
@@ -375,6 +376,7 @@
 			return
 		K.forceMove(src)
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
+		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
@@ -389,21 +391,23 @@
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(gun_light && can_flashlight)
-		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			S.loc = get_turf(user)
-			update_gun_light(user)
-			S.update_brightness(user)
-			update_icon()
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
-	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove(get_turf(user))
-		clear_bayonet()
+	if(gun_light || bayonet)
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		if(gun_light && can_flashlight)
+			for(var/obj/item/flashlight/seclite/S in src)
+				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+				gun_light = null
+				S.loc = get_turf(user)
+				update_gun_light(user)
+				S.update_brightness(user)
+				update_icon()
+				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+					qdel(TGL)
+		else if(bayonet && can_bayonet) // if it has a bayonet, and the bayonet can be removed
+			bayonet.forceMove(get_turf(user))
+			to_chat(user, "<span class='notice'>You remove [bayonet] from [src].</span>")
+			clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
 	if(!gun_light)

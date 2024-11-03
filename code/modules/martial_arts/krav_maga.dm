@@ -146,7 +146,7 @@
 	dyeable = TRUE
 	var/datum/martial_art/krav_maga/style
 
-/obj/item/clothing/gloves/color/black/krav_maga/Initialize()
+/obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()
 	style = new()
 

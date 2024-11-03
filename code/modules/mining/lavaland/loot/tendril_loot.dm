@@ -41,7 +41,7 @@
 		bag.red = src
 		bag.blue = blue
 
-/obj/item/shared_storage/Initialize()
+/obj/item/shared_storage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
@@ -293,6 +293,8 @@
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, user)
@@ -426,7 +428,7 @@
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
-/obj/effect/immortality_talisman/Initialize()
+/obj/effect/immortality_talisman/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
