@@ -28,7 +28,7 @@
 #define ITEM_SLOT_AMOUNT_FLAG	(1<<ITEM_SLOT_AMOUNT)
 #define ITEM_SLOT_AMOUNT 		22 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
 
-/// Translates an ITEM_SLOT back to an index that can be looked up in inv_slots
+/// Translates an ITEM_SLOT back to an index that can be looked up in inv_slots. e.g. (1<<19) becomes 19.
 #define ITEM_SLOT_2_INDEX(slot) (log(2, slot) + 1)
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
