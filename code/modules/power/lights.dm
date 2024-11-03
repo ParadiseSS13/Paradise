@@ -213,6 +213,17 @@
 	sheets_refunded = 1
 	construct_type = /obj/machinery/light/clockwork/small/built
 
+/obj/machinery/light_construct/clockwork/floor
+	name = "brass floor light fixture frame"
+	desc = "A brass floor light fixture under construction."
+	icon_state = "clockwork_floor-construct-stage1"
+	anchored = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+	fixture_type = "floor"
+	sheets_refunded = 3
+	construct_type = /obj/machinery/light/floor/built
+
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
 #undef LIGHT_CONSTRUCT_COMPLETED
@@ -340,6 +351,20 @@
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/clockwork/small
 
+/obj/machinery/light/clockwork/floor
+	name = "brass floor light"
+	desc = "A brass floor light."
+	icon_state = "clockwork_floor1"
+	glow_icon_state = "clockwork_floor"
+	base_state = "clockwork_floor"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/floor
+	brightness_range = 6
+	nightshift_light_range = 6
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+
 /obj/machinery/light/built
 	status = LIGHT_EMPTY
 
@@ -353,6 +378,9 @@
 	status = LIGHT_EMPTY
 
 /obj/machinery/light/clockwork/small/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/floor/built
 	status = LIGHT_EMPTY
 
 // create a new lighting fixture
