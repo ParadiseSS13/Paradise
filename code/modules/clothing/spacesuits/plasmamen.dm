@@ -326,26 +326,26 @@
 		skins[I] = image(icon, icon_state = plasmaman_helm_options[I])
 	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
 
-	if(choice && reskin_radial_check(M))
-
-		switch(choice)
-			if("Diver")
-				name = initial(name)
-				desc = initial(desc)
-				base_icon_state = initial(base_icon_state)
-			if("Knight")
-				name = "knight envirosuit helmet"
-				desc = "A plasmaman envirohelm designed in the shape of a knight helm."
-				base_icon_state = "knight_envirohelm"
-				visor_icon = "knight_envisor"
-			if("Skull")
-				name = "skull envirosuit helmet"
-				desc = "A plasmaman envirohelm designed in the shape of a skull."
-				base_icon_state = "skull_envirohelm"
-				visor_icon = "skull_envisor"
-		update_icon()
-		M.update_inv_head()
-		reskinned = TRUE
+	if(!choice || !reskin_radial_check(M))
+		return
+	switch(choice)
+		if("Diver")
+			name = initial(name)
+			desc = initial(desc)
+			base_icon_state = initial(base_icon_state)
+		if("Knight")
+			name = "knight envirosuit helmet"
+			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
+			base_icon_state = "knight_envirohelm"
+			visor_icon = "knight_envisor"
+		if("Skull")
+			name = "skull envirosuit helmet"
+			desc = "A plasmaman envirohelm designed in the shape of a skull."
+			base_icon_state = "skull_envirohelm"
+			visor_icon = "skull_envisor"
+	update_icon()
+	M.update_inv_head()
+	reskinned = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin_radial_check(mob/user)
 	if(!ishuman(user))
