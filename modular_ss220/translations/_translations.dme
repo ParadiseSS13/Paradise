@@ -1,13 +1,11 @@
 // Все изменения следует дублировать на ТГ и наоборот.
 
-#include "_translations.dm"
-
 #include "code/defines.dm"
 
+#include "_translations.dm"
+
 #include "code/pronouns.dm"
-#include "code/translate_attack_verb.dm"
-#include "code/translate_eat_verb.dm"
-#include "code/translate_say.dm"
+#include "code/translate_verbs.dm"
 #include "code/ru_names/ru_name_base.dm"
 
 #include "code/~undefs.dm"
