@@ -106,6 +106,9 @@ SUBSYSTEM_DEF(redis)
 
 			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
 			log_game("Redis error: [error_str]")
+			// TEMP
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "<@200631029675982858> redis dun did one - `[error_str]`")
+			// END TEMP
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
