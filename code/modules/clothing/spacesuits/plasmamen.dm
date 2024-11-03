@@ -310,7 +310,7 @@
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if((loc == user) && !reskinned)
+	if(reskin_radial_check(user) && !reskinned)
 		reskin(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/update_icon_state()
