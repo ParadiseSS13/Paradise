@@ -357,26 +357,34 @@
 		return
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				// 44 total burn damage with 11 augmented limbs
 				receive_damage(0, 8)
-			if(2)
+			if(EMP_LIGHT)
 				// 22 total burn damage with 11 augmented limbs
 				receive_damage(0, 6)
+			if(EMP_WEAKENED)
+				// 11 total burn damage with 11 augmented limbs
+				receive_damage(0, 5)
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				// 5.9 burn damage, 64.9 damage with 11 limbs.
 				receive_damage(0, 5.9)
-			if(2)
+			if(EMP_LIGHT)
 				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
+			if(EMP_WEAKENED)
+				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
+				receive_damage(0, 2)
 	else // Basic prosthetic limbs
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				receive_damage(0, 20)
-			if(2)
+			if(EMP_LIGHT)
 				receive_damage(0, 7)
+			if(EMP_WEAKENED)
+				receive_damage(0, 3)
 
 /*
 This function completely restores a damaged organ to perfect condition.
@@ -927,7 +935,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [name] explodes violently!</span>",\
 			"<span class='userdanger'>Your [name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
+		explosion(get_turf(victim), -1, -1, 2, 3)
 		do_sparks(5, 0, victim)
 		qdel(src)
 

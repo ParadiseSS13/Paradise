@@ -272,7 +272,7 @@
 				/obj/item/melee/baseball_bat/homerun = 50,
 				/obj/item/rcd/combat = 50,
 				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50,
-				/obj/item/storage/box/buck = 30, //Only seven shots, make them count
+				/obj/item/storage/fancy/shell/buck = 30, //Only eight shots, make them count
 				/obj/item/mod/module/noslip = 40,
 				/obj/item/clothing/mask/holo_cigar = 50
 				)
@@ -389,7 +389,7 @@
 				/obj/item/mod/construction/plating/research = 30,
 				/obj/item/assembly/signaler/anomaly/random = 20,
 				/obj/item/gun/energy/gun = 50,
-				/obj/item/storage/box/dragonsbreath = 30,
+				/obj/item/storage/fancy/shell/dragonsbreath = 30,
 				/obj/item/storage/box/turbine_kit = 20,
 				/obj/item/mod/module/firefighting_tank = 40,
 				/obj/item/mod/module/jetpack/advanced = 40

@@ -719,7 +719,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.access = list()
 			return
 		if("grant_all")
-			modify.access = get_all_accesses()
+			modify.access |= get_all_accesses()
 			return
 
 		// JOB SLOT MANAGEMENT functions

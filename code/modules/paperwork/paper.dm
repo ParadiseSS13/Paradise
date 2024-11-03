@@ -47,6 +47,7 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
+	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -314,13 +315,24 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/vv_edit_var(var_name, var_value)
+	if((var_name == "info") && blacklist.Find(var_value)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: ADMIN</span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: ADMIN [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
+	return ..()
+
 /obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (usr in get_turf(src) || loc.Adjacent(usr))))
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && ((usr in get_turf(src)) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(blacklist.Find(input_element)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -651,11 +663,11 @@
 	name = "Teleporter Instructions"
 	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
-/obj/item/paper/russiantraitorobj
+/obj/item/paper/soviettraitorobj
 	name = "paper- 'Mission Objectives'"
 	info = "The Syndicate have cunningly disguised a Syndicate Uplink as your PDA. Simply enter the code \"678 Bravo\" into the ringtone select to unlock its hidden features. <br><br><b>Objective #1</b>. Kill the God damn AI in a fire blast that it rocks the station. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
-/obj/item/paper/russiannuclearoperativeobj
+/obj/item/paper/sovietnuclearoperativeobj
 	name = "paper- 'Objectives of a Nuclear Operative'"
 	info = "<b>Objective #1</b>: Destroy the station with a nuclear device."
 

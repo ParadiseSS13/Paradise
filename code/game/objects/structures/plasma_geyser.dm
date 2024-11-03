@@ -8,7 +8,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	armor = list(MELEE = 30, BULLET = 80, LASER = 90, ENERGY = 90, BOMB = 80, RAD = 100, FIRE = 100, ACID = 100)
 
-/obj/structures/plasmageyser/Initialize()
+/obj/structures/plasmageyser/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 

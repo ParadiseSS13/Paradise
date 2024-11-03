@@ -37,7 +37,7 @@
 		return
 
 	flipped = !flipped
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

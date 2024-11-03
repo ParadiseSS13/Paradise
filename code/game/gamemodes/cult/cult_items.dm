@@ -75,6 +75,7 @@
 	if(thrower && !IS_CULTIST(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
+		return
 	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -323,6 +324,8 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
+		if(SEND_SIGNAL(pulled, COMSIG_MOVABLE_TELEPORTING, turf_behind) & COMPONENT_BLOCK_TELEPORT)
+			return FALSE
 		if(!pulled.anchored) //Item may have been anchored while pulling, and pulling state isn't updated until you move away, so we double check.
 			pulled.forceMove(turf_behind)
 			. = pulled
@@ -337,6 +340,8 @@
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(user)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	if(user.holy_check())
 		return
 	var/outer_tele_radius = 9

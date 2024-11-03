@@ -21,7 +21,7 @@
 	if(!mind)
 		return FALSE
 	if(mind.miming)
-		qdel(GetComponent(/datum/component/footstep))
+		DeleteComponent(/datum/component/footstep)
 	return TRUE
 
 /**
@@ -656,14 +656,6 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
-
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
@@ -2034,3 +2026,37 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	dna.ResetUIFrom(src)
 	flavor_text = ""
 
+/**
+ * Helper for tracking alpha, use this to set an alpha source
+ *
+ * alpha_num - num between 0 and 255 that represents the alpha from `source`
+ * source - a datum that is the cause of the alpha source. This will be turned into a key via UID.
+ * update_alpha - boolean if alpha should be updated with this proc. Set this to false if you plan to animate the alpha after this call.
+ */
+/mob/living/carbon/human/proc/set_alpha_tracking(alpha_num, datum/source, update_alpha = TRUE)
+	alpha_num = round(alpha_num)
+	if(alpha_num >= ALPHA_VISIBLE)
+		LAZYREMOVE(alpha_sources, source.UID())
+	else
+		LAZYSET(alpha_sources, source.UID(), max(alpha_num, 0))
+	if(update_alpha)
+		alpha = get_alpha()
+
+/**
+ * Gets the target alpha of the human
+ *
+ * optional_source - use this to get the alpha of an exact source. This is unsafe, only use if you 100% know it will be in the list. For the best safety, only call this as get_alpha(src)
+ */
+/mob/living/carbon/human/proc/get_alpha(datum/optional_source)
+	if(optional_source)
+		return alpha_sources[optional_source.UID()]
+	. = ALPHA_VISIBLE
+	for(var/source in alpha_sources)
+		. = min(., alpha_sources[source])
+
+/*
+ * Returns wether or not the brain is below the threshold
+ */
+/mob/living/carbon/human/proc/check_brain_threshold(threshold_level)
+	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
+	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)

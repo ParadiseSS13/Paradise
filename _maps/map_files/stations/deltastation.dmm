@@ -2805,10 +2805,9 @@
 	},
 /area/station/maintenance/fore2)
 "aqn" = (
-/obj/structure/rack,
-/obj/item/crowbar,
-/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -2821,7 +2820,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "aqp" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fore2)
 "aqq" = (
@@ -3971,11 +3970,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/maintenance/fore)
-"atq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "atr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -4559,10 +4553,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore)
-"auO" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fore2)
 "auP" = (
 /obj/structure/rack,
 /obj/machinery/light/small{
@@ -4743,7 +4733,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "avs" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "avt" = (
@@ -5421,7 +5411,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "awW" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
@@ -5449,7 +5439,7 @@
 /turf/simulated/wall,
 /area/station/service/janitor)
 "axb" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/starboard2)
 "axc" = (
@@ -5954,7 +5944,7 @@
 	},
 /area/station/maintenance/fore)
 "ayr" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "ays" = (
@@ -6353,17 +6343,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/warehouse)
-"azF" = (
-/obj/machinery/door_control{
-	id = "qm_warehouse";
-	name = "Warehouse Door Control";
-	pixel_x = 24;
-	pixel_y = -3;
-	req_access_txt = "31"
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plating,
-/area/station/supply/warehouse)
 "azG" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -6373,7 +6352,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -24;
 	pixel_y = -3;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -7576,7 +7555,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aCL" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "aCN" = (
@@ -9915,7 +9894,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = 24;
-	req_access_txt = "24"
+	req_access = list(24)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -10800,7 +10779,7 @@
 /area/station/maintenance/fore)
 "aLC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -11079,20 +11058,12 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/execution)
 "aMx" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 30
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 30
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
@@ -11262,7 +11233,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aMV" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/gambling_den)
 "aMW" = (
@@ -12250,7 +12221,7 @@
 	id = "janitorshutters";
 	name = "Janitor Shutters Control";
 	pixel_x = 25;
-	req_access_txt = "26"
+	req_access = list(26)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16226,7 +16197,7 @@
 	},
 /area/station/supply/qm)
 "aZE" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/medical/storage)
 "aZG" = (
@@ -16261,7 +16232,7 @@
 	id = "cell1lockdown";
 	name = "Cell Lockdown";
 	pixel_y = 32;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/flasher_button{
 	id = "Cell 1";
@@ -16302,7 +16273,7 @@
 	id = "cell2lockdown";
 	name = "Cell Lockdown";
 	pixel_y = 32;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -16534,7 +16505,7 @@
 	},
 /area/station/maintenance/fore)
 "baD" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -17818,12 +17789,12 @@
 /area/station/service/kitchen)
 "bdN" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/rack,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
+/obj/structure/shelf/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -18871,6 +18842,7 @@
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
 /obj/structure/rack,
+/obj/item/storage/fancy/shell/tranquilizer,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "bhk" = (
@@ -19003,7 +18975,6 @@
 	},
 /area/station/hallway/primary/fore/south)
 "bhH" = (
-/obj/machinery/smartfridge,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
 	dir = 8
 	},
@@ -19014,6 +18985,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 8
 	},
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -20864,7 +20836,6 @@
 	},
 /area/station/security/processing)
 "bme" = (
-/obj/structure/rack,
 /obj/item/gun/energy/laser{
 	pixel_x = 3;
 	pixel_y = 3
@@ -20875,6 +20846,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bmg" = (
@@ -21366,7 +21338,6 @@
 	name = "west bump";
 	pixel_x = -30
 	},
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
 	pixel_x = 3;
 	pixel_y = -4
@@ -21377,6 +21348,7 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bnk" = (
@@ -22730,7 +22702,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "bqB" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "bqC" = (
@@ -22776,7 +22748,6 @@
 	},
 /area/station/security/processing)
 "bqW" = (
-/obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = 3;
 	pixel_y = 3
@@ -22787,6 +22758,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bqX" = (
@@ -23165,7 +23137,7 @@
 	id = "bridge blast north";
 	name = "North Bridge Blast Door Control";
 	pixel_y = 32;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -24389,14 +24361,14 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = -7;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/door_control{
 	id = "Secure Gate";
 	name = "Brig Lockdown";
 	pixel_x = 3;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -25734,7 +25706,7 @@
 	id = "bridge blast east";
 	name = "East Bridge Blast Door Control";
 	pixel_x = 26;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -26922,7 +26894,7 @@
 	name = "West Bridge Blast Door Control";
 	pixel_x = null;
 	pixel_y = 24;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -27122,7 +27094,7 @@
 	name = "East Bridge Blast Door Control";
 	pixel_x = null;
 	pixel_y = 24;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -27819,7 +27791,6 @@
 	},
 /area/station/public/storage/tools)
 "bDP" = (
-/obj/structure/table/reinforced,
 /obj/item/stack/rods,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
@@ -27829,6 +27800,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "bDQ" = (
@@ -28504,7 +28476,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFL" = (
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
 /obj/machinery/light/small,
@@ -28512,6 +28483,7 @@
 	pixel_y = -3
 	},
 /obj/item/multitool/command,
+/obj/structure/shelf/command,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -29302,7 +29274,7 @@
 	control_area = "\improper AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
-	req_one_access_txt = "75"
+	req_access = list(75)
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
@@ -29312,14 +29284,14 @@
 	name = "Expedition Shutters Access Control";
 	pixel_x = 7;
 	pixel_y = -26;
-	req_access_txt = "62"
+	req_access = list(62)
 	},
 /obj/machinery/door_control{
 	id = "eva-shutters";
 	name = "Auxilary E.V.A. Storage";
 	pixel_x = -7;
 	pixel_y = -26;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/keycard_auth{
 	pixel_y = -38
@@ -30361,7 +30333,7 @@
 	id = "transitlock";
 	name = "Transit Tube Lockdown Control";
 	pixel_y = 24;
-	req_access_txt = "11"
+	req_access = list(11)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30523,7 +30495,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bKA" = (
-/obj/structure/rack,
 /obj/item/book/manual/wiki/hacking,
 /obj/item/book/manual/wiki/engineering_guide,
 /obj/item/book/manual/wiki/engineering_construction,
@@ -30531,6 +30502,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "bKB" = (
@@ -30581,7 +30553,7 @@
 	name = "Privacy Shutters";
 	pixel_x = 5;
 	pixel_y = -4;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -30995,7 +30967,7 @@
 /turf/space,
 /area/space/nearstation)
 "bLN" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bLO" = (
@@ -31736,7 +31708,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bNI" = (
@@ -32646,7 +32618,7 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -34609,7 +34581,7 @@
 	control_area = "\improper AI Satellite";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -28;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -34914,14 +34886,14 @@
 	name = "Engineering Secure Storage Control";
 	pixel_x = -38;
 	pixel_y = 8;
-	req_access_txt = "11"
+	req_access = list(11)
 	},
 /obj/machinery/door_control{
 	id = "transitlock";
 	name = "Transit Tube Lockdown Control";
 	pixel_x = -38;
 	pixel_y = -8;
-	req_access_txt = "11"
+	req_access = list(11)
 	},
 /obj/machinery/computer/security/engineering{
 	dir = 4
@@ -34932,7 +34904,7 @@
 	pixel_x = -24;
 	pixel_y = 9;
 	range = 12;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -35474,7 +35446,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "bYa" = (
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -36427,8 +36399,7 @@
 /area/station/legal/lawoffice)
 "caM" = (
 /obj/machinery/computer/prisoner{
-	req_access = null;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36494,13 +36465,13 @@
 	name = "Privacy Shutters";
 	pixel_x = -24;
 	pixel_y = -8;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/door_control{
 	id = "hopqueueshutters";
 	name = "Queue Shutters";
 	pixel_x = -24;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/door_control/ticket_machine_button{
 	pixel_x = -24;
@@ -36799,7 +36770,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "cbE" = (
@@ -36960,7 +36930,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -24;
 	pixel_y = -8;
-	req_access_txt = "73"
+	req_access = list(73)
 	},
 /obj/machinery/light_switch{
 	dir = 4;
@@ -37052,7 +37022,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = -24;
-	req_access_txt = "67"
+	req_access = list(67)
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
@@ -38225,7 +38195,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "cfn" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "cfo" = (
@@ -38432,7 +38402,7 @@
 /obj/machinery/button/windowtint{
 	id = "Courtroom";
 	pixel_x = -8;
-	req_one_access_txt = "74;3"
+	req_one_access = list(74,3)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -38491,7 +38461,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 6;
 	pixel_y = -25;
-	req_access_txt = "74"
+	req_access = list(74)
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
@@ -38570,12 +38540,12 @@
 	},
 /area/station/security/evidence)
 "cgp" = (
-/obj/structure/table,
 /obj/item/hand_labeler,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
 /obj/item/pen,
 /obj/machinery/firealarm/directional/south,
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38780,7 +38750,7 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -38827,7 +38797,7 @@
 	id = "BS";
 	pixel_x = -24;
 	pixel_y = -8;
-	req_access_txt = "67"
+	req_access = list(67)
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
@@ -39946,7 +39916,7 @@
 	id = "teleaccessshutter";
 	name = "Teleporter Shutters Access Control";
 	pixel_y = 24;
-	req_access_txt = "17"
+	req_access = list(17)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -41466,7 +41436,7 @@
 	id = "teleportershutter";
 	name = "Teleporter Shutters Access Control";
 	pixel_x = -24;
-	req_access_txt = "17"
+	req_access = list(17)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -41593,7 +41563,7 @@
 /obj/structure/closet/secure_closet{
 	anchored = 1;
 	name = "Evidence Storage";
-	req_access_txt = "4"
+	req_access = list(4)
 	},
 /obj/item/restraints/handcuffs/pinkcuffs,
 /obj/item/clothing/under/rank/security/officer,
@@ -43024,7 +42994,7 @@
 "csI" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access_txt = "37"
+	req_access = list(37)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44755,11 +44725,11 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "cxH" = (
-/obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cxI" = (
@@ -46961,8 +46931,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cDP" = (
-/obj/structure/rack,
 /obj/machinery/light/small,
+/obj/structure/shelf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cDQ" = (
@@ -47173,7 +47143,7 @@
 	id = "eva-shutters";
 	name = "Auxilary E.V.A. Storage";
 	pixel_x = 26;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -47277,7 +47247,7 @@
 	},
 /area/station/hallway/primary/central/se)
 "cFg" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/public/toilet/lockerroom)
 "cFh" = (
@@ -48784,7 +48754,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
 "cIB" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
 "cIC" = (
@@ -50475,7 +50445,7 @@
 /obj/machinery/door_control{
 	id = "xeno6";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -50905,7 +50875,7 @@
 /obj/machinery/door_control{
 	id = "xeno4";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -50991,7 +50961,7 @@
 /obj/machinery/door_control{
 	id = "xeno5";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -51267,7 +51237,7 @@
 	id = "xenosecure";
 	name = "Containment Control";
 	pixel_y = -3;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -51821,7 +51791,7 @@
 /obj/machinery/door_control{
 	id = "xeno2";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -51834,7 +51804,7 @@
 /obj/machinery/door_control{
 	id = "xeno3";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -52412,6 +52382,9 @@
 /obj/machinery/chem_master,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
@@ -53882,7 +53855,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "dbK" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "dbL" = (
@@ -55342,7 +55315,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "dhi" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/public/construction)
 "dhj" = (
@@ -56573,7 +56546,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "dlJ" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "dlK" = (
@@ -56658,7 +56631,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -4;
 	pixel_y = -4;
-	req_access_txt = "30"
+	req_access = list(30)
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
@@ -56709,7 +56682,7 @@
 /area/station/medical/medbay)
 "dmy" = (
 /obj/structure/girder,
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dmG" = (
@@ -57022,7 +56995,7 @@
 	id = "roboticsshutters";
 	name = "Mech Bay Door Control";
 	pixel_y = 24;
-	req_access_txt = "29"
+	req_access = list(29)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -57062,7 +57035,13 @@
 	},
 /area/station/science/genetics)
 "dnW" = (
-/turf/simulated/floor/light,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "dnX" = (
 /obj/structure/chair/sofa/left{
@@ -57234,7 +57213,7 @@
 	id = "RD";
 	pixel_x = 24;
 	pixel_y = -36;
-	req_access_txt = "30"
+	req_access = list(30)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -58652,7 +58631,7 @@
 	},
 /area/station/medical/virology)
 "dvS" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/theatre)
 "dvT" = (
@@ -59467,7 +59446,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "dBk" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/medical/morgue)
 "dBp" = (
@@ -62701,7 +62680,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
 "dRJ" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/apmaint)
 "dRK" = (
@@ -63706,7 +63685,7 @@
 /obj/machinery/door_control{
 	id = "xeno1";
 	name = "Containment Control";
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -65181,7 +65160,7 @@
 	name = "exterior access button";
 	pixel_x = 20;
 	pixel_y = 20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -65213,7 +65192,7 @@
 	id = "sr2";
 	pixel_x = 24;
 	pixel_y = -7;
-	req_access_txt = "45"
+	req_access = list(45)
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -65259,10 +65238,6 @@
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
-"euK" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/legal/lawoffice)
 "evE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -65693,7 +65668,7 @@
 	},
 /area/station/medical/surgery/primary)
 "eHp" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "eHD" = (
@@ -65747,7 +65722,7 @@
 	name = "AI Chamber Turret Control";
 	pixel_x = -5;
 	pixel_y = 24;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -66091,7 +66066,7 @@
 	layer = 3.6;
 	name = "Virology Lab Access Button";
 	pixel_x = -24;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
@@ -66865,7 +66840,7 @@
 	name = "Secure Armory Shutter Control";
 	pixel_x = 7;
 	pixel_y = -28;
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
@@ -67186,7 +67161,7 @@
 	autolink_id = "virolab_btn_int";
 	name = "Virology Lab Access Button";
 	pixel_y = -24;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
@@ -68427,10 +68402,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"ghZ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "git" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -68873,8 +68844,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "gyp" = (
@@ -69273,6 +69244,10 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"gKj" = (
+/obj/structure/disaster_counter/toxins,
+/turf/simulated/wall/r_wall,
+/area/station/science/toxins/launch)
 "gKs" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -69963,7 +69938,7 @@
 	name = "exterior access button";
 	pixel_x = 20;
 	pixel_y = 20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -70396,7 +70371,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "huq" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "huN" = (
@@ -70548,7 +70523,7 @@
 	id = "justice_blast";
 	name = "Space Vent";
 	pixel_x = 32;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/closet/secure_closet/injection,
 /obj/machinery/light{
@@ -70914,8 +70889,8 @@
 	int_button_link_id = "enginen_btn_int";
 	int_door_link_id = "enginen_door_int";
 	pixel_y = -25;
-	req_access_txt = "10;13";
-	vent_link_id = "enginen_vent"
+	vent_link_id = "enginen_vent";
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -71516,7 +71491,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "ibR" = (
-/obj/structure/rack,
 /obj/item/gun/energy/gun{
 	pixel_x = 3;
 	pixel_y = 3
@@ -71532,6 +71506,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ibT" = (
@@ -73048,8 +73023,8 @@
 	},
 /area/station/hallway/primary/central/nw)
 "iXL" = (
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "iXM" = (
@@ -73334,7 +73309,7 @@
 	},
 /area/station/engineering/atmos)
 "jhk" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jhr" = (
@@ -74539,7 +74514,7 @@
 	name = "interior access button";
 	pixel_x = -20;
 	pixel_y = 20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -74626,7 +74601,7 @@
 	id = "cell3lockdown";
 	name = "Cell Lockdown";
 	pixel_y = 32;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -75021,32 +74996,31 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "kii" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/box/tranquilizer,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "kiC" = (
@@ -75086,7 +75060,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kju" = (
@@ -76271,7 +76245,7 @@
 	int_door_link_id = "virolab_door_int";
 	name = "Virology Lab Access Console";
 	pixel_x = -24;
-	req_one_access_txt = "39"
+	req_access = list(39)
 	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -76665,7 +76639,7 @@
 	id = "paramedic";
 	name = "Garage Door Control";
 	pixel_x = -24;
-	req_access_txt = "66"
+	req_access = list(66)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -76735,7 +76709,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "llm" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -76835,7 +76809,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "lnY" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
 "loX" = (
@@ -77338,7 +77312,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "lAG" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lAO" = (
@@ -77358,7 +77332,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
@@ -77676,7 +77650,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "lMM" = (
-/obj/effect/spawner/random_barrier/wall_probably,
+/obj/effect/spawner/random/barrier/wall_probably,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lNF" = (
@@ -77777,7 +77751,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "lQl" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "lQs" = (
@@ -79061,7 +79035,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port2)
 "mEk" = (
-/obj/structure/rack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/gun/energy/disabler{
 	pixel_x = 3;
@@ -79072,6 +79045,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "mEu" = (
@@ -79130,7 +79104,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "mHK" = (
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
@@ -79454,7 +79428,7 @@
 	name = "Turbine Access Console";
 	pixel_x = 8;
 	pixel_y = -26;
-	req_access_txt = "12"
+	req_access = list(12)
 	},
 /obj/machinery/ignition_switch{
 	id = "Incinerator";
@@ -79466,7 +79440,7 @@
 	name = "Turbine Vent Control";
 	pixel_x = -8;
 	pixel_y = -36;
-	req_access_txt = "12"
+	req_access = list(12)
 	},
 /obj/machinery/door_control{
 	id = "auxincineratorvent";
@@ -80320,7 +80294,6 @@
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 32
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/security/permabrig)
 "nlo" = (
@@ -80395,6 +80368,9 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/disaster_counter/scichem{
+	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
@@ -82321,7 +82297,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "osF" = (
@@ -82419,14 +82395,14 @@
 	name = "Kitchen Bar Shutters Control";
 	pixel_x = 6;
 	pixel_y = 24;
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/door_control{
 	id = "kitchenhall";
 	name = "Kitchen Hallway Shutters Control";
 	pixel_x = -8;
 	pixel_y = 24;
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82905,7 +82881,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "oJY" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "oKa" = (
@@ -83410,7 +83386,7 @@
 	id = "sr1";
 	pixel_x = -24;
 	pixel_y = -7;
-	req_access_txt = "45"
+	req_access = list(45)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83608,10 +83584,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"pcm" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/service/hydroponics)
 "pcr" = (
 /obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating,
@@ -85212,6 +85184,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"pXV" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/atmos)
 "pYb" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/plating,
@@ -85300,7 +85278,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -85522,6 +85499,7 @@
 /area/station/medical/virology)
 "qgC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/structure/disaster_counter/supermatter,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
 "qhG" = (
@@ -85947,7 +85925,6 @@
 	},
 /area/station/medical/storage)
 "qys" = (
-/obj/structure/table/glass,
 /obj/item/storage/box/syringes{
 	pixel_x = 4;
 	pixel_y = 4
@@ -85957,6 +85934,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/shelf/medbay,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -86768,7 +86746,7 @@
 	dir = 4;
 	id = "qm";
 	pixel_x = -28;
-	req_access_txt = "41"
+	req_access = list(41)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -87833,7 +87811,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "ryp" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "ryz" = (
@@ -88531,10 +88509,11 @@
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "rUU" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
-/turf/simulated/floor/light,
 /area/station/engineering/atmos)
 "rVB" = (
 /obj/structure/table/reinforced,
@@ -90680,7 +90659,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "sRU" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "sSf" = (
@@ -92821,14 +92800,14 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	req_access_txt = "40"
+	req_access = list(40)
 	},
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "CMO";
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access_txt = "40"
+	req_access = list(40)
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -92840,7 +92819,7 @@
 	id = "Biohazard_medi";
 	name = "Medical Quarantine";
 	pixel_x = 35;
-	req_access_txt = "40"
+	req_access = list(40)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92946,7 +92925,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
 "ugI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "ugQ" = (
@@ -92976,7 +92955,6 @@
 "uhI" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -94210,8 +94188,8 @@
 	int_button_link_id = "engines_btn_int";
 	int_door_link_id = "engines_door_int";
 	pixel_y = 25;
-	req_access_txt = "10;13";
-	vent_link_id = "engines_vent"
+	vent_link_id = "engines_vent";
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -95004,6 +94982,11 @@
 /obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
+"vys" = (
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "vyO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -95871,7 +95854,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -97610,7 +97592,7 @@
 	name = "interior access button";
 	pixel_x = -20;
 	pixel_y = -20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -97863,7 +97845,7 @@
 	},
 /area/station/security/permabrig)
 "xbW" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "xcs" = (
@@ -98431,6 +98413,17 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"xtw" = (
+/obj/machinery/door_control{
+	id = "qm_warehouse";
+	name = "Warehouse Door Control";
+	pixel_x = 24;
+	pixel_y = -3;
+	req_access = list(31)
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating,
+/area/station/supply/warehouse)
 "xtS" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -98455,7 +98448,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "xtZ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/library)
 "xuv" = (
@@ -98479,7 +98472,7 @@
 	name = "Brig Lockdown";
 	pixel_x = 3;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
@@ -98487,14 +98480,14 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = -7;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/door_control{
 	id = "Secure Armory";
 	name = "Secure Armory Shutter Control";
 	pixel_x = -2;
 	pixel_y = -36;
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -98848,7 +98841,7 @@
 	},
 /area/station/medical/medbay)
 "xFW" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "xFZ" = (
@@ -119857,7 +119850,7 @@ cie
 cie
 cie
 bXU
-jJj
+vys
 drn
 dhG
 cHA
@@ -124173,11 +124166,11 @@ aSD
 iYX
 aVF
 ban
-dnW
+ban
 tNx
 lth
 fgF
-dnW
+ban
 wKG
 lfU
 aYt
@@ -124687,12 +124680,12 @@ aSD
 aUc
 aVF
 ban
+pXV
 ban
 ban
 ban
 ban
-ban
-jgG
+dnW
 ban
 biQ
 bkC
@@ -125972,11 +125965,11 @@ aSD
 aUc
 aVF
 jgG
-rUU
+jgG
 iUf
 iUf
 iUf
-dnW
+ban
 nae
 ban
 aZm
@@ -126486,12 +126479,12 @@ aSH
 aUd
 aVF
 jVW
+rUU
 beJ
 beJ
 beJ
 beJ
-beJ
-beJ
+rUU
 bhk
 biU
 bkJ
@@ -129143,7 +129136,7 @@ sVv
 gQW
 gQW
 sYB
-gQW
+gKj
 gQW
 gQW
 gQW
@@ -132145,7 +132138,7 @@ aor
 aor
 tGh
 mui
-pcm
+baF
 baF
 baF
 baF
@@ -132896,7 +132889,7 @@ aAp
 awX
 abj
 aRu
-ghZ
+awX
 aFq
 aVK
 azb
@@ -133412,7 +133405,7 @@ gAL
 abj
 aVK
 qZq
-ghZ
+awX
 aDt
 lfg
 lfg
@@ -134427,7 +134420,7 @@ apM
 aqJ
 arB
 aoo
-atq
+aVK
 aVK
 auW
 awa
@@ -142657,7 +142650,7 @@ axm
 axm
 axt
 kXQ
-azF
+xtw
 aAR
 aCH
 aCH
@@ -144964,7 +144957,7 @@ axm
 arj
 amG
 amG
-auO
+axm
 apo
 avq
 axm
@@ -149655,7 +149648,7 @@ bYM
 bYM
 bYM
 sTk
-euK
+bYM
 cnP
 coS
 cqy

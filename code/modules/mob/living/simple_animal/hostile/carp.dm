@@ -34,9 +34,10 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
-	flying = TRUE
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
+
+	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 
 	var/random_color = TRUE //if the carp uses random coloring
 	var/rarechance = 1 //chance for rare color variant
@@ -63,7 +64,6 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 	carp_randomify(rarechance)
 	update_icons()
 
@@ -148,7 +148,7 @@
 
 	var/regen_cooldown = 0
 
-/mob/living/simple_animal/hostile/carp/megacarp/Initialize()
+/mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
 	melee_damage_lower += rand(2, 10)

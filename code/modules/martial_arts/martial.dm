@@ -261,7 +261,7 @@
 	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
-/obj/item/storage/belt/champion/wrestling/Initialize()
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -317,7 +317,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user))
+		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -341,7 +341,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user))
+		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -426,8 +426,8 @@
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									"<span class='userdanger'>Your legs give out!</span>")
 				H.Weaken(8 SECONDS)
-			if(H.staminaloss && !H.IsSleeping())
-				var/total_health = (H.health - H.staminaloss)
+			if(H.getStaminaLoss() && !H.IsSleeping())
+				var/total_health = (H.health - H.getStaminaLoss())
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										"<span class='userdanger'>[user] knocks you unconscious!</span>")

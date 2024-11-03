@@ -141,6 +141,10 @@
 		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
+	if(!chassis)
+		return TRUE
+	if(usr != chassis.occupant)
+		return TRUE
 	if(href_list["detach"])
 		detach()
 

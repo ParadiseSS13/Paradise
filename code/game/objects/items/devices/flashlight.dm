@@ -13,7 +13,7 @@
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	update_brightness()
 
@@ -228,14 +228,14 @@
 
 /obj/item/flashlight/flare/used
 
-/obj/item/flashlight/flare/used/Initialize()
+/obj/item/flashlight/flare/used/Initialize(mapload)
 	. = ..()
 	// fuel gets set on New which is annoying so these can't just be vars
 	fuel = 0
 	on = 0
 	update_icon()
 
-/obj/item/flashlight/flare/glowstick/used/Initialize()
+/obj/item/flashlight/flare/glowstick/used/Initialize(mapload)
 	. = ..()
 	// fuel gets set on New which is annoying so these can't just be vars
 	fuel = 0
@@ -268,7 +268,7 @@
 	fuel_upp = 2000
 	blocks_emissive = FALSE
 
-/obj/item/flashlight/flare/glowstick/Initialize()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	. = ..()
 	light_color = color
 
@@ -315,7 +315,7 @@
 	icon_state = "random_glowstick"
 	color = null
 
-/obj/item/flashlight/flare/glowstick/random/Initialize()
+/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
 	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
@@ -345,7 +345,7 @@
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	icon_state = "slime-on"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6

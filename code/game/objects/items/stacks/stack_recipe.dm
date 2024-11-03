@@ -104,11 +104,15 @@
 		if(!do_after(user, time, target = material.loc))
 			return FALSE
 
+	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+		return FALSE
+
 	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
-	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once during try_build, and when we build the actual thing, in case it was on a do-after and there's now a structure here.
+		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
 		return FALSE
 
 	if(max_res_amount > 1) // Is it a stack?

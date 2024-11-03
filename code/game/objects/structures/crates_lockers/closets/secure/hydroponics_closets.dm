@@ -2,7 +2,6 @@
 	name = "botanist's locker"
 	req_access = list(ACCESS_HYDROPONICS)
 	icon_state = "hydro"
-	open_door_sprite = "hydro_door"
 
 /obj/structure/closet/secure_closet/hydroponics/populate_contents()
 	switch(rand(1,2))

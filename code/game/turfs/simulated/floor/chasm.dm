@@ -130,7 +130,7 @@
 	//Flies right over the chasm
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating)
+		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating)
 			return FALSE
 		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
@@ -163,7 +163,7 @@
 /turf/simulated/floor/chasm/straight_down
 	var/obj/effect/abstract/chasm_storage/storage
 
-/turf/simulated/floor/chasm/straight_down/Initialize()
+/turf/simulated/floor/chasm/straight_down/Initialize(mapload)
 	. = ..()
 	var/found_storage = FALSE
 	for(var/obj/effect/abstract/chasm_storage/C in contents)
@@ -187,7 +187,7 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right. Ignore the fact the people you pull out are not burning.
 
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
 	. = ..()
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -273,10 +273,10 @@
 		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
 		ourturf.visible_message("<span class='boldwarning'>[escapee] busts through [ourturf], leaping out of the chasm below!</span>")
 		ourturf.ChangeTurf(ourturf.baseturf)
-	escapee.flying = TRUE
+	ADD_TRAIT(escapee, TRAIT_FLYING, "chasm_escape")
 	escapee.forceMove(ourturf)
 	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
-	escapee.flying = FALSE
+	REMOVE_TRAIT(escapee, TRAIT_FLYING, "chasm_escape")
 	escapee.Sleeping(20 SECONDS)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air

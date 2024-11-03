@@ -115,9 +115,12 @@
 	var/cannon_direction = WEST
 	var/static/image/top_layer = null
 	var/ex_power = 3
-	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
+	/// Amount of energy required to reload the BSA (Joules)
+	var/energy_used_per_shot = 2 MJ //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	/// The gun's cooldown
-	var/reload_cooldown_time = 10 MINUTES 
+	var/reload_cooldown_time = 10 MINUTES
+	/// Are we trying to reload? Should only be true if we failed to reload due to lack of power.
+	var/try_reload = FALSE
 	COOLDOWN_DECLARE(firing_cooldown)
 
 	pixel_y = -32
@@ -136,7 +139,7 @@
 	cannon_direction = EAST
 
 /obj/machinery/bsa/full/admin
-	power_used_per_shot = 0
+	energy_used_per_shot = 0
 	reload_cooldown_time = 100 SECONDS
 
 /obj/machinery/bsa/full/admin/east
@@ -146,9 +149,9 @@
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
-			return locate(x - 6,y,z)
+			return locate(x - 7,y,z)
 		if(EAST)
-			return locate(x + 4,y,z)
+			return locate(x + 5,y,z)
 	return get_turf(src)
 
 /obj/machinery/bsa/full/proc/get_back_turf()
@@ -206,6 +209,7 @@
 			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
+	new /obj/effect/temp_visual/bsa_splash(point, dir)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	if(istype(target, /obj/item/gps))
 		var/obj/item/gps/G = target
@@ -220,8 +224,17 @@
 	reload()
 
 /obj/machinery/bsa/full/proc/reload()
-	use_power(power_used_per_shot)
-	COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
+	if(machine_powernet?.powernet_apc?.cell?.charge KJ >= energy_used_per_shot)
+		try_reload = FALSE
+		use_power(energy_used_per_shot)
+		COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
+	else
+		try_reload = TRUE
+
+/// If we failed a reload keep trying until the APC has enough energy available.
+/obj/machinery/bsa/full/process()
+	if(try_reload)
+		reload()
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
@@ -278,7 +291,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 
-/obj/machinery/computer/bsa_control/admin/Initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()
@@ -329,8 +342,8 @@
 	if(target)
 		data["target"] = get_target_name()
 	if(cannon)
-		data["reloadtime_text"] = seconds_to_clock(round(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10))
-		data["ready"] = COOLDOWN_FINISHED(cannon, firing_cooldown)
+		data["reloadtime_text"] = cannon.try_reload ? "Insufficient Energy For Reloading" : seconds_to_clock(round(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10))
+		data["ready"] = !cannon.try_reload && COOLDOWN_FINISHED(cannon, firing_cooldown)
 	else
 		data["ready"] = FALSE
 	return data
