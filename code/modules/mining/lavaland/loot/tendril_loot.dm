@@ -293,6 +293,8 @@
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, user)

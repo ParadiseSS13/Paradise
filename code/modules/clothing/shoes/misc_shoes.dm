@@ -472,12 +472,13 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
+	ADD_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "bhop_shoes")))
-		ADD_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
+		REMOVE_TRAIT(user, TRAIT_FLYING, "bhop_shoes")
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
 
 /obj/item/clothing/shoes/ducky
