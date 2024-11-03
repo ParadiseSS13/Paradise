@@ -4,7 +4,7 @@
 
 /obj/effect/map_effect/marker/mapmanip/Initialize(mapload)
 	. = ..()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract
 	name = "mapmanip marker, extract submap"
@@ -20,7 +20,15 @@
 	pixel_x = -32
 	pixel_y = -32
 
+/obj/effect/map_effect/marker_helper
+	name = "marker helper"
+	layer = POINT_LAYER
+
+/obj/effect/map_effect/marker_helper/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_QDEL
+
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge
-	name = "mapmanip helper marker, edge of submap"
+	name = "mapmanip marker helper, submap edge"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mapmanip_submap_edge"
