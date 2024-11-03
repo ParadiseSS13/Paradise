@@ -167,10 +167,10 @@
 /datum/tgui_list_input/proc/handle_new_items(list/_items)
 	var/list/repeat_items = list()
 	// Gets rid of illegal characters
-	var/static/regex/whitelistedWords = regex(@{"([^\u0020-\u8000]+)"})
+	var/static/regex/blacklisted_words = regex(@{"([^\u0020-\u8000]+)"})
 
 	for(var/i in items)
-		var/string_key = whitelistedWords.Replace("[i]", "")
+		var/string_key = blacklisted_words.Replace("[i]", "")
 
 		// Avoids duplicated keys E.g: when areas have the same name
 		string_key = avoid_assoc_duplicate_keys(string_key, repeat_items)
