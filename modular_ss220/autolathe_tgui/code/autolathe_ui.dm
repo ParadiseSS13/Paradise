@@ -4,8 +4,3 @@
 		ui = new(user, src, "Autolathe220", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
-
-/obj/machinery/autolathe/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/materials)
-	)

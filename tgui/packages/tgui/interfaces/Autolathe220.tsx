@@ -34,6 +34,7 @@ type Requirement = {
   glass: number;
 };
 
+const icon = 'icons/obj/stacks/minerals.dmi'; // Clueless
 const materials = ['metal', 'glass'];
 
 const canBeMade = (recipe, mavail, gavail, multi) => {
@@ -149,7 +150,7 @@ const Recipes = (props, context) => {
       {materials.map(
         (material) =>
           recipe.requirements[material] && (
-            <ImageButton key={material} asset={['materials32x32', material]} imageSize={32}>
+            <ImageButton key={material} dmIcon={icon} dmIconState={`sheet-${material}`} imageSize={32}>
               {roundMaterials(recipe.requirements[material], multiplier)}
             </ImageButton>
           )
@@ -209,7 +210,9 @@ const Materials = (props, context) => {
   const MaterialButton = (material, amount) => (
     <ImageButton
       fluid
-      asset={['materials32x32', material]}
+      imageSize={32}
+      dmIcon={icon}
+      dmIconState={`sheet-${material}`} // Clueless x2
       color="nope" // Not existed color, special for full transparent and borderless
       buttons={
         <Box backgroundColor="rgba(255, 255, 255, 0.05)" width="45px">
