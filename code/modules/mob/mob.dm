@@ -792,7 +792,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
-	..()
+	if(usr != src)
+		return TRUE
+	if(..())
+		return TRUE
 	if(href_list["mach_close"])
 		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
