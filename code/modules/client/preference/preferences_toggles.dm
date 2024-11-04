@@ -490,7 +490,7 @@
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
-	var/new_ooccolor = tgui_input_color(usr, "Please select your OOC color.", "Game Preference", user.prefs.ooccolor)
+	var/new_ooccolor = tgui_input_color(usr, "Please select your OOC color.", "OOC Color", user.prefs.ooccolor)
 	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
