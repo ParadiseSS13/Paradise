@@ -3,7 +3,7 @@
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE
-	layer = 3.5
+	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -109,6 +109,14 @@
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
+
+/obj/structure/sign/wait
+	name = "\improper WAIT FOR DECONTAMINATION!"
+	desc = "A warning sign which reads: WAIT! <BR>\
+	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxic atmosphere. This will take approximately 20 seconds.<BR> \
+	Failure to adhere to this safety regulation will result in large plasmafires that will destroy the locking mechanisms."
+	icon_state = "waitsign"
+	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/monkey_paint
 	name = "Mr. Deempisi portrait"

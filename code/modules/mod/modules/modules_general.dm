@@ -109,6 +109,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/storage/backpack/modstorage/add_blood(list/blood_dna, b_color)
+	return
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack

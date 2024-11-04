@@ -123,7 +123,7 @@ SLIME SCANNER
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use [src] in hand to toggle showing localised damage.</span>"
+	. += "<span class='notice'>Use [src] in hand to toggle showing localised damage.</span>"
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	mode = !mode
@@ -137,10 +137,10 @@ SLIME SCANNER
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		var/list/msgs = list()
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
-		msgs += "<span class='info'>Analyzing results for The floor:\nOverall status: Healthy</span>"
-		msgs += "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>"
-		msgs += "<span class='info'>Damage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>"
-		msgs += "<span class='info'>Body temperature: ???</span>"
+		msgs += "<span class='notice'>Analyzing results for The floor:\nOverall status: Healthy</span>"
+		msgs += "<span class='notice'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>"
+		msgs += "<span class='notice'>Damage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>"
+		msgs += "<span class='notice'>Body temperature: ???</span>"
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 		return
 
@@ -210,7 +210,7 @@ SLIME SCANNER
 		if(length(damaged))
 			msgs += "<span class='notice'>Localized Damage, Brute/Burn:</span>"
 			for(var/obj/item/organ/external/org in damaged)
-				msgs += "<span class='info'>[capitalize(org.name)]: [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]-[(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"]"
+				msgs += "<span class='notice'>[capitalize(org.name)]: [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]-[(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"]"
 
 	if(advanced)
 		msgs.Add(get_chemscan_results(user, H))
@@ -235,7 +235,7 @@ SLIME SCANNER
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
 	if(H.getStaminaLoss())
-		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
+		msgs += "<span class='notice'>Subject appears to be suffering from fatigue.</span>"
 
 	if(H.getCloneLoss())
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
@@ -290,11 +290,11 @@ SLIME SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			msgs += "<span class='danger'>LOW blood level [blood_percent] %, [blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+			msgs += "<span class='danger'>LOW blood level [blood_percent] %, [blood_volume] cl,</span> <span class='notice'>type: [blood_type]</span>"
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			msgs += "<span class='danger'>CRITICAL blood level [blood_percent] %, [blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+			msgs += "<span class='danger'>CRITICAL blood level [blood_percent] %, [blood_volume] cl,</span> <span class='notice'>type: [blood_type]</span>"
 		else
-			msgs += "<span class='info'>Blood level [blood_percent] %, [blood_volume] cl, type: [blood_type]</span>"
+			msgs += "<span class='notice'>Blood level [blood_percent] %, [blood_volume] cl, type: [blood_type]</span>"
 
 	msgs += "<span class='notice'>Body Temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
 	msgs += "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse()] bpm.</font></span>"
@@ -382,10 +382,10 @@ SLIME SCANNER
 /obj/item/robotanalyzer/proc/handle_clumsy(mob/living/user)
 	var/list/msgs = list()
 	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-	msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-	msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
-	msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
-	msgs += "<span class='info'>Chassis Temperature: ???</span>"
+	msgs += "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
+	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='notice'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
+	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
@@ -398,9 +398,9 @@ SLIME SCANNER
 
 /obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/machinery/M)
 	if(M.obj_integrity == M.max_integrity)
-		to_chat(user, "<span class='info'>[M] is at full integrity.</span>")
+		to_chat(user, "<span class='notice'>[M] is at full integrity.</span>")
 		return
-	to_chat(user, "<span class='info'>Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%.</span>")
+	to_chat(user, "<span class='notice'>Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%.</span>")
 	if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
 		to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
 
@@ -531,7 +531,7 @@ SLIME SCANNER
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
+	. += "<span class='notice'>Alt-click [src] to activate the barometer function.</span>"
 
 /obj/item/analyzer/attack_self(mob/user as mob)
 
@@ -658,7 +658,7 @@ SLIME SCANNER
 		var/thermal_energy = air.thermal_energy()
 
 		if(total_moles)
-			message += "<span class='info'>Total: [round(total_moles, 0.01)] moles</span>"
+			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 			if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
 				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
 			if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
@@ -671,36 +671,36 @@ SLIME SCANNER
 				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
 			if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
 				message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-			message += "<span class='info'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-			message += "<span class='info'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='info'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='info'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='info'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+			message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
 		else
-			message += length(airs) > 1 ? "<span class='info'>This node is empty!</span>" : "<span class='info'>[target] is empty!</span>"
-			message += "<span class='info'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
 		if(milla)
 			// Values from milla/src/lib.rs, +1 due to array indexing difference.
-			message += "<span class='info'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
-			message += "<span class='info'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
-			message += "<span class='info'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
-			message += "<span class='info'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
+			message += "<span class='notice'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
+			message += "<span class='notice'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
+			message += "<span class='notice'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
+			message += "<span class='notice'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
 			switch(milla[MILLA_INDEX_ATMOS_MODE])
 				// These are enum values, so they don't get increased.
 				if(0)
-					message += "<span class='info'>Atmos Mode: Space</span>"
+					message += "<span class='notice'>Atmos Mode: Space</span>"
 				if(1)
-					message += "<span class='info'>Atmos Mode: Sealed</span>"
+					message += "<span class='notice'>Atmos Mode: Sealed</span>"
 				if(2)
-					message += "<span class='info'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
+					message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
 				else
-					message += "<span class='info'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
-			message += "<span class='info'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
-			message += "<span class='info'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
-			message += "<span class='info'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
-			message += "<span class='info'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
-			message += "<span class='info'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+					message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
+			message += "<span class='notice'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
+			message += "<span class='notice'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
+			message += "<span class='notice'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
+			message += "<span class='notice'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
+			message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE

@@ -66,10 +66,10 @@
 		return
 	chassis.lights = !chassis.lights
 	if(chassis.lights)
-		chassis.set_light(chassis.lights_power)
+		chassis.set_light(chassis.lights_range, chassis.lights_power)
 		button_overlay_icon_state = "mech_lights_on"
 	else
-		chassis.set_light(-chassis.lights_power)
+		chassis.set_light(chassis.lights_range_ambient, chassis.lights_power_ambient)
 		button_overlay_icon_state = "mech_lights_off"
 	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
 	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].")
@@ -220,6 +220,22 @@
 	button_overlay_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
 	UpdateButtons()
+
+// Floor Buffer Action
+/datum/action/innate/mecha/mech_toggle_floorbuffer
+	name = "Toggle Floor Buffer"
+	desc = "Movement speed is decreased while active."
+	button_overlay_icon = 'icons/obj/vehicles.dmi'
+	button_overlay_icon_state = "upgrade"
+
+/datum/action/innate/mecha/mech_toggle_floorbuffer/Activate()
+	if(!chassis.floor_buffer)
+		chassis.floor_buffer = TRUE
+		chassis.step_in += chassis.buffer_delay
+	else
+		chassis.floor_buffer = FALSE
+		chassis.step_in -= chassis.buffer_delay
+	to_chat(usr, "<span class='notice'>The floor buffer is now [chassis.floor_buffer ? "active" : "deactivated"].</span>")
 
 /datum/action/innate/mecha/select_module
 	name = "Hey, you shouldn't see this please make a bug report"

@@ -226,6 +226,22 @@
 			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
+/obj/item/flashlight/flare/used
+
+/obj/item/flashlight/flare/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/glowstick/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && !fuel)
 		C.stored_comms["metal"] += 1
@@ -329,7 +345,7 @@
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	icon_state = "slime-on"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6
@@ -393,7 +409,7 @@
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
-		A.emp_act(1)
+		A.emp_act(EMP_HEAVY)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return

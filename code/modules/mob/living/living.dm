@@ -293,26 +293,30 @@
 	if(stat == DEAD)
 		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
 		return
-	if(health >= HEALTH_THRESHOLD_CRIT)
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+	last_words = null // In case we kept some from last time
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
-	if(isnull(last_words) && cancel_on_no_words)
+	if(isnull(final_words) && cancel_on_no_words)
 		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
 		return
 
 	if(stat == DEAD)
-		// cancel em out if they died while they had the message box up
-		last_words = null
+		return
 
-	if(!isnull(last_words))
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
+	if(!isnull(final_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
-		src.last_words = last_words  // sorry
-		whisper(last_words)
+		last_words = final_words
+		whisper(final_words)
 
-	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+	add_attack_logs(src, src, "[src] has [!isnull(final_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
@@ -322,7 +326,8 @@
 		if(health < HEALTH_THRESHOLD_DEAD)
 			break
 		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
-	if(!isnull(last_words))
+
+	if(!isnull(final_words))
 		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
 	else
 		death()
@@ -331,7 +336,6 @@
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-
 
 /mob/living/ex_act(severity)
 	..()
@@ -355,6 +359,7 @@
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 	med_hud_set_status()
@@ -533,7 +538,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.unbuckle_mob(src, force = TRUE)
+		unbuckle(force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -798,6 +803,10 @@
 	END RESIST PROCS
 *///////////////////////
 
+/// Unbuckle the mob from whatever it is buckled to.
+/mob/living/proc/unbuckle(force)
+	buckled.unbuckle_mob(src, force)
+
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(10 SECONDS)
@@ -826,8 +835,7 @@
 		fixed = TRUE
 	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		sleep(10)
-		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		animate(pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
 	else if(((!on || fixed) && floating))
 		animate(src, pixel_y = get_standard_pixel_y_offset(), time = 10)

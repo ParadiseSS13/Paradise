@@ -5,6 +5,9 @@
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
+/// Conversion ratio from Watt ticks to joules.
+/// Should be a pulse demon's life tick length in seconds.
+#define WATT_TICK_TO_JOULE 2
 
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
@@ -56,20 +59,20 @@
 	/// List of sounds that is picked from when the demon dies or is EMP'd.
 	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
 
-	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
+	/// Current quantity of energy the demon currently holds (Joules), spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000
-	/// Maximum quantity of power the demon can hold at once.
+	/// Maximum quantity of energy the demon can hold at once (Joules).
 	var/maxcharge = 1000
-	/// Book keeping for objective win conditions.
+	/// Book keeping for objective win conditions (Joules).
 	var/charge_drained = 0
 	/// Controls whether the demon will drain power from sources. Toggled by a spell.
 	var/do_drain = TRUE
-	/// Amount of power (in watts) to drain from power sources every Life tick.
+	/// Amount of power (Watts) to drain from power sources every Life tick.
 	var/power_drain_rate = 1000
-	/// Maximum value for power_drain_rate based on upgrades.
+	/// Maximum value for power_drain_rate based on upgrades. (Watts)
 	var/max_drain_rate = 1000
 
-	/// Amount of power (in watts) required to regenerate health.
+	/// Amount of power (Watts) required to regenerate health.
 	var/power_per_regen = 1000
 	/// Amount of health lost per Life tick when the power requirement was not met.
 	var/health_loss_rate = 5
@@ -90,7 +93,7 @@
 	/// The time it takes to hijack APCs and cyborgs.
 	var/hijack_time = 30 SECONDS
 
-	/// The color of light the demon emits. The range of the light is proportional to charge.
+	/// The color of light the demon emits. The range of the light is proportional to energy stored.
 	var/glow_color = "#bbbb00"
 
 	/// Area being controlled, should be maintained as long as the demon does not move outside a container (APC, object, robot, bot).
@@ -268,9 +271,9 @@
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
-	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
-	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Energy:", "[format_si_suffix(charge)]J")
+	status_tab_data[++status_tab_data.len] = list("Maximum Energy:", "[format_si_suffix(maxcharge)]J")
+	status_tab_data[++status_tab_data.len] = list("Drained Energy:", "[format_si_suffix(charge_drained)]J")
 	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
 	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
 	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
@@ -452,14 +455,16 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
 		return PULSEDEMON_SOURCE_DRAIN_INVALID
-	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
-	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
+	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units
+	var/amount_to_drain = clamp(A.cell.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier)
+	A.cell.use(min(amount_to_drain * GLOB.CELLRATE, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
 	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
-	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
+	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units.
+	var/amount_to_drain = clamp(S.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
 	var/drained = adjust_charge(amount_to_drain)
-	S.charge -= drained
+	S.charge -= drained * GLOB.CELLRATE
 	return drained
 
 /mob/living/simple_animal/demon/pulse_demon/Life(seconds, times_fired)
@@ -758,7 +763,7 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target)
 	. = ..()
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
@@ -862,3 +867,4 @@
 #undef PULSEDEMON_PLATING_SPARK_CHANCE
 #undef PULSEDEMON_APC_CHARGE_MULTIPLIER
 #undef PULSEDEMON_SMES_DRAIN_MULTIPLIER
+#undef WATT_TICK_TO_JOULE

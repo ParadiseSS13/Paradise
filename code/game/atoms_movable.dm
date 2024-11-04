@@ -92,19 +92,23 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	var/turf/T = loc
 	if(opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()
@@ -535,9 +539,9 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
+/atom/movable/CanPass(atom/movable/mover, turf/target)
 	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
-	if(!density || !height)
+	if(!density)
 		return TRUE
 	return LAZYIN(buckled_mobs, mover)
 
@@ -657,6 +661,7 @@
 
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SHOVE_IMPACT, target, attacker)
 	return FALSE
 
 /**
@@ -672,9 +677,7 @@
 
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		qdel(comp)
+	DeleteComponent(/datum/component/deadchat_control)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()
@@ -768,7 +771,7 @@
 
 	var/has_tried_to_move = FALSE
 
-	if(is_blocked_turf(target_turf, TRUE, excluded_objs=list(src)))
+	if(is_blocked_turf(target_turf, TRUE, excluded_objs = list(src)))
 		has_tried_to_move = TRUE
 		if(!Move(target_turf, crush_dir))
 			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.

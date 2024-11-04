@@ -48,13 +48,14 @@
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
+	QDEL_NULL(weightless_image)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
 	var/turf/T = get_turf(src)
 	check_gravity(T)
 
-	if((T && (T.density)) || !gravity_check || locate(/obj/structure/window/) in T || locate(/obj/structure/grille/) in T)
+	if(!istype(src, /obj/effect/decal/cleanable/blood/footprints) && ((T && (T.density)) || !gravity_check || locate(/obj/structure/window/full) in T || locate(/obj/structure/grille/) in T))
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
@@ -97,15 +98,12 @@
 		if(!locate(/obj/structure/grille/) in T && !locate(/obj/structure/window/) in T)
 			qdel(src) //no free floating dried blood in space, thatd look weird
 
-/obj/effect/decal/cleanable/blood/ex_act()
-	. = ..()
-	update_icon()
-
 /obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
 	if(gravity_check) //only floating blood can splat :C
 		return
 	var/turf/T = get_turf(AT)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T) //move to the turf to splatter on
@@ -117,8 +115,6 @@
 	plane = initial(plane)
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/try_merging_decal(turf/T)
-	..()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
 	if(gravity_check)
@@ -139,11 +135,18 @@
 
 
 /obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
+	// this is to prevent double or triple bumps from calling splat after src is qdel'd.
+	// only god knows why this fixes the issue
+	if(yes)
+		return
+
 	if(gravity_check)
 		return ..()
+
 	if(iswallturf(A) || istype(A, /obj/structure/window))
 		splat(A)
 		return
+
 	else if(A.density)
 		splat(get_turf(A))
 		return
@@ -152,7 +155,7 @@
 		bloodyify_human(A)
 		return
 
-	..()
+	return ..()
 
 /obj/effect/decal/cleanable/blood/proc/bloodyify_human(mob/living/carbon/human/H)
 	if(inertia_dir && H.inertia_dir == inertia_dir) //if they are moving the same direction we are, no collison
@@ -185,7 +188,10 @@
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = basecolor
+		if(isnull(basecolor))
+			user.hand_blood_color = "#A10808"
+		else
+			user.hand_blood_color = basecolor
 		user.update_inv_gloves()
 		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 

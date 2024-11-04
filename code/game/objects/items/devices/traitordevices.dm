@@ -108,15 +108,20 @@
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-
+	var/turf/starting = get_turf(src)
+	var/area/starting_area = get_area(starting)
+	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
+		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
+		return
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
-		if(!is_teleport_allowed(T.z))
-			break
+		var/area/dropping_area = get_area(T)
+		if(dropping_area.tele_proof) //There might be some valid turfs before / after you reach such an area, so we continue, not break.
+			continue
 		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
 			if(get_dir(M, T) != M.dir)
 				continue
@@ -316,7 +321,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>The injector is empty!</span>")
 		return
-	used = TRUE 
+	used = TRUE
 	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
@@ -465,3 +470,58 @@
 	GLOB.mirrors -= src
 	QDEL_NULL(appearance_changer_holder)
 	return ..()
+
+/// An admin-spawn item that will tell you roughly how close the nearest loyal Nanotrasen crewmember is.
+/obj/item/syndi_scanner
+	name = "syndicate scanner"
+	desc = "The Syndicate seem to have modified this T-ray scanner for a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "syndi-scanner"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	/// Split points for range_messages.
+	var/list/ranges = list(5, 15, 30)
+	/// Messages to output to the user.
+	var/list/range_messages = list(
+		"Very strong signal detected. Range: Within 5 meters.",
+		"Strong signal detected. Range: Within 15 meters.",
+		"Weak signal detected. Range: Within 30 meters.",
+		"No signal detected."
+	)
+	var/cooldown_length = 10 SECONDS
+	COOLDOWN_DECLARE(scan_cooldown)
+	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
+
+/obj/item/syndi_scanner/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, scan_cooldown))
+		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
+		return
+
+	COOLDOWN_START(src, scan_cooldown, cooldown_length)
+	var/turf/user_turf = get_turf(user)
+	var/min_dist = INFINITY
+	for(var/mob/living/player in GLOB.player_list)
+		if(player.stat == DEAD || isnull(player.mind))
+			continue
+		if(!isnull(player.mind.special_role))
+			continue
+		var/turf/target_turf = get_turf(player)
+		if(target_turf.z != user_turf.z)
+			continue
+		min_dist = min(min_dist, get_dist(target_turf, user_turf))
+
+	// By default, we're in the first range, less than any split point.
+	var/range_index = 1
+	for(var/test_range in ranges)
+		if(min_dist > test_range)
+			// Past this split point, move to the next.
+			range_index++
+		else
+			// Found the right split point, and we're not past all of them, so play the on-hit sound effect.
+			playsound(user, on_hit_sound, 75, TRUE)
+			break
+	to_chat(user, "<span class='notice'>[range_messages[range_index]]</span>")

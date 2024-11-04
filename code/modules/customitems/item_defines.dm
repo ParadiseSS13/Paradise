@@ -1439,8 +1439,8 @@
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chaps"
+	icon = 'icons/mob/clothing/under/donator.dmi'
+	icon_state = "combat_pants_s"
 	item_color = "combat_pants"
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/donator.dmi',

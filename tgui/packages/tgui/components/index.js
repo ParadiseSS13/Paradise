@@ -22,6 +22,8 @@ export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Interactive } from './Interactive';
+export { Image } from './Image';
+export { DmIcon } from './DmIcon';
 export { Icon } from './Icon';
 export { ImageButton } from './ImageButton';
 export { Input } from './Input';

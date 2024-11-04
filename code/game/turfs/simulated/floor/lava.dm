@@ -181,7 +181,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+	. += "<span class='notice'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
 	if(!I.is_open_container())
@@ -262,6 +262,33 @@
 	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/lava/mapping_lava/normal_air
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
+
+// special turf for the asteroid core on EmeraldStation
+/turf/simulated/floor/lava/plasma/fuming
+	name = "liquid plasma"
+	desc = "A swirling pit of liquid plasma. It bubbles ominously."
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	icon_state = "liquidplasma-255"
+	base_icon_state = "liquidplasma"
+	baseturf = /turf/simulated/floor/lava/plasma/fuming
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+	// Hot Ass Plasma lava
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	light_range = 3
+	light_power = 0.75
+	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()

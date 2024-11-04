@@ -404,6 +404,16 @@
 	species = list("Drask")
 	surplus = 0
 
+// Unathi
+/datum/uplink_item/species_restricted/breach_cleaver
+	name = "Breach Cleaver"
+	desc = "This massive blade harkens back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. \
+	Requires two hands to be wielded. Comes in a scabbard. Has different effects based on intent."
+	reference = "CLV"
+	item = /obj/item/storage/belt/sheath/breach_cleaver
+	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
+	species = list("Unathi")
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------

@@ -354,3 +354,47 @@
 	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/arm/muscle
 	category = list("Weapons")
+
+/datum/design/upgraded_chemical_flamethrower
+	name = "Extended Capacity Chemical Flamethrower Parts"
+	desc = "Parts for a flamethrower that accepts two chemical cartridges to create lasting fires."
+	id = "chem_flamethrower_extended"
+	req_tech = list("combat" = 6, "engineering" = 7, "plasmatech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
+	build_path = /obj/item/weaponcrafting/gunkit/chemical_flamethrower
+	category = list("Weapons")
+
+// The normal and extended canisters can be obtained from cargo aswell, pyrotechnical ones are RnD exclusive
+/datum/design/chemical_canister
+	name = "Chemical Canister"
+	desc = "A plain chemical canister, designed for use with a chemical flamethrower."
+	id = "chemical_canister"
+	req_tech = list("materials" = 3, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000)
+	reagents_list = list("fuel" = 20)
+	build_path = /obj/item/chemical_canister
+	category = list("Weapons")
+
+/datum/design/chemical_canister/extended
+	name = "Extended Capacity Chemical Canister"
+	desc = "A large chemical canister, designed for use with a chemical flamethrower."
+	id = "chemical_canister_extended"
+	req_tech = list("materials" = 5, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000)
+	reagents_list = list("fuel" = 40)
+	build_path = /obj/item/chemical_canister/extended
+	category = list("Weapons")
+
+/datum/design/chemical_canister/pyrotechnics
+	name = "Chemical Canister (Pyrotechnics)"
+	desc = "A chemical canister designed to accept pyrotechnics."
+	id = "chemical_canister_pyro"
+	req_tech = list("materials" = 4, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 7500)
+	reagents_list = list("fuel" = 30)
+	build_path = /obj/item/chemical_canister/pyrotechnics
+	category = list("Weapons")

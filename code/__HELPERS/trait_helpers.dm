@@ -129,7 +129,7 @@
 /// A simple helper for checking traits in a mob's mind
 #define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -137,6 +137,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MOB TRAITS *****//
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
+#define TRAIT_BEING_OFFERED     "offered"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -224,7 +225,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
-#define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
+#define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
 #define TRAIT_SCOPED "user_scoped"
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
@@ -236,7 +237,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
-#define TRAIT_HAS_IV_BAG "iv_bag" // Used to check if there is an active IV bag. Currently blocks another IV bags from being inserted.
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

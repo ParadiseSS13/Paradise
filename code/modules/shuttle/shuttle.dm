@@ -645,20 +645,18 @@
 				var/obj/mecha/mech = AM
 				if(mech.occupant)
 					INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, get_out_and_die))
-			if(ismob(AM))
-				var/mob/M = AM
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					if(L.incorporeal_move || L.status_flags & GODMODE)
-						continue
-					L.stop_pulling()
-					L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-					L.gib()
+			if(isliving(AM))
+				var/mob/living/L = AM
+				if(L.buckled)
+					L.unbuckle(force = TRUE)
+				if(L.incorporeal_move || L.status_flags & GODMODE)
+					continue
+				L.stop_pulling()
+				L.visible_message("<span class='warning'>[L] is hit by \
+								a hyperspace ripple!</span>",
+								"<span class='userdanger'>You feel an immense \
+								crushing pressure as the space around you ripples.</span>")
+				L.gib()
 			else if(lance_docking) //corrupt the child, destroy them all
 				if(!AM.simulated)
 					continue
@@ -688,7 +686,7 @@
 			SEND_SOUND(M, loud_crash_sound)
 	for(var/turf/T in L2)
 		for(var/atom/movable/A in T.contents)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 			if(istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 				var/obj/machinery/atmospherics/supermatter_crystal/bakoom = A
 				addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)

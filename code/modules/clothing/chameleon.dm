@@ -157,6 +157,7 @@
 
 		I.item_state = initial(picked_item.item_state)
 		I.item_color = initial(picked_item.item_color)
+		I.color = initial(picked_item.color)
 
 		I.icon_override = initial(picked_item.icon_override)
 		if(initial(picked_item.sprite_sheets))
@@ -289,7 +290,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon
-	name = "Optical Meson Scanner"
+	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"
@@ -425,6 +426,7 @@
 	icon_override = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
 	item_color = "grey"
+	dyeable = FALSE
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -467,6 +469,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -522,6 +525,7 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
+	dyeable = FALSE
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -656,6 +660,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/stamp/chameleon
+	dye_color = DYE_RAINBOW
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/stamp/chameleon/Initialize(mapload)

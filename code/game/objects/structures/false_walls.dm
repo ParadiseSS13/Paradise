@@ -124,7 +124,7 @@
 	. = ..()
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		to_chat(M, "<span class='info'>You smash through the wall.</span>")
+		to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
@@ -166,6 +166,11 @@
 			for(var/i in 1 to mineral_amount)
 				new mineral(loc)
 	qdel(src)
+
+/obj/structure/falsewall/set_smoothed_icon_state(new_junction)
+	if(opening || !density)
+		return
+	return ..()
 
 /*
  * False R-Walls

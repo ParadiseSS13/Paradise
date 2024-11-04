@@ -438,13 +438,13 @@
 	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
 	reagent_state = LIQUID
 	color = "#6E2828"
-	data = 13
 	taste_description = "bitterness"
+	var/damage_per_cycle = 13
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data, FALSE)
-	data = max(data - 1, 3)
+	update_flags |= M.adjustStaminaLoss(damage_per_cycle * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	damage_per_cycle = max(damage_per_cycle - 1, 3)
 	return ..() | update_flags
 
 
@@ -924,14 +924,11 @@
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
-		switch(rand(1,3))
-			if(1)
-				to_chat(M, "<span class='warning'>You feel hungry...</span>")
-			if(2)
-				update_flags |= M.adjustToxLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
-			else
-				pass()
+		if(prob(66.66))
+			to_chat(M, "<span class='warning'>You feel hungry...</span>")
+		else if(prob(50))
+			update_flags |= M.adjustToxLoss(1, FALSE)
+			to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
 			var/fat_to_burn = max(round(M.nutrition / 100, 1), 5)

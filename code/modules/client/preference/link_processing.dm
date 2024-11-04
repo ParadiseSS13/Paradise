@@ -477,6 +477,9 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+						if(!length(valid_markings)) // Some IPC head models do have head markings, some don't; This is here to prevent us from attempting to open an empty TGUI list
+							tgui_alert(user, "No head markings available for this head!", "Character Preference")
+							return
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
@@ -1011,10 +1014,10 @@
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
+						to_chat(user, "<span class='notice'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
 								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
-						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
+						to_chat(user, "<span class='notice'>Automatic cryoing turned off.</span>")
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
@@ -1059,6 +1062,9 @@
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
+
+				if("mute_end_of_round")
+					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY

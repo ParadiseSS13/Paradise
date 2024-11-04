@@ -92,7 +92,7 @@
 	return ..()
 
 /obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
-	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
+	visible_message("<span class='notice'>[user] inserts [cash_money] into [src].</span>")
 	cash_stored += cash_money.amount
 	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", name, FALSE)
 	cash_money.use(cash_money.amount)
@@ -271,7 +271,7 @@
 		var/datum/money_account/target_account = account_database.find_user_account(target_account_number, include_departments = TRUE)
 		if(target_account)
 			account_database.credit_account(target_account, amount, purpose, name, FALSE)
-			to_chat(user, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
+			to_chat(user, "[bicon(src)]<span class='notice'>Funds transfer successful.</span>")
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
