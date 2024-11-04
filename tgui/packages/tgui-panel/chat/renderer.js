@@ -18,9 +18,6 @@ import {
   MESSAGE_PRUNE_INTERVAL,
   MESSAGE_TYPES,
   MESSAGE_TYPE_INTERNAL,
-  MESSAGE_TYPE_ADMINLOG,
-  MESSAGE_TYPE_ATTACKLOG,
-  MESSAGE_TYPE_COMBAT,
   MESSAGE_TYPE_UNKNOWN,
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
@@ -294,10 +291,6 @@ class ChatRenderer {
   }
 
   getCombinableMessage(predicate, now, from, to) {
-    // const now = Date.now();
-    // const len = this.visibleMessages.length;
-    // const from = len - 1;
-    // const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
       // prettier-ignore
