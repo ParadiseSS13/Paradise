@@ -128,6 +128,12 @@
 	pixel_x = 29;
 	pixel_y = -60
 	},
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "au" = (
@@ -378,6 +384,9 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bi" = (
@@ -477,7 +486,7 @@
 	},
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -487,7 +496,7 @@
 "bA" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -551,16 +560,6 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/shuttle/escape)
-"bO" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bP" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -632,7 +631,7 @@
 /obj/machinery/recharge_station/upgraded,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "purple"
 	},
 /area/shuttle/escape)
 "ca" = (
@@ -731,6 +730,12 @@
 /obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"eg" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
 "eL" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -766,9 +771,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "hH" = (
 /obj/structure/chair/comfy/shuttle{
@@ -778,7 +785,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -828,7 +835,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -864,6 +871,12 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"sk" = (
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "sP" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -873,9 +886,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "tG" = (
 /obj/machinery/door/airlock/command/glass{
@@ -893,7 +908,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "purple"
 	},
 /area/shuttle/escape)
 "vU" = (
@@ -901,7 +916,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -968,6 +983,21 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"BN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"Cm" = (
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "Db" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
@@ -979,7 +1009,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "yellow"
 	},
 /area/shuttle/escape)
@@ -993,8 +1023,17 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "purple"
 	},
+/area/shuttle/escape)
+"Hg" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "IN" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1010,11 +1049,22 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"KR" = (
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Lh" = (
 /obj/machinery/door/airlock/command/glass{
@@ -1024,12 +1074,30 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"Ly" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
 "Pj" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "PL" = (
 /obj/effect/turf_decal/loading_area{
@@ -1040,7 +1108,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "purple"
 	},
 /area/shuttle/escape)
 "PW" = (
@@ -1078,7 +1146,7 @@
 /area/shuttle/escape)
 "Rq" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "purple"
 	},
 /area/shuttle/escape)
 "RU" = (
@@ -1088,9 +1156,21 @@
 "RW" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "yellow"
 	},
+/area/shuttle/escape)
+"Sw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "SN" = (
 /obj/structure/table/reinforced,
@@ -1099,6 +1179,18 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
+/area/shuttle/escape)
+"SQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "Us" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1113,11 +1205,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "UN" = (
 /obj/structure/chair/comfy/shuttle,
@@ -1147,9 +1241,15 @@
 "WP" = (
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "yellow"
 	},
+/area/shuttle/escape)
+"Xf" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "Yr" = (
 /turf/simulated/floor/plasteel{
@@ -1160,8 +1260,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1208,8 +1311,8 @@ az
 aH
 aN
 re
-Pj
-bO
+Ly
+BN
 gI
 UF
 Pj
@@ -1270,11 +1373,11 @@ aH
 aR
 ab
 re
-ZV
-ZV
+SQ
+Hg
 tC
 IY
-ZV
+Hg
 ZV
 re
 Rk
@@ -1301,11 +1404,11 @@ aH
 bg
 ab
 re
-Pj
-Pj
+Sw
+BN
 gI
 UF
-Pj
+BN
 Pj
 re
 Rk
@@ -1363,11 +1466,11 @@ aH
 aH
 aW
 re
-ZV
-ZV
+SQ
+Hg
 tC
 IY
-ZV
+Hg
 ZV
 re
 sP
@@ -1385,7 +1488,7 @@ cH
 ac
 ag
 ao
-Qr
+KR
 bh
 ab
 ab
@@ -1394,20 +1497,20 @@ aW
 zj
 ab
 re
-Pj
-Pj
+Sw
+BN
 gI
 UF
-Pj
+BN
 Pj
 re
 sP
 bC
-bz
-bz
-bz
-bz
-bz
+Xf
+Xf
+Xf
+Xf
+Xf
 ab
 bu
 bw
@@ -1416,7 +1519,7 @@ bw
 ac
 ah
 ao
-Qr
+sk
 Qr
 Lh
 Qr
@@ -1447,7 +1550,7 @@ bw
 ac
 ai
 ao
-Qr
+sk
 Qr
 aE
 Qr
@@ -1465,11 +1568,11 @@ re
 re
 sP
 bR
-bz
-bz
-bz
-bz
-bz
+eg
+eg
+eg
+eg
+eg
 ab
 bu
 bw
@@ -1479,7 +1582,7 @@ ac
 aj
 ao
 at
-Qr
+Cm
 ab
 ab
 ab
@@ -1487,11 +1590,11 @@ aL
 mD
 bb
 re
-ZV
-ZV
+SQ
+Hg
 tC
 IY
-ZV
+Hg
 ZV
 re
 sP
@@ -1518,11 +1621,11 @@ cp
 cp
 aI
 re
-Pj
-Pj
+Sw
+BN
 gI
 UF
-Pj
+BN
 Pj
 re
 ca
@@ -1584,7 +1687,7 @@ AU
 AU
 AU
 AU
-PW
+aS
 re
 re
 Rq
