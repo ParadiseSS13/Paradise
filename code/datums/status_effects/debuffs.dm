@@ -1406,3 +1406,21 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/rust_corruption
+	alert_type = null
+	id = "rust_turf_effects"
+	tick_interval = 2 SECONDS
+
+/datum/status_effect/rust_corruption/tick()
+	. = ..()
+	if(issilicon(owner))
+		owner.adjustBruteLoss(10)
+		return
+	//We don't have disgust, so...
+	if(ishuman(owner))
+		owner.adjustBrainLoss(2.5)
+		owner.reagents?.remove_all(0.75)
+	else
+		owner.adjustBruteLoss(3) //Weaker than borgs but still constant.
+

@@ -1,7 +1,7 @@
 /obj/effect/spawner/random_spawners/proc/rustify(turf/T)
 	var/turf/simulated/wall/W = T
-	if(istype(W) && !W.rusted)
-		W.rust()
+	if(istype(W) && !HAS_TRAIT(W, TRAIT_RUSTY))
+		W.rust_turf()
 
 /obj/effect/spawner/random_spawners/wall_rusted_probably
 	name = "rusted wall probably"
