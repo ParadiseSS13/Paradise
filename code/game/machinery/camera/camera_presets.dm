@@ -33,6 +33,13 @@
 	upgradeXRay()
 	upgradeMotion()
 
+// DVORAK
+/obj/machinery/camera/dvorak
+	non_chunking_camera = TRUE
+	network = list("DVORAK") //Shouldn't show on any camera net, be it camera bugs or station or AI.
+
+/obj/machinery/camera/motion/dvorak
+
 // This camera type automatically sets it's name to whatever the area that it's in is called.
 /obj/machinery/camera/autoname/Initialize(mapload)
 	var/static/list/autonames_in_areas = list()
