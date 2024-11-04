@@ -198,8 +198,6 @@
 /obj/mecha/working/ripley/mining
 	name = "APLU \"Miner\""
 
-/obj/mecha/working/ripley/mining
-
 /obj/mecha/working/ripley/mining/proc/prepare_equipment()
 	SHOULD_CALL_PARENT(FALSE)
 
