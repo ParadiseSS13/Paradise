@@ -220,9 +220,9 @@
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
-	fixture_type = "floor"
+	fixture_type = "clockwork_floor"
 	sheets_refunded = 3
-	construct_type = /obj/machinery/light/floor/built
+	construct_type = /obj/machinery/light/clockwork/floor/built
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED

@@ -81,7 +81,7 @@
 	desc = "Used for building brass floor lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "clockwork_floor-construct-item"
-	fixture_type = "floor"
+	fixture_type = "clockwork_floor"
 	metal_sheets_refunded = 0
 	brass_sheets_refunded = 3
 	buildon_types = list(/turf/simulated/floor)
