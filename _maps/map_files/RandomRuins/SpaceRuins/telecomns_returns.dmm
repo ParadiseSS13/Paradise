@@ -196,7 +196,7 @@
 "dD" = (
 /obj/structure/closet/crate,
 /obj/item/multitool,
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -264,7 +264,7 @@
 /area/ruin/space/telecomms/foyer)
 "eR" = (
 /obj/structure/filingcabinet,
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "fa" = (
@@ -368,7 +368,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/space,
 /area/space/no_teleport)
 "gG" = (
@@ -458,7 +458,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/computer)
 "iZ" = (
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 4
 	},
 /turf/space,
@@ -472,7 +472,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "kj" = (
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "kl" = (
@@ -808,7 +808,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "ou" = (
@@ -1625,7 +1625,7 @@
 "za" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "zk" = (
@@ -1817,7 +1817,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Cq" = (
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 8
 	},
 /turf/space,
@@ -1933,7 +1933,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "Dy" = (
@@ -1969,7 +1969,7 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -2738,7 +2738,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -3077,7 +3077,7 @@
 /turf/space,
 /area/space/no_teleport)
 "Vv" = (
-/obj/machinery/camera/dvorak,
+/obj/machinery/camera/tracking_head/dvorak,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "VO" = (
@@ -3090,7 +3090,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -3311,7 +3311,7 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/machinery/camera/dvorak{
+/obj/machinery/camera/tracking_head/dvorak{
 	dir = 1
 	},
 /turf/simulated/floor/bluegrid{

@@ -206,6 +206,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
 			A.close(override = TRUE)
 	for(var/area/A in urange(25, get_turf(src), areas = TRUE))
+		for(var/obj/machinery/camera/tracking_head/camera in A)
+			camera.toggle_cam(null, 0)
 		if(istype(A, /area/space))
 			continue
 		if(ruin_cheese_attempted)
