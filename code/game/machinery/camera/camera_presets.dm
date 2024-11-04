@@ -79,6 +79,7 @@
 	if(name == initial(name))
 		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
+	AddComponent(/datum/component/proximity_monitor, CAMERA_VIEW_DISTANCE)
 	setPowerUsage()
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, src)
