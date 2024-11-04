@@ -225,7 +225,7 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(!do_after(occupant, 20 SECONDS, FALSE, src))
+	if(!do_after_once(occupant, 20 SECONDS, FALSE, src))
 		return
 	var/list/possible_results = list(
 		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
