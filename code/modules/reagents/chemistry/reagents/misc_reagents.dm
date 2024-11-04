@@ -561,16 +561,16 @@
 			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/static/list/mime_message = list("You feel light-headed.",
-			"You can't see straight.",
-			"You feel about as entertaining as the station mime.",
-			"Muted colors and berets cloud your vision.",
-			"Your voice box feels numb.",
-			"What was that?!",
-			"You can hear silence in the distance, somehow.",
-			"You feel like miming.",
-			"Silence permeates your ears.",
-			"...",
-			"You feel like miming a performance.")
+				"You can't see straight.",
+				"You feel about as entertaining as the station mime.",
+				"Muted colors and berets cloud your vision.",
+				"Your voice box feels numb.",
+				"What was that?!",
+				"You can hear silence in the distance, somehow.",
+				"You feel like miming.",
+				"Silence permeates your ears.",
+				"...",
+				"You feel like miming a performance.")
 			to_chat(M, "<span class='warning'>[pick(mime_message)]</span>")
 		if(M.mind.assigned_role == "Clown")
 			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
