@@ -341,17 +341,8 @@ class ChatRenderer {
       // Combine messages
       const combinable = this.getCombinableMessage(message, now, from, to);
       if (combinable) {
-        // Exclude any messages that may cause unneeded bloat.
-        if (
-          !(
-            combinable.type === MESSAGE_TYPE_ADMINLOG ||
-            combinable.type === MESSAGE_TYPE_ATTACKLOG ||
-            combinable.type === MESSAGE_TYPE_COMBAT
-          )
-        ) {
-          combinable.times = (combinable.times || 1) + 1;
-          updateMessageBadge(combinable);
-        }
+        combinable.times = (combinable.times || 1) + 1;
+        updateMessageBadge(combinable);
         continue;
       }
       // Reuse message node
