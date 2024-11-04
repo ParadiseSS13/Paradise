@@ -73,7 +73,7 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "an" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
+/turf/simulated/mineral/random/volcanic/labormineral,
 /area/lavaland/surface/outdoors)
 "ao" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -6150,6 +6150,9 @@
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"yG" = (
+/turf/simulated/mineral/random/volcanic/labormineral,
+/area/lavaland/surface/outdoors/targetable)
 "yH" = (
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -9253,9 +9256,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"Sm" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
-/area/lavaland/surface/outdoors/targetable)
 "So" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -18983,7 +18983,7 @@ an
 an
 an
 an
-Sm
+yG
 jZ
 jZ
 jZ
@@ -20011,12 +20011,12 @@ an
 an
 an
 an
-Sm
-Sm
+yG
+yG
 vx
 vx
-Sm
-Sm
+yG
+yG
 jZ
 jZ
 iF
@@ -20268,12 +20268,12 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
+yG
+yG
 jZ
 iF
 iF
@@ -20525,13 +20525,13 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
+yG
+yG
+yG
 iF
 iF
 iF
@@ -20782,11 +20782,11 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
+yG
 jZ
 iF
 iF
@@ -21039,11 +21039,11 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
+yG
 jZ
 iF
 iF
@@ -21296,12 +21296,12 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
+yG
+yG
 iF
 iF
 iF
@@ -21553,10 +21553,10 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
 jZ
 iF
 iF
@@ -21810,10 +21810,10 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
 jZ
 iF
 iF
@@ -22067,10 +22067,10 @@ an
 an
 an
 an
-Sm
-Sm
-Sm
-Sm
+yG
+yG
+yG
+yG
 iF
 iF
 iF
@@ -22324,8 +22324,8 @@ Aw
 ab
 an
 an
-Sm
-Sm
+yG
+yG
 jZ
 iF
 iF
