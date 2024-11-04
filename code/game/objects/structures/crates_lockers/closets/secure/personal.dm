@@ -40,7 +40,11 @@
 		return ..()
 
 	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
+		return
+
+	if(user.loc == src)
+		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
 		return
 
 	if(istype(W, /obj/item/card/id/guest))
@@ -51,24 +55,17 @@
 	if(!I || !I.registered_name)
 		return
 
-	if(src == user.loc)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
-
-	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
-		cut_overlays()
-
+	if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
 		//they can open all lockers, or nobody owns this, or they own this locker
 		locked = !locked
-		if(locked)
-			add_overlay("locked")
-		else
-			add_overlay("unlocked")
-			icon_state = icon_closed
+		update_icon()
+		if(!locked)
 			registered_name = null
 			desc = initial(desc)
 
 		if(!registered_name && locked)
 			registered_name = I.registered_name
 			desc = "Owned by [I.registered_name]."
+
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")

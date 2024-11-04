@@ -53,7 +53,7 @@
 /obj/effect/shut_controller
 	name = "shut controller"
 	var/moving = null
-	var/list/parts = list(  )
+	var/list/parts = list()
 
 /obj/structure/showcase
 	name = "Showcase"
@@ -81,7 +81,7 @@
 	name = "mobl"
 	var/master = null
 
-	var/list/container = list(  )
+	var/list/container = list()
 
 
 /obj/structure/showcase/horrific_experiment

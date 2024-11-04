@@ -670,6 +670,8 @@ UI STUFF
 	message_adminTicket(chat_box_ahelp(msg), important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
+	if(!check_rights(rights_needed))
+		return
 
 	if(href_list["refresh"])
 		showUI(usr)

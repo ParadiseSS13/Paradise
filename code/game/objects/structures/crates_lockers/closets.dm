@@ -79,7 +79,7 @@
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(!opened && has_closed_overlay)
 			. += "[closed_door_sprite || icon_state]_closed"
-	
+
 	if(opened)
 		return
 
@@ -255,7 +255,6 @@
 	if(enable_door_overlay)
 		animate_door(TRUE)
 	update_appearance()
-	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE
 
 	return TRUE
@@ -524,13 +523,15 @@
 	for(var/atom/A in location)
 		if(A.density && A != src && A != AM)
 			transparent = TRUE
-			break
+			alpha = 180
+			update_icon()
+			return
+	alpha = 255
 	update_icon()
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
-		transparent = TRUE
-		update_icon()
+		UpdateTransparency(location = loc)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
