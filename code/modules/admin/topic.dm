@@ -2336,6 +2336,15 @@
 		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
+
+		var/datum/fax/admin/sending = new /datum/fax/admin()
+		sending.name = P.name
+		sending.to_department = fax.department
+		sending.origin = "Administrator"
+		sending.message = P
+		sending.sent_by = usr
+		sending.sent_at = world.time
+
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
@@ -2555,29 +2564,30 @@
 				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
 
+		var/datum/fax/admin/sending = new /datum/fax/admin()
+		sending.name = P.name
+		sending.from_department = faxtype
 		if(destination != "All Departments")
-			if(!fax.receivefax(P))
+			sending.to_department = fax.department
+		else
+			sending.to_department = "All Departments"
+		sending.origin = "Administrator"
+		sending.message = P
+		sending.reply_to = reply_to
+		sending.sent_by = usr
+		sending.sent_at = world.time
+
+		if(destination != "All Departments")
+			if(!fax.receivefax(sending))
 				to_chat(src.owner, "<span class='warning'>Message transmission failed.</span>")
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 				if(is_station_level(F.z))
 					spawn(0)
-						if(!F.receivefax(P))
+						if(!F.receivefax(sending))
 							to_chat(src.owner, "<span class='warning'>Message transmission to [F.department] failed.</span>")
 
-		var/datum/fax/admin/A = new /datum/fax/admin()
-		A.name = P.name
-		A.from_department = faxtype
-		if(destination != "All Departments")
-			A.to_department = fax.department
-		else
-			A.to_department = "All Departments"
-		A.origin = "Administrator"
-		A.message = P
-		A.reply_to = reply_to
-		A.sent_by = usr
-		A.sent_at = world.time
 
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
