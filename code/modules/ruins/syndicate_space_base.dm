@@ -80,4 +80,3 @@
 		H.change_markings("White Fly Markings", "body")
 		H.change_head_accessory("White Fly Antennae")
 		H.change_body_accessory("White Fly Wings")
-
