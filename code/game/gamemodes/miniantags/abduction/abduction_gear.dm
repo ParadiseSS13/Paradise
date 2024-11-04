@@ -341,7 +341,7 @@ CONTENTS:
 	var/mob/living/carbon/C = L
 	if(!iscarbon(L))
 		return
-	if(C.getStaminaLoss() < 100)
+	if((C.getStaminaLoss() < 100) && !C.IsSleeping())
 		C.AdjustDrowsy(2 SECONDS)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned or asleep specimens!</span>")
 		C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
