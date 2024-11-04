@@ -212,6 +212,8 @@
 /proc/rustg_create_async_http_client() return RUSTG_CALL(RUST_G, "start_http_client")()
 /proc/rustg_close_async_http_client() return RUSTG_CALL(RUST_G, "shutdown_http_client")()
 
+// Iconforge Operations //
+
 /// Generates a spritesheet at: [file_path][spritesheet_name]_[size_id].png
 /// The resulting spritesheet arranges icons in a random order, with the position being denoted in the "sprites" return value.
 /// All icons have the same y coordinate, and their x coordinate is equal to `icon_width * position`.
@@ -222,7 +224,7 @@
 /// Spritesheet will contain all sprites listed within "sprites".
 /// "sprites" format:
 /// list(
-///     "sprite_name" = list( // <--- this list is a [SPRITE_OBJECT]
+///     "sprite_name" = list(// <--- this list is a [SPRITE_OBJECT]
 ///         icon_file = 'icons/path_to/an_icon.dmi',
 ///         icon_state = "some_icon_state",
 ///         dir = SOUTH,
@@ -350,6 +352,8 @@
 /proc/rustg_redis_get_messages() return RUSTG_CALL(RUST_G, "redis_get_messages")()
 #define rustg_redis_publish(channel, message) RUSTG_CALL(RUST_G, "redis_publish")(channel, message)
 
+// Redis Core Operations //
+
 /**
  * Connects to a given redis server.
  *
@@ -388,6 +392,8 @@
  * Note: `count` was added in Redis version 6.2.0
  */
 #define rustg_redis_lpop(key, count) RUSTG_CALL(RUST_G, "redis_lpop")(key, count)
+
+// Sanitisation Operations //
 
 /*
  * Takes in a string and json_encode()"d lists to produce a sanitized string.
