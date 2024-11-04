@@ -272,13 +272,14 @@
 /obj/item/gun/energy/kinetic_accelerator/pistol
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
-	icon_state = "kineticgun_p"
+	icon_state = "kineticpistol"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
 	can_flashlight = FALSE
 	can_holster = TRUE
+	empty_state = "kineticpistol_empty"
 
 
 //Modkits
