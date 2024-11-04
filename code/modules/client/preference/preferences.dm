@@ -1,4 +1,5 @@
-GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
+/// Minimum age (in days) for accounts to play these roles.
+GLOBAL_LIST_INIT(special_role_times, list(
 	ROLE_PAI = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,

@@ -542,10 +542,9 @@
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return FALSE
 		var/prevLayer = user.layer
-		var/prevFlying = user.flying
 		user.layer = 9
 
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_FLYING, "leap")
 		for(var/i in 1 to leap_distance)
 			var/turf/hit_turf = get_step(user, user.dir)
 			var/atom/hit_atom = get_blocking_atom(hit_turf)
@@ -560,7 +559,7 @@
 				user.pixel_y -= 8
 			sleep(1)
 
-		user.flying = prevFlying
+		REMOVE_TRAIT(user, TRAIT_FLYING, "leap")
 		user.pixel_y = 0 // In case leap was varedited to be longer or shorter
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))

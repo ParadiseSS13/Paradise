@@ -134,6 +134,35 @@
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad
 
+/// Steam smoke
+/datum/effect_system/smoke_spread/steam
+	effect_type = /obj/effect/particle_effect/smoke/steam
+
+/obj/effect/particle_effect/smoke/steam
+	color = COLOR_OFF_WHITE
+	lifetime = 10 SECONDS_TO_LIFE_CYCLES
+	causes_coughing = TRUE
+
+/obj/effect/particle_effect/smoke/steam/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!isliving(AM))
+		return
+	var/mob/living/crosser = AM
+	if(IS_MINDFLAYER(crosser))
+		return // Mindflayers are fully immune to steam
+	if(!ishuman(crosser))
+		crosser.adjustFireLoss(8)
+		return
+
+	var/mob/living/carbon/human/human_crosser = AM
+	var/fire_armour = human_crosser.get_thermal_protection()
+	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
+		return
+
+	crosser.adjustFireLoss(5)
+	if(prob(20))
+		to_chat(crosser, "<span class='warning'>You are being scalded by the hot steam!</span>")
+
 /////////////////////////////////////////////
 // Nanofrost smoke
 /////////////////////////////////////////////

@@ -53,7 +53,7 @@
 		return
 
 	var/mob/living/LM = parent
-	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
+	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || HAS_TRAIT(LM, TRAIT_FLYING) || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
 	steps++

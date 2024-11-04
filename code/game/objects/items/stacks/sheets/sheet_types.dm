@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
-/obj/item/stack/sheet/soil/Initialize(loc, amt)
+/obj/item/stack/sheet/soil/Initialize(mapload, loc, amt)
 	recipes = GLOB.soil_recipes
 	return ..()
 
