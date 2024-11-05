@@ -18,10 +18,10 @@
 /obj/machinery/fluid_pipe/Initialize(mapload)
 	. = ..()
 	blind_connect()
+	START_PROCESSING(SSfluid, src)
 
 /obj/machinery/fluid_pipe/Destroy()
 	. = ..()
-	fluid_datum?.remove_pipe(src)
 	disconnect_pipe()
 
 /// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
@@ -33,6 +33,7 @@
 
 	icon_state = temp_state
 
+// This is currently as clean as I could make it
 /obj/machinery/fluid_pipe/proc/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
 	if(QDELETED(pipe_to_connect_to))
 		return
@@ -55,6 +56,31 @@
 	update_icon()
 	pipe_to_connect_to.update_icon()
 
+/obj/machinery/fluid_pipe/proc/connect_chain(list/all_pipes = list())
+	all_pipes -= src
+	if(!length(all_pipes))
+		return
+
+	if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
+		fluid_datum = new()
+
+	var/list/nearby_pipes = all_pipes & orange(1, src)
+	for(var/obj/machinery/fluid_pipe/pipe as anything in nearby_pipes)
+		if(!(get_dir(src, pipe) in GLOB.cardinal))
+			continue
+		if(pipe.fluid_datum) // Already connected, don't connect again
+			if(fluid_datum != pipe.fluid_datum)
+				fluid_datum.merge(pipe.fluid_datum)
+			neighbours++
+			pipe.neighbours++
+			continue
+
+		fluid_datum.add_pipe(pipe)
+		neighbours++
+		pipe.neighbours++
+		// Normally you'd update icons here, however we do that at the end otherwise lag may happen
+		pipe.connect_chain(all_pipes)
+
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
 	if(QDELETED(src))
 		return
@@ -63,10 +89,19 @@
 		return
 
 	fluid_datum.remove_pipe(src)
-	var/datum/fluid_pipe/temp_datum = fluid_datum
+
 	fluid_datum = null
-	qdel(src) // Forcefully delete ourselves so we don't reconnect to us again by accident
-	temp_datum.rebuild_pipenet()
+	var/list/all_neighbours = list()
+	for(var/direction in GLOB.cardinal)
+		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
+			if(pipe && pipe.anchored)
+				all_neighbours += pipe
+
+	message_admins(length(all_neighbours))
+	SSfluid.datums_to_rebuild += list(fluid_datum, all_neighbours)
+	fluid_datum.remove_pipe(src)
+	fluid_datum = null
+	qdel(src)
 
 /// Want to connect a pipe to other pipes, but don't know where the other pipes are?
 /obj/machinery/fluid_pipe/proc/blind_connect()

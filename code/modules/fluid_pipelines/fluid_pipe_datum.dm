@@ -67,8 +67,9 @@
   * In the end we loop one last time through the pipes and store unique fluid datums
 
   * THIS IS HIGHLY INEFFICIENT AND I HATE IT. THIS SHOULD BE CHANGED SOMEHOW BUT I DON'T KNOW HOW ATM
+  * Edit as of 5 November, still slightly inefficient, but could be worse. It now chains itself through all branches
   */
-/datum/fluid_pipe/proc/rebuild_pipenet()
+/datum/fluid_pipe/proc/rebuild_pipenet(list/broken_neighbours = list())
 	message_admins("OH GOD OH FUCK REBUILD PIPENET IS CALLED")
 	var/list/new_pipeline_datums = list()
 	// As much as it pains me, we have to do this first so we start with a clean slate and can make new pipenets
@@ -77,14 +78,15 @@
 		pipe.neighbours = 0
 
 	// This has to go after the previous loop because otherwise some datums aren't nulled
-	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
-		pipe.blind_connect()
+	for(var/obj/machinery/fluid_pipe/pipe as anything in broken_neighbours)
+		pipe.connect_chain(connected_pipes.Copy())
 
 	for(var/obj/machinery/fluid_pipe/pipe_machinery as anything in machinery)
 		pipe_machinery.blind_connect()
 
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
 		new_pipeline_datums |= pipe.fluid_datum
+		pipe.update_icon()
 
 	spread_fluids(new_pipeline_datums)
 	qdel(src)

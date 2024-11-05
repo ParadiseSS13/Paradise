@@ -32,7 +32,6 @@
 
 /obj/machinery/fluid_pipe/pump/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
 	if(isnull(pipe_to_connect_to.fluid_datum))
-		stack_trace("[pipe_to_connect_to] did not have a fluid datum")
 		pipe_to_connect_to.fluid_datum = new(pipe_to_connect_to)
 	if(get_dir(src, pipe_to_connect_to) == dir)
 		outgoing = pipe_to_connect_to.fluid_datum

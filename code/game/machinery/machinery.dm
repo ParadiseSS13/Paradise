@@ -32,6 +32,8 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	/// Should this machine automatically start processing
+	var/should_process = TRUE
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
@@ -52,10 +54,11 @@
 				_add_static_power(power_channel, active_power_consumption)
 		power_initialized = TRUE
 
-	if(!speed_process)
-		START_PROCESSING(SSmachines, src)
-	else
-		START_PROCESSING(SSfastprocess, src)
+	if(should_process)
+		if(!speed_process)
+			START_PROCESSING(SSmachines, src)
+		else
+			START_PROCESSING(SSfastprocess, src)
 
 	power_change()
 
