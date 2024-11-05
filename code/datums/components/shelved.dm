@@ -117,7 +117,7 @@
 				O.update_appearance(UPDATE_ICON)
 
 /datum/component/shelver/proc/on_attackby(datum/source, obj/item/attacker, mob/user, params)
-	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(isrobot(user))
 		return COMPONENT_SKIP_AFTERATTACK

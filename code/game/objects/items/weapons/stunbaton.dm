@@ -373,23 +373,23 @@
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
 		disable_radio(L)
-		L.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), L), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
 		return TRUE
 	return FALSE
 
 /obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()
 	for(var/obj/item/radio/R in all_items)
+		R.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), R), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
 		R.on = FALSE
 		R.listening = FALSE
 		R.broadcasting = FALSE
 		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message = "<span class='notice'>You hear a loud, electronic buzzing.</span>")
 
-/obj/item/melee/baton/flayerprod/proc/enable_radio(mob/living/L)
-	var/list/all_items = L.GetAllContents()
-	for(var/obj/item/radio/R in all_items)
-		R.on = TRUE
-		R.listening = TRUE
+/obj/item/melee/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
+	if(QDELETED(R))
+		return
+	R.on = TRUE
+	R.listening = TRUE
 
 /obj/item/melee/baton/flayerprod/deductcharge(amount)
 	if(cell.charge < hitcost)
