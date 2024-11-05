@@ -539,10 +539,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	var/datum/pipeline/pipenet = starting_machine.returnPipenet(target_move)
+	pipenet.add_ventcrawler(src)
+	add_ventcrawl_images(pipenet)
+
+
+/mob/living/proc/add_ventcrawl_images(datum/pipeline/pipenet)
 	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
+	totalMembers |= pipenet.members
+	totalMembers |= pipenet.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.update_pipe_image()
@@ -551,6 +556,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	SEND_SIGNAL(src, COMSIG_LIVING_EXIT_VENTCRAWL)
+	remove_ventcrawl_images()
+
+/mob/living/proc/remove_ventcrawl_images()
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -572,8 +581,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else
 		if(is_ventcrawling(src))
 			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
+				remove_ventcrawl_images()
+			var/obj/machinery/atmospherics/current_pipe = loc
+			var/datum/pipeline/pipenet = current_pipe.returnPipenet(target_move)
+			add_ventcrawl_images(pipenet)
 
 
 //Throwing stuff

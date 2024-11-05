@@ -76,7 +76,7 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "an" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
+/turf/simulated/mineral/random/volcanic/labormineral,
 /area/lavaland/surface/outdoors)
 "ap" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
