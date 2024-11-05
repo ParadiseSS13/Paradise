@@ -88,9 +88,6 @@
 		fluid_datum = null
 		return
 
-	fluid_datum.remove_pipe(src)
-
-	fluid_datum = null
 	var/list/all_neighbours = list()
 	for(var/direction in GLOB.cardinal)
 		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
