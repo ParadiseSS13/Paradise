@@ -792,6 +792,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
+	if(href_list["flavor_more"])
+		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
+		onclose(usr, "[name]")
+	if(href_list["flavor_change"])
+		update_flavor_text()
+
 	if(usr != src)
 		return TRUE
 	if(..())
@@ -801,11 +807,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["flavor_more"])
-		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
-		onclose(usr, "[name]")
-	if(href_list["flavor_change"])
-		update_flavor_text()
 
 	if(href_list["scoreboard"])
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
