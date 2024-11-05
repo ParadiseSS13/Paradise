@@ -30,7 +30,6 @@ Difficulty: Medium
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	light_color = "#E4C7C5"
-	flying = FALSE
 	speak_emote = list("roars")
 	speed = 3
 	move_to_delay = 3
@@ -60,6 +59,8 @@ Difficulty: Medium
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							/datum/action/innate/megafauna_attack/kinetic_accelerator,
 							/datum/action/innate/megafauna_attack/transform_weapon)
+
+	initial_traits = list() // Don't want to inherit flight from parent type /megafauna/
 
 /obj/item/gps/internal/miner
 	icon_state = null

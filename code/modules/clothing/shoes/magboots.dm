@@ -208,7 +208,7 @@
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
-/obj/item/clothing/shoes/magboots/gravity/Initialize()
+/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -341,14 +341,12 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
-	var/do_callback = FALSE
-	if(!user.flying)
-		user.flying = TRUE
-		do_callback = TRUE
-	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
+	ADD_TRAIT(user, TRAIT_FLYING, "gravity_boots")
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "gravity_boots")))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
+		REMOVE_TRAIT(user, TRAIT_FLYING, "gravity_boots")
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")

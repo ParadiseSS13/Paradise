@@ -206,3 +206,12 @@
 
 /// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+/// called when something needs to force a mindflayer to retract their weapon implants
+#define COMSIG_FLAYER_RETRACT_IMPLANTS "flayer_retract_implants"
+
+/// Sent from datum/spell/ethereal_jaunt/cast, before the mob enters jaunting as a pre-check: (mob/jaunter)
+#define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
+	#define COMPONENT_BLOCK_JAUNT (1<<0)
+
+/// from remove_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
