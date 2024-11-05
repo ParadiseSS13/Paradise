@@ -122,8 +122,6 @@
 		if("submit")
 			if(!findtext(params["entry"], GLOB.is_color))
 				return
-			if(!findtext(params["entry"], GLOB.is_color))
-				return
 			choice = params["entry"]
 			closed = TRUE
 			SStgui.close_uis(src)
