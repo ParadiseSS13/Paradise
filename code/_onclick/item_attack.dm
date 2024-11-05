@@ -245,7 +245,7 @@
  * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
  */
 /obj/item/proc/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
-	PRIVATE_PROC(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(target, COMSIG_AFTER_ATTACKED_BY, src, user, proximity_flag, click_parameters)
