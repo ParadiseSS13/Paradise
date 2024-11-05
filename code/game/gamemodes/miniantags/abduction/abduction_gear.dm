@@ -353,7 +353,6 @@ CONTENTS:
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		C.Sleeping(120 SECONDS)
 		add_attack_logs(user, C, "Put to sleep with [src]")
-		return
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
