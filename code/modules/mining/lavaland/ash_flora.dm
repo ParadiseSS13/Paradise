@@ -3,7 +3,7 @@
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "l_mushroom1"
-	base_icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
 	anchored = TRUE

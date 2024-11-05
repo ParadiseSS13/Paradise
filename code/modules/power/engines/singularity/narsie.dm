@@ -19,7 +19,7 @@
 /obj/singularity/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
-	icon_state = null
+	icon_state = "narsie"
 	// Pixel stuff centers Narsie.
 	pixel_x = -236
 	pixel_y = -256
