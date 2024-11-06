@@ -48,7 +48,7 @@
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
 	l_pocket = /obj/item/mail_scanner
-	pda = /obj/item/pda/quartermaster
+	pda = /obj/item/pda/heads/qm
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
@@ -473,7 +473,7 @@
 	if(visualsOnly)
 		return
 
-	qdel(H.GetComponent(/datum/component/footstep))
+	H.DeleteComponent(/datum/component/footstep)
 
 /datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

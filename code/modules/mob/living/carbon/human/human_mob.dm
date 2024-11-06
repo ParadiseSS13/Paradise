@@ -21,7 +21,7 @@
 	if(!mind)
 		return FALSE
 	if(mind.miming)
-		qdel(GetComponent(/datum/component/footstep))
+		DeleteComponent(/datum/component/footstep)
 	return TRUE
 
 /**
@@ -656,14 +656,6 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
-
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
@@ -777,13 +769,13 @@
 ///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
 /mob/living/carbon/human/tintcheck()
 	var/tinted = 0
-	if(istype(src.head, /obj/item/clothing/head))
+	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = src.head
 		tinted += HT.tint
-	if(istype(src.glasses, /obj/item/clothing/glasses))
+	if(istype(glasses, /obj/item/clothing/glasses))
 		var/obj/item/clothing/glasses/GT = src.glasses
 		tinted += GT.tint
-	if(istype(src.wear_mask, /obj/item/clothing/mask))
+	if(istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
 
@@ -2061,3 +2053,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ALPHA_VISIBLE
 	for(var/source in alpha_sources)
 		. = min(., alpha_sources[source])
+
+/*
+ * Returns wether or not the brain is below the threshold
+ */
+/mob/living/carbon/human/proc/check_brain_threshold(threshold_level)
+	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
+	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)

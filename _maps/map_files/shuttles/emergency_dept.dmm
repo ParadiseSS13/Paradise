@@ -409,7 +409,8 @@
 	name = "Escape Shuttle Cargo";
 	normalspeed = 0
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"

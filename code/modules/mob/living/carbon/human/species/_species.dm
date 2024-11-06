@@ -159,16 +159,16 @@
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
-								// Determines the organs that the species spawns with and
-	var/list/has_organ = list(  // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
-		)
+	/// Determines the organs that the species spawns with and which required-organ checks are conducted.
+	var/list/has_organ = list(
+		"heart"		= /obj/item/organ/internal/heart,
+		"lungs"		= /obj/item/organ/internal/lungs,
+		"liver"		= /obj/item/organ/internal/liver,
+		"kidneys"	= /obj/item/organ/internal/kidneys,
+		"brain"		= /obj/item/organ/internal/brain,
+		"appendix"	= /obj/item/organ/internal/appendix,
+		"eyes"		= /obj/item/organ/internal/eyes
+	)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest, "descriptor" = "chest"),
@@ -293,7 +293,7 @@
 	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
 		ignoreslow = TRUE
 
-	var/flight = H.flying	//Check for flight and flying items
+	var/flight = HAS_TRAIT(H, TRAIT_FLYING)	//Check for flight and flying items
 
 	ADD_SLOWDOWN(speed_mod)
 
@@ -516,6 +516,14 @@
 		return FALSE
 	if(target != user && handle_harm_antag(user, target))
 		return FALSE
+	//Mind Flayer code
+	var/datum/antagonist/mindflayer/MF = user?.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	var/obj/item/organ/internal/brain/victims_brain = target.get_int_organ(/obj/item/organ/internal/brain) //In case someone's brain isn't in their head
+	if(MF && !MF.harvesting && user.zone_selected == victims_brain.parent_organ && target != user)
+		MF.handle_harvest(target)
+		add_attack_logs(user, target, "flayerdrain")
+		return
+	//End Mind Flayer Code
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
@@ -586,7 +594,7 @@
 	if(target.anchored)
 		return FALSE
 	if(target.buckled)
-		target.buckled.unbuckle_mob(target)
+		target.unbuckle()
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
@@ -720,6 +728,23 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
+/*
+* Returns a copy of the datum that called this. I know this is pretty dumb
+*/
+/datum/unarmed_attack/proc/copy_attack()
+	var/datum/unarmed_attack/copy = new /datum/unarmed_attack
+	copy.attack_verb = attack_verb
+	copy.damage = damage
+	copy.attack_sound = attack_sound
+	copy.miss_sound = miss_sound
+	copy.sharp = sharp
+	copy.animation_type = animation_type
+	return copy
+
+/datum/unarmed_attack/claws/copy_attack()
+	var/datum/unarmed_attack/claws/copy = ..()
+	copy.has_been_sharpened = has_been_sharpened
+	return copy
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
 	if(slot in no_equip)

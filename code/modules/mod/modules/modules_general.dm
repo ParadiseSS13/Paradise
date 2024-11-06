@@ -16,7 +16,7 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
-/obj/item/mod/module/storage/Initialize()
+/obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 	var/obj/item/storage/backpack/modstorage/S = new(src)

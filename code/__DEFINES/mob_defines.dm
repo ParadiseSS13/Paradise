@@ -14,6 +14,7 @@
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
 #define ORGAN_DATUM_LUNGS	"lungs"
+#define ORGAN_DATUM_BATTERY "battery"
 
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
@@ -374,3 +375,11 @@
 #define INCORPOREAL_MOVE_NORMAL			1
 #define INCORPOREAL_MOVE_NINJA			2
 #define INCORPOREAL_MOVE_HOLY_BLOCK		3
+
+// Brain damage ratio defines
+// These are built around the baseline of a brain having a max hp of 120
+#define BRAIN_DAMAGE_RATIO_LIGHT 	1 / 12
+#define BRAIN_DAMAGE_RATIO_MINOR	3 / 12
+#define BRAIN_DAMAGE_RATIO_MODERATE 6 / 12
+#define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
+#define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
