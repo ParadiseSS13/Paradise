@@ -1152,6 +1152,7 @@
 #include "code\game\objects\items\tools\welder.dm"
 #include "code\game\objects\items\tools\wirecutters.dm"
 #include "code\game\objects\items\tools\wrench.dm"
+#include "code\game\objects\items\weapons\agent_id.dm"
 #include "code\game\objects\items\weapons\AI_modules.dm"
 #include "code\game\objects\items\weapons\alien_specific.dm"
 #include "code\game\objects\items\weapons\batons.dm"
