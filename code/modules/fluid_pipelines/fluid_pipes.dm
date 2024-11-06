@@ -21,8 +21,11 @@
 	START_PROCESSING(SSfluid, src)
 
 /obj/machinery/fluid_pipe/Destroy()
-	. = ..()
 	disconnect_pipe()
+	return ..()
+
+/obj/machinery/fluid_pipe/process()
+	return PROCESS_KILL
 
 /// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
 /obj/machinery/fluid_pipe/update_icon_state()
@@ -50,8 +53,8 @@
 			fluid_datum = new(src)
 		fluid_datum.add_pipe(pipe_to_connect_to)
 
-	neighbours++
-	pipe_to_connect_to.neighbours++
+	update_neighbours()
+	pipe_to_connect_to.update_neighbours()
 
 	update_icon()
 	pipe_to_connect_to.update_icon()
@@ -76,8 +79,9 @@
 			continue
 
 		fluid_datum.add_pipe(pipe)
-		neighbours++
-		pipe.neighbours++
+		update_neighbours()
+		pipe.update_neighbours()
+
 		// Normally you'd update icons here, however we do that at the end otherwise lag may happen
 		pipe.connect_chain(all_pipes)
 
@@ -94,8 +98,7 @@
 			if(pipe && pipe.anchored)
 				all_neighbours += pipe
 
-	message_admins(length(all_neighbours))
-	SSfluid.datums_to_rebuild += list(fluid_datum, all_neighbours)
+	SSfluid.datums_to_rebuild += list(list(fluid_datum, all_neighbours))
 	fluid_datum.remove_pipe(src)
 	fluid_datum = null
 	qdel(src)
@@ -109,6 +112,12 @@
 										// so we can make them reconsider all of their connections every time they are connected
 
 	update_icon()
+
+/obj/machinery/fluid_pipe/proc/update_neighbours()
+	neighbours = 0
+	for(var/direction in GLOB.cardinal)
+		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
+			neighbours++
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
 	. = ..()
