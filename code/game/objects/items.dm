@@ -389,7 +389,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(loc, /obj/item/robot_module))
 		// If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
@@ -1030,7 +1030,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	// Only matches and cigars can light fancy smokables.
-	if(cig.fancy && !istype(src, /obj/item/match) && !istype(src, /obj/item/lighter/zippo))
+	if(length(cig.fancy_lighters) && !is_type_in_list(src, cig.fancy_lighters))
 		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
 		return FALSE
 

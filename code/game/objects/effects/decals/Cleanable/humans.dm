@@ -55,7 +55,7 @@
 	var/turf/T = get_turf(src)
 	check_gravity(T)
 
-	if(!istype(src, /obj/effect/decal/cleanable/blood/footprints) && ((T && (T.density)) || !gravity_check || locate(/obj/structure/window/full) in T || locate(/obj/structure/grille/) in T))
+	if(should_be_off_floor())
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
@@ -84,6 +84,10 @@
 	else
 		overlays.Cut()
 	..()
+
+/obj/effect/decal/cleanable/blood/proc/should_be_off_floor()
+	var/turf/T = get_turf(src)
+	return ((T && T.density) || !gravity_check || (locate(/obj/structure/window/full) in T) || (locate(/obj/structure/grille) in T))
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
