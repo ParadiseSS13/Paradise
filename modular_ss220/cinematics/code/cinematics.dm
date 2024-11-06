@@ -106,10 +106,7 @@
 
 	return COMPONENT_GLOB_BLOCK_CINEMATIC
 
-/// Whenever a mob watching the cinematic logs in, show them the ongoing cinematic
-/datum/cinematic/proc/show_to(mob/watching_mob, client/watching_client)
-	SIGNAL_HANDLER
-
+/datum/cinematic/proc/can_show(mob/watching_mob, client/watching_client)
 	// We could technically rip people out of notransform who shouldn't be,
 	// so we'll only lock down all viewing mobs who don't have it already set.
 	// This does potentially mean some mobs could lose their notrasnform and
@@ -119,10 +116,13 @@
 
 	// Only show the actual cinematic to cliented mobs.
 	if(!watching_client || (watching_client in watching))
-		return
+		return FALSE
 
-	// Do not show credits if it's disabled for the client and not forced.
-	if(istype(src, /datum/cinematic/credits) && !GLOB.credits_forced && !(watching_client.prefs.toggles220 & PREFTOGGLE_220_WATCH_CREDITS))
+/// Whenever a mob watching the cinematic logs in, show them the ongoing cinematic
+/datum/cinematic/proc/show_to(mob/watching_mob, client/watching_client)
+	SIGNAL_HANDLER
+
+	if(!can_show(watching_mob, watching_client))
 		return
 
 	watching += watching_client
