@@ -107,20 +107,22 @@
 	return COMPONENT_GLOB_BLOCK_CINEMATIC
 
 /datum/cinematic/proc/can_show(mob/watching_mob, client/watching_client)
+	// Only show the actual cinematic to cliented mobs.
+	if(!watching_client || (watching_client in watching))
+		return FALSE
+
+	return TRUE
+
+/// Whenever a mob watching the cinematic logs in, show them the ongoing cinematic
+/datum/cinematic/proc/show_to(mob/watching_mob, client/watching_client)
+	SIGNAL_HANDLER
+
 	// We could technically rip people out of notransform who shouldn't be,
 	// so we'll only lock down all viewing mobs who don't have it already set.
 	// This does potentially mean some mobs could lose their notrasnform and
 	// not be locked down by cinematics, but that should be very unlikely.
 	if(!watching_mob.notransform && should_lock_watchers)
 		lock_mob(watching_mob)
-
-	// Only show the actual cinematic to cliented mobs.
-	if(!watching_client || (watching_client in watching))
-		return FALSE
-
-/// Whenever a mob watching the cinematic logs in, show them the ongoing cinematic
-/datum/cinematic/proc/show_to(mob/watching_mob, client/watching_client)
-	SIGNAL_HANDLER
 
 	if(!can_show(watching_mob, watching_client))
 		return
