@@ -86,38 +86,25 @@
 		pipe.connect_chain(all_pipes)
 
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
-	if(QDELETED(src))
-		return
 	if(neighbours <= 1) // Sad and alone
 		fluid_datum = null
 		return
 
-	var/list/all_neighbours = list()
-	for(var/direction in GLOB.cardinal)
-		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			if(pipe && pipe.anchored)
-				all_neighbours += pipe
-
-	SSfluid.datums_to_rebuild += list(list(fluid_datum, all_neighbours))
+	message_admins("WE ARE HERE AAAAA")
+	SSfluid.datums_to_rebuild += list(list(fluid_datum, get_adjacent_pipes()))
 	fluid_datum.remove_pipe(src)
 	fluid_datum = null
-	qdel(src)
 
 /// Want to connect a pipe to other pipes, but don't know where the other pipes are?
 /obj/machinery/fluid_pipe/proc/blind_connect()
-	for(var/direction in GLOB.cardinal)
-		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			if(pipe && pipe.anchored)
-				pipe.connect_pipes(src) // The reason for this is so we can override the behaviour on pumps
-										// so we can make them reconsider all of their connections every time they are connected
+	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
+		pipe.connect_pipes(src) // The reason for this is so we can override the behaviour on pumps
+								// so we can make them reconsider all of their connections every time they are connected
 
 	update_icon()
 
 /obj/machinery/fluid_pipe/proc/update_neighbours()
-	neighbours = 0
-	for(var/direction in GLOB.cardinal)
-		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			neighbours++
+	neighbours = length(get_adjacent_pipes())
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
 	. = ..()
@@ -134,7 +121,8 @@
 	if(!anchored)
 		blind_connect()
 	else
-		disconnect_pipe()
+		// TODO: add item pipe here and make a new one
+		qdel(src)
 
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
@@ -144,3 +132,10 @@
 /obj/machinery/fluid_pipe/proc/clear_pipenet_refs()
 	SHOULD_CALL_PARENT(TRUE)
 	fluid_datum = null
+
+/obj/machinery/fluid_pipe/proc/get_adjacent_pipes()
+	. = list()
+	for(var/direction in GLOB.cardinal)
+		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
+			if(pipe.anchored && !QDELING(pipe))
+				. += pipe

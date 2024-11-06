@@ -92,17 +92,21 @@
 	qdel(src)
 
 /datum/fluid_pipe/proc/spread_fluids(list/new_pipelines = list())
+	for(var/datum/thing as anything in new_pipelines)
+		if(QDELETED(thing))
+			new_pipelines -= thing
+
 	var/pipelines_to_spread_to = length(new_pipelines)
 	message_admins("Length of new pipelines list: [pipelines_to_spread_to]") // DEBUG
-	switch(pipelines_to_spread_to)
-		if(0)
-			stack_trace("spread_fluids was called with no pipelines to spread over!")
-			return
-		if(1)
-			var/datum/fluid_pipe/pipe_datum = new_pipelines[1]
-			pipe_datum.fluid_container = fluid_container
-			fluid_container = null
-			return
+
+	if(pipelines_to_spread_to == 0)
+		stack_trace("spread_fluids was called with no pipelines to spread over!")
+		return
+	if(pipelines_to_spread_to == 1)
+		var/datum/fluid_pipe/pipe_datum = new_pipelines[1]
+		pipe_datum.fluid_container = fluid_container
+		fluid_container = null
+		return
 
 	for(var/datum/fluid/liquid in fluid_container.fluids)
 		for(var/datum/fluid_pipe/piping as anything in new_pipelines)

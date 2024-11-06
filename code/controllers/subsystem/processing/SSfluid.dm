@@ -38,4 +38,5 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 		var/list/neighbours = rebuild_list[2]
 
 		pipe.rebuild_pipenet(neighbours)
-		datums_to_rebuild -= rebuild_list
+
+	datums_to_rebuild.Cut()
