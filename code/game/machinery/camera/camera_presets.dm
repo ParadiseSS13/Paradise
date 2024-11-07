@@ -83,7 +83,6 @@
 	if(camera_overlay.dir == get_dir(src, AM))
 		return
 	camera_overlay.dir = get_dir(src, AM)
-	update_icon(UPDATE_OVERLAYS)
 	playsound(get_turf(src), pick('sound/effects/turret/move1.wav', 'sound/effects/turret/move2.wav'), 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 
 /obj/machinery/camera/tracking_head/proc/prime_the_camera()
