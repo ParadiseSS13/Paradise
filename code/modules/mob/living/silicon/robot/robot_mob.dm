@@ -428,7 +428,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
-				"Rover" =image('icons/mob/robots.dmi', "Rover-Jani"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Jani"),
 				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
