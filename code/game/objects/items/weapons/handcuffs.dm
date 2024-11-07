@@ -303,7 +303,7 @@
 		var/obj/item/toy/crayon/C = I
 		cable_color(C.dye_color)
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
 		cuff(C, user, FALSE)
 
