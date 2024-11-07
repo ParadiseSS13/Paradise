@@ -35,7 +35,7 @@
 /datum/gear_tweak/color/get_metadata(user, metadata)
 	if(valid_colors)
 		return tgui_input_list(user, "Choose an item color.", "Recolor Gear", valid_colors, metadata)
-	return input(user, "Choose an item color.", "Recolor Gear", metadata) as color|null
+	return tgui_input_color(user, "Choose an item color.", "Global Preference", metadata)
 
 /datum/gear_tweak/color/tweak_item(obj/item/gear, metadata)
 	if((valid_colors && !(metadata in valid_colors)) || !metadata)

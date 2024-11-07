@@ -214,9 +214,7 @@
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
-	if(isrobot(user))
-		cuff(C, user, FALSE)
+
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
@@ -268,10 +266,10 @@
 //////////////////////////////
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
-	// Don't allow borgs to send their their ziptie module to the shadow realm.
-	if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
-		return
 
+	handle_attack_construction(I, user)
+
+/obj/item/restraints/handcuffs/cable/proc/handle_attack_construction(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(!R.use(1))
@@ -306,3 +304,11 @@
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
 		cable_color(C.dye_color)
+
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
+	if(isrobot(user))
+		cuff(C, user, FALSE)
+
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/handle_attack_construction(obj/item/I, mob/user)
+	// Don't allow borgs to send their their ziptie module to the shadow realm.
+	return
