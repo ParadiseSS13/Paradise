@@ -428,7 +428,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		for(var/obj/item/clothing/head/hat as anything in attached_hats)
 			hat.attached_unequip()
 

@@ -1289,7 +1289,7 @@
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
-		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
+		H.equip_to_slot_or_del(C, ITEM_SLOT_IN_BACKPACK)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
