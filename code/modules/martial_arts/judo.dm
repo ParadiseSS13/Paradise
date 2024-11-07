@@ -38,7 +38,7 @@
 /obj/item/storage/belt/judobelt/update_weight()
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/storage/belt/judobelt/Initialize()
+/obj/item/storage/belt/judobelt/Initialize(mapload)
 	. = ..()
 	style = new()
 

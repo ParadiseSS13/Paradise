@@ -17,7 +17,7 @@
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
 
-/obj/item/beacon/Initialize()
+/obj/item/beacon/Initialize(mapload)
 	. = ..()
 	GLOB.beacons |= src
 

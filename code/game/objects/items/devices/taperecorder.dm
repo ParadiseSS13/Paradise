@@ -116,10 +116,11 @@
 
 /obj/item/taperecorder/AltClick(mob/user)
 	if(in_range(user, src) && mytape && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
-						)
+		var/list/options = list(
+			"Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+			"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+			"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+		)
 		var/choice = show_radial_menu(user, src, options)
 		if(user.incapacitated())
 			return

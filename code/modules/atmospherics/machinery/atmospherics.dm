@@ -101,8 +101,8 @@ Pipelines + Other Objects -> Pipe network
 			plane = GAME_PLANE
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
-/obj/machinery/atmospherics/proc/update_pipe_image()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
+/obj/machinery/atmospherics/proc/update_pipe_image(overlay = src)
+	pipe_image = image(overlay, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
@@ -197,7 +197,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!can_unwrench)
 		return FALSE
 	. = TRUE
-	if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+	if(wrench_floor_check())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(level == 1 && isturf(T) && T.intact)
@@ -249,6 +249,12 @@ Pipelines + Other Objects -> Pipe network
 			unsafe_pressure_release(user,internal_pressure)
 	deconstruct(TRUE)
 
+/**
+ * This proc is to tell if an atmospheric device is in a state that should be unwrenchable because its under the floor.
+ **/
+/obj/machinery/atmospherics/proc/wrench_floor_check()
+	return FALSE
+
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
@@ -297,7 +303,7 @@ Pipelines + Other Objects -> Pipe network
 		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -322,6 +328,7 @@ Pipelines + Other Objects -> Pipe network
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	var/datum/pipeline/current_pipenet = returnPipenet(src)
 	direction &= initialize_directions
 	if(!direction || !(direction in GLOB.cardinal)) //cant go this way.
 		return
@@ -332,6 +339,7 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
@@ -344,6 +352,7 @@ Pipelines + Other Objects -> Pipe network
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")

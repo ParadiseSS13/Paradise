@@ -179,19 +179,25 @@
 	name = "fancy pen"
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
-	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
+	container_type = (DRAINABLE | TRANSPARENT) //cannot be refilled, but pax can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
 	transfer_amount = 25 // 4 Dosages instead of 2
 
-/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
-	var/can_transfer = reagents.total_volume && M.reagents
+/obj/item/pen/sleepy/love/Initialize(mapload)
 	. = ..()
-	if(can_transfer && .)
-		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
-	return TRUE
+	START_PROCESSING(SSobj, src)
+
+/obj/item/pen/sleepy/love/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/pen/sleepy/love/fill_pen()
-	reagents.add_reagent("love", 100)
+	reagents.add_reagent("pax", 100) // strong and unique reagent, making you a pacifist for a long time.
+
+/obj/item/pen/sleepy/love/process()
+	if(reagents.total_volume < 100)
+		reagents.add_reagent("pax", 0.5) // slow refill over time. In average 1 dose every 100 seconds.
+
 
 /obj/item/pen/sleepy/undisguised
 	name = "sleepy pen"

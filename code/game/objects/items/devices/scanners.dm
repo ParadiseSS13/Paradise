@@ -241,12 +241,13 @@ SLIME SCANNER
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
 	// Brain.
-	if(H.get_int_organ(/obj/item/organ/internal/brain))
-		if(H.getBrainLoss() >= 100)
+	var/obj/item/organ/internal/brain = H.get_int_organ(/obj/item/organ/internal/brain)
+	if(brain)
+		if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL)) // 100
 			msgs += "<span class='warning'>Subject is brain dead.</span>"
-		else if(H.getBrainLoss() >= 60)
+		else if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_MODERATE)) // 60
 			msgs += "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>"
-		else if(H.getBrainLoss() >= 10)
+		else if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_MINOR)) // 10
 			msgs += "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>"
 	else
 		msgs += "<span class='warning'>Subject has no brain.</span>"
@@ -389,6 +390,8 @@ SLIME SCANNER
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
+	if(!ismachinery(M))
+		return
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return

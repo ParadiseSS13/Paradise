@@ -194,7 +194,8 @@
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
-	if(!zone)	return "chest"
+	if(!zone)
+		return "chest"
 	switch(zone)
 		if("eyes")
 			zone = "head"
@@ -214,18 +215,28 @@
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 4)	 return "l_arm"
-		if(5 to 6)   return "l_hand"
-		if(7 to 8)	 return "r_arm"
-		if(9 to 10)  return "r_hand"
-		if(11 to 12) return "l_leg"
-		if(13 to 14) return "l_foot"
-		if(15 to 16) return "r_leg"
-		if(17 to 18) return "r_foot"
+	var/random_zone = rand(1, 18) // randomly pick a different zone, or maybe the same one
+	switch(random_zone)
+		if(1)
+			return "head"
+		if(2)
+			return "chest"
+		if(3 to 4)
+			return "l_arm"
+		if(5 to 6)
+			return "l_hand"
+		if(7 to 8)
+			return "r_arm"
+		if(9 to 10)
+			return "r_hand"
+		if(11 to 12)
+			return "l_leg"
+		if(13 to 14)
+			return "l_foot"
+		if(15 to 16)
+			return "r_leg"
+		if(17 to 18)
+			return "r_foot"
 
 	return zone
 

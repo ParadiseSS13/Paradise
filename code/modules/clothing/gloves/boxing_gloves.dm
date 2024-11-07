@@ -7,7 +7,7 @@
 	species_exception = list(/datum/species/golem) // now you too can be a golem boxing champion
 	var/datum/martial_art/boxing/style
 
-/obj/item/clothing/gloves/boxing/Initialize()
+/obj/item/clothing/gloves/boxing/Initialize(mapload)
 	. = ..()
 	style = new()
 

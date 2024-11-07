@@ -21,7 +21,7 @@
 	energy = 50
 
 
-/obj/effect/accelerated_particle/Initialize(loc)
+/obj/effect/accelerated_particle/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
 	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_irradiate))

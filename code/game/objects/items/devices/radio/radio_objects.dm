@@ -82,6 +82,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
+	/// A timer that, when going off, will turn this radio on again
+	var/radio_enable_timer
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

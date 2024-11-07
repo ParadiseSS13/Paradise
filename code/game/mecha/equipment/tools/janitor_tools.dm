@@ -89,7 +89,8 @@
 		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href, href_list)
 	if(afilter.get("toggle_mode"))
 		refill_enabled = !refill_enabled
@@ -192,7 +193,8 @@
 		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[spray_controller.reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href,href_list)
 	if(afilter.get("toggle_mode"))
 		refill_enabled = !refill_enabled
@@ -244,7 +246,8 @@
 		return "[output] \[<a href='byond://?src=[UID()];toggle_bagging=1'>[bagging? "Filling" : "Dumping"]</a>\] \[<a href='byond://?src=[UID()];toggle_extended=1'>Area [extended? "Extended" : "Focused"]</a>\] \[Cargo: [length(storage_controller.contents)]/[storage_controller.max_combined_w_class]</a>\]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href,href_list)
 	if(afilter.get("toggle_bagging"))
 		bagging = !bagging
