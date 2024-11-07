@@ -393,10 +393,7 @@
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
 			E.energy = 200 //Gets us about 9 balls
-//	else if(power > EVENT_POWER_PENALTY_THRESHOLD && prob(power/50) && !istype(src, /obj/machinery/atmospherics/supermatter_crystal/shard))
-//		var/datum/round_event_control/crystal_invasion/crystals = new/datum/round_event_control/crystal_invasion
-//		crystals.runEvent()
-//		return //No boom for me sir
+
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	playsound(src, 'modular_ss220/aesthetics_sounds/sound/supermatter/explode.ogg', 100, FALSE, 40, 30, falloff_distance = 10) //SS220 EDIT - ADDITION
 	if(forced_gasmix_power_ratio)

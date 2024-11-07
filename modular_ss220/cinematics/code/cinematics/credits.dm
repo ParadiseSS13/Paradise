@@ -8,6 +8,10 @@
 	. = ..()
 	screen = new /atom/movable/screen/cinematic/credits(src)
 
+/datum/cinematic/credits/can_show(mob/watching_mob, client/watching_client)
+	// Do not show credits if it's disabled for the client and not forced.
+	return ..() && (GLOB.credits_forced || (watching_client.prefs.toggles220 & PREFTOGGLE_220_WATCH_CREDITS))
+
 /datum/cinematic/credits/start_cinematic(list/watchers)
 	if(!(SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAY_CINEMATIC, src) & COMPONENT_GLOB_BLOCK_CINEMATIC))
 		. = ..()
