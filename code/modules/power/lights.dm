@@ -143,16 +143,6 @@
 	construct_type = /obj/machinery/light/clockwork/built
 	fixture_type = "clockwork_tube"
 
-/obj/machinery/light_construct/clockwork/examine(mob/user)
-	if(get_dist(user, src) <= 2)
-		switch(stage)
-			if(1)
-				. += "<span class='notice'>It's an empty brass frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
-			if(2)
-				. += "<span class='notice'>The brass frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
-			if(3)
-				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
-
 /obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	switch(stage)
