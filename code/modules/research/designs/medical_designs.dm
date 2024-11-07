@@ -678,6 +678,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
 	category = list("Medical")
 
+/datum/design/flayer_pacification
+	name = "Mindflayer Pacification Implant"
+	desc = "This implant acts on mindflayer swarms like smoke to bees, making them much more docile."
+	id = "flayer_nullification_implant"
+	req_tech = list("materials" = 5, "programming" = 5,"engineering" = 5, "combat" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_GOLD = 3000, MAT_PLASMA = 10000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
+	category = list("Medical")
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
