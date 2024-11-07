@@ -61,6 +61,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
 	visible_message("[bicon(src)] *beep* *beep*")
+	playsound(src, 'sound/machines/twobeep.ogg', 20)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
 /obj/item/assembly/signaler/activate()
