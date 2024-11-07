@@ -1465,3 +1465,5 @@
 		qdel(src)
 	else
 		new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
+
+#undef FINISHER_THRESHOLD
