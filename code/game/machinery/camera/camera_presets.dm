@@ -60,7 +60,6 @@
 			camera_overlay.pixel_y = 23
 
 	camera_overlay.dir = dir
-	update_icon(UPDATE_OVERLAYS)
 	RegisterSignal(src, COMSIG_CAMERA_OFF, PROC_REF(prime_the_camera))
 
 /obj/machinery/camera/tracking_head/Destroy()
