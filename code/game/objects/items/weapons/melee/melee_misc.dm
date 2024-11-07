@@ -526,7 +526,7 @@
 	target.Weaken(power)
 
 /datum/enchantment/time_slash
-	name = "temporal slash"
+	name = "temporal"
 	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
 	power = 15 // This should come out to 40 damage per hit. However, delayed.
 
