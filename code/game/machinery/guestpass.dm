@@ -10,6 +10,9 @@
 	var/expiration_time = 0
 	var/reason = "NOT SPECIFIED"
 
+/obj/item/card/id/guest/attach_guest_pass(/obj/item/card/id/guest/G, mob/user)
+	return
+
 /obj/item/card/id/guest/GetAccess()
 	if(world.time > expiration_time)
 		return access

@@ -36,6 +36,13 @@
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
 
+/obj/item/storage/fancy/remove_from_storage(obj/item/I, atom/new_location)
+	if(!istype(I))
+		return FALSE
+
+	update_icon()
+	return ..()
+
 /*
  * Donut Box
  */
