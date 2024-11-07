@@ -394,7 +394,6 @@
 	if(!ranged && !proximity)
 		return FALSE
 	cooldown = world.time + (initial(cooldown) * cooldown_multiplier)
-	message_admins("[(initial(cooldown) * cooldown_multiplier)]")
 	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
