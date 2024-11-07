@@ -391,8 +391,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
-//		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
+
 	return temperature
 
 

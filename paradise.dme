@@ -399,6 +399,7 @@
 #include "code\datums\mixed.dm"
 #include "code\datums\movement_detector.dm"
 #include "code\datums\mutable_appearance.dm"
+#include "code\datums\ores.dm"
 #include "code\datums\particles.dm"
 #include "code\datums\pathfinding_mover.dm"
 #include "code\datums\periodic_news.dm"
