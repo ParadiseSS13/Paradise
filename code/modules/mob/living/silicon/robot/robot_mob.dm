@@ -418,7 +418,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
 				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
-				"Rover" = image('icons/mob/robots.dmi', "Rover"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Engi"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
 			)
 		if("Janitor")
@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot", "Rover")
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot", "Rover-Engi")
 			can_be_hatted = FALSE // Their base sprite already comes with a hat
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
