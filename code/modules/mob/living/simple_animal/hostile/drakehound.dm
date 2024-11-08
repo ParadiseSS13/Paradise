@@ -8,7 +8,6 @@
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 1
 	turns_per_move = 3
-	death_sound = 'sound/goonstation/voice/deathgasp_2.ogg'
 	response_help = "pushes the"
 	response_disarm = "shoves"
 	response_harm = "slashes"
