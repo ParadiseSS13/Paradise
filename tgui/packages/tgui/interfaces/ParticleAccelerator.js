@@ -84,8 +84,7 @@ export const ParticleAccelerator = (props, context) => {
           title={
             orientation ? 'EM Acceleration Chamber Orientation: ' + orientation : 'No EM Acceleration Chamber Detected'
           }
-        />
-        <Section title="Layout">
+        >
           {orientation === 'north' || orientation === 'south' ? (
             <Grid>
               <GridColumn width="40px">

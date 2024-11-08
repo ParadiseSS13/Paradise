@@ -274,10 +274,6 @@
 			ui_col_2.Add(list(layout[PARTICLE_CENTER][len - i]))
 			ui_col_3.Add(list(layout[PARTICLE_LEFT][len - i]))
 
-
-
-
-
 	data["assembled"] = assembled
 	data["power"] = active
 	data["strength"] = strength
