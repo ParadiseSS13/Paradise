@@ -119,11 +119,11 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 				qdel(src)
 				return
 			else
-				energy -= round(((energy+1)/2), 1)
+				energy -= round(((energy + 1) / 2), 1)
 		if(2)
-			energy -= round(((energy+1)/3), 1)
+			energy -= round(((energy + 1) / 3), 1)
 		if(3)
-			energy -= round(((energy+1)/4), 1)
+			energy -= round(((energy + 1) / 4), 1)
 	return
 
 
@@ -169,7 +169,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]", "singulo")
+	investigate_log("was created. [count ? "" : "<font color='red'>No containment fields were active</font>"]", "singulo")
 
 /obj/singularity/proc/do_dissipate()
 	if(!dissipate)
@@ -509,7 +509,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2), 1)
-	explosion(src.loc, (dist), (dist*2), (dist*4))
+	explosion(src.loc, (dist), (dist * 2), (dist * 4))
 	qdel(src)
 	return(gain)
 
