@@ -27,7 +27,7 @@ const SingularityMonitorListView = (props, context) => {
         <Section
           fill
           title="Detected Singularities"
-          buttons={<Button icon="sync" content="Refresh" onClick={() => act('refresh')} />}
+          buttons={<Button icon="sync" content="Refresh " onClick={() => act('refresh')} />}
         >
           <Table>
             {singularities.map((singulo) => (
