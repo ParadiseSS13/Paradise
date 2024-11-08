@@ -800,14 +800,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/djstation)
-"bR" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/space/djstation)
 "bS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -1100,6 +1092,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/djstation)
+"MM" = (
+/obj/structure/toilet{
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/ruin/space/djstation)
 "OC" = (
 /obj/structure/table,
@@ -1750,8 +1750,8 @@ TF
 bx
 dg
 aS
+MM
 aY
-bR
 ao
 aa
 aa
