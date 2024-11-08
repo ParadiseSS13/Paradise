@@ -169,15 +169,15 @@
 	requires_power = FALSE
 
 /area/ruin/space/turreted_outpost
-	name = "Syndicate Outpost"
+	name = "Syndicate Interdiction Platform"
 	icon_state = "red"
 
 /area/ruin/space/turreted_outpost/vault
-	name = "Syndicate Outpost Vault"
+	name = "Syndicate Interdiction Platform Vault"
 	icon_state = "storage"
 
 /area/ruin/space/turreted_outpost/solars
-	name = "Syndicate Outpost Solars"
+	name = "Syndicate Interdiction Platform Solars"
 	icon_state = "general_solars"
 
 /area/ruin/space/abandoned_engi_sat

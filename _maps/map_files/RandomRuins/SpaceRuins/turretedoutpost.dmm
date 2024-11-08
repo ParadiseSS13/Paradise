@@ -72,11 +72,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "ia" = (
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/machinery/door/airlock/public/glass,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/space/turreted_outpost)
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
 "iq" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -106,15 +110,22 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /turf/simulated/floor/plating,
 /area/ruin/space/turreted_outpost)
-"px" = (
+"mZ" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 32
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"px" = (
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "pA" = (
@@ -170,11 +181,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/off_station/directional/north,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "sX" = (
@@ -201,14 +207,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "uc" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 32
-	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "va" = (
@@ -283,10 +283,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "AK" = (
-/obj/structure/toilet{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/clipboard,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Bc" = (
 /obj/structure/cable{
@@ -355,13 +354,11 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/turreted_outpost/vault)
 "Hb" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "HH" = (
@@ -369,8 +366,14 @@
 /obj/item/food/syndicake,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"Ia" = (
+/obj/structure/reagent_dispensers/oil,
+/obj/item/reagent_containers/drinks/oilcan/full,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
 "IE" = (
-/obj/structure/filingcabinet,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/radio,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Ja" = (
@@ -398,11 +401,11 @@
 /area/ruin/space/turreted_outpost)
 "Kd" = (
 /obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
+	dir = 8;
+	pixel_x = -12
 	},
 /obj/structure/mirror{
-	pixel_x = 28
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
@@ -443,10 +446,11 @@
 /turf/template_noop,
 /area/ruin/space/turreted_outpost/solars)
 "NR" = (
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/clipboard,
-/obj/item/radio,
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/toilet,
+/turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "Oc" = (
 /obj/structure/cable{
@@ -507,15 +511,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "Se" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/public/glass,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost/vault)
+/area/ruin/space/turreted_outpost)
 "St" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/syndicate_bomb,
@@ -546,6 +545,21 @@
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost/vault)
+"TD" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
 "TV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -575,7 +589,9 @@
 /area/ruin/space/turreted_outpost/vault)
 "WE" = (
 /obj/machinery/porta_turret/syndicate/exterior,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "rockvault"
+	},
 /area/ruin/space/turreted_outpost)
 "WY" = (
 /obj/structure/rack,
@@ -591,6 +607,19 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"Yi" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
 "Yr" = (
 /obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/cable{
@@ -610,21 +639,24 @@
 
 (1,1,1) = {"
 UL
+UL
+UL
+UL
+UL
+UL
 tw
 tw
 tw
-UL
-UL
-UL
-UL
-UL
-UL
-UL
-UL
-UL
-UL
-UL
-UL
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
 tw
 tw
 tw
@@ -632,21 +664,24 @@ UL
 "}
 (2,1,1) = {"
 UL
+UL
+UL
+UL
+UL
+UL
 tw
 WE
 bI
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 WE
 tw
@@ -654,21 +689,24 @@ UL
 "}
 (3,1,1) = {"
 UL
+UL
+UL
+UL
+UL
+UL
 tw
 bI
 bI
-Mw
-Mw
-Mw
-Mw
-Mw
-Mw
-Mw
-Mw
-Mw
-QZ
-Mw
-Mw
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
 bI
 bI
 tw
@@ -677,74 +715,62 @@ UL
 (4,1,1) = {"
 UL
 UL
-Yb
-Mw
-Mw
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-Mw
-Mw
-Yb
 UL
+UL
+UL
+UL
+Yb
+bI
+qa
+qa
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+qa
+qa
+bI
+Yb
 UL
 "}
 (5,1,1) = {"
 UL
 UL
-Yb
-Mw
-qa
-qa
-Tv
-Tv
-Tv
-Tv
-Tv
-Tv
-Tv
-Tv
-qa
-qa
-Mw
-Yb
 UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Tv
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Tv
+Tv
+qa
+bI
+Yb
 UL
 "}
 (6,1,1) = {"
 UL
 UL
-Yb
-Mw
-qa
-Tv
-Tv
-Gd
-Gd
-Gd
-Gd
-Gd
-Gd
-Tv
-Tv
-qa
-Mw
-Yb
 UL
 UL
-"}
-(7,1,1) = {"
 UL
 UL
 Yb
-Mw
+bI
 qa
 Tv
 Gd
@@ -757,16 +783,19 @@ Gd
 Gd
 Tv
 qa
-Mw
+bI
 Yb
-UL
 UL
 "}
-(8,1,1) = {"
+(7,1,1) = {"
+UL
+UL
+UL
+UL
 UL
 UL
 Yb
-Mw
+bI
 qa
 Tv
 Gd
@@ -779,16 +808,19 @@ pA
 Gd
 Tv
 qa
-QZ
+bI
 Yb
-UL
 UL
 "}
-(9,1,1) = {"
+(8,1,1) = {"
+UL
+UL
+UL
+UL
 UL
 UL
 Yb
-Mw
+bI
 qa
 Tv
 Gd
@@ -801,16 +833,19 @@ bT
 Gd
 Tv
 qa
-Mw
+bI
 Yb
-UL
 UL
 "}
-(10,1,1) = {"
+(9,1,1) = {"
+UL
+UL
+UL
+UL
 UL
 UL
 Yb
-Mw
+bI
 qa
 Tv
 Gd
@@ -823,16 +858,19 @@ WY
 Gd
 Tv
 qa
-Mw
+bI
 Yb
-UL
 UL
 "}
-(11,1,1) = {"
+(10,1,1) = {"
+UL
+tw
+tw
+tw
 UL
 UL
 Yb
-QZ
+bI
 qa
 Tv
 Gd
@@ -845,16 +883,19 @@ WC
 Gd
 Tv
 qa
-Mw
+bI
 Yb
-UL
 UL
 "}
-(12,1,1) = {"
+(11,1,1) = {"
+UL
 tw
-tw
+WE
+bI
 Yb
-Mw
+Yb
+Yb
+bI
 qa
 Tv
 Gd
@@ -867,53 +908,83 @@ Gd
 Gd
 Tv
 qa
-Mw
+bI
 Yb
+UL
+"}
+(12,1,1) = {"
+UL
 tw
-tw
+bI
+bI
+bI
+bI
+bI
+bI
+qa
+Tv
+Tv
+Gd
+Gd
+YB
+vg
+Gd
+Gd
+Tv
+Tv
+qa
+bI
+Yb
+UL
 "}
 (13,1,1) = {"
-tw
-WE
-bI
+UL
+UL
+Yb
 Mw
 qa
 qa
 qa
 qa
 qa
-Se
+qa
+qa
+qa
+qa
+ia
 li
 qa
 qa
 qa
 qa
 qa
-Mw
 bI
-WE
-tw
+Yb
+UL
 "}
 (14,1,1) = {"
-tw
-tw
+UL
+UL
 Yb
 Mw
 qa
 sh
 AC
-IE
-qa
-so
-QB
+Ia
 qa
 OU
 kN
-AK
+Kd
+qa
+so
+QB
+QB
+IE
 qa
 Mw
-Yb
-tw
+bI
+bI
+bI
 tw
 "}
 (15,1,1) = {"
@@ -926,17 +997,20 @@ SV
 BK
 va
 qa
-uc
-QB
-qa
-ia
+NR
 kN
-Kd
+kN
+qa
+mZ
+QB
+QB
+uc
 qa
 Mw
 Yb
-UL
-UL
+bI
+WE
+tw
 "}
 (16,1,1) = {"
 UL
@@ -948,17 +1022,20 @@ kK
 Jd
 Bc
 qa
-px
-QB
+qa
 qa
 wR
 qa
-qa
+Yi
+QB
+wW
+AK
 qa
 Mw
 Yb
-UL
-UL
+tw
+tw
+tw
 "}
 (17,1,1) = {"
 UL
@@ -969,16 +1046,19 @@ qa
 Oc
 xB
 TV
+TD
+Hb
+Hb
+Hb
 Hb
 Kk
 QB
 QB
-QB
-wW
-NR
+pP
 qa
 Mw
 Yb
+UL
 UL
 UL
 "}
@@ -992,15 +1072,18 @@ tT
 eh
 QB
 qa
+px
 QB
 QB
 QB
 QB
 QB
-pP
+QB
+Se
 qa
 Mw
 Yb
+UL
 UL
 UL
 "}
@@ -1021,8 +1104,11 @@ St
 Ub
 QB
 qa
+qa
+qa
 Mw
 Yb
+UL
 UL
 UL
 "}
@@ -1044,7 +1130,10 @@ Ub
 qK
 qa
 Mw
+Mw
+Mw
 Yb
+UL
 UL
 UL
 "}
@@ -1067,6 +1156,9 @@ QB
 qa
 Mw
 Yb
+Yb
+Yb
+UL
 UL
 UL
 "}
@@ -1091,6 +1183,9 @@ Mw
 Yb
 UL
 UL
+UL
+UL
+UL
 "}
 (23,1,1) = {"
 UL
@@ -1111,6 +1206,9 @@ qa
 qa
 Mw
 Yb
+UL
+UL
+UL
 UL
 UL
 "}
@@ -1135,6 +1233,9 @@ bI
 bI
 tw
 UL
+UL
+UL
+UL
 "}
 (25,1,1) = {"
 UL
@@ -1156,6 +1257,9 @@ Yb
 bI
 WE
 tw
+UL
+UL
+UL
 UL
 "}
 (26,1,1) = {"
@@ -1179,6 +1283,9 @@ tw
 tw
 tw
 UL
+UL
+UL
+UL
 "}
 (27,1,1) = {"
 UL
@@ -1195,6 +1302,9 @@ zR
 gA
 Np
 zV
+UL
+UL
+UL
 UL
 UL
 UL
@@ -1223,6 +1333,9 @@ UL
 UL
 UL
 UL
+UL
+UL
+UL
 "}
 (29,1,1) = {"
 UL
@@ -1245,6 +1358,9 @@ UL
 UL
 UL
 UL
+UL
+UL
+UL
 "}
 (30,1,1) = {"
 UL
@@ -1259,6 +1375,34 @@ UL
 Yb
 fp
 Yb
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+"}
+(31,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+Yb
+Yb
+Yb
+UL
+UL
+UL
 UL
 UL
 UL
