@@ -1096,6 +1096,8 @@
 /obj/item/card/id/nct_data_chip/examine(mob/user)
 	. = ..()
 	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
+	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
+	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions."
 
 /obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
 	if(!trainee)
