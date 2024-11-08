@@ -64,9 +64,6 @@
 	if(!length(all_pipes))
 		return
 
-	if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
-		fluid_datum = new()
-
 	var/list/nearby_pipes = all_pipes & orange(1, src)
 	for(var/obj/machinery/fluid_pipe/pipe as anything in nearby_pipes)
 		if(!(get_dir(src, pipe) in GLOB.cardinal))
@@ -74,9 +71,15 @@
 		if(pipe.fluid_datum) // Already connected, don't connect again
 			if(fluid_datum != pipe.fluid_datum)
 				fluid_datum.merge(pipe.fluid_datum)
-			neighbours++
-			pipe.neighbours++
+			if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
+				pipe.fluid_datum.add_pipe(src)
+
+			update_neighbours()
+			pipe.update_neighbours()
 			continue
+
+		if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
+			fluid_datum = new()
 
 		fluid_datum.add_pipe(pipe)
 		update_neighbours()

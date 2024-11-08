@@ -13,7 +13,7 @@
  * machine: any fluid pipe machinery that aren't normal pipes
  * A /machinery/fluid_pipeline should **never** be in both lists
  */
-
+// TODO UNFUCK WITH SSFLUID
 /datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe)
 	. = ..()
 	START_PROCESSING(SSfluid, src)
@@ -84,7 +84,7 @@
 	for(var/obj/machinery/fluid_pipe/pipe_machinery as anything in machinery)
 		pipe_machinery.blind_connect()
 
-	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
+	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes + broken_neighbours)
 		new_pipeline_datums |= pipe.fluid_datum
 		pipe.update_icon()
 
