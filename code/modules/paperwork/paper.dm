@@ -650,6 +650,18 @@
 	<br>\
 	Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."
 
+/obj/item/paper/ussp_tele
+	name = "Report - Bluespace Translocation Apparatus"
+	info = "Despite a lot of headaches and delays, the BTA is finally in a functional enough state to demonstrate to the Committee, although be warned that it has multiple limitations:<br>\
+	<br>\
+	<ul><li>The highly sensitive electronics are affected by a translocation event, which will throw off any acquired locks. \
+	The station must be recalibrated after every use to avoid the possibility of being translocated to a random point in space.</li>\
+	<li>Currently the system is only able to function with the help of locator beacons, we have been unable to safely generate arbitrary targeting coordinates.</li>\
+	<li>We cannot retrieve targets remotely, even with the aid of a locator beacon, energy consumption is too high to maintain a remote portal.</li></ul>\
+	Doctors Danielius and Hoang both believe that the first point can be worked out with some relatively minor technological improvements. \
+	Arbitrary targeting is technically possible but will remain infeasible for decades. Remote target retrieval will require an entirely different technique, \
+	although accounts of Syndicate contractor operations suggests that they possess a functioning apparatus capable of such a feat."
+
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
 	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Internal affairs will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."

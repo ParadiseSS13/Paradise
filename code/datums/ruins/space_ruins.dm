@@ -243,8 +243,9 @@
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
 	suffix = "ussp_tele.dmm"
-	name = "USSP Teleporter"
-	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
+	name = "Derelict USSP Teleporter"
+	description = "An experimental teleporter of USSP origin, some terrible calamity has ripped it free from a larger structure and sent drifting through space."
+	allow_duplicates = FALSE // One uniquely flavoured abandoned tele to keep the flavour fresh.
 
 /datum/map_template/ruin/space/ussp
 	id = "ussp"

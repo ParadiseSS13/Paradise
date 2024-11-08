@@ -134,7 +134,6 @@
 /area/ruin/space/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
-	there_can_be_many = TRUE
 
 /area/ruin/space/derelict/eva
 	name = "Derelict EVA Storage"
