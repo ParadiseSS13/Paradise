@@ -213,8 +213,9 @@
 	id = "dj"
 	suffix = "dj.dmm"
 	name = "Soviet DJ Station"
-	description = "An old soviet era listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	description = "A USSP listening post masquerading as a popular Soviet entertainment broadcaster, keeping tabs on Nanotrasen activity in the system and relaying it back to the Union."
 	cost = 2
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
@@ -242,8 +243,9 @@
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
 	suffix = "ussp_tele.dmm"
-	name = "USSP Teleporter"
-	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
+	name = "Derelict USSP Teleporter"
+	description = "An experimental teleporter of USSP origin, some terrible calamity has ripped it free from a larger structure and sent drifting through space."
+	allow_duplicates = FALSE // One uniquely flavoured abandoned tele to keep the flavour fresh.
 
 /datum/map_template/ruin/space/ussp
 	id = "ussp"
