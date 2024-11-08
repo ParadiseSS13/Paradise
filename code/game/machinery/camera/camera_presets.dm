@@ -40,7 +40,7 @@
 
 /obj/machinery/camera/tracking_head/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor, _radius = 6)
+	proximity_monitor = new(src, 6)
 	camera_overlay = new(get_turf(src))
 	switch(dir)
 		if(NORTH)
