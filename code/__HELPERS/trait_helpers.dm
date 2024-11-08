@@ -129,7 +129,7 @@
 /// A simple helper for checking traits in a mob's mind
 #define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -225,7 +225,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
-#define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
+#define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
 #define TRAIT_SCOPED "user_scoped"
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
@@ -237,6 +237,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
+#define TRAIT_EMP_IMMUNE "emp_immune" //The mob will take no damage from EMPs
+#define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
+#define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
+#define TRAIT_FLYING "flying"
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -412,3 +416,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
+
+//***** PROC WRAPPERS *****//
+/// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
+/proc/callback_add_trait(datum/target, trait, source)
+	ADD_TRAIT(target, trait, source)
+
+/// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
+/proc/callback_remove_trait(datum/target, trait, source)
+	REMOVE_TRAIT(target, trait, source)

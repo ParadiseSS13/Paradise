@@ -101,7 +101,7 @@
 			future_traits = new_future_traits
 			fdel("data/next_traits.txt") //Delete it.
 			var/F = file("data/next_traits.txt")
-			F << params["station_traits"]
+			F << json_encode(params["station_traits"])
 			return TRUE
 
 		if("clear_future_traits")

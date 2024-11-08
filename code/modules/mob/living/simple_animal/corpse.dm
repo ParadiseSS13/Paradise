@@ -57,7 +57,6 @@
 	gloves = /obj/item/clothing/gloves/combat
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/mod/control/pre_equipped/traitor_elite
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
@@ -94,26 +93,26 @@
 	name = "Corpse of a Pirate Gunner"
 
 
-/obj/effect/mob_spawn/human/corpse/russian
-	name = "Russian"
-	mob_name = "Russian"
+/obj/effect/mob_spawn/human/corpse/soviet
+	name = "Soviet"
+	mob_name = "Soviet"
 	hair_style = "bald"
 	facial_hair_style = "shaved"
-	outfit = /datum/outfit/russiancorpse
+	outfit = /datum/outfit/sovietcorpse
 
-/datum/outfit/russiancorpse
-	name = "Corpse of a Russian"
-	uniform = /obj/item/clothing/under/costume/soviet
+/datum/outfit/sovietcorpse
+	name = "Corpse of a Soviet"
+	uniform = /obj/item/clothing/under/new_soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/sovietsidecap
 
 
-/obj/effect/mob_spawn/human/corpse/russian/ranged
-	outfit = /datum/outfit/russiancorpse/ranged
+/obj/effect/mob_spawn/human/corpse/soviet/ranged
+	outfit = /datum/outfit/sovietcorpse/ranged
 
-/datum/outfit/russiancorpse/ranged
-	name = "Corpse of a Ranged Russian"
-	head = /obj/item/clothing/head/ushanka
+/datum/outfit/sovietcorpse/ranged
+	name = "Corpse of a Ranged Soviet"
+	suit = /obj/item/clothing/suit/sovietcoat
 
 
 /obj/effect/mob_spawn/human/corpse/wizard

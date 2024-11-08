@@ -17,6 +17,34 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	GLOB.telecomms_bots -= src
 	return ..()
 
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba
+	name = "A FUCKING DOOMBA"
+	desc = "IT'S GOT A BOMB RUN!"
+	var/obj/structure/reagent_dispensers/fueltank/internal_tank
+	var/obj/structure/marker_beacon/dock_marker/collision/decorative_eye
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
+	. = ..()
+	internal_tank = new(src)
+	decorative_eye = new(src)
+	vis_contents += internal_tank
+	vis_contents += decorative_eye
+	internal_tank.pixel_y = 10
+	decorative_eye.pixel_y = -8
+	decorative_eye.pixel_x = 1
+	decorative_eye.layer = 4
+	internal_tank.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
+	visible_message("<span class='userdanger'>[src] EXPLODES!</span>")
+	var/your_doom = get_turf(src)
+	new /obj/item/grenade/frag(your_doom)
+	internal_tank.forceMove(your_doom)
+	explosion(your_doom, 1, 0, 0, 6, FALSE, 6)
+	qdel(decorative_eye)
+	qdel(src)
+
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
@@ -63,7 +91,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	//Has someone put an item in the autolathe, breaking the hologram?
 	var/disguise_broken = FALSE
 
-/obj/machinery/autolathe/trapped/Initialize()
+/obj/machinery/autolathe/trapped/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
 
@@ -171,13 +199,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(1 SECONDS)
-	for(var/obj/machinery/shieldgen/telecomms/shield in urange(15, get_turf(src)))
-		shield.shields_up()
+	for(var/obj/structure/telecomms_shield_cover/shield in urange(15, get_turf(src)))
+		shield.activate()
 	if(ruin_cheese_attempted)
 		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
 			A.close(override = TRUE)
 	for(var/area/A in urange(25, get_turf(src), areas = TRUE))
+		for(var/obj/machinery/camera/tracking_head/camera in A)
+			camera.toggle_cam(null, 0)
 		if(istype(A, /area/space))
 			continue
 		if(ruin_cheese_attempted)
@@ -220,7 +250,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
-/obj/item/bombcore/doomsday/Initialize()
+/obj/item/bombcore/doomsday/Initialize(mapload)
 	. = ..()
 	if(!istype(loc, /obj/machinery/syndicatebomb/doomsday))
 		log_debug("something tried to spawn a telecomms doomsday ruin payload outside the ruin, deleting!")
@@ -245,6 +275,25 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_IN(S, 25 SECONDS)
 	if(istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
+	qdel(src)
+
+/obj/structure/telecomms_shield_cover
+	name = "turret"
+	desc = "Looks like the cover to a turret. Not deploying, however?"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "turretCover"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	anchored = TRUE
+
+/obj/structure/telecomms_shield_cover/proc/activate()
+	invisibility = 90
+	var/obj/machinery/shieldgen/telecomms/trap = new /obj/machinery/shieldgen/telecomms(get_turf(src))
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = trap.layer + 0.1
+	flick("popup", flick_holder)
+	sleep(1 SECONDS)
+	trap.shields_up()
+	qdel(flick_holder)
 	qdel(src)
 
 /turf/simulated/floor/catwalk/airless
@@ -391,6 +440,16 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		/datum/nothing = 4,
 		/obj/item/melee/baton/cattleprod/teleprod = 1)
 
+/obj/effect/spawner/random/telecomms_weldertank_maybe
+	name = "weldertank maybe"
+	loot = list(/obj/structure/reagent_dispensers/fueltank)
+	spawn_loot_chance = 25
+
+/obj/effect/spawner/random/telecomms_doomba_one_in_twenty
+	name = "doomba very rarely"
+	loot = list(/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba)
+	spawn_loot_chance = 5
+
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad
 	name = "holopad"
@@ -430,7 +489,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	DeleteComponent(/datum/component/proximity_monitor)
+
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))

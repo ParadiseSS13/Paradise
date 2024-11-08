@@ -33,7 +33,7 @@
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
 	dies_at_threshold = TRUE
-	can_revive_by_healing = 1
+	can_revive_by_healing = TRUE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
@@ -152,11 +152,11 @@
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
+		var/optic_colour = tgui_input_color(H, "Please select an optic color", "Select Optic Color", H.m_colours["head"])
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+			to_chat(H, "<span class='warning'>You were interrupted while changing the color of your optics.</span>")
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
@@ -175,7 +175,7 @@
 		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
 		if(!new_style)
 			return
-		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
+		var/new_color = tgui_input_color(H, "Please select hair color.", "Monitor Color", head_organ.hair_colour)
 
 		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
@@ -183,7 +183,7 @@
 
 		if(new_style)
 			H.change_hair(new_style, 1)							// The 1 is to enable custom sprites
-		if(new_color)
+		if(!isnull(new_color))
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)

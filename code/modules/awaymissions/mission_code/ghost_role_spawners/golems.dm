@@ -175,32 +175,38 @@
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
 			return
-		if(istype(src, /obj/effect/mob_spawn/human/alive/golem/servant) && !isgolem(user))
+		handle_becoming_golem(I, user)
+
+/obj/effect/mob_spawn/human/alive/golem/proc/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
+	if(isgolem(user) && can_transfer)
+		var/datum/species/golem/g = user.dna.species
+		if(g.owner)
+			has_owner = TRUE
+			owner = g.owner
+		else
 			has_owner = FALSE
-		if(isgolem(user) && can_transfer)
-			var/datum/species/golem/g = user.dna.species
-			if(g.owner)
-				has_owner = TRUE
-				owner = g.owner
-			else
-				has_owner = FALSE
-				owner = null
-		flavour_text = null
-		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
-		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
-		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
-		var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
-		user.mind.transfer_to(g)
-		g.real_name = user.real_name
-		g.faction = user.faction
-		user.death()  //Keeps brain intact to prevent forcing redtext
-		to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
-		qdel(I)
+			owner = null
+	flavour_text = null
+	user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
+	"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+	message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
+	var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
+	user.mind.transfer_to(g)
+	g.real_name = user.real_name
+	g.faction = user.faction
+	user.death()  //Keeps brain intact to prevent forcing redtext
+	to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
+	qdel(I)
 
 /obj/effect/mob_spawn/human/alive/golem/servant
 	has_owner = TRUE
 	name = "inert servant golem shell"
 	mob_name = "a servant golem"
+
+/obj/effect/mob_spawn/human/alive/golem/servant/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
+	if(!isgolem(user))
+		has_owner = FALSE
+	return ..()
 
 /obj/effect/mob_spawn/human/alive/golem/adamantine
 	name = "dust-caked free golem shell"

@@ -291,6 +291,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
+	allow_duplicate = TRUE
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
@@ -313,12 +314,12 @@
 	else
 		return ..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/user, mob/living/silicon/robot/R)
 	if(!..())
 		return
 
 	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-		return install(H, usr)
+		return install(H, user)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
@@ -656,4 +657,4 @@
 	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+	bolt_color = tgui_input_color(user, "Please select a tracer color", "PKA Tracer Color", bolt_color)
