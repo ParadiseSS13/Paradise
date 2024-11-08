@@ -44,7 +44,9 @@
 	src.add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
+	var/temp = tgui_input_color(user, "Please select a dye color", "Dye Color")
+	if(isnull(temp))
+		return
 	dye_color = temp
 	set_light(2, l_color = temp)
 
