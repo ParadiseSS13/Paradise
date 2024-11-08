@@ -9,6 +9,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
+	var/removable = TRUE
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
@@ -36,7 +37,7 @@
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
-	if(istype(src, /obj/structure/sign/double))
+	if(!removable)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -84,6 +85,9 @@
 	S.icon_state = sign_state
 	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
 	qdel(src)
+
+/obj/structure/sign/double
+	removable = FALSE
 
 /obj/structure/sign/double/map
 	name = "station map"

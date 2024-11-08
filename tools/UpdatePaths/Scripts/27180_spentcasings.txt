@@ -1,0 +1,2 @@
+/obj/item/trash/spentcasing{icon_state="r-casing"} : /obj/item/trash/spentcasing/bullet
+/obj/item/trash/spentcasing : /obj/item/trash/spentcasing/shotgun

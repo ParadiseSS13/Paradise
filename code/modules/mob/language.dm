@@ -731,6 +731,8 @@
 	popup.open()
 
 /mob/living/Topic(href, href_list)
+	if(..())
+		return TRUE
 	if(href_list["default_lang"])
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
@@ -740,8 +742,6 @@
 				set_default_language(L)
 		check_languages()
 		return TRUE
-	else
-		return ..()
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
