@@ -900,6 +900,9 @@
 "agX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
+/obj/machinery/ai_status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agZ" = (
@@ -2301,10 +2304,6 @@
 "apg" = (
 /obj/item/kirbyplants,
 /obj/machinery/firealarm/directional/north,
-/obj/machinery/keycard_auth{
-	pixel_x = 24;
-	pixel_y = 24
-	},
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -65664,6 +65663,16 @@
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"eHr" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "eHD" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -70656,6 +70665,13 @@
 	icon_state = "neutral"
 	},
 /area/station/hallway/primary/central/north)
+"hBD" = (
+/obj/machinery/keycard_auth{
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/simulated/wall,
+/area/station/command/customs)
 "hCU" = (
 /obj/effect/turf_decal/delivery/partial,
 /obj/machinery/door/window/classic/normal{
@@ -70719,6 +70735,11 @@
 	},
 /turf/space,
 /area/space)
+"hEk" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/arrival/station)
 "hEl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -74366,6 +74387,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
+"jOE" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/ai_status_display{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "jOL" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
@@ -76317,7 +76348,9 @@
 "kWK" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
 /area/station/hallway/secondary/entry/south)
 "kWL" = (
 /obj/machinery/computer/med_data,
@@ -78228,6 +78261,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
+"mej" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "mek" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -83136,6 +83177,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/firstaid/regular,
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "oMI" = (
@@ -85921,6 +85965,18 @@
 	icon_state = "vault"
 	},
 /area/station/command/bridge)
+"qtd" = (
+/obj/structure/sign/directions/engineering{
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = 1
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -8
+	},
+/turf/simulated/wall,
+/area/station/command/customs)
 "qtk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -86131,6 +86187,21 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"qzl" = (
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 1
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -6
+	},
+/turf/simulated/wall,
+/area/station/hallway/secondary/entry/east)
 "qzr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -90398,6 +90469,21 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"sGT" = (
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = 1
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -6
+	},
+/turf/simulated/wall,
+/area/station/hallway/secondary/entry/north)
 "sHa" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -93200,6 +93286,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/aft/north)
+"uhO" = (
+/obj/structure/sign/directions/security{
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/medical,
+/obj/structure/sign/directions/evac{
+	pixel_y = -8
+	},
+/turf/simulated/wall,
+/area/station/security/checkpoint/secondary)
 "uic" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96292,6 +96388,11 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"vZx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "vZC" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -96688,6 +96789,21 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/ne)
+"wjP" = (
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 1
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -6
+	},
+/turf/simulated/wall,
+/area/station/hallway/secondary/entry/north)
 "wjY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
@@ -135287,11 +135403,11 @@ aeb
 aeb
 ovL
 ovL
-ovL
+sGT
 qQv
 adN
 ahF
-ovL
+wjP
 adO
 aaa
 aaa
@@ -135304,7 +135420,7 @@ aaa
 aaa
 adO
 aAr
-kWK
+mej
 ivG
 kWK
 aoo
@@ -136065,13 +136181,13 @@ jWY
 doS
 aaa
 agE
-agE
+agD
 alv
 alv
 agE
 alv
 alv
-agE
+agD
 agE
 aaa
 dGS
@@ -136579,13 +136695,13 @@ ovL
 ovL
 doS
 agE
+eHr
 ail
 ail
-ail
-pHg
-ail
+hEk
 ail
 ail
+jOE
 agE
 dGS
 aAr
@@ -137096,7 +137212,7 @@ agE
 seh
 ajy
 ahB
-agD
+agF
 ahB
 alH
 aiX
@@ -137621,7 +137737,7 @@ amM
 anT
 alx
 aop
-aop
+hBD
 aop
 aop
 aop
@@ -138124,7 +138240,7 @@ agF
 ahC
 ahC
 ahB
-agD
+agF
 ahB
 ahC
 ahC
@@ -138648,7 +138764,7 @@ xty
 lpL
 anT
 anY
-aop
+qtd
 aop
 fih
 xVF
@@ -138893,7 +139009,7 @@ ovL
 doS
 agE
 akz
-aky
+vZx
 agX
 ahB
 oMB
@@ -140684,11 +140800,11 @@ aaa
 aaa
 ovL
 doS
-ovL
+sGT
 qQS
 agT
 amA
-slc
+qzl
 akA
 grB
 grB
@@ -141218,7 +141334,7 @@ akA
 mra
 saK
 nAP
-aoC
+uhO
 aoC
 hTD
 jJl
