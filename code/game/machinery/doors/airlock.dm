@@ -761,6 +761,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, border_dir)
+	log_chat_debug("/obj/machinery/door/airlock/CanPass([DEBUG_OBJ(mover)], [border_dir])")
 	if(istype(mover) && !locked)
 		if(mover.checkpass(PASSDOOR))
 			return TRUE

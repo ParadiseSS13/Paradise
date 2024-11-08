@@ -464,27 +464,32 @@
 	. = ..()
 	debris += new frame
 	debris += new shardtype
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/table/glass/Destroy()
 	for(var/i in debris)
 		qdel(i)
 	. = ..()
 
-/obj/structure/table/glass/proc/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/structure/table/glass/proc/on_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(flags & NODECONSTRUCT)
 		return
-	if(!isliving(crossed))
+	if(!isliving(entered))
 		return
-	var/mob/living/L = crossed
+	var/mob/living/L = entered
 	if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
 		return
 
 	// Don't break if they're just flying past
-	if(crossed.throwing)
-		addtimer(CALLBACK(src, PROC_REF(throw_check), crossed), 5)
+	if(entered.throwing)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), entered), 5)
 	else
-		check_break(crossed)
+		check_break(entered)
 
 /obj/structure/table/glass/proc/throw_check(mob/living/M)
 	if(M.loc == get_turf(src))
