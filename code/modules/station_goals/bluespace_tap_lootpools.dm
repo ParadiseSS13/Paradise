@@ -199,7 +199,7 @@
 	loot = list(
 		/obj/item/food/wingfangchu,
 		/obj/item/food/hotdog,
-		/obj/item/food/cookie
+		/obj/item/food/cookie,
 		/obj/item/food/plumphelmetbiscuit,
 		/obj/item/food/appletart,
 		/obj/item/food/soup/meatballsoup,

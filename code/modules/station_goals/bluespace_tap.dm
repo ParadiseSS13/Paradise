@@ -151,6 +151,8 @@
 	var/chemical_block = FALSE
 	/// When a chemical event triggers, this will contain the needed chemical to start progress again
 	var/chemical_needed = "Water"
+	/// Internal radio to handle announcements over engineering
+	var/obj/item/radio/radio
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -167,6 +169,14 @@
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
+
+/obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	. = ..()
+	dirty = FALSE
 
 /obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
@@ -293,10 +303,44 @@
 	consume_direct_power(mining_power + stabilizer_power)
 
 	// 2 points per 50 KW up to 20 and 4 points per MW (or 5 when emmaged).
-	mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
-	points += mined_points
-	total_points += mined_points
-	update_icon()
+	// A dirty machine does not produce points
+	if(!dirty)
+		mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
+		points += mined_points
+		total_points += mined_points
+		update_icon()
+		// Machine gets dirty. Always remains at 2% regardless of power draw.
+		if(prob(0.02))
+			radio.autosay("<b>Bluespace harvester malfunction detected: filth contaminants have jammed [src]'s bluespace receiver!</b>", name, "Engineering")
+			dirty = TRUE
+
+	// Handle automatic spawning of loot. Extra loot spawns in maints if stabilizers are off to incentivise risk taking
+	if(total_points > clothing_interval)
+		produce(product_list[1], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some clothes!</b>", name, "Engineering")
+		clothing_interval += 5000
+
+	if(total_points > food_interval)
+		produce(product_list[2], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some food!</b>", name, "Engineering")
+		food_interval += 6000
+
+	if(total_points > cultural_interval)
+		produce(product_list[3], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something with culture!</b>", name, "Engineering")
+		cultural_interval += 10000
+
+	if(total_points > organic_interval)
+		produce(product_list[4], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something organic!</b>", name, "Engineering")
+		organic_interval += 15000
+
+	if(total_points > motherlode_interval)
+		produce_motherlode()
+		motherlode_interval += 45000
+
+
+
 	/*
 	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
 	* This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
@@ -341,6 +385,7 @@
 	data["powerUse"] = mining_power + stabilizer_power
 	data["availablePower"] = get_surplus()
 	data["emagged"] = emagged
+	data["dirty"] = dirty
 	data["autoShutown"] = auto_shutdown
 	data["stabilizers"] = stabilizers
 	data["stabilizerPower"] = stabilizer_power
@@ -372,48 +417,72 @@
 /**
   * Produces the product with the desired key and increases product cost accordingly
   */
-/obj/machinery/power/bluespace_tap/proc/produce(key)
-	if(key <= 0 || key > length(product_list))	//invalid key
+/obj/machinery/power/bluespace_tap/proc/produce(var/datum/data/bluespace_tap_product/product, purchased = FALSE, double_chance = FALSE)
+	if(!product)
 		return
-	var/datum/data/bluespace_tap_product/A = product_list[key]
-	if(!A)
-		return
-	if(A.product_cost > points)
-		return
-	points -= A.product_cost
-	A.product_cost = round(1.2 * A.product_cost, 1)
+	if(purchased)
+		if(product.product_cost > points)
+			return
+		points -= product.product_cost
+		product.product_cost = round(1.2 * product.product_cost, 1)
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
-	var/selected_rarity = pick(1, 10)
-	var/selected_path = null
-	if(selected_rarity < 7)
-		selected_path = A.product_path_common
-	if(selected_rarity < 10 && selected_rarity > 6)
-		selected_path = A.product_path_uncommon
-	if(selected_rarity > 9)
-		selected_path = A.product_path_rare
-	spawn_item(selected_path, get_turf(src))
-	if(pick(1, 4) == 4)
-		// Spawn second item in random spot on station - places it where NADs can respawn
-		var/random_turf = null
-		var/list/possible_spawns = GLOB.nukedisc_respawn
-		while(length(possible_spawns))
-			var/turf/current_spawn = pick_n_take(possible_spawns)
-			if(!current_spawn.density)
-				spawn_item(selected_path, current_spawn)
-				return
-			// Someone built a wall over it, check the surroundings
-			var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
-			if(length(open_turfs))
-				spawn_item(selected_path, pick(open_turfs))
-				return
 
-/obj/machinery/power/bluespace_tap/proc/spawn_item(product_path, turf)
+	var/spawn_location = find_spawn_location()
+	spawn_item(product, spawn_location)
+
+	if(prob(0.25) && double_chance)
+		// Spawn second item in random spot on station - places it where NADs can respawn
+		spawn_location = find_spawn_location(TRUE)
+		spawn_item(product, spawn_location)
+
+/// Handles a motherlode - each product is spawned 5 times at both the machine and around the station
+/obj/machinery/power/bluespace_tap/proc/produce_motherlode()
+	// Announce lootsplosion
+	GLOB.major_announcement.Announce("Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.", "Bluespace Harvester Motherlode", 'sound/AI/attention.ogg')
+	// Spawn lootsplosion
+	for(var/datum/data/bluespace_tap_product/product in product_list)
+		for(var/i in 1 to 5)
+			var/spawn_location = find_spawn_location()
+			spawn_item(product, spawn_location)
+			spawn_location = find_spawn_location(TRUE)
+			spawn_item(product, spawn_location)
+
+/obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
+	var/list/possible_spawns = list()
+	if(random)
+		possible_spawns = GLOB.nukedisc_respawn
+	else
+		// Build list of spawn positions
+		for(var/turf/current_target_turf in view(3, src))
+			possible_spawns.Add(current_target_turf)
+
+	while(length(possible_spawns))
+		var/turf/current_spawn = pick_n_take(possible_spawns)
+		if(!current_spawn.density)
+			return current_spawn
+		// Someone built a wall over it, check the surroundings
+		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
+		if(length(open_turfs))
+			return pick(open_turfs)
+
+/obj/machinery/power/bluespace_tap/proc/spawn_item(var/datum/data/bluespace_tap_product/product, turf)
+	if(!product)
+		return
+	var/selected_rarity = pick(1, 10)
+	var/product_path = null
+	if(selected_rarity < 7)
+		product_path = product.product_path_common
+	if(selected_rarity < 10 && selected_rarity > 6)
+		product_path = product.product_path_uncommon
+	if(selected_rarity > 9)
+		product_path = product.product_path_rare
 	var/obj/effect/portal/tap_portal = new /obj/effect/portal(turf, null, src, 10)
 	tap_portal.name = "Bluespace Harvester Portal"
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	new product_path(turf)
 	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
+	log_game("Bluespace harvester product spawned at [turf.loc_name]")
 
 //UI stuff below
 
@@ -426,7 +495,9 @@
 			set_power(text2num(params["set_power"]))
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
-			produce(key)
+			if(key <= 0 || key > length(product_list))	//invalid key
+				return
+			produce(product_list[key], TRUE, TRUE)
 		if("auto_shutdown")
 			auto_shutdown = !auto_shutdown
 		if("stabilizers")
