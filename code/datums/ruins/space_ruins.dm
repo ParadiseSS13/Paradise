@@ -213,8 +213,9 @@
 	id = "dj"
 	suffix = "dj.dmm"
 	name = "Soviet DJ Station"
-	description = "An old soviet era listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	description = "A USSP listening post masquerading as a popular Soviet entertainment broadcaster, keeping tabs on Nanotrasen activity in the system and relaying it back to the Union."
 	cost = 2
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
