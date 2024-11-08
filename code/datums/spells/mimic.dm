@@ -119,7 +119,8 @@
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
-		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.layer = MOB_LAYER // Avoids weirdness when mimicking something below the vent layer
+		user.density = form.density
 
 	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
@@ -145,6 +146,7 @@
 	user.cut_overlays()
 	user.icon = initial(user.icon)
 	user.icon_state = initial(user.icon_state)
+	user.density = initial(user.density)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.name_override = null
@@ -193,11 +195,14 @@
 	var/examine_text
 	/// What the name of the form is
 	var/name
+	/// If the form has density
+	var/density
 
 /datum/mimic_form/New(atom/movable/form, mob/user)
 	appearance = form.appearance
 	examine_text = form.examine(user)
 	name = form.name
+	density = form.density
 
 /datum/spell/mimic/morph
 	action_background_icon_state = "bg_morph"

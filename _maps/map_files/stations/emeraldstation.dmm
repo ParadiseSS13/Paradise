@@ -38,14 +38,14 @@
 	id = "Secure Storage";
 	name = "Engineering Secure Storage";
 	pixel_x = -24;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /obj/machinery/door_control{
 	id = "atmos";
 	name = "Atmospherics Lockdown";
 	pixel_x = -24;
 	pixel_y = 7;
-	req_access_txt = "24"
+	req_access = list(24)
 	},
 /obj/machinery/computer/security/telescreen/engine,
 /turf/simulated/floor/plasteel{
@@ -1612,13 +1612,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "aqN" = (
-/obj/structure/rack,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
+/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/beanbag{
 	pixel_y = -3;
 	pixel_x = -3
 	},
@@ -1626,6 +1625,8 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/storage/fancy/shell/tranquilizer,
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1697,22 +1698,22 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -24;
-	req_access_txt = "40";
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(40)
 	},
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Medical Quarantine";
 	pixel_x = -24;
-	req_access_txt = "40";
-	pixel_y = 33
+	pixel_y = 33;
+	req_access = list(40)
 	},
 /obj/machinery/button/windowtint{
 	id = "CMO";
 	pixel_x = -23;
 	pixel_y = 42;
-	req_access_txt = "40";
-	dir = 4
+	dir = 4;
+	req_access = list(40)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners";
@@ -2217,8 +2218,8 @@
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
-	req_access_txt = "32";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access = list(32)
 	},
 /obj/machinery/light{
 	dir = 4
@@ -2320,8 +2321,8 @@
 	id = "disvent";
 	name = "Incinerator Vent Control";
 	pixel_y = -24;
-	req_access_txt = "12";
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(12)
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
@@ -2418,7 +2419,7 @@
 	autolink_id = "viro_btn_ext";
 	name = "Virology Lab Access Button";
 	pixel_x = -24;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2655,10 +2656,7 @@
 /area/station/science/rnd)
 "aAN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "aAO" = (
@@ -2942,12 +2940,6 @@
 /obj/item/reagent_containers/drinks/sillycup{
 	pixel_y = -4;
 	pixel_x = -17
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24;
-	pixel_y = -5
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -3580,10 +3572,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "aLc" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "aLe" = (
@@ -4890,7 +4879,7 @@
 	id = "CE";
 	pixel_x = -8;
 	pixel_y = 24;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -4898,7 +4887,7 @@
 	pixel_x = -24;
 	pixel_y = 9;
 	range = 12;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /obj/machinery/light_switch{
 	dir = 4;
@@ -5985,7 +5974,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 37;
 	pixel_y = -25;
-	req_access_txt = "63"
+	req_access = list(63)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the brig foyer.";
@@ -5994,7 +5983,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 27;
 	pixel_y = -25;
-	req_access_txt = "63"
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -6957,10 +6946,7 @@
 "bpS" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "bpT" = (
@@ -8754,8 +8740,8 @@
 /obj/machinery/door_control{
 	id = "paramedic";
 	name = "Garage Door Control";
-	req_access_txt = "66";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access = list(66)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -8765,10 +8751,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/paramedic)
 "bFj" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -9117,10 +9100,7 @@
 /area/station/service/chapel/office)
 "bIz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/item/food/grown/cannabis,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
@@ -9236,10 +9216,7 @@
 "bJA" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "bJK" = (
@@ -9610,10 +9587,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "bNa" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "bNd" = (
@@ -9966,10 +9940,7 @@
 "bQh" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -10628,10 +10599,7 @@
 /area/station/maintenance/aft2)
 "bVs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -10762,10 +10730,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bWG" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -10872,7 +10837,7 @@
 	name = "AI Chamber Turret Control";
 	pixel_x = 5;
 	pixel_y = -24;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /obj/machinery/flasher{
 	id = "AI";
@@ -11145,7 +11110,6 @@
 	},
 /area/station/hallway/secondary/garden)
 "cbf" = (
-/obj/structure/dispenser/oxygen,
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera{
 	c_tag = "Brig Secure Armory North"
@@ -11501,8 +11465,8 @@
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
-	req_access_txt = "32";
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(32)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11639,10 +11603,7 @@
 	},
 /area/station/medical/surgery/observation)
 "cfp" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/structure/cable{
 	d1 = 1;
@@ -11911,7 +11872,7 @@
 	id = "xenobio3";
 	name = "Chamber 3 Containment Blast Doors";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13414,12 +13375,12 @@
 "cyf" = (
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
-	req_access_txt = "10;13";
 	vent_link_id = "eng_vent";
 	ext_door_link_id = "eng_door_ext";
 	int_door_link_id = "eng_door_int";
 	ext_button_link_id = "eng_btn_ext";
-	int_button_link_id = "eng_btn_int"
+	int_button_link_id = "eng_btn_int";
+	req_access = list(10,13)
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
@@ -13731,7 +13692,7 @@
 	name = "Research and Development Lab Shutters Control";
 	pixel_x = 24;
 	pixel_y = 23;
-	req_access_txt = "47"
+	req_access = list(47)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13991,10 +13952,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "cEL" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
@@ -15011,6 +14969,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
+"cOV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/requests_console/directional/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "cOY" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
@@ -15504,7 +15470,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	req_access_txt = null;
 	sort_type_txt = "1"
 	},
 /turf/simulated/floor/plasteel,
@@ -16162,18 +16127,9 @@
 "dbc" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/trash,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "dbk" = (
@@ -16415,10 +16371,7 @@
 /area/station/hallway/secondary/exit)
 "ddq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -16631,10 +16584,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "dgi" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -16884,6 +16834,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"dhN" = (
+/obj/structure/chair/sofa/bench{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "dhP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -17648,14 +17605,8 @@
 	dir = 8;
 	id = "packageSort2"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -17790,7 +17741,7 @@
 "dqX" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start/assistant,
-/obj/structure/sign/poster/official/random{
+/obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -18977,7 +18928,7 @@
 	id = "xenobio4";
 	name = "Chamber 4 Containment Blast Doors";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -19410,10 +19361,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "dGc" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
@@ -20978,7 +20926,7 @@
 	autolink_id = "eng_btn_int";
 	pixel_x = -22;
 	pixel_y = -20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -23576,7 +23524,7 @@
 	id = "xenobio5";
 	name = "Chamber 5 Containment Blast Doors";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -24741,8 +24689,7 @@
 /area/station/engineering/break_room/secondary)
 "eHF" = (
 /obj/machinery/computer/prisoner{
-	req_access = null;
-	req_one_access_txt = "2"
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -24856,10 +24803,7 @@
 	pixel_x = -20
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/generic,
 /obj/structure/cable{
 	d1 = 1;
@@ -25234,9 +25178,9 @@
 	id = "Prison Perma Cell 3";
 	name = "Cell Lockdown";
 	pixel_y = 31;
-	req_access_txt = "2";
 	specialfunctions = 4;
-	normaldoorcontrol = 1
+	normaldoorcontrol = 1;
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -26421,10 +26365,7 @@
 /area/station/maintenance/dorms/port)
 "eYm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "eYn" = (
@@ -26442,7 +26383,7 @@
 	id = "eva-shutters";
 	name = "Auxilary E.V.A. Storage";
 	pixel_x = -24;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
@@ -26594,9 +26535,9 @@
 	id = "Prison Perma Cell 1";
 	name = "Cell Lockdown";
 	pixel_y = 31;
-	req_access_txt = "2";
 	specialfunctions = 4;
-	normaldoorcontrol = 1
+	normaldoorcontrol = 1;
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -27275,10 +27216,7 @@
 /area/station/security/prisonershuttle)
 "ffb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "ffc" = (
@@ -27311,10 +27249,7 @@
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "ffn" = (
@@ -27544,7 +27479,7 @@
 	ext_button_link_id = "engsm_btn_ext";
 	int_button_link_id = "engsm_btn_int";
 	pixel_x = 22;
-	req_access_txt = "32"
+	req_access = list(32)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -27969,10 +27904,7 @@
 /area/station/engineering/ai_transit_tube)
 "flp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -28634,10 +28566,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "fqv" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -28998,11 +28927,11 @@
 	name = "Turbine Access Console";
 	pixel_x = 6;
 	pixel_y = -26;
-	req_access_txt = "12";
 	ext_door_link_id = "turbine_door_ext";
 	int_door_link_id = "turbine_door_int";
 	ext_button_link_id = "turbine_btn_ext";
-	int_button_link_id = "turbine_btn_int"
+	int_button_link_id = "turbine_btn_int";
+	req_access = list(12)
 	},
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plasteel{
@@ -29072,10 +29001,7 @@
 	},
 /area/station/medical/storage)
 "fug" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -29122,7 +29048,7 @@
 	name = "processing tint control";
 	pixel_x = -6;
 	pixel_y = 24;
-	req_access_txt = "63"
+	req_access = list(63)
 	},
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -29710,10 +29636,7 @@
 /area/station/science/robotics)
 "fAQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -30199,10 +30122,7 @@
 /area/station/maintenance/apmaint2)
 "fFW" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -31175,10 +31095,7 @@
 /area/station/ai_monitored/storage/eva)
 "fNH" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "fNL" = (
@@ -31257,10 +31174,7 @@
 /area/station/hallway/secondary/entry)
 "fOt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
@@ -31372,8 +31286,7 @@
 "fPs" = (
 /obj/machinery/computer/prisoner{
 	dir = 8;
-	req_access = null;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -33028,7 +32941,7 @@
 /turf/simulated/wall,
 /area/station/science/research)
 "ggS" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel{
@@ -33140,10 +33053,7 @@
 /area/station/hallway/spacebridge/security/west)
 "ghE" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -33357,10 +33267,7 @@
 	},
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "gjn" = (
@@ -33799,10 +33706,7 @@
 /area/station/maintenance/aft2)
 "gmT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -34050,10 +33954,7 @@
 /area/station/hallway/primary/aft)
 "gpH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -34350,10 +34251,7 @@
 /area/station/engineering/break_room/secondary)
 "gsP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -34404,7 +34302,7 @@
 /area/station/public/dorms)
 "gtw" = (
 /obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -35385,11 +35283,11 @@
 	name = "Incinerator Access Console";
 	pixel_x = 6;
 	pixel_y = -25;
-	req_access_txt = "12";
 	ext_door_link_id = "incinerator_door_ext";
 	int_door_link_id = "incinerator_door_int";
 	ext_button_link_id = "incinerator_btn_ext";
-	int_button_link_id = "incinerator_btn_int"
+	int_button_link_id = "incinerator_btn_int";
+	req_access = list(12)
 	},
 /obj/machinery/ignition_switch{
 	id = "Incinerator";
@@ -35681,7 +35579,7 @@
 	autolink_id = "viro_btn_int";
 	name = "Virology Lab Access Button";
 	pixel_x = -24;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -35871,9 +35769,9 @@
 /obj/machinery/button/windowtint{
 	id = "Surgery 1";
 	pixel_y = 8;
-	req_access_txt = "45";
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(45)
 	},
 /obj/machinery/light_switch{
 	dir = 4;
@@ -37807,10 +37705,7 @@
 /area/station/security/prison)
 "hbp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
@@ -37833,10 +37728,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "hbD" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fsmaint)
 "hbF" = (
@@ -38203,6 +38095,7 @@
 /area/station/maintenance/asmaint)
 "heu" = (
 /obj/structure/closet/wardrobe/black,
+/obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hey" = (
@@ -38335,10 +38228,7 @@
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
 "hgo" = (
@@ -38609,7 +38499,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 28;
 	pixel_y = 17;
-	req_access_txt = "58"
+	req_access = list(58)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
@@ -38617,14 +38507,14 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = 28;
 	pixel_y = 7;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/door_control{
 	id = "Secure Gate";
 	name = "Brig Lockdown";
 	pixel_x = 28;
 	pixel_y = -3;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -38674,7 +38564,7 @@
 	name = "Secure Armory Shutter Control";
 	pixel_x = -2;
 	pixel_y = -36;
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
@@ -38682,14 +38572,14 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = -7;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/door_control{
 	id = "Secure Gate";
 	name = "Brig Lockdown";
 	pixel_x = 3;
 	pixel_y = -28;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -40111,6 +40001,14 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
+"hwo" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "hwx" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/wood,
@@ -40521,13 +40419,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "hAf" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
+/obj/item/storage/fancy/shell/rubbershot,
+/obj/item/storage/fancy/shell/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -40538,6 +40435,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -40924,10 +40822,7 @@
 /area/station/supply/sorting)
 "hCx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -40996,26 +40891,11 @@
 /area/station/hallway/secondary/entry)
 "hCW" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -41084,10 +40964,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "hDO" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -41213,14 +41090,14 @@
 	id = "hopqueueshutters";
 	name = "Queue Shutters";
 	pixel_x = -24;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/door_control{
 	id = "hop";
 	name = "Privacy Shutters";
 	pixel_x = -24;
 	pixel_y = -8;
-	req_one_access_txt = "18"
+	req_access = list(18)
 	},
 /obj/machinery/flasher_button{
 	id = "hopflash";
@@ -41942,7 +41819,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access_txt = "37"
+	req_access = list(37)
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -42717,6 +42594,9 @@
 /area/station/public/pet_store)
 "hWk" = (
 /obj/structure/chair/sofa/bench/left,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "hWv" = (
@@ -43767,10 +43647,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "igd" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -44341,10 +44218,7 @@
 	pixel_x = 20
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -45518,6 +45392,9 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -45911,8 +45788,8 @@
 	id = "justice_blast";
 	name = "Space Vent";
 	pixel_x = 2;
-	req_access_txt = "2";
-	pixel_y = 22
+	pixel_y = 22;
+	req_access = list(2)
 	},
 /obj/structure/table/reinforced,
 /obj/item/taperecorder{
@@ -46523,10 +46400,7 @@
 	dir = 8;
 	id = "packageSort2"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -46860,10 +46734,7 @@
 /area/station/legal/courtroom)
 "iJJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -47398,7 +47269,7 @@
 	},
 /area/station/security/range)
 "iOO" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -48087,10 +47958,7 @@
 	},
 /area/station/medical/reception)
 "iVe" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48199,10 +48067,7 @@
 /area/station/maintenance/dorms/starboard)
 "iWc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "iWf" = (
@@ -48357,7 +48222,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "iXG" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -49048,10 +48913,7 @@
 	},
 /area/station/security/permabrig)
 "jey" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -49460,10 +49322,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "jiX" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/structure/cable{
 	d1 = 4;
@@ -49926,19 +49785,19 @@
 	id = "bridge blast entrance";
 	name = "Bridge Lobby Blast Door Control";
 	pixel_y = -9;
-	req_one_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/machinery/door_control{
 	id = "bridge blast south";
 	name = "Bridge Entrance Blast Door Control";
 	pixel_y = -1;
-	req_one_access_txt = "19"
+	req_access = list(19)
 	},
 /obj/machinery/door_control{
 	id = "bridge blast north";
 	name = "Bridge Space Blast Door Control";
 	pixel_y = 7;
-	req_one_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
@@ -50333,7 +50192,7 @@
 	autolink_id = "xeno_btn_int";
 	name = "Xenobiology Access Button";
 	pixel_x = -24;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/machinery/door/airlock/research{
 	autoclose = 0;
@@ -50947,10 +50806,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/turret_protected/aisat/interior)
 "jwV" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -51156,8 +51012,8 @@
 /obj/machinery/turretid/stun{
 	control_area = "\improper AI Satellite Atmospherics";
 	name = "AI Satellite Atmospherics Turret Control";
-	req_access_txt = "75";
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -51700,10 +51556,7 @@
 /area/station/maintenance/incinerator)
 "jDS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jDY" = (
@@ -51808,8 +51661,8 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = -1;
-	req_access_txt = "10";
-	pixel_x = -22
+	pixel_x = -22;
+	req_access = list(10)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/effect/turf_decal/stripes/line{
@@ -52309,10 +52162,7 @@
 /area/station/legal/lawoffice)
 "jID" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
@@ -52811,6 +52661,17 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/security/south)
+"jNB" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "jNM" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -53550,10 +53411,7 @@
 /area/station/supply/lobby)
 "jUR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "jUS" = (
@@ -54019,10 +53877,7 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "jZS" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -54339,15 +54194,14 @@
 "kcA" = (
 /obj/machinery/computer/prisoner{
 	dir = 4;
-	req_access = null;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "IAA";
 	pixel_x = -24;
 	pixel_y = 6;
-	req_access_txt = "38"
+	req_access = list(38)
 	},
 /obj/machinery/camera{
 	c_tag = "Internal Affairs Office";
@@ -54497,10 +54351,7 @@
 /area/station/security/warden)
 "kdI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "kdJ" = (
@@ -54730,9 +54581,9 @@
 	id = "Prison Perma Cell 4";
 	name = "Cell Lockdown";
 	pixel_y = 31;
-	req_access_txt = "2";
 	specialfunctions = 4;
-	normaldoorcontrol = 1
+	normaldoorcontrol = 1;
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -54861,10 +54712,7 @@
 	},
 /area/station/service/hydroponics)
 "khA" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
@@ -56152,10 +56000,7 @@
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
 "ktQ" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -56238,10 +56083,7 @@
 	},
 /area/station/science/genetics)
 "kuZ" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
@@ -56364,9 +56206,9 @@
 /obj/machinery/door_control{
 	id = "robotics_surgery";
 	name = "Robotics Privacy Shutters";
-	req_access_txt = "29";
 	pixel_y = 24;
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(29)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -56472,10 +56314,7 @@
 	},
 /area/station/science/xenobiology)
 "kxI" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56504,10 +56343,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kye" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/east,
 /obj/structure/cable{
@@ -57352,10 +57188,7 @@
 /area/station/maintenance/apmaint2)
 "kHq" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/item/crowbar,
 /obj/item/flashlight/flare/glowstick/random,
 /turf/simulated/floor/plating,
@@ -57884,10 +57717,7 @@
 /area/station/science/storage)
 "kMf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "kMl" = (
@@ -58525,10 +58355,7 @@
 /obj/effect/decal/cleanable/cobweb{
 	icon_state = "cobweb2"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -59727,10 +59554,7 @@
 	},
 /area/station/medical/morgue)
 "lfr" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -59923,18 +59747,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"lhw" = (
-/obj/structure/closet/cardboard,
-/obj/effect/decal/cleanable/cobweb,
-/obj/machinery/door_control{
-	id = "qm_warehouse";
-	name = "Warehouse Door Control";
-	pixel_x = -1;
-	pixel_y = 24;
-	req_access_txt = "31"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/warehouse)
 "lhR" = (
 /obj/item/decorations/sticky_decorations/flammable/singleeye{
 	pixel_y = 20
@@ -60020,7 +59832,7 @@
 	id = "HoS";
 	pixel_x = 7;
 	pixel_y = -25;
-	req_access_txt = "58"
+	req_access = list(58)
 	},
 /obj/machinery/light_switch{
 	dir = 1;
@@ -60331,10 +60143,7 @@
 "lls" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "llu" = (
@@ -60367,14 +60176,14 @@
 	name = "Auxiliary Vent";
 	pixel_x = 6;
 	pixel_y = -24;
-	req_access_txt = "32"
+	req_access = list(32)
 	},
 /obj/machinery/door_control{
 	id = "turbinevent";
 	name = "Turbine Vent";
 	pixel_x = -6;
 	pixel_y = -24;
-	req_access_txt = "32"
+	req_access = list(32)
 	},
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
@@ -60421,10 +60230,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
 "lms" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -60624,10 +60430,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -60799,7 +60602,7 @@
 	name = "Engineering Lockdown";
 	pixel_x = 8;
 	pixel_y = -7;
-	req_access_txt = "10"
+	req_access = list(10)
 	},
 /turf/simulated/wall/r_wall,
 /area/station/command/office/ce)
@@ -61441,10 +61244,7 @@
 /area/station/service/library)
 "lvy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
 "lvB" = (
@@ -61461,8 +61261,8 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = 9;
-	req_access_txt = "74";
-	pixel_y = 25
+	pixel_y = 25;
+	req_access = list(74)
 	},
 /obj/machinery/light{
 	dir = 1
@@ -62648,8 +62448,7 @@
 /area/station/command/bridge)
 "lFR" = (
 /obj/structure/closet/crate/secure{
-	req_one_access = list(33,41);
-	req_one_access_txt = "33;41"
+	req_one_access = list(33,41)
 	},
 /obj/item/circuitboard/thermomachine{
 	pixel_x = -5
@@ -62732,10 +62531,7 @@
 /area/station/maintenance/abandoned_office)
 "lGI" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -64143,7 +63939,7 @@
 "lWJ" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "lWR" = (
@@ -65294,10 +65090,7 @@
 	dir = 1;
 	id = "packageSort1"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -65434,10 +65227,7 @@
 /area/station/aisat/atmos)
 "mkN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -65765,22 +65555,10 @@
 /obj/item/light/bulb{
 	icon_state = "lbulb-broken"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "mod" = (
@@ -68124,7 +67902,7 @@
 	control_area = "\improper AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -28;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -68745,8 +68523,7 @@
 "mSw" = (
 /obj/machinery/computer/prisoner{
 	dir = 1;
-	req_access = null;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -69519,7 +69296,7 @@
 	control_area = "\improper AI Satellite Service";
 	name = "AI Satellite Service Bay Turret Control";
 	pixel_x = -29;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70692,10 +70469,7 @@
 /area/station/aisat/atmos)
 "nla" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -71148,7 +70922,7 @@
 /area/station/supply/lobby)
 "npe" = (
 /obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -71388,10 +71162,7 @@
 "nqv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -71488,7 +71259,7 @@
 	name = "Chemistry Privacy Shutter Control";
 	pixel_x = -24;
 	pixel_y = 24;
-	req_access_txt = "33"
+	req_access = list(33)
 	},
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -71974,10 +71745,7 @@
 	},
 /area/station/security/execution)
 "nwR" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -72400,7 +72168,7 @@
 "nAB" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth (Chaplain)";
-	req_access_txt = "22"
+	req_access = list(22)
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -72484,10 +72252,7 @@
 	},
 /area/station/science/server)
 "nBy" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -73065,8 +72830,8 @@
 	id = "Secure Storage";
 	name = "Engineering Secure Storage";
 	pixel_x = 7;
-	req_access_txt = "56";
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(56)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -73145,8 +72910,8 @@
 /obj/machinery/button/windowtint{
 	id = "Courtroom";
 	pixel_x = -6;
-	req_one_access_txt = "74;3";
-	range = 10
+	range = 10;
+	req_one_access = list(74,3)
 	},
 /obj/item/megaphone{
 	pixel_y = -11
@@ -73173,8 +72938,8 @@
 	name = "Court Entrance Control";
 	normaldoorcontrol = 1;
 	pixel_x = 1;
-	req_access_txt = "74";
-	pixel_y = 10
+	pixel_y = 10;
+	req_access = list(74)
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
@@ -73438,10 +73203,7 @@
 /area/station/maintenance/starboard)
 "nJB" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -73518,10 +73280,7 @@
 "nKy" = (
 /obj/item/trash/candy,
 /obj/item/lighter,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/apmaint2)
 "nKE" = (
@@ -73849,10 +73608,7 @@
 /area/station/hallway/primary/starboard/south)
 "nMV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -74278,10 +74034,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "nQL" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/wood,
@@ -75106,8 +74859,7 @@
 "nYy" = (
 /obj/machinery/computer/prisoner{
 	dir = 4;
-	req_access = null;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -75618,10 +75370,7 @@
 "oct" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
 "ocz" = (
@@ -75821,10 +75570,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -76418,30 +76164,12 @@
 /area/station/security/detective)
 "ojI" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -76495,6 +76223,9 @@
 /area/station/maintenance/apmaint2)
 "okc" = (
 /obj/item/kirbyplants,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -77651,9 +77382,9 @@
 /obj/machinery/door_control{
 	id = "mechbay_inner";
 	name = "Inner Mech Bay Shutter Control";
-	req_access_txt = "29";
 	pixel_y = -24;
-	pixel_x = 25
+	pixel_x = 25;
+	req_access = list(29)
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
@@ -78307,10 +78038,7 @@
 /area/station/engineering/atmos)
 "oCf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -78690,10 +78418,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "oFG" = (
@@ -78710,10 +78435,7 @@
 "oFH" = (
 /obj/structure/table,
 /obj/item/newspaper,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -78860,10 +78582,7 @@
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "oHC" = (
@@ -78922,10 +78641,7 @@
 /area/station/science/xenobiology)
 "oIx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
 	icon_state = "medium"
@@ -78997,10 +78713,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "oIZ" = (
@@ -79800,10 +79513,7 @@
 /area/station/hallway/primary/fore/north)
 "oPi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "oPp" = (
@@ -80593,10 +80303,7 @@
 	},
 /area/station/medical/reception)
 "oWb" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -80898,9 +80605,9 @@
 /obj/machinery/button/windowtint{
 	id = "Surgery 2";
 	pixel_y = 8;
-	req_access_txt = "45";
 	dir = 8;
-	pixel_x = 24
+	pixel_x = 24;
+	req_access = list(45)
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -82651,7 +82358,7 @@
 	id = "teleshutter";
 	name = "Teleporter Shutters Access Control";
 	pixel_x = 24;
-	req_one_access_txt = "62"
+	req_access = list(62)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -83829,6 +83536,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"pBn" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "pBo" = (
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
@@ -84585,7 +84299,7 @@
 "pHY" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access_txt = "37"
+	req_access = list(37)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -84893,10 +84607,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "pKe" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -85594,7 +85305,7 @@
 	id = "Detective";
 	pixel_x = -8;
 	pixel_y = 24;
-	req_access_txt = "4"
+	req_access = list(4)
 	},
 /obj/machinery/computer/med_data,
 /obj/machinery/light{
@@ -86316,7 +86027,7 @@
 	id = "xenobio6";
 	name = "Chamber 6 Containment Blast Doors";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -86425,10 +86136,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "qbi" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -86578,10 +86286,7 @@
 	},
 /area/station/hallway/spacebridge/security/south)
 "qci" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -86734,10 +86439,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "qdy" = (
@@ -87571,10 +87273,7 @@
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "qmT" = (
@@ -87992,10 +87691,7 @@
 /area/station/engineering/atmos/distribution)
 "qrg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -88060,7 +87756,7 @@
 	id = "xenobio1";
 	name = "Chamber 1 Containment Blast Door";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -88494,10 +88190,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qxt" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -88547,10 +88240,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qxF" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -89401,10 +89091,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "qFs" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -90902,6 +90589,13 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"qUn" = (
+/obj/structure/chair/sofa,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet,
+/area/station/public/dorms)
 "qUr" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -91007,7 +90701,7 @@
 	},
 /area/station/hallway/primary/central/sw)
 "qVm" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -91184,10 +90878,7 @@
 /area/station/security/processing)
 "qWK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -91334,8 +91025,8 @@
 	name = "Jury Entrance Control";
 	normaldoorcontrol = 1;
 	pixel_x = 1;
-	req_access_txt = "74";
-	pixel_y = 10
+	pixel_y = 10;
+	req_access = list(74)
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
@@ -91698,10 +91389,7 @@
 /area/station/hallway/primary/central/ne)
 "raT" = (
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "raV" = (
@@ -91986,6 +91674,14 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"rcZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "rdc" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -92032,10 +91728,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
 "rdH" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -92057,10 +91750,7 @@
 /area/station/maintenance/fsmaint2)
 "rdN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -92260,7 +91950,7 @@
 	id = "xenobio2";
 	name = "Chamber 2 Containment Blast Doors";
 	pixel_y = 4;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -93202,6 +92892,9 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "rnD" = (
@@ -94078,10 +93771,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "rwi" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
@@ -94335,10 +94025,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "rzf" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -94731,7 +94418,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/trash/liquidfood,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/item/trash/spacetwinkie,
 /obj/item/trash/raisins,
 /obj/item/trash/raisins,
@@ -94869,8 +94556,8 @@
 /obj/machinery/door_control{
 	id = "mechbay_outer";
 	name = "Outer Mech Bay Shutters Control";
-	req_access_txt = "29";
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(29)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
@@ -95190,10 +94877,7 @@
 	dir = 8;
 	id = "packageSort2"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -95468,7 +95152,7 @@
 	id = "Interrogation";
 	name = "interrogation tint control";
 	pixel_x = -24;
-	req_access_txt = "63"
+	req_access = list(63)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -95854,7 +95538,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "rMs" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plating,
@@ -95937,7 +95621,7 @@
 	name = "Atmospherics Lockdown";
 	pixel_x = -24;
 	pixel_y = 5;
-	req_access_txt = "24"
+	req_access = list(24)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -96069,6 +95753,9 @@
 	c_tag = "Dormitories Lounge";
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "rOC" = (
@@ -96098,10 +95785,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "rOV" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -96431,7 +96115,7 @@
 	name = "Atmospherics Lockdown";
 	pixel_x = -8;
 	pixel_y = 10;
-	req_access_txt = "24"
+	req_access = list(24)
 	},
 /obj/item/book/manual/atmospipes,
 /obj/machinery/computer/security/telescreen/engine{
@@ -96512,10 +96196,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -96757,10 +96438,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "rUE" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
@@ -97778,10 +97456,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/park)
 "sew" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "sey" = (
@@ -99059,10 +98734,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "sqE" = (
@@ -99172,10 +98844,7 @@
 	},
 /area/station/hallway/spacebridge/security/west)
 "srF" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -99604,7 +99273,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -100016,7 +99685,7 @@
 	autolink_id = "xeno_btn_ext";
 	name = "Xenobiology Access Button";
 	pixel_x = -24;
-	req_access_txt = "55"
+	req_access = list(55)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -100082,26 +99751,11 @@
 /area/station/maintenance/aft2)
 "sAe" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -100323,18 +99977,12 @@
 	},
 /area/station/security/brig)
 "sCk" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sCm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -100887,9 +100535,9 @@
 	id = "Prison Perma Cell 2";
 	name = "Cell Lockdown";
 	pixel_y = 31;
-	req_access_txt = "2";
 	specialfunctions = 4;
-	normaldoorcontrol = 1
+	normaldoorcontrol = 1;
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -102201,6 +101849,12 @@
 /area/station/legal/courtroom/gallery)
 "sUJ" = (
 /obj/item/kirbyplants,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -102215,31 +101869,16 @@
 /area/station/security/permabrig)
 "sUW" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wirerod,
 /obj/item/wirecutters,
 /obj/item/crowbar/large,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
 /obj/item/seeds/bamboo,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -102249,10 +101888,7 @@
 /area/station/engineering/engine/supermatter)
 "sVf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "sVk" = (
@@ -102408,11 +102044,11 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Virology Lab Access Console";
 	pixel_y = 24;
-	req_one_access_txt = "39";
 	ext_door_link_id = "viro_door_ext";
 	int_door_link_id = "viro_door_int";
 	ext_button_link_id = "viro_btn_ext";
-	int_button_link_id = "viro_btn_int"
+	int_button_link_id = "viro_btn_int";
+	req_access = list(39)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -102814,10 +102450,7 @@
 /area/station/command/office/ce)
 "sZW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -103603,10 +103236,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
 "tgT" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -103744,7 +103374,7 @@
 /area/station/supply/sorting)
 "tic" = (
 /obj/item/circuitboard/arcade/orion_trail,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -103868,10 +103498,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "tjn" = (
@@ -104230,10 +103857,7 @@
 /area/station/science/robotics)
 "tma" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -104657,10 +104281,7 @@
 /area/station/maintenance/fsmaint)
 "tpq" = (
 /obj/effect/landmark/burnturf,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tps" = (
@@ -104751,10 +104372,7 @@
 /area/station/maintenance/fsmaint)
 "tqm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "tqq" = (
@@ -105623,10 +105241,7 @@
 /area/station/maintenance/aft2)
 "tzz" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -106342,6 +105957,17 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
+"tGI" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/structure/chair/sofa/bench/left{
+	dir = 1;
+	cover_color = "#85130b"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "tGJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -106681,10 +106307,7 @@
 /area/station/public/arcade)
 "tKl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -106803,10 +106426,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "tKQ" = (
@@ -107027,10 +106647,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "tMS" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
@@ -108169,10 +107786,7 @@
 /area/station/service/barber)
 "tYu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -108205,6 +107819,9 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -108401,9 +108018,9 @@
 /obj/machinery/button/windowtint{
 	pixel_x = 24;
 	id = "qm";
-	req_access_txt = "41";
 	dir = 8;
-	pixel_y = 5
+	pixel_y = 5;
+	req_access = list(41)
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -109108,10 +108725,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "uhm" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -109364,10 +108978,7 @@
 /area/station/science/misc_lab)
 "ukj" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -110251,7 +109862,7 @@
 /area/station/science/research)
 "utj" = (
 /obj/item/chair/stool,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/candy/coin,
 /obj/effect/landmark/burnturf,
@@ -110698,10 +110309,7 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/halloween{
 	pixel_y = 20
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/flora/straw_bail,
 /obj/item/food/grown/pumpkin{
 	pixel_y = 14
@@ -110842,10 +110450,7 @@
 /area/station/maintenance/starboard)
 "uyu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/burnturf,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -111253,10 +110858,7 @@
 /area/station/hallway/primary/aft)
 "uCr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -111560,10 +111162,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uFc" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "uFg" = (
@@ -111875,6 +111474,7 @@
 /area/station/hallway/primary/fore/north)
 "uHu" = (
 /obj/structure/closet/wardrobe/mixed,
+/obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "uHy" = (
@@ -111993,10 +111593,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "uIb" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -112408,7 +112005,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "uMC" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -112783,10 +112380,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "uQw" = (
@@ -113451,10 +113045,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "uWf" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
@@ -113742,10 +113333,7 @@
 /area/station/engineering/atmos)
 "uZB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -113977,10 +113565,7 @@
 "vbY" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "vch" = (
@@ -114002,10 +113587,7 @@
 	},
 /area/station/engineering/solar/fore_starboard)
 "vcK" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -114089,10 +113671,7 @@
 /area/station/science/misc_lab)
 "vdS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -114604,10 +114183,7 @@
 /area/station/maintenance/aft2)
 "vjE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -115090,10 +114666,7 @@
 /turf/simulated/floor/carpet/red,
 /area/station/public/fitness)
 "vnl" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -115179,10 +114752,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "vom" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -115268,10 +114838,7 @@
 /area/station/public/fitness)
 "voW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -115809,8 +115376,8 @@
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
-	req_access_txt = "32";
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(32)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -116111,10 +115678,7 @@
 	},
 /area/station/science/genetics)
 "vxw" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -117436,10 +117000,7 @@
 /area/station/hallway/spacebridge/security/south)
 "vJJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -119079,7 +118640,7 @@
 "vYs" = (
 /obj/item/dice/d6,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "vYu" = (
@@ -119153,10 +118714,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "vZe" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
@@ -120507,10 +120065,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "wmc" = (
@@ -121520,8 +121075,6 @@
 	},
 /area/station/public/construction)
 "wwv" = (
-/obj/structure/rack,
-/obj/item/storage/box/tranquilizer,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -121529,6 +121082,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -122135,10 +121689,7 @@
 /area/station/maintenance/aft)
 "wDJ" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "wDW" = (
@@ -122312,7 +121863,7 @@
 /area/station/hallway/primary/starboard/south)
 "wFX" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access_txt = "25"
+	req_access = list(25)
 	},
 /obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/wood,
@@ -122685,7 +122236,7 @@
 	name = "Secure Armory Shutter Control";
 	pixel_x = -24;
 	pixel_y = -28;
-	req_access_txt = "3"
+	req_access = list(3)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -122936,10 +122487,7 @@
 "wLO" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -123518,10 +123066,7 @@
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "wRv" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -123540,10 +123085,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "wRE" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -123575,10 +123117,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wSd" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
@@ -123693,10 +123232,7 @@
 	},
 /area/station/medical/break_room)
 "wSX" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -124258,10 +123794,7 @@
 /area/station/engineering/atmos/asteroid_core)
 "wZs" = (
 /obj/item/paper,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
@@ -124926,7 +124459,7 @@
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /obj/item/pen{
 	pixel_x = -8;
@@ -125381,10 +124914,7 @@
 /area/station/security/permabrig)
 "xkV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -125468,14 +124998,14 @@
 	name = "Kitchen Diner Shutters Control";
 	pixel_x = 26;
 	pixel_y = 7;
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/door_control{
 	id = "kitchenhall";
 	name = "Kitchen Hallway Shutters Control";
 	pixel_x = 26;
 	pixel_y = -3;
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -125507,10 +125037,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "xml" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "xmm" = (
@@ -125923,7 +125450,7 @@
 	autolink_id = "eng_btn_ext";
 	pixel_x = -22;
 	pixel_y = 20;
-	req_access_txt = "10;13"
+	req_access = list(10,13)
 	},
 /turf/space,
 /area/space/nearstation)
@@ -126173,14 +125700,14 @@
 	normaldoorcontrol = 1;
 	pixel_x = -4;
 	pixel_y = -4;
-	req_access_txt = "30"
+	req_access = list(30)
 	},
 /obj/machinery/door_control{
 	id = "Biohazard";
 	name = "Biohazard Shutter Control";
 	pixel_x = -4;
 	pixel_y = 6;
-	req_access_txt = "30"
+	req_access = list(30)
 	},
 /obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 8;
@@ -126754,9 +126281,9 @@
 /obj/machinery/door_control{
 	id = "robotics";
 	name = "Robotics Privacy Shutters";
-	req_access_txt = "29";
 	pixel_y = 8;
-	pixel_x = 25
+	pixel_x = 25;
+	req_access = list(29)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -127592,10 +127119,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "xFq" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -128717,6 +128241,18 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"xRf" = (
+/obj/structure/closet/cardboard,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/door_control{
+	id = "qm_warehouse";
+	name = "Warehouse Door Control";
+	pixel_x = -1;
+	pixel_y = 24;
+	req_access = list(31)
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/warehouse)
 "xRh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -128773,7 +128309,7 @@
 	name = "AI Chamber Hallway Turret Control";
 	pixel_x = 24;
 	pixel_y = -24;
-	req_access_txt = "75"
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -129278,10 +128814,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -129302,10 +128835,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
@@ -129576,10 +129106,7 @@
 	},
 /area/station/security/processing)
 "yap" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -130144,10 +129671,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -130544,10 +130068,7 @@
 	},
 /area/station/supply/storage)
 "yiY" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
+/obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
@@ -148768,7 +148289,7 @@ qxw
 tKR
 svJ
 wRe
-lhw
+xRf
 gAx
 vTT
 mYq
@@ -161143,10 +160664,10 @@ nIV
 tId
 jsx
 asq
+rcZ
 tId
 tId
-tId
-jsx
+jNB
 asq
 heu
 cJq
@@ -162171,10 +161692,10 @@ nIV
 lAJ
 usj
 asq
+hwo
 lAJ
 lAJ
-lAJ
-usj
+cOV
 asq
 uHu
 cJq
@@ -162842,7 +162363,7 @@ oGg
 mlh
 nYZ
 vAZ
-eBG
+qUn
 aAt
 dwn
 tVG
@@ -171591,7 +171112,7 @@ dkG
 kyA
 uci
 kyA
-cIa
+tGI
 dws
 dws
 dws
@@ -171848,7 +171369,7 @@ rSC
 uks
 uci
 kyA
-kyA
+dhN
 ajq
 aNu
 nRd
@@ -172105,7 +171626,7 @@ wBF
 kwm
 qHk
 kyA
-kyA
+pBn
 ajq
 aNu
 anY
