@@ -102,9 +102,9 @@
 
 /datum/outfit/sovietcorpse
 	name = "Corpse of a Soviet"
-	uniform = /obj/item/clothing/under/costume/soviet
+	uniform = /obj/item/clothing/under/new_soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/sovietsidecap
 
 
 /obj/effect/mob_spawn/human/corpse/soviet/ranged
@@ -112,7 +112,7 @@
 
 /datum/outfit/sovietcorpse/ranged
 	name = "Corpse of a Ranged Soviet"
-	head = /obj/item/clothing/head/ushanka
+	suit = /obj/item/clothing/suit/sovietcoat
 
 
 /obj/effect/mob_spawn/human/corpse/wizard

@@ -505,7 +505,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
+				if(is_pda(src) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -517,15 +517,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(SLOT_HUD_HANDCUFFED)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/handcuffs))
-					return 0
-				return 1
+				return istype(src, /obj/item/restraints/handcuffs)
 			if(SLOT_HUD_LEGCUFFED)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/legcuffs))
-					return 0
-				return 1
+				return istype(src, /obj/item/restraints/legcuffs)
 			if(SLOT_HUD_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
@@ -670,7 +666,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					G.affecting.ret_grab(L, 1)
 		if(!flag)
 			if(L.master == src)
-				var/list/temp = list(  )
+				var/list/temp = list()
 				temp += L.container
 				//L = null
 				qdel(L)
@@ -792,17 +788,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
-	..()
-	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
-		unset_machine()
-		src << browse(null, t1)
-
 	if(href_list["flavor_more"])
 		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
+
+	if(usr != src)
+		return TRUE
+	if(..())
+		return TRUE
+	if(href_list["mach_close"])
+		var/t1 = "window=[href_list["mach_close"]]"
+		unset_machine()
+		src << browse(null, t1)
+
 
 	if(href_list["scoreboard"])
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")

@@ -1960,9 +1960,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_one_access_txt = "301"
+	name = "Engineering External Access"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
@@ -3013,9 +3013,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "301"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "hF" = (
@@ -3090,9 +3089,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_one_access_txt = "301"
+	name = "Engineering External Access"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/engi)
@@ -3792,9 +3791,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "301"
+	name = "Prototype Laboratory"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -3803,9 +3802,9 @@
 "jv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "301"
+	name = "Prototype Laboratory"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
