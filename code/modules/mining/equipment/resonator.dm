@@ -146,7 +146,8 @@
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)
 			continue
-		field.burst()
+		if(parent_resonator.mode == RESONATOR_MODE_AUTO || parent_resonator.mode == RESONATOR_MODE_MANUAL)
+			field.burst()
 	if(!prob(failure_prob) && parent_resonator)
 		for(var/turf/simulated/mineral/mineral_spread in orange(1, src))
 			if(locate(/obj/effect/temp_visual/resonance) in mineral_spread)
