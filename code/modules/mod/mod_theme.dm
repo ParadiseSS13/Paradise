@@ -1042,7 +1042,7 @@
 	extended_desc = "Quite possibly the first true modsuit ever created, the 'Ogre', as its mostly-faded ID label calls it, is a positively ancient mechanized suit that represents the very beginning of \
 		the Sector's foray into powered modsuits. Naturally, such an elderly design lacks virtually all of the quality of life features seen in modsuits today. \
 		The first-generation servodrives are woefully underpowered and exceptionally inefficient, leading to a ponderous top speed and an average battery life entirely \
-		unsuited to extended EVA usage. As little more than technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
+		unsuited to extended EVA usage. As a technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
 		more suited to deflecting micrometeoroids than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
 		increased cancer risks after several hours of sustained use."
 	default_skin = "prototype"
