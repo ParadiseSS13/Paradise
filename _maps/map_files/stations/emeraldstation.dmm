@@ -24688,7 +24688,9 @@
 	},
 /area/station/engineering/break_room/secondary)
 "eHF" = (
-/obj/machinery/computer/prisoner,
+/obj/machinery/computer/prisoner{
+	req_access = list(2)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -31283,7 +31285,7 @@
 /area/station/public/shops)
 "fPs" = (
 /obj/machinery/computer/prisoner{
-	dir = 8
+	dir = 8req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54190,7 +54192,8 @@
 /area/station/hallway/primary/fore/north)
 "kcA" = (
 /obj/machinery/computer/prisoner{
-	dir = 4
+	dir = 4;
+	req_access = list(2)
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -68518,7 +68521,8 @@
 /area/station/command/meeting_room)
 "mSw" = (
 /obj/machinery/computer/prisoner{
-	dir = 1
+	dir = 1;
+	req_access = list(2)
 	},
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -74853,7 +74857,8 @@
 /area/station/maintenance/asmaint)
 "nYy" = (
 /obj/machinery/computer/prisoner{
-	dir = 4
+	dir = 4;
+	req_access = list(2)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -121855,7 +121860,9 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wFX" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/bar{
+	req_access = list(25)
+	},
 /obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
