@@ -31285,7 +31285,8 @@
 /area/station/public/shops)
 "fPs" = (
 /obj/machinery/computer/prisoner{
-	dir = 8req_access = list(2)
+	dir = 8;
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
