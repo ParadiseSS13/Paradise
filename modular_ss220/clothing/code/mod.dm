@@ -295,9 +295,7 @@
 	. = ..()
 	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
-
-//MARK: Corporate MODsuit
-
+// MARK: Corporate MODsuit
 /obj/item/mod/control/pre_equipped/corporate
 	icon = 'modular_ss220/clothing/icons/object/mod_clothing.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
