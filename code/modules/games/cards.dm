@@ -374,7 +374,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
 		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>",
-		"<span class='notice'>You[concealed ? "conceal" : "reveal"] your hand.</span>",
+		"<span class='notice'>You [concealed ? "conceal" : "reveal"] your hand.</span>",
 		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
 	)
 
