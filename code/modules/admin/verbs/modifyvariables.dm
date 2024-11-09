@@ -12,15 +12,12 @@ GLOBAL_PROTECT(VVckey_edit)
 GLOBAL_PROTECT(VVpixelmovement)
 GLOBAL_PROTECT(VVmaint_only)
 
-/client/proc/vv_get_class(var_name, var_value)
+/client/proc/vv_get_class(var_value)
 	if(isnull(var_value))
 		. = VV_NULL
 
 	else if(isnum(var_value))
-		if(var_name in GLOB.bitfields)
-			. = VV_BITFIELD
-		else
-			. = VV_NUM
+		. = VV_NUM
 
 	else if(istext(var_value))
 		if(findtext(var_value, "\n"))
@@ -64,7 +61,7 @@ GLOBAL_PROTECT(VVmaint_only)
 	else
 		. = VV_NULL
 
-/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes, var_name)
+/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes)
 	. = list("class" = class, "value" = null)
 	if(!class)
 		if(!classes)
@@ -123,11 +120,6 @@ GLOBAL_PROTECT(VVmaint_only)
 				.["class"] = null
 				return
 
-		if(VV_BITFIELD)
-			.["value"] = input_bitfield(usr, var_name, current_value)
-			if(.["value"] == null)
-				.["class"] = null
-				return
 
 		if(VV_ATOM_TYPE)
 			.["value"] = pick_closest_path(FALSE)
@@ -459,7 +451,7 @@ GLOBAL_PROTECT(VVmaint_only)
 	else
 		variable = L[index]
 
-	default = vv_get_class(objectvar, variable)
+	default = vv_get_class(variable)
 
 	to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
@@ -590,14 +582,14 @@ GLOBAL_PROTECT(VVmaint_only)
 
 	var_value = O.vars[variable]
 
-	var/default = vv_get_class(variable, var_value)
+	var/default = vv_get_class(var_value)
 
 	if(isnull(default))
 		to_chat(src, "Unable to determine variable type.")
 	else
 		to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
-	to_chat(src, "Variable contains: [translate_bitfield(default, variable, var_value)]")
+	to_chat(src, "Variable contains: [var_value]")
 
 	if(default == VV_NUM)
 		var/dir_text = ""
@@ -619,7 +611,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			default = VV_MESSAGE
 		class = default
 
-	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST), var_name = variable)
+	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST))
 	class = value["class"]
 
 	if(!class)
@@ -653,4 +645,5 @@ GLOBAL_PROTECT(VVmaint_only)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")] (Type: [class])")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new] (Type: [class])")
-	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, var_new))] (Type: [class])")
+	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode("[var_new]")] (Type: [class])"
+	message_admins(msg)
