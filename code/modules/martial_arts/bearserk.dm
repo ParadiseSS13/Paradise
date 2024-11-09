@@ -45,7 +45,7 @@
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
-/obj/item/clothing/head/bearpelt/bearserk/Initialize()
+/obj/item/clothing/head/bearpelt/bearserk/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -67,7 +67,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 		style.remove(H)
-		H.faction -= "soviet" //
+		H.faction -= "soviet"
 		H.physiology.stun_mod /= 0.80
 		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
