@@ -165,7 +165,9 @@
 		/obj/item/dnainjector/noprints,
 		/obj/item/dnainjector/comic,
 		/obj/item/seeds/random/labelled,
-		/obj/item/organ/internal/regenerative_core
+		/obj/item/organ/internal/regenerative_core,
+		/obj/item/reagent_containers/glass/bottle/reagent/omnizine,
+		/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic_uncommon
@@ -181,7 +183,9 @@
 		/obj/item/organ/internal/alien/eggsac,
 		/obj/item/organ/internal/heart/gland/heals,
 		/obj/item/organ/internal/heart/gland/ventcrawling,
-		/obj/item/organ/internal/heart/gland/egg
+		/obj/item/organ/internal/heart/gland/egg,
+		/obj/item/slimepotion/fireproof,
+		/obj/item/slimepotion/oil_slick
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic_rare
@@ -190,7 +194,10 @@
 		/obj/item/guardiancreator/biological,
 		/obj/item/organ/internal/vocal_cords/adamantine,
 		/obj/item/food/grown/shell/gatfruit,
-		/obj/item/food/grown/cherry_bomb
+		/obj/item/food/grown/cherry_bomb,
+		/obj/item/bio_chip_implanter/storage,
+		/obj/item/slimepotion/sentience,
+		/obj/item/slimepotion/transference
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/food_common
