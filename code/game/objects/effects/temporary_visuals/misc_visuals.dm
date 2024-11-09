@@ -522,7 +522,7 @@
 	name = "\improper Bluespace energy wave"
 	desc = "A massive, rippling wave of bluepace energy, all rapidly exhausting itself the moment it leaves the concentrated beam of light."
 	icon = 'icons/effects/beam_splash.dmi'
-	icon_state = "beam_splash_l"
+	icon_state = "beam_splash_w"
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_y = -16
 	duration = 50
