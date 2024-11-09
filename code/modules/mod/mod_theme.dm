@@ -221,7 +221,7 @@
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"
-	desc = "A highly advanced successor to the standard engineering modsuit. Completely resistant to radiation, fire, and electricity, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
+	desc = "A highly advanced competitor to the standard engineering modsuit. Completely resistant to radiation, fire, and electricity, with improved conventional armor to boot. The paint gleams like freshly fallen snow."
 	extended_desc = "A product of the bloated generosity of several prominent Nanotrasen executives and their desire to upstage Cybersun at their own game, the NA-20 'Daedalus' represents the peak of powered industrial protection. The thick, double-insulated plastitanium composite carapace offers complete protection from most electrical hazards \
 		in addition to enhanced resistance against heavy impacts, mid-grade explosive detonations, and a slight resistance to directed energy blasts. An underlayer of lead overlain with depleted uranium offers unparalleled protection from even \
 		the most intense radiation exposure, whilst the advanced thermal control system and thermally-reflective surface coating allows the suit to withstand full flame engulfment. The built-in magboots also feature advanced predictive algorithms \
@@ -1044,8 +1044,7 @@
 		The first-generation servodrives are woefully underpowered and exceptionally inefficient, leading to a ponderous top speed and an average battery life entirely \
 		unsuited to extended EVA usage. As little more than technology testbed, the Ogre is also sorely lacking in armor protection, possessing little more than a steel carapace \
 		more suited to deflecting micrometeoroids than any dedicated weaponry, though the treated underlayer does offer effective fire and chemical protection, at the cost of greatly \
-		increased cancer risks after several hours of sustained use. Today, it is exceptionally rare to find this suit anywhere outside a museum exhibit or disused \
-		warehouses, but isolated models can still sometimes be found in abandoned storage units floating through the void, waiting for a desperate salvager to claim them."
+		increased cancer risks after several hours of sustained use."
 	default_skin = "prototype"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_prototype
 	resistance_flags = FIRE_PROOF
