@@ -569,7 +569,7 @@
 	name = "trainer's belt"
 	desc = "For the mining master, holds your lazarus capsules."
 	icon_state = "lazarusbelt_0"
-	base_icon_state = "lazarusbelt_0"
+	base_icon_state = "lazarusbelt"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_TINY

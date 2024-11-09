@@ -161,6 +161,7 @@
 	name = "large rock"
 	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
 	icon_state = "basalt1"
+	base_icon_state = "basalt"
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt

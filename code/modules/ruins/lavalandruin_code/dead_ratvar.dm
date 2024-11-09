@@ -42,23 +42,6 @@
 		linked = null
 	. = ..()
 
-/obj/effect/clockwork/overlay/wall
-	name = "clockwork wall"
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = null
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
-	smoothing_flags = SMOOTH_CORNERS
-	layer = CLOSED_TURF_LAYER
-
-/obj/effect/clockwork/overlay/wall/Initialize(mapload)
-	. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
-
-/obj/effect/clockwork/overlay/wall/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
-
 /obj/effect/clockwork/overlay/floor
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "clockwork_floor"
@@ -217,6 +200,7 @@
 	randomsinglesprite = TRUE
 	randomspritemax = 3
 	icon_state = "shard_small"
+	base_icon_state = "shard_small"
 	sprite_shift = 12
 
 /obj/item/clockwork/alloy_shards/pinion_lock
