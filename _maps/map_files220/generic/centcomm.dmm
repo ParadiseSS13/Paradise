@@ -4654,8 +4654,11 @@
 /area/centcom/ss220/admin1)
 "cTP" = (
 /obj/structure/light_fake/small,
+/obj/machinery/bodyscanner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
 /area/centcom/ss220/medbay)
 "cUl" = (
@@ -6188,6 +6191,11 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/control)
+"dKi" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/centcom/ss220/medbay)
 "dKp" = (
 /obj/structure/statue/cyberiad/s,
 /obj/effect/turf_decal/woodsiding,
@@ -6822,13 +6830,12 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/ss220/admin2)
 "eig" = (
-/obj/structure/morgue,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Морг";
-	req_access = list(101);
+/obj/structure/crematorium{
+	id = 2
+	},
+/obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -16721,8 +16728,20 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "jWM" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
+/obj/machinery/crema_switch{
+	pixel_y = 32;
+	id = 2
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags{
+	pixel_y = -7
+	},
+/obj/item/storage/box/gloves{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 11;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20090,7 +20109,6 @@
 /area/syndicate_mothership/control)
 "lPU" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list(114);
 	req_access = null
 	},
 /obj/item/clothing/head/towel/orange,
@@ -20421,11 +20439,19 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/general)
 "maQ" = (
-/obj/machinery/crema_switch{
-	pixel_y = -32
+/obj/structure/morgue{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Морг";
+	req_access = list(101);
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
 /area/centcom/ss220/medbay)
 "maY" = (
@@ -22611,6 +22637,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/autopsy_scanner,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /obj/item/camera/autopsy{
 	pixel_y = 3;
 	pixel_x = 3
@@ -23569,7 +23596,7 @@
 	name = "Морг"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkbluefull"
 	},
 /area/centcom/ss220/medbay)
 "nXL" = (
@@ -28413,11 +28440,20 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "qZQ" = (
-/obj/structure/crematorium{
+/obj/structure/morgue{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Морг";
+	req_access = list(101);
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/ss220/medbay)
 "qZS" = (
@@ -28429,13 +28465,9 @@
 	},
 /area/syndicate_mothership/jail)
 "qZV" = (
-/obj/structure/morgue,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Морг";
-	req_access = list(101);
-	dir = 4
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -30738,7 +30770,6 @@
 /area/centcom/ss220/admin3)
 "sjW" = (
 /obj/machinery/optable,
-/obj/item/clothing/gloves/color/latex/nitrile,
 /obj/structure/light_fake/small{
 	dir = 1
 	},
@@ -59992,7 +60023,7 @@ kUt
 uMr
 nuJ
 mAl
-vSF
+dKi
 nXF
 jUN
 vmB
