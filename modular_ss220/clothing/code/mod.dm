@@ -4,8 +4,12 @@
 	item_state = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	sprite_sheets = list(
-		"Human" = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi',
 		"Skrell" = 'modular_ss220/clothing/icons/mob/species/skrell/mod_clothing.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/mod_clothing.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/species/vulpkanin/mod_clothing.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/species/tajaran/mod_clothing.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/mod_clothing.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/mod_clothing.dmi',
 		)
 
 /obj/item/clothing/suit/mod/exclusive
@@ -13,8 +17,12 @@
 	item_state = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	sprite_sheets = list(
-		"Human" = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi',
 		"Skrell" = 'modular_ss220/clothing/icons/mob/species/skrell/mod_clothing.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/mod_clothing.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/species/vulpkanin/mod_clothing.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/species/tajaran/mod_clothing.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/mod_clothing.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/mod_clothing.dmi',
 		)
 
 /obj/item/clothing/gloves/mod/exclusive
@@ -22,8 +30,12 @@
 	item_state = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	sprite_sheets = list(
-		"Human" = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi',
 		"Skrell" = 'modular_ss220/clothing/icons/mob/species/skrell/mod_clothing.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/mod_clothing.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/species/vulpkanin/mod_clothing.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/species/tajaran/mod_clothing.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/mod_clothing.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/mod_clothing.dmi',
 		)
 
 /obj/item/clothing/shoes/mod/exclusive
@@ -31,8 +43,12 @@
 	item_state = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
 	sprite_sheets = list(
-		"Human" = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi',
 		"Skrell" = 'modular_ss220/clothing/icons/mob/species/skrell/mod_clothing.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/mod_clothing.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/species/vulpkanin/mod_clothing.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/species/tajaran/mod_clothing.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/mod_clothing.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/mod_clothing.dmi',
 		)
 
 // MARK: MODsuit control
@@ -278,3 +294,24 @@
 /obj/item/mod/control/pre_equipped/exclusive/skrell_sardaukars/Initialize(mapload, new_theme, new_skin, new_core, new_access)
 	. = ..()
 	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
+// MARK: Corporate MODsuit
+/obj/item/mod/control/pre_equipped/corporate
+	icon = 'modular_ss220/clothing/icons/object/mod_clothing.dmi'
+	icon_override = 'modular_ss220/clothing/icons/mob/mod_clothing.dmi'
+
+/datum/mod_theme/corporate/New()
+	. = ..()
+	skins["corporate"][MOD_ICON_OVERRIDE] = 'modular_ss220/clothing/icons/object/mod_clothing.dmi'
+
+/obj/item/mod/control/pre_equipped/corporate/build_head()
+	return new /obj/item/clothing/head/mod/exclusive(src)
+
+/obj/item/mod/control/pre_equipped/corporate/build_suit()
+	return new /obj/item/clothing/suit/mod/exclusive(src)
+
+/obj/item/mod/control/pre_equipped/corporate/build_gloves()
+	return new /obj/item/clothing/gloves/mod/exclusive(src)
+
+/obj/item/mod/control/pre_equipped/corporate/build_shoes()
+	return new /obj/item/clothing/shoes/mod/exclusive(src)
