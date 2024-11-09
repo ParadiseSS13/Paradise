@@ -5324,11 +5324,6 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
-"dnP" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/centcom/ss220/medbay)
 "dnW" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/west{
@@ -6196,6 +6191,11 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/control)
+"dKi" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/centcom/ss220/medbay)
 "dKp" = (
 /obj/structure/statue/cyberiad/s,
 /obj/effect/turf_decal/woodsiding,
@@ -6830,7 +6830,9 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/ss220/admin2)
 "eig" = (
-/obj/structure/crematorium,
+/obj/structure/crematorium{
+	id = 2
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -16727,7 +16729,8 @@
 /area/shuttle/syndicate)
 "jWM" = (
 /obj/machinery/crema_switch{
-	pixel_y = 32
+	pixel_y = 32;
+	id = 2
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/box/bodybags{
@@ -60020,7 +60023,7 @@ kUt
 uMr
 nuJ
 mAl
-dnP
+dKi
 nXF
 jUN
 vmB
