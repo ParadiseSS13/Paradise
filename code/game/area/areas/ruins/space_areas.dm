@@ -45,12 +45,11 @@
 
 //DJSTATION
 /area/ruin/space/djstation
-	name = "\improper Ruskie DJ Station"
+	name = "\improper Soviet DJ Station"
 	icon_state = "DJ"
-	there_can_be_many = TRUE
 
 /area/ruin/space/djstation/solars
-	name = "\improper Ruskie DJ Station Solars"
+	name = "\improper Soviet DJ Station Solars"
 	icon_state = "DJ"
 
 //Methlab
@@ -135,7 +134,6 @@
 /area/ruin/space/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
-	there_can_be_many = TRUE
 
 /area/ruin/space/derelict/eva
 	name = "Derelict EVA Storage"
