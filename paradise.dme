@@ -2952,6 +2952,8 @@
 #include "code\modules\tgui\states\physical.dm"
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\strippable_state.dm"
+#include "code\modules\tgui\states\viewer_state.dm"
+#include "code\modules\tgui\tgui_input\alert_input.dm"
 #include "code\modules\tgui\tgui_input\color_input.dm"
 #include "code\modules\tgui\tgui_input\input_checkbox.dm"
 #include "code\modules\tgui\tgui_input\keycombo_input.dm"
