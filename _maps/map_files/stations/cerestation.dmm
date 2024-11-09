@@ -3600,17 +3600,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "azr" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/door_control{
@@ -3636,13 +3626,7 @@
 	pixel_y = -28;
 	req_access = list(2)
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/machinery/disposal,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "azs" = (
@@ -31153,9 +31137,6 @@
 	},
 /area/station/supply/sorting)
 "dLC" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Head of Personnel's Queue Line";
 	dir = 4
@@ -34671,9 +34652,6 @@
 	},
 /area/station/maintenance/apmaint)
 "eJx" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -34691,32 +34669,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/item/pen,
-/obj/machinery/button/windowtint{
-	id = "bridge";
-	dir = 1;
-	pixel_y = 7;
-	req_one_access = list(19,41)
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35083,36 +35035,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"eNQ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
-/obj/machinery/door_control{
-	id = "ntrepofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = 6;
-	pixel_y = -24;
-	req_access = list(73)
-	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "ntr";
-	pixel_x = -5;
-	pixel_y = -23;
-	range = 10
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/ntrep)
 "eNT" = (
 /obj/machinery/requests_console/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -35655,6 +35577,18 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/prison/cell_block/A)
+"eXj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/kill_syndicate{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "eXl" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -37329,15 +37263,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "fxL" = (
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/railing{
 	dir = 6
+	},
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -42221,55 +42155,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "gVQ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door_control{
-	id = "ailockdown";
-	name = "AI Asteroid Lockdown";
-	pixel_y = 40;
-	req_access = list(56)
-	},
-/obj/machinery/door_control{
-	id = "servlockdown";
-	name = "Service Lockdown";
-	pixel_x = -10;
-	pixel_y = 32;
-	req_access = list(57)
-	},
-/obj/machinery/door_control{
-	id = "medlockdown";
-	name = "Medical Lockdown";
-	pixel_x = 10;
-	pixel_y = 32;
-	req_access = list(40)
-	},
-/obj/machinery/door_control{
-	id = "cargolockdown";
-	name = "Cargo Lockdown";
-	pixel_x = 10;
-	pixel_y = 40;
-	req_access = list(41)
-	},
-/obj/machinery/door_control{
-	id = "scilockdown";
-	name = "Science Lockdown";
-	pixel_x = -10;
-	pixel_y = 24;
-	req_access = list(30)
-	},
-/obj/machinery/door_control{
-	id = "engilockdown";
-	name = "Engineering Lockdown";
-	pixel_y = 32;
-	req_access = list(56)
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -47202,14 +47087,14 @@
 	},
 /area/station/maintenance/fore2)
 "imn" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/structure/railing{
 	dir = 10
+	},
+/obj/machinery/computer/card{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -50401,9 +50286,6 @@
 	},
 /area/station/medical/medbay)
 "iZS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "hopexternal"
@@ -50412,21 +50294,6 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door_control{
-	id = "servlockdown";
-	name = "Service Asteroid Lockdown";
-	pixel_y = 32;
-	req_access = list(57)
-	},
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = 28
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/hop)
@@ -57280,9 +57147,6 @@
 	},
 /area/station/public/storage/tools/auxiliary)
 "kNn" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -57294,31 +57158,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "commandeva";
-	name = "Command EVA shutter control";
-	pixel_x = 25;
-	pixel_y = 24;
-	req_one_access = list(19,41)
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74952,6 +74791,13 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/alphadeck)
+"pDr" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/office/hop)
 "pDu" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -75208,9 +75054,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "pGD" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/newscaster{
 	dir = 8;
@@ -75585,38 +75428,6 @@
 	icon_state = "darkpurplefull"
 	},
 /area/station/science/robotics)
-"pLV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door_control{
-	id = "bridge_lower";
-	name = "Lower Bridge Lockdown";
-	pixel_y = 24;
-	req_one_access = list(19,14)
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door_control{
-	id = "bridge_upper";
-	name = "Upper Bridge Lockdown";
-	pixel_y = 32;
-	req_one_access = list(19,14)
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/station/command/bridge)
 "pMq" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment,
@@ -79524,10 +79335,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	d2 = 2;
-	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge_lower";
@@ -85999,9 +85806,6 @@
 /obj/structure/gunrack,
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/practice,
-/obj/structure/sign/poster/official/kill_syndicate{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -94802,20 +94606,10 @@
 	},
 /area/station/maintenance/starboard)
 "uKj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/computer/prisoner,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -96033,22 +95827,10 @@
 	},
 /area/station/medical/cloning)
 "vbF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/camera{
 	c_tag = "Bridge Meeting West"
 	},
 /obj/machinery/alarm/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/computer/prisoner{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -102301,41 +102083,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
-"wGi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/comfy,
-/obj/machinery/flasher_button{
-	id = "hopflash";
-	name = "Line Flash";
-	pixel_x = 32
-	},
-/obj/machinery/door_control{
-	id = "hopshutter";
-	name = "Desk Shutters";
-	pixel_x = 24;
-	pixel_y = 8;
-	req_access = list(57)
-	},
-/obj/machinery/door_control{
-	id = "hopexternal";
-	name = "External Lockdown";
-	pixel_x = 24;
-	req_access = list(57)
-	},
-/obj/machinery/door_control/ticket_machine_button{
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore/north)
 "wGl" = (
 /obj/machinery/computer/security{
 	dir = 4;
@@ -131043,7 +130790,7 @@ icl
 azr
 azu
 sAM
-baU
+eXj
 pux
 wOD
 wae
@@ -139797,7 +139544,7 @@ btz
 bwm
 ufc
 bAK
-dQx
+pDr
 bEi
 bCH
 vuY
@@ -141084,7 +140831,7 @@ cQJ
 cau
 pGD
 iZS
-wGi
+pWY
 obC
 gOi
 duU
@@ -142612,7 +142359,7 @@ aHk
 bMQ
 bRS
 fxL
-pLV
+gVQ
 rMM
 chM
 pOl
@@ -147009,7 +146756,7 @@ ibP
 jJJ
 keE
 kwu
-eNQ
+ibP
 uFY
 gch
 rNK
