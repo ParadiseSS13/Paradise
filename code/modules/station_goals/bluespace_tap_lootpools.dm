@@ -275,7 +275,7 @@
 		/obj/item/food/burger/ppatty/rainbow,
 		/obj/item/food/burger/elec,
 		/obj/item/food/notasandwich,
-		/obj/item/food/peanut_butter_jelly,
+		/obj/item/storage/box/papersack/pbj_lunch,
 		/obj/item/food/soylentviridians,
 		/obj/item/food/baguette/combat
 	)

@@ -310,7 +310,7 @@
 		total_points += mined_points
 		update_icon()
 		// Machine gets dirty. Always remains at 2% regardless of power draw.
-		if(prob(0.02))
+		if(prob(2))
 			radio.autosay("<b>Bluespace harvester malfunction detected: filth contaminants have jammed [src]'s bluespace receiver!</b>", name, "Engineering")
 			dirty = TRUE
 
@@ -338,8 +338,6 @@
 	if(total_points > motherlode_interval)
 		produce_motherlode()
 		motherlode_interval += 45000
-
-
 
 	/*
 	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
@@ -431,7 +429,7 @@
 	var/spawn_location = find_spawn_location()
 	spawn_item(product, spawn_location)
 
-	if(prob(0.25) && double_chance)
+	if(prob(25) && double_chance)
 		// Spawn second item in random spot on station - places it where NADs can respawn
 		spawn_location = find_spawn_location(TRUE)
 		spawn_item(product, spawn_location)
@@ -482,7 +480,7 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	new product_path(turf)
 	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
-	log_game("Bluespace harvester product spawned at [turf.loc_name]")
+	log_game("Bluespace harvester product spawned at [turf]")
 
 //UI stuff below
 
