@@ -169,7 +169,7 @@
 	// Gets rid of illegal characters
 	var/static/regex/blacklisted_words = regex(@{"([^\u0020-\u8000]+)"})
 
-	for(var/i in items)
+	for(var/i in _items)
 		var/string_key = blacklisted_words.Replace("[i]", "")
 
 		// Avoids duplicated keys E.g: when areas have the same name
