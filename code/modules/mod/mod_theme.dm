@@ -169,7 +169,7 @@
 	desc = "A reinforced atmospherics modsuit meant for extreme environments. Completely fireproof, but somewhat lacking in modification potential and power efficiency."
 	extended_desc = "Developed from the popular 'Spark' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
 		underlain with multiple layers of insulating fiberglass, which, in combination with a high-powered thermal regulation system, provides the user complete protection from even full engulfment inside a raging plasma fire. \
-		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the Engineering MOD. \
+		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Spark' suit. \
 		Cybersun Industries reminds users that this model features minimal radiation shielding - it is not suitable PPE for use in radiological hazard zones."
 	default_skin = "atmospheric"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
