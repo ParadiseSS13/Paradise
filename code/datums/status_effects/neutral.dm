@@ -343,9 +343,13 @@
 	var/datum/callback/expire_proc = null
 
 /datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
-	if(!new_duration || !istype(new_expire_proc))
+	if(isnull(new_duration) || !istype(new_expire_proc))
 		qdel(src)
 		return
+	if(new_duration == 0)
+		new_expire_proc.Invoke()
+		return
+
 	duration = new_duration
 	expire_proc = new_expire_proc
 	. = ..()

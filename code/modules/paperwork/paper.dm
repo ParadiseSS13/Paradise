@@ -47,6 +47,7 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
+	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -314,6 +315,13 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/vv_edit_var(var_name, var_value)
+	if((var_name == "info") && blacklist.Find(var_value)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: ADMIN</span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: ADMIN [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
+	return ..()
+
 /obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
@@ -321,6 +329,10 @@
 		return
 	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && ((usr in get_turf(src)) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(blacklist.Find(input_element)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -620,8 +632,35 @@
 	info = "Right, so you're wanting to learn how to feed the teeming masses of the station yeah?<BR>\n<BR>\nWell I was asked to write these tips to help you not burn all of your meals and prevent food poisonings.<BR>\n<BR>\nOkay first things first, making a humble ball of dough.<BR>\n<BR>\nCheck the lockers for a bag or two of flour and then find a glass cup or a beaker, something that can hold liquids. Next pour 15 units of flour into the container and then pour 10 units of water in as well. Hey presto! You've made a ball of dough, which can lead to many possibilities.<BR>\n<BR>\nAlso, before I forget, KEEP YOUR FOOD OFF THE DAMN FLOOR! Space ants love getting onto any food not on a table or kept away in a closed locker. You wouldn't believe how many injuries have resulted from space ants...<BR>\n<BR>\nOkay back on topic, let's make some cheese, just follow along with me here.<BR>\n<BR>\nLook in the lockers again for some milk cartons and grab another glass to mix with. Next look around for a bottle named 'Universal Enzyme' unless they changed the look of it, it should be a green bottle with a red label. Now pour 5 units of enzyme into a glass and 40 units of milk into the glass as well. In a matter of moments you'll have a whole wheel of cheese at your disposal.<BR>\n<BR>\nOkay now that you've got the ingredients, let's make a classic crewman food, cheese bread.<BR>\n<BR>\nMake another ball of dough, and cut up your cheese wheel with a knife or something else sharp such as a pair of wire cutters. Okay now look around for an oven in the kitchen and put 2 balls of dough and 2 cheese wedges into the oven and turn it on. After a few seconds a fresh and hot loaf of cheese bread will pop out. Lastly cut it into slices with a knife and serve.<BR>\n<BR>\nCongratulations on making it this far. If you haven't created a burnt mess of slop after following these directions you might just be on your way to becoming a master chef someday.<BR>\n<BR>\nBe sure to look up other recipes and bug the Head of Personnel if Botany isn't providing you with crops, wheat is your friend and lifeblood.<BR>\n<BR>\nGood luck in the kitchen, and try not to burn down the place.<BR>\n<BR>\n-Morgan Ramslay"
 
 /obj/item/paper/djstation
-	name = "DJ Listening Outpost"
-	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"
+	name = "Mission Briefing"
+	info = "<center><h2>Welcome to Listening Post Yenisei!</h2></center><br>\
+	You will have two objectives for the duration of your assignment:\
+	<ul><li>Monitor radio traffic in this system, especially from the Nanotrasen stations and ship traffic heading to and from them. Important findings are to be relayed to The Union using the listening post's hyperwave antenna.</li>\
+	<li>You will be functioning as the hyperwave relay for KC-13, our other installation in the system. Ensure any messages they broadcast are forwarded to The Union.</li></ul>\
+	A library of patriotic entertainment media has been provided for you to broadcast into the system - your cover is that you are the operator of an independent Soviet radio station.<br> \
+	<br>\
+	The encryption schemes used by Nanotrasen have been included in this installation's radio equipment, allowing you to listen in on their chatter. Use the frequencies supplied below to tune into channels of interest.\
+	<br>\
+	<ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - \
+	Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"
+
+/obj/item/paper/djstation/diary_note
+	name = "Communications Update"
+	info = "KC-13 has stopped talking to me for about the past month. I assume Vostok just has his knickers in a twist.<br>\
+	<br>\
+	Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."
+
+/obj/item/paper/ussp_tele
+	name = "Report - Bluespace Translocation Apparatus"
+	info = "Despite a lot of headaches and delays, the BTA is finally in a functional enough state to demonstrate to the Committee, although be warned that it has multiple limitations:<br>\
+	<br>\
+	<ul><li>The highly sensitive electronics are affected by a translocation event, which will throw off any acquired locks. \
+	The station must be recalibrated after every use to avoid the possibility of being translocated to a random point in space.</li>\
+	<li>Currently the system is only able to function with the help of locator beacons, we have been unable to safely generate arbitrary targeting coordinates.</li>\
+	<li>We cannot retrieve targets remotely, even with the aid of a locator beacon, energy consumption is too high to maintain a remote portal.</li></ul>\
+	Doctors Danielius and Hoang both believe that the first point can be worked out with some relatively minor technological improvements. \
+	Arbitrary targeting is technically possible but will remain infeasible for decades. Remote target retrieval will require an entirely different technique, \
+	although accounts of Syndicate contractor operations suggests that they possess a functioning apparatus capable of such a feat."
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
@@ -651,11 +690,11 @@
 	name = "Teleporter Instructions"
 	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
-/obj/item/paper/russiantraitorobj
+/obj/item/paper/soviettraitorobj
 	name = "paper- 'Mission Objectives'"
 	info = "The Syndicate have cunningly disguised a Syndicate Uplink as your PDA. Simply enter the code \"678 Bravo\" into the ringtone select to unlock its hidden features. <br><br><b>Objective #1</b>. Kill the God damn AI in a fire blast that it rocks the station. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
-/obj/item/paper/russiannuclearoperativeobj
+/obj/item/paper/sovietnuclearoperativeobj
 	name = "paper- 'Objectives of a Nuclear Operative'"
 	info = "<b>Objective #1</b>: Destroy the station with a nuclear device."
 

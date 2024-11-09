@@ -38,7 +38,7 @@
 			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
-		showpiece = new start_showpiece_type (src)
+		showpiece = new start_showpiece_type(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/Destroy()

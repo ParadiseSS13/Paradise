@@ -112,6 +112,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 	new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1),
+	new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3),
 	null,
 	new /datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2),
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
@@ -533,7 +534,7 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
-/obj/item/stack/sheet/soil/Initialize(loc, amt)
+/obj/item/stack/sheet/soil/Initialize(mapload, loc, amt)
 	recipes = GLOB.soil_recipes
 	return ..()
 

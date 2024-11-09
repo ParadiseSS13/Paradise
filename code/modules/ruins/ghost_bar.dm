@@ -52,10 +52,10 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		if(G.allowed_roles) // Fix due to shitty HUD code
 			continue
 		if(G.slot)
-			if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
+			if(H.equip_to_slot_or_del(G.spawn_item(H, save_to_load.get_gear_metadata(G)), G.slot, TRUE))
 				to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 		else
-			H.equip_or_collect(G.spawn_item(null, save_to_load.loadout_gear[G.display_name]))
+			H.equip_or_collect(G.spawn_item(null, save_to_load.get_gear_metadata(G)))
 	if(!H.w_uniform)
 		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
 	if(!H.shoes)

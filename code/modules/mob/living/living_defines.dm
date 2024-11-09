@@ -41,6 +41,9 @@
 	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 
+	/// movable atom we are buckled to
+	var/atom/movable/buckling
+
 	var/ventcrawler = VENTCRAWLER_NONE
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
@@ -102,6 +105,9 @@
 	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
 	var/advanced_bullet_dodge_chance = 0
 
+	/// List of traits that should be applied on Initialize
+	var/list/initial_traits = list()
+
 	/*
 	Taste Vars
 	*/
@@ -109,3 +115,5 @@
 	var/last_taste_time
 	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
 	var/last_taste_text
+	///If a creature gets to be super special and have extra range on their chat messages
+	var/extra_message_range = 0

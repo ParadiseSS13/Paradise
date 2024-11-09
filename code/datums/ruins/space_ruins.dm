@@ -212,9 +212,10 @@
 /datum/map_template/ruin/space/dj
 	id = "dj"
 	suffix = "dj.dmm"
-	name = "Russian DJ Station"
-	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	name = "Soviet DJ Station"
+	description = "A USSP listening post masquerading as a popular Soviet entertainment broadcaster, keeping tabs on Nanotrasen activity in the system and relaying it back to the Union."
 	cost = 2
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
@@ -242,14 +243,15 @@
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
 	suffix = "ussp_tele.dmm"
-	name = "USSP Teleporter"
-	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
+	name = "Derelict USSP Teleporter"
+	description = "An experimental teleporter of USSP origin, some terrible calamity has ripped it free from a larger structure and sent drifting through space."
+	allow_duplicates = FALSE // One uniquely flavoured abandoned tele to keep the flavour fresh.
 
 /datum/map_template/ruin/space/ussp
 	id = "ussp"
 	suffix = "ussp.dmm"
 	name = "USSP"
-	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
+	description = "A decript station of seemingly Soviet origin. The last contact had with this station was a distress signal, and the rest was dark."
 	allow_duplicates = FALSE // One of these has enough loot
 	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
 

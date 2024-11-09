@@ -791,7 +791,7 @@
 /area/ruin/unpowered/althland_excavation)
 "oh" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "or" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -865,6 +865,9 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
+"sj" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "sA" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -1035,6 +1038,10 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation)
+"Ay" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "AD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1208,6 +1215,10 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation)
+"Jn" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "Jp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
@@ -1262,8 +1273,10 @@
 	},
 /area/lavaland/surface/outdoors)
 "Mm" = (
+/obj/structure/girder/reinforced,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "MT" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -1566,23 +1579,23 @@ oh
 oh
 oh
 oh
-Mm
-Mm
-Mm
-Mm
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Mm
-Mm
+sj
+sj
+sj
+sj
+sj
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+sj
+sj
 oh
 oh
 oh
@@ -1593,13 +1606,13 @@ oh
 oh
 oh
 oh
-Mm
-Mm
-Mm
-Mm
-Mm
-Mm
-Mm
+sj
+sj
+sj
+sj
+sj
+sj
+sj
 TN
 TN
 TN
@@ -1609,13 +1622,13 @@ Du
 TN
 TN
 TN
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
+Jn
 oh
 oh
 oh
@@ -1623,10 +1636,10 @@ oh
 (3,1,1) = {"
 oh
 oh
-Mm
-Mm
-Mm
-Mm
+sj
+sj
+sj
+sj
 TN
 TN
 TN
@@ -1645,18 +1658,18 @@ TN
 TN
 TN
 TN
-Ei
-Ei
-Ei
-Ei
+Jn
+Jn
+Jn
+Jn
 oh
 oh
 "}
 (4,1,1) = {"
 oh
-Mm
-Mm
-Mm
+sj
+sj
+sj
 TN
 TN
 TN
@@ -1679,15 +1692,15 @@ Cs
 TN
 TN
 TN
-Ei
-Ei
-Mm
-Mm
+Jn
+Jn
+sj
+sj
 "}
 (5,1,1) = {"
 oh
-Mm
-Mm
+sj
+sj
 TN
 TN
 aU
@@ -1712,13 +1725,13 @@ je
 Ei
 TN
 TN
-Ei
-Ei
-Mm
+Jn
+sj
+sj
 "}
 (6,1,1) = {"
-Mm
-Mm
+sj
+sj
 TN
 TN
 Ri
@@ -1744,13 +1757,13 @@ TN
 Ei
 Ei
 bm
-bm
-Ei
-Ei
+Mm
+sj
+sj
 "}
 (7,1,1) = {"
-Mm
-Mm
+sj
+sj
 TN
 PL
 BZ
@@ -1776,12 +1789,12 @@ TN
 Ei
 Ei
 Ei
-bm
-Ei
-Ei
+Mm
+sj
+sj
 "}
 (8,1,1) = {"
-Mm
+sj
 TN
 TN
 pE
@@ -1808,12 +1821,12 @@ Ei
 Ei
 Ei
 bm
-Ei
-Ei
-Ei
+Jn
+sj
+sj
 "}
 (9,1,1) = {"
-Mm
+sj
 TN
 TN
 bC
@@ -1840,12 +1853,12 @@ Ei
 zp
 XS
 BW
-aB
-Ei
-Ei
+Ay
+sj
+sj
 "}
 (10,1,1) = {"
-Mm
+sj
 TN
 TN
 TN
@@ -1872,12 +1885,12 @@ aC
 sA
 aB
 aB
-Ei
-bm
-Ei
+Jn
+Mm
+Jn
 "}
 (11,1,1) = {"
-Mm
+sj
 TN
 ct
 Pe
@@ -1904,12 +1917,12 @@ GE
 aB
 aB
 Ei
-Ei
-bm
-Ei
+Jn
+Mm
+Jn
 "}
 (12,1,1) = {"
-Mm
+sj
 TN
 pC
 yb
@@ -1938,10 +1951,10 @@ aB
 Ei
 Ei
 TN
-Ei
+Jn
 "}
 (13,1,1) = {"
-Ei
+Jn
 TN
 TN
 TN
@@ -1970,10 +1983,10 @@ Ei
 Ei
 Ei
 TN
-Mm
+sj
 "}
 (14,1,1) = {"
-Ei
+Jn
 TN
 aU
 PL
@@ -2002,10 +2015,10 @@ XS
 Ei
 Ei
 TN
-Mm
+sj
 "}
 (15,1,1) = {"
-Ei
+Jn
 TN
 Yz
 yb
@@ -2034,10 +2047,10 @@ Ei
 Ei
 Ei
 TN
-Mm
+sj
 "}
 (16,1,1) = {"
-Ei
+Jn
 TN
 TN
 TN
@@ -2066,10 +2079,10 @@ Ei
 BW
 aB
 TN
-Mm
+sj
 "}
 (17,1,1) = {"
-Ei
+Jn
 TN
 Ei
 Ei
@@ -2098,10 +2111,10 @@ mK
 uG
 BW
 TN
-Mm
+sj
 "}
 (18,1,1) = {"
-Ei
+Jn
 bm
 Ei
 BW
@@ -2130,10 +2143,10 @@ BW
 LK
 PM
 TN
-Mm
+sj
 "}
 (19,1,1) = {"
-Ei
+Jn
 bm
 Ei
 BW
@@ -2162,10 +2175,10 @@ aB
 BW
 KU
 TN
-Mm
+sj
 "}
 (20,1,1) = {"
-Ei
+Jn
 TN
 Ei
 bm
@@ -2194,10 +2207,10 @@ aB
 aB
 uG
 TN
-Mm
+sj
 "}
 (21,1,1) = {"
-Ei
+Jn
 TN
 TN
 TN
@@ -2226,10 +2239,10 @@ aB
 aB
 aB
 TN
-Mm
+sj
 "}
 (22,1,1) = {"
-Ei
+Jn
 TN
 ao
 ar
@@ -2258,10 +2271,10 @@ BW
 TJ
 BW
 TN
-Mm
+sj
 "}
 (23,1,1) = {"
-Ei
+Jn
 TN
 at
 bl
@@ -2290,10 +2303,10 @@ mh
 mK
 uG
 TN
-Mm
+sj
 "}
 (24,1,1) = {"
-Ei
+Jn
 TN
 aG
 aU
@@ -2322,10 +2335,10 @@ mh
 mh
 Gc
 TN
-Mm
+sj
 "}
 (25,1,1) = {"
-Mm
+sj
 TN
 TN
 bU
@@ -2354,11 +2367,11 @@ gg
 bN
 TN
 TN
-Mm
+sj
 "}
 (26,1,1) = {"
-Mm
-Mm
+sj
+sj
 TN
 az
 DS
@@ -2385,12 +2398,12 @@ jL
 Nv
 jS
 TN
-Mm
-Mm
+sj
+sj
 "}
 (27,1,1) = {"
 oh
-Mm
+sj
 TN
 TN
 ap
@@ -2417,13 +2430,13 @@ bL
 YE
 TN
 TN
-Mm
-Mm
+sj
+sj
 "}
 (28,1,1) = {"
 oh
-Mm
-Mm
+sj
+sj
 TN
 TN
 iA
@@ -2448,15 +2461,15 @@ kh
 aE
 TN
 TN
-Mm
-Mm
+sj
+sj
 oh
 "}
 (29,1,1) = {"
 oh
-Mm
-Mm
-Mm
+sj
+sj
+sj
 TN
 TN
 TN
@@ -2479,18 +2492,18 @@ TN
 TN
 TN
 TN
-Mm
-Mm
+sj
+sj
 oh
 oh
 "}
 (30,1,1) = {"
 oh
 oh
-Mm
-Mm
-Mm
-Mm
+sj
+sj
+sj
+sj
 TN
 TN
 TN
@@ -2509,9 +2522,9 @@ TN
 TN
 TN
 TN
-Mm
-Mm
-Mm
+sj
+sj
+sj
 oh
 oh
 oh
@@ -2520,14 +2533,14 @@ oh
 oh
 oh
 oh
-Mm
-Mm
-Mm
-Mm
-Mm
-Mm
-Mm
-Mm
+sj
+sj
+sj
+sj
+sj
+sj
+sj
+sj
 TN
 TN
 TN
@@ -2537,11 +2550,11 @@ TN
 TN
 TN
 TN
-Mm
-Mm
-Mm
-Mm
-Mm
+sj
+sj
+sj
+sj
+sj
 oh
 oh
 oh

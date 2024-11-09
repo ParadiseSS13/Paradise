@@ -424,7 +424,7 @@
 
 /datum/spellbook_entry/item/scryingorb
 	name = "Scrying Orb"
-	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
+	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision. It will also work as an excellent throwing weapon, and will return to your hand after throwing."
 	item_path = /obj/item/scrying
 	category = "Artefacts"
 
@@ -622,7 +622,7 @@
 
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim. It is *heavily* advised not to summon it in maintenance areas."
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Summons"
 	limit = 3
