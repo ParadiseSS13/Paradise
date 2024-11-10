@@ -84324,7 +84324,7 @@
 	},
 /obj/machinery/requests_console/directional/north,
 /obj/machinery/button/windowtint{
-	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
+	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rdrobosurgery";
 	name = "Surgery Window Tint Control";
 	pixel_x = -24;
@@ -84333,7 +84333,7 @@
 	range = 2
 	},
 /obj/machinery/button/windowtint{
-	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
+	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rd";
 	name = "Office Window Tint Control";
 	pixel_x = -24;

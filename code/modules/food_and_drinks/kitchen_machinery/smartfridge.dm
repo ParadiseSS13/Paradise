@@ -558,7 +558,7 @@
   */
 /obj/machinery/smartfridge/foodcart
 	name = "food and drink cart"
-	desc = "A portable cart for hawking your food and drink wares around the station"
+	desc = "A portable cart for hawking your food and drink wares around the station."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
@@ -697,7 +697,7 @@
   */
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
-	desc = "A refrigerated storage unit for slime extracts"
+	desc = "A refrigerated storage unit for slime extracts."
 	board_type = /obj/machinery/smartfridge/secure/extract
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
