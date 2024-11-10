@@ -142,3 +142,9 @@
 		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
 			if(pipe.anchored && !QDELING(pipe))
 				. += pipe
+
+// Abstract fluid pipes, useful for machinery that can have multiple intake slots
+/obj/machinery/fluid_pipe/abstract
+	name = "You should not see this"
+	desc = "Please report where you saw this on the github"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

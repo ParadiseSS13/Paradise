@@ -29,9 +29,9 @@
 
 /obj/machinery/fluid_pipe/geyser_extractor/Initialize(mapload)
 	. = ..()
-	for(var/obj/structure/geyser/geyser as anything in get_turf(src))
-		if(istype(geyser))
-			extracting_geyser = geyser
+	for(var/obj/structure/geyser/geyser in get_turf(src))
+		extracting_geyser = geyser
+		break
 
 	if(QDELETED(extracting_geyser))
 		deconstruct()
