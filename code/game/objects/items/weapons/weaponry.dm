@@ -2,8 +2,8 @@
   * # Banhammer
   */
 /obj/item/banhammer
-	desc = "A banhammer"
 	name = "banhammer"
+	desc = "A banhammer."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
 	slot_flags = SLOT_FLAG_BELT
@@ -164,7 +164,7 @@
 
 /obj/item/throwing_star
 	name = "throwing star"
-	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
+	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
 	item_state = "eshield0"

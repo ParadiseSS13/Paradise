@@ -69,6 +69,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/flagged_antag_rollers = list()
 	/// List of biohazards keyed to the last time their population was sampled.
 	var/list/biohazard_pop_times = list()
+	var/list/biohazard_included_admin_spawns = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -833,6 +834,9 @@ SUBSYSTEM_DEF(ticker)
 		else
 			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("defeated", biohazard))
 
+	for(var/biohazard in SSticker.biohazard_included_admin_spawns)
+		SSblackbox.record_feedback("nested tally", "biohazards", 1, list("included_admin_spawns", biohazard))
+
 /datum/controller/subsystem/ticker/proc/count_xenomorps()
 	. = 0
 	for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
@@ -842,12 +846,33 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/sample_biohazard_population(biohazard)
 	SSblackbox.record_feedback("ledger", "biohazard_pop_[BIOHAZARD_POP_INTERVAL_STR]_interval", biohazard_count(biohazard), biohazard)
+	if(any_admin_spawned_mobs(biohazard) && !(biohazard in biohazard_included_admin_spawns))
+		biohazard_included_admin_spawns[biohazard] = TRUE
+
 	biohazard_pop_times[biohazard] = world.time
 
 /// Record the initial time that a biohazard spawned.
 /datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
 	SSblackbox.record_feedback("associative", "biohazard_starts", 1, list("type" = biohazard, "time_ds" = world.time - time_game_started))
 	sample_biohazard_population(biohazard)
+
+/// Returns whether the given biohazard includes mobs that were admin spawned.
+/// Only returns TRUE or FALSE, does not attempt to track which mobs were
+/// admin-spawned and which ones weren't.
+/datum/controller/subsystem/ticker/proc/any_admin_spawned_mobs(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER)
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+				if(S.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_XENO)
+			for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
+				if(xeno_mind.current?.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_BLOB)
+			for(var/atom/blob_overmind in SSticker.mode.blob_overminds)
+				if(blob_overmind.admin_spawned)
+					return TRUE
 
 /datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
