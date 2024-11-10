@@ -4233,6 +4233,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
+"aBI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/station/maintenance/fore)
 "aBM" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -25262,6 +25272,21 @@
 "cRv" = (
 /turf/simulated/mineral/ancient/outer,
 /area/mine/unexplored/cere/command)
+"cRI" = (
+/obj/machinery/camera{
+	c_tag = "Command SMES";
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/flashlight,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/station/maintenance/fore)
 "cRL" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -26302,6 +26327,14 @@
 	icon_state = "floorgrime"
 	},
 /area/station/security/permabrig)
+"cVX" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/station/maintenance/fore)
 "cVY" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/firealarm/directional/north,
@@ -38239,16 +38272,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
-"fFt" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/maintenance/fore)
 "fFu" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -46462,13 +46485,13 @@
 /area/station/command/office/blueshield)
 "hXD" = (
 /obj/structure/table,
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
 /obj/item/healthanalyzer,
@@ -53812,6 +53835,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
+"jPI" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/disposal/northeast)
 "jPJ" = (
 /obj/machinery/keycard_auth{
 	pixel_x = 27
@@ -67336,21 +67369,6 @@
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
-"nLx" = (
-/obj/machinery/camera{
-	c_tag = "Command SMES";
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/flashlight,
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/maintenance/fore)
 "nLG" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -68335,14 +68353,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"odx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/maintenance/fore)
 "odF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -81343,16 +81353,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
-"rKi" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "rKq" = (
 /obj/machinery/light{
 	dir = 8
@@ -92838,7 +92838,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/disposal/northeast)
+/area/station/maintenance/fore)
 "uPL" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
@@ -141454,9 +141454,9 @@ abW
 abW
 abW
 cMz
-nLx
-fFt
-odx
+cRI
+aBI
+cVX
 hDc
 dxt
 dQg
@@ -141945,7 +141945,7 @@ tNQ
 tZW
 iOP
 atC
-uPs
+jPI
 qUN
 cMh
 aqT
@@ -141956,7 +141956,7 @@ bqj
 bvD
 rBk
 rUq
-rKi
+uPs
 rBk
 rBk
 vPY
