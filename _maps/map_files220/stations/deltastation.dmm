@@ -96570,7 +96570,7 @@
 /obj/item/storage/firstaid/fire{
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/doctor{
+/obj/item/storage/firstaid/regular/doctor{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{

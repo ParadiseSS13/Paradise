@@ -1569,10 +1569,10 @@
 #undef ICON_SHIFT_XY
 
 /datum/character_save/proc/get_gear_metadata(datum/gear/G) // NYI
-	. = loadout_gear[G.type]
+	. = loadout_gear["[G]"]
 	if(!.)
 		. = list()
-		loadout_gear[G.type] = .
+		loadout_gear["[G]"] = .
 
 /datum/character_save/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)

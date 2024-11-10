@@ -1658,7 +1658,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 40
 	},
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_labs)
 "caq" = (
@@ -1940,7 +1940,7 @@
 /obj/structure/closet,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "cre" = (
@@ -10814,8 +10814,8 @@
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/toxin,
 /obj/machinery/light/directional/west,
-/obj/item/storage/firstaid/doctor,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
 "nhf" = (
@@ -13028,7 +13028,7 @@
 /area/awaymission/black_mesa/lambda_teleporter)
 "pNZ" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "pOk" = (
@@ -18349,7 +18349,7 @@
 /obj/structure/closet,
 /obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov,
 /obj/structure/alien/xenoweeds,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "wyA" = (

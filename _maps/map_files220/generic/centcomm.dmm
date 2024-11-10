@@ -15515,8 +15515,8 @@
 "jhp" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/doctor,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/o2,
@@ -19832,7 +19832,7 @@
 /area/centcom/ss220/admin3)
 "lKj" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -29217,8 +29217,8 @@
 "rte" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/doctor,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/o2,
@@ -34644,12 +34644,12 @@
 /area/centcom/ss220/command)
 "uHD" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)

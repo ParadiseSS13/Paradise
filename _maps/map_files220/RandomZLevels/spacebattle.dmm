@@ -10439,7 +10439,7 @@
 /area/awaymission/space_battle/sec_storage)
 "Gq" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

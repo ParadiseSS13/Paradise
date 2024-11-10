@@ -1103,8 +1103,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
+			var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector")
+			if(isnull(message_color))
 				return
 
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)

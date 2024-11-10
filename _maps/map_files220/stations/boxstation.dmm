@@ -94624,7 +94624,7 @@
 "uEc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "uEL" = (
