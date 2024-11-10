@@ -33,8 +33,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	/// Unlit cigarette sprite.
 	var/icon_off = "cigoff"
-	/// Are we an extra-classy smokable?
-	var/fancy = FALSE
+	/// Do we require special items to be lit?
+	var/list/fancy_lighters = list()
 	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
 	/// How long does the cigarette last before going out? Decrements by 1 every cycle.
@@ -108,7 +108,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			else
 				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
 			return TRUE
-		
+
 		// If they DO have a cig, try to light it with your own cig.
 		if(!cigarette_lighter_act(user, M))
 			return ..()
@@ -417,7 +417,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	throw_speed = 0.5
-	fancy = TRUE
+	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	type_butt = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
 	chem_volume = 120
@@ -523,7 +523,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
-	fancy = TRUE
+	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)
@@ -583,7 +583,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 		return
-	
+
 	return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe

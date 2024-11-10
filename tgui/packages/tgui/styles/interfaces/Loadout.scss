@@ -1,0 +1,13 @@
+@use '../base.scss' as *;
+
+.Loadout-Modal__background {
+  padding: 0.5em;
+  background-color: $color-bg;
+}
+
+.Loadout-InfoBox {
+  display: flex;
+  line-height: 1.2rem;
+  text-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.66);
+  text-align: left;
+}
