@@ -105,7 +105,7 @@ CONTENTS:
 	icon_state = "cardborg_h_deathbot"
 	item_state = "cardborg_h_deathbot"
 	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
-	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma")
+	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma", "spidersyndi")
 	species_disguise = "High-tech killer robot"
 
 /*
@@ -212,7 +212,7 @@ CONTENTS:
 		var/obj/item/clothing/head/cardborg/head = H.head
 		apply_borg_disguise(user, head)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)	
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("selected_borg_disguise")
 

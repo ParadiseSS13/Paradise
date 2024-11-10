@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
+	base_icon = "spidersyndi"
+	icon_state = "spidersyndi"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
