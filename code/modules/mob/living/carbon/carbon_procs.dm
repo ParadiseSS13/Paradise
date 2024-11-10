@@ -575,6 +575,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
+			var/obj/machinery/atmospherics/atmos_machine = loc
+			if(!atmos_machine.can_see_pipes())
+				return
 			if(target_move)
 				remove_ventcrawl_images()
 			var/obj/machinery/atmospherics/current_pipe = loc
