@@ -478,7 +478,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/south)
 "aeP" = (
@@ -1079,7 +1080,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 9;
+	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
 "ait" = (
@@ -1362,9 +1364,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "als" = (
 /obj/machinery/camera{
@@ -1399,7 +1399,8 @@
 "alw" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "arrivalcorner";
+	dir = 4
 	},
 /area/station/hallway/secondary/entry/north)
 "alx" = (
@@ -1424,9 +1425,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "alH" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1674,7 +1673,8 @@
 /area/station/maintenance/fore2)
 "amL" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "arrivalcorner";
+	dir = 1
 	},
 /area/station/hallway/secondary/entry/east)
 "amM" = (
@@ -1919,9 +1919,7 @@
 /area/station/science/rnd)
 "anJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "anK" = (
 /obj/structure/window/basic{
@@ -1947,9 +1945,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "anP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -1960,7 +1956,10 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "anQ" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 8
+	},
 /area/station/hallway/secondary/entry/south)
 "anR" = (
 /obj/structure/grille,
@@ -53013,6 +53012,12 @@
 "cYP" = (
 /turf/simulated/wall,
 /area/station/medical/psych)
+"cYR" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 4
+	},
+/area/station/hallway/secondary/entry/east)
 "cYU" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -57513,7 +57518,7 @@
 /area/station/medical/chemistry)
 "dqC" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 9;
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -61364,7 +61369,8 @@
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 10;
+	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
 "dMh" = (
@@ -67572,6 +67578,12 @@
 /obj/item/lighter/zippo/black,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
+"fMh" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 1
+	},
+/area/station/hallway/secondary/entry/north)
 "fMp" = (
 /obj/structure/barricade/wooden,
 /obj/structure/cable,
@@ -70416,6 +70428,12 @@
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"huz" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 4
+	},
+/area/station/hallway/secondary/entry/south)
 "huN" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
@@ -70620,6 +70638,12 @@
 /obj/machinery/economy/vending/shoedispenser,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
+"hAr" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 8
+	},
+/area/station/hallway/secondary/entry/north)
 "hAD" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -71886,9 +71910,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "inM" = (
 /obj/structure/cable{
@@ -73649,6 +73671,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
+"jpA" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 1
+	},
+/area/station/hallway/secondary/entry/south)
 "jpC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -75464,6 +75492,12 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/prison/cell_block)
+"ktI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 4
+	},
+/area/station/hallway/secondary/entry/north)
 "ktT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -79220,9 +79254,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "mFK" = (
 /obj/machinery/light,
@@ -81063,9 +81095,7 @@
 /area/station/science/toxins/mixing)
 "nDl" = (
 /obj/item/beacon,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "nDu" = (
 /obj/structure/disposalpipe/segment{
@@ -81125,9 +81155,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "nEq" = (
 /obj/machinery/door/airlock/hatch{
@@ -83442,6 +83470,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
+"oSU" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "oTa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85186,9 +85219,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "pRI" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -87436,7 +87467,7 @@
 /obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 5;
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -87864,6 +87895,11 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore)
+"rrZ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner"
+	},
+/area/station/hallway/secondary/entry/south)
 "rsC" = (
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
 /obj/machinery/door/firedoor,
@@ -93180,6 +93216,9 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
+"ueF" = (
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "ueI" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
@@ -93667,7 +93706,8 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 9;
+	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/south)
 "usf" = (
@@ -94505,7 +94545,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
 "uUk" = (
@@ -97883,6 +97923,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/se)
+"wRJ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "arrivalcorner";
+	dir = 8
+	},
+/area/station/hallway/secondary/entry/east)
 "wRN" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in";
@@ -99466,10 +99512,7 @@
 "xHN" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "xIm" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -134633,7 +134676,7 @@ xgt
 gHk
 mUk
 gWD
-qGl
+ueF
 qGl
 mFy
 qtk
@@ -136175,7 +136218,7 @@ aaa
 doS
 ahV
 dqC
-qGl
+fMh
 blc
 jWY
 doS
@@ -136431,7 +136474,7 @@ aaa
 aaa
 doS
 jhz
-qGl
+fMh
 qGl
 blc
 jWY
@@ -136688,7 +136731,7 @@ aaa
 aaa
 doS
 agd
-qGl
+ueF
 qGl
 cMP
 ovL
@@ -136945,7 +136988,7 @@ aaa
 aaa
 doS
 oMA
-qGl
+ktI
 qGl
 blc
 afb
@@ -138231,7 +138274,7 @@ gtZ
 lKr
 anU
 gtZ
-qGl
+fMh
 blc
 ahA
 doS
@@ -138488,7 +138531,7 @@ ahg
 aFB
 aFB
 ahg
-qGl
+ktI
 blc
 ovL
 ovL
@@ -139516,7 +139559,7 @@ aaa
 doS
 meH
 ahi
-qGl
+fMh
 agU
 agg
 ovL
@@ -139772,10 +139815,10 @@ aaa
 aaa
 doS
 gVk
-qGl
+ueF
 qGl
 agU
-qGl
+hAr
 afj
 doS
 aaa
@@ -139789,7 +139832,7 @@ aaa
 aaa
 dGS
 aiG
-eDE
+jpA
 anT
 eDE
 joU
@@ -140029,10 +140072,10 @@ aaa
 aaa
 doS
 rwY
-qGl
+ueF
 qGl
 agW
-qGl
+ueF
 ahW
 doS
 abj
@@ -140286,10 +140329,10 @@ aaa
 aaa
 doS
 oMA
-qGl
+ueF
 qGl
 agU
-qGl
+oSU
 ryh
 doS
 abj
@@ -140303,7 +140346,7 @@ aaa
 abj
 dGS
 agB
-eDE
+huz
 anT
 eDE
 wEA
@@ -140544,9 +140587,9 @@ aaa
 doS
 aee
 agk
-qGl
+ktI
 agU
-qGl
+jWY
 aeI
 doS
 abj
@@ -141076,7 +141119,7 @@ aiF
 slc
 adZ
 anT
-eDE
+rrZ
 aoB
 aeJ
 aqZ
@@ -142086,9 +142129,9 @@ agh
 reW
 alt
 reW
-amL
+afh
 pGg
-amL
+wRJ
 amz
 alG
 alG
@@ -142601,10 +142644,10 @@ abj
 aaa
 grB
 anv
-amL
+afh
 rQS
 amB
-rQS
+afh
 rVD
 bld
 rQS
@@ -142617,7 +142660,7 @@ pCM
 inH
 amB
 rQS
-afh
+cYR
 anW
 axm
 apo
