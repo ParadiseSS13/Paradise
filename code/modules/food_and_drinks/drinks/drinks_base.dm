@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/drinks
 	name = "drink"
-	desc = "yummy"
+	desc = "yummy!"
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER

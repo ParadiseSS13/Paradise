@@ -19,7 +19,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
-	desc = "A large magic box with similar power and design to the Hierophant.  Once it opens, it's not easy to close it."
+	desc = "A large magic box with similar power and design to the Hierophant. Once it opens, it's not easy to close it."
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"

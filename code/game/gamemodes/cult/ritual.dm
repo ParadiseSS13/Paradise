@@ -16,7 +16,7 @@
 
 /obj/item/melee/cultblade/dagger/adminbus
 	name = "ritual dagger of scribing, +1"
-	desc = "VERY fast culto scribing at incredible hihg speed"
+	desc = "VERY fast culto scribing at incredible high speed!"
 	force = 16
 	scribe_multiplier = 0.1
 
