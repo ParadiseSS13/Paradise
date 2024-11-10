@@ -36,6 +36,13 @@
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
 
+/obj/item/storage/fancy/remove_from_storage(obj/item/I, atom/new_location)
+	if(!istype(I))
+		return FALSE
+
+	update_icon()
+	return ..()
+
 /*
  * Donut Box
  */
@@ -298,7 +305,7 @@
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
-	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
+	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\"."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate

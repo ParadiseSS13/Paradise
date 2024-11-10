@@ -59048,8 +59048,8 @@
 /area/station/science/research)
 "dyM" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
 /obj/item/paicard,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery/hollow,
