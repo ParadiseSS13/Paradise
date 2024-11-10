@@ -5,6 +5,7 @@
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
+	faction = list("alien")
 
 	var/nightvision = TRUE
 	see_in_dark = 4
