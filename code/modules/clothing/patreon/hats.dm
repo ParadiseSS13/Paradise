@@ -53,7 +53,7 @@
 //black sombrero
 /obj/item/clothing/head/fluff/blacksombrero
 	name = "Black sombrero"
-	desc = "A rare identifying hat of the infamous ancient renegade gang known as 'El Loco Pocos'"
+	desc = "A rare identifying hat of the infamous ancient renegade gang known as 'El Loco Pocos'."
 	icon_state = "blacksombrero"
 	item_state = "blacksombrero"
 	flags = BLOCKHAIR
