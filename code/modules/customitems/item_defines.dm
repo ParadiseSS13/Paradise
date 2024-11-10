@@ -100,8 +100,8 @@
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
-		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
-		if(ink_color && !(user.incapacitated() || used))
+		var/ink_color = tgui_input_color(user, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
+		if(!isnull(ink_color) && !(user.incapacitated() || used))
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
@@ -1439,8 +1439,8 @@
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chaps"
+	icon = 'icons/mob/clothing/under/donator.dmi'
+	icon_state = "combat_pants_s"
 	item_color = "combat_pants"
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/donator.dmi',

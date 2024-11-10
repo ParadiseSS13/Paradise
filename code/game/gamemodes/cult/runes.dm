@@ -77,14 +77,9 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
-		// Telerunes with portals open
-		if(istype(src, /obj/effect/rune/teleport))
-			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
-			if(T.inner_portal || T.outer_portal)
-				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
-				return
+		if(!can_dagger_erase_rune(user))
+			return
 
-		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
@@ -101,6 +96,9 @@ To draw a rune, use a ritual dagger.
 		qdel(src)
 		return
 	return ..()
+
+/obj/effect/rune/proc/can_dagger_erase_rune(mob/user)
+	return TRUE
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
@@ -453,6 +451,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	QDEL_NULL(outer_portal)
 	return ..()
 
+/obj/effect/rune/teleport/can_dagger_erase_rune(mob/user)
+	// Can't erase telerunes if they have a portal open
+	if(inner_portal || outer_portal)
+		to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+		return FALSE
+	return TRUE
+
 /obj/effect/rune/teleport/invoke(list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 	var/list/potential_runes = list()
@@ -494,6 +499,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
 	for(var/atom/movable/A in T)
+		if(SEND_SIGNAL(A, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+			continue
 		if(ishuman(A))
 			if(A != user) // Teleporting someone else
 				INVOKE_ASYNC(src, PROC_REF(teleport_effect), A, T, target)
@@ -774,6 +781,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not in our dimension!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
+		return
+	if(SEND_SIGNAL(cultist_to_summon, COMSIG_MOVABLE_TELEPORTING, get_turf(src)) & COMPONENT_BLOCK_TELEPORT)
+		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is anchored in bluespace!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - anchored in bluespace")
 		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \

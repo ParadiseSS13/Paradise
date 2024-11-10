@@ -297,7 +297,7 @@ CONTENTS:
 	user.do_attack_animation(L)
 
 	if(isrobot(L))
-		L.apply_damage(120, STAMINA) //Force a reboot instantly
+		L.apply_damage(80, STAMINA) //Force a reboot on two hits for consistency.
 		return
 
 	if(ishuman(L))
@@ -327,8 +327,8 @@ CONTENTS:
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
 
-	L.Stun(14 SECONDS)
-	L.Weaken(14 SECONDS)
+	L.KnockDown(7 SECONDS)
+	L.apply_damage(80, STAMINA)
 	L.Stuttering(14 SECONDS)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
@@ -337,18 +337,22 @@ CONTENTS:
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
-/obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.IsStunned() || L.IsSleeping())
-		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
+/obj/item/abductor_baton/proc/SleepAttack(mob/living/L, mob/living/user)
+	var/mob/living/carbon/C = L
+	if(!iscarbon(L))
+		return
+	if((C.getStaminaLoss() < 100) && !C.IsSleeping())
+		C.AdjustDrowsy(2 SECONDS)
+		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned or asleep specimens!</span>")
+		C.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
+						"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		return
+	if(do_mob(user, C, 2.5 SECONDS))
+		C.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-		L.Sleeping(120 SECONDS)
-		add_attack_logs(user, L, "Put to sleep with [src]")
-	else
-		L.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
-		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		C.Sleeping(120 SECONDS)
+		add_attack_logs(user, C, "Put to sleep with [src]")
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
@@ -358,7 +362,7 @@ CONTENTS:
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-		if(do_mob(user, C, 30))
+		if(do_mob(user, C, 3 SECONDS))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy(C)
 				C.update_handcuffed()
@@ -425,7 +429,7 @@ CONTENTS:
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/abductor/Initialize()
+/obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
 	make_syndie() // Why the hell is this a proc why cant it just be a subtype
 
@@ -903,8 +907,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
-	icon_closed = "abductor"
-	icon_opened = "abductor_open"
+	door_anim_time = 0
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 
 /obj/structure/door_assembly/door_assembly_abductor

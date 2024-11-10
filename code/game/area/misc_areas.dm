@@ -28,6 +28,10 @@
 /area/space/nearstation/centcom
 	icon_state = "space_near_cc"
 
+/area/space/nearstation/no_teleport
+	icon_state = "space_near_notp"
+	tele_proof = TRUE
+
 /area/space/atmosalert()
 	return
 
@@ -39,6 +43,10 @@
 
 /area/space/centcomm
 	icon_state = "space_cc"
+
+/area/space/no_teleport
+	icon_state = "space_notp"
+	tele_proof = TRUE
 
 //SYNDICATES
 

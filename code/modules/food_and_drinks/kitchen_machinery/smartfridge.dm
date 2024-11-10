@@ -434,7 +434,10 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/kitchen,
-		/obj/item/food))
+		/obj/item/food,
+		/obj/item/seeds,
+		/obj/item/grown,
+		/obj/item/reagent_containers/condiment))
 
 // Syndicate Druglab Ruin
 /obj/machinery/smartfridge/food/syndicate_druglab
@@ -446,6 +449,88 @@
 		/obj/item/reagent_containers/glass/beaker/waterbottle/large = 7,
 		/obj/item/reagent_containers/drinks/bottle/kahlua = 1,
 		/obj/item/reagent_containers/drinks/bottle/orangejuice = 2)
+
+///The Chefs smartfridge. This smartfridge will spawn with a random condiment, then 3 stacks of 3 plants (or fish meat) to give chef some extra starting variety, or new ideas on what to cook!
+/obj/machinery/smartfridge/food/chef
+
+/obj/machinery/smartfridge/food/chef/Initialize(mapload)
+	starting_items = generate_starting_items()
+	. = ..()
+
+/obj/machinery/smartfridge/food/chef/proc/generate_starting_items()
+	// These plants are blocked for being inedable, downright toxic, RND plants, botany plants, or wheat.
+	var/list/static/forbidden_plants = list(
+		/obj/item/food/grown/wheat,
+		/obj/item/food/grown/meatwheat,
+		/obj/item/food/grown/shell/gatfruit,
+		/obj/item/food/grown/apple/poisoned,
+		/obj/item/food/grown/cherry_bomb,
+		/obj/item/food/grown/firelemon,
+		/obj/item/food/grown/ambrosia/gaia,
+		/obj/item/food/grown/mushroom/glowshroom,
+		/obj/item/food/grown/mushroom/glowshroom/glowcap,
+		/obj/item/food/grown/mushroom/glowshroom/shadowshroom,
+		/obj/item/food/grown/cannabis, // I don't care about weed pizza, sorry.
+		/obj/item/food/grown/cannabis/rainbow,
+		/obj/item/food/grown/cannabis/death,
+		/obj/item/food/grown/cannabis/white,
+		/obj/item/food/grown/cannabis/ultimate,
+		/obj/item/food/grown/tobacco,
+		/obj/item/food/grown/pumpkin/blumpkin,
+		/obj/item/food/grown/berries/poison,
+		/obj/item/food/grown/berries/death,
+		/obj/item/food/grown/berries/glow,
+		/obj/item/food/grown/comfrey,
+		/obj/item/food/grown/aloe,
+		/obj/item/food/grown/kudzupod,
+		/obj/item/food/grown/holymelon, // Lets not out vampires or cult by accident thanks
+		/obj/item/food/grown/mushroom/reishi, // I would block out Amanita but it has 2 recipies, might be funny.
+		/obj/item/food/grown/mushroom/angel,
+		/obj/item/food/grown/random,
+		/obj/item/food/grown/tea,
+		/obj/item/food/grown/tea/astra,
+		/obj/item/food/grown/coffee,
+		/obj/item/food/grown/coffee/robusta,
+		/obj/item/food/grown/grass,
+		/obj/item/food/grown/grass/carpet,
+		/obj/item/food/grown/harebell,
+		/obj/item/food/grown/poppy,
+		/obj/item/food/grown/lily,
+		/obj/item/food/grown/geranium,
+		/obj/item/food/grown/moonflower,
+		/obj/item/food/grown/ash_flora/shavings,
+		/obj/item/food/grown/ash_flora/mushroom_leaf,
+		/obj/item/food/grown/ash_flora/mushroom_cap,
+		/obj/item/food/grown/ash_flora/mushroom_stem,
+		/obj/item/food/grown/ash_flora/cactus_fruit,
+		/obj/item/food/grown/shell,
+		/obj/item/food/grown/mushroom/fungus,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/grown/ash_flora,
+	)
+	var/list/output = list()
+	for(var/I in 1 to 3)
+		var/obj/item/food/chosen
+		if(prob(95))
+			chosen = pick(subtypesof(/obj/item/food/grown) - forbidden_plants)
+		else // Fish / sushi stuff, or xenomeat rarely as a treat
+			chosen = pick(/obj/item/food/catfishmeat, /obj/item/food/carpmeat, /obj/item/food/salmonmeat, /obj/item/food/shrimp, /obj/item/food/monstermeat/xenomeat)
+		output[chosen] += 3
+	// Adds 2 condiment bottles as bonus. No hotsauce or ketchup, as the chef starts with that
+	for(var/G in 1 to 2)
+		output += pick(
+			/obj/item/reagent_containers/condiment/bbqsauce,
+			/obj/item/reagent_containers/condiment/soysauce,
+			/obj/item/reagent_containers/condiment/mayonnaise,
+			/obj/item/reagent_containers/condiment/cherryjelly,
+			/obj/item/reagent_containers/condiment/peanutbutter,
+			/obj/item/reagent_containers/condiment/honey,
+			/obj/item/reagent_containers/condiment/oliveoil,
+			/obj/item/reagent_containers/condiment/frostoil,
+			/obj/item/reagent_containers/condiment/wasabi,
+			/obj/item/reagent_containers/condiment/vinegar,
+		)
+	return output
 
 /**
   * # Seed Storage
@@ -545,7 +630,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_AI_UPLOAD]"
+	req_access = list(ACCESS_AI_UPLOAD)
 	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
 		drop_contents_on_delete = FALSE
 		return INITIALIZE_HINT_QDEL
@@ -564,7 +649,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RD]"
+	req_access = list(ACCESS_RD)
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk
 	name = "\improper High-Risk Laws Storage"
@@ -580,7 +665,7 @@
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_CAPTAIN]"
+	req_access = list(ACCESS_CAPTAIN)
 
 /**
   * # Refrigerated Medicine Storage
@@ -617,7 +702,7 @@
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RESEARCH]"
+	req_access = list(ACCESS_RESEARCH)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -631,7 +716,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_one_access_txt = "5;33"
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 	board_type = /obj/machinery/smartfridge/secure/medbay
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
@@ -656,10 +741,10 @@
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/secure/chemistry
+	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_CHEMISTRY]"
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/storage/pill_bottle,
@@ -689,10 +774,6 @@
   * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
-	req_access_txt = null
-
-/obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
-	. = ..()
 	req_access = list(ACCESS_SYNDICATE)
 
 /**
@@ -755,10 +836,10 @@
 	desc = "A refrigerated storage unit for volatile sample storage."
 	board_type = /obj/machinery/smartfridge/secure/chemistry/virology
 	icon_addon = "smartfridge_virology"
+	req_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_VIROLOGY]"
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
@@ -791,7 +872,7 @@
   * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
-	req_access_txt = null
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	starting_items = list(
@@ -804,7 +885,6 @@
 		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
 	)
 	. = ..()
-	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Drink Showcase

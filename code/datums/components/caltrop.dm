@@ -65,7 +65,7 @@
 	if(bypass_shoes && ((H?.shoes?.flags & THICKMATERIAL) || (H?.wear_suit?.flags & THICKMATERIAL)))
 		return
 
-	if(H.flying || H.floating || H.buckled)
+	if(HAS_TRAIT(H, TRAIT_FLYING) || H.floating || H.buckled)
 		return
 
 	if(IS_HORIZONTAL(H) && HAS_TRAIT(H, TRAIT_CONTORTED_BODY))

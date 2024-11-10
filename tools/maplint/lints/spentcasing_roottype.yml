@@ -1,0 +1,3 @@
+help: 'Use one of the spent casing subtypes for mapping.'
+=/obj/item/trash/spentcasing:
+  banned: true
