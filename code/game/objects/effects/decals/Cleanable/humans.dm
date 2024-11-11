@@ -71,7 +71,7 @@
 		else
 			animate_levitate(src, -1, rand(30,120))
 
-		if(weightless_image.icon_state)
+		if(weightless_image && weightless_image.icon_state)
 			icon_state = weightless_image.icon_state
 
 		overlays -= weightless_image
