@@ -154,7 +154,7 @@
 	name = "lightning"
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
-	desc = "test lightning"
+	desc = "test lightning."
 
 /obj/item/lightning/New()
 	..()

@@ -157,7 +157,7 @@
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
-	desc = "it's stringy and sticky"
+	desc = "It's stringy and sticky!"
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
 	density = FALSE // prevents it blocking all movement

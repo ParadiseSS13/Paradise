@@ -426,7 +426,7 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/tag
 	name = "laser tag gun"
-	desc = "Standard issue weapon of the Imperial Guard"
+	desc = "Standard issue weapon of the Imperial Guard."
 	origin_tech = "combat=2;magnets=2"
 	clumsy_check = FALSE
 	needs_permit = FALSE

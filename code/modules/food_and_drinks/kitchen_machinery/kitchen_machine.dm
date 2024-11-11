@@ -197,6 +197,14 @@
 /obj/machinery/kitchen_machine/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
 
+/**
+ * Check if the machine is running when trying to add reagents to it.
+ */
+/obj/machinery/kitchen_machine/is_refillable()
+	if(operating)
+		return FALSE
+	. = ..()
+
 /********************
 *   Machine Menu	*
 ********************/

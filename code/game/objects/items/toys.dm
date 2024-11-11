@@ -155,7 +155,7 @@
  */
 /obj/item/toy/blink
 	name = "electronic blink toy game"
-	desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	desc = "Blink. Blink. Blink. Ages 8 and up."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -546,7 +546,7 @@
 
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 
@@ -663,7 +663,7 @@
 
 /obj/random/plushie
 	name = "Random Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
 
@@ -1349,7 +1349,7 @@
 
 /obj/random/figure
 	name = "Random Action Figure"
-	desc = "This is a random toy action figure"
+	desc = "This is a random toy action figure."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
@@ -1674,7 +1674,7 @@
 
 /obj/random/mech
 	name = "Random Mech Prize"
-	desc = "This is a random prize"
+	desc = "This is a random prize."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 

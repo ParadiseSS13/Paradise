@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/bombcore/doomsday
 	name = "supermatter charged bomb core"
-	desc = "If you are looking at this, please don't put it in a bomb"
+	desc = "If you are looking at this, please don't put it in a bomb."
 
 /obj/item/bombcore/doomsday/Initialize(mapload)
 	. = ..()
@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg
 	name = "Security cyborg"
-	desc = "Oh god they still have access to these"
+	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "Noble-SEC"
 	health = 200
