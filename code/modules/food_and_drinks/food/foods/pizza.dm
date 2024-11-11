@@ -543,7 +543,8 @@
 	open = TRUE
 	opener = user
 
-	audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
+	audible_message("<span class='warning'>[bicon(src)] *beep* *beep* *beep*</span>")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		atom_say("Pizza time!")
