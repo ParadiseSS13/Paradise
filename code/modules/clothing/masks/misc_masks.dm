@@ -229,46 +229,6 @@
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
 	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
-//scarves (fit in in mask slot)
-
-/obj/item/clothing/mask/bluescarf
-	name = "blue neck scarf"
-	desc = "A blue neck scarf."
-	icon_state = "blueneckscarf"
-	item_state = "blueneckscarf"
-	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
-
-
-/obj/item/clothing/mask/redscarf
-	name = "red scarf"
-	desc = "A red and white checkered neck scarf."
-	icon_state = "redwhite_scarf"
-	item_state = "redwhite_scarf"
-	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
-
-/obj/item/clothing/mask/greenscarf
-	name = "green scarf"
-	desc = "A green neck scarf."
-	icon_state = "green_scarf"
-	item_state = "green_scarf"
-	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
-
-/obj/item/clothing/mask/ninjascarf
-	name = "ninja scarf"
-	desc = "A stealthy, dark scarf."
-	icon_state = "ninja_scarf"
-	item_state = "ninja_scarf"
-	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
-
-
 /obj/item/clothing/mask/pig
 	name = "pig mask"
 	desc = "A rubber pig mask."
@@ -475,7 +435,7 @@
 
 /obj/item/clothing/mask/bandana/durathread
 	name = "durathread bandana"
-	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
+	desc = "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
 
 /obj/item/clothing/mask/false_cluwne_mask

@@ -8,7 +8,7 @@
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
-	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself"
+	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"

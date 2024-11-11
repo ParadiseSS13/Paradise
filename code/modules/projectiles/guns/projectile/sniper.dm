@@ -133,7 +133,7 @@
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
 	name = "sniper rounds (Bleed)"
-	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
+	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain."
 	icon_state = "haemorrhage"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5
