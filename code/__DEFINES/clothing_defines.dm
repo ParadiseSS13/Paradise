@@ -48,9 +48,9 @@
 #define HAND_BOOL_LEFT 1
 
 // accessory slots
-#define ACCESSORY_SLOT_DECOR 1
-#define ACCESSORY_SLOT_UTILITY 2
-#define ACCESSORY_SLOT_ARMBAND 3
+#define ACCESSORY_SLOT_DECOR    (1<<0)
+#define ACCESSORY_SLOT_UTILITY  (1<<1)
+#define ACCESSORY_SLOT_ARMBAND  (1<<2)
 
 ///max number of accessories that can be equiped to one piece of clothing
 #define MAX_EQUIPABLE_ACCESSORIES 5

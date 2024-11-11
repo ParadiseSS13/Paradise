@@ -1026,7 +1026,7 @@
 	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
 	for(var/obj/item/clothing/accessory/AC in accessories)
-		if((A.slot && (ACCESSORY_SLOT_UTILITY | ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+		if((A.slot & (ACCESSORY_SLOT_UTILITY | ACCESSORY_SLOT_ARMBAND)) && (AC.slot & A.slot))
 			return FALSE
 		if(!A.allow_duplicates && AC.type == A.type)
 			return FALSE
