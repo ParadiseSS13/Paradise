@@ -538,7 +538,7 @@
 			if("machine")
 				new /obj/item/storage/firstaid/machine/empty(Tsec)
 			else
-				new /obj/item/storage/firstaid(Tsec)
+				new /obj/item/storage/firstaid/regular/empty(Tsec)
 
 		new /obj/item/assembly/prox_sensor(Tsec)
 

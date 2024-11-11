@@ -1,7 +1,6 @@
 /**
- * Creates a TGUI input list window and returns the user's response.
+ * Creates a TGUI ranked input list window and returns the user's response in a ranked order.
  *
- * This proc should be used to create alerts that the caller will wait for a response from.
  * Arguments:
  * * user - The user to show the input box to.
  * * message - The content of the input box, shown in the body of the TGUI window.
@@ -15,11 +14,11 @@
 		user = usr
 
 	if(!length(items))
-		CRASH("[user] tried to open an empty TGUI Input List. Contents are: [items]")
+		CRASH("[user] tried to open an empty TGUI Input Ranked List. Contents are: [items]")
 
 	if(!istype(user))
 		if(!isclient(user))
-			CRASH("We passed something that wasn't a user/client in a TGUI Input List! The passed user was [user]!")
+			CRASH("We passed something that wasn't a user/client in a TGUI Input Ranked List! The passed user was [user]!")
 		var/client/client = user
 		user = client.mob
 

@@ -43,10 +43,14 @@ export class DmIcon extends Component<Props, { iconRef: string }> {
   }
 
   async fetchRefMap() {
-    const response = await fetchRetry(resolveAsset('icon_ref_map.json'));
-    const data = await response.json();
-    refMap = data;
-    this.setState({ iconRef: data[this.props.icon] });
+    try {
+      const response = await fetchRetry(resolveAsset('icon_ref_map.json'));
+      const data = await response.json();
+      refMap = data;
+      this.setState({ iconRef: data[this.props.icon] || '' });
+    } catch (err) {
+      return;
+    }
   }
 
   componentDidMount() {

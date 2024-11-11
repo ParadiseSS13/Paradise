@@ -172,6 +172,7 @@
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 	dyeable = FALSE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()

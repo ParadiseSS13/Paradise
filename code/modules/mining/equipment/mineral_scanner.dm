@@ -26,8 +26,8 @@
 
 /obj/item/mining_scanner/admin/attack_self(mob/user)
 	for(var/turf/simulated/mineral/M in world)
-		if(M.scan_state)
-			M.icon_state = M.scan_state
+		if(M.ore?.scan_icon_state)
+			M.icon_state = M.ore.scan_icon_state
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
@@ -61,7 +61,7 @@
 /proc/mineral_scan_pulse(turf/T, range = world.view)
 	var/list/minerals = list()
 	for(var/turf/simulated/mineral/M in range(range, T))
-		if(M.scan_state)
+		if(M.ore?.scan_icon_state)
 			minerals += M
 	if(LAZYLEN(minerals))
 		for(var/turf/simulated/mineral/M in minerals)
@@ -69,7 +69,7 @@
 			if(oldC)
 				qdel(oldC)
 			var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)
-			C.icon_state = M.scan_state
+			C.icon_state = M.ore.scan_icon_state
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE

@@ -393,7 +393,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
+			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -515,53 +516,6 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<h2>Map Settings</h2>"
 			dat += " - <b>Choose your map preferences:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
 			dat += "</td></tr></table>"
-
-		if(TAB_GEAR)
-			var/total_cost = build_loadout()
-
-			var/fcolor = "#3366CC"
-			if(total_cost < max_gear_slots)
-				fcolor = "#E67300"
-			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='byond://?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
-			dat += "<tr><td colspan=4><center><b>"
-
-			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
-				if(firstcat)
-					firstcat = 0
-				else
-					dat += " |"
-				if(category == gear_tab)
-					dat += " <span class='linkOff'>[category]</span> "
-				else
-					dat += " <a href='byond://?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
-			dat += "</b></center></td></tr>"
-
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			for(var/gear_name in LC.gear)
-				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.type in active_character.loadout_gear)
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
-				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='byond://?_src_=prefs;preference=gear;toggle_gear=[G.type]'>[G.display_name]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
-				if(G.allowed_roles)
-					dat += "<font size=2>Restrictions: "
-					for(var/role in G.allowed_roles)
-						dat += role + " "
-					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='byond://?_src_=prefs;preference=gear;gear=[G.type];tweak=\ref[tweak]'>[tweak.get_contents(active_character.get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
-			dat += "</table>"
 
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -776,24 +730,23 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/list/loadout_cache = active_character.loadout_gear.Copy()
 	active_character.loadout_gear.Cut()
 	if(new_item)
-		loadout_cache += new_item.type
+		loadout_cache += "[new_item]"
 
-	for(var/I in loadout_cache)
-		var/datum/gear/G = GLOB.gear_datums[text2path(I) || I]
-		if(!G)
+	for(var/item in loadout_cache)
+		var/datum/gear/gear = text2path(item) || item
+		if(!gear || !(gear.type in GLOB.gear_datums))
 			continue
-		var/added_cost = G.cost
-		if(!G.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
-			if(G.main_typepath in type_blacklist)
+		var/added_cost = gear.cost
+		if(!gear.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
+			if(gear.main_typepath in type_blacklist)
 				added_cost = 0
 			else
-				type_blacklist += G.main_typepath
+				type_blacklist += gear.main_typepath
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
-		active_character.loadout_gear += G.type
+		active_character.loadout_gear[item] = loadout_cache[item] ? loadout_cache[item] : list()
 		total_cost += added_cost
 	return total_cost
-
 
 /datum/preferences/proc/init_keybindings(overrides, raw)
 	if(raw)
