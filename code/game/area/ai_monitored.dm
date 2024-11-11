@@ -20,7 +20,7 @@
 			cam.newTarget(O)
 			return
 
-/area/station/ai_monitored/Exited(atom/movable/O)
+/area/station/ai_monitored/Exited(atom/movable/O, direction)
 	..()
 	if(ismob(O) && length(motioncameras))
 		for(var/X in motioncameras)

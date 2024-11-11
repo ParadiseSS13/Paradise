@@ -1272,10 +1272,11 @@
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
+/obj/mecha/Exited(atom/movable/M, direction)
+	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
-			go_out(1, newloc)
+			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)

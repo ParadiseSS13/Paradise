@@ -308,6 +308,13 @@
 	return
 
 /atom/proc/Bumped(atom/movable/AM)
+	// This may seem scary but one will find that replacing this with
+	// SHOULD_NOT_SLEEP(TRUE) surfaces two dozen instances where /Bumped sleeps,
+	// such as airlocks. We cannot wait for these procs to finish because they
+	// will clobber any movement which occurred in the intervening time. If we
+	// want to get rid of this we need to move bumping in its entirety to signal
+	// handlers, which is scarier.
+	set waitfor = FALSE
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -1227,8 +1234,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	return TRUE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+/atom/Exited(atom/movable/AM, direction)
+	var/new_loc = get_step(AM, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, new_loc)
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list

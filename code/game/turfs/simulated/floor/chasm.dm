@@ -253,7 +253,7 @@
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(isliving(gone))
 		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
