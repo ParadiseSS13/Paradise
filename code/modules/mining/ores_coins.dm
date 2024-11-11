@@ -22,13 +22,6 @@
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 
-/obj/item/stack/ore/Initialize(mapload, new_amount, merge)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
@@ -39,33 +32,6 @@
 	new refined_type(drop_location(), amount)
 	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
 	qdel(src)
-
-/obj/item/stack/ore/on_atom_entered(datum/source, atom/movable/entered)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
-		return
-	if(ishuman(entered))
-		var/mob/living/carbon/human/H = entered
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	else if(isrobot(entered))
-		var/mob/living/silicon/robot/R = entered
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		var/turf/simulated/floor/plating/asteroid/FA = F
-		FA.attempt_ore_pickup(OB, entered)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = entered
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, entered)
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
