@@ -532,11 +532,6 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/A, direction)
-	var/new_loc = get_step(A, direction)
-	remove_from_storage(A, new_loc) //worry not, comrade; this only gets called once
-	..()
-
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
 	if(ismob(loc))
