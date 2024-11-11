@@ -93,7 +93,7 @@ LINEN BINS
 
 /obj/item/bedsheet/rainbow
 	name = "rainbow bedsheet"
-	desc = "A multi_colored blanket.  It's actually several different sheets cut up and sewn together."
+	desc = "A multi_colored blanket. It's actually several different sheets cut up and sewn together."
 	icon_state = "sheetrainbow"
 	item_state = "bedsheetrainbow"
 	item_color = "rainbow"
@@ -123,7 +123,7 @@ LINEN BINS
 
 /obj/item/bedsheet/mime
 	name = "mime's blanket"
-	desc = "A very soothing striped blanket.  All the noise just seems to fade out when you're under the covers in this."
+	desc = "A very soothing striped blanket. All the noise just seems to fade out when you're under the covers in this."
 	icon_state = "sheetmime"
 	item_state = "bedsheetmime"
 	item_color = "mime"
@@ -132,7 +132,7 @@ LINEN BINS
 
 /obj/item/bedsheet/clown
 	name = "clown's blanket"
-	desc = "A rainbow blanket with a clown mask woven in.  It smells faintly of bananas."
+	desc = "A rainbow blanket with a clown mask woven in. It smells faintly of bananas."
 	icon_state = "sheetclown"
 	item_state = "bedsheetclown"
 	item_color = "clown"
@@ -164,7 +164,7 @@ LINEN BINS
 
 /obj/item/bedsheet/medical
 	name = "medical blanket"
-	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."
+	desc = "It's a sterilized* blanket commonly used in the Medbay. *Sterilization is voided if a virologist is present onboard the station."
 	icon_state = "sheetmedical"
 	item_state = "bedsheetmedical"
 	item_color = "medical"
@@ -173,7 +173,7 @@ LINEN BINS
 
 /obj/item/bedsheet/cmo
 	name = "chief medical officer's bedsheet"
-	desc = "It's a sterilized blanket that has a cross emblem.  There's some cat fur on it, likely from Runtime."
+	desc = "It's a sterilized blanket that has a cross emblem. There's some cat fur on it, likely from Runtime."
 	icon_state = "sheetcmo"
 	item_state = "bedsheetcmo"
 	item_color = "cmo"
@@ -182,7 +182,7 @@ LINEN BINS
 
 /obj/item/bedsheet/hos
 	name = "head of security's bedsheet"
-	desc = "It is decorated with a shield emblem.  While crime doesn't sleep, you do, but you are still THE LAW!"
+	desc = "It is decorated with a shield emblem. While crime doesn't sleep, you do, but you are still THE LAW!"
 	icon_state = "sheethos"
 	item_state = "bedsheethos"
 	item_color = "hosred"
@@ -191,7 +191,7 @@ LINEN BINS
 
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
-	desc = "It is decorated with a key emblem.  For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
+	desc = "It is decorated with a key emblem. For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
 	icon_state = "sheethop"
 	item_state = "bedsheethop"
 	item_color = "hop"
@@ -200,7 +200,7 @@ LINEN BINS
 
 /obj/item/bedsheet/ce
 	name = "chief engineer's bedsheet"
-	desc = "It is decorated with a wrench emblem.  It's highly reflective and stain resistant, so you don't need to worry about ruining it with oil."
+	desc = "It is decorated with a wrench emblem. It's highly reflective and stain resistant, so you don't need to worry about ruining it with oil."
 	icon_state = "sheetce"
 	item_state = "bedsheetce"
 	item_color = "chief"
@@ -209,7 +209,7 @@ LINEN BINS
 
 /obj/item/bedsheet/qm
 	name = "quartermaster's bedsheet"
-	desc = "It is decorated with a crate emblem in silver lining.  It's rather tough, and just the thing to lie on after a hard day of pushing paper."
+	desc = "It is decorated with a crate emblem in silver lining. It's rather tough, and just the thing to lie on after a hard day of pushing paper."
 	icon_state = "sheetqm"
 	item_state = "bedsheetqm"
 	item_color = "qm"
@@ -243,7 +243,7 @@ LINEN BINS
 
 /obj/item/bedsheet/cult
 	name = "cultist's bedsheet"
-	desc = "You might dream of Nar'Sie if you sleep with this.  It seems rather tattered and glows of an eldritch presence."
+	desc = "You might dream of Nar'Sie if you sleep with this. It seems rather tattered and glows of an eldritch presence."
 	icon_state = "sheetcult"
 	item_state = "bedsheetcult"
 	item_color = "cult"
@@ -252,7 +252,7 @@ LINEN BINS
 
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
-	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
+	desc = "A special fabric enchanted with magic so you can have an enchanted night. It even glows!"
 	icon_state = "sheetwiz"
 	item_state = "bedsheetwiz"
 	item_color = "wiz"

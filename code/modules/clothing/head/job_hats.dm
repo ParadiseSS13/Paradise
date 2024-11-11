@@ -4,7 +4,7 @@
 	name = "chef's hat"
 	desc = "The commander in chef's head wear."
 	icon_state = "chef"
-	item_state = "chef"
+	item_state = "chefhat"
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
