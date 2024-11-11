@@ -45,12 +45,11 @@
 
 //DJSTATION
 /area/ruin/space/djstation
-	name = "\improper Ruskie DJ Station"
+	name = "\improper Soviet DJ Station"
 	icon_state = "DJ"
-	there_can_be_many = TRUE
 
 /area/ruin/space/djstation/solars
-	name = "\improper Ruskie DJ Station Solars"
+	name = "\improper Soviet DJ Station Solars"
 	icon_state = "DJ"
 
 //Methlab
@@ -135,7 +134,6 @@
 /area/ruin/space/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
-	there_can_be_many = TRUE
 
 /area/ruin/space/derelict/eva
 	name = "Derelict EVA Storage"
@@ -219,6 +217,9 @@
 	name = "\improper Telecommunications Sat"
 	icon_state = "tcomms"
 	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
+	ambientsounds = list('sound/ambience/dvorak_ambience_final.ogg')
+	min_ambience_cooldown = 110 SECONDS // 3 seconds longer than the length of the song
+	max_ambience_cooldown = 170 SECONDS // A minute break at most
 
 /area/ruin/space/telecomms/powercontrol
 	name = "\improper Telecommunications Power Control"

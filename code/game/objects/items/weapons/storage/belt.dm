@@ -137,7 +137,7 @@
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
-	desc = "Holds tools, looks snazzy, and fits nicely into a bag"
+	desc = "Holds tools, looks snazzy, and fits nicely into a bag."
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storable = TRUE
@@ -356,7 +356,7 @@
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
-	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
+	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
@@ -384,7 +384,7 @@
 
 /obj/item/storage/belt/military
 	name = "military belt"
-	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
+	desc = "A syndicate belt designed to be used by boarding parties. Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -845,7 +845,7 @@
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
-	desc = "Sometimes people choose justice.  Sometimes, justice chooses you..."
+	desc = "Sometimes people choose justice. Sometimes, justice chooses you..."
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6

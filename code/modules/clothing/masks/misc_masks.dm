@@ -229,7 +229,6 @@
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
 	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
-
 /obj/item/clothing/mask/pig
 	name = "pig mask"
 	desc = "A rubber pig mask."
@@ -436,7 +435,7 @@
 
 /obj/item/clothing/mask/bandana/durathread
 	name = "durathread bandana"
-	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
+	desc = "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
 
 /obj/item/clothing/mask/false_cluwne_mask

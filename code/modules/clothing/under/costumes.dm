@@ -70,7 +70,7 @@
 
 /obj/item/clothing/under/costume/mankini
 	name = "the mankini"
-	desc = "No honest man would wear this abomination"
+	desc = "No honest man would wear this abomination."
 	icon_state = "mankini"
 	item_color = "mankini"
 
@@ -119,7 +119,7 @@
 
 /obj/item/clothing/under/costume/pirate_rags
 	name = "pirate rags"
-	desc = "an old ragged set of clothing"
+	desc = "an old ragged set of clothing."
 	icon_state = "piraterags"
 	item_state = "piraterags"
 	item_color = "piraterags"
@@ -200,7 +200,7 @@
 
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
-	desc = "Includes shoes and plaid"
+	desc = "Includes shoes and plaid."
 	icon_state = "kilt"
 	item_state = "kilt"
 	item_color = "kilt"

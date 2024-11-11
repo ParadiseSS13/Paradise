@@ -123,6 +123,9 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 
 	alpha = base_alpha + bloodiness
 
+/obj/effect/decal/cleanable/blood/footprints/should_be_off_floor()
+	return FALSE
+
 /proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
 	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
 	if(ishuman(A))

@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/balaclava
 	name = "balaclava"
-	desc = "LOADSAMONEY"
+	desc = "LOADSAMONEY!"
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	flags = BLOCKHAIR
