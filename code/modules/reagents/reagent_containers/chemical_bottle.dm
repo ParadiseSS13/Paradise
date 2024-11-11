@@ -178,7 +178,7 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "reagent bottle"
-	desc = "A bottle for storing reagents"
+	desc = "A bottle for storing reagents."
 	icon_state = "reagent_bottle"
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50)
 	volume = 50
@@ -250,7 +250,7 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium
 	name = "hair grow gel"
-	desc = "A bottle full of a stimulative hair growth formula"
+	desc = "A bottle full of a stimulative hair growth formula."
 	list_reagents = list("hairgrownium" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye
