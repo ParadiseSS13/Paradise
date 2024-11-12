@@ -61705,9 +61705,6 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
-"lSj" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "lSt" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -64195,9 +64192,6 @@
 	icon_state = "neutral"
 	},
 /area/station/public/storage/tools)
-"myi" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "myn" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -126751,7 +126745,7 @@ lzH
 cEr
 lzH
 lzH
-pVD
+mCL
 qsK
 qsK
 qsK
@@ -127008,7 +127002,7 @@ rNK
 rNK
 rNK
 rNK
-lSj
+mCL
 cOX
 yiO
 bft
@@ -147072,7 +147066,7 @@ rNK
 rNK
 rNK
 rNK
-myi
+cRv
 aVS
 aVS
 aVS
