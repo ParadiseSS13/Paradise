@@ -96423,6 +96423,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/service/cafeteria)
+"rlp" = (
+/obj/effect/landmark/start/assistant,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/station/public/fitness)
 "rlB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -170873,7 +170878,7 @@ bpQ
 dPi
 csi
 psD
-hYU
+rlp
 cwk
 uMO
 cAs

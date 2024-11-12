@@ -8875,6 +8875,9 @@
 	id = "holodeck";
 	range = 9
 	},
+/obj/machinery/hologram/holopad{
+	pixel_y = 16
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aGP" = (
