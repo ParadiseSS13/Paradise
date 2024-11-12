@@ -12567,8 +12567,7 @@
 	name = "Command EVA shutter control";
 	pixel_x = 25;
 	pixel_y = 24;
-	req_access_txt = null;
-	req_one_access_txt = "19;41"
+	req_one_access = list(19,41)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -16281,28 +16280,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai_upload)
-"bVd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/station/security/permabrig)
 "bVj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
@@ -131091,7 +131068,7 @@ vdq
 uAd
 dqz
 vNP
-bVd
+bOZ
 tkn
 hxj
 afd
