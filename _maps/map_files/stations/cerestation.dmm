@@ -3183,32 +3183,10 @@
 	pixel_x = -4;
 	pixel_y = -24
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = 6;
-	pixel_y = 9
-	},
-/obj/machinery/door_control{
-	id = "Secure Gate";
-	name = "Brig Lockdown";
-	pixel_x = -7;
-	pixel_y = 8;
-	req_access_txt = "2"
-	},
-/obj/machinery/door_control{
-	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Gate";
-	name = "Prison Wing Lockdown";
-	pixel_x = -7;
-	pixel_y = -1;
-	req_access_txt = "2"
-	},
-/obj/machinery/door_control{
-	id = "hosofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = 4;
-	pixel_y = -1;
-	req_access_txt = "58"
+/obj/item/paper_bin/nanotrasen,
+/obj/item/stamp/hos,
+/obj/item/pen/multi{
+	pixel_x = -6
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -3430,10 +3408,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
-"azT" = (
-/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "azW" = (
@@ -5571,7 +5545,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/ion_rifle{
+/obj/structure/sign/poster/official/kill_syndicate{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -22520,7 +22494,7 @@
 	id = "servlockdown";
 	name = "Service Asteroid Lockdown";
 	pixel_y = 32;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /obj/machinery/computer/guestpass/hop{
 	pixel_x = 28
@@ -23514,13 +23488,13 @@
 	name = "Desk Shutters";
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /obj/machinery/door_control{
 	id = "hopexternal";
 	name = "External Lockdown";
 	pixel_x = 24;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /obj/machinery/door_control/ticket_machine_button{
 	pixel_x = 24;
@@ -24990,8 +24964,8 @@
 	id = "justice_blast";
 	name = "Justice Vent";
 	pixel_x = 28;
-	req_access_txt = "2";
-	pixel_y = -4
+	pixel_y = -4;
+	req_access = list(2)
 	},
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bottle/morphine{
@@ -28890,6 +28864,15 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
+"dzO" = (
+/obj/structure/bed/dogbed{
+	name = "Paperwork's bed"
+	},
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/legal/lawoffice)
 "dzP" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -34464,6 +34447,8 @@
 /area/station/maintenance/disposal/south)
 "eSk" = (
 /obj/machinery/alarm/directional/north,
+/obj/structure/bed/dogbed/renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "eSE" = (
@@ -34899,7 +34884,6 @@
 	},
 /area/station/hallway/primary/central/east)
 "eZh" = (
-/obj/structure/table/wood,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -34915,13 +34899,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/ashtray/glass,
-/obj/item/lighter/random{
-	pixel_x = 8
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_y = -7;
-	pixel_x = 6
-	},
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "eZB" = (
@@ -37577,14 +37555,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"fNs" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/obj/structure/closet/secure_closet/brig,
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonlockers)
 "fNB" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -38444,6 +38414,13 @@
 "fXC" = (
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
+"fXL" = (
+/obj/machinery/keycard_auth{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/turf/simulated/wall,
+/area/station/command/office/hos)
 "fXO" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -39019,6 +38996,9 @@
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/structure/sign/poster/official/twelve_gauge{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -44375,7 +44355,8 @@
 	dir = 8;
 	id = "Interrogation";
 	pixel_x = 24;
-	range = 3
+	range = 3;
+	req_access = list(63)
 	},
 /obj/structure/chair{
 	dir = 8
@@ -48121,10 +48102,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
-"izl" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
 "izC" = (
 /turf/simulated/mineral/ancient,
 /area/station/hallway/primary/aft/east)
@@ -48720,7 +48697,7 @@
 	},
 /area/station/security/prisonershuttle)
 "iHw" = (
-/obj/structure/sign/poster/official/twelve_gauge{
+/obj/structure/sign/poster/official/ion_rifle{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -56340,9 +56317,6 @@
 "kyx" = (
 /obj/structure/gunrack,
 /obj/item/gun/energy/laser/practice,
-/obj/structure/sign/poster/official/kill_syndicate{
-	pixel_y = 32
-	},
 /obj/item/gun/energy/laser/practice{
 	pixel_y = 6
 	},
@@ -56610,12 +56584,12 @@
 	},
 /area/station/science/hallway)
 "kBS" = (
-/obj/structure/bed/dogbed,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/bed/dogbed/ian,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "kBU" = (
@@ -61093,10 +61067,13 @@
 	pixel_x = -6;
 	pixel_y = 16
 	},
-/obj/item/paper_bin/nanotrasen,
-/obj/item/stamp/hos,
-/obj/item/pen/multi{
-	pixel_x = -6
+/obj/item/reagent_containers/drinks/mug/hos,
+/obj/item/lighter/random{
+	pixel_x = 8
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_y = -7;
+	pixel_x = 6
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -67109,7 +67086,6 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/item/reagent_containers/drinks/mug/hos,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "nnM" = (
@@ -83481,9 +83457,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = null;
-	req_access_txt = "2"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -88107,7 +88081,7 @@
 "sGJ" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/bed/dogbed{
-	name = "spider bed"
+	name = "Araneus' bed"
 	},
 /mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/wood,
@@ -93295,41 +93269,41 @@
 	id = "ailockdown";
 	name = "AI Asteroid Lockdown";
 	pixel_y = 40;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /obj/machinery/door_control{
 	id = "servlockdown";
 	name = "Service Lockdown";
 	pixel_x = -10;
 	pixel_y = 32;
-	req_access_txt = "57"
+	req_access = list(57)
 	},
 /obj/machinery/door_control{
 	id = "medlockdown";
 	name = "Medical Lockdown";
 	pixel_x = 10;
 	pixel_y = 32;
-	req_access_txt = "40"
+	req_access = list(40)
 	},
 /obj/machinery/door_control{
 	id = "cargolockdown";
 	name = "Cargo Lockdown";
 	pixel_x = 10;
 	pixel_y = 40;
-	req_access_txt = "41"
+	req_access = list(41)
 	},
 /obj/machinery/door_control{
 	id = "scilockdown";
 	name = "Science Lockdown";
 	pixel_x = -10;
 	pixel_y = 24;
-	req_access_txt = "30"
+	req_access = list(30)
 	},
 /obj/machinery/door_control{
 	id = "engilockdown";
 	name = "Engineering Lockdown";
 	pixel_y = 32;
-	req_access_txt = "56"
+	req_access = list(56)
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -126780,7 +126754,7 @@ cnx
 yaN
 rDk
 qCk
-vFG
+dzO
 uij
 aUo
 aUo
@@ -127040,7 +127014,7 @@ qCk
 cph
 vFG
 aUo
-izl
+aUo
 aNO
 cYg
 qCk
@@ -128039,7 +128013,7 @@ cYs
 vEd
 hMm
 xQS
-fNs
+jYh
 ape
 msk
 arb
@@ -133701,7 +133675,7 @@ atc
 lJH
 eZh
 axU
-azW
+fXL
 aBG
 wOD
 gYD
@@ -145777,7 +145751,7 @@ abW
 abW
 dxS
 ayA
-azT
+aEU
 aVG
 wVh
 bjT
