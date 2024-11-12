@@ -2,7 +2,7 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
 
 	density = TRUE //Dense. To raise the heat.
@@ -131,7 +131,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()

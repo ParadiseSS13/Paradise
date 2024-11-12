@@ -80,7 +80,7 @@
 	..()
 	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+/obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
 
@@ -220,7 +220,7 @@
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
-	desc = "Beep boop"
+	desc = "Beep boop."
 	icon_state = "death"
 	resistance_flags = FLAMMABLE
 

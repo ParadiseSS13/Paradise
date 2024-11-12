@@ -13,6 +13,8 @@
 	var/opened_door_sprite
 	/// Overwrites icon_state for the closed door sprite. Only necessary if the closed door sprite has a different name than the icon_state.
 	var/closed_door_sprite
+	/// Added to initial(icon_state) if not null. Used for IC customization, e.g. when painting cardboard boxes.
+	var/custom_skin
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -66,9 +68,9 @@
 	. = ..()
 	if(!enable_door_overlay)
 		if(opened)
-			icon_state = "[initial(icon_state)]_open"
+			icon_state = "[initial(icon_state)][custom_skin]_open"
 		else
-			icon_state = initial(icon_state)
+			icon_state = "[initial(icon_state)][custom_skin]"
 
 /obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
 	. = new_overlays
@@ -79,7 +81,7 @@
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(!opened && has_closed_overlay)
 			. += "[closed_door_sprite || icon_state]_closed"
-	
+
 	if(opened)
 		return
 
@@ -255,7 +257,6 @@
 	if(enable_door_overlay)
 		animate_door(TRUE)
 	update_appearance()
-	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE
 
 	return TRUE

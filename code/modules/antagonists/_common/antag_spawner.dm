@@ -305,9 +305,19 @@
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
+	if(!length(vents))
+		message_admins("Warning: No suitable vents detected for spawning morphs. Force picking from station vents regardless of state!")
+		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
+		if(!length(vents))
+			message_admins("Warning: No vents detected for spawning morphs at all!")
+			return
+	var/obj/vent = pick(vents)
+	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(vent)
 	M.key = C.key
 	M.make_morph_antag(FALSE)
+	M.forceMove(vent)
+	M.add_ventcrawl(vent)
 
 	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
@@ -388,7 +398,7 @@
 
 /obj/item/antag_spawner/pulse_demon
 	name = "living lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. It is *heavily* advised not to summon it in maintenance areas."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
@@ -412,7 +422,7 @@
 		return
 
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bulb, waiting for the creature to spark to life...</span>")
+	to_chat(user, "<span class='danger'>You break the seal on the bulb, waiting for the creature to spark to life... you might wish to get to safety!</span>")
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 

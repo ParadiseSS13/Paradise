@@ -104,7 +104,7 @@
 
 /datum/spell/sense_victims
 	name = "Sense Victims"
-	desc = "Sense the location of heretics"
+	desc = "Sense the location of heretics."
 	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0

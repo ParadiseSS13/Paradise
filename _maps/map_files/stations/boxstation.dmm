@@ -37472,7 +37472,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -69862,7 +69862,7 @@
 /area/station/maintenance/apmaint)
 "mCO" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -84324,7 +84324,7 @@
 	},
 /obj/machinery/requests_console/directional/north,
 /obj/machinery/button/windowtint{
-	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
+	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rdrobosurgery";
 	name = "Surgery Window Tint Control";
 	pixel_x = -24;
@@ -84333,7 +84333,7 @@
 	range = 2
 	},
 /obj/machinery/button/windowtint{
-	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
+	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rd";
 	name = "Office Window Tint Control";
 	pixel_x = -24;
@@ -87979,7 +87979,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/trash/liquidfood,
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /obj/item/trash/spacetwinkie,
 /obj/item/trash/raisins,
 /obj/item/trash/raisins,
