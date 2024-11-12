@@ -47,3 +47,4 @@
 #pragma AssignmentInConditional error
 #pragma PickWeightedSyntax disabled
 #pragma AmbiguousInOrder error
+#pragma RuntimeSearchOperator error
