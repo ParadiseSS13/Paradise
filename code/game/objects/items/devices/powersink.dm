@@ -99,6 +99,7 @@
 				"<span class='italics'>You hear a click.</span>")
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
+			notify_ghosts("[user] has activated a [src]!", title = "Something's Interesting!", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 			set_mode(OPERATING)
 
 		if(OPERATING)
