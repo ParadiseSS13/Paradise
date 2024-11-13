@@ -80957,7 +80957,6 @@
 	c_tag = "Mr. Chang's";
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "pbt" = (
