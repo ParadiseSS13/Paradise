@@ -1190,4 +1190,4 @@
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
-	slot_flags = SLOT_FLAG_NECK
+	slot_flags = ITEM_SLOT_NECK
