@@ -32,7 +32,7 @@
 
 /obj/machinery/computer/singulo_monitor/Destroy()
 	active = null
-	qdel(singu_radio)
+	QDEL_NULL(singu_radio)
 	singularities.Cut()
 	return ..()
 
@@ -127,7 +127,7 @@
 		return
 	for(var/obj/singularity/S in GLOB.singularities)
 		// not within coverage, not on a tile, not a gravitational singularity
-		if(!(S.type == /obj/singularity) || !(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T)))
+		if(S.type != /obj/singularity || !(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T)))
 			continue
 		singularities.Add(S)
 
@@ -160,8 +160,6 @@
 		if(warning_threshold && (active.energy >= (warning_threshold - 100)))
 			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] is nearing containment field limits!</b>", name, warning_channel)
 			return
-
-
 
 /obj/machinery/computer/singulo_monitor/process()
 	if(stat & (NOPOWER|BROKEN))

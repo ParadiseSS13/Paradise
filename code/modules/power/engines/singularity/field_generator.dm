@@ -104,7 +104,6 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	// We got to a dead end, temp_gens should be empty here.
 	return temp_gens
 
-
 /obj/machinery/field/generator/attack_hand(mob/user)
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
