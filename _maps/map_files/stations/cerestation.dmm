@@ -33722,9 +33722,6 @@
 "eIC" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/disposalpipe/segment,
-/obj/item/trash/spentcasing{
-	icon_state = "lasercasing"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -33737,6 +33734,7 @@
 	dir = 6
 	},
 /obj/item/trash/spentcasing/bullet,
+/obj/item/trash/spentcasing/bullet/lasershot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "eIK" = (
