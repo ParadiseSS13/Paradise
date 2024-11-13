@@ -143,6 +143,7 @@
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
 	base_cooldown = 450
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 

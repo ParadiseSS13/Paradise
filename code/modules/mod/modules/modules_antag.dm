@@ -527,6 +527,24 @@
 /obj/item/mod/module/energy_shield/gamma
 	shield_icon = "shield-old"
 
+///Magic Nullifier - Protects you from magic.
+/obj/item/mod/module/anti_magic
+	name = "MOD magic nullifier module"
+	desc = "A series of obsidian rods installed into critical points around the suit, \
+		vibrated at a certain low frequency to enable them to resonate. \
+		This creates a low-range, yet strong, magic nullification field around the user, \
+		aided by a full replacement of the suit's normal coolant with holy water. \
+		Spells will spall right off this field, though it'll do nothing to help others believe you about all this."
+	icon_state = "magic_nullifier"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/anti_magic)
+
+/obj/item/mod/module/anti_magic/on_suit_activation()
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID(src)]")
+
+/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID(src)]")
+
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
 	desc = "A module that uses a flux core to project an unstable protective shield." //change

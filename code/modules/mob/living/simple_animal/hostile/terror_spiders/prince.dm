@@ -63,6 +63,7 @@
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_icon_state = "terror_prince"
 
 /datum/spell/princely_charge/create_new_targeting()

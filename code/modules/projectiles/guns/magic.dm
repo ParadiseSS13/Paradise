@@ -15,6 +15,7 @@
 	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
+	var/antimagic_flags = MAGIC_RESISTANCE
 	origin_tech = null
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
@@ -31,6 +32,9 @@
 			return
 		else
 			no_den_usage = 0
+	if(!user.can_cast_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
+		return FALSE
 	..()
 
 /obj/item/gun/magic/can_shoot()

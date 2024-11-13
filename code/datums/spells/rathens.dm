@@ -15,6 +15,8 @@
 
 /datum/spell/rathens/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
+		if(H.can_block_magic(antimagic_flags))
+			continue
 		var/datum/effect_system/smoke_spread/s = new
 		s.set_up(5, FALSE, H)
 		s.start()

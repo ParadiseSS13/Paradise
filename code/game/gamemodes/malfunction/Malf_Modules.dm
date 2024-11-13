@@ -13,6 +13,7 @@
 	base_cooldown = 0
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
+	antimagic_flags = NONE
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self

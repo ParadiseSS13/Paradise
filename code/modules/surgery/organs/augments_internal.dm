@@ -506,6 +506,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"
@@ -757,7 +758,7 @@
 
 /// Blocks teleports and stuns the would-be-teleportee.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_teleport(mob/living/teleportee, atom/destination, channel)
-	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED 
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED
 
 	to_chat(teleportee, "<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>")
 
@@ -769,7 +770,7 @@
 
 /// Prevents a user from entering a jaunt.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_jaunt(mob/living/jaunter)
-	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT 
+	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT
 
 	to_chat(jaunter, "<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>")
 

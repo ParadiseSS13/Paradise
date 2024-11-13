@@ -5,6 +5,7 @@
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 0 SECONDS
 	var/list/our_claws = list()
 	var/infection_stage = 1 // mostly for adminbus and testing

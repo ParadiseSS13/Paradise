@@ -18,7 +18,8 @@
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
 	. = ..()
-
+	if(!.)
+		return
 	if(iswallturf(target) || isobj(target))
 		target.color = pick(GLOB.random_color_list)
 		return

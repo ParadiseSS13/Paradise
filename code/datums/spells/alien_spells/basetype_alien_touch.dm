@@ -6,6 +6,7 @@
 	base_cooldown = 1
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE

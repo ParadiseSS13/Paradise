@@ -232,6 +232,11 @@
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
+	if(user != thrower) //Ignore antimagic stuff if the user is the thrower (aka self activation)
+		if(user.can_block_magic(our_tarot.antimagic_flags, 1))
+			visible_message("<span class='warning'>[src] burns up in a flash on contact with [user]!</span>")
+			qdel(src)
+			return
 	has_been_activated = TRUE
 	forceMove(user)
 	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
@@ -270,6 +275,8 @@
 	var/card_icon = "the_unknown"
 	/// Are we reversed? Used for the card back.
 	var/reversed = FALSE
+	/// What antimagic flags do we have?
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /datum/tarot/proc/activate(mob/living/target)
 	stack_trace("A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
@@ -670,8 +677,11 @@
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	for(var/turf/T in range(5, target)) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
+			if(ismob(AM))
+				var/mob/victim_mob = AM
+				if(victim_mob.can_block_magic(antimagic_flags))
+					continue
 			thrown_atoms += AM
-
 	for(var/atom/movable/AM as anything in thrown_atoms)
 		if(AM == target || AM.anchored || (ismob(AM) && !isliving(AM)))
 			continue
@@ -711,6 +721,9 @@
 
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
 	for(var/mob/living/L in oview(9, target))
+		if(L.can_block_magic(antimagic_flags))
+			to_chat(L, "<span class='notice'>You feel calm for a second, but it quickly passes.</span></span>")
+			continue
 		L.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
 /datum/tarot/reversed/the_emperor
@@ -744,6 +757,8 @@
 	var/active_chasers = 0
 	for(var/mob/living/M in shuffle(orange(7, target)))
 		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
+			continue
+		if(M.can_block_magic(antimagic_flags)) //Be spared!
 			continue
 		if(active_chasers >= 2)
 			return
@@ -941,6 +956,7 @@
 	desc = "May you remember lost memories."
 	extended_desc = "will reveal the memories of everyone in range to the user."
 	card_icon = "the_moon?"
+	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
 /datum/tarot/reversed/the_moon/activate(mob/living/target)
 	for(var/mob/living/L in view(5, target)) //Shorter range as this kinda can give away antagonists, though that is also funny.
