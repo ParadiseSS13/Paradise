@@ -358,7 +358,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting
 
 		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-		if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
+		if(H.equip_to_slot_if_possible(D, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE))
 			to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
 		else
 			to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
