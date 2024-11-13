@@ -1,7 +1,7 @@
 /**
   * # Police Baton
   *
-  * Knocks down the hit mob when not on harm intent and when [/obj/item/melee/classic_baton/on] is TRUE
+  * Knocks down the hit mob when not on harm intent and when [/obj/item/melee/classic_baton/var/on] is `TRUE`.
   *
   * A non-lethal attack has a cooldown to avoid spamming
   */

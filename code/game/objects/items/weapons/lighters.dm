@@ -18,7 +18,7 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
-	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
+	/// Our lighter color suffix. => `[base_icon_state]-[lightercolor]` => `lighter-r`
 	var/lighter_color
 	var/is_a_zippo = FALSE
 
