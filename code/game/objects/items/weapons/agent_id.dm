@@ -1,30 +1,33 @@
 /obj/item/card/id/syndicate
 	name = "agent card"
-	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	origin_tech = "syndicate=1"
 	untrackable = TRUE
-	var/static/list/card_images
+	/// List of access types the agent ID should start off with
+	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	/// Editing is prohibited if registered_human reference is missing
 	var/mob/living/carbon/human/registered_human
+	// Static list of all occupations available when changing the occupation on an agent ID
 	var/static/list/possible_jobs
+	/// The HUD icon that should be displayed on a mob that is wearing the agent ID
 	var/hud_icon
 
 	COOLDOWN_DECLARE(new_photo_cooldown)
 
 /obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
+	access = initial_access.Copy()
 	if(!length(possible_jobs))
 		possible_jobs = sortTim(GLOB.joblist, GLOBAL_PROC_REF(cmp_text_asc))
+
+/obj/item/card/id/syndicate/Destroy()
+	registered_human = null
+	return ..()
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
 	untrackable = TRUE
-
-/obj/item/card/id/syndicate/New()
-	access = initial_access.Copy()
-	..()
 
 /obj/item/card/id/syndicate/vox
 	name = "agent card"
@@ -39,6 +42,15 @@
 /obj/item/card/id/syndicate/command
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"
+
+/obj/item/card/id/syndicate_command
+	name = "syndicate ID card"
+	desc = "An ID straight from the Syndicate."
+	registered_name = "Syndicate"
+	icon_state = "syndie"
+	assignment = "Syndicate Overlord"
+	untrackable = TRUE
+	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
@@ -189,10 +201,11 @@
 /obj/item/card/id/syndicate/proc/change_sex(new_sex)
 	if(!Adjacent(registered_human) || isnull(new_sex))
 		return
-	sex = new_sex
+
+	sex = sanitize(new_sex)
 
 /obj/item/card/id/syndicate/proc/change_age(new_age)
-	age = clamp(new_age, 17, 999)
+	age = clamp(new_age, AGE_MIN, AGE_MAX)
 
 /obj/item/card/id/syndicate/proc/change_occupation(option)
 	var/new_job
@@ -263,20 +276,7 @@
 		if(fingerprints_param)
 			fingerprint_hash = strip_html_simple(fingerprints_param, 33)
 
-/obj/item/card/id/syndicate/Destroy()
-	registered_human = null
-	return ..()
-
-/obj/item/card/id/syndicate_command
-	name = "syndicate ID card"
-	desc = "An ID straight from the Syndicate."
-	registered_name = "Syndicate"
-	icon_state = "syndie"
-	assignment = "Syndicate Overlord"
-	untrackable = TRUE
-	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
-
-// like /obj/item/card/id/syndicate, but you can only swipe access, not change your identity, its also trackable
+/// like /obj/item/card/id/syndicate, but you can only swipe access, not change your identity, its also trackable
 /obj/item/card/id/syndi_scan_only
 	name = "Syndicate Operative's ID card (Operative)"
 	rank = "Operative"
