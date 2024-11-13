@@ -495,7 +495,7 @@
 
 /datum/mod_theme/rescue
 	name = "'Valkyrie' rescue"
-	desc = "An next-generation medical suit for casualty care in even the most hostile of conditions. Fast, chemically sealed, and decently armored to boot."
+	desc = "A next-generation medical suit for casualty care in even the most hostile of conditions. Fast, chemically sealed, and decently armored to boot."
 	extended_desc = "A direct upgrade to the older Apollo line, the D-112 'Valkyrie' is an advanced medical modsuit produced by the DeForest Medical Corporation. Offering iterative improvement over earlier lines, \
 		the Valkyrie uses improved servo systems and drive motors to deliver faster movement speed than the Apollo line, and it comes standard with a high-efficiency energy core which helps offset its otherwise outsized power draw. \
 		The suit's armor has also seen large improvement, incorporating ballistic polymer impact panels in key areas, offering moderate protection against melee and projectile attacks, while a chemically-treated \
