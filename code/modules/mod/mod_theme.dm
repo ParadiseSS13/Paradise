@@ -672,7 +672,7 @@
 	desc = "A current-gen suit of powered armor by Shellguard Munitions. Offers substantially improved protection over the base security modsuit, and is completely fireproof."
 	extended_desc = "A fairly recent development by Shellguard Munitions, the SA-350 'Safeguard' modsuit is a largely iterative powered armor suit that builds off of and offers improvement \
 		over the older Takabara series of corporate security suits. Expanding the ceramic and steel plating further provides significantly improved conventional defenses, while the addition of \
-		an advanced temperature regulation system makes the Safeguard completely immune to extreme heat. The suit's internals were also iterated upon, with improved servo systems for added mobility, \
+		an advanced temperature regulation system makes the Safeguard completely immune to extreme heat. The suit's internals were also enhanced, with improved servo systems for added mobility, \
 		while the suit's updated computer hardware improves its overall modification potential. The most striking development, however, is the suit's overall bulkier and more intimidating appearance, incorporating \
 		pronounced armored pauldrons and replacing the traditional eyeholes with a camera-equipped blank faceplate. Today, the Safeguard is most commonly seen in well-funded corporate security units, most \
 		notably the Nanotrasen Corporation, which has purchased a large stock of the suits for high-ranking security personnel."
@@ -729,7 +729,7 @@
 		An under-layer of ultra low-conductivity ceramic provides protection against the heat of raging fires and high intensity electrical discharges.\
 		The use of custom articulation first utilized in the NA-20 'Daedalus' means that the Magnate will not encumber the user under most circumstances, allowing them to move freely despite the mass of the suit. \
 		The over-engineered electrical and hydraulic systems also give it exceptional capacity for modification, allowing endless choice in how exactly a captain may wish to drain the resources of their robotics department. \
-		Overall, the Magnate provides protection rivalled only by the 'Jaeger' MODsuit of Syndicate infamy. Nanotrasen's public relations department continues to reiterate that any resemblance that parts of the suit may have to designs used by Gorlex are <b>purely</b> coincidental."
+		Overall, the Magnate provides protection rivalled only by the 'Jaeger' MODsuit of Syndicate infamy. Nanotrasen's public relations department maintains that any resemblance to designs used by Gorlex are <b>purely</b> coincidental."
 	default_skin = "magnate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
@@ -781,7 +781,7 @@
 	name = "'Praetorian' escort"
 	desc = "A Nanotrasen refit of the Takabara modsuit line. Offers higher mobility than the base model, and comes with a snazzy blue-and-black paint job."
 	extended_desc = "A licensed copy of the Shellguard Munitions 'Takabara' modsuit, the NA-35 'Praetorian' is specially issued to Nanotrasen Asset Protection's Blueshield Corps: \
-		elite protective agents charged with guarding Nanotrasen VIPs. As such, the suit's motor and weight distribution systems have seen a measure of improvement, to allow for the \
+		elite bodyguards charged with protecting Nanotrasen VIPs. As such, the suit's motor and weight distribution systems have seen a measure of improvement, to allow for the \
 		Blueshields to more effectively respond to threats facing their charges. Beyond this and its stylish blue & black paint job, however, the Praetorian differs little \
 		from its Shellguard roots, retaining its middling armor ratings and restrictive hardware. Even so, Nanotrasen is more than happy with the design, and has proceeded \
 		with a full rollout of the suit to Blueshields across their corporate empire."
