@@ -603,6 +603,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/shoes/slippers,
 /obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/suit/jacket/bomber/syndicate,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
 "RN" = (
