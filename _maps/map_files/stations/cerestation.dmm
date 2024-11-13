@@ -1667,28 +1667,6 @@
 "alc" = (
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/cargo)
-"alg" = (
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 1
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Labor Camp Transfer"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
-"alh" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
-/area/station/security/prisonershuttle)
 "alk" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -41874,6 +41852,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43613,17 +43594,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/engineering/solar/port)
-"hvk" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/station/security/prisonershuttle)
 "hvm" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -44508,7 +44478,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 4;
 	icon_state = "red"
 	},
 /area/station/security/prisonershuttle)
@@ -63224,17 +63194,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
-"mkH" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/station/security/prisonershuttle)
 "mkL" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 10
@@ -77478,6 +77437,7 @@
 	id_tag = "laborcamp_home";
 	locked = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "pSC" = (
@@ -87724,16 +87684,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "szH" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/chair,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "red"
 	},
 /area/station/security/prisonershuttle)
@@ -111200,17 +111156,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"yeU" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/station/security/prisonershuttle)
 "yeW" = (
 /obj/structure/table,
 /obj/structure/disposalpipe/segment{
@@ -125835,7 +125780,7 @@ ymd
 tQc
 rnm
 qBv
-hvk
+xMK
 xMK
 hvS
 jMe
@@ -126092,7 +126037,7 @@ ymd
 ajA
 jEp
 dDp
-alg
+loR
 loR
 vKV
 akC
@@ -126348,8 +126293,8 @@ rNK
 ymd
 nWS
 iWW
-alh
-yeU
+mFT
+mFT
 mFT
 bTR
 mVl
@@ -126605,8 +126550,8 @@ rNK
 pSz
 mFT
 apb
-drz
-mkH
+mFT
+mFT
 mFT
 dqb
 drz
