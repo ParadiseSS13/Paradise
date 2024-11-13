@@ -429,8 +429,8 @@
 /obj/item/storage/box/donkpockets,
 /obj/item/vending_refill/cigarette,
 /obj/item/vending_refill/snack,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "CI" = (
