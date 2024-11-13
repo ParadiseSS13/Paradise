@@ -537,8 +537,11 @@
 	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
 		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
 		return
-
-	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+	var/beam
+	if(!istype(user.loc, /turf)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
+		beam = user.loc.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+	else
+		beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
 			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
@@ -757,7 +760,7 @@
 
 /// Blocks teleports and stuns the would-be-teleportee.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_teleport(mob/living/teleportee, atom/destination, channel)
-	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED 
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED
 
 	to_chat(teleportee, "<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>")
 
@@ -769,7 +772,7 @@
 
 /// Prevents a user from entering a jaunt.
 /obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_jaunt(mob/living/jaunter)
-	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT 
+	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT
 
 	to_chat(jaunter, "<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>")
 
