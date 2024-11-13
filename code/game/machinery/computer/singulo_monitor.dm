@@ -91,7 +91,7 @@
 		var/index = 1
 		for(var/obj/machinery/field/generator/generator in field_gens)
 			generators.Add(list(list(
-				"charge" = generator.power,
+				"charge" = generator.energy,
 				"gen_index" = index++
 			)))
 		data["generators"] = generators
