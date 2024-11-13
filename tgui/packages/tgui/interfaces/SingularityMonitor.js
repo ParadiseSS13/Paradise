@@ -145,10 +145,10 @@ const SingularityMonitorDataView = (props, context) => {
                     <ProgressBar
                       value={generator.charge}
                       minValue={0}
-                      maxValue={250}
+                      maxValue={125}
                       ranges={{
-                        good: [160, 250],
-                        average: [30, 160],
+                        good: [80, 125],
+                        average: [30, 80],
                         bad: [0, 30],
                       }}
                     >
