@@ -268,7 +268,7 @@
 
 
 /obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_NECK)
+	if(slot == ITEM_SLOT_NECK)
 		return TRUE
 
 /obj/item/clothing/neck/cloak/herald_cloak/ui_action_click()

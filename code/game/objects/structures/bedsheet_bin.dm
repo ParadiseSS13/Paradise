@@ -18,7 +18,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_FLAG_NECK
+	slot_flags = ITEM_SLOT_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
 	dyeing_key = DYE_REGISTRY_BEDSHEET
 
