@@ -715,7 +715,7 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Xm" = (
 /obj/structure/toilet{
-	dir = 8
+	pixel_y = 8
 	},
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/syndicate_listening_station)
