@@ -538,7 +538,7 @@
 		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
 		return
 	var/beam
-	if(!istype(user.loc, /turf)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
+	if(!isturf(user.loc)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
 		beam = user.loc.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 	else
 		beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
