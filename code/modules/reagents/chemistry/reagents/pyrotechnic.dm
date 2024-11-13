@@ -72,7 +72,7 @@
 	if(isspaceturf(T))
 		return
 	if(!T.reagents)
-		T.create_reagents(volume)
+		T.create_reagents(1000)
 	T.reagents.add_reagent("napalm", volume)
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -220,7 +220,7 @@
 /datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
 	if(istype(S))
 		if(!S.reagents)
-			S.create_reagents(volume)
+			S.create_reagents(1000)
 		S.reagents.add_reagent("thermite", volume)
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
