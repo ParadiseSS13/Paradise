@@ -297,12 +297,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
 	name = "\improper Anti-Plague Sequence Omega autoinjector"
-	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega. Cures all cases of the Necrotizing Plague. Also heals dead limbs."
 	list_reagents = list("zombiecure4" = 15)
-	
+
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse." 
+	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37

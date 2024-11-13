@@ -261,14 +261,14 @@
 	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
-/obj/item/storage/belt/champion/wrestling/Initialize()
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
 	. = ..()
 	style = new()
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
@@ -282,7 +282,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
@@ -317,7 +317,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user))
+		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -341,7 +341,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user))
+		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -369,7 +369,7 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")

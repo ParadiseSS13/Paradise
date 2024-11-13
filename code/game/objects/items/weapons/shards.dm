@@ -40,7 +40,7 @@
 	if(icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
 
-/obj/item/shard/Initialize()
+/obj/item/shard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 	set_initial_icon_state()
@@ -72,7 +72,7 @@
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()
@@ -91,3 +91,15 @@
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	icon_prefix = "plasma"
 	welded_type = /obj/item/stack/sheet/plasmaglass
+
+/obj/item/shard/scrap
+	name = "sharpened scrap"
+	desc = "Some discarded scrap metal. It has sharp, jagged edges."
+	icon_state = "scrap"
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
+	welded_type = /obj/item/stack/sheet/metal
+	force = 9
+	throwforce = 15 //owie
+
+/obj/item/shard/scrap/set_initial_icon_state()
+	return

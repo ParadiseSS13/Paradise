@@ -179,7 +179,7 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
+	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker."
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	item_state = "electropack"
@@ -297,7 +297,7 @@
 	track = TRACKER_AUTO
 	autostart = TRUE // Automatically search for connected devices
 
-/obj/machinery/power/solar_control/Initialize()
+/obj/machinery/power/solar_control/Initialize(mapload)
 	SSsun.solars |= src
 	setup()
 	. = ..()

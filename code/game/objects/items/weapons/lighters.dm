@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = FALSE
@@ -383,7 +383,7 @@
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 	is_unathi_fire = TRUE
-	
+
 /obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)

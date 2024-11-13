@@ -550,7 +550,7 @@
 			mineral_turf.gets_drilled(firer)
 	for(var/mob/living/mob in range(power, src))
 		mob.apply_damage(damage * (ishostile(mob) ? fauna_boost : 1), BRUTE, spread_damage = TRUE)
-		if(!ishostile(mob) || !firer)
+		if(!ishostile(mob) || !firer || mob.stat != CONSCIOUS)
 			continue
 		var/mob/living/simple_animal/hostile/hostile_mob = mob
 		hostile_mob.GiveTarget(firer)

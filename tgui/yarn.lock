@@ -4059,10 +4059,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:2.5.0":
-  version: 2.5.0
-  resolution: "dompurify@npm:2.5.0"
-  checksum: 10/83132070ecaa31696b017d0c3545db78f4f1263c3fdf0a94e95da9e0eb64d7a52fce95b16938e686457e3986be1054e80aef1730a04df125398d29231bc2c9f8
+"dompurify@npm:2.5.4":
+  version: 2.5.4
+  resolution: "dompurify@npm:2.5.4"
+  checksum: 10/977a01ba3fbd58e2ac7c63a7d82a13d8e1c4555e99efc8f10e1d4fe0d22fa3e3d536f7243c9bfc07382cd21522f2cf2a8440e6a558f41cc509feb168e9cd2fb4
   languageName: node
   linkType: hard
 
@@ -4141,13 +4141,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.17.0":
-  version: 5.17.0
-  resolution: "enhanced-resolve@npm:5.17.0"
+"enhanced-resolve@npm:^5.17.1":
+  version: 5.17.1
+  resolution: "enhanced-resolve@npm:5.17.1"
   dependencies:
     graceful-fs: "npm:^4.2.4"
     tapable: "npm:^2.2.0"
-  checksum: 10/8f7bf71537d78e7d20a27363793f2c9e13ec44800c7c7830364a448f80a44994aa19d64beecefa1ab49e4de6f7fbe18cc0931dc449c115f02918ff5fcbe7705f
+  checksum: 10/e8e03cb7a4bf3c0250a89afbd29e5ec20e90ba5fcd026066232a0754864d7d0a393fa6fc0e5379314a6529165a1834b36731147080714459d98924520410d8f5
   languageName: node
   linkType: hard
 
@@ -8519,7 +8519,7 @@ __metadata:
   resolution: "tgui-panel@workspace:packages/tgui-panel"
   dependencies:
     common: "workspace:*"
-    dompurify: "npm:2.5.0"
+    dompurify: "npm:2.5.4"
     inferno: "npm:^8.2.3"
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
@@ -8593,7 +8593,7 @@ __metadata:
     style-loader: "npm:^4.0.0"
     terser-webpack-plugin: "npm:^5.3.10"
     typescript: "npm:^5.5.3"
-    webpack: "npm:^5.93.0"
+    webpack: "npm:^5.94.0"
     webpack-bundle-analyzer: "npm:^4.10.2"
     webpack-cli: "npm:^5.1.4"
   languageName: unknown
@@ -8607,7 +8607,7 @@ __metadata:
     "@types/marked": "npm:^6.0.0"
     common: "workspace:*"
     csstype: "npm:^3.1.3"
-    dompurify: "npm:2.5.0"
+    dompurify: "npm:2.5.4"
     highlight.js: "npm:^11.10.0"
     inferno: "npm:^8.2.3"
     inferno-vnode-flags: "npm:^8.2.3"
@@ -9118,11 +9118,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.93.0":
-  version: 5.93.0
-  resolution: "webpack@npm:5.93.0"
+"webpack@npm:^5.94.0":
+  version: 5.95.0
+  resolution: "webpack@npm:5.95.0"
   dependencies:
-    "@types/eslint-scope": "npm:^3.7.3"
     "@types/estree": "npm:^1.0.5"
     "@webassemblyjs/ast": "npm:^1.12.1"
     "@webassemblyjs/wasm-edit": "npm:^1.12.1"
@@ -9131,7 +9130,7 @@ __metadata:
     acorn-import-attributes: "npm:^1.9.5"
     browserslist: "npm:^4.21.10"
     chrome-trace-event: "npm:^1.0.2"
-    enhanced-resolve: "npm:^5.17.0"
+    enhanced-resolve: "npm:^5.17.1"
     es-module-lexer: "npm:^1.2.1"
     eslint-scope: "npm:5.1.1"
     events: "npm:^3.2.0"
@@ -9151,7 +9150,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10/a48bef7a511d826db7f9ebee2c84317214923ac40cb2aabe6a649546c54a76a55fc3b91ff03c05fed22a13a176891c47bbff7fcc644c53bcbe5091555863641b
+  checksum: 10/0377ad3a550b041f26237c96fb55754625b0ce6bae83c1c2447e3262ad056b0b0ad770dcbb92b59f188e9a2bd56155ce910add17dcf023cfbe78bdec774380c1
   languageName: node
   linkType: hard
 

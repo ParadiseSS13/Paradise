@@ -152,37 +152,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	add_antag_objective(/datum/objective/assassinate)
 	add_antag_objective(/datum/objective/survive)
 
-/**
- * Create and assign a single randomized human traitor objective.
- */
-/datum/antagonist/traitor/proc/forge_single_human_objective()
-	var/datum/objective/objective_to_add
-
-	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
-	if(organization && length(organization.objectives) && prob(organization.focus))
-		objective_to_add = pick(organization.objectives)
-	else
-		if(prob(50))
-			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-				objective_to_add = /datum/objective/destroy
-
-			else if(prob(5))
-				objective_to_add = /datum/objective/debrain
-
-			else if(prob(30))
-				objective_to_add = /datum/objective/maroon
-
-			else if(prob(30))
-				objective_to_add = /datum/objective/assassinateonce
-
-			else
-				objective_to_add = /datum/objective/assassinate
-		else
-			objective_to_add = /datum/objective/steal
-
-	if(delayed_objectives)
-		objective_to_add = new /datum/objective/delayed(objective_to_add)
-	add_antag_objective(objective_to_add)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
