@@ -1347,7 +1347,8 @@
 /obj/machinery/camera/emp_proof{
 	c_tag = "Test Lab South";
 	network = list("SyndicateTestLab");
-	dir = 10
+	dir = 10;
+	non_chunking_camera = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -1944,7 +1945,8 @@
 /obj/machinery/camera/emp_proof{
 	c_tag = "Test Lab East";
 	network = list("SyndicateTestLab");
-	dir = 8
+	dir = 8;
+	non_chunking_camera = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -3538,7 +3540,8 @@
 "tS" = (
 /obj/machinery/camera/emp_proof{
 	c_tag = "Test Lab North";
-	network = list("SyndicateTestLab")
+	network = list("SyndicateTestLab");
+	non_chunking_camera = 1
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
@@ -4639,7 +4642,8 @@
 /obj/machinery/camera/emp_proof{
 	c_tag = "Test Lab West";
 	dir = 5;
-	network = list("SyndicateTestLab")
+	network = list("SyndicateTestLab");
+	non_chunking_camera = 1
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)

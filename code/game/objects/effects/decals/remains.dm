@@ -33,7 +33,7 @@
 
 /obj/effect/decal/remains/slime
 	name = "You shouldn't see this"
-	desc = "Noooooooooooooooooooooo"
+	desc = "Noooooooooooooooooooooo!"
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 

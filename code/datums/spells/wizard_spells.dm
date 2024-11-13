@@ -272,7 +272,7 @@
 
 /datum/spell/aoe/conjure/construct
 	name = "Artificer"
-	desc = "This spell conjures a construct which may be controlled by Shades"
+	desc = "This spell conjures a construct which may be controlled by Shades."
 
 	school = "conjuration"
 	base_cooldown = 600
@@ -288,7 +288,7 @@
 
 /datum/spell/aoe/conjure/creature
 	name = "Summon Creature Swarm"
-	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
+	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth."
 
 	school = "conjuration"
 	base_cooldown = 1200

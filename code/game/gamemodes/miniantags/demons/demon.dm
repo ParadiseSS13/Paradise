@@ -1,6 +1,6 @@
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	desc = "you shouldnt be reading this, file a github report"
+	desc = "you shouldnt be reading this, file a github report."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"

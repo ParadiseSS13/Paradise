@@ -14,7 +14,6 @@
 
 # CI + Tooling
 /.github/workflows/ @AffectedArc07
-/code/modules/unit_tests/ @AffectedArc07
 /tools/ci/ @AffectedArc07
 _build_dependencies.sh @AffectedArc07
 
@@ -24,10 +23,14 @@ _build_dependencies.sh @AffectedArc07
 
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
-milla.dll @AffectedArc07
+rustlibs.dll @AffectedArc07
 rust_g.dll @AffectedArc07
 
 ### S34NW
 
 # TGUI stuff
 /tgui/bin @S34NW
+
+
+### Overrides for the above
+/tools/ci/check_grep2.py @ParadiseSS13/commit-access

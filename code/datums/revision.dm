@@ -100,6 +100,11 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 
+	msg += "<b>RUST-G Build</b>: [rustg_get_version()]"
+
+	if(world.TgsAvailable())
+		msg += "<b>TGS Version</b>: [world.TgsVersion()] (API: [world.TgsApiVersion()])"
+
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		msg += "<b>Active Testmerges:</b>"
 		msg += GLOB.revision_info.get_testmerge_chatmessage(FALSE)
