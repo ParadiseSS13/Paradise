@@ -55920,8 +55920,8 @@
 "ksx" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/plating,
-/area/mine/unexplored/cere/command)
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "ksD" = (
 /obj/structure/safe{
 	known_by = list("captain")
@@ -89646,6 +89646,13 @@
 /obj/structure/closet/lasertag/blue,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"sWO" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall,
+/area/space/nearstation)
 "sWR" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating{
@@ -110003,11 +110010,8 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/xenobiology)
 "xQe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -123507,7 +123511,7 @@ ksx
 lzH
 lzH
 lzH
-ivS
+sWO
 lzH
 lzH
 lzH
