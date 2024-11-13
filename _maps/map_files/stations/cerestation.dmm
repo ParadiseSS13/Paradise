@@ -76871,7 +76871,6 @@
 /turf/simulated/floor/plating,
 /area/station/public/quantum/docking)
 "pLw" = (
-/mob/living/simple_animal/lizard,
 /obj/structure/table/wood,
 /obj/item/food/meat,
 /obj/item/food/meat{
@@ -96849,6 +96848,10 @@
 	icon_state = "cafeteria"
 	},
 /area/station/maintenance/port2)
+"uGG" = (
+/mob/living/simple_animal/lizard,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/fore2)
 "uGM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/atmos{
@@ -136881,7 +136884,7 @@ wDs
 chS
 bbc
 bbc
-bbc
+uGG
 tbe
 sZu
 wDs
