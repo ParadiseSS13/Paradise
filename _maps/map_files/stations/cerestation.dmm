@@ -7364,6 +7364,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/syndicatebomb/training,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -25212,10 +25213,6 @@
 	},
 /area/station/hallway/secondary/entry/west)
 "dbi" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Evidence Storage"
-	},
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 8;
 	name = "Evidence Storage"
@@ -63363,6 +63360,7 @@
 "mng" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82178,6 +82176,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -102474,7 +102473,6 @@
 /area/station/public/quantum/service)
 "wae" = (
 /obj/structure/closet/bombclosetsecurity,
-/obj/machinery/syndicatebomb/training,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
