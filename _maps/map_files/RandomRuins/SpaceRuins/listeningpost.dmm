@@ -252,10 +252,9 @@
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	pixel_y = -24;
-	name = "intercom"
+/obj/item/radio/intercom/pirate{
+	pixel_y = -32;
+	name = "syndicate radio intercom"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
@@ -631,14 +630,13 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "TZ" = (
-/obj/item/radio/intercom{
-	freerange = 1;
-	pixel_y = -24;
-	name = "intercom"
-	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/paper_bin,
 /obj/item/pen/multi/syndicate,
+/obj/item/radio/intercom/pirate{
+	pixel_y = -32;
+	name = "syndicate radio intercom"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Uy" = (
@@ -681,10 +679,9 @@
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	pixel_y = -24;
-	name = "intercom"
+/obj/item/radio/intercom/pirate{
+	pixel_y = -32;
+	name = "syndicate radio intercom"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
