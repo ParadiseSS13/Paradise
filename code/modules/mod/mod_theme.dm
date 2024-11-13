@@ -618,8 +618,8 @@
 		Equipped with kevlar paneling in vital areas and ceramic strike plates in the chest and back, the Takabara offers sufficient protection to deter most petty criminals and improvised melee weapons, \
 		though it stands little match in the face of gunfire or advanced melee weapons. An unconventional nomex underlayer and chemically treated plating provides deceptively high fire \
 		and acid protection. While the suit is quite easy to maintain, the limitations of its last-gen design have gradually become more apparent, with easily-taxed servos and restrictive hardware that limits its modification potential. \
-		Despite these flaws, however, the Takabara continues to see immense success in the private security market across the Sector thanks to its low price and ease of operation. In particular, Nanotrasen \
-		remains a primary customer thanks to their deep ties with Shellguard and large security establishment."
+		Despite these flaws, the Takabara continues to see immense success in the private security market across the Sector largely due to its low price and ease of operation. In particular, Nanotrasen \
+		remains a primary customer thanks to their deep ties with Shellguard and extensive security infrastructure."
 	default_skin = "security"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_security
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
