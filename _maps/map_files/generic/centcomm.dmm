@@ -11756,7 +11756,7 @@
 /area/centcom/specops)
 "OZ" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
