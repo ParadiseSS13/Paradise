@@ -9,7 +9,7 @@
 
 /datum/action/changeling/weapon
 	name = "Organic Weapon"
-	desc = "Go tell a coder if you see this"
+	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
@@ -62,7 +62,7 @@
 //Parent to space suits and armor.
 /datum/action/changeling/suit
 	name = "Organic Suit"
-	desc = "Go tell a coder if you see this"
+	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
@@ -107,8 +107,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HUD_HEAD, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE

@@ -6,7 +6,8 @@
 
 // /obj/item
 
-///called on [/obj/item] before unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+
+///called on [/obj/item] before unequip from base of [/mob/proc/unEquip]: (force, atom/newloc, no_move, invdrop, silent)
 #define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
 	///only the pre unequip can be cancelled
 	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
@@ -26,9 +27,9 @@
 	#define COMPONENT_BLOCK_SHARPEN_BLOCKED (1<<1)
 	#define COMPONENT_BLOCK_SHARPEN_ALREADY (1<<2)
 	#define COMPONENT_BLOCK_SHARPEN_MAXED (1<<3)
-/// Called by /obj/item/assembly/signaler(called_from_radio)
+/// Called by [/obj/item/assembly/proc/pulse]
 #define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
-///from [/mob/living/carbon/human/Move]: ()
+///from [/mob/living/carbon/human/proc/Move]: ()
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"
 
 // /obj/item/implant

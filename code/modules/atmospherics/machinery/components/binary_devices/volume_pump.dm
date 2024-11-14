@@ -17,7 +17,7 @@ Thus, the two variables affect pump operation are set in New():
 	icon_state = "map_off"
 
 	name = "volumetric gas pump"
-	desc = "A volumetric pump"
+	desc = "A volumetric pump."
 
 	can_unwrench = TRUE
 	can_unwrench_while_on = FALSE

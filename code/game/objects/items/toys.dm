@@ -155,7 +155,7 @@
  */
 /obj/item/toy/blink
 	name = "electronic blink toy game"
-	desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	desc = "Blink. Blink. Blink. Ages 8 and up."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -325,7 +325,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
@@ -503,7 +503,7 @@
 	icon_state = "inflatable"
 	item_state = "inflatable"
 	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 
 /*
@@ -539,7 +539,7 @@
 
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 
@@ -656,7 +656,7 @@
 
 /obj/random/plushie
 	name = "Random Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
 
@@ -1171,7 +1171,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -1342,7 +1342,7 @@
 
 /obj/random/figure
 	name = "Random Action Figure"
-	desc = "This is a random toy action figure"
+	desc = "This is a random toy action figure."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
@@ -1667,7 +1667,7 @@
 
 /obj/random/mech
 	name = "Random Mech Prize"
-	desc = "This is a random prize"
+	desc = "This is a random prize."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 

@@ -40,17 +40,10 @@
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
 	for(var/V in user.chameleon_item_actions)
-		var/datum/action/item_action/chameleon/change/A = V
-		var/done = FALSE
+		var/datum/action/item_action/chameleon/change/action = V
 		for(var/T in outfit_types)
-			for(var/name in A.chameleon_list)
-				if(A.chameleon_list[name] == T)
-					A.update_look(user, T)
-					outfit_types -= T
-					done = TRUE
-					break
-			if(done)
-				break
+			if(ispath(T, action.chameleon_type))
+				action.update_look(user, T)
 	//hardsuit helmets/suit hoods
 	if(ispath(O.suit, /obj/item/clothing/suit/hooded) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -69,12 +62,17 @@
 
 /datum/action/item_action/chameleon/change
 	name = "Chameleon Change"
-	var/list/chameleon_blacklist = list() //This is a typecache
-	var/list/chameleon_list = list()
+	var/static/list/chameleon_blacklist = list() //This is a typecache
+	var/static/list/chameleon_list = list()
 	var/chameleon_type = null
 	var/chameleon_name = "Item"
-
+	var/obj/item/holder
 	var/emp_timer
+
+/datum/action/item_action/chameleon/change/New(Target)
+	. = ..()
+	holder = Target
+	
 
 /datum/action/item_action/chameleon/change/Grant(mob/M)
 	if(M && (owner != M))
@@ -99,42 +97,77 @@
 	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+/datum/action/item_action/chameleon/change/ui_host()
+	return holder
+
+/datum/action/item_action/chameleon/change/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/action/item_action/chameleon/change/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_appearance"] = "[holder.name]_[holder.icon_state]"
+	return data
+
+/datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
+	var/list/data = list()
+	var/list/chameleon_skins = list()
+	for(var/chameleon_type in chameleon_list[chameleon_name])
+		var/obj/item/chameleon_item = chameleon_list[chameleon_name][chameleon_type]
+		chameleon_skins.Add(list(list(
+			"icon" = initial(chameleon_item.icon),
+			"icon_state" = initial(chameleon_item.icon_state),
+			"name" = initial(chameleon_item.name),
+		)))
+
+	data["chameleon_skins"] = chameleon_skins
+	return data
+
+/datum/action/item_action/chameleon/change/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", "Change [chameleon_name] Appearance")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/action/item_action/chameleon/change/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("change_appearance")
+			update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
+	if(!isnull(chameleon_list[chameleon_name]))
+		return
+	chameleon_list[chameleon_name] = list()
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
-			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/chameleon_item_name = "[replacetext(initial(I.name), "\improper", "")]_[initial(I.icon_state)]"
+			if(isnull(chameleon_list[chameleon_name][chameleon_item_name]))
+				chameleon_list[chameleon_name][chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
-	var/obj/item/picked_item
-	var/picked_name
-	picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
-	if(!picked_name)
-		return
-	picked_item = chameleon_list[picked_name]
-	if(!picked_item)
-		return
-	update_look(user, picked_item)
+	ui_interact(user)
 
 /datum/action/item_action/chameleon/change/proc/random_look(mob/user)
-	var/picked_name = pick(chameleon_list)
+	var/picked_name = pick(chameleon_list[chameleon_name])
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, chameleon_list[picked_name])
+		update_look(user, chameleon_list[chameleon_name][picked_name])
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(chameleon_list[picked_name])
+		update_item(chameleon_list[chameleon_name][picked_name])
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
 	if(isliving(user))
@@ -145,6 +178,7 @@
 		update_item(picked_item)
 		var/obj/item/thing = target
 		thing.update_slot_icon()
+		SStgui.update_uis(src)
 	UpdateButtons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
@@ -679,17 +713,21 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
-	. = ..()
 	if(ismodcontrol(target))
 		var/obj/item/mod/control/C = target
-		if(C.current_disguise) //backup check
+		C.current_disguise = FALSE
+		if(C.active || C.activating)
+			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			return
+		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
 				toreturn.return_look()
 			return
+		. = ..()
 		C.current_disguise = TRUE
 		C.item_state = initial(picked_item.item_state)
 		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
-			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look), TRUE)
 
 /datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
 	if(ismodcontrol(target))

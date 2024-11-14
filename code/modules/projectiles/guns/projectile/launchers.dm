@@ -58,7 +58,7 @@
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;engineering=4"
 	force = 10
 	can_suppress = FALSE

@@ -211,7 +211,7 @@
 
 /obj/item/food/firecrackerpizzaslice
 	name = "firecracker pizza slice"
-	desc = "A spicy slice of something quite nice"
+	desc = "A spicy slice of something quite nice."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "firecrackerpizzaslice"
 	filling_color = "#BAA14C"

@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -96,7 +96,7 @@
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
 		var/mob/living/carbon/cig_haver = target
-		var/mask_item = cig_haver.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+		var/mask_item = cig_haver.get_item_by_slot(ITEM_SLOT_MASK)
 		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 			return
 

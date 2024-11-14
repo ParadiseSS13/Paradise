@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/drinks
 	name = "drink"
-	desc = "yummy"
+	desc = "yummy!"
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -325,7 +325,7 @@
 
 /obj/item/reagent_containers/drinks/flask/gold
 	name = "captain's flask"
-	desc = "A gold flask belonging to the captain."
+	desc = "A regal flask belonging to the captain, with Nanotrasen's logo inlaid with pearl."
 	icon_state = "flask_gold"
 	materials = list(MAT_GOLD=500)
 

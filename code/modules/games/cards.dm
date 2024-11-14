@@ -374,7 +374,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
 		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>",
-		"<span class='notice'>You[concealed ? "conceal" : "reveal"] your hand.</span>",
+		"<span class='notice'>You [concealed ? "conceal" : "reveal"] your hand.</span>",
 		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
 	)
 
@@ -398,7 +398,7 @@
 		if(href_list["pick"] == "Turn")
 			turn_hand(usr)
 		else
-			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
+			if(cardUser.get_item_by_slot(ITEM_SLOT_LEFT_HAND) == src || cardUser.get_item_by_slot(ITEM_SLOT_RIGHT_HAND) == src)
 				pickedcard = href_list["pick"]
 				Removecard()
 		cardUser << browse(null, "window=cardhand")

@@ -1,6 +1,6 @@
 /obj/item/holosign_creator
 	name = "holographic sign projector"
-	desc = "This shouldnt exist, if it does, tell a coder"
+	desc = "This shouldnt exist, if it does, tell a coder."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "electronic"

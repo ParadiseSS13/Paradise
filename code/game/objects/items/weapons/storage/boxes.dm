@@ -820,7 +820,7 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "This box feels slightly warm."
 	icon_state = "donk_box"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -1265,6 +1265,15 @@
 /obj/item/storage/box/coke_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/coke(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
+
+/obj/item/storage/box/tacticool_envirosuit
+	name = "tactical suit box"
+	desc = "A box with a special envirosuit usually supplied by black markets."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/tacticool_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/tacticool(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
