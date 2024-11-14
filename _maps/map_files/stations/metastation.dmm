@@ -56237,7 +56237,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/station{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "iAS" = (
@@ -85014,14 +85016,14 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/misc_lab)
@@ -89228,7 +89230,7 @@
 	name = "Science Chemistry";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
