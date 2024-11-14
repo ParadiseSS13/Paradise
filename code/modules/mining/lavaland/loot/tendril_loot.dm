@@ -344,6 +344,7 @@
 	desc = "a hook."
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
