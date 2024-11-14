@@ -29,7 +29,6 @@
 	singu_radio.follow_target = src
 	singu_radio.config(list("[warning_channel]" = 0, "[breach_channel]" = 0))
 
-
 /obj/machinery/computer/singulo_monitor/Destroy()
 	active = null
 	QDEL_NULL(singu_radio)
