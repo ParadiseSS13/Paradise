@@ -40,7 +40,7 @@
 		layer = SHOWER_OPEN_LAYER
 
 /obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(W, /obj/item/toy/crayon))
+	if(istype(used, /obj/item/toy/crayon))
 		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
 		return ITEM_INTERACT_SUCCESS
 
