@@ -41,6 +41,7 @@ SUBSYSTEM_DEF(weather)
 
 /datum/controller/subsystem/weather/Initialize()
 	if(!GLOB.configuration.general.enable_default_weather_events)
+		log_debug("disabling default weather events due to configuration")
 		return
 
 	for(var/V in subtypesof(/datum/weather))
