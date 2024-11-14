@@ -31,7 +31,7 @@
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
 	name = "Runtime"
-	desc = "GCAT"
+	desc = "GCAT."
 	icon_state = "cat"
 	icon_living = "cat"
 	icon_dead = "cat_dead"
@@ -187,7 +187,7 @@
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
-	desc = "D'aaawwww"
+	desc = "D'aaawwww."
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"

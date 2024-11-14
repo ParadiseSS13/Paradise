@@ -532,7 +532,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != ITEM_SLOT_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
 
@@ -559,7 +559,7 @@
 
 /obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != ITEM_SLOT_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
 
