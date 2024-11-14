@@ -265,7 +265,7 @@
 /obj/structure/falsewall/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
-	icon = 'icons/turf/walls/diamond_wall.dmi'
+	icon = 'icons/turf/walls/32x40diamond_wall.dmi'
 	icon_state = "diamond_wall-0"
 	base_icon_state = "diamond_wall"
 	mineral = /obj/item/stack/sheet/mineral/diamond
@@ -279,7 +279,7 @@
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
-	icon = 'icons/turf/walls/plasma_wall.dmi'
+	icon = 'icons/turf/walls/32x40plasma_wall.dmi'
 	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
 	mineral = /obj/item/stack/sheet/mineral/plasma
@@ -325,7 +325,7 @@
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
-	icon = 'icons/turf/walls/bananium_wall.dmi'
+	icon = 'icons/turf/walls/32x40bananium_wall.dmi'
 	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
 	mineral = /obj/item/stack/sheet/mineral/bananium
@@ -337,7 +337,7 @@
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
-	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon = 'icons/turf/walls/32x4sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
@@ -361,7 +361,7 @@
 /obj/structure/falsewall/iron
 	name = "rough metal wall"
 	desc = "A wall with rough metal plating."
-	icon = 'icons/turf/walls/iron_wall.dmi'
+	icon = 'icons/turf/walls/32x40iron_wall.dmi'
 	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
 	mineral = /obj/item/stack/rods

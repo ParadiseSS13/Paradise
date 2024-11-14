@@ -34,7 +34,7 @@
 /turf/simulated/wall/mineral/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
-	icon = 'icons/turf/walls/diamond_wall.dmi'
+	icon = 'icons/turf/walls/32x40diamond_wall.dmi'
 	icon_state = "diamond_wall-0"
 	base_icon_state = "diamond_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
@@ -45,7 +45,7 @@
 /turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
-	icon = 'icons/turf/walls/bananium_wall.dmi'
+	icon = 'icons/turf/walls/32x40bananium_wall.dmi'
 	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
@@ -55,7 +55,7 @@
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
-	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon = 'icons/turf/walls/32x4sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
@@ -98,7 +98,7 @@
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
-	icon = 'icons/turf/walls/plasma_wall.dmi'
+	icon = 'icons/turf/walls/32x40plasma_wall.dmi'
 	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
@@ -151,7 +151,7 @@
 /turf/simulated/wall/mineral/alien
 	name = "alien wall"
 	desc = "A strange-looking alien wall."
-	icon = 'icons/turf/walls/plasma_wall.dmi'
+	icon = 'icons/turf/walls/32x40plasma_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
@@ -190,7 +190,7 @@
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
 	desc = "A wall with rough metal plating."
-	icon = 'icons/turf/walls/iron_wall.dmi'
+	icon = 'icons/turf/walls/32x40iron_wall.dmi'
 	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
 	sheet_type = /obj/item/stack/rods
