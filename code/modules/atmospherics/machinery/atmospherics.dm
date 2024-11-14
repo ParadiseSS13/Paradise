@@ -197,7 +197,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!can_unwrench)
 		return FALSE
 	. = TRUE
-	if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+	if(wrench_floor_check())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(level == 1 && isturf(T) && T.intact)
@@ -248,6 +248,12 @@ Pipelines + Other Objects -> Pipe network
 		else
 			unsafe_pressure_release(user,internal_pressure)
 	deconstruct(TRUE)
+
+/**
+ * This proc is to tell if an atmospheric device is in a state that should be unwrenchable because its under the floor.
+ **/
+/obj/machinery/atmospherics/proc/wrench_floor_check()
+	return FALSE
 
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
