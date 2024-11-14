@@ -136,37 +136,22 @@
 
 /obj/machinery/computer/singulo_monitor/proc/send_alerts()
 	// Breach alerts
-	if(active.current_size > (last_size + 2) || active.current_size >= STAGE_FIVE)// We should only see a singulo grow 2 stages at once when breaching containment.
-		singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] has exceeded containment field limits!</b>", name, breach_channel)
+	if(length(field_gens) && (active.current_size > (last_size + 2) || active.current_size >= STAGE_FIVE))// We should only see a singulo grow 2 stages at once when breaching containment.
+		singu_radio.autosay("<span class='reallybig'>Warning: The singularity in [get_area(active)] has exceeded containment field limits!</span>", name, breach_channel)
+		field_gens = list() // The singularity is no longer contained
+		return
 	for(var/obj/machinery/field/generator/gen in field_gens)
-		if(!gen || (gen.active < 2))
-			singu_radio.autosay("<b>Warning: The containment field of the singularity in [get_area(active)] has been disabled!</b>", name, breach_channel)
-			return
-
-	if(active.energy > last_energy)// We only want to give warnings while the situation is getting worse.
-		if(active.energy >= (STAGE_FIVE_THRESHOLD - 100))
-			singu_radio.autosay("<b>Warning: The singularity is approaching an uncontainable level!</b>", name, warning_channel)
-			return
-		var/warning_threshold
-		// If you get enough energy to go up 2 stages the singulo breaches containment.
-		switch(active.current_size)
-			if(STAGE_ONE)
-				warning_threshold = STAGE_THREE_THRESHOLD
-			if(STAGE_TWO)
-				warning_threshold = STAGE_FOUR_THRESHOLD
-			else
-				warning_threshold = 0 // Stage 5 and above is not containable regardless, so we don't care about them in this case.
-
-		if(warning_threshold && (active.energy >= (warning_threshold - 100)))
-			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] is nearing containment field limits!</b>", name, warning_channel)
+		if(QDELETED(gen) || (gen.active < 2))
+			singu_radio.autosay("<span class='reallybig'>Warning: The containment field of the singularity in [get_area(active)] has been disabled!</span>", name, breach_channel)
+			field_gens = list() // The singularity is no longer contained
 			return
 
 /obj/machinery/computer/singulo_monitor/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	if(active)
+		send_alerts() // Send an alert if there was a containment breach
 		if(last_energy != active.energy)
-			send_alerts()
 			last_size = active.current_size
 			last_energy = active.energy
 			icon_screen = (((active.allowed_size + 1) / 2) == 4 && active.energy >= (STAGE_FIVE_THRESHOLD - 100)) ? "singumon_pre5" : "singumon_[(active.allowed_size + 1) / 2]"
