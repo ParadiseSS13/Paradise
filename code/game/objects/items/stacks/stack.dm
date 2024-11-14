@@ -120,8 +120,8 @@
 /** Checks whether this stack can merge itself into another stack.
  *
  * Arguments:
- * - [check][/obj/item/stack]: The stack to check for mergeability.
- * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
+ * - check: The [/obj/item/stack] to check for mergeability.
+ * - inhand: `TRUE` if the stack should check should act like it's in a mob's hand, `FALSE` otherwise.
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
 	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack

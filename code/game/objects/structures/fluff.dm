@@ -83,5 +83,5 @@
 
 /obj/structure/fluff/divine/conduit
 	name = "conduit"
-	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
+	desc = "It allows a deity to extend their reach. Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"

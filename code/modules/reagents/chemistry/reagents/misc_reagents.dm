@@ -397,14 +397,14 @@
 			if(H.wear_mask)
 				H.unEquip(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
-			H.equip_to_slot(fakemoustache, SLOT_HUD_WEAR_MASK)
+			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 
 /datum/reagent/hugs
 	name = "Pure hugs"
 	id = "hugs"
-	description = "Hugs, in liquid form.  Yes, the concept of a hug.  As a liquid.  This makes sense in the future."
+	description = "Hugs, in liquid form. Yes, the concept of a hug. As a liquid. This makes sense in the future."
 	reagent_state = LIQUID
 	color = "#FF97B9"
 	taste_description = "<font color='pink'><b>hugs</b></font>"
@@ -412,7 +412,7 @@
 /datum/reagent/love
 	name = "Pure love"
 	id = "love"
-	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
+	description = "What is this emotion you humans call \"love?\" Oh, it's this? This is it? Huh, well okay then, thanks."
 	reagent_state = LIQUID
 	color = "#FF83A5"
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~

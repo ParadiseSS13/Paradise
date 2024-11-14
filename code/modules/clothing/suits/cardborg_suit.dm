@@ -192,7 +192,7 @@ CONTENTS:
 */
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(ishuman(user) && slot == SLOT_HUD_HEAD)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/H = user
 		if(!istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
 			return
@@ -205,7 +205,7 @@ CONTENTS:
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(ishuman(user) && slot == SLOT_HUD_OUTER_SUIT)
+	if(ishuman(user) && slot == ITEM_SLOT_OUTER_SUIT)
 		var/mob/living/carbon/human/H = user
 		if(!istype(H.head, /obj/item/clothing/head/cardborg))
 			return
