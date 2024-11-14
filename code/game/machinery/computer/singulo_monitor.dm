@@ -33,6 +33,7 @@
 /obj/machinery/computer/singulo_monitor/Destroy()
 	active = null
 	QDEL_NULL(singu_radio)
+	field_gens.Cut()
 	singularities.Cut()
 	return ..()
 
