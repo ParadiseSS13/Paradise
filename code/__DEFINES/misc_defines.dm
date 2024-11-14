@@ -104,6 +104,12 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define STAGE_TWO_THRESHOLD 200
+#define STAGE_THREE_THRESHOLD 500
+#define STAGE_FOUR_THRESHOLD 1000
+#define STAGE_FIVE_THRESHOLD 2000
+#define STAGE_SIX_THRESHOLD 3000
+
 /// A define for the center of the coordinate map of big machinery
 #define MACH_CENTER 2
 
@@ -423,7 +429,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 60
+#define SQL_VERSION 61
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -536,11 +542,10 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 
-// Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
 #define MAPROTATION_MODE_FULL_RANDOM "Random"
-
+#define MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES "FPTP"
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"

@@ -6,7 +6,7 @@
 	desc = "A banhammer."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -32,7 +32,7 @@
 	icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -54,7 +54,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -86,7 +86,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10
@@ -265,7 +265,7 @@
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
 	if(homerun_ready)
@@ -300,6 +300,10 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
+
+/obj/item/melee/baseball_bat/dropped(mob/user, silent)
+	. = ..()
+	deflectmode = FALSE
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

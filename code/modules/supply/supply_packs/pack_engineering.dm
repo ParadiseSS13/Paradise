@@ -123,7 +123,7 @@
 
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Singularity Generator Crate"
-	contains = list(/obj/machinery/the_singularitygen)
+	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
 	cost = 350
 	containername = "singularity generator crate"
 
