@@ -22,7 +22,7 @@
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
 	filling_color = "#FF6347"
@@ -38,18 +38,48 @@
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
 	product = /obj/item/food/grown/lily
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/poppy/lily/trumpet)
 
 /obj/item/food/grown/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
 	desc = "A beautiful white flower."
 	icon_state = "lily"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("lily" = 1)
 	filling_color = "#C7BBAD"
 	distill_reagent = "vermouth"
+
+//Spaceman's Trumpet
+
+/obj/item/seeds/poppy/lily/trumpet
+	name = "pack of spaceman's trumpet seeds"
+	desc = "A plant sculped by extensive genetic engineering. The spaceman's trumpet is said to bear no resemblance to its wild ancestors. Inside NT AgriSci circles it is better known as NTPW-0372."
+	icon_state = "seed-trumpet"
+	species = "spacemanstrumpet"
+	plantname = "Spaceman's Trumpet Plant"
+	product = /obj/item/food/grown/trumpet
+	lifespan = 80
+	production = 5
+	endurance = 10
+	maturation = 12
+	yield = 4
+	potency = 20
+	growthstages = 4
+	weed_rate = 2
+	weed_chance = 10
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_grow = "spacemanstrumpet-grow"
+	icon_dead = "spacemanstrumpet-dead"
+	mutatelist = null
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+
+/obj/item/food/grown/trumpet
+	seed = /obj/item/seeds/poppy/lily/trumpet
+	name = "spaceman's trumpet"
+	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
+	icon_state = "spacemanstrumpet"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -68,7 +98,7 @@
 	name = "geranium"
 	desc = "A beautiful purple flower."
 	icon_state = "geranium"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("geranium" = 1)
 	filling_color = "#A463FB"
@@ -98,7 +128,7 @@
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	tastes = list("harebell" = 1)
 	bitesize_mod = 3
@@ -131,7 +161,7 @@
 	icon_state = "sunflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
@@ -160,7 +190,7 @@
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
@@ -187,7 +217,7 @@
 	icon_state = "novaflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1

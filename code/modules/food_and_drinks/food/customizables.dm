@@ -196,7 +196,7 @@ do {\
 
 /obj/item/food/customizable/candy/cotton
 	name = "flavored cotton candy"
-	desc = "Who can take a sunrise, sprinkle it with dew,"
+	desc = "Who can take a sunrise, sprinkle it with dew."
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -205,7 +205,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
-	desc = "Cover it in chocolate and a miracle or two,"
+	desc = "Cover it in chocolate and a miracle or two."
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -214,7 +214,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
-	desc = "The Candy Man can 'cause he mixes it with love,"
+	desc = "The Candy Man can 'cause he mixes it with love."
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -232,7 +232,7 @@ do {\
 
 /obj/item/food/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
-	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	desc = "Who can take a rainbow, Wrap it in a sigh."
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -241,7 +241,7 @@ do {\
 
 /obj/item/food/customizable/candy/candycane
 	name = "flavored candy cane"
-	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	desc = "Soak it in the sun and make strawberry-lemon pie."
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -336,11 +336,10 @@ do {\
 
 
 /obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(new_name))
-			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
-			return
+	..()
+
+	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
+		return
 
 	if(!istype(I, /obj/item/food))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")

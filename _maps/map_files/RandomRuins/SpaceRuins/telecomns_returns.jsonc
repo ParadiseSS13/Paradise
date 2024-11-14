@@ -1,0 +1,24 @@
+[
+	{
+		// Dvorak vendor room, but randomized contents
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 8,
+		"submap_size_y": 7,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/telecomns_returns_submap.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/vendor_room",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/vendor_room",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	},
+	{
+		// Dvorak turret room, but randomized contents
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 9,
+		"submap_size_y": 5,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/telecomns_returns_submap.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/turret_room",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/turret_room",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	}
+]

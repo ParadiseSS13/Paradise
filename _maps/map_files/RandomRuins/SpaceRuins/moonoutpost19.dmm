@@ -290,8 +290,8 @@
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aN" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Storage Room"
 	},
 /turf/simulated/floor/plasteel,
@@ -390,16 +390,15 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaymlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -846,9 +845,8 @@
 	},
 /area/ruin/space/moonbase19)
 "cx" = (
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/security/glass,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -909,9 +907,8 @@
 	layer = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cI" = (
@@ -1198,8 +1195,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaycontlockdown"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Specimen Containtment Zone"
 	},
 /turf/simulated/floor/catwalk,
@@ -1394,8 +1391,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaymlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
@@ -1574,9 +1571,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/external{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eZ" = (
@@ -1672,9 +1668,8 @@
 	},
 /area/ruin/space/moonbase19)
 "fn" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "fp" = (
@@ -1819,8 +1814,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
@@ -2934,8 +2929,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Workshop"
 	},
 /turf/simulated/floor/catwalk,
@@ -3335,8 +3330,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Research Division"
 	},
 /turf/simulated/floor/catwalk,
@@ -3548,9 +3543,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "kW" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -3628,9 +3622,8 @@
 	},
 /area/ruin/space/moonbase19)
 "lq" = (
-/obj/machinery/door/airlock{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4181,8 +4174,8 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "nx" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
@@ -4813,8 +4806,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Research Division"
 	},
 /turf/simulated/floor/catwalk,
@@ -4968,8 +4961,8 @@
 	},
 /area/ruin/space/moonbase19)
 "qx" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
@@ -5354,8 +5347,8 @@
 	},
 /area/ruin/space/moonbase19)
 "rV" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock{
-	req_access_txt = "271";
 	name = "Dorms"
 	},
 /turf/simulated/floor/plasteel{
@@ -5379,9 +5372,8 @@
 	},
 /area/ruin/space/moonbase19)
 "rZ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "sa" = (
@@ -5530,10 +5522,6 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
-/area/ruin/space/moonbase19)
-"sy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "sF" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -7074,7 +7062,7 @@
 /area/ruin/space/moonbase19)
 "zV" = (
 /obj/machinery/economy/vending/medical{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
@@ -7099,8 +7087,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Af" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "271";
 	name = "Senior Researcher's Office"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -7491,7 +7479,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awayscilock2"
@@ -7516,9 +7504,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "BK" = (
@@ -7527,8 +7514,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "BO" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7606,8 +7593,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaycontlockdown"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Specimen Containtment Zone"
 	},
 /turf/simulated/floor/catwalk,
@@ -7621,9 +7608,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Ct" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/highsecurity,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "awayscilock1"
 	},
@@ -7645,8 +7631,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
@@ -7882,9 +7868,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Dt" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/medical/glass,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -8496,8 +8481,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Gk" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Operation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -8845,8 +8830,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "HO" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Chamber #1"
 	},
 /obj/effect/turf_decal/delivery,
@@ -9070,8 +9055,8 @@
 /area/ruin/space/moonbase19)
 "IU" = (
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Chamber #2"
 	},
 /turf/simulated/floor/plasteel{
@@ -9197,9 +9182,8 @@
 	},
 /area/ruin/space/moonbase19)
 "JE" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "JG" = (
@@ -9839,9 +9823,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Mx" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -10578,8 +10561,8 @@
 	},
 /area/ruin/space/moonbase19)
 "PF" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/security{
-	req_access_txt = "271";
 	name = "Security Checkpoint"
 	},
 /turf/simulated/floor/plasteel{
@@ -10888,8 +10871,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
@@ -10979,9 +10962,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Rg" = (
-/obj/machinery/door/airlock/freezer{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11060,9 +11042,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "RD" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -11299,9 +11280,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -11365,8 +11345,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Ti" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "271";
 	name = "Senior Researcher's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11591,8 +11571,8 @@
 "Ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock{
-	req_access_txt = "271";
 	name = "Dorms"
 	},
 /turf/simulated/floor/plasteel{
@@ -11695,9 +11675,8 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "UA" = (
@@ -12043,9 +12022,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "We" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
@@ -12153,9 +12131,9 @@
 	},
 /area/ruin/space/moonbase19)
 "WG" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "271"
+	locked = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -12557,8 +12535,8 @@
 /area/ruin/space/moonbase19)
 "Yj" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
@@ -12643,8 +12621,8 @@
 	id_tag = "awaymlock"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
@@ -12688,8 +12666,8 @@
 	},
 /area/ruin/space/moonbase19)
 "YM" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Workshop"
 	},
 /turf/simulated/floor/catwalk,
@@ -12948,9 +12926,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "ZP" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/medical/glass,
 /obj/structure/barricade/wooden{
 	layer = 4
 	},
@@ -14703,7 +14680,7 @@ Wd
 rL
 mh
 Mv
-sy
+ag
 tX
 tX
 Dd
@@ -16017,7 +15994,7 @@ OZ
 VR
 af
 bP
-sy
+ag
 af
 tX
 tX

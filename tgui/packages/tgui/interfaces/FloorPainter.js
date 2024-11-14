@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, DmIcon, LabeledList, Section, Table, Dropdown, Flex, Icon, Box } from '../components';
+import { Button, DmIcon, LabeledList, Section, Table, Dropdown, Flex, Icon, Box, Stack } from '../components';
 import { Window } from '../layouts';
 
 const SelectableTile = (props, context) => {
@@ -36,26 +36,23 @@ export const FloorPainter = (props, context) => {
     <Window width={405} height={475}>
       <Window.Content scrollable>
         <Section title="Decal setup">
-          <Flex>
-            <Flex.Item>
+          <Stack fill>
+            <Stack.Item>
               <Button icon="chevron-left" onClick={() => act('cycle_style', { offset: -1 })} />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Dropdown
                 options={availableStyles}
                 selected={selectedStyle}
                 width="150px"
-                height="20px"
-                ml="2px"
-                mr="2px"
                 nochevron
                 onSelected={(val) => act('select_style', { style: val })}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button icon="chevron-right" onClick={() => act('cycle_style', { offset: 1 })} />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
 
           <Box mt="5px" mb="5px">
             <Flex

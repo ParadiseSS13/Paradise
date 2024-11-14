@@ -78,8 +78,11 @@ export const CrewMonitor = (props, context) => {
 
 const CrewMonitorDataView = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const crew = sortBy((cm) => cm.name)(data.crewmembers || []);
   const { possible_levels, viewing_current_z_level, is_advanced, highlightedNames } = data;
+  const crew = sortBy(
+    (cm) => !highlightedNames.includes(cm.name),
+    (cm) => cm.name
+  )(data.crewmembers || []);
   const [search, setSearch] = useLocalState(context, 'search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
@@ -200,7 +203,7 @@ const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { highlightedNames } = data;
   return (
-    <Box height="526px" mb="0.5rem" overflow="hidden">
+    <Box height="100vh" mb="0.5rem" overflow="hidden">
       <NanoMap
         zoom={data.zoom}
         offsetX={data.offsetX}

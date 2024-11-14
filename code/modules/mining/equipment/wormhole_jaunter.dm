@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
@@ -20,7 +20,8 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf || !is_teleport_allowed(device_turf.z))
+	var/area/our_area = get_area(device_turf)
+	if(!device_turf || !is_teleport_allowed(device_turf.z) || our_area.tele_proof)
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
 		return FALSE
 	return TRUE
@@ -54,7 +55,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
@@ -180,7 +181,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon_state = "flare-contractor-on"
 	duration = 5.1 SECONDS // Needs to be slightly longer then the callback to make the portal
 
-/obj/effect/temp_visual/getaway_flare/Initialize()
+/obj/effect/temp_visual/getaway_flare/Initialize(mapload)
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
@@ -201,13 +202,18 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = user
 
 /obj/item/grenade/jaunter_grenade/prime()
+	var/area/our_area = get_area(src)
+	var/turf/T = get_turf(src)
+	if(!is_teleport_allowed(T.z) || our_area.tele_proof)
+		do_sparks(5, 0, T)
+		qdel(src)
+		return
 	update_mob()
 	var/list/destinations = list()
 	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/BT = get_turf(B)
 		if(is_station_level(BT.z))
 			destinations += BT
-	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
 		for(var/obj/effect/abstract/chasm_storage/C in T)
 			var/found_mob = FALSE
@@ -373,7 +379,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver
 	duration = 5 SECONDS
 
-/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize()
+/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize(mapload)
 	. = ..()
 	GLOB.wormhole_effect += src
 	playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)

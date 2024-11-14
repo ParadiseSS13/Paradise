@@ -14,8 +14,8 @@
 	icon_state = "chameleon_outfit"
 
 /datum/status_effect/magic_disguise/on_creation(mob/living/new_owner, mob/living/_disguise_mob)
-	. = ..()
 	disguise_mob = _disguise_mob
+	. = ..()
 
 /datum/status_effect/magic_disguise/on_apply()
 	. = ..()
@@ -44,7 +44,7 @@
 
 	caster_area = get_area(owner)
 	for(var/obj/machinery/door/airlock/tmp in view(owner))
-		if(get_area(tmp) == caster_area && !(tmp.req_access_txt == "0" && tmp.req_one_access_txt == "0")) //Ignore airlocks that arent in area or are public airlocks
+		if(get_area(tmp) == caster_area && (length(tmp.req_access) || length(tmp.req_one_access))) //Ignore airlocks that arent in area or are public airlocks
 			AL = tmp
 			break
 	for(var/mob/living/carbon/human/disguise_source in shuffle(GLOB.player_list)) //Pick a random crewmember with access to this room

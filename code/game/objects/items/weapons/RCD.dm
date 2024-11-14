@@ -269,7 +269,7 @@
 	/// The list of potential RCD actions.
 	var/static/list/possible_actions
 
-/obj/item/rcd/Initialize()
+/obj/item/rcd/Initialize(mapload)
 	. = ..()
 	if(!length(possible_actions))
 		possible_actions = list()
@@ -358,13 +358,13 @@
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(!afterattack(suicide_tile, user, TRUE))
-		flags &= ~NODROP  
+		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
-	flags &= ~NODROP  
+	flags &= ~NODROP
 	user.gib()
-	return OBLITERATION	
-	
+	return OBLITERATION
+
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *

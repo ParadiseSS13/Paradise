@@ -184,7 +184,7 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1106,7 +1106,7 @@
 "de" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "dg" = (
@@ -1244,7 +1244,7 @@
 /obj/structure/safe/floor,
 /obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
-/obj/item/mod/control/pre_equipped/traitor,
+/obj/item/mod/control/pre_equipped/mining/asteroid,
 /obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/folder/syndicate/blue,

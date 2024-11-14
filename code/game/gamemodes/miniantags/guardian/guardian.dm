@@ -16,7 +16,6 @@
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
 	stop_automated_movement = TRUE
-	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -31,6 +30,7 @@
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/food/ectoplasm = 1)
 	hud_type = /datum/hud/guardian
+	initial_traits = list(TRAIT_FLYING)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -53,6 +53,7 @@
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
+	RegisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_health_hud))
 
 /mob/living/simple_animal/hostile/guardian/can_buckle()
 	return FALSE
@@ -124,7 +125,7 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
-	..()
+	. = ..()
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
@@ -133,6 +134,7 @@
 	if(!.)
 		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
+	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
 	summoner.death()
 
 
@@ -140,11 +142,11 @@
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
+			resulthealth = round(((summoner.health - HEALTH_THRESHOLD_CRIT) / abs(HEALTH_THRESHOLD_CRIT - summoner.maxHealth)) * 100)
 		else
-			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
+			resulthealth = round((summoner.health / (summoner.maxHealth / 2)) * 100)
 		if(hud_used)
-			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#efeeef'>[resulthealth]%</font></div>"
+			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[summoner.health < HEALTH_THRESHOLD_CRIT ? "#db2828" : "#efeeef"]>[resulthealth]%</font></div>"
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage/healing to the summoner
 	var/damage = amount * damage_transfer
@@ -281,7 +283,7 @@
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)
