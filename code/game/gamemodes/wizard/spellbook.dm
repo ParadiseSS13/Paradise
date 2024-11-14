@@ -622,7 +622,7 @@
 
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim. It is *heavily* advised not to summon it in maintenance areas."
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Summons"
 	limit = 3
@@ -1107,7 +1107,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
+		user.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, TRUE, TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

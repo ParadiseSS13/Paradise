@@ -73,6 +73,8 @@ GLOBAL_LIST(contractors)
  */
 #define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
 
+#define IS_MINDFLAYER(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindflayer))
+
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
 
 /**

@@ -391,8 +391,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
-//		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
+
 	return temperature
 
 
@@ -664,6 +663,8 @@
 				var/mob/living/carbon/human/H = src
 				if(H.dna.species.blood_color)
 					existing_trail.color = H.dna.species.blood_color
+			else if(isalien(src))
+				existing_trail.color = "#05EE05"
 			else
 				existing_trail.color = "#A10808"
 
@@ -1126,8 +1127,15 @@
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)
 	else
-		C.take_organ_damage(damage)
+		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.take_organ_damage(damage)
+
 		C.KnockDown(3 SECONDS)
+
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
 
 /**

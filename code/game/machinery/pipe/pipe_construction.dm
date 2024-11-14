@@ -341,7 +341,6 @@
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -528,10 +527,11 @@
 		"<span class='notice'>You fasten [src].</span>",
 		"<span class='notice'>You hear a ratchet.</span>")
 	qdel(src)	// remove the pipe item
+	. |= RPD_TOOL_SUCCESS
 
 /obj/item/pipe_meter
 	name = "meter"
-	desc = "A meter that can be laid on pipes"
+	desc = "A meter that can be laid on pipes."
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
@@ -557,7 +557,7 @@
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
-	desc = "A sensor that can be hooked to a computer"
+	desc = "A sensor that can be hooked to a computer."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	item_state = "buildpipe"

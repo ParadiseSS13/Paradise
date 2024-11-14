@@ -19,7 +19,7 @@
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
-	desc = "beep boop borp"
+	desc = "beep boop borp."
 	icon_state = "black"
 	item_state = "r_hands"
 
@@ -106,13 +106,6 @@
 	item_state = "clothwrap"
 	transfer_prints = TRUE
 	clipped = TRUE
-
-/obj/item/clothing/gloves/batmangloves
-	name = "batgloves"
-	desc = "Used for handling all things bat related."
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color="bmgloves"
 
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
