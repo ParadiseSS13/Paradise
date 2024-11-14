@@ -148,15 +148,15 @@
 			singu_radio.autosay("<b>Warning: The singularity is approaching an uncontainable level!</b>", name, warning_channel)
 			return
 		var/warning_threshold
-		// The field can contain energy of up to 1 stage above the current one.
+		// If you get enough energy to go up 2 stages the singulo breaches containment.
 		switch(active.current_size)
 			if(STAGE_ONE)
 				warning_threshold = STAGE_THREE_THRESHOLD
 			if(STAGE_TWO)
 				warning_threshold = STAGE_FOUR_THRESHOLD
 			else
-				warning_threshold = 0
-		// Stage 5 and above is not containable regardless, so we don't care about them in this case.
+				warning_threshold = 0 // Stage 5 and above is not containable regardless, so we don't care about them in this case.
+
 		if(warning_threshold && (active.energy >= (warning_threshold - 100)))
 			singu_radio.autosay("<b>Warning: The singularity in [get_area(active)] is nearing containment field limits!</b>", name, warning_channel)
 			return
