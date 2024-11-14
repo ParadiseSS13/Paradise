@@ -100,7 +100,7 @@
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
 
 /turf/simulated/wall/indestructible/sandstone
-	icon = 'icons/turf/walls/32x4sandstone_wall.dmi'
+	icon = 'icons/turf/walls/32x40sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	smoothing_flags = SMOOTH_BITMASK
