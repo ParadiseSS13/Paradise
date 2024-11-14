@@ -26,8 +26,11 @@
 	if(skin_applied)
 		. += span_notice("Нажмите <b>Alt-Click</b> на карту, чтобы снять наклейку.")
 
-/obj/item/card/id/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+/obj/item/card/id/AltClick(mob/living/carbon/user)
+	if(!iscarbon(user))
+		return
+
+	if(!Adjacent(user) || user.incapacitated())
 		to_chat(user, span_warning("У вас нет возможности снять наклейку!"))
 		return
 
