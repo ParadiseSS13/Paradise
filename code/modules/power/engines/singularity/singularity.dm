@@ -1,6 +1,3 @@
-/// Amount of singulos created during the round(note that this will include teslas as well)
-GLOBAL_VAR_INIT(global_singulo_id, 1)
-
 /obj/singularity
 	name = "gravitational singularity"
 	desc = "A gravitational singularity."
@@ -38,12 +35,9 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/isnt_shutting_down = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
-	/// Id for monitoring.
-	var/singulo_id = 1
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
-	singulo_id = GLOB.global_singulo_id++
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
@@ -115,15 +109,15 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.", "singulo")
+				investigate_log("has been destroyed by a heavy explosion.","singulo")
 				qdel(src)
 				return
 			else
-				energy -= round(((energy + 1) / 2), 1)
+				energy -= round(((energy+1)/2),1)
 		if(2)
-			energy -= round(((energy + 1) / 3), 1)
+			energy -= round(((energy+1)/3),1)
 		if(3)
-			energy -= round(((energy + 1) / 4), 1)
+			energy -= round(((energy+1)/4),1)
 	return
 
 
@@ -149,7 +143,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, (energy * 4.5) + 1000, RAD_DISTANCE_COEFFICIENT, source_radius = consume_range + 1)
+		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -169,7 +163,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	investigate_log("was created. [count ? "" : "<font color='red'>No containment fields were active</font>"]", "singulo")
+	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
 /obj/singularity/proc/do_dissipate()
 	if(!dissipate)
@@ -203,7 +197,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 				vis_contents -= warp
 				qdel(warp)
 		if(STAGE_TWO)
-			if((check_turfs_in(1, 1))&&(check_turfs_in(2, 1))&&(check_turfs_in(4, 1))&&(check_turfs_in(8, 1)))
+			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
 				current_size = STAGE_TWO
 				icon = 'icons/effects/96x96.dmi'
 				icon_state = "singularity_s3"
@@ -218,7 +212,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 					warp = new(src)
 					vis_contents += warp
 		if(STAGE_THREE)
-			if((check_turfs_in(1, 2))&&(check_turfs_in(2, 2))&&(check_turfs_in(4, 2))&&(check_turfs_in(8, 2)))
+			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
 				icon = 'icons/effects/160x160.dmi'
 				icon_state = "singularity_s5"
@@ -233,7 +227,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 					warp = new(src)
 					vis_contents += warp
 		if(STAGE_FOUR)
-			if((check_turfs_in(1, 3))&&(check_turfs_in(2, 3))&&(check_turfs_in(4, 3))&&(check_turfs_in(8, 3)))
+			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
 				current_size = STAGE_FOUR
 				icon = 'icons/effects/224x224.dmi'
 				icon_state = "singularity_s7"
@@ -244,6 +238,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 				dissipate_delay = 10
 				dissipate_track = 0
 				dissipate_strength = 10
+				notify_dead()
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
 			icon = 'icons/effects/288x288.dmi'
@@ -262,10 +257,8 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			grav_pull = 15
 			consume_range = 5
 			dissipate = FALSE
-	if(current_size >= STAGE_FIVE)
-		notify_dead()
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>", "singulo")
+		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -275,20 +268,20 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.", "singulo")
+		investigate_log("collapsed.","singulo")
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
-		if(1 to (STAGE_TWO_THRESHOLD - 1))
+		if(1 to 199)
 			allowed_size = STAGE_ONE
-		if(STAGE_TWO_THRESHOLD to (STAGE_THREE_THRESHOLD - 1))
+		if(200 to 499)
 			allowed_size = STAGE_TWO
-		if(STAGE_THREE_THRESHOLD to (STAGE_FOUR_THRESHOLD - 1))
+		if(500 to 999)
 			allowed_size = STAGE_THREE
-		if(STAGE_FOUR_THRESHOLD to (STAGE_FIVE_THRESHOLD - 1))
+		if(1000 to 1999)
 			allowed_size = STAGE_FOUR
-		if(STAGE_FIVE_THRESHOLD to INFINITY)
-			if(energy >= STAGE_SIX_THRESHOLD && consumedSupermatter)
+		if(2000 to INFINITY)
+			if(energy >= 3000 && consumedSupermatter)
 				allowed_size = STAGE_SIX
 			else
 				allowed_size = STAGE_FIVE
@@ -327,7 +320,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			qdel(A)
 		else
 			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
-			investigate_log("has been destroyed by Nar'Sie", "singulo")
+			investigate_log("has been destroyed by Nar'Sie","singulo")
 			qdel(src)
 
 	return
@@ -376,7 +369,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/list/turfs = list()
 	var/turf/T = src.loc
 	for(var/i = 1 to steps)
-		T = get_step(T, direction)
+		T = get_step(T,direction)
 	if(!isturf(T))
 		return 0
 	turfs.Add(T)
@@ -391,12 +384,12 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			dir3 = 2
 	var/turf/T2 = T
 	for(var/j = 1 to steps-1)
-		T2 = get_step(T2, dir2)
+		T2 = get_step(T2,dir2)
 		if(!isturf(T2))
 			return 0
 		turfs.Add(T2)
 	for(var/k = 1 to steps-1)
-		T = get_step(T, dir3)
+		T = get_step(T,dir3)
 		if(!isturf(T))
 			return 0
 		turfs.Add(T)
@@ -407,21 +400,6 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			return 0
 	return 1
 
-// Returns a list of the field generators generating the containing field(if there is one within 10 tiles)
-/obj/singularity/proc/find_field_gens()
-	for(var/_dir in list(NORTH, SOUTH, EAST, WEST))
-		var/turf/T = loc
-		for(var/i in 1 to 10)
-			T = get_step(T, _dir)
-			var/obj/cur_field_obj
-			cur_field_obj = locate(/obj/machinery/field/generator) in T
-			if(cur_field_obj)
-				var/obj/machinery/field/generator/gen = cur_field_obj
-				return gen.find_containment_gens(turn(_dir, -90), src)
-			cur_field_obj = locate(/obj/machinery/field/containment) in T
-			if(cur_field_obj)
-				var/obj/machinery/field/containment/field = cur_field_obj
-				return field.FG1.find_containment_gens(turn(_dir, -90), src)
 
 /obj/singularity/proc/can_move(turf/T)
 	if(!T)
@@ -508,8 +486,8 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
-	var/dist = max((current_size - 2), 1)
-	explosion(loc, (dist), (dist * 2), (dist * 4))
+	var/dist = max((current_size - 2),1)
+	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
 
@@ -586,28 +564,3 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)
-
-/**
-* Gets a list of field generators that generate the field that contains the singularity
-* and returns their most extreme coordinates.
-**/
-/obj/singularity/proc/in_containment(list/containment_gens)
-	if(!length(containment_gens))
-		return FALSE
-	var/max_x = -1
-	var/max_y = -1
-	var/min_x = -1
-	var/min_y = -1
-	for(var/obj/machinery/field/generator/gen in containment_gens)
-		if(gen.x > max_x || max_x < 0)
-			max_x = gen.x
-
-		if(gen.y > max_y || max_y < 0)
-			max_y = gen.y
-
-		if(gen.x < min_x || min_x < 0)
-			min_x = gen.x
-
-		if(gen.y < min_y || min_y < 0)
-			min_y = gen.y
-	return (x <= max_x && x >= min_x && y <= max_y && y >= min_y)
