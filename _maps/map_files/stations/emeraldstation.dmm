@@ -50179,7 +50179,7 @@
 /area/station/maintenance/starboard)
 "jqS" = (
 /obj/structure/closet/crate,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "jqU" = (
@@ -80957,7 +80957,6 @@
 	c_tag = "Mr. Chang's";
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "pbt" = (
@@ -101306,7 +101305,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/button/windowtint{
-	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
+	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rd";
 	name = "Office Window Tint Control";
 	pixel_x = -24;
@@ -120465,7 +120464,7 @@
 /area/station/maintenance/starboard)
 "wpd" = (
 /obj/structure/closet/crate,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wpk" = (

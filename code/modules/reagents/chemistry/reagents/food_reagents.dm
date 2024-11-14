@@ -558,7 +558,7 @@
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
 	drink_name = "Glass of chocolate"
-	drink_desc = "Tasty"
+	drink_desc = "Tasty!"
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)

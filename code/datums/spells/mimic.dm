@@ -1,6 +1,6 @@
 /datum/spell/mimic
 	name = "Mimic"
-	desc =  "Learn a new form to mimic or become one of your known forms"
+	desc = "Learn a new form to mimic or become one of your known forms."
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "morph_mimic"
@@ -119,7 +119,7 @@
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
-		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.layer = MOB_LAYER // Avoids weirdness when mimicking something below the vent layer
 		user.density = form.density
 
 	playsound(user, "bonebreak", 75, TRUE)

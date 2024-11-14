@@ -271,6 +271,7 @@
 		icon_state = "plant-eye"
 	if(icon_state == "random_plant")
 		icon_state = "plant-[rand(1, 34)]"
+	update_appearance(UPDATE_ICON_STATE)
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/kirbyplants/Destroy()

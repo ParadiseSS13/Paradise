@@ -340,7 +340,7 @@
  * Proc which will make the atom act accordingly to an EMP.
  * This proc can sleep depending on the implementation. So assume it sleeps!
  *
- * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
  */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
@@ -354,7 +354,7 @@
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
-		if(istype(src.loc, container))
+		if(istype(loc, container))
 			return TRUE
 	else if(src in container)
 		return TRUE
@@ -388,7 +388,7 @@
 /atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+	if(src.blood_DNA)
 		if(gender == PLURAL)
 			f_name = "some "
 		else

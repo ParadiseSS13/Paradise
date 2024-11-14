@@ -228,7 +228,7 @@
 
 /obj/item/food/birthdaycakeslice
 	name = "birthday cake slice"
-	desc = "A slice of your birthday"
+	desc = "A slice of your birthday!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "birthdaycakeslice"
 	trash = /obj/item/trash/plate
@@ -321,7 +321,7 @@
 
 /obj/item/food/vanilla_berry_cake_slice
 	name = "blackberry and strawberry vanilla cake slice"
-	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
+	desc = "Just a slice of cake filled with assortment of blackberries and strawberries!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "vanilla_berry_cake_slice"
 	trash = /obj/item/trash/plate
@@ -453,7 +453,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#610977"
-	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice", 5)
+	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice" = 5)
 	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
