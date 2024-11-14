@@ -9,9 +9,9 @@
  * First Aid Kits
  */
 /obj/item/storage/firstaid
-	name = "first-aid kit"
-	desc = "It's an emergency medical kit for those serious boo-boos."
-	icon_state = "firstaid"
+	name = "generic first-aid kit"
+	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
+	icon_state = "genericfirstaid"
 	throw_speed = 2
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
@@ -24,6 +24,35 @@
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
 
+
+/obj/item/storage/firstaid/regular
+	name = "first-aid kit"
+	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
+	icon_state = "firstaid"
+
+/obj/item/storage/firstaid/regular/populate_contents()
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/healthanalyzer(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/firstaid/regular/empty/populate_contents()
+	return
+
+/obj/item/storage/firstaid/regular/doctor
+	desc = "A medical kit designed for Nanotrasen medical personnel."
+
+/obj/item/storage/firstaid/regular/doctor/populate_contents()
+	new /obj/item/reagent_containers/applicator/brute(src)
+	new /obj/item/reagent_containers/applicator/burn(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"
@@ -45,35 +74,6 @@
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
 	return
-
-/obj/item/storage/firstaid/regular
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
-	icon_state = "firstaid"
-
-/obj/item/storage/firstaid/regular/populate_contents()
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/pill/salicylic(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-
-/obj/item/storage/firstaid/regular/empty/populate_contents()
-	return
-
-/obj/item/storage/firstaid/doctor
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
-	icon_state = "firstaid"
-
-/obj/item/storage/firstaid/doctor/populate_contents()
-	new /obj/item/reagent_containers/applicator/brute(src)
-	new /obj/item/reagent_containers/applicator/burn(src)
-	new /obj/item/reagent_containers/patch/styptic(src)
-	new /obj/item/reagent_containers/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/pill/salicylic(src)
-	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
@@ -171,8 +171,8 @@
 
 /obj/item/storage/firstaid/tactical
 	name = "first-aid kit"
-	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
+	icon_state = "bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -195,8 +195,10 @@
 
 /obj/item/storage/firstaid/surgery
 	name = "field surgery kit"
-	icon_state = "duffel-med"
 	desc = "A kit for surgery in the field."
+	icon_state = "duffel-med"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
@@ -217,8 +219,8 @@
 
 /obj/item/storage/firstaid/ert
 	name = "ert first-aid kit"
-	icon_state = "bezerk"
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
+	icon_state = "bezerk"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ert/populate_contents()
@@ -233,8 +235,8 @@
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
-	icon_state = "firstaid"
 	desc = "A medical kit used by Amber level emergency response team personnel."
+	icon_state = "firstaid"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -247,8 +249,8 @@
 
 /obj/item/storage/firstaid/fake_tactical
 	name = "tactical first-aid kit"
-	icon_state = "bezerk"
 	desc = "I hope you've got insurance. The paint is still wet."
+	icon_state = "bezerk"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/fake_tactical/populate_contents()

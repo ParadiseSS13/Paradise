@@ -100,8 +100,8 @@
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
-		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
-		if(ink_color && !(user.incapacitated() || used))
+		var/ink_color = tgui_input_color(user, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
+		if(!isnull(ink_color) && !(user.incapacitated() || used))
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
@@ -150,7 +150,7 @@
 	force = 5
 	sharp = FALSE
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -234,7 +234,7 @@
 /// Duckchan: Rybys Romney
 /obj/item/lighter/zippo/fluff/duckchan
 	name = "Monogrammed Zippo"
-	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	desc = "A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
 	icon_state = "zippo-duckchan"
 	item_state = "zippo-purple"
 
@@ -467,7 +467,7 @@
 /// IK3I: Yakikatachi
 /obj/item/fluff/k3_webbing_modkit
 	name = "webbing modkit"
-	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
+	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing."
 	icon_state = "modkit"
 	w_class = 2
 	force = 0
@@ -660,7 +660,7 @@
 /// MrFroztee: Stumpy
 /obj/item/clothing/head/pirate/fluff/stumpy
 	name = "The Sobriety Skullcap"
-	desc = "A hat suited for the king of the pirates"
+	desc = "A hat suited for the king of the pirates."
 	icon_state = "pirate"
 	item_state = "pirate"
 
@@ -832,7 +832,7 @@
 /// Denthamos: Henry Grandpa Gadow
 /obj/item/clothing/suit/fluff/supplymaster_jacket
 	name = "faded NT Supply Master's Coat"
-	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
+	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front. A tarnished gold nameplate says H.Gadow on it."
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
@@ -1137,7 +1137,7 @@
 /obj/item/clothing/under/fluff/benjaminfallout
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Pretzel's dress"
-	desc = "A nice looking dress"
+	desc = "A nice looking dress."
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
@@ -1262,7 +1262,7 @@
 /// sasanek12: Dar'Konr
 /obj/item/clothing/mask/bandana/fluff/dar
 	name = "camo bandana"
-	desc = "It's a worn-out bandana in camo paint"
+	desc = "It's a worn-out bandana in camo paint."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bandcamo"
 
@@ -1360,7 +1360,7 @@
 
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"
-	desc = "These boots were made for crawlin'"
+	desc = "These boots were made for crawlin'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
@@ -1555,7 +1555,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_ACCESSORY
 
 /// HugoLuman: Dan Martinez
 /obj/item/bedsheet/fluff/hugosheet
@@ -1613,7 +1613,7 @@
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
 			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, SLOT_HUD_HEAD, TRUE)
+			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
 
@@ -1689,7 +1689,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/xann_zxiax
@@ -1699,7 +1699,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf

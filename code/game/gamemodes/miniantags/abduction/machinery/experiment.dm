@@ -12,6 +12,7 @@
 	var/flash = "Idle."
 	var/obj/machinery/abductor/console/console
 	var/mob/living/carbon/human/occupant
+	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/abductor/experiment/Destroy()
 	eject_abductee()
@@ -217,10 +218,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/relaymove()
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
+
+	COOLDOWN_START(src, spam_cooldown, 2 SECONDS)
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(!do_after(occupant, 20 SECONDS, FALSE, src))
+	if(!do_after_once(occupant, 20 SECONDS, FALSE, src))
 		return
 	var/list/possible_results = list(
 		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,

@@ -74,6 +74,8 @@
 	/// What do we call the mutagen tank?
 	var/mutagen_tank_name = "Mutagen tank"
 
+	var/is_soil = FALSE
+
 /obj/machinery/hydroponics/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
@@ -303,7 +305,7 @@
 /obj/machinery/hydroponics/proc/update_state()
 	//Refreshes the icon and sets the luminosity
 	if(self_sustaining)
-		if(istype(src, /obj/machinery/hydroponics/soil))
+		if(is_soil)
 			color = rgb(255, 175, 0)
 		set_light(3)
 	else
@@ -322,7 +324,7 @@
 
 /obj/machinery/hydroponics/update_overlays()
 	. = ..()
-	if(self_sustaining && !istype(src, /obj/machinery/hydroponics/soil))
+	if(self_sustaining && !is_soil)
 		. += "gaia_blessing"
 
 	if(lid_closed)
@@ -1019,6 +1021,7 @@
 	power_state = NO_POWER_USE
 	wrenchable = FALSE
 	mutagen_tank_name = "Mutagen pool"
+	is_soil = TRUE
 
 /obj/machinery/hydroponics/soil/update_icon_state()
 	return // Has no hoses

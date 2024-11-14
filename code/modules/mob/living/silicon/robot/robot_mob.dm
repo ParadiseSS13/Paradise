@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Does the robot have a non-default sprite for an open service panel?
 	var/custom_panel = null
 	/// Robot skins with non-default sprites for an open service panel.
-	var/list/custom_panel_names = list("Cricket")
+	var/list/custom_panel_names = list("Cricket", "Rover")
 	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
 	/// Has the robot been emagged?
@@ -418,6 +418,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
 				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Engi"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
 			)
 		if("Janitor")
@@ -502,7 +503,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot", "Rover-Engi")
 			can_be_hatted = FALSE // Their base sprite already comes with a hat
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")

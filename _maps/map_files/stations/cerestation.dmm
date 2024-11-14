@@ -46052,13 +46052,13 @@
 /area/station/command/office/blueshield)
 "hXD" = (
 /obj/structure/table,
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/firstaid/regular/empty{
 	name = "first-aid kit (empty)"
 	},
 /obj/item/healthanalyzer,

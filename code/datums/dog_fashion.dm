@@ -67,7 +67,7 @@
 
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
-	desc = "Your food will be taste-tested.  All of it."
+	desc = "Your food will be taste-tested. All of it."
 
 
 /datum/dog_fashion/head/captain
@@ -252,7 +252,7 @@
 
 /datum/dog_fashion/head/not_ian
 	name = "Definitely Not REAL_NAME"
-	desc = "That's Definitely Not Dogname"
+	desc = "That's Definitely Not Dogname."
 
 /datum/dog_fashion/head/not_ian/New(mob/M)
 	..()
