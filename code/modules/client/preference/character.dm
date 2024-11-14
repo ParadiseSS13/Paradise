@@ -850,8 +850,6 @@
 				current_species.female_sneeze_sound = subtype_species.female_sneeze_sound
 				current_species.bodyflags = subtype_species.bodyflags
 				current_species.bodyflags |= HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
-		else
-			current_species = initial(current_species)
 		var/mob/living/carbon/human/H = new
 		H.dna.species = current_species
 		if(current_species.bodyflags & HAS_SPECIES_SUBTYPE)
