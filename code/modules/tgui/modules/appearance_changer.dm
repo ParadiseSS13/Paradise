@@ -142,7 +142,7 @@
 					update_dna()
 
 		if("runechat_color")
-			var/new_runechat_color = tgui_input_color("Please select runechat color.", "Runechat Color", owner.dna.chat_color)
+			var/new_runechat_color = tgui_input_color(usr, "Please select runechat color.", "Runechat Color", owner.dna.chat_color)
 			if(!isnull(new_runechat_color) && (!..()))
 				owner.change_runechat_color(new_runechat_color)
 

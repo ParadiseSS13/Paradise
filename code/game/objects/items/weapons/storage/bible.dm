@@ -68,10 +68,7 @@
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/heal_amt = 10
-		for(var/obj/item/organ/external/affecting in H.bodyparts)
-			if(affecting.heal_damage(heal_amt, heal_amt))
-				H.UpdateDamageIcon()
+		H.heal_overall_damage(10, 10)
 	return
 
 /obj/item/storage/bible/attack(mob/living/M, mob/living/user)

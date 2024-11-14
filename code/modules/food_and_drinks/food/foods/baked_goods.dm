@@ -453,7 +453,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#610977"
-	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice", 5)
+	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice" = 5)
 	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
