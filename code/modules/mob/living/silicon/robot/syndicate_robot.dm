@@ -9,6 +9,7 @@
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
+	allow_resprite = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = TRUE
 	damage_protection = 5
