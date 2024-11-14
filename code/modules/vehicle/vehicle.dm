@@ -1,9 +1,9 @@
 
 /obj/vehicle
 	name = "vehicle"
-	desc = "A basic vehicle, vroom"
+	desc = "A basic vehicle, vroom!"
 	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "scooter"
+	icon_state = null
 	density = TRUE
 	anchored = FALSE
 	can_buckle = TRUE

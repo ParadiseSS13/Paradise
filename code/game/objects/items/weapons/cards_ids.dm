@@ -94,7 +94,7 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = SLOT_FLAG_ID
+	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -194,6 +194,21 @@
 		return access
 	return access | guest_pass.GetAccess()
 
+/obj/item/card/id/proc/attach_guest_pass(obj/item/card/id/guest/G, mob/user)
+	if(world.time > G.expiration_time)
+		to_chat(user, "There's no point, the guest pass has expired.")
+		return
+	if(guest_pass)
+		to_chat(user, "There's already a guest pass attached to this ID.")
+		return
+	if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
+		to_chat(user, "The guest pass cannot be attached to this ID.")
+		return
+	if(!user.unEquip(G))
+		return
+	G.loc = src
+	guest_pass = G
+
 /obj/item/card/id/GetID()
 	return src
 
@@ -266,22 +281,7 @@
 			to_chat(user, "This ID has already been stamped!")
 
 	else if(istype(W, /obj/item/card/id/guest))
-		if(istype(src, /obj/item/card/id/guest))
-			return
-		var/obj/item/card/id/guest/G = W
-		if(world.time > G.expiration_time)
-			to_chat(user, "There's no point, the guest pass has expired.")
-			return
-		if(guest_pass)
-			to_chat(user, "There's already a guest pass attached to this ID.")
-			return
-		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
-			to_chat(user, "The guest pass cannot be attached to this ID")
-			return
-		if(!user.unEquip(G))
-			return
-		G.loc = src
-		guest_pass = G
+		attach_guest_pass(W, user)
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

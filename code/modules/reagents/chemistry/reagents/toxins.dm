@@ -471,7 +471,7 @@
 	metabolization_rate = 0.1
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
-	drink_desc = "A freezing pint of beer"
+	drink_desc = "A freezing pint of beer."
 	taste_description = "beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
