@@ -22,7 +22,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	item_state = "cigoff"
 	throw_speed = 0.5
-	slot_flags = SLOT_FLAG_MASK
+	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -99,7 +99,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/carbon/M = target
 		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
 			user.unEquip(src, TRUE)
-			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+			M.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
 			if(target != user)
 				user.visible_message(
 					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
@@ -488,7 +488,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == SLOT_HUD_WEAR_MASK)
+	if(enabled && slot == ITEM_SLOT_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")

@@ -10,7 +10,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	severity = MINOR
-	/// A mapping of `num2text(SLOT_HUD_XYZ)` -> item path
+	/// A mapping of `num2text(ITEM_SLOT_XYZ)` -> item path
 	var/list/magic_fashion = list()
 
 
@@ -18,11 +18,11 @@
 	. = ..()
 
 	var/list/magic_fashion_slot_IDs = list(
-		SLOT_HUD_RIGHT_HAND,
-		SLOT_HUD_LEFT_HAND,
-		SLOT_HUD_HEAD,
-		SLOT_HUD_OUTER_SUIT,
-		SLOT_HUD_SHOES
+		ITEM_SLOT_LEFT_HAND,
+		ITEM_SLOT_RIGHT_HAND,
+		ITEM_SLOT_HEAD,
+		ITEM_SLOT_OUTER_SUIT,
+		ITEM_SLOT_SHOES
 	)
 	var/list/magic_fashion_items = list(
 		/obj/item/staff,
@@ -70,7 +70,7 @@
 			continue
 
 		switch(slot_ID) // Extra filtering for specific slots
-			if(SLOT_HUD_HEAD)
+			if(ITEM_SLOT_HEAD)
 				if(isplasmaman(H))
 					continue // We want them to spread the magical joy, not burn to death in agony
 

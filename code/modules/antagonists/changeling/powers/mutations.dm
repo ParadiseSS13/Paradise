@@ -107,8 +107,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HUD_HEAD, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -248,6 +248,7 @@
 	desc = "a tentacle."
 	projectile_type = /obj/item/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	muzzle_flash_color = null

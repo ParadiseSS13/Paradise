@@ -102,7 +102,7 @@ RESTRICT_TYPE(/datum/team/cult)
 /**
   * Returns the current number of cultists and constructs.
   *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+  * Returns the number of cultists and constructs in the format `list(number of Cultists, number of Constructs)`, or as one combined number.
   *
   * * separate - Should the number be returned as a list with two separate values (Humans and Constructs) or as one number.
   */
