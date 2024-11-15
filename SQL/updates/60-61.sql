@@ -1,6 +1,6 @@
-# Updates the DB from 60 to 61 ~SpaghettiBit
-# Adds a subtype race to be stored on character saves
+# Updates the DB from 60 to 61 ~Qwertytoforty
+# Makes a table for map picks
 
-# Add species_subtype after species
-ALTER TABLE `characters`
-	ADD COLUMN `species_subtype` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'None' AFTER `species`;
+# Adds the table for it.
+ALTER TABLE `player`
+	ADD COLUMN `map_vote_pref_json` MEDIUMTEXT NULL DEFAULT NULL AFTER `viewrange`;

@@ -5,13 +5,13 @@
 	desc = "A wall mounted storage locker."
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
-	icon_state = "wall-locker"
+	icon_state = null
 	door_anim_time = 0
 	enable_door_overlay = FALSE
 	density = FALSE
 	anchored = TRUE
-	icon_closed = "wall-locker"
-	icon_opened = "wall-lockeropen"
+	icon_closed = null
+	icon_opened = null
 
 /obj/structure/closet/walllocker/close()
 	. = ..()

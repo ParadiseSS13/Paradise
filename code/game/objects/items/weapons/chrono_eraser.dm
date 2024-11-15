@@ -143,6 +143,7 @@
 	projectile_type = /obj/item/projectile/energy/chrono_beam
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_color = null
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 

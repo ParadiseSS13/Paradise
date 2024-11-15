@@ -536,11 +536,10 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 
-// Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
 #define MAPROTATION_MODE_FULL_RANDOM "Random"
-
+#define MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES "FPTP"
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"

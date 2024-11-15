@@ -364,6 +364,8 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
+# Enable weather events initialized by SSweather. New weather events can still be added during the round if this is disabled.
+enable_default_weather_events = true
 
 ################################################################
 
@@ -610,55 +612,64 @@ maximum_zlevels = 4
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
-  "_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm", ### The following ruins are based from past pre-spawned Zlevel content ###
-  "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm", # The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup  # Its also important incase a white-ship console is ever built midround
-  # DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
-  "_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm", # The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
-  # Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
-  "_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
+
+	### The following ruins are based from past pre-spawned Zlevel content ###
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm",
+
+
+	# The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup
+	# Its also important incase a white-ship console is ever built midround
+	# DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
+	"_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm",
+
+	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
+	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
+	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
 ]
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
@@ -808,15 +819,16 @@ non_repeating_maps = true
 # - "Vote" = regular voting
 # - "Nodupes" = voting wont include current map
 # - "Random" = no vote, map is random
+# - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-  {day_number = 1, rotation_type = "Vote"}, # Monday
-  {day_number = 2, rotation_type = "Random"}, # Tuesday
-  {day_number = 3, rotation_type = "Vote"}, # Wednesday
-  {day_number = 4, rotation_type = "Random"}, # Thursday
-  {day_number = 5, rotation_type = "Vote"}, # Friday
-  {day_number = 6, rotation_type = "Nodupes"}, # Saturday
-  {day_number = 7, rotation_type = "Nodupes"}, # Sunday
+	{ day_number = 1, rotation_type = "Vote" },    # Monday
+	{ day_number = 2, rotation_type = "Random" },  # Tuesday
+	{ day_number = 3, rotation_type = "FPTP" },    # Wednesday
+	{ day_number = 4, rotation_type = "Random" },  # Thursday
+	{ day_number = 5, rotation_type = "Vote" },    # Friday
+	{ day_number = 6, rotation_type = "FPTP" }, # Saturday
+	{ day_number = 7, rotation_type = "FPTP" }, # Sunday
 ]
 
 ################################################################
