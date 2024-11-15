@@ -421,9 +421,8 @@
 	origin_tech = "bio=2;materials=2"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/butler
-	items_to_replace = list(
-		/obj/item/rsf = /obj/item/rsf/executive
-	)
+	items_to_add = list(/obj/item/kitchen/knife/cheese)
+	items_to_replace = list(/obj/item/rsf = /obj/item/rsf/executive)
 
 
 /***********************/

@@ -54,21 +54,53 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
-/obj/item/food/sliceable/cheesewheel/blackwax
-	name = "\improper Blackwax cheese wheel"
+/obj/item/food/sliceable/cheesewheel/smoked
+	name = "smoked cheese wheel"
 	desc = "A wheel of fancy imported-style smoked cheese."
-	icon_state = "cheesewheel-blackwax"
-	slice_path = /obj/item/food/cheesewedge/blackwax
+	icon_state = "cheesewheel-smoked"
+	slice_path = /obj/item/food/cheesewedge/smoked
 	slices_num = 4
 	list_reagents = list("nutriment" = 10, "vitamin" = 2, "cheese" = 15)
 	tastes = list("cheese" = 2, "smoke" = 1)
 
-/obj/item/food/cheesewedge/blackwax
-	name = "\improper Blackwax cheese wedge"
-	desc = "A wedge of fancy smoked Blackwax cheese."
-	icon_state = "cheesewedge-blackwax"
+/obj/item/food/cheesewedge/smoked
+	name = "smoked cheese wedge"
+	desc = "A wedge of fancy smoked cheese."
+	icon_state = "cheesewedge-smoked"
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 2, "smoke" = 1)
+
+/obj/item/food/sliceable/cheesewheel/blue
+	name = "blue cheese wheel"
+	desc = "A wheel of pungent blue cheese. It's an acquired taste..."
+	icon_state = "cheesewheel-blue"
+	slice_path = /obj/item/food/cheesewedge/blue
+	slices_num = 5
+	list_reagents = list("nutriment" = 6, "vitamin" = 2, "cheese" = 10, "fungus" = 2)
+	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
+
+/obj/item/food/cheesewedge/blue
+	name = "blue cheese wedge"
+	desc = "A wedge of pungent blue cheese. The flavor is... intense."
+	icon_state = "cheesewedge-blue"
+	filling_color = "#FFF700"
+	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
+
+/obj/item/food/sliceable/cheesewheel/camembert
+	name = "camembert cheese wheel"
+	desc = "A miniature wheel of gooey camembert. Yum..."
+	icon_state = "cheesewheel-camembert"
+	slice_path = /obj/item/food/cheesewedge/camembert
+	slices_num = 2
+	list_reagents = list("nutriment" = 4, "vitamin" = 2, "cheese" = 4)
+	tastes = list("mild cheese" = 3, "gooeyness" = 1)
+
+/obj/item/food/cheesewedge/camembert
+	name = "camembert cheese slice"
+	desc = "A piece of camembert. It's soft and gooey."
+	icon_state = "cheesewedge-camembert"
+	filling_color = "#FFF700"
+	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
 /obj/item/food/cheesewedge/checkpass(passflag)
 	if((passflag & PASSDOOR) && ismouse(pulledby))

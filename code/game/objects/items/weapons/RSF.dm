@@ -16,7 +16,8 @@
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
-	var/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+	var/list/rsf_items = list(
+							"Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
@@ -24,8 +25,12 @@
 							"Newdles" = /obj/item/food/chinese/newdles,
 							"Donut" = /obj/item/food/donut,
 							"Chicken Soup" = /obj/item/reagent_containers/drinks/chicken_soup,
-							"Tofu Burger" = /obj/item/food/burger/tofu)
-	var/static/list/rsf_icons = list("Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
+							"Tofu Burger" = /obj/item/food/burger/tofu
+							)
+
+	var/static/list/rsf_icons = list(
+							"Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
+							"Shot Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
@@ -34,7 +39,15 @@
 							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
 							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
-							"Blackwax Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blackwax"))
+							"Cigar" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigaroff"),
+							"Smoked Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-smoked"),
+							"Blue Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blue"),
+							"Camembert Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-camembert"),
+							"Caviar" = image(icon = 'icons/obj/food/seafood.dmi', icon_state = "caviar")
+							)
+
+/obj/item/rsf/proc/get_radial_contents()
+	return rsf_icons & rsf_items
 
 /obj/item/rsf/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
@@ -43,7 +56,7 @@
 	else
 		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
 
-	var/rsf_radial_choice = show_radial_menu(user, src, rsf_icons)
+	var/rsf_radial_choice = show_radial_menu(user, src, get_radial_contents())
 	if(user.stat || !in_range(user, src))
 		return
 	currently_dispensing = rsf_items[rsf_radial_choice]
@@ -95,15 +108,20 @@
 	desc = "A fancier version of the RSF, used to deploy classy refreshments and materials to high ranking clientelle."
 	icon_state = "rsf-exec"
 
-	rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+	rsf_items = list(
+							"Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+							"Shot Glass" = /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
-							"Cigarette" = /obj/item/clothing/mask/cigarette,
-							"Blackwax Cheese" = /obj/item/food/sliceable/cheesewheel/blackwax,
-							"Donut" = /obj/item/food/donut,
-							"Chicken Soup" = /obj/item/reagent_containers/drinks/chicken_soup,
-							"Tofu Burger" = /obj/item/food/burger/tofu)
+							"Cigar" = /obj/item/clothing/mask/cigarette/cigar,
+							"Smoked Cheese" = /obj/item/food/sliceable/cheesewheel/smoked,
+							"Blue Cheese" = /obj/item/food/sliceable/cheesewheel/blue,
+							"Camembert Cheese" = /obj/item/food/sliceable/cheesewheel/camembert,
+							"Caviar" = /obj/item/food/caviar,
+							"Sprinkled Donut" = /obj/item/food/donut/sprinkles
+							)
+
 
 #undef POWER_NONE
 #undef POWER_LOW
