@@ -282,7 +282,7 @@
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
 		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
-			age, species, species_subtype, language,
+			age, species, language,
 			hair_colour, secondary_hair_colour,
 			facial_hair_colour, secondary_facial_hair_colour,
 			skin_tone, skin_colour,
@@ -306,10 +306,10 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, species_subtype)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
-			:age, :species, :species_subtype, :language,
+			:age, :species, :language,
 			:h_colour, :h_sec_colour,
 			:f_colour, :f_sec_colour,
 			:s_tone, :s_colour,
@@ -333,7 +333,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :species_subtype)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -345,7 +345,6 @@
 		"body_type" = body_type,
 		"age" = age,
 		"species" = species,
-		"species_subtype" = species_subtype,
 		"language" = language,
 		"h_colour" = h_colour,
 		"h_sec_colour" = h_sec_colour,
@@ -397,7 +396,8 @@
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
-		"cyborg_brain_type" = cyborg_brain_type
+		"cyborg_brain_type" = cyborg_brain_type,
+		"species_subtype" = species_subtype
 	))
 
 	if(!query.warn_execute())
@@ -421,45 +421,44 @@
 	gender = query.item[4]
 	age = text2num(query.item[5])
 	species = query.item[6]
-	species_subtype = query.item[7]
-	language = query.item[8]
-	h_colour = query.item[9]
-	h_sec_colour = query.item[10]
-	f_colour = query.item[11]
-	f_sec_colour = query.item[12]
-	s_tone = text2num(query.item[13])
-	s_colour = query.item[14]
-	m_colours = params2list(query.item[15])
-	hacc_colour = query.item[16]
-	h_style = query.item[17]
-	f_style = query.item[18]
-	m_styles = params2list(query.item[19])
-	ha_style = query.item[20]
-	alt_head = query.item[21]
-	e_colour = query.item[22]
-	underwear = query.item[23]
-	undershirt = query.item[24]
-	backbag = query.item[25]
-	b_type = query.item[26]
+	language = query.item[7]
+	h_colour = query.item[8]
+	h_sec_colour = query.item[9]
+	f_colour = query.item[10]
+	f_sec_colour = query.item[11]
+	s_tone = text2num(query.item[12])
+	s_colour = query.item[13]
+	m_colours = params2list(query.item[14])
+	hacc_colour = query.item[15]
+	h_style = query.item[16]
+	f_style = query.item[17]
+	m_styles = params2list(query.item[18])
+	ha_style = query.item[19]
+	alt_head = query.item[20]
+	e_colour = query.item[21]
+	underwear = query.item[22]
+	undershirt = query.item[23]
+	backbag = query.item[24]
+	b_type = query.item[25]
 
 
 	//Jobs
-	alternate_option = text2num(query.item[27])
-	job_support_high = text2num(query.item[28])
-	job_support_med = text2num(query.item[29])
-	job_support_low = text2num(query.item[30])
-	job_medsci_high = text2num(query.item[31])
-	job_medsci_med = text2num(query.item[32])
-	job_medsci_low = text2num(query.item[33])
-	job_engsec_high = text2num(query.item[34])
-	job_engsec_med = text2num(query.item[35])
-	job_engsec_low = text2num(query.item[36])
+	alternate_option = text2num(query.item[26])
+	job_support_high = text2num(query.item[27])
+	job_support_med = text2num(query.item[28])
+	job_support_low = text2num(query.item[29])
+	job_medsci_high = text2num(query.item[30])
+	job_medsci_med = text2num(query.item[31])
+	job_medsci_low = text2num(query.item[32])
+	job_engsec_high = text2num(query.item[33])
+	job_engsec_med = text2num(query.item[34])
+	job_engsec_low = text2num(query.item[35])
 
 	//Miscellaneous
-	flavor_text = query.item[37]
-	med_record = query.item[38]
-	sec_record = query.item[39]
-	gen_record = query.item[40]
+	flavor_text = query.item[36]
+	med_record = query.item[37]
+	sec_record = query.item[38]
+	gen_record = query.item[39]
 	// Apparently, the preceding vars weren't always encoded properly...
 	if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 		flavor_text = html_encode(flavor_text)
@@ -469,29 +468,30 @@
 		sec_record = html_encode(sec_record)
 	if(findtext(gen_record, "<"))
 		gen_record = html_encode(gen_record)
-	disabilities = text2num(query.item[41])
-	player_alt_titles = params2list(query.item[42])
-	organ_data = params2list(query.item[43])
-	rlimb_data = params2list(query.item[44])
-	nanotrasen_relation = query.item[45]
-	speciesprefs = text2num(query.item[46])
+	disabilities = text2num(query.item[40])
+	player_alt_titles = params2list(query.item[41])
+	organ_data = params2list(query.item[42])
+	rlimb_data = params2list(query.item[43])
+	nanotrasen_relation = query.item[44]
+	speciesprefs = text2num(query.item[45])
 
 	//socks
-	socks = query.item[47]
-	body_accessory = query.item[48]
-	loadout_gear = query.item[49]
+	socks = query.item[46]
+	body_accessory = query.item[47]
+	loadout_gear = query.item[48]
+	autohiss_mode = text2num(query.item[49])
 	// Index [50] is the slot
-	autohiss_mode = text2num(query.item[51])
-	h_grad_style = query.item[52]
-	h_grad_offset_x = query.item[53] // parsed down below
-	h_grad_colour = query.item[54]
-	h_grad_alpha = query.item[55]
-	var/custom_emotes_tmp = query.item[56]
-	runechat_color = query.item[57]
-	physique = query.item[58]
-	height = query.item[59]
-	cyborg_brain_type = query.item[60]
-	body_type = query.item[61]
+	h_grad_style = query.item[51]
+	h_grad_offset_x = query.item[52] // parsed down below
+	h_grad_colour = query.item[53]
+	h_grad_alpha = query.item[54]
+	var/custom_emotes_tmp = query.item[55]
+	runechat_color = query.item[56]
+	physique = query.item[57]
+	height = query.item[58]
+	cyborg_brain_type = query.item[59]
+	body_type = query.item[60]
+	species_subtype = query.item[61]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
