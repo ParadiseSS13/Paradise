@@ -527,7 +527,6 @@
 	name = "hand of cards"
 	desc = "Some playing cards."
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 	/// If true, the cards will be face down.
@@ -826,7 +825,11 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] [user.p_their()] hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] [user.p_their()] hand.</span>",
+		"<span class='notice'>You [concealed ? "conceal" : "reveal"] your hand.</span>",
+		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
+	)
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
