@@ -854,8 +854,9 @@
 						return
 					active_character.cyborg_brain_type = brain_type
 				if("pda_ringtone")
-					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", GLOB.pda_ringtone_choices, active_character.pda_ringtone)
-					if(!(ringtone in GLOB.pda_ringtone_choices))
+					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", list("Reset Default Ringtone") + GLOB.pda_ringtone_choices, active_character.pda_ringtone)
+					if(!(ringtone in GLOB.pda_ringtone_choices) || ringtone == "Reset Default Ringtone")
+						active_character.pda_ringtone = null
 						return
 					active_character.pda_ringtone = ringtone
 				if("clientfps")
