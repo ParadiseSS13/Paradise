@@ -44940,15 +44940,18 @@
 	pixel_y = 28;
 	req_access = list(3)
 	},
-/obj/structure/rack,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
+/obj/structure/table/reinforced{
+	layer = 2.5
 	},
-/obj/item/storage/box/trackimp,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
-	pixel_y = -1
+	pixel_y = 12
+	},
+/obj/item/storage/box/chemimp{
+	pixel_x = 8
+	},
+/obj/item/storage/box/trackimp{
+	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59653,6 +59656,10 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/sop_legal{
+	pixel_y = 6;
+	pixel_x = 5
+	},
 /obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80028,6 +80035,14 @@
 /area/station/maintenance/port2)
 "qyK" = (
 /obj/structure/table/wood/fancy/black,
+/obj/item/book/manual/wiki/sop_legal{
+	pixel_y = 6;
+	pixel_x = 5
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /obj/item/megaphone,
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
