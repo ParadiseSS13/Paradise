@@ -12,7 +12,7 @@
 	else if(detectTime == -1)
 		for(var/thing in getTargetList())
 			var/mob/target = locateUID(thing)
-			if(QDELETED(target) || target.stat == DEAD || (!area_motion && (!(get_dist(src, target) <= view_range) || !(locate(target) in hearers(view_range, get_turf(src))))))
+			if(QDELETED(target) || target.stat == DEAD || (!area_motion && (!(get_dist(src, target) <= view_range) || !(target in hearers(view_range, get_turf(src))))))
 				//If not part of a monitored area and the camera is not in range or the target is dead
 				lostTargetRef(thing)
 
@@ -26,7 +26,7 @@
 		return FALSE
 	if(isbot(target)) //No armsky, you don't get to set off the motion alarm constantly
 		return FALSE
-	if(!area_motion && (!(get_dist(src, target) <= view_range) || !(locate(target) in hearers(view_range, get_turf(src)))))
+	if(!area_motion && (!(get_dist(src, target) <= view_range) || !(target in hearers(view_range, get_turf(src)))))
 		return FALSE
 	if(detectTime == 0)
 		detectTime = world.time // start the clock
