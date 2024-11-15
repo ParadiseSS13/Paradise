@@ -7,7 +7,7 @@
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_state = "implant-alien"
 	var/obj/machinery/grey_autocloner/linked
-	var/datum/dna2/record/our_record
+	var/datum/dna2_record/our_record
 
 /obj/item/bio_chip/grey_autocloner/Destroy()
 	linked = null
@@ -26,7 +26,7 @@
 	. = ..()
 	if(!. || !ishuman(imp_in))
 		return FALSE
-	our_record = new /datum/dna2/record()
+	our_record = new /datum/dna2_record()
 	our_record.ckey = imp_in.ckey
 	var/obj/item/organ/B = imp_in.get_int_organ(/obj/item/organ/internal/brain)
 	B.dna.check_integrity()

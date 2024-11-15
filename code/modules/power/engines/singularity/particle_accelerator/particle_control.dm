@@ -17,7 +17,7 @@
 	var/list/obj/structure/particle_accelerator/connected_parts
 	var/assembled = 0
 	var/parts = null
-	var/datum/wires/particle_acc/control_box/wires = null
+	var/datum/wires/particle_accelerator/wires = null
 
 /obj/machinery/particle_accelerator/control_box/Initialize(mapload)
 	. = ..()

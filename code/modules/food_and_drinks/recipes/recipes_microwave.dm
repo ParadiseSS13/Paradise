@@ -293,7 +293,7 @@
 	)
 	result = /obj/item/food/donut/spaceman/jelly/cherry
 
-/datum/recipe/microwave/human/burger
+/datum/recipe/microwave/human_burger
 	items = list(
 		/obj/item/food/meat/human,
 		/obj/item/food/grown/lettuce,
@@ -312,7 +312,7 @@
 	items = list(
 		/obj/item/food/bun,
 		/obj/item/food/grown/lettuce,
-		/obj/item/food/meat //do not place this recipe before /datum/recipe/microwave/human/burger
+		/obj/item/food/meat //do not place this recipe before /datum/recipe/microwave/human_burger
 	)
 	result = /obj/item/food/burger/plain
 

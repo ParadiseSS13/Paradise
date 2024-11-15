@@ -106,7 +106,7 @@
 
 	// Clip message
 	var/maxlen = CHAT_MESSAGE_MAX_LENGTH
-	var/datum/html/split_holder/s = split_html(text)
+	var/datum/html_split_holder/s = split_html(text)
 	if(length_char(s.inner_text) > maxlen)
 		var/chattext = copytext_char(s.inner_text, 1, maxlen + 1) + "..."
 		text = jointext(s.opening, "") + chattext + jointext(s.closing, "")

@@ -4483,7 +4483,7 @@
 /area/station/maintenance/port)
 "azQ" = (
 /obj/item/stack/sheet/cardboard,
-/obj/effect/spawner/random/janitor/supplies,
+/obj/effect/spawner/random/jani_supplies,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "azR" = (
@@ -34155,7 +34155,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random/janitor/supplies,
+/obj/effect/spawner/random/jani_supplies,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "cuc" = (
@@ -39613,7 +39613,7 @@
 /area/station/maintenance/apmaint)
 "cPq" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/spawner/random/janitor/supplies,
+/obj/effect/spawner/random/jani_supplies,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cPr" = (

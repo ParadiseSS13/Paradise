@@ -596,12 +596,12 @@
 	text = replacetext(text, "<img src='syndielogo.png'>",	"\[syndielogo\]")
 	return text
 
-/datum/html/split_holder
+/datum/html_split_holder
 	var/list/opening
 	var/inner_text
 	var/list/closing
 
-/datum/html/split_holder/New()
+/datum/html_split_holder/New()
 	opening = list()
 	inner_text = ""
 	closing = list()
@@ -609,7 +609,7 @@
 /proc/split_html(raw_text="")
 	// gently borrowed and re-purposed from code/modules/pda/utilities.dm
 	// define a datum to hold our result
-	var/datum/html/split_holder/s = new()
+	var/datum/html_split_holder/s = new()
 
 	// copy the raw_text to get started
 	var/text = copytext_char(raw_text, 1)
