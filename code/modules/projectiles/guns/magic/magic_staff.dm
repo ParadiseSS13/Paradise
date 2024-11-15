@@ -1,14 +1,14 @@
 /obj/item/gun/magic/staff
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
 	flags_2 = NO_MAT_REDEMPTION_2
 	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
-	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself"
+	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"

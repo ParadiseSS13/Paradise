@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
 	icon = 'icons/effects/fluidtracks.dmi'
-	icon_state = "nothingwhatsoever"
+	icon_state = null
 	desc = "You REALLY shouldn't follow these.."
 	gender = PLURAL
 	random_icon_states = null
@@ -122,6 +122,9 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				. += I
 
 	alpha = base_alpha + bloodiness
+
+/obj/effect/decal/cleanable/blood/footprints/should_be_off_floor()
+	return FALSE
 
 /proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
 	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
