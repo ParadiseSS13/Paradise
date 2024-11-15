@@ -72,12 +72,9 @@ const InputControls = (props, context) => {
         <LabeledList.Item
           label="Input Circuit"
           buttons={
-            <Button
-              icon="power-off"
-              content={accepting_power ? 'Enabled' : 'Disabled'}
-              color={accepting_power ? 'green' : 'red'}
-              onClick={() => act('toggle_input')}
-            />
+            <Button icon="power-off" color={accepting_power ? 'green' : 'red'} onClick={() => act('toggle_input')}>
+              {accepting_power ? 'Enabled' : 'Disabled'}
+            </Button>
           }
         >
           <Box color={(sucking_power && 'good') || (accepting_power && 'average') || 'bad'}>
@@ -99,10 +96,18 @@ const InputControls = (props, context) => {
           value={input_number}
           onChange={(e, set_input) => act('set_input', { set_input })}
         />
-        <Button content={'W'} selected={power_format === 1} onClick={() => act('inputW')} />
-        <Button content={'kW'} selected={power_format === 10 ** 3} onClick={() => act('inputKW')} />
-        <Button content={'MW'} selected={power_format === 10 ** 6} onClick={() => act('inputMW')} />
-        <Button content={'GW'} selected={power_format === 10 ** 9} onClick={() => act('inputGW')} />
+        <Button selected={power_format === 1} onClick={() => act('inputW')}>
+          W
+        </Button>
+        <Button selected={power_format === 10 ** 3} onClick={() => act('inputKW')}>
+          KW
+        </Button>
+        <Button selected={power_format === 10 ** 6} onClick={() => act('inputMW')}>
+          MW
+        </Button>
+        <Button selected={power_format === 10 ** 9} onClick={() => act('inputGW')}>
+          GW
+        </Button>
       </Box>
     </Section>
   );
@@ -119,19 +124,17 @@ const OutputControls = (props, context) => {
           label="Laser Circuit"
           buttons={
             <Stack Horizontal>
-              <Button
-                icon="crosshairs"
-                content={target}
-                color={target === '' ? 'green' : 'red'}
-                onClick={() => act('target')}
-              />
+              <Button icon="crosshairs" color={target === '' ? 'green' : 'red'} onClick={() => act('target')}>
+                {target}
+              </Button>
               <Button
                 icon="power-off"
-                content={firing ? 'Enabled' : 'Disabled'}
                 color={firing ? 'green' : 'red'}
                 disabled={!firing && held_power < 10 ** 6}
                 onClick={() => act('toggle_output')}
-              />
+              >
+                {firing ? 'Enabled' : 'Disabled'}
+              </Button>
             </Stack>
           }
         >
@@ -161,8 +164,12 @@ const OutputControls = (props, context) => {
           value={output_number}
           onChange={(e, set_output) => act('set_output', { set_output })}
         />
-        <Button content={'MW'} selected={output_multiplier === 10 ** 6} onClick={() => act('outputMW')} />
-        <Button content={'GW'} selected={output_multiplier === 10 ** 9} onClick={() => act('outputGW')} />
+        <Button selected={output_multiplier === 10 ** 6} onClick={() => act('outputMW')}>
+          MW
+        </Button>
+        <Button selected={output_multiplier === 10 ** 9} onClick={() => act('outputGW')}>
+          GW
+        </Button>
       </Box>
     </Section>
   );
