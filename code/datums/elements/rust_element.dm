@@ -88,7 +88,7 @@
 	for(var/obj/effect/glowing_rune/rune_to_remove in source)
 		qdel(rune_to_remove)
 	for(var/mob/living/victim in source)
-		victim.remove_status_effect(/datum/status_effect/rust_corruption)
+		victim.remove_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
 /datum/element/rust/heretic/proc/on_entered(turf/source, atom/movable/entered, ...)
 	SIGNAL_HANDLER
@@ -98,14 +98,14 @@
 	var/mob/living/victim = entered
 	if(istype(victim, /mob/living/simple_animal/revenant))
 		return
-	victim.apply_status_effect(/datum/status_effect/rust_corruption)
+	victim.apply_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
 /datum/element/rust/heretic/proc/on_exited(turf/source, atom/movable/gone)
 	SIGNAL_HANDLER
 	if(!isliving(gone))
 		return
 	var/mob/living/leaver = gone
-	leaver.remove_status_effect(/datum/status_effect/rust_corruption)
+	leaver.remove_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
 // Small visual effect imparted onto rusted things by revenants.
 /obj/effect/glowing_rune
