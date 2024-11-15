@@ -108,6 +108,9 @@
 	/// Note that this is only for explosions caused while the gibtonite is still
 	/// unmined, in contrast to [/obj/item/gibtonite/proc/GibtoniteReaction].
 	var/notify_admins = FALSE
+	/// The callback for the explosion that occurs if the gibtonite is not
+	/// defused in time.
+	var/explosion_callback
 
 /datum/ore/gibtonite/New()
 	// So you don't know exactly when the hot potato will explode
@@ -135,7 +138,7 @@
 
 	RegisterSignal(source, COMSIG_PARENT_ATTACKBY, PROC_REF(on_parent_attackby))
 	detonate_start_time = world.time
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/ore/gibtonite, detonate), source), detonate_time)
+	explosion_callback = addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/ore/gibtonite, detonate), source), detonate_time, TIMER_STOPPABLE)
 
 /datum/ore/gibtonite/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE)
 	switch(stage)
@@ -146,7 +149,8 @@
 		if(GIBTONITE_ACTIVE)
 			detonate(source)
 
-			return MINERAL_ALLOW_DIG
+			// Detonation takes care of this for us.
+			return MINERAL_PREVENT_DIG
 		if(GIBTONITE_STABLE)
 			var/obj/item/gibtonite/gibtonite = new(source)
 			if(remaining_time <= 0)
@@ -171,6 +175,10 @@
 /datum/ore/gibtonite/proc/detonate(turf/simulated/mineral/source)
 	if(stage == GIBTONITE_STABLE)
 		return
+
+	// Don't explode twice please
+	if(explosion_callback)
+		deltimer(explosion_callback)
 
 	stage = GIBTONITE_DETONATE
 	explosion(source, 1, 3, 5, adminlog = notify_admins)

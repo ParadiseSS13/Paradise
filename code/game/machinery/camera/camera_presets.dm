@@ -33,6 +33,82 @@
 	upgradeXRay()
 	upgradeMotion()
 
+// DVORAK
+/obj/machinery/camera/tracking_head
+	icon_state = "camera_base"
+	var/obj/effect/camera_head/camera_overlay
+
+/obj/machinery/camera/tracking_head/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor, _radius = 6)
+	camera_overlay = new(get_turf(src))
+	switch(dir)
+		if(NORTH)
+			camera_overlay.pixel_x = 2
+			camera_overlay.pixel_y = 6
+
+		if(EAST)
+			camera_overlay.pixel_x = 6
+			camera_overlay.pixel_y = 23
+
+		if(SOUTH)
+			camera_overlay.pixel_x = 4
+			camera_overlay.pixel_y = 20
+
+		if(WEST)
+			camera_overlay.pixel_x = 20
+			camera_overlay.pixel_y = 23
+
+	camera_overlay.dir = dir
+	RegisterSignal(src, COMSIG_CAMERA_OFF, PROC_REF(prime_the_camera))
+
+/obj/machinery/camera/tracking_head/Destroy()
+	. = ..()
+	QDEL_NULL(camera_overlay)
+	UnregisterSignal(src, COMSIG_CAMERA_OFF)
+
+/obj/machinery/camera/tracking_head/process()
+	return PROCESS_KILL
+
+/obj/machinery/camera/tracking_head/update_icon_state()
+	return
+
+/obj/machinery/camera/tracking_head/update_overlays()
+	return
+
+/obj/machinery/camera/tracking_head/HasProximity(atom/movable/AM)
+	if(!isrobot(AM) && !iscarbon(AM)) // Only care about carbons and borgs.
+		return
+	if(camera_overlay.dir == get_dir(src, AM))
+		return
+	camera_overlay.dir = get_dir(src, AM)
+	playsound(get_turf(src), pick('sound/effects/turret/move1.wav', 'sound/effects/turret/move2.wav'), 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+
+/obj/machinery/camera/tracking_head/proc/prime_the_camera()
+	SIGNAL_HANDLER //COMSIG_CAMERA_OFF
+	visible_message("<span class='danger'>[src] begins to spark violently!")
+	do_sparks(4, 0, src)
+	addtimer(CALLBACK(src, PROC_REF(explode_the_camera)), 2.5 SECONDS)
+
+/obj/machinery/camera/tracking_head/proc/explode_the_camera()
+	if(QDELETED(src))
+		return
+	explosion(loc, -1, -1, 2, flame_range = 4)
+	qdel(src)
+
+/obj/effect/camera_head
+	icon = 'icons/obj/followingcamera.dmi'
+	icon_state = "camera_head"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/machinery/camera/tracking_head/dvorak
+	non_chunking_camera = TRUE
+	network = list("DVORAK") //Shouldn't show on any camera net, be it camera bugs or station or AI.
+
+/obj/machinery/camera/motion/dvorak
+	non_chunking_camera = TRUE
+	network = list("DVORAK") //Shouldn't show on any camera net, be it camera bugs or station or AI.
+
 // This camera type automatically sets it's name to whatever the area that it's in is called.
 /obj/machinery/camera/autoname/Initialize(mapload)
 	var/static/list/autonames_in_areas = list()

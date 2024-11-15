@@ -126,7 +126,7 @@
 /area/shuttle/escape)
 "fH" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -464,7 +464,7 @@
 /area/shuttle/escape)
 "ut" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "uW" = (
@@ -766,7 +766,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "HK" = (

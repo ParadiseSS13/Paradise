@@ -66,7 +66,7 @@
 
 /obj/item/clothing/head/wizard/magus
 	name = "magus helm"
-	desc = "A mysterious helmet that hums with an unearthly power"
+	desc = "A mysterious helmet that hums with an unearthly power."
 	icon_state = "magus"
 	item_state = "magus"
 	dog_fashion = /datum/dog_fashion/head/wizard/magus
@@ -134,13 +134,13 @@
 
 /obj/item/clothing/suit/wizrobe/magusblue
 	name = "magus robe"
-	desc = "A set of armoured robes that seem to radiate a dark power"
+	desc = "A set of armoured robes that seem to radiate a dark power."
 	icon_state = "magusblue"
 	item_state = "magusblue"
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "magus robe"
-	desc = "A set of armoured robes that seem to radiate a dark power"
+	desc = "A set of armoured robes that seem to radiate a dark power."
 	icon_state = "magusred"
 	item_state = "magusred"
 

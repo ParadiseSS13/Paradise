@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user, 50, target = A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
-			user.equip_to_slot_if_possible(src, SLOT_HUD_IN_BACKPACK, FALSE, TRUE)
+			user.equip_to_slot_if_possible(src, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
 				user.drop_item(src)
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/effect/extraction_holder
 	name = "extraction holder"
-	desc = "you shouldnt see this"
+	desc = "You shouldnt see this."
 	var/atom/movable/stored_obj
 
 /obj/effect/extraction_holder/Initialize(mapload)
