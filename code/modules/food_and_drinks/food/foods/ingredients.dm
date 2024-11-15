@@ -54,6 +54,22 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
+/obj/item/food/sliceable/cheesewheel/blackwax
+	name = "\improper Blackwax cheese wheel"
+	desc = "A wheel of fancy imported-style smoked cheese."
+	icon_state = "cheesewheel-blackwax"
+	slice_path = /obj/item/food/cheesewedge/blackwax
+	slices_num = 4
+	list_reagents = list("nutriment" = 10, "vitamin" = 2, "cheese" = 15)
+	tastes = list("cheese" = 2, "smoke" = 1)
+
+/obj/item/food/cheesewedge/blackwax
+	name = "\improper Blackwax cheese wedge"
+	desc = "A wedge of fancy smoked Blackwax cheese."
+	icon_state = "cheesewedge-blackwax"
+	filling_color = "#FFF700"
+	tastes = list("cheese" = 2, "smoke" = 1)
+
 /obj/item/food/cheesewedge/checkpass(passflag)
 	if((passflag & PASSDOOR) && ismouse(pulledby))
 		return TRUE

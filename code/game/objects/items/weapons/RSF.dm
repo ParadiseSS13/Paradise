@@ -16,13 +16,7 @@
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
-/obj/item/rsf/attack_self(mob/user)
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
-	if(!currently_dispensing)
-		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
-	else
-		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
-	var/static/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+	var/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
@@ -39,7 +33,16 @@
 							"Newdles" = image(icon = 'icons/obj/food/food.dmi', icon_state = "chinese3"),
 							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
-							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"))
+							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
+							"Blackwax Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blackwax"))
+
+/obj/item/rsf/attack_self(mob/user)
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	if(!currently_dispensing)
+		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
+	else
+		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
+
 	var/rsf_radial_choice = show_radial_menu(user, src, rsf_icons)
 	if(user.stat || !in_range(user, src))
 		return
@@ -67,7 +70,6 @@
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
 	return TRUE
 
-
 /obj/item/rsf/afterattack(atom/A, mob/user, proximity)
 	if(!currently_dispensing)
 		return
@@ -87,6 +89,21 @@
 		return
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)
 	new currently_dispensing(T)
+
+/obj/item/rsf/executive
+	name = "\improper Executive-Service-Fabricator"
+	desc = "A fancier version of the RSF, used to deploy classy refreshments and materials to high ranking clientelle."
+	icon_state = "rsf-exec"
+
+	rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+							"Paper" = /obj/item/paper,
+							"Pen" = /obj/item/pen,
+							"Dice Pack" = /obj/item/storage/bag/dice,
+							"Cigarette" = /obj/item/clothing/mask/cigarette,
+							"Blackwax Cheese" = /obj/item/food/sliceable/cheesewheel/blackwax,
+							"Donut" = /obj/item/food/donut,
+							"Chicken Soup" = /obj/item/reagent_containers/drinks/chicken_soup,
+							"Tofu Burger" = /obj/item/food/burger/tofu)
 
 #undef POWER_NONE
 #undef POWER_LOW
