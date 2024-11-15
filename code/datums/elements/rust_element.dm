@@ -28,6 +28,7 @@
 	UnregisterSignal(source, COMSIG_PARENT_ATTACKBY)
 	UnregisterSignal(source, COMSIG_TOOL_ATTACK)
 	REMOVE_TRAIT(source, TRAIT_RUSTY, "rusted_turf")
+	source.cut_overlays()
 	source.update_appearance()
 
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_list)
