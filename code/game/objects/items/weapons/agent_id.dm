@@ -174,7 +174,7 @@
 		if(isnull(new_name))
 			return
 	else
-		new_name = name
+		new_name = sanitize(name)
 
 	registered_name = reject_bad_name(new_name, TRUE)
 	UpdateName()
@@ -264,7 +264,7 @@
 		dna_hash = md5(num2text(rand(0, 999)))
 	else
 		if(new_dna)
-			dna_hash = strip_html_simple(new_dna, 33) // Max length of 32 characters
+			dna_hash = sanitize(new_dna, 33) // Max length of 32 characters
 
 /obj/item/card/id/syndicate/proc/change_fingerprints(option, new_fingerprints)
 	if(option == "Primary")
@@ -274,7 +274,7 @@
 	else
 		var/fingerprints_param  = new_fingerprints
 		if(fingerprints_param)
-			fingerprint_hash = strip_html_simple(fingerprints_param, 33)
+			fingerprint_hash = sanitize(fingerprints_param, 33)
 
 /// like /obj/item/card/id/syndicate, but you can only swipe access, not change your identity, its also trackable
 /obj/item/card/id/syndi_scan_only
