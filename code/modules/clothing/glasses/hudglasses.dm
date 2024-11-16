@@ -16,7 +16,7 @@
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(slot != SLOT_HUD_GLASSES)
+	if(slot != ITEM_SLOT_EYES)
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]

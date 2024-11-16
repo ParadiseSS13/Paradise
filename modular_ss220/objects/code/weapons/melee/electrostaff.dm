@@ -6,7 +6,7 @@
 	icon = 'modular_ss220/objects/icons/melee.dmi'
 	base_icon = "electrostaff"
 	icon_state = "electrostaff_orange"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	throwforce = 7

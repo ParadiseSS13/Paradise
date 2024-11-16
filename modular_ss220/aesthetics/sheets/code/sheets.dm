@@ -82,9 +82,6 @@
 /obj/item/bedsheet/wiz/double
 	icon_state = "double_sheetwiz"
 
-/obj/item/bedsheet/rev/double
-	icon_state = "double_sheetrev"
-
 /obj/item/bedsheet/nanotrasen/double
 	icon_state = "double_sheetNT"
 

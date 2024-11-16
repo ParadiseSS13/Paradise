@@ -1,13 +1,16 @@
 // Please don't use this for anything, it's a base type for custom mech paintjobs.
 /obj/item/paintkit
 	name = "Набор кастомизации меха"
-	desc = "Дефолтный набор кастомизации, превращающий мех в другой мех(визуально)."
+	desc = "Дефолтный набор кастомизации, превращающий мех в другой мех (визуально)."
 	icon = 'modular_ss220/mecha_skins/icons/paintkit.dmi'
 	icon_state = "paintkit"
 	// New type of wreckage
 	var/new_wreckage = null
 
-// RIPLEY
+/obj/item/paintkit/titansfist
+	icon = 'icons/obj/painting.dmi'
+
+// MARK: Ripley
 
 /obj/item/paintkit/ripley_titansfist
 	name = "Набор кастомизации АЭП \"Кулак Титана\""
@@ -97,7 +100,7 @@
 	allowed_types = list("ripley", "firefighter")
 	new_wreckage = /obj/structure/mecha_wreckage/ripley/reaper
 
-// ODYSSEUS
+// MARK: Odysseus
 
 /obj/item/paintkit/odysseus_hermes
 	name = "Набор кастомизации Одиссея \"Гермес\""
@@ -121,7 +124,7 @@
 	allowed_types = list("odysseus")
 	new_wreckage = /obj/structure/mecha_wreckage/odysseus/reaper
 
-// GYGAXCHAD
+// MARK: Gygax
 
 /obj/item/paintkit/gygax_alt
 	name = "Набор кастомизации старого Гигакса"
@@ -174,7 +177,7 @@
 
 	new_name = "Молчигакс"
 	new_desc = "...!"
-	new_icon = "mimegax"
+	new_icon = "mime"
 	allowed_types = list("gygax")
 	new_wreckage = /obj/structure/mecha_wreckage/gygax/mimegax
 
@@ -189,7 +192,7 @@
 	allowed_types = list("gygax")
 	new_wreckage = /obj/structure/mecha_wreckage/gygax/gygax_black
 
-// DURAND
+// MARK: Durand
 
 /obj/item/paintkit/durand_soviet
 	name = "Набор кастомизации Дюранда \"Кукольный домик\""
@@ -235,7 +238,7 @@
 	allowed_types = list("durand")
 	new_wreckage = /obj/structure/mecha_wreckage/durand/skull
 
-// USELESS SHIT
+// MARK: Phazon
 
 /obj/item/paintkit/phazon_imperion
 	name = "Набор кастомизации Фазона \"Империон\""

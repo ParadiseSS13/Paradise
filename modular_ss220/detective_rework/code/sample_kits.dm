@@ -64,7 +64,7 @@
 /obj/item/sample/print
 	name = "\improper дактилоскопическая карта"
 	desc = "Сохраняет отпечатки пальцев."
-	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
+	icon = 'modular_ss220/aesthetics/better_ids/icons/card.dmi'
 	icon_state = "fingerprint0"
 	item_state = "paper"
 

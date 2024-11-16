@@ -317,10 +317,23 @@
 	icon_state = "ember_com"
 	item_state = "ember_com"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
+
 /obj/item/clothing/suit/armor/vest/ert/security
 	icon_state = "ember_sec"
 	item_state = "ember_sec"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/armor/vest/ert/medical
+	icon_state = "ember_med"
+	item_state = "ember_med"
+
+// Actualy not used - ERT engineer uses /obj/item/clothing/suit/space/ert_engineer instead
+/obj/item/clothing/suit/armor/vest/ert/engineer
+	icon = 'icons/obj/clothing/suits.dmi'
+
+/obj/item/clothing/suit/armor/vest/ert/janitor
+	icon_state = "ember_jan"
+	item_state = "ember_jan"
 
 /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	icon_state = "knight_templar"
@@ -359,14 +372,6 @@
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
 		"Nucleation"		=	'modular_ss220/clothing/icons/mob/suits.dmi',
 		)
-
-/obj/item/clothing/suit/armor/vest/ert/medical
-	icon_state = "ember_med"
-	item_state = "ember_med"
-
-/obj/item/clothing/suit/armor/vest/ert/janitor
-	icon_state = "ember_jan"
-	item_state = "ember_jan"
 
 /obj/item/clothing/suit/storage/browntrenchcoat
 	name = "старое коричневое пальто"

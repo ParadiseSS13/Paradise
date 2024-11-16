@@ -153,7 +153,7 @@
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		var/mob/living/carbon/human/H = user
 		style.teach(H, TRUE)
 
@@ -162,7 +162,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(H)
 
 // Warden gloves

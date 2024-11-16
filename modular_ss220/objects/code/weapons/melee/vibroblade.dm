@@ -23,7 +23,7 @@
 	throw_speed = 2
 	throw_range = 5
 	armour_penetration_percentage = 75
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
 	flags = CONDUCT
@@ -132,7 +132,7 @@
 
 /obj/item/melee/vibroblade/equipped(mob/user, slot, initial)
 	. = ..()
-	if(hold_to_be_charged && slot != SLOT_HUD_LEFT_HAND && slot != SLOT_HUD_RIGHT_HAND)
+	if(hold_to_be_charged && slot != ITEM_SLOT_LEFT_HAND && slot != ITEM_SLOT_RIGHT_HAND)
 		set_charge_level(CHARGE_LEVEL_NONE)
 
 /obj/item/melee/vibroblade/dropped(mob/user, silent)

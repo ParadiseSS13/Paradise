@@ -30,5 +30,5 @@
 	)
 	resistance_flags = FLAMMABLE
 	max_w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 

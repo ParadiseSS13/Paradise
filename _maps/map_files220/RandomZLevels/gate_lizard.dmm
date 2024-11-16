@@ -541,7 +541,7 @@
 /obj/item/clothing/accessory/necklace/talisman,
 /obj/item/clothing/accessory/necklace/skullcodpiece,
 /obj/item/clothing/accessory/necklace/talisman,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "aPj" = (
@@ -674,7 +674,7 @@
 "bbp" = (
 /obj/item/clothing/head/helmet/skull,
 /obj/item/clothing/head/helmet/skull,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -1017,7 +1017,7 @@
 /obj/item/stack/sheet/leather,
 /obj/item/stack/sheet/leather,
 /obj/item/clothing/accessory/necklace/dope,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "bti" = (
@@ -1202,7 +1202,7 @@
 /obj/item/food/grown/onion,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "bCI" = (
@@ -1469,7 +1469,7 @@
 /obj/item/coin/gold,
 /obj/item/coin/gold,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -10345,7 +10345,7 @@
 /obj/item/clothing/accessory/necklace/locket,
 /obj/item/coin/gold,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -10439,7 +10439,7 @@
 /obj/item/clothing/gloves/bracer,
 /obj/item/clothing/gloves/bracer,
 /obj/item/clothing/suit/armor/bone,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -10963,7 +10963,7 @@
 /obj/item/reagent_containers/drinks/trophy/silver_cup,
 /obj/item/clothing/gloves/ring/gold,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "nZE" = (
@@ -11138,7 +11138,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "omT" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/food/grown/cannabis,
 /obj/item/food/grown/cannabis,
 /obj/item/food/grown/cannabis/ultimate,
@@ -11921,7 +11921,7 @@
 /obj/item/stack/spacecash/c500,
 /obj/machinery/light/small/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -15016,7 +15016,7 @@
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "teN" = (
@@ -15296,7 +15296,7 @@
 "tte" = (
 /obj/item/bikehorn/golden,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -15970,7 +15970,7 @@
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ulv" = (
@@ -16213,7 +16213,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "uAI" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/bruise_pack,
@@ -16955,7 +16955,7 @@
 /obj/item/clothing/suit/unathi/mantle,
 /obj/item/clothing/suit/unathi/robe,
 /obj/item/clothing/suit/unathi/robe,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "vvO" = (

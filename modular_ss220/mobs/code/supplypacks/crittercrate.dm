@@ -133,7 +133,6 @@
 		/obj/item/clothing/suit/victcoat/red = 25,
 		/obj/item/clothing/suit/draculacoat = 25,
 		/obj/item/clothing/suit/browntrenchcoat = 25,
-		/obj/item/clothing/suit/neocoat = 25,
 		/obj/item/clothing/suit/blacktrenchcoat = 25,
 
 		/obj/item/clothing/suit/storage/blueshield = 5,

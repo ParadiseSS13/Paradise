@@ -1468,7 +1468,7 @@
 /area/awaymission/black_mesa/lambda_teleporter)
 "bOB" = (
 /obj/item/aicard,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "bPs" = (
@@ -1763,7 +1763,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_test_chambers)
 "ciE" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
@@ -2010,7 +2010,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/entrance)
 "cuC" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/storage/firstaid/ancient,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
@@ -3480,7 +3480,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/genetics)
 "eji" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "ejL" = (
@@ -4272,7 +4272,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "fiC" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/food/meat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
@@ -5425,7 +5425,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/entrance_internal_hall)
 "gBL" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /obj/item/ammo_box/shotgun/buck,
 /obj/effect/decal/cleanable/dirt,
@@ -5919,7 +5919,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "hiI" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/flashlight,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
@@ -6364,7 +6364,7 @@
 "hOh" = (
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/science_internal)
 "hOn" = (
@@ -6867,7 +6867,7 @@
 	},
 /area/awaymission/black_mesa/deep_sci_hall)
 "iAP" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/kitchen/knife/combat,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
@@ -7494,7 +7494,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "jka" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/food/fancy/doshik_spicy,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
@@ -8768,7 +8768,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/hecu_zone_tunnel)
 "kMr" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "kMu" = (
@@ -8994,7 +8994,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "kYD" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
 "kZm" = (
@@ -12239,7 +12239,7 @@
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/xen/acid_lake)
 "oQS" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/kitchen/knife/combat/survival/bone,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
@@ -13290,7 +13290,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "qgG" = (
 /obj/item/ammo_box/n762,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_feesh)
 "qhG" = (
@@ -13915,7 +13915,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "qPE" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/food/fancy/doshik,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
@@ -14947,7 +14947,7 @@
 	},
 /area/awaymission/black_mesa/high_security_hallway)
 "sfi" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/clothing/under/pants/shorts/red,
 /obj/item/stack/spacecash/c1000,
 /obj/item/ammo_box/shotgun/buck,
@@ -14976,7 +14976,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "sgF" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/fireaxe,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
@@ -17264,7 +17264,7 @@
 "vdm" = (
 /obj/item/ammo_box/magazine/wt550m9,
 /obj/item/ammo_box/magazine/wt550m9,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/science_internal)
 "vdn" = (
@@ -17288,7 +17288,7 @@
 	},
 /area/awaymission/black_mesa/science_internal)
 "vdy" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/stack/spacecash/c1000,
 /obj/item/stack/spacecash/c1000,
 /obj/effect/decal/cleanable/dirt,
@@ -19264,7 +19264,7 @@
 	},
 /area/awaymission/black_mesa/resonant_chamber)
 "xxB" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
@@ -19427,7 +19427,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "xKX" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/food/beans,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)

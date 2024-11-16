@@ -36,7 +36,7 @@
 
 /obj/item/clothing/shoes/black/neon/equipped(mob/user, slot)
 	. = ..()
-	if(!neon_overlay && glow_active && slot == SLOT_HUD_SHOES)
+	if(!neon_overlay && glow_active && slot == ITEM_SLOT_SHOES)
 		apply_neon_overlay(user)
 
 /obj/item/clothing/shoes/black/neon/dropped(mob/user)
@@ -73,7 +73,7 @@
 		return
 
 	remove_neon_overlay(user)
-	if(user.get_item_by_slot(SLOT_HUD_SHOES))
+	if(user.get_item_by_slot(ITEM_SLOT_SHOES))
 		apply_neon_overlay(user)
 
 /// Toggles neon overlay and light emit
@@ -81,7 +81,7 @@
 	if(!user)
 		return
 	// Toggle neon overlay
-	if(!glow_active && user.get_item_by_slot(SLOT_HUD_SHOES))
+	if(!glow_active && user.get_item_by_slot(ITEM_SLOT_SHOES))
 		apply_neon_overlay(user)
 	else if(neon_overlay)
 		remove_neon_overlay(user)

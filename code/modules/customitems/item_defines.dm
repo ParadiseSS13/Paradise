@@ -150,7 +150,7 @@
 	force = 5
 	sharp = FALSE
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -186,7 +186,7 @@
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
-	icon_state = "thermoncle"
+	icon_state = "thermonocle"
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -216,6 +216,7 @@
 	name = "custom zippo"
 	desc = "A custom made zippo lighter."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 
 /// GodOfOreos: Jason Conrad
 /obj/item/lighter/zippo/fluff/purple
@@ -1555,7 +1556,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_ACCESSORY
 
 /// HugoLuman: Dan Martinez
 /obj/item/bedsheet/fluff/hugosheet
@@ -1613,7 +1614,7 @@
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
 			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, SLOT_HUD_HEAD, TRUE)
+			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
 
@@ -1689,7 +1690,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/XannZxiax
@@ -1699,7 +1700,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf
@@ -1770,6 +1771,7 @@
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 	fluff_material = TRUE
 
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()

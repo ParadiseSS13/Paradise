@@ -185,7 +185,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 602207
+sql_version = 612207
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -276,7 +276,7 @@ gamemode_probabilities = [
 	{ gamemode = "traitor", probability = 2 },
 	{ gamemode = "traitorchan", probability = 3 },
 	{ gamemode = "traitorvamp", probability = 3 },
-	{ gamemode = "vampchan", probability = 3},
+	{ gamemode = "vampchan", probability = 3 },
 	{ gamemode = "vampire", probability = 3 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 3 },
@@ -387,6 +387,8 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
+# Enable weather events initialized by SSweather. New weather events can still be added during the round if this is disabled.
+enable_default_weather_events = true
 
 
 ################################################################
@@ -702,6 +704,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
 	## SS220 Ruins
 	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/destroyed_infiltrator.dmm",
@@ -899,15 +902,16 @@ non_repeating_maps = true
 # - "Vote" = regular voting
 # - "Nodupes" = voting wont include current map
 # - "Random" = no vote, map is random
+# - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-	{ day_number = 1, rotation_type = "Vote" },    # Monday
-	{ day_number = 2, rotation_type = "Random" },  # Tuesday
-	{ day_number = 3, rotation_type = "Vote" },    # Wednesday
-	{ day_number = 4, rotation_type = "Random" },  # Thursday
-	{ day_number = 5, rotation_type = "Vote" },    # Friday
-	{ day_number = 6, rotation_type = "Nodupes" }, # Saturday
-	{ day_number = 7, rotation_type = "Nodupes" }, # Sunday
+	{ day_number = 1, rotation_type = "Vote" },   # Monday
+	{ day_number = 2, rotation_type = "Random" }, # Tuesday
+	{ day_number = 3, rotation_type = "FPTP" },   # Wednesday
+	{ day_number = 4, rotation_type = "Random" }, # Thursday
+	{ day_number = 5, rotation_type = "Vote" },   # Friday
+	{ day_number = 6, rotation_type = "FPTP" },   # Saturday
+	{ day_number = 7, rotation_type = "FPTP" },   # Sunday
 ]
 
 

@@ -67,7 +67,7 @@
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
-	if(spy_spider_attached || !((slot_flags & SLOT_FLAG_OCLOTHING) || (slot_flags & SLOT_FLAG_ICLOTHING)))
+	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_OUTER_SUIT) || (slot_flags & ITEM_SLOT_JUMPSUIT)))
 		to_chat(user, span_warning("Ты не находишь места для жучка!"))
 		return TRUE
 	var/obj/item/radio/spy_spider/spy_spider = I

@@ -15,6 +15,13 @@
 /obj/machinery/light/floor
 	icon = 'icons/obj/lighting.dmi'
 
+/obj/machinery/light/clockwork
+	icon = 'icons/obj/lighting.dmi'
+	layer = ABOVE_MOB_LAYER
+
+/obj/machinery/light/clockwork/small
+	layer = ABOVE_MOB_LAYER
+
 /obj/machinery/light_construct
 	icon = 'modular_ss220/aesthetics/lights/icons/lights.dmi'
 	layer = ABOVE_MOB_LAYER
@@ -26,6 +33,9 @@
 /obj/machinery/light_construct/floor
 	icon = 'icons/obj/lighting.dmi'
 
+/obj/machinery/light_construct/clockwork
+	icon = 'icons/obj/lighting.dmi'
+
 /obj/item/mounted/frame/light_fixture
 	icon = 'modular_ss220/aesthetics/lights/icons/lights.dmi'
 
@@ -33,6 +43,9 @@
 	icon = 'icons/obj/lighting.dmi'
 
 /obj/item/mounted/frame/light_fixture/floor
+	icon = 'icons/obj/lighting.dmi'
+
+/obj/item/mounted/frame/light_fixture/clockwork
 	icon = 'icons/obj/lighting.dmi'
 
 /obj/item/flashlight/lamp

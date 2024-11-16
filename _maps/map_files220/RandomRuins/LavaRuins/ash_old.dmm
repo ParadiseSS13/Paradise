@@ -73,7 +73,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/circuitboard/prisoner,
 /obj/item/circuitboard/chem_master{
 	pixel_y = -5;
@@ -156,7 +156,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/seeds/aloe,
 /obj/item/seeds/potato{
 	pixel_x = 5
@@ -366,7 +366,7 @@
 	},
 /obj/item/mod/module/visor/night,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/stack/sheet/mineral/diamond{
 	amount = 4;
 	pixel_x = 4
