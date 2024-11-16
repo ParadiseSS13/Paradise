@@ -17,6 +17,7 @@
 #include "log_format.dm"
 #include "map_templates.dm"
 #include "map_tests.dm"
+#include "missing_icons.dm"
 #include "origin_tech.dm"
 #include "purchase_reference_test.dm"
 #include "reagent_id_typos.dm"

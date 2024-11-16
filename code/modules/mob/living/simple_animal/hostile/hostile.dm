@@ -472,6 +472,9 @@
 		A.attack_animal(src)//Bang on it till we get out
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
+	if(QDELETED(target))
+		LoseTarget()
+		return
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)

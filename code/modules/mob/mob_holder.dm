@@ -107,7 +107,7 @@
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = null
 
 /obj/item/holder/mouse
 	name = "mouse"
