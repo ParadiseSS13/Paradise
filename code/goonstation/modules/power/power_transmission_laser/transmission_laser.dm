@@ -256,7 +256,7 @@
 	// The message we send
 	var/message
 	if(announcement_threshold == 1 MJ)
-		message = "PTL account successfully made!\n \
+		message = "PTL account successfully made!\n\
 		From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
 		announcement_threshold = 100 MJ
 	else
