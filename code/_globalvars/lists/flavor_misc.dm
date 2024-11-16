@@ -70,6 +70,7 @@ GLOBAL_LIST_INIT(borg_brain_choices, list(MMI_BORG, ROBOBRAIN_BORG, POSITRONIC_B
 GLOBAL_PROTECT(borg_brain_choices)
 
 //Chooseable ringtones
+//Due to database reasons, the name should be 16 characters long maximum
 GLOBAL_LIST_INIT(pda_ringtone_choices, list("beep" = 'sound/machines/twobeep.ogg',
 								"boop" = 'sound/machines/boop.ogg',
 								"electronic" = 'sound/machines/notif1.ogg',
