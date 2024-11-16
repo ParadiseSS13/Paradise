@@ -126,7 +126,7 @@
 	resonance_damage *= damage_multiplier
 
 /obj/effect/temp_visual/resonance/proc/burst()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_CROSSED
 	if(rupturing)
 		return
 	rupturing = TRUE
