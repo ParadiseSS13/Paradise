@@ -122,7 +122,7 @@
 							"Blue Cheese" = /obj/item/food/sliceable/cheesewheel/blue,
 							"Camembert Cheese" = /obj/item/food/sliceable/cheesewheel/camembert,
 							"Caviar" = /obj/item/food/caviar,
-							"Sprinkled Donut" = /obj/item/food/donut/sprinkles
+							"Donut" = /obj/item/food/donut
 							)
 
 #undef POWER_NONE
