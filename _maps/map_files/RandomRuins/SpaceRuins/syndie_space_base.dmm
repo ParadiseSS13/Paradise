@@ -1687,6 +1687,9 @@
 	dir = 1
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
+"iR" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "iU" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/disposalpipe/segment{
@@ -1838,6 +1841,18 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"jY" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/green{
+	d2 = 2;
+	icon_state = "1-2";
+	d1 = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "kc" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -2055,6 +2070,11 @@
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "1-2";
+	d1 = 1
+	},
+/obj/structure/cable/green{
+	d2 = 4;
+	icon_state = "1-4";
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3380,6 +3400,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "2-8";
+	d1 = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3633,6 +3658,11 @@
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SBW6";
 	location = "SBW5"
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5585,6 +5615,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7656,6 +7691,10 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"Sp" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/main)
 "Sq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -8025,6 +8064,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/cable/green{
+	d2 = 2;
+	icon_state = "1-2";
+	d1 = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8264,6 +8308,19 @@
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"Vj" = (
+/obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/toy/plushie/lizardplushie{
+	name = "Forks-the-Outlet"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "Vl" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
@@ -12377,8 +12434,8 @@ wA
 PL
 sV
 TK
-RX
-kE
+jY
+Vj
 kE
 kE
 kE
@@ -12449,8 +12506,8 @@ hO
 PL
 am
 am
-RX
-kE
+Sp
+iR
 kE
 kE
 kE
