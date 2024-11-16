@@ -2236,6 +2236,18 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/storage)
+"mv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "mw" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 1
@@ -2991,7 +3003,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "qf" = (
-/obj/machinery/economy/arcade/claw,
+/obj/machinery/economy/arcade/claw/syndi,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6570,6 +6582,20 @@
 "Ko" = (
 /turf/simulated/mineral,
 /area/ruin/unpowered/syndicate_space_base/outer)
+"Kp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "Kw" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -9890,12 +9916,12 @@ xn
 xn
 xn
 xn
-My
+Kp
 ma
 nZ
 kk
 ZI
-My
+mv
 xn
 xn
 xn
