@@ -102,8 +102,8 @@
 	adding_failure = set_failure
 	playsound(src, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
 	if(mode == RESONATOR_MODE_AUTO)
-		transform = matrix()*0.75
-		animate(src, transform = matrix()*1.5, time = duration)
+		transform = matrix() * 0.75
+		animate(src, transform = matrix() * 1.5, time = duration)
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(burst)), duration, TIMER_STOPPABLE)
 
