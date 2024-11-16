@@ -14,10 +14,9 @@
 	// interactions are not attacks. Shit like the autolathe accepting
 	// screwdrivers on harm intent is unintuitive and needs to go away, and there
 	// are dozens of ${TOOL}_act procs that do constant harm intent checks.
-	if(user.a_intent == INTENT_HELP)
-		var/tool_return = tool_act(user, tool, modifiers)
-		if(tool_return)
-			return tool_return
+	var/tool_return = tool_act(user, tool, modifiers)
+	if(tool_return)
+		return tool_return
 
 	var/early_sig_return = NONE
 	/*
