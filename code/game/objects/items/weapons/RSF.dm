@@ -46,7 +46,6 @@
 							"Caviar" = image(icon = 'icons/obj/food/seafood.dmi', icon_state = "caviar")
 							)
 
-
 	var/static/list/power_costs = list(
 							"Drinking Glass" = POWER_LOW,
 							"Shot Glass" = POWER_LOW,

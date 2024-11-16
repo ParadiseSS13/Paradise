@@ -1303,11 +1303,11 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_rsf_exec
+/datum/design/borg_upgrade_rsf_executive
 	name = "Cyborg Upgrade (Executive Service Upgrade)"
-	id = "borg_upgrade_RSF_exec"
+	id = "borg_upgrade_RSF_executive"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/rsf_exec
+	build_path = /obj/item/borg/upgrade/rsf_executive
 	req_tech = list("materials" = 2, "biotech" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 2000)
 	construction_time = 12 SECONDS
