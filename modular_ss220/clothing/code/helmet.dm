@@ -83,12 +83,12 @@
 		toggle_nvg(user)
 
 /obj/item/clothing/head/helmet/ert/command/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 /obj/item/clothing/head/helmet/ert/command/equipped(mob/user, slot, initial)
 	. = ..()
-	if(nvg_enabled && slot == SLOT_HUD_HEAD)
+	if(nvg_enabled && slot == ITEM_SLOT_HEAD)
 		ADD_TRAIT(user, TRAIT_NIGHT_VISION, "ert_commander_helmet[UID()]")
 
 /obj/item/clothing/head/helmet/ert/command/dropped(mob/user)

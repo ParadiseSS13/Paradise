@@ -3,18 +3,18 @@
 /datum/gear/racial/vox_sandal
 	display_name = "Vox sandals"
 	path = /obj/item/clothing/shoes/roman/vox
-	slot = SLOT_HUD_SHOES
+	slot = ITEM_SLOT_SHOES
 
 /datum/gear/racial/vox_gauntlets
 	display_name = "Vox gauntlets"
 	path = /obj/item/clothing/gloves/vox/light
-	slot = SLOT_HUD_GLOVES
+	slot = ITEM_SLOT_GLOVES
 
 /datum/gear/racial/vox_jumpsuit
 	display_name = "Vox work jumpsuit"
 	description = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
 	path = /obj/item/clothing/under/vox/jumpsuit
-	slot = SLOT_HUD_JUMPSUIT
+	slot = ITEM_SLOT_JUMPSUIT
 
 /datum/gear/racial/vox_jumpsuit/red
 	display_name = "Vox red jumpsuit"

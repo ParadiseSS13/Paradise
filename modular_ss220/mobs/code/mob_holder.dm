@@ -4,7 +4,7 @@
 	lefthand_file = 'modular_ss220/mobs/icons/mob/inhands/mobs_lefthand.dmi'
 	righthand_file = 'modular_ss220/mobs/icons/mob/inhands/mobs_righthand.dmi'
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 /obj/item/holder/attack(mob/living/target, mob/living/user, def_zone)
 	ASSERT(length(contents) > 0)
@@ -109,7 +109,7 @@
 	desc = "It's a little robot."
 	icon_state = "pai"
 	origin_tech = "materials=3;programming=4;engineering=4"
-	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/bee
 	name = "bee"
@@ -120,7 +120,7 @@
 	slot_flags = null
 
 /obj/item/holder/bunny
-	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/butterfly
 	name = "butterfly"
@@ -128,14 +128,14 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "butterfly"
 	origin_tech = "biotech=4"
-	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
-	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/drone
 	name = "maintenance drone"

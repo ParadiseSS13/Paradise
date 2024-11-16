@@ -74,7 +74,7 @@
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/railgun.ogg'
 	recoil = 0
 	fire_delay = 25
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/skrell_magazine

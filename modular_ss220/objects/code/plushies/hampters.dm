@@ -53,7 +53,7 @@
 	icon_override = 'modular_ss220/objects/icons/inhead/head.dmi'
 	lefthand_file = 'modular_ss220/objects/icons/inhands/plushies_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/plushies_righthand.dmi'
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	w_class = WEIGHT_CLASS_TINY
 	blood_color = "#d42929"
 	var/squeak = 'sound/items/squeaktoy.ogg'

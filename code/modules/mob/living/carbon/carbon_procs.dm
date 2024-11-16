@@ -580,6 +580,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
+			var/obj/machinery/atmospherics/atmos_machine = loc
+			if(!atmos_machine.can_see_pipes())
+				return
 			if(target_move)
 				remove_ventcrawl_images()
 			var/obj/machinery/atmospherics/current_pipe = loc
@@ -768,21 +771,36 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return wear_suit
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return r_hand
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
 	return null
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	// if(back && (looking_for in back))
+	// 	return ITEM_SLOT_BACKPACK
+
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	return ..()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse()

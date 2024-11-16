@@ -6,7 +6,7 @@
 
 /obj/item/clothing/glasses/meson/cyber/vox/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		flags = NODROP
 	else
 		flags = initial(flags)
@@ -19,7 +19,7 @@
 
 /obj/item/clothing/glasses/thermal/cyber/vox/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		flags = NODROP
 	else
 		flags = initial(flags)

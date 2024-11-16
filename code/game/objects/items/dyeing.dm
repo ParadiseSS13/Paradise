@@ -2,7 +2,7 @@
  * Updates an item's appearance to mimic the appearance of another item in the dye_registry's dictionary
  * what types of items (beanie, jumpsuit, shoes, etc) src is dyed into depends on the dye_key unless an
  * overidden dye_key is specified. For example if our dye_key is DYE_REGISTRY_UNDER and we specify to dye to
- * DYE_RED, our item's appearance would then mimic /obj/item/clothing/under/color/red; see [dye_registry.dm] for this dictionary
+ * DYE_RED, our item's appearance would then mimic /obj/item/clothing/under/color/red; see [code/_globalvars/lists/dye_registry.dm] for this dictionary
  *
  * once everything is updated, the target type path that we dyed the item into is returned
  *
