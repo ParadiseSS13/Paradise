@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate only after being attacked by [src].</span>")
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to work as matrix traps.</span>")
+		to_chat(user, "<span class='notice'>You set [src]'s fields to work as matrix traps.</span>")
 		mode = RESONATOR_MODE_MATRIX
 	else
 		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate automatically after 2 seconds.</span>")
