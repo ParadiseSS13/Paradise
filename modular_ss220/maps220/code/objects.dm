@@ -42,16 +42,14 @@
 
 //Crates
 /obj/structure/closet/crate/wooden
-	icon = 'modular_ss220/maps220/icons/crates.dmi'
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
-
-/obj/structure/closet/crate/wooden/wooden_crate
 	name = "wooden crate"
 	desc = "A wooden crate."
+	icon = 'modular_ss220/maps220/icons/crates.dmi'
 	icon_state = "wooden"
 	icon_opened = "wooden_open"
 	icon_closed = "wooden"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/crate/wooden/barrel
 	name = "wooden barrel"

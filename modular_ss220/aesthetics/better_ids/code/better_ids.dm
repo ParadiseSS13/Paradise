@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(card_skins_donor_ss220, list(
 ))
 
 /obj/item/card
-	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
+	icon = 'modular_ss220/aesthetics/better_ids/icons/card.dmi'
 
 /obj/item/nanomob_card
-	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
+	icon = 'modular_ss220/aesthetics/better_ids/icons/card.dmi'

@@ -7,7 +7,7 @@
 
 /mob/living/simple_animal/hostile/headslug
 	attacktext = "грызёт"
-// holder_type = /obj/item/holder/headslug (Пупс попросил закомментить)
+	holder_type = /obj/item/holder/headslug
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
 	holder_type = /obj/item/holder/clowngoblin

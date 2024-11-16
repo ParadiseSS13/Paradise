@@ -1906,7 +1906,7 @@
 	},
 /area/vox_base)
 "gI" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/instrument/accordion,
 /obj/item/instrument/banjo,
 /obj/item/instrument/bikehorn,
@@ -5128,7 +5128,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ghost_bar/outdoor/beach)
 "rL" = (
-/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/structure/closet/crate/wooden,
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree,

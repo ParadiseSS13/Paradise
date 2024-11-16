@@ -68,6 +68,22 @@
 		"Nucleation"		=	'modular_ss220/clothing/icons/mob/helmet.dmi',
 		)
 
+/obj/item/clothing/head/helmet/ert/security
+	icon_state = "ember_sec"
+	item_state = "ember_sec"
+
+/obj/item/clothing/head/helmet/ert/engineer
+	icon_state = "ember_eng"
+	item_state = "ember_eng"
+
+/obj/item/clothing/head/helmet/ert/medical
+	icon_state = "ember_med"
+	item_state = "ember_med"
+
+/obj/item/clothing/head/helmet/ert/janitor
+	icon_state = "ember_jan"
+	item_state = "ember_jan"
+
 /obj/item/clothing/head/helmet/ert/command
 	icon_state = "ember_com"
 	item_state = "ember_com"
@@ -125,10 +141,6 @@
 	user.update_inv_head()
 	to_chat(user, span_notice("[msg]"))
 
-/obj/item/clothing/head/helmet/ert/security
-	icon_state = "ember_sec"
-	item_state = "ember_sec"
-
 /obj/item/clothing/head/helmet/ert/security/paranormal
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
@@ -167,11 +179,3 @@
 		"Nucleation"		=	'modular_ss220/clothing/icons/mob/helmet.dmi',
 		)
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 50, FIRE = 200, ACID = 115)
-
-/obj/item/clothing/head/helmet/ert/medical
-	icon_state = "ember_med"
-	item_state = "ember_med"
-
-/obj/item/clothing/head/helmet/ert/janitor
-	icon_state = "ember_jan"
-	item_state = "ember_jan"

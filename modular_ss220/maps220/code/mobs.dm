@@ -426,7 +426,7 @@
 
 /* Jungle Mob Spawners */
 /obj/effect/landmark/awaymissions/gate_lizard/mine_spawner
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/restraints.dmi'
 	icon_state = "fleshtrap"
 	var/id = null
 	var/triggered = FALSE
@@ -436,6 +436,7 @@
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn
 	name = "spawner"
 	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "spawner"
 	var/id = null
 	var/jungle_mob = null
 
@@ -1280,6 +1281,7 @@
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
 	icon = 'modular_ss220/maps220/icons/spacebattle.dmi'
+	icon_state = "melee"
 	var/id = null
 	var/syndi_mob = null
 

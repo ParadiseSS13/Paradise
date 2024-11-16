@@ -35,7 +35,7 @@
 	. = ..()
 	icon_state = reset_icon(icon_state)+"-open"
 
-// RIP AND PEPPERONI
+// MARK: Ripley
 
 /obj/structure/mecha_wreckage/ripley/titan
 	name = "\improper Обломки \"Кулака Титана\""
@@ -85,7 +85,7 @@
 	icon = 'modular_ss220/mecha_skins/icons/mecha.dmi'
 	icon_state = "deathripley-broken"
 
-// ODYSSEUS`S ASS
+// MARK: Odysseus
 
 /obj/structure/mecha_wreckage/odysseus/hermes
 	name = "\improper Обломки \"Гермеса\""
@@ -99,7 +99,7 @@
 	icon = 'modular_ss220/mecha_skins/icons/mecha.dmi'
 	icon_state = "murdysseus-broken"
 
-// GYGAXCHAD
+// MARK: Gygax
 
 /obj/structure/mecha_wreckage/gygax/medigax
 	name = "\improper Обломки \"Медигакса\""
@@ -129,7 +129,7 @@
 	name = "\improper Обломки \"Молчигакса\""
 	desc = "..."
 	icon = 'modular_ss220/mecha_skins/icons/mecha.dmi'
-	icon_state = "mimegax-broken"
+	icon_state = "mime-broken"
 
 /obj/structure/mecha_wreckage/gygax/gygax_black
 	name = "\improper Обломки черного Гигакса"
@@ -137,7 +137,7 @@
 	icon = 'modular_ss220/mecha_skins/icons/mecha.dmi'
 	icon_state = "gygax_black-broken"
 
-// DURAND
+// MARK: Durand
 
 /obj/structure/mecha_wreckage/durand/dollhouse
 	name = "\improper Обломки \"Кукольного домика\""
@@ -163,7 +163,7 @@
 	icon = 'modular_ss220/mecha_skins/icons/mecha.dmi'
 	icon_state = "skullmech-broken"
 
-// USELESS SHIT
+// MARK: Phazon
 
 /obj/structure/mecha_wreckage/phazon/imperion
 	name = "\improper Обломки \"Империона\""

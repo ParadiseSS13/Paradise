@@ -107,7 +107,6 @@
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
 	origin_tech = "materials=3;programming=4;engineering=4"
 	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_BOTH_EARS
 
@@ -147,12 +146,6 @@
 	name = "maintenance drone"
 	icon_state = "drone-emagged"
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
-
-/obj/item/holder/cogscarab
-	name = "cogscarab"
-	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
-	icon_state = "cogscarab"
-	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
 
 /obj/item/holder/monkey
 	name = "monkey"
@@ -276,12 +269,6 @@
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	icon_state = "crusher"
 
-/obj/item/holder/original
-	name = "pet"
-	desc = "It's a pet"
-	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
-	icon_state = "original"
-
 /obj/item/holder/spacecat
 	name = "pet"
 	desc = "It's a pet"
@@ -366,6 +353,7 @@
 /obj/item/holder/fennec
 	name = "fennec"
 	desc = "It's a fennec. Yiff!"
+	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	icon_state = "fennec"
 	origin_tech = "biotech=4"
 
@@ -379,7 +367,7 @@
 /obj/item/holder/headslug
 	name = "headslug"
 	desc = "It's a headslug. Ewwww..."
-	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
+	icon = 'icons/mob/mob.dmi'
 	icon_state = "headslug"
 	origin_tech = "biotech=6"
 
@@ -422,5 +410,5 @@
 /obj/item/holder/clowngoblin
 	name = "clowngoblin"
 	desc = "Honk honk"
-	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "clowngoblin"
