@@ -535,6 +535,7 @@
 		deadsay_radio_system.attempt_send_deadsay_message(subject, message)
 
 	var/should_show_runechat = (subject && raw_message && !subject.orbiting_uid)
+	var/list/viewers_cached = (subject ? viewers("19x15", subject) : list())
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
@@ -560,7 +561,7 @@
 						lname = name
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
-			if(should_show_runechat && (M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && (M in viewers("19x15", subject)))
+			if(should_show_runechat && (M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && (M in viewers_cached))
 				M.create_chat_message(subject, raw_message, symbol = RUNECHAT_SYMBOL_DEAD)
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
