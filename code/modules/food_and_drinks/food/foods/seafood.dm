@@ -375,5 +375,6 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "caviar"
 	bitesize = 1
+	trash = /obj/item/trash/caviar
 	list_reagents = list("protein" = 5)
 	tastes = list("fish" = 2, "high society" = 1)
