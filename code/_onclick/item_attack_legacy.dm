@@ -51,7 +51,7 @@
 		return
 
 	if(!can_be_hit)
-		return TRUE
+		return FALSE
 
 	return I.new_attack_chain \
 		? I.attack_obj(src, user, params) \
