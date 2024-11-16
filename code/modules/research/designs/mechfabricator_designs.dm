@@ -1309,7 +1309,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rsf_executive
 	req_tech = list("materials" = 2, "biotech" = 3)
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 2000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
