@@ -140,7 +140,6 @@
 	for(var/mob/living/attacked_living in src_turf)
 		if(creator)
 			log_attack(creator, attacked_living, "used a resonator field on", "resonator")
-			SEND_SIGNAL(creator, COMSIG_LIVING_RESONATOR_BURST, creator, attacked_living)
 		to_chat(attacked_living, "<span class='danger'>[src] ruptured with you in it!</span>")
 		attacked_living.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
