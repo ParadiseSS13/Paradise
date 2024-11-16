@@ -276,7 +276,7 @@
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "goonstation_TDL")
+		ui = new(user, src, "goonstation_PTL")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 

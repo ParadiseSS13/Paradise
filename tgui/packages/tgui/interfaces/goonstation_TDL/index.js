@@ -10,7 +10,7 @@ import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Se
 import { formatMoney, formatSiUnit, formatPower } from '../../format';
 import { Window } from '../../layouts';
 
-export const goonstation_TDL = (props, context) => {
+export const goonstation_PTL = (props, context) => {
   const { data } = useBackend(context);
   const { total_earnings, name = 'Power Transmission Laser' } = data;
   return (
