@@ -30,7 +30,7 @@
 
 	var/static/list/rsf_icons = list(
 							"Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
-							"Shot Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
+							"Shot Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "shotglass"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
@@ -44,6 +44,25 @@
 							"Blue Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blue"),
 							"Camembert Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-camembert"),
 							"Caviar" = image(icon = 'icons/obj/food/seafood.dmi', icon_state = "caviar")
+							)
+
+
+	var/static/list/power_costs = list(
+							"Drinking Glass" = POWER_LOW,
+							"Shot Glass" = POWER_LOW,
+							"Paper" = POWER_LOW,
+							"Pen" = POWER_LOW,
+							"Dice Pack" = POWER_LOW,
+							"Cigarette" = POWER_LOW,
+							"Newdles" = POWER_HIGH,
+							"Donut" = POWER_HIGH,
+							"Chicken Soup" = POWER_HIGH,
+							"Tofu Burger" = POWER_HIGH,
+							"Cigar" = POWER_LOW,
+							"Smoked Cheese" = POWER_HIGH,
+							"Blue Cheese" = POWER_HIGH,
+							"Camembert Cheese" = POWER_HIGH,
+							"Caviar" = POWER_HIGH
 							)
 
 /obj/item/rsf/proc/get_radial_contents()
@@ -60,25 +79,7 @@
 	if(user.stat || !in_range(user, src))
 		return
 	currently_dispensing = rsf_items[rsf_radial_choice]
-	switch(rsf_radial_choice)
-		if("Drinking Glass")
-			power_mode = POWER_LOW
-		if("Paper")
-			power_mode = POWER_LOW
-		if("Pen")
-			power_mode = POWER_LOW
-		if("Dice Pack")
-			power_mode = POWER_LOW
-		if("Cigarette")
-			power_mode = POWER_LOW
-		if("Newdles")
-			power_mode = POWER_HIGH
-		if("Donut")
-			power_mode = POWER_HIGH
-		if("Chicken Soup")
-			power_mode = POWER_HIGH
-		if("Tofu Burger")
-			power_mode = POWER_HIGH
+	power_mode = power_costs[rsf_radial_choice]
 	if(currently_dispensing)
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
 	return TRUE
@@ -121,7 +122,6 @@
 							"Caviar" = /obj/item/food/caviar,
 							"Sprinkled Donut" = /obj/item/food/donut/sprinkles
 							)
-
 
 #undef POWER_NONE
 #undef POWER_LOW
