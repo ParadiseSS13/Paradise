@@ -78,55 +78,49 @@
 		1 = "None",
 		2 = "Vox",
 		3 = "Unathi",
-		4 = "Nian"
+		4 = "Tajaran",
+		5 = "Nian",
+		6 = "Vulpkanin",
+		7 = "Kidan",
+		8 = "Grey",
+		9 = "Drask"
 	)
 
-/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-subtype and imitation
+	var/static_bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
+
+/datum/species/slime/updatespeciessubtype(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-subtype and imitation
 	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
-		var/new_icobase = 'icons/mob/human_races/r_machine.dmi' //Default IPC.
+		var/new_icobase = 'icons/mob/human_races/r_machine.dmi' //Default IPC person.
 		if(H.species_subtype == species_subtype) // No update, no need to go further.
 			return
-		switch(H.species_subtype)
-			if("Nian")
-				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
-				species_subtype = "Nian"
-				tail = null
-				wing = "plain"
-				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_WING)
-				H.body_accessory = null
-			if("Unathi") // Unathi
-				new_icobase = 'icons/mob/human_races/r_lizard.dmi'
-				species_subtype = "Unathi"
-				tail = "sogtail"
-				wing = null
-				bodyflags |= (HAS_HEAD_ACCESSORY | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("Vox") // Vox :)
-				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				tail = "voxtail_gry"
-				wing = null
-				species_subtype = "Vox"
-				bodyflags |= (HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED)
-				H.body_accessory = null
-			if("None") // Regular IPC
-				// Reset
-				new_icobase = initial(icobase)
-				species_subtype = "None"
-				tail = initial(tail)
-				eyes = initial(eyes)
-				wing = initial(wing)
-				bodyflags = initial(bodyflags)
-				H.body_accessory = null
-		if(species_subtype != "None")
+		species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
+
+		var/datum/species/s = GLOB.all_species[species_subtype]
+		if(isnull(s))
+			s = GLOB.all_species[name] // Reset species fully to IPC again.
+
+		// Copy over new species variables to our current species.
+		new_icobase = s.icobase
+		tail = s.tail
+		wing = s.wing
+		default_headacc = s.default_headacc
+		default_bodyacc = s.default_bodyacc
+		bodyflags = s.bodyflags
+		if(species_subtype != "None") // Update our species display and reference to match the subtype. Used for species specific clothing and accessories.
 			sprite_sheet_name = species_subtype
+			bodyflags |= static_bodyflags
 		else
-			sprite_sheet_name = name
-		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base
+			sprite_sheet_name = name // Resets sprite sheet back to IPC.
+
+		H.body_accessory = GLOB.body_accessory_by_name[default_bodyacc]
+		H.tail = tail
+		H.wing = wing
+		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base in the case they have robotic limbs
+			limb.icobase = s.icobase // update their icobase for when we apply the slimfy effect
+			limb.dna.species = src // Update limb to match our newly modified species
 			limb.set_company(limb.model, sprite_sheet_name)
 
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
-		H.tail = tail
-		H.wing = wing
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 		head.h_style = "Bald"
