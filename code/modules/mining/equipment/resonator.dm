@@ -39,7 +39,7 @@
 
 /obj/item/resonator/upgraded/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate only after you hit one with it.</span>")
+		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate only after being attacked by [src].</span>")
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
 		to_chat(user, "<span class='notice'>You set the [name]'s fields to work as matrix traps.</span>")
