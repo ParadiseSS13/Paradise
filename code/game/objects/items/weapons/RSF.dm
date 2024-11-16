@@ -41,6 +41,7 @@
 							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
 							"Cigar" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigaroff"),
 							"Smoked Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-smoked"),
+							"Edam Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-edam"),
 							"Blue Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blue"),
 							"Camembert Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-camembert"),
 							"Caviar" = image(icon = 'icons/obj/food/seafood.dmi', icon_state = "caviar")
@@ -59,6 +60,7 @@
 							"Tofu Burger" = POWER_HIGH,
 							"Cigar" = POWER_LOW,
 							"Smoked Cheese" = POWER_HIGH,
+							"Edam Cheese" = POWER_HIGH,
 							"Blue Cheese" = POWER_HIGH,
 							"Camembert Cheese" = POWER_HIGH,
 							"Caviar" = POWER_HIGH
@@ -116,6 +118,7 @@
 							"Dice Pack" = /obj/item/storage/bag/dice,
 							"Cigar" = /obj/item/clothing/mask/cigarette/cigar,
 							"Smoked Cheese" = /obj/item/food/sliceable/cheesewheel/smoked,
+							"Edam Cheese" = /obj/item/food/sliceable/cheesewheel/edam,
 							"Blue Cheese" = /obj/item/food/sliceable/cheesewheel/blue,
 							"Camembert Cheese" = /obj/item/food/sliceable/cheesewheel/camembert,
 							"Caviar" = /obj/item/food/caviar,
