@@ -31,7 +31,7 @@
 
 /obj/item/resonator/upgraded
 	name = "upgraded resonator"
-	desc = "An upgraded version of the resonator that can produce more fields at once, as well as having no damage penalty for bursting a resonance field early. It also allows you to set 'Resonance matrixes', that detonate after someone(or something) walks over it."
+	desc = "An upgraded version of the resonator that can produce more fields at once, as well as having no damage penalty for bursting a resonance field early. It also allows you to set 'Resonance matrixes', that detonate after someone (or something) walks over it."
 	icon_state = "resonator_u"
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 6
@@ -45,7 +45,7 @@
 		to_chat(user, "<span class='notice'>You set the [name]'s fields to work as matrix traps.</span>")
 		mode = RESONATOR_MODE_MATRIX
 	else
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate after 2 seconds.</span>")
+		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate automatically after 2 seconds.</span>")
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
