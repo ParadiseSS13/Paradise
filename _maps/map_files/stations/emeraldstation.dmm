@@ -8151,6 +8151,15 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/brig)
+"bAo" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/door/airlock/engineering{
+	name = "Power Transmission Laser"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/engine)
 "bAr" = (
 /obj/machinery/flasher/portable,
 /obj/item/radio/intercom/department/security{
@@ -16430,13 +16439,6 @@
 	},
 /area/station/maintenance/apmaint2)
 "ddu" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/multitool,
-/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "black"
@@ -36348,6 +36350,13 @@
 /area/station/engineering/engine)
 "gMe" = (
 /obj/machinery/alarm/directional/east,
+/obj/item/stack/cable_coil,
+/obj/item/multitool,
+/obj/item/clothing/gloves/color/yellow,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "black"
@@ -66299,7 +66308,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -85890,6 +85898,11 @@
 /turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "pVa" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -98618,11 +98631,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "skA" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -120467,6 +120475,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"wkT" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/engine)
 "wkZ" = (
 /obj/structure/rack{
 	dir = 8;
@@ -142363,8 +142381,8 @@ xnC
 iLz
 eaB
 skA
-orn
-tja
+bAo
+pHq
 iKR
 aYw
 xiE
@@ -142621,7 +142639,7 @@ aNW
 rJZ
 ddu
 orn
-tLy
+wkT
 nKI
 xzX
 cdv
