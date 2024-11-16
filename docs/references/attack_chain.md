@@ -151,73 +151,171 @@ have already been performed.
 
 ### `attackby`
 
-Many interactions are, in fact, not attacks, and can be migrated over to
-`item_interaction()` instead of attempting to fit them in the attack phase of
-the chain. Look for cases of `attackby()` where items are being used in ways not
-meant to cause damage. These are typically easier migrations.
+`attackby` is used in cases when an item needs to respond to another item being
+used on it. These can be fairly straightforward if the type tree is shallow and
+the number of interactions is small.
 
-For our purposes, we'll look at a slightly trickier one: `/obj/item/attackby()`.
+Our example migration is `/obj/vehicle`. This type tree only requires migrating:
 
-Before the migration, this proc included snowflake code both for storage items
-and for duct tape. The full proc is too long to show here, but the basic
-structure was this:
+- `/obj/vehicle/proc/attackby__legacy__attackchain`
+- `/obj/vehicle/janicart/proc/attackby__legacy__attackchain`
+
+First, let's look at `/obj/vehicle/attackby__legacy__attackchain`:
 
 ```dm
-/obj/item/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(isstorage(I))
-		// ... handle putting the item in storage
-	else if(istype(I, /obj/item/stack/tape_roll))
-		if(isstorage(src)) // Don't tape the bag if we can put the duct tape inside it instead
-		var/obj/item/storage/bag = src
-		if(bag.can_be_inserted(I))
+/obj/vehicle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(key_type && !is_key(inserted_key) && is_key(I))
+		if(user.drop_item())
+			I.forceMove(src)
+			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			if(inserted_key)	//just in case there's an invalid key
+				inserted_key.forceMove(drop_location())
+			inserted_key = I
+		else
+			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+		return
+	if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
+		vehicle_move_delay = 1
+		qdel(I)
+		to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
+		return
+	return ..()
+```
+
+The logic here is pretty straightforward. We check to see if the user is
+attempting to insert a key, if there's already one in the vehicle, and if the
+key can be dropped by the user. We also check to see if the user is attempting
+to install the VTEC upgrade. Otherwise we return control to the parent.
+
+Now let's look at `/obj/vehicle/janicart/attackby__legacy__attackchain`:
+
+```dm
+/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+
+	if(istype(I, /obj/item/storage/bag/trash))
+		if(mybag)
+			to_chat(user, fail_msg)
 			return
-
-		// ... apply duct tape to item
+		if(!user.drop_item())
+			return
+		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+		I.forceMove(src)
+		mybag = I
+		update_icon(UPDATE_OVERLAYS)
+		return
+	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
+		if(buffer_installed)
+			to_chat(user, fail_msg)
+			return
+		buffer_installed = TRUE
+		qdel(I)
+		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		update_icon(UPDATE_OVERLAYS)
+		return
+	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
+		floorbuffer = FALSE
+		vehicle_move_delay -= buffer_delay
+		return ..() //VTEC installation is handled in parent attackby, so we're returning to it early
+	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
+		mybag.attackby(I, user)
+	else
+		return ..()
 ```
 
-The first thing worth noting is that none of this has anything to do with
-`/obj/item`. This is all subtype specific behavior. That gives us the first clue
-what should happen here. The second thing worth noting is we want to
-short-circuit the duct-taping if we instead put the duct tape in a bag. The
-third thing worth nothing is that none of this is part of the attack phase of
-the chain; these are all straightforward item interactions.
+Here the logic is a bit more complex, but has a basic structure: we check to see
+what kind of thing the janicart is being attacked with. If it's a trash bag or
+floor buffer, we attach it. If it's VTEC upgrade we remove the floorbuffer and
+return control to the parent for installing the VTEC. If there's a bag and the
+user is clicking on it with anything else with help intent, attempt to put it in
+the bag. Otherwise, return control to the parent.
 
-Recall that the item interaction order is:
+Most of this logic will work just fine as is, with the exception that we will
+need to return `FINISH_ATTACK` in the appropriate places when we want the attack
+chain to stop.
 
-1. Call `target.item_interaction(user, used_item)` and return any
-   `ITEM_INTERACT_` flag to cancel the rest of the chain.
-2. Call `used_item.interact_with_atom(target, user)` and return any
-   `ITEM_INTERACT_` flag to cancel the rest of the chain.
+We also need to refactor the code regarding VTEC installation: because one
+subtype does something different in reaction to the installation, we will pull
+that into its own proc, rather than try to rely on a back-and-forth between
+parent and child `attack_by`.
 
-So we first want to put the duct taping code into
-`/obj/item/stack/tape_roll/interact_with_atom()`, and the storage pickup code in
-`/obj/item/storage/interact_with_atom()`, as those are the default behaviors we
-expect. Then, we short-circuit the duct tape's `interact_with_atom()` in the
-storage's `item_interaction()` to allow it to handle the case of inserting duct
-tape, then skipping the rest of the attack chain.
+At the end of `/obj/vehicle/attack_by`:
 
-```dm
-/obj/item/stack/tape_roll/interact_with_atom(obj/item/interacting_with, mob/living/user, list/modifiers)
-	// ... apply duct tape to item
-
-/obj/item/storage/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	// ... handle putting the item in storage
-
-/obj/item/storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/stack/tape_roll) && can_be_inserted(used))
-		handle_item_insertion(used, user)
-		// Don't tape the bag if we can put the duct tape inside it instead
-		return ITEM_INTERACT_SUCCESS
+```diff
+						to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+				return
+-		if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
+-			vehicle_move_delay = 1
+-			qdel(I)
+-			to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
+-			return
+-		return ..()
++		if(istype(I, /obj/item/borg/upgrade/vtec) && install_vtec(I, user))
++			return FINISH_ATTACK
 ```
 
-Not only does this make the resultant code much more clear, but we don't even
-need an `/obj/item/attackby` anymore. We can simply remove it.
+And then:
+
+```diff
++/obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
++	if(vehicle_move_delay > 1)
++		vehicle_move_delay = 1
++		qdel(vtec)
++		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
++
++		return TRUE
+```
+
+Now, since we know the parent `attack_by` will get called first, we don't need
+to check for an attempted VTEC installation in the janicart at all. We just need
+to react to it properly:
+
+```diff
++/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
++	if(..() && floorbuffer)
++		floorbuffer = FALSE
++		vehicle_move_delay -= buffer_delay
++
++	return TRUE
+```
+
+That is: if the VTEC installation was successful, we remove the floorbuffer and
+its delay. We want to return `TRUE` at the end no matter what, because this is
+the indication not that the VTEC installation was succesful, but that it was
+attempted, and thus the rest of the attack chain is not necessary.
+
+We make sure to include:
+
+```diff
++	if(..())
++		return FINISH_ATTACK
+```
+
+At the top of each `attack_by` proc, and set `new_attack_chain = TRUE` on
+`/obj/vehicle.`
 
 > [!NOTE]
 >
-> When migrating to `interact_with_atom()` and `item_interaction()`, it is not
-> necessary to set `new_attack_chain` to `TRUE` if they have no other
-> legacy attack chain procs. These procs are exclusive to the new attack chain.
+> An advantage of migrating the attack chain procs piecemeal is that each PR
+> requires less testing relative to the whole, but this testing must still
+> occur.
+>
+> It is important to come up with a comprehensive list of things to test for
+> each migration PR. For the above migration, an example set of tasks might
+> include:
+>
+> - Testing that bags can be attached to janicarts
+> - Testing that players can get on and off all vehicles
+> - Testing that keys can be inserted into vehicles
+> - Testing that only the correct keys can be inserted into vehicles
+> - Testing attacking vehicles with other objects
+> - Testing adding the floor buffer to janicarts
+> - Testing adding VTEC to vehicles
+> - Come up with your own test cases!
+>
+> The valuable thing about keys and attacks with other objects is because
+> they're not part of the new attack chain yet. This helps to ensure the legacy
+> and new attack chains are interacting with each other properly, as well.
 
 ### `attack_self`
 

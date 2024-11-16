@@ -10,7 +10,7 @@
  * Currently the return value of this proc is not checked anywhere, and is only used when short-circuiting the rest of the item attack.
  */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params, proximity_flag = 1)
-	// TODO: Look into proxy attackers are worth porting from /tg/: https://github.com/tgstation/tgstation/pull/83860
+	// TODO: Look into whether proxy attackers are worth porting from /tg/: https://github.com/tgstation/tgstation/pull/83860
 	var/list/modifiers = params2list(params)
 
 	var/item_interact_result = target.base_item_interaction(user, src, modifiers)
@@ -172,9 +172,6 @@
 		return FALSE
 	if(flags & NOBLUDGEON)
 		return FALSE
-
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(attacked_obj)
 
 	if(!attacked_obj.new_attack_chain)
 		attacked_obj.attacked_by__legacy__attackchain(src, user)

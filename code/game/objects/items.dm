@@ -398,6 +398,56 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
 
+// Due to storage type consolidation this should get used more now.
+// I have cleaned it up a little, but it could probably use more.  -Sayu
+/obj/item/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+	if(isstorage(I))
+		var/obj/item/storage/S = I
+		if(S.use_to_pickup)
+			if(S.pickup_all_on_tile) // Mode is set to collect all items on a tile and we clicked on a valid one.
+				if(isturf(loc))
+					var/list/rejections = list()
+					var/success = 0
+					var/failure = 0
+
+					for(var/obj/item/IT in loc)
+						if(IT.type in rejections) // To limit bag spamming: any given type only complains once
+							continue
+						if(!S.can_be_inserted(IT))	// Note can_be_inserted still makes noise when the answer is no
+							rejections += IT.type	// therefore full bags are still a little spammy
+							failure = 1
+							continue
+						success = 1
+						S.handle_item_insertion(IT, user, TRUE)	// The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
+					if(success && !failure)
+						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
+					else if(success)
+						to_chat(user, "<span class='notice'>You put some things in [S].</span>")
+					else
+						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
+
+			else if(S.can_be_inserted(src))
+				S.handle_item_insertion(src, user)
+	else if(istype(I, /obj/item/stack/tape_roll))
+		if(isstorage(src)) // Don't tape the bag if we can put the duct tape inside it instead
+			var/obj/item/storage/bag = src
+			if(bag.can_be_inserted(I))
+				return
+		var/obj/item/stack/tape_roll/TR = I
+		var/list/clickparams = params2list(params)
+		var/x_offset = text2num(clickparams["icon-x"])
+		var/y_offset = text2num(clickparams["icon-y"])
+		if(GetComponent(/datum/component/ducttape))
+			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			return
+		if(TR.use(1))
+			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
+			anchored = TRUE
+			user.transfer_fingerprints_to(src)
+		else
+			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
+
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
 	if(!signal_result)
