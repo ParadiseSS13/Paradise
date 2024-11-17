@@ -235,11 +235,12 @@ export const AgentCardInfo = (props, context) => {
               <Button
                 fluid
                 textAlign="center"
-                content={photo ? 'Update' : unset}
                 disabled={!photo_cooldown}
                 tooltip={photo_cooldown ? '' : "You can't generate a new photo yet."}
                 onClick={() => act('change_photo')}
-              />
+              >
+                {photo ? 'Update' : unset}
+              </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>
