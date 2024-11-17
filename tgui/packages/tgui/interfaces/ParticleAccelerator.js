@@ -82,7 +82,9 @@ export const ParticleAccelerator = (props, context) => {
         </Section>
         <Section
           title={
-            orientation ? 'EM Acceleration Chamber Orientation: ' + orientation : 'No EM Acceleration Chamber Detected'
+            orientation
+              ? 'EM Acceleration Chamber Orientation: ' + orientation[0].toUpperCase() + orientation.slice(1)
+              : 'No EM Acceleration Chamber Detected'
           }
         >
           {orientation === 'north' || orientation === 'south' ? (
