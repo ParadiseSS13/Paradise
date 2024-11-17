@@ -12,6 +12,7 @@ import {
   Tooltip,
   DmIcon,
 } from '../components';
+import { capitalize } from 'common/string';
 import { GridColumn } from '../components/Grid';
 import { TableRow } from '../components/Table';
 import { Window } from '../layouts';
@@ -83,7 +84,7 @@ export const ParticleAccelerator = (props, context) => {
         <Section
           title={
             orientation
-              ? 'EM Acceleration Chamber Orientation: ' + orientation[0].toUpperCase() + orientation.slice(1)
+              ? 'EM Acceleration Chamber Orientation: ' + capitalize(orientation)
               : 'No EM Acceleration Chamber Detected'
           }
         >
