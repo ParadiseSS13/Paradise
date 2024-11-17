@@ -70,7 +70,7 @@
 	return rsf_icons & rsf_items
 
 /obj/item/rsf/attack_self(mob/user)
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(!currently_dispensing)
 		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
 	else
