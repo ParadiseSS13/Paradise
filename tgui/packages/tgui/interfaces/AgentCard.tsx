@@ -270,9 +270,10 @@ export const AgentCardInfo = (props, context) => {
               <Button
                 fluid
                 textAlign="center"
-                content={ai_tracking ? 'Untrackable' : 'Trackable'}
                 onClick={() => act('change_ai_tracking')}
-              />
+              >
+                {ai_tracking ? 'Untrackable' : 'Trackable'}
+              </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>
