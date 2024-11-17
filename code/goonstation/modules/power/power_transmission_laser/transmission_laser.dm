@@ -447,10 +447,13 @@
 	charge -= output_level
 
 //// Selling defines are here
-#define MINIMUM_BAR 1
+// Minimum amount of money per cycle
+#define MINIMUM_BAR 0
+// Maximum amount of money per cycle - minimum amount of money per cycle
 #define PROCESS_CAP (20 - MINIMUM_BAR)
 
-#define A1_CURVE 20
+// Higher number means approaching the limit slower
+#define A1_CURVE 80
 
 #define HIGH_CUT_RATIO 0.75
 #define MEDIUM_CUT_RATIO 0.25
