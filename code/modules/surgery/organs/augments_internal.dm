@@ -668,9 +668,13 @@
 	implant_overlay = null
 	origin_tech = "materials=5;programming=5;biotech=6"
 	slot = "heartdrive"
-	var/revive_cost = 0
+	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
+	var/revive_cost = 0 SECONDS
+	/// Are we in the progress of healing the user?
 	var/reviving = FALSE
+	/// How long we are on cooldown for
 	COOLDOWN_DECLARE(reviver_cooldown)
+	/// How long till we can try to defib again
 	COOLDOWN_DECLARE(defib_cooldown)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened
@@ -762,12 +766,12 @@
 		var/mob/living/carbon/human/H = owner
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(10, TRUE)
-		H.bleed(100)
+		H.blood_volume *= 0.8
 	revive_cost += 10 MINUTES // Additional 10 minutes cooldown after revival.
 	owner.SetLoseBreath(0) //Reset the heart attack losebreath of hell
 	owner.set_heartattack(FALSE)
 	owner.update_revive()
-	owner.KnockOut() //Runtimes on IPCs
+	owner.KnockOut()
 	owner.Paralyse(10 SECONDS)
 	owner.emote("gasp")
 	owner.Jitter(20 SECONDS)
@@ -780,8 +784,8 @@
 	// They will get up on their own.
 	if(ismachineperson(owner))
 		return FALSE
-	// Slight tweak, revive if brute burn and oxygen loss *combined* are above 205, to avoid spam defibing at like, 200+ brute burn damage or 200 o2 loss
-	if(!owner.is_revivable() || owner.getBruteLoss() + owner.getFireLoss() + owner.getOxyLoss() >= 205 || HAS_TRAIT(owner, TRAIT_HUSK) || owner.blood_volume < BLOOD_VOLUME_SURVIVE)
+	// Slight tweak, revive if brute burn and oxygen loss *combined* are above 210, to avoid spam defibing at like, 200+ brute burn damage or 200 o2 loss
+	if(!owner.is_revivable() || owner.getBruteLoss() + owner.getFireLoss() + owner.getOxyLoss() >= 210 || HAS_TRAIT(owner, TRAIT_HUSK) || owner.blood_volume < BLOOD_VOLUME_SURVIVE)
 		return FALSE
 	// Let us break this on multiple lines
 	// Clone loss is a new addition outside defib code, to avoid endless revive hell.
@@ -808,6 +812,7 @@
 		return
 	if(reviving)
 		revive_cost += 40 SECONDS
+		COOLDOWN_START(src, defib_cooldown, 20 SECONDS)
 	else
 		COOLDOWN_START(src, reviver_cooldown, 20 SECONDS)
 	if(ishuman(owner))
