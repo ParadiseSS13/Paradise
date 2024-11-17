@@ -93733,9 +93733,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
-"ucV" = (
-/turf/simulated/wall,
-/area/space)
 "udg" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -121129,7 +121126,7 @@ cHA
 fQI
 cTi
 voM
-ucV
+cHA
 cHA
 drw
 cHA
@@ -121386,7 +121383,7 @@ cHA
 sQr
 sZp
 nCh
-ucV
+cHA
 cHA
 drn
 cHA
