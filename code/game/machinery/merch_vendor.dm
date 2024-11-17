@@ -41,6 +41,12 @@
 
 	return ..()
 
+/obj/machinery/economy/merch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
+
 /obj/machinery/economy/merch/proc/do_purchase(datum/merch_item/merch, mob/user)
 	if(!merch)
 		return FALSE
