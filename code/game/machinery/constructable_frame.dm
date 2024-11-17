@@ -1114,6 +1114,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)
