@@ -2094,6 +2094,7 @@
 			ptypes += "Nugget"
 			ptypes += "Bread"
 			ptypes += "Rod"
+			ptypes += "Plushify"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return

@@ -966,7 +966,7 @@
 	name = "human plushie"
 	desc = "This plushie is slightly less popular than its counterparts. The designers obviously didn't find humans that endearing..."
 	icon_state = "plushie_human"
-	poof_sound = list('sound/weapons/thudswoosh.ogg' = 42,
+	poof_sound = list('sound/weapons/thudswoosh.ogg' = 30,
 					'sound/goonstation/voice/male_scream.ogg' = 1)
 
 /obj/item/toy/plushie/borgplushie
@@ -1010,7 +1010,10 @@
 		var/turf/T = get_turf(src)
 		playsound(T, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 		robogibs(T)
-		qdel(src)
+		if(grenade)
+			explosive_betrayal(grenade)
+		if(!QDELETED(src))
+			qdel(src)
 
 /obj/item/toy/plushie/dionaplushie
 	name = "diona plushie"
@@ -1031,6 +1034,26 @@
 	desc = "Life-sized plushie of a diona nymph, perhaps if you find another you could make a diona!"
 	icon_state = "plushie_nymph"
 	COOLDOWN_DECLARE(chirp_cooldown)
+
+/obj/item/toy/plushie/nymphplushie/attackby(obj/item/B, mob/user, params)
+	if(istype(B, /obj/item/toy/plushie/nymphplushie))
+		var/obj/item/toy/plushie/nymphplushie/NP = B
+		var/found_grenade = FALSE
+		if(grenade)
+			found_grenade = TRUE
+			explosive_betrayal(grenade)
+		if(NP.grenade)
+			found_grenade = TRUE
+			NP.explosive_betrayal(NP.grenade)
+		if(found_grenade)
+			return
+		new /obj/item/toy/plushie/dionaplushie(get_turf(loc))
+		to_chat(user, "<span class='notice'>The nymph plushies combine seamlessly into an diona plushie!</span>")
+		playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1)
+		qdel(NP)
+		qdel(src)
+	else
+		return ..()
 
 /obj/item/toy/plushie/nymphplushie/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, chirp_cooldown))
