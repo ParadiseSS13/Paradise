@@ -785,8 +785,8 @@
 		return FALSE
 	// Let us break this on multiple lines
 	// Clone loss is a new addition outside defib code, to avoid endless revive hell.
-	// Avoid defibing with over 125 toxin loss as well.
-	if(!owner.get_organ_slot("brain") || HAS_TRAIT(owner, TRAIT_FAKEDEATH) || HAS_TRAIT(owner, TRAIT_BADDNA) || owner.getCloneLoss() >= 180 || owner.getToxLoss >= 125)
+	// Avoid defibing with over 125 toxin loss as well. This also means toxin will delay someone from being revived *much* longer.
+	if(!owner.get_organ_slot("brain") || HAS_TRAIT(owner, TRAIT_FAKEDEATH) || HAS_TRAIT(owner, TRAIT_BADDNA) || owner.getCloneLoss() >= 180 || owner.getToxLoss() >= 125)
 		return FALSE
 	return TRUE
 
