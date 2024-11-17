@@ -267,11 +267,7 @@ export const AgentCardInfo = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="AI Tracking">
-              <Button
-                fluid
-                textAlign="center"
-                onClick={() => act('change_ai_tracking')}
-              >
+              <Button fluid textAlign="center" onClick={() => act('change_ai_tracking')}>
                 {ai_tracking ? 'Untrackable' : 'Trackable'}
               </Button>
             </LabeledList.Item>
