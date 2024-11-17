@@ -150,6 +150,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			assignment = H.job
 		else
 			assignment = "Unassigned"
+		GLOB.crew_list[H.real_name] = assignment
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
