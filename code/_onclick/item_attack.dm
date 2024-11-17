@@ -112,16 +112,16 @@
 	return attacking.attack(src, user, params)
 
 /**
- * Called when we are used by `user` to attack the living `target_mob`.
+ * Called when we are used by `user` to attack the living `target`.
  *
  * Returns `TRUE` if the rest of the attack chain should be cancelled. This may occur if the attack failed for some reason.
  * Returns `FALSE` if the attack was "successful" or "handled" in some way, and the rest of the attack chain should still fire.
  */
-/obj/item/proc/attack(mob/living/target_mob, mob/living/user, params)
+/obj/item/proc/attack(mob/living/target, mob/living/user, params)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK, target_mob, user, params) \
-		|| SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, params)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK, target, user, params) \
+		|| SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user, params)
 
 	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FINISH_ATTACK
@@ -129,19 +129,19 @@
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return FALSE
 
-	. = __attack_core(target_mob, user)
+	. = __attack_core(target, user)
 
-	if(!target_mob.new_attack_chain)
-		return target_mob.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
+	if(!target.new_attack_chain)
+		return target.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
 
-/obj/item/proc/__attack_core(mob/living/target_mob, mob/living/user)
+/obj/item/proc/__attack_core(mob/living/target, mob/living/user)
 	PRIVATE_PROC(TRUE)
 
 	if(flags & (NOBLUDGEON))
 		return FALSE
 
 	// TODO: Migrate all of this to the proper objects so it's not clogging up a core proc and called at irrelevant times
-	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(target_mob) && target_mob != user)
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(target) && target != user)
 		to_chat(user, "<span class='notice'>You don't want to harm the person you're trying to help!</span>")
 		return FALSE
 
@@ -152,15 +152,15 @@
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
-		SEND_SIGNAL(target_mob, COMSIG_ATTACK)
-		add_attack_logs(user, target_mob, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (target_mob.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+		SEND_SIGNAL(target, COMSIG_ATTACK)
+		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	target_mob.lastattacker = user.real_name
-	target_mob.lastattackerckey = user.ckey
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
 
-	user.do_attack_animation(target_mob)
+	user.do_attack_animation(target)
 	add_fingerprint(user)
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.

@@ -107,7 +107,7 @@
  * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
  * Return NONE to allow default interaction / tool handling.
  */
-/obj/item/proc/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/proc/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	return NONE
 
 /**
@@ -162,5 +162,5 @@
  *
  * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
  */
-/obj/item/proc/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/proc/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	return NONE
