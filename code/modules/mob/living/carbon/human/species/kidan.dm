@@ -55,3 +55,5 @@
 			"s" = list("z", "zs", "zzz", "zzsz")
 		)
 	autohiss_exempt = list("Chittin")
+
+	plushie_type = /obj/item/toy/plushie/kidanplushie

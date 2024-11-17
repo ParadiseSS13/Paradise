@@ -75,6 +75,40 @@
 	new /obj/structure/closet/statue(L.loc, L)
 	..()
 
+/obj/item/melee/touch_attack/plushify
+	name = "fabric touch"
+	desc = "The power to sew your foes into a doom cut from the fabric of fate."
+	catchphrase = "MAHR-XET 'ABL"
+	on_use_sound = 'sound/magic/smoke.ogg'
+	icon_state = "disintegrate"
+	item_state = "disintegrate"
+	color = COLOR_PURPLE
+
+/obj/item/melee/touch_attack/plushify/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
+		return
+	var/mob/living/L = target
+	L.Plushify()
+	..()
+
+
+/mob/living/proc/Plushify()
+	var/mob/living/simple_animal/shade/sword/bread/plushvictim = new(get_turf(src))
+	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
+	if(issilicon(src))
+		plush_type = /obj/item/toy/plushie/borgplushie
+	else if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		plush_type = H.dna.species.plushie_type
+	var/obj/item/toy/plushie/plush_outcome = new plush_type(get_turf(src))
+	plushvictim.forceMove(plush_outcome)
+	plushvictim.key = key
+	plushvictim.RegisterSignal(plush_outcome, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+	plushvictim.name = name
+	plush_outcome.name = "[name] plushie"
+	qdel(src)
+	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
+
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."

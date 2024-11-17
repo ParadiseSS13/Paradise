@@ -72,6 +72,8 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
+	plushie_type = /obj/item/toy/plushie/voxplushie
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

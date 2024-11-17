@@ -71,7 +71,7 @@
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-					
+
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -2237,6 +2237,9 @@
 
 				new /obj/effect/immovablerod/smite(start, M)
 				logmsg = "a rod"
+			if("Plushify")
+				H.Plushify()
+				logmsg = "plushified"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")

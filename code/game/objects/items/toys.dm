@@ -591,7 +591,7 @@
 	if(has_stuffing || grenade)
 		var/cuddle_verb = pick("hugs", "cuddles", "snugs")
 		user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
-		playsound(get_turf(src), poof_sound, 50, TRUE, -1)
+		playsound(get_turf(src), pickweight(poof_sound), 50, TRUE, -1)
 		if(grenade && !grenade.active)
 			add_attack_logs(user, user, "activated a hidden grenade in [src].", ATKLOG_MOST)
 			playsound(loc, 'sound/weapons/armbomb.ogg', 10, TRUE, -3)
@@ -603,7 +603,12 @@
 
 
 /obj/item/toy/plushie/proc/explosive_betrayal(obj/item/grenade/grenade_callback)
+	var/grenade_inside = FALSE //Any grenade, even non-explosive, will destroy the plushie.
+	if(grenade)
+		grenade_inside = TRUE
 	grenade_callback.prime()
+	if(grenade_inside && !QDELETED(src))
+		qdel(src)
 
 /obj/item/toy/plushie/Destroy()
 	QDEL_NULL(grenade)
@@ -904,8 +909,225 @@
 		'sound/weapons/cablecuff.ogg' = 1,
 	)
 
+/obj/item/toy/plushie/skrellplushie
+	name = "skrell plushie"
+	desc = "The latest from 'SoftSkrells.net', features its very own headpocket! Warble!"
+	icon_state = "plushie_skrell"
+	COOLDOWN_DECLARE(warble_cooldown)
+	var/obj/item/headpocket_item
+
+/obj/item/toy/plushie/skrellplushie/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click to put something small inside the headpocket, or take an item out.</span>"
+
+/obj/item/toy/plushie/skrellplushie/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	var/obj/item/I = user.get_active_hand()
+	if(I == src)
+		return
+	if(!I)
+		if(!headpocket_item)
+			return
+		to_chat(user, "<span class='notice'>You remove [headpocket_item] from [src].</span>")
+		headpocket_item.forceMove(get_turf(src))
+		user.put_in_hands(headpocket_item)
+		headpocket_item = null
+		return
+	if(I.w_class > WEIGHT_CLASS_SMALL)
+		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		return
+	if(!iscarbon(user))
+		return
+	if(headpocket_item)
+		to_chat(user, "<span class='warning'>[src] already has an item in it's headpocket!</span>")
+		return
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] places [I] into [src].</span>", "<span class='notice'>You place [I] into [src].</span>")
+	add_fingerprint(user)
+	I.forceMove(src)
+	headpocket_item = I
+
+/obj/item/toy/plushie/skrellplushie/Destroy()
+	QDEL_NULL(headpocket_item)
+	return ..()
+
+/obj/item/toy/plushie/skrellplushie/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, warble_cooldown))
+		return ..()
+	playsound(src,'sound/effects/warble.ogg', 10, 0)
+	visible_message("<span class='danger'>Warble!</span>")
+	COOLDOWN_START(src, warble_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/humanplushie
+	name = "human plushie"
+	desc = "This plushie is slightly less popular than its counterparts. The designers obviously didn't find humans that endearing..."
+	icon_state = "plushie_human"
+	poof_sound = list('sound/weapons/thudswoosh.ogg' = 42,
+					'sound/goonstation/voice/male_scream.ogg' = 1)
+
+/obj/item/toy/plushie/borgplushie
+	name = "borg plushie"
+	desc = "The synthetic backbone of the station, rendered in plush form. Inbuilt flashlight included!"
+	icon_state = "plushie_borg"
+	var/on = FALSE
+
+/obj/item/toy/plushie/borgplushie/Initialize(mapload)
+	. = ..()
+	add_overlay(pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi"))
+
+/obj/item/toy/plushie/borgplushie/attack_self(mob/user)
+	on = !on
+	update_brightness()
+	return ..()
+
+/obj/item/toy/plushie/borgplushie/proc/update_brightness()
+	if(on)
+		set_light(4)
+	else
+		set_light(0)
+	update_icon()
+
+/obj/item/toy/plushie/borgplushie/update_overlays()
+	. = ..()
+	if(on)
+		add_overlay("borglights")
+	else
+		cut_overlay("borglights")
+
+/obj/item/toy/plushie/borgplushie/extinguish_light(force = FALSE)
+	if(!force)
+		if(on)
+			visible_message("<span class='danger'>[src]'s light grows dim...</span>")
+			on = !on
+			update_brightness()
+	else
+		atom_say("Self-destruct command received!</span>")
+		visible_message("<span class='danger'>[src] explodes!</span>")
+		var/turf/T = get_turf(src)
+		playsound(T, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+		robogibs(T)
+		qdel(src)
+
+/obj/item/toy/plushie/dionaplushie
+	name = "diona plushie"
+	desc = "This plushy is seemingly comprised of other, smaller, nymph plushies. They really went all out on the realism! Keep away from plantkiller."
+	icon_state = "plushie_diona"
+	COOLDOWN_DECLARE(creak_cooldown)
+
+/obj/item/toy/plushie/dionaplushie/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, creak_cooldown))
+		return ..()
+	playsound(src,'sound/voice/dionatalk1.ogg', 10, 0)
+	visible_message("<span class='danger'>Creak...</span>")
+	COOLDOWN_START(src, creak_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/nymphplushie
+	name = "nymph plushie"
+	desc = "Life-sized plushie of a diona nymph, perhaps if you find another you could make a diona!"
+	icon_state = "plushie_nymph"
+	COOLDOWN_DECLARE(chirp_cooldown)
+
+/obj/item/toy/plushie/nymphplushie/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, chirp_cooldown))
+		return ..()
+	playsound(src,'sound/creatures/nymphchirp.ogg', 10, 0)
+	visible_message("<span class='danger'>Chirp!</span>")
+	COOLDOWN_START(src, chirp_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/plasmamanplushie
+	name = "plasmaman plushie"
+	desc = "A freindly plasma-being in plush form. WARNING: KEEP AWAY FROM OPEN FLAME!"
+	icon_state = "plushie_plasma"
+	COOLDOWN_DECLARE(rattle_cooldown)
+
+/obj/item/toy/plushie/plasmamanplushie/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		bakoom()
+	return TRUE
+
+/obj/item/toy/plushie/plasmamanplushie/attackby(obj/item/I, mob/living/user, params)
+	if(I.get_heat())
+		bakoom()
+	else
+		return ..()
+
+/obj/item/toy/plushie/plasmamanplushie/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	bakoom()
+
+/obj/item/toy/plushie/plasmamanplushie/proc/bakoom()
+	visible_message("<span class='danger'>[src] explodes!</span>")
+	if(grenade)
+		explosive_betrayal(grenade)
+	explosion(get_turf(src), -1, 0, 1, 1, flame_range = 1)
+	if(!QDELETED(src))
+		qdel(src)
+
+/obj/item/toy/plushie/plasmamanplushie/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, rattle_cooldown))
+		return ..()
+	playsound(src,'sound/voice/plas_rattle.ogg', 10, 0)
+	visible_message("<span class='danger'>Rattle!</span>")
+	COOLDOWN_START(src, rattle_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/draskplushie
+	name = "drask plushie"
+	desc = "This plushie is cool as a cucumber, featuring realistic soap-munching action."
+	icon_state = "plushie_drask"
+	COOLDOWN_DECLARE(rumble_cooldown)
+
+/obj/item/toy/plushie/draskplushie/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, rumble_cooldown))
+		return ..()
+	playsound(src,'sound/voice/drasktalk.ogg', 10, 0)
+	visible_message("<span class='danger'>Ruuuumble...</span>")
+	COOLDOWN_START(src, rumble_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/draskplushie/attackby(obj/item/B, mob/user, params)
+	if(istype(B, /obj/item/soap))
+		if(prob(10))
+			visible_message("<span class='danger'>[src] consumes the soap...</span>")
+			qdel(B)
+		visible_message("<span class='danger'>[src] munches the soap...</span>")
+		playsound(loc, 'sound/items/eatfood.ogg', 50, 1)
+		return ..()
+	else
+		return ..()
+
+/obj/item/toy/plushie/kidanplushie
+	name = "kidan plushie"
+	desc = "F-ANT-asticly fun kidan plushie! Exoskeleton has never been so soft. The label says to keep it away from insecticides"
+	icon_state = "plushie_kidan"
+	var/sadbug = FALSE
+	COOLDOWN_DECLARE(clack_cooldown)
+
+/obj/item/toy/plushie/kidanplushie/attack_self(mob/user)
+	if(prob(10) && sadbug)
+		visible_message("<span class='notice'>[src] begins to cheer up!</span>")
+		icon_state = "plushie_kidan"
+		sadbug = FALSE
+	if(!COOLDOWN_FINISHED(src, clack_cooldown))
+		return ..()
+	playsound(src,'sound/effects/Kidanclack.ogg', 10, 0)
+	visible_message("<span class='danger'>Click clack!</span>")
+	COOLDOWN_START(src, clack_cooldown, 3 SECONDS)
+	return
+
+/obj/item/toy/plushie/kidanplushie/proc/makecry()
+	visible_message("<span class='danger'>[src] starts to cry...</span>")
+	icon_state = "plushie_kidansad"
+	sadbug = TRUE
+
 /*
- * Foam Armblade
+*Foam Armblade
  */
 
 /obj/item/toy/foamblade

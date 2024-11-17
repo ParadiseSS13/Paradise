@@ -71,3 +71,15 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
+
+/datum/spell/touch/plushify
+	name = "Plushify"
+	desc = "This spell charges your hand with the power to turn your victims into marketable plushies!"
+	hand_path = /obj/item/melee/touch_attack/plushify
+
+	school = "transmutation"
+	base_cooldown = 600
+	clothes_req = TRUE
+	cooldown_min = 200 //100 deciseconds reduction per rank
+
+	action_icon_state = "plush"

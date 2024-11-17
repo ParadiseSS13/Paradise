@@ -1118,6 +1118,9 @@
 	if(istype(O, /obj/effect/decal/cleanable/ants))
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
+	if(istype(O, /obj/item/toy/plushie/kidanplushie))
+		var/obj/item/toy/plushie/kidanplushie/stupidbug = O
+		stupidbug.makecry()
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))

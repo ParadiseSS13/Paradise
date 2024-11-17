@@ -196,6 +196,9 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
+	/// What plushie the species will turn into if turned into a plushie.
+	var/plushie_type = /obj/item/toy/plushie/humanplushie
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 	if(!sprite_sheet_name)
