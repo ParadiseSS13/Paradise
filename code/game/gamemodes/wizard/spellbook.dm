@@ -153,9 +153,9 @@
 	category = "Offensive"
 
 /datum/spellbook_entry/plushify
-    name = "Plushify"
-    spell_type = /datum/spell/touch/plushify
-    category = "Offensive"
+	name = "Plushify"
+	spell_type = /datum/spell/touch/plushify
+	category = "Offensive"
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"

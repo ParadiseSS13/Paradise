@@ -2239,7 +2239,7 @@
 				new /obj/effect/immovablerod/smite(start, M)
 				logmsg = "a rod"
 			if("Plushify")
-				H.Plushify()
+				H.Plushify(curse_time = -1)
 				logmsg = "plushified"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
