@@ -41,8 +41,6 @@
 /area/ruin/space/syndicate_listening_station)
 "hr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -68,8 +66,6 @@
 	id_tag = "sst_away"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/fans/tiny,
@@ -88,8 +84,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "nC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
@@ -115,7 +109,6 @@
 "pV" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -130,8 +123,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "rS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/falsewall/rock_ancient,
@@ -139,26 +130,18 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "sf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "sq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/falsewall/rock_ancient,
@@ -166,8 +149,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "tk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -179,7 +160,6 @@
 	output_level = 100000
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -201,8 +181,6 @@
 /area/ruin/space/syndicate_listening_station)
 "uv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/table,
@@ -234,8 +212,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "yv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -270,8 +246,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Bt" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -286,13 +260,9 @@
 /area/ruin/space/syndicate_listening_station)
 "BD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -355,8 +325,6 @@
 /area/ruin/space/syndicate_listening_station)
 "CI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -374,8 +342,6 @@
 /area/ruin/space/syndicate_listening_station)
 "Ej" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -383,7 +349,6 @@
 /area/ruin/space/syndicate_listening_station)
 "Em" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal,
@@ -410,8 +375,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "GQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/portable/canister/air,
@@ -430,8 +393,6 @@
 /area/ruin/space/syndicate_listening_station)
 "HZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -481,8 +442,6 @@
 /area/ruin/space/syndicate_listening_station)
 "OO" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -505,8 +464,6 @@
 /area/ruin/space/syndicate_listening_station)
 "Sq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -518,8 +475,6 @@
 	id_tag = "sst_away"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -547,8 +502,6 @@
 	name = "Engineering"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -563,13 +516,9 @@
 /area/ruin/space/syndicate_listening_station)
 "WN" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -582,13 +531,9 @@
 /area/ruin/space/syndicate_listening_station)
 "Xz" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -597,7 +542,6 @@
 "Ya" = (
 /obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
