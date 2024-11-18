@@ -76,6 +76,7 @@
 
 ///Reapplies label when update_name is called on the parent object. Attempts to remove it first just in case.
 /datum/component/label/proc/on_update_name()
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_NAME
 	remove_label()
 	apply_label()
 
