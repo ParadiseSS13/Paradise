@@ -12,8 +12,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	wiki_page_name = "Traitor"
-	targeted_by_antag_message = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
-		Remain vigilant, they know who you are and what you can do."
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
@@ -280,8 +278,25 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(!owner?.current)
 		return
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-	if(targeted_by_antag || prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
-		to_chat(owner.current, "<span class='userdanger'>[targeted_by_antag_message]</span>")
+
+	if(prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
+		queue_backstab()
+
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	delayed_objectives = FALSE
+
+/datum/antagonist/traitor/proc/queue_backstab()
+	// We do not want to send out two of these. As such, if the datum is already sending a backstab, abort.
+	if(sending_backstab)
+		return
+	sending_backstab = TRUE
+	addtimer(CALLBACK(src, PROC_REF(send_backstab)), rand(2 MINUTES, 5 MINUTES))
+
+/datum/antagonist/traitor/proc/send_backstab()
+	if(!owner.current)
+		return
+	add_antag_objective(/datum/objective/potentially_backstabbed)
+	var/list/messages = owner.prepare_announce_objectives()
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
