@@ -474,7 +474,7 @@
 
 /datum/language/com_zvezhan
 	name = "Zvezhan"
-	desc = "The language of revolution across the stars, intially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia. "
+	desc = "The language of revolution across the stars, initially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia."
 	speech_verb = "articulates"
 	whisper_verb = "murmurs"
 	exclaim_verbs = list("proclaims", "boasts", "accentuates")
