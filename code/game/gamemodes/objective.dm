@@ -944,5 +944,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				continue
 			if(!our_objective.check_completion())
 				return FALSE
-		return TRUE
-	return FALSE
+	return TRUE
