@@ -53,6 +53,7 @@
 	* user: The mob who is wielding the attacking object.
 */
 /datum/component/label/proc/on_attack_by(datum/source, obj/item/attacker, mob/user)
+	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
 	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
 	// The hand labeler should be off in order to remove a label.
 	var/obj/item/hand_labeler/labeler = attacker
