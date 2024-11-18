@@ -283,22 +283,22 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/has_antag_objectives(include_team = TRUE)
 	. = FALSE
-	if(include_team)
+	. |= objective_holder.has_objectives()
+	if(!. && include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.has_objectives()
-	. |= objective_holder.has_objectives()
 
 /**
  * Get all of this antagonist's objectives, including from the team.
  */
 /datum/antagonist/proc/get_antag_objectives(include_team = TRUE)
 	. = list()
+	. |= objective_holder.get_objectives()
 	if(include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.get_objectives()
-	. |= objective_holder.get_objectives()
 
 /**
  * Proc called when the datum is given to a mind.
