@@ -552,8 +552,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT // Let us not have this visual block clicks
 	/// Who we are orbiting
 	var/target
-	/// A funky colour matrix to recolor the slash to
-	var/list/funky_colour_matrix = list(0.4,0,0,0, 0,1.1,0,0, 0,0,1.65,0, -0.3,0.15,0,1, 0,0,0,0)
+	/// A funky color matrix to recolor the slash to
+	var/list/funky_color_matrix = list(0.4,0,0,0, 0,1.1,0,0, 0,0,1.65,0, -0.3,0.15,0,1, 0,0,0,0)
 
 /obj/effect/temp_visual/temporal_slash/Initialize(mapload, new_target)
 	. = ..()
@@ -567,7 +567,7 @@
 
 /obj/effect/temp_visual/temporal_slash/proc/animate_slash()
 	plane = -1
-	color = funky_colour_matrix
+	color = funky_color_matrix
 	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
 
 /obj/item/melee/spellblade/random
