@@ -66392,7 +66392,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2s;
+	dir = 2;
 	icon_state = "whitered"
 	},
 /area/station/security/permabrig)
@@ -94682,7 +94682,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2s;
+	dir = 2;
 	icon_state = "whitered"
 	},
 /area/station/security/permabrig)
