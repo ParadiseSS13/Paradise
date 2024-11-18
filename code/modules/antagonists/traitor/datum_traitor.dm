@@ -19,6 +19,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	blurb_r = 200
 	blurb_a = 0.75
 
+	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
+	var/sending_backstab = FALSE
+
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
 	if(!owner.som)

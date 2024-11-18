@@ -45,8 +45,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/wiki_page_name
 	/// The organization, if any, this antag is associated with
 	var/datum/antag_org/organization
-	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
-	var/sending_backstab = FALSE
 
 	//Blurb stuff
 	/// Intro Blurbs text colour
