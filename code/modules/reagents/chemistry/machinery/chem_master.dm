@@ -610,6 +610,8 @@
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!safe_chem_list.Find(A.id))
 			return FALSE
+	if(R.chem_temp < 280 || R.chem_temp > 310)
+		return FALSE
 	return TRUE
 
 /datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
