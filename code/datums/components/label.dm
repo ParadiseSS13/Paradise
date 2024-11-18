@@ -104,6 +104,7 @@
 
 /// Adds detailed information to the examine text.
 /datum/component/label/goal/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal for [label_name]. Use a hand labeler to remove it.</span>"
 
 /// Applies a static label to the parent's name.
