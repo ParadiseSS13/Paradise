@@ -82535,9 +82535,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"rCT" = (
-/turf/space,
-/area)
 "rDQ" = (
 /mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -128807,7 +128804,7 @@ aaa
 aaa
 aaa
 aaa
-rCT
+aaa
 aaa
 aaa
 aaa
