@@ -94,7 +94,7 @@
 	..()
 
 
-/mob/living/proc/Plushify()
+/mob/living/proc/plushify()
 	var/mob/living/simple_animal/shade/sword/bread/plushvictim = new(get_turf(src))
 	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
 	if(issilicon(src))

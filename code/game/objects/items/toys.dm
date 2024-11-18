@@ -921,7 +921,7 @@
 	. += "<span class='notice'>Alt-click to put something small inside the headpocket, or take an item out.</span>"
 
 /obj/item/toy/plushie/skrellplushie/AltClick(mob/user)
-	if(!Adjacent(user))
+	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/obj/item/I = user.get_active_hand()
 	if(I == src)
@@ -940,7 +940,7 @@
 	if(!iscarbon(user))
 		return
 	if(headpocket_item)
-		to_chat(user, "<span class='warning'>[src] already has an item in it's headpocket!</span>")
+		to_chat(user, "<span class='warning'>[src] already has an item in its headpocket!</span>")
 		return
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
@@ -1077,8 +1077,8 @@
 /obj/item/toy/plushie/plasmamanplushie/attackby(obj/item/I, mob/living/user, params)
 	if(I.get_heat())
 		bakoom()
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/item/toy/plushie/plasmamanplushie/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -1122,8 +1122,7 @@
 		visible_message("<span class='danger'>[src] munches the soap...</span>")
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 1)
 		return ..()
-	else
-		return ..()
+	return ..()
 
 /obj/item/toy/plushie/kidanplushie
 	name = "kidan plushie"
@@ -1144,13 +1143,13 @@
 	COOLDOWN_START(src, clack_cooldown, 3 SECONDS)
 	return
 
-/obj/item/toy/plushie/kidanplushie/proc/makecry()
+/obj/item/toy/plushie/kidanplushie/proc/make_cry()
 	visible_message("<span class='danger'>[src] starts to cry...</span>")
 	icon_state = "plushie_kidansad"
 	sadbug = TRUE
 
 /*
-*Foam Armblade
+ * Foam Armblade
  */
 
 /obj/item/toy/foamblade
