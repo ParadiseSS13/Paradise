@@ -33275,7 +33275,7 @@
 /area/station/science/rnd)
 "cqC" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/five,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -51581,7 +51581,7 @@
 "gHV" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/five,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)

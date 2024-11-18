@@ -674,7 +674,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UF" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UK" = (

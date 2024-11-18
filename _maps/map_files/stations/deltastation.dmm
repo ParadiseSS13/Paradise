@@ -53116,7 +53116,7 @@
 	},
 /area/station/maintenance/starboard)
 "cZj" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -53196,7 +53196,7 @@
 /turf/simulated/wall,
 /area/station/science/research)
 "cZw" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -55039,7 +55039,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
 "dfS" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -55406,7 +55406,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "dhB" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -56771,7 +56771,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dmU" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
@@ -57860,7 +57860,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "dsn" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/circuitboard/cyborgrecharger,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
@@ -58440,7 +58440,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "duV" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/machinery/light/small,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
