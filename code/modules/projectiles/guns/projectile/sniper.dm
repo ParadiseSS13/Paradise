@@ -15,7 +15,7 @@
 	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	execution_speed = 8 SECONDS
 	var/zoomable = TRUE

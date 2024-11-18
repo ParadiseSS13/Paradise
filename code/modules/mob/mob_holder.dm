@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/New()
 	..()
@@ -98,7 +98,7 @@
 	name = "nian caterpillar"
 	desc = "It's a tiny little itty bitty critter."
 	icon_state = "mothroach"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"
@@ -107,7 +107,7 @@
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = null
 
 /obj/item/holder/mouse
 	name = "mouse"

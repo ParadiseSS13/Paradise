@@ -369,3 +369,10 @@
 	name = "Abandoned Security Shuttle"
 	description = "A security shuttle that has been floating in space."
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/drakehound_breacher
+	id = "drakehound_breacher"
+	suffix = "unathi_skiff.dmm"
+	name = "Damaged Drakehound Skiff"
+	description = "A small Drakehound craft, damaged from an engine malfunction."
+	allow_duplicates = FALSE

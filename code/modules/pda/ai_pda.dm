@@ -1,6 +1,5 @@
 // Special AI/pAI PDAs that cannot explode.
 /obj/item/pda/silicon
-	icon_state = "NONE"
 	detonate = FALSE
 	ttone = "data"
 
