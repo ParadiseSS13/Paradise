@@ -78381,6 +78381,10 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"tio" = (
+/obj/machinery/light,
+/turf/simulated/wall,
+/area/station/legal/lawoffice)
 "tiE" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -114253,7 +114257,7 @@ eQJ
 wyJ
 aie
 ajP
-aIo
+tio
 aCb
 aCb
 aIo
