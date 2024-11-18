@@ -9,7 +9,15 @@
 	icon_state = "box_0"
 	density = TRUE
 	anchored = TRUE
+
+	pressure_resistance = 15
 	max_integrity = 250
+	layer = BELOW_OBJ_LAYER
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
+	atom_say_verb = "beeps"
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.3
+
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
