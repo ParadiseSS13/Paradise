@@ -11634,6 +11634,10 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13324,6 +13328,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18114,20 +18122,24 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/station/security/processing)
 "biw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard2)
 "biy" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -18760,26 +18772,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
 "bkd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/starboard/west)
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "bkh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -21478,19 +21478,13 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint)
 "bsL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/chair/office,
+/obj/machinery/camera{
+	c_tag = "Courtroom Gallery";
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
+/turf/simulated/floor/plasteel/dark,
+/area/station/legal/courtroom/gallery)
 "bsU" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -23547,6 +23541,7 @@
 	dir = 8;
 	pixel_y = -22
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -24985,6 +24980,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -29574,12 +29573,27 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "bPB" = (
-/obj/machinery/camera{
-	c_tag = "Magistrate's Office";
+/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
-/area/station/legal/magistrate)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred";
+	dir = 1
+	},
+/area/station/security/brig)
 "bPC" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced,
@@ -31577,12 +31591,17 @@
 	},
 /area/station/turret_protected/aisat)
 "bVk" = (
-/obj/structure/closet/firecloset,
-/obj/machinery/light/small{
-	dir = 1
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
+/area/station/security/permabrig)
 "bVl" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -31702,6 +31721,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bVH" = (
@@ -31925,13 +31945,8 @@
 	},
 /area/station/hallway/primary/port/north)
 "bWC" = (
-/obj/structure/chair/office,
-/obj/machinery/camera{
-	c_tag = "Courtroom Gallery";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/legal/courtroom/gallery)
+/turf/simulated/wall/r_wall,
+/area/station/security/storage)
 "bWE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -32071,14 +32086,12 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bXj" = (
-/obj/machinery/status_display{
-	pixel_x = -32
+/obj/structure/chair/office,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred";
-	dir = 8
-	},
-/area/station/security/brig)
+/turf/simulated/floor/plasteel/dark,
+/area/station/legal/courtroom/gallery)
 "bXl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -35074,15 +35087,9 @@
 	},
 /area/station/legal/magistrate)
 "chO" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/station/security/prisonershuttle)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/processing)
 "chS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -35634,12 +35641,17 @@
 	},
 /area/station/security/range)
 "cjz" = (
-/obj/machinery/camera{
-	c_tag = "Courtroom ";
-	dir = 4
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/wood,
-/area/station/legal/courtroom)
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/office/hos)
 "cjB" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -44052,6 +44064,18 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"cHw" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/processing)
 "cHy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -54777,6 +54801,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -60640,8 +60665,12 @@
 	},
 /area/station/security/evidence)
 "ejT" = (
-/turf/simulated/wall/r_wall,
-/area/station/security/storage)
+/obj/machinery/camera{
+	c_tag = "Courtroom ";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/legal/courtroom)
 "ekg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -61128,6 +61157,15 @@
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
+"evm" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "evE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -61800,6 +61838,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "eNh" = (
@@ -62386,6 +62428,10 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -63771,6 +63817,7 @@
 	dir = 5
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64779,6 +64826,13 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
+"gsI" = (
+/obj/structure/closet/firecloset,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "gsJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -66128,6 +66182,18 @@
 "hhG" = (
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
+"hhU" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/prison/cell_block/A)
 "hig" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
@@ -66978,6 +67044,10 @@
 	codes_txt = "delivery";
 	dir = 1;
 	location = "Security"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -68690,6 +68760,10 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "ixV" = (
@@ -70071,6 +70145,28 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
+"jlD" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "jlL" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -71307,6 +71403,13 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/main)
+"jWQ" = (
+/obj/machinery/camera{
+	c_tag = "Magistrate's Office";
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/legal/magistrate)
 "jWU" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -71570,6 +71673,10 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
@@ -71838,6 +71945,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "klk" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71905,6 +72013,10 @@
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
@@ -73303,6 +73415,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
+"lbs" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "lbv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
@@ -73905,6 +74027,10 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -75044,6 +75170,16 @@
 /obj/structure/table/glass/reinforced/plasma,
 /turf/simulated/floor/carpet/purple,
 /area/station/medical/psych)
+"lZy" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/brig)
 "lZR" = (
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
@@ -75204,6 +75340,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -75981,6 +76121,10 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
@@ -77977,6 +78121,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/south,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78556,12 +78701,17 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "nWC" = (
-/obj/structure/chair/office,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/legal/courtroom/gallery)
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "nWF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -78576,6 +78726,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78643,6 +78797,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -80218,6 +80376,27 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"oMV" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/starboard/west)
 "oNd" = (
 /turf/simulated/wall,
 /area/station/public/arcade)
@@ -80972,6 +81151,19 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/genetics)
+"pfl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/legal/courtroom/gallery)
 "pfo" = (
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
@@ -81388,6 +81580,10 @@
 	security_level = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "psH" = (
@@ -81438,6 +81634,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "puH" = (
@@ -82869,6 +83066,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
 "qft" = (
@@ -83060,6 +83261,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83090,18 +83295,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "qnx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/status_display{
+	pixel_x = -32
 	},
-/obj/structure/disposalpipe/junction/reversed{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred";
+	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/legal/courtroom/gallery)
+/area/station/security/brig)
 "qnz" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -84634,6 +84835,18 @@
 	icon_state = "dark"
 	},
 /area/station/security/prisonershuttle)
+"rer" = (
+/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/station/security/brig)
 "reu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86865,6 +87078,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
+"sgy" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/range)
 "sgM" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Medbay Maintenance"
@@ -87354,6 +87573,11 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"spI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/processing)
 "spL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -88235,7 +88459,9 @@
 /obj/effect/rune{
 	cultist_desc = "an imitation of the real thing with no power.";
 	desc = "An odd collection of symbols drawn in what seems to be very old and dry blood.";
-	name = "old smeared rune"
+	name = "old smeared rune";
+	light_range = 1;
+	light_color = "880000"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -88403,8 +88629,12 @@
 	d2 = 8;
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
 /turf/simulated/floor/plating,
-/area/station/security/storage)
+/area/station/security/detective)
 "sPx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -88934,6 +89164,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "tcA" = (
@@ -89371,6 +89602,18 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"trJ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "tsc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -89788,6 +90031,10 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
@@ -90501,6 +90748,10 @@
 	icon_state = "1-8"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -90531,6 +90782,18 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"tUf" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/prison/cell_block/A)
 "tUE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -91881,6 +92144,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 1
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 1
@@ -91928,6 +92195,10 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
@@ -92384,6 +92655,18 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/se)
+"uOS" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "uOZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/stacking_machine{
@@ -92500,6 +92783,10 @@
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -93364,6 +93651,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "vsw" = (
@@ -93842,6 +94133,10 @@
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
@@ -94327,6 +94622,10 @@
 	icon_state = "1-8"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -94804,8 +95103,16 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
 /turf/simulated/floor/plating,
-/area/station/security/storage)
+/area/station/security/detective)
+"wdd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "wdo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -95201,6 +95508,10 @@
 	icon_state = "1-8"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -95941,6 +96252,10 @@
 	d1 = 1;
 	d2 = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "wDE" = (
@@ -96184,6 +96499,14 @@
 	c_tag = "Brig Perma Panopticon";
 	dir = 8
 	},
+/obj/machinery/door_control{
+	desc = "A remote control-switch to lock down the prison wing's blast doors";
+	id = "Prison Gate";
+	name = "Prison Wing Lockdown";
+	pixel_x = 25;
+	req_access = list(2);
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -96248,6 +96571,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
+"wOW" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "wPI" = (
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
@@ -96262,6 +96599,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
+"wQi" = (
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/station/security/prisonershuttle)
 "wRa" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/camera{
@@ -98934,6 +99281,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -144048,7 +144399,7 @@ mRD
 ccq
 sxI
 eYE
-cjz
+ejT
 eYE
 rgU
 kbv
@@ -144301,7 +144652,7 @@ ltg
 ceb
 caw
 caw
-nWC
+bXj
 ccq
 cax
 cax
@@ -144558,7 +144909,7 @@ ceb
 ceb
 tGd
 caw
-nWC
+bXj
 ccq
 chC
 mQk
@@ -144789,7 +145140,7 @@ bik
 bjO
 bbe
 eNt
-bsL
+wOW
 qET
 aaa
 btL
@@ -144815,7 +145166,7 @@ awM
 awM
 hIn
 gQU
-qnx
+pfl
 btZ
 fFQ
 cHD
@@ -145579,14 +145930,14 @@ bwA
 now
 eNt
 bQz
-bkd
+oMV
 iRk
 xPW
 caA
 ceb
 mlY
 qJc
-bWC
+bsL
 ccq
 ckM
 pqb
@@ -146875,7 +147226,7 @@ bZi
 cji
 qOS
 rtw
-bPB
+jWQ
 ckR
 poQ
 bZi
@@ -147374,7 +147725,7 @@ tFq
 jau
 ahh
 hKx
-bwA
+bWr
 bwA
 eaq
 bTb
@@ -148414,7 +148765,7 @@ fMq
 bgs
 brM
 wzP
-coX
+biw
 brM
 xKd
 bgs
@@ -148671,7 +149022,7 @@ wsx
 bgs
 bgs
 ucf
-coX
+biw
 brM
 xKd
 bgs
@@ -148898,7 +149249,7 @@ aaa
 aaa
 aaa
 eNt
-bVk
+gsI
 ftn
 mni
 wTS
@@ -149687,7 +150038,7 @@ vOc
 kYD
 twc
 vOc
-kfk
+hhU
 vOc
 vOc
 bAN
@@ -149946,7 +150297,7 @@ qZj
 kfk
 bTA
 muh
-kfk
+hhU
 hzD
 bVq
 sUE
@@ -150460,7 +150811,7 @@ hTF
 vOc
 izj
 pBA
-mAS
+tUf
 amY
 bVn
 tCv
@@ -150710,7 +151061,7 @@ jrI
 iVP
 goP
 goP
-nlY
+cHw
 goP
 qQz
 rJs
@@ -150937,11 +151288,11 @@ aaa
 aaa
 ygH
 ygH
-lqC
+nWC
 ygH
 ygH
 ygH
-lqC
+nWC
 ygH
 ygH
 abj
@@ -150962,7 +151313,7 @@ pFQ
 tKe
 rVf
 agz
-naG
+chO
 naG
 pLq
 gMi
@@ -151220,7 +151571,7 @@ vYP
 goP
 pUf
 iXS
-lFk
+spI
 tPp
 wKg
 vGr
@@ -151453,11 +151804,11 @@ ygH
 rqN
 qLl
 vZQ
-cRn
+uOS
 lWb
 gMC
 hpO
-sbH
+bkd
 mQO
 aaa
 aaa
@@ -151489,8 +151840,8 @@ vOc
 lEU
 rxr
 vOc
-obL
-ffk
+bPB
+lZy
 mft
 bLn
 bPx
@@ -151737,7 +152088,7 @@ naG
 tdD
 uiw
 naG
-naG
+chO
 tQg
 qQK
 aPx
@@ -151749,12 +152100,12 @@ vOc
 qZh
 bQo
 ihi
-ixb
-ixb
+bLn
+bLn
 wcM
 sPt
-ixb
-ixb
+bLn
+bLn
 cjw
 oZm
 dxV
@@ -151966,11 +152317,11 @@ sGs
 aJx
 aJx
 sqE
-sbH
+bkd
 aJx
-cRn
+uOS
 wWV
-sbH
+bkd
 ygH
 ygH
 aaa
@@ -152005,7 +152356,7 @@ mZT
 vOc
 obL
 ffk
-mft
+rer
 ixb
 jCt
 mpR
@@ -152014,7 +152365,7 @@ cgo
 ixb
 cjv
 iCU
-cjv
+sgy
 cjr
 cpa
 cqI
@@ -152998,7 +153349,7 @@ aVw
 tEl
 kSk
 llc
-mgM
+evm
 vVn
 iUE
 qlH
@@ -153027,7 +153378,7 @@ moB
 rCJ
 jSd
 ufv
-bXj
+qnx
 gnW
 whi
 yjx
@@ -153508,7 +153859,7 @@ wce
 aQx
 mtL
 rMg
-aVw
+wdd
 aVw
 aVw
 aVw
@@ -153776,7 +154127,7 @@ aJx
 lqC
 aJx
 aJx
-lqC
+nWC
 aJx
 qPG
 ooC
@@ -154037,7 +154388,7 @@ kQC
 uSe
 lyH
 ooC
-chO
+wQi
 tmp
 tmp
 bsA
@@ -154067,7 +154418,7 @@ ixb
 yki
 yki
 ixb
-ejT
+bWC
 xHp
 wwZ
 xHp
@@ -154532,7 +154883,7 @@ aaa
 aaa
 aaa
 abj
-slz
+bVk
 vCA
 lpE
 ijX
@@ -154546,7 +154897,7 @@ aNE
 aYl
 bJN
 pYi
-biw
+lbs
 pMd
 aPb
 uee
@@ -154789,7 +155140,7 @@ aaa
 aaa
 aaa
 abj
-aNE
+jlD
 gHM
 wfO
 nuB
@@ -154805,7 +155156,7 @@ iHL
 qnX
 wMV
 olw
-eSX
+trJ
 lyH
 ooC
 nlB
@@ -154814,7 +155165,7 @@ bae
 bbJ
 bae
 aZw
-pVc
+cjz
 tCb
 bmk
 rtQ
@@ -155046,7 +155397,7 @@ aaa
 aaa
 aaa
 abj
-eSX
+trJ
 bPU
 aVw
 icE
@@ -155817,7 +156168,7 @@ aaa
 aaa
 aaa
 abj
-slz
+bVk
 lLv
 aVw
 mPk
@@ -156074,7 +156425,7 @@ aaa
 aaa
 aaa
 abj
-aNE
+jlD
 seF
 lIY
 sje
@@ -156331,7 +156682,7 @@ aaa
 aaa
 aaa
 abj
-eSX
+trJ
 tkm
 cwe
 ubZ
@@ -156590,9 +156941,9 @@ dij
 abj
 ygH
 ygH
-cRn
+uOS
 fev
-sbH
+bkd
 ygH
 ygH
 ygH
