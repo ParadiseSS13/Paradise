@@ -246,7 +246,7 @@
 	all_objectives += objective_holder.get_objectives() // Get their personal objectives
 
 	for(var/datum/antagonist/A as anything in antag_datums)
-		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
+		all_objectives += A.get_antag_objectives() // Add all antag datum objectives.
 		if(include_team)
 			var/datum/team/team = A.get_team()
 			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
@@ -279,9 +279,9 @@
 	if(!remove_from_everything)
 		return
 	for(var/datum/antagonist/A as anything in antag_datums)
-		A.objective_holder.remove_objective(O) // Add all antag datum objectives.
+		A.remove_antag_objective(O)
 		var/datum/team/team = A.get_team()
-		team?.objective_holder.remove_objective(O) // Get all of their teams' objectives
+		team?.objective_holder.remove_objective(O)
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
