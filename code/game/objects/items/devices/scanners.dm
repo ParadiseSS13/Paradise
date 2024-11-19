@@ -18,7 +18,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
@@ -109,7 +109,7 @@ SLIME SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 3
@@ -241,12 +241,13 @@ SLIME SCANNER
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
 	// Brain.
-	if(H.get_int_organ(/obj/item/organ/internal/brain))
-		if(H.getBrainLoss() >= 100)
+	var/obj/item/organ/internal/brain = H.get_int_organ(/obj/item/organ/internal/brain)
+	if(brain)
+		if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL)) // 100
 			msgs += "<span class='warning'>Subject is brain dead.</span>"
-		else if(H.getBrainLoss() >= 60)
+		else if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_MODERATE)) // 60
 			msgs += "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>"
-		else if(H.getBrainLoss() >= 10)
+		else if(H.check_brain_threshold(BRAIN_DAMAGE_RATIO_MINOR)) // 10
 			msgs += "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>"
 	else
 		msgs += "<span class='warning'>Subject has no brain.</span>"
@@ -372,7 +373,7 @@ SLIME SCANNER
 	icon_state = "robotanalyzer"
 	item_state = "analyzer"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
@@ -519,7 +520,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_state = "analyzer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -718,7 +719,7 @@ SLIME SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -796,7 +797,7 @@ SLIME SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -853,7 +854,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 5

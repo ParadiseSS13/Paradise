@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	perlin_upper_range = 0.3
 
 /datum/caves_theme/burrows/on_change(turf/T)
-	if(prob(9))
+	if(prob(7))
 		new /obj/structure/flora/ash/rock/style_random(T)
 	else if(prob(5))
 		lavaland_caves_spawn_flora(T)

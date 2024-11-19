@@ -20,6 +20,8 @@
 /datum/camerachunk/proc/add_camera(obj/machinery/camera/cam)
 	if(active_cameras[cam] || inactive_cameras[cam])
 		return
+	if(cam.non_chunking_camera)
+		return
 	// Register all even though it is active/inactive. Won't get called incorrectly
 	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera), TRUE)
 	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera), TRUE)

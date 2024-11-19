@@ -352,7 +352,7 @@
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
 				return
-			if(!text2bool(params["classified"]))
+			if(params["classified"] != 1) // this uses 1/0 on the js side instead of "true" or "false"
 				GLOB.major_announcement.Announce(
 					params["text"],
 					new_title = "Central Command Report",

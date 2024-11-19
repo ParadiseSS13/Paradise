@@ -5,7 +5,7 @@
 	icon_state = "map"
 
 	name = "passive gate"
-	desc = "A one-way air valve that does not require power"
+	desc = "A one-way air valve that does not require power."
 
 	can_unwrench = TRUE
 	can_unwrench_while_on = FALSE

@@ -172,7 +172,7 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	// cameras historically were varedited to start with 30 shots despite
@@ -377,10 +377,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = icon_off
 	on = FALSE
 	on_cooldown = TRUE
-	if(istype(src,/obj/item/camera/spooky))
-		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
-			if(prob(24))
-				handle_haunt(user)
+
+	handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
 
 /obj/item/camera/proc/reset_cooldown()
@@ -427,7 +425,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	if(istype(src,/obj/item/camera/digital))
+	if(digital)
 		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
@@ -570,7 +568,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon = 'icons/obj/items.dmi'
 	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
 	icon_state = "videocam"
-	item_state = "videocam"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
@@ -636,19 +633,23 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/advanced
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 #undef CAMERA_STATE_COOLDOWN
 
 ///hauntings, like hallucinations but more spooky
 
-/obj/item/camera/proc/handle_haunt(mob/user as mob)
-			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/heartbeat.ogg', 'sound/effects/screech.ogg',\
-						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
-						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
-						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
-						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-			user << pick(creepyasssounds)
+/obj/item/camera/proc/handle_haunt(mob/user)
+	return
+
+/obj/item/camera/spooky/handle_haunt(mob/user)
+	if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts && prob(24))
+		var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/heartbeat.ogg', 'sound/effects/screech.ogg',\
+					'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
+					'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
+					'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
+					'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+		SEND_SOUND(user, pick(creepyasssounds))
 
 
 /obj/item/camera/proc/build_composite_icon(atom/A)
