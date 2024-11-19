@@ -39,8 +39,8 @@ RESTRICT_TYPE(/datum/team/cult)
 	recount_timer = addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 5 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_LOOP)
 
 /datum/team/cult/Destroy(force, ...)
-	. = ..()
-	QDEL_NULL(recount_timer)
+	deltimer(recount_timer)
+	return ..()
 
 /datum/team/cult/create_team(list/starting_members)
 	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
