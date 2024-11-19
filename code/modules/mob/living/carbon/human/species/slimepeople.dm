@@ -36,7 +36,7 @@
 	species_traits = list(LIPS, NO_CLONESCAN, EXOTIC_COLOR)
 	inherent_traits = list(TRAIT_WATERBREATH, TRAIT_NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
@@ -57,7 +57,20 @@
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
+	allowed_species_subtypes = list(
+		1 = "None",
+		2 = "Vox",
+		3 = "Unathi",
+		4 = "Tajaran",
+		5 = "Nian",
+		6 = "Vulpkanin",
+		7 = "Kidan",
+		8 = "Grey",
+		9 = "Drask"
+	)
+
 	var/reagent_skin_coloring = FALSE
+	var/static_bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -65,6 +78,8 @@
 	grow.Grant(H)
 	var/datum/action/innate/slimecolor/recolor = new()
 	recolor.Grant(H)
+	var/datum/action/innate/morphform/reform = new()
+	reform.Grant(H)
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 
@@ -76,7 +91,60 @@
 			i.Remove(H)
 		if(istype(i, /datum/action/innate/regrow))
 			i.Remove(H)
+		if(istype(i, /datum/action/innate/morphform))
+			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
+
+/datum/species/slime/updatespeciessubtype(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-subtype and imitation
+	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
+		var/new_icobase = 'icons/mob/human_races/r_slime.dmi' //Default slime person.
+		if(H.species_subtype == species_subtype) // No update, no need to go further.
+			return
+		species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
+
+		var/datum/species/s = GLOB.all_species[species_subtype]
+		if(isnull(s))
+			s = GLOB.all_species[name] // Reset species fully to slime person again.
+
+		// Copy over new species variables to our current species.
+		new_icobase = s.icobase
+		tail = s.tail
+		wing = s.wing
+		eyes = s.eyes
+		scream_verb = s.scream_verb
+		male_scream_sound = s.male_scream_sound
+		female_scream_sound = s.female_scream_sound
+		default_headacc = s.default_headacc
+		default_bodyacc = s.default_bodyacc
+		male_cough_sounds = s.male_cough_sounds
+		female_cough_sounds = s.female_cough_sounds
+		male_sneeze_sound = s.male_sneeze_sound
+		female_sneeze_sound = s.female_sneeze_sound
+		bodyflags = s.bodyflags
+		if(species_subtype != "None") // Update our species display and reference name to match the subtype. Used for species specific clothing and accessories.
+			sprite_sheet_name = species_subtype
+			bodyflags |= static_bodyflags
+		else
+			sprite_sheet_name = name // Resets sprite sheet back to slime people.
+
+		H.body_accessory = GLOB.body_accessory_by_name[default_bodyacc]
+		H.tail = tail
+		H.wing = wing
+		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base in the case they have robotic limbs
+			limb.icobase = s.icobase // update their icobase for when we apply the slimfy effect
+			limb.dna.species = src // Update limb to match our newly modified species
+			limb.set_company(limb.model, sprite_sheet_name)
+
+		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
+
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		head.h_style = "Bald"
+		head.f_style = "Shaved"
+		head.ha_style = "None"
+		H.s_tone = 0
+		H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+		H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -198,6 +266,25 @@
 		new_limb.add_limb_flags()
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
+
+/datum/action/innate/morphform
+	name = "Morph Form"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "greenglow"
+
+/datum/action/innate/morphform/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/new_subtype = tgui_input_list(H, "Choose a species to imitate", "Select Subtype", H.dna.species.allowed_species_subtypes)
+	if(H.species_subtype == new_subtype)
+		return to_chat(H, "<span class='warning'>You stand there as your body shifts and then returns to its original form.</span>")
+	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] form as it begins to shift and contort...</span>", "<span class='notice'>You begin to focus on changing your form... (This will take [round(50/10)] seconds, and you must hold still.)</span>")
+	if(do_after(H, 50, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		H.species_subtype = new_subtype
+		H.dna.species.updatespeciessubtype(H)
+		H.regenerate_icons()
+	else
+		to_chat(H, "<span class='warning'>You need to hold still in order to shift your form!</span>")
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

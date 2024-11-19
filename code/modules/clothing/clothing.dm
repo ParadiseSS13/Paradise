@@ -106,10 +106,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.name in species_restricted))
+				if(!(H.dna.species.sprite_sheet_name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.name in species_restricted)
+				if(H.dna.species.sprite_sheet_name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
