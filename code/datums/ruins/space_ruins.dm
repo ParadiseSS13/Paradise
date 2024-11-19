@@ -375,6 +375,7 @@
 	suffix = "freighter.dmm"
 	name = "Voidhopper of Nexus"
 	description = "A cargo ship headed to a nearby system."
+	
 /datum/map_template/ruin/space/drakehound_breacher
 	id = "drakehound_breacher"
 	suffix = "unathi_skiff.dmm"
