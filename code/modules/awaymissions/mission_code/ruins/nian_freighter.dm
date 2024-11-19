@@ -25,6 +25,6 @@
 		</ul>
 		<br />CHECK CONTENTS AND SIGN BELOW THE LINE TO CONFIRM RECEIPT OF GOODS
 		<hr />
-		<b>X: <i> Athena, Praetorian of Gliese </i> </b>
+		<b>X: <i>Athena, Praetorian of Gliese</i></b>
 	"}
 	icon_state = "paper_words"
