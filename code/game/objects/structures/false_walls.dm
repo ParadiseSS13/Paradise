@@ -241,7 +241,7 @@
 /obj/structure/falsewall/gold
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
-	icon = 'icons/turf/walls/gold_wall.dmi'
+	icon = 'icons/turf/walls/32x40gold_wall.dmi'
 	icon_state = "gold_wall-0"
 	base_icon_state = "gold_wall"
 	mineral = /obj/item/stack/sheet/mineral/gold
