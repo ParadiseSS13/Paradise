@@ -129,7 +129,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	return ..()
 
 /turf/simulated/wall/indestructible/uranium
-	icon = 'icons/turf/walls/uranium_wall.dmi'
+	icon = 'icons/turf/walls/32x40uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	smoothing_flags = SMOOTH_BITMASK

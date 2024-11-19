@@ -206,7 +206,7 @@
 /obj/structure/falsewall/uranium
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
-	icon = 'icons/turf/walls/uranium_wall.dmi'
+	icon = 'icons/turf/walls/32x40uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	mineral = /obj/item/stack/sheet/mineral/uranium
@@ -253,7 +253,7 @@
 /obj/structure/falsewall/silver
 	name = "silver wall"
 	desc = "A wall with silver plating. Shiny."
-	icon = 'icons/turf/walls/silver_wall.dmi'
+	icon = 'icons/turf/walls/32x40silver_wall.dmi'
 	icon_state = "silver_wall-0"
 	base_icon_state = "silver_wall"
 	mineral = /obj/item/stack/sheet/mineral/silver
