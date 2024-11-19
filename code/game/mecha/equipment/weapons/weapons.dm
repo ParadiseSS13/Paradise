@@ -321,7 +321,7 @@
 	equip_cooldown = 2 SECONDS
 	name = "\improper LBX AC 20-r \"Scattershot .45\""
 	icon_state = "mecha_scatter"
-	origin_tech = "combat=4, syndicate=2" //Crew is not going to get it normally anyways
+	origin_tech = "combat=4;syndicate=2" //Crew is not going to get it normally anyways
 	projectile = /obj/item/projectile/bullet/midbullet
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
