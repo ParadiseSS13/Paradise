@@ -1130,7 +1130,7 @@
 		qdel(O)
 	if(istype(O, /obj/item/toy/plushie/kidanplushie))
 		var/obj/item/toy/plushie/kidanplushie/stupidbug = O
-		stupidbug.makecry()
+		stupidbug.make_cry()
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))

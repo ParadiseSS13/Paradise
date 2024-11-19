@@ -90,31 +90,8 @@
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
 		return
 	var/mob/living/L = target
-	L.Plushify()
+	L.plushify()
 	..()
-
-
-/mob/living/proc/plushify()
-	var/mob/living/simple_animal/shade/sword/bread/plushvictim = new(get_turf(src))
-	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
-	if(issilicon(src))
-		plush_type = /obj/item/toy/plushie/borgplushie
-	else if(isalien(src))
-		plush_type = /obj/item/toy/plushie/face_hugger
-	else if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		plush_type = H.dna.species.plushie_type
-	var/obj/item/toy/plushie/plush_outcome = new plush_type(get_turf(src))
-	plushvictim.forceMove(plush_outcome)
-	plushvictim.key = key
-	plushvictim.RegisterSignal(plush_outcome, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
-	plushvictim.name = name
-	plush_outcome.name = "[name] plushie"
-	if(istype(src, /mob/living/silicon/robot))
-		var/mob/living/silicon/robot/R = src
-		QDEL_NULL(R.mmi)
-	qdel(src)
-	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
 
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"

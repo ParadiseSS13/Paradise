@@ -595,5 +595,5 @@
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
 
-/mob/living/silicon/Plushify(plushie_override)
-	. = ..(/obj/item/toy/plushie/borgplushie)
+/mob/living/silicon/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)

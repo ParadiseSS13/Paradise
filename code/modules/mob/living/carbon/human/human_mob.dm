@@ -2065,5 +2065,5 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
 	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
 
-/mob/living/carbon/human/Plushify(plushie_override)
-	. = ..(H.dna.species.plushie_type)
+/mob/living/carbon/human/plushify(plushie_override, curse_time)
+	. = ..(dna.species.plushie_type, curse_time)

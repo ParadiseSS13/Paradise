@@ -257,5 +257,5 @@ and carry the owner just to make sure*/
 		KnockOut()
 	return ..()
 
-/mob/living/carbon/alien/Plushify(plushie_override)
-	. = ..(/obj/item/toy/plushie/face_hugger)
+/mob/living/carbon/alien/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/face_hugger, curse_time)

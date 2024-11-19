@@ -662,10 +662,10 @@
 	if(!cursed_plushie_victim)
 		return
 	cursed_plushie_victim.forceMove(get_turf(src))
-	status_flags &= ~GODMODE
-	notransform = FALSE
+	cursed_plushie_victim.status_flags &= ~GODMODE
+	cursed_plushie_victim.notransform = FALSE
 	//todo repath bread spirit
-	for(var/mob/living/simple_animal/shade/sword/bread/B in contents)
+	for(var/mob/living/simple_animal/shade/sword/generic_item/B in contents)
 		cursed_plushie_victim.key = B.key
 		break
 	cursed_plushie_victim = null
