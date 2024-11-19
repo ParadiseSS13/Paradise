@@ -27,7 +27,7 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/med_data/Initialize()
+/obj/machinery/computer/med_data/Initialize(mapload)
 	. = ..()
 	field_edit_questions = list(
 		// General

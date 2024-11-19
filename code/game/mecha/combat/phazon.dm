@@ -1,6 +1,6 @@
 /obj/mecha/combat/phazon
-	desc = "An experimental, phase-shifting exosuit developed by Nanotrasen's research division"
 	name = "Phazon"
+	desc = "An experimental, phase-shifting exosuit developed by Nanotrasen's research division."
 	icon_state = "phazon"
 	initial_icon = "phazon"
 	step_in = 2

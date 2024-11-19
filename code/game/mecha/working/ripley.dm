@@ -164,8 +164,8 @@
 	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
 
 /obj/mecha/working/ripley/deathripley
-	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "DEATH-RIPLEY"
+	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE!"
 	icon_state = "deathripley"
 	initial_icon = "deathripley"
 	step_in = 3
@@ -234,7 +234,8 @@
 	return ..()
 
 /obj/mecha/working/ripley/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
@@ -245,7 +246,6 @@
 			if(T)
 				T.Entered(O)
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-	return
 
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()

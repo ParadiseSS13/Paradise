@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_ID | SLOT_FLAG_BELT | SLOT_FLAG_PDA
+	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
@@ -160,8 +160,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 	if(id)
 		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+
 	if(length(notifying_programs))
-		. += image('icons/obj/pda.dmi', "pda-r")
+		if(icon_state == "pda-library")
+			. += image('icons/obj/pda.dmi', "pda-r-library")
+		else
+			. += image('icons/obj/pda.dmi', "pda-r")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)

@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
-/obj/item/stack/sheet/soil/Initialize(loc, amt)
+/obj/item/stack/sheet/soil/Initialize(mapload, loc, amt)
 	recipes = GLOB.soil_recipes
 	return ..()
 
@@ -621,6 +621,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass storage shelf", /obj/structure/shelf/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass gun rack", /obj/structure/gunrack/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork, 2, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("small brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/small, 1, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("brass floor light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/floor, 3, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
 	))
 
 /obj/item/stack/tile/brass

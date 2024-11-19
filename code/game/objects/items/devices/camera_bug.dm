@@ -42,7 +42,7 @@
 
 
 /obj/item/camera_bug/ert
-	name = "ERT Camera Monitor"
+	name = "\improper ERT Camera Monitor"
 	desc = "A small handheld device used by ERT commanders to view camera feeds remotely."
 
 /obj/item/camera_bug/ert/Initialize(mapload)
@@ -55,13 +55,18 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wall_bug"
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/machinery/camera/portable/camera
+	var/obj/machinery/camera/portable/camera_bug/camera
 	var/index = "REPORT THIS TO CODERS"
+	/// What name shows up on the camera bug list
+	var/camera_tag = "Hidden Camera"
+	/// If it sticks to whatever you throw at it
+	var/is_sticky = TRUE
 
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
 	. = ..()
 	link_to_camera(the_bug)
-	AddComponent(/datum/component/sticky)
+	if(is_sticky)
+		AddComponent(/datum/component/sticky)
 	ADD_TRAIT(src, TRAIT_NO_THROWN_MESSAGE, ROUNDSTART_TRAIT)
 
 /obj/item/wall_bug/Destroy()
@@ -81,12 +86,34 @@
 	camera_bug.connections++
 	index = camera_bug.connections
 
-	camera = new /obj/machinery/camera/portable(src)
+	camera = new /obj/machinery/camera/portable/camera_bug(src)
 	camera.network = list("camera_bug[camera_bug.UID()]")
-	camera.c_tag = "Hidden Camera [index]"
+	camera.c_tag = "[camera_tag] [index]"
+
+/// Created by a mindflayer ability
+/obj/item/wall_bug/computer_bug
+	name = "nanobot"
+	desc = "A small droplet of a shimmering metallic slurry."
+	camera_tag = "Surveillance Unit"
+	is_sticky = FALSE
+	/// Reference to the creator's antag datum
+	var/datum/antagonist/mindflayer/flayer
+	COOLDOWN_DECLARE(alert_cooldown)
+
+/obj/item/wall_bug/computer_bug/Destroy()
+	flayer = null
+	return ..()
+
+/obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum)
+	..()
+	if(flayer_datum)
+		flayer = flayer_datum
+
+/obj/machinery/camera/portable/camera_bug
+	non_chunking_camera = TRUE
 
 /obj/item/paper/camera_bug
-	name = "Camera Bug Guide"
+	name = "\improper Camera Bug Guide"
 	icon_state = "paper"
 	info = {"<b>Instructions on your new invasive camera utility</b><br>
 	<br>

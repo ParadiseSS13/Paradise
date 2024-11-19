@@ -73,6 +73,8 @@ GLOBAL_LIST(contractors)
  */
 #define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
 
+#define IS_MINDFLAYER(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindflayer))
+
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
 
 /**
@@ -106,3 +108,8 @@ GLOBAL_LIST(contractors)
 
 // Chance that a traitor will receive a 'You are being targeted by another syndicate agent' notification regardless of being an actual target
 #define ORG_PROB_PARANOIA 5
+
+/// How often a biohazard's population is recorded after the event fires.
+#define BIOHAZARD_POP_INTERVAL 5 MINUTES
+/// The string version of the interval for use in blackbox key names.
+#define BIOHAZARD_POP_INTERVAL_STR "5min"

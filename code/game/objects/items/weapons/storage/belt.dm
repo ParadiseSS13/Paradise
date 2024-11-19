@@ -6,7 +6,7 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 | BLOCKS_LIGHT_2
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
@@ -137,7 +137,7 @@
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
-	desc = "Holds tools, looks snazzy, and fits nicely into a bag"
+	desc = "Holds tools, looks snazzy, and fits nicely into a bag."
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storable = TRUE
@@ -356,7 +356,7 @@
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
-	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
+	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
@@ -384,7 +384,7 @@
 
 /obj/item/storage/belt/military
 	name = "military belt"
-	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
+	desc = "A syndicate belt designed to be used by boarding parties. Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -568,7 +568,8 @@
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
 	desc = "For the mining master, holds your lazarus capsules."
-	icon_state = "lazarusbelt"
+	icon_state = "lazarusbelt_0"
+	base_icon_state = "lazarusbelt"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -582,7 +583,7 @@
 	update_icon()
 
 /obj/item/storage/belt/lazarus/update_icon_state()
-	icon_state = "[initial(icon_state)]_[length(contents)]"
+	icon_state = "[base_icon_state]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)
@@ -844,7 +845,7 @@
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
-	desc = "Sometimes people choose justice.  Sometimes, justice chooses you..."
+	desc = "Sometimes people choose justice. Sometimes, justice chooses you..."
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6

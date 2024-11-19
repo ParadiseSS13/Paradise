@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -101,7 +101,7 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/Initialize()
+/obj/effect/dummy/chameleon/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 

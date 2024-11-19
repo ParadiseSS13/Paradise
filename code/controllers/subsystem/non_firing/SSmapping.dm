@@ -6,6 +6,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
+	/// What map was used last round?
+	var/datum/map/last_map
 	/// List of all areas that can be accessed via IC means
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
@@ -40,11 +42,26 @@ SUBSYSTEM_DEF(mapping)
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
 		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
+	if(fexists("data/last_map.txt"))
+		var/list/lines = file2list("data/last_map.txt")
+		// Check its valid
+		try
+			last_map = text2path(lines[1])
+			last_map = new last_map
+		catch
+			last_map = new /datum/map/cerestation // Assume cerestation if non-existent
+		fdel("data/last_map.txt") // Remove to avoid the same map existing forever
+	else
+		last_map = new /datum/map/cerestation // Assume cerestation if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
 		var/F = file("data/next_map.txt")
 		F << next_map.type
+	if(map_datum) // Save which map was this round as the last map
+		var/F = file("data/last_map.txt")
+		F << map_datum.type
+
 
 /datum/controller/subsystem/mapping/Initialize()
 	environments = list()
@@ -194,6 +211,8 @@ SUBSYSTEM_DEF(mapping)
 				for(var/obj/structure/table/table in T)
 					if(locate(/obj/machinery) in T)
 						continue // Machinery on tables tend to take up all the visible space
+					if(table.flipped)
+						continue // Looks very silly
 					seeded_salvage_surfaces |= table
 
 	var/max_salvage_attempts = rand(10, 15)

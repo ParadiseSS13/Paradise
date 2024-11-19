@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/energy
 	name = "energy weapon lens"
-	desc = "The part of the gun that makes the laser go pew"
+	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
@@ -262,7 +262,7 @@
 	///This number is randomly generated when the arc revolver is made. This ensures the beams only link to beams from the gun, one lower or higher than the number on the boosted object.
 	var/random_link_number
 
-/obj/item/ammo_casing/energy/arc_revolver/Initialize()
+/obj/item/ammo_casing/energy/arc_revolver/Initialize(mapload)
 	. = ..()
 	random_link_number = rand(1, 9999999)
 

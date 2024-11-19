@@ -45,7 +45,7 @@
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
-/obj/item/clothing/head/bearpelt/bearserk/Initialize()
+/obj/item/clothing/head/bearpelt/bearserk/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -54,7 +54,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		style.teach(H, TRUE)
 		H.faction |= "soviet"
 		H.physiology.stun_mod *= 0.80
@@ -65,7 +65,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		style.remove(H)
 		H.faction -= "soviet"
 		H.physiology.stun_mod /= 0.80

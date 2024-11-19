@@ -246,6 +246,11 @@
 	icon_state = "disky"
 	layer = BLIND_LAYER
 
+/atom/movable/screen/fullscreen/center/agent_box
+	icon = 'icons/obj/cardboard_boxes.dmi'
+	icon_state = "agentbox"
+	alpha = 128
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER
