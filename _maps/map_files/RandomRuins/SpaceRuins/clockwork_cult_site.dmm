@@ -4,7 +4,7 @@
 /turf/simulated/floor/clockwork/reebe,
 /area/ruin/space/clockwork_site)
 "ab" = (
-/obj/machinery/light{
+/obj/machinery/light/clockwork{
 	dir = 8
 	},
 /turf/simulated/floor/clockwork,
@@ -139,7 +139,7 @@
 /turf/space,
 /area/space)
 "aI" = (
-/obj/machinery/light/small,
+/obj/machinery/light/clockwork/small,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aK" = (
@@ -168,7 +168,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aQ" = (
-/obj/machinery/light{
+/obj/machinery/light/clockwork{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -192,7 +192,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aU" = (
-/obj/machinery/light{
+/obj/machinery/light/clockwork{
 	dir = 1
 	},
 /turf/simulated/floor/clockwork,
@@ -203,7 +203,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aX" = (
-/obj/machinery/light,
+/obj/machinery/light/clockwork,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aY" = (
@@ -220,7 +220,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "dg" = (
-/obj/machinery/light/small{
+/obj/machinery/light/clockwork/small{
 	dir = 1
 	},
 /turf/simulated/floor/clockwork,
@@ -241,7 +241,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "wP" = (
-/obj/machinery/light{
+/obj/machinery/light/clockwork{
 	dir = 4
 	},
 /turf/simulated/floor/clockwork,
@@ -255,11 +255,11 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Dm" = (
-/obj/machinery/light/small,
+/obj/machinery/light/clockwork/small,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Gt" = (
-/obj/machinery/light/small{
+/obj/machinery/light/clockwork/small{
 	dir = 4
 	},
 /turf/simulated/floor/clockwork,
