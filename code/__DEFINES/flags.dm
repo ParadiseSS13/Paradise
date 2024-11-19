@@ -145,6 +145,7 @@
 #define BLESSED_TILE	(1<<0)
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
+#define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

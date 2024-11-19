@@ -569,6 +569,7 @@
 	name = "trainer's belt"
 	desc = "For the mining master, holds your lazarus capsules."
 	icon_state = "lazarusbelt_0"
+	base_icon_state = "lazarusbelt"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -582,7 +583,7 @@
 	update_icon()
 
 /obj/item/storage/belt/lazarus/update_icon_state()
-	icon_state = "lazarusbelt_[length(contents)]"
+	icon_state = "[base_icon_state]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)

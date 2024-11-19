@@ -265,7 +265,7 @@
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
 	if(homerun_ready)
@@ -300,6 +300,10 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
+
+/obj/item/melee/baseball_bat/dropped(mob/user, silent)
+	. = ..()
+	deflectmode = FALSE
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

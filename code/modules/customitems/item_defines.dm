@@ -186,7 +186,7 @@
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
-	icon_state = "thermoncle"
+	icon_state = "thermonocle"
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -216,6 +216,7 @@
 	name = "custom zippo"
 	desc = "A custom made zippo lighter."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 
 /// GodOfOreos: Jason Conrad
 /obj/item/lighter/zippo/fluff/purple
@@ -1770,6 +1771,7 @@
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = null
 	fluff_material = TRUE
 
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
