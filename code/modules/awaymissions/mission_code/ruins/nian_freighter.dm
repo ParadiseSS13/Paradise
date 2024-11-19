@@ -4,7 +4,7 @@
 		<h3>Voidhopper of Nexus Shipping Manifest</h3>
 		<hr />
 		<br />Order: #7934<br />Destination:
-		<i> The destination seems to have been blacked out.</i><br />Requested By:
+		<i>The destination seems to have been blacked out.</i><br />Requested By:
 		Athena, Praetorian of Gliese<br />CONTENTS:<br />
 		<ul>
 		<li>1 pair of kitty ears</li>
