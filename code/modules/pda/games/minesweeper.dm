@@ -32,7 +32,7 @@
 
 /datum/data/pda/app/game/minesweeper/start()
 	. = ..()
-	make_empty_matr()
+	make_empty_matrix()
 
 /datum/data/pda/app/game/minesweeper/update_ui(mob/user, list/data)
 	data["matrix"] = minesweeper_matrix
@@ -88,7 +88,7 @@
 	ignore_touches = TRUE
 	if(!pda.silent)
 		playsound(get_turf(pda), 'sound/machines/ping.ogg', 20, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(make_empty_matrix)), 5 SECONDS)
 	add_into_leaders(user, world.time - start_time)
 
 /datum/data/pda/app/game/minesweeper/proc/add_into_leaders(mob/user, game_time)
@@ -102,9 +102,9 @@
 	ignore_touches = TRUE
 	if(!pda.silent)
 		playsound(get_turf(pda), 'sound/effects/explosionfar.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(make_empty_matrix)), 3 SECONDS)
 
-/datum/data/pda/app/game/minesweeper/proc/make_empty_matr(pay = TRUE)
+/datum/data/pda/app/game/minesweeper/proc/make_empty_matrix(pay = TRUE)
 	minesweeper_matrix = list()
 	for(var/i in 1 to generation_rows)
 		var/list/new_row = list()
