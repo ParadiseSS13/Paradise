@@ -22247,7 +22247,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/cmo)
 "ekg" = (
-/obj/structures/plasmageyser,
+/obj/structure/plasmageyser,
 /turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "eki" = (
@@ -81265,7 +81265,7 @@
 /area/station/hallway/secondary/exit)
 "pdF" = (
 /obj/structure/bookcase{
-	name = "bookcase (Adult)"
+	name = "bookcase (Romance)"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -164469,7 +164469,7 @@ frO
 vKF
 pdF
 pdF
-nEg
+gEN
 arj
 mWA
 vHx
@@ -164724,9 +164724,9 @@ xdJ
 gBS
 fNn
 vKF
-gEN
-gEN
 nEg
+nEg
+gEN
 sux
 mEj
 qTh

@@ -227,11 +227,11 @@
 		if(HUD_STYLE_ACTIONHUD)	//No HUD
 			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(infodisplay.len)
-				mymob.client.screen -= infodisplay
+				screenmob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
 	persistent_inventory_update(screenmob)

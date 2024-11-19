@@ -313,7 +313,6 @@
 	name = "hand of cards"
 	desc = "Some playing cards."
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 
