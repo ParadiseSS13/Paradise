@@ -101,7 +101,7 @@
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
-	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks. \
+	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
 	cost = 350
