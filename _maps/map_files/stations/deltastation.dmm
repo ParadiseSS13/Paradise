@@ -400,7 +400,7 @@
 	},
 /area/station/hallway/secondary/entry/north)
 "aeA" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/hallway/secondary/entry/east)
@@ -953,7 +953,7 @@
 /area/station/command/office/cmo)
 "ahz" = (
 /obj/structure/sign/nanotrasen,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/east)
 "ahA" = (
@@ -1306,7 +1306,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akA" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/east)
 "akB" = (
@@ -73658,7 +73658,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "jpa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/hallway/secondary/entry/east)
 "jpk" = (
