@@ -87,12 +87,12 @@
 /datum/data/pda/app/game/minesweeper/proc/on_win(mob/user)
 	ignore_touches = TRUE
 	if(!pda.silent)
-		playsound(get_turf(pda), 'sound/machines/ping.ogg', 20, 1)
+		playsound(get_turf(pda), 'sound/machines/ping.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 	add_into_leaders(user, world.time - start_time)
 
 /datum/data/pda/app/game/minesweeper/proc/add_into_leaders(mob/user, game_time)
-	var/nickname = tgui_input_text(user, "You finished the game into [game_time/10] seconds.\n Write a nickname to save your result in leaderboard.\n", "Minesweeper", "", 10)
+	var/nickname = tgui_input_text(user, "You finished the game in [game_time / 10] seconds.\n Write a nickname to save your result on the leaderboard.\n", "Minesweeper", "", 10)
 	if(!nickname)
 		return
 
@@ -101,7 +101,7 @@
 /datum/data/pda/app/game/minesweeper/proc/on_loose(mob/user)
 	ignore_touches = TRUE
 	if(!pda.silent)
-		playsound(get_turf(pda), 'sound/effects/explosionfar.ogg', 50, 1)
+		playsound(get_turf(pda), 'sound/effects/explosionfar.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 3 SECONDS)
 
 /datum/data/pda/app/game/minesweeper/proc/make_empty_matr(pay = TRUE)
@@ -126,7 +126,7 @@
 
 	for(var/i in 1 to generation_rows)
 		for(var/j in 1 to generation_columns)
-			if((i in list(num_x-1, num_x, num_x+1)) && (j in list(num_y-1, num_y, num_y+1)))
+			if((i in list(num_x - 1, num_x, num_x + 1)) && (j in list(num_y - 1, num_y, num_y + 1)))
 				continue
 			possible_list["[count]"] = list(i, j)
 			count++
