@@ -116,6 +116,12 @@
 	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod
 	useGrille = TRUE
 
+/obj/effect/spawner/window/shuttle/survival_pod/tinted
+	name = "tinted pod window spawner"
+	icon_state = "podwindow_spawner"
+	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod/tinted
+	useGrille = TRUE
+
 /obj/effect/spawner/window/plastitanium
 	name = "plastitanium window spawner"
 	icon_state = "plastitaniumwindow_spawner"
