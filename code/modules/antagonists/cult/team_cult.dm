@@ -48,8 +48,6 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	objective_holder.add_objective(/datum/objective/servecult)
 
-	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
-
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 
 	create_next_sacrifice()
