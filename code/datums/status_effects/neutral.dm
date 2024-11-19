@@ -249,6 +249,7 @@
 /// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
 /// although there is a maximum amount of bonus time that can be active at any given time.
 /datum/status_effect/limited_bonus
+	id = "limited_bonus"
 	/// How much extra time has been added
 	var/bonus_time = 0
 	/// How much extra time to apply per tick
@@ -342,9 +343,13 @@
 	var/datum/callback/expire_proc = null
 
 /datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
-	if(!new_duration || !istype(new_expire_proc))
+	if(isnull(new_duration) || !istype(new_expire_proc))
 		qdel(src)
 		return
+	if(new_duration == 0)
+		new_expire_proc.Invoke()
+		return
+
 	duration = new_duration
 	expire_proc = new_expire_proc
 	. = ..()
@@ -366,6 +371,7 @@
 	expire_proc.Invoke()
 
 /datum/status_effect/action_status_effect
+	id = "action_status_effect"
 	alert_type = null
 	tick_interval = -1
 

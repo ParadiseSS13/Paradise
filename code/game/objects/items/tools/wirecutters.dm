@@ -5,7 +5,7 @@
 	icon_state = "cutters"
 	belt_icon = "wirecutters_red"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7
@@ -36,7 +36,7 @@
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		QDEL_NULL(C.handcuffed)
 		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.buckled.unbuckle_mob(C)
+			C.unbuckle()
 		C.update_handcuffed()
 		return
 	else

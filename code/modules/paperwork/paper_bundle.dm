@@ -72,7 +72,7 @@
 	else
 		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
-		P = src[page]
+		P = get_page()
 		P.attackby(W, user, params)
 
 	update_icon()
@@ -106,7 +106,7 @@
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	var/obj/item/W = src[page]
+	var/obj/item/W = get_page()
 	switch(screen)
 		if(0)
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'></DIV>"
@@ -120,11 +120,11 @@
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='byond://?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
 			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
 			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
-	if(istype(src[page], /obj/item/paper))
+	if(istype(W, /obj/item/paper))
 		var/obj/item/paper/P = W
 		dat += P.show_content(usr, view = 0)
 		usr << browse(dat, "window=PaperBundle[UID()]")
-	else if(istype(src[page], /obj/item/photo))
+	else if(istype(W, /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
 		usr << browse(dat + "<html><meta charset='utf-8'><head><title>[P.name]</title></head>" \
@@ -162,11 +162,11 @@
 			playsound(loc, "pageturn", 50, 1)
 
 		if(href_list["remove"])
-			var/obj/item/W = src[page]
+			var/obj/item/W = get_page()
 			usr.put_in_hands(W)
 			to_chat(usr, "<span class='notice'>You remove [W] from the bundle.</span>")
 			if(amount == 1)
-				var/obj/item/paper/P = src[1]
+				var/obj/item/paper/P = get_page(1)
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				usr.unset_machine() // Ensure the bundle GCs
@@ -234,6 +234,7 @@
 		desc = "A single sheet of paper."
 	if(photos)
 		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
+
 /obj/item/paper_bundle/update_icon_state()
 	if(length(contents))
 		var/obj/item/paper/P = contents[1]
@@ -267,4 +268,9 @@
 			. += sheet
 
 	. += "clip"
-	update_desc()
+	update_appearance(UPDATE_DESC)
+
+/obj/item/paper_bundle/proc/get_page(page_override)
+	if(page_override)
+		return contents[page_override]
+	return contents[page]

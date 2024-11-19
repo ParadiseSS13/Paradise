@@ -33,7 +33,7 @@
 
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
-	desc = "Allows for the construction of a pAI Card"
+	desc = "Allows for the construction of a pAI Card."
 	id = "paicard"
 	req_tech = list("programming" = 2)
 	build_type = PROTOLATHE
@@ -94,7 +94,7 @@
 
 /datum/design/safety_muzzle
 	name = "Safety Muzzle"
-	desc = "Produce a lockable muzzle keyed to security ID cards"
+	desc = "Produce a lockable muzzle keyed to security ID cards."
 	id = "safetymuzzle"
 	req_tech = list("materials" = 1)
 	build_type = PROTOLATHE

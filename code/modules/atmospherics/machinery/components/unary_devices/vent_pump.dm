@@ -87,9 +87,8 @@
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
-
-	update_pipe_image()
+	. += GLOB.pipe_icon_manager.get_atmos_icon("device", state = vent_icon)
+	update_pipe_image(.)
 
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())

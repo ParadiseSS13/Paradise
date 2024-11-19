@@ -15,6 +15,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
+	flags = ABSTRACT
 	/// Set to TRUE to removal of cells/lights from machine objects containing them.
 	var/engineering_machine_interaction = FALSE
 	/// Defines what items the gripper can carry.
@@ -50,11 +51,12 @@
 /obj/item/gripper/proc/drop_gripped_item(mob/user, silent = FALSE)
 	if(!gripped_item)
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
-		return
+		return FALSE
 	if(!silent)
 		to_chat(user, "<span class='warning'>You drop [gripped_item].</span>")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
+	return TRUE
 
 /obj/item/gripper/attack_self(mob/user)
 	if(!gripped_item)

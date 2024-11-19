@@ -86,6 +86,8 @@
 /datum/surgery_step/limb/attach
 	name = "attach limb"
 	allowed_tools = list(/obj/item/organ/external = 100)
+	preop_sound = 'sound/surgery/organ1.ogg'
+	success_sound = 'sound/surgery/organ2.ogg'
 
 	time = 3.2 SECONDS
 
@@ -190,6 +192,7 @@
 		/obj/item/assembly/mousetrap = 25
 	)
 	can_infect = TRUE
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 
 	time = 3.2 SECONDS
 

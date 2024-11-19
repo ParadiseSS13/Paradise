@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/manifold.dmi'
 	icon_state = ""
 	name = "4-way pipe manifold"
-	desc = "A manifold composed of regular pipes"
+	desc = "A manifold composed of regular pipes."
 
 	volume = 140
 
@@ -89,8 +89,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/update_overlays()
 	. = ..()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, pipe_color, "4way" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", null, null, "clamps_4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, pipe_color, "4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", null, null, "clamps_4way" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
@@ -165,7 +165,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -180,7 +180,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
 	name="4-way air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map_4way-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -213,8 +213,8 @@
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers
-	name="4-way scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	name = "4-way scrubbers pipe manifold"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -228,8 +228,8 @@
 	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
-	name="4-way air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	name = "4-way air supply pipe manifold"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map_4way-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET

@@ -5,7 +5,7 @@
 	icon_state = "wrench"
 	belt_icon = "wrench"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
@@ -88,6 +88,7 @@
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
 	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
+	toolspeed = 0.75
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")

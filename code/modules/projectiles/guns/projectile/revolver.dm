@@ -168,7 +168,7 @@
 
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
-	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
+	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/golden
@@ -333,7 +333,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
@@ -442,7 +442,7 @@
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
-			slot_flags = SLOT_FLAG_BACK
+			slot_flags = ITEM_SLOT_BACK
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			sling = TRUE
 			update_icon()
@@ -500,16 +500,6 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
-	var/f_name = "\a [src]."
-	if(blood_DNA && !istype(src, /obj/effect/decal))
-		if(gender == PLURAL)
-			f_name = "some "
-		else
-			f_name = "a "
-		f_name += "<span class='danger'>blood-stained</span> [name]!"
-
-	. = list("[bicon(src)] That's [f_name]")
-
-	if(desc)
-		. += desc
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user)
+	// So that it is stealthy
+	return build_base_description()

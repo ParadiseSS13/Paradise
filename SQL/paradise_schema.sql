@@ -250,7 +250,7 @@ CREATE TABLE `feedback` (
   `datetime` datetime NOT NULL,
   `round_id` int(8) NOT NULL,
   `key_name` varchar(32) NOT NULL,
-  `key_type` enum('text', 'amount', 'tally', 'nested tally', 'associative') NOT NULL,
+  `key_type` ENUM('text', 'amount', 'tally', 'nested tally', 'associative', 'ledger', 'nested ledger') NOT NULL,
   `version` tinyint(3) UNSIGNED NOT NULL,
   `json` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`)
@@ -301,6 +301,7 @@ CREATE TABLE `player` (
   `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `viewrange` VARCHAR(5) NOT NULL DEFAULT '19x15' COLLATE 'utf8mb4_general_ci',
+  `map_vote_pref_json` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

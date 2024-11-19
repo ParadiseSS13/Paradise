@@ -18,3 +18,4 @@
 
 		/obj/item/food/stroopwafel = 1,
 	)
+	record_spawn = TRUE

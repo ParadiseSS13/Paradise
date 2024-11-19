@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -413,7 +413,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_ACCESSORY
 
 	var/stored_name = null
 
@@ -440,7 +440,7 @@
 			var/obj/item/pda/pda = I
 			id_card = pda.id
 
-		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+		if((ACCESS_SEC_DOORS in id_card.access) || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
@@ -601,7 +601,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /obj/item/clothing/accessory/necklace/long
 	name = "large necklace"
@@ -642,7 +642,7 @@
 	icon_state = "locketgold"
 	item_state = "locketgold"
 	item_color = "locketgold"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

@@ -75,7 +75,7 @@
 
 /obj/effect/cross_action
 	name = "cross me"
-	desc = "for crossing"
+	desc = "for crossing."
 	anchored = TRUE
 
 /obj/effect/cross_action/spacetime_dist

@@ -104,7 +104,7 @@
 
 /datum/spell/sense_victims
 	name = "Sense Victims"
-	desc = "Sense the location of heretics"
+	desc = "Sense the location of heretics."
 	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0
@@ -212,7 +212,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
-	organ_datums = list(/datum/organ/heart/always_beating)
+	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually

@@ -113,7 +113,10 @@
 	desc = "A tube... of cardboard."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
+	hitsound = 'sound/items/cardboard_tube.ogg'
 	throwforce = 1
+	force = 1
+	attack_verb = list("bonked", "thunked")
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
@@ -151,7 +154,7 @@
 	name = "lightning"
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
-	desc = "test lightning"
+	desc = "test lightning."
 
 /obj/item/lightning/New()
 	..()

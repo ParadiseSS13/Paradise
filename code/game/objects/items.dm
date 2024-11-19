@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked `"[x] has been [z.attack_verb] by [y] with [z]"`
 	var/list/attack_verb
 	/// Determines how big/small items are to fit in storage containers
 	var/w_class = WEIGHT_CLASS_NORMAL
@@ -389,7 +389,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(loc, /obj/item/robot_module))
 		// If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
@@ -533,9 +533,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			A.Grant(user)
 	in_inventory = TRUE
 	if(!initial)
-		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
+		if(equip_sound && (slot & slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
+		else if(slot & ITEM_SLOT_BOTH_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -853,29 +853,29 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & SLOT_FLAG_OCLOTHING)
+	if(flags & ITEM_SLOT_OUTER_SUIT)
 		owner.update_inv_wear_suit()
-	if(flags & SLOT_FLAG_ICLOTHING)
+	if(flags & ITEM_SLOT_JUMPSUIT)
 		owner.update_inv_w_uniform()
-	if(flags & SLOT_FLAG_GLOVES)
+	if(flags & ITEM_SLOT_GLOVES)
 		owner.update_inv_gloves()
-	if(flags & SLOT_FLAG_EYES)
+	if(flags & ITEM_SLOT_EYES)
 		owner.update_inv_glasses()
-	if(flags & SLOT_FLAG_EARS)
+	if(flags & ITEM_SLOT_BOTH_EARS)
 		owner.update_inv_ears()
-	if(flags & SLOT_FLAG_MASK)
+	if(flags & ITEM_SLOT_MASK)
 		owner.update_inv_wear_mask()
-	if(flags & SLOT_FLAG_HEAD)
+	if(flags & ITEM_SLOT_HEAD)
 		owner.update_inv_head()
-	if(flags & SLOT_FLAG_FEET)
+	if(flags & ITEM_SLOT_SHOES)
 		owner.update_inv_shoes()
-	if(flags & SLOT_FLAG_ID)
+	if(flags & ITEM_SLOT_ID)
 		owner.update_inv_wear_id()
-	if(flags & SLOT_FLAG_BELT)
+	if(flags & ITEM_SLOT_BELT)
 		owner.update_inv_belt()
-	if(flags & SLOT_FLAG_BACK)
+	if(flags & ITEM_SLOT_BACK)
 		owner.update_inv_back()
-	if(flags & SLOT_FLAG_PDA)
+	if(flags & ITEM_SLOT_PDA)
 		owner.update_inv_wear_pda()
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
@@ -1014,7 +1014,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!istype(cig))
 		return null
 
-	if(user.zone_selected != "mouth" || !user.a_intent == INTENT_HELP)
+	if(!direct_attackby_item && (user.zone_selected != "mouth" || user.a_intent != INTENT_HELP))
 		return null
 
 	if(cig.lit)
@@ -1022,7 +1022,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	// Only matches and cigars can light fancy smokables.
-	if(cig.fancy && !istype(src, /obj/item/match) && !istype(src, /obj/item/lighter/zippo))
+	if(length(cig.fancy_lighters) && !is_type_in_list(src, cig.fancy_lighters))
 		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
 		return FALSE
 

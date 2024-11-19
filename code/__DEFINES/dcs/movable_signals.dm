@@ -39,6 +39,8 @@
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
 ///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
+///from base of atom/movable/shove_impact(): (mob/living/target, mob/living/attacker)
+#define COMSIG_MOVABLE_SHOVE_IMPACT "movable_shove_impact"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 
@@ -61,3 +63,9 @@
 // Note that this is only defined for actions because this could be a good bit expensive otherwise
 /// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
 #define COMSIG_ACTION_SCROLLED "action_scrolled"
+
+/// Called before a movable is being teleported from multiple sources: (destination)
+#define COMSIG_MOVABLE_TELEPORTING "movable_teleporting"
+/// Called when blocking a teleport
+#define COMSIG_ATOM_INTERCEPT_TELEPORTED "intercept_teleported"
+	#define COMPONENT_BLOCK_TELEPORT (1<<0)
