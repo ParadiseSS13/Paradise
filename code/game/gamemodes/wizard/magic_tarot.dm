@@ -258,7 +258,7 @@
 
 /obj/effect/temp_visual/card_preview/proc/flourish()
 	var/new_filter = isnull(get_filter("ray"))
-	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
+	ray_filter_helper(1, 40, "#fcf3dc", 6, 20)
 	if(new_filter)
 		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
 		animate(offset = 0, time = duration)
