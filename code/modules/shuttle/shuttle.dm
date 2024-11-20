@@ -534,6 +534,8 @@
 					continue
 				AM.onShuttleMove(T0, T1, rotation, mobile_port.last_caller)
 
+			SEND_SIGNAL(T0, COMSIG_TURF_ON_SHUTTLE_MOVE, T1)
+
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
