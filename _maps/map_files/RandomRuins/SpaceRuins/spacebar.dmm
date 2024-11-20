@@ -549,7 +549,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (

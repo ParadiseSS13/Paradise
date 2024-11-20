@@ -1,0 +1,2 @@
+/obj/item/reagent_containers/drinks/cans/beer : /obj/item/reagent_containers/drinks/bottle/beer{@OLD}
+/obj/item/reagent_containers/drinks/cans/ale : /obj/item/reagent_containers/drinks/bottle/ale{@OLD}
