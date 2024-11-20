@@ -1,2 +1,3 @@
 /obj/item/reagent_containers/drinks/cans/beer : /obj/item/reagent_containers/drinks/bottle/beer{@OLD}
 /obj/item/reagent_containers/drinks/cans/ale : /obj/item/reagent_containers/drinks/bottle/ale{@OLD}
+/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer : /obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer{@OLD}
