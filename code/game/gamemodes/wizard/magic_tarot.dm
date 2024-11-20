@@ -245,6 +245,7 @@
 /obj/effect/temp_visual/card_preview
 	name = "a card"
 	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_the_unknown"
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
