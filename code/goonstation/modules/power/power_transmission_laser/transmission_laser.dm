@@ -462,7 +462,8 @@
 	var/mega_joules = joules / (1 MW)
 
 	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / ((2 * mega_joules) + (PROCESS_CAP * A1_CURVE))
-	generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
+	if(mega_joules) // so we can't divide by 0
+		generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
 	if(generated_cash < 0)
 		return
 
