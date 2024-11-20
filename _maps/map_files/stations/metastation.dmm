@@ -958,7 +958,7 @@
 /area/station/maintenance/fore)
 "ajS" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "akg" = (
@@ -1104,7 +1104,7 @@
 	c_tag = "Engineering - Storage"
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "akR" = (
@@ -6084,7 +6084,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
-/obj/machinery/suit_storage_unit/ce/secure,
+/obj/machinery/suit_storage_unit/industrial/ce/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -6519,7 +6519,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "aIA" = (

@@ -84,20 +84,18 @@
 /obj/machinery/suit_storage_unit/blueshield/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/engine
+/obj/machinery/suit_storage_unit/industrial/engine
 	name = "engineering suit storage unit"
-	icon_state = "industrial"
-	base_icon_state = "industrial"
 	mask_type = /obj/item/clothing/mask/breath
 	boots_type = /obj/item/clothing/shoes/magboots
 	suit_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
-/obj/machinery/suit_storage_unit/engine/secure
+/obj/machinery/suit_storage_unit/industrial/engine/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/ce
+/obj/machinery/suit_storage_unit/industrial/ce
 	name = "chief engineer's suit storage unit"
 	icon_state = "industrial"
 	base_icon_state = "industrial"
@@ -107,7 +105,7 @@
 	req_access = list(ACCESS_CE)
 	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
-/obj/machinery/suit_storage_unit/ce/secure
+/obj/machinery/suit_storage_unit/industrial/ce/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/rd
@@ -193,6 +191,7 @@
 	mask_type = /obj/item/clothing/mask/gas/explorer
 	suit_type = /obj/item/mod/control/pre_equipped/standard/explorer
 	req_access = list(ACCESS_EXPEDITION)
+
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
@@ -230,6 +229,8 @@
 
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
+	icon_state = "syndicate"
+	base_icon_state = "syndicate"
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	suit_type = /obj/item/mod/control/pre_equipped/nuclear
 	req_access = list(ACCESS_SYNDICATE)
@@ -306,6 +307,7 @@
 
 	if(state_open)
 		. += "[base_icon_state]_open"
+		. += "[base_icon_state]_lights_open"
 		if(suit)
 			. += "[base_icon_state]_suit"
 		if(helmet)
