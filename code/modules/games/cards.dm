@@ -852,7 +852,7 @@
 		if(href_list["pick"] == "Turn")
 			turn_hand(usr)
 		else
-			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
+			if(cardUser.get_item_by_slot(ITEM_SLOT_LEFT_HAND) == src || cardUser.get_item_by_slot(ITEM_SLOT_RIGHT_HAND) == src)
 				var/datum/playingcard/picked_card = locateUID(href_list["pick"])
 				if(istype(picked_card) && Adjacent(cardUser) && (picked_card in cards) && !QDELETED(src))
 					remove_card(cardUser, picked_card)
