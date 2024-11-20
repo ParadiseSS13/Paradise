@@ -436,9 +436,22 @@
 			for(var/mob/living/carbon/someone in oview(min(output_level / EYE_DAMAGE_THRESHOLD, 8), get_front_turf()))// Flash targets that can see the exit of the emitter
 				var/turf/front = get_front_turf()
 				var/turf/step = get_step(get_front_turf(), dir)
-				if(someone.dir == dir || (((dir == NORTH || dir == SOUTH) && (SIGN(someone.y - front.y) != SIGN(step.y - front.y))))  || ((dir == WEST || dir == EAST) && (SIGN(someone.x - front.x) != SIGN(step.x - front.x))))// Make sure they are in front of it
+				var/d_x = someone.x - front.x
+				var/d_y = someone.y - front.y
+				if(someone.dir == dir || (((dir == NORTH || dir == SOUTH) && (SIGN(d_y) != SIGN(step.y - front.y))))  || ((dir == WEST || dir == EAST) && (SIGN(d_x) != SIGN(step.x - front.x))))// Make sure they are in front of it
 					continue
-				var/flashmod = someone.dir == turn(dir, 180) ? 1 : 0.5 // Halve the flash strength if they aren't facing it
+				var/look_angle
+				var/angle_to_bore = arctan(-d_x, -d_y)
+				switch(someone.dir)
+					if(NORTH)
+						look_angle = 90
+					if(SOUTH)
+						look_angle = -90
+					if(EAST)
+						look_angle = 0
+					if(WEST)
+						look_angle = 180
+				var/flashmod = max(cos(look_angle - angle_to_bore), 0)
 				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
 		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
 			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 50, RAD_DISTANCE_COEFFICIENT)
