@@ -112,9 +112,7 @@
 /area/start)
 "m" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/start)
 "n" = (
 /turf/simulated/floor/grass,
