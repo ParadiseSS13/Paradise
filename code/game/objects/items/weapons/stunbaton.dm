@@ -334,6 +334,9 @@
 	desc = "A piece of scrap metal wired directly to your power cell."
 	hitcost = 100
 
+/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
 /obj/item/melee/baton/flayerprod
 	name = "stunprod"
 	desc = "A mechanical mass which you can use to incapacitate someone with."
