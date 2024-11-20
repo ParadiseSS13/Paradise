@@ -365,7 +365,7 @@
 		return
 	target = target_list[choose]
 	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(untarget))
-	if(firing)
+	if(firing && target)
 		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
 		target.add_overlay(orbital_strike)
 
