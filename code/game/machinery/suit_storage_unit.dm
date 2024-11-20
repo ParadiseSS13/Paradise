@@ -97,8 +97,6 @@
 
 /obj/machinery/suit_storage_unit/industrial/ce
 	name = "chief engineer's suit storage unit"
-	icon_state = "industrial"
-	base_icon_state = "industrial"
 	mask_type = /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/advance
 	suit_type = /obj/item/mod/control/pre_equipped/advanced
