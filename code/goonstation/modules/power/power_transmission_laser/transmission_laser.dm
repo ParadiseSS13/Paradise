@@ -393,7 +393,7 @@
 		update_icon()
 
 	if(powernet && input_attempt && turned_on)
-		input_pulling = min(input_available, input_number * power_format_multi)
+		input_pulling = min(input_available, input_number * power_format_multi, capacity - charge )
 
 		if(inputting)
 			if(input_pulling > 0)
