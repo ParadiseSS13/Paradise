@@ -117,6 +117,8 @@ export const MineSweeperGame = (props, context) => {
 export const MineSweeperLeaderboard = (props, context) => {
   const { act, data } = useBackend(context);
   const { leaderboard } = data;
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'time');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', false);
 
   return (
     <Table className="Minesweeper__list">
