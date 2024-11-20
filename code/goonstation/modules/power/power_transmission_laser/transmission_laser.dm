@@ -451,6 +451,7 @@
 						look_angle = 0
 					if(WEST)
 						look_angle = 180
+				// Takes the cosine of the difference in angle between where the mob is looking and the location of the bore in relation to the mob.
 				var/flashmod = max(cos(look_angle - angle_to_bore), 0)
 				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
 		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
