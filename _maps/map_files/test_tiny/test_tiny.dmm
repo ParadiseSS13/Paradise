@@ -11,10 +11,15 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"h" = (
+/obj/effect/landmark/start/cyborg,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "u" = (
@@ -23,8 +28,19 @@
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"B" = (
+/obj/item/reagent_containers/drinks/bottle/beer{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"H" = (
+/obj/item/reagent_containers/drinks/bottle/ale,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
@@ -37,6 +53,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"W" = (
+/obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -32035,11 +32055,11 @@ a
 a
 a
 u
-x
+W
 x
 I
 x
-x
+h
 u
 a
 a
@@ -32806,7 +32826,7 @@ a
 a
 a
 u
-x
+H
 x
 x
 x
@@ -33063,7 +33083,7 @@ a
 a
 a
 u
-x
+B
 x
 U
 x
