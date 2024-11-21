@@ -138,7 +138,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -166,10 +166,12 @@
 		spawn(rand(20,50))
 			if(stat == CONSCIOUS && M)
 				icon_state = icon_living
-				var/list/responses = list(	"[src] looks at you imploringly.",
-											"[src] looks at you pleadingly",
-											"[src] looks at you with a resigned expression.",
-											"[src] seems resigned to its fate.")
+				var/list/responses = list(
+					"[src] looks at you imploringly.",
+					"[src] looks at you pleadingly",
+					"[src] looks at you with a resigned expression.",
+					"[src] seems resigned to its fate."
+				)
 				to_chat(M, pick(responses))
 	else
 		..()
@@ -219,8 +221,9 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chick/New()
-	..()
+/mob/living/simple_animal/chick/Initialize(mapload)
+	. = ..()
+
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
@@ -292,8 +295,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chicken/New()
-	..()
+/mob/living/simple_animal/chicken/Initialize(mapload)
+	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
 	icon_state = "[icon_prefix]_[body_color]"
@@ -301,6 +304,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
+	update_appearance(UPDATE_ICON_STATE)
 	GLOB.chicken_count += 1
 
 /mob/living/simple_animal/chicken/death(gibbed)

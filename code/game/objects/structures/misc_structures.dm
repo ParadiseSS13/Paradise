@@ -98,7 +98,7 @@
 	var/atom/attack_atom
 
 
-/obj/structure/ghost_beacon/Initialize()
+/obj/structure/ghost_beacon/Initialize(mapload)
 	. = ..()
 	last_ghost_alert = world.time
 	attack_atom = src
@@ -131,12 +131,3 @@
 	if(last_ghost_alert + ghost_alert_delay < world.time)
 		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', title = alert_title, source = attack_atom, action = (attack_atom == src ? NOTIFY_JUMP : NOTIFY_ATTACK))
 		last_ghost_alert = world.time
-
-/obj/structure/boulder
-	name = "boulder"
-	desc = "A large rock."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "boulder1"
-	density = TRUE
-	opacity = TRUE
-	anchored = TRUE

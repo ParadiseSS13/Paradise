@@ -1,0 +1,35 @@
+[package]
+name = "rustlibs"
+version = "1.0.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+atomic_float = "1.0.0"
+bitflags = "2.5.0"
+byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.4.7" }
+eyre = "0.6.12"
+rand = { version = "0.8.5", features = ["small_rng"] }
+scc = "2.1.1"
+thread-priority = "1.1.0"
+
+# spacemandmm, also used by strongmandmm
+dmmtools = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a751516ae0e8add4b2aa4388a1e84e96e7082", package = "dmm-tools" }
+# diffs between two strings/texts/files, used in tests
+diff = "0.1"
+# general utility lib for iterator operations
+itertools = "0.10.5"
+# fast hashmap
+fxhash = "0.2.1"
+# interface for serialization
+serde = { version = "1.0", features = ["derive"] }
+# json implementation for serde
+serde_json = { version = "1.0" }
+# utility function for walking through a dir recursively
+walkdir = "2.5.0"
+# regex
+regex = "1.10.5"

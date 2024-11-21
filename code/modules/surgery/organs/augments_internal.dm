@@ -537,8 +537,11 @@
 	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
 		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
 		return
-
-	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+	var/beam
+	if(!isturf(user.loc)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
+		beam = user.loc.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+	else
+		beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
 			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
@@ -734,6 +737,51 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor
+	name = "bluespace anchor implant"
+	desc = "This large cybernetic implant anchors you in bluespace, preventing almost any teleportation effects from working. It disrupts GPS systems however."
+	icon_state = "bluespace_anchor"
+	implant_overlay = null
+	slot = "bluespace_anchor"
+	origin_tech = "bluespace=6;biotech=4"
+
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	RegisterSignal(M, COMSIG_MOVABLE_TELEPORTING, PROC_REF(on_teleport))
+	RegisterSignal(M, COMSIG_MOB_PRE_JAUNT, PROC_REF(on_jaunt))
+	for(var/obj/item/bio_chip/tracking/T in M)
+		if(T && T.implanted)
+			qdel(T)
+
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/remove(mob/living/carbon/M, special = FALSE)
+	UnregisterSignal(M, COMSIG_MOVABLE_TELEPORTING)
+	UnregisterSignal(M, COMSIG_MOB_PRE_JAUNT)
+	return ..()
+
+/// Blocks teleports and stuns the would-be-teleportee.
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_teleport(mob/living/teleportee, atom/destination, channel)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_TELEPORTED
+
+	to_chat(teleportee, "<span class='userdanger'>You feel yourself teleporting, but are suddenly flung back to where you just were!</span>")
+
+	teleportee.Weaken(5 SECONDS)
+	var/datum/effect_system/spark_spread/spark_system = new()
+	spark_system.set_up(5, TRUE, teleportee)
+	spark_system.start()
+	return COMPONENT_BLOCK_TELEPORT
+
+/// Prevents a user from entering a jaunt.
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/proc/on_jaunt(mob/living/jaunter)
+	SIGNAL_HANDLER  // COMSIG_MOB_PRE_JAUNT
+
+	to_chat(jaunter, "<span class='userdanger'>As you attempt to jaunt, you slam directly into the barrier between realities and are sent crashing back into corporeality!</span>")
+
+	jaunter.Weaken(5 SECONDS)
+	var/datum/effect_system/spark_spread/spark_system = new()
+	spark_system.set_up(5, TRUE, jaunter)
+	spark_system.start()
+	return COMPONENT_BLOCK_JAUNT
+
 /obj/item/organ/internal/cyberimp/chest/ipc_repair
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
@@ -813,6 +861,21 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	owner.physiology.stamina_mod /= 1.15
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
+	name = "\improper Nanite pacifier"
+	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
+	implant_color = COLOR_BLACK
+	origin_tech = "materials=4;programming=4;biotech=5;combat=4;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special)
+	..()
+	ADD_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+	SEND_SIGNAL(M, COMSIG_FLAYER_RETRACT_IMPLANTS, TRUE)
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/remove(mob/living/carbon/M, special)
+	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 //BOX O' IMPLANTS

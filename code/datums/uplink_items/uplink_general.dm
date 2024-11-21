@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// What category is the item listed under
 	var/category = "item category"
 	/// Description of the item in the uplink
-	var/desc = "Item Description"
+	var/desc = "Item Description."
 	/// Used for discounts. Any unique string will do.
 	var/reference
 	/// What is spawned when we purchase this?

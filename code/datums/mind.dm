@@ -238,7 +238,7 @@
 	return FALSE
 
 /**
- * Gets every objective this mind owns, including all of those from any antag datums they have, and returns them as a list.
+ * Gets every objective this mind owns, including all of those from any antag datums and teams they have, and returns them as a list.
  */
 /datum/mind/proc/get_all_objectives(include_team = TRUE)
 	var/list/all_objectives = list()
@@ -246,11 +246,7 @@
 	all_objectives += objective_holder.get_objectives() // Get their personal objectives
 
 	for(var/datum/antagonist/A as anything in antag_datums)
-		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
-		if(include_team)
-			var/datum/team/team = A.get_team()
-			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
-				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
+		all_objectives += A.get_antag_objectives(include_team) // Add all antag datum objectives, and possibly antag team objectives
 
 	// For custom non-antag role teams
 	if(include_team && LAZYLEN(teams))
@@ -279,9 +275,9 @@
 	if(!remove_from_everything)
 		return
 	for(var/datum/antagonist/A as anything in antag_datums)
-		A.objective_holder.remove_objective(O) // Add all antag datum objectives.
+		A.remove_antag_objective(O)
 		var/datum/team/team = A.get_team()
-		team?.objective_holder.remove_objective(O) // Get all of their teams' objectives
+		team?.objective_holder.remove_objective(O)
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -389,6 +385,21 @@
 		. += "<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
+
+/datum/mind/proc/memory_edit_mind_flayer(mob/living/carbon/human/H)
+	. = _memory_edit_header("mind_flayer")
+	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer)
+		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='byond://?src=[UID()];mind_flayer=clear'>no</a>"
+		. += " | Usable swarms: <a href='byond://?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
+		. += " | Total swarms gathered: [flayer.total_swarms_gathered]"
+		. += " | List of purchased powers: [json_encode(flayer.powers)]"
+		if(!flayer.has_antag_objectives())
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='byond://?src=[UID()];mind_flayer=mind_flayer'>mind_flayer</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
@@ -537,6 +548,7 @@
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
+		"mind_flayer",
 		"nuclear",
 		"traitor", // "traitorchan",
 	)
@@ -552,6 +564,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** MINDFLAYER ***/
+		sections["mind_flayer"] = memory_edit_mind_flayer(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
@@ -1102,6 +1116,27 @@
 					remove_antag_datum(/datum/antagonist/mindslave/thrall)
 					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+
+	else if(href_list["mind_flayer"])
+		switch(href_list["mind_flayer"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/mindflayer))
+					remove_antag_datum(/datum/antagonist/mindflayer)
+					log_admin("[key_name(usr)] has de-flayer'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-flayer'd [key_name(current)].")
+			if("mind_flayer")
+				make_mind_flayer()
+				log_admin("[key_name(usr)] has flayer'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>")
+				message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
+			if("edit_total_swarms")
+				var/new_swarms = input(usr, "Select a new value:", "Modify swarms") as null|num
+				if(isnull(new_swarms) || new_swarms < 0)
+					return
+				var/datum/antagonist/mindflayer/MF = has_antag_datum(/datum/antagonist/mindflayer)
+				MF.set_swarms(new_swarms)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s current swarms to [new_swarms].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s current swarms to [new_swarms].")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
@@ -1684,6 +1719,11 @@
 	if(!(src in SSticker.mode.blob_overminds))
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
+
+/datum/mind/proc/make_mind_flayer()
+	if(!has_antag_datum(/datum/antagonist/mindflayer))
+		add_antag_datum(/datum/antagonist/mindflayer)
+		SSticker.mode.mindflayers |= src
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")

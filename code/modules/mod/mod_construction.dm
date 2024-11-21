@@ -1,7 +1,6 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction. You could insert it into a MOD shell."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
-	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
@@ -250,7 +249,7 @@
 				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly unscrewed.</span>")
 					construction_step = SCREWED_ASSEMBLY_STEP
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/construction/shell/update_icon_state()
 	. = ..()

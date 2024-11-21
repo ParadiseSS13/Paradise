@@ -1,6 +1,6 @@
 /// Turf will be passable if density is 0
 #define TURF_PATHING_PASS_DENSITY 0
-/// Turf will be passable depending on [CanPathfindPass] return value
+/// Turf will be passable depending on [/atom/proc/CanPathfindPass] return value
 #define TURF_PATHING_PASS_PROC 1
 /// Turf is never passable
 #define TURF_PATHING_PASS_NO 2
@@ -10,3 +10,6 @@
 
 /// Returns a list of around us
 #define TURF_NEIGHBORS(turf) (CORNER_BLOCK_OFFSET(turf, 3, 3, -1, -1) - turf)
+
+#define MINERAL_PREVENT_DIG	0	//! A mineral turf should not be changed when mined.
+#define MINERAL_ALLOW_DIG	1	//! A mineral turf should be dug out when mined.
