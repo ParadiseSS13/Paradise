@@ -939,7 +939,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/potentially_backstabbed/check_completion()
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
-		for(var/datum/objective/our_objective in T.get_antag_objectives())
+		for(var/datum/objective/our_objective in T.get_antag_objectives(FALSE))
 			if(istype(our_objective, /datum/objective/potentially_backstabbed))
 				continue
 			if(!our_objective.check_completion())
