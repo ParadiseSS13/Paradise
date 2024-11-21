@@ -56230,7 +56230,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/station/east,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "iAS" = (

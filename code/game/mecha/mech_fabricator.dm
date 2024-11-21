@@ -566,6 +566,10 @@
 /obj/machinery/mecha_part_fabricator/station
 	autolink_id = "station_rnd"
 
+/obj/machinery/mecha_part_fabricator/station/east
+	dir = EAST
+	output_dir = EAST
+
 #undef EXOFAB_BASE_CAPACITY
 #undef EXOFAB_CAPACITY_PER_RATING
 #undef EXOFAB_EFFICIENCY_PER_RATING
