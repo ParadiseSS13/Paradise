@@ -6,7 +6,7 @@
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -89,7 +89,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
-	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
+	if(turned_on && (slot == ITEM_SLOT_BELT || slot == ITEM_SLOT_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..()
@@ -313,7 +313,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
@@ -373,23 +373,23 @@
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
 		disable_radio(L)
-		L.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), L), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
 		return TRUE
 	return FALSE
 
 /obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()
 	for(var/obj/item/radio/R in all_items)
+		R.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), R), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
 		R.on = FALSE
 		R.listening = FALSE
 		R.broadcasting = FALSE
 		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message = "<span class='notice'>You hear a loud, electronic buzzing.</span>")
 
-/obj/item/melee/baton/flayerprod/proc/enable_radio(mob/living/L)
-	var/list/all_items = L.GetAllContents()
-	for(var/obj/item/radio/R in all_items)
-		R.on = TRUE
-		R.listening = TRUE
+/obj/item/melee/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
+	if(QDELETED(R))
+		return
+	R.on = TRUE
+	R.listening = TRUE
 
 /obj/item/melee/baton/flayerprod/deductcharge(amount)
 	if(cell.charge < hitcost)

@@ -24,8 +24,8 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	initial_traits = list(TRAIT_FLYING, TRAIT_EDIBLE_BUG)
 
-/mob/living/simple_animal/butterfly/New()
-	..()
+/mob/living/simple_animal/butterfly/Initialize(mapload)
+	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 
 /mob/living/simple_animal/butterfly/npc_safe(mob/user)

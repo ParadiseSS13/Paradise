@@ -176,6 +176,11 @@ def check_manual_icon_updates(idx, line):
             target = "update_appearance"
         return [(idx + 1, f"{proc_result}() should not be called manually. Use {target}({proc_result.upper()}) instead.")]
 
+CONDITIONAL_ISTYPE_SRC = re.compile(r"if.+istype\(src,\s?\/[^turf]")
+def check_istype_src(idx, line):
+    if CONDITIONAL_ISTYPE_SRC.search(line):
+        return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
+
 ATOM_OVERRIDING_NEW = re.compile(r"^(/obj|/atom|/turf|/mob)/(.*)/New\(")
 def check_atom_overriding_new(idx, line):
     if match := ATOM_OVERRIDING_NEW.search(line):
@@ -196,6 +201,7 @@ CODE_CHECKS = [
     check_href_styles,
     check_initialize_missing_mapload,
     check_empty_list_whitespace,
+    check_istype_src,
     check_atom_overriding_new,
 ]
 
