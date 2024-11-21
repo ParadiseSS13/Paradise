@@ -494,9 +494,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools
-	category = "Stealth and Camouflage Items"
-
 /datum/uplink_item/stealthy_tools/forgers_kit
 	name = "Forger's Kit"
 	desc = "A set consisting of a stamp and a special pen. The stamp can be activated to imitate an official Nanotrasen Stamp, \
