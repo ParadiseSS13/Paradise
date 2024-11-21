@@ -568,7 +568,6 @@
 
 /obj/machinery/mecha_part_fabricator/station/east
 	dir = EAST
-	output_dir = EAST
 
 #undef EXOFAB_BASE_CAPACITY
 #undef EXOFAB_CAPACITY_PER_RATING
