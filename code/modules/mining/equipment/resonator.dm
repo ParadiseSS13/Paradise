@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate only after you hit it with [src].</span>")
 		mode = RESONATOR_MODE_MANUAL
 	else
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate after 2 seconds.</span>")
+		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate after 2 seconds.</span>")
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/upgraded
