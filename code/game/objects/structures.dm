@@ -64,7 +64,7 @@
 
 /obj/structure/proc/density_check()
 	for(var/obj/O in orange(0, src))
-		if(O.density && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
+		if(O.density && !istype(O, /obj/machinery/door/window) && !(istype(O, /obj/structure/window))) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
 			return O
 	var/turf/T = get_turf(src)
 	if(T.density)
@@ -94,23 +94,16 @@
 	if(!can_touch(user) || !climbable)
 		return FALSE
 
-	user.forceMove(get_turf(src))
-	if(get_turf(user) == get_turf(src))
-		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
-			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
-		else
-			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
-		return TRUE
+	return TRUE
 
 /obj/structure/proc/start_climb(mob/living/user)
 	climbers += user
 	if(do_climb(user))
 		user.forceMove(get_turf(src))
-		if(get_turf(user) == get_turf(src))
-			if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
-				user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
-			else
-				user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
+			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+		else
+			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 	climbers -= user
 
 /obj/structure/proc/structure_shaken()
