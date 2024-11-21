@@ -234,7 +234,7 @@
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/card_preview/tarot/draft = new /obj/effect/temp_visual/card_preview/tarot(user, "tarot_[our_tarot.card_icon]")
+	var/obj/effect/temp_visual/card_preview/tarot/draft = new(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
@@ -262,7 +262,6 @@
 	if(new_filter)
 		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
 		animate(offset = 0, time = duration)
-	// todo this is literally just the tarot stuff copy pasted
 
 /obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"

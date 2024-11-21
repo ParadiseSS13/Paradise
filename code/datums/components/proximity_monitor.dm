@@ -402,7 +402,6 @@
 		layer = MOB_LAYER
 
 /obj/effect/abstract/proximity_checker/table/Destroy()
-
 	var/obj/effect/abstract/proximity_checker/table/same_monitor
 	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(src))
 		if(mon != src && mon.deck_uid == src)
@@ -415,7 +414,6 @@
 		if(!isnull(same_monitor))
 			same_monitor.register_on_mob(L)
 	return ..()
-
 
 /obj/effect/abstract/proximity_checker/table/proc/register_on_mob(mob/living/L)
 	ADD_TRAIT(L, TRAIT_PLAYING_CARDS, "deck_[deck_uid]")
