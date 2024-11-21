@@ -335,7 +335,7 @@
 	hitcost = 100
 
 /obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
-	return
+	return FALSE
 
 /obj/item/melee/baton/flayerprod
 	name = "stunprod"
