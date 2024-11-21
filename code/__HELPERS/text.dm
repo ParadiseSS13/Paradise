@@ -465,6 +465,7 @@
 	if(sign)
 		if(istype(P, /obj/item/pen/chameleon)) // if we are using chameleon pen use fake name from the pen
 			var/obj/item/pen/chameleon/chameleon_pen = P
+			add_attack_logs(user, "paper", "Has signed paper as [chameleon_pen.forge_name]")
 			// small tip for a player if the left forge_name empty
 			text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[chameleon_pen.forge_name ? chameleon_pen.forge_name : "No name was provided"]</i></font>")
 		else

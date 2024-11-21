@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			The included pen lets you create fake signatures, further enhancing your forgery capabilities."
 	reference = "FGK"
 	item = /obj/item/storage/box/syndie_kit/forgers_kit
-	cost = 1
+	cost = 10
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
