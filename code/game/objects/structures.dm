@@ -64,7 +64,7 @@
 
 /obj/structure/proc/density_check()
 	for(var/obj/O in orange(0, src))
-		if(O.density && !istype(O, /obj/machinery/door/window) && !(istype(O, /obj/structure/window))) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
+		if(O.density && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
 			return O
 	var/turf/T = get_turf(src)
 	if(T.density)
