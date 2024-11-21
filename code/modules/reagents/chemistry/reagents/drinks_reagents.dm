@@ -104,7 +104,7 @@
 
 /datum/reagent/consumable/drink/triple_citrus/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(33))
+	if(prob(15))
 		update_flags |= M.adjustToxLoss(-rand(1, 2), FALSE)
 	return ..() | update_flags
 
