@@ -27,7 +27,7 @@ export const goonstation_PTL = (props, context) => {
 
 const Status = (props, context) => {
   const { data } = useBackend(context);
-  const { max_capacity, held_power, output_total, max_grid_load } = data;
+  const { max_capacity, held_power, input_total, max_grid_load } = data;
 
   return (
     <Section title="Status">
@@ -56,7 +56,7 @@ const Status = (props, context) => {
           average: [0.5, 0.8],
           bad: [-Infinity, 0.5],
         }}
-        value={output_total / max_grid_load}
+        value={Math.min(input_total, max_capacity - held_power) / max_grid_load}
       />
     </Section>
   );
