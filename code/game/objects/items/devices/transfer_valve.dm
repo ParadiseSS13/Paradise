@@ -6,7 +6,7 @@
 	name = "tank transfer valve"
 	icon_state = "valve_1"
 	item_state = "ttv"
-	desc = "Regulates the transfer of air between two tanks"
+	desc = "Regulates the transfer of air between two tanks."
 	var/obj/item/tank/tank_one = null
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null

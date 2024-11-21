@@ -4,7 +4,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
@@ -118,7 +118,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "10mmbox" // placeholder icon
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2
@@ -128,7 +128,7 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
+	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state for details
 	var/caliber
 	var/multiload = 1
 	var/slow_loading = FALSE

@@ -194,7 +194,7 @@
 		return
 
 	/*
-	*  String associated list returns a cached list. 
+	*  String associated list returns a cached list.
 	*  This is like a static list to pass into the element below.
 	*/
 	atmos_requirements = string_assoc_list(atmos_requirements)
@@ -354,7 +354,8 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	flying = initial(flying)
+	if(TRAIT_FLYING in initial_traits)
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
@@ -364,7 +365,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	flying = FALSE
+	REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 	walk(src, 0)
 	if(nest)
 		nest.spawned_mobs -= src
@@ -473,14 +474,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_COLLAR)
 			return pcollar
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_COLLAR)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -500,7 +501,7 @@
 	W.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
 /mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)

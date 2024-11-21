@@ -11,7 +11,7 @@
 	item_state = "crusher0"
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration_flat = 10
@@ -509,9 +509,6 @@
 	var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
 	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
 	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
-
-/obj/effect/temp_visual/hierophant/wall/crusher
-	duration = 75
 
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"

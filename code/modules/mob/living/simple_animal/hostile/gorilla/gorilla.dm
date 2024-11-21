@@ -43,7 +43,7 @@
 	/// Chance of doing the throw or stamina damage, along with the flat damage amount
 	var/throw_onhit = 50
 
-/mob/living/simple_animal/hostile/gorilla/Initialize()
+/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
 	var/datum/action/innate/gorilla/gorilla_toggle/toggle = new
 	toggle.Grant(src)

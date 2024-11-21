@@ -278,15 +278,15 @@
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
-	contains = list(/obj/item/storage/box/tranquilizer,
-					/obj/item/storage/box/tranquilizer)
+	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
+					/obj/item/storage/fancy/shell/tranquilizer)
 	cost = 400
 	containername = "tranquilizer shell crate"
 
 /datum/supply_packs/security/armory/holyammo
 	name = "Holy Water Shell Crate"
-	contains = list(/obj/item/storage/box/holy,
-					/obj/item/storage/box/holy)
+	contains = list(/obj/item/storage/fancy/shell/holy,
+					/obj/item/storage/fancy/shell/holy)
 	cost = 400
 	containername = "holy water shell crate"
 
@@ -317,6 +317,20 @@
 	contains = list (/obj/item/storage/box/chemimp)
 	cost = 500
 	containername = "chemical bio-chip crate"
+
+/datum/supply_packs/security/armory/flayer_nullifer
+	name = "Mindflayer Containment Kit"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification,
+					/obj/item/storage/box/handcuffs,
+					/obj/item/toy/plushie/ipcplushie) // For practicing takedowns
+	cost = 250
+	containername = "mindflayer containment kit"
+
+/datum/supply_packs/security/armory/bluespace_anchor
+	name = "Bluespace Anchor Crate"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+	cost = 250
+	containername = "bluespace anchor crate"
 
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"

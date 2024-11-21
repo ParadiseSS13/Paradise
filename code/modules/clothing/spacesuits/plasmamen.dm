@@ -23,6 +23,8 @@
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	can_have_hats = TRUE
+	can_be_hat = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
@@ -286,3 +288,69 @@
 	desc = "A plasmaman envirohelm designed by Space Cola Co for the plasmamen."
 	icon_state = "coke_envirohelm"
 	item_state = "coke_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool
+	name = "diver envirosuit helmet"
+	desc = "A plasmaman helm resembling old diver helms."
+	icon_state = "diver_envirohelm"
+	base_icon_state = "diver_envirohelm"
+	item_state = "diver_envirohelm"
+	/// Different icons and names for the helm to use when reskinning
+	var/list/static/plasmaman_helm_options = list("Diver" = "diver_envirohelm", "Knight" = "knight_envirohelm", "Skull" = "skull_envirohelm")
+	/// Checks if the helm has been reskinned already
+	var/reskinned = FALSE
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
+	. = ..()
+	if(!reskinned)
+		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it.</span>"
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(reskin_radial_check(user) && !reskinned)
+		reskin(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/update_icon_state()
+	if(!up)
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state][on ? "-light":""]"
+	item_state = icon_state
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin(mob/M)
+	var/list/skins = list()
+	for(var/I in plasmaman_helm_options)
+		skins[I] = image(icon, icon_state = plasmaman_helm_options[I])
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
+
+	if(!choice || !reskin_radial_check(M))
+		return
+	switch(choice)
+		if("Diver")
+			name = initial(name)
+			desc = initial(desc)
+			base_icon_state = initial(base_icon_state)
+		if("Knight")
+			name = "knight envirosuit helmet"
+			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
+			base_icon_state = "knight_envirohelm"
+			visor_icon = "knight_envisor"
+		if("Skull")
+			name = "skull envirosuit helmet"
+			desc = "A plasmaman envirohelm designed in the shape of a skull."
+			base_icon_state = "skull_envirohelm"
+			visor_icon = "skull_envisor"
+	update_icon()
+	M.update_inv_head()
+	reskinned = TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin_radial_check(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE
