@@ -194,7 +194,6 @@
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/detective_scanner(src)
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/effect/spawner/detgun(src)
