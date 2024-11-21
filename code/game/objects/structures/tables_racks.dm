@@ -109,7 +109,7 @@
 
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
-	if(length(climbers) > 0)
+	if(length(climbers))
 		for(var/mob/living/climber as anything in climbers)
 			climber.Weaken(4 SECONDS)
 			climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
