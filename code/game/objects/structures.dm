@@ -8,7 +8,7 @@
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
-	var/mob/living/climber
+	var/list/mob/living/climbers = list()
 	var/broken = FALSE
 	/// How long this takes to unbuckle yourself from.
 	var/unbuckle_time = 0 SECONDS
@@ -32,6 +32,7 @@
 	return ..()
 
 /obj/structure/Destroy()
+	climbers = null
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -58,7 +59,7 @@
 	if(..())
 		return TRUE
 	if(C == user)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, do_climb), user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, start_climb), user)
 		return TRUE
 
 /obj/structure/proc/density_check()
@@ -99,6 +100,18 @@
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+		return TRUE
+
+/obj/structure/proc/start_climb(mob/living/user)
+	climbers += user
+	if(do_climb(user))
+		user.forceMove(get_turf(src))
+		if(get_turf(user) == get_turf(src))
+			if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
+				user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+			else
+				user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+	climbers -= user
 
 /obj/structure/proc/structure_shaken()
 	for(var/mob/living/M in get_turf(src))
