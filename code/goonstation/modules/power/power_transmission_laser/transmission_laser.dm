@@ -467,7 +467,7 @@
 #define PROCESS_CAP (10 - MINIMUM_BAR)
 
 // Higher number means approaching the limit slower
-#define A1_CURVE 80
+#define A1_CURVE 20
 
 #define HIGH_CUT_RATIO 0.75
 #define MEDIUM_CUT_RATIO 0.25
