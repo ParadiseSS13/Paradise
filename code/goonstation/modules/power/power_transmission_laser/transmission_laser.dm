@@ -452,6 +452,7 @@
 
 /obj/machinery/power/transmission_laser/proc/sell_power(joules)
 	var/mega_joules = joules / (1 MW)
+	SSticker.score.score_gigajoules_exported += joules / (1 GW)
 
 	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / ((2 * mega_joules) + (PROCESS_CAP * A1_CURVE))
 	if(mega_joules) // so we can't divide by 0
