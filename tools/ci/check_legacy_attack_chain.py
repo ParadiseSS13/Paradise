@@ -1,3 +1,5 @@
+import sys
+import time
 from dataclasses import dataclass
 from collections import namedtuple, defaultdict
 
@@ -18,9 +20,6 @@ class AttackChainCall:
 
     def __repr__(self):
         return self.__str__()
-
-
-CALLS = defaultdict(set)
 
 
 # Walker for determining if a proc contains any calls to a legacy attack chain
@@ -80,10 +79,6 @@ class AttackChainCallWalker:
                             self.add_attack_call("src", node.name.name)
 
 
-dme = DME.from_file("paradise.dme", parse_procs=True)
-
-migrated_types = list()
-
 # Ignored types will never be part of the attack chain.
 IGNORED_TYPES = [
     p("/area"),
@@ -111,46 +106,64 @@ ASSISTED_TYPES = [
     p("/obj/item"),
 ]
 
-SETTING_CACHE = dict()
-LEGACY_PROCS = dict()
 
-for pth in dme.subtypesof("/"):
-    td = dme.types[pth]
-    if any(
-        [pth.child_of(assisted_type, strict=True) for assisted_type in ASSISTED_TYPES]
-    ):
-        try:
-            SETTING_CACHE[pth] = bool(
-                td.var_decl("new_attack_chain", parents=True).const_val
-            )
-        except:
-            SETTING_CACHE[pth] = False
-    LEGACY_PROCS[pth] = {
-        x for x in td.proc_names(modified=True) if "__legacy__attackchain" in x
-    }
-    for proc_decl in td.proc_decls():
-        walker = AttackChainCallWalker(td, proc_decl)
-        proc_decl.walk(walker)
+if __name__ == "__main__":
+    print("check_legacy_attack_chain started")
 
+    exit_code = 0
+    start = time.time()
 
-BAD_TREES = dict()
+    CALLS = defaultdict(set)
+    SETTING_CACHE = dict()
+    LEGACY_PROCS = dict()
+    BAD_TREES = dict()
+    PROCS = dict()
 
-PROCS = dict()
+    dme = DME.from_file("paradise.dme", parse_procs=True)
 
-for pth, new_attack_chain in SETTING_CACHE.items():
-    cursor = pth
-    if new_attack_chain:
-        if LEGACY_PROCS[pth]:
-            print(
-                f"new_attack_chain on {pth} still has legacy procs {LEGACY_PROCS[pth]}"
-            )
-        while cursor not in ASSISTED_TYPES and not cursor.is_root:
-            if LEGACY_PROCS[cursor] and not SETTING_CACHE[cursor]:
-                print(
-                    f"new_attack_chain on {pth} but type {cursor} has legacy procs {LEGACY_PROCS[cursor]}"
+    for pth in dme.subtypesof("/"):
+        td = dme.types[pth]
+        if any(
+            [
+                pth.child_of(assisted_type, strict=True)
+                for assisted_type in ASSISTED_TYPES
+            ]
+        ):
+            try:
+                SETTING_CACHE[pth] = bool(
+                    td.var_decl("new_attack_chain", parents=True).const_val
                 )
-            cursor = cursor.parent
-        if pth in CALLS:
-            print("Call sites requiring migration:")
-            for call in CALLS[pth]:
-                print(call)
+            except:
+                SETTING_CACHE[pth] = False
+        LEGACY_PROCS[pth] = {
+            x for x in td.proc_names(modified=True) if "__legacy__attackchain" in x
+        }
+        for proc_decl in td.proc_decls():
+            walker = AttackChainCallWalker(td, proc_decl)
+            proc_decl.walk(walker)
+
+    for pth, new_attack_chain in SETTING_CACHE.items():
+        cursor = pth
+        if new_attack_chain:
+            if LEGACY_PROCS[pth]:
+                exit_code = 1
+                print(
+                    f"new_attack_chain on {pth} still has legacy procs {LEGACY_PROCS[pth]}"
+                )
+            while cursor not in ASSISTED_TYPES and not cursor.is_root:
+                if LEGACY_PROCS[cursor] and not SETTING_CACHE[cursor]:
+                    exit_code = 1
+                    print(
+                        f"new_attack_chain on {pth} but type {cursor} has legacy procs {LEGACY_PROCS[cursor]}"
+                    )
+                cursor = cursor.parent
+            if pth in CALLS:
+                exit_code = 1
+                print("Call sites requiring migration:")
+                for call in CALLS[pth]:
+                    print(call)
+
+    end = time.time()
+    print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")
+
+    sys.exit(exit_code)
