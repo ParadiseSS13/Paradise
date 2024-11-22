@@ -106,12 +106,12 @@
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 	climbers -= user
-	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 
 /obj/structure/proc/remove_climber(mob/living/climber)
 	SIGNAL_HANDLER
 
 	climbers -= climber
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 
 /obj/structure/proc/structure_shaken()
 	for(var/mob/living/M in get_turf(src))
