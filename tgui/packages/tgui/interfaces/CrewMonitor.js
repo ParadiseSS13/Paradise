@@ -203,7 +203,7 @@ const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { highlightedNames } = data;
   return (
-    <Box height="526px" mb="0.5rem" overflow="hidden">
+    <Box height="100vh" mb="0.5rem" overflow="hidden">
       <NanoMap
         zoom={data.zoom}
         offsetX={data.offsetX}
