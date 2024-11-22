@@ -9,6 +9,7 @@
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 	density = FALSE
+	new_attack_chain = TRUE
 
 /obj/structure/curtain/open
 	icon_state = "open"

@@ -65,8 +65,11 @@
  * Handles [COMSIG_ATTACK_OBJ] returning [COMPONENT_NO_ATTACK_OBJ].
  * Returns FALSE if the attack isn't valid.
  *
- * New uses of this proc are prohibited! Use [/obj/item/proc/attack_atom] or [/atom/proc/base_item_interaction] instead!
- * If you are modifiying an existing implementation of this proc, it is expected that you replace it with the proper alternative!
+ * New uses of this proc are prohibited! Use [/obj/item/proc/interact_with_atom]
+ * or [/atom/proc/base_item_interaction] if this is not meant to be an attack, and
+ * [/obj/item/proc/attack_obj] if it is. If you are modifiying an existing
+ * implementation of this proc, it is expected that you replace it with the proper
+ * alternative!
  */
 /obj/item/proc/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)

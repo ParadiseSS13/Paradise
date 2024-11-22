@@ -153,7 +153,7 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
+/obj/item/weldingtool/attack__legacy__attackchain(mob/living/target, mob/living/user, def_zone)
 	if(cigarette_lighter_act(user, target))
 		return
 	if(tool_enabled && target.IgniteMob())

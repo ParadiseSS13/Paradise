@@ -32,12 +32,12 @@
 	if(early_sig_return)
 		return early_sig_return
 
-	if(tool.new_attack_chain)
+	if(new_attack_chain)
 		var/self_interaction = item_interaction(user, tool, modifiers)
 		if(self_interaction)
 			return self_interaction
 
-	if(new_attack_chain)
+	if(tool.new_attack_chain)
 		var/interact_return = tool.interact_with_atom(src, user, modifiers)
 		if(interact_return)
 			return interact_return
