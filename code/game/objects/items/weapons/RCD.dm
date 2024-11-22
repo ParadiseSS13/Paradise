@@ -269,7 +269,7 @@
 	/// The list of potential RCD actions.
 	var/static/list/possible_actions
 
-/obj/item/rcd/Initialize()
+/obj/item/rcd/Initialize(mapload)
 	. = ..()
 	if(!length(possible_actions))
 		possible_actions = list()

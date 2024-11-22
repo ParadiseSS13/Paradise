@@ -2,7 +2,7 @@
 	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/doorint.dmi'
-	icon_state = "door1"
+	icon_state = null
 	anchored = TRUE
 	opacity = TRUE
 	density = TRUE
@@ -494,6 +494,7 @@
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+	icon_state = "door1"
 
 /obj/machinery/door/proc/lock()
 	return
@@ -610,6 +611,6 @@
 			blockage.max_integrity += 25
 		foam_level++
 		blockage.icon_state = "foamed_[foam_level]"
-		blockage.update_icon_state()
+		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL

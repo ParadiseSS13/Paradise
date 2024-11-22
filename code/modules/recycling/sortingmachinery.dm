@@ -247,7 +247,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,
@@ -450,7 +450,7 @@
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
 				icon_state = "shippack_sealed"
 				sealed = 1
-				update_desc()
+				update_appearance(UPDATE_DESC)
 	else
 		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")

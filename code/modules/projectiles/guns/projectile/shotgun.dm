@@ -11,7 +11,7 @@
 	force = 10
 	flags = CONDUCT
 	can_holster = FALSE
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -57,18 +57,20 @@
 	COOLDOWN_START(src, pump_cooldown, pump_time)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
+	if(QDELETED(M))
+		return
 	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
-	pump_unload(M)
-	pump_reload(M)
+	pump_unload()
+	pump_reload()
 
-/obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
+/obj/item/gun/projectile/shotgun/proc/pump_unload()
 	if(chambered)//We have a shell in the chamber
 		chambered.forceMove(get_turf(src))
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
-/obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
+/obj/item/gun/projectile/shotgun/proc/pump_reload()
 	if(!magazine.ammo_count())
 		return FALSE
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
@@ -135,8 +137,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun_sawn"
 	item_state = "riotshotgun_sawn"			//phil235 is it different with different skin?
-	slot_flags &= ~SLOT_FLAG_BACK    //you can't sling it on your back
-	slot_flags |= SLOT_FLAG_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
+	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
 	update_appearance()
@@ -176,8 +178,8 @@
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
-	slot_flags &= ~SLOT_FLAG_BELT
-	slot_flags |= SLOT_FLAG_BACK
+	slot_flags &= ~ITEM_SLOT_BELT
+	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
 	update_appearance()

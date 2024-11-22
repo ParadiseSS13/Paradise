@@ -67,7 +67,11 @@
 				log_admin("[key_name(usr)] has spawned an abductor team.")
 				if(!makeAbductorTeam())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-
+			if("8")
+				log_admin("[key_name(usr)] has spawned mindflayers.")
+				if(!makeMindflayers())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+					
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -814,6 +818,8 @@
 					return
 
 	else if(href_list["boot2"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["boot2"])
 		if(!ismob(M))
 			return
@@ -1172,8 +1178,8 @@
 		M.loc = prison_cell
 		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_JUMPSUIT)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_SHOES)
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
@@ -1393,8 +1399,8 @@
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), SLOT_HUD_JUMPSUIT)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), SLOT_HUD_SHOES)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), ITEM_SLOT_JUMPSUIT)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), ITEM_SLOT_SHOES)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
@@ -1785,6 +1791,8 @@
 		C.jumptocoord(x,y,z)
 
 	else if(href_list["adminchecklaws"])
+		if(!check_rights(R_ADMIN|R_MENTOR))
+			return
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
@@ -1804,9 +1812,9 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/food/cookie(H), SLOT_HUD_LEFT_HAND )
+		H.equip_to_slot_or_del( new /obj/item/food/cookie(H), ITEM_SLOT_LEFT_HAND )
 		if(!(istype(H.l_hand,/obj/item/food/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/food/cookie(H), SLOT_HUD_RIGHT_HAND )
+			H.equip_to_slot_or_del( new /obj/item/food/cookie(H), ITEM_SLOT_RIGHT_HAND )
 			if(!(istype(H.r_hand,/obj/item/food/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
@@ -1936,7 +1944,7 @@
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
@@ -2145,7 +2153,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
+				H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_LEFT_HAND)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/food/cookie/evilcookie = new /obj/item/food/cookie
@@ -2154,7 +2162,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
+				H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_LEFT_HAND)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
 				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
@@ -2203,7 +2211,7 @@
 				if(H.head)
 					H.unEquip(H.head, TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-				H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
+				H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 				logmsg = "shamebrero"
 			if("Nugget")
 				H.Weaken(12 SECONDS, TRUE)
@@ -2336,28 +2344,21 @@
 		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
+
+		var/datum/fax/admin/sending = new /datum/fax/admin()
+		sending.name = P.name
+		sending.to_department = fax.department
+		sending.origin = "Administrator"
+		sending.message = P
+		sending.sent_by = usr
+		sending.sent_at = world.time
+
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
-
-	else if(href_list["HONKReply"])
-		var/mob/living/carbon/human/H = locateUID(href_list["HONKReply"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-			to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
-			return
-
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from HONKplanet", "")
-		if(!input)	return
-
-		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[src.owner] replied to [key_name(H)]'s HONKplanet message with the message [input].")
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\"")
 
 	else if(href_list["ErtReply"])
 		if(!check_rights(R_ADMIN))
@@ -2387,7 +2388,7 @@
 				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
 				return
 			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
+			to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
 			owner.response_team()
 
@@ -2555,35 +2556,36 @@
 				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
 
+		var/datum/fax/admin/sending = new /datum/fax/admin()
+		sending.name = P.name
+		sending.from_department = faxtype
 		if(destination != "All Departments")
-			if(!fax.receivefax(P))
+			sending.to_department = fax.department
+		else
+			sending.to_department = "All Departments"
+		sending.origin = "Administrator"
+		sending.message = P
+		sending.reply_to = reply_to
+		sending.sent_by = usr
+		sending.sent_at = world.time
+
+		if(destination != "All Departments")
+			if(!fax.receivefax(sending))
 				to_chat(src.owner, "<span class='warning'>Message transmission failed.</span>")
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 				if(is_station_level(F.z))
 					spawn(0)
-						if(!F.receivefax(P))
+						if(!F.receivefax(sending))
 							to_chat(src.owner, "<span class='warning'>Message transmission to [F.department] failed.</span>")
 
-		var/datum/fax/admin/A = new /datum/fax/admin()
-		A.name = P.name
-		A.from_department = faxtype
-		if(destination != "All Departments")
-			A.to_department = fax.department
-		else
-			A.to_department = "All Departments"
-		A.origin = "Administrator"
-		A.message = P
-		A.reply_to = reply_to
-		A.sent_by = usr
-		A.sent_at = world.time
 
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+				to_chat(sender, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
@@ -2967,8 +2969,8 @@
 								W.plane = initial(W.plane)
 						//teleport person to cell
 						H.loc = pick(GLOB.prisonwarp)
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), SLOT_HUD_JUMPSUIT)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), SLOT_HUD_SHOES)
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_JUMPSUIT)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_SHOES)
 					else
 						//teleport security person
 						H.loc = pick(GLOB.prisonsecuritywarp)
@@ -3570,7 +3572,7 @@
 	dust_if_respawnable(C)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)
+	hunter_mob.equip_to_slot_or_del(N, ITEM_SLOT_IN_BACKPACK)
 	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H

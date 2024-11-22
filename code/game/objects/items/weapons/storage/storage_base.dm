@@ -464,7 +464,8 @@
 				if(observer.client && observer.s_active != src)
 					observer.client.screen -= I
 		I.dropped(user, TRUE)
-	add_fingerprint(user)
+	if(user)
+		add_fingerprint(user)
 
 	if(!prevent_warning)
 		// all mobs with clients attached, sans the item's user
@@ -481,10 +482,10 @@
 			// restrict player list to include only those in view
 			for(var/mob/M in oviewers(7, user))
 				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
-
 	orient2hud(user)
-	if(user.s_active)
-		user.s_active.show_to(user)
+	if(user)
+		if(user.s_active)
+			user.s_active.show_to(user)
 
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	I.in_inventory = TRUE
@@ -501,10 +502,6 @@
 /obj/item/storage/proc/remove_from_storage(obj/item/I, atom/new_location)
 	if(!istype(I))
 		return FALSE
-
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
-		F.update_icon()
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
@@ -531,6 +528,7 @@
 	if(I.maptext)
 		I.maptext = ""
 	I.on_exit_storage(src)
+	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
 

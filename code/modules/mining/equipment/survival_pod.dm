@@ -99,6 +99,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"
@@ -279,7 +283,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	recalculate_atmos_connectivity()
 
@@ -327,13 +331,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
+	layer = TABLE_LAYER // scuffed but it works
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
 //Fluff
@@ -374,7 +377,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 						/obj/item/stack/telecrystal/twenty,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)
@@ -382,3 +385,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
 	item_state = initial(I.item_state)
+	lefthand_file = initial(I.lefthand_file)
+	righthand_file = initial(I.righthand_file)
+	slot_flags = initial(I.slot_flags)
+	w_class = initial(I.w_class)

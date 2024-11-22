@@ -14,4 +14,4 @@ export STABLE_BYOND_MINOR=1633
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.6
 # RUSTG version
-export RUSTG_VERSION=v3.0.0-P
+export RUSTG_VERSION=v3.4.0-P

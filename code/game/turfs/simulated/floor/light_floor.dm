@@ -69,8 +69,8 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!light_broken)
-		var/new_color = input(user, "Select a bulb color", "Select a bulb color", color) as color|null
-		if(!new_color)
+		var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)
+		if(isnull(new_color))
 			return
 
 		// Cancel if they walked away
@@ -127,7 +127,7 @@
 	var/current_color
 
 // We pick a random color when we are spawned
-/turf/simulated/floor/light/disco/Initialize()
+/turf/simulated/floor/light/disco/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
