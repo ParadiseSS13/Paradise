@@ -54,8 +54,6 @@
 
 	/// How much energy have we sold in total (Joules)
 	var/total_energy = 0
-	/// How much energy do you have to sell in order to get an announcement
-	var/static/announcement_threshold = 1 MJ
 
 	/// How many credits we have earned in total
 	var/total_earnings = 0
@@ -68,8 +66,6 @@
 	var/output_number = 0
 	/// Our set input pulling
 	var/input_pulling = 0
-	/// Announcement configuration for updates
-	var/datum/announcer/announcer
 	/// Targetable areas in lavaland
 	var/list/targetable_areas = list(/area/lavaland/surface/outdoors/outpost,
 									/area/lavaland/surface/outdoors/targetable,
@@ -114,7 +110,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	component_parts += new /obj/item/stock_parts/capacitor
 	component_parts += new /obj/item/stock_parts/capacitor
-	announcer = new(config_type = /datum/announcement_configuration/ptl)
 	range = get_dist(get_front_turf(), get_edge_target_turf(get_front_turf(), dir))
 	if(!powernet)
 		connect_to_network()
@@ -201,7 +196,6 @@
 
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
-	qdel(announcer)
 	if(length(laser_effects))
 		destroy_lasers()
 
@@ -252,20 +246,6 @@
 		return 0
 	return min(round((charge / abs(output_level)) * 6), 6)
 
-/obj/machinery/power/transmission_laser/proc/send_ptl_announcement()
-	// The message we send
-	var/message
-	if(announcement_threshold == 1 MJ)
-		message = "PTL account successfully made!\n\
-		From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
-		announcement_threshold = 100 MJ
-	else
-		message = "New milestone reached!\n[DisplayJoules(announcement_threshold)]"
-
-	announcer.Announce(message)
-
-	announcement_threshold = min(announcement_threshold * 5, announcement_threshold + 200 GJ)
-
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
 
@@ -287,6 +267,7 @@
 	data["output"] = output_level
 	data["total_earnings"] = total_earnings
 	data["unsent_earnings"] = unsent_earnings
+	data["total_energy"] = total_energy
 	data["held_power"] = charge
 	data["selling_energy"] = selling_energy
 	data["max_capacity"] = capacity
@@ -381,9 +362,6 @@
 	input_available = get_surplus()
 	if(stat & BROKEN)
 		return
-
-	if(total_energy >= announcement_threshold)
-		send_ptl_announcement()
 
 	var/last_disp = return_charge()
 	var/last_chrg = inputting

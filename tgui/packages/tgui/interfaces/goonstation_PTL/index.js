@@ -12,7 +12,7 @@ import { Window } from '../../layouts';
 
 export const goonstation_PTL = (props, context) => {
   const { data } = useBackend(context);
-  const { total_earnings, name = 'Power Transmission Laser' } = data;
+  const { total_earnings, total_energy, name = 'Power Transmission Laser' } = data;
   return (
     <Window title="Power Transmission Laser" width="310" height="485">
       <Window.Content>
@@ -20,6 +20,7 @@ export const goonstation_PTL = (props, context) => {
         <InputControls />
         <OutputControls />
         <NoticeBox success>Earned Credits : {total_earnings ? formatMoney(total_earnings) : 0}</NoticeBox>
+        <NoticeBox success>Energy Sold : {total_energy ? formatSiUnit(total_energy, 0, 'J') : '0 J'}</NoticeBox>
       </Window.Content>
     </Window>
   );
