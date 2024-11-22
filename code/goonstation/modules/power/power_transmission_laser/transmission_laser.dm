@@ -442,7 +442,7 @@
 // Minimum amount of money per cycle
 #define MINIMUM_BAR 0
 // Maximum amount of money per cycle - minimum amount of money per cycle
-#define PROCESS_CAP (10 - MINIMUM_BAR)
+#define PROCESS_CAP (6 - MINIMUM_BAR)
 
 // Higher number means approaching the limit slower
 #define A1_CURVE 20
