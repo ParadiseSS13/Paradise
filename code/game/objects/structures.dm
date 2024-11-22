@@ -98,6 +98,7 @@
 
 /obj/structure/proc/start_climb(mob/living/user)
 	climbers += user
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(remove_climber)) // Just in case the climber is deleted before finishing
 	if(do_climb(user))
 		user.forceMove(get_turf(src))
 		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
@@ -105,6 +106,12 @@
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 	climbers -= user
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+
+/obj/structure/proc/remove_climber(mob/living/climber)
+	SIGNAL_HANDLER
+
+	climbers -= climber
 
 /obj/structure/proc/structure_shaken()
 	for(var/mob/living/M in get_turf(src))
