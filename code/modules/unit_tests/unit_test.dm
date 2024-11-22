@@ -31,7 +31,7 @@ You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testi
 /datum/unit_test/proc/Run()
 	Fail("Run() called parent or not implemented")
 
-/datum/unit_test/proc/__fail(reason = "No reason")
+/datum/unit_test/proc/Fail(reason = "No reason")
 	succeeded = FALSE
 
 	if(!istext(reason))
