@@ -111,7 +111,7 @@
 	SIGNAL_HANDLER
 
 	climbers -= climber
-	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(climber, COMSIG_PARENT_QDELETING)
 
 /obj/structure/proc/structure_shaken()
 	for(var/mob/living/M in get_turf(src))
