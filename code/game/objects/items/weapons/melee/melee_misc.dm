@@ -436,7 +436,6 @@
 	source.Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = 2 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
 	if(!target.electrocute_act(voltage, "lightning", flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
 		return
-	target.KnockDown(4 SECONDS * (power / 20)) //Power is 20 by default, 10 in a random blade
 	protected_mobs += target
 	addtimer(CALLBACK(src, PROC_REF(arc), target, voltage, protected_mobs), 2.5 SECONDS)
 
