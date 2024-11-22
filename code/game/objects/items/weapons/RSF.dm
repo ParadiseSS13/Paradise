@@ -117,6 +117,7 @@
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
 							"Cigar" = /obj/item/clothing/mask/cigarette/cigar,
+							"Cigarette" = /obj/item/clothing/mask/cigarette,
 							"Smoked Cheese" = /obj/item/food/sliceable/cheesewheel/smoked,
 							"Edam Cheese" = /obj/item/food/sliceable/cheesewheel/edam,
 							"Blue Cheese" = /obj/item/food/sliceable/cheesewheel/blue,
