@@ -11,6 +11,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	flags_2 = RANDOM_BLOCKER_2
 	/// Has the pin been pulled?
 	var/active = FALSE
 	/// Time between the pin being pulled and detonation.

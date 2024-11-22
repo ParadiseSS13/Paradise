@@ -91,8 +91,8 @@
 	to_chat(src, "<span class='notice'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
 
 
-/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
-	..()
+/mob/living/simple_animal/possessed_object/Initialize(mapload)
+	. = ..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Possessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.

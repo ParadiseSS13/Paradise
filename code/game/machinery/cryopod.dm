@@ -404,7 +404,7 @@
 		if(G.fields["name"] == occupant.real_name)
 			announce_rank = G.fields["rank"]
 			qdel(G)
-
+	GLOB.crew_list -= occupant.real_name
 	icon_state = base_icon_state
 
 	//Make an announcement and log the person entering storage + their rank
