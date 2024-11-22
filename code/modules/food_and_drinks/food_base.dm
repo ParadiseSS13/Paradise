@@ -71,9 +71,6 @@
 	ant_location = get_turf(src)
 	last_ant_time = world.time
 
-	stack_trace("holy shit!! A stacktrace!")
-	CRASH("we crashed!")
-
 /obj/item/food/Destroy()
 	ant_location = null
 	if(isprocessing)
