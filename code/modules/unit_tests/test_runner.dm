@@ -113,6 +113,9 @@
 		else
 			result += "FAIL [test] [durations[test] / 10]s"
 			result += "\t" + test_logs[test].Join("\n\t")
+#ifdef CIBUILDING
+			result += "::error file=[test.filename],title=DM Unit Tests::FAIL [test]"
+#endif
 
 	for(var/entry in result)
 		log_world(entry)

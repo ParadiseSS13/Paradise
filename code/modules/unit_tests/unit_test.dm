@@ -6,6 +6,8 @@ You may use /New() and /Destroy() for setup/teardown respectively
 You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testing
 */
 
+#ifdef Fail(msg) __fail(msg, __FILE__)
+
 /datum/unit_test
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
@@ -17,6 +19,9 @@ You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testi
 	//internal shit
 	var/succeeded = TRUE
 	var/list/fail_reasons
+#ifdef CIBUILDING
+	var/filename = file
+#endif
 
 /datum/unit_test/New()
 	run_loc_bottom_left = locate(1, 1, 1)
@@ -31,10 +36,13 @@ You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testi
 /datum/unit_test/proc/Run()
 	Fail("Run() called parent or not implemented")
 
-/datum/unit_test/proc/Fail(reason = "No reason")
+/datum/unit_test/proc/__fail(reason = "No reason", file)
 	succeeded = FALSE
 
 	if(!istext(reason))
 		reason = "FORMATTED: [reason != null ? reason : "NULL"]"
 
 	LAZYADD(fail_reasons, reason)
+#ifdef CIBUILDING
+	filename = file
+#endif

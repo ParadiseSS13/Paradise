@@ -10,3 +10,4 @@
 		for(var/k in tech_list)
 			if(length(nums.Replace(tech_list[k], "")) > 0)
 				Fail("Invalid origin tech for [tpath]: [tech_str]")
+	Fail("Just because I want to fail")
