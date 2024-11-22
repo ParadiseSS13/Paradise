@@ -54,14 +54,6 @@
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
-/obj/structure/lattice/clockwork
-	name = "cog lattice"
-	desc = "A lightweight support lattice. These hold the Justicar's station together."
-	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-
-/obj/structure/lattice/clockwork/Initialize(mapload)
-	. = ..()
-
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
@@ -104,14 +96,3 @@
 /obj/structure/lattice/lava/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>, but the <i>heat treatment will shatter off</i>.")
 
-/obj/structure/lattice/catwalk/clockwork
-	name = "clockwork catwalk"
-	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = null
-
-/obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
-	. = ..()
-	if(!mapload)
-		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
-		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)

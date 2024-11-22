@@ -42,9 +42,9 @@
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
 
-/mob/living/simple_animal/pet/cat/runtime/New()
+/mob/living/simple_animal/pet/cat/runtime/Initialize(mapload)
+	. = ..()
 	SSpersistent_data.register(src)
-	..()
 
 /mob/living/simple_animal/pet/cat/runtime/Destroy()
 	SSpersistent_data.registered_atoms -= src
