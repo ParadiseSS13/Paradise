@@ -22,6 +22,7 @@ type Data = {
   fingerprint_hash: string;
   photo: string;
   assignment: string;
+  job_assets: string; // SS220 ADDITION
   job_icon: string;
   appearances: string[];
   id_icon: string;
@@ -89,6 +90,7 @@ export const AgentCardInfo = (props, context) => {
     sex,
     age,
     assignment,
+    job_assets, // SS220 ADDITION
     job_icon,
     associated_account_number,
     blood_type,
@@ -174,7 +176,7 @@ export const AgentCardInfo = (props, context) => {
                   >
                     <DmIcon
                       fill
-                      icon={'icons/mob/hud/job_assets.dmi'}
+                      icon={job_assets} // SS220 EDIT - replace 'icons/mob/hud/job_assets.dmi' with variable
                       icon_state={job_icon}
                       verticalAlign="bottom"
                       my="2px"

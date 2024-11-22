@@ -2,7 +2,7 @@
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon = 'icons/mob/hud/sechud.dmi'
 	if(wear_id && (wear_id.get_job_name() in GLOB.all_jobs_ss220))
-		holder.icon = 'modular_ss220/jobs/icons/hud.dmi'
+		holder.icon = 'modular_ss220/jobs/icons/sechud.dmi'
 	. = ..()
 
 /obj/item/get_job_name() //Used in secHUD icon generation
