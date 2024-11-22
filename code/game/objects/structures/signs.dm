@@ -342,14 +342,6 @@
 	desc = "A sign labelling a restroom."
 	icon_state = "restroom"
 
-/obj/structure/sign/medbay
-	name = "\improper MEDBAY"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
-	icon_state = "bluecross"
-
-/obj/structure/sign/medbay/alt
-	icon_state = "bluecross2"
-
 /obj/structure/sign/directions
 	name = "direction sign"
 

@@ -43,6 +43,22 @@
 	name = "DK Excavator 453 Abandoned Bridge"
 	icon_state = "bridge"
 
+// Ruins of the Unathi Breacher ship
+/area/ruin/space/unathi_breacher/engineering
+	name = "Breacher Engine Bay"
+
+/area/ruin/space/unathi_breacher/dorms
+	name = "Breacher Crew Quarters"
+
+/area/ruin/space/unathi_breacher/bar
+	name = "Breacher Bar"
+
+/area/ruin/space/unathi_breacher/bridge
+	name = "Breacher Bridge"
+
+/area/ruin/space/unathi_breacher/hold
+	name = "Breacher Hold"
+
 //DJSTATION
 /area/ruin/space/djstation
 	name = "\improper Soviet DJ Station"
