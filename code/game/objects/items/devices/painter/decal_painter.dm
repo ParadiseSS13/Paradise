@@ -34,7 +34,8 @@
 	if(!istype(target, /turf/simulated/floor))
 		to_chat(user, "<span class='warning'>[holder] can only be used on flooring.</span>")
 		return FALSE
-	var/decals = target.GetComponents(/datum/component/decal)
+	var/list/datum/element/decal/decals = list()
+	SEND_SIGNAL(target, COMSIG_ATOM_DECALS_ROTATING, decals)
 	if(removal_mode)
 		remove_decals(target)
 		return TRUE
@@ -110,4 +111,8 @@
 
 /datum/painter/decal/proc/remove_decals(atom/target)
 	var/turf/target_turf = get_turf(target)
-	target_turf.DeleteComponentsType(/datum/component/decal)
+	var/list/datum/element/decal/decals = list()
+	SEND_SIGNAL(target_turf, COMSIG_ATOM_DECALS_ROTATING, decals)
+	for(var/datum/element/decal/dcl in decals)
+		dcl.Detach(target)
+	target_turf.RemoveElement(/datum/element/decal)
