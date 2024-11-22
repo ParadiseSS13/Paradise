@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 from dataclasses import dataclass
@@ -8,18 +9,29 @@ from avulto.ast import NodeKind
 from avulto import exceptions
 
 
+RED = "\033[0;31m"
+GREEN = "\033[0;32m"
+BLUE = "\033[0;34m"
+NC = "\033[0m"  # No Color
+
+
 @dataclass(frozen=True)
 class AttackChainCall:
     proc_decl: ProcDecl
     var_name: str
     var_type: p | None
     call_name: str
+    source_info: any
 
-    def __str__(self):
-        return f"AttackChainCall\n\t- called in {self.proc_decl}\n\t- called proc {self.call_name}\n\t- on var {self.var_type}/{self.var_name}"
+    def make_error_message(self):
+        return f"{self.proc_decl.type_path}/{self.proc_decl.name}(...) calls {self.call_name}(...) on var {self.var_type}/{self.var_name}"
 
-    def __repr__(self):
-        return self.__str__()
+    def format_error(self):
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            return f"::error file={self.source_info.file_path},line={self.source_info.line},title=Attack Chain::{self.source_info.file_path}:{self.source_info.line}: {RED}{self.make_error_message()}{NC}"
+
+        else:
+            return f"{self.source_info.file_path}:{self.source_info.line}: {RED}{self.make_error_message()}{NC}"
 
 
 # Walker for determining if a proc contains any calls to a legacy attack chain
@@ -54,7 +66,7 @@ class AttackChainCallWalker:
 
         return None
 
-    def add_attack_call(self, var_name, chain_call):
+    def add_attack_call(self, var_name, chain_call, source_info):
         var_type = self.get_var_type(var_name)
         CALLS[var_type].add(
             AttackChainCall(
@@ -62,6 +74,7 @@ class AttackChainCallWalker:
                 var_name,
                 self.get_var_type(var_name),
                 chain_call,
+                source_info,
             )
         )
 
@@ -73,10 +86,12 @@ class AttackChainCallWalker:
             if "__legacy__attackchain" in node.name.name:
                 if node.expr:
                     if node.expr.kind == NodeKind.IDENTIFIER:
-                        self.add_attack_call(str(node.expr), node.name.name)
+                        self.add_attack_call(
+                            str(node.expr), node.name.name, source_info
+                        )
                     elif node.expr.kind == NodeKind.CONSTANT:
                         if not node.expr.constant.val:
-                            self.add_attack_call("src", node.name.name)
+                            self.add_attack_call("src", node.name.name, source_info)
 
 
 # Ignored types will never be part of the attack chain.
@@ -161,7 +176,7 @@ if __name__ == "__main__":
                 exit_code = 1
                 print("Call sites requiring migration:")
                 for call in CALLS[pth]:
-                    print(call)
+                    print(call.format_error())
 
     end = time.time()
     print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")

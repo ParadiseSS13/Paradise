@@ -123,6 +123,7 @@
 	if(D)
 		owner.remove_from_mob(D)
 		owner.put_in_hands(D)
-		D.activate_self(owner)
+		// D.activate_self(owner)
+		D.attack_self__legacy__attackchain(owner)
 	else
 		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
