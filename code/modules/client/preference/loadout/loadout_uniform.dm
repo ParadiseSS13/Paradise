@@ -345,6 +345,14 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/uniform/janitor
+	main_typepath = /datum/gear/uniform/janitor
+
+/datum/gear/uniform/janitor/overalls
+	display_name = "Janitor uniform, overalls"
+	path = /obj/item/clothing/under/rank/civilian/janitor/overalls
+	allowed_roles = list("Janitor")
+
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
 
