@@ -224,7 +224,7 @@
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/old/add_cell()
+/obj/mecha/working/ripley/mining/old/add_cell()
 	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
