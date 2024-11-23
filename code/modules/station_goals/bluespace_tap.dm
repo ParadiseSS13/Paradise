@@ -171,16 +171,9 @@
 	event_list = list(
 		new /datum/bluespace_tap_event/dirty(src),
 		new /datum/bluespace_tap_event/electric_arc(src),
-		new /datum/bluespace_tap_event/electric_arc/mass(src),
 		new /datum/bluespace_tap_event/radiation(src),
-		new /datum/bluespace_tap_event/gas/nitrogen(src),
-		new /datum/bluespace_tap_event/gas/carbon_dioxide(src),
-		new /datum/bluespace_tap_event/gas/oxygen(src),
-		new /datum/bluespace_tap_event/gas/plasma(src),
-		new /datum/bluespace_tap_event/gas/agent_b(src),
-		new /datum/bluespace_tap_event/gas/sleeping_gas(src)
+		new /datum/bluespace_tap_event/gas(src)
 	)
-
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
@@ -329,22 +322,22 @@
 	if(total_points > clothing_interval)
 		produce(product_list[1], FALSE, !stabilizers)
 		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some clothes!</b>", name, "Engineering")
-		clothing_interval += 5000
+		clothing_interval += 7500
 
 	if(total_points > food_interval)
 		produce(product_list[2], FALSE, !stabilizers)
 		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some food!</b>", name, "Engineering")
-		food_interval += 6000
+		food_interval += 10000
 
 	if(total_points > cultural_interval)
 		produce(product_list[3], FALSE, !stabilizers)
 		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something with culture!</b>", name, "Engineering")
-		cultural_interval += 10000
+		cultural_interval += 15000
 
 	if(total_points > organic_interval)
 		produce(product_list[4], FALSE, !stabilizers)
 		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something organic!</b>", name, "Engineering")
-		organic_interval += 15000
+		organic_interval += 20000
 
 	if(total_points > motherlode_interval)
 		produce_motherlode()
@@ -427,7 +420,7 @@
 /**
   * Produces the product with the desired key and increases product cost accordingly
   */
-/obj/machinery/power/bluespace_tap/proc/produce(var/datum/data/bluespace_tap_product/product, purchased = FALSE, double_chance = FALSE)
+/obj/machinery/power/bluespace_tap/proc/produce(datum/data/bluespace_tap_product/product, purchased = FALSE, double_chance = FALSE)
 	if(!product)
 		return
 	if(purchased)
@@ -476,7 +469,7 @@
 		if(length(open_turfs))
 			return pick(open_turfs)
 
-/obj/machinery/power/bluespace_tap/proc/spawn_item(var/datum/data/bluespace_tap_product/product, turf)
+/obj/machinery/power/bluespace_tap/proc/spawn_item(datum/data/bluespace_tap_product/product, turf)
 	if(!product)
 		return
 	var/selected_rarity = pick(1, 10)

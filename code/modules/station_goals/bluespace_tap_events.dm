@@ -35,64 +35,29 @@
 /datum/bluespace_tap_event/gas/alert_engi()
 	tap.radio.autosay("Bluespace harvester has released a class [src] gas pocket!", tap, "Engineering")
 
-// sleeping gas
-/datum/bluespace_tap_event/gas/sleeping_gas
-	name = "G-1"
-
-/datum/bluespace_tap_event/gas/sleeping_gas/on_start()
+/datum/bluespace_tap_event/gas/on_start()
 	var/datum/gas_mixture/air = new()
-	air.set_sleeping_agent(200)
-	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
+	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown")
+	switch(picked_gas)
+		if("N2")
+			name = "G-1"
+			air.set_nitrogen(250)
+		if("O2")
+			name = "G-2"
+			air.set_oxygen(250)
+		if("N2O")
+			name = "G-3"
+			air.set_sleeping_agent(200)
+		if("CO2")
+			name = "G-4"
+			air.set_carbon_dioxide(250)
+		if("Plasma")
+			name = "G-5"
+			air.set_toxins(250)
+		if("Unknown")
+			name = "G-6"
+			air.set_agent_b(250)
 
-// nitrogen
-/datum/bluespace_tap_event/gas/nitrogen
-	name = "G-2"
-
-/datum/bluespace_tap_event/gas/nitrogen/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_nitrogen(250)
-	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
-
-// carbon dioxide
-/datum/bluespace_tap_event/gas/carbon_dioxide
-	name = "G-3"
-
-/datum/bluespace_tap_event/gas/carbon_dioxide/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_carbon_dioxide(250)
-	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
-
-// plasma
-/datum/bluespace_tap_event/gas/plasma
-	name = "G-4"
-
-/datum/bluespace_tap_event/gas/plasma/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_toxins(250)
-	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
-
-
-// oxygen
-/datum/bluespace_tap_event/gas/oxygen
-	name = "G-5"
-
-/datum/bluespace_tap_event/gas/oxygen/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_oxygen(250)
-	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
-
-// agent_b
-/datum/bluespace_tap_event/gas/agent_b
-	name = "G-6"
-
-/datum/bluespace_tap_event/gas/agent_b/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_agent_b(250)
 	air.set_temperature(T20C)
 	tap_turf.blind_release_air(air)
 
@@ -134,24 +99,25 @@
 	tap.radio.autosay("Class [src] power spike detected in bluespace harvester operation!", tap, "Engineering")
 
 /datum/bluespace_tap_event/electric_arc/on_start()
-	var/list/shock_mobs = list()
-	for(var/C in view(tap_turf, 5)) // We only want to shock a single random mob in range, not every one.
-		if(isliving(C))
-			shock_mobs += C
-	if(length(shock_mobs))
-		var/mob/living/L = pick(shock_mobs)
-		L.electrocute_act(rand(5, 25), "electrical arc")
-		playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, TRUE)
-		tap.Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
+	var/shock_type = pick("single", "mass")
+	switch(shock_type)
+		if("single")
+			var/list/shock_mobs = list()
+			for(var/C in view(tap_turf, 5)) // We only want to shock a single random mob in range, not every one.
+				if(isliving(C))
+					shock_mobs += C
+			if(length(shock_mobs))
+				var/mob/living/L = pick(shock_mobs)
+				L.electrocute_act(rand(5, 25), "electrical arc")
+				playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, TRUE)
+				tap.Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
+		if("mass")
+			name = "E-2"
+			for(var/C in view(tap_turf, 5)) // Zap everyone
+				if(isliving(C))
+					var/mob/living/L = C
+					L.electrocute_act(rand(5, 25), "electrical arc")
+					playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, TRUE)
+					tap.Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
-// mass electrical arc
-/datum/bluespace_tap_event/electric_arc/mass
-	name = "E-2"
 
-/datum/bluespace_tap_event/electric_arc/mass/on_start()
-	for(var/C in view(tap_turf, 5)) // Zap everyone
-		if(isliving(C))
-			var/mob/living/L = C
-			L.electrocute_act(rand(5, 25), "electrical arc")
-			playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, TRUE)
-			tap.Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
