@@ -172,6 +172,8 @@
 	while(count <= max_length && !(forward_goal && backward_goal) && !bad_passage)
 		if(walk_dir == forwards_backwards[1])
 			if(!forward_goal)
+				if(out_of_bounds(walk_dir, forward_step))
+					break // Out of bounds
 				forward_step = get_step(forward_step, walk_dir)
 				if(valid_landing(forward_step, walk_dir))
 					forward_goal = forward_step
@@ -181,6 +183,8 @@
 			walk_dir = forwards_backwards[2]
 		else
 			if(!backward_goal)
+				if(out_of_bounds(walk_dir, backward_step))
+					break // Out of bounds
 				backward_step = get_step(backward_step, walk_dir)
 				if(valid_landing(backward_step, walk_dir))
 					backward_goal = backward_step
@@ -208,6 +212,22 @@
 			cleanup_edge(T)
 
 		return TRUE
+
+/// Checks if we are going out of bounds. Returns TRUE if we are close (less than or equal to 2 turfs) to a border
+/obj/effect/spawner/dynamic_bridge/proc/out_of_bounds(direction, turf/current_turf)
+	if(!direction || !current_turf)
+		return TRUE
+
+	switch(direction)
+		if(NORTH)
+			return current_turf.y >= world.maxy - 2
+		if(EAST)
+			return current_turf.x >= world.maxx - 2
+		if(SOUTH)
+			return current_turf.y <= 2
+		if(WEST)
+			return current_turf.x <= 2
+	return TRUE
 
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO
