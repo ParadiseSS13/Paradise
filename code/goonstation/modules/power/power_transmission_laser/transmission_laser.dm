@@ -137,7 +137,7 @@
 		return
 	if(rotate())
 		return TRUE
-	to_chat(user,"<span class='info'>Target area blocked, please clear all objects and personnel.</span>")
+	to_chat(user, "<span class='info'>Target area blocked, please clear all objects and personnel.</span>")
 	return TRUE
 
 /// Rotates the laser if we have the space to do so.
