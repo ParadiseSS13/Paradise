@@ -10,7 +10,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/powered)
 "dN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/disco,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
@@ -51,7 +51,7 @@
 	},
 /area/ruin/space/powered)
 "hM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "iq" = (
@@ -108,7 +108,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "mk" = (
@@ -203,7 +203,7 @@
 /area/ruin/space/powered)
 "sB" = (
 /obj/machinery/kitchen_machine/oven,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -326,7 +326,7 @@
 /obj/effect/spawner/random/book{
 	pixel_x = -7
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
@@ -338,7 +338,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Br" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -383,7 +383,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "EZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -444,7 +444,7 @@
 	},
 /area/ruin/space/powered)
 "Ij" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Ix" = (
@@ -549,7 +549,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "MX" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -679,7 +679,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
