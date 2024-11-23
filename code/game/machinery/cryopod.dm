@@ -404,7 +404,7 @@
 		if(G.fields["name"] == occupant.real_name)
 			announce_rank = G.fields["rank"]
 			qdel(G)
-
+	GLOB.crew_list -= occupant.real_name
 	icon_state = base_icon_state
 
 	//Make an announcement and log the person entering storage + their rank
@@ -630,7 +630,7 @@
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
-	desc = "An interface between crew and the robotic storage systems"
+	desc = "An interface between crew and the robotic storage systems."
 	icon = 'icons/obj/robot_storage.dmi'
 	icon_state = "console"
 	circuit = /obj/item/circuitboard/robotstoragecontrol
