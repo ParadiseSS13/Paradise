@@ -13,9 +13,9 @@
 	/// List of all active lavaland ruins
 	var/list/active_lava_ruins = list()
 	/// Minimum budget for space ruins
-	var/space_ruin_budget_min = 600
+	var/space_ruin_budget_min = 750
 	/// Maximum budget for space ruins
-	var/space_ruin_budget_max = 950
+	var/space_ruin_budget_max = 1200
 	/// Minimum budget for lavaland ruins
 	var/lavaland_ruin_budget_min = 175
 	/// Maximum budget for lavaland ruins
