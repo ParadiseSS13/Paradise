@@ -51467,9 +51467,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "dHd" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -51477,13 +51474,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "dHw" = (
@@ -62315,17 +62306,8 @@
 	},
 /area/station/medical/morgue)
 "iQq" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/sign/securearea,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
 "iQJ" = (
@@ -65753,20 +65735,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "kyo" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
 "kzB" = (
@@ -69082,19 +69055,6 @@
 /obj/effect/spawner/window,
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/primary/central/south)
-"mbJ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/apmaint2)
 "mbO" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -83517,19 +83477,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
-"sYx" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/solar_maintenance/aft_port)
 "sYL" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/lounge)
@@ -116012,7 +115959,7 @@ sdw
 cST
 cUd
 cVm
-sYx
+sdw
 sTc
 jEc
 tjG
@@ -117036,7 +116983,7 @@ cKe
 pOC
 aaa
 aaa
-mbJ
+oyi
 cNB
 cNB
 nME
