@@ -17135,7 +17135,7 @@
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: <<<"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;

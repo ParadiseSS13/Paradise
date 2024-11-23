@@ -81783,7 +81783,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "sdw" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/aft_port)
 "sem" = (

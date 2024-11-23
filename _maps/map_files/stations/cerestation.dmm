@@ -2656,10 +2656,6 @@
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
-"aqT" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/station/maintenance/disposal/northeast)
 "aqY" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -7613,7 +7609,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -24292,7 +24288,7 @@
 	},
 /area/station/maintenance/port)
 "cMH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "cMM" = (
@@ -31572,7 +31568,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -31753,7 +31749,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fore)
 "dGH" = (
@@ -35048,7 +35044,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -37155,7 +37151,7 @@
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/electrical_shop)
 "flF" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
 "flM" = (
@@ -37312,7 +37308,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -45043,7 +45039,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -48194,7 +48190,7 @@
 	dir = 1;
 	name = "Mix To Turbine"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -49789,7 +49785,7 @@
 	name = "Fore Asteroid Maintenance Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -55877,7 +55873,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
@@ -58229,7 +58225,7 @@
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: <<<"
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -65341,7 +65337,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fore)
 "nbl" = (
@@ -66865,7 +66861,7 @@
 	name = "Command SMES Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -73164,7 +73160,7 @@
 "pqi" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/hologram/holopad,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -77473,7 +77469,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -79676,7 +79672,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -87805,7 +87801,7 @@
 	dir = 1;
 	network = list("SS13","CE")
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -95841,7 +95837,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 8;
@@ -98447,7 +98443,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -102424,7 +102420,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
 	},
@@ -106112,7 +106108,7 @@
 	dir = 10;
 	level = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -141975,10 +141971,10 @@ anz
 aof
 aoE
 apw
-aqT
-aqT
+oLU
+oLU
 oAO
-aqT
+oLU
 gGQ
 gGQ
 arm
@@ -142495,7 +142491,7 @@ atC
 xdO
 qUN
 cMh
-aqT
+oLU
 aWH
 iDF
 bvB
@@ -143000,7 +142996,7 @@ rNK
 xkY
 qKz
 qKz
-aqT
+oLU
 oAO
 ivS
 vlh

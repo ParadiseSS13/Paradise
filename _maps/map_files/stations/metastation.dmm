@@ -50201,10 +50201,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
-"gbM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "gbP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -60535,10 +60531,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"ksb" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/fsmaint)
 "ksf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -68168,7 +68160,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "nuP" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint)
@@ -139803,7 +139795,7 @@ rzV
 owM
 wyk
 aLl
-gbM
+wPQ
 avA
 uJn
 aaa
@@ -140319,7 +140311,7 @@ vum
 bre
 aLl
 avA
-ksb
+lKS
 mZb
 bre
 bre
