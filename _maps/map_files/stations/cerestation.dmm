@@ -7595,18 +7595,6 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/cere/medical)
 "aZy" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 32
-	},
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -37253,16 +37241,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "foa" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 32
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -66668,21 +66646,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "nAM" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Command SMES Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/spawner/random/dirt/frequent,
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -95478,9 +95446,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "vyR" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable/orange{
@@ -102008,7 +101973,6 @@
 	},
 /area/station/science/genetics)
 "xmU" = (
-/obj/structure/disposalpipe/segment/corner,
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -105680,11 +105644,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "yll" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10;
-	level = 2
-	},
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
