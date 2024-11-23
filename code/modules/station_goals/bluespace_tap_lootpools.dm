@@ -89,7 +89,7 @@
 	name = "common cultural artifacts"
 	loot = list(
 		/obj/item/grenade/clusterbuster/honk,
-		/obj/item/stack/sheet/mineral/abductor/fifty ,
+		/obj/item/stack/sheet/mineral/abductor/fifty,
 		/obj/item/toy/syndicateballoon,
 		/obj/item/lighter/zippo/gonzofist,
 		/obj/item/lighter/zippo/engraved,
@@ -110,7 +110,9 @@
 		/obj/item/toy/foamblade,
 		/obj/item/toy/redbutton,
 		/obj/item/toy/figure/crew/ce,
-		/obj/item/toy/figure/crew/syndie
+		/obj/item/toy/figure/crew/syndie,
+		/obj/item/stack/sheet/mineral/tranquillite/thirty,
+		/obj/item/stack/sheet/mineral/bananium/thirty
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural_uncommon
@@ -121,10 +123,8 @@
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
 		/obj/item/bedsheet/syndie,
 		/obj/item/bedsheet/wiz,
-		/obj/item/stack/sheet/mineral/tranquillite/fifty,
 		/obj/item/clothing/gloves/combat,
 		/obj/item/blank_tarot_card,
-		/obj/item/tarot_card_pack,
 		/obj/item/storage/box/syndie_kit/space,
 		/obj/item/wrench/brass,
 		/obj/item/crowbar/brass,
@@ -140,8 +140,7 @@
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy,
 		/obj/item/bedsheet/centcom,
-		/obj/item/tarot_card_pack/jumbo,
-		/obj/item/tarot_card_pack/mega,
+		/obj/item/tarot_card_pack,
 		/obj/item/clothing/mask/holo_cigar,
 		/obj/item/melee/baseball_bat/homerun,
 		/obj/item/mod/module/dispenser,
