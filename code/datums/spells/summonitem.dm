@@ -130,12 +130,12 @@
 				N.visible_message("<span class='warning'>As [item_to_retrieve] vanishes, [N] remains behind!</span>")
 				break //If you have 2 nads, well, congrats? Keeps message from doubling up
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_LEFT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_RIGHT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_RIGHT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_LEFT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

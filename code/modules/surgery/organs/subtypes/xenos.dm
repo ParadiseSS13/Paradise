@@ -1,6 +1,6 @@
 /obj/item/organ/internal/alien
 	origin_tech = "biotech=5"
-	icon_state = "xgibmid2"
+	icon_state = null
 	var/list/alien_powers = list()
 	var/list/human_powers = list()
 	tough = TRUE
