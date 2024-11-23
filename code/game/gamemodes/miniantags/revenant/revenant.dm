@@ -1,13 +1,14 @@
 //Revenants: based off of wraiths from Goon
 //"Ghosts" that are invisible and move like ghosts, cannot take damage while invsible
-//Don't hear deadchat and are NOT normal ghosts
+//Wreck havoc with haunting themed abilities
 //Admin-spawn or random event
 
 #define INVISIBILITY_REVENANT 45
 #define REVENANT_NAME_FILE "revenant_names.json"
 
 /mob/living/simple_animal/revenant
-	name = "revenant"
+	name = "revenant" //The name shown on examine
+	real_name = "revenant" //The name shown in dchat
 	desc = "A malevolent spirit."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "revenant_idle"
@@ -120,11 +121,7 @@
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2), intentional = TRUE)
 
-	var/rendered
-	for(var/mob/M in GLOB.mob_list)
-		rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
-		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
-			to_chat(M, rendered)
+	say_dead(message)
 
 /mob/living/simple_animal/revenant/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -148,6 +145,7 @@
 	built_name += pick(strings(REVENANT_NAME_FILE, "adjective"))
 	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
 	name = built_name
+	real_name = built_name
 
 /mob/living/simple_animal/revenant/proc/firstSetupAttempt()
 	if(mind)
