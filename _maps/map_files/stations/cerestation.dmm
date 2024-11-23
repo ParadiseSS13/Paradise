@@ -58066,16 +58066,6 @@
 /area/station/hallway/primary/fore/west)
 "lbU" = (
 /obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/electricshock{
-	pixel_y = 32
-	},
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
@@ -143585,7 +143575,7 @@ cDp
 cDp
 cDp
 cDp
-wCG
+aKp
 xmU
 pqi
 oPw
