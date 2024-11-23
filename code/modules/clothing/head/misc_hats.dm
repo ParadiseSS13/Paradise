@@ -281,7 +281,7 @@
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
@@ -412,6 +412,7 @@
 /obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
 	desc = "A purple beret, with a small golden crescent moon sewn onto it."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 

@@ -82,6 +82,10 @@ jobs:
           cp target/i686-unknown-linux-gnu/release/librustlibs.so ../tools/ci/librustlibs_ci.so
           cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
 
+          # Build the para-specific version
+          RUSTFLAGS='-C target-cpu=raptorlake' cargo build --release --target=i686-pc-windows-gnu
+          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs_prod.dll
+
           git commit -a -m "Build Rust library" --allow-empty
           git push origin
 

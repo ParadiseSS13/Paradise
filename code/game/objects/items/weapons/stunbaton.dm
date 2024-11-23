@@ -6,7 +6,7 @@
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -89,7 +89,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
-	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
+	if(turned_on && (slot == ITEM_SLOT_BELT || slot == ITEM_SLOT_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..()
@@ -313,7 +313,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
@@ -333,6 +333,9 @@
 	name = "electrically-charged arm"
 	desc = "A piece of scrap metal wired directly to your power cell."
 	hitcost = 100
+
+/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
 
 /obj/item/melee/baton/flayerprod
 	name = "stunprod"

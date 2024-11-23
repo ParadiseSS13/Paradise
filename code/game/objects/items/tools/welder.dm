@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welder"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 5
 	throw_speed = 3
@@ -27,7 +27,7 @@
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
 	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
-	var/requires_fuel = TRUE 
+	var/requires_fuel = TRUE
 	/// If TRUE, fuel will regenerate over time.
 	var/refills_over_time = FALSE
 	/// Sound played when turned on.
@@ -154,8 +154,12 @@
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/attack(mob/living/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+	if(cigarette_lighter_act(user, target))
+		return
+	if(tool_enabled && target.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+		log_game("[key_name(user)] set [key_name(target)] on fire")
+	return ..()
 
 /obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
