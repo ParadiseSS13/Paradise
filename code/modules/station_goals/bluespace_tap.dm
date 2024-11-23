@@ -434,11 +434,30 @@
 /obj/machinery/power/bluespace_tap/proc/produce_motherlode()
 	// Announce lootsplosion
 	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
+	// Build location list cache once
+	var/list/possible_spawns = list()
+	var/list/random_spawns = GLOB.nukedisc_respawn
+	// Build list of spawn positions
+	for(var/turf/current_target_turf in view(3, src))
+		possible_spawns.Add(current_target_turf)
+
 	// Spawn lootsplosion
 	for(var/datum/data/bluespace_tap_product/product in product_list)
 		for(var/i in 1 to 5)
-			spawn_item(product, find_spawn_location())
-			spawn_item(product, find_spawn_location(random = TRUE))
+			var/turf/spawn_location = pick_n_take(possible_spawns)
+			if(spawn_location.density)
+				var/list/open_turfs = spawn_location.AdjacentTurfs(open_only = TRUE)
+				if(length(open_turfs))
+					spawn_location = pick(open_turfs)
+			spawn_item(product, spawn_location)
+
+			spawn_location = pick(random_spawns)
+			spawn_location = pick(spawn_location.AdjacentTurfs(open_only = TRUE))
+			if(spawn_location.density)
+				var/list/open_turfs = spawn_location.AdjacentTurfs(open_only = TRUE)
+				if(length(open_turfs))
+					spawn_location = pick(open_turfs)
+			spawn_item(product, spawn_location)
 
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
 	var/list/possible_spawns = list()
