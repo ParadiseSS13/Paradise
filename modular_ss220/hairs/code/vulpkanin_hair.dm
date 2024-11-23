@@ -217,3 +217,8 @@
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
 	name = "Braids"
 	icon_state = "braids"
+
+/datum/sprite_accessory/hair/vulpkanin/long_bedhead
+	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
+	name = "Long Bedhead"
+	icon_state = "long_bedhead"

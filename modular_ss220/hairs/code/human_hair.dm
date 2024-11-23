@@ -693,3 +693,53 @@
 	icon_state = "punk_lying"
 	secondary_theme = "acs"
 	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/halfshave
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Halfshave"
+	icon_state = "halfshave"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/ruby
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Ruby"
+	icon_state = "ruby"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/long_flipped
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Long Flipped"
+	icon_state = "long_flipped"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/himeup
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Hime Big Ponytail"
+	icon_state = "himeup"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/rosemary
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Rosemary"
+	icon_state = "rosemary"
+	secondary_theme = "acs"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/slimetendrils
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Slimetendrils"
+	icon_state = "slimetendrils"
+	species_allowed = list("Slime People")
+
+/datum/sprite_accessory/hair/country
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Country"
+	icon_state = "country"
+	secondary_theme = "acs"
+	species_allowed = list("Human", "Slime People", "Tajaran")
+
+/datum/sprite_accessory/hair/jinx
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Jinx"
+	icon_state = "jinx"
+	species_allowed = list("Human", "Slime People", "Tajaran")
