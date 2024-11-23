@@ -35909,11 +35909,6 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
 "fqw" = (
@@ -43902,14 +43897,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
 "hAi" = (
@@ -49118,9 +49105,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
 "iMq" = (
@@ -53508,7 +53492,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -91395,10 +91378,6 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/structure/cable/orange{
 	d2 = 4;
 	icon_state = "0-4"
