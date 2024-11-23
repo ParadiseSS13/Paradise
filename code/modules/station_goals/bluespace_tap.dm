@@ -480,14 +480,12 @@
 /obj/machinery/power/bluespace_tap/proc/spawn_item(datum/data/bluespace_tap_product/product, turf)
 	if(!product)
 		return
-	var/selected_rarity = pick(1, 10)
-	var/product_path = null
-	if(selected_rarity < 7)
-		product_path = product.product_path_common
-	if(selected_rarity < 10 && selected_rarity > 6)
-		product_path = product.product_path_uncommon
-	if(selected_rarity > 9)
-		product_path = product.product_path_rare
+	var/list/loot_rarities = list(
+		product.product_path_common = 60,
+		product.product_path_uncommon = 30,
+		product.product_path_rare = 10
+	)
+	var/obj/effect/spawner/lootdrop/bluespace_tap/product_path = pickweight(loot_rarities)
 	var/obj/effect/portal/tap_portal = new /obj/effect/portal(turf, null, src, 10)
 	tap_portal.name = "Bluespace Harvester Portal"
 	playsound(src, 'sound/magic/blink.ogg', 50)
