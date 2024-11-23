@@ -6,7 +6,7 @@
 	item_state = "signaler"
 	origin_tech = "bluespace=1"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -17,7 +17,7 @@
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
 
-/obj/item/beacon/Initialize()
+/obj/item/beacon/Initialize(mapload)
 	. = ..()
 	GLOB.beacons |= src
 

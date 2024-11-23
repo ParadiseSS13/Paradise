@@ -587,4 +587,3 @@
 
 #undef POINTS_PER_W
 #undef BASE_POINTS
-ER_W

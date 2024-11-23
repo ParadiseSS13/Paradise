@@ -75,15 +75,16 @@
 	else if(prob(0.5))
 		lay_down()
 
-/mob/living/simple_animal/mouse/New()
-	..()
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+
 	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
+		mouse_color = pick("brown", "gray", "white")
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -205,17 +206,23 @@
 		return FALSE
 	var/datum/mind/blobmind = mind
 	var/client/C = client
+	var/obj/structure/blob/core/core
 	if(istype(blobmind) && istype(C))
-		var/obj/structure/blob/core/core = new(T, C, 3)
+		core = new(T, C, 3)
 		core.lateblobtimer()
 		qdel(blobmind) // Delete the old mind. THe blob will make a new one
 	else
-		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
+		core = new(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
 		var/mob/M = loc
 		M.gib()
 	if(!gibbed)
 		gib()
+
+	if(core)
+		core.admin_spawned = admin_spawned
+
+	SSticker.record_biohazard_start(BIOHAZARD_BLOB)
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")

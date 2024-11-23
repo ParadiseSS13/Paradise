@@ -503,10 +503,6 @@
 	if(!istype(I))
 		return FALSE
 
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
-		F.update_icon()
-
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
@@ -532,6 +528,7 @@
 	if(I.maptext)
 		I.maptext = ""
 	I.on_exit_storage(src)
+	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
 

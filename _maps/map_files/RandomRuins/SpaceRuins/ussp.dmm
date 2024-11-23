@@ -64,16 +64,16 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/bridge)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "ap" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -84,7 +84,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/bridge)
 "ar" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -149,7 +149,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "ay" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
@@ -276,8 +276,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aN" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -298,7 +298,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -732,7 +732,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "bV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bW" = (
@@ -902,7 +902,7 @@
 /obj/structure/rack,
 /obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "ct" = (
@@ -1799,7 +1799,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "eC" = (
 /obj/structure/chair/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eD" = (
@@ -1826,7 +1826,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
@@ -1836,9 +1836,7 @@
 	name = "custom placement";
 	pixel_x = 30
 	},
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eJ" = (
@@ -1997,9 +1995,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/hallway/primary)
 "fb" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fc" = (
@@ -2203,7 +2199,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fx" = (
@@ -2223,7 +2219,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "fz" = (
 /obj/structure/mopbucket,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fA" = (
@@ -2234,14 +2230,12 @@
 	},
 /area/ruin/space/derelict/arrival)
 "fB" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fC" = (
@@ -2253,12 +2247,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fD" = (
-/obj/item/trash/spentcasing,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fE" = (
@@ -2373,27 +2367,13 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"fT" = (
-/obj/machinery/door_control{
-	id = "ruslock";
-	layer = 2.1;
-	name = "suspicious button"
-	},
-/obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
 "fU" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fV" = (
 /obj/structure/chair/stool/bar,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fW" = (
@@ -2536,7 +2516,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "gn" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "go" = (
@@ -2559,7 +2539,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "gr" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gs" = (
@@ -2616,7 +2596,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "gy" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "gz" = (
@@ -2685,7 +2665,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "gH" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
@@ -2711,9 +2691,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gM" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gN" = (
@@ -2752,7 +2730,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "gS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2879,7 +2857,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hi" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
@@ -3007,7 +2985,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hA" = (
@@ -3020,7 +2998,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hB" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -3208,7 +3186,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ia" = (
@@ -3257,7 +3235,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/hallway/primary)
 "ig" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -3306,9 +3284,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "in" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -3353,9 +3329,7 @@
 /area/ruin/space/derelict/arrival)
 "ix" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iy" = (
@@ -3456,7 +3430,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iL" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "iM" = (
@@ -3515,7 +3489,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "iU" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iV" = (
@@ -3563,7 +3537,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "iZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -3644,11 +3618,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 "jl" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	locked = 1;
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -3665,9 +3639,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jo" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jp" = (
@@ -3677,13 +3649,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/arrival)
-"jq" = (
-/obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jr" = (
@@ -3701,7 +3666,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jt" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -3753,7 +3718,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "jz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "jA" = (
@@ -3910,9 +3875,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "jX" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict14"
 	},
@@ -3988,9 +3951,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kf" = (
@@ -4105,7 +4066,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "kp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -4365,7 +4326,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "kN" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict3"
 	},
@@ -4409,9 +4370,7 @@
 /area/ruin/space/derelict/arrival)
 "kU" = (
 /obj/machinery/light/small,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "redblue"
@@ -4536,9 +4495,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "ll" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "lm" = (
@@ -4688,7 +4645,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "lD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/derelict/hallway/primary)
 "lE" = (
@@ -4886,9 +4843,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "mf" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mg" = (
@@ -4909,14 +4864,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mk" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ml" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/airless,
@@ -5010,7 +4965,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mA" = (
@@ -5077,7 +5032,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "mL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "green"
@@ -5370,13 +5325,13 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/derelict/arrival)
 "ny" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5434,8 +5389,8 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nG" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -5480,12 +5435,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/shoes/black,
@@ -5590,7 +5545,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "oa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -5605,14 +5560,14 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "od" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oe" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "of" = (
@@ -5699,7 +5654,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "or" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -5821,14 +5776,14 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "oE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/ruin/space/derelict/arrival)
 "oF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -5905,7 +5860,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "oS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -6066,7 +6021,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
 "pp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
 "pq" = (
@@ -6142,7 +6097,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -6187,14 +6142,14 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/ruin/space/derelict/arrival)
 "pI" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6203,7 +6158,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "pJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "pK" = (
@@ -6332,7 +6287,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -6371,7 +6326,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
@@ -6435,7 +6390,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qp" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qr" = (
@@ -7416,6 +7371,24 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"zc" = (
+/obj/machinery/economy/vending/cigarette/free{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/turf/template_noop,
+/area/template_noop)
+"Bx" = (
+/obj/machinery/door_control{
+	id = "ruslock";
+	layer = 2.1;
+	name = "suspicious button"
+	},
+/obj/machinery/economy/vending/cigarette/free{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
 "Ci" = (
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
@@ -7441,13 +7414,6 @@
 /obj/effect/spawner/airlock,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"NK" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/template_noop,
-/area/template_noop)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -7464,6 +7430,11 @@
 	dir = 9;
 	icon_state = "red"
 	},
+/area/ruin/space/derelict/arrival)
+"Tc" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "XQ" = (
 /obj/structure/chair/wood{
@@ -8728,7 +8699,7 @@ hM
 ia
 iz
 iV
-jq
+Tc
 jZ
 kS
 lx
@@ -13042,7 +13013,7 @@ ek
 eD
 fb
 eD
-fT
+Bx
 bm
 dH
 aV
@@ -13966,7 +13937,7 @@ ac
 ac
 ac
 ac
-ac
+zc
 ac
 ac
 ac
@@ -14052,7 +14023,7 @@ ac
 ac
 ac
 ac
-NK
+ac
 ac
 ac
 ac

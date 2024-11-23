@@ -86,9 +86,13 @@ nav:
       - 'Mapping Quickstart': './mapping/quickstart.md'
       - 'Mapping Requirements': './mapping/requirements.md'
       - 'Design Guidelines': './mapping/design.md'
+      - 'Guide to Submaps': './mapping/submaps.md'
+      - 'Spawn Pools': './mapping/spawn_pools.md'
 
   - 'References':
       - 'Glossary': './references/glossary.md'
       - 'Autodoc Guide': './references/autodoc.md'
+      - 'Bitflags': './references/bitflags.md'
+      - 'Advanced Bitflags': './references/adv_bitflags.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'

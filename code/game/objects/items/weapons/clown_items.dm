@@ -23,7 +23,7 @@
 	throw_range = 15
 	attack_verb = list("HONKED")
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
@@ -72,7 +72,7 @@
 	icon_state = "clown_recorder"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
 	throwforce = 0

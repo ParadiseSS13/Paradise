@@ -74,6 +74,14 @@
 
 #define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
 
+#define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
+
+#define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
+
+#define STATUS_EFFECT_TERMINATOR_FORM /datum/status_effect/terminator_form
+
+#define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -129,6 +137,10 @@
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
+
+#define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
+
+#define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
