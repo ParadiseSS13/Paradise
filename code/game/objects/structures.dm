@@ -106,7 +106,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 	climbers -= user
-	UnregisterSignal(climber, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 
 /obj/structure/proc/remove_climber(mob/living/climber)
 	SIGNAL_HANDLER
