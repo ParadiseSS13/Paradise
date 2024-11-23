@@ -60799,7 +60799,7 @@
 	},
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/toy/figure/crew/captain,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
@@ -82606,7 +82606,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
