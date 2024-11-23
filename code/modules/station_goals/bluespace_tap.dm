@@ -446,10 +446,8 @@
 	// Spawn lootsplosion
 	for(var/datum/data/bluespace_tap_product/product in product_list)
 		for(var/i in 1 to 5)
-			var/spawn_location = find_spawn_location()
-			spawn_item(product, spawn_location)
-			spawn_location = find_spawn_location(TRUE)
-			spawn_item(product, spawn_location)
+			spawn_item(product, find_spawn_location()) 
+			spawn_item(product, find_spawn_location(random = TRUE))
 
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
 	var/list/possible_spawns = list()
