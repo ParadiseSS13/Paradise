@@ -57,7 +57,7 @@
 			continue
 		var/teamwin = 1
 		to_send += "<br><b>Стая [name]</b>"
-		for(var/datum/objective/objective in objective_holder.objectives)
+		for(var/datum/objective/objective in objective_holder.get_objectives())
 			if(!objective.check_completion())
 				teamwin = 0
 		if(teamwin)
