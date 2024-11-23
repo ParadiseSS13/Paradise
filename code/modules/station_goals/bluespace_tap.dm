@@ -482,15 +482,15 @@
 	if(!prob((mining_power / (10 MW)) + (emagged * 5)))// Calculate prob of event based on mining power. Return if no event.
 		return
 	var/static/list/event_list = list(
-		/datum/bluespace_tap_event/dirty,
-		/datum/bluespace_tap_event/electric_arc,
-		/datum/bluespace_tap_event/radiation,
-		/datum/bluespace_tap_event/gas
+		/datum/engi_event/bluespace_tap_event/dirty,
+		/datum/engi_event/bluespace_tap_event/electric_arc,
+		/datum/engi_event/bluespace_tap_event/radiation,
+		/datum/engi_event/bluespace_tap_event/gas
 	)
-	var/datum/bluespace_tap_event/event = pick(event_list)
+	var/datum/engi_event/bluespace_tap_event/event = pick(event_list)
 	run_event(event)
 
-/obj/machinery/power/bluespace_tap/proc/run_event(datum/bluespace_tap_event/event) // mostly admin testing and stuff
+/obj/machinery/power/bluespace_tap/proc/run_event(datum/engi_event/bluespace_tap_event/event) // mostly admin testing and stuff
 	if(ispath(event))
 		event = new event(src)
 	if(!istype(event))

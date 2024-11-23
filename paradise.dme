@@ -2612,6 +2612,7 @@
 #include "code\modules\power\engines\singularity\particle_accelerator\particle_control.dm"
 #include "code\modules\power\engines\singularity\particle_accelerator\particle_emitter.dm"
 #include "code\modules\power\engines\singularity\particle_accelerator\particle_power.dm"
+#include "code\modules\power\engines\supermatter\engineering_event.dm"
 #include "code\modules\power\engines\supermatter\supermatter.dm"
 #include "code\modules\power\engines\supermatter\supermatter_event.dm"
 #include "code\modules\power\engines\tesla\coil.dm"

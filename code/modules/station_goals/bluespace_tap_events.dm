@@ -1,12 +1,9 @@
-/datum/bluespace_tap_event
-	var/name = "Unknown Anomaly (Report this to coders)"
+/datum/engi_event/bluespace_tap_event
+	name = "Unknown Anomaly (Report this to coders)"
 	var/obj/machinery/power/bluespace_tap/tap
-	/// Probability of the event not running, higher tiers being rarer
-	var/threat_level
-	var/duration
 	var/turf/tap_turf
 
-/datum/bluespace_tap_event/New(obj/machinery/power/bluespace_tap/_tap)
+/datum/engi_event/bluespace_tap_event/New(obj/machinery/power/bluespace_tap/_tap)
 	. = ..()
 	tap = _tap
 	tap_turf = get_turf(tap)
@@ -17,25 +14,18 @@
 		stack_trace("a /datum/bluespace_tap_event was called with (name: [tap], type: [tap.type]) instead of a bluespace tap!")
 		return
 
-/datum/bluespace_tap_event/proc/start_event()
-	on_start()
-	alert_engi()
+/datum/engi_event/bluespace_tap_event/start_event()
 	tap.investigate_log("event [src] has been triggered", "bluespace_tap")
-
-/datum/bluespace_tap_event/proc/on_start()
-	return
-
-/datum/bluespace_tap_event/proc/alert_engi()
-	return
+	. = ..()
 
 // gas events
-/datum/bluespace_tap_event/gas
+/datum/engi_event/bluespace_tap_event/gas
 	name = "Gas Event"
 
-/datum/bluespace_tap_event/gas/alert_engi()
+/datum/engi_event/bluespace_tap_event/gas/alert_engi()
 	tap.radio.autosay("Bluespace harvester has released a class [src] gas pocket!", tap, "Engineering")
 
-/datum/bluespace_tap_event/gas/on_start()
+/datum/engi_event/bluespace_tap_event/gas/on_start()
 	var/datum/gas_mixture/air = new()
 	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown")
 	switch(picked_gas)
@@ -62,13 +52,13 @@
 	tap_turf.blind_release_air(air)
 
 // dirty
-/datum/bluespace_tap_event/dirty
+/datum/engi_event/bluespace_tap_event/dirty
 	name = "F-1"
 
-/datum/bluespace_tap_event/dirty/alert_engi()
+/datum/engi_event/bluespace_tap_event/dirty/alert_engi()
 	tap.radio.autosay("Bluespace harvester has struck a congealed mass of filth!", tap, "Engineering")
 
-/datum/bluespace_tap_event/dirty/on_start()
+/datum/engi_event/bluespace_tap_event/dirty/on_start()
 	tap.dirty = TRUE
 	var/list/gunk = list("carbon","flour","blood")
 	var/datum/reagents/R = new/datum/reagents(50)
@@ -82,23 +72,23 @@
 	qdel(R)
 
 // radiation pulse
-/datum/bluespace_tap_event/radiation
+/datum/engi_event/bluespace_tap_event/radiation
 	name = "R-1"
 
-/datum/bluespace_tap_event/radiation/alert_engi()
+/datum/engi_event/bluespace_tap_event/radiation/alert_engi()
 	tap.radio.autosay("Bluespace harvester has released a spike of radiation!", tap, "Engineering")
 
-/datum/bluespace_tap_event/radiation/on_start()
+/datum/engi_event/bluespace_tap_event/radiation/on_start()
 	radiation_pulse(tap, 3000, 7)
 
 // electrical arc
-/datum/bluespace_tap_event/electric_arc
+/datum/engi_event/bluespace_tap_event/electric_arc
 	name = "E-1"
 
-/datum/bluespace_tap_event/electric_arc/alert_engi()
+/datum/engi_event/bluespace_tap_event/electric_arc/alert_engi()
 	tap.radio.autosay("Class [src] power spike detected in bluespace harvester operation!", tap, "Engineering")
 
-/datum/bluespace_tap_event/electric_arc/on_start()
+/datum/engi_event/bluespace_tap_event/electric_arc/on_start()
 	var/shock_type = pick("single", "mass")
 	switch(shock_type)
 		if("single")
