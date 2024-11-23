@@ -657,7 +657,7 @@ maximum_zlevels = 4
 # Minimum space ruin budget.
 space_ruin_budget_min = 750
 # Maximum space ruin budget.
-space_ruin_budget_max = 1200
+space_ruin_budget_max = 1000
 
 # Minimum lavaland ruin budget.
 lavaland_ruin_budget_min = 175

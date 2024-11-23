@@ -15,7 +15,7 @@
 	/// Minimum budget for space ruins
 	var/space_ruin_budget_min = 750
 	/// Maximum budget for space ruins
-	var/space_ruin_budget_max = 1200
+	var/space_ruin_budget_max = 1000
 	/// Minimum budget for lavaland ruins
 	var/lavaland_ruin_budget_min = 175
 	/// Maximum budget for lavaland ruins
