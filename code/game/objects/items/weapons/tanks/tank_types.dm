@@ -18,7 +18,6 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
 	dog_fashion = /datum/dog_fashion/back
-	volume = 25
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
@@ -109,7 +108,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	force = 5
-	volume = 18
+	volume = 18 // Lasts 1h 16m 30s
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
@@ -139,7 +138,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-	volume = 1 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
+	volume = 1 // Roughly 4m 15s of air
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
 	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -150,7 +149,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
-	volume = 3 // should last 24 minutes if full
+	volume = 3 // Lasts 12m 45s
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
@@ -159,12 +158,12 @@
 	name = "suspicious emergency oxygen tank"
 	icon_state = "emergency_syndi"
 	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
-	volume = 10
+	volume = 11 // Lasts 46m 45s
 
 /obj/item/tank/internals/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
-	volume = 6 //If it's double of the above, shouldn't it be double the volume??
+	volume = 6 // Lasts 25m 30s
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
@@ -192,7 +191,7 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	volume = 18
+	volume = 18 // Lasts 1h 16m 30s
 
 /obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
 	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
