@@ -175,7 +175,7 @@ const SupermatterMonitorDataView = (props, context) => {
                 {gases.map((gas) => (
                   <LabeledList.Item key={gas.name} label={getGasLabel(gas.name)}>
                     <ProgressBar color={getGasColor(gas.name)} value={gas.portion} minValue={0} maxValue={gasMaxAmount}>
-                      {toFixed(gas.amount) + ' mol (' + toFixed(gas.portion, 2) + '%)'}
+                      {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
                     </ProgressBar>
                   </LabeledList.Item>
                 ))}
