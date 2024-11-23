@@ -179,7 +179,7 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
-/obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+/obj/machinery/power/bluespace_tap/post_clean()
 	. = ..()
 	dirty = FALSE
 
