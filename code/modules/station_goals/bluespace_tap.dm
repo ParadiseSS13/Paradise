@@ -105,9 +105,6 @@
 		20000)
 	)
 
-	/// list of possible events
-	var/static/event_list
-
 	/// The amount of power being used for mining at the moment (Watts)
 	var/mining_power = 0
 	/// The power you WANT the machine to use for mining. It will try to match this. (Watts)
@@ -168,12 +165,6 @@
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
-	event_list = list(
-		new /datum/bluespace_tap_event/dirty(src),
-		new /datum/bluespace_tap_event/electric_arc(src),
-		new /datum/bluespace_tap_event/radiation(src),
-		new /datum/bluespace_tap_event/gas(src)
-	)
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
@@ -321,17 +312,17 @@
 	// Handle automatic spawning of loot. Extra loot spawns in maints if stabilizers are off to incentivise risk taking
 	if(total_points > clothing_interval)
 		produce(product_list[1], FALSE, !stabilizers)
-		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some clothes!</b>", name, "Engineering")
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced unknown clothes!</b>", name, "Engineering")
 		clothing_interval += 7500
 
 	if(total_points > food_interval)
 		produce(product_list[2], FALSE, !stabilizers)
-		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced some food!</b>", name, "Engineering")
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced unknown food!</b>", name, "Engineering")
 		food_interval += 10000
 
 	if(total_points > cultural_interval)
 		produce(product_list[3], FALSE, !stabilizers)
-		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something with culture!</b>", name, "Engineering")
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something unknown with cultural value!</b>", name, "Engineering")
 		cultural_interval += 15000
 
 	if(total_points > organic_interval)
@@ -446,7 +437,7 @@
 	// Spawn lootsplosion
 	for(var/datum/data/bluespace_tap_product/product in product_list)
 		for(var/i in 1 to 5)
-			spawn_item(product, find_spawn_location()) 
+			spawn_item(product, find_spawn_location())
 			spawn_item(product, find_spawn_location(random = TRUE))
 
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
@@ -490,6 +481,12 @@
 		return
 	if(!prob((mining_power / (10 MW)) + (emagged * 5)))// Calculate prob of event based on mining power. Return if no event.
 		return
+	var/static/list/event_list = list(
+		/datum/bluespace_tap_event/dirty,
+		/datum/bluespace_tap_event/electric_arc,
+		/datum/bluespace_tap_event/radiation,
+		/datum/bluespace_tap_event/gas
+	)
 	var/datum/bluespace_tap_event/event = pick(event_list)
 	run_event(event)
 
