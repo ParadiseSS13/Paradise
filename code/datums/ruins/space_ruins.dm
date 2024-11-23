@@ -1,4 +1,3 @@
-//The bigger ones lag like hell if there is more than one on a z-level, so cost 2 for them
 /datum/map_template/ruin/space
 	prefix = "_maps/map_files/RandomRuins/SpaceRuins/"
 	ci_exclude = /datum/map_template/ruin/space
