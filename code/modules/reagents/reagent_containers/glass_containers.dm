@@ -6,8 +6,6 @@
 	var/base_name = " "
 	desc = " "
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
-	item_state = "null"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
@@ -149,23 +147,21 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 79)
-				filling.icon_state = "[icon_state]75"
-			if(80 to 90)
+			if(1 to 19)
+				filling.icon_state = "[icon_state]1"
+			if(20 to 39)
+				filling.icon_state = "[icon_state]20"
+			if(40 to 59)
+				filling.icon_state = "[icon_state]40"
+			if(60 to 79)
+				filling.icon_state = "[icon_state]60"
+			if(80 to 99)
 				filling.icon_state = "[icon_state]80"
-			if(91 to INFINITY)
+			if(100 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
@@ -309,7 +305,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -330,7 +326,7 @@
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_HUD_HEAD && reagents.total_volume)
+	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
 		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()

@@ -101,6 +101,7 @@ SUBSYSTEM_DEF(atoms)
 	else if(!A.initialized)
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
+		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 		var/atom/location = A.loc
 		if(location)
 			SEND_SIGNAL(location, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, A, arguments[1])

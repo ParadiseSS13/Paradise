@@ -75,15 +75,16 @@
 	else if(prob(0.5))
 		lay_down()
 
-/mob/living/simple_animal/mouse/New()
-	..()
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+
 	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
+		mouse_color = pick("brown", "gray", "white")
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()

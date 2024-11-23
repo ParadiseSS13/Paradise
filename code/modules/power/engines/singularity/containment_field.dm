@@ -19,8 +19,10 @@
 	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /obj/machinery/field/containment/Destroy()
-	FG1.fields -= src
-	FG2.fields -= src
+	if(FG1)// These checks are mostly in case a field is spawned in by accident.
+		FG1.fields -= src
+	if(FG2)
+		FG2.fields -= src
 	return ..()
 
 /obj/machinery/field/containment/attack_hand(mob/user)
@@ -54,7 +56,7 @@
 		return
 	if(ismegafauna(M))
 		M.visible_message("<span class='warning'>[M] glows fiercely as the containment field flickers out!</span>")
-		FG1.calc_power(INFINITY) //rip that 'containment' field
+		FG1.calc_energy(INFINITY) //rip that 'containment' field
 		M.adjustHealth(-M.obj_damage)
 	else
 		..()
