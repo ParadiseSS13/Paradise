@@ -401,7 +401,7 @@
 					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You add the health sensor to [src].</span>")
-					update_appearance(UPDATE_NAME)
+					update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 			if(1)
 				if(isprox(I))

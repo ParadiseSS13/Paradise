@@ -1,8 +1,8 @@
-/datum/component/decal/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha)
+/datum/element/decal/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
 	. = ..()
 	if(!.)
 		return
-	var/atom/master = parent
+	var/atom/master = source
 	if(master::color && _color)
 		pic.appearance_flags |= RESET_COLOR
 
