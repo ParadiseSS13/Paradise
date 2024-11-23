@@ -59781,7 +59781,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/table_frame,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -91285,6 +91285,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"tlz" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "tlJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -98274,6 +98278,10 @@
 	icon_state = "cafeteria"
 	},
 /area/station/command/office/rd)
+"uSC" = (
+/obj/machinery/economy/vending/sustenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "uSE" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -120427,7 +120435,7 @@ tHr
 gbb
 xJa
 abW
-abW
+xJa
 xJa
 xJa
 mSh
@@ -120685,8 +120693,8 @@ tGc
 pBR
 yhW
 xJa
-xJa
-mSh
+uSC
+gbb
 yhW
 oma
 qPK
@@ -143532,7 +143540,7 @@ rNK
 rNK
 cRv
 cRv
-abW
+pls
 pls
 miS
 xdj
@@ -143790,7 +143798,7 @@ cRv
 cRv
 cDp
 cDp
-cDp
+tlz
 ofT
 gKc
 vpg
