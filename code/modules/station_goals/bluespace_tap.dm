@@ -105,6 +105,9 @@
 		20000)
 	)
 
+	/// list of possible events
+	var/static/event_list
+
 	/// The amount of power being used for mining at the moment (Watts)
 	var/mining_power = 0
 	/// The power you WANT the machine to use for mining. It will try to match this. (Watts)
@@ -116,13 +119,13 @@
 	/// The total points earned by this machine so far, for tracking station goal and highscore
 	var/total_points = 0
 	/// The point interval where the machine will automatically spawn a clothing item
-	var/clothing_interval = 5000
+	var/clothing_interval = 7500
 	/// The point interval where the machine will automatically spawn a food item
-	var/food_interval = 6000
+	var/food_interval = 10000
 	/// The point interval where the machine will automatically spawn a cultural item
-	var/cultural_interval = 10000
+	var/cultural_interval = 15000
 	/// The point interval where the machine will automatically spawn an organic item
-	var/organic_interval = 15000
+	var/organic_interval = 20000
 	/// The point interval where the machine will strike a motherlode
 	var/motherlode_interval = 45000
 	/// How much power the machine needs per processing tick at the current level.
@@ -147,10 +150,6 @@
 	var/spawning = 0
 	/// When a filth event triggers, this will stop the operation until it is cleaned
 	var/dirty = FALSE
-	/// When a chemical event triggers, this will stop operation until the chemical is fed to the machine
-	var/chemical_block = FALSE
-	/// When a chemical event triggers, this will contain the needed chemical to start progress again
-	var/chemical_needed = "Water"
 	/// Internal radio to handle announcements over engineering
 	var/obj/item/radio/radio
 
@@ -169,6 +168,19 @@
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
+	event_list = list(
+		new /datum/bluespace_tap_event/dirty(src),
+		new /datum/bluespace_tap_event/electric_arc(src),
+		new /datum/bluespace_tap_event/electric_arc/mass(src),
+		new /datum/bluespace_tap_event/radiation(src),
+		new /datum/bluespace_tap_event/gas/nitrogen(src),
+		new /datum/bluespace_tap_event/gas/carbon_dioxide(src),
+		new /datum/bluespace_tap_event/gas/oxygen(src),
+		new /datum/bluespace_tap_event/gas/plasma(src),
+		new /datum/bluespace_tap_event/gas/agent_b(src),
+		new /datum/bluespace_tap_event/gas/sleeping_gas(src)
+	)
+
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
@@ -207,7 +219,10 @@
 		set_light(1, 1, "#353535")
 
 	if(get_available_power())
-		. += "screen"
+		if(dirty)
+			. += "screen_dirty"
+		else
+			. += "screen"
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
 
@@ -309,10 +324,6 @@
 		points += mined_points
 		total_points += mined_points
 		update_icon()
-		// Machine gets dirty. Always remains at 2% regardless of power draw.
-		if(prob(2))
-			radio.autosay("<b>Bluespace harvester malfunction detected: filth contaminants have jammed [src]'s bluespace receiver!</b>", name, "Engineering")
-			dirty = TRUE
 
 	// Handle automatic spawning of loot. Extra loot spawns in maints if stabilizers are off to incentivise risk taking
 	if(total_points > clothing_interval)
@@ -357,6 +368,7 @@
 			desired_mining_power = 0	//emergency shutdown unless it is disabled
 		// An extra portal for each 30MW above 15
 		start_nether_portaling(rand(1 , 3) + round(max((mining_power - 15 MW) / (30 MW) , 0)), TRUE)
+	try_events()
 
 /obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount, new_incursion = FALSE)
 	if(new_incursion)
@@ -481,6 +493,22 @@
 	new product_path(turf)
 	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 	log_game("Bluespace harvester product spawned at [turf]")
+
+/obj/machinery/power/bluespace_tap/proc/try_events()
+	if(!mining_power)
+		return
+	if(!prob((mining_power / (10 MW)) + (emagged * 5)))// Calculate prob of event based on mining power. Return if no event.
+		return
+	var/datum/bluespace_tap_event/event = pick(event_list)
+	run_event(event)
+
+/obj/machinery/power/bluespace_tap/proc/run_event(datum/bluespace_tap_event/event) // mostly admin testing and stuff
+	if(ispath(event))
+		event = new event(src)
+	if(!istype(event))
+		log_debug("Attempted bluespace tap event aborted due to incorrect path. Incorrect path type: [event.type].")
+		return
+	event.start_event()
 
 //UI stuff below
 

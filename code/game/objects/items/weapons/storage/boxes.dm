@@ -1028,7 +1028,7 @@
 	desc = "A paper sack filled with enough sandwiches to feed a department."
 
 /obj/item/storage/box/papersack/pbj_lunch/populate_contents()
-	for(i in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/food/peanut_butter_jelly(src)
 
 /obj/item/storage/box/relay_kit
