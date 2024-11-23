@@ -18,7 +18,7 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/structure/sign/vacuum/external{
 	pixel_x = -30
 	},
@@ -391,7 +391,7 @@
 	},
 /area/ruin/space/syndicate_listening_station/asteroid)
 "BG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
 "Cw" = (
@@ -646,7 +646,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/syndicate_listening_station)
 "UC" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/machinery/power/smes/upgraded{
 	charge = 5e+006;
 	input_level = 20000;
