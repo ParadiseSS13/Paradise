@@ -17132,9 +17132,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "djZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/spawner/random/oil/maybe,
 /obj/structure/cable{
 	d1 = 4;
@@ -17146,13 +17143,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/oil/maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
