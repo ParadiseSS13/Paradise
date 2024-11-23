@@ -433,7 +433,7 @@
 /// Handles a motherlode - each product is spawned 5 times at both the machine and around the station
 /obj/machinery/power/bluespace_tap/proc/produce_motherlode()
 	// Announce lootsplosion
-	GLOB.major_announcement.Announce("Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.", "Bluespace Harvester Motherlode", 'sound/AI/attention.ogg')
+	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
 	// Spawn lootsplosion
 	for(var/datum/data/bluespace_tap_product/product in product_list)
 		for(var/i in 1 to 5)
