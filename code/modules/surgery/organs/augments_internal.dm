@@ -772,7 +772,7 @@
 		var/mob/living/carbon/human/H = owner
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(10, TRUE)
-		H.blood_volume *= 0.8
+		H.blood_volume *= 0.85
 	revive_cost += 10 MINUTES // Additional 10 minutes cooldown after revival.
 	owner.SetLoseBreath(0) //Reset the heart attack losebreath of hell
 	owner.set_heartattack(FALSE)
