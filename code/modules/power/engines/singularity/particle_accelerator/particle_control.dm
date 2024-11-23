@@ -278,9 +278,9 @@
 	data["power"] = active
 	data["strength"] = strength
 	data["max_strength"] = strength_upper_limit
-	data["layout_1"] = ui_col_1
+	data["layout_1"] = (dir == NORTH || dir == EAST) ? ui_col_1 : ui_col_3
 	data["layout_2"] = ui_col_2
-	data["layout_3"] = ui_col_3
+	data["layout_3"] = (dir == NORTH || dir == EAST) ? ui_col_3 : ui_col_1
 	data["orientation"] = dir_text ? dir_text : FALSE
 	data["icon"] = icon
 	return data
