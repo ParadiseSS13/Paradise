@@ -299,8 +299,9 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#a0a080"
+	brightness_color = "#ffebb0"
 	nightshift_light_range = 4
+	nightshift_light_color = "#ffce3d"
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -763,7 +764,7 @@
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour)
+	set_light(2, 1, bulb_emergency_colour)
 	update_icon()
 	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
