@@ -8,7 +8,7 @@
 "ci" = (
 /obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cx" = (
@@ -75,14 +75,14 @@
 /area/ruin/space/powered)
 "gP" = (
 /obj/structure/table/wood,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "hB" = (
@@ -243,7 +243,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cq" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Cw" = (

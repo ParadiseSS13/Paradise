@@ -3,11 +3,11 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "cf" = (
-/obj/effect/spawner/random/oil/often,
+/obj/effect/spawner/random_spawners/oil_often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "cA" = (
@@ -144,7 +144,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "sm" = (
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
@@ -176,7 +176,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "vz" = (
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -308,7 +308,7 @@
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Kd" = (
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "KX" = (
@@ -355,7 +355,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "Ro" = (
@@ -371,7 +371,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "Vd" = (
-/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "VD" = (

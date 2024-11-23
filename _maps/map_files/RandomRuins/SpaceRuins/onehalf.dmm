@@ -162,7 +162,7 @@
 /area/ruin/space/onehalf/hallway)
 "ay" = (
 /obj/structure/table_frame,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "az" = (
@@ -226,7 +226,7 @@
 /turf/template_noop,
 /area/ruin/space/onehalf/hallway)
 "aI" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aJ" = (
@@ -352,12 +352,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aU" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "aV" = (
@@ -423,7 +423,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "be" = (
@@ -445,7 +445,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bg" = (
@@ -462,7 +462,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bh" = (
@@ -480,7 +480,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bj" = (
@@ -585,14 +585,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bw" = (
@@ -606,7 +606,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "by" = (
@@ -618,7 +618,7 @@
 /area/ruin/space/onehalf/drone_bay)
 "bz" = (
 /obj/structure/closet/emcloset,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bA" = (
@@ -675,12 +675,12 @@
 /area/ruin/space/onehalf/hallway)
 "bK" = (
 /obj/machinery/economy/vending/coffee,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bL" = (
 /obj/machinery/economy/vending/snack,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bN" = (
@@ -700,7 +700,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bR" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bS" = (
@@ -717,7 +717,7 @@
 "bV" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bX" = (
@@ -728,12 +728,12 @@
 	dir = 1
 	},
 /obj/item/shard,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ca" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "cb" = (
@@ -794,7 +794,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ck" = (
@@ -802,7 +802,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cl" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cm" = (
@@ -919,7 +919,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "cA" = (

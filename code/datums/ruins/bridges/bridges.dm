@@ -148,7 +148,7 @@
 		if(LONG_BRIDGE_THEME_WOOD)
 			T.ChangeTurf(/turf/simulated/floor/wood/lavaland_air)
 			if(prob(20))
-				new /obj/effect/mapping_helpers/turfs/damage(T)
+				new /obj/effect/landmark/damageturf(T)
 		if(LONG_BRIDGE_THEME_CATWALK)
 			new /obj/structure/lattice/catwalk/mining(T)
 

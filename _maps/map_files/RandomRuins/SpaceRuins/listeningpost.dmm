@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "at" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
 "aW" = (
@@ -387,7 +387,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal,
-/obj/effect/spawner/random/cobweb/right/rare,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)

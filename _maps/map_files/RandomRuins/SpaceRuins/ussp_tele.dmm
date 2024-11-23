@@ -14,7 +14,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "dj" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ds" = (
@@ -79,7 +79,7 @@
 /area/space/nearstation)
 "ic" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/landmark/burnturf,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -141,7 +141,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "mY" = (
-/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -167,7 +167,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/landmark/burnturf,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -204,7 +204,7 @@
 /area/ruin/space/derelict/teleporter)
 "pZ" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -331,7 +331,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "Av" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Dp" = (
@@ -350,19 +350,19 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "FQ" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HC" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HL" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Io" = (
@@ -399,7 +399,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -412,7 +412,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "Vu" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -435,7 +435,7 @@
 /area/ruin/space/derelict/teleporter)
 "Wu" = (
 /obj/effect/spawner/window/shuttle,
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Zl" = (
@@ -451,7 +451,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/teleporter)
 "ZN" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},

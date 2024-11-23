@@ -2353,7 +2353,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "ip" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "iq" = (
@@ -6220,7 +6220,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vh" = (
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "vj" = (

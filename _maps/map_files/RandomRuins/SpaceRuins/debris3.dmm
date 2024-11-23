@@ -11,7 +11,7 @@
 /turf/space,
 /area/template_noop)
 "d" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/space,
 /area/template_noop)
 "e" = (
