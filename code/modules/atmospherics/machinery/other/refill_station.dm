@@ -24,14 +24,13 @@
 /obj/machinery/atmospherics/portable/pump/refill_station/update_icon_state()
 	icon_state = "psiphon:[on]"
 
-/obj/machinery/atmospherics/portable/pump/refill_station/update_overlays()
-	PROTECTED_PROC(TRUE)
-	return list()
-
 /obj/machinery/atmospherics/portable/pump/refill_station/process_atmos()
 	..()
-	var/datum/milla_safe/refill_station/milla = new()
+	var/datum/milla_safe/refill_station_process/milla = new()
 	milla.invoke_async(src)
+
+/obj/machinery/atmospherics/portable/pump/refill_station/wrench_act(mob/user, obj/item/I)
+	return
 
 /datum/milla_safe/refill_station_process
 
@@ -85,8 +84,7 @@
 				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
 				return
 			on = !on
-			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
 			update_icon()
 			return TRUE
 
