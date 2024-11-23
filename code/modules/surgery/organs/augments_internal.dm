@@ -672,6 +672,8 @@
 	var/revive_cost = 0 SECONDS
 	/// Are we in the progress of healing the user?
 	var/reviving = FALSE
+	/// Have we defibed someone this heal period? If so, do not heal past crit without an upgraded heart, as it is low on juice.
+	var/has_defibed = FALSE
 	/// How long we are on cooldown for
 	COOLDOWN_DECLARE(reviver_cooldown)
 	/// How long till we can try to defib again
@@ -705,11 +707,15 @@
 	if(owner.health <= 0 || owner.stat == DEAD)
 		revive_cost = 0
 		reviving = TRUE
+		has_defibed = FALSE
 		to_chat(owner, "<span class='notice'>You feel a faint buzzing as your reviver implant starts patching your wounds...</span>")
 		COOLDOWN_START(src, defib_cooldown, 8 SECONDS) // 5 seconds after heal proc delay
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
+		return
+	// This is not on defib check so it doesnt revive IPCs either in a demon.
+	if(HAS_TRAIT(owner, TRAIT_UNREVIVABLE))
 		return
 	if(COOLDOWN_FINISHED(src, defib_cooldown))
 		revive_dead()
@@ -775,6 +781,7 @@
 	owner.Paralyse(10 SECONDS)
 	owner.emote("gasp")
 	owner.Jitter(20 SECONDS)
+	has_defibed = TRUE
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
 	add_attack_logs(owner, owner, "Revived with [src]")
 
@@ -801,7 +808,9 @@
 		var/mob/living/carbon/human/H = owner
 		var/heal_threshold = 0
 		var/obj/item/organ/internal/heart/cybernetic/upgraded/U = H.get_int_organ(/obj/item/organ/internal/heart/cybernetic/upgraded)
-		if(U) //The heart assists in healing, and will heal you out of shock.
+		if(U) // The heart assists in healing, and will heal you out of shock.
+			heal_threshold = 25
+		if(!has_defibed) // Not low on power, can heal you out of shock.
 			heal_threshold = 25
 		if(H.health > heal_threshold)
 			return TRUE
