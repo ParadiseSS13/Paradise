@@ -11,9 +11,11 @@
 /obj/machinery/light/small
 	icon = 'icons/obj/lighting.dmi'
 	layer = ABOVE_MOB_LAYER
+	brightness_color = "#FFF780"
 
 /obj/machinery/light/floor
 	icon = 'icons/obj/lighting.dmi'
+	brightness_color = "#FFF780"
 
 /obj/machinery/light/clockwork
 	icon = 'icons/obj/lighting.dmi'
