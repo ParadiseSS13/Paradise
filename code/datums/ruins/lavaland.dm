@@ -56,7 +56,7 @@
 /datum/map_template/ruin/lavaland/althland_excavation
 	name = "Althland Excavation"
 	id = "althland-excavation"
-	description = "An abandoned mining pit, once operated by the late Althland Mining Corporation, stands as a testament to the extensive efforts of numerous labor groups who endeavored to exploit the ore-rich depths of the planet.  \
+	description = "An abandoned mining pit, once operated by the late Althland Mining Corporation, stands as a testament to the extensive efforts of numerous labor groups who endeavored to exploit the ore-rich depths of the planet. \
 	Now, it lies abandoned, wholly reclaimed by the hostile environment, transforming into yet another relic of a lost company."
 	suffix = "lavaland_surface_althland_excavation.dmm"
 	allow_duplicates = FALSE

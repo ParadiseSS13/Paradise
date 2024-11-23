@@ -74,7 +74,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	name = "marker beacon"
 	desc = "A Prism-brand path illumination device. It is anchored in place and glowing steadily."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "marker"
+	icon_state = "markerrandom"
+	base_icon_state = "marker"
 	layer = BELOW_OPEN_DOOR_LAYER
 	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
@@ -104,7 +105,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/structure/marker_beacon/update_icon_state()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
 		picked_color = pick(GLOB.marker_beacon_colors)
-	icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
+	icon_state = "[base_icon_state][lowertext(picked_color)]-on"
 	set_light(light_range, light_power, GLOB.marker_beacon_colors[picked_color])
 
 /obj/structure/marker_beacon/attack_hand(mob/living/user)
@@ -150,6 +151,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	name = "docking beacon"
 	desc = "An illumination device used to designate docking ports. It is anchored in place and pulsing steadily."
 	icon_state = "dockingmarker"
+	base_icon_state = "dockingmarker"
 	flags = NODECONSTRUCT
 
 /obj/structure/marker_beacon/dock_marker/update_icon_state()
