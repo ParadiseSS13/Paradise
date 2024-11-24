@@ -126,7 +126,7 @@
 		T.layer = PLATING_LAYER
 		T.clear_filters()
 
-	. = ..()
+	return ..()
 
 /obj/structure/bridge_walkway/cult
 	icon_state = "cult"
