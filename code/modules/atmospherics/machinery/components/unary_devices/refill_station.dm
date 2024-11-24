@@ -1,40 +1,82 @@
 /// The maximum `target_pressure` you can set on the pump. Equates to about 1013.25 kPa.
 #define MAX_TARGET_PRESSURE 10 * ONE_ATMOSPHERE
 
-/obj/machinery/atmospherics/portable/pump/refill_station
-	name = "refill station"
+/obj/machinery/atmospherics/unary/refill_station
+	name = "oxygen refill station"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
 	anchored = TRUE
 	density = FALSE
-	volume = 50
-	/// The desired pressure the pump should be outputting into a holding tank.
-	target_pressure = 101.325
+
 	resistance_flags = NONE
+
+	/// The desired pressure the refill station should be outputting into a holding tank.
+	target_pressure = 101.325
 	/// Is the refill station ID locked?
 	var/id_locked = FALSE
+	/// The tank inserted into the machine
+	var/obj/item/tank/holding_tank
+	/// The maximum pressure of the device
+	var/maximum_pressure = 10 * ONE_ATMOSPHERE
+	/// Is the device locked with a secure ID?
+	var/is_locked = FALSE
 
-/obj/machinery/atmospherics/portable/pump/refill_station/examine(mob/user)
+/obj/machinery/atmospherics/unary/refill_station/Initialize(mapload)
+	. = ..()
+	air_contents.volume = 35
+
+/obj/machinery/atmospherics/unary/refill_station/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The Nanotrasen standard [src] is a vital piece of equipment for \
 	ensuring a multi-species crew. By providing an easy-to-access source of refillable air of \
 	various mixes, Nanotrasen aims to ensure worker productivity through the provision of breathable \
 	atmospherics to their crew.</span>"
 
-/obj/machinery/atmospherics/portable/pump/refill_station/update_icon_state()
+/obj/machinery/atmospherics/unary/refill_station/update_icon_state()
 	icon_state = "psiphon:[on]"
 
-/obj/machinery/atmospherics/portable/pump/refill_station/process_atmos()
+/obj/machinery/atmospherics/unary/refill_station/return_analyzable_air()
+	return air_contents
+
+/obj/machinery/atmospherics/unary/refill_station/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(holding_tank)
+		holding_tank.forceMove(drop_location())
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(holding_tank)
+	if(new_tank)
+		holding_tank = new_tank
+	else
+		holding_tank = null
+	update_icon()
+	return TRUE
+
+/obj/machinery/atmospherics/unary/refill_station/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/tank))
+		if(!(stat & BROKEN))
+			if(!user.drop_item())
+				return
+			var/obj/item/tank/T = W
+			user.drop_item()
+			if(holding_tank)
+				to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+				replace_tank(user, FALSE)
+			T.loc = src
+			holding_tank = T
+			update_icon()
+		return
+	return ..()
+
+/obj/machinery/atmospherics/unary/refill_station/process_atmos()
 	..()
 	var/datum/milla_safe/refill_station_process/milla = new()
 	milla.invoke_async(src)
 
-/obj/machinery/atmospherics/portable/pump/refill_station/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/refill_station/wrench_act(mob/user, obj/item/I)
 	return
 
 /datum/milla_safe/refill_station_process
 
-/datum/milla_safe/refill_station_process/on_run(obj/machinery/atmospherics/portable/pump/refill_station/refill_station)
+/datum/milla_safe/refill_station_process/on_run(obj/machinery/atmospherics/unary/refill_station/refill_station)
 	if(refill_station.on)
 		var/datum/gas_mixture/environment
 		if(!refill_station.holding_tank)
@@ -52,16 +94,15 @@
 			var/datum/gas_mixture/removed = refill_station.air_contents.remove(transfer_moles)
 			environment.merge(removed)
 
-/obj/machinery/atmospherics/portable/pump/refill_station/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/unary/refill_station/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RefillStation", "Refill Station")
 		ui.open()
 
-/obj/machinery/atmospherics/portable/pump/refill_station/ui_data(mob/user)
+/obj/machinery/atmospherics/unary/refill_station/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
-		"port_connected" = connected_port ? TRUE : FALSE,
 		"max_target_pressure" = MAX_TARGET_PRESSURE,
 		"target_pressure" = round(target_pressure, 0.001),
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
@@ -74,15 +115,12 @@
 
 	return data
 
-/obj/machinery/atmospherics/portable/pump/refill_station/ui_act(action, list/params, datum/tgui/ui)
+/obj/machinery/atmospherics/unary/refill_station/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	switch(action)
 		if("power")
-			if(connected_port)
-				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
-				return
 			on = !on
 			investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
 			update_icon()
@@ -98,5 +136,17 @@
 			return TRUE
 
 	add_fingerprint(usr)
+
+/obj/machinery/atmospherics/unary/refill_station/nitrogen
+	name = "secure refill station"
+	icon = 'icons/obj/atmos.dmi'
+	icon_state = "psiphon:0"
+	is_locked = TRUE
+
+/obj/machinery/atmospherics/unary/refill_station/plasma
+	name = "plasma refill station"
+	icon = 'icons/obj/atmos.dmi'
+	icon_state = "psiphon:0"
+	is_locked = TRUE
 
 #undef MAX_TARGET_PRESSURE
