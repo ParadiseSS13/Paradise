@@ -7,7 +7,6 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
-	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/takemura_jacket
 	name = "куртка Такэмуры"
@@ -17,7 +16,6 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
-	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/katarina_jacket
 	name = "куртка Катарины"
@@ -27,7 +25,6 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
-	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/katarina_cyberjacket
 	name = "киберкуртка Катарины"
@@ -37,7 +34,6 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
-	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/hooded/shark_costume
 	name = "костюм акулы"
@@ -82,7 +78,6 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
-	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/vi_arcane
 
 /obj/item/clothing/head/hooded/vi_arcane
