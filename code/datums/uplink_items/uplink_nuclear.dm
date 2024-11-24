@@ -90,6 +90,14 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/dangerous/bulldog
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Extra Ammo sold separately."
+	reference = "BULD"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog
+	cost = 15
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 ////////////////////////////////////////
 // MARK: SUPPORT AND MECHAS
 ////////////////////////////////////////
@@ -223,18 +231,19 @@
 
 /datum/uplink_item/ammo/bulldog_ammobag
 	name = "Bulldog - 12g Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
+	desc = "A duffel bag filled with nine 8 round drum magazines. (6 Slug, 2 Buckshot, 1 Dragon's Breath)"
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Bulldog - 12g XL Magazine Duffel Bag"
-	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	name = "Bulldog - 12g Extra-Large Magazine Duffel Bag"
+	desc = "A duffel bag containing five XL 16 round drum magazines. (3 Slug, 1 Buckshot, 1 Dragon's Breath)."
 	reference = "12XLDB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
-	cost = 60 // normally 90
+	// same price for more ammo, but you're likely to lose more ammo if you drop your bulldog. High risk, high reward.
+	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -612,15 +621,6 @@
 ////////////////////////////////////////
 // MARK: BUNDLES
 ////////////////////////////////////////
-
-/datum/uplink_item/bundles_TC/bulldog
-	name = "Bulldog Bundle"
-	desc = "Lean and mean: Optimized for people that want to get up close and personal. Contains the popular \
-			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
-	reference = "BULB"
-	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	cost = 45 // normally 60
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "C-20r Bundle"

@@ -973,6 +973,7 @@
 					/obj/item/food/spacetwinkie = 6,
 					/obj/item/food/cheesiehonkers = 6,
 					/obj/item/food/tastybread = 6,
+					/obj/item/food/deluxe_chocolate_bar = 6,
 					/obj/item/food/stroopwafel = 2)
 
 	contraband = list(/obj/item/food/syndicake = 6)
@@ -987,6 +988,7 @@
 				/obj/item/food/spacetwinkie = 64,
 				/obj/item/food/cheesiehonkers = 64,
 				/obj/item/food/tastybread = 80,
+				/obj/item/food/deluxe_chocolate_bar = 100,
 				/obj/item/food/stroopwafel = 100,
 				/obj/item/food/syndicake = 175) //syndicakes are genuinely kind of powerful
 

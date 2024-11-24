@@ -29,15 +29,4 @@ SUBSYSTEM_DEF(late_mapping)
 		var/duration = stop_watch(watch)
 		log_startup_progress("Generated [mgcount] mazes in [duration]s")
 
-	if(length(bridge_spawners))
-		var/watch = start_watch()
-		log_startup_progress("Spawning bridges...")
-
-		for(var/i in bridge_spawners)
-			var/obj/effect/spawner/bridge/BS = i
-			BS.generate_bridge()
-
-		var/list/bscount = length(bridge_spawners) // Keeping track of this here because we wipe it next line down
-		QDEL_LIST_CONTENTS(bridge_spawners)
-		var/duration = stop_watch(watch)
-		log_startup_progress("Spawned [bscount] bridges in [duration]s")
+	GLOB.spawn_pool_manager.process_pools()
