@@ -1,5 +1,5 @@
 /obj/effect/spawner/lootdrop/crate_spawner : /obj/effect/spawner/random/loot/crate
-/obj/effect/spawner/lootdrop/three_course_meal : /obj/effect/spawner/random/food/three_course_meal
+/obj/effect/spawner/lootdrop/three_course_meal : /obj/effect/spawner/random/food_or_drink/three_course_meal
 
 /obj/effect/spawner/lootdrop/trade_sol/civ : /obj/effect/spawner/random/traders/civilian
 /obj/effect/spawner/lootdrop/trade_sol/minerals : /obj/effect/spawner/random/traders/minerals
