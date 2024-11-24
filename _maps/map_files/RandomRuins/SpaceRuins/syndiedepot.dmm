@@ -828,7 +828,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cs" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "ct" = (

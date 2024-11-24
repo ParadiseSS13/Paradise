@@ -423,7 +423,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 61
+#define SQL_VERSION 62
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -465,14 +465,6 @@
 #define PLACE_SAME_Z "same"
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
-
-//Cleaning tool strength
-// 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
-#define CLEAN_MEDIUM		3 // Acceptable tools
-#define CLEAN_STRONG		4 // Industrial strength
-#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
-#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
 
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"

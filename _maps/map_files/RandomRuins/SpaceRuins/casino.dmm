@@ -121,7 +121,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "dd" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "dg" = (
@@ -164,7 +164,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/kitchen)
 "eu" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
@@ -423,7 +423,7 @@
 /turf/space,
 /area/space)
 "ky" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
@@ -512,7 +512,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/kitchen)
 "no" = (
@@ -645,7 +645,7 @@
 	},
 /area/ruin/space/powered/casino/arrivals)
 "qK" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -740,7 +740,7 @@
 /area/ruin/space/powered/casino/docked_ships)
 "vf" = (
 /obj/structure/grille/broken,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "vh" = (
@@ -914,7 +914,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "yV" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/wall/mineral/iron,
 /area/ruin/space/powered/casino/security)
 "zg" = (
@@ -961,7 +961,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "AM" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1004,7 +1004,7 @@
 /area/ruin/space/powered/casino/kitchen)
 "Cp" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "Cr" = (
@@ -1021,7 +1021,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "CH" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
@@ -1058,7 +1058,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "DJ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
@@ -1113,7 +1113,7 @@
 /area/ruin/space/powered/casino/arrivals)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "Fk" = (
@@ -1155,7 +1155,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/teleporter)
 "GP" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/maints)
 "GX" = (
@@ -1276,7 +1276,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/security)
 "KV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/engine)
 "LI" = (
@@ -1326,7 +1326,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Oc" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
@@ -1359,7 +1359,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "OU" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -1539,7 +1539,7 @@
 /turf/space,
 /area/space)
 "TO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "TV" = (
@@ -1650,7 +1650,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/arrivals)
 "VI" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1666,7 +1666,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "VW" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/security)
 "We" = (
