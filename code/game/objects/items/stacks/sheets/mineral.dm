@@ -430,7 +430,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/tranquillite/thirty
 	amount = 30
 
-
 /obj/item/stack/sheet/mineral/tranquillite/fifty
 	amount = 50
 
