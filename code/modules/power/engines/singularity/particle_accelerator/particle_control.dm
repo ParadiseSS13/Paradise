@@ -29,9 +29,9 @@
 	var/datum/wires/particle_acc/control_box/wires = null
 	/// Layout of the particle accelerator. Used by the UI
 	var/list/layout = list(
-		list(list("name" = "EM Containment Grid Right", "icon_state" = "emitter_right", "status" = "", "dir" = "1"), list("name" = "Blank1", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank2", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank3", "icon_state" = "blank", "status" = "good", "dir" = "1")),
+		list(list("name" = "EM Containment Grid Left", "icon_state" = "emitter_right", "status" = "", "dir" = "1"), list("name" = "Blank1", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank2", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank3", "icon_state" = "blank", "status" = "good", "dir" = "1")),
 		list(list("name" = "EM Containment Grid Center", "icon_state" = "emitter_center", "status" = "", "dir" = "1"), list("name" = "Particle Focusing EM Lens", "icon_state" = "power_box", "status" = "", "dir" = "1"), list("name" = "EM Acceleration Chamber", "icon_state" = "fuel_chamber", "status" = "", "dir" = "1"), list("name" = "Alpha Particle Generation Array", "icon_state" = "end_cap", "status" = "", "dir" = "1")),
-		list(list("name" = "EM Containment Grid Left", "icon_state" = "emitter_left", "status" = "", "dir" = "1"), list("name" = "Blank4", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank5", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank6", "icon_state" = "blank", "status" = "good", "dir" = "1")))
+		list(list("name" = "EM Containment Grid Right", "icon_state" = "emitter_left", "status" = "", "dir" = "1"), list("name" = "Blank4", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank5", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank6", "icon_state" = "blank", "status" = "good", "dir" = "1")))
 	/// The expected orientation of the accelerator this is trying to link. In text form so the UI can use it
 	var/dir_text
 

@@ -93,7 +93,7 @@ export const ParticleAccelerator = (props, context) => {
               <GridColumn width="40px">
                 {layout_1.slice().map((item) => (
                   <Stack.Item grow key={item.name}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
@@ -113,7 +113,7 @@ export const ParticleAccelerator = (props, context) => {
               <GridColumn>
                 {layout_2.slice().map((item) => (
                   <Stack.Item grow key={item.name}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
@@ -133,7 +133,7 @@ export const ParticleAccelerator = (props, context) => {
               <GridColumn width="40px">
                 {layout_3.slice().map((item) => (
                   <Stack.Item grow key={item.name} tooltip={item.status}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
@@ -156,7 +156,7 @@ export const ParticleAccelerator = (props, context) => {
               <TableRow width="40px">
                 {layout_1.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
@@ -176,7 +176,7 @@ export const ParticleAccelerator = (props, context) => {
               <TableRow width="40px">
                 {layout_2.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
@@ -196,7 +196,7 @@ export const ParticleAccelerator = (props, context) => {
               <TableRow width="40px">
                 {layout_3.slice().map((item) => (
                   <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.status}, direction: ${dir2text(item.dir)}`}>
+                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
                       <ImageButton
                         dmIcon={icon}
                         dmIconState={item.icon_state}
