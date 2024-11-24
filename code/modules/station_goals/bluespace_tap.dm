@@ -496,7 +496,7 @@
 /obj/machinery/power/bluespace_tap/proc/try_events()
 	if(!mining_power)
 		return
-	if(!prob((mining_power / (10 MW)) + (emagged * 5)))// Calculate prob of event based on mining power. Return if no event.
+	if(!prob((mining_power / (10 MW)) + (emagged * 5))) // Calculate prob of event based on mining power. Return if no event.
 		return
 	var/static/list/event_list = list(
 		/datum/engi_event/bluespace_tap_event/dirty,
