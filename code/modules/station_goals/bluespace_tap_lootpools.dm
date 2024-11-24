@@ -256,7 +256,6 @@
 		/obj/item/food/xemeatpie,
 		/obj/item/food/sliceable/pumpkinpie,
 		/obj/item/food/donut/chaos,
-		/obj/item/food/syndidonkpocket,
 		/obj/item/pizzabox/meat,
 		/obj/item/pizzabox/pepperoni,
 		/obj/item/pizzabox/firecracker,
@@ -293,5 +292,6 @@
 		/obj/item/food/notasandwich,
 		/obj/item/storage/box/papersack/pbj_lunch,
 		/obj/item/food/soylentviridians,
+		/obj/item/food/syndidonkpocket,
 		/obj/item/food/baguette/combat
 	)
