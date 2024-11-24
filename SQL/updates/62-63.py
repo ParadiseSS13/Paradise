@@ -4,9 +4,9 @@
 # if you do not have that module installed, you cannot run this script
 
 # To run this, supply the following args in a command shell
-# python 61-62.py address username password database
+# python 62-63.py address username password database
 # Example:
-# python 61-62.py 127.0.0.1 sirryan2002 myubersecretdbpassword paradise_gamedb
+# python 62-63.py 127.0.0.1 sirryan2002 myubersecretdbpassword paradise_gamedb
 
 from pathlib import Path
 from datetime import datetime

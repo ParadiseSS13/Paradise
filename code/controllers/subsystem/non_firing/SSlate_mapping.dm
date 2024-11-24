@@ -28,3 +28,5 @@ SUBSYSTEM_DEF(late_mapping)
 		QDEL_LIST_CONTENTS(maze_generators)
 		var/duration = stop_watch(watch)
 		log_startup_progress("Generated [mgcount] mazes in [duration]s")
+
+	GLOB.spawn_pool_manager.process_pools()

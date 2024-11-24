@@ -50,6 +50,7 @@
 // MARK: EQUIPMENT
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
+	name = "first-aid kit"
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
