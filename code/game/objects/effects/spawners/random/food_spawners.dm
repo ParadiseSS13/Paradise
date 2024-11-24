@@ -20,6 +20,10 @@
 	)
 	record_spawn = TRUE
 
+/obj/effect/spawner/random/food_or_drink
+	// TODO: Consolidate all the spawner icons once all the legacy random spawners have been migrated
+	icon = 'icons/effects/spawner_icons.dmi'
+
 /obj/effect/spawner/random/food_or_drink/soup
 	name = "soup spawner"
 	icon_state = "soup"

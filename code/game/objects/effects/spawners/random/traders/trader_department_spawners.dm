@@ -75,6 +75,8 @@
 
 /obj/effect/spawner/random/traders/science
 	name = "4. science gear"
+	// TODO: I know I created an anomaly core random spawner icon but it disappeared in some merge or other
+	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "anomaly_core"
 	loot = list(
 		// Robotics
