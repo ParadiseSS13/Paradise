@@ -25,7 +25,7 @@
 /datum/organ/proc/on_life()
 	return
 
-/datum/organ/proc/on_death()
+/datum/organ/proc/dead_process()
 	return
 
 /// Only called when the organ is robotic AND is not emp proof. Return true to override default functions

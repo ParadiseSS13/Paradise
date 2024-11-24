@@ -210,10 +210,10 @@
 /mob/living/carbon/proc/handle_dead_organs()
 	for(var/thing in internal_organs)
 		var/obj/item/organ/internal/O = thing
-		O.on_death()
+		O.dead_process()
 	for(var/organ_tag in internal_organ_datums)
 		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
-		datum_organ_var_name_idk.on_death()
+		datum_organ_var_name_idk.dead_process()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)

@@ -170,7 +170,7 @@
 /obj/item/organ/internal/proc/on_life()
 	return
 
-/obj/item/organ/internal/proc/on_death()
+/obj/item/organ/internal/proc/dead_process()
 	return
 
 //abstract proc called by carbon/death()

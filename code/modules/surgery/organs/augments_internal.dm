@@ -687,7 +687,7 @@
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
-/obj/item/organ/internal/cyberimp/chest/reviver/on_death()
+/obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
 	try_heal() // Allows implant to work even on dead people
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()

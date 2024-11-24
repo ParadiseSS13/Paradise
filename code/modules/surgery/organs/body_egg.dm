@@ -31,7 +31,7 @@
 		return
 	egg_process()
 
-/obj/item/organ/internal/body_egg/on_death()
+/obj/item/organ/internal/body_egg/dead_process()
 	if(!(src in owner.internal_organs)) // I can only presume this is here for a reason, so not touching it.
 		remove(owner)
 		return
