@@ -2,6 +2,7 @@
 	name = "bluespace harvester reward spawner"
 	lootcount = 1
 
+// Common clothing pool
 /obj/effect/spawner/lootdrop/bluespace_tap/clothes_common
 	name = "exotic common clothing"
 	loot = list(
@@ -34,6 +35,7 @@
 		/obj/item/clothing/under/costume/psyjump
 	)
 
+// Uncommon Clothing Pool
 /obj/effect/spawner/lootdrop/bluespace_tap/clothes_uncommon
 	name = "exotic uncommon clothing"
 	loot = list(
@@ -63,7 +65,7 @@
 		/obj/item/clothing/head/helmet/alt
 	)
 
-
+// Rare clothing pool
 /obj/effect/spawner/lootdrop/bluespace_tap/clothes_rare
 	name = "exotic rare clothing"
 	loot = list(
@@ -84,7 +86,7 @@
 		/obj/item/mod/control/pre_equipped/cosmohonk
 	)
 
-
+// Common cultural pool
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural_common
 	name = "common cultural artifacts"
 	loot = list(
@@ -115,6 +117,7 @@
 		/obj/item/stack/sheet/mineral/bananium/thirty
 	)
 
+// Uncommon cultural pool
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural_uncommon
 	name = "uncommon cultural artifacts"
 	loot = list(
@@ -133,6 +136,7 @@
 		/obj/item/wirecutters/brass
 	)
 
+// Rare cultural pool
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural_rare
 	name = "rare cultural artifacts"
 	loot = list(
@@ -148,6 +152,7 @@
 		/obj/item/storage/belt/utility/brass
 	)
 
+// Common organic pool
 /obj/effect/spawner/lootdrop/bluespace_tap/organic_common
 	name = "common organic objects"
 	loot = list(
@@ -169,6 +174,7 @@
 		/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent
 	)
 
+// Uncommon organic pool
 /obj/effect/spawner/lootdrop/bluespace_tap/organic_uncommon
 	name = "uncommon organic objects"
 	loot = list(
@@ -187,6 +193,7 @@
 		/obj/item/slimepotion/oil_slick
 	)
 
+// Rare organic pool
 /obj/effect/spawner/lootdrop/bluespace_tap/organic_rare
 	name = "rare organic objects"
 	loot = list(
@@ -199,6 +206,7 @@
 		/obj/item/slimepotion/transference
 	)
 
+// Common food pool
 /obj/effect/spawner/lootdrop/bluespace_tap/food_common
 	name = "common fancy food"
 	lootcount = 1
@@ -234,6 +242,7 @@
 		/obj/item/food/waffles
 	)
 
+// Uncommon food pool
 /obj/effect/spawner/lootdrop/bluespace_tap/food_uncommon
 	name = "uncommon fancy food"
 	lootcount = 1
@@ -267,6 +276,7 @@
 		/obj/item/food/rofflewaffles
 	)
 
+// Rare food pool
 /obj/effect/spawner/lootdrop/bluespace_tap/food_rare
 	name = "rare fancy food"
 	lootcount = 1
