@@ -526,7 +526,7 @@
 			set_power(text2num(params["set_power"]))
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
-			if(key <= 0 || key > length(product_list))	//invalid key
+			if(key <= 0 || key > length(product_list)) // invalid key
 				return
 			produce(product_list[key], TRUE, TRUE)
 		if("auto_shutdown")
