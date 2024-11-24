@@ -305,7 +305,6 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	equip_cooldown = 2 SECONDS
 	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
@@ -316,19 +315,12 @@
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+	equip_cooldown = 2 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndie //Version used for Dark Gygax
-	equip_cooldown = 2 SECONDS
 	name = "\improper LBX AC 20-r \"Scattershot .45\""
-	icon_state = "mecha_scatter"
 	origin_tech = "combat=4;syndicate=2" //Crew is not going to get it normally anyways
 	projectile = /obj/item/projectile/bullet/midbullet
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
-	projectiles = 40
-	projectile_energy_cost = 25
-	projectiles_per_shot = 4
-	variance = 25
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	equip_cooldown = 1 SECONDS
