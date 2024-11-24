@@ -119,19 +119,6 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/add_shadow = FALSE
-
-/obj/structure/bridge_walkway/Initialize(mapload, add_shadow_)
-	. = ..()
-	add_shadow = add_shadow_
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/bridge_walkway/LateInitialize()
-	. = ..()
-	var/turf/T = get_turf(src)
-	if(T && add_shadow)
-		T.layer = LATTICE_LAYER // prevent occlusion of drop shadows from bordering turfs
-		T.add_filter("AO", 1, drop_shadow_filter(x = 0, y = 0, size = 5, offset = 0, color = "#04080FEE"))
 
 /obj/structure/bridge_walkway/Destroy()
 	var/turf/T = get_turf(src)
@@ -178,22 +165,16 @@
 		qdel(F)
 
 	// Shadow looks goofy at the start and end tiles
-	var/add_shadow = (T != forward_goal && T != backward_goal)
 	switch(bridge_theme)
 		if(LONG_BRIDGE_THEME_CULT)
-			new /obj/structure/bridge_walkway/cult(T, add_shadow)
+			new /obj/structure/bridge_walkway/cult(T)
 		if(LONG_BRIDGE_THEME_HIERO)
-			new /obj/structure/bridge_walkway/hiero(T, add_shadow)
+			new /obj/structure/bridge_walkway/hiero(T)
 		if(LONG_BRIDGE_THEME_CLOCKWORK)
-			new /obj/structure/bridge_walkway/clockwork(T, add_shadow)
+			new /obj/structure/bridge_walkway/clockwork(T)
 		if(LONG_BRIDGE_THEME_STONE)
 			// Stone tiles are different sizes and shapes so these are
 			// "safe-looking" arrangements.
-			//
-			// They also seem to include a tiny drop shadow of their own,
-			// though I don't know where it comes from, and our tile-based
-			// drop shadow wouldn't work anyway because its effect uses the
-			// entire perimeter of the tile.
 			switch(rand(1, 5))
 				if(1)
 					new /obj/structure/stone_tile/block(T)
@@ -213,7 +194,7 @@
 					var/obj/structure/stone_tile/block/B = new(T)
 					B.dir = NORTH
 		if(LONG_BRIDGE_THEME_WOOD)
-			var/obj/structure/bridge_walkway/wood/tile = new(T, add_shadow)
+			var/obj/structure/bridge_walkway/wood/tile = new(T)
 			if(prob(20))
 				tile.icon_state = pick("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 		if(LONG_BRIDGE_THEME_CATWALK)

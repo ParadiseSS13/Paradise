@@ -5,7 +5,6 @@
 	var/turf/simulated/floor/primary_turf_type
 	/// Icon state of planet present on background of station Z-level
 	var/planet_icon_state
-	var/include_bridge_shadows = TRUE
 
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
@@ -43,7 +42,6 @@
 	name = "chasm"
 	primary_turf_type = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	planet_icon_state = "planet_chasm"
-	include_bridge_shadows = FALSE
 
 /datum/lavaland_theme/chasm/setup()
 	var/datum/river_spawner/spawner = new(level_name_to_num(MINING), spread_prob_ = 10, spread_prob_loss_ = 5)

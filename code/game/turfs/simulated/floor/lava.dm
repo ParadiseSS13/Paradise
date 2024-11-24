@@ -297,4 +297,4 @@
 /turf/simulated/floor/lava/mapping_lava/LateInitialize()
 	. = ..()
 	if(SSmapping.lavaland_theme?.primary_turf_type)
-		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE, keep_filters = SSmapping.lavaland_theme?.include_bridge_shadows, keep_layer = TRUE)
+		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE)
