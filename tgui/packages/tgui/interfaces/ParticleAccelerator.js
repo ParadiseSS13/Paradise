@@ -85,10 +85,12 @@ export const ParticleAccelerator = (props, context) => {
           title={
             orientation
               ? 'EM Acceleration Chamber Orientation: ' + capitalize(orientation)
-              : 'No EM Acceleration Chamber Detected'
+              : 'Place EM Acceleration Chamber Next To Console'
           }
         >
-          {orientation === 'north' || orientation === 'south' ? (
+          {orientation === 0 ? (
+            ''
+          ) : orientation === 'north' || orientation === 'south' ? (
             <Grid>
               <GridColumn width="40px">
                 {layout_1.slice().map((item) => (

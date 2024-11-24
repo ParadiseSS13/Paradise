@@ -167,9 +167,12 @@
 	for(var/obj/structure/particle_accelerator/fuel_chamber/F in orange(1,src))
 		dir = F.dir
 		T = F.loc
-	dir_text = dir2text(dir)
+
 	if(!T)
 		return 0
+
+	dir_text = dir2text(dir) // Only set dir_text if we found an EM acceleration chamber
+
 	connected_parts = list()
 	var/tally = 0
 	var/ldir = turn(dir,-90)
