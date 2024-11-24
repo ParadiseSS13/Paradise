@@ -164,7 +164,6 @@
 	for(var/obj/structure/flora/F in T)
 		qdel(F)
 
-	// Shadow looks goofy at the start and end tiles
 	switch(bridge_theme)
 		if(LONG_BRIDGE_THEME_CULT)
 			new /obj/structure/bridge_walkway/cult(T)
