@@ -118,8 +118,9 @@
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
-				to_chat(mod.wearer, "<span class='warning'>You can not extend the [device]!</span>")
-				mod.wearer.drop_item()
+				to_chat(mod.wearer, "<span class='warning'>You cannot extend [device]!</span>")
+				if(device.loc != src)
+					device.forceMove(src)
 				return FALSE
 		else
 			var/used_button = "Middle Click"
