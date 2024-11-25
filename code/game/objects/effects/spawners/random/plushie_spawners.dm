@@ -41,7 +41,7 @@
             /obj/item/toy/plushie/slimeplushie,
             /obj/item/toy/plushie/nukeplushie,
             /obj/item/toy/plushie/shark
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/black_cat,
