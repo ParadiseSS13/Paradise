@@ -60,7 +60,7 @@
             /obj/item/toy/plushie/nianplushie,
             /obj/item/toy/plushie/abductor,
             /obj/item/toy/plushie/abductor/agent
-        ) = 2,
+        ),
         
         list (
             /obj/item/toy/plushie/nianplushie = 3,
