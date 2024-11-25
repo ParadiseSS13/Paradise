@@ -39,7 +39,6 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/forge_name_forger = null
 
 	/// Width of the window that opens
 	var/paper_width = 600
@@ -704,7 +703,7 @@
 	name = "mission briefing"
 	info = {"<center><h1>Mission Details:</h1></center>
 	<br><br>
-	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space. 
+	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space.
 	You are to monitor transmissions from the Nanotrasen space stations in the system, as well as those from potentially significant ships passing through the system.
 	<br><br>
 	Urgent reports are to be relayed immeditely to your handler, otherwise, condense significant happenings into packets to be sent out at scheduled intervals, to minimise the chances your transmissions being detected.
@@ -757,7 +756,7 @@
 	<br><br>
 	* A terror spider outbreak was reported on the NSS Cerebron. Early discovery and an unusual lack of coordiation on the part of the spiders allowed the outbreak to be rapidly contained.
 	<br><br>
-	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" - 
+	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" -
 	piecing together fragments of communications suggests that this "Ei Nath" is a highly dangerous individual whose mere pressence causes great fear among Nanotrasen personnel. Attempt recruitment?"}
 
 /obj/item/paper/listening_post_report_6

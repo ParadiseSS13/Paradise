@@ -341,7 +341,7 @@
 
 // MARK: CHAMELEON PEN
 /obj/item/pen/chameleon
-	var/forge_name = null
+	var/forge_name
 
 /obj/item/pen/chameleon/attack_self(mob/living/user)
 	if(!iscarbon(user))
