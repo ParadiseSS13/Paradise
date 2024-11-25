@@ -254,7 +254,7 @@
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
-	desc = "An rudimentary, yet easy to produce .410 bore shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
+	desc = "A rudimentary 12 gauge shotgun shell that replicates the effects of a laser weapon with a low-powered laser."
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/beam/laser
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
