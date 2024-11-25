@@ -34,8 +34,8 @@
 	if(!istype(target, /turf/simulated/floor))
 		to_chat(user, "<span class='warning'>[holder] can only be used on flooring.</span>")
 		return FALSE
-	var/list/datum/element/decal/decals = list()
-	SEND_SIGNAL(target, COMSIG_ATOM_DECALS_ROTATING, decals)
+	var/turf/target_turf = get_turf(target)
+	var/list/datum/element/decal/decals = target_turf.get_decals()
 	if(removal_mode)
 		remove_decals(target)
 		return TRUE
@@ -43,7 +43,7 @@
 		to_chat(user, "<span class='warning'>You can't fit more decals on [target].</span>")
 		return FALSE
 	var/typepath = lookup_cache_decals[decal_state]
-	new typepath(get_turf(target), decal_dir)
+	new typepath(target_turf, decal_dir)
 	return TRUE
 
 /datum/painter/decal/pick_color(mob/user)
@@ -111,8 +111,7 @@
 
 /datum/painter/decal/proc/remove_decals(atom/target)
 	var/turf/target_turf = get_turf(target)
-	var/list/datum/element/decal/decals = list()
-	SEND_SIGNAL(target_turf, COMSIG_ATOM_DECALS_ROTATING, decals)
+	var/list/datum/element/decal/decals = target_turf.get_decals()
 	for(var/datum/element/decal/dcl in decals)
 		dcl.Detach(target)
 	target_turf.RemoveElement(/datum/element/decal)
