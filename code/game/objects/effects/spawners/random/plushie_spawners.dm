@@ -27,7 +27,7 @@
             /obj/item/toy/plushie/pink_fox,
             /obj/item/toy/plushie/purple_fox,
             /obj/item/toy/plushie/crimson_fox
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/corgi,
