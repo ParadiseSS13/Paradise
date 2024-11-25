@@ -45,7 +45,7 @@ export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
-    <Window width={500} height={assembled ? 160 : 600}>
+    <Window width={395} height={assembled ? 160 : orientation === 'north' || orientation === 'south' ? 540 : 465}>
       <Window.Content scrollable>
         <Section
           title="Control Panel"
@@ -111,7 +111,7 @@ const LayoutHorizontal = (props, context) => {
   return (
     <Table>
       <TableRow width="40px">
-        {layout_1.slice().map((item) => (
+        {(orientation === 'east' ? layout_1 : layout_3).slice().map((item) => (
           <Table.Cell key={item.name}>
             <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
               <ImageButton
@@ -149,7 +149,7 @@ const LayoutHorizontal = (props, context) => {
         ))}
       </TableRow>
       <TableRow width="40px">
-        {layout_3.slice().map((item) => (
+        {(orientation === 'east' ? layout_3 : layout_1).slice().map((item) => (
           <Table.Cell key={item.name}>
             <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
               <ImageButton
@@ -177,7 +177,7 @@ const LayoutVertical = (props, context) => {
   return (
     <Grid>
       <GridColumn width="40px">
-        {layout_1.slice().map((item) => (
+        {(orientation === 'north' ? layout_1 : layout_3).slice().map((item) => (
           <Stack.Item grow key={item.name}>
             <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
               <ImageButton
@@ -215,7 +215,7 @@ const LayoutVertical = (props, context) => {
         ))}
       </GridColumn>
       <GridColumn width="40px">
-        {layout_3.slice().map((item) => (
+        {(orientation === 'north' ? layout_3 : layout_1).slice().map((item) => (
           <Stack.Item grow key={item.name} tooltip={item.status}>
             <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
               <ImageButton

@@ -270,7 +270,7 @@
 		ui_col_1 = layout[PARTICLE_RIGHT]
 		ui_col_2 = layout[PARTICLE_CENTER]
 		ui_col_3 = layout[PARTICLE_LEFT]
-	else
+	else // If we are pointing east or south we need to reverse the order of the lists
 		var/len = length(layout[PARTICLE_CENTER])
 		for(var/i in 0 to (len - 1))
 			ui_col_1.Add(list(layout[PARTICLE_RIGHT][len - i]))
@@ -281,9 +281,10 @@
 	data["power"] = active
 	data["strength"] = strength
 	data["max_strength"] = strength_upper_limit
-	data["layout_1"] = (dir == NORTH || dir == EAST) ? ui_col_1 : ui_col_3
+	// If we are pointing east or south we need to reverse the order of the columns/rows
+	data["layout_1"] = ui_col_1
 	data["layout_2"] = ui_col_2
-	data["layout_3"] = (dir == NORTH || dir == EAST) ? ui_col_3 : ui_col_1
+	data["layout_3"] = ui_col_3
 	data["orientation"] = dir_text ? dir_text : FALSE
 	data["icon"] = icon
 	return data
