@@ -51,7 +51,7 @@
             /obj/item/toy/plushie/siamese_cat,
             /obj/item/toy/plushie/tabby_cat,
             /obj/item/toy/plushie/tuxedo_cat
-        ) = 2,
+        ),
         
         list( // species plushie minus nian
             /obj/item/toy/plushie/voxplushie,
