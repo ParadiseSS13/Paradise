@@ -45,7 +45,7 @@ export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
-    <Window width={500} height={600}>
+    <Window width={500} height={assembled ? 160 : 600}>
       <Window.Content scrollable>
         <Section
           title="Control Panel"
@@ -81,144 +81,158 @@ export const ParticleAccelerator = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section
-          title={
-            orientation
-              ? 'EM Acceleration Chamber Orientation: ' + capitalize(orientation)
-              : 'Place EM Acceleration Chamber Next To Console'
-          }
-        >
-          {orientation === 0 ? (
-            ''
-          ) : orientation === 'north' || orientation === 'south' ? (
-            <Grid>
-              <GridColumn width="40px">
-                {layout_1.slice().map((item) => (
-                  <Stack.Item grow key={item.name}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Stack.Item>
-                ))}
-              </GridColumn>
-              <GridColumn>
-                {layout_2.slice().map((item) => (
-                  <Stack.Item grow key={item.name}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Stack.Item>
-                ))}
-              </GridColumn>
-              <GridColumn width="40px">
-                {layout_3.slice().map((item) => (
-                  <Stack.Item grow key={item.name} tooltip={item.status}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Stack.Item>
-                ))}
-              </GridColumn>
-            </Grid>
-          ) : (
-            <Table>
-              <TableRow width="40px">
-                {layout_1.slice().map((item) => (
-                  <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Table.Cell>
-                ))}
-              </TableRow>
-              <TableRow width="40px">
-                {layout_2.slice().map((item) => (
-                  <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Table.Cell>
-                ))}
-              </TableRow>
-              <TableRow width="40px">
-                {layout_3.slice().map((item) => (
-                  <Table.Cell key={item.name}>
-                    <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
-                      <ImageButton
-                        dmIcon={icon}
-                        dmIconState={item.icon_state}
-                        dmDirection={item.dir}
-                        style={{
-                          'border-style': 'solid',
-                          'border-width': '2px',
-                          'border-color':
-                            item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
-                          padding: '2px',
-                        }}
-                      />
-                    </Tooltip>
-                  </Table.Cell>
-                ))}
-              </TableRow>
-            </Table>
-          )}
-        </Section>
+        {assembled ? (
+          ''
+        ) : (
+          <Section
+            title={
+              orientation
+                ? 'EM Acceleration Chamber Orientation: ' + capitalize(orientation)
+                : 'Place EM Acceleration Chamber Next To Console'
+            }
+          >
+            {orientation === 0 ? (
+              ''
+            ) : orientation === 'north' || orientation === 'south' ? (
+              <LayoutVertical />
+            ) : (
+              <LayoutHorizontal />
+            )}
+          </Section>
+        )}
       </Window.Content>
     </Window>
+  );
+};
+
+const LayoutHorizontal = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
+  return (
+    <Table>
+      <TableRow width="40px">
+        {layout_1.slice().map((item) => (
+          <Table.Cell key={item.name}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Table.Cell>
+        ))}
+      </TableRow>
+      <TableRow width="40px">
+        {layout_2.slice().map((item) => (
+          <Table.Cell key={item.name}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Table.Cell>
+        ))}
+      </TableRow>
+      <TableRow width="40px">
+        {layout_3.slice().map((item) => (
+          <Table.Cell key={item.name}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Table.Cell>
+        ))}
+      </TableRow>
+    </Table>
+  );
+};
+
+const LayoutVertical = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
+  return (
+    <Grid>
+      <GridColumn width="40px">
+        {layout_1.slice().map((item) => (
+          <Stack.Item grow key={item.name}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Stack.Item>
+        ))}
+      </GridColumn>
+      <GridColumn>
+        {layout_2.slice().map((item) => (
+          <Stack.Item grow key={item.name}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Stack.Item>
+        ))}
+      </GridColumn>
+      <GridColumn width="40px">
+        {layout_3.slice().map((item) => (
+          <Stack.Item grow key={item.name} tooltip={item.status}>
+            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+              <ImageButton
+                dmIcon={icon}
+                dmIconState={item.icon_state}
+                dmDirection={item.dir}
+                style={{
+                  'border-style': 'solid',
+                  'border-width': '2px',
+                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  padding: '2px',
+                }}
+              />
+            </Tooltip>
+          </Stack.Item>
+        ))}
+      </GridColumn>
+    </Grid>
   );
 };
