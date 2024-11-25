@@ -1,7 +1,7 @@
 /obj/item/robot_module
 	name = "robot module"
 	icon = 'icons/obj/module.dmi'
-	icon_state = "std_module"
+	icon_state = "std_mod"
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
@@ -281,7 +281,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
-	R.add_language("Neo-Russkiya", 0)
+	R.add_language("Zvezhan", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -687,7 +687,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
-	R.add_language("Neo-Russkiya", 1)
+	R.add_language("Zvezhan", 1)
 	R.add_language("Tkachi", 1)
 
 // Mining

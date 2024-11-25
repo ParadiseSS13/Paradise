@@ -65,7 +65,7 @@
 */
 /obj/item/tk_grab
 	name = "Telekinetic Grab"
-	desc = "Magic"
+	desc = "Magic."
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
@@ -95,7 +95,7 @@
 
 	//stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
-	if((slot == SLOT_HUD_LEFT_HAND) || (slot== SLOT_HUD_RIGHT_HAND))
+	if(slot & ITEM_SLOT_BOTH_HANDS)
 		return
 	qdel(src)
 

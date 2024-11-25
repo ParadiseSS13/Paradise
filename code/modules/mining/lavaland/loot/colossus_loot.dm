@@ -79,7 +79,7 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/Initialize() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize(mapload) //Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
@@ -376,7 +376,7 @@
 
 /datum/spell/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing"
+	desc = "Exits the body you are possessing."
 	base_cooldown = 60
 	clothes_req = FALSE
 	invocation_type = "none"

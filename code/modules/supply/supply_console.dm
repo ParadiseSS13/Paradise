@@ -344,7 +344,7 @@
 		for(var/datum/station_department/department in SSjobs.station_departments)
 			if(department.department_account == selected_account)
 				order.ordered_by_department = department //now that we know which department this is for, attach it to the order
-				order.orderedbyaccount = selected_account
+				order.set_account(selected_account)
 				order.requires_head_approval = TRUE
 
 				if(length(order.object.department_restrictions) && !(department.department_name in order.object.department_restrictions))
@@ -358,7 +358,7 @@
 	//===Handle Supply Order===
 	if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
 		//if the account is a personal account (and doesn't require CT approval), go ahead and pay for it now
-		order.orderedbyaccount = selected_account
+		order.set_account(selected_account)
 		if(attempt_account_authentification(selected_account, user))
 			var/paid_for = FALSE
 			if(!order.requires_cargo_approval && pay_with_account(selected_account, order.object.get_cost(), "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
@@ -462,7 +462,7 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = 99999)
 		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)

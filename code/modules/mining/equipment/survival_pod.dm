@@ -99,6 +99,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"
@@ -279,7 +283,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	recalculate_atmos_connectivity()
 

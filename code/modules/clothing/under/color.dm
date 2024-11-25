@@ -25,7 +25,7 @@
 							/obj/item/clothing/under/color/red/jersey,
 							/obj/item/clothing/under/color/blue/jersey,
 							/obj/item/clothing/under/color/white/enforcer)
-	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
+	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - typesof(/obj/item/clothing/under/color/jumpskirt) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
 	item_state = initial(C.item_state)
@@ -98,7 +98,7 @@
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
-	desc = "Don't wear this near paranoid security officers"
+	desc = "Don't wear this near paranoid security officers."
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
@@ -306,7 +306,7 @@
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow"
-	desc = "rainbow"
+	desc = "rainbow."
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"

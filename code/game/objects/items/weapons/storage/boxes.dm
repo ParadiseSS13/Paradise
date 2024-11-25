@@ -712,6 +712,22 @@
 	/// What shell do we fill the box with
 	var/shell_type
 
+/obj/item/storage/fancy/shell/fancy_storage_examine(mob/user)
+	. = list()
+	if(!length(contents))
+		. += "There are no shells in the box."
+		return
+
+	var/list/shell_list = list() // Associated list of all shells in the box
+	for(var/obj/item/ammo_casing/shotgun/shell as anything in contents)
+		shell_list[shell.name] += 1
+
+	for(var/thing as anything in shell_list)
+		if(shell_list[thing] == 1)
+			. += "There is one [thing] in the box."
+		else
+			. += "There are [shell_list[thing]] [thing]s in the box."
+
 /obj/item/storage/fancy/shell/update_icon_state()
 	icon_state = "open"
 
@@ -778,7 +794,7 @@
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
 	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "hshell_box"
+	icon_state = "holybox"
 	shell_type = /obj/item/ammo_casing/shotgun/holy
 
 ////////////////
@@ -804,7 +820,7 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "This box feels slightly warm."
 	icon_state = "donk_box"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -1249,6 +1265,15 @@
 /obj/item/storage/box/coke_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/coke(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
+
+/obj/item/storage/box/tacticool_envirosuit
+	name = "tactical suit box"
+	desc = "A box with a special envirosuit usually supplied by black markets."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/tacticool_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/tacticool(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

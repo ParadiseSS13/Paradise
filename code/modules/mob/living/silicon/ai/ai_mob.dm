@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 1)
+	add_language("Zvezhan", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
@@ -640,6 +640,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
+
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>You are dead!</span>")
+		return
 
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop

@@ -50,6 +50,13 @@
 		build_network()
 		. = 1
 
+/obj/machinery/atmospherics/unary/update_pipe_image()
+	. = ..()
+	if(parent)
+		for(var/mob/crawler in parent.crawlers)
+			var/mob/living/current_crawler = crawler
+			current_crawler.update_pipe_vision(src)
+
 /obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()

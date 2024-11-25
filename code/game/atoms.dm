@@ -340,7 +340,7 @@
  * Proc which will make the atom act accordingly to an EMP.
  * This proc can sleep depending on the implementation. So assume it sleeps!
  *
- * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
  */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
@@ -354,7 +354,7 @@
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
-		if(istype(src.loc, container))
+		if(istype(loc, container))
 			return TRUE
 	else if(src in container)
 		return TRUE
@@ -388,7 +388,7 @@
 /atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+	if(src.blood_DNA)
 		if(gender == PLURAL)
 			f_name = "some "
 		else
@@ -548,13 +548,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
-
-/// This is the default Power Transmission Laser action on atoms. Called when an atom enters the beam and while it's in the beam.
-/atom/proc/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = (ptl.output_number * ptl.power_format_multi_output) / (1 MW)
-	fire_act(null, 3000 * mw_power, 2500) // Equivalent to being in a fire at a temperature of 3000 degrees kelvin per MW.
-	if(ptl.blocker && (ptl.blocker.UID() == UID())) // If this is the blocker we need to check if it was destroyed
-		ptl.check_blocker()
 
 /// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
