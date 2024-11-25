@@ -15,7 +15,7 @@
             /obj/item/toy/plushie/carpplushie/candy,
             /obj/item/toy/plushie/carpplushie/nebula,
             /obj/item/toy/plushie/carpplushie/void
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/red_fox,
@@ -27,7 +27,7 @@
             /obj/item/toy/plushie/pink_fox,
             /obj/item/toy/plushie/purple_fox,
             /obj/item/toy/plushie/crimson_fox
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/corgi,
@@ -41,7 +41,7 @@
             /obj/item/toy/plushie/slimeplushie,
             /obj/item/toy/plushie/nukeplushie,
             /obj/item/toy/plushie/shark
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/black_cat,
@@ -51,7 +51,7 @@
             /obj/item/toy/plushie/siamese_cat,
             /obj/item/toy/plushie/tabby_cat,
             /obj/item/toy/plushie/tuxedo_cat
-        ) = 2,
+        ),
         
         list( // species plushie minus nian
             /obj/item/toy/plushie/voxplushie,
@@ -60,7 +60,7 @@
             /obj/item/toy/plushie/nianplushie,
             /obj/item/toy/plushie/abductor,
             /obj/item/toy/plushie/abductor/agent
-        ) = 2,
+        ),
         
         list (
             /obj/item/toy/plushie/nianplushie = 3,
@@ -81,5 +81,5 @@
             /obj/item/toy/plushie/nianplushie/clockwork = 2,
             /obj/item/toy/plushie/nianplushie/moonfly = 2,
             /obj/item/toy/plushie/nianplushie/rainbow = 1
-        ) = 2,
+        ),
     )
