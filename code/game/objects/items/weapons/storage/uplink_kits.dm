@@ -124,12 +124,12 @@
 		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 220TC
+/// 200TC
 /obj/item/storage/box/syndie_kit/bundle/hacker
 	name = "Hacker Bundle"
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
-		/obj/item/melee/energy/sword/saber/blue, // 40TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire, // 20TC
 		/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
@@ -528,7 +528,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)
