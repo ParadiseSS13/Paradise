@@ -15,7 +15,7 @@
             /obj/item/toy/plushie/carpplushie/candy,
             /obj/item/toy/plushie/carpplushie/nebula,
             /obj/item/toy/plushie/carpplushie/void
-        ) = 2,
+        ),
         
         list(
             /obj/item/toy/plushie/red_fox,
