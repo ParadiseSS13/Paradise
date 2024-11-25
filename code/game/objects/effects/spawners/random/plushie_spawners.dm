@@ -81,5 +81,5 @@
             /obj/item/toy/plushie/nianplushie/clockwork = 2,
             /obj/item/toy/plushie/nianplushie/moonfly = 2,
             /obj/item/toy/plushie/nianplushie/rainbow = 1
-        ) = 2,
+        ),
     )
