@@ -429,7 +429,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 61
+#define SQL_VERSION 62
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -556,6 +556,7 @@
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
 #define RUNECHAT_SYMBOL_LOOC 2
+#define RUNECHAT_SYMBOL_DEAD 3
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)

@@ -108,7 +108,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	msg += "<b>RUST-G Build</b>: [rustg_get_version()]"
 
 	if(world.TgsAvailable())
-		msg += "<b>TGS Version</b>: [world.TgsVersion()] (API: [world.TgsApiVersion()])"
+		var/datum/tgs_version/tgs_ver = world.TgsVersion()
+		var/datum/tgs_version/api_ver = world.TgsApiVersion()
+		msg += "<b>TGS Version</b>: [tgs_ver.deprefixed_parameter] (API: [api_ver.deprefixed_parameter])"
 
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		msg += "<b>Active Testmerges:</b>"

@@ -17,7 +17,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
-	execution_speed = 8 SECONDS
+	execution_speed = 4 SECONDS
 	var/zoomable = TRUE
 
 /obj/item/gun/projectile/automatic/sniper_rifle/Initialize(mapload)

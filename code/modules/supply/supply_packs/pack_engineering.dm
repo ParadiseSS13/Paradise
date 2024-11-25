@@ -168,6 +168,12 @@
 	cost = 250
 	containername = "particle accelerator crate"
 
+/datum/supply_packs/engineering/transmission_laser
+	name = "Power Transmission Laser Circuitboard"
+	cost = 1500
+	contains = list(/obj/item/circuitboard/machine/transmission_laser)
+	containername = "power transmission laser circuitboard crate"
+
 /datum/supply_packs/engineering/radiation
 	name = "Radiation Protection Crate"
 	cost = 150
