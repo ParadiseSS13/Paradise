@@ -223,7 +223,7 @@
 
 /obj/effect/mapping_helpers/turfs/rust
 	icon = 'icons/effects/rust_overlay.dmi'
-	icon_state = "rust_default"
+	icon_state = "rust1"
 	var/spawn_probability = 100
 
 /obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
