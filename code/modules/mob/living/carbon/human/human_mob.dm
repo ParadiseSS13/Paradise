@@ -1854,7 +1854,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
-			equip_to_slot_if_possible(C, 1<<(i-1)) // +1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
+			equip_to_slot_if_possible(C, 1<<(i-1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
 	update_icons()
 
 	..()
