@@ -28563,11 +28563,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random/dirt/frequent,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -32562,12 +32562,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -34894,9 +34894,6 @@
 	},
 /area/station/engineering/control)
 "eWT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -34911,6 +34908,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -49353,10 +49351,6 @@
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"iMZ" = (
-/turf/simulated/mineral/ancient/outer,
-/turf/simulated/floor/plating,
-/area/mine/unexplored/cere/command)
 "iNa" = (
 /obj/machinery/doppler_array{
 	dir = 8
@@ -50215,17 +50209,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"iXf" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "iXl" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -52168,11 +52151,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"jtI" = (
-/obj/effect/spawner/random/fungus/maybe,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "jtN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66135,10 +66113,6 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
-"mSc" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "mSf" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
@@ -86638,7 +86612,6 @@
 	dir = 5;
 	icon_state = "yellow"
 	},
-/turf/space,
 /area/station/maintenance/fore)
 "rYV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -92378,12 +92351,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
-"tpZ" = (
-/turf/simulated/wall,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fore)
 "tqb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -94038,10 +94005,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
-"tKo" = (
-/turf/simulated/mineral/ancient,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "tKp" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -97010,7 +96973,6 @@
 "uue" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
-/turf/space,
 /area/station/maintenance/fore)
 "uuf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -149211,7 +149173,7 @@ abW
 abW
 abW
 cRv
-iMZ
+cRv
 cRv
 cRv
 cRv
@@ -149471,12 +149433,12 @@ pls
 pls
 ixo
 pls
-tKo
+pls
 cDp
 lTQ
 lTQ
 lTQ
-tpZ
+cDp
 abW
 abW
 abW
@@ -149726,7 +149688,7 @@ qaI
 bNR
 cDp
 wvX
-jtI
+qzN
 iBl
 cDp
 vba
@@ -150523,7 +150485,7 @@ wBW
 fvh
 bSj
 gNX
-iXf
+bSj
 bSj
 bSj
 jKg
@@ -150754,7 +150716,7 @@ cTE
 qzN
 cDp
 fDS
-mSc
+cDp
 cDp
 pls
 pls
