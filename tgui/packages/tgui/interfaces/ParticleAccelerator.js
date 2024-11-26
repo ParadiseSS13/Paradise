@@ -113,7 +113,15 @@ const LayoutHorizontal = (props, context) => {
       <TableRow width="40px">
         {(orientation === 'east' ? layout_1 : layout_3).slice().map((item) => (
           <Table.Cell key={item.name}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
@@ -132,7 +140,15 @@ const LayoutHorizontal = (props, context) => {
       <TableRow width="40px">
         {layout_2.slice().map((item) => (
           <Table.Cell key={item.name}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
@@ -151,7 +167,15 @@ const LayoutHorizontal = (props, context) => {
       <TableRow width="40px">
         {(orientation === 'east' ? layout_3 : layout_1).slice().map((item) => (
           <Table.Cell key={item.name}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
@@ -179,7 +203,15 @@ const LayoutVertical = (props, context) => {
       <GridColumn width="40px">
         {(orientation === 'north' ? layout_1 : layout_3).slice().map((item) => (
           <Stack.Item grow key={item.name}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
@@ -198,7 +230,15 @@ const LayoutVertical = (props, context) => {
       <GridColumn>
         {layout_2.slice().map((item) => (
           <Stack.Item grow key={item.name}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
@@ -217,7 +257,15 @@ const LayoutVertical = (props, context) => {
       <GridColumn width="40px">
         {(orientation === 'north' ? layout_3 : layout_1).slice().map((item) => (
           <Stack.Item grow key={item.name} tooltip={item.status}>
-            <Tooltip content={`${item.name} Status:${item.status}, Direction:${dir2text(item.dir)}`}>
+            <Tooltip
+              content={
+                <span style={{ wordWrap: 'break-word' }}>
+                  {item.name} <br /> {`Status: ${item.status}`}
+                  <br />
+                  {`Direction: ${dir2text(item.dir)}`}
+                </span>
+              }
+            >
               <ImageButton
                 dmIcon={icon}
                 dmIconState={item.icon_state}
