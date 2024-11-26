@@ -497,7 +497,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
 	paintable = FALSE
 
-/obj/machinery/door/airlock/clockwork/Initialize()
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(loc)
 
