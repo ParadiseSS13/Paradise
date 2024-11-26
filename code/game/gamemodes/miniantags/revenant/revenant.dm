@@ -308,6 +308,7 @@
 	// No other state is happening, therefore we are stunned
 	icon_state = icon_stun
 
+
 /datum/objective/revenant
 	needs_target = FALSE
 	var/targetAmount = 100
