@@ -1,4 +1,4 @@
-# Updates the DB from 61 to 62
+# Updates the DB from 62 to 63
 # Adds a PDA ringtone option to character setup
 
 ALTER TABLE `characters`
