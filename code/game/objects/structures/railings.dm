@@ -172,7 +172,7 @@
 				return TRUE
 	return FALSE
 
-/obj/structure/railing/do_climb(mob/living/user)
+/obj/structure/railing/start_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
 	. = ..()
 	if(.)
