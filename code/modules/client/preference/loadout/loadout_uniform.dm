@@ -360,12 +360,12 @@
 /datum/gear/uniform/overalls/job/cargo
 	display_name = "Overalls, cargo tech"
 	path = /obj/item/clothing/under/rank/cargo/tech/overalls
-	allowed_roles = list("Quartermaster","Cargo Technician")
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/overalls/job/expedition
 	display_name = "Overalls, expedition"
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
-	allowed_roles = list("Quartermaster","Explorer")
+	allowed_roles = list("Quartermaster", "Explorer")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
