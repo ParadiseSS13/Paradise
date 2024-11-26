@@ -274,7 +274,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
 
 /datum/antagonist/traitor/proc/reveal_delayed_objectives()
-	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
+	for(var/datum/objective/delayed/delayed_obj in get_antag_objectives(FALSE))
 		delayed_obj.reveal_objective()
 
 	if(!owner?.current)

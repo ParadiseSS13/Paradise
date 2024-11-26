@@ -43,7 +43,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/flashlight)
+		new/datum/data/pda/utility/flashlight,
+		new/datum/data/pda/app/games,
+		// Here our games go
+		new/datum/data/pda/app/game/minesweeper)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()

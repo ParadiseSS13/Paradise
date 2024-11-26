@@ -466,14 +466,6 @@
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
 
-//Cleaning tool strength
-// 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
-#define CLEAN_MEDIUM		3 // Acceptable tools
-#define CLEAN_STRONG		4 // Industrial strength
-#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
-#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
-
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
 #define GHOST_ORBIT_TRIANGLE	"triangle"
@@ -558,6 +550,7 @@
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
 #define RUNECHAT_SYMBOL_LOOC 2
+#define RUNECHAT_SYMBOL_DEAD 3
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
