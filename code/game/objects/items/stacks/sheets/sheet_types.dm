@@ -616,6 +616,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 		new /datum/stack_recipe("brass pew (left)", /obj/structure/chair/sofa/pew/clockwork/left, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("brass pew (right)", /obj/structure/chair/sofa/pew/clockwork/right, 5, one_per_turf = TRUE, on_floor = TRUE)
 		)),
+	new /datum/stack_recipe("pinion airlock assembly", /obj/structure/door_assembly/door_assembly_clockwork, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass storage shelf", /obj/structure/shelf/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass gun rack", /obj/structure/gunrack/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

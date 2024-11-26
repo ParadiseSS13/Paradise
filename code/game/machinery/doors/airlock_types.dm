@@ -495,6 +495,7 @@
 	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
+	paintable = FALSE
 
 /obj/machinery/door/airlock/clockwork/Initialize()
 	. = ..()
