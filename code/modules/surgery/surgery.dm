@@ -337,7 +337,7 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
-	play_preop_sound(user, target, target_zone, tool, surgery)
+	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
 
 	if(tool)
 		speed_mod = tool.toolspeed
@@ -394,10 +394,10 @@
 
 	surgery.step_in_progress = FALSE
 	if(advance)
-		play_success_sound(user, target, target_zone, tool, surgery)
+		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
 	else
-		play_failure_sound(user, target, target_zone, tool, surgery)
+		INVOKE_ASYNC(src, PROC_REF(play_failure_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_FAILURE
 
 /**
@@ -510,7 +510,7 @@
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	target_organ.germ_level = max(germ_level, target_organ.germ_level)
-	spread_germs_by_incision(target_organ, tool) //germ spread from environement to patient
+	INVOKE_ASYNC(src, PROC_REF(spread_germs_by_incision), target_organ, tool) //germ spread from environement to patient
 
 /**
  * Spread germs directly from a tool.
