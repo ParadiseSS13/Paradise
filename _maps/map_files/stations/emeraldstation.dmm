@@ -29417,7 +29417,7 @@
 	},
 /area/station/science/toxins/mixing)
 "fwd" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
@@ -61248,7 +61248,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "lsu" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -87592,7 +87592,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "qla" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -104579,7 +104579,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "tod" = (
-/obj/machinery/suit_storage_unit/ce/secure,
+/obj/machinery/suit_storage_unit/industrial/ce/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -107458,7 +107458,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "tRV" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -121797,7 +121797,7 @@
 /turf/space,
 /area/space)
 "wyR" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/item/toy/figure/crew/engineer{
 	pixel_y = 17;
 	pixel_x = -9

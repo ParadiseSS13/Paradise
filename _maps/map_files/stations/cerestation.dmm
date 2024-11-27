@@ -16121,7 +16121,7 @@
 /area/station/engineering/atmos)
 "bPz" = (
 /obj/machinery/light,
-/obj/machinery/suit_storage_unit/ce/secure,
+/obj/machinery/suit_storage_unit/industrial/ce/secure,
 /obj/machinery/computer/guestpass{
 	pixel_x = -28;
 	pixel_y = null
@@ -16705,21 +16705,21 @@
 	},
 /area/station/engineering/smes)
 "bRK" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRL" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRM" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -70773,7 +70773,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -84635,7 +84635,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
