@@ -1220,7 +1220,7 @@
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
-		if(cursed_shot == TRUE)
+		if(cursed_shot)
 			var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
 			SS.transfer_soul("FORCE", user)
 			user.death(FALSE)
