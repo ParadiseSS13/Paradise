@@ -5,6 +5,7 @@
 #include "_translations.dm"
 
 #include "code/pronouns.dm"
+#include "code/translate_emotes.dm"
 #include "code/translate_verbs.dm"
 #include "code/ru_names/ru_name_base.dm"
 
