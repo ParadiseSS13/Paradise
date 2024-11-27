@@ -30,7 +30,7 @@
 		)
 
 /obj/item/clothing/suit/mantle/armor/captain
-	name = "captain's cloak"
+	name = "captain's mantle"
 	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
 	icon_state = "capmantle"
 	item_state = "capmantle"
@@ -72,7 +72,7 @@
 	icon_state = "monkrobe"
 	item_state = "monkrobe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/monk_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
