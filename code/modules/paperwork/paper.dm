@@ -1040,7 +1040,7 @@
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/paper/researchnotes/New()
