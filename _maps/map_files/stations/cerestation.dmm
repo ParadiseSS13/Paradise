@@ -37656,16 +37656,10 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "fLF" = (
-/obj/machinery/ai_status_display{
-	pixel_x = -32
+/obj/structure/chair/office/dark{
+	dir = 8
 	},
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "fLH" = (
 /obj/machinery/power/apc/directional/east,
@@ -39392,6 +39386,10 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"gjo" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/station/security/prisonershuttle)
 "gjp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -42640,6 +42638,15 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"hhY" = (
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "hio" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -43727,15 +43734,6 @@
 /obj/item/storage/fancy/cigarettes,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
-"hvS" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/station/security/prisonershuttle)
 "hvX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44627,9 +44625,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "hHm" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/under/color/orange/prison,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -44856,6 +44854,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fpmaint)
+"hJx" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "hJz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53851,6 +53857,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -61349,6 +61358,14 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/science/robotics/chargebay)
+"lEX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "lFc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/orange{
@@ -64528,6 +64545,15 @@
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"muW" = (
+/obj/machinery/computer/prisoner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "muZ" = (
 /obj/structure/table/wood,
 /obj/item/clipboard{
@@ -84626,18 +84652,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/storefront)
-"rAr" = (
-/obj/machinery/status_display{
-	pixel_x = -32
-	},
-/obj/machinery/computer/prisoner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
-	},
-/area/station/security/prisonershuttle)
 "rAB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -88780,7 +88794,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/emcloset,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -90520,12 +90536,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "sSU" = (
-/obj/machinery/computer/shuttle/labor{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	dir = 1;
+	icon_state = "redcorner"
 	},
 /area/station/security/prisonershuttle)
 "sTg" = (
@@ -104116,6 +104129,15 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel/office)
+"wfA" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/under/color/orange/prison,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "wfJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -110591,8 +110613,6 @@
 	},
 /area/station/command/teleporter)
 "xET" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -110720,8 +110740,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -111908,6 +111927,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/spacebridge/dockmed)
+"xUW" = (
+/obj/machinery/computer/shuttle/labor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "xVg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
@@ -125013,8 +125041,8 @@ ksx
 lzH
 lzH
 lzH
-sWO
 lzH
+sWO
 lzH
 lzH
 ksx
@@ -126037,7 +126065,7 @@ rNK
 rNK
 rNK
 rNK
-lzH
+ksx
 xEp
 xEp
 xEp
@@ -126045,7 +126073,7 @@ xEp
 xEp
 xEp
 xEp
-lzH
+ksx
 qQO
 uGh
 sOa
@@ -126284,17 +126312,17 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-ksx
+cEr
+lzH
+lzH
+cEr
+lzH
+lzH
+pVD
+pVD
+pVD
+pVD
+pVD
 xEp
 xEp
 xEp
@@ -126302,7 +126330,7 @@ xEp
 xEp
 xEp
 xEp
-ksx
+lzH
 qQO
 dLp
 sOa
@@ -126541,16 +126569,16 @@ rNK
 rNK
 rNK
 rNK
-cEr
 lzH
-lzH
-cEr
-lzH
-lzH
+rNK
+rNK
+rNK
+rNK
+rNK
 pVD
-pVD
-pVD
-pVD
+xUW
+hhY
+muW
 pVD
 xEp
 xEp
@@ -126807,10 +126835,10 @@ rNK
 pVD
 sSU
 fLF
-rAr
+drz
 pVD
-lzH
-lzH
+pVD
+pVD
 pVD
 uAj
 pVD
@@ -127064,13 +127092,13 @@ nxt
 pSz
 mFT
 mFT
-drz
-pVD
-pVD
-pVD
-pVD
+qBv
+hJx
+lEX
+wfA
+gjo
 epx
-pVD
+gjo
 pVD
 pVD
 pVD
@@ -127321,10 +127349,10 @@ rNK
 ymd
 tQc
 rnm
+mFT
+mFT
+mFT
 qBv
-xMK
-xMK
-hvS
 jMe
 mFT
 xMK
@@ -128597,12 +128625,12 @@ rNK
 rNK
 rNK
 rNK
-cEr
 lzH
-lzH
-cEr
-lzH
-lzH
+rNK
+rNK
+rNK
+rNK
+rNK
 mCL
 qsK
 qsK
@@ -128854,12 +128882,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+cEr
+lzH
+lzH
+cEr
+lzH
+lzH
 mCL
 cOX
 kMV
