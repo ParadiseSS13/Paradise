@@ -48366,11 +48366,12 @@
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Distro Loop"
 	},
-/obj/machinery/atmospherics/binary/volume_pump/on{
-	dir = 8;
-	name = "Air To Distro"
-	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8;
+	name = "Air To Distro";
+	target_pressure = 303
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"

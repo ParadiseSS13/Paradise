@@ -17447,7 +17447,7 @@
 	dir = 4;
 	name = "Air to Distro";
 	on = 1;
-	target_pressure = 101
+	target_pressure = 303
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
