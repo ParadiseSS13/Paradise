@@ -50,6 +50,8 @@
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/captain(src)
+	new /obj/item/clothing/under/plasmaman/captain(src)
 
 /obj/item/storage/bag/garment/head_of_personnel
 	name = "head of personnel's garment bag"
@@ -74,6 +76,8 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/hop(src)
+	new /obj/item/clothing/under/plasmaman/hop(src)
 
 /obj/item/storage/bag/garment/head_of_security
 	name = "head of security's garment bag"
@@ -92,6 +96,8 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/skirt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/skirt/corporate(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/security/hos(src)
+	new /obj/item/clothing/under/plasmaman/security/hos(src)
 
 /obj/item/storage/bag/garment/research_director
 	name = "research director's garment bag"
@@ -109,6 +115,8 @@
 	new /obj/item/clothing/glasses/science(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/hud/diagnostic/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/rd(src)
+	new /obj/item/clothing/under/plasmaman/rd(src)
 
 
 /obj/item/storage/bag/garment/chief_medical_officer
@@ -130,6 +138,8 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/brown	(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/cmo(src)
+	new /obj/item/clothing/under/plasmaman/cmo(src)
 
 /obj/item/storage/bag/garment/chief_engineer
 	name = "chief engineer's garment bag"
@@ -148,6 +158,8 @@
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/meson/sunglasses(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce(src)
+	new /obj/item/clothing/under/plasmaman/engineering/ce(src)
 
 /obj/item/storage/bag/garment/nanotrasen_representative
 	name = "\improper Nanotrasen representative's garment bag"
@@ -164,6 +176,8 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/white(src)
+	new /obj/item/clothing/under/plasmaman/enviroslacks(src)
 
 /obj/item/storage/bag/garment/magistrate
 	name = "magistrate's garment bag"
@@ -179,6 +193,8 @@
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/white(src)
+	new /obj/item/clothing/under/plasmaman/enviroslacks(src)
 
 /obj/item/storage/bag/garment/blueshield
 	name = "blueshield's garment bag"
@@ -200,6 +216,8 @@
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/accessory/blue(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/blueshield(src)
+	new /obj/item/clothing/under/plasmaman/blueshield(src)
 
 /obj/item/storage/bag/garment/quartermaster
 	name = "quartermaster's garment bag"
@@ -221,6 +239,8 @@
 	new /obj/item/clothing/suit/storage/hazardvest/qm(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/cargo(src)
+	new /obj/item/clothing/under/plasmaman/cargo(src)
 
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"
@@ -238,6 +258,8 @@
 	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
 	new /obj/item/clothing/mask/gas/sechailer/warden(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/security/warden(src)
+	new /obj/item/clothing/under/plasmaman/security/warden(src)
 
 /obj/item/storage/bag/garment/detective
 	name = "detective's garment bag"
@@ -278,6 +300,8 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
+	new /obj/item/clothing/under/plasmaman/chaplain(src)
 
 /obj/item/storage/bag/garment/psychologist
 	name = "psychologist's garment bag"
@@ -293,6 +317,8 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/skills(src)
 	new /obj/item/clothing/accessory/blue(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman(src)
+	new /obj/item/clothing/under/plasmaman(src)
 
 /obj/item/storage/bag/garment/paramedic
 	name = "paramedic's garment bag"
@@ -307,6 +333,8 @@
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/medical(src)
+	new /obj/item/clothing/under/plasmaman/medical(src)
 
 /obj/item/storage/bag/garment/explorer
 	name = "explorer's garment bag"
