@@ -278,7 +278,7 @@
 /turf/space,
 /area/space/nearstation/no_teleport)
 "fc" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
