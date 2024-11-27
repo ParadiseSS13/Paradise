@@ -143,7 +143,7 @@
 	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
 	var/power = 0
 	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
-	var/mole_crunch_multiplier
+	var/gas_coefficient
 	///Determines the rate of positve change in gas comp values
 	var/gas_change_rate = 0.05
 
@@ -557,9 +557,9 @@
 		if(power_changes)
 			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
-		mole_crunch_multiplier = (combined_gas / MOLE_CRUNCH_THRESHOLD) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
+		gas_coefficient = (combined_gas / MOLE_CRUNCH_THRESHOLD) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
 		if(prob(50))
-			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + power * mole_crunch_multiplier)
+			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + power * gas_coefficient)
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -602,7 +602,7 @@
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
-	if((power * (1 + mole_crunch_multiplier)) > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000, if the damage is above 550, or mole crushing
+	if((power * (1 + gas_coefficient)) > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000, if the damage is above 550, or mole crushing
 		var/range = 4
 		zap_cutoff = 1500
 		if(removed && removed.return_pressure() > 0 && removed.temperature() > 0)
@@ -641,9 +641,9 @@
 
 		if(prob(5))
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
-		if((power * (1 + mole_crunch_multiplier)) > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
+		if((power * (1 + gas_coefficient)) > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
-		if(((power * (1 + mole_crunch_multiplier)) > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && (power * (1 + mole_crunch_multiplier)) > POWER_PENALTY_THRESHOLD))
+		if(((power * (1 + gas_coefficient)) > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && (power * (1 + gas_coefficient)) > POWER_PENALTY_THRESHOLD))
 			supermatter_anomaly_gen(src, BLUESPACE_ANOMALY, rand(5, 10))
 
 	if(prob(15))
