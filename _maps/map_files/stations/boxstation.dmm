@@ -41119,7 +41119,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cIu" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cIC" = (
@@ -42568,7 +42568,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cNZ" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
@@ -54332,7 +54332,7 @@
 	},
 /area/station/security/brig)
 "eWA" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -69705,7 +69705,7 @@
 	},
 /area/station/science/xenobiology)
 "msm" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -80148,7 +80148,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "rnd" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "rne" = (
@@ -93070,7 +93070,7 @@
 	},
 /area/station/supply/qm)
 "xRG" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"

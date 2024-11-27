@@ -40813,7 +40813,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "gtz" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41968,7 +41968,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "gLg" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -64119,7 +64119,7 @@
 	},
 /area/station/turret_protected/ai_upload)
 "mNd" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "mNi" = (
@@ -64701,7 +64701,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71108,7 +71108,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "oRS" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -86444,7 +86444,7 @@
 	},
 /area/station/hallway/secondary/entry/west)
 "tbU" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -104494,7 +104494,7 @@
 /area/station/security/prison/cell_block/A)
 "xWe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xWf" = (
