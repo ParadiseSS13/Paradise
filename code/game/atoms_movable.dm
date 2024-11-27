@@ -312,22 +312,21 @@
 			var/direct_NS = direct & (NORTH | SOUTH)
 			var/direct_EW = direct & (EAST | WEST)
 			var/first_step_target = get_step(src, direct_NS)
-			Move(first_step_target, direct_NS)
+			step(src, direct_NS)
 			if(loc == first_step_target)
 				first_step_dir = direct_NS
 				moving_diagonally = SECOND_DIAG_STEP
-				. = Move(get_step(src, direct_EW), direct_EW)
+				. = step(src, direct_EW)
 			else if(loc == oldloc)
 				first_step_target = get_step(src, direct_EW)
-				Move(first_step_target, direct_EW)
+				step(src, direct_EW)
 				if(loc == first_step_target)
 					first_step_dir = direct_EW
 					moving_diagonally = SECOND_DIAG_STEP
-					. = Move(get_step(src, direct_NS), direct_NS)
+					. = step(src, direct_NS)
 			if(first_step_dir != 0)
 				if(!.)
 					setDir(first_step_dir)
-					Moved(oldloc, first_step_dir)
 				else if(!inertia_moving)
 					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
