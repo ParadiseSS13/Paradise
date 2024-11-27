@@ -4570,17 +4570,6 @@
 "aqI" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
-"aqN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/power/apc/critical/directional/north,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "aqP" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
@@ -34599,9 +34588,6 @@
 	icon_state = "darkpurple"
 	},
 /area/station/command/office/rd)
-"clp" = (
-/turf/simulated/wall/r_wall,
-/area/station/science/explab/chamber)
 "clq" = (
 /obj/machinery/computer/mecha{
 	dir = 4
@@ -35337,9 +35323,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"cod" = (
-/turf/simulated/wall/r_wall,
-/area/station/science/explab)
 "coe" = (
 /obj/item/kirbyplants,
 /obj/machinery/power/apc/directional/south,
@@ -35714,7 +35697,7 @@
 /area/station/maintenance/fpmaint)
 "cpR" = (
 /turf/simulated/wall,
-/area/station/science/explab)
+/area/station/science/break_room)
 "cpS" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -36174,7 +36157,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "crM" = (
 /obj/structure/table,
 /obj/machinery/computer/med_data/laptop{
@@ -36789,7 +36772,7 @@
 "ctu" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/science/explab)
+/area/station/science/break_room)
 "ctw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -39316,14 +39299,6 @@
 "cBR" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/xenobiology)
-"cBS" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "telescienceblast";
-	name = "test chamber blast doors"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/explab)
 "cBU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -39491,21 +39466,21 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cCU" = (
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cCV" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cCW" = (
 /turf/simulated/wall,
 /area/station/medical/surgery/primary)
@@ -39956,13 +39931,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cEk" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -39973,7 +39941,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cEp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -40481,7 +40449,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cGv" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Control Room"
@@ -42284,7 +42252,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "cMT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -51490,15 +51458,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
-"dHF" = (
-/obj/machinery/firealarm/directional/west,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "dHH" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -52808,7 +52767,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "eiE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -55985,18 +55944,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "fGI" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -56118,7 +56077,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "fJK" = (
 /obj/structure/rack{
 	dir = 1
@@ -59002,12 +58961,6 @@
 	},
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
-"hcE" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "hdr" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62318,7 +62271,7 @@
 	dir = 9;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "iQP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -62780,13 +62733,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"jcc" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/light,
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "jcY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -63602,7 +63548,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "jwb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63690,15 +63636,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "jxy" = (
-/obj/machinery/door_control{
-	id = "telescienceblast";
-	name = "Test Chamber Blast Door Control";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "jyo" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/slime,
@@ -67993,14 +67934,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
-"lBQ" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
+/area/station/science/break_room)
 "lCQ" = (
 /obj/structure/closet/emcloset,
 /obj/structure/sign/poster/official/random{
@@ -70112,24 +70046,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "mEI" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/sop_science{
-	pixel_y = 3;
-	pixel_x = -3
-	},
-/obj/item/book/manual/wiki/experimentor,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the E.X.P.E.R.I-MENTOR chamber.";
-	layer = 4;
-	name = "E.X.P.E.R.I-MENTOR Camera Screen";
-	network = list("Experimentor");
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "mEJ" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -70675,15 +70596,6 @@
 	icon_state = "bluered"
 	},
 /area/station/public/dorms)
-"mQC" = (
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/explab)
 "mQX" = (
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/window/reinforced,
@@ -73436,13 +73348,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/station/medical/surgery/primary)
-"olg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/alarm/directional/south,
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "olG" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
@@ -73674,7 +73579,7 @@
 	dir = 6;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "oqF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/reinforced/normal{
@@ -74045,10 +73950,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
-"oyY" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/asmaint2)
 "ozk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75437,12 +75338,6 @@
 	icon_state = "grimy"
 	},
 /area/station/command/office/hop)
-"pgJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "pgV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -76211,15 +76106,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/aft/south)
-"pAs" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "telescienceblast";
-	name = "test chamber blast doors"
-	},
-/obj/structure/sign/securearea,
-/turf/simulated/floor/plating,
-/area/station/science/explab)
 "pAJ" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/grass/jungle/no_creep,
@@ -78886,7 +78772,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "qIg" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start/quartermaster,
@@ -79827,14 +79713,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -79843,7 +79721,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "rgb" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -79854,10 +79732,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"rgc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "rgq" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -80436,20 +80310,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/science/lobby)
-"rvG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "rwc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81065,10 +80925,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
-"rLY" = (
-/obj/machinery/r_n_d/experimentor,
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "rMb" = (
 /obj/machinery/mecha_part_fabricator,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -82355,7 +82211,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "sud" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -82723,7 +82579,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "sFl" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84056,21 +83912,13 @@
 	},
 /area/station/hallway/primary/central/sw)
 "tpO" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "tpP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -84140,26 +83988,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
-"ttp" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "telescienceblast";
-	name = "test chamber blast doors"
-	},
-/obj/effect/turf_decal/stripes,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab)
 "ttv" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green/off{
@@ -84490,7 +84318,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "tCK" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -85916,9 +85744,6 @@
 /obj/structure/disaster_counter/toxins,
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
-"uij" = (
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "ujR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -86389,23 +86214,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
-"uwG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/explab)
 "uwJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -86936,7 +86744,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "uMU" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/grille/broken,
@@ -89050,14 +88858,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
-"vRJ" = (
-/obj/machinery/camera{
-	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
-	dir = 4;
-	network = list("Experimentor","Research","SS13")
-	},
-/turf/simulated/floor/engine,
-/area/station/science/explab/chamber)
 "vRY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91919,7 +91719,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/explab)
+/area/station/science/break_room)
 "xpJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
@@ -138051,7 +137851,7 @@ uIf
 qqk
 cuQ
 dCw
-qZN
+cuQ
 bGG
 bGG
 bGG
@@ -138308,9 +138108,9 @@ cuQ
 bGG
 cKQ
 jxu
-oyY
-bGG
+lqd
 bKl
+bGG
 dgy
 dbg
 cLQ
@@ -138565,11 +138365,11 @@ cuQ
 xWm
 cKQ
 bGG
-clp
-clp
-clp
-clp
-clp
+cuQ
+cuQ
+bGG
+cuQ
+cuQ
 pUR
 bGG
 qZN
@@ -138822,11 +138622,11 @@ cuQ
 bGG
 cEE
 bGG
-clp
-lBQ
-vRJ
-dHF
-clp
+cuQ
+bGG
+bGG
+bGG
+cuQ
 cLQ
 bGG
 qZN
@@ -139079,11 +138879,11 @@ cuQ
 lpS
 cLc
 bGG
-clp
-hcE
-rLY
-jcc
-clp
+cuQ
+bGG
+bGG
+bGG
+cuQ
 cLQ
 bGG
 qZN
@@ -139336,11 +139136,11 @@ cuQ
 bGG
 bGG
 bGG
-clp
-aqN
-uij
-pgJ
-clp
+cuQ
+bGG
+bGG
+bGG
+cuQ
 cLQ
 bGG
 qZN
@@ -139593,11 +139393,11 @@ bvX
 bvX
 bvX
 bvX
-clp
-rvG
-rgc
-olg
-clp
+cuQ
+bGG
+bGG
+bGG
+cuQ
 wEl
 rqq
 qZN
@@ -139851,10 +139651,10 @@ uzd
 wOr
 bvX
 cpR
-ttp
-pAs
-cBS
-cod
+cpR
+cpR
+cpR
+cpR
 cpR
 oVH
 qZN
@@ -140108,8 +139908,8 @@ byP
 pHN
 bvX
 iQJ
-uwG
-mQC
+mEI
+mEI
 mEI
 cEk
 cpR

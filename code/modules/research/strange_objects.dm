@@ -199,7 +199,7 @@
 		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
 
 	log_game(log_msg)
-	investigate_log(log_msg, "experimentor")
+	investigate_log(log_msg, "strangeobjects")
 
 
 // Make some magic smoke

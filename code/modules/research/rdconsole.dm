@@ -986,12 +986,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	autolink_id = "station_rnd"
 
-/obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	autolink_id = "station_rnd"
-	range = 5
-	circuit = /obj/item/circuitboard/rdconsole/experiment
-
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	req_one_access = list()

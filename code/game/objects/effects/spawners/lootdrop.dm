@@ -117,7 +117,7 @@
 				/obj/item/autosurgeon/organ = 50,
 				/obj/item/mod/construction/plating/research = 25,
 
-				// Research / Experimentor
+				// Research
 				/obj/item/paper/researchnotes = 125, // papers that give random R&D levels
 				/obj/item/storage/box/telescience = 25, // Code green or blue. Probably not antags. People haven't touched it in ages. Let us see what happens.
 
