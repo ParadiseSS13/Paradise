@@ -1,0 +1,2 @@
+/obj/machinery/suit_storage_unit/engine/@SUBTYPES : /obj/machinery/suit_storage_unit/industrial/engine/@SUBTYPES{@OLD}
+/obj/machinery/suit_storage_unit/ce/@SUBTYPES : /obj/machinery/suit_storage_unit/industrial/ce/@SUBTYPES{@OLD}
