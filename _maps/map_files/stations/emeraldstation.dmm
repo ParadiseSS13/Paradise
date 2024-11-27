@@ -22718,8 +22718,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/command,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55406,7 +55406,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "klt" = (
