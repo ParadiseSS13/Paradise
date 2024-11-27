@@ -247,7 +247,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_analyzer(mob/user)
+/obj/machinery/computer/rdconsole/proc/start_analyzer_destroy(mob/user)
 	if(!linked_analyzer)
 		return
 
@@ -280,6 +280,36 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("s_analyzer_process", linked_analyzer)
 	addtimer(CALLBACK(src, PROC_REF(finish_analyzer), user, temp_tech), DECONSTRUCT_DELAY)
+
+
+/obj/machinery/computer/rdconsole/proc/start_analyzer_discover(mob/user)
+	if(!linked_analyzer)
+		return
+
+	if(linked_analyzer.busy)
+		to_chat(user, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
+		return
+
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
+		return
+
+	if(!istype(linked_analyzer.loaded_item, /obj/item/relic))
+		message_admins("[key_name_admin(user)] attempted to discover something that isnt a strange object. Possible HREF exploit.")
+		return
+
+	var/obj/item/relic/R = linked_analyzer.loaded_item
+	visible_message("[linked_analyzer] scans [linked_analyzer.loaded_item], revealing its true nature!")
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
+
+	// LETS GO GAMBLING
+	R.reveal()
+	R.forceMove(get_turf(linked_analyzer))
+	linked_analyzer.loaded_item = null
+	investigate_log("Scientific analyser has revealed a relic with effect ID <span class='danger'>[R.function_id]</span> effect.", "strangeobjects")
+	linked_analyzer.icon_state = "s_analyzer"
+	SStgui.update_uis(src)
+
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -322,10 +352,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_analyzer.loaded_item = S
 			else
 				qdel(S)
-				linked_analyzer.icon_state = "d_analyzer"
+				linked_analyzer.icon_state = "s_analyzer"
 		else if(!(I in linked_analyzer.component_parts))
 			qdel(I)
-			linked_analyzer.icon_state = "d_analyzer"
+			linked_analyzer.icon_state = "s_analyzer"
 
 	linked_analyzer.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
@@ -598,10 +628,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else if(linked_analyzer.loaded_item)
 					linked_analyzer.loaded_item.forceMove(linked_analyzer.loc)
 					linked_analyzer.loaded_item = null
-					linked_analyzer.icon_state = "d_analyzer"
+					linked_analyzer.icon_state = "s_analyzer"
 
 		if("deconstruct") //Deconstruct the item in the scientific analyzer and update the research holder.
-			start_analyzer(ui.user)
+			start_analyzer_destroy(ui.user)
+
+		if("discover") // Analyse the object in the scientific analyser and discover it
+			start_analyzer_discover(ui.user)
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -936,6 +969,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(menu == MENU_ANALYZER && linked_analyzer && linked_analyzer.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
+		data["can_discover"] = istype(linked_analyzer.loaded_item, /obj/item/relic)
 		loaded_item_list["name"] = linked_analyzer.loaded_item.name
 		var/list/temp_tech = linked_analyzer.ConvertReqString2List(linked_analyzer.loaded_item.origin_tech)
 		var/list/tech_levels = list()

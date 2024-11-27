@@ -57,6 +57,10 @@
 		/mob/living/carbon/human/monkey,
 	)
 
+	// Assign it a random tech level
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming")
+	origin_tech = "[pick(possible_techs)]=[rand(2, 5)]"
+
 
 /obj/item/relic/proc/reveal()
 	if(revealed) //Re-rolling your relics seems a bit overpowered, yes?
@@ -76,13 +80,8 @@
 		STRANGEOBJECT_FUNCTION_PET_SPAWN,
 	)
 
-	origin_tech = pick(
-		"engineering=[rand(2,5)]",
-		"magnets=[rand(2,5)]",
-		"plasmatech=[rand(2,5)]",
-		"programming=[rand(2,5)]",
-		"powerstorage=[rand(2,5)]",
-	)
+	// You discovered it - you gambled your possible fortune! AW DANGIT!
+	origin_tech = null
 
 
 /obj/item/relic/attack_self(mob/user)

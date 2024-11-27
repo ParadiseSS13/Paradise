@@ -52,7 +52,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(istype(O, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "d_analyzer", O))
+	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "s_analyzer", O))
 		if(linked_console)
 			linked_console.linked_analyzer = null
 			linked_console = null
