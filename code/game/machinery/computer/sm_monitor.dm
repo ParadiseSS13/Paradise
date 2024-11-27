@@ -55,7 +55,7 @@
 		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
 		data["SM_moles"] = air.total_moles()
-		data["SM_multiplier"] = active.gas_coefficient
+		data["SM_gas_coefficient"] = active.gas_coefficient
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
 		var/list/gasdata = list()
 		var/TM = air.total_moles()
