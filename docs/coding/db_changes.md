@@ -50,6 +50,8 @@ So, you want to add a new table. In short, you need to do the following:
 3. Bump the SQL version in `config/example/config.toml`. Look for a line
   starting with `sql_version =` and increment it by 1.
 
+4. Bump the `#define SQL_VERSION` by the same amount in `code/__DEFINES/misc_defines.dm`.
+
 An example SQL update file is below. It has a comment at the top explaining
 what it does, and the schema change below.
 
@@ -88,7 +90,7 @@ These files have some rules, most notably:
       `mysql.connector`. No others please.
 
 Your script can then do whatever it needs to the database. Logging for progress
-is advised for heavy operations, but not required. All I ask is that if you do
+is advised for heavy operations, but not required. All we ask is that if you do
 logs for progress, do it for every 10k rows or so, don't print for every single
 row processed!
 
