@@ -343,7 +343,7 @@
 										/obj/structure/grille,
 										/obj/structure/cable,
 										/obj/machinery/the_singularitygen/tesla,
-										/obj/machinery/constructable_frame/machine_frame))
+										/obj/structure/machine_frame))
 
 	//Ok so we are making an assumption here. We assume that view() still calculates from the center out.
 	//This means that if we find an object we can assume it is the closest one of its type. This is somewhat of a speed increase.

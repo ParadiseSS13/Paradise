@@ -494,13 +494,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_stamp
-	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
-	it can also be used in a washing machine to forge clothing."
-	reference = "CHST"
-	item = /obj/item/stamp/chameleon
-	cost = 1
+/datum/uplink_item/stealthy_tools/forgers_kit
+	name = "Forger's Kit"
+	desc = "A set consisting of a stamp and a special pen. The stamp can be activated to imitate an official Nanotrasen Stamp, \
+		allowing you to forge false documents for access or equipment, and can also be used in a washing machine to create counterfeit clothing. \
+			The included pen lets you create fake signatures, further enhancing your forgery capabilities."
+	reference = "FGK"
+	item = /obj/item/storage/box/syndie_kit/forgers_kit
+	cost = 10
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag

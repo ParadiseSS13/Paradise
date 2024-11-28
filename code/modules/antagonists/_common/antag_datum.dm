@@ -45,10 +45,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/wiki_page_name
 	/// The organization, if any, this antag is associated with
 	var/datum/antag_org/organization
-	/// If set to TRUE, the antag will be notified they are targeted by another antagonist this round.
-	var/targeted_by_antag = FALSE
-	/// The message displayed to the antag if targeted_by_antag is set to TRUE
-	var/targeted_by_antag_message = "You can't shake the feeling someone's been stalking you. You might be an assassin's next target."
 
 	//Blurb stuff
 	/// Intro Blurbs text colour

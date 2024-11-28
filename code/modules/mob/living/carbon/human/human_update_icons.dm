@@ -539,6 +539,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_w_uniform()
 	update_inv_wear_id()
 	update_inv_gloves()
+	update_inv_neck()
 	update_inv_glasses()
 	update_inv_ears()
 	update_inv_shoes()
@@ -1059,6 +1060,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
+/mob/living/carbon/human/update_inv_neck()
+	remove_overlay(NECK_LAYER)
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_NECK)]
+		if(inv)
+			inv.update_icon()
+
+	if(neck)
+		update_hud_neck(neck)
+		if(neck.icon_override)
+			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
+		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.sprite_sheet_name])
+			overlays_standing[NECK_LAYER] = mutable_appearance(neck.sprite_sheets[dna.species.sprite_sheet_name], "[neck.icon_state]", layer = -NECK_LAYER)
+		else
+			overlays_standing[NECK_LAYER] = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+		apply_overlay(NECK_LAYER)
 
 /mob/living/carbon/human/update_inv_back()
 	..()
@@ -1228,6 +1245,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_hud_head(obj/item/worn_item)
 	worn_item.screen_loc = ui_head
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_neck(obj/item/worn_item)
+	worn_item.screen_loc = ui_neck
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
