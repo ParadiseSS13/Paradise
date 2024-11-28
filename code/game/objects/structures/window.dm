@@ -347,7 +347,7 @@
 	if(!fulltile)
 		if(get_dir(user, src) & dir)
 			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
+				if(!O.CanPass(user, get_dir(src, user)))
 					return 0
 	return 1
 
