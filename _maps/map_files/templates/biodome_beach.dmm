@@ -147,7 +147,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "az" = (
-/obj/item/clothing/accessory/necklace/dope,
+/obj/item/clothing/neck/necklace/dope,
 /obj/item/reagent_containers/spray/spraytan,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)

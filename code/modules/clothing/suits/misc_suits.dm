@@ -1302,7 +1302,7 @@
 	item_state = "ladiesredvictoriancoat"
 
 //Mantles!
-/obj/item/clothing/suit/mantle
+/obj/item/clothing/suit/mantle //BMONMARK
 	name = "mantle"
 	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
 	icon_state = "mantle"

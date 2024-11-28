@@ -612,7 +612,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					else if(A.sprite_sheets && A.sprite_sheets[dna.species.sprite_sheet_name])
 						standing.overlays += image("icon" = A.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[A.icon_state]")
 					else
-						standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+						standing.overlays += image("icon" = 'icons/mob/accessories.dmi', "icon_state" = "[tie_color]")
 			standing.alpha = w_uniform.alpha
 			standing.color = w_uniform.color
 			overlays_standing[UNIFORM_LAYER] = standing

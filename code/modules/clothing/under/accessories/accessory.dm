@@ -1,10 +1,10 @@
 /obj/item/clothing/accessory
-	name = "tie"
-	desc = "A neosilk clip-on tie."
-	icon = 'icons/obj/clothing/ties.dmi'
-	icon_state = "bluetie"
-	item_state = ""	//no inhands
-	item_color = "bluetie"
+	name = "accessory"
+	desc = "If you see this contact a developer."
+	icon = 'icons/obj/clothing/accessories.dmi'
+	icon_state = ""
+	item_state = ""
+	item_color = ""
 	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
@@ -14,7 +14,7 @@
 
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
-	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+	inv_overlay = image("icon" = 'icons/obj/clothing/accessories_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -618,7 +618,7 @@
 	item_state = "bling"
 	item_color = "bling"
 
-/obj/item/clothing/accessory/necklace/skullcodpiece
+/obj/item/clothing/accessory/skullcodpiece
 	name = "skull codpiece"
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
@@ -627,7 +627,7 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
-/obj/item/clothing/accessory/necklace/talisman
+/obj/item/clothing/accessory/talisman
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
@@ -877,7 +877,7 @@
 	icon_state = pin_icon_state
 	item_state = pin_icon_state
 	item_color = pin_icon_state
-	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+	inv_overlay = image("icon" = 'icons/obj/clothing/accessories_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !length(U.accessories))

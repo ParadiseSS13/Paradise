@@ -16,11 +16,11 @@
 	slot = ITEM_SLOT_ACCESSORY
 	sort_category = "Accessories"
 
-/datum/gear/accessory/scarf
+/datum/gear/accessory/scarf // to do: remove this
 	display_name = "Scarf"
 	path = /obj/item/clothing/accessory/scarf
 
-/datum/gear/accessory/scarf/red
+/datum/gear/accessory/scarf/red //BMONMARK VV
 	display_name = "Scarf, red"
 	path = /obj/item/clothing/accessory/scarf/red
 
@@ -88,7 +88,7 @@
 
 /datum/gear/accessory/tieblue
 	display_name = "Tie, blue"
-	path = /obj/item/clothing/accessory/blue
+	path = /obj/item/clothing/accessory/blue //BMONMARK VV
 
 /datum/gear/accessory/tiered
 	display_name = "Tie, red"
@@ -102,7 +102,7 @@
 	display_name = "Tie, vomit green"
 	path = /obj/item/clothing/accessory/horrible
 
-/datum/gear/accessory/stethoscope
+/datum/gear/accessory/stethoscope //BMONMARK
 	display_name = "Stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic")
@@ -147,7 +147,7 @@
 	display_name = "Cowboy shirt, short sleeved navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 
-/datum/gear/accessory/locket/silver
+/datum/gear/accessory/locket/silver //BMONMARK VV
 	display_name = "Silver locket"
 	path = /obj/item/clothing/accessory/necklace/locket/silver
 

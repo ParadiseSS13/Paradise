@@ -29,7 +29,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/suit/mantle/armor/captain
+/obj/item/clothing/suit/mantle/armor/captain //BMONMARK
 	name = "captain's mantle"
 	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
 	icon_state = "capmantle"
@@ -116,7 +116,7 @@
 	allowed = list(/obj/item/kitchen/knife)
 
 //Chief Engineer
-/obj/item/clothing/suit/mantle/chief_engineer
+/obj/item/clothing/suit/mantle/chief_engineer //BMONMARK
 	name = "chief engineer's mantle"
 	desc = "A slick, authoritative cloak designed for the Chief Engineer."
 	icon_state = "cemantle"
@@ -267,7 +267,7 @@
 	item_state = "suitjacket_purple"
 
 //Head of Security
-/obj/item/clothing/suit/mantle/armor
+/obj/item/clothing/suit/mantle/armor //BMON MARK
 	name = "armored shawl"
 	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
 	icon_state = "hosmantle"
@@ -282,7 +282,7 @@
 	resistance_flags = NONE
 
 //Head of Personnel
-/obj/item/clothing/suit/mantle/armor/hop
+/obj/item/clothing/suit/mantle/armor/hop //BMONMARK
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
@@ -304,7 +304,7 @@
 	)
 
 //Quartermaster
-/obj/item/clothing/suit/mantle/qm
+/obj/item/clothing/suit/mantle/qm //BMONMARK
 	name = "quartermaster's mantle"
 	desc = "An armored shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
 	icon_state = "qmmantle"
@@ -402,7 +402,7 @@
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
-//Research Director
+//Research Director //BMONMARK
 /obj/item/clothing/suit/mantle/labcoat
 	name = "research director's mantle"
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
