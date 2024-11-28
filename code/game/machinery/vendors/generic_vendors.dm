@@ -584,7 +584,7 @@
 				/obj/item/storage/belt/fannypack = 50,
 				/obj/item/storage/belt/fannypack/blue = 50,
 				/obj/item/storage/belt/fannypack/red = 50,
-				/obj/item/clothing/suit/mantle = 20,
+				/obj/item/clothing/neck/cloak/mantle = 20,
 				/obj/item/clothing/neck/cloak/old = 20,
 				/obj/item/clothing/neck/cloak/regal = 30,
 				/obj/item/clothing/suit/pimpcoat/white = 500,

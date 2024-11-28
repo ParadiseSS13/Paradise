@@ -16,75 +16,75 @@
 	slot = ITEM_SLOT_NECK
 	sort_category = "Neck"
 
-/datum/gear/neck/tieblue
+/datum/gear/neck/tie
 	display_name = "Tie, blue"
 	path = /obj/item/clothing/neck/tie/blue
 
-/datum/gear/neck/tiered
+/datum/gear/neck/tie/red
 	display_name = "Tie, red"
 	path = /obj/item/clothing/neck/tie/red
 
-/datum/gear/neck/tieblack
+/datum/gear/neck/tie/black
 	display_name = "Tie, black"
 	path = /obj/item/clothing/neck/tie/black
 
-/datum/gear/neck/tiehorrible
+/datum/gear/neck/tie/horrible
 	display_name = "Tie, vomit green"
 	path = /obj/item/clothing/neck/tie/horrible
 
-/datum/gear/neck/scarfred
+/datum/gear/neck/scarf
 	display_name = "Scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
 
-/datum/gear/neck/scarfgreen
+/datum/gear/neck/scarf/green
 	display_name = "Scarf, green"
 	path = /obj/item/clothing/neck/scarf/green
 
-/datum/gear/neck/scarfdarkblue
+/datum/gear/neck/scarf/darkblue
 	display_name = "Scarf, dark blue"
 	path = /obj/item/clothing/neck/scarf/darkblue
 
-/datum/gear/neck/scarfpurple
+/datum/gear/neck/scarf/purple
 	display_name = "Scarf, purple"
 	path = /obj/item/clothing/neck/scarf/purple
 
-/datum/gear/neck/scarfyellow
+/datum/gear/neck/scarf/yellow
 	display_name = "Scarf, yellow"
 	path = /obj/item/clothing/neck/scarf/yellow
 
-/datum/gear/neck/scarforange
+/datum/gear/neck/scarf/orange
 	display_name = "Scarf, orange"
 	path = /obj/item/clothing/neck/scarf/orange
 
-/datum/gear/neck/scarflightblue
+/datum/gear/neck/scarf/lightblue
 	display_name = "Scarf, light blue"
 	path = /obj/item/clothing/neck/scarf/lightblue
 
-/datum/gear/neck/scarfwhite
+/datum/gear/neck/scarf/white
 	display_name = "Scarf, white"
 	path = /obj/item/clothing/neck/scarf/white
 
-/datum/gear/neck/scarfblack
+/datum/gear/neck/scarf/black
 	display_name = "Scarf, black"
 	path = /obj/item/clothing/neck/scarf/black
 
-/datum/gear/neck/scarfzebra
+/datum/gear/neck/scarf/zebra
 	display_name = "Scarf, zebra"
 	path = /obj/item/clothing/neck/scarf/zebra
 
-/datum/gear/neck/scarfchristmas
+/datum/gear/neck/scarf/christmas
 	display_name = "Scarf, christmas"
 	path = /obj/item/clothing/neck/scarf/christmas
 
-/datum/gear/neck/scarfstripedred
+/datum/gear/neck/scarf/stripedred
 	display_name = "Scarf, striped red"
 	path = /obj/item/clothing/neck/stripedredscarf
 
-/datum/gear/neck/scarfstripedgreen
+/datum/gear/neck/scarf/stripedgreen
 	display_name = "Scarf, striped green"
 	path = /obj/item/clothing/neck/stripedgreenscarf
 
-/datum/gear/neck/scarfstripedblue
+/datum/gear/neck/scarf/stripedblue
 	display_name = "Scarf, striped blue"
 	path = /obj/item/clothing/neck/stripedbluescarf
 
@@ -101,19 +101,15 @@
 	display_name = "Silver locket"
 	path = /obj/item/clothing/neck/necklace/locket/silver
 
-/datum/gear/neck/necklace/long
-	display_name = "Large necklace"
-	path = /obj/item/clothing/neck/necklace/long
-
 /datum/gear/neck/necklace
 	display_name = "Simple necklace"
 	path = /obj/item/clothing/neck/necklace
 
-//Mantles
+/datum/gear/neck/necklace/long
+	display_name = "Large necklace"
+	path = /obj/item/clothing/neck/necklace/long
 
-/datum/gear/neck/mantle
-	display_name = "Mantle"
-	path = /obj/item/clothing/neck/cloak/mantle
+//Mantles
 
 /datum/gear/neck/old_scarf
 	display_name = "Old scarf"
@@ -122,6 +118,10 @@
 /datum/gear/neck/regal_shawl
 	display_name = "Regal shawl"
 	path = /obj/item/clothing/neck/cloak/regal
+
+/datum/gear/neck/mantle
+	display_name = "Mantle"
+	path = /obj/item/clothing/neck/cloak/mantle
 
 /datum/gear/neck/mantle/job
 	main_typepath = /datum/gear/neck/mantle/job
