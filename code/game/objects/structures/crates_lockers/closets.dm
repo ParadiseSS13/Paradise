@@ -519,33 +519,26 @@
 /obj/structure/closet/bluespace/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+		COMSIG_ATOM_ENTERED = PROC_REF(UpdateTransparency),
+		COMSIG_ATOM_EXITED = PROC_REF(UpdateTransparency),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
-
-/obj/structure/closet/bluespace/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
-	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
-	UpdateTransparency(leaving, loc)
-
-/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+/obj/structure/closet/bluespace/proc/UpdateTransparency()
+	SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_EXITED
 	transparent = FALSE
-	for(var/atom/A in location)
-		if(A.density && A != src && A != AM)
+	if(!get_turf(loc))
+		return
+
+	for(var/atom/A in loc)
+		if(A.density && A != src)
 			transparent = TRUE
 			alpha = 180
 			update_icon()
 			return
 	alpha = 255
 	update_icon()
-
-/obj/structure/closet/bluespace/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	SIGNAL_HANDLER  // COMSIG_MOVABLE_CROSS
-
-	if(crossed.density)
-		UpdateTransparency(location = loc)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
@@ -554,8 +547,10 @@
 	for(var/atom/A in T.contents)
 		if(A.density && isairlock(A))
 			return
-	UpdateTransparency(src, NewLoc)
-	forceMove(NewLoc)
+
+	. = ..()
+
+	UpdateTransparency()
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
