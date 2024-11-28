@@ -404,7 +404,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = FALSE
 		if(istype(obstacle, /obj/structure/window))
@@ -459,15 +459,14 @@
 					throw_at(crashing, 50, throw_speed)
 
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
+		if(..())
+			return
+		if(isobj(obstacle))
+			var/obj/O = obstacle
+			if(!O.anchored)
 				step(obstacle, dir)
+		else if(ismob(obstacle))
+			step(obstacle, dir)
 
 
 ///////////////////////////////////
