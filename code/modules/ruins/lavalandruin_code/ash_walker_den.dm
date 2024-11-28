@@ -16,7 +16,7 @@
 	var/faction = list("ashwalker")
 	var/meat_counter = 6
 
-/obj/structure/lavaland/ash_walker/Initialize()
+/obj/structure/lavaland/ash_walker/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 

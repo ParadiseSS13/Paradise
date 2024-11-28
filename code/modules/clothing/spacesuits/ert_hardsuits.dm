@@ -21,7 +21,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
 	if(loc)
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))

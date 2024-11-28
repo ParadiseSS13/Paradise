@@ -126,7 +126,7 @@
 /area/shuttle/escape)
 "fH" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -464,16 +464,13 @@
 /area/shuttle/escape)
 "ut" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "uW" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command{
-	dir = 4
 	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "Last Resort";
@@ -487,6 +484,9 @@
 	pixel_y = -6
 	},
 /obj/item/gun/energy/gun/mini,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/general{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "vk" = (
@@ -766,7 +766,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "HK" = (

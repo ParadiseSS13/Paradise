@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 /obj/machinery/computer/rnd_network_controller
 	// Dont call this R&D, you break tooltips from the &
 	name = "\improper RnD network manager"
-	desc = "Use this to manage an R&D network and its connected servers"
+	desc = "Use this to manage an R&D network and its connected servers."
 	icon_screen = "rnd_netmanager"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	/// The network password for this device
 	var/network_password
 
-/obj/machinery/computer/rnd_network_controller/Initialize()
+/obj/machinery/computer/rnd_network_controller/Initialize(mapload)
 	. = ..()
 	GLOB.rnd_network_managers += src
 	research_files = new

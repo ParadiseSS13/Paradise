@@ -50,7 +50,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 
 /obj/machinery/economy/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
-	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
+	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
 	slogan_list = list("Try our new nougat bar!",
 					"Twice the calories for half the price!")
 

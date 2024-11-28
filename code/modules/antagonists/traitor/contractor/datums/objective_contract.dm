@@ -157,7 +157,7 @@
 	var/list/datum/mind/target_blacklist = null
 	/// Static list that is basically [/datum/objective/contract/var/possible_zone_names] but with area names replaced by /area objects if available.
 	var/static/list/possible_zones = null
-	/// The owning [/datum/syndicatce_contract].
+	/// The owning [/datum/syndicate_contract].
 	var/datum/syndicate_contract/owning_contract = null
 	/// Name fixer regex because area names have rogue characters sometimes.
 	var/static/regex/name_fixer = regex("(\[a-z0-9 \\'\]+)$", "ig")

@@ -229,7 +229,6 @@
 	icon_state = "captain_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	armor = list(MELEE = 40, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
-	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic
 	name = "captain's tunic"
@@ -264,7 +263,6 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
-	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
 	sprite_sheets = list(
@@ -532,7 +530,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != ITEM_SLOT_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
 
@@ -559,7 +557,7 @@
 
 /obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != ITEM_SLOT_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
 
@@ -726,13 +724,13 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDEJUMPSUIT
 	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDEJUMPSUIT
 	flags = THICKMATERIAL
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS

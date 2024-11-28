@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Does the robot have a non-default sprite for an open service panel?
 	var/custom_panel = null
 	/// Robot skins with non-default sprites for an open service panel.
-	var/list/custom_panel_names = list("Cricket")
+	var/list/custom_panel_names = list("Cricket", "Rover")
 	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
 	/// Has the robot been emagged?
@@ -84,6 +84,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/force_modules
 	/// Can a robot rename itself with the Namepick verb?
 	var/allow_rename = TRUE
+	/// Can a robot change it's looks after the module is initialized? Used by syndicate combat borgs.
+	var/allow_resprite = FALSE
+	/// Has the robot done its one allowed resprite?
+	var/done_resprite = FALSE
 	/// Setting to TRUE unlocks a borg's Safety Override modules.
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
@@ -185,7 +189,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
-			camera.status = FALSE
+			camera.turn_off(src, FALSE)
 
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
@@ -297,6 +301,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
 		return 0
 	rename_self(braintype, 1)
+
+/mob/living/silicon/robot/verb/Lookpick()
+	set category = "Robot Commands"
+	set name = "Change module look"
+	if(!modtype)
+		return FALSE
+	if(done_resprite)
+		to_chat(src, "<span class='warning'>You have already selected your look, you can not change it again.</span>")
+		return FALSE
+	if(!allow_resprite)
+		to_chat(src, "<span class='warning'>Changing the look of the module is not enabled on this unit.</span>")
+		return FALSE
+	// Pick a sprite
+	var/module_sprites = get_module_sprites(modtype)
+	var/selected_sprite = show_radial_menu(src, src, module_sprites, radius = 42)
+	if(!selected_sprite)
+		return FALSE
+	done_resprite = TRUE
+	initialize_sprites(selected_sprite, module_sprites)
 
 /mob/living/silicon/robot/proc/sync()
 	if(lawupdate && connected_ai)
@@ -418,6 +441,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
 				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Engi"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
 			)
 		if("Janitor")
@@ -428,6 +452,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Jani"),
 				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
@@ -479,6 +504,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
 				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
 			)
+		if("Syndicate")
+			module_sprites = list(
+				"Spider" = image('icons/mob/robots.dmi', "spidersyndi"),
+				"Bloodhound" = image('icons/mob/robots.dmi', "syndie_bloodhound"),
+				"Heavy" = image('icons/mob/robots.dmi', "syndieheavy")
+			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
 				"Destroyer" = image('icons/mob/robots.dmi', "droidcombat")
@@ -502,7 +533,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Jani", "Rover-Engi", "Hydrobot")
 			can_be_hatted = FALSE // Their base sprite already comes with a hat
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
@@ -638,7 +669,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
+	initialize_sprites(selected_sprite, module_sprites)
+	if(client.stat_tab == "Status")
+		SSstatpanels.set_status_tab(client)
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
+	notify_ai(2)
 
+/mob/living/silicon/robot/proc/initialize_sprites(selected_sprite, list/module_sprites)
 	var/image/sprite_image = module_sprites[selected_sprite]
 	var/list/names = splittext(selected_sprite, "-")
 	icon = sprite_image.icon
@@ -648,10 +685,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_module_icon()
 	robot_module_hat_offset(icon_state)
 	update_icons()
-	if(client.stat_tab == "Status")
-		SSstatpanels.set_status_tab(client)
-	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
-	notify_ai(2)
+
 /// Take the borg's upgrades and spill them on the floor
 /mob/living/silicon/robot/proc/spill_upgrades()
 	for(var/obj/item/borg/upgrade/U in contents)
@@ -1169,7 +1203,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
 			else
 				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-
+			if(mmi.syndiemmi)
+				to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
 			SetLockdown(0)
 			if(module)
 				module.emag_act(user)
@@ -1397,7 +1432,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = FALSE
 	lockcharge = 0
+	clear_alert("locked")
 	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+	for(var/datum/action/innate/robot_override_lock/override in actions)
+		override.Remove(src)
 	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(camera)
@@ -1405,18 +1443,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// Instead of being listed as "deactivated". The downside is that I'm going
 	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
-
-/mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = "Robot Commands"
-	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
-
-	var/mob/living/silicon/robot/R = src
-
-	if(R)
-		R.UnlinkSelf()
-		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
@@ -1439,8 +1465,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+		if(mmi.syndiemmi && !emagged) // Being emagged removes your syndie MMI protections
+			to_chat(src, "<span class='userdanger'>You can override your lockdown, permanently cutting your connection to NT's systems. You will be undetectable to the station's robotics control and camera monitoring systems.</span>")
+			var/datum/action/override = new /datum/action/innate/robot_override_lock()
+			override.Grant(src)
 	else
 		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+		for(var/datum/action/innate/robot_override_lock/override in actions)
+			override.Remove(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)

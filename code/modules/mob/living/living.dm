@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -391,8 +391,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
-//		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
+
 	return temperature
 
 
@@ -664,6 +663,8 @@
 				var/mob/living/carbon/human/H = src
 				if(H.dna.species.blood_color)
 					existing_trail.color = H.dna.species.blood_color
+			else if(isalien(src))
+				existing_trail.color = "#05EE05"
 			else
 				existing_trail.color = "#A10808"
 
@@ -1126,8 +1127,15 @@
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)
 	else
-		C.take_organ_damage(damage)
+		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.take_organ_damage(damage)
+
 		C.KnockDown(3 SECONDS)
+
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
 
 /**
@@ -1180,18 +1188,4 @@
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
-
-/mob/living/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	var/mw_power = max((ptl.output_number * ptl.power_format_multi_output) / (1 MW), 0)
-	switch(mw_power)
-		if(0 to 25)
-			adjustFireLoss(-mw_power * 15)
-			adjust_fire_stacks(mw_power)
-		if(26 to 50)
-			gib(FALSE)
-		else
-			explosion(src, 3, 2, 2)
-			gib(FALSE)
-	if(ptl.blocker && (ptl.blocker.UID() == src.UID())) // If this is the blocker we need to check if it was destroyed
-		ptl.check_blocker()
 

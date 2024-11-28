@@ -674,11 +674,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/obj/item/item_to_give = new item_path
 	var/static/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+		"left hand" = ITEM_SLOT_LEFT_HAND,
+		"right hand" = ITEM_SLOT_RIGHT_HAND,
 	)
 
 	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
@@ -857,6 +857,32 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+#define SWARM_GOAL_LOWER_BOUND	130
+#define SWARM_GOAL_UPPER_BOUND	400
+
+/datum/objective/swarms
+	name = "Gain swarms"
+	needs_target = FALSE
+
+/datum/objective/swarms/New()
+	gen_amount_goal()
+	return ..()
+
+/datum/objective/swarms/proc/gen_amount_goal(low = SWARM_GOAL_LOWER_BOUND, high = SWARM_GOAL_UPPER_BOUND)
+	target_amount = round(rand(low, high), 5)
+	update_explanation_text()
+	return target_amount
+
+/datum/objective/swarms/update_explanation_text()
+	explanation_text = "Accumulate at least [target_amount] worth of swarms."
+
+/datum/objective/swarms/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/mindflayer/flayer = M.has_antag_datum(/datum/antagonist/mindflayer)
+		return flayer?.total_swarms_gathered >= target_amount
+
+#undef SWARM_GOAL_LOWER_BOUND
+#undef SWARM_GOAL_UPPER_BOUND
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
@@ -902,3 +928,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/delayed/proc/reveal_objective()
 	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner), target_department, steal_list)
+
+// A warning objective for that an agent is after you and knows you are an agent (or that you are paranoid)
+/datum/objective/potentially_backstabbed
+	name = "Potentially Backstabbed"
+	explanation_text = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
+		Remain vigilant, they know who you are and what you can do."
+	needs_target = FALSE
+
+/datum/objective/potentially_backstabbed/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
+		for(var/datum/objective/our_objective in T.get_antag_objectives(FALSE))
+			if(istype(our_objective, /datum/objective/potentially_backstabbed))
+				continue
+			if(!our_objective.check_completion())
+				return FALSE
+	return TRUE

@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
+	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -255,7 +255,7 @@
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
-	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
+	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch."
 	icon_state = "nt_deluxe"
 	item_state = "satchel"
 
@@ -526,6 +526,8 @@
 
 /obj/item/storage/backpack/duffel/syndie/shotgunXLmags/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
@@ -563,15 +565,6 @@
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
-
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
-
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle/populate_contents()
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/chameleon/thermal(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."

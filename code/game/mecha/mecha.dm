@@ -2,7 +2,7 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
 
 	density = TRUE //Dense. To raise the heat.
@@ -16,7 +16,6 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	/// Time it takes to enter the mech
@@ -131,7 +130,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()

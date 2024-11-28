@@ -21,7 +21,7 @@
 	energy = 50
 
 
-/obj/effect/accelerated_particle/Initialize(loc)
+/obj/effect/accelerated_particle/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
 	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_irradiate))
@@ -40,11 +40,16 @@
 		B.take_damage(energy * 0.6)
 		movement_range = 0
 
+/// The particles bump the singularity
 /obj/effect/accelerated_particle/Bump(obj/singularity/S)
 	if(!istype(S))
 		return ..()
 	S.energy += energy
+	energy = 0
 
+/// The singularity bumps the particles
+/obj/effect/accelerated_particle/singularity_act()
+	return
 
 /obj/effect/accelerated_particle/ex_act(severity)
 	qdel(src)

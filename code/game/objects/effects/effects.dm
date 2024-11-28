@@ -98,6 +98,11 @@
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
+/obj/effect/decal/build_base_description(infix, suffix) // overriding this is a sin but it fixes a worse sin
+	. = list("[bicon(src)] That's \a [src][infix]. [suffix]")
+	if(desc)
+		. += desc
+
 /obj/effect/decal/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))
 		scoop(I, user)
@@ -213,7 +218,3 @@
 
 	// Readd to ourselves
 	attached_to.vis_contents |= src
-
-/// The PTL beam shouldn't affect effects
-/obj/effect/ptl_beam_act(obj/machinery/power/transmission_laser/ptl)
-	return
