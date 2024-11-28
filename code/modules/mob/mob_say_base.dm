@@ -65,13 +65,13 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src)
+	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src, raw_message=message)
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
 /**
  * Checks if the mob can understand the other speaker
- * 
+ *
  * If it return FALSE, then the message will have some letters replaced with stars from the heard message
 */
 /mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)

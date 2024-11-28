@@ -141,13 +141,13 @@
 		usr.visible_message(span_warning("[user] starts climbing over \the [src]!"))
 	else
 		usr.visible_message(span_warning("[user] starts getting off \the [src]!"))
-	climber = user
+	climbers += user
 	if(!do_after(user, 50, target = src))
-		climber = null
+		climbers -= user
 		return
 
 	if(!can_touch(user) || !climbable)
-		climber = null
+		climbers -= user
 		return
 
 	if(get_turf(user) == get_turf(src))
@@ -156,7 +156,7 @@
 	else
 		usr.loc = get_turf(src)
 		usr.visible_message(span_warning("[user] starts climbing over \the [src]!"))
-	climber = null
+	climbers -= user
 
 /obj/structure/platform/CanAtmosPass()
 	return TRUE

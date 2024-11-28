@@ -123,7 +123,7 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "alh" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/employee_dorm_room)
 "alo" = (
@@ -461,8 +461,8 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "aED" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
@@ -533,7 +533,7 @@
 	},
 /area/awaymission/black_mesa/deep_sci_turret)
 "aKG" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_room)
 "aKT" = (
@@ -570,7 +570,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "aOq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "aOA" = (
@@ -732,7 +732,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa)
 "aYk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
@@ -977,7 +977,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_external_sec)
 "bry" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
 	},
@@ -1044,12 +1044,12 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "buj" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "bun" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "buK" = (
@@ -1214,7 +1214,7 @@
 /area/awaymission/black_mesa/high_security_hallway)
 "bEF" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -1556,7 +1556,7 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "bSp" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa)
 "bTt" = (
@@ -1714,7 +1714,7 @@
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "cdE" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
 "cdV" = (
@@ -1768,7 +1768,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "ciM" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
@@ -2150,7 +2150,7 @@
 /area/awaymission/black_mesa/science_labs)
 "cFH" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -2215,8 +2215,8 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_surgery)
 "cKB" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "cKL" = (
@@ -2371,7 +2371,7 @@
 /area/awaymission/black_mesa/hecu_zone_bathroom)
 "cUv" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "cUI" = (
@@ -2407,7 +2407,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_turret)
 "cXa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/employee_dorm_room)
 "cXr" = (
@@ -3281,7 +3281,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "dYH" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_hallway)
 "dZj" = (
@@ -3919,7 +3919,7 @@
 "eLv" = (
 /obj/effect/gibspawner/human,
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "eLD" = (
@@ -3941,7 +3941,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
 "eMu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "eMQ" = (
@@ -4186,7 +4186,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "feI" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "feK" = (
@@ -4282,7 +4282,7 @@
 /area/awaymission/black_mesa/deep_sci_medbay)
 "fjl" = (
 /obj/machinery/light/directional/south,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
@@ -4319,7 +4319,7 @@
 /area/awaymission/black_mesa/tram_tunnel)
 "flK" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing{
 	dir = 4
 	},
@@ -4553,7 +4553,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_sec)
 "fBh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/cryo_room)
@@ -4610,7 +4610,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "fDF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
 "fDU" = (
@@ -4801,7 +4801,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "fQV" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_hallway)
 "fRD" = (
@@ -5167,7 +5167,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/acid_lake_hallway)
 "goD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -5273,7 +5273,7 @@
 /area/awaymission/black_mesa/high_security_emitter)
 "gvl" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
@@ -5486,7 +5486,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_turret)
 "gHe" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "gHk" = (
@@ -5740,7 +5740,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "gXU" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -6276,7 +6276,7 @@
 	},
 /area/awaymission/black_mesa/scientist_hall)
 "hIO" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_2"
 	},
 /turf/simulated/floor/plating,
@@ -6673,7 +6673,7 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "ilz" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "ilL" = (
@@ -7202,7 +7202,7 @@
 /area/awaymission/black_mesa/employee_dorm_room)
 "iUe" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
@@ -7273,7 +7273,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "iXT" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/rods,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plating,
@@ -7376,7 +7376,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/xen/village_hallway)
 "jgb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
 	},
@@ -7715,7 +7715,7 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "jxZ" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plating,
@@ -7920,7 +7920,7 @@
 /area/awaymission/black_mesa/science_labs)
 "jKh" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "jKr" = (
@@ -8027,7 +8027,7 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "jRH" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_medbay)
@@ -8074,7 +8074,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "jVr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
@@ -8139,7 +8139,7 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "jZT" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
@@ -8274,7 +8274,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "kfX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -8307,7 +8307,7 @@
 /area/awaymission/black_mesa/xen/village_hallway)
 "khN" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -8335,7 +8335,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/xen/lost_camp)
 "kiu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
@@ -8486,7 +8486,7 @@
 /area/awaymission/black_mesa/high_security_servers)
 "krR" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -8703,7 +8703,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/dorm_computers)
 "kEO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_hall)
 "kFR" = (
@@ -9118,7 +9118,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "ljT" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "lkl" = (
@@ -9202,7 +9202,7 @@
 /area/awaymission/black_mesa/black_ops_entrance)
 "lnj" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "lnI" = (
@@ -9313,7 +9313,7 @@
 "lte" = (
 /obj/machinery/light_construct/directional/east,
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "ltj" = (
@@ -9595,7 +9595,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa/hecu_zone_towards_facility)
 "lIs" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/cryo_room)
 "lIL" = (
@@ -9669,7 +9669,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/cryo_room)
 "lNH" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/assembly/signaler/anomaly/pyro,
 /turf/simulated/floor/plasteel,
@@ -10049,7 +10049,7 @@
 /area/awaymission/black_mesa/equipment_room)
 "mmv" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -10305,7 +10305,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_teleporter)
 "mFF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "mFY" = (
@@ -10348,8 +10348,8 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "mJu" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "mJw" = (
@@ -10450,8 +10450,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/cryo_room)
 "mOG" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "mOJ" = (
@@ -10558,7 +10558,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "mTm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_medbay)
@@ -10819,7 +10819,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
 "nhf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/smooth,
@@ -11119,7 +11119,7 @@
 /area/awaymission/black_mesa/high_security_servers)
 "nAw" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_hall)
 "nAy" = (
@@ -11272,7 +11272,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "nKH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "nLg" = (
@@ -11385,7 +11385,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_room)
 "nSk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/stairs/left{
 	dir = 4
@@ -11504,7 +11504,7 @@
 	},
 /area/awaymission/black_mesa/entrance_lobby)
 "nZK" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_room)
@@ -11758,7 +11758,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/entrance)
 "oon" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "ooy" = (
@@ -11850,7 +11850,7 @@
 /area/awaymission/black_mesa/deep_sci_chem)
 "ouG" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/employee_dorm_room)
 "ouJ" = (
@@ -11876,7 +11876,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "owC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "owG" = (
@@ -12003,7 +12003,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "oFm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
 "oFn" = (
@@ -12074,7 +12074,7 @@
 /area/awaymission/black_mesa/tram_tunnel)
 "oHU" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs/left{
 	dir = 4
 	},
@@ -12259,7 +12259,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "oSj" = (
@@ -12772,7 +12772,7 @@
 "pxs" = (
 /obj/machinery/light_construct/directional/east,
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "pxF" = (
@@ -13338,11 +13338,11 @@
 	},
 /area/awaymission/black_mesa/entrance_internal_hall)
 "qjE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/deep_sci_hall)
 "qjI" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
@@ -13419,7 +13419,7 @@
 /turf/simulated/floor/beach/away/water/deep/xen,
 /area/awaymission/black_mesa/xen/acid_lake_hallway)
 "qoz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "qpe" = (
@@ -13442,7 +13442,7 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "qqB" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_room)
 "qqP" = (
@@ -13656,7 +13656,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "qEe" = (
 /obj/machinery/light/directional/west,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "qEj" = (
@@ -14257,7 +14257,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/resonant_chamber)
 "rmQ" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_2"
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -14425,7 +14425,7 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "rzP" = (
 /obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "rAG" = (
@@ -14699,12 +14699,12 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "rPN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/cryo_room)
 "rQk" = (
 /obj/machinery/light/directional/east,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
 	},
@@ -14713,7 +14713,7 @@
 /turf/simulated/wall/indestructible/rock/mineral/xen,
 /area/awaymission/black_mesa/xen/village_hallway)
 "rQu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/black_ops_entrance)
 "rQO" = (
@@ -14846,7 +14846,7 @@
 /area/awaymission/black_mesa/deep_sci_chem)
 "rZF" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_hall)
 "rZJ" = (
@@ -16042,7 +16042,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_external_sec)
 "tBV" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer,
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel/smooth,
@@ -16168,7 +16168,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/science_labs)
 "tIM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs/right{
 	dir = 4
 	},
@@ -16257,14 +16257,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "tNR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
 "tON" = (
 /obj/structure/table_frame,
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "tPQ" = (
@@ -16615,7 +16615,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
 "urb" = (
@@ -16691,7 +16691,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/lost_camp)
 "uuS" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
@@ -17163,7 +17163,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "uUV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/pickaxe/silver,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
@@ -17428,7 +17428,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "vlH" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -17592,7 +17592,7 @@
 /area/awaymission/black_mesa/lambda_teleporter)
 "vxK" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
 	},
@@ -17723,7 +17723,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "vHh" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
 "vHz" = (
@@ -18074,7 +18074,7 @@
 "wde" = (
 /obj/machinery/light/directional/west,
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
 "weJ" = (
@@ -18423,7 +18423,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/resonant_chamber)
 "wAc" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_room)
@@ -19490,7 +19490,7 @@
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "xQU" = (
 /obj/structure/table_frame,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/metal{
 	amount = 40
 	},
@@ -19535,7 +19535,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "xTU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_hallway)
 "xUr" = (
@@ -19657,7 +19657,7 @@
 "xZJ" = (
 /obj/effect/gibspawner/human,
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/employee_dorm_room)
 "xZT" = (

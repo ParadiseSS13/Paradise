@@ -11,7 +11,7 @@
 	pixel_x = -27;
 	name = "intercom"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -22,7 +22,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "bf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/shuttle/engine/router,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -70,7 +70,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "cG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -133,7 +133,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "eh" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -145,7 +145,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "eJ" = (
 /obj/machinery/light_construct/directional/west,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -170,7 +170,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "gK" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/closet/crate/secure/weapon,
 /obj/item/clothing/accessory/storage,
 /obj/item/clothing/accessory/holster,
@@ -213,7 +213,7 @@
 	pixel_y = -10;
 	pixel_x = 16
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -390,7 +390,7 @@
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/ruin/space/unpowered/unpowered_structures)
 "st" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -400,7 +400,7 @@
 /obj/item/lighter{
 	pixel_x = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -415,7 +415,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "tW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(3)
 	},
@@ -460,7 +460,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "vy" = (
 /obj/structure/closet/walllocker/emerglocker/west,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -514,7 +514,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "wm" = (
 /obj/machinery/door/airlock/command,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -552,14 +552,14 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "yr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "yN" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/circuitboard/pacman,
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -688,7 +688,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "Dq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Dt" = (
@@ -702,7 +702,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "darkbluecornersalt";
 	dir = 4
@@ -747,7 +747,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "FZ" = (
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/organ/external/arm,
 /obj/item/organ/external/hand,
 /turf/simulated/floor/plating/airless,
@@ -768,7 +768,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "GT" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -819,7 +819,7 @@
 /area/template_noop)
 "IL" = (
 /obj/item/airlock_electronics/destroyed,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "IM" = (
@@ -858,7 +858,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "JS" = (
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "KG" = (
@@ -954,7 +954,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "NK" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "OT" = (
@@ -1013,12 +1013,12 @@
 	icon_state = "medium";
 	pixel_y = 9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Ra" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/shuttle/engine/router,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -1177,7 +1177,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "Vm" = (
 /obj/item/rack_parts,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)

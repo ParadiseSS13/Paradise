@@ -30,7 +30,7 @@
 		)
 
 /obj/item/clothing/suit/mantle/armor/captain
-	name = "captain's cloak"
+	name = "captain's mantle"
 	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
 	icon_state = "capmantle"
 	item_state = "capmantle"

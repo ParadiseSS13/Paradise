@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.

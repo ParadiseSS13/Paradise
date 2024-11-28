@@ -50,8 +50,8 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "dC" = (
@@ -73,7 +73,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "eW" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/siding/yellow/corner,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
@@ -82,7 +82,7 @@
 /area/lavaland/surface/outdoors)
 "fk" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "fK" = (
@@ -110,12 +110,12 @@
 /obj/item/storage/box/mousetraps{
 	pixel_x = -9
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "hZ" = (
 /mob/living/simple_animal/mouse,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "js" = (
@@ -127,7 +127,7 @@
 /obj/item/storage/toolbox/mechanical/old{
 	pixel_x = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = -11;
 	pixel_y = 9
@@ -165,7 +165,7 @@
 	pixel_y = 9;
 	pixel_x = 7
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5;
 	pixel_x = 9
@@ -200,7 +200,7 @@
 	dir = 5
 	},
 /obj/effect/spawner/random/trash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "pQ" = (
@@ -208,7 +208,7 @@
 /area/lavaland/surface/outdoors)
 "qq" = (
 /obj/effect/turf_decal/siding/yellow,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "qw" = (
@@ -219,7 +219,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/mouse,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "qQ" = (
@@ -233,7 +233,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "rW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "tw" = (
@@ -244,28 +244,28 @@
 /area/ruin/powered/cheesus)
 "tQ" = (
 /obj/effect/turf_decal/siding/yellow/corner,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "vk" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 9
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "wp" = (
 /obj/structure/chair/comfy/yellow{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "wr" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "xk" = (
@@ -282,13 +282,13 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "yi" = (
 /obj/machinery/light/directional/north,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "yM" = (
@@ -321,7 +321,7 @@
 /obj/item/kirbyplants{
 	pixel_y = 13
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Cn" = (
@@ -339,8 +339,8 @@
 /turf/simulated/floor/grass/no_creep,
 /area/ruin/powered/cheesus)
 "DW" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Eo" = (
@@ -348,7 +348,7 @@
 /area/ruin/powered/cheesus)
 "Ex" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "EE" = (
@@ -361,19 +361,19 @@
 /area/ruin/powered/cheesus)
 "Ga" = (
 /mob/living/simple_animal/mouse,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Gz" = (
 /obj/effect/turf_decal/siding/yellow/corner,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Hh" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/food/vulpix/cheese{
 	pixel_y = 6;
 	pixel_x = -9
@@ -390,14 +390,14 @@
 /area/ruin/powered/cheesus)
 "HV" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Ka" = (
 /turf/template_noop,
 /area/template_noop)
 "Km" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Md" = (
@@ -405,14 +405,14 @@
 	dir = 5
 	},
 /mob/living/simple_animal/mouse,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Nc" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "NG" = (
@@ -429,7 +429,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "OS" = (
@@ -444,19 +444,19 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Ud" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Uu" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "UX" = (
 /obj/effect/turf_decal/siding/yellow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "Vn" = (
@@ -471,7 +471,7 @@
 /obj/structure/chair/comfy/yellow{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "XT" = (
@@ -496,7 +496,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/food/sliceable/cheesewheel,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
