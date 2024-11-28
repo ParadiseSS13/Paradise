@@ -199,6 +199,7 @@
 
 
 //Pandora's loot: Hope
+//This should probably be turned into a pin at some point
 /obj/item/clothing/accessory/pandora_hope
 	name = "Hope"
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."

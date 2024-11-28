@@ -109,7 +109,50 @@
 	display_name = "Large necklace"
 	path = /obj/item/clothing/neck/necklace/long
 
-//Mantles
+//Cloaks and mantles
+
+/datum/gear/neck/cloak
+	display_name = "Cloak"
+	path = /obj/item/clothing/neck/cloak
+
+/datum/gear/neck/cloak/job
+	main_typepath = /datum/gear/neck/cloak/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/neck/cloak/job/captain
+	display_name = "Cloak, captain"
+	path = /obj/item/clothing/neck/cloak/captain
+	allowed_roles = list("Captain")
+
+/datum/gear/neck/cloak/job/hos
+	display_name = "Cloak, head of security"
+	path = /obj/item/clothing/neck/cloak/head_of_security
+	allowed_roles = list("Head of Security")
+
+/datum/gear/neck/cloak/job/hop
+	display_name = "Cloak, head of personnel"
+	path = /obj/item/clothing/neck/cloak/head_of_personnel
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/neck/cloak/job/rd
+	display_name = "Cloak, research director"
+	path = /obj/item/clothing/neck/cloak/research_director
+	allowed_roles = list("Research Director")
+
+/datum/gear/neck/cloak/job/ce
+	display_name = "Cloak, chief engineer"
+	path = /obj/item/clothing/neck/cloak/chief_engineer
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/neck/cloak/job/cmo
+	display_name = "Cloak, chief medical officer"
+	path = /obj/item/clothing/neck/cloak/chief_medical_officer
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/neck/cloak/job/qm
+	display_name = "Cloak, quartermaster"
+	path = /obj/item/clothing/neck/cloak/quartermaster
+	allowed_roles = list("Quartermaster")
 
 /datum/gear/neck/old_scarf
 	display_name = "Old scarf"
@@ -132,16 +175,6 @@
 	path = /obj/item/clothing/neck/cloak/captain_mantle
 	allowed_roles = list("Captain")
 
-/datum/gear/neck/mantle/job/ce
-	display_name = "Mantle, chief engineer"
-	path = /obj/item/clothing/neck/cloak/ce_mantle
-	allowed_roles = list("Chief Engineer")
-
-/datum/gear/neck/mantle/job/cmo
-	display_name = "Mantle, chief medical officer"
-	path = /obj/item/clothing/neck/cloak/cmo_mantle
-	allowed_roles = list("Chief Medical Officer")
-
 /datum/gear/neck/mantle/job/hos
 	display_name = "Mantle, head of security"
 	path = /obj/item/clothing/neck/cloak/hos_mantle
@@ -156,3 +189,18 @@
 	display_name = "Mantle, research director"
 	path = /obj/item/clothing/neck/cloak/rd_mantle
 	allowed_roles = list("Research Director")
+
+/datum/gear/neck/mantle/job/ce
+	display_name = "Mantle, chief engineer"
+	path = /obj/item/clothing/neck/cloak/ce_mantle
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/neck/mantle/job/cmo
+	display_name = "Mantle, chief medical officer"
+	path = /obj/item/clothing/neck/cloak/cmo_mantle
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/neck/mantle/job/qm
+	display_name = "Mantle, quartermaster"
+	path = /obj/item/clothing/neck/cloak/qm_mantle
+	allowed_roles = list("Quartermaster")

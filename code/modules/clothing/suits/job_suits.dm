@@ -260,14 +260,6 @@
 	)
 
 //Quartermaster
-/obj/item/clothing/suit/mantle/qm //BMONMARK
-	name = "quartermaster's mantle"
-	desc = "An armored shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
-	icon_state = "qmmantle"
-	item_state = "qmmantle"
-	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
-
 /obj/item/clothing/suit/qmcoat
 	name = "quartermaster's coat"
 	desc = "A brown trenchcoat to show the station you mean business. Has armor woven within the fabric."
