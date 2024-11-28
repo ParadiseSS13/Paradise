@@ -663,7 +663,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
-	desc = "This implant will attempt to revive and heal you out of crit or death. For the faint of heart!"
+	desc = "This implant will attempt to revive and heal you out of critical condition or death. For the faint of heart!"
 	icon_state = "reviver_implant"
 	implant_overlay = null
 	origin_tech = "materials=5;programming=5;biotech=6"
