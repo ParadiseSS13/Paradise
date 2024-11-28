@@ -51,7 +51,7 @@
 /area/awaymission/jungle_planet/outside)
 "adt" = (
 /obj/machinery/light_construct/small/south,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -89,14 +89,14 @@
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/clothing/mask/surgical,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ahk" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "ahF" = (
@@ -104,7 +104,7 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -149,7 +149,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "ajt" = (
 /obj/item/reagent_containers/drinks/oilcan,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ajx" = (
@@ -198,7 +198,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -218,7 +218,7 @@
 /obj/structure/falsewall/reinforced{
 	name = "Suspicious-looking wall"
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "aoh" = (
@@ -248,7 +248,7 @@
 	id = "CMDgate";
 	req_access = list(301)
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -306,7 +306,7 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ati" = (
 /obj/item/reagent_containers/drinks/cans/cola,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "atM" = (
@@ -394,7 +394,7 @@
 "aEA" = (
 /obj/machinery/firealarm/directional/east,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "aFo" = (
@@ -422,7 +422,7 @@
 	pixel_x = 12
 	},
 /obj/machinery/light/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "aGN" = (
@@ -446,7 +446,7 @@
 /obj/structure/sign/explosives/alt{
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -477,7 +477,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal/fifty,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "aIU" = (
@@ -490,7 +490,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "aJz" = (
@@ -553,8 +553,8 @@
 /area/awaymission/jungle_planet/outside/cave)
 "aPo" = (
 /obj/effect/turf_decal/arrows,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -602,7 +602,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "aVe" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "aVq" = (
@@ -614,7 +614,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "aVr" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -638,7 +638,7 @@
 /obj/item/shield/riot/buckler,
 /obj/item/shield/riot/buckler,
 /obj/item/shield/riot/buckler,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "aYE" = (
@@ -659,7 +659,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -675,7 +675,7 @@
 /obj/item/clothing/head/helmet/skull,
 /obj/item/clothing/head/helmet/skull,
 /obj/structure/closet/crate/wooden,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "bbq" = (
@@ -736,7 +736,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bdW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "bec" = (
@@ -769,7 +769,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "bhj" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "bhA" = (
@@ -786,7 +786,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -822,14 +822,14 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "bkg" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bkL" = (
 /obj/structure/closet/secure_closet/medical2,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -871,7 +871,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -922,7 +922,7 @@
 	name = "dorm";
 	req_access = list(271)
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bqo" = (
@@ -949,7 +949,7 @@
 	pixel_x = -3;
 	pixel_y = 18
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bqH" = (
@@ -1003,7 +1003,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 20
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1021,7 +1021,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "bti" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bty" = (
@@ -1042,14 +1042,14 @@
 	pixel_y = -10;
 	pixel_x = 31
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "btI" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "btQ" = (
@@ -1109,7 +1109,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "bwB" = (
 /obj/structure/bonfire/lit,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "bxc" = (
@@ -1130,7 +1130,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "byv" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
@@ -1171,7 +1171,7 @@
 	amount = 2
 	},
 /obj/item/stock_parts/manipulator,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -1221,8 +1221,8 @@
 	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in."
 	},
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bEz" = (
@@ -1232,7 +1232,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "bES" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/kirbyplants,
 /mob/living/simple_animal/hostile/poison_snake{
 	wander = 0
@@ -1333,7 +1333,7 @@
 /obj/item/shard,
 /obj/item/clothing/mask/surgical,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -1355,8 +1355,8 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "bMV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/outside/cave)
 "bNa" = (
@@ -1376,11 +1376,11 @@
 	pixel_x = -9;
 	pixel_y = -7
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bNI" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluefull"
@@ -1435,8 +1435,8 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "bSK" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1468,7 +1468,7 @@
 /obj/item/coin/gold,
 /obj/item/coin/gold,
 /obj/item/coin/gold,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -1508,12 +1508,12 @@
 	state_open = 1;
 	interact_offline = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "bYg" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -1538,7 +1538,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1558,12 +1558,12 @@
 /obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "cbj" = (
 /obj/machinery/light_construct/directional/south,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1573,7 +1573,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "cbY" = (
@@ -1599,7 +1599,7 @@
 "cdh" = (
 /obj/structure/gunrack,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "cfb" = (
@@ -1620,7 +1620,7 @@
 /obj/structure/computerframe{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -1653,12 +1653,12 @@
 "cge" = (
 /obj/structure/table/wood,
 /obj/item/trash/tray,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "cgI" = (
 /obj/item/flashlight,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "chq" = (
@@ -1668,7 +1668,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "cjo" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1695,14 +1695,14 @@
 /area/awaymission/jungle_planet/outside)
 "cll" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "clv" = (
 /obj/machinery/bodyscanner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1744,7 +1744,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "cnW" = (
@@ -1821,7 +1821,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "crR" = (
 /obj/machinery/light_construct/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "csE" = (
@@ -1849,7 +1849,7 @@
 /area/awaymission/jungle_planet/outside)
 "cum" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1876,7 +1876,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cxR" = (
@@ -1895,7 +1895,7 @@
 "cyh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "czz" = (
@@ -1906,7 +1906,7 @@
 	},
 /obj/machinery/light/small/directional/east,
 /obj/structure/cable,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "cAA" = (
@@ -1938,7 +1938,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -1949,7 +1949,7 @@
 	pixel_x = -1;
 	pixel_y = -11
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/cautery,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -1976,7 +1976,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "cDs" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "cDS" = (
@@ -2036,7 +2036,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cFz" = (
@@ -2047,7 +2047,7 @@
 /area/awaymission/jungle_planet/outside)
 "cFB" = (
 /obj/effect/turf_decal/box,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -2140,7 +2140,7 @@
 /area/awaymission/jungle_planet/outside)
 "cJO" = (
 /obj/effect/turf_decal/caution,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "cKa" = (
@@ -2150,7 +2150,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -2179,7 +2179,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "cNf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "cNM" = (
@@ -2202,7 +2202,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/jungle_planet/outside/abandoned)
 "cPg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuitoff"
 	},
@@ -2258,7 +2258,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "cUf" = (
 /obj/item/camera_assembly,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -2309,8 +2309,8 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 6
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "cWx" = (
@@ -2321,7 +2321,7 @@
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo6"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/newspaper,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -2359,7 +2359,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "dbJ" = (
 /obj/structure/dispenser/oxygen,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "dbU" = (
@@ -2389,7 +2389,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "deq" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -2442,7 +2442,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "djG" = (
@@ -2452,7 +2452,7 @@
 /area/awaymission/jungle_planet/outside)
 "djO" = (
 /obj/item/cigbutt,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "djW" = (
@@ -2472,7 +2472,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "dkt" = (
 /obj/machinery/light/directional/north,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -2480,14 +2480,14 @@
 /area/awaymission/jungle_planet/inside/complex)
 "dkV" = (
 /obj/effect/turf_decal/arrows,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dla" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2549,7 +2549,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "doc" = (
@@ -2562,7 +2562,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "dph" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -2579,7 +2579,7 @@
 /obj/item/flashlight/seclite,
 /obj/item/clothing/shoes/combat,
 /obj/item/storage/belt/security,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -2588,7 +2588,7 @@
 /obj/effect/turf_decal/grass{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "drb" = (
@@ -2657,7 +2657,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2688,7 +2688,7 @@
 "dwN" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "dxA" = (
@@ -2711,7 +2711,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "dBV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/outside/cave)
 "dCq" = (
@@ -2728,7 +2728,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "dGF" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -2750,7 +2750,7 @@
 /obj/item/bedsheet/black{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "dKi" = (
@@ -2760,7 +2760,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "dKU" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "dLx" = (
@@ -2771,7 +2771,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "dLG" = (
 /obj/item/chair,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -2789,7 +2789,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "dMT" = (
@@ -2821,17 +2821,17 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "dNU" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/radio,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "dOI" = (
 /obj/item/flag/syndi,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "dPd" = (
@@ -2901,7 +2901,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "dSf" = (
 /obj/item/reagent_containers/glass/rag,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2914,7 +2914,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -2924,7 +2924,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -2956,7 +2956,7 @@
 	id = "Arm in";
 	req_access = list(301)
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -2989,12 +2989,12 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "dXw" = (
 /obj/machinery/light_construct/small/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "dYL" = (
@@ -3006,7 +3006,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -3024,7 +3024,7 @@
 	amount = 2
 	},
 /obj/item/assembly/prox_sensor,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/river)
 "dZH" = (
@@ -3039,7 +3039,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "eay" = (
@@ -3049,7 +3049,7 @@
 	},
 /obj/item/gun/energy/laser/retro/old,
 /obj/item/fireaxe,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "eaA" = (
@@ -3092,7 +3092,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "edO" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -3104,12 +3104,12 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "efM" = (
 /obj/machinery/light_construct/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "efS" = (
@@ -3148,7 +3148,7 @@
 	pixel_x = 30;
 	density = 0
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "eis" = (
@@ -3158,8 +3158,8 @@
 /obj/item/bedsheet/black{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ejI" = (
@@ -3176,12 +3176,12 @@
 "elg" = (
 /obj/structure/bed,
 /obj/item/stack/sheet/cloth,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "elw" = (
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "elP" = (
@@ -3209,7 +3209,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "enb" = (
 /obj/item/cigbutt,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "enG" = (
@@ -3230,7 +3230,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "epj" = (
 /obj/item/camera_assembly,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -3238,7 +3238,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "epz" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "epR" = (
@@ -3312,7 +3312,7 @@
 /obj/structure/closet/crate,
 /obj/item/poster/syndicate_recruitment,
 /obj/item/taperecorder/empty,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "etK" = (
@@ -3367,7 +3367,7 @@
 	pixel_y = -9
 	},
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -3379,7 +3379,7 @@
 	id = "gatelizard_piratcaptain";
 	name = "hidden button"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ewJ" = (
@@ -3387,7 +3387,7 @@
 	dir = 8;
 	pixel_x = -27
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ewM" = (
@@ -3409,7 +3409,7 @@
 "eyi" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mecha_wreckage/ripley,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ezc" = (
@@ -3421,12 +3421,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "eAh" = (
 /obj/machinery/light_construct/small/west,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "eBs" = (
@@ -3454,7 +3454,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "eDn" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil{
 	pixel_y = -11;
 	amount = 2
@@ -3515,9 +3515,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "eGY" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/landmark/awaystart,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "eHa" = (
@@ -3549,7 +3549,7 @@
 	dir = 4;
 	pixel_x = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "eIQ" = (
@@ -3607,7 +3607,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "eKx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "eLl" = (
@@ -3641,8 +3641,8 @@
 "eOG" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "eOP" = (
@@ -3663,7 +3663,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal/fifty,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -3729,13 +3729,13 @@
 "eSa" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden/crude,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "eSc" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/micro_laser,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "eTu" = (
@@ -3771,7 +3771,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "eUG" = (
@@ -3860,7 +3860,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "ffh" = (
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ffL" = (
@@ -3874,7 +3874,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -3884,7 +3884,7 @@
 /obj/structure/bed{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -3921,7 +3921,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "fiw" = (
@@ -3933,8 +3933,8 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "fiM" = (
 /obj/effect/turf_decal/box,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -3987,7 +3987,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "fnP" = (
 /obj/structure/spider/stickyweb,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "fpm" = (
@@ -4005,7 +4005,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "fpQ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -4119,7 +4119,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "fyJ" = (
@@ -4216,7 +4216,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "fEq" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "fET" = (
@@ -4261,7 +4261,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "fFk" = (
@@ -4283,13 +4283,13 @@
 /obj/item/clothing/mask/cigarette/pipe,
 /obj/item/stack/spacecash/c100,
 /obj/item/lighter/zippo/fluff/purple,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/ammo_box/shotgun/buck,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "fGf" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "fGg" = (
@@ -4330,12 +4330,12 @@
 /area/awaymission/jungle_planet/outside)
 "fJc" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "fJs" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -4352,12 +4352,12 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "fKx" = (
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -4387,7 +4387,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -4399,7 +4399,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "fMh" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "fMq" = (
@@ -4438,7 +4438,7 @@
 	max_amount = 5
 	},
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "fPe" = (
@@ -4459,13 +4459,13 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/awaymission/jungle_planet/outside)
 "fRW" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "fSp" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "fSv" = (
@@ -4521,18 +4521,18 @@
 /area/awaymission/jungle_planet/inside/complex)
 "fYj" = (
 /obj/structure/railing,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "fYG" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/reagent_containers/drinks/bottle/rum{
 	list_reagents = list("rum" = 0)
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "fZj" = (
@@ -4561,7 +4561,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "gaK" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/inside/complex)
 "gbK" = (
@@ -4578,14 +4578,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gck" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/capacitor{
 	pixel_x = 14
@@ -4604,7 +4604,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gdv" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/awaymission/jungle_planet/inside/complex)
 "gdK" = (
@@ -4616,7 +4616,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/arrows,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -4632,7 +4632,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "gfM" = (
 /obj/machinery/light/directional/north,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "gge" = (
@@ -4649,11 +4649,11 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "giu" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -4678,7 +4678,7 @@
 /area/awaymission/jungle_planet/outside)
 "gkO" = (
 /obj/item/toy/crayon/spraycan,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "glo" = (
@@ -4686,14 +4686,14 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "glO" = (
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "gmI" = (
@@ -4753,7 +4753,7 @@
 	layer = 5;
 	pixel_y = 14
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4809,7 +4809,7 @@
 "gvS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "gwC" = (
@@ -4827,12 +4827,12 @@
 /area/awaymission/jungle_planet/outside)
 "gxN" = (
 /obj/machinery/door/firedoor/closed,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "gxQ" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "gxU" = (
@@ -4855,12 +4855,12 @@
 /area/awaymission/jungle_planet/inside/complex)
 "gyH" = (
 /obj/structure/railing/corner,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "gzp" = (
 /obj/structure/curtain/medical,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4886,7 +4886,7 @@
 "gAk" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "gAD" = (
@@ -4901,7 +4901,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -4926,7 +4926,7 @@
 "gDF" = (
 /obj/structure/closet,
 /obj/item/clothing/under/color/red,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -4965,7 +4965,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "gGu" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "gGN" = (
@@ -4982,7 +4982,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "gHN" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/broken_bottle,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/wood/oak,
@@ -5001,15 +5001,15 @@
 /obj/structure/chair/sofa/right{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "gJG" = (
 /obj/item/storage/belt/medical{
 	pixel_y = 18
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -5103,7 +5103,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -5134,7 +5134,7 @@
 /obj/structure/closet{
 	opened = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/clothing/suit/blacktrenchcoat,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
@@ -5178,7 +5178,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "gUQ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/shovel{
 	pixel_x = -5
 	},
@@ -5192,25 +5192,25 @@
 	density = 1;
 	climbable = 1
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/claymore/ceremonial,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "gVX" = (
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "gWs" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "gWu" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuitoff"
 	},
@@ -5251,7 +5251,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -5275,14 +5275,14 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "haC" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "haX" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hbb" = (
@@ -5307,7 +5307,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "hcz" = (
 /obj/item/paper/crumpled,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "hdm" = (
@@ -5321,7 +5321,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "hdu" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "heb" = (
@@ -5353,7 +5353,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil{
 	amount = 5
 	},
@@ -5387,7 +5387,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hga" = (
@@ -5438,7 +5438,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil{
 	amount = 5
 	},
@@ -5472,7 +5472,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hlm" = (
@@ -5481,8 +5481,8 @@
 	icon_state = "mirror_broke";
 	pixel_x = 28
 	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -5492,14 +5492,14 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/spiderling_remains,
 /obj/item/cigbutt,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "hmu" = (
 /obj/item/chair{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hnr" = (
@@ -5529,7 +5529,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hoX" = (
@@ -5596,7 +5596,7 @@
 	pixel_x = 6
 	},
 /obj/item/stack/medical/bruise_pack,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -5634,7 +5634,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -5656,7 +5656,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "huL" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purplecorner"
@@ -5668,7 +5668,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
 "hvD" = (
@@ -5707,7 +5707,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -5733,8 +5733,8 @@
 /obj/item/bedsheet/blue{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "hAv" = (
@@ -5745,7 +5745,7 @@
 /obj/item/storage/backpack/industrial,
 /obj/item/storage/belt/utility,
 /obj/item/storage/bag/ore,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -5772,7 +5772,7 @@
 "hDZ" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "hEw" = (
@@ -5799,7 +5799,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "hFQ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "hGt" = (
@@ -5818,7 +5818,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "hHj" = (
 /obj/structure/chair/wood,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "hHM" = (
@@ -5863,7 +5863,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "hIW" = (
 /mob/living/simple_animal/hostile/jungle_lizard/meele,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "hJI" = (
@@ -5890,7 +5890,7 @@
 	dir = 4;
 	pixel_y = -7
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/inside/complex)
 "hKc" = (
@@ -5929,7 +5929,7 @@
 "hNN" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -6072,11 +6072,11 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "hYQ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "iad" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "iah" = (
@@ -6100,7 +6100,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -6118,7 +6118,7 @@
 	dir = 8
 	},
 /obj/machinery/light_construct/directional/north,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6134,7 +6134,7 @@
 	dir = 1
 	},
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6143,7 +6143,7 @@
 /area/awaymission/jungle_planet/inside)
 "ibX" = (
 /obj/item/chair,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "icJ" = (
@@ -6168,7 +6168,7 @@
 	pixel_y = 10;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "iek" = (
@@ -6207,7 +6207,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "ifJ" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
 /obj/effect/decal/cleanable/cobweb2{
@@ -6217,7 +6217,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "igf" = (
 /obj/effect/turf_decal/box,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "igC" = (
@@ -6270,7 +6270,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "ikb" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -6301,7 +6301,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "ilA" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -6323,7 +6323,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil{
 	amount = 5
 	},
@@ -6391,7 +6391,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "isG" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "isU" = (
@@ -6435,7 +6435,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "iuK" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "iuL" = (
@@ -6444,7 +6444,7 @@
 /obj/item/stack/sheet/mineral/bananium{
 	amount = 30
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -6501,7 +6501,7 @@
 /area/awaymission/jungle_planet/outside)
 "iyT" = (
 /obj/item/chair,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -6509,7 +6509,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "iAq" = (
@@ -6521,7 +6521,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iAY" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -6574,7 +6574,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "iEF" = (
@@ -6598,7 +6598,7 @@
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/ranged{
 	id = "cave4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "iGn" = (
@@ -6614,7 +6614,7 @@
 "iGS" = (
 /obj/structure/chair,
 /obj/item/newspaper,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iGT" = (
@@ -6643,8 +6643,8 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "iJu" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -6652,8 +6652,8 @@
 /area/awaymission/jungle_planet/inside/complex)
 "iJL" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "iKa" = (
@@ -6675,7 +6675,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/razor,
 /obj/item/clothing/glasses/sunglasses,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -6689,7 +6689,7 @@
 	anchored = 1;
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "iKW" = (
@@ -6715,7 +6715,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "iMH" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -6755,7 +6755,7 @@
 	pixel_y = -11;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purplecorner"
@@ -6770,9 +6770,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "iPQ" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -6791,14 +6791,14 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iQn" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iRg" = (
@@ -6816,12 +6816,12 @@
 /obj/item/storage/backpack/industrial,
 /obj/item/storage/belt/utility,
 /obj/item/storage/bag/ore,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iRJ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "iTk" = (
@@ -6833,7 +6833,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 30
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "iUc" = (
@@ -6848,7 +6848,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -6889,7 +6889,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -6905,13 +6905,13 @@
 	icon_state = "medium"
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "iXN" = (
 /obj/item/ammo_casing/caseless/arrow,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iYQ" = (
@@ -6962,7 +6962,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "jck" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -6991,7 +6991,7 @@
 /area/awaymission/jungle_planet/outside)
 "jei" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jeC" = (
@@ -7022,7 +7022,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7033,7 +7033,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -7074,7 +7074,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "jiB" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "jiZ" = (
@@ -7093,7 +7093,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "jlc" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jlv" = (
@@ -7122,7 +7122,7 @@
 	pixel_y = 10;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "jlV" = (
@@ -7150,7 +7150,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "jps" = (
@@ -7255,7 +7255,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -7265,7 +7265,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "jvT" = (
@@ -7290,7 +7290,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -7323,7 +7323,7 @@
 /obj/item/multitool{
 	pixel_x = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jAq" = (
@@ -7353,7 +7353,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "jCf" = (
@@ -7425,7 +7425,7 @@
 	pixel_y = 11
 	},
 /obj/machinery/light/directional/east,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -7435,7 +7435,7 @@
 	dir = 4;
 	pixel_y = 3
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -7479,7 +7479,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "jHY" = (
@@ -7521,7 +7521,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "jIx" = (
 /obj/effect/decal/nanotrasen_logo/n1,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jKc" = (
@@ -7537,7 +7537,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "jKq" = (
@@ -7550,7 +7550,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "jLE" = (
@@ -7570,7 +7570,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "jMH" = (
@@ -7582,7 +7582,7 @@
 	pixel_x = 7
 	},
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "jMK" = (
@@ -7603,7 +7603,7 @@
 	pixel_y = -11;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -7630,7 +7630,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "jPS" = (
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -7646,7 +7646,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
@@ -7655,7 +7655,7 @@
 	name = "Security Shutters-control";
 	req_access = list(301)
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -7671,7 +7671,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jVn" = (
@@ -7684,7 +7684,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "jVr" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
@@ -7701,7 +7701,7 @@
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/clothing/head/hgpiratecap,
 /obj/item/clothing/shoes/fluff/noble_boot,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "jYd" = (
@@ -7729,7 +7729,7 @@
 /obj/item/storage/belt/utility{
 	pixel_y = -8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jZg" = (
@@ -7771,7 +7771,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "kba" = (
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kby" = (
@@ -7785,7 +7785,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "kcy" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -7816,7 +7816,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -7863,7 +7863,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "khX" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -7884,7 +7884,7 @@
 /obj/item/stack/sheet/metal,
 /obj/item/stack/rods,
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "kjq" = (
@@ -7915,8 +7915,8 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "kka" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -7933,7 +7933,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "klh" = (
 /obj/item/bedsheet/brown,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "klA" = (
@@ -7950,7 +7950,7 @@
 "kmg" = (
 /obj/machinery/door/airlock/glass,
 /obj/structure/firelock_frame,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "kmw" = (
@@ -8025,14 +8025,14 @@
 /obj/item/bedsheet/brown{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "krt" = (
 /obj/item/chair/wood{
 	pixel_x = 22
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "ksq" = (
@@ -8041,7 +8041,7 @@
 	dir = 8;
 	pixel_y = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -8063,8 +8063,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kuj" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "kuH" = (
@@ -8092,14 +8092,14 @@
 /obj/item/kitchen/rollingpin{
 	pixel_y = 7
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kvJ" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -8121,13 +8121,13 @@
 /area/awaymission/jungle_planet/inside/complex)
 "kwl" = (
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "kwD" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "kwU" = (
@@ -8142,9 +8142,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/abandoned)
 "kxv" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kxC" = (
@@ -8174,7 +8174,7 @@
 /area/awaymission/jungle_planet/outside)
 "kzI" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -8189,7 +8189,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "kBQ" = (
@@ -8212,7 +8212,7 @@
 /obj/item/razor,
 /obj/item/clothing/suit/leathercoat,
 /obj/item/clothing/head/flatcap,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/card/id/away/old/sec{
 	name = "MC-16 multicard";
 	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in."
@@ -8240,7 +8240,7 @@
 	icon_screen = "broken";
 	icon_keyboard = "generic_key_broken"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -8256,7 +8256,7 @@
 	anchored = 1;
 	dir = 6
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreycamo"
@@ -8264,7 +8264,7 @@
 /area/awaymission/jungle_planet/inside)
 "kEk" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kEE" = (
@@ -8273,7 +8273,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "kGA" = (
 /obj/structure/chair,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "kGW" = (
@@ -8293,14 +8293,14 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "kHP" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kHW" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kIg" = (
@@ -8316,7 +8316,7 @@
 /obj/item/stock_parts/cell/high/empty,
 /obj/item/stack/cable_coil,
 /obj/item/broken_device,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "kJf" = (
@@ -8331,7 +8331,7 @@
 	dir = 4
 	},
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -8350,7 +8350,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil{
 	amount = 5
 	},
@@ -8362,13 +8362,13 @@
 /obj/machinery/economy/vending/medical{
 	req_access = list(301)
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kLj" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_2"
 	},
 /turf/simulated/floor/bluegrid{
@@ -8410,11 +8410,11 @@
 /area/awaymission/jungle_planet/outside/cave)
 "kRa" = (
 /obj/structure/chair/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "kRf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "kRN" = (
@@ -8426,7 +8426,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "kRO" = (
 /obj/structure/sink/directional/west,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -8446,7 +8446,7 @@
 	pixel_x = -32;
 	density = 0
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -8539,13 +8539,13 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "kWk" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -8558,7 +8558,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "kXb" = (
@@ -8587,7 +8587,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -8613,15 +8613,15 @@
 /area/awaymission/jungle_planet/outside)
 "kZZ" = (
 /obj/structure/bed,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "lbq" = (
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8678,12 +8678,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "leE" = (
 /obj/machinery/mecha_part_fabricator,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lfb" = (
@@ -8707,13 +8707,13 @@
 	},
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "lgq" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -8740,7 +8740,7 @@
 /area/awaymission/jungle_planet/outside)
 "lid" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuitoff"
 	},
@@ -8777,7 +8777,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "ljf" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -8840,7 +8840,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lms" = (
@@ -8850,7 +8850,7 @@
 	icon_keyboard = "generic_key_broken"
 	},
 /obj/item/paper,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lmK" = (
@@ -8875,7 +8875,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "lnA" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -8888,7 +8888,7 @@
 /obj/structure/computerframe{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -8974,7 +8974,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "lwg" = (
 /obj/structure/closet/crate/secure/loot,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "lwj" = (
@@ -9045,14 +9045,14 @@
 "lAr" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "lCT" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = 30
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 1
@@ -9094,7 +9094,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9109,11 +9109,11 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lGN" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "lIv" = (
@@ -9121,7 +9121,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "lIF" = (
 /obj/machinery/iv_drip,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -9129,7 +9129,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "lIX" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "lIZ" = (
@@ -9150,11 +9150,11 @@
 "lJw" = (
 /obj/structure/gunrack,
 /obj/item/gun/energy/e_gun/old,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "lJK" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lKZ" = (
@@ -9305,8 +9305,8 @@
 /obj/structure/closet,
 /obj/item/clothing/under/costume/pirate,
 /obj/item/clothing/head/bandana,
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "lVB" = (
@@ -9381,13 +9381,13 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "mcY" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "mdf" = (
 /obj/machinery/firealarm/directional/north,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9404,13 +9404,13 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "mdt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "mfd" = (
@@ -9420,7 +9420,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9489,7 +9489,7 @@
 	icon_state = "small"
 	},
 /obj/item/shard,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "miM" = (
@@ -9503,7 +9503,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "mjF" = (
 /obj/effect/turf_decal/arrows,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9597,8 +9597,8 @@
 /obj/item/clothing/mask/cigarette/pipe,
 /obj/item/lighter/zippo/engraved,
 /obj/item/clothing/head/helmet/skull,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "mmK" = (
@@ -9620,7 +9620,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "mog" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/jungle_planet/outside/cave)
 "mph" = (
@@ -9628,7 +9628,7 @@
 /obj/effect/decal/cleanable/cobweb2{
 	icon_state = "cobweb1"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -9636,7 +9636,7 @@
 "mpQ" = (
 /obj/machinery/firealarm/directional/south,
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -9664,14 +9664,14 @@
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_big_corner"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mqZ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/clothing/shoes/workboots,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9680,7 +9680,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "mre" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -9690,7 +9690,7 @@
 /area/awaymission/jungle_planet/outside/cave/small)
 "msr" = (
 /obj/machinery/atmospherics/binary/valve,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "msZ" = (
@@ -9772,7 +9772,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "mxl" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
 /turf/simulated/floor/plating,
@@ -9802,7 +9802,7 @@
 /area/awaymission/jungle_planet/outside)
 "mzt" = (
 /obj/item/chair/wood,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "mzv" = (
@@ -9812,8 +9812,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "mzx" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -9885,7 +9885,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "mDQ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -9896,7 +9896,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "mFh" = (
@@ -9909,7 +9909,7 @@
 /obj/effect/turf_decal/grass{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9943,7 +9943,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "mHV" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -9962,7 +9962,7 @@
 /obj/structure/closet,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/storage/belt/fannypack,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -9982,7 +9982,7 @@
 	amount = 1;
 	max_amount = 5
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "mJv" = (
@@ -10010,7 +10010,7 @@
 	},
 /area/awaymission/jungle_planet/outside/waterfall)
 "mKz" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -10022,14 +10022,14 @@
 	amount = 2
 	},
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mKY" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -10038,7 +10038,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "mLY" = (
@@ -10056,7 +10056,7 @@
 /obj/structure/closet/crate/wooden/barrel,
 /obj/item/food/meat,
 /obj/item/food/meat,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "mNu" = (
@@ -10297,15 +10297,15 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "mYW" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "mZK" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "mZT" = (
@@ -10344,7 +10344,7 @@
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/clothing/accessory/necklace/locket,
 /obj/item/coin/gold,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -10368,7 +10368,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -10378,7 +10378,7 @@
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_axe{
 	id = "cave4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "neX" = (
@@ -10407,15 +10407,15 @@
 	dir = 8
 	},
 /obj/structure/sign/poster/official/random/east,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "ngO" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -10440,7 +10440,7 @@
 /obj/item/clothing/gloves/bracer,
 /obj/item/clothing/suit/armor/bone,
 /obj/structure/closet/crate/wooden,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "njd" = (
@@ -10461,7 +10461,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "njE" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "njH" = (
@@ -10476,7 +10476,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "njP" = (
 /obj/effect/turf_decal/box,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "nld" = (
@@ -10504,7 +10504,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "nqg" = (
 /mob/living/simple_animal/lizard,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "nry" = (
@@ -10519,7 +10519,7 @@
 /obj/item/stack/sheet/metal,
 /obj/item/stack/rods,
 /obj/item/stack/sheet/metal,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "nsm" = (
@@ -10536,7 +10536,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "nuz" = (
@@ -10587,7 +10587,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "nwM" = (
 /obj/machinery/light/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -10625,7 +10625,7 @@
 /area/awaymission/jungle_planet/outside)
 "nzK" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10646,7 +10646,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -10661,7 +10661,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "nCA" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "nCT" = (
@@ -10683,7 +10683,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "nEG" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "nFb" = (
@@ -10712,8 +10712,8 @@
 /obj/item/hemostat{
 	pixel_y = 2
 	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/FixOVein,
 /obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
@@ -10760,8 +10760,8 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "nMr" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/jungle_planet/outside/cave)
 "nMI" = (
@@ -10770,12 +10770,12 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "nMQ" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "nNc" = (
 /obj/structure/falsewall/bookcase,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "nNs" = (
@@ -10797,7 +10797,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "nOE" = (
@@ -10805,7 +10805,7 @@
 	name = "south extinguisher cabinet";
 	pixel_y = -30
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -10858,7 +10858,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "nRW" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "nSy" = (
@@ -10872,7 +10872,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "nSR" = (
 /obj/machinery/light_construct/directional/south,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "nSX" = (
@@ -10932,7 +10932,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 30
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "nWE" = (
@@ -10956,13 +10956,13 @@
 /area/awaymission/jungle_planet/outside/cave)
 "nZd" = (
 /obj/structure/sign/poster/contraband/random/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "nZe" = (
 /obj/item/reagent_containers/drinks/trophy/silver_cup,
 /obj/item/clothing/gloves/ring/gold,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -10975,7 +10975,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "oal" = (
@@ -10997,7 +10997,7 @@
 /area/awaymission/jungle_planet/inside)
 "obG" = (
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
@@ -11084,13 +11084,13 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "oiZ" = (
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11129,11 +11129,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "omz" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/jungle_planet/inside/complex)
 "omT" = (
@@ -11144,12 +11144,12 @@
 /obj/item/food/grown/cannabis/ultimate,
 /obj/item/food/grown/cannabis/ultimate,
 /obj/item/food/grown/cannabis/ultimate,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "omY" = (
 /obj/item/flag,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "onb" = (
@@ -11164,8 +11164,8 @@
 /turf/simulated/floor/beach/away/water/deep/dense_canpass,
 /area/awaymission/jungle_planet/outside/cave)
 "ooe" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "oov" = (
@@ -11181,7 +11181,7 @@
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "opl" = (
@@ -11208,7 +11208,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "oqo" = (
 /obj/machinery/light/directional/west,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "oqX" = (
@@ -11228,7 +11228,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "orm" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "osc" = (
@@ -11344,7 +11344,7 @@
 /obj/item/stack/sheet/bone{
 	amount = 5
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -11393,7 +11393,7 @@
 	anchored = 1;
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreycamo"
@@ -11450,7 +11450,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11463,25 +11463,25 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "oFY" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "oHz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma/fifty,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "oHE" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/structure/sign/poster/official/random/west,
 /obj/machinery/light_construct/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11511,7 +11511,7 @@
 /area/awaymission/jungle_planet/outside)
 "oJx" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11525,7 +11525,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "oKw" = (
@@ -11562,7 +11562,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/inside)
 "oMg" = (
@@ -11573,7 +11573,7 @@
 	pixel_x = -11;
 	pixel_y = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "oMS" = (
@@ -11582,7 +11582,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11598,7 +11598,7 @@
 /obj/item/clothing/gloves/ring/gold,
 /obj/structure/safe/floor,
 /obj/item/documents/nanotrasen,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/kirbyplants,
 /mob/living/simple_animal/hostile/poison_snake{
 	wander = 0
@@ -11606,7 +11606,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "oND" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
@@ -11619,7 +11619,7 @@
 "oPC" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "oQl" = (
@@ -11634,7 +11634,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "oRs" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "oRE" = (
@@ -11676,8 +11676,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/cave/small)
 "oSL" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11687,7 +11687,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -11785,16 +11785,16 @@
 /area/awaymission/jungle_planet/outside/river)
 "pbE" = (
 /obj/structure/chair/wood,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pbH" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "pce" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "pcp" = (
@@ -11827,7 +11827,7 @@
 /area/awaymission/jungle_planet/outside)
 "pdL" = (
 /obj/item/clothing/glasses/sunglasses,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "pdY" = (
@@ -11842,7 +11842,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "pfh" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkgreycamo"
@@ -11862,7 +11862,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -11884,14 +11884,14 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/machinery/light_construct/directional/east,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "piV" = (
 /obj/structure/largecrate,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -11920,7 +11920,7 @@
 /obj/item/stack/spacecash/c1000,
 /obj/item/stack/spacecash/c500,
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/wood/oak,
@@ -11962,7 +11962,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "plU" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "pmk" = (
@@ -11975,11 +11975,11 @@
 	pixel_y = -6;
 	pixel_x = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "pnG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pnJ" = (
@@ -11991,7 +11991,7 @@
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_axe{
 	id = "cave3"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "ppD" = (
@@ -12004,18 +12004,18 @@
 "ppW" = (
 /obj/structure/statue/silver/monkey,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "pqt" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "prp" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "prI" = (
@@ -12084,15 +12084,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "pwP" = (
 /turf/simulated/wall/indestructible/wood,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "pwS" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -12116,7 +12116,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -12130,9 +12130,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "pzW" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/bedsheet/black,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pzZ" = (
@@ -12169,11 +12169,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "pDO" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -12204,7 +12204,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pGk" = (
@@ -12226,11 +12226,11 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "pGZ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/inside)
 "pHo" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "pHp" = (
@@ -12247,7 +12247,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "pJn" = (
@@ -12265,7 +12265,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "pJO" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 1
@@ -12294,8 +12294,8 @@
 /obj/structure/sign/poster/official/walk{
 	pixel_y = -32
 	},
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "pMn" = (
@@ -12326,7 +12326,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "pOr" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/abandoned)
 "pRD" = (
@@ -12362,7 +12362,7 @@
 /area/awaymission/jungle_planet/outside/cave/small)
 "pTC" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "pUX" = (
@@ -12418,7 +12418,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "pWK" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -12441,7 +12441,7 @@
 "pZa" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pZY" = (
@@ -12467,13 +12467,13 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "qbZ" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "qcZ" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "qdL" = (
@@ -12489,7 +12489,7 @@
 "qeb" = (
 /obj/structure/gunrack,
 /obj/item/gun/projectile/bow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "qee" = (
@@ -12514,7 +12514,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "qfJ" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "qgv" = (
@@ -12554,7 +12554,7 @@
 /area/awaymission/jungle_planet/inside)
 "qhD" = (
 /obj/item/reagent_containers/glass/bucket,
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -12568,20 +12568,20 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "qkl" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qkp" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "qkM" = (
@@ -12601,24 +12601,24 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qlE" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/decal/remains/human,
 /obj/machinery/light/directional/west,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "qma" = (
@@ -12685,7 +12685,7 @@
 "qph" = (
 /obj/structure/closet/syndicate,
 /obj/item/clothing/suit/jacket/bomber/syndicate,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "qpu" = (
@@ -12704,7 +12704,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/awaymission/jungle_planet/outside)
 "qpV" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/circular_saw,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -12741,8 +12741,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "qrw" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "qsD" = (
@@ -12779,7 +12779,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -12859,7 +12859,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "qxu" = (
 /obj/effect/turf_decal/arrows,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -12879,7 +12879,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "qyk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -12951,14 +12951,14 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "qEf" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "qEs" = (
@@ -13005,12 +13005,12 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "qIk" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13057,7 +13057,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -13107,10 +13107,10 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "qOM" = (
-/obj/machinery/constructable_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "qPc" = (
@@ -13250,7 +13250,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "qVZ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -13269,7 +13269,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "qYR" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13277,7 +13277,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "qZP" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -13306,7 +13306,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "rbZ" = (
@@ -13329,7 +13329,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/jungle_planet/outside/abandoned)
 "rcL" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -13396,7 +13396,7 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "rim" = (
 /obj/structure/chair/wood,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "riR" = (
@@ -13415,7 +13415,7 @@
 /obj/item/bedsheet/red{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -13506,7 +13506,7 @@
 /area/awaymission/jungle_planet/outside)
 "rnO" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/chair,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -13524,7 +13524,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "rpw" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -13562,7 +13562,7 @@
 	icon = 'icons/obj/power.dmi';
 	density = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "rrw" = (
@@ -13572,11 +13572,11 @@
 	icon_state = "1-2"
 	},
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "rrT" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -13587,7 +13587,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "rsE" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -13628,7 +13628,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "rwz" = (
@@ -13659,7 +13659,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -13671,9 +13671,9 @@
 	},
 /obj/machinery/optable,
 /obj/item/clothing/gloves/color/latex,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/blood/gibs/old,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "bluefull"
@@ -13701,11 +13701,11 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/cave/small)
 "rAr" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -13732,13 +13732,13 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rAR" = (
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "rBb" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "rBr" = (
@@ -13751,14 +13751,14 @@
 	pixel_x = -32;
 	density = 0
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rBC" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "rBF" = (
@@ -13768,7 +13768,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "rCN" = (
 /obj/structure/table_frame,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -13779,13 +13779,13 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rEW" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "rFs" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "rFx" = (
@@ -13793,7 +13793,7 @@
 	dir = 1;
 	pixel_y = -27
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "rHc" = (
@@ -13805,7 +13805,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "rHT" = (
@@ -13849,7 +13849,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/awaymission/jungle_planet/outside/abandoned)
 "rJC" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -13926,7 +13926,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rNb" = (
 /obj/structure/railing,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "rNB" = (
@@ -13945,7 +13945,7 @@
 	req_access = list(301);
 	interact_offline = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "rNK" = (
@@ -13966,7 +13966,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -13998,7 +13998,7 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -14032,7 +14032,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14048,7 +14048,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rSn" = (
 /obj/machinery/firealarm/directional/east,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14207,7 +14207,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "sba" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -14259,8 +14259,8 @@
 /mob/living/simple_animal/hostile/pirate/ranged{
 	loot = null
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "sel" = (
@@ -14276,7 +14276,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -14300,7 +14300,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "siH" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -14316,7 +14316,7 @@
 /area/awaymission/jungle_planet/inside)
 "sjJ" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14381,7 +14381,7 @@
 "soK" = (
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/light/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/chair{
 	dir = 4
 	},
@@ -14422,7 +14422,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "srB" = (
@@ -14439,8 +14439,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14453,7 +14453,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "ssu" = (
 /obj/structure/sign/poster/official/random/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -14481,7 +14481,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "suE" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "suM" = (
@@ -14523,7 +14523,7 @@
 /obj/effect/decal/cleanable/cobweb2{
 	icon_state = "cobweb1"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "syW" = (
@@ -14547,11 +14547,11 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "szb" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "szn" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14572,12 +14572,12 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "szY" = (
 /obj/item/stack/packageWrap,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -14624,14 +14624,14 @@
 /obj/item/chair/wood{
 	pixel_x = 22
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "sDP" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sDQ" = (
@@ -14668,8 +14668,8 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "sHQ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/mapping_helpers/turfs/rust/probably,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "sIz" = (
@@ -14678,7 +14678,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = -4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -14730,7 +14730,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14738,7 +14738,7 @@
 /area/awaymission/jungle_planet/inside)
 "sMs" = (
 /obj/structure/kitchenspike_frame,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "sMA" = (
@@ -14751,14 +14751,14 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "sMO" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "sMZ" = (
 /obj/item/pen{
 	pixel_x = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -14798,7 +14798,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "sPM" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sQH" = (
@@ -14865,7 +14865,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -14887,7 +14887,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sVj" = (
@@ -14906,11 +14906,11 @@
 /obj/structure/sign/radiation{
 	pixel_y = 65
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "sXj" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/inside/complex)
 "sXU" = (
@@ -14928,7 +14928,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "sZo" = (
@@ -14939,7 +14939,7 @@
 /mob/living/simple_animal/hostile/pirate/ranged{
 	loot = null
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "tas" = (
@@ -14969,7 +14969,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "tcP" = (
@@ -14988,8 +14988,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "tdt" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "tei" = (
@@ -15064,7 +15064,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "tho" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /mob/living/simple_animal/hostile/jungle_lizard/meele{
 	wander = 0
 	},
@@ -15082,7 +15082,7 @@
 	dir = 9;
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreycamo"
@@ -15119,7 +15119,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -15132,7 +15132,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "tlv" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -15141,7 +15141,7 @@
 "tmv" = (
 /obj/structure/table/wood,
 /obj/item/stack/sheet/bone,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "tmC" = (
@@ -15165,14 +15165,14 @@
 	},
 /area/awaymission/jungle_planet/outside/waterfall)
 "tnK" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tnM" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "tnS" = (
@@ -15191,7 +15191,7 @@
 	icon_state = "grass_edge_big_corner";
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "tnX" = (
@@ -15210,7 +15210,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "tps" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -15290,12 +15290,12 @@
 "tsM" = (
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "tte" = (
 /obj/item/bikehorn/golden,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /obj/item/salvage/loot/pirate,
 /obj/item/salvage/loot/pirate,
@@ -15345,8 +15345,8 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "tzH" = (
@@ -15382,7 +15382,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/awaystart,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -15390,7 +15390,7 @@
 /area/awaymission/jungle_planet/inside)
 "tAY" = (
 /obj/machinery/light_construct/small/north,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tBs" = (
@@ -15400,7 +15400,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/jungle_planet/outside/cave)
 "tBu" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/awaymission/jungle_planet/inside)
 "tBJ" = (
@@ -15409,19 +15409,19 @@
 /area/awaymission/jungle_planet/outside/cave)
 "tCk" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tCl" = (
 /obj/item/chair/wood,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "tDf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -15447,7 +15447,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "tEi" = (
 /obj/item/rack_parts,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tEr" = (
@@ -15466,8 +15466,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "tEQ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tGN" = (
@@ -15480,14 +15480,14 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "tHT" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "tIH" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "tJi" = (
@@ -15623,14 +15623,14 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "tRE" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "tSG" = (
 /obj/structure/morgue{
 	dir = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -15658,7 +15658,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "tTV" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "tTZ" = (
@@ -15707,7 +15707,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tUU" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -15722,12 +15722,12 @@
 "tVL" = (
 /obj/structure/flora/grass/jungle,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "tVQ" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "tWg" = (
@@ -15761,7 +15761,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "tYH" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -15802,7 +15802,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "ubw" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -15847,7 +15847,7 @@
 	pixel_x = 17;
 	pixel_y = -13
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -15969,12 +15969,12 @@
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ulv" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -16019,7 +16019,7 @@
 /obj/item/chair{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -16038,7 +16038,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16055,7 +16055,7 @@
 "upX" = (
 /obj/item/stack/rods,
 /obj/item/shard,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -16110,14 +16110,14 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "uts" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -16129,13 +16129,13 @@
 /area/awaymission/jungle_planet/outside)
 "utY" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuitoff"
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "uue" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16152,14 +16152,14 @@
 /obj/item/storage/box/syringes,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/storage/box/gloves,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "uvz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "uvF" = (
@@ -16218,7 +16218,7 @@
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/splint,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "uBo" = (
@@ -16236,7 +16236,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "uBw" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/capacitor{
 	pixel_x = 14
@@ -16375,7 +16375,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "uJY" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -16397,7 +16397,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "uKT" = (
 /obj/structure/kitchenspike,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -16432,7 +16432,7 @@
 	anchored = 1;
 	dir = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreycamo"
@@ -16446,7 +16446,7 @@
 /area/awaymission/jungle_planet/outside)
 "uND" = (
 /obj/machinery/light_construct/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16454,15 +16454,15 @@
 /area/awaymission/jungle_planet/inside)
 "uNI" = (
 /obj/item/handheld_defibrillator,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "uOh" = (
 /obj/item/camera_assembly,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "uOn" = (
@@ -16493,7 +16493,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "uQQ" = (
 /obj/structure/closet/crate/secure/loot,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "uRs" = (
@@ -16501,7 +16501,7 @@
 	pixel_x = 6;
 	pixel_y = 30
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16528,7 +16528,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "uTk" = (
@@ -16549,7 +16549,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "uVT" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -16596,7 +16596,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/sign/poster/contraband/random/west,
 /obj/random/tool,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "vao" = (
@@ -16681,7 +16681,7 @@
 	icon_state = "spiderling";
 	name = "dead spider"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "vgF" = (
@@ -16719,7 +16719,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "vhL" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vhX" = (
@@ -16747,7 +16747,7 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16773,7 +16773,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "vkC" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16784,7 +16784,7 @@
 	icon_state = "small"
 	},
 /obj/structure/table,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -16810,7 +16810,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "vmE" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "vni" = (
@@ -16822,7 +16822,7 @@
 	},
 /obj/effect/decal/remains/human,
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/machinery/light_construct/small/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -16832,7 +16832,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16844,7 +16844,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "voN" = (
@@ -16861,12 +16861,12 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "vpR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "vqo" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_medium";
 	dir = 4
@@ -16881,7 +16881,7 @@
 /obj/item/stack/sheet/mineral/silver{
 	amount = 40
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16905,7 +16905,7 @@
 /obj/structure/closet/secure_closet{
 	req_access = list(271)
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -16931,7 +16931,7 @@
 	pixel_x = -2;
 	pixel_y = -5
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "vtg" = (
@@ -16961,7 +16961,7 @@
 "vvO" = (
 /obj/item/broken_device,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/bluegrid{
 	icon_state = "bcircuitoff"
 	},
@@ -17014,7 +17014,7 @@
 	icon_state = "spiderling";
 	name = "dead spider"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -17135,7 +17135,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "vEO" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vFj" = (
@@ -17153,8 +17153,8 @@
 /area/awaymission/jungle_planet/outside)
 "vFR" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
-/obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vGb" = (
@@ -17234,7 +17234,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -17261,12 +17261,12 @@
 /area/awaymission/jungle_planet/inside/complex)
 "vKf" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "vKK" = (
 /obj/structure/chair,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vLD" = (
@@ -17297,7 +17297,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -17326,9 +17326,9 @@
 /area/awaymission/jungle_planet/outside/river)
 "vNE" = (
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /mob/living/simple_animal/parrot,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "vOh" = (
@@ -17340,7 +17340,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "vPN" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/jungle_planet/inside)
 "vPR" = (
@@ -17368,7 +17368,7 @@
 "vRw" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -17380,7 +17380,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "vSc" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /mob/living/simple_animal/lizard,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -17390,7 +17390,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vSu" = (
@@ -17406,7 +17406,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "vTu" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -17436,7 +17436,7 @@
 /area/awaymission/jungle_planet/outside)
 "vVD" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
@@ -17455,7 +17455,7 @@
 	pixel_y = -1
 	},
 /obj/machinery/light_construct/small/west,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_medium";
 	dir = 4
@@ -17495,15 +17495,15 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "wax" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "waQ" = (
@@ -17520,13 +17520,13 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "wbT" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "wcv" = (
 /obj/structure/bed/mattress,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "wcW" = (
@@ -17541,7 +17541,7 @@
 /area/awaymission/jungle_planet/outside)
 "wdb" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "wdZ" = (
@@ -17552,7 +17552,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -17585,11 +17585,11 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wgn" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -17609,8 +17609,8 @@
 /area/awaymission/jungle_planet/outside)
 "wjd" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "wjj" = (
@@ -17648,7 +17648,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "wmO" = (
@@ -17662,7 +17662,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "wne" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/outside/river)
 "wnr" = (
@@ -17674,14 +17674,14 @@
 /area/awaymission/jungle_planet/inside/complex)
 "woa" = (
 /obj/item/stack/rods,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "woW" = (
 /obj/structure/closet,
 /obj/item/clothing/under/costume/pirate_rags,
 /obj/item/clothing/head/bandana,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "wpb" = (
@@ -17715,19 +17715,19 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wtM" = (
-/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/spawner/random/oil/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "wtW" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "wuN" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee{
 	id = "lake5"
 	},
@@ -17735,7 +17735,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "wvP" = (
 /obj/structure/kitchenspike,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -17776,7 +17776,7 @@
 /obj/item/vending_refill/medical,
 /obj/item/vending_refill/snack,
 /obj/item/vending_refill,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -17791,7 +17791,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "wzk" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -17842,7 +17842,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/generic,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "wCZ" = (
@@ -17928,8 +17928,8 @@
 	name = "Surgery Cleaner";
 	pixel_x = -7
 	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -17983,7 +17983,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "wJh" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/indestructible,
 /area/awaymission/jungle_planet/inside)
 "wJq" = (
@@ -18006,7 +18006,7 @@
 	icon_state = "grass_edge_big_corner";
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18047,7 +18047,7 @@
 /obj/item/shield/riot,
 /obj/item/shield/riot,
 /obj/item/shield/riot,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "wNS" = (
@@ -18089,7 +18089,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "wPA" = (
@@ -18165,7 +18165,7 @@
 "wTo" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18195,7 +18195,7 @@
 /obj/structure/sign/monkey_paint{
 	pixel_y = 30
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "wWP" = (
@@ -18203,14 +18203,14 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "wXR" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "wYk" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -18218,7 +18218,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "wYy" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18237,7 +18237,7 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -18246,20 +18246,20 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "wZY" = (
 /obj/item/storage/bag/cash,
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xae" = (
 /mob/living/simple_animal/hostile/pirate{
 	loot = null
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xag" = (
@@ -18277,7 +18277,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "xaI" = (
 /obj/effect/turf_decal/caution,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18290,7 +18290,7 @@
 	pixel_x = -8
 	},
 /obj/item/trash/can,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xbo" = (
@@ -18351,7 +18351,7 @@
 /obj/item/bedsheet/black{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xdC" = (
@@ -18359,9 +18359,9 @@
 	pixel_y = -11;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xeo" = (
@@ -18370,7 +18370,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xeD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/river)
 "xeZ" = (
@@ -18394,8 +18394,8 @@
 /area/awaymission/jungle_planet/inside/complex)
 "xfn" = (
 /obj/item/ammo_casing/caseless/arrow,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/door_control/shutter/south{
 	name = "Armory Shutters-control";
 	id = "Arm in";
@@ -18407,7 +18407,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "xfP" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside)
 "xhl" = (
@@ -18440,7 +18440,7 @@
 "xkK" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "xlu" = (
@@ -18450,7 +18450,7 @@
 /obj/item/stack/sheet/mineral/diamond{
 	amount = 25
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xmJ" = (
@@ -18472,26 +18472,26 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 20
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xqz" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "xrT" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/turret,
 /obj/item/clothing/mask/cigarette/pipe,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/river)
 "xsD" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18551,7 +18551,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "xuU" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
@@ -18581,7 +18581,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "xyC" = (
@@ -18607,7 +18607,7 @@
 /obj/item/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -18620,7 +18620,7 @@
 	tool_volume = 300;
 	on = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "xAY" = (
@@ -18638,7 +18638,7 @@
 	dir = 8
 	},
 /obj/item/clothing/glasses/hud/health,
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -18657,14 +18657,14 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "xCP" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "xCQ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -18673,7 +18673,7 @@
 	pixel_y = 10;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /mob/living/simple_animal/lizard,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
@@ -18689,7 +18689,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "xDg" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18756,9 +18756,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "xJH" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/largecrate,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18799,11 +18799,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xOa" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -18840,7 +18840,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -18905,7 +18905,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18944,7 +18944,7 @@
 	list_reagents = list("whiskey" = 0);
 	pixel_x = -9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "xSz" = (
@@ -18981,7 +18981,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "xVk" = (
 /obj/structure/bed,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "xVv" = (
@@ -19008,7 +19008,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "xWo" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -19018,14 +19018,14 @@
 	pixel_y = -11;
 	amount = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "xWT" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "xYt" = (
@@ -19041,7 +19041,7 @@
 /obj/item/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xZy" = (
@@ -19056,7 +19056,7 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xZT" = (
 /obj/item/cigbutt,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "yaX" = (
@@ -19081,7 +19081,7 @@
 /area/awaymission/jungle_planet/outside)
 "ydq" = (
 /obj/structure/bed/mattress/dirty,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "ydD" = (
@@ -19120,7 +19120,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "ygc" = (
@@ -19152,7 +19152,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "yhd" = (

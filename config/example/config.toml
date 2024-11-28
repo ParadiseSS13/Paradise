@@ -185,7 +185,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 612207
+sql_version = 622207
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -668,6 +668,16 @@ enable_space_ruins = false
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
 maximum_zlevels = 4
+# Minimum space ruin budget.
+space_ruin_budget_min = 750
+# Maximum space ruin budget.
+space_ruin_budget_max = 1000
+# Minimum lavaland ruin budget.
+lavaland_ruin_budget_min = 175
+# Maximum lavaland ruin budget.
+lavaland_ruin_budget_max = 325
+# List of all space ruins that can generate in the world
+# Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",

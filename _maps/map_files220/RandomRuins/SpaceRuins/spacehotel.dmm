@@ -98,7 +98,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "aQ" = (
@@ -157,7 +157,7 @@
 "bd" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "bh" = (
@@ -212,7 +212,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "bz" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -322,7 +322,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "cp" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "cr" = (
@@ -350,7 +350,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "cE" = (
@@ -411,7 +411,7 @@
 "de" = (
 /obj/structure/rack,
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -497,7 +497,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "dH" = (
@@ -579,7 +579,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ez" = (
@@ -606,7 +606,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "eE" = (
@@ -743,7 +743,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "fF" = (
@@ -775,7 +775,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -783,7 +783,7 @@
 /area/ruin/space/spacehotelv1/engi1)
 "fP" = (
 /obj/machinery/atmospherics/portable/pump,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "fV" = (
@@ -796,7 +796,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "gb" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "gd" = (
@@ -848,7 +848,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "gA" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "gC" = (
@@ -975,7 +975,7 @@
 /area/space/nearstation)
 "hy" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "hD" = (
@@ -1104,7 +1104,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "it" = (
@@ -1247,7 +1247,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "jw" = (
 /obj/structure/dispenser/oxygen,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "jx" = (
@@ -1324,7 +1324,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "jZ" = (
@@ -1502,7 +1502,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "lj" = (
@@ -1513,7 +1513,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "ll" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -1537,7 +1537,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "lr" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -1717,7 +1717,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "mA" = (
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "mC" = (
@@ -1758,7 +1758,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -1780,7 +1780,7 @@
 	id = "ext_eva_door2";
 	pixel_x = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "nd" = (
@@ -1800,7 +1800,7 @@
 "nj" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "nl" = (
@@ -1825,7 +1825,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "no" = (
@@ -1845,7 +1845,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "nx" = (
@@ -1954,7 +1954,7 @@
 /obj/structure/sign/vacuum{
 	pixel_y = 32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "ok" = (
@@ -2050,7 +2050,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "oR" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "oU" = (
@@ -2087,7 +2087,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "pg" = (
@@ -2107,7 +2107,7 @@
 /obj/item/holder/mouse{
 	name = "Elliot"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "pq" = (
@@ -2152,7 +2152,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window/reinforced/normal,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "pC" = (
@@ -2197,7 +2197,7 @@
 "pM" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "pN" = (
@@ -2288,7 +2288,7 @@
 "qu" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "qA" = (
@@ -2544,7 +2544,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "sF" = (
@@ -2558,7 +2558,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "sM" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "sQ" = (
@@ -2598,14 +2598,14 @@
 "tg" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "tj" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "tk" = (
@@ -2627,8 +2627,8 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom3)
 "tm" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/cobweb/left/rare,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/rack,
 /obj/random/tool,
 /obj/effect/spawner/random/maintenance,
@@ -2641,7 +2641,7 @@
 /area/ruin/space/spacehotelv1/restoraunt1)
 "to" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2909,7 +2909,7 @@
 	dir = 4;
 	id_tag = "hotelstrash"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "vf" = (
@@ -2934,7 +2934,7 @@
 "vk" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "vp" = (
@@ -3168,7 +3168,7 @@
 /obj/structure/rack,
 /obj/random/tool,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "wL" = (
@@ -3195,7 +3195,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "wS" = (
@@ -3209,7 +3209,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "wZ" = (
@@ -3294,7 +3294,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "xs" = (
@@ -3371,7 +3371,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "xO" = (
@@ -3468,7 +3468,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "yF" = (
@@ -3674,7 +3674,7 @@
 /obj/machinery/conveyor_switch/oneway{
 	id = "hotelsdisposal"
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "zR" = (
@@ -3738,7 +3738,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Ak" = (
@@ -3787,7 +3787,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "AK" = (
@@ -3913,7 +3913,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Bz" = (
@@ -3924,7 +3924,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "BG" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "BI" = (
@@ -4048,7 +4048,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "CC" = (
@@ -4103,7 +4103,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "Dk" = (
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Dl" = (
@@ -4136,7 +4136,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "DA" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "DD" = (
@@ -4156,7 +4156,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "DF" = (
@@ -4205,7 +4205,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "DW" = (
@@ -4229,7 +4229,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ec" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
@@ -4249,7 +4249,7 @@
 	locked = 1
 	},
 /obj/structure/fans/tiny,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Ek" = (
@@ -4271,7 +4271,7 @@
 	name = "Push me";
 	id_tag = "hotelstrash"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Es" = (
@@ -4411,7 +4411,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Fo" = (
@@ -4510,8 +4510,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "FV" = (
@@ -4530,7 +4530,7 @@
 	},
 /area/ruin/space/spacehotelv1/cargostorage)
 "Gb" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/vacuum{
 	pixel_y = -32
 	},
@@ -4584,7 +4584,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gm" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Gs" = (
@@ -4725,7 +4725,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Hr" = (
@@ -4750,7 +4750,7 @@
 	pixel_x = 32
 	},
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "HB" = (
@@ -4772,7 +4772,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "HP" = (
@@ -4846,7 +4846,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Iv" = (
@@ -4867,7 +4867,7 @@
 /obj/structure/rack,
 /obj/random/tool,
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "IE" = (
@@ -5166,8 +5166,8 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "KR" = (
 /obj/structure/closet/firecloset,
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "KU" = (
@@ -5177,7 +5177,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "KX" = (
@@ -5269,7 +5269,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Ls" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Lv" = (
@@ -5314,7 +5314,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -5341,7 +5341,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Ma" = (
@@ -5438,7 +5438,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ME" = (
@@ -5479,7 +5479,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "MX" = (
@@ -5599,8 +5599,8 @@
 /area/ruin/space/spacehotelv1/guestroom2)
 "NN" = (
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "NR" = (
@@ -5644,7 +5644,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "NY" = (
@@ -5770,7 +5770,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "OU" = (
@@ -5786,7 +5786,7 @@
 /obj/machinery/computer/monitor{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
@@ -5851,7 +5851,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Ps" = (
@@ -5875,7 +5875,7 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Pw" = (
@@ -5884,7 +5884,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -5927,7 +5927,7 @@
 /obj/structure/rack,
 /obj/random/toolbox,
 /obj/random/tool,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "PQ" = (
@@ -5942,7 +5942,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Qc" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/circuitboard/tcomms/core,
 /turf/simulated/floor/greengrid/airless{
 	icon_state = "bcircuit"
@@ -5954,7 +5954,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Qo" = (
@@ -6112,13 +6112,13 @@
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/spacehotelv1/guestroom4)
 "RL" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "RP" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "RR" = (
@@ -6162,7 +6162,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Sd" = (
@@ -6229,7 +6229,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "SL" = (
@@ -6270,7 +6270,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -6285,7 +6285,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Tv" = (
@@ -6379,12 +6379,12 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "TT" = (
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "TV" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "TW" = (
@@ -6410,7 +6410,7 @@
 	pixel_y = 8
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Uh" = (
@@ -6439,7 +6439,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "UH" = (
@@ -6693,7 +6693,7 @@
 "Wa" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "We" = (
@@ -6774,12 +6774,12 @@
 /area/ruin/space/spacehotelv1/janitor)
 "Wy" = (
 /obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "WD" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "WM" = (
@@ -6794,7 +6794,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "WU" = (
@@ -6998,11 +6998,11 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/off_station/directional/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "YA" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -7037,7 +7037,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "YS" = (
@@ -7152,7 +7152,7 @@
 /area/space/nearstation)
 "ZP" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "ZR" = (
@@ -7164,7 +7164,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "ZS" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ZU" = (

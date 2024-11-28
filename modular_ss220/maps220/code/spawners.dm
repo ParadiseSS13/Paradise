@@ -90,24 +90,26 @@
 	)
 
 /* Random spawners */
-/obj/effect/spawner/random_spawners/mod
+/obj/effect/spawner/random/mod
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 	icon_state = "mod"
 
-/obj/effect/spawner/random_spawners/syndicate/loot
+/obj/effect/spawner/random/syndicate/loot
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
+
+/obj/effect/spawner/random/syndicate/loot/common
 	icon_state = "common"
 
-/obj/effect/spawner/random_spawners/syndicate/loot/level2
+/obj/effect/spawner/random/syndicate/loot/rare
 	icon_state = "rare"
 
-/obj/effect/spawner/random_spawners/syndicate/loot/level3
+/obj/effect/spawner/random/syndicate/loot/officer
 	icon_state = "officer"
 
-/obj/effect/spawner/random_spawners/syndicate/loot/level4
+/obj/effect/spawner/random/syndicate/loot/armory
 	icon_state = "armory"
 
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
+/obj/effect/spawner/random/syndicate/loot/stetchkin
 	icon_state = "stetchkin"
 
 /obj/item/reagent_containers/pill/random_drugs

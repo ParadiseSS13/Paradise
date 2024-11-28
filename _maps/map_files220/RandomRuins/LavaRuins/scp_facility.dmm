@@ -16,7 +16,7 @@
 	},
 /area/ruin/powered/scpfacility)
 "bf" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
@@ -106,7 +106,7 @@
 /area/ruin/powered/scpfacility)
 "fH" = (
 /obj/structure/girder/reinforced,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "fN" = (
@@ -393,7 +393,7 @@
 /area/ruin/powered/scpfacility)
 "sy" = (
 /obj/structure/barricade/security,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "sT" = (
@@ -659,7 +659,7 @@
 "DH" = (
 /obj/structure/girder/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "DJ" = (
@@ -839,7 +839,7 @@
 	},
 /area/ruin/powered/scpfacility)
 "Ir" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "Jj" = (
@@ -1050,7 +1050,7 @@
 /area/ruin/powered/scpfacility)
 "SG" = (
 /obj/structure/girder/displaced,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "SU" = (
@@ -1220,7 +1220,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "ZE" = (

@@ -357,7 +357,7 @@
 "bn" = (
 /obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurplecorners";
@@ -1409,7 +1409,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
 "eP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
@@ -1581,7 +1581,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
 "fE" = (
@@ -1658,7 +1658,7 @@
 /area/vox_base)
 "fQ" = (
 /obj/effect/spawner/random/trash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flag/species/vox,
 /turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 103.984;
@@ -1821,7 +1821,7 @@
 /area/ghost_bar/outdoor)
 "gx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
 "gy" = (
@@ -1894,7 +1894,7 @@
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/glasses/meson{
 	pixel_x = 5
 	},
@@ -2121,7 +2121,7 @@
 	},
 /area/ghost_bar/outdoor)
 "ht" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "hv" = (
@@ -2931,7 +2931,7 @@
 /area/holodeck/source_thunderdomecourt)
 "kg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flag/species/vox,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
@@ -3583,7 +3583,7 @@
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
 "mm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
 "mn" = (
@@ -4164,7 +4164,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "ox" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "oz" = (
@@ -4335,7 +4335,7 @@
 /obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/box/red,
 /turf/simulated/floor/plating/nitrogen,
@@ -4416,7 +4416,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "pt" = (
@@ -4484,7 +4484,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "pD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
@@ -4595,7 +4595,7 @@
 /area/abductor_ship)
 "qb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -4670,7 +4670,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "qu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/parquet,
 /area/ghost_bar/indoor)
 "qv" = (
@@ -5164,7 +5164,7 @@
 /area/ghost_bar/outdoor/beach)
 "rU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
 	nitrogen = 103.984;
@@ -5526,7 +5526,7 @@
 /area/ghost_bar/indoor)
 "tl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flag/species/vox,
 /turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 103.984;
@@ -5536,7 +5536,7 @@
 /area/vox_base)
 "tm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "to" = (
@@ -6838,7 +6838,7 @@
 /area/ninja/holding)
 "xw" = (
 /obj/item/kirbyplants,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
 	nitrogen = 103.984;
@@ -7262,7 +7262,7 @@
 /area/ghost_bar/indoor)
 "yR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurplefull";
 	nitrogen = 103.984
@@ -7732,7 +7732,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "Ax" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/nitrogen,
 /area/space/nearstation/centcom)
@@ -9527,7 +9527,7 @@
 	pixel_y = -1;
 	pixel_x = -9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#00ffea";
 	nitrogen = 103.984;
@@ -9885,7 +9885,7 @@
 	},
 /area/ghost_bar/indoor)
 "HN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 103.984;
 	oxygen = 0;
@@ -10099,7 +10099,7 @@
 "Ix" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flag/species/vox,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
@@ -10180,7 +10180,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "IL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
 	nitrogen = 103.984;
@@ -10219,7 +10219,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/trade/sol)
 "IU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
 	nitrogen = 103.984;
@@ -10586,7 +10586,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "Kj" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/light_fake{
 	dir = 4
 	},
@@ -10660,7 +10660,7 @@
 	pixel_y = 23
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#00ffea";
 	nitrogen = 103.984;
@@ -10892,7 +10892,7 @@
 /area/ghost_bar/outdoor/beach)
 "Lo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/directional/north,
 /obj/structure/closet/walllocker/firelocker/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -11062,7 +11062,7 @@
 /area/admin)
 "LX" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -11133,7 +11133,7 @@
 /area/vox_base)
 "Mg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurple";
 	dir = 1;
@@ -11401,7 +11401,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Nq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/plastic,
 /turf/simulated/floor/plating/nitrogen,
@@ -11629,7 +11629,7 @@
 "Od" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -12536,7 +12536,7 @@
 "QV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "QW" = (
@@ -12681,7 +12681,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "Rx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
@@ -13102,7 +13102,7 @@
 /area/ghost_bar/outdoor)
 "Tb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#00ffea";
 	nitrogen = 103.984;
@@ -13888,7 +13888,7 @@
 	pixel_x = -11;
 	pixel_y = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
@@ -13935,7 +13935,7 @@
 "VP" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/mineral/plastitanium{
@@ -14658,7 +14658,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar/indoor)
 "Yk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "Yl" = (
@@ -14677,7 +14677,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "Yp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flag/species/vox,
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
@@ -14887,7 +14887,7 @@
 /area/ghost_bar/indoor)
 "YW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 103.984;
 	oxygen = 0;

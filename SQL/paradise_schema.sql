@@ -280,6 +280,7 @@ CREATE TABLE `player` (
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
+  `toggles_3` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
   `light` MEDIUMINT(3) NOT NULL DEFAULT '7',
   `glowlevel` TINYINT(1) NOT NULL DEFAULT '1',

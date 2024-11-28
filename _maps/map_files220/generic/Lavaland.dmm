@@ -512,7 +512,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "bt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/lockers)
 "bu" = (
@@ -682,7 +682,7 @@
 /obj/machinery/computer/arcade{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "bI" = (
@@ -967,7 +967,7 @@
 	},
 /area/mine/outpost/medbay)
 "co" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
 "cp" = (
@@ -1002,7 +1002,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "cs" = (
@@ -1025,7 +1025,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "cw" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/storage)
 "cx" = (
@@ -1144,7 +1144,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "cM" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "cN" = (
@@ -1226,7 +1226,7 @@
 /area/lavaland/surface/outdoors)
 "cX" = (
 /obj/structure/window/reinforced,
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -1292,7 +1292,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -1315,7 +1315,7 @@
 "df" = (
 /obj/machinery/light/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1397,7 +1397,7 @@
 	},
 /area/mine/outpost/engineering)
 "dn" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "1-10"
 	},
@@ -1567,7 +1567,7 @@
 	},
 /area/mine/outpost/storage)
 "dB" = (
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/decal/cleanable/dirt,
@@ -1582,7 +1582,7 @@
 /area/mine/outpost/production)
 "dD" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -1596,7 +1596,7 @@
 /area/mine/outpost/engineering)
 "dE" = (
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -1691,7 +1691,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dM" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plating,
@@ -1778,7 +1778,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "dW" = (
 /obj/machinery/light/small/directional/north,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
@@ -2017,7 +2017,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "et" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "eu" = (
@@ -2053,7 +2053,7 @@
 "ex" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2211,7 +2211,7 @@
 /area/mine/outpost/mechbay)
 "eL" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/vending_refill/wallmed,
 /obj/item/vending_refill/cigarette,
 /turf/simulated/floor/plating,
@@ -2420,7 +2420,7 @@
 	},
 /area/mine/outpost/engineering)
 "ff" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
@@ -2576,7 +2576,7 @@
 	},
 /area/mine/outpost/storage)
 "ft" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "fu" = (
@@ -2702,12 +2702,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "fG" = (
 /obj/effect/turf_decal/caution,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -2774,7 +2774,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "fM" = (
@@ -3078,7 +3078,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -3299,7 +3299,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gQ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -3757,7 +3757,7 @@
 	},
 /area/mine/outpost/mechbay)
 "iT" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/maintenance/south)
 "iU" = (
@@ -4276,7 +4276,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4286,7 +4286,7 @@
 "lc" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4436,7 +4436,7 @@
 /area/lavaland/surface/outdoors)
 "lx" = (
 /obj/structure/fans/tiny,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door/airlock/maintenance/external/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
@@ -5281,7 +5281,7 @@
 /area/lavaland/surface/outdoors/legion)
 "oP" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "oR" = (
@@ -5322,7 +5322,7 @@
 /area/lavaland/surface/outdoors)
 "pa" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
 	dir = 8
@@ -5445,7 +5445,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "qd" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
 "qi" = (
@@ -5453,7 +5453,7 @@
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "qm" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/trash/chips,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -5520,7 +5520,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "qT" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "rd" = (
@@ -5566,7 +5566,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "rz" = (
@@ -5761,7 +5761,7 @@
 /obj/item/flashlight/flare/glowstick/random,
 /obj/item/flashlight/flare/glowstick/random,
 /obj/item/flashlight/flare/glowstick/random,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "sM" = (
@@ -6013,7 +6013,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 22
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "ug" = (
@@ -6033,7 +6033,7 @@
 /area/mine/laborcamp)
 "uh" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ui" = (
@@ -6516,7 +6516,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm,
 /turf/simulated/floor/plasteel/dark,
@@ -6574,7 +6574,7 @@
 	},
 /area/mine/laborcamp/security)
 "xl" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/mechbay)
 "xo" = (
@@ -6627,7 +6627,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6681,7 +6681,7 @@
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "xP" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "xR" = (
@@ -6850,7 +6850,7 @@
 /area/lavaland/surface/outdoors)
 "yR" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -6928,7 +6928,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "zu" = (
@@ -7322,7 +7322,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Bq" = (
@@ -7400,7 +7400,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "BH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
 "BT" = (
@@ -7653,7 +7653,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 22
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "Dh" = (
@@ -7720,7 +7720,7 @@
 /area/mine/outpost/airlock)
 "DA" = (
 /obj/effect/spawner/random/barrier/grille_often,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "DB" = (
@@ -7985,7 +7985,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "Fs" = (
@@ -8108,7 +8108,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "Gm" = (
@@ -8125,7 +8125,7 @@
 /area/mine/laborcamp)
 "Gp" = (
 /obj/structure/sign/poster/contraband/clown,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp)
 "Gt" = (
@@ -8392,7 +8392,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "HT" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8485,7 +8485,7 @@
 /area/mine/laborcamp)
 "Iv" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -8732,7 +8732,7 @@
 	dir = 1;
 	network = list("Labor Camp")
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "JQ" = (
@@ -8754,8 +8754,8 @@
 "JX" = (
 /obj/structure/table,
 /obj/item/lighter/random,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "JY" = (
@@ -8924,7 +8924,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/maintenance/external/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
@@ -9384,7 +9384,7 @@
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "NG" = (
@@ -9513,7 +9513,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "Os" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/east)
 "Ov" = (
@@ -9571,7 +9571,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "OM" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
@@ -9741,12 +9741,12 @@
 /area/mine/laborcamp)
 "Qq" = (
 /obj/structure/cable,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Qv" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
@@ -9963,7 +9963,7 @@
 	},
 /area/lavaland/surface/outdoors/legion)
 "RB" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/gps/ruin{
 	pixel_x = 32
 	},
@@ -10114,7 +10114,7 @@
 	},
 /area/mine/laborcamp)
 "Sx" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/cafeteria)
 "Sy" = (
@@ -10213,7 +10213,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "Tn" = (
@@ -10320,7 +10320,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/directional/north,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "Um" = (
@@ -10451,7 +10451,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10510,7 +10510,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Vm" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -10648,7 +10648,7 @@
 	},
 /area/mine/laborcamp)
 "VJ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp)
 "VK" = (
@@ -10675,7 +10675,7 @@
 "VN" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "VO" = (
@@ -10741,7 +10741,7 @@
 "VV" = (
 /obj/machinery/firealarm/directional/west,
 /obj/item/kirbyplants,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10832,7 +10832,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "WI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
@@ -10998,7 +10998,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "XI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
@@ -11088,7 +11088,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "Yb" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp/security)
 "Yc" = (
@@ -11370,8 +11370,8 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ZL" = (

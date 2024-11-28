@@ -335,7 +335,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "iG" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/flashlight{
 	on = 1
 	},
@@ -507,7 +507,7 @@
 /turf/template_noop,
 /area/template_noop)
 "lR" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "lS" = (
@@ -575,7 +575,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "nx" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/powered)
 "nA" = (
@@ -612,7 +612,7 @@
 /area/ruin/space/powered)
 "oh" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ol" = (
@@ -624,7 +624,7 @@
 "ov" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "oE" = (
@@ -834,8 +834,8 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "to" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "tv" = (
@@ -988,7 +988,7 @@
 /area/ruin/space/powered)
 "wv" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "wF" = (
@@ -1034,7 +1034,7 @@
 	},
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "xY" = (
@@ -1081,7 +1081,7 @@
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
 /area/ruin/space/powered)
 "yt" = (
-/obj/machinery/constructable_frame/machine_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
 /turf/simulated/floor/bluegrid,
@@ -1182,7 +1182,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "AS" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/cell/hyper/empty,
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -1623,7 +1623,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "HQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "HU" = (
@@ -1684,7 +1684,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "IK" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/mineral/titanium,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
@@ -1694,7 +1694,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Ja" = (
-/obj/machinery/constructable_frame/machine_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1770,7 +1770,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/powered)
 "KW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/railing{
 	dir = 5
 	},
@@ -1847,7 +1847,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "LV" = (
-/obj/machinery/constructable_frame/machine_frame{
+/obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
 /obj/item/stack/cable_coil{
@@ -1879,8 +1879,8 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/ruin/space/powered)
 "Mp" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -2058,7 +2058,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "QD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "QF" = (
@@ -2078,7 +2078,7 @@
 /obj/item/cigbutt/roach,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "QS" = (
@@ -2103,7 +2103,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Ry" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "RF" = (
@@ -2157,7 +2157,7 @@
 /area/ruin/space/powered)
 "SA" = (
 /obj/structure/fans/tiny/invisible,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "SH" = (
@@ -2217,7 +2217,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Ty" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "TR" = (
@@ -2285,7 +2285,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "UH" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/cell/hyper/empty,
 /obj/item/stock_parts/cell/hyper/empty{
 	pixel_y = 8;
@@ -2366,7 +2366,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "VO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/powered)
 "VQ" = (
@@ -2388,7 +2388,7 @@
 /obj/item/circuitboard/atmoscontrol{
 	icon_state = "command_broken"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
@@ -2455,7 +2455,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Xy" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_construct/directional/north,
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plating,

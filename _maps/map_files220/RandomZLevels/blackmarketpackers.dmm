@@ -33,7 +33,7 @@
 /area/awaymission/BMPship/TurretsSouth)
 "al" = (
 /obj/item/stack/sheet/mineral/titanium,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "am" = (
@@ -111,7 +111,7 @@
 	maxHealth = 150;
 	name = "Angry giant spider"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "aA" = (
@@ -145,7 +145,7 @@
 	icon_state = "small"
 	},
 /obj/structure/grille/broken,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "aF" = (
@@ -163,7 +163,7 @@
 "aG" = (
 /obj/machinery/light_construct/small/north,
 /obj/structure/alien/weeds,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "aH" = (
@@ -172,7 +172,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "aI" = (
@@ -208,7 +208,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Gate)
 "aR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/apc_electronics,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -238,7 +238,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
@@ -293,7 +293,7 @@
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Fore)
 "bm" = (
@@ -384,16 +384,16 @@
 /area/awaymission/BMPship/Fore)
 "bw" = (
 /obj/structure/alien/weeds,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "by" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bz" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bA" = (
@@ -651,7 +651,7 @@
 /area/awaymission/BMPship/Containment)
 "ci" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/circuitboard/smes,
 /obj/item/stack/cable_coil/green,
 /turf/simulated/floor/greengrid,
@@ -784,7 +784,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "cE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/plasteel,
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/airless,
@@ -996,7 +996,7 @@
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "dl" = (
@@ -1089,7 +1089,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "dw" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
@@ -1298,7 +1298,7 @@
 /area/awaymission/BMPship/Containment)
 "dU" = (
 /obj/item/reagent_containers/drinks/sillycup,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "dV" = (
@@ -1437,7 +1437,7 @@
 /obj/machinery/economy/vending/boozeomat{
 	layer = 3.1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Fore)
 "en" = (
@@ -1505,13 +1505,13 @@
 /area/awaymission/BMPship/Fore)
 "eC" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "eD" = (
 /obj/structure/spider/stickyweb,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "eE" = (
@@ -1679,7 +1679,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2000,7 +2000,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "fT" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2176,14 +2176,14 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gs" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gt" = (
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gu" = (
@@ -2213,7 +2213,7 @@
 /area/space)
 "gz" = (
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gA" = (
@@ -2241,14 +2241,14 @@
 /area/awaymission/BMPship/Fore)
 "gD" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
 /obj/structure/computerframe{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gF" = (
@@ -2306,7 +2306,7 @@
 /area/awaymission/BMPship/Fore)
 "gP" = (
 /obj/item/multitool,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "gQ" = (
@@ -2324,7 +2324,7 @@
 /area/awaymission/BMPship/Fore)
 "gS" = (
 /obj/structure/cable,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/tank/internals/emergency_oxygen/empty,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2353,7 +2353,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = -30
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "gX" = (
@@ -2364,21 +2364,21 @@
 	},
 /area/awaymission/BMPship/Dormitories)
 "gY" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "gZ" = (
 /obj/effect/landmark/awaystart,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ha" = (
 /obj/effect/gibspawner/robot,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "hb" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -2440,7 +2440,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "hr" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2503,7 +2503,7 @@
 /area/awaymission/BMPship/Containment)
 "hB" = (
 /obj/machinery/light_construct/small/north,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hC" = (
@@ -2604,7 +2604,7 @@
 	icon_state = "small"
 	},
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2667,7 +2667,7 @@
 /area/awaymission/BMPship/CommonArea)
 "ih" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
@@ -2679,7 +2679,7 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ij" = (
@@ -2964,7 +2964,7 @@
 "jm" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "jn" = (
@@ -3217,7 +3217,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -3403,7 +3403,7 @@
 /area/awaymission)
 "mJ" = (
 /obj/structure/girder,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "mL" = (
@@ -3458,7 +3458,7 @@
 /area/awaymission/BMPship/TurretsNorth)
 "nD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3469,7 +3469,7 @@
 	layer = 2.8
 	},
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "nH" = (
@@ -3576,7 +3576,7 @@
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "os" = (
@@ -3593,7 +3593,7 @@
 	icon_state = "0-4"
 	},
 /obj/item/mounted/frame/apc_frame,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "ov" = (
@@ -3627,11 +3627,11 @@
 	pixel_y = 13
 	},
 /obj/item/clothing/head/collectable/captain,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Fore)
 "oD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stock_parts/cell/empty,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
@@ -3700,7 +3700,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "pn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/apc_electronics,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
@@ -3836,7 +3836,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "qb" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/circuitboard/smes,
 /obj/item/stack/cable_coil/blue,
 /turf/simulated/floor/greengrid,
@@ -3853,7 +3853,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "qp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/airless,
@@ -3927,12 +3927,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "qS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "qX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/crowbar/fluff/zelda_creedy_1,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -3941,7 +3941,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "rg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
@@ -3980,7 +3980,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "rE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "rJ" = (
@@ -4044,7 +4044,7 @@
 	pixel_x = -13
 	},
 /obj/item/wrench,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Fore)
 "sq" = (
@@ -4059,14 +4059,14 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "su" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/bodyanalyzer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "sv" = (
 /obj/item/stack/tile/plasteel,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "sF" = (
@@ -4090,7 +4090,7 @@
 	maxHealth = 150;
 	name = "Angry giant spider"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "sQ" = (
@@ -4151,7 +4151,7 @@
 	},
 /area/awaymission/BMPship/Engines)
 "tw" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
@@ -4178,7 +4178,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Kitchen)
 "tE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -4222,7 +4222,7 @@
 "tY" = (
 /obj/structure/alien/weeds,
 /obj/item/skeleton/r_arm,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "uj" = (
@@ -4244,7 +4244,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "uo" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Buffer)
 "ur" = (
@@ -4363,7 +4363,7 @@
 	faction = list("alien");
 	layer = 2.6
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "vl" = (
@@ -4451,7 +4451,7 @@
 /obj/machinery/light_construct/small/south,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "wg" = (
@@ -4472,7 +4472,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "wk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "wo" = (
@@ -4514,7 +4514,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "wB" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/CommonArea)
 "wG" = (
@@ -4693,7 +4693,7 @@
 /area/awaymission/BMPship/Containment)
 "ye" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
@@ -4721,7 +4721,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "yv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Fore)
 "yw" = (
@@ -4786,7 +4786,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "zb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/Buffer)
 "zf" = (
@@ -4931,7 +4931,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "AI" = (
@@ -4969,7 +4969,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "AW" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "AZ" = (
@@ -5021,7 +5021,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Fore)
 "BC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -5046,7 +5046,7 @@
 /obj/structure/window/reinforced{
 	color = "green"
 	},
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5372,7 +5372,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "EA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -5495,7 +5495,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "FQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
@@ -5697,7 +5697,7 @@
 /area/awaymission/BMPship/MedBay)
 "HE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
 	maxHealth = 250;
@@ -5795,7 +5795,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "IF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -5809,7 +5809,7 @@
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "IH" = (
@@ -5857,7 +5857,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "Jh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -5925,7 +5925,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "KF" = (
@@ -6171,7 +6171,7 @@
 "ND" = (
 /obj/item/stack/ore/iron,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "NI" = (
@@ -6196,7 +6196,7 @@
 /area/awaymission/BMPship/Containment)
 "Oj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -6245,7 +6245,7 @@
 	},
 /area/awaymission/BMPship/Engines)
 "OS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "OU" = (
@@ -6423,7 +6423,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "QQ" = (
@@ -6494,7 +6494,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Rk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "Rm" = (
@@ -6504,7 +6504,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Fore)
 "Rn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/MedBay)
 "RB" = (
@@ -6532,7 +6532,7 @@
 /area/awaymission/BMPship/Buffer)
 "RK" = (
 /obj/structure/girder,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Sd" = (
@@ -6568,12 +6568,12 @@
 /area/awaymission/BMPship/MedBay)
 "Sn" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Sq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6667,7 +6667,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "TJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/r_wall,
 /area/awaymission/BMPship/Containment)
 "TM" = (
@@ -6707,7 +6707,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Ug" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Armory)
 "Uh" = (
@@ -6720,7 +6720,7 @@
 /area/awaymission/BMPship/Containment)
 "Uj" = (
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Un" = (
@@ -6835,7 +6835,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Vw" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -6876,16 +6876,16 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "VQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/TurretsNorth)
 "VX" = (
@@ -6954,7 +6954,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "Xa" = (
@@ -7161,7 +7161,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "YX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -7206,7 +7206,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "ZB" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)

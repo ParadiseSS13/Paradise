@@ -413,7 +413,7 @@
 
 /datum/language/common
 	name = "Galactic Common"
-	desc = "The common galactic tongue."
+	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
@@ -424,15 +424,16 @@
 
 /datum/language/human
 	name = "Sol Common"
-	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
+	desc = "An artifical language designed by the Trans-Solar Federation for ease of use and concise communication."
 	speech_verb = "says"
-	exclaim_verbs = list("exclaims", "shouts", "yells")
+	exclaim_verbs = list("snaps", "shouts", "barks")
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
+	space_chance = 70
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
-	english_names = 1
+	syllables = list("ba","da","ka","ki","to","ta","sa","so","a","e","i","o","u","am","on","na","in",
+					"ko",)
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
@@ -471,12 +472,13 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
+// SS220 EDIT START - Zvezhan -> Neo-Russkiya
 /datum/language/com_srus
 	name = "Neo-Russkiya"
 	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
-	exclaim_verbs = list("exaggerates")
+	exclaim_verbs = list("proclaims", "boasts", "accentuates")
 	colour = "com_srus"
 	key = "?"
 	space_chance = 65
@@ -490,6 +492,7 @@
 					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+// SS220 EDIT END - Zvezhan -> Neo-Russkiya
 
 /datum/language/xenocommon
 	name = "Xenomorph"
