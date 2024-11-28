@@ -309,7 +309,7 @@
 		deck_uid = D.main_deck_id
 	else
 		deck_uid = parent.UID()
-	refresh()
+	addtimer(CALLBACK(src, PROC_REF(refresh)), 0.5 SECONDS)
 
 /datum/component/proximity_monitor/table/proc/refresh()
 	var/list/tables = list()
@@ -338,6 +338,8 @@
 
 	for(var/direction in GLOB.alldirs)
 		var/turf/next_turf = get_step(current_table, direction)
+		if (!istype(next_turf))
+			stack_trace("")
 		if(get_dist_euclidian(get_turf(parent), next_turf) > max_total_distance)
 			continue
 		.(next_turf, visited_tables, prox_mon_spots, distance_from_start + 1)
