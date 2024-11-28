@@ -391,7 +391,7 @@
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
-		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		"Death Bot" = image('icons/mob/robots.dmi', "spidersyndi-preview")
 		)
 	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
 

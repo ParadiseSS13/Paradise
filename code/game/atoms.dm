@@ -1047,6 +1047,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood(radiation_clean))
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
