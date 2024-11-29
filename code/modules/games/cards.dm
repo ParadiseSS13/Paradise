@@ -70,7 +70,7 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/item/deck/LateInitialize()
+/obj/item/deck/LateInitialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor/table)
 	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
