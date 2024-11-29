@@ -603,6 +603,13 @@
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
+/// Returns a list of all attached /datum/element/decal/ for this turf
+/turf/proc/get_decals()
+	var/list/datum/element/decals = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_GET_DECALS, decals)
+
+	return decals
+
 /turf/proc/initialize_milla()
 	var/datum/milla_safe/initialize_turf/milla = new()
 	milla.invoke_async(src)
