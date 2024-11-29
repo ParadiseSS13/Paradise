@@ -104,7 +104,7 @@
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
 	. = ..()
-	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndie-bloodhound-preview")
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "spidersyndi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"

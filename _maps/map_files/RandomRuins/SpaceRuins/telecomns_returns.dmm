@@ -278,7 +278,7 @@
 /turf/space,
 /area/space/nearstation/no_teleport)
 "fc" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -791,10 +791,6 @@
 /obj/effect/spawner/random/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
-"ob" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/computer)
 "oe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1069,6 +1065,10 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
+"si" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/computer)
 "sn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2321,10 +2321,6 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
-"Jb" = (
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall/indestructible/riveted,
-/area/ruin/space/telecomms/foyer)
 "Jm" = (
 /obj/machinery/computer/sm_monitor{
 	dir = 1
@@ -3006,6 +3002,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
+"Ux" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
 "UD" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7454,7 +7454,7 @@ Zu
 eb
 nD
 Ri
-Jb
+Ux
 PQ
 Qf
 PQ
@@ -8267,7 +8267,7 @@ Pl
 Pl
 qo
 Pl
-ob
+si
 Zu
 Zu
 Zu
@@ -8815,7 +8815,7 @@ xa
 ik
 ux
 ux
-ob
+si
 ux
 ux
 iR
