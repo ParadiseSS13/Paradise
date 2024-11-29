@@ -36,7 +36,7 @@
 	assignedrole = "Syndicate Researcher"
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
-	skin_tone = 255
+	skin_tone = 2
 
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
@@ -67,3 +67,10 @@
 	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
 	H.rename_character(H.real_name, random_name)
 	H.job = "Syndi Researcher" // ensures they show up right in player panel for admins
+	if(isunathi(H) || isvulpkanin(H) || istajaran(H) || isskrell(H))
+		H.change_skin_color("#B2B2B2")
+	if(ismoth(H))
+		H.change_markings("White Fly Head Markings", "head")
+		H.change_markings("White Fly Markings", "body")
+		H.change_head_accessory("White Fly Antennae")
+		H.change_body_accessory("White Fly Wings")
