@@ -3,7 +3,8 @@
 	. = ..()
 
 /obj/structure/table/do_climb(mob/living/user)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	AddComponent(/datum/component/clumsy_climb, 15)
 	SEND_SIGNAL(src, COMSIG_CLIMBED_ON, user)
