@@ -422,7 +422,7 @@
 			Z.can_destroy = TRUE
 			qdel(Z)
 	else
-		to_chat(user, "<span class'warning'>[src] is still recharging.</span>")
+		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
