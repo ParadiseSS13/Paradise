@@ -71,6 +71,9 @@
 	desc = "A rather grisly selection of cured hides and skin, sewn together to form a ragged mantle."
 	icon_state = "mantle-unathi"
 	item_state = "mantle-unathi"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi'
+		)
 
 /obj/item/clothing/neck/cloak/captain_mantle
 	name = "captain's mantle"
