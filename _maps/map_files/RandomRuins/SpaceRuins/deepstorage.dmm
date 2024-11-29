@@ -982,7 +982,7 @@
 	},
 /area/ruin/space/deepstorage)
 "dR" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "dT" = (
@@ -1017,7 +1017,7 @@
 	},
 /area/ruin/space/deepstorage)
 "eh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "em" = (
@@ -1359,7 +1359,7 @@
 "gS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -1392,7 +1392,7 @@
 	pixel_y = 4;
 	pixel_x = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "hj" = (
@@ -2654,7 +2654,7 @@
 /area/ruin/space/deepstorage)
 "pj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2775,7 +2775,7 @@
 "qm" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4046,7 +4046,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -4475,7 +4475,7 @@
 /area/ruin/space/deepstorage)
 "Br" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -4499,8 +4499,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "By" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "BB" = (
@@ -4702,7 +4702,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "CD" = (
@@ -4711,7 +4711,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "CG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -5816,7 +5816,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Lf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/molten_object{
 	pixel_y = 6;
@@ -5829,7 +5829,7 @@
 /obj/structure/sign/greencross{
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "Li" = (
@@ -6024,7 +6024,7 @@
 /turf/simulated/floor/chasm/space_ruin,
 /area/ruin/space/powered)
 "MU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "MV" = (
@@ -6040,7 +6040,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -6196,7 +6196,7 @@
 /area/ruin/space/deepstorage)
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -7372,7 +7372,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Wz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 10;
