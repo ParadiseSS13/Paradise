@@ -1782,7 +1782,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	// Equipment
 	equip_list.len = ITEM_SLOT_AMOUNT
-	for(var/i in 1 to (ITEM_SLOT_AMOUNT))
+	for(var/i in 1 to ITEM_SLOT_AMOUNT)
 		var/obj/item/thing = get_item_by_slot(1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
 		if(!isnull(thing))
 			equip_list[i] = thing.serialize()
