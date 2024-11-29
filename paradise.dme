@@ -1110,6 +1110,7 @@
 #include "code\game\objects\items\devices\voice_changer.dm"
 #include "code\game\objects\items\devices\whistle.dm"
 #include "code\game\objects\items\devices\painter\airlock_painter.dm"
+#include "code\game\objects\items\devices\painter\decal_painter.dm"
 #include "code\game\objects\items\devices\painter\floor_painter.dm"
 #include "code\game\objects\items\devices\painter\painter.dm"
 #include "code\game\objects\items\devices\painter\pipe_painter.dm"
