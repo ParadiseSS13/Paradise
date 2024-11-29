@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		return
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, snd, volume, vary, frequency), time)
 
-// Subtype that doesn't delete itself.
-// Mostly used for hallucination managers because they delete the hallucinations when required
+/// Subtype that doesn't delete itself.
+/// Mostly used for hallucination managers because they delete the hallucinations when required
 /obj/effect/hallucination/no_delete
 	should_delete = FALSE
