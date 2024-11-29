@@ -68,9 +68,10 @@
 	else
 		main_deck_id = parent_deck_id
 
+/obj/item/deck/LateInitialize()
+	. = ..()
 	AddComponent(/datum/component/proximity_monitor/table)
 	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
-
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
