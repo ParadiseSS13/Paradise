@@ -247,7 +247,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/table,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "adu" = (
@@ -71557,7 +71556,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/processor,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "nqH" = (
