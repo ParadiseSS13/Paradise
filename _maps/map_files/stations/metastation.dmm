@@ -57206,9 +57206,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -63185,8 +63182,11 @@
 	},
 /area/station/security/main)
 "lvB" = (
-/obj/item/kirbyplants,
 /obj/machinery/firealarm/directional/north,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75251,7 +75251,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
