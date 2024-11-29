@@ -66,7 +66,7 @@
 		// we're our own deck
 		main_deck_id = rand(1, 99999)
 	else
-		main_deck_id = parent_deck_id\
+		main_deck_id = parent_deck_id
 
 	return INITIALIZE_HINT_LATELOAD
 
