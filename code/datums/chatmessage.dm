@@ -137,6 +137,9 @@
 			symbol = "<span style='font-size: 5px; color: #6699cc;'><b>\[LOOC]</b></span> "
 			size ||= "small"
 			output_color = "gray"
+		if(RUNECHAT_SYMBOL_DEAD)
+			symbol = null
+			output_color = "#b826b3"
 		else
 			symbol = null
 

@@ -122,7 +122,7 @@
 		user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
 		user.put_in_hands(MTC)
-		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, "<span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
 		qdel(src)
 
 /obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
