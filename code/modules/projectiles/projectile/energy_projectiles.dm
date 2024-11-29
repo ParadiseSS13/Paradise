@@ -115,9 +115,9 @@
 		else
 			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
 			add_attack_logs(firer, M, "Hit lightly by [src]")
-			M.apply_damage(rand(20,25), BURN)
+			M.apply_damage(rand(20, 25), BURN)
 		if(ROLE_BLOB in M.faction)
-			M.apply_damage(rand(20,25), BURN) //Ensures it clears all blob spores on the screen without fail.
+			M.apply_damage(rand(20, 25), BURN) //Ensures it clears all blob spores on the screen without fail.
 
 /obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
