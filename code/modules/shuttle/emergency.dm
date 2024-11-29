@@ -254,7 +254,7 @@
 
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_here(a_header = "Emergency Shuttle", a_text = "")
-	var/msg_text = "<b><font size=4 color=red>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font size></font></b></span>"
+	var/msg_text = "<b><font size=4 color='red'>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font></font></b></span>"
 	for(var/mob/R in range(35, src)) //Normal escape shutttle is 30 tiles from console to bottom. Extra range for if we ever get a bigger shuttle. Would do in shuttle area, doesn't account for mechs and such,
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
