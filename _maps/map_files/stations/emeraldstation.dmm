@@ -2664,7 +2664,7 @@
 	},
 /area/station/science/xenobiology)
 "aAM" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
@@ -9740,7 +9740,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bNO" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "bNS" = (
@@ -13832,7 +13832,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
 "cCo" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
 "cCu" = (
@@ -22718,8 +22718,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/command,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29417,7 +29417,7 @@
 	},
 /area/station/science/toxins/mixing)
 "fwd" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
@@ -36646,7 +36646,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "gOI" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -37290,7 +37290,7 @@
 	},
 /area/station/maintenance/asmaint)
 "gVK" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "Skynet_heavy"
@@ -37300,7 +37300,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "gVP" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -40510,7 +40510,7 @@
 	},
 /area/station/security/range)
 "hyE" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_garden)
@@ -48127,7 +48127,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "iUn" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -55406,7 +55406,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "klt" = (
@@ -61248,7 +61248,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "lsu" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -87592,7 +87592,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "qla" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -98957,7 +98957,7 @@
 	},
 /area/station/security/prison)
 "snE" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -102895,7 +102895,7 @@
 /area/station/medical/medbay)
 "sZN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -104579,7 +104579,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "tod" = (
-/obj/machinery/suit_storage_unit/ce/secure,
+/obj/machinery/suit_storage_unit/industrial/ce/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -105143,7 +105143,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ttc" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -107458,7 +107458,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "tRV" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -115110,7 +115110,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "vnf" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
@@ -116109,7 +116109,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vwN" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -118524,7 +118524,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "vSy" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
@@ -121797,7 +121797,7 @@
 /turf/space,
 /area/space)
 "wyR" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
 /obj/item/toy/figure/crew/engineer{
 	pixel_y = 17;
 	pixel_x = -9
