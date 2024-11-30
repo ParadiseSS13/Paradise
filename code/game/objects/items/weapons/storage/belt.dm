@@ -213,7 +213,7 @@
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/hypospray/autoinjector/epinephrine,
-		/obj/item/reagent_containers/hypospray/CMO,
+		/obj/item/reagent_containers/hypospray/cmo,
 		/obj/item/reagent_containers/hypospray/safety,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
@@ -238,7 +238,7 @@
 		/obj/item/circular_saw,
 		/obj/item/bonegel,
 		/obj/item/bonesetter,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
 	)
@@ -250,7 +250,7 @@
 	new /obj/item/circular_saw(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	update_icon()

@@ -897,7 +897,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "alr" = (
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/simple_animal/mouse/brown/tom,
 /turf/simulated/floor/greengrid,
 /area/station/command/vault)
 "alG" = (
@@ -8977,7 +8977,7 @@
 /area/station/engineering/tech_storage)
 "bLV" = (
 /obj/structure/table/reinforced,
-/mob/living/simple_animal/parrot/Poly,
+/mob/living/simple_animal/parrot/poly,
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},
@@ -9937,7 +9937,7 @@
 /area/station/hallway/secondary/exit)
 "bUT" = (
 /obj/structure/table/glass/reinforced,
-/obj/item/aiModule/corp{
+/obj/item/ai_module/corp{
 	pixel_y = 3;
 	pixel_x = 3
 	},
@@ -10144,7 +10144,7 @@
 	},
 /area/station/hallway/spacebridge/security/west)
 "bWu" = (
-/obj/structure/closet/secure_closet/CMO,
+/obj/structure/closet/secure_closet/cmo,
 /turf/simulated/floor/wood,
 /area/station/command/office/cmo)
 "bWE" = (
@@ -11195,7 +11195,7 @@
 /area/station/security/permabrig)
 "chI" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler{
 	pixel_y = 3;
 	pixel_x = 2
@@ -17287,7 +17287,7 @@
 /area/station/maintenance/security/fore)
 "dut" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/mouse/white/Brain,
+/mob/living/simple_animal/mouse/white/brain,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21258,7 +21258,7 @@
 /turf/space,
 /area/space)
 "elV" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -27971,7 +27971,7 @@
 /area/station/supply/storage)
 "fzi" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light/small{
 	dir = 4
@@ -30221,7 +30221,7 @@
 /area/station/security/warden)
 "fWd" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
@@ -36058,7 +36058,7 @@
 /area/station/maintenance/apmaint)
 "heF" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -39299,7 +39299,7 @@
 /area/station/maintenance/asmaint)
 "hJu" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/dog/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/renault,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "hJv" = (
@@ -40902,7 +40902,7 @@
 "icI" = (
 /obj/structure/closet/wardrobe/white,
 /obj/item/clothing/shoes/jackboots,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/drinks/cans/badminbrew,
 /obj/item/storage/backpack/duffel/medical,
 /turf/simulated/floor/plating,
@@ -41852,7 +41852,7 @@
 /area/station/engineering/break_room/secondary)
 "ilT" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/effect/decal/cleanable/dirt,
@@ -42881,7 +42881,7 @@
 	dir = 8;
 	pixel_x = -4
 	},
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	name = "CORPSE disposal unit"
 	},
 /obj/structure/disposalpipe/trunk,
@@ -43832,9 +43832,9 @@
 /area/station/maintenance/starboard)
 "iGm" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -47418,7 +47418,7 @@
 "jpt" = (
 /obj/structure/table,
 /obj/item/aicard,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "jpv" = (
@@ -50455,7 +50455,7 @@
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "jTx" = (
@@ -51328,7 +51328,7 @@
 	pixel_y = 34
 	},
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/camera{
 	c_tag = "Bridge Conference Room"
@@ -58213,7 +58213,7 @@
 /area/station/maintenance/dorms/port)
 "lxE" = (
 /obj/structure/bed/roller,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/machinery/light/small{
 	dir = 4;
@@ -59716,7 +59716,7 @@
 /area/station/security/brig)
 "lNR" = (
 /obj/structure/table/glass/reinforced,
-/obj/item/aiModule/crewsimov,
+/obj/item/ai_module/crewsimov,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -60540,7 +60540,7 @@
 	layer = 2.9
 	},
 /obj/structure/table/glass/reinforced,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /obj/item/radio/intercom/private{
 	pixel_x = 28;
 	pixel_y = -10
@@ -67144,7 +67144,7 @@
 /area/station/medical/surgery/observation)
 "npG" = (
 /obj/structure/table/reinforced,
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
@@ -69865,7 +69865,7 @@
 /obj/structure/table/glass,
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "greenblue"
@@ -73124,7 +73124,7 @@
 	dir = 8
 	},
 /obj/machinery/requests_console/directional/west,
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -73498,7 +73498,7 @@
 	},
 /area/station/medical/reception)
 "oyR" = (
-/obj/machinery/computer/HolodeckControl{
+/obj/machinery/computer/holodeck_control{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -76704,7 +76704,7 @@
 	},
 /area/station/science/xenobiology)
 "pcS" = (
-/mob/living/simple_animal/pet/cat/Var,
+/mob/living/simple_animal/pet/cat/var_cat,
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/fsmaint)
@@ -77036,7 +77036,7 @@
 /area/station/hallway/secondary/entry/east)
 "pgd" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -79341,7 +79341,7 @@
 /area/station/engineering/engine)
 "pEJ" = (
 /obj/structure/table,
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
@@ -80677,8 +80677,8 @@
 /area/station/maintenance/asmaint)
 "pSy" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
-/obj/item/destTagger,
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
@@ -80893,7 +80893,7 @@
 	},
 /area/station/security/warden)
 "pUT" = (
-/mob/living/simple_animal/crab/Coffee,
+/mob/living/simple_animal/crab/coffee,
 /turf/simulated/floor/carpet/red,
 /area/station/public/fitness)
 "pUV" = (
@@ -83052,7 +83052,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/asmaint)
 "qsD" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/rd,
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "qsM" = (
@@ -86792,7 +86792,7 @@
 /obj/item/stack/sheet/cardboard{
 	amount = 10
 	},
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel,
@@ -92787,7 +92787,7 @@
 "skf" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "skh" = (
@@ -95203,7 +95203,7 @@
 /area/station/maintenance/security/fore)
 "sJb" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light{
 	dir = 4
@@ -95888,7 +95888,7 @@
 /area/station/command/office/hop)
 "sQX" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -98555,7 +98555,7 @@
 /area/station/public/construction)
 "tpP" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/simple_animal/pet/cat/runtime,
 /obj/item/toy/cattoy,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -102598,7 +102598,7 @@
 /area/station/medical/reception)
 "ugb" = (
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/ian,
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
 	},
@@ -107471,7 +107471,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/arcade)
 "veX" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 4;
 	pixel_x = -4
 	},
@@ -107926,12 +107926,12 @@
 /area/station/engineering/atmos/control)
 "vkj" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
@@ -107994,7 +107994,7 @@
 "vkO" = (
 /obj/structure/table/glass/reinforced,
 /obj/structure/window/reinforced,
-/obj/item/aiModule/nanotrasen,
+/obj/item/ai_module/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -109776,9 +109776,9 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/wrapping_paper{
 	pixel_x = -3;
 	pixel_y = 5
@@ -110868,8 +110868,8 @@
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "vMA" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
-/obj/item/destTagger,
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -110894,7 +110894,7 @@
 /area/station/public/dorms)
 "vMI" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light{
 	dir = 4
@@ -114377,7 +114377,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/destTagger{
+/obj/item/dest_tagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
@@ -114561,7 +114561,7 @@
 /area/station/maintenance/abandoned_office)
 "wyb" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/storage/box/dice,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
@@ -120012,8 +120012,8 @@
 /area/station/maintenance/abandoned_garden)
 "xEO" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/destTagger{
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
