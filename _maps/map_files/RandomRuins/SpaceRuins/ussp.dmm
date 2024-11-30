@@ -2930,9 +2930,9 @@
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/destTagger,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
