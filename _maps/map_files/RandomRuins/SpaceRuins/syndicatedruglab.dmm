@@ -226,7 +226,7 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/syndicate_druglab/asteroid)
 "yV" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "AE" = (
@@ -312,7 +312,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "Im" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stock_parts/manipulator/nano,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)

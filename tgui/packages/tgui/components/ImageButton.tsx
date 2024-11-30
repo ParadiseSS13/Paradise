@@ -46,6 +46,8 @@ type Props = Partial<{
   dmIcon: string | null;
   /** Parameter `icon_state` of component `DmIcon`. */
   dmIconState: string | null;
+  /** Parameter `direction` of component `DmIcon`. */
+  dmDirection: number | null;
   /**
    * Changes the layout of the button, making it fill the entire horizontally available space.
    * Allows the use of `title`
@@ -81,6 +83,7 @@ export const ImageButton = (props: Props) => {
     color,
     disabled,
     dmFallback,
+    dmDirection,
     dmIcon,
     dmIconState,
     fluid,
@@ -141,6 +144,7 @@ export const ImageButton = (props: Props) => {
           <DmIcon
             icon={dmIcon}
             icon_state={dmIconState}
+            direction={dmDirection}
             fallback={dmFallback ? dmFallback : getFallback('spinner', true)}
             height={`${imageSize}px`}
             width={`${imageSize}px`}

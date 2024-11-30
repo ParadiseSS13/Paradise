@@ -255,7 +255,7 @@
 /turf/space,
 /area/space/nearstation/no_teleport)
 "fc" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -496,7 +496,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "kU" = (
-/obj/structure/closet/malf/suits,
+/obj/structure/closet/malf_suits,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -2128,7 +2128,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "Jz" = (
-/obj/structure/closet/malf/suits,
+/obj/structure/closet/malf_suits,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "JC" = (

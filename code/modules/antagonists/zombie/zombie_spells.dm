@@ -112,7 +112,7 @@
 		to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
 		return // Armor blocks zombies trying to eat your brains!
 
-	to_chat(target, "<span class='userdanger'[user]'s claws dig into your [brain_holder.encased]!</span>")
+	to_chat(target, "<span class='userdanger'>[user]'s claws dig into your [brain_holder.encased]!</span>")
 	user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We dig into [target]'s [brain_holder.encased ? brain_holder.encased : brain_holder]...</span>")
 	playsound(user, 'sound/weapons/armblade.ogg', 50, TRUE)
 	if(!do_mob(user, target, 3 SECONDS))

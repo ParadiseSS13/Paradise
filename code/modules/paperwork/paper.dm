@@ -39,6 +39,7 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+
 	/// Width of the window that opens
 	var/paper_width = 600
 	/// Height of the window that opens
@@ -697,6 +698,82 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
+
+/obj/item/paper/syndicate/listening_post
+	name = "mission briefing"
+	info = {"<center><h1>Mission Details:</h1></center>
+	<br><br>
+	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space.
+	You are to monitor transmissions from the Nanotrasen space stations in the system, as well as those from potentially significant ships passing through the system.
+	<br><br>
+	Urgent reports are to be relayed immeditely to your handler, otherwise, condense significant happenings into packets to be sent out at scheduled intervals, to minimise the chances your transmissions being detected.
+	<br><br>
+	Accurate intelligence is crucial to the success of our operatives onboard. Do not fail us.
+	<br><br>
+	<b>Glory to the Syndicate!</b>"}
+
+/obj/item/paper/listening_post_report_1
+	name = "Report 01 - URGENT"
+	info = {"<b>URGENT:</b> Intercepted communications from the NAS Trurl have revealed that a shipment of nuclear fission warheads are being shipped into the system to replace aging inventory.
+	<br><br>
+	The convoy is lightly defended and disguised as a regular freight carrying operation. They are not expecting, nor prepared to stop a determined attacker."}
+
+/obj/item/paper/listening_post_report_2
+	name = "Report 02"
+	info = {"* Security across all shipping operations has been substantailly boosted, and the NAS Trurl has declared a heightened state of alert across all stations in the system.
+	<br><br>
+	* The NSS Farragus is reporting heightened mineral output - extra shipping traffic likely.
+	<br><br>
+	* The NSS Cyberiad's communications channels are flooded with garbled reports about a dangerous "floor cluwne" - exact details unclear."}
+
+/obj/item/paper/listening_post_report_3
+	name = "Report 03"
+	info = {"* Now that several months have passed, the security situation is slowly cooling down - the NAS Trurl's heightened state of alert is no longer in effect. Routine shipping traffic escorts are beginning to thin.
+	<br><br>
+	* The NSS Kerberos is reporting that mining output has dropped to zero. Morale has plummeted, engineers and roboticists are tearing apart old metal furnature and windows to secure materials.
+	<br><br>
+	* The NSS Diagoras is reporting a major plasma fire, but it appears to be contained to an asteroid attached to the station.
+	<br><br>
+	* Some form of pirate radio station appeared in the system and is broadcasting what appears to be Soviet state-made entertainment media - It is of highly doubious entertainment value, however.
+	These broadcasts are not on NT frequencies and therefore are not causing interferance."}
+
+/obj/item/paper/listening_post_report_4
+	name = "Report 04"
+	info = {"* The NAS Trurl has ordered all stations to prepare for a potentiel visit from multiple VIPs. Details scarce, security levels elevted.
+	<br><br>
+	* A USSP-operated station has been detected in the system.
+	It is intermittently communicating with the Soviet pirate radio station (which appears to be operated by the USSP as well). Both operations appear to be independent of each other. Will continue to monitor for developments.
+	<br><br>
+	* A TSF destroyer "TSFN Oberon" jumped into the system and opened encrypted communications with the NAS Trurl, contents of transmission unknown.
+	Broadcast exchanges continued as the destroyer adopted a search pattern. After six hours, the destroyer jumped out of system. At no point did it approach near either of the USSP installations.
+	<br><br>
+	* Nanotrasen plasma shipments have been disrupted by a massive migration of space carp, causing backlogs at shipping terminals."}
+
+/obj/item/paper/listening_post_report_5
+	name = "Report 05"
+	info = {"* Intermittent hyperwave broadcasts have been detected from the USSP pirate radio station. Broadcasts are highly directional (which hindered detection), pointing towards USSP space.
+	These messages are highly encrypted. It appears likely that the USSP is conducting eavesdropping operations against Nanotrasen as well.
+	<br><br>
+	* A terror spider outbreak was reported on the NSS Cerebron. Early discovery and an unusual lack of coordiation on the part of the spiders allowed the outbreak to be rapidly contained.
+	<br><br>
+	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" -
+	piecing together fragments of communications suggests that this "Ei Nath" is a highly dangerous individual whose mere pressence causes great fear among Nanotrasen personnel. Attempt recruitment?"}
+
+/obj/item/paper/listening_post_report_6
+	name = "Report 06 - URGENT"
+	info = {"<b>URGENT:</b> An Aussec Armoury freighter has suffered an engine failure near the edge of the system, dropping out of hyperspace.
+	<br><br>
+	Escorts will be absent until they can retrace path. Limited window to execute raiding operations."}
+
+/obj/item/paper/listening_post_report_7
+	name = "Report 07"
+	info = {"* The USSP space station has gone silent on all frequencies for an extended period of time. USSP listening post continues to operate (the contents of the cover singal is not getting any better).
+	<br><br>
+	* New signals are being detected from an old Nanotrasen communications satellite. Multiple Nanotrasen explorers attempting to investigate are MIA.
+	<br><br>
+	* Vox skipjack detected in area, communications completely unintelligible. Likely preparing to launch shuttles to trade with or raid the stations in the area.
+	<br><br>
+	* <b>CAUTION:</b> Nanotrasen exploration teams growing in size and are scouring much larger areas than before. They are now operating dangerously close to this installation, requesting additional security."}
 
 /obj/item/paper/nanotrasen
 	name = "paper"

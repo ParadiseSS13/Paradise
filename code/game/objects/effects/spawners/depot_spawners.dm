@@ -58,7 +58,7 @@
 /obj/effect/spawner/random/syndicate/trapped_documents
 	name = "50pc trapped documents"
 	icon_state = "folder"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
+	spawn_inside = /obj/structure/closet/secure_closet/depot
 	loot = list(
 		/obj/item/documents/syndicate/yellow,
 		/obj/item/documents/syndicate/yellow/trapped,
@@ -66,7 +66,7 @@
 
 // Loot
 /obj/effect/spawner/random/syndicate/loot
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
+	spawn_inside = /obj/structure/closet/secure_closet/depot
 
 /obj/effect/spawner/random/syndicate/loot/common
 	name = "syndicate depot loot, common"
@@ -160,7 +160,7 @@
 
 /obj/effect/spawner/random/syndicate/loot/armory
 	name = "syndicate depot loot, armory"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
+	spawn_inside = /obj/structure/closet/secure_closet/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	loot = list(
 		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,

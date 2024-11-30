@@ -6978,12 +6978,6 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"zc" = (
-/obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/turf/template_noop,
-/area/template_noop)
 "Bx" = (
 /obj/machinery/door_control{
 	id = "ruslock";
@@ -13542,7 +13536,7 @@ ac
 ac
 ac
 ac
-zc
+ac
 ac
 ac
 ac

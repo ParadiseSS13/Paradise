@@ -978,7 +978,7 @@
 	},
 /area/ruin/space/deepstorage)
 "dR" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "dT" = (
@@ -4463,7 +4463,7 @@
 /area/ruin/space/deepstorage)
 "Br" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -4690,7 +4690,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "CD" = (
