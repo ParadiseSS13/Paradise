@@ -109,11 +109,10 @@
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
-	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks. \
-	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
+	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
-	cost = 400
+	cost = 350
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"

@@ -293,7 +293,7 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
 	. = M
 	M.anchored = anchored
 	if(!disassembled)

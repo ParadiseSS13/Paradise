@@ -585,8 +585,8 @@
 		return
 	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
 	H.name = H.real_name
-	H.add_language("Neo-Russkiya")
-	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+	H.add_language("Zvezhan")
+	H.set_default_language(GLOB.all_languages["Zvezhan"])
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)

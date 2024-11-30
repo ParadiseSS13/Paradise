@@ -384,7 +384,7 @@ SLIME SCANNER
 	var/list/msgs = list()
 	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 	msgs += "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red'>[0]</font></span>"
 	msgs += "<span class='notice'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
 	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))

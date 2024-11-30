@@ -9,7 +9,7 @@
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
 		D.visible_message("<span class='warning'>[A] manifests a large glowing toolbox and shoves it in [D]'s chest!</span>", \
-							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
+							"<span class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
 		D.death()
 
 		return TRUE
