@@ -31,7 +31,7 @@
 	autoclone.linked = src
 	atom_say("Link confirmed!")
 
-/obj/machinery/grey_autocloner/proc/growclone(datum/dna2/record/R)
+/obj/machinery/grey_autocloner/proc/growclone(datum/dna2_record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
 		return FALSE
 	clonemind = locateUID(R.mind)

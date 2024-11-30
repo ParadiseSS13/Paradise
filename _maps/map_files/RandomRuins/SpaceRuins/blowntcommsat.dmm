@@ -857,7 +857,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Zd" = (
-/obj/structure/closet/malf/suits,
+/obj/structure/closet/malf_suits,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

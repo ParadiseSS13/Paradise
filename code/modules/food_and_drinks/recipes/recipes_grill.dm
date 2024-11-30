@@ -124,7 +124,7 @@
 	)
 	result = /obj/item/food/wingfangchu
 
-/datum/recipe/grill/human/kebab
+/datum/recipe/grill/human_kebab
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/meat/human,

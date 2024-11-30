@@ -780,7 +780,7 @@
 /datum/outfit/admin/solgov/lieutenant
 	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/beret/solgov/command
+	head = /obj/item/clothing/head/beret/solgov
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/magboots/elite

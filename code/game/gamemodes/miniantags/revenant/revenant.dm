@@ -224,7 +224,7 @@
 	icon_state = "revenant_draining"
 	animate(src, alpha = 0, time = 3 SECONDS)
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	new /obj/item/ectoplasm/revenant(get_turf(src))
+	new /obj/item/ectoplasm(get_turf(src))
 	ghostize()
 	qdel(src)
 
@@ -353,14 +353,14 @@
 /datum/objective/revenantFluff/check_completion()
 	return TRUE
 
-/obj/item/ectoplasm/revenant
+/obj/item/ectoplasm
 	name = "glimmering residue"
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/ectoplasm/revenant/examine(mob/user)
+/obj/item/ectoplasm/examine(mob/user)
 	. = ..()
 	. += "<span class='revennotice'>Lifeless ectoplasm, still faintly glimmering in the light. From what was once a spirit seeking revenge on the station.</span>"
 
