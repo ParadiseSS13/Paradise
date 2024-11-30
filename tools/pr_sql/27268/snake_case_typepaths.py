@@ -39,9 +39,7 @@ def main():
     # want these ordered by length from longest to shortest so shorter replacements
     # don't replace pieces of larger replacements
     renames = sorted(
-        json.load(
-            open(Path(__file__).parent / "migration_data/snake_case_type_remap.json")
-        ),
+        json.load(open(Path(__file__).parent / "snake_case_type_remap.json")),
         key=lambda x: len(x["original"]),
         reverse=True,
     )
