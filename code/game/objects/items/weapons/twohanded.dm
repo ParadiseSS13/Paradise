@@ -1,6 +1,6 @@
-/*
- * Fireaxe
- */
+//////////////////////
+// MARK: FIREAXE
+//////////////////////////////
 /// DEM AXES MAN, marker -Agouri
 /obj/item/fireaxe
 	base_icon_state = "fireaxe"
@@ -90,9 +90,10 @@
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
-/*
- * Double-Bladed Energy Swords - Cheridan
- */
+
+//////////////////////
+// MARK: Double-Bladed Energy Swords - Cheridan
+//////////////////////////////
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
@@ -123,6 +124,7 @@
 	var/force_wielded = 34
 	var/wieldsound = 'sound/weapons/saberon.ogg'
 	var/unwieldsound = 'sound/weapons/saberoff.ogg'
+	var/is_parry_attack = TRUE
 
 /obj/item/dualsaber/Initialize(mapload)
 	. = ..()
@@ -139,22 +141,34 @@
 		icon_state = "dualsaber0"
 		set_light(0)
 
-/obj/item/dualsaber/attack(mob/target, mob/living/user)
-	if(cigarette_lighter_act(user, target))
-		return
+// /obj/item/dualsaber/attack(mob/target, mob/living/user)
+// 	if(cigarette_lighter_act(user, target))
+// 		return
 
-	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
-		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			user.unEquip(src)
-			return
-	..()
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
-		user.take_organ_damage(20, 25)
-		return
-	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
-		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+// 	if(HAS_TRAIT(user, TRAIT_HULK))
+// 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
+// 		if(HAS_TRAIT(src, TRAIT_WIELDED))
+// 			user.unEquip(src)
+// 			return
+// 	..()
+// 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
+// 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+// 		user.take_organ_damage(20, 25)
+// 		return
+// 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
+// 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+
+/obj/item/dualsaber/attack(mob/target, mob/living/user)
+
+	var/mob/living/carbon/human/parried_person = target
+	// is_parry_attack = ds.is_parry_attack = FALSE
+	visible_message("<span class='danger'>[src] colides with results in crazy energy relise! </span>")
+	var/throwdir = get_dir(user, parried_person)
+	var/user_turf = get_ranged_target_turf(user, REVERSE_DIR(throwdir), 2)
+	var/parried_person_turf = get_ranged_target_turf(parried_person, throwdir, 2)
+	user.throw_at(user_turf, 4, 2, null, spin = FALSE, dodgeable = FALSE)
+	parried_person.throw_at(parried_person_turf, 4, 2, null, spin = FALSE, dodgeable = FALSE)
+
 
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -204,9 +218,37 @@
 		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
 		return TRUE
 	if(isitem(hitby))
+		if(istype(hitby, /obj/item/dualsaber))
+			var/obj/item/dualsaber/ds = hitby
+			if(is_parry_attack && ds.is_parry_attack) // stage 3
+				var/mob/living/carbon/human/parried_person = 
+				// is_parry_attack = ds.is_parry_attack = FALSE
+				visible_message("<span class='danger'>[src] colides with [ds] results in crazy energy relise! </span>")
+				var/throwdir = get_dir(owner, parried_person)
+				owner.throw_at(throwdir, 4, 2, null, spin = FALSE, dodgeable = FALSE)
+				parried_person.throw_at(REVERSE_DIR(throwdir), 4, 2, null, spin = FALSE, dodgeable = FALSE)
+
+				var/mob/living/carbon/human/parried_person = ds.loc
+				// is_parry_attack = ds.is_parry_attack = FALSE
+				visible_message("<span class='danger'>[src] colides with results in crazy energy relise! </span>")
+				var/throwdir = get_dir(owner, parried_person)
+				var/owner_turf = get_ranged_target_turf(owner, REVERSE_DIR(throwdir), 2)
+				var/parried_person_turf = get_ranged_target_turf(parried_person, throwdir, 2)
+				owner.throw_at(owner_turf, 4, 2, null, spin = FALSE, dodgeable = FALSE)
+				parried_person.throw_at(parried_person_turf, 4, 2, null, spin = FALSE, dodgeable = FALSE)
+
+				// Some sound effects and explosion if i can
+			if(ds.is_parry_attack) // stage 2 second parry
+				visible_message("<span class='danger'>[owner] skilfylly counterattacks the counterattack!!! </span>")
+			else // stage 1 first parry
+				visible_message("<span class='danger'>[owner] skilfylly counterattacks! </span>")
+
+		is_parry_attack = TRUE
 		melee_attack_chain(owner, hitby.loc)
+
 	else
 		melee_attack_chain(owner, hitby)
+
 	return TRUE
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
@@ -256,7 +298,9 @@
 	else
 		to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 
-//spears
+//////////////////////
+// MARK: SPEARS
+//////////////////////////////
 /obj/item/spear
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
@@ -333,6 +377,7 @@
 	if(explosive)
 		explosive.prime()
 		qdel(src)
+
 
 /// Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 /obj/item/spear/bonespear
@@ -426,7 +471,9 @@
 		mounted_head = null
 	qdel(src)
 
-// DIY CHAINSAW
+//////////////////////
+// MARK: DIY CHAINSAW
+//////////////////////////////
 /obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
@@ -498,8 +545,9 @@
 		return TRUE
 	return FALSE
 
-
-///CHAINSAW///
+//////////////////////
+// MARK: CHAINSAW
+//////////////////////////////
 /obj/item/butcher_chainsaw
 	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
@@ -569,7 +617,9 @@
 /obj/item/butcher_chainsaw/proc/unwield()
 	flags &= ~NODROP
 
-// SINGULOHAMMER
+//////////////////////
+// MARK: SINGULOHAMMER
+//////////////////////////////
 /obj/item/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
@@ -641,6 +691,9 @@
 			var/turf/target = get_turf(A)
 			vortex(target, user)
 
+//////////////////////
+// MARK: MJOLLNIR
+//////////////////////////////
 /obj/item/mjollnir
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
@@ -690,6 +743,9 @@
 /obj/item/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir0"
 
+//////////////////////
+// MARK: KNIGHTHAMMER
+//////////////////////////////
 /obj/item/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
@@ -759,7 +815,9 @@
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 
-// PYRO CLAWS
+//////////////////////
+// MARK: PYRO CLAWS
+//////////////////////////////
 /obj/item/pyro_claws
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
@@ -895,6 +953,11 @@
 	on_cooldown = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+
+//////////////////////
+// MARK: BROOM
+//////////////////////////////
 
 /// Max number of atoms a broom can sweep at once
 #define BROOM_PUSH_LIMIT 20
@@ -1045,6 +1108,10 @@
 
 #undef BROOM_PUSH_LIMIT
 
+
+//////////////////////
+// MARK: SUPERMATTER HALBERD
+//////////////////////////////
 /// Supermatter Halberd, used by Oblivion Enforcers
 /obj/item/supermatter_halberd
 	name = "supermatter halberd"
