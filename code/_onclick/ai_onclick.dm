@@ -109,7 +109,7 @@
 	if(pixel_turf)
 		turf_visible = GLOB.cameranet.checkTurfVis(pixel_turf)
 		if(!turf_visible)
-			if(istype(loc, /obj/item/aicard) && (pixel_turf in view(client.view, loc)))
+			if((istype(loc, /obj/item/aicard) || ismecha(loc)) && (pixel_turf in range(client.view, loc)))
 				turf_visible = TRUE
 			else
 				if(pixel_turf.obscured)
