@@ -339,7 +339,7 @@
 	for(var/direction in GLOB.alldirs)
 		var/turf/next_turf = get_step(current_table, direction)
 		if(!istype(next_turf))
-			stack_trace("Failed to proceed in direction [dir2text(direction)] when building card proximity monitors.")
+			stack_trace("Failed to proceed in direction [dir2text(direction)] when building card proximity monitors, current_turf=[COORD(current_turf)], current_table=[COORD(current_table)].")
 			continue
 		if(get_dist_euclidian(get_turf(parent), next_turf) > max_total_distance)
 			continue
