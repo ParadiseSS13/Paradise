@@ -1132,7 +1132,7 @@
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts<b> are exposed.</span>"
+			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.</span>"
 		if(AIR_ALARM_UNWIRED)
 			. += "<span class='notice'>The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.</span>"
 		if(AIR_ALARM_READY)

@@ -57,6 +57,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_panel = null
 	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket", "Rover")
+	/// Robot skins with different sprites for open panels for each module.
+	var/list/variable_custom_panels = list("Rover-Serv", "Rover-Medi")
 	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
 	/// Has the robot been emagged?
@@ -457,14 +459,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Medical")
 			module_sprites = list(
-				"Basic" = image('icons/mob/robots.dmi', "Medbot"),
 				"Surgeon" = image('icons/mob/robots.dmi', "surgeon"),
 				"Advanced Droid" = image('icons/mob/robots.dmi', "droid-medical"),
-				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
 				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
-				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor")
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Medi"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor"),
+				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
+				"Basic" = image('icons/mob/robots.dmi', "Medbot")
 			)
 		if("Mining")
 			module_sprites = list(
@@ -480,14 +483,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			)
 		if("Service")
 			module_sprites = list(
-				"Waitress" = image('icons/mob/robots.dmi', "Service"),
 				"Kent" = image('icons/mob/robots.dmi', "toiletbot"),
+				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV"),
+				"Rover" = image('icons/mob/robots.dmi', "Rover-Serv"),
 				"Bro" = image('icons/mob/robots.dmi', "Brobot"),
 				"Rich" = image('icons/mob/robots.dmi', "maximillion"),
-				"Default" = image('icons/mob/robots.dmi', "Service2"),
-				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
-				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV")
+				"Waitress" = image('icons/mob/robots.dmi', "Service"),
+				"Default" = image('icons/mob/robots.dmi', "Service2")
 			)
 		if("Combat")
 			module_sprites = list(
@@ -533,7 +537,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Jani", "Rover-Engi", "Hydrobot")
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Jani", "Rover-Engi", "Rover-Serv", "Hydrobot")
 			can_be_hatted = FALSE // Their base sprite already comes with a hat
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
@@ -1265,7 +1269,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
-		if(custom_panel in custom_panel_names) //For default borgs with different panels
+		if(icon_state in variable_custom_panels) //For individual borg modules with different panels
+			panelprefix = icon_state
+		else if(custom_panel in custom_panel_names) //For default borgs with different panels
 			panelprefix = custom_panel
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
