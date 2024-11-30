@@ -233,7 +233,7 @@
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
 		M.Weaken(6 SECONDS)
-		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, "<span class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"

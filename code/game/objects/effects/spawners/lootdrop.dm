@@ -539,7 +539,7 @@
 				/obj/item/clothing/under/solgov/elite = 50,
 				/obj/item/clothing/under/solgov/command = 50,
 				/obj/item/clothing/under/retro/security = 50,
-				/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 50,
+				/obj/item/clothing/under/misc/gimmick_captain_suit = 50,
 				/obj/item/clothing/under/misc/durathread = 50,
 				/obj/item/clothing/under/psysuit = 50,
 				/obj/item/clothing/under/costume/cuban_suit = 50,

@@ -941,7 +941,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/drinks/oilcan,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1127,7 +1127,7 @@
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/ladder/unusable,
+/obj/structure/ladder,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "Et" = (

@@ -616,7 +616,7 @@
 	name = "Reviver Implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
 	id = "ci-reviver"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 5)
+	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 7)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)

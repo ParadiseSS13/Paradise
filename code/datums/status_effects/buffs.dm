@@ -673,14 +673,23 @@
 /datum/status_effect/hope/tick()
 	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
 		return
+	var/heal_multiplier = 0
+	switch(owner.health)
+		if(50 to INFINITY)
+			heal_multiplier = 1
+		if(0 to 50)
+			heal_multiplier = 2
+		if(-50 to 0)
+			heal_multiplier = 3
+		if(-100 to -50)
+			heal_multiplier = 4
+	owner.adjustBruteLoss(-heal_multiplier)
+	owner.adjustFireLoss(-heal_multiplier)
+	owner.adjustOxyLoss(-heal_multiplier)
 	if(owner.health > 50)
 		if(prob(0.5))
 			hope_message()
 		return
-	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
-	owner.adjustBruteLoss(-heal_multiplier * 0.5)
-	owner.adjustFireLoss(-heal_multiplier * 0.5)
-	owner.adjustOxyLoss(-heal_multiplier)
 	if(prob(heal_multiplier * 2))
 		hope_message()
 

@@ -2,8 +2,6 @@
 "aq" = (
 /obj/effect/spawner/random/oil/often,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille/broken,
@@ -17,8 +15,6 @@
 "aW" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -97,8 +93,6 @@
 /area/ruin/space/mech_transport)
 "gk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/light/small{
@@ -354,7 +348,6 @@
 "xG" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -674,7 +667,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UF" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UK" = (

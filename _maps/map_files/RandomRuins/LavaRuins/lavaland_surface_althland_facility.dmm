@@ -554,7 +554,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
