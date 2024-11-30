@@ -1477,7 +1477,7 @@
 /area/station/maintenance/fore2)
 "akD" = (
 /obj/machinery/camera{
-	c_tag = "Brig Labor Camp Airlock North";
+	c_tag = "Brig Labor Camp Shuttle Lounge";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -5064,10 +5064,6 @@
 /area/station/public/toilet/lockerroom)
 "aUi" = (
 /obj/structure/closet/crate,
-/obj/machinery/camera{
-	c_tag = "Fore Asteroid Maintenance APCs 2";
-	dir = 5
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aUo" = (
@@ -35920,7 +35916,7 @@
 	id_tag = "hopexternal"
 	},
 /obj/effect/turf_decal/loading_area,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/command/office/hop)
 "gjW" = (
 /obj/structure/window/reinforced{
@@ -47874,7 +47870,6 @@
 "joW" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/qm,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "bridge"
@@ -50652,12 +50647,14 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/pickaxe/safety,
 /obj/item/pickaxe/safety{
-	pixel_x = -6
+	pixel_x = 7
 	},
 /obj/item/pickaxe/safety{
-	pixel_x = -12
+	pixel_x = 1
+	},
+/obj/item/pickaxe/safety{
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -66573,8 +66570,7 @@
 	},
 /area/station/service/chapel)
 "ocZ" = (
-/obj/machinery/camera{
-	c_tag = "Courtroom ";
+/obj/machinery/camera/autoname{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -69097,6 +69093,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
+"oLm" = (
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/legal/courtroom)
 "oLo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/loading_area{
@@ -71009,7 +71013,7 @@
 /obj/structure/table,
 /obj/machinery/light,
 /obj/machinery/camera{
-	c_tag = "Brig Prisoner Processing West";
+	c_tag = "Brig Processing West";
 	dir = 4
 	},
 /obj/item/restraints/handcuffs,
@@ -94052,7 +94056,7 @@
 	color = "#954535"
 	},
 /obj/machinery/camera{
-	c_tag = "Brig Cell Block A WEST"
+	c_tag = "Brig Cell Block A West"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -98944,7 +98948,6 @@
 	name = "Bridge Conference Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/qm,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "bridge"
@@ -120434,7 +120437,7 @@ rJj
 rJj
 rJj
 bTO
-kRx
+oLm
 jVE
 tTA
 rKD
