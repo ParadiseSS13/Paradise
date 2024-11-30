@@ -15,7 +15,6 @@
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/clothing/mask/facehugger, //Why would you do this
-		/obj/item/clothing/neck/cloak,
 		/obj/item/clothing/accessory/medal,
 		/obj/item/clothing/suit/armor/riot,
 		/obj/item/clothing/suit/armor/reactive,
