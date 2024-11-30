@@ -32,8 +32,8 @@ a data change is just changing the contents inside a table.
 
 - Data changes do not require an SQL version bump as the game can still operate
   without it, there just might be some runtimes between save and load, or some
-  old data that needs retroactively adjusting. These reside in
-  `tools/pr_sql/xxxxx/`, where `xxxxx` is the PR number.
+  old data that needs retroactive adjustment. These reside in
+  `tools/pr_sql/xxxxx/` where `xxxxx` is the PR number.
 
 ## Schema changes
 
@@ -50,7 +50,8 @@ So, you want to add a new table. In short, you need to do the following:
 3. Bump the SQL version in `config/example/config.toml`. Look for a line
   starting with `sql_version =` and increment it by 1.
 
-4. Bump the `#define SQL_VERSION` by the same amount in `code/__DEFINES/misc_defines.dm`.
+4. Bump the `#define SQL_VERSION` by the same amount in
+  `code/__DEFINES/misc_defines.dm`.
 
 An example SQL update file is below. It has a comment at the top explaining
 what it does, and the schema change below.
@@ -71,8 +72,9 @@ fine, so long as the final state of the column matches with the stock schema
 
 ### But my PR needs more complex data operations than a SQL script can provide?
 
-Not to worry, we have provisions in place for this as well, though it should be
-a last resort, do as many transformations as you can within the SQL file.
+Not to worry, we have provisions in place for this as well. However, it should
+be a last resort - do as many transformations as you can within the SQL file
+itself.
 
 Some of the scripts are Python files, such as `SQL/updates/38-39.py`. These can
 be used for modifying the data in a way that can be done outside of SQL,
@@ -91,22 +93,22 @@ These files have some rules, most notably:
 
 Your script can then do whatever it needs to the database. Logging for progress
 is advised for heavy operations, but not required. All we ask is that if you do
-logs for progress, do it for every 10k rows or so, don't print for every single
+logs for progress, do it for every 10k rows or so. Don't print for every single
 row processed!
 
 The last change needed if you are doing a Python update file is to modify
-`tools/ci/generate_sql_scripts.py` to supply the correct command line args, and
-to tell the CI process to run this as a Python script, not a raw SQL file.
+`tools/ci/generate_sql_scripts.py` to supply the correct command line args.
+This tells the CI process to run this as a Python script, not a raw SQL file.
 
 ## Data Changes
 
-Data changes are much easier to handle, as you do not need to increment the
-schema verison. You simply need to create an SQL or Python script inside of
-`tools/pr_sql/xxxxx/`, where `xxxxx` is your PR number. Don't worry, you can
+Data changes are much easier to handle as you do not need to increment the
+schema verison, you simply need to create an SQL or Python script inside of
+`tools/pr_sql/xxxxx/` where `xxxxx` is your PR number. Don't worry, you can
 commit it after the PR is opened so you know the PR number, similar to using
 `UpdatePaths`.
 
-The ruling for SQL scripts and Python scripts in here is the same, so long as
-the schema is the same afterwards (which it should be, this is just data
-transformation), and the only extra Python library is `mysql.connector`, you
-are free to transform the data in whatever way you need to get it migrated.
+The ruling for SQL scripts and Python scripts is the same. So long as the
+schema is the same afterwards and the only extra Python library is
+`mysql.connector`, you are free to transform the data in whatever way you
+need to get it migrated.
