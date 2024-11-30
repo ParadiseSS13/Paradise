@@ -424,6 +424,8 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	if(H.status_flags & GODMODE)
+		return FALSE	//godmode
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	if(!damage)
 		return FALSE
@@ -773,6 +775,8 @@
 			return !H.gloves && (I.slot_flags & ITEM_SLOT_GLOVES)
 		if(ITEM_SLOT_SHOES)
 			return !H.shoes && (I.slot_flags & ITEM_SLOT_SHOES)
+		if(ITEM_SLOT_NECK)
+			return !H.neck && (I.slot_flags & ITEM_SLOT_NECK)
 		if(ITEM_SLOT_BELT)
 			if(H.belt)
 				return FALSE

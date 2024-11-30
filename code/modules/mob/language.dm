@@ -118,7 +118,7 @@
 
 		else if(istype(player, /mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
-			if((flags & HIVEMIND) && (flags & HIVEMIND_RUNECHAT))
+			if((flags & HIVEMIND) && (flags & HIVEMIND_RUNECHAT) && player?.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				player.create_chat_message(player, "[speaker_mask], [format_message(message)]")
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)

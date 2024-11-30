@@ -42,7 +42,7 @@
 	if(isitem(target))
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/obj/item/, update_slot_icon), TRUE)
 	if(_dir)
-		RegisterSignal(target, COMSIG_ATOM_DECALS_ROTATING, PROC_REF(shuttle_rotate), TRUE)
+		RegisterSignal(target, list(COMSIG_ATOM_DECALS_ROTATING, COMSIG_ATOM_GET_DECALS), PROC_REF(get_decals), TRUE)
 		SSdcs.RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, rotate_decals), override=TRUE)
 	if(_cleanable)
 		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react), TRUE)
@@ -172,6 +172,6 @@
 	Detach(source)
 	new_turf.AddElement(type, pic.icon, base_icon_state, directional, pic.layer, pic.alpha, pic.color, cleanable, description)
 
-/datum/element/decal/proc/shuttle_rotate(datum/source, list/datum/element/decal/rotating)
+/datum/element/decal/proc/get_decals(datum/source, list/datum/element/decal/rotating)
 	SIGNAL_HANDLER  // COMSIG_ATOM_DECALS_ROTATING
 	rotating += src

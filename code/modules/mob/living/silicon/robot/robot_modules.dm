@@ -1110,7 +1110,7 @@
 	max_amount = 25
 
 //Energy stack for landmines
-/datum/robot_storage/energy/janitor/landmine
+/datum/robot_storage/energy/jani_landmine
 	name = "Landmine Synthesizer"
 	statpanel_name = "Landmines"
 	max_amount = 4
