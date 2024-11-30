@@ -3,6 +3,7 @@
 		list("[p_are()] holding", l_hand, "in", "left hand"),
 		list("[p_are()] holding", r_hand, "in", "right hand"),
 		list("[p_are()] wearing", head, "on", "head"),
+		list("[p_are()] wearing", neck, "around", "neck"),
 		list("[p_are()] wearing", !skip_jumpsuit && w_uniform, null, null, length(w_uniform?.accessories) && "[english_accessory_list(w_uniform)]"),
 		list("[p_are()] wearing", wear_suit, null, null),
 		list("[p_are()] carrying", !skip_suit_storage && s_store, "on", wear_suit && wear_suit.name),

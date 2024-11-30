@@ -611,7 +611,7 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/projectile/automatic/pistol/aps
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
@@ -654,7 +654,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps = 1,
 		/obj/item/ammo_box/magazine/apsm10mm = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo/engraved = 1
@@ -780,7 +780,7 @@
 /datum/outfit/admin/solgov/lieutenant
 	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/beret/solgov/command
+	head = /obj/item/clothing/head/beret/solgov
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/magboots/elite

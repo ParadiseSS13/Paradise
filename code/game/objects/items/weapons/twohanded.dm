@@ -917,7 +917,7 @@
 
 /obj/item/push_broom/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 5) SECONDS, _requires_two_hands = TRUE)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.75, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS, _requires_two_hands = TRUE)
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 12, \
 		force_unwielded = force, \

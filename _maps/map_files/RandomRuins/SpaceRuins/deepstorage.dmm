@@ -88,7 +88,6 @@
 /area/ruin/space/deepstorage)
 "ap" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -143,8 +142,6 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -306,7 +303,6 @@
 /area/ruin/space/deepstorage)
 "aV" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor,
@@ -982,7 +978,7 @@
 	},
 /area/ruin/space/deepstorage)
 "dR" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "dT" = (
@@ -2005,8 +2001,6 @@
 /area/ruin/space/unpowered)
 "kR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3541,8 +3535,6 @@
 "vt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
@@ -3947,13 +3939,9 @@
 /area/ruin/space/deepstorage)
 "yf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4475,7 +4463,7 @@
 /area/ruin/space/deepstorage)
 "Br" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -4702,7 +4690,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "CD" = (
@@ -4831,9 +4819,9 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -7111,8 +7099,6 @@
 /area/ruin/space/deepstorage)
 "UO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -7316,7 +7302,6 @@
 	pixel_x = -32
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes{

@@ -4,7 +4,7 @@
 		for(var/turf/simulated/floor/T in orange(1,xmas))
 			for(var/i=1,i<=rand(1,5),i++)
 				new /obj/item/a_gift(T)
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
+	for(var/mob/living/simple_animal/pet/dog/corgi/ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
 		S.always_available = TRUE
