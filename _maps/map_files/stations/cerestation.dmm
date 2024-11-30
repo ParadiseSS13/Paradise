@@ -9210,8 +9210,6 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/destTagger,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -43876,6 +43874,8 @@
 	name = "south bump";
 	dir = 1
 	},
+/obj/structure/table,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -55040,10 +55040,7 @@
 /area/station/service/library)
 "khD" = (
 /obj/structure/table,
-/obj/item/eftpos/register{
-	dir = 4
-	},
-/obj/item/eftpos/register,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -64219,6 +64216,8 @@
 /area/station/maintenance/storage)
 "mOA" = (
 /obj/machinery/light,
+/obj/structure/table,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
