@@ -215,8 +215,6 @@
 			evidence[print] = supplied.fingerprints[print]
 		supplied.fingerprints.Cut()
 
-/obj/item/forensics
-
 /obj/item/forensics/sample_kit
 	name = "\improper fiber collection kit"
 	desc = "Magnifying glass and tweezers. Used to lift fabric fibers."

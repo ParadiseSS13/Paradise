@@ -250,3 +250,6 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+
+	///gunshot residue for det work
+	/var/gunshot_residue
