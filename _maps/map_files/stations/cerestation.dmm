@@ -5351,6 +5351,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
