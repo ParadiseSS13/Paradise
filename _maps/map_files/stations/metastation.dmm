@@ -44826,15 +44826,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "fga" = (
@@ -50842,9 +50833,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "hIG" = (
@@ -56772,15 +56760,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
-"krV" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
-/area/station/hallway/primary/starboard)
 "ksa" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -122715,7 +122694,7 @@ cJS
 uoI
 vAS
 bhq
-krV
+bnr
 hIp
 bqA
 bsp

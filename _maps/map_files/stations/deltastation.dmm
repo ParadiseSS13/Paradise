@@ -83236,12 +83236,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "rIu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
