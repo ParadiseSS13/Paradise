@@ -78739,16 +78739,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/asmaint)
-"rlB" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/aisat/interior)
 "rlP" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -152125,7 +152115,7 @@ bkj
 dce
 bvT
 aQG
-rlB
+bll
 cXU
 mBR
 wUI
