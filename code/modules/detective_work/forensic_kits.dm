@@ -1,6 +1,3 @@
-/obj/item/clothing/gloves/color/black/forensics
-	transfer_prints = FALSE
-
 // Boxes
 /obj/item/storage/box/swabs
 	name = "\improper Box of Forensic Swabs"
