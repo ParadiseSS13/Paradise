@@ -5,8 +5,8 @@
 	var/max_total_distance
 	/// The UID of the deck
 	var/deck_uid
-
-	var/debug = TRUE
+	/// Indicate field activity with colors on the field's turfs.
+	var/debug = FALSE
 
 /datum/proximity_monitor/advanced/card_deck/New(atom/host_, max_table_distance_ = 5, ignore_if_not_on_turf_ = TRUE)
 	max_table_distance = max_table_distance_
@@ -78,7 +78,7 @@
 		if(!(new_location in field_turfs))
 			REMOVE_TRAIT(L, TRAIT_PLAYING_CARDS, "deck_[deck_uid]")
 		if(debug)
-			old_location.color = initial(old_location.color)
+			old_location.color = "#ffaaff"
 
 /datum/proximity_monitor/advanced/card_deck/setup_field_turf(turf/target)
 	if(debug)
