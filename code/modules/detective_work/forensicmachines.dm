@@ -60,6 +60,10 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
+/obj/machinery/dnaforensics/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
+
 /obj/machinery/dnaforensics/attackby(obj/item/W as obj, mob/user as mob)
 
 	if(swab)
@@ -182,6 +186,10 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+/obj/machinery/microscope/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
 /obj/machinery/microscope/attackby(obj/item/W as obj, mob/user as mob)
 
