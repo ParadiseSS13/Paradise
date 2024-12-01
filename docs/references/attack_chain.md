@@ -594,3 +594,158 @@ divided up into smaller, more manageable procs with clear names to explain the
 sequence of events. Finally, because we constantly check the parent proc, all
 signals that are expected to be sent, are, so any other components or listeners
 can take appropriate action and cancel the attack chain themselves, if requested.
+
+## Migration Helpers
+
+There are two important tools which can help make the migration process easier:
+the _migration plan checker_ and the _attack chain CI checks_.
+
+### Migration Plan Checker
+
+If you are making a code change and need to update the attack chain on an
+object, the migration plan checker will tell you what other types will need to
+be migrated in the same PR. For example, if I wanted to migrate `/turf/simulated/wall/cult`, I could rune the migration plan checker at the command line:
+
+```
+$ python .\tools\migrate_attack_chain.py /turf/simulated/wall/cult
+Migration Plan for Path /turf/simulated/wall/cult
+Required Additional Migrations:
+        /turf
+        /turf/simulated/floor
+        /turf/simulated/floor/chasm
+        /turf/simulated/floor/grass
+        /turf/simulated/floor/holofloor
+        /turf/simulated/floor/indestructible
+        /turf/simulated/floor/lava
+        /turf/simulated/floor/lava/lava_land_surface/plasma
+        /turf/simulated/floor/light
+        /turf/simulated/floor/mineral/bananium
+        /turf/simulated/floor/mineral/plasma
+        /turf/simulated/floor/mineral/uranium
+        /turf/simulated/floor/plating
+        /turf/simulated/floor/plating/asteroid
+        /turf/simulated/floor/plating/metalfoam
+        /turf/simulated/floor/vines
+        /turf/simulated/mineral
+        /turf/simulated/mineral/ancient
+        /turf/simulated/mineral/ancient/lava_land_surface_hard
+        /turf/simulated/mineral/ancient/outer
+        /turf/simulated/wall
+        /turf/simulated/wall/indestructible
+        /turf/simulated/wall/mineral/plasma
+        /turf/simulated/wall/mineral/uranium
+        /turf/simulated/wall/mineral/wood
+        /turf/simulated/wall/r_wall
+        /turf/space
+        /turf/space/transit
+Toggle `new_attack_chain = TRUE` on:
+        /turf
+```
+
+You can see the output shows two things:
+
+1. The list of other types that will need to be migrated at the same time, and
+2. The type that `new_attack_chain` should be set to TRUE after the migration is
+   complete.
+
+This means that instead of just migrating `/turf/simulated/wall/cult`, we will
+be migrating 28 types. This is a lot! A migration of this size is not recommended
+for new contributors. On the other hand, let us examine migrating wirecutters:
+
+```
+$ python .\tools\migrate_attack_chain.py /obj/item/wirecutters
+Migration Plan for Path /obj/item/wirecutters
+Required Additional Migrations:
+        /obj/item/wirecutters
+        /obj/item/wirecutters/power
+Toggle `new_attack_chain = TRUE` on:
+        /obj/item/wirecutters
+```
+
+If we wanted to migrate `/obj/item/wirecutters`, we only need to migrate that
+type and one other, the power wirecutters. This is a much more manageable
+migration for novice contributors.
+
+### Attack Chain CI Checks
+
+The attack chain CI checks are run when a pull request is opened or modified. It
+provides a high-level overview of how complete a migration is. These checks will:
+
+- Ensure that anything marked with `new_attack_chain = TRUE` does not override
+  any legacy attack chain procs
+- Ensure that all of the objects required in a specific type migration have been
+  migrated
+- Ensure that any other types that call attack chain methods on migrated types
+  no longer call legacy attack chain procs.
+
+Let's look at our wirecutters example again. If we were simply to set
+`new_attack_chain = TRUE` on `/obj/item/wirecutters` without making any other
+code changes, the CI check will return something like this:
+
+```
+check_legacy_attack_chain started
+new_attack_chain on /obj/item/wirecutters still has legacy procs:
+        attack__legacy__attackchain
+new_attack_chain on /obj/item/wirecutters/power still has legacy procs:
+        attack_self__legacy__attackchain
+check_legacy_attack_chain tests completed in 5.06s
+```
+
+This makes it clear that both types in the type chain marked as new still have
+legacy procs that need to be migrated.
+
+Let's return to our `/turf` example. You can see in the output from the
+Migration Plan Checker that if we were to migrate `/turf/simulated/wall/cult`
+that `new_attack_chain` should be set to `TRUE` on `/turf` itself. What if we
+were to ignore that, and not make any other changes but to set
+`new_attack_chain` to `TRUE` on `/turf/simulated/wall`?
+
+The CI check will return something like this:
+
+```
+check_legacy_attack_chain started
+new_attack_chain on /turf/simulated/mineral still has legacy procs:
+        attackby__legacy__attackchain
+new_attack_chain on /turf/simulated/mineral but related type /turf is not
+Call sites requiring migration:
+code\game\turfs\simulated\minerals.dm:139: /turf/simulated/mineral/Bumped(...) calls attackby__legacy__attackchain(...) on var /turf/simulated/mineral/src
+code\game\turfs\simulated\minerals.dm:133: /turf/simulated/mineral/Bumped(...) calls attackby__legacy__attackchain(...) on var /turf/simulated/mineral/src
+code\game\turfs\simulated\minerals.dm:131: /turf/simulated/mineral/Bumped(...) calls attackby__legacy__attackchain(...) on var /turf/simulated/mineral/src
+new_attack_chain on /turf/simulated/mineral/ancient still has legacy procs:
+        attackby__legacy__attackchain
+new_attack_chain on /turf/simulated/mineral/ancient but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/ancient/lava_land_surface_hard still has legacy procs:
+        attackby__legacy__attackchain
+new_attack_chain on /turf/simulated/mineral/ancient/lava_land_surface_hard but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/ancient/outer still has legacy procs:
+        attackby__legacy__attackchain
+new_attack_chain on /turf/simulated/mineral/ancient/outer but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/clown but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/high_chance but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/high_chance/clown but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/high_chance/volcanic but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/labormineral but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/low_chance but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/volcanic but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/random/volcanic/labormineral but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/volcanic but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/volcanic/clown but related type /turf is not
+new_attack_chain on /turf/simulated/mineral/volcanic/lava_land_surface but related type /turf is not
+check_legacy_attack_chain tests completed in 5.51s
+```
+
+There is a lot of output here, but it should be straightforward to understand:
+
+1. First, it tells you that `/turf/simulated/wall` (the type we changed to
+   `new_attack_chain`) still has legacy procs. That check is straightforward.
+2. Then, it tells you that a parent type, `/turf`, is not on the new attack
+   chain, despite one of its subtypes being so.
+3. There is a set of "call sites requiring migration": these let you know that
+   there are procs that make calls to legacy attack chain procs on a type that
+   we've marked as migrated. In this case, they are all on turf instances, but
+   they may be anywhere in the codebase.
+4. Finally, it performs the same checks as above to other related types.
+
+This makes it clear that there are many more steps that must be performed before
+the migration is complete.

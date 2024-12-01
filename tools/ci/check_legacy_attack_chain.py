@@ -162,15 +162,13 @@ if __name__ == "__main__":
         if new_attack_chain:
             if LEGACY_PROCS[pth]:
                 exit_code = 1
-                print(
-                    f"new_attack_chain on {pth} still has legacy procs {LEGACY_PROCS[pth]}"
-                )
+                print(f"new_attack_chain on {pth} still has legacy procs:")
+                for proc in sorted(LEGACY_PROCS[pth]):
+                    print(f"\t{proc}")
             while cursor not in ASSISTED_TYPES and not cursor.is_root:
                 if LEGACY_PROCS[cursor] and not SETTING_CACHE[cursor]:
                     exit_code = 1
-                    print(
-                        f"new_attack_chain on {pth} but type {cursor} has legacy procs {LEGACY_PROCS[cursor]}"
-                    )
+                    print(f"new_attack_chain on {pth} but related type {cursor} is not")
                 cursor = cursor.parent
             if pth in CALLS:
                 exit_code = 1
