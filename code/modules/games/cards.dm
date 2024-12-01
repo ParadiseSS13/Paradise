@@ -570,7 +570,7 @@
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
 
-/obj/item/cardhand/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cardhand/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	// this is how we handle our ranged attacks.
 	. = ..()
 	if(!istype(target, /obj/item/deck) || proximity_flag)
@@ -579,7 +579,7 @@
 
 	var/obj/item/deck/D = target
 	if(D.in_play_range(user))
-		return D.attackby(src, user)
+		return D.attackby__legacy__attackchain(src, user)
 
 /obj/item/deck/hitby(atom/movable/thrown, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 
