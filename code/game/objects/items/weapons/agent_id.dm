@@ -252,12 +252,12 @@
 	if(option == "Primary")
 		blood_type = registered_human.dna.blood_type
 	else if(new_type)
-		if(!(blood_type in possible_blood_types))
+		if(!(new_type in possible_blood_types))
 			return
 		blood_type = new_type
 	to_chat(registered_human, "ID blood type has been changed to [blood_type].")
 
-/obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)
+/obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)icon="file-signature"
 	if(option == "Primary")
 		dna_hash = registered_human.dna.unique_enzymes
 	else if(option == "Secondary")
