@@ -75,7 +75,7 @@
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail, // 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
-		/obj/item/CQC_manual) // 50tc
+		/obj/item/cqc_manual) // 50tc
 
 /// 145TC + RCD & Mesons Autoimplanter
 /obj/item/storage/box/syndie_kit/bundle/infiltrator
@@ -136,8 +136,8 @@
 		/obj/item/encryptionkey/binary, // 25TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
-		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/aiModule/syndicate, // 15TC
+		/obj/item/ai_module/toy_ai, // 0TC
+		/obj/item/ai_module/syndicate, // 15TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5TC
 		/obj/item/bio_chip_implanter/freedom/prototype, // 10TC
 		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC

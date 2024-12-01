@@ -26,7 +26,7 @@
 	var/list/obj/structure/particle_accelerator/connected_parts
 	var/assembled = 0
 	var/parts = null
-	var/datum/wires/particle_acc/control_box/wires = null
+	var/datum/wires/particle_accelerator/wires = null
 	/// Layout of the particle accelerator. Used by the UI
 	var/list/layout = list(
 		list(list("name" = "EM Containment Grid Left", "icon_state" = "emitter_right", "status" = "", "dir" = "1"), list("name" = "Blank1", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank2", "icon_state" = "blank", "status" = "good", "dir" = "1"), list("name" = "Blank3", "icon_state" = "blank", "status" = "good", "dir" = "1")),

@@ -273,7 +273,7 @@
 /obj/item/bonegel/augment
 	toolspeed = 0.5
 
-/obj/item/FixOVein
+/obj/item/fix_o_vein
 	name = "FixOVein"
 	desc = "An advanced medical device which uses an array of manipulators to reconnect and repair ruptured blood vessels."
 	icon = 'icons/obj/surgery.dmi'
@@ -286,11 +286,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
 
-/obj/item/FixOVein/Initialize(mapload)
+/obj/item/fix_o_vein/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/FixOVein/augment
+/obj/item/fix_o_vein/augment
 	toolspeed = 0.5
 
 /obj/item/bonesetter

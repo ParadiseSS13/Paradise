@@ -1127,7 +1127,7 @@
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/ladder/unusable,
+/obj/structure/ladder,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "Et" = (

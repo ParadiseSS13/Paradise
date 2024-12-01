@@ -481,10 +481,10 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
 
-/obj/item/circuitboard/HolodeckControl
+/obj/item/circuitboard/holodeck_control
 	board_name = "Holodeck Control"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/HolodeckControl
+	build_path = /obj/machinery/computer/holodeck_control
 	origin_tech = "programming=4"
 
 /obj/item/circuitboard/aifixer
