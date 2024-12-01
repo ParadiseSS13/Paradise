@@ -72,7 +72,7 @@
 	name = "proximity mine dispenser"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
-	energy_type = /datum/robot_storage/energy/janitor/landmine
+	energy_type = /datum/robot_storage/energy/jani_landmine
 	is_cyborg = TRUE
 
 /obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user, proximity)

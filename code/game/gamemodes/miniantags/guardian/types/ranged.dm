@@ -82,13 +82,13 @@
 		return // we don't want blob tiles to hurt us when we fly over them and trigger /Crossed(), this prevents ranged scouts from being insta killed
 	return ..() // otherwise do normal damage!
 
-/obj/item/effect/snare
+/obj/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
 	var/mob/living/spawner
 	invisibility = 101
 
-/obj/item/effect/snare/Initialize(mapload)
+/obj/effect/snare/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
@@ -101,7 +101,7 @@
 /obj/effect/snare/singularity_pull()
 	return
 
-/obj/item/effect/snare/proc/on_atom_entered(datum/source, atom/movable/entered)
+/obj/effect/snare/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isliving(entered))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)

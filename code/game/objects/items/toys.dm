@@ -1015,7 +1015,7 @@
 /*
  * AI core prizes
  */
-/obj/item/toy/AI
+/obj/item/toy/ai
 	name = "toy AI"
 	desc = "A little toy model AI core with real law announcing action!"
 	icon = 'icons/obj/toy.dmi'
@@ -1023,7 +1023,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/AI/attack_self(mob/user)
+/obj/item/toy/ai/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
 		to_chat(user, "<span class='notice'>You press the button on [src].</span>")

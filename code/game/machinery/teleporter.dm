@@ -335,7 +335,7 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(isAI(A) || istype(A, /obj/structure/AIcore))
+	if(isAI(A) || istype(A, /obj/structure/ai_core))
 		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
 			if(T.allow_teleporter)

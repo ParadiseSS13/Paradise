@@ -56,7 +56,7 @@
 	current_range = range
 
 	//If the connect_range component exists already, this will just update its range. No errors or duplicates.
-	AddComponent(/datum/component/connect_range, host, loc_connections, range, !ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_turfgroup/ranged, host, loc_connections, range, !ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_moved(atom/movable/source, atom/old_loc)
 	SIGNAL_HANDLER
@@ -72,7 +72,7 @@
 		return
 	ignore_if_not_on_turf = does_ignore
 	//Update the ignore_if_not_on_turf
-	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_turfgroup/ranged, host, loc_connections, current_range, ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_uncrossed()
 	SIGNAL_HANDLER
