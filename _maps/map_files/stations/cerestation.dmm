@@ -84288,6 +84288,12 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/secondary)
+"sFa" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/aisat/service)
 "sFd" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/orange{
@@ -152109,7 +152115,7 @@ okP
 kVY
 aCy
 fBB
-aXd
+sFa
 bcr
 bkj
 dce
