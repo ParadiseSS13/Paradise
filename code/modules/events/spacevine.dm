@@ -405,7 +405,10 @@
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	color = "#ffffff"
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -513,15 +516,15 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(!isliving(crossed))
+/obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/movable)
+	if(!isliving(movable))
 		return
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		SM.on_cross(src, crossed)
+		SM.on_cross(src, movable)
 
 	if(prob(30 * energy))
-		entangle(crossed)
+		entangle(movable)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)
