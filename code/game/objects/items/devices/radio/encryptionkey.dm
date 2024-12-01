@@ -172,3 +172,8 @@
 	desc = "Integrated encryption key."
 	icon_state = "cap_cypherkey"
 	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1, "Procedure" = 1)
+
+/obj/item/encryptionkey/headset_nct
+	name = "NCT Radio Encryption Key"
+	icon_state = "com_cypherkey"
+	channels = list("Procedure" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1)

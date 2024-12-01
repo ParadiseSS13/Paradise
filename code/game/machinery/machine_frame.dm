@@ -317,7 +317,8 @@ to destroy them and players will be able to make replacements.
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
 		"JaniDrobe" =							/obj/machinery/economy/vending/janidrobe,
-		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe)
+		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
+		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
 		"SyndiMed Plus" =						/obj/machinery/economy/vending/wallmed/syndicate)
