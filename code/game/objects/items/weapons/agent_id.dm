@@ -257,7 +257,7 @@
 		blood_type = new_type
 	to_chat(registered_human, "ID blood type has been changed to [blood_type].")
 
-/obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)icon="file-signature"
+/obj/item/card/id/syndicate/proc/change_dna_hash(option, new_dna)
 	if(option == "Primary")
 		dna_hash = registered_human.dna.unique_enzymes
 	else if(option == "Secondary")
