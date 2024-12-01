@@ -60030,9 +60030,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "dYv" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -67751,9 +67748,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "hZE" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/obj/structure/window/reinforced,
 /obj/structure/sign/poster/random{
 	name = "random official poster";
 	pixel_x = 32;
@@ -68139,6 +68133,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
 /obj/item/crowbar/large,
+/obj/item/bedsheet/orange,
+/obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
