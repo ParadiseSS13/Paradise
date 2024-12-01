@@ -54948,21 +54948,12 @@
 	},
 /area/station/service/theatre)
 "kOt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/item/decorations/sticky_decorations/flammable/heart,
 /obj/item/stack/sheet/wood{
 	name = "Ians Stick";
 	desc = "A large stick covered in bite marks and dried slobber.ss"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "kOx" = (
@@ -122276,9 +122267,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "ybJ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/sign/poster/official/love_ian{
 	pixel_y = -32
 	},
@@ -122288,16 +122276,7 @@
 /obj/item/clothing/suit/ianshirt{
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in. This one in particular looks like it wasnt washed in months"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/poster/official/love_ian{
-	pixel_y = -32
-	},
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "ybL" = (

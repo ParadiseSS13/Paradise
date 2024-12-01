@@ -162,12 +162,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		user.drop_item()
 		id_card.forceMove(src)
 		scan = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(!modify)
 		user.drop_item()
 		id_card.forceMove(src)
 		modify = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
@@ -429,17 +429,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					if(istype(I, /obj/item/card/id/nct_data_chip))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
 						return FALSE
 					if(!check_access(I))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
 						return FALSE
 					usr.drop_item()
 					I.forceMove(src)
 					scan = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			return
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
@@ -459,7 +459,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					if(istype(I, /obj/item/card/id/nct_data_chip))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
 						return FALSE
 					usr.drop_item()
