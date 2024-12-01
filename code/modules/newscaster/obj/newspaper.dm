@@ -99,7 +99,7 @@
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
 				if(important_message!=null)
-					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font size></div><br><br>"
+					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font></div><br><br>"
 					dat += "<b>Criminal name</b>: <font color='maroon'>[important_message.author]</font><br>"
 					dat += "<b>Description</b>: [important_message.body]<br>"
 					dat += "<b>Photo:</b>: "

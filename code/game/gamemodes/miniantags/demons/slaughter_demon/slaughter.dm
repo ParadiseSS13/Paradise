@@ -164,15 +164,15 @@
 //Paradise Port: I added this because..SPOOPY DEMON IN YOUR BRAIN
 
 
-/datum/action/innate/demon/whisper
+/datum/action/innate/demon_whisper
 	name = "Demonic Whisper"
 	button_overlay_icon_state = "demon_comms"
 	button_background_icon_state = "bg_demon"
 
-/datum/action/innate/demon/whisper/IsAvailable()
+/datum/action/innate/demon_whisper/IsAvailable()
 	return ..()
 
-/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+/datum/action/innate/demon_whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
 		if(M && M.mind && M.stat != DEAD)
@@ -188,7 +188,7 @@
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
-/datum/action/innate/demon/whisper/Activate()
+/datum/action/innate/demon_whisper/Activate()
 	var/mob/living/choice = choose_targets()
 	if(!choice)
 		return

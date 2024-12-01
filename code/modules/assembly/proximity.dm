@@ -55,7 +55,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/prox_sensor/process()

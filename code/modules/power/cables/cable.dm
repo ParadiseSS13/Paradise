@@ -35,9 +35,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 	/// The direction of endpoint one of this cable
-	var/d1 = 0
+	var/tmp/d1 = 0
 	/// The direction of enpoint two of this cable
-	var/d2 = 1
+	var/tmp/d2 = 1
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
 

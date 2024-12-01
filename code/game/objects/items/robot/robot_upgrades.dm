@@ -473,7 +473,7 @@
 		/obj/item/hemostat = /obj/item/hemostat/alien,
 		/obj/item/retractor = /obj/item/retractor/alien,
 		/obj/item/bonegel = /obj/item/bonegel/alien,
-		/obj/item/FixOVein = /obj/item/FixOVein/alien,
+		/obj/item/fix_o_vein = /obj/item/fix_o_vein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
 		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,

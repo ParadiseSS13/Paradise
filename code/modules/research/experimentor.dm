@@ -482,7 +482,7 @@
 		if(globalMalf > 16 && globalMalf < 35)
 			visible_message("<span class='warning'>[src] melts [exp_on], ian-izing the air around it!</span>")
 			throwSmoke(loc)
-			var/mob/living/tracked_ian = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+			var/mob/living/tracked_ian = locate(/mob/living/simple_animal/pet/dog/corgi/ian) in GLOB.mob_living_list
 			if(tracked_ian)
 				throwSmoke(tracked_ian.loc)
 				tracked_ian.loc = loc
@@ -496,7 +496,7 @@
 		if(globalMalf > 36 && globalMalf < 59)
 			visible_message("<span class='warning'>[src] encounters a run-time error!</span>")
 			throwSmoke(loc)
-			var/mob/living/tracked_runtime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
+			var/mob/living/tracked_runtime = locate(/mob/living/simple_animal/pet/cat/runtime) in GLOB.mob_living_list
 			if(tracked_runtime)
 				throwSmoke(tracked_runtime.loc)
 				tracked_runtime.loc = loc

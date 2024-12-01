@@ -64,7 +64,7 @@
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	wall_type = /obj/effect/forcefield/mime/advanced
+	wall_type = /obj/effect/forcefield/mime
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
 	base_cooldown = 60 SECONDS

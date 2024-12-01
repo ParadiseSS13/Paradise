@@ -329,7 +329,7 @@
 	. = ..()
 	if(magazine)
 		. += "[magazine.icon_state]"
-		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
 			w_class = WEIGHT_CLASS_BULKY
 		else
 			w_class = WEIGHT_CLASS_NORMAL
@@ -340,7 +340,7 @@
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+	if(istype(A, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
 		if(isstorage(loc))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc
 			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)

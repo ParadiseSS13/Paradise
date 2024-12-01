@@ -409,12 +409,12 @@
 	desc = "A freezer used to store IV bags containing various blood types."
 
 /obj/structure/closet/crate/freezer/iv_storage/populate_contents()
-	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_plus(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)

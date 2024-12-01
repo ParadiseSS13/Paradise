@@ -107,7 +107,7 @@
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
 		/obj/item/toy/nuke,
-		/obj/item/toy/AI,
+		/obj/item/toy/ai,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/clothing/under/syndicate/greyman,
 		/obj/item/storage/box/fakesyndiesuit,

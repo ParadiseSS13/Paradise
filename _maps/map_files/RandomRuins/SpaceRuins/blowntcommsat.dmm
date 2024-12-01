@@ -557,8 +557,6 @@
 /area/ruin/space/tcommsat)
 "KX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -830,7 +828,6 @@
 "YN" = (
 /obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -857,7 +854,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Zd" = (
-/obj/structure/closet/malf/suits,
+/obj/structure/closet/malf_suits,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

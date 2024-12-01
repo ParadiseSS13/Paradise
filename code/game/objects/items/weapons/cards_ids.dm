@@ -303,7 +303,8 @@
 	data["dna_hash"] = dna_hash
 	data["fprint_hash"] = fingerprint_hash
 	data["access"] = access
-	data["job"] = assignment
+	data["assignment"] = assignment
+	data["rank"] = rank
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
@@ -317,7 +318,9 @@
 	dna_hash = data["dna_hash"]
 	fingerprint_hash = data["fprint_hash"]
 	access = data["access"] // No need for a copy, the list isn't getting touched
-	assignment = data["job"]
+	assignment = data["job"] // backup for old jsons
+	assignment = data["assignment"]
+	rank = data["rank"]
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]

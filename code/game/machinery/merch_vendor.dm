@@ -70,7 +70,7 @@
 
 /obj/machinery/economy/merch/proc/deliver(datum/merch_item/item, mob/user)
 	var/obj/item/merch = new item.typepath(get_turf(src))
-	var/obj/item/smallDelivery/D = new(get_turf(src))
+	var/obj/item/small_delivery/D = new(get_turf(src))
 	D.name = "small parcel - 'Your Nanotrasen Swag'"
 	D.wrapped = merch
 	merch.forceMove(D)

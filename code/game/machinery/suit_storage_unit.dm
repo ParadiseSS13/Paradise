@@ -181,7 +181,7 @@
 /obj/machinery/suit_storage_unit/gulag
 	name = "gulag suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/prisoner_gulag
-	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
+	helmet_type = /obj/item/clothing/head/helmet/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/expedition

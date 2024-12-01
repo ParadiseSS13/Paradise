@@ -407,7 +407,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		text += "<b>Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.</b>"
 		text += "<b>Also, be wary of your fellow inhabitants, they likely won't be happy to see you! \n</b>"
 		text += "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station.</span>"
-		text += "<span class='big bold>'You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>"
+		text += "<span class='big bold'>You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>"
 		text += "<span class='warning'>Do not attack the Mining Station or Labour Camp, unless the Shaft Miner you are actively fighting runs into the Station/Camp.</span>"
 		text += "<span class='warning'>After they are killed, you must withdraw. If you wish to continue attacking the Station, you MUST ahelp.</span>"
 		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"

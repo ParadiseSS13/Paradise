@@ -168,7 +168,7 @@
 	throw_range = 3
 
 /obj/item/grown/sunflower/attack__legacy__attackchain(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</font><font color='yellow'><b> FLOWER POWER<b></font>")
+	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</b></font><font color='yellow'><b>FLOWER POWER</b></font>")
 	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 
 // Moonflower

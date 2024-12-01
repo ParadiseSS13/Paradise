@@ -83,7 +83,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 // Checks if there is foothold over the turf
 /turf/simulated/floor/proc/find_safeties()
-	var/static/list/safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/static/list/safeties_typecache = typecacheof(list(
+		/obj/structure/lattice/catwalk,
+		/obj/structure/stone_tile,
+		/obj/structure/bridge_walkway
+	))
 	var/list/found_safeties = typecache_filter_list(contents, safeties_typecache)
 	return LAZYLEN(found_safeties)
 

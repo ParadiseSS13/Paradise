@@ -52,7 +52,8 @@
 	user_health = M.health
 	if(user_health <= alarm_health) // Its a health detector, not a death detector
 		pulse()
-		audible_message("[bicon(src)] *beep* *beep*")
+		audible_message("[bicon(src)] *beep* *beep* *beep*")
+		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 		toggle_scan()
 
 /obj/item/assembly/health/pickup(mob/user)

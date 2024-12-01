@@ -196,8 +196,8 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction3/attackby__legacy__attackchain(obj/item/I, mob/user as mob, params)
 	..()
-	if(istype(I, /obj/item/stack/packageWrap))
-		var/obj/item/stack/packageWrap/C = I
+	if(istype(I, /obj/item/stack/package_wrap))
+		var/obj/item/stack/package_wrap/C = I
 		if(C.use(5))
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
 			user.unEquip(src)
