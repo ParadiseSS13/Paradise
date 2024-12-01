@@ -90,7 +90,7 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
-	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
+	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
 
