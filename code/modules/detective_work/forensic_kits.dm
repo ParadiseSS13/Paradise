@@ -50,3 +50,19 @@
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/briefcase/crimekit(src)
 	. = ..()
+
+/obj/item/storage/csi_markers
+	name = "crime scene markers box"
+	desc = "A cardboard box for crime scene marker cards."
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "sec_box"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/storage/csi_markers/populate_contents()
+	new /obj/item/csi_marker/n1(src)
+	new /obj/item/csi_marker/n2(src)
+	new /obj/item/csi_marker/n3(src)
+	new /obj/item/csi_marker/n4(src)
+	new /obj/item/csi_marker/n5(src)
+	new /obj/item/csi_marker/n6(src)
+	new /obj/item/csi_marker/n7(src)
