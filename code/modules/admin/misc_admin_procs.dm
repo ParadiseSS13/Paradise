@@ -968,7 +968,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 		return TRUE
 
-	if(istype(tothing, /obj/structure/AIcore/deactivated))
+	if(istype(tothing, /obj/structure/ai_core/deactivated))
 
 		var/question = "Are you sure you want to place [frommob.name]([frommob.key]) in control of an empty AI core?"
 

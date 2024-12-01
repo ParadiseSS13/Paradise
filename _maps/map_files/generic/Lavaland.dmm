@@ -7701,7 +7701,7 @@
 /area/mine/outpost/mechbay)
 "Jn" = (
 /obj/structure/lattice/catwalk/mining,
-/mob/living/simple_animal/cockroach/Brad,
+/mob/living/simple_animal/cockroach/brad,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Jv" = (

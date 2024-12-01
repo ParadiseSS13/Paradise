@@ -560,7 +560,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "Dj" = (
-/obj/item/toy/AI,
+/obj/item/toy/ai,
 /obj/item/toy/plushie/lizardplushie,
 /obj/item/toy/plushie/voxplushie,
 /obj/item/toy/plushie/greyplushie,
