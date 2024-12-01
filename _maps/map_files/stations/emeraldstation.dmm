@@ -59477,10 +59477,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
-"lKB" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "lKC" = (
 /obj/structure/table,
 /obj/item/flashlight,
@@ -169900,7 +169896,7 @@ iSD
 gRv
 gpA
 cGm
-lKB
+caq
 qBZ
 wuZ
 xif
