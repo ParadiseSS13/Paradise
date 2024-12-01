@@ -45,6 +45,7 @@
 	new /obj/item/storage/box/fingerprints(src)
 	new /obj/item/forensics/sample_kit(src)
 	new /obj/item/forensics/sample_kit/powder(src)
+	new /obj/item/storage/csi_markers(src)
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/briefcase/crimekit(src)
