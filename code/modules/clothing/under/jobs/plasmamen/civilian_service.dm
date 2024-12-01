@@ -127,6 +127,14 @@
 	item_state = "coke_envirosuit"
 	item_color = "coke_envirosuit"
 
+/obj/item/clothing/under/plasmaman/tacticool
+	name = "tactical envirosuit"
+	desc = "An envirosuit designed to be sleek and tactical, forged on unknown parts of Boron."
+	icon_state = "tacticool_envirosuit"
+	item_state = "tacticool_envirosuit"
+	item_color = "tacticool_envirosuit"
+	has_sensor = FALSE
+
 /obj/item/clothing/under/plasmaman/trainer
 	name = "nanotrasen career trainer's envirosuit"
 	desc = "An envirosuit designed for plasmamen employed as the nanotrasen career trainer."

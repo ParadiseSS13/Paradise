@@ -22,7 +22,7 @@
 	id = /obj/item/card/id/admin
 	pda = /obj/item/pda/centcom
 
-	internals_slot = SLOT_HUD_SUIT_STORE
+	internals_slot = ITEM_SLOT_SUIT_STORE
 	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
@@ -318,7 +318,7 @@
 
 // put cool admin-only shit here :)
 /obj/item/storage/box/debug/misc_debug/populate_contents()
-	new /obj/item/badminBook(src)
+	new /obj/item/badmin_book(src)
 	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)

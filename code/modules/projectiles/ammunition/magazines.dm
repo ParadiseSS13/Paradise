@@ -3,7 +3,7 @@
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
@@ -75,14 +75,14 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
 	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/overgrown
 	name = "overgrown pistol magazine"
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/overgrown
 	max_ammo = 8
 
@@ -176,7 +176,7 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "a762"
 	max_ammo = 5
@@ -487,7 +487,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
+/obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
@@ -495,12 +495,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
 	icon_state = "m12gXlBs"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath

@@ -18,7 +18,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
@@ -109,7 +109,7 @@ SLIME SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 3
@@ -373,7 +373,7 @@ SLIME SCANNER
 	icon_state = "robotanalyzer"
 	item_state = "analyzer"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
@@ -384,7 +384,7 @@ SLIME SCANNER
 	var/list/msgs = list()
 	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 	msgs += "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red'>[0]</font></span>"
 	msgs += "<span class='notice'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
 	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
@@ -520,7 +520,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_state = "analyzer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -719,7 +719,7 @@ SLIME SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -797,7 +797,7 @@ SLIME SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -854,7 +854,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 5

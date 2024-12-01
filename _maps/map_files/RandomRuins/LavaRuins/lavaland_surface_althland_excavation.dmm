@@ -1,12 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
 "ac" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "ad" = (
@@ -19,7 +19,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -90,7 +90,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "an" = (
@@ -211,7 +211,7 @@
 /area/lavaland/surface/outdoors)
 "aE" = (
 /obj/structure/mecha_wreckage/ripley/firefighter,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "aG" = (
@@ -238,7 +238,7 @@
 /area/lavaland/surface/outdoors)
 "aK" = (
 /obj/structure/sign/explosives,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
 "aL" = (
@@ -254,7 +254,7 @@
 /area/lavaland/surface/outdoors)
 "aN" = (
 /obj/structure/railing,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
@@ -267,7 +267,7 @@
 "aR" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -293,7 +293,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "aZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
@@ -420,7 +420,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -449,7 +449,7 @@
 "bJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "bK" = (
@@ -558,7 +558,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -595,7 +595,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "eC" = (
@@ -609,7 +609,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "eX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "fc" = (
@@ -627,7 +627,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "gg" = (
@@ -642,7 +642,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "gF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
@@ -672,7 +672,7 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -710,7 +710,7 @@
 /area/lavaland/surface/outdoors)
 "jL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -719,7 +719,7 @@
 /area/ruin/unpowered/althland_excavation)
 "jS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
@@ -762,7 +762,7 @@
 /area/ruin/unpowered/althland_excavation)
 "mh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -779,8 +779,8 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "nw" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
 "nU" = (
@@ -804,7 +804,7 @@
 /obj/structure/urinal{
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "pE" = (
@@ -817,7 +817,7 @@
 /area/ruin/unpowered/althland_excavation)
 "pI" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "qa" = (
@@ -862,7 +862,7 @@
 /area/ruin/unpowered/althland_excavation)
 "si" = (
 /obj/structure/sign/explosives/alt,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
 "sj" = (
@@ -871,7 +871,7 @@
 "sA" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -889,14 +889,14 @@
 "ub" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "ui" = (
 /obj/item/storage/toolbox/syndicate,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "uA" = (
@@ -908,7 +908,7 @@
 "uG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -933,7 +933,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -941,7 +941,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/drinks/oilcan,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -964,7 +964,7 @@
 /area/lavaland/surface/outdoors)
 "xf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -988,7 +988,7 @@
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "yc" = (
@@ -1001,7 +1001,7 @@
 /area/lavaland/surface/outdoors)
 "yn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -1055,7 +1055,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1110,7 +1110,7 @@
 "DS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "Ec" = (
@@ -1127,13 +1127,13 @@
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/ladder/unusable,
+/obj/structure/ladder,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "Et" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
@@ -1186,7 +1186,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1204,7 +1204,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -1230,13 +1230,13 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "JG" = (
 /obj/structure/girder/reinforced,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "KU" = (
@@ -1264,7 +1264,7 @@
 /area/ruin/unpowered/althland_excavation)
 "LK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -1281,14 +1281,14 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Nv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1321,7 +1321,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "PC" = (
@@ -1359,7 +1359,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -1393,7 +1393,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/structure/grille/broken,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "RW" = (
@@ -1414,19 +1414,19 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "TN" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_excavation)
 "TP" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
@@ -1435,7 +1435,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -1503,7 +1503,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Xl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1513,11 +1513,11 @@
 /obj/structure/noticeboard{
 	pixel_y = 28
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "XS" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/lavaland/surface/outdoors)
 "Ya" = (

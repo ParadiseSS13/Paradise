@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -338,3 +338,17 @@
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
 			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+
+// MARK: CHAMELEON PEN
+/obj/item/pen/chameleon
+	var/forge_name
+
+/obj/item/pen/chameleon/attack_self(mob/living/user)
+	if(!iscarbon(user))
+		return
+
+	if(!Adjacent(user) || user.incapacitated())
+		return
+
+	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
+

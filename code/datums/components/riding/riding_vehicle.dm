@@ -116,7 +116,7 @@
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice>Going nice and slow at walk speed will prevent crashing into things.</span>"
+	examine_list += "<span class='notice'>Going nice and slow at walk speed will prevent crashing into things.</span>"
 
 /datum/component/riding/vehicle/scooter/skateboard/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
 	. = ..()

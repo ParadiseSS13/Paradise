@@ -5,8 +5,6 @@
 "ab" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -14,8 +12,6 @@
 "ac" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -23,8 +19,6 @@
 "ad" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -40,8 +34,6 @@
 "af" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -56,8 +48,6 @@
 "ai" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -103,8 +93,6 @@
 "aq" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -162,7 +150,7 @@
 /area/ruin/space/onehalf/hallway)
 "ay" = (
 /obj/structure/table_frame,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "az" = (
@@ -184,7 +172,7 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -197,8 +185,6 @@
 /area/ruin/space/onehalf/dorms_med)
 "aD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -226,7 +212,7 @@
 /turf/template_noop,
 /area/ruin/space/onehalf/hallway)
 "aI" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aJ" = (
@@ -237,8 +223,6 @@
 /area/ruin/space/onehalf/dorms_med)
 "aK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -348,23 +332,19 @@
 /area/ruin/space/onehalf/drone_bay)
 "aT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aU" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -377,13 +357,9 @@
 /area/ruin/space/onehalf/dorms_med)
 "aX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -414,16 +390,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "be" = (
@@ -441,11 +413,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bg" = (
@@ -453,16 +423,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bh" = (
@@ -470,8 +436,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -480,7 +444,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bj" = (
@@ -488,13 +452,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -504,8 +464,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -518,8 +476,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -529,8 +485,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -585,14 +539,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bw" = (
@@ -606,7 +560,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "by" = (
@@ -618,7 +572,7 @@
 /area/ruin/space/onehalf/drone_bay)
 "bz" = (
 /obj/structure/closet/emcloset,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bA" = (
@@ -675,12 +629,12 @@
 /area/ruin/space/onehalf/hallway)
 "bK" = (
 /obj/machinery/economy/vending/coffee,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bL" = (
 /obj/machinery/economy/vending/snack,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bN" = (
@@ -700,7 +654,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bS" = (
@@ -717,7 +671,7 @@
 "bV" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bX" = (
@@ -728,12 +682,12 @@
 	dir = 1
 	},
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ca" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "cb" = (
@@ -777,8 +731,6 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "ci" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/table,
@@ -790,11 +742,9 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ck" = (
@@ -802,7 +752,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cl" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cm" = (
@@ -859,13 +809,9 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "ct" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/table,
@@ -875,16 +821,12 @@
 "cu" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -915,11 +857,9 @@
 "cz" = (
 /obj/structure/grille/broken,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "cA" = (
@@ -943,8 +883,6 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -964,8 +902,6 @@
 "cG" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -1033,8 +969,6 @@
 "cS" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -1064,7 +998,6 @@
 "cY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable,
@@ -1077,13 +1010,9 @@
 "cZ" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -1106,7 +1035,7 @@
 "de" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "dg" = (
@@ -1122,11 +1051,9 @@
 "dk" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -1137,8 +1064,6 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -1151,11 +1076,9 @@
 "dn" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -1167,8 +1090,6 @@
 "do" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/shard{
@@ -1179,13 +1100,9 @@
 "dp" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/stack/rods,
@@ -1194,13 +1111,9 @@
 "dq" = (
 /obj/structure/lattice,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -1211,14 +1124,13 @@
 /area/template_noop)
 "jQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/closet/crate/medical,
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/healthanalyzer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1231,7 +1143,6 @@
 /area/space/nearstation)
 "xr" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
@@ -1252,7 +1163,6 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "JK" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/directional/north,

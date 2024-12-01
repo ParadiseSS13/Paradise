@@ -80,8 +80,8 @@
 
 /obj/tgvehicle/scooter/skateboard/generate_actions()
 	. = ..()
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
 	set_density(TRUE)
@@ -119,7 +119,7 @@
 			V.tilt(rider, from_combat = TRUE)
 			return
 		rider.throw_at(throw_target, 3, 2)
-		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
+		var/head_slot = rider.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(!head_slot || !(istype(head_slot, /obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
@@ -346,7 +346,7 @@
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard

@@ -6,7 +6,7 @@
 	item_state = "dnainjector"
 	belt_icon = "syringe"
 	var/block = 0
-	var/datum/dna2/record/buf = null
+	var/datum/dna2_record/buf = null
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -486,7 +486,7 @@
 
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
-	desc = "Makes you s-s-stuttterrr"
+	desc = "Makes you s-s-stuttterrr."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE

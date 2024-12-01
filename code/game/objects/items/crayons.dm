@@ -11,7 +11,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
 	var/colour = COLOR_RED
@@ -292,7 +292,9 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		var/temp = input(usr, "Please select colour.", "Crayon colour") as color
+		var/temp = tgui_input_color(usr, "Please select crayon color.", "Crayon color")
+		if(isnull(temp))
+			return
 		colour = temp
 		update_window(usr)
 	else
@@ -305,7 +307,7 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing spray paint."
 	icon_state = "spraycan_cap"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/capped = TRUE
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
@@ -328,7 +330,9 @@
 		if("Change Drawing")
 			..()
 		if("Change Color")
-			colour = input(user,"Choose Color") as color
+			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
+			if(isnull(colour))
+				return
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
@@ -387,7 +391,7 @@
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
-		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		"Death Bot" = image('icons/mob/robots.dmi', "spidersyndi-preview")
 		)
 	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
 

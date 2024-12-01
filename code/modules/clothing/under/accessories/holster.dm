@@ -63,7 +63,7 @@
 		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
-			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
+			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span>", \
 			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
 		else
 			user.visible_message("<span class='notice'>[user] draws [holstered], pointing it at the ground.</span>", \
@@ -103,7 +103,7 @@
 	if(!holstered)
 		var/obj/item/gun/gun = user.get_active_hand()
 		if(!istype(gun))
-			to_chat(user, "<span class='warning'>You need your gun equiped to holster it.</span>")
+			to_chat(user, "<span class='warning'>You need your gun equipped to holster it.</span>")
 			return
 		holster(gun, user)
 	else

@@ -77,7 +77,6 @@
 /area/ruin/space/methlab)
 "p" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/east{

@@ -122,7 +122,7 @@
 		user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
 		user.put_in_hands(MTC)
-		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, "<span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
 		qdel(src)
 
 /obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
@@ -234,7 +234,7 @@
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	var/obj/effect/temp_visual/card_preview/tarot/draft = new(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
@@ -242,17 +242,35 @@
 		add_attack_logs(thrower, user, "[thrower] has activated [our_tarot.name] on [user]", ATKLOG_FEW)
 	QDEL_IN(src, 0.6 SECONDS)
 
-/obj/effect/temp_visual/tarot_preview
+/obj/effect/temp_visual/card_preview
+	name = "a card"
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_the_unknown"
+	pixel_y = 20
+	duration = 1.5 SECONDS
+
+/obj/effect/temp_visual/card_preview/Initialize(mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state
+
+	flourish()
+
+/obj/effect/temp_visual/card_preview/proc/flourish()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40, "#fcf3dc", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
+		animate(offset = 0, time = duration)
+
+/obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_the_unknown"
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(mapload, new_icon_state)
-	. = ..()
-	if(new_icon_state)
-		icon_state = "tarot_[new_icon_state]"
+/obj/effect/temp_visual/card_preview/tarot/flourish()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
 	if(new_filter)
@@ -957,7 +975,7 @@
 
 /datum/tarot/reversed/judgement
 	name = "XX - Judgement?"
-	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	desc = "May you redeem those found wanting." //Who wants more, but ghosts for something interesting
 	extended_desc = "nudges the future events of this shift to be more... interesting."
 	card_icon = "judgement?"
 

@@ -5,21 +5,23 @@
 	usesound = 'sound/effects/spray2.ogg'
 	flags = CONDUCT | NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	/// Associative list of painter types, with the value being the datum. (For use in the radial menu)
 	var/static/list/painter_type_list = list(
 		"Floor Painter" = /datum/painter/floor,
 		"Pipe Painter" = /datum/painter/pipe,
 		"Window Painter" = /datum/painter/pipe/window,
-		"Airlock Painter" = /datum/painter/airlock)
+		"Airlock Painter" = /datum/painter/airlock,
+		"Decal Painter" = /datum/painter/decal)
 
 	/// Associative list of painter types, with the value being the icon. (For use in the radial menu)
 	var/static/list/painter_icon_list = list(
 		"Floor Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "floor_painter"),
 		"Pipe Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "pipe_painter"),
 		"Window Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "window_painter"),
-		"Airlock Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "airlock_painter"))
+		"Airlock Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "airlock_painter"),
+		"Decal Painter" = image(icon = 'icons/obj/painting.dmi', icon_state = "decal_painter"))
 
 	/// The [/datum/painter] which is currently active.
 	var/datum/painter/selected_module = null

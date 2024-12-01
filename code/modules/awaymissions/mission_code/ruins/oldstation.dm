@@ -50,6 +50,7 @@
 // MARK: EQUIPMENT
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
+	name = "first-aid kit"
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
@@ -423,7 +424,7 @@
 	new /obj/item/hemostat(src)
 	new /obj/item/scalpel(src)
 	new /obj/item/cautery(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)

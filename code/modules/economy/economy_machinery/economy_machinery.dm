@@ -4,7 +4,7 @@
  */
 /obj/machinery/economy
 	name = "Financial System Interface"
-	desc = "A base economy machine"
+	desc = "A base economy machine."
 	anchored = TRUE
 	density = TRUE
 

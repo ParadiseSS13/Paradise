@@ -454,7 +454,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -462,7 +462,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
@@ -663,24 +663,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot
 	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
-
-// Damage tiles
-/obj/effect/landmark/damageturf
-	icon_state = "damaged"
-
-/obj/effect/landmark/damageturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.break_tile()
-
-/obj/effect/landmark/burnturf
-	icon_state = "burned"
-
-/obj/effect/landmark/burnturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	T.burn_tile()
-
-/obj/effect/landmark/free_golem_spawn
-	name = "Free Golem Spawn Point"

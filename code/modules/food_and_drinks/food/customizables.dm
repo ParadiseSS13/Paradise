@@ -196,7 +196,7 @@ do {\
 
 /obj/item/food/customizable/candy/cotton
 	name = "flavored cotton candy"
-	desc = "Who can take a sunrise, sprinkle it with dew,"
+	desc = "Who can take a sunrise, sprinkle it with dew."
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -205,7 +205,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
-	desc = "Cover it in chocolate and a miracle or two,"
+	desc = "Cover it in chocolate and a miracle or two."
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -214,7 +214,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
-	desc = "The Candy Man can 'cause he mixes it with love,"
+	desc = "The Candy Man can 'cause he mixes it with love."
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -232,7 +232,7 @@ do {\
 
 /obj/item/food/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
-	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	desc = "Who can take a rainbow, Wrap it in a sigh."
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -241,7 +241,7 @@ do {\
 
 /obj/item/food/customizable/candy/candycane
 	name = "flavored candy cane"
-	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	desc = "Soak it in the sun and make strawberry-lemon pie."
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -263,15 +263,6 @@ do {\
 	icon_state = "donutcustom"
 	baseicon = "donutcustom"
 	basename = "filled donut"
-	snack_overlays = 0
-	top = 0
-
-/obj/item/food/customizable/candy/bar
-	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
-	baseicon = "barcustom"
-	basename = "flavored chocolate bar"
 	snack_overlays = 0
 	top = 0
 

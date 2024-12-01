@@ -24,7 +24,7 @@
 //////////////////////////////
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
-	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
+	desc = "A man portable anti-armor weapon designed to disable mechanical threats."
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/ionrifle.ogg'
@@ -32,7 +32,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
@@ -69,7 +69,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient, it packs the exact same punch and capacity in a smaller, easier to transport package."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
@@ -228,7 +228,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
@@ -523,9 +523,17 @@
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	charge_failure = FALSE
+	holder = user
+	RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(fail_charge))
 	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
 
+/obj/item/gun/energy/plasma_pistol/proc/fail_charge()
+	SIGNAL_HANDLER // COMSIG_CARBON_SWAP_HANDS
+	charge_failure = TRUE // No charging 2 guns at once.
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+
 /obj/item/gun/energy/plasma_pistol/proc/overload()
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	if(ishuman(loc) && !charge_failure)
 		var/mob/living/carbon/C = loc
 		select_fire(C)
@@ -610,7 +618,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
@@ -733,7 +741,7 @@
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"

@@ -18,7 +18,7 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
@@ -344,6 +344,7 @@
 	desc = "a hook."
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
@@ -421,7 +422,7 @@
 			Z.can_destroy = TRUE
 			qdel(Z)
 	else
-		to_chat(user, "<span class'warning'>[src] is still recharging.</span>")
+		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"

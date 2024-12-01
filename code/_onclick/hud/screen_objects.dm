@@ -106,7 +106,7 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
-/atom/movable/screen/act_intent/robot/AI
+/atom/movable/screen/act_intent/robot/ai
 	screen_loc = "SOUTH+1:6,EAST-1:32"
 
 /atom/movable/screen/mov_intent
@@ -403,7 +403,7 @@
 	if(!user || user != usr)
 		return
 
-	if(!hud?.mymob || !slot_id || slot_id == SLOT_HUD_LEFT_HAND || slot_id == SLOT_HUD_RIGHT_HAND)
+	if(!hud?.mymob || !slot_id || (slot_id & ITEM_SLOT_BOTH_HANDS))
 		return
 
 	var/obj/item/holding = user.get_active_hand()
@@ -461,7 +461,7 @@
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
 	if(!handcuff_overlay)
-		var/state = (slot_id == SLOT_HUD_RIGHT_HAND) ? "markus" : "gabrielle"
+		var/state = (slot_id == ITEM_SLOT_RIGHT_HAND) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
 	if(hud && hud.mymob)
@@ -470,13 +470,13 @@
 			if(C.handcuffed)
 				. += handcuff_overlay
 
-			var/obj/item/organ/external/hand = C.get_organ("[slot_id == SLOT_HUD_LEFT_HAND ? "l" : "r"]_hand")
+			var/obj/item/organ/external/hand = C.get_organ("[slot_id == ITEM_SLOT_LEFT_HAND ? "l" : "r"]_hand")
 			if(!isalien(C) && (!hand || !hand.is_usable()))
 				. += blocked_overlay
 
-		if(slot_id == SLOT_HUD_LEFT_HAND && hud.mymob.hand)
+		if(slot_id == ITEM_SLOT_LEFT_HAND && hud.mymob.hand)
 			. += active_overlay
-		else if(slot_id == SLOT_HUD_RIGHT_HAND && !hud.mymob.hand)
+		else if(slot_id == ITEM_SLOT_RIGHT_HAND && !hud.mymob.hand)
 			. += active_overlay
 
 /atom/movable/screen/inventory/hand/Click()

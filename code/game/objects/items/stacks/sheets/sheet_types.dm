@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("machine frame", /obj/structure/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 // MARK: PLASTEEL
 //////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
-	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("AI core", /obj/structure/ai_core, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
@@ -612,6 +612,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork, 2, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("small brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/small, 1, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("brass floor light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/floor, 3, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
 	))
 
 /obj/item/stack/tile/brass

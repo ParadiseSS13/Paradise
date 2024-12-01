@@ -155,7 +155,7 @@
  */
 /obj/item/toy/blink
 	name = "electronic blink toy game"
-	desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	desc = "Blink. Blink. Blink. Ages 8 and up."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -325,7 +325,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
@@ -494,18 +494,6 @@
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
 
-
-//This should really be somewhere else but I don't know where. w/e
-
-/obj/item/inflatable_duck
-	name = "inflatable duck"
-	desc = "No bother to sink or swim when you can just float!"
-	icon_state = "inflatable"
-	item_state = "inflatable"
-	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
-
 /*
  * Fake meteor
  */
@@ -539,7 +527,7 @@
 
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 
@@ -656,7 +644,7 @@
 
 /obj/random/plushie
 	name = "Random Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
 
@@ -1020,7 +1008,7 @@
 /*
  * AI core prizes
  */
-/obj/item/toy/AI
+/obj/item/toy/ai
 	name = "toy AI"
 	desc = "A little toy model AI core with real law announcing action!"
 	icon = 'icons/obj/toy.dmi'
@@ -1028,7 +1016,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/AI/attack_self(mob/user)
+/obj/item/toy/ai/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
 		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
@@ -1171,7 +1159,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -1342,7 +1330,7 @@
 
 /obj/random/figure
 	name = "Random Action Figure"
-	desc = "This is a random toy action figure"
+	desc = "This is a random toy action figure."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
@@ -1667,7 +1655,7 @@
 
 /obj/random/mech
 	name = "Random Mech Prize"
-	desc = "This is a random prize"
+	desc = "This is a random prize."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 

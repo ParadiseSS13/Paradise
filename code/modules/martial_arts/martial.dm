@@ -268,7 +268,7 @@
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
@@ -282,7 +282,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
@@ -331,13 +331,13 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-/obj/item/CQC_manual
+/obj/item/cqc_manual
 	name = "old manual"
 	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
-/obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
+/obj/item/cqc_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
@@ -369,7 +369,7 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")

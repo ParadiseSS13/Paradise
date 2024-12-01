@@ -72,7 +72,7 @@
 		D.apply_damage(10 * damage_multiplier, OXY)
 		D.LoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
-			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
+			D.visible_message("<span class='danger'>[A] puts [D] to sleep!</span>", \
 						"<span class='userdanger'>[A] knocks you out cold!</span>")
 			D.SetSleeping(40 SECONDS)
 			drop_chokehold()

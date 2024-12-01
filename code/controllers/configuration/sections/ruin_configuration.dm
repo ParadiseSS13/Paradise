@@ -12,8 +12,14 @@
 	var/list/active_space_ruins = list()
 	/// List of all active lavaland ruins
 	var/list/active_lava_ruins = list()
-	/// Budget for lavaland ruins
-	var/lavaland_ruin_budget = 60
+	/// Minimum budget for space ruins
+	var/space_ruin_budget_min = 750
+	/// Maximum budget for space ruins
+	var/space_ruin_budget_max = 1000
+	/// Minimum budget for lavaland ruins
+	var/lavaland_ruin_budget_min = 175
+	/// Maximum budget for lavaland ruins
+	var/lavaland_ruin_budget_max = 325
 
 /datum/configuration_section/ruin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -23,4 +29,7 @@
 	CONFIG_LOAD_NUM(extra_levels_max, data["maximum_zlevels"])
 	CONFIG_LOAD_LIST(active_space_ruins, data["active_space_ruins"])
 	CONFIG_LOAD_LIST(active_lava_ruins, data["active_lava_ruins"])
-	CONFIG_LOAD_NUM(lavaland_ruin_budget, data["lavaland_ruin_budget"])
+	CONFIG_LOAD_NUM(space_ruin_budget_min, data["space_ruin_budget_min"])
+	CONFIG_LOAD_NUM(space_ruin_budget_max, data["space_ruin_budget_max"])
+	CONFIG_LOAD_NUM(lavaland_ruin_budget_min, data["lavaland_ruin_budget_min"])
+	CONFIG_LOAD_NUM(lavaland_ruin_budget_max, data["lavaland_ruin_budget_max"])
