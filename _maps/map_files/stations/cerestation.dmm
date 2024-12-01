@@ -81316,6 +81316,7 @@
 /obj/item/toy/figure/crew/rd{
 	pixel_y = 15
 	},
+/obj/structure/closet/secure_closet/rd,
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "rSq" = (
