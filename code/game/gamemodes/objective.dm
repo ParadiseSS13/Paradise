@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
 	/**
