@@ -181,7 +181,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 61
+sql_version = 63
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -270,7 +270,7 @@ gamemode_probabilities = [
 	{ gamemode = "traitor", probability = 2 },
 	{ gamemode = "traitorchan", probability = 3 },
 	{ gamemode = "traitorvamp", probability = 3 },
-	{ gamemode = "vampchan", probability = 3},
+	{ gamemode = "vampchan", probability = 3 },
 	{ gamemode = "vampire", probability = 3 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 3 },
@@ -653,6 +653,14 @@ enable_space_ruins = false
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
 maximum_zlevels = 4
+# Minimum space ruin budget.
+space_ruin_budget_min = 750
+# Maximum space ruin budget.
+space_ruin_budget_max = 1000
+# Minimum lavaland ruin budget.
+lavaland_ruin_budget_min = 175
+# Maximum lavaland ruin budget.
+lavaland_ruin_budget_max = 325
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
@@ -758,8 +766,6 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
 ]
-# Budget for lavaland ruins. A higher number means more will spawn
-lavaland_ruin_budget = 60
 
 
 ################################################################
@@ -880,13 +886,13 @@ non_repeating_maps = true
 # - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-	{ day_number = 1, rotation_type = "Vote" },    # Monday
-	{ day_number = 2, rotation_type = "Random" },  # Tuesday
-	{ day_number = 3, rotation_type = "FPTP" },    # Wednesday
-	{ day_number = 4, rotation_type = "Random" },  # Thursday
-	{ day_number = 5, rotation_type = "Vote" },    # Friday
-	{ day_number = 6, rotation_type = "FPTP" }, # Saturday
-	{ day_number = 7, rotation_type = "FPTP" }, # Sunday
+	{ day_number = 1, rotation_type = "Vote" },   # Monday
+	{ day_number = 2, rotation_type = "Random" }, # Tuesday
+	{ day_number = 3, rotation_type = "FPTP" },   # Wednesday
+	{ day_number = 4, rotation_type = "Random" }, # Thursday
+	{ day_number = 5, rotation_type = "Vote" },   # Friday
+	{ day_number = 6, rotation_type = "FPTP" },   # Saturday
+	{ day_number = 7, rotation_type = "FPTP" },   # Sunday
 ]
 
 

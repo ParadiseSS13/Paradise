@@ -65,7 +65,7 @@
 /obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
-	new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
+	new /mob/living/simple_animal/pet/dog/corgi/lisa(loc)
 	return ..()
 
 /obj/structure/largecrate/cow

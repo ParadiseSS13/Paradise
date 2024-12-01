@@ -108,7 +108,7 @@
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
-			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-				var/obj/structure/bigDelivery/BD = loc
+			if(istype(loc, /obj/structure/big_delivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)
 			open()

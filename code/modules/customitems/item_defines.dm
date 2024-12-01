@@ -1693,7 +1693,7 @@
 	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Sagrotter: Xann Zxiax
-/obj/item/clothing/accessory/medal/fluff/XannZxiax
+/obj/item/clothing/accessory/medal/fluff/xann_zxiax
 	name = "Zxiax Garnet"
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
 	icon = 'icons/obj/custom_items.dmi'
