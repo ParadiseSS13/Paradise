@@ -1,3 +1,6 @@
+/// A direct turfgroup is simply a turf group whose turfs are directly specified
+/// by the instantiater. When the component is re-added with new turfs, those
+/// new turfs will be registered to the connection signals.
 /datum/component/connect_turfgroup/direct
 	/// The turfs that will be connected to this component
 	var/list/pending_turfs = list()
