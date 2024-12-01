@@ -127,7 +127,7 @@
 	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
-/obj/machinery/computer/borgupload/attackby__legacy__attackchain(obj/item/aiModule/module, mob/user, params)
+/obj/machinery/computer/borgupload/attackby__legacy__attackchain(obj/item/ai_module/module, mob/user, params)
 	if(istype(module, /obj/item/ai_module))
 		if(!current)//no borg selected
 			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.</span>")
