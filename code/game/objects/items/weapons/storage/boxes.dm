@@ -218,12 +218,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
-/obj/item/storage/box/PDAs
+/obj/item/storage/box/pdas
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
 	icon_state = "pda_box"
 
-/obj/item/storage/box/PDAs/populate_contents()
+/obj/item/storage/box/pdas/populate_contents()
 	var/newcart = pick(
 		/obj/item/cartridge/engineering,
 		/obj/item/cartridge/security,

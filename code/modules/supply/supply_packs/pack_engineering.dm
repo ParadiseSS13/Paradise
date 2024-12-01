@@ -156,7 +156,7 @@
 	cost = 100
 	containername = "collector crate"
 
-/datum/supply_packs/engineering/engine/PA
+/datum/supply_packs/engineering/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
