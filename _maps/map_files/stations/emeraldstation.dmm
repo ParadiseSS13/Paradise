@@ -32206,11 +32206,6 @@
 "gpu" = (
 /turf/simulated/wall/r_wall,
 /area/station/aisat/hall)
-"gpA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "gpD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -169894,7 +169889,7 @@ vsW
 jcy
 iSD
 gRv
-gpA
+cGm
 cGm
 caq
 qBZ
