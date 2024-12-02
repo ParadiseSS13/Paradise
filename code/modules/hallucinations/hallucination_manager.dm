@@ -1,7 +1,7 @@
 /*
  * Hallucination manager
- * Automatically spawns a hallucination effect according to `get_spawn_location`
- *
+ * Automatically spawns a hallucination effect according to `get_spawn_location` and `initial_hallucination`
+ * By default invokes a 10 second trigger. By default that trigger will delete the manager and thus the hallucination
  */
 
 /datum/hallucination_manager
