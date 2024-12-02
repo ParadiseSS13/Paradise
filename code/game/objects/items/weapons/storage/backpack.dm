@@ -521,13 +521,15 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/syndie/shotgunXLmags
+/obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
 	desc = "A large duffelbag, containing three types of extended drum magazines."
 
-/obj/item/storage/backpack/duffel/syndie/shotgunXLmags/populate_contents()
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
+/obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
@@ -564,15 +566,6 @@
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
 
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
-
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle/populate_contents()
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/chameleon/thermal(src)
-
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."
 
@@ -602,7 +595,7 @@
 	new /obj/item/cautery(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgical_drapes(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
@@ -620,7 +613,7 @@
 	new /obj/item/cautery(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	if(prob(50))
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)

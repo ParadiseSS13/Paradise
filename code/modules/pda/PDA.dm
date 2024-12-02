@@ -36,26 +36,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
 	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
-	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
-								"boop" = 'sound/machines/boop.ogg',
-								"electronic" = 'sound/machines/notif1.ogg',
-								"chime" = 'sound/machines/notif2.ogg',
-								"slip" = 'sound/misc/slip.ogg',
-								"honk" = 'sound/items/bikehorn.ogg',
-								"SKREE" = 'sound/voice/shriek1.ogg',
-								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"boom" = 'sound/effects/explosionfar.ogg',
-								"gavel" = 'sound/items/gavel.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg',
-								"smoke" = 'sound/magic/smoke.ogg',
-								"shatter" = 'sound/effects/pylon_shatter.ogg',
-								"energy" = 'sound/weapons/egloves.ogg',
-								"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
-								"interference" = 'sound/misc/interference.ogg',
-								"zap" = 'sound/effects/eleczap.ogg',
-								"disgusting" = 'sound/effects/blobattack.ogg',
-								"hungry" = 'sound/weapons/bite.ogg')
-
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -63,7 +43,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/flashlight)
+		new/datum/data/pda/utility/flashlight,
+		new/datum/data/pda/app/games,
+		// Here our games go
+		new/datum/data/pda/app/game/minesweeper)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
@@ -374,8 +357,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
 	else
-		if(ttone in ttone_sound)
-			S = ttone_sound[ttone]
+		if(ttone in GLOB.pda_ringtone_choices)
+			S = GLOB.pda_ringtone_choices[ttone]
 		else
 			S = 'sound/machines/twobeep_high.ogg'
 		playsound(loc, S, 50, TRUE)

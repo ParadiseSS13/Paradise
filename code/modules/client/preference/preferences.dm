@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
@@ -237,6 +238,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
+			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))

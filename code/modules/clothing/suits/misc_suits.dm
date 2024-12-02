@@ -67,7 +67,6 @@
 	desc = "Yarr."
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
-	flags_inv = HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/cyborg_suit
@@ -149,7 +148,7 @@
 	icon_state = "hastur"
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/imperium_monk
@@ -841,7 +840,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 //Basic jacket and subtypes
-/obj/item/clothing/suit/greatcoat/sec
+/obj/item/clothing/suit/sec_greatcoat
 	name = "security greatcoat"
 	desc = "A wool-lined coat made from rugged materials that altogether make up to be a comfortable coat.\ GLORY TO ARSTOSKHA!!"
 	icon_state = "secgreatcoat"
