@@ -63,10 +63,10 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.attackby(S, user)
+			O.attackby__legacy__attackchain(S, user)
 			return
 
-/turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/plating/asteroid/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	//note that this proc does not call ..()
 	if(!I|| !user)
 		return FALSE

@@ -85,7 +85,7 @@
 	)
 
 
-/obj/item/relic/attack_self(mob/user)
+/obj/item/relic/attack_self__legacy__attackchain(mob/user)
 	if(revealed)
 		if((last_use_time + cooldown_duration) > world.time)
 			to_chat(user, "<span class='warning'>[src] does not react!</span>")

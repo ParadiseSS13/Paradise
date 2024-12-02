@@ -58,7 +58,7 @@
 		var/mob/living/L = AM
 		if(istype(L.pulling, /obj/structure/ore_box))
 			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
+			box.attackby__legacy__attackchain(OB, AM)
 	return ..()
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(wires)
 		wires.Interact(user)
 
-/obj/item/gibtonite/attack_self(mob/user)
+/obj/item/gibtonite/attack_self__legacy__attackchain(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else
@@ -422,7 +422,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
 		log_and_set_aflame(P.firer, P)
 
-/obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/coin/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!I.get_heat())
 		return ..()
 	log_and_set_aflame(user, I)
@@ -448,7 +448,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 	COOLDOWN_DECLARE(radiation_cooldown)
 
-/obj/item/coin/uranium/attack_self(mob/user)
+/obj/item/coin/uranium/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "syndicate coin"
 	credits = 160
 
-/obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/coin/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		user.put_in_hands(ring)
 
 
-/obj/item/coin/attack_self(mob/user as mob)
+/obj/item/coin/attack_self__legacy__attackchain(mob/user as mob)
 	if(cooldown < world.time - 15)
 		var/coinflip = pick(sideslist)
 		cooldown = world.time

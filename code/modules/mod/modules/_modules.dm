@@ -398,7 +398,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
 	if(item.type in accepted_anomalies)
 		if(core)
 			to_chat(user, "<span class='warning'>A core is already installed!</span>")

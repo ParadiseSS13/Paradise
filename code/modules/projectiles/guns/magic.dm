@@ -23,7 +23,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag)
+/obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))

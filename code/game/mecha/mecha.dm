@@ -711,7 +711,7 @@
 ////// MARK: AttackBy
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
