@@ -19625,7 +19625,8 @@
 /area/station/hallway/secondary/entry)
 "bwP" = (
 /obj/structure/toilet{
-	pixel_y = 8
+	pixel_y = 8;
+	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/south{
@@ -20138,7 +20139,8 @@
 /area/station/hallway/secondary/entry)
 "bzu" = (
 /obj/structure/toilet{
-	pixel_y = 8
+	pixel_y = 8;
+	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
 /obj/effect/landmark/start/assistant,
@@ -61996,7 +61998,8 @@
 /area/station/medical/surgery/secondary)
 "jog" = (
 /obj/structure/toilet{
-	pixel_y = 8
+	pixel_y = 8;
+	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/south{
