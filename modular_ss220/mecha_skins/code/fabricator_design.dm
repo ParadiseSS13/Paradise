@@ -39,7 +39,7 @@
 	id = "p_hauler"
 	build_type = MECHFAB
 	req_tech = list("biotech" = 4, "materials" = 2)
-	build_path = /obj/item/paintkit/firefighter_Hauler
+	build_path = /obj/item/paintkit/firefighter_hauler
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
@@ -79,7 +79,7 @@
 	id = "p_reaper"
 	build_type = MECHFAB
 	req_tech = list("combat" = 5, "toxins" = 5)
-	build_path = /obj/item/paintkit/firefighter_Reaper
+	build_path = /obj/item/paintkit/firefighter_reaper
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")

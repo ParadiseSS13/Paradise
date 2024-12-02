@@ -925,7 +925,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "vw" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)

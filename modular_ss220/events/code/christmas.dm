@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		plants.icon = 'modular_ss220/events/icons/xmas.dmi'
 		plants.icon_state = "plant-[rand(1,9)]"
 	// Шляпа Иану
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
+	for(var/mob/living/simple_animal/pet/dog/corgi/ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	// Снеговик в крафт
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)

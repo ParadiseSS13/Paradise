@@ -200,7 +200,7 @@
 	jobtype = /datum/job/donor/representative_tsf
 
 	uniform = /obj/item/clothing/under/solgov/rep
-	head = /obj/item/clothing/head/beret/solgov/command
+	head = /obj/item/clothing/head/beret/solgov
 	belt = /obj/item/storage/belt/fannypack/black
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/color/white

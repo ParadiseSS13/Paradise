@@ -661,8 +661,6 @@
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -1071,7 +1069,6 @@
 "bvT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -1408,12 +1405,9 @@
 "bML" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -2252,12 +2246,9 @@
 "cMn" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2912,8 +2903,6 @@
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2955,13 +2944,9 @@
 /area/awaymission/black_mesa/high_security_servers)
 "dEI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -3933,8 +3918,6 @@
 "eMm" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
@@ -3988,12 +3971,9 @@
 "ePY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -4791,8 +4771,6 @@
 "fQM" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
@@ -4865,12 +4843,9 @@
 "fWa" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -5152,7 +5127,6 @@
 "gol" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -5335,13 +5309,9 @@
 /area/awaymission/black_mesa/deep_sci_chem)
 "gxJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -5460,18 +5430,12 @@
 /area/awaymission/black_mesa/high_security_sec_point)
 "gEn" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -6762,8 +6726,6 @@
 /area/awaymission/black_mesa/high_security_emitter)
 "iqA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -6896,8 +6858,6 @@
 /area/awaymission/black_mesa/science_labs)
 "iCo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -7046,7 +7006,6 @@
 /area/awaymission/black_mesa/resonant_chamber)
 "iKb" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/magical{
@@ -7287,8 +7246,6 @@
 /area/awaymission/black_mesa/hecu_zone_bathroom)
 "iYu" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -7608,18 +7565,12 @@
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "jrC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -7836,8 +7787,6 @@
 /area/awaymission/black_mesa/black_ops_hall)
 "jGd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/indestructible/rock/mineral,
@@ -8421,8 +8370,6 @@
 /area/awaymission/black_mesa/cryo_room)
 "kpg" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -9152,13 +9099,9 @@
 /area/awaymission/black_mesa/xen/acid_lake_hallway)
 "lld" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -9575,13 +9518,9 @@
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "lHs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -10948,8 +10887,6 @@
 "npw" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
@@ -12056,12 +11993,9 @@
 "oHQ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/mapping_helpers/damaged_window,
@@ -12161,12 +12095,9 @@
 "oMH" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -12421,13 +12352,9 @@
 /area/awaymission/black_mesa/cryo_hallway)
 "pbx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -12642,8 +12569,6 @@
 "ppW" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -12655,8 +12580,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
@@ -13319,8 +13242,6 @@
 /area/awaymission/black_mesa/xen/entering_zone)
 "qju" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -13750,13 +13671,9 @@
 /area/awaymission/black_mesa/xen/entering_zone)
 "qIc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -16467,8 +16384,6 @@
 "ueE" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
@@ -17188,8 +17103,6 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/poster/random_official,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -17403,8 +17316,6 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "vjF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -18563,8 +18474,6 @@
 /obj/machinery/door/airlock/multi_tile/security/glass,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -18827,7 +18736,6 @@
 "wYZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/mapping_helpers/damaged_window,
@@ -19093,12 +19001,9 @@
 "xpb" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/mapping_helpers/damaged_window,
@@ -19753,8 +19658,6 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "yia" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/indestructible/riveted,
@@ -19823,8 +19726,6 @@
 "ylH" = (
 /obj/machinery/door/airlock/command,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark{

@@ -3169,7 +3169,7 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
-/obj/item/FixOVein{
+/obj/item/fix_o_vein{
 	pixel_x = -6;
 	pixel_y = 6
 	},

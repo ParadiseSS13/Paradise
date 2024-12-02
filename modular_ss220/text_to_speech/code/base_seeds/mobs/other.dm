@@ -46,7 +46,7 @@
 /mob/living/simple_animal/mouse/brown/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/clockwerk)
 
-/mob/living/simple_animal/mouse/brown/Tom/add_tts_component()
+/mob/living/simple_animal/mouse/brown/tom/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/arthas)
 
 /mob/living/simple_animal/mouse/fluff/clockwork/add_tts_component()

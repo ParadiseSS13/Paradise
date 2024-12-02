@@ -45,7 +45,7 @@
 	allowed_types = list("ripley", "firefighter")
 	new_wreckage = /obj/structure/mecha_wreckage/ripley/red
 
-/obj/item/paintkit/firefighter_Hauler
+/obj/item/paintkit/firefighter_hauler
 	name = "Набор кастомизации АЭП \"Тягач\""
 	icon_state = "paintkit_hauler"
 	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в старый инженерный экзокостюм."
@@ -89,7 +89,7 @@
 	allowed_types = list("ripley", "firefighter")
 	new_wreckage = /obj/structure/mecha_wreckage/ripley/aluminizer
 
-/obj/item/paintkit/firefighter_Reaper
+/obj/item/paintkit/firefighter_reaper
 	name = "Набор кастомизации АЭП \"Жнец\""
 	icon_state = "paintkit_death"
 	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в знаменитого меха из мегапопулярного аниме \"Отряд Смерти\"!"

@@ -2589,7 +2589,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "yS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

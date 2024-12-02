@@ -94,7 +94,7 @@
 	desc = "Рекламный щит с рекламой гаданий. Оказывается, это делают настоящие экстрасенсы!"
 	icon_state = "billboard_fortune_tell"
 
-/obj/structure/billboard/Phone_booth
+/obj/structure/billboard/phone_booth
 	name = "\improper Билборд Holophone"
 	desc = "Рекламный щит, рекламирующий голофоны. Межзвездные вызовы по доступной цене 49,99 кредитов с беспошлинными закусками!"
 	icon_state = "billboard_phone"

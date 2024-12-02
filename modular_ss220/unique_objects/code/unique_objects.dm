@@ -192,7 +192,7 @@
 	icon_state = "se"
 
 // =========== items ===========
-/obj/item/clothing/head/helmet/skull/Yorick
+/obj/item/clothing/head/helmet/skull/yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 

@@ -1,9 +1,9 @@
 
-/obj/structure/closet/malf/suits
+/obj/structure/closet/malf_suits
 	desc = "It's a storage unit for operational gear."
 	icon_state = "syndicate"
 
-/obj/structure/closet/malf/suits/populate_contents()
+/obj/structure/closet/malf_suits/populate_contents()
 	new /obj/item/tank/jetpack/void(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/effect/nasavoidsuitspawner(src)

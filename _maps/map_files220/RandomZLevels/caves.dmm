@@ -94,8 +94,6 @@
 /area/awaymission/caves)
 "av" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/railing/corner,
@@ -217,7 +215,7 @@
 "bb" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal{
 	dir = 9
 	},
@@ -471,7 +469,7 @@
 /area/awaymission/caves)
 "cg" = (
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/pet/cat/Runtime{
+/mob/living/simple_animal/pet/cat/runtime{
 	name = "Witches Familiar";
 	desc = "A witch!";
 	maxbodytemp = 500
@@ -610,8 +608,6 @@
 "cF" = (
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -745,8 +741,6 @@
 /area/awaymission/caves)
 "dq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/railing{
@@ -787,8 +781,6 @@
 /area/awaymission/caves)
 "dA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -882,8 +874,6 @@
 /area/awaymission/caves)
 "ed" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/flora/rock/pile,
@@ -1084,8 +1074,6 @@
 /area/awaymission/caves/build)
 "fb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -1300,8 +1288,6 @@
 /area/awaymission/caves)
 "gd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -1388,8 +1374,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "gv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1745,8 +1729,6 @@
 /area/awaymission/caves)
 "ix" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -1762,8 +1744,6 @@
 /area/awaymission/caves)
 "iA" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/railing/corner,
@@ -1974,8 +1954,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -2027,8 +2005,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "jW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/railing{
@@ -2099,8 +2075,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "km" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/flora/rock/pile,
@@ -2136,8 +2110,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "kv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -2237,8 +2209,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "lm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/dispenser/oxygen,
@@ -2432,7 +2402,6 @@
 "lZ" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2530,8 +2499,6 @@
 /area/awaymission/caves)
 "mJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -2680,8 +2647,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -3029,8 +2994,6 @@
 /area/awaymission/caves)
 "pt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing,
@@ -3124,7 +3087,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/item/paper/caves/pacman,
@@ -3243,13 +3205,9 @@
 "qS" = (
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -3274,8 +3232,6 @@
 "qY" = (
 /obj/structure/railing/corner,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -3340,8 +3296,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "rp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing,
@@ -3538,8 +3492,6 @@
 /area/awaymission/caves)
 "sA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -4009,8 +3961,6 @@
 "uU" = (
 /obj/effect/landmark/awaystart,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -4093,8 +4043,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "vo" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -4149,8 +4097,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -4357,8 +4303,6 @@
 /area/awaymission/caves)
 "wE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
@@ -4437,8 +4381,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "wZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
@@ -4530,8 +4472,8 @@
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/spawner/random/dirt/often,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_plus,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
@@ -4610,8 +4552,6 @@
 /area/awaymission/caves)
 "yp" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/railing{
@@ -4689,8 +4629,6 @@
 "yK" = (
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -4797,7 +4735,6 @@
 "zk" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -4914,8 +4851,6 @@
 /area/awaymission/caves)
 "zU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light_construct/small/west,
@@ -4961,8 +4896,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -4978,13 +4911,9 @@
 /area/awaymission/caves/build)
 "At" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/railing{
@@ -5092,8 +5021,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "AR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -5105,8 +5032,6 @@
 /area/awaymission/caves)
 "AW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/railing{
@@ -5121,8 +5046,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "AZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing,
@@ -5332,8 +5255,6 @@
 /area/awaymission/caves)
 "Ca" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/flora/rock/pile,
@@ -5375,8 +5296,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light_construct/small/north,
@@ -5384,8 +5303,6 @@
 /area/awaymission/caves)
 "Ck" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5585,8 +5502,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "Dx" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -5646,13 +5561,9 @@
 /area/awaymission/caves)
 "Ea" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
@@ -5746,8 +5657,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "Ew" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -6028,8 +5937,6 @@
 /area/awaymission/caves)
 "FY" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/railing{
@@ -6287,8 +6194,6 @@
 /area/awaymission/caves)
 "Hm" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -6351,8 +6256,6 @@
 /area/awaymission/caves)
 "HF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -6839,13 +6742,9 @@
 /area/awaymission/caves/build/reqpower_build)
 "Kh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/railing,
@@ -7025,8 +6924,6 @@
 /area/awaymission/caves/build)
 "Ld" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/stack/rods,
@@ -7086,8 +6983,6 @@
 /area/awaymission/caves)
 "Lr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing,
@@ -7105,13 +7000,9 @@
 /area/awaymission/caves/build/reqpower_build)
 "Lt" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/railing{
@@ -7375,8 +7266,6 @@
 /area/awaymission/caves)
 "NF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -7997,8 +7886,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "Ro" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/railing{
@@ -8147,8 +8034,6 @@
 /area/awaymission/caves)
 "Sb" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -8168,8 +8053,6 @@
 /area/awaymission/caves)
 "Sk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -8194,8 +8077,6 @@
 /area/awaymission/caves)
 "Sq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/stack/rods,
@@ -8210,8 +8091,6 @@
 /area/awaymission/caves)
 "Su" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/railing{
@@ -8247,8 +8126,6 @@
 /area/awaymission/caves)
 "SD" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/mapping_helpers/turfs/rust/probably,
@@ -8308,7 +8185,6 @@
 /obj/machinery/power/smes,
 /obj/machinery/light_construct/small/east,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -8407,8 +8283,6 @@
 /area/awaymission/caves)
 "Ts" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
@@ -8664,8 +8538,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -9028,8 +8900,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "Wg" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/rust/probably,
@@ -9070,8 +8940,6 @@
 /area/awaymission/caves)
 "Wt" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -9297,8 +9165,6 @@
 /area/awaymission/caves)
 "Xy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/railing{
@@ -9373,7 +9239,7 @@
 /area/awaymission/caves)
 "XN" = (
 /obj/machinery/optable,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
