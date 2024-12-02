@@ -78112,6 +78112,11 @@
 	pixel_x = -28
 	},
 /obj/structure/table/glass/reinforced,
+/obj/item/ai_module/nanotrasen{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ai_module/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81137,6 +81142,11 @@
 "uzd" = (
 /obj/machinery/alarm/directional/west,
 /obj/structure/table/glass/reinforced,
+/obj/item/ai_module/crewsimov{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/ai_module/reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

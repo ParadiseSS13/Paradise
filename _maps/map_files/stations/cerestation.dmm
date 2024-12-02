@@ -55265,6 +55265,9 @@
 /area/station/hallway/primary/fore/north)
 "lfq" = (
 /obj/machinery/suit_storage_unit/rd/secure,
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 15
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "lfy" = (
@@ -81312,11 +81315,8 @@
 	},
 /area/station/security/permabrig)
 "rSm" = (
-/obj/item/cartridge/signal/toxins,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 15
-	},
 /obj/structure/closet/secure_closet/rd,
+/obj/item/cartridge/signal/toxins,
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "rSq" = (

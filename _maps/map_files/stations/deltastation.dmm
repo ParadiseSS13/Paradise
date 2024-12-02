@@ -90882,7 +90882,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8

@@ -50545,6 +50545,7 @@
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "jTx" = (
@@ -107505,6 +107506,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/delivery_chute{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
