@@ -60,10 +60,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/New(loc, amount=null)
-	..()
+/obj/item/stack/rods/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.rod_recipes
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
