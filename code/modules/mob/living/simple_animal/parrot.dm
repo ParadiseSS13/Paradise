@@ -510,6 +510,7 @@
 		if(my_turf != T)
 			var/cache_id = "[my_turf.UID()]_[T.UID()]"
 			var/list/path = computed_paths[cache_id] || get_path_to(src, T, mintargetdist = 1)
+			computed_paths[cache_id] = path
 			if(!length(path))
 				continue
 			var/turf/target_turf = path[length(path)]
