@@ -38,13 +38,13 @@
 	new /obj/item/radio/headset/headset_sci(src)
 
 
-/obj/structure/closet/secure_closet/RD
+/obj/structure/closet/secure_closet/rd
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
 
 
-/obj/structure/closet/secure_closet/RD/populate_contents()
+/obj/structure/closet/secure_closet/rd/populate_contents()
 	new /obj/item/storage/bag/garment/research_director(src)
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)
