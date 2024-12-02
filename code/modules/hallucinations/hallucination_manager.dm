@@ -8,9 +8,9 @@
 	/// Person on who this hallucination is
 	var/mob/living/owner
 	/// Reference to the timer that will do the first trigger
-	var/callback_timer
+	var/trigger_timer
 	/// How fast do we need to start our first trigger
-	var/callback_time = 10 SECONDS
+	var/trigger_time = 10 SECONDS
 	/// A list with all of our hallucinations
 	var/list/hallucination_list = list()
 	/// A list with any images that we made separately from our hallucinations
@@ -31,6 +31,7 @@
 /datum/hallucination_manager/Destroy(force, ...)
 	. = ..()
 	owner = null
+	deltimer(trigger_timer)
 	QDEL_NULL(hallucination_list)
 	QDEL_NULL(images)
 
@@ -39,7 +40,7 @@
 	initial_hallucination = new(spawn_location, owner)
 	hallucination_list |= initial_hallucination
 	on_spawn()
-	callback_timer = addtimer(CALLBACK(src, PROC_REF(on_trigger)), callback_time, TIMER_DELETE_ME)
+	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_trigger)), trigger_time, TIMER_DELETE_ME)
 
 /// Returns a turf on where to spawn a hallucination
 /datum/hallucination_manager/proc/get_spawn_location()
