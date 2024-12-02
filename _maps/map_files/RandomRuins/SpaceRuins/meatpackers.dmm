@@ -19,10 +19,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Delta)
 "af" = (
-/obj/machinery/porta_turret{
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Delta)
 "ag" = (
@@ -1948,11 +1945,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "go" = (
-/obj/machinery/porta_turret{
-	check_synth = 1;
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Fore)
 "gp" = (
@@ -2258,11 +2251,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Aft)
 "hp" = (
-/obj/machinery/porta_turret{
-	check_synth = 1;
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Aft)
 "hq" = (

@@ -1225,3 +1225,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return ((stat & BROKEN) || !pass_info.is_living)
+
+// Meatpackers' ruin turret
+/obj/machinery/porta_turret/meatpacker_ship
+	name = "ship defense turret"
+	lethal = TRUE
+	check_synth = TRUE
