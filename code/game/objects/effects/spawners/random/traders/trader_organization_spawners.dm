@@ -81,7 +81,7 @@
 	spawn_loot_count = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
 		/obj/item/gun/projectile/revolver/nagant = 5,
-		/obj/item/gun/projectile/automatic/pistol/APS = 3,
+		/obj/item/gun/projectile/automatic/pistol/aps = 3,
 		/obj/item/gun/projectile/shotgun/boltaction = 5,
 		/obj/item/clothing/suit/space/hardsuit/soviet = 4,
 		/obj/item/clothing/glasses/thermal/eyepatch = 5,
@@ -289,7 +289,7 @@
 		/obj/item/clothing/under/solgov/elite = 5,
 		/obj/item/clothing/under/solgov/command = 5,
 		/obj/item/clothing/under/retro/security = 5,
-		/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 5,
+		/obj/item/clothing/under/misc/gimmick_captain_suit = 5,
 		/obj/item/clothing/under/misc/durathread = 5,
 		/obj/item/clothing/under/psysuit = 5,
 		/obj/item/clothing/under/costume/cuban_suit = 5,
@@ -316,7 +316,7 @@
 		/obj/item/toy/plushie/nukeplushie = 3,
 		/obj/item/toy/plushie/nianplushie = 5, //*buzz
 		/obj/item/toy/windup_toolbox = 5,
-		/obj/item/toy/AI = 5,
+		/obj/item/toy/ai = 5,
 		/obj/item/clothing/mask/gas/voice_modulator/chameleon = 5,
 		/obj/item/storage/box/syndie_kit/chameleon = 5
 	)

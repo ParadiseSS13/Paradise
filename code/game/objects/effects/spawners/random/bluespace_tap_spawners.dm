@@ -18,7 +18,7 @@
 		/obj/item/clothing/head/collectable/rabbitears,
 		/obj/item/clothing/head/collectable/wizard,
 		/obj/item/clothing/head/collectable/hardhat,
-		/obj/item/clothing/head/collectable/HoS,
+		/obj/item/clothing/head/collectable/hos,
 		/obj/item/clothing/head/collectable/thunderdome,
 		/obj/item/clothing/head/collectable/swat,
 		/obj/item/clothing/head/collectable/slime,
