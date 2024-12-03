@@ -591,3 +591,13 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/bottler
 	category = list("Misc. Machinery")
+
+/datum/design/merch
+	name = "Machine Design (Nanotrasen Merch Board)"
+	desc = "The circuit board for an NT Merch vendor."
+	id = "merch"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/merch
+	category = list("Misc. Machinery")

@@ -24,7 +24,7 @@
 
 	return ..()
 
-/obj/item/voice_changer/attack_self(mob/user)
+/obj/item/voice_changer/attack_self__legacy__attackchain(mob/user)
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
 	to_chat(user, "<span class='notice'>You toggle [src] [active ? "on" : "off"].</span>")

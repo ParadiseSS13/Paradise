@@ -50,7 +50,7 @@
 		if(!bag)
 			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
 			return
-		bag.afterattack(target, usr, TRUE)
+		bag.afterattack__legacy__attackchain(target, usr, TRUE)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
@@ -60,7 +60,7 @@
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
+/obj/machinery/iv_drip/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
 		if(bag)
 			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
@@ -74,8 +74,8 @@
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
 	else if(bag && istype(I, /obj/item/reagent_containers))
-		bag.attackby(I)
-		I.afterattack(bag, usr, TRUE)
+		bag.attackby__legacy__attackchain(I)
+		I.afterattack__legacy__attackchain(bag, usr, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()

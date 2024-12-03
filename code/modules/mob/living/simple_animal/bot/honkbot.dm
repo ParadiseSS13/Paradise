@@ -112,7 +112,7 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return

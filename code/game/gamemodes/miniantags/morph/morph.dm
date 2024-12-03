@@ -220,7 +220,7 @@
 
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)
 
-/mob/living/simple_animal/hostile/morph/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/hostile/morph/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
 		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
 		ambush_attack(user, TRUE)
