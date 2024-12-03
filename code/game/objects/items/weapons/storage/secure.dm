@@ -39,7 +39,7 @@
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
 
-/obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/secure/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
 		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
 			emag_act(user, W)
@@ -126,7 +126,7 @@
 /obj/item/storage/secure/hear_message(mob/living/M as mob, msg)
 	return
 
-/obj/item/storage/secure/attack_self(mob/user)
+/obj/item/storage/secure/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/storage/secure/ui_state(mob/user)

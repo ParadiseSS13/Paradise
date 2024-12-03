@@ -77,6 +77,19 @@
 	T.flags |= NO_LAVA_GEN
 	..()
 
+/obj/effect/mapping_helpers/lava_magnet
+	name = "lava magnet"
+	icon_state = "lava_magnet"
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/mapping_helpers/lava_magnet/New()
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T) && T.z == level_name_to_num(MINING))
+		var/obj/effect/landmark/river_waypoint/waypoint = new(T)
+		GLOB.river_waypoint_presets += waypoint
+
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
@@ -91,11 +104,17 @@
 
 /obj/effect/mapping_helpers/airlock/LateInitialize()
 	. = ..()
-	if(!(locate(/obj/machinery/door) in get_turf(src)))
-		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
 
+	var/list/valid_airlocks = list()
 	for(var/obj/machinery/door/D in get_turf(src))
-		payload(D)
+		if(!is_type_in_list(D, blacklist))
+			valid_airlocks += D
+
+	if(length(valid_airlocks))
+		for(var/obj/machinery/door/D in valid_airlocks)
+			payload(D)
+	else
+		log_world("[src] failed to find any valid airlocks at [AREACOORD(src)]")
 
 	qdel(src)
 
@@ -175,3 +194,46 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = "[get_area_name(windoor, TRUE)] Desk"
+
+/obj/effect/mapping_helpers/turfs
+	icon = 'icons/turf/overlays.dmi'
+
+/obj/effect/mapping_helpers/turfs/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T))
+		payload(T)
+
+/obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/T)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("root turf mapping_helper payload called")
+
+/obj/effect/mapping_helpers/turfs/damage
+	icon_state = "damaged"
+
+/obj/effect/mapping_helpers/turfs/damage/payload(turf/simulated/T)
+	T.break_tile()
+
+/obj/effect/mapping_helpers/turfs/burn
+	icon_state = "burned"
+
+/obj/effect/mapping_helpers/turfs/burn/payload(turf/simulated/T)
+	T.burn_tile()
+
+/obj/effect/mapping_helpers/turfs/rust
+	icon_state = "rustwall"
+	var/spawn_probability = 100
+
+/obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
+	if(!istype(T))
+		return
+
+	if(prob(spawn_probability))
+		T.rust()
+
+/obj/effect/mapping_helpers/turfs/rust/probably
+	spawn_probability = 75
+
+/obj/effect/mapping_helpers/turfs/rust/maybe
+	spawn_probability = 25

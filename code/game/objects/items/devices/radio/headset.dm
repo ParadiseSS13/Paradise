@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -90,7 +90,7 @@
 	instant = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/alt/deathsquad/Initialize()
+/obj/item/radio/headset/alt/deathsquad/Initialize(mapload)
 	. = ..()
 	set_frequency(DTH_FREQ)
 
@@ -346,7 +346,7 @@
 
 /obj/item/radio/headset/ert/alt
 	name = "emergency response team's bowman headset"
-	desc = "The headset of the boss. Protects ears from flashbangs."
+	desc = "An ergonomic tactical headset used by Nanotrasen-affiliated PMCs. Protects against loud noises."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
@@ -395,7 +395,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby(obj/item/key, mob/user)
+/obj/item/radio/headset/attackby__legacy__attackchain(obj/item/key, mob/user)
 	if(istype(key, /obj/item/encryptionkey/))
 
 		if(keyslot1 && keyslot2)

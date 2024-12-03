@@ -5,7 +5,7 @@
 	icon_state = "electropack0"
 	item_state = "electropack"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
@@ -38,10 +38,10 @@
 
 	..()
 
-/obj/item/electropack/attack_self(mob/user)
+/obj/item/electropack/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/electropack/attackby(obj/item/W, mob/user, params)
+/obj/item/electropack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 
 	if(istype(W, /obj/item/clothing/head/helmet))

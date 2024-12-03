@@ -57,7 +57,7 @@
 			H.update_inv_r_hand()
 	return ..()
 
-/obj/item/thurible/attackby(obj/item/fire_source, mob/user, params)
+/obj/item/thurible/attackby__legacy__attackchain(obj/item/fire_source, mob/user, params)
 	. = ..()
 	if(fire_source.get_heat())
 		user.visible_message(
@@ -67,7 +67,7 @@
 		)
 		light(user)
 
-/obj/item/thurible/attack_self(mob/user)
+/obj/item/thurible/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>You extinguish [src].</span>")
 		put_out(user)
@@ -164,11 +164,11 @@
 			var/mob/living/carbon/C = A
 			if(C.can_breathe_gas())
 				mobs_to_smoke += C
+	if(length(mobs_to_smoke))
+		var/percentage_to_add = released_reagents.reagents.total_volume / length(mobs_to_smoke) // Divide the amount of reagents spread around by the number of people inhaling it
 
-	var/percentage_to_add = released_reagents.reagents.total_volume / length(mobs_to_smoke) // Divide the amount of reagents spread around by the number of people inhaling it
-
-	for(var/mob/living/carbon/smoker as anything in mobs_to_smoke)
-		released_reagents.reagents.copy_to(smoker, percentage_to_add)
+		for(var/mob/living/carbon/smoker as anything in mobs_to_smoke)
+			released_reagents.reagents.copy_to(smoker, percentage_to_add)
 
 	if(reagents.total_volume <= 0)
 		put_out()

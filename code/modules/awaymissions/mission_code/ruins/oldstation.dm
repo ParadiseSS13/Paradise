@@ -50,6 +50,7 @@
 // MARK: EQUIPMENT
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
+	name = "first-aid kit"
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
@@ -177,7 +178,7 @@
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "\improper Crew Reawakening Report"
 
-/obj/item/paper/fluff/ruins/oldstation/report/Initialize()
+/obj/item/paper/fluff/ruins/oldstation/report/Initialize(mapload)
 	. = ..()
 	init_current_date_string()
 	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
@@ -423,7 +424,7 @@
 	new /obj/item/hemostat(src)
 	new /obj/item/scalpel(src)
 	new /obj/item/cautery(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)

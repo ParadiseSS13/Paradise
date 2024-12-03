@@ -29,7 +29,7 @@
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
 	new /obj/item/storage/box/ids(src)
-	new /obj/item/storage/box/PDAs(src)
+	new /obj/item/storage/box/pdas(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/civillian(src)
@@ -219,6 +219,7 @@
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/jumpskirt/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)

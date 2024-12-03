@@ -46,3 +46,36 @@
 				/obj/item/gun/projectile/shotgun/boltaction,
 				/obj/item/salvage/loot/soviet)
 	casingtype = /obj/item/ammo_casing/a762
+
+/mob/living/simple_animal/hostile/soviet_nian
+	name = "Soviet Nian"
+	desc = "Buzz!"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "sovietnian"
+	icon_living = "sovietnian"
+	turns_per_move = 5
+	response_help = "pokes the"
+	response_disarm = "shoves the"
+	response_harm = "hits the"
+	speed = 0
+	maxHealth = 100
+	health = 100
+	harm_intent_damage = 5
+	obj_damage = 60
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	attacktext = "slashes"
+	attack_sound = 'sound/weapons/blade1.ogg'
+	minbodytemp = 0
+	a_intent = INTENT_HARM
+	unsuitable_atmos_damage = 15
+	faction = list("soviet")
+	status_flags = CANPUSH
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/soviet_nian,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/item/salvage/loot/soviet
+	)
+	del_on_death = TRUE
+	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE

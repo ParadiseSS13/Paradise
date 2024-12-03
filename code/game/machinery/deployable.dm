@@ -60,6 +60,8 @@
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
 	if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
+	else if(istype(mover) && mover.checkpass(PASSBARRICADE))
+		return TRUE
 	else if(isprojectile(mover))
 		if(!anchored)
 			return TRUE
@@ -92,7 +94,7 @@
 	stacktype = /obj/item/stack/sheet/wood
 
 
-/obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
+/obj/structure/barricade/wooden/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
@@ -311,7 +313,7 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/dropwall/attack_self(mob/user)
+/obj/item/grenade/barrier/dropwall/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	armer = user
 
@@ -374,7 +376,7 @@
 		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
 
-/obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
+/obj/structure/dropwall_generator/attacked_by__legacy__attackchain(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(protected)
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
@@ -464,7 +466,7 @@
 	item_state = "flashbang"
 	var/owner_uid
 
-/obj/item/grenade/turret/attack_self(mob/user)
+/obj/item/grenade/turret/attack_self__legacy__attackchain(mob/user)
 	owner_uid = user.UID()
 	return ..()
 

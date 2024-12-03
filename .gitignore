@@ -73,7 +73,8 @@ $RECYCLE.BIN
 *.swp
 
 # Rust output.
-/milla/target/*
+/rust/target/*
+rustlibs_panic.txt
 
 # mkdocs output.
 site

@@ -63,9 +63,9 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		add_overlay("sparking")
+		flick_overlay_view(image(icon, src, "sparking"), src, 1 SECONDS)
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS) // Update the icon so the lock actually appears broken
 		return TRUE
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
@@ -108,7 +108,7 @@
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
-			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-				var/obj/structure/bigDelivery/BD = loc
+			if(istype(loc, /obj/structure/big_delivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)
 			open()

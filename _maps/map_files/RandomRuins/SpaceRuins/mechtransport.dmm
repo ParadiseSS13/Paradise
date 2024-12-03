@@ -1,9 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aq" = (
-/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/spawner/random/oil/often,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille/broken,
@@ -17,8 +15,6 @@
 "aW" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -32,7 +28,7 @@
 /turf/template_noop,
 /area/template_noop)
 "bT" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/mech_transport)
 "bU" = (
@@ -97,8 +93,6 @@
 /area/ruin/space/mech_transport)
 "gk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/light/small{
@@ -116,7 +110,7 @@
 /area/ruin/space/mech_transport)
 "hu" = (
 /obj/effect/decal/remains/human,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/mech_transport)
 "hJ" = (
@@ -141,7 +135,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "jd" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "jG" = (
@@ -187,7 +181,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/spawner/random/oil/often,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -195,7 +189,7 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/spawner/random/oil/often,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "pt" = (
@@ -205,7 +199,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "px" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "pJ" = (
@@ -224,15 +218,15 @@
 	pixel_y = 0;
 	pixel_x = 32
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/light/tube{
 	status = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "qJ" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
@@ -294,7 +288,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "uu" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "uU" = (
@@ -332,11 +326,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "wz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "wF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
@@ -354,7 +348,6 @@
 "xG" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -399,7 +392,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Af" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/door_control{
 	id = "mechtransport_bay_shutter";
@@ -439,7 +432,7 @@
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/mech_transport)
 "EC" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/gibs/robot/up,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
@@ -482,7 +475,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "HK" = (
-/obj/effect/spawner/random_spawners/oil_often,
+/obj/effect/spawner/random/oil/often,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "HT" = (
@@ -516,11 +509,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Kz" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Lq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "LZ" = (
@@ -544,7 +537,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "MI" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "MK" = (
@@ -587,7 +580,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "NR" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
@@ -602,7 +595,7 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -648,8 +641,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Sw" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "Tf" = (
@@ -674,7 +667,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UF" = (
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "UK" = (

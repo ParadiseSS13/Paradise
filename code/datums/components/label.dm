@@ -22,11 +22,12 @@
 	apply_label()
 
 /datum/component/label/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackby))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(on_attack_by))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(on_update_name))
 
 /datum/component/label/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ATTACK_BY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
 
 /**
 	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
@@ -51,7 +52,8 @@
 	* attacker: The object that is hitting the parent.
 	* user: The mob who is wielding the attacking object.
 */
-/datum/component/label/proc/OnAttackby(datum/source, obj/item/attacker, mob/user)
+/datum/component/label/proc/on_attack_by(datum/source, obj/item/attacker, mob/user)
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
 	// The hand labeler should be off in order to remove a label.
 	var/obj/item/hand_labeler/labeler = attacker
@@ -72,7 +74,14 @@
 	* user: The mob exmaining the parent.
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
-/datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
+
+///Reapplies label when update_name is called on the parent object. Attempts to remove it first just in case.
+/datum/component/label/proc/on_update_name()
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_NAME
+	remove_label()
+	apply_label()
+
+/datum/component/label/proc/on_examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
@@ -96,7 +105,7 @@
 	return ..()
 
 /// Adds detailed information to the examine text.
-/datum/component/label/goal/Examine(datum/source, mob/user, list/examine_list)
+/datum/component/label/goal/on_examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal for [label_name]. Use a hand labeler to remove it.</span>"
 
 /// Applies a static label to the parent's name.

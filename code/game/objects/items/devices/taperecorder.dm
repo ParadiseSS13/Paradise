@@ -5,7 +5,7 @@
 	icon_state = "taperecorder_empty"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
 	throwforce = 0
@@ -59,7 +59,7 @@
 	else
 		soundloop.start()
 
-/obj/item/taperecorder/attackby(obj/item/I, mob/user)
+/obj/item/taperecorder/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!mytape && istype(I, /obj/item/tape))
 		if(user.drop_item())
 			I.forceMove(src)
@@ -106,7 +106,7 @@
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
 
-/obj/item/taperecorder/attack_self(mob/user)
+/obj/item/taperecorder/attack_self__legacy__attackchain(mob/user)
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -116,10 +116,11 @@
 
 /obj/item/taperecorder/AltClick(mob/user)
 	if(in_range(user, src) && mytape && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
-						)
+		var/list/options = list(
+			"Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+			"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+			"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+		)
 		var/choice = show_radial_menu(user, src, options)
 		if(user.incapacitated())
 			return
@@ -302,7 +303,7 @@
 	..()
 	ruin()
 
-/obj/item/tape/attack_self(mob/user)
+/obj/item/tape/attack_self__legacy__attackchain(mob/user)
 	if(!ruined)
 		ruin(user)
 
@@ -335,7 +336,7 @@
 	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/attackby(obj/item/I, mob/user)
+/obj/item/tape/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(is_pen(I))
 		rename_interactive(user, I)
 

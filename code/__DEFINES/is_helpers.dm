@@ -1,6 +1,8 @@
 // Datums
 #define isdatum(thing) (istype(thing, /datum))
 
+#define isspell(A) (istype(A, /datum/spell))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -73,6 +75,8 @@
 #define isstorage(A) (istype(A, /obj/item/storage))
 
 #define isstack(I) (istype(I, /obj/item/stack))
+
+#define istable(S) (istype(S, /obj/structure/table))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

@@ -8,7 +8,7 @@
 	)
 	record_spawn = TRUE
 
-/obj/effect/spawner/random/dice/Initialize()
+/obj/effect/spawner/random/dice/Initialize(mapload)
 	. = ..()
 	spawn_loot_count = rand(1, 2)
 
@@ -74,7 +74,7 @@
 /obj/effect/spawner/random/book/record_item(type_path_to_make)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/book]")
 
-/obj/effect/spawner/random/mod/maint
+/obj/effect/spawner/random/mod_maint
 	name = "maint MOD module spawner"
 	loot = list(
 		/obj/item/mod/module/springlock = 2,
@@ -83,7 +83,7 @@
 	)
 	record_spawn = TRUE
 
-/obj/effect/spawner/random/janitor/supplies
+/obj/effect/spawner/random/jani_supplies
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "mopbucket"
 	name = "janitorial supplies spawner"

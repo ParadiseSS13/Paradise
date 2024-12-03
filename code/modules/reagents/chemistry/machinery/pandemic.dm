@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 
 /obj/machinery/computer/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
-	B.icon_state = "round_bottle"
+	B.icon_state = "bottle"
 	B.pixel_x = rand(-3, 3)
 	B.pixel_y = rand(-3, 3)
 	replicator_cooldown(cooldown)
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 /obj/machinery/computer/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/pandemic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return

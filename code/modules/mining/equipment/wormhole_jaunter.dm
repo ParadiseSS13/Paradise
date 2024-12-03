@@ -12,9 +12,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/wormhole_jaunter/attack_self(mob/user)
+/obj/item/wormhole_jaunter/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
 	activate(user, TRUE)
 
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/attack_self__legacy__attackchain(mob/user) // message is later down
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon_state = "flare-contractor-on"
 	duration = 5.1 SECONDS // Needs to be slightly longer then the callback to make the portal
 
-/obj/effect/temp_visual/getaway_flare/Initialize()
+/obj/effect/temp_visual/getaway_flare/Initialize(mapload)
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = null
 	return ..()
 
-/obj/item/grenade/jaunter_grenade/attack_self(mob/user)
+/obj/item/grenade/jaunter_grenade/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	thrower = user
 
@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	/// The turf where we activated the wormwhole.
 	var/wormhole_loc
 
-/obj/item/wormhole_jaunter/wormhole_weaver/attack_self(mob/user)
+/obj/item/wormhole_jaunter/wormhole_weaver/attack_self__legacy__attackchain(mob/user)
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/emp_act(severity)
@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver
 	duration = 5 SECONDS
 
-/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize()
+/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/Initialize(mapload)
 	. = ..()
 	GLOB.wormhole_effect += src
 	playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)

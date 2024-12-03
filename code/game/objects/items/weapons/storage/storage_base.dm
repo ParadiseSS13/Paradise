@@ -468,14 +468,12 @@
 		add_fingerprint(user)
 
 	if(!prevent_warning)
-		// all mobs with clients attached, sans the item's user
-
 		// the item's user will always get a notification
 		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 
 		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
 		if(I.w_class < WEIGHT_CLASS_NORMAL)
-			for(var/mob/M in range(1, user))
+			for(var/mob/M in orange(1, user))
 				if(in_range(M, user))
 					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
 		else
@@ -503,10 +501,6 @@
 	if(!istype(I))
 		return FALSE
 
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
-		F.update_icon()
-
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
@@ -532,6 +526,7 @@
 	if(I.maptext)
 		I.maptext = ""
 	I.on_exit_storage(src)
+	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
 
@@ -548,7 +543,7 @@
 	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
@@ -639,7 +634,7 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/storage/attack_self(mob/user)
+/obj/item/storage/attack_self__legacy__attackchain(mob/user)
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)

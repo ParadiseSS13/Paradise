@@ -154,7 +154,13 @@
 		var/list/cat_items = list()
 		for(var/prize_name in prize_list[cat])
 			var/datum/data/mining_equipment/prize = prize_list[cat][prize_name]
-			cat_items[prize_name] = list("name" = prize_name, "price" = prize.cost)
+			var/obj/item = prize.equipment_path
+			cat_items[prize_name] = list(
+				"name" = prize_name,
+				"price" = prize.cost,
+				"icon" = item.icon,
+				"icon_state" = item.icon_state
+			)
 		static_data["items"][cat] = cat_items
 
 	return static_data
@@ -214,7 +220,7 @@
 			return FALSE
 	add_fingerprint()
 
-/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/equipment_vendor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(panel_open)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
@@ -440,7 +446,7 @@
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 	)
 
-/obj/machinery/mineral/equipment_vendor/explorer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/equipment_vendor/explorer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", I))
 		return
 	if(panel_open)
@@ -495,7 +501,7 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+/obj/item/card/mining_point_card/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(points)
 			var/obj/item/card/id/C = I
