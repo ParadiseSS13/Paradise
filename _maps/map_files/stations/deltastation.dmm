@@ -87718,6 +87718,13 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/checkpoint)
+"ugd" = (
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/east)
 "ugy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -138568,7 +138575,7 @@ bVc
 wBx
 wBx
 wBx
-wBx
+ugd
 oyz
 mQc
 wBx
