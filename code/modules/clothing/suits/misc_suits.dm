@@ -840,7 +840,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 //Basic jacket and subtypes
-/obj/item/clothing/suit/greatcoat/sec
+/obj/item/clothing/suit/sec_greatcoat
 	name = "security greatcoat"
 	desc = "A wool-lined coat made from rugged materials that altogether make up to be a comfortable coat.\ GLORY TO ARSTOSKHA!!"
 	icon_state = "secgreatcoat"

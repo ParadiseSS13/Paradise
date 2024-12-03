@@ -106,7 +106,7 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
-/atom/movable/screen/act_intent/robot/AI
+/atom/movable/screen/act_intent/robot/ai
 	screen_loc = "SOUTH+1:6,EAST-1:32"
 
 /atom/movable/screen/mov_intent

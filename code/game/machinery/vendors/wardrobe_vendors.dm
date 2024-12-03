@@ -32,7 +32,7 @@
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/gas/sechailer/swat = 2,
 					/obj/item/clothing/suit/jacket/bomber/sec = 2,
-					/obj/item/clothing/suit/greatcoat/sec = 2,
+					/obj/item/clothing/suit/sec_greatcoat = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/armor/secponcho = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
@@ -72,7 +72,7 @@
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
 				/obj/item/clothing/suit/jacket/bomber/sec = 75,
-				/obj/item/clothing/suit/greatcoat/sec = 75,
+				/obj/item/clothing/suit/sec_greatcoat = 75,
 				/obj/item/clothing/suit/armor/secjacket = 75,
 				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
@@ -232,7 +232,7 @@
 
 /obj/machinery/economy/vending/virodrobe
 	name = "\improper ViroDrobe"
-	desc = "An unsterilized machine for dispending virology related clothing."
+	desc = "An unsterilized machine for dispensing virology related clothing."
 	icon_state = "base_drobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
@@ -862,7 +862,7 @@
 
 /obj/machinery/economy/vending/lawdrobe
 	name = "\improper LawDrobe"
-	desc = "Objection! This wardrobe dispenses the rule of law... and lawyer clothing."
+	desc = "Objection! This wardrobe dispenses the rule of law... Does not make you a lawyer."
 	icon_state = "lawdrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"

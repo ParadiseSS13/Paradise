@@ -41,6 +41,12 @@
 
 	return ..()
 
+/obj/machinery/economy/merch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
+
 /obj/machinery/economy/merch/proc/do_purchase(datum/merch_item/merch, mob/user)
 	if(!merch)
 		return FALSE
@@ -70,7 +76,7 @@
 
 /obj/machinery/economy/merch/proc/deliver(datum/merch_item/item, mob/user)
 	var/obj/item/merch = new item.typepath(get_turf(src))
-	var/obj/item/smallDelivery/D = new(get_turf(src))
+	var/obj/item/small_delivery/D = new(get_turf(src))
 	D.name = "small parcel - 'Your Nanotrasen Swag'"
 	D.wrapped = merch
 	merch.forceMove(D)

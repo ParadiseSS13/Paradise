@@ -15,7 +15,6 @@
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/clothing/mask/facehugger, //Why would you do this
-		/obj/item/clothing/neck/cloak,
 		/obj/item/clothing/accessory/medal,
 		/obj/item/clothing/suit/armor/riot,
 		/obj/item/clothing/suit/armor/reactive,
@@ -84,7 +83,7 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the head of security."
 
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hos(src)
 	new /obj/item/clothing/head/beret/hos(src)
 	new /obj/item/clothing/neck/cloak/head_of_security(src)
 	new /obj/item/clothing/suit/armor/hos(src)

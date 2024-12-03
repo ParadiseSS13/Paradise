@@ -404,7 +404,7 @@
 	id = "fixovein"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/FixOVein
+	build_path = /obj/item/fix_o_vein
 	category = list("initial", "Medical")
 
 /datum/design/bonegel
@@ -878,7 +878,7 @@
 	id = "desttagger"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
-	build_path = /obj/item/destTagger
+	build_path = /obj/item/dest_tagger
 	category = list("initial", "Electronics")
 
 /datum/design/handlabeler
