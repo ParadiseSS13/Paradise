@@ -60709,6 +60709,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"egq" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/engine,
+/area/station/science/testrange)
 "egF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass,
@@ -61290,11 +61294,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
 "evc" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "whitepurple"
 	},
 /area/station/science/testrange)
@@ -64111,8 +64115,11 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "gdm" = (
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/railing,
+/turf/simulated/floor/engine,
 /area/station/science/testrange)
 "gdJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -79323,9 +79330,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "ppI" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "purple";
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
 	},
 /area/station/science/testrange)
 "pqM" = (
@@ -86056,15 +86066,18 @@
 	},
 /area/station/engineering/break_room)
 "taE" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/loading_area/red{
 	dir = 1
 	},
-/obj/structure/railing{
+/obj/effect/turf_decal/box/red/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/red/corners{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	dir = 4
+	dir = 5;
+	icon_state = "whitepurple"
 	},
 /area/station/science/testrange)
 "tbn" = (
@@ -88808,7 +88821,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
 "uHI" = (
-/obj/machinery/magnetic_module,
 /obj/structure/target_stake,
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
@@ -89902,10 +89914,19 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "vti" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/loading_area/red{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/box/red/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/red/corners{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
 /area/station/science/testrange)
 "vtp" = (
 /obj/structure/sign/electricshock{
@@ -90010,18 +90031,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/railing{
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/normal{
+	name = "windoor";
 	dir = 1
 	},
-/obj/machinery/magnetic_controller{
-	autolink = 1;
-	name = "Science Range Control Console";
-	path = "w;e;e;w;s;n;n;s";
-	pixel_x = -26
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	dir = 8
+	dir = 9;
+	icon_state = "whitepurple"
 	},
 /area/station/science/testrange)
 "vys" = (
@@ -91585,16 +91604,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "wqP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitepurple"
+	icon_state = "whitepurple";
+	dir = 4
 	},
 /area/station/science/testrange)
 "wre" = (
@@ -94258,7 +94274,7 @@
 /area/station/maintenance/fore)
 "xRx" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
+	icon_state = "whitepurple";
 	dir = 4
 	},
 /area/station/science/testrange)
@@ -129617,7 +129633,7 @@ bvV
 fBk
 rGF
 rGF
-rGF
+egq
 vyp
 ppI
 evc
@@ -129874,10 +129890,10 @@ ddm
 fBk
 rGF
 uHI
-rGF
-vti
 gdm
-evc
+vti
+twU
+twU
 oyv
 twU
 xhB
@@ -130131,7 +130147,7 @@ ddn
 fBk
 ylC
 eLu
-rGF
+gdm
 taE
 xRx
 wqP

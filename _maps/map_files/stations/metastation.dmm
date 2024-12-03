@@ -47935,9 +47935,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft2)
 "gtJ" = (
-/obj/machinery/door/airlock/research{
-	name = "Sci Chem and Xenobio Access"
-	},
+/obj/machinery/door/airlock/research,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
@@ -121381,13 +121379,13 @@ kvG
 qTF
 cwR
 rcY
-uCe
+ayn
 mrS
 eKh
 fXl
 nzb
 rQB
-uCe
+ayn
 fVX
 gqC
 tIg
@@ -121638,13 +121636,13 @@ kvG
 mYv
 cwR
 qta
-uCe
+ayn
 lqg
 eKh
 pwo
 nzb
 luN
-uCe
+ayn
 gWE
 gWE
 rPx
@@ -121895,13 +121893,13 @@ kvG
 hxi
 cwR
 kib
-uCe
+ayn
 wWc
 eKh
 fXl
 nzb
 mrS
-uCe
+ayn
 bZy
 fCO
 fSa

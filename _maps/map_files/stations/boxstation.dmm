@@ -37243,7 +37243,7 @@
 "cCU" = (
 /obj/structure/chair/sofa/corp,
 /obj/machinery/camera{
-	c_tag = "Research break Room";
+	c_tag = "Research Break Room";
 	dir = 6;
 	network = list("SS13","RD")
 	},

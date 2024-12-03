@@ -18100,8 +18100,9 @@
 /area/station/command/meeting_room)
 "csA" = (
 /obj/structure/closet/l3closet/scientist,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
 "csJ" = (
@@ -18379,7 +18380,7 @@
 /area/station/service/chapel)
 "cuV" = (
 /obj/machinery/camera{
-	c_tag = "Research Eastern Wing";
+	c_tag = "Research Eastern Wing 1";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -27287,12 +27288,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
-"dNJ" = (
-/obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/hallway)
 "dNS" = (
 /obj/machinery/computer/rnd_backup/station{
 	dir = 8
@@ -38199,7 +38194,7 @@
 "gTe" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
 "gTt" = (
@@ -51812,10 +51807,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera{
-	c_tag = "Research Eastern Wing";
+	c_tag = "Research Break Wing";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
+	},
 /area/station/science/hallway)
 "kkS" = (
 /obj/structure/cable{
@@ -56529,7 +56527,10 @@
 /area/station/maintenance/starboard)
 "luB" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
 /area/station/science/hallway)
 "luI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -65625,7 +65626,7 @@
 "nMt" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
 "nMA" = (
@@ -81984,9 +81985,6 @@
 	},
 /area/station/public/storage/tools)
 "saY" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/sign/poster/random{
 	name = "random official poster";
 	pixel_x = 32;
@@ -89646,7 +89644,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	dir = 10;
+	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
 "tVR" = (
@@ -94487,9 +94486,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Research"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "vca" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -107034,8 +107031,8 @@
 	},
 /obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+	icon_state = "whitepurple";
+	dir = 4
 	},
 /area/station/science/hallway)
 "yhA" = (
@@ -128239,7 +128236,7 @@ bkQ
 bkQ
 bkQ
 qMc
-dNJ
+fzj
 uwd
 fuV
 ezb
@@ -128491,7 +128488,7 @@ wjy
 cpn
 htq
 fvk
-wyo
+crv
 wyo
 cqF
 bkQ

@@ -28243,6 +28243,7 @@
 "fCc" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -55290,11 +55291,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Research Firing Range";
-	dir = 8;
-	network = list("Research","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 6
@@ -65262,8 +65258,12 @@
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "mVC" = (
 /obj/structure/table,
-/obj/machinery/alarm/directional/east,
 /obj/machinery/recharger,
+/obj/machinery/camera{
+	c_tag = "Research Firing Range";
+	dir = 8;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 4
@@ -71623,9 +71623,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "ofe" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Firing Range"
-	},
+/obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/structure/cable{
 	d1 = 1;
@@ -71636,6 +71634,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
 "ofj" = (
@@ -169382,11 +169381,11 @@ mXw
 gRv
 gRv
 gRv
-qBZ
-qBZ
-qBZ
-qBZ
-qBZ
+iCi
+iCi
+iCi
+iCi
+iCi
 iCi
 wti
 xpc
@@ -169639,7 +169638,7 @@ jcy
 jcy
 gRv
 mXw
-qBZ
+iCi
 pHv
 pHv
 iJx
@@ -169896,7 +169895,7 @@ gRv
 cGm
 cGm
 caq
-qBZ
+iCi
 wuZ
 xif
 iJx
@@ -170153,7 +170152,7 @@ gRv
 gRv
 bPz
 vqs
-qBZ
+iCi
 npz
 dUm
 sLk
@@ -170410,7 +170409,7 @@ gRv
 mXw
 fIk
 vsW
-qBZ
+iCi
 vMG
 xVg
 dkd
