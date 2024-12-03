@@ -199,9 +199,6 @@
 /obj/effect/turf_decal/siding/box
 	icon_state = "siding_box"
 
-/obj/effect/turf_decal/raven_ship_sign
-	icon_state = "RAVEN2"
-
 /obj/effect/turf_decal/raven/one
 	icon_state = "RAVEN1"
 

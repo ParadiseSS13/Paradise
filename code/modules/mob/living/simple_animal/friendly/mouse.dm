@@ -144,7 +144,7 @@
 	icon_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
-/mob/living/simple_animal/mouse/brown/Tom
+/mob/living/simple_animal/mouse/brown/tom
 	name = "Tom"
 	real_name = "Tom"
 	response_help  = "pets"
@@ -153,23 +153,23 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/brown/Tom/update_desc()
+/mob/living/simple_animal/mouse/brown/tom/update_desc()
 	. = ..()
 	desc = "Jerry the cat is not amused."
 
-/mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
+/mob/living/simple_animal/mouse/brown/tom/Initialize(mapload)
 	. = ..()
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
-/mob/living/simple_animal/mouse/white/Brain
+/mob/living/simple_animal/mouse/white/brain
 	name = "Brain"
 	real_name = "Brain"
 	response_harm = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/white/Brain/update_desc()
+/mob/living/simple_animal/mouse/white/brain/update_desc()
 	. = ..()
 	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
 

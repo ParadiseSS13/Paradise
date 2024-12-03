@@ -24,7 +24,7 @@
 /obj/machinery/computer/account_database/proc/reconnect_database()
 	account_db = GLOB.station_money_database
 
-/obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
+/obj/machinery/computer/account_database/attackby__legacy__attackchain(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
 		return
 	return ..()
@@ -142,7 +142,7 @@
 
 /obj/machinery/computer/account_database/proc/print_new_account_info(datum/money_account/account)
 	//create a sealed package containing the account details
-	var/obj/item/smallDelivery/package = new /obj/item/smallDelivery(loc)
+	var/obj/item/small_delivery/package = new /obj/item/small_delivery(loc)
 
 	var/obj/item/paper/printout = new /obj/item/paper(package)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)

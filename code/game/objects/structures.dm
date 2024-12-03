@@ -105,6 +105,8 @@
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+	if(QDELETED(src)) // Table was destroyed while we were climbing it
+		return
 	climbers -= user
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 

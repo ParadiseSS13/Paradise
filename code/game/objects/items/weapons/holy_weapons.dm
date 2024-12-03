@@ -35,7 +35,7 @@
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_themselves()] with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
+/obj/item/nullrod/attack__legacy__attackchain(mob/M, mob/living/carbon/user)
 	..()
 	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY))
@@ -62,7 +62,7 @@
 			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 
-/obj/item/nullrod/attack_self(mob/user)
+/obj/item/nullrod/attack_self__legacy__attackchain(mob/user)
 	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
 
@@ -293,7 +293,7 @@
 	obj_integrity = 100
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
+/obj/item/nullrod/scythe/talking/attack_self__legacy__attackchain(mob/living/user)
 	if(possessed)
 		return
 
@@ -329,7 +329,7 @@
 		qdel(S)
 	return ..()
 
-/obj/item/nullrod/scythe/talking/attackby(obj/item/I, mob/user, params)
+/obj/item/nullrod/scythe/talking/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/soulstone) || !possessed)
 		return ..()
 	if(obj_integrity >= max_integrity)
@@ -473,7 +473,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
 
-/obj/item/nullrod/carp/attack_self(mob/living/user)
+/obj/item/nullrod/carp/attack_self__legacy__attackchain(mob/living/user)
 	if(used_blessing)
 		return
 	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
@@ -546,7 +546,7 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/nullrod/rosary/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)
 	if(!iscarbon(M))
 		return ..()
 
@@ -603,7 +603,7 @@
 	var/ghostcall_CD = 0
 
 
-/obj/item/nullrod/salt/attack_self(mob/user)
+/obj/item/nullrod/salt/attack_self__legacy__attackchain(mob/user)
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
@@ -699,7 +699,7 @@
 		robes = null
 	return ..()
 
-/obj/item/nullrod/missionary_staff/attack_self(mob/user)
+/obj/item/nullrod/missionary_staff/attack_self__legacy__attackchain(mob/user)
 	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
 		return FALSE
 	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
@@ -719,7 +719,7 @@
 		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
 		return FALSE
 
-/obj/item/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
+/obj/item/nullrod/missionary_staff/afterattack__legacy__attackchain(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
 	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
 		return
 	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause

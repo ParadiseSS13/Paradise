@@ -62,7 +62,7 @@
 	else
 		stat |= NOPOWER
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
+/obj/machinery/chem_heater/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")

@@ -25,7 +25,7 @@
 	mind = null
 	return ..()
 
-/obj/item/seeds/replicapod/attackby(obj/item/W, mob/user, params)
+/obj/item/seeds/replicapod/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/reagent_containers/syringe))
 		if(!contains_sample)
 			for(var/datum/reagent/blood/bloodSample in W.reagents.reagent_list)

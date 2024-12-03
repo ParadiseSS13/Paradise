@@ -395,7 +395,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby(obj/item/key, mob/user)
+/obj/item/radio/headset/attackby__legacy__attackchain(obj/item/key, mob/user)
 	if(istype(key, /obj/item/encryptionkey/))
 
 		if(keyslot1 && keyslot2)

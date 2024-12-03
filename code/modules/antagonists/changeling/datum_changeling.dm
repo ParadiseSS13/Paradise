@@ -90,7 +90,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, "<span class='biggerdanger'><b>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>")
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()

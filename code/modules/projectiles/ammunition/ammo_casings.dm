@@ -291,7 +291,7 @@
 	..()
 	create_reagents(30)
 
-/obj/item/ammo_casing/shotgun/dart/attackby()
+/obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
 	return
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
@@ -420,7 +420,7 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(A)) && modified && !FD.pen)
@@ -449,7 +449,7 @@
 	FD.damage = 5
 	FD.nodamage = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
+/obj/item/ammo_casing/caseless/foam_dart/attack_self__legacy__attackchain(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if(FD.pen)
 		FD.damage = initial(FD.damage)

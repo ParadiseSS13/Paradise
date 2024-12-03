@@ -504,9 +504,9 @@
 	verbs.Cut()
 	return
 
-/atom/movable/overlay/attackby(a, b, c)
+/atom/movable/overlay/attackby__legacy__attackchain(a, b, c)
 	if(master)
-		return master.attackby(a, b, c)
+		return master.attackby__legacy__attackchain(a, b, c)
 
 /atom/movable/overlay/attack_hand(a, b, c)
 	if(master)

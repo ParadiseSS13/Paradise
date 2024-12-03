@@ -100,7 +100,7 @@
 	/// Who are we orbiting?
 	var/mob/living/owner
 
-/obj/item/watcher_hatchling/attack_self(mob/user, modifiers)
+/obj/item/watcher_hatchling/attack_self__legacy__attackchain(mob/user, modifiers)
 	. = ..()
 	if(!isnull(orbiter))
 		watcher_return()
