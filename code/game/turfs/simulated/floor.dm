@@ -152,19 +152,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby__legacy__attackchain(obj/item/C as obj, mob/user as mob, params)
-	if(!C || !user)
-		return TRUE
+/turf/simulated/floor/attack_by(obj/item/attacking, mob/user, params)
+	if(..() || QDELETED(attacking) || QDELETED(user))
+		return FINISH_ATTACK
 
-	if(..())
-		return TRUE
+	if((intact || transparent_floor) && istype(attacking, /obj/item/stack/tile))
+		try_replace_tile(attacking, user, params)
+		return FINISH_ATTACK
 
-	if((intact || transparent_floor) && istype(C, /obj/item/stack/tile))
-		try_replace_tile(C, user, params)
-		return TRUE
-
-	if(istype(C, /obj/item/pipe))
-		var/obj/item/pipe/P = C
+	if(istype(attacking, /obj/item/pipe))
+		var/obj/item/pipe/P = attacking
 		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
@@ -187,8 +184,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			P.y = src.y
 			P.z = src.z
 			P.forceMove(src)
-			return TRUE
-	return FALSE
+			return FINISH_ATTACK
 
 /turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
 	if(!intact)
@@ -207,7 +203,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
 		return
-	P.attackby__legacy__attackchain(T, user, params)
+	P.attack_by(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	if(!silent)
