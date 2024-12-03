@@ -1224,7 +1224,7 @@
 			var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
 			SS.transfer_soul("FORCE", user)
 			user.death(FALSE)
-			user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
+			user.visible_message("<span class='danger'>[user.name]'s soul is captured by [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
