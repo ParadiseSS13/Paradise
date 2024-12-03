@@ -252,7 +252,7 @@
 	if(option == "Primary")
 		blood_type = registered_human.dna.blood_type
 	else if(new_type)
-		if(!(blood_type in possible_blood_types))
+		if(!(new_type in possible_blood_types))
 			return
 		blood_type = new_type
 	to_chat(registered_human, "ID blood type has been changed to [blood_type].")
