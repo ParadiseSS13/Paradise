@@ -71,7 +71,7 @@
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 
-/obj/item/melee/baseball_bat/homerun/central_command/attack(mob/living/target, mob/living/user)
+/obj/item/melee/baseball_bat/homerun/central_command/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(on)
 		homerun_ready = TRUE
 	. = ..()

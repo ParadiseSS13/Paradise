@@ -51,7 +51,7 @@
 	else
 		try_burn_hit(I, user)
 
-/obj/item/organ/internal/nucleation/attack(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/nucleation/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(!try_burn_hit(affected_user = user, def_zone = user.zone_selected))
 		return ..()
 

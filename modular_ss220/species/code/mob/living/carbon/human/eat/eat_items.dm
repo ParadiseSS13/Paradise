@@ -15,7 +15,7 @@
 	var/material_string = item_string_material(user)
 	. = ..(user, "", material_string)
 
-/obj/item/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/attack__legacy__attackchain(mob/living/target, mob/living/user, def_zone)
 	if(check_item_eat(target, user))
 		try_item_eat(target, user)
 		return TRUE

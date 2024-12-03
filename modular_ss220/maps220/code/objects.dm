@@ -214,7 +214,7 @@
 	var/list/skeletons = list()
 	var/number = 2 // for ingame VV change
 
-/obj/item/emerald_stone/attack(mob/living/carbon/human/undead, mob/living/carbon/human/user)
+/obj/item/emerald_stone/attack__legacy__attackchain(mob/living/carbon/human/undead, mob/living/carbon/human/user)
 
 	if(!istype(undead))
 		return ..()
