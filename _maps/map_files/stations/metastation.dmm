@@ -53982,12 +53982,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/magnetic_controller{
-	autolink = 1;
-	name = "Science Range Control Console";
-	path = "w;e;e;w;s;n;n;s";
-	pixel_y = 26
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -68152,7 +68146,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "pwo" = (
-/obj/machinery/magnetic_module,
 /obj/structure/target_stake,
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
