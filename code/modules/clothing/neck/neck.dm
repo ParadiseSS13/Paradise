@@ -30,7 +30,7 @@
 	icon_state = "stethoscope"
 	item_color = "stethoscope"
 
-/obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/neck/stethoscope/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!ishuman(M) || !isliving(user))
 		return ..(M, user)
 
