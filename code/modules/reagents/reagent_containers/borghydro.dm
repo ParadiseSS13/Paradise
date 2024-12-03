@@ -88,7 +88,7 @@
 		robot.cell.use(charge_cost)
 	total_reagents = min((total_reagents + BORGHYPO_REFILL_VALUE), maximum_reagents)
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/reagent_containers/borghypo/attack__legacy__attackchain(mob/living/carbon/human/M, mob/user)
 	if(!total_reagents)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
 		return
@@ -109,7 +109,7 @@
 /obj/item/reagent_containers/borghypo/proc/get_radial_contents()
 	return reagent_icons & reagent_ids
 
-/obj/item/reagent_containers/borghypo/attack_self(mob/user)
+/obj/item/reagent_containers/borghypo/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
 	var/selected_reagent = show_radial_menu(user, src, get_radial_contents(), radius = 48)
 	if(!selected_reagent)

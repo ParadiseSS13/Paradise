@@ -293,7 +293,7 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
 	. = M
 	M.anchored = anchored
 	if(!disassembled)
@@ -354,7 +354,7 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/O, mob/user, params)
+/obj/machinery/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(exchange_parts(user, O))
 		return
 

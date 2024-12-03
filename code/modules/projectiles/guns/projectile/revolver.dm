@@ -28,20 +28,20 @@
 /obj/item/gun/projectile/revolver/process_chamber()
 	return ..(0, 1)
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
 	if(istype(A, /obj/item/ammo_box/b357))
 		return
 	if(.)
 		return
-	var/num_loaded = magazine.attackby(A, user, params, 1)
+	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src].</span>")
 		A.update_icon()
 		update_icon()
 		chamber_round(0)
 
-/obj/item/gun/projectile/revolver/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/attack_self__legacy__attackchain(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
 	while(get_ammo() > 0)
@@ -152,16 +152,16 @@
 	qdel(src)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/revolver/fingergun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(!user.mind.miming)
 		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
 		return
 	..()
 
-/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/fingergun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/fingergun/attack_self__legacy__attackchain(mob/living/user)
 	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
 	qdel(src)
 	return
@@ -245,7 +245,7 @@
 	options["Maple"] = "dbshotgun_l"
 	options["Rosewood"] = "dbshotgun_p"
 
-/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(!can_sawoff)
@@ -265,7 +265,7 @@
 	. = ..()
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/doublebarrel/attack_self__legacy__attackchain(mob/living/user)
 	var/num_unloaded = 0
 
 	while(get_ammo() > 0)
@@ -330,7 +330,7 @@
 	unique_reskin = FALSE
 	var/sling = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
@@ -389,7 +389,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
 	return list()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
 	else

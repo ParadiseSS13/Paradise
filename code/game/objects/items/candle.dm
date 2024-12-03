@@ -41,7 +41,7 @@
 	else
 		return TRUE
 
-/obj/item/candle/attackby(obj/item/W, mob/user, params)
+/obj/item/candle/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat())
 		light("<span class='notice'>[user] lights [src] with [W].</span>")
 		return
@@ -113,7 +113,7 @@
 		set_light(0)
 
 
-/obj/item/candle/attack_self(mob/user)
+/obj/item/candle/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		unlight()
@@ -134,7 +134,7 @@
 	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
 	start_lit = TRUE
 
-/obj/item/candle/eternal/wizard/attack_self(mob/user)
+/obj/item/candle/eternal/wizard/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/candle/eternal/wizard/process()

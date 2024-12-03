@@ -73,7 +73,7 @@
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
-/obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/vamp_claws/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -120,7 +120,7 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/vamp_claws/attack_self(mob/user)
+/obj/item/vamp_claws/attack_self__legacy__attackchain(mob/user)
 	qdel(src)
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 
@@ -407,7 +407,7 @@
 		owner.AdjustWeakened(-2 SECONDS)
 		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
-			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+			to_chat(H, "<span class='warning'><b>You feel your life force draining!</b></span>")
 
 		if(beam_number >= max_beams)
 			break

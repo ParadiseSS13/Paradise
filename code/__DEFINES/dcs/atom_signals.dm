@@ -8,10 +8,6 @@
 
 // from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
-///from base of atom/attackby(): (/obj/item, /mob/living, params)
-#define COMSIG_PARENT_ATTACKBY "atom_attackby"
-///Return this in response if you don't want afterattack to be called
-	#define COMPONENT_NO_AFTERATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/examine(): (examining_user, examine_list)
@@ -99,13 +95,6 @@
 	#define ATOM_PREHIT_SUCCESS (1<<0)
 	#define ATOM_PREHIT_FAILURE (1<<1)
 
-// Attack signals. These should share the returned flags, to standardize the attack chain.
-// The chain currently works like:
-// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
-// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
-	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
-	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
-
 /// Called from atom/Initialize() of target: (atom/target)
 #define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
@@ -143,3 +132,5 @@
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+/// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
+#define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"

@@ -151,7 +151,7 @@
 		src.visible_message("<span class='notice'>[src] was bruised!</span>")
 		bruised = 1
 
-/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/mushroom/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/food/grown/mushroom))
 		if(stat == DEAD && !recovery_cooldown)
 			Recover()

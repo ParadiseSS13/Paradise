@@ -6,8 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 /// Conversion ratio from Watt ticks to joules.
-/// Should be a pulse demon's life tick length in seconds.
-#define WATT_TICK_TO_JOULE 2
 
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
@@ -747,7 +745,7 @@
 			visible_message("<span class='warning'>[M] [response_harm] [src].</span>")
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/demon/pulse_demon/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(is_under_tile())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
@@ -823,7 +821,7 @@
 	. = ..()
 	set_light(13, 2, "#bbbb00")
 
-/obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/pulse/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)
@@ -867,4 +865,3 @@
 #undef PULSEDEMON_PLATING_SPARK_CHANCE
 #undef PULSEDEMON_APC_CHARGE_MULTIPLIER
 #undef PULSEDEMON_SMES_DRAIN_MULTIPLIER
-#undef WATT_TICK_TO_JOULE

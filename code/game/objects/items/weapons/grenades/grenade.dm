@@ -55,7 +55,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/grenade/attack_self(mob/user as mob)
+/obj/item/grenade/attack_self__legacy__attackchain(mob/user as mob)
 	if(active)
 		return
 	if(!clown_check(user))

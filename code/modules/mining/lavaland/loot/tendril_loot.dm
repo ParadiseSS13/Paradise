@@ -45,8 +45,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
-/obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
-	bag?.attackby(W, user, params)
+/obj/item/shared_storage/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+	bag?.attackby__legacy__attackchain(W, user, params)
 
 /obj/item/shared_storage/attack_ghost(mob/user)
 	if(isobserver(user))
@@ -54,7 +54,7 @@
 		bag?.show_to(user)
 	return ..()
 
-/obj/item/shared_storage/attack_self(mob/living/carbon/user)
+/obj/item/shared_storage/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
 	if(user.is_holding(src))
@@ -108,7 +108,7 @@
 	icon_state = "book1"
 	w_class = 2
 
-/obj/item/book_of_babel/attack_self(mob/user)
+/obj/item/book_of_babel/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
@@ -183,7 +183,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
 
-/obj/item/ship_in_a_bottle/attack_self(mob/user)
+/obj/item/ship_in_a_bottle/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	new /obj/vehicle/lavaboat/dragon(get_turf(src))
@@ -210,7 +210,7 @@
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/item/wisp_lantern/attack_self(mob/user)
+/obj/item/wisp_lantern/attack_self__legacy__attackchain(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
 		icon_state = "lantern"
@@ -282,7 +282,7 @@
 		linked = null
 	return ..()
 
-/obj/item/warp_cube/attack_self(mob/user)
+/obj/item/warp_cube/attack_self__legacy__attackchain(mob/user)
 	if(!linked)
 		to_chat(user, "[src] fizzles uselessly.")
 		return
@@ -402,7 +402,7 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/item/immortality_talisman/attack_self(mob/user)
+/obj/item/immortality_talisman/attack_self__legacy__attackchain(mob/user)
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
@@ -422,7 +422,7 @@
 			Z.can_destroy = TRUE
 			qdel(Z)
 	else
-		to_chat(user, "<span class'warning'>[src] is still recharging.</span>")
+		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
@@ -433,7 +433,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
-/obj/effect/immortality_talisman/attackby()
+/obj/effect/immortality_talisman/attackby__legacy__attackchain()
 	return
 
 /obj/effect/immortality_talisman/ex_act()
