@@ -14,7 +14,7 @@
 		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(on_initialized),
 	)
 
-/datum/proximity_monitor/New(atom/_host, range, _ignore_if_not_on_turf = TRUE)
+/datum/proximity_monitor/New(atom/_host, range = 1, _ignore_if_not_on_turf = TRUE)
 	ignore_if_not_on_turf = _ignore_if_not_on_turf
 	current_range = range
 	set_host(_host)
@@ -56,7 +56,7 @@
 	current_range = range
 
 	//If the connect_range component exists already, this will just update its range. No errors or duplicates.
-	AddComponent(/datum/component/connect_turfgroup/ranged, host, loc_connections, range, !ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_range, host, loc_connections, range, !ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_moved(atom/movable/source, atom/old_loc)
 	SIGNAL_HANDLER
@@ -72,7 +72,7 @@
 		return
 	ignore_if_not_on_turf = does_ignore
 	//Update the ignore_if_not_on_turf
-	AddComponent(/datum/component/connect_turfgroup/ranged, host, loc_connections, current_range, ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_uncrossed()
 	SIGNAL_HANDLER

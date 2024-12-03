@@ -1,9 +1,9 @@
 /**
- * This component behaves similar to connect_loc_behalf but for a given set of turfs, hooking into a signal on each of them.
+ * This component behaves similar to connect_loc_behalf but for all turfs in range, hooking into a signal on each of them.
  * Just like connect_loc_behalf, It can react to that signal on behalf of a seperate listener.
  * Good for components, though it carries some overhead. Can't be an element as that may lead to bugs.
  */
-/datum/component/connect_turfgroup
+/datum/component/connect_range
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 	/// An assoc list of signal -> procpath to register to the loc this object is on.
@@ -16,38 +16,40 @@
 	 */
 	var/atom/tracked
 
+	/// The component will hook into signals only on turfs not farther from tracked than this.
+	var/range
 	/// Whether the component works when the movable isn't directly located on a turf.
 	var/works_in_containers
 
-/datum/component/connect_turfgroup/Initialize(atom/tracked_, list/connections_, list/turfs_ = list(), works_in_containers_ = TRUE)
-	if(!isatom(tracked_) || isarea(tracked_))
+/datum/component/connect_range/Initialize(atom/tracked, list/connections, range, works_in_containers = TRUE)
+	if(!isatom(tracked) || isarea(tracked) || range < 0)
 		return COMPONENT_INCOMPATIBLE
-	connections = connections_
-	set_turfs(turfs_)
-	set_tracked(tracked_)
-	works_in_containers = works_in_containers_
+	src.connections = connections
+	src.range = range
+	set_tracked(tracked)
+	src.works_in_containers = works_in_containers
 
-/datum/component/connect_turfgroup/Destroy()
+/datum/component/connect_range/Destroy()
 	set_tracked(null)
 	return ..()
 
-/datum/component/connect_turfgroup/InheritComponent(datum/component/component, original, atom/tracked_, list/connections_, list/turfs_, works_in_containers_)
+/datum/component/connect_range/InheritComponent(datum/component/component, original, atom/tracked, list/connections, range, works_in_containers)
 	// Not equivalent. Checks if they are not the same list via shallow comparison.
-	if(!compare_list(connections, connections_))
+	if(!compare_list(src.connections, connections))
 		stack_trace("connect_range component attached to [parent] tried to inherit another connect_range component with different connections")
 		return
-	if(tracked != tracked_)
-		set_tracked(tracked_)
-	if(works_in_containers == works_in_containers_ && compare_list(turfs, turfs_))
+	if(src.tracked != tracked)
+		set_tracked(tracked)
+	if(src.range == range && src.works_in_containers == works_in_containers)
 		return
 	//Unregister the signals with the old settings.
 	unregister_signals(isturf(tracked) ? tracked : tracked.loc, turfs)
-	set_turfs(turfs_)
-	works_in_containers = works_in_containers_
+	src.range = range
+	src.works_in_containers = works_in_containers
 	//Re-register the signals with the new settings.
-	update_signals(tracked)
+	update_signals(src.tracked)
 
-/datum/component/connect_turfgroup/proc/set_tracked(atom/new_tracked)
+/datum/component/connect_range/proc/set_tracked(atom/new_tracked)
 	if(tracked) //Unregister the signals from the old tracked and its surroundings
 		unregister_signals(isturf(tracked) ? tracked : tracked.loc, turfs)
 		UnregisterSignal(tracked, list(
@@ -62,11 +64,11 @@
 	RegisterSignal(tracked, COMSIG_PARENT_QDELETING, PROC_REF(handle_tracked_qdel))
 	update_signals(tracked)
 
-/datum/component/connect_turfgroup/proc/handle_tracked_qdel()
+/datum/component/connect_range/proc/handle_tracked_qdel()
 	SIGNAL_HANDLER
 	qdel(src)
 
-/datum/component/connect_turfgroup/proc/update_signals(atom/target, atom/old_loc)
+/datum/component/connect_range/proc/update_signals(atom/target, atom/old_loc)
 	var/turf/current_turf = get_turf(target)
 	if(isnull(current_turf))
 		unregister_signals(old_loc, turfs)
@@ -87,13 +89,13 @@
 		unregister_signals(old_loc, null)
 		return
 	var/list/old_turfs = turfs
-	turfs = receive_new_turfs(current_turf)
+	turfs = RANGE_TURFS(range, current_turf)
 	unregister_signals(old_loc, old_turfs - turfs)
 	for(var/turf/target_turf as anything in turfs - old_turfs)
 		for(var/signal in connections)
 			parent.RegisterSignal(target_turf, signal, connections[signal])
 
-/datum/component/connect_turfgroup/proc/unregister_signals(atom/location, list/remove_from)
+/datum/component/connect_range/proc/unregister_signals(atom/location, list/remove_from)
 	//The location is null or is a container and the component shouldn't have register signals on it
 	if(isnull(location) || (!works_in_containers && !isturf(location)))
 		return
@@ -107,13 +109,6 @@
 	for(var/turf/target_turf as anything in remove_from)
 		parent.UnregisterSignal(target_turf, connections)
 
-/datum/component/connect_turfgroup/proc/on_moved(atom/movable/movable, atom/old_loc)
+/datum/component/connect_range/proc/on_moved(atom/movable/movable, atom/old_loc)
 	SIGNAL_HANDLER
 	update_signals(movable, old_loc)
-
-/datum/component/connect_turfgroup/proc/set_turfs(list/turfs_)
-	turfs = turfs_
-
-/datum/component/connect_turfgroup/proc/receive_new_turfs(turf/current_turf)
-	SHOULD_CALL_PARENT(FALSE)
-	return
