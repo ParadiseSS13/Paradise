@@ -133,7 +133,7 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/attackby__legacy__attackchain(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= MAX_AMOUNT)

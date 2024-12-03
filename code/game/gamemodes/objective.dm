@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
 	/**
@@ -928,3 +928,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/delayed/proc/reveal_objective()
 	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner), target_department, steal_list)
+
+// A warning objective for that an agent is after you and knows you are an agent (or that you are paranoid)
+/datum/objective/potentially_backstabbed
+	name = "Potentially Backstabbed"
+	explanation_text = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
+		Remain vigilant, they know who you are and what you can do."
+	needs_target = FALSE
+
+/datum/objective/potentially_backstabbed/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
+		for(var/datum/objective/our_objective in T.get_antag_objectives(FALSE))
+			if(istype(our_objective, /datum/objective/potentially_backstabbed))
+				continue
+			if(!our_objective.check_completion())
+				return FALSE
+	return TRUE

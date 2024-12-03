@@ -11,7 +11,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/petcollar/attack_self(mob/user)
+/obj/item/petcollar/attack_self__legacy__attackchain(mob/user)
 	var/option = "Change Name"
 	if(access_id)
 		option = tgui_input_list(user, "What do you want to do?", "[src]", list("Change Name", "Remove ID"))
@@ -32,7 +32,7 @@
 					user.put_in_hands(access_id)
 					access_id = null
 
-/obj/item/petcollar/attackby(obj/item/card/id/W, mob/user, params)
+/obj/item/petcollar/attackby__legacy__attackchain(obj/item/card/id/W, mob/user, params)
 	if(!istype(W))
 		return ..()
 	if(access_id)

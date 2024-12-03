@@ -28,7 +28,7 @@
 		shock_field(user)
 		return 1
 
-/obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
+/obj/machinery/field/containment/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	shock(user)
 	return TRUE
 

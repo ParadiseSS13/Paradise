@@ -32,7 +32,7 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self(mob/user)
+/obj/item/reagent_containers/iv_bag/attack_self__legacy__attackchain(mob/user)
 	..()
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
@@ -87,10 +87,10 @@
 				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/iv_bag/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity)
+/obj/item/reagent_containers/iv_bag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!target.reagents)
@@ -157,7 +157,7 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/iv_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
 
@@ -190,22 +190,22 @@
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
 	return ..()
 
-/obj/item/reagent_containers/iv_bag/blood/APlus
+/obj/item/reagent_containers/iv_bag/blood/a_plus
 	blood_type = "A+"
 
-/obj/item/reagent_containers/iv_bag/blood/AMinus
+/obj/item/reagent_containers/iv_bag/blood/a_minus
 	blood_type = "A-"
 
-/obj/item/reagent_containers/iv_bag/blood/BPlus
+/obj/item/reagent_containers/iv_bag/blood/b_plus
 	blood_type = "B+"
 
-/obj/item/reagent_containers/iv_bag/blood/BMinus
+/obj/item/reagent_containers/iv_bag/blood/b_minus
 	blood_type = "B-"
 
-/obj/item/reagent_containers/iv_bag/blood/OPlus
+/obj/item/reagent_containers/iv_bag/blood/o_plus
 	blood_type = "O+"
 
-/obj/item/reagent_containers/iv_bag/blood/OMinus
+/obj/item/reagent_containers/iv_bag/blood/o_minus
 	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/blood/vox

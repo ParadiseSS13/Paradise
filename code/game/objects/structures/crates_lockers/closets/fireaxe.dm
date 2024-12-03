@@ -29,7 +29,7 @@
 	else
 		. += "<span class='notice'>It is damaged beyond repair.</span>"
 
-/obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
+/obj/structure/closet/fireaxecabinet/attackby__legacy__attackchain(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
 		if(istype(O, /obj/item/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")

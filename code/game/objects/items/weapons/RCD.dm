@@ -357,7 +357,7 @@
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!afterattack(suicide_tile, user, TRUE))
+	if(!afterattack__legacy__attackchain(suicide_tile, user, TRUE))
 		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
@@ -413,7 +413,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
-/obj/item/rcd/attackby(obj/item/W, mob/user, params)
+/obj/item/rcd/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/rcd_ammo))
 		return ..()
 	var/obj/item/rcd_ammo/R = W
@@ -465,7 +465,7 @@
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
 
 
-/obj/item/rcd/attack_self(mob/user)
+/obj/item/rcd/attack_self__legacy__attackchain(mob/user)
 	//Change the mode // Oh I thought the UI was just for fucking staring at
 	radial_menu(user)
 
@@ -598,7 +598,7 @@
 		else
 			return FALSE
 
-/obj/item/rcd/afterattack(atom/A, mob/user, proximity)
+/obj/item/rcd/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return FALSE
 	if(istype(A, /turf/space/transit))
@@ -716,7 +716,7 @@
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 
-/obj/item/rcd_ammo/attackby(obj/item/I, mob/user)
+/obj/item/rcd_ammo/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!istype(I, /obj/item/rcd) || issilicon(user))
 		return ..()
 	var/obj/item/rcd/R = I

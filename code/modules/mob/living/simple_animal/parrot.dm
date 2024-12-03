@@ -167,7 +167,7 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/parrot/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
@@ -649,7 +649,7 @@
 /*
  * Sub-types
  */
-/mob/living/simple_animal/parrot/Poly
+/mob/living/simple_animal/parrot/poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
@@ -679,13 +679,13 @@
 	gold_core_spawnable = NO_SPAWN
 	available_channels = list(":e")
 
-/mob/living/simple_animal/parrot/Poly/Initialize(mapload)
+/mob/living/simple_animal/parrot/poly/Initialize(mapload)
 	. = ..()
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 
-/mob/living/simple_animal/parrot/Poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
+/mob/living/simple_animal/parrot/poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
 	return FALSE
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

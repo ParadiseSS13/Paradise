@@ -1,4 +1,4 @@
-/mob/camera/aiEye/remote/holo/setLoc()
+/mob/camera/ai_eye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)
@@ -12,7 +12,7 @@
 	var/obj/machinery/hologram/holopad/connected_holopad	//the one that answered the call (may be null)
 	var/list/dialed_holopads	//all things called, will be cleared out to just connected_holopad once answered
 
-	var/mob/camera/aiEye/remote/holo/eye	//user's eye, once connected
+	var/mob/camera/ai_eye/remote/holo/eye	//user's eye, once connected
 	var/obj/effect/overlay/holo_pad_hologram/hologram	//user's hologram, once connected
 	var/datum/action/innate/end_holocall/hangup	//hangup action
 

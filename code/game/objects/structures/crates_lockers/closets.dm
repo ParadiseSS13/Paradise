@@ -280,7 +280,7 @@
 	if(!broken && !(flags & NODECONSTRUCT))
 		bust_open()
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
 		E.try_send_container(user, src)
@@ -310,7 +310,7 @@
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
 	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
 		emag_act(user)
-	else if(istype(W, /obj/item/stack/packageWrap))
+	else if(istype(W, /obj/item/stack/package_wrap))
 		return
 	else if(user.a_intent != INTENT_HARM)
 		closed_item_click(user)
@@ -466,8 +466,8 @@
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
-			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
-				var/obj/structure/bigDelivery/BD = loc
+			if(istype(loc, /obj/structure/big_delivery)) //nullspace ect.. read the comment above
+				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)
 			open()
 

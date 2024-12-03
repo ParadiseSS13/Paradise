@@ -482,7 +482,7 @@
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
-/turf/attackby(obj/item/I, mob/user, params)
+/turf/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(..())
 		return TRUE
 	if(can_lay_cable())
@@ -490,7 +490,7 @@
 			var/obj/item/stack/cable_coil/C = I
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby(C, user)
+					LC.attackby__legacy__attackchain(C, user)
 					return
 			C.place_turf(src, user)
 			return TRUE
@@ -499,7 +499,7 @@
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby(R, user)
+						LC.attackby__legacy__attackchain(R, user)
 						return
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
@@ -617,6 +617,13 @@
 
 	AddElement(/datum/element/rust/heretic)
 	new /obj/effect/glowing_rune(src)
+
+/// Returns a list of all attached /datum/element/decal/ for this turf
+/turf/proc/get_decals()
+	var/list/datum/element/decals = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_GET_DECALS, decals)
+
+	return decals
 
 /turf/proc/initialize_milla()
 	var/datum/milla_safe/initialize_turf/milla = new()

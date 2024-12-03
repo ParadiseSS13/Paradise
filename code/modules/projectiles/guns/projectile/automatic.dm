@@ -32,7 +32,7 @@
 	if(select == 1)
 		. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/attackby(obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
 	. = ..()
 	if(.)
 		if(alarmed) // Did the empty clip alarm go off already?
@@ -121,7 +121,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/gun/projectile/automatic/c20r/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+/obj/item/gun/projectile/automatic/c20r/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
 
@@ -193,18 +193,18 @@
 	qdel(underbarrel)
 	return ..()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(select == 2)
-		underbarrel.afterattack(target, user, flag, params)
+		underbarrel.afterattack__legacy__attackchain(target, user, flag, params)
 	else
 		..()
 		return
 
-/obj/item/gun/projectile/automatic/m90/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/automatic/m90/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self(user)
-			underbarrel.attackby(A, user, params)
+			underbarrel.attack_self__legacy__attackchain(user)
+			underbarrel.attackby__legacy__attackchain(A, user, params)
 	else
 		return ..()
 
@@ -329,7 +329,7 @@
 	. = ..()
 	if(magazine)
 		. += "[magazine.icon_state]"
-		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
 			w_class = WEIGHT_CLASS_BULKY
 		else
 			w_class = WEIGHT_CLASS_NORMAL
@@ -339,8 +339,8 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
+	if(istype(A, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
 		if(isstorage(loc))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc
 			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
@@ -348,7 +348,7 @@
 				return
 	return ..()
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+/obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
 
