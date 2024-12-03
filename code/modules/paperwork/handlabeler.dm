@@ -7,14 +7,22 @@
 	var/label = null
 	var/labels_left = 30
 	var/mode = LABEL_MODE_OFF
-
 	new_attack_chain = TRUE
 
+/obj/item/hand_labeler/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There [labels_left == 1 ? "is" : "are"] [labels_left] label[labels_left == 1 ? "" : "s"] remaining.</span>"
+	if(label)
+		. += "<span class='notice'>The label is currently set to \"[label]\".</span>"
+	
 /obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(..())
 		return NONE
 
-	if(mode == LABEL_MODE_OFF)	//if it's off, give up.
+	if(mode == LABEL_MODE_OFF)
+		if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE))
+			playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
+			to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
 		return ITEM_INTERACT_SUCCESS
 
 	if(!labels_left)
@@ -68,25 +76,27 @@
 	else
 		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
 
-/obj/item/hand_labeler/attack_by(obj/item/I, mob/user, params)
+/obj/item/hand_labeler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(..())
-		return FINISH_ATTACK
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/hand_labeler_refill))
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	if(istype(used, /obj/item/hand_labeler_refill))
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		user.drop_item()
-		qdel(I)
+		qdel(used)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
-	else if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/id = I
+		return ITEM_INTERACT_SUCCESS
+	else if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/id = used
 		if(istype(id, /obj/item/card/id/guest) || !id.registered_name)
 			to_chat(user, "<span class='warning'>Invalid ID card.</span>")
+			return ITEM_INTERACT_BLOCKING
 		else
 			label = id.registered_name
 			mode = LABEL_MODE_GOAL
-			to_chat(user, "<span class='notice'>You configure the hand labeler with [I].</span>")
+			to_chat(user, "<span class='notice'>You configure the hand labeler with [used].</span>")
 			icon_state = "labeler1"
-	return FINISH_ATTACK
+			return ITEM_INTERACT_SUCCESS
 
 /obj/item/hand_labeler_refill
 	name = "hand labeler paper roll"
