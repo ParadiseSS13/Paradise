@@ -269,7 +269,7 @@
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
-	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
@@ -335,7 +335,7 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_surgical"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
@@ -416,7 +416,7 @@
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
@@ -801,7 +801,7 @@
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
-/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
 		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))

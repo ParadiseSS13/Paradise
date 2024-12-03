@@ -52,7 +52,7 @@
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
-/obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
 			return
@@ -180,7 +180,7 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(forge_icon_state, "forge")
 
-/obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/forge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!iscarbon(G.affecting))

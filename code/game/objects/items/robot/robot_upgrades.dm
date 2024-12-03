@@ -120,7 +120,7 @@
 	delete_after_install = TRUE
 	var/heldname = "default name"
 
-/obj/item/borg/upgrade/rename/attack_self(mob/user)
+/obj/item/borg/upgrade/rename/attack_self__legacy__attackchain(mob/user)
 	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	if(!new_heldname)
 		return
@@ -487,7 +487,7 @@
 		/obj/item/hemostat = /obj/item/hemostat/alien,
 		/obj/item/retractor = /obj/item/retractor/alien,
 		/obj/item/bonegel = /obj/item/bonegel/alien,
-		/obj/item/FixOVein = /obj/item/FixOVein/alien,
+		/obj/item/fix_o_vein = /obj/item/fix_o_vein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
 		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,

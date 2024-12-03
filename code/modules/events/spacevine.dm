@@ -87,7 +87,7 @@
 
 //All of this shit is useless for vines
 
-/turf/simulated/floor/vines/attackby()
+/turf/simulated/floor/vines/attackby__legacy__attackchain()
 	return
 
 /turf/simulated/floor/vines/burn_tile()
@@ -477,7 +477,7 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/spacevine/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I

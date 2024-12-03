@@ -56,7 +56,7 @@
 		. += mutable_appearance('icons/obj/chemical_flamethrower.dmi', "[chemical_canister.icon_state]_[iterator]")
 		iterator++
 
-/obj/item/chemical_flamethrower/attack_self(mob/user)
+/obj/item/chemical_flamethrower/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(length(canisters))
 		unequip_canisters(user)
@@ -71,7 +71,7 @@
 	canisters -= canister_to_remove
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/chemical_flamethrower/attackby(obj/item/I, mob/user, params)
+/obj/item/chemical_flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/chemical_canister))
 		to_chat(user, "<span class='notice'>You can't fit [I] in there!</span>")
@@ -112,7 +112,7 @@
 	canister_fire_applications = round(fire_applications / how_many_canisters, 1)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/chemical_flamethrower/afterattack(atom/target, mob/user, flag)
+/obj/item/chemical_flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	. = ..()
 	if(flag || !user)
 		return

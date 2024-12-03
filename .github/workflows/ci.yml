@@ -54,6 +54,7 @@ jobs:
           python tools/ci/no_duplicate_definitions.py
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
+          python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
@@ -95,7 +96,14 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation', '/datum/map/emeraldstation']
+        maptype:
+          [
+            '/datum/map/boxstation',
+            '/datum/map/deltastation',
+            '/datum/map/metastation',
+            '/datum/map/cerestation',
+            '/datum/map/emeraldstation',
+          ]
         byondtype: ['STABLE']
     services:
       mariadb:

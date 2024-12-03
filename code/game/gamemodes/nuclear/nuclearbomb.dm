@@ -168,7 +168,7 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += core ? "nukecore3" : "nukecore4"
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/nuclearbomb/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(auth)
@@ -365,7 +365,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
-		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		"<span class='notice'>You cut apart the anchoring system's sealant.</span>")
 		removal_stage = NUKE_SEALANT_OPEN
 	update_icon(UPDATE_OVERLAYS)
 

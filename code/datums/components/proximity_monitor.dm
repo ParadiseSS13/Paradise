@@ -286,3 +286,166 @@
 	. = ..()
 	if(active && AM != monitor.hasprox_receiver && !(AM in monitor.nested_receiver_locs))
 		monitor.hasprox_receiver.HasProximity(AM)
+
+/// A custom proximity monitor used for tracking players around a table of cards.
+
+/datum/component/proximity_monitor/table
+	/// How far away you can be (in terms of table squares).
+	var/max_table_distance
+	/// How far away you can be (euclidean distance).
+	var/max_total_distance
+	/// The UID of the deck
+	var/deck_uid
+	/// Whether the monitors created should be visible. Used for debugging.
+	var/monitors_visible = FALSE
+
+/datum/component/proximity_monitor/table/Initialize(_radius = 1, _always_active = FALSE, _max_table_distance = 5)
+	max_table_distance = _max_table_distance
+	max_total_distance = _max_table_distance
+	. = ..(_radius, _always_active)
+	if(istype(parent, /obj/item/deck))
+		// this is important for tracking traits and attacking multiple cards. so it's not a true UID, sue me
+		var/obj/item/deck/D = parent
+		deck_uid = D.main_deck_id
+	else
+		deck_uid = parent.UID()
+	addtimer(CALLBACK(src, PROC_REF(refresh)), 0.5 SECONDS)
+
+/datum/component/proximity_monitor/table/proc/refresh()
+	var/list/tables = list()
+	var/list/prox_mon_spots = list()
+	crawl_along(get_turf(parent), tables, prox_mon_spots, 0)
+	QDEL_LIST_CONTENTS(proximity_checkers)
+	create_prox_checkers()
+
+/// Crawl along an extended table, and return a list of all turfs that we should start tracking.
+/datum/component/proximity_monitor/table/proc/crawl_along(turf/current_turf, list/visited_tables = list(), list/prox_mon_spots = list(), distance_from_start)
+	var/obj/structure/current_table = locate(/obj/structure/table) in current_turf
+
+	if(QDELETED(current_table))
+		// if there's no table here, we're still adjacent to a table, so this is a spot you could play from
+		prox_mon_spots |= current_turf
+		return
+
+	if(current_table in visited_tables)
+		return
+
+	visited_tables |= current_table
+	prox_mon_spots |= current_turf
+
+	if(distance_from_start + 1 > max_table_distance)
+		return
+
+	for(var/direction in GLOB.alldirs)
+		var/turf/next_turf = get_step(current_table, direction)
+		if(!istype(next_turf))
+			continue
+		if(get_dist_euclidian(get_turf(parent), next_turf) > max_total_distance)
+			continue
+		.(next_turf, visited_tables, prox_mon_spots, distance_from_start + 1)
+
+/datum/component/proximity_monitor/table/create_prox_checkers()
+	update_prox_checkers(FALSE)
+
+/**
+ * Update the proximity monitors making up this component.
+ * Arguments:
+ * * clear_existing - If true, any existing proximity monitors attached to this will be deleted.
+ */
+/datum/component/proximity_monitor/table/proc/update_prox_checkers(clear_existing = TRUE)
+	var/list/tables = list()
+	var/list/prox_mon_spots = list()
+	if(length(proximity_checkers))
+		QDEL_LIST_CONTENTS(proximity_checkers)
+
+	var/atom/movable/atom_parent = parent
+
+	// if we don't have a parent, just treat it normally
+	if(!isturf(atom_parent.loc) || !locate(/obj/structure/table) in get_turf(parent))
+		return
+
+
+	LAZYINITLIST(proximity_checkers)
+	crawl_along(get_turf(parent), tables, prox_mon_spots, 0)
+
+	// For whatever reason their turf is null. Create the checkers in nullspace for now. When the parent moves to a valid turf, they can be recenetered.
+	for(var/T in prox_mon_spots)
+		create_single_prox_checker(T, /obj/effect/abstract/proximity_checker/table)
+
+	for(var/atom/table in tables)
+		RegisterSignal(table, COMSIG_PARENT_QDELETING, PROC_REF(on_table_qdel), TRUE)
+
+/datum/component/proximity_monitor/table/on_receiver_move(datum/source, atom/old_loc, dir)
+	update_prox_checkers()
+
+/datum/component/proximity_monitor/table/RegisterWithParent()
+	if(ismovable(hasprox_receiver))
+		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_MOVED, PROC_REF(on_receiver_move))
+
+/datum/component/proximity_monitor/table/proc/on_table_qdel()
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETED
+	update_prox_checkers()
+
+/obj/effect/abstract/proximity_checker/table
+	/// The UID for the deck, used in the setting and removal of traits
+	var/deck_uid
+
+/obj/effect/abstract/proximity_checker/table/Initialize(mapload, datum/component/proximity_monitor/table/P)
+	. = ..()
+	deck_uid = P.deck_uid
+	// catch any mobs on our tile
+	for(var/mob/living/L in get_turf(src))
+		register_on_mob(L)
+
+	if(P.monitors_visible)
+		icon = 'icons/obj/playing_cards.dmi'
+		icon_state = "tarot_the_unknown"
+		invisibility = INVISIBILITY_MINIMUM
+		layer = MOB_LAYER
+
+/obj/effect/abstract/proximity_checker/table/Destroy()
+	var/obj/effect/abstract/proximity_checker/table/same_monitor
+	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(src))
+		if(mon != src && mon.deck_uid == src)
+			// if we have another monitor on our space that shares our deck,
+			// transfer the signals to it.
+			same_monitor = mon
+
+	for(var/mob/living/L in get_turf(src))
+		remove_from_mob(L)
+		if(!isnull(same_monitor))
+			same_monitor.register_on_mob(L)
+	return ..()
+
+/obj/effect/abstract/proximity_checker/table/proc/register_on_mob(mob/living/L)
+	ADD_TRAIT(L, TRAIT_PLAYING_CARDS, "deck_[deck_uid]")
+	RegisterSignal(L, COMSIG_MOVABLE_MOVED, PROC_REF(on_move_from_monitor), TRUE)
+	RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_mob), TRUE)
+
+
+/obj/effect/abstract/proximity_checker/table/proc/remove_from_mob(mob/living/L)
+	if(QDELETED(L))
+		return
+	// otherwise, clean up
+	REMOVE_TRAIT(L, TRAIT_PLAYING_CARDS, "deck_[deck_uid]")
+	UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
+
+/obj/effect/abstract/proximity_checker/table/Crossed(atom/movable/AM, oldloc)
+	if(!isliving(AM))
+		return
+
+	var/mob/mover = AM
+
+	// This should hopefully ensure that multiple decks around each other don't overlap
+	register_on_mob(mover)
+
+/// Triggered when someone moves from a tile that contains our monitor.
+/obj/effect/abstract/proximity_checker/table/proc/on_move_from_monitor(atom/movable/tracked, atom/old_loc)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(tracked))
+		// if we're moving onto a turf that shares our stuff, keep the signals and stuff registered
+		if(mon.deck_uid == deck_uid)
+			return
+
+	// otherwise, clean up
+	remove_from_mob(tracked)

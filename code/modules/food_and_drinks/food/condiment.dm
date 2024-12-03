@@ -39,10 +39,10 @@
 	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/condiment/attack_self(mob/user)
+/obj/item/reagent_containers/condiment/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/reagent_containers/condiment/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/condiment/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
@@ -69,7 +69,7 @@
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
 
-/obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/afterattack__legacy__attackchain(obj/target, mob/user , proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
@@ -118,6 +118,7 @@
 		icon_state = "emptycondiment"
 		name = "condiment bottle"
 		desc = "An empty condiment bottle."
+	update_appearance(UPDATE_NAME)
 
 /obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
@@ -318,10 +319,10 @@
 	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 	"vinegar" =list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."))
 
-/obj/item/reagent_containers/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
+/obj/item/reagent_containers/condiment/pack/attack__legacy__attackchain(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
-/obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/pack/afterattack__legacy__attackchain(obj/target, mob/user , proximity)
 	if(!proximity) return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.

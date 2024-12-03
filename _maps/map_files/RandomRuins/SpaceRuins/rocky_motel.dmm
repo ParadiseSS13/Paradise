@@ -8,7 +8,7 @@
 "ci" = (
 /obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cx" = (
@@ -66,8 +66,6 @@
 /area/ruin/space/powered)
 "gs" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -75,14 +73,14 @@
 /area/ruin/space/powered)
 "gP" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "hB" = (
@@ -103,7 +101,6 @@
 "jf" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -156,8 +153,6 @@
 /area/ruin/space/powered)
 "oI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -168,18 +163,12 @@
 /area/ruin/space/powered)
 "pi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -216,8 +205,6 @@
 /area/ruin/space/powered)
 "uO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -243,7 +230,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Cw" = (
@@ -257,8 +244,6 @@
 /area/ruin/space/powered)
 "CF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -266,8 +251,6 @@
 /area/ruin/space/powered)
 "CP" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -329,11 +312,9 @@
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -375,10 +356,6 @@
 /obj/item/crowbar,
 /obj/structure/rack,
 /turf/simulated/floor/carpet/black,
-/area/ruin/space/powered)
-"Px" = (
-/obj/structure/falsewall/rock_ancient,
-/turf/space,
 /area/ruin/space/powered)
 "PM" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -441,8 +418,6 @@
 /area/ruin/space/powered)
 "TT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -466,8 +441,6 @@
 /area/ruin/space/powered)
 "Vl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -490,7 +463,6 @@
 /area/ruin/space/powered)
 "XM" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -501,19 +473,13 @@
 /area/ruin/space/powered)
 "XP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1022,7 +988,7 @@ vN
 Ya
 Ya
 PM
-Px
+ph
 Ya
 vN
 vN

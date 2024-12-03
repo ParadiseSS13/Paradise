@@ -11,7 +11,6 @@
 		return l_hand
 	if(istype(r_hand,typepath))
 		return r_hand
-	return 0
 
 
 /mob/living/carbon/human/proc/has_organ(name)
@@ -24,6 +23,8 @@
 			return has_organ("chest")
 		if(ITEM_SLOT_MASK)
 			return has_organ("head")
+		if(ITEM_SLOT_NECK)
+			return has_organ("chest")
 		if(ITEM_SLOT_HANDCUFFED)
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(ITEM_SLOT_LEGCUFFED)
@@ -79,6 +80,8 @@
 			update_inv_w_uniform()
 		if(I.flags_inv & HIDESHOES)
 			update_inv_shoes()
+		if(I.flags_inv & HIDEGLOVES)
+			update_inv_gloves()
 		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
@@ -94,6 +97,9 @@
 	else if(I == gloves)
 		gloves = null
 		update_inv_gloves()
+	else if(I == neck)
+		neck = null
+		update_inv_neck()
 	else if(I == glasses)
 		glasses = null
 		var/obj/item/clothing/glasses/G = I
@@ -116,6 +122,8 @@
 			var/obj/item/clothing/head/hat = I
 			if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 				update_sight()
+		if(I.flags_inv & HIDEEARS)
+			update_inv_ears()
 		head_update(I)
 		update_inv_head()
 		update_misc_effects()
@@ -139,6 +147,8 @@
 			update_head_accessory()
 		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
+		if(I.flags_inv & HIDEEARS)
+			update_inv_ears()
 		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_misc_effects()
@@ -211,9 +221,14 @@
 				update_head_accessory()
 			if(length(hud_list))
 				sec_hud_set_ID()
+			if(wear_mask.flags_inv & HIDEEARS)
+				update_inv_ears()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_misc_effects()
 			update_inv_wear_mask()
+		if(ITEM_SLOT_NECK)
+			neck = I
+			update_inv_neck()
 		if(ITEM_SLOT_HANDCUFFED)
 			handcuffed = I
 			update_inv_handcuffed()
@@ -281,6 +296,8 @@
 				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
 			// this calls update_inv_head() on its own
+			if(head.flags_inv & HIDEEARS)
+				update_inv_ears()
 			update_misc_effects()
 			head_update(I)
 		if(ITEM_SLOT_SHOES)
@@ -288,8 +305,12 @@
 			update_inv_shoes()
 		if(ITEM_SLOT_OUTER_SUIT)
 			wear_suit = I
+			if(wear_suit.flags_inv & HIDEJUMPSUIT)
+				update_inv_w_uniform()
 			if(wear_suit.flags_inv & HIDESHOES)
 				update_inv_shoes()
+			if(wear_suit.flags_inv & HIDEGLOVES)
+				update_inv_gloves()
 			update_inv_wear_suit()
 		if(ITEM_SLOT_JUMPSUIT)
 			w_uniform = I
@@ -314,7 +335,7 @@
 				I.forceMove(back)
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
-			uniform.attackby(I, src)
+			uniform.attackby__legacy__attackchain(I, src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 
@@ -342,6 +363,8 @@
 			return back
 		if(ITEM_SLOT_MASK)
 			return wear_mask
+		if(ITEM_SLOT_NECK)
+			return neck
 		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
 		if(ITEM_SLOT_LEGCUFFED)

@@ -67,8 +67,8 @@
 	var/parrot_speed = 5 //"Delay in world ticks between movement." according to byond. Yeah, that's BS but it does directly affect movement. Higher number = slower.
 	var/parrot_been_shot = 0 //Parrots get a speed bonus after being shot. This will deincrement every process_ai() and at 0 the parrot will return to regular speed.
 
-	var/list/speech_buffer
-	var/list/available_channels
+	var/list/speech_buffer = list()
+	var/list/available_channels = list()
 
 	//Headset for Poly to yell at engineers :)
 	var/obj/item/radio/headset/ears = null
@@ -80,35 +80,43 @@
 	//Parrots will generally sit on their pertch unless something catches their eye.
 	//These vars store their preffered perch and if they dont have one, what they can use as a perch
 	var/obj/parrot_perch = null
-	var/obj/desired_perches = null
+	var/list/desired_perches
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
 	initial_traits = list(TRAIT_FLYING)
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-/mob/living/simple_animal/parrot/New()
-	..()
-	speech_buffer = list()
-	available_channels = list()
+/mob/living/simple_animal/parrot/Initialize(mapload)
+	. = ..()
+
 	GLOB.hear_radio_list += src
 	update_speak()
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	verbs.Add(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-			/mob/living/simple_animal/parrot/proc/steal_from_mob, \
-			/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			/mob/living/simple_animal/parrot/proc/perch_player)
+	verbs.Add(list(
+		/mob/living/simple_animal/parrot/proc/steal_from_ground,
+		/mob/living/simple_animal/parrot/proc/steal_from_mob,
+		/mob/living/simple_animal/parrot/verb/drop_held_item_player,
+		/mob/living/simple_animal/parrot/proc/perch_player
+	))
 
-	desired_perches = typecacheof(list(/obj/structure/computerframe, 	/obj/structure/displaycase, \
-									/obj/structure/filingcabinet,	/obj/machinery/teleport, \
-									/obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
-									/obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
-									/obj/machinery/nuclearbomb,		/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
-									/obj/machinery/computer))
-
+	desired_perches = typecacheof(list(
+		/obj/machinery/clonepod,
+		/obj/machinery/computer,
+		/obj/machinery/dna_scannernew,
+		/obj/machinery/nuclearbomb,
+		/obj/machinery/particle_accelerator,
+		/obj/machinery/recharge_station,
+		/obj/machinery/smartfridge,
+		/obj/machinery/suit_storage_unit,
+		/obj/machinery/tcomms,
+		/obj/machinery/teleport,
+		/obj/structure/computerframe,
+		/obj/structure/displaycase,
+		/obj/structure/filingcabinet
+	))
 
 /mob/living/simple_animal/parrot/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
@@ -159,7 +167,7 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/parrot/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
@@ -641,7 +649,7 @@
 /*
  * Sub-types
  */
-/mob/living/simple_animal/parrot/Poly
+/mob/living/simple_animal/parrot/poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
@@ -669,14 +677,15 @@
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-
-/mob/living/simple_animal/parrot/Poly/New()
-	ears = new /obj/item/radio/headset/headset_eng(src)
 	available_channels = list(":e")
-	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
-	..()
 
-/mob/living/simple_animal/parrot/Poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
+/mob/living/simple_animal/parrot/poly/Initialize(mapload)
+	. = ..()
+
+	ears = new /obj/item/radio/headset/headset_eng(src)
+	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
+
+/mob/living/simple_animal/parrot/poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
 	return FALSE
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

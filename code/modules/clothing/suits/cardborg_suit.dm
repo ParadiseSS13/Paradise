@@ -105,7 +105,7 @@ CONTENTS:
 	icon_state = "cardborg_h_deathbot"
 	item_state = "cardborg_h_deathbot"
 	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
-	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma")
+	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma", "spidersyndi", "syndieheavy")
 	species_disguise = "High-tech killer robot"
 
 /*

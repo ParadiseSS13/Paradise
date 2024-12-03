@@ -32,7 +32,8 @@
 		server_region,
 		muted_adminsounds_ckeys,
 		viewrange,
-		map_vote_pref_json
+		map_vote_pref_json,
+		toggles_3
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

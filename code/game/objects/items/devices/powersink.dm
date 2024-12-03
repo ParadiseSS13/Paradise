@@ -99,6 +99,7 @@
 				"<span class='italics'>You hear a click.</span>")
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
+			notify_ghosts("[user] has activated a [name]!", title = "An electrifying occurrence! (Click to follow)", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 			set_mode(OPERATING)
 
 		if(OPERATING)
@@ -141,6 +142,7 @@
 		if(!admins_warned)
 			admins_warned = TRUE
 			message_admins("Power sink at ([x],[y],[z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
+			notify_ghosts("A [name] is almost at max capacity, and is about to explode!", title = "An electrifying occurrence! (Click to follow)", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)
 
 	if(power_drained >= max_power)

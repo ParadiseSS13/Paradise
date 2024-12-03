@@ -170,7 +170,7 @@
 			qdel(B)
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HELP
-		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
+		for(var/obj/structure/closet/secure_closet/depot/L in src)
 			if(L.opened)
 				L.close()
 			if(!L.locked)
@@ -184,7 +184,7 @@
 			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
 			A.req_access = list(ACCESS_SYNDICATE_LEADER)
-		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
+		for(var/obj/structure/closet/secure_closet/depot/L in src)
 			if(L.locked)
 				L.locked = !L.locked
 			L.req_access = list()
@@ -352,7 +352,7 @@
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
-	for(var/obj/structure/closet/secure_closet/syndicate/depot/armory/L in src)
+	for(var/obj/structure/closet/secure_closet/depot/armory/L in src)
 		if(L.opened)
 			L.close()
 		if(!L.locked)
@@ -374,7 +374,7 @@
 		if(S)
 			qdel(S)
 	shield_list = list()
-	for(var/obj/structure/closet/secure_closet/syndicate/depot/armory/L in src)
+	for(var/obj/structure/closet/secure_closet/depot/armory/L in src)
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
