@@ -8,3 +8,4 @@
 #include "code/configuration/antag_mix_configuration.dm"
 #include "code/mind/memory_edit.dm"
 #include "code/antag_mix/antag_mix.dm"
+#include "code/morph/morph.dm"
