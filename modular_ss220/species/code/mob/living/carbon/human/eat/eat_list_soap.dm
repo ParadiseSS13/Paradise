@@ -1,4 +1,4 @@
-/obj/item/soap/afterattack(atom/target, mob/user, proximity)
+/obj/item/soap/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity) return
 	if(try_item_eat(target, user))
 		return FALSE

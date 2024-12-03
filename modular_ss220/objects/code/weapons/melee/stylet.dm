@@ -30,7 +30,7 @@
 	else
 		icon_state = "stylet_0"
 
-/obj/item/melee/stylet/attack_self(mob/user)
+/obj/item/melee/stylet/attack_self__legacy__attackchain(mob/user)
 	on = !on
 
 	if(on)

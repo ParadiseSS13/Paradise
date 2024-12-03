@@ -45,7 +45,7 @@
 	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
-/obj/item/mop/afterattack(atom/A, mob/user, proximity)
+/obj/item/mop/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
@@ -70,7 +70,7 @@
 		reagents.reaction(T, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/effect/attackby(obj/item/I, mob/user, params)
+/obj/effect/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
 		return
 	else
@@ -100,7 +100,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mop/advanced/attack_self(mob/user)
+/obj/item/mop/advanced/attack_self__legacy__attackchain(mob/user)
 	refill_enabled = !refill_enabled
 	if(refill_enabled)
 		START_PROCESSING(SSobj, src)

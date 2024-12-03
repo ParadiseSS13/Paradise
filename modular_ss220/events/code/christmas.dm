@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 	name = "\improper новогодний подарок"
 	desc = "Подарок! Что же тут..."
 
-/obj/item/a_gift/anything/attack_self(mob/M)
+/obj/item/a_gift/anything/attack_self__legacy__attackchain(mob/M)
 	if(!GLOB.possible_gifts.len)
 		var/list/gift_types_list = subtypesof(/obj/item)
 		for(var/thing in gift_types_list)

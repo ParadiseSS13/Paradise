@@ -1,10 +1,10 @@
 #define GET_FUEL reagents.get_reagent_amount("fuel")
 
-/obj/item/gun/projectile/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
 
-/obj/item/gun/projectile/attack_self(mob/living/user)
+/obj/item/gun/projectile/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
 
@@ -32,11 +32,11 @@
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
 
-/obj/item/gun/projectile/revolver/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
 

@@ -124,7 +124,7 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), attacker)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/item/deck/attackby(obj/O, mob/user)
+/obj/item/deck/attackby__legacy__attackchain(obj/O, mob/user)
 	// clicking is for drawing
 	if(istype(O, /obj/item/deck))
 		var/obj/item/deck/other_deck = O
@@ -450,7 +450,7 @@
 		)
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
-/obj/item/deck/attack_self(mob/user)
+/obj/item/deck/attack_self__legacy__attackchain(mob/user)
 	deckshuffle(user)
 
 /obj/item/deck/proc/deckshuffle(mob/user)
@@ -510,7 +510,7 @@
 	var/parentdeck = null // For future card pack that need to be compatible with eachother i.e. cardemon
 
 
-/obj/item/pack/attack_self(mob/user as mob)
+/obj/item/pack/attack_self__legacy__attackchain(mob/user as mob)
 	user.visible_message(
 		"<span class='notice'>[name] rips open [src]!</span>",
 		"<span class='notice'>You rip open [src]!</span>",
@@ -570,7 +570,7 @@
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
 
-/obj/item/cardhand/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cardhand/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	// this is how we handle our ranged attacks.
 	. = ..()
 	if(!istype(target, /obj/item/deck) || proximity_flag)
@@ -579,7 +579,7 @@
 
 	var/obj/item/deck/D = target
 	if(D.in_play_range(user))
-		return D.attackby(src, user)
+		return D.attackby__legacy__attackchain(src, user)
 
 /obj/item/deck/hitby(atom/movable/thrown, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 
@@ -674,7 +674,7 @@
 	attack_verb = source.attack_verb
 	resistance_flags = source.resistance_flags
 
-/obj/item/cardhand/attackby(obj/O, mob/user)
+/obj/item/cardhand/attackby__legacy__attackchain(obj/O, mob/user)
 	// Augh I really don't like this
 	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
@@ -709,7 +709,7 @@
 			return
 	return ..()
 
-/obj/item/cardhand/attack_self(mob/user)
+/obj/item/cardhand/attack_self__legacy__attackchain(mob/user)
 	if(length(cards) == 1)
 		turn_hand(user)
 		return

@@ -22,7 +22,7 @@
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		return TRUE
 
-/obj/item/lance_docking_generator/attack_self(mob/living/user)
+/obj/item/lance_docking_generator/attack_self__legacy__attackchain(mob/living/user)
 	if(!is_station_level(user.z))
 		to_chat(user, "<span class='warning'>You'll want this to dock on the station.</span>")
 		return

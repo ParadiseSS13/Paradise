@@ -50,7 +50,7 @@
 	icon_state = "laser_gate_mk2"
 	origin_tech = "combat=3;magnets=2;powerstorage=2;programming=3;"
 
-/obj/item/gun/energy/laser/awaymission_aeg/rnd/mk2/attack_self(mob/living/user)
+/obj/item/gun/energy/laser/awaymission_aeg/rnd/mk2/attack_self__legacy__attackchain(mob/living/user)
 	var/msg_for_all = span_warning("[user.name] усердно давит на рычаг зарядки [src], но он не поддается!")
 	var/msg_for_user = span_notice("Вы пытаетесь надавить на рычаг зарядки [src], но он заблокирован.")
 	var/msg_recharge_all = span_notice("[user.name] усердно давит на рычаг зарядки [src]...")

@@ -35,7 +35,7 @@
 	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 	return ..()
 
-/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+/obj/machinery/doppler_array/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)

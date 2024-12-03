@@ -137,7 +137,7 @@
 	. = ..()
 	trash = /obj/item/ammo_casing/peas_shooter
 
-/obj/item/food/grown/soybeans/attack_self(mob/user)
+/obj/item/food/grown/soybeans/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return

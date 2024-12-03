@@ -18,7 +18,7 @@
 	maximum_reagents = 60
 
 /* Service */
-/obj/item/rsf/attack_self(mob/user)
+/obj/item/rsf/attack_self__legacy__attackchain(mob/user)
 	if(..() && power_mode >= 3000)
 		power_mode /= 2
 

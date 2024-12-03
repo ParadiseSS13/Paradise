@@ -44,7 +44,7 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 
-/obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
+/obj/item/melee/baseball_bat/homerun/central_command/attack_self__legacy__attackchain(mob/user)
 	on = !on
 
 	if(on)

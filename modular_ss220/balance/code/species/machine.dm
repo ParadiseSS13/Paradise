@@ -11,7 +11,7 @@
 	new /obj/item/stack/cable_coil/five(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
+/obj/machinery/recharger/attackby__legacy__attackchain(obj/item/G, mob/user, params)
 	if(istype(G, /obj/item/melee/baton/electrostaff))
 		to_chat(user, span_notice("[G] не имеет внешних разъемов для подзарядки."))
 		return

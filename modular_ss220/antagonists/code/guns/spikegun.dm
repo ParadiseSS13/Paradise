@@ -27,7 +27,7 @@
 		is_vox_private = TRUE
 		to_chat(user, span_notice("Оружие инициализировало вас, более никто кроме Воксов не сможет им воспользоваться."))
 
-/obj/item/gun/energy/spike/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/energy/spike/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(is_vox_private && !isvox(user))
 		if(prob(20))
 			to_chat(user, span_notice("Оружие отказывается с вами работать и не активируется."))
@@ -38,7 +38,7 @@
 	return
 
 // Перезарядка батареями
-/obj/item/gun/energy/spike/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/spike/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(can_reload && istype(I, cell_type) && user && user.unEquip(I))
 		to_chat(user, span_notice("Вы заменили [I] в [src]!"))
 		if(cell)

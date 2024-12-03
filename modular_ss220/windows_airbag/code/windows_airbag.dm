@@ -84,7 +84,7 @@
 /obj/item/airbag/update_icon_state()
 	icon_state = "[initial(icon_state)]_[armed ? "armed" : "safe"]"
 
-/obj/item/airbag/attack_self(mob/user, modifiers)
+/obj/item/airbag/attack_self__legacy__attackchain(mob/user, modifiers)
 	. = ..()
 	arm()
 

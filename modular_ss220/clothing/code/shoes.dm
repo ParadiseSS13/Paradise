@@ -26,7 +26,7 @@
 		if(/datum/action/item_action/toggle_light)
 			toggle_glow(user)
 
-/obj/item/clothing/shoes/black/neon/attack_self(mob/user)
+/obj/item/clothing/shoes/black/neon/attack_self__legacy__attackchain(mob/user)
 	var/choice = tgui_input_list(user, "Что вы хотите сделать?", "Неоновые кроссовки", list("Переключить подсветку", "Сменить цвет"))
 	switch(choice)
 		if("Переключить подсветку")

@@ -20,7 +20,7 @@
 		is_vox_private = TRUE
 		to_chat(user, span_notice("Оружие инициализировало вас, более никто кроме Воксов не сможет им воспользоваться."))
 
-/obj/item/gun/throw/biogun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/throw/biogun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(is_vox_private && !isvox(user))
 		if(prob(20))
 			to_chat(user, span_notice("Оружие отказывается с вами работать и не активируется."))

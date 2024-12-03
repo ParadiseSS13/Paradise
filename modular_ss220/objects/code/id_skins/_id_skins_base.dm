@@ -14,7 +14,7 @@
 /obj/item/card/id/thunderdome
 	skinable = FALSE
 
-/obj/item/card/id/attackby(obj/item/item, mob/user, params)
+/obj/item/card/id/attackby__legacy__attackchain(obj/item/item, mob/user, params)
 	. = ..()
 	if(!istype(item, /obj/item/id_skin))
 		return .
@@ -123,7 +123,7 @@
 
 	color = color_list[pick(color_list)]
 
-/obj/item/id_skin/colored/attack_self(mob/living)
+/obj/item/id_skin/colored/attack_self__legacy__attackchain(mob/living)
 	var/choice = tgui_input_list(usr, "Какой цвет предпочитаете?", "Выбор цвета", list("Выбрать предустановленный", "Выбрать вручную"))
 	if(!choice)
 		return

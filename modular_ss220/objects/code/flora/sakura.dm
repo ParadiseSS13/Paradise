@@ -155,7 +155,7 @@
 		if(sakura.icon_state == "cherry_blossom3")
 			pixel_x = -7
 
-/obj/effect/decal/sakura_leaves/attackby(obj/item/I, mob/user)
+/obj/effect/decal/sakura_leaves/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(I.get_heat() && !on_fire)
 		visible_message(span_danger("[src] bursts into flames!"))
 		fire_act()

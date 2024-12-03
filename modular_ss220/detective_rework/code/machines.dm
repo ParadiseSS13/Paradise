@@ -60,7 +60,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
-/obj/machinery/dnaforensics/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 
 	if(swab)
 		to_chat(user, span_warning("Внутри сканера уже есть пробирка."))
@@ -183,7 +183,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/microscope/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/microscope/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 
 	if(sample)
 		to_chat(user, span_warning("В микроскопе уже есть образец!"))

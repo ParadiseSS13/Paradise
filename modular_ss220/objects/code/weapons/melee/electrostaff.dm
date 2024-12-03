@@ -66,8 +66,8 @@
 	if(unique_reskin)
 		. += span_notice("<b>Alt-click</b>, to reskin it.")
 
-/obj/item/melee/baton/electrostaff/attack_self(mob/user)
-	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
+/obj/item/melee/baton/electrostaff/attack_self__legacy__attackchain(mob/user)
+	var/signal_ret = SEND_SIGNAL(src, COMSIG_ACTIVATE_SELF, user)
 	if(signal_ret & COMPONENT_NO_INTERACT)
 		return
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)

@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
-/obj/structure/shelf/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/shelf/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	var/obj/item/toy/crayon/spraycan/spraycan = I
 	if(!istype(spraycan))
 		return ..()

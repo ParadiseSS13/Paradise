@@ -127,7 +127,7 @@
 	unwieldsound = 'modular_ss220/prime_only/sound/weapons/kel_saberoff.ogg'
 	hit_wield = 'modular_ss220/prime_only/sound/weapons/kel_saberhit.ogg'
 
-/obj/item/dualsaber/legendary_saber/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/dualsaber/legendary_saber/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	enchant?.on_legendary_hit(target, user, proximity_flag, src)
 

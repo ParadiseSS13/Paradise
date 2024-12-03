@@ -13,7 +13,7 @@
 	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
 	icon_state = "cheesus1"
 
-/obj/structure/statue/cheese/cheesus/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/cheese/cheesus/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	switch(obj_integrity)
 		if(0 to 20)
 			icon_state = "cheesus4"

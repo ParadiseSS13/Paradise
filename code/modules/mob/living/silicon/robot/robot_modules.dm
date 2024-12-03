@@ -415,7 +415,7 @@
 		process_chamber()
 
 //Cannot manually remove syringes
-/obj/item/gun/syringemalf/attack_self(mob/living/user)
+/obj/item/gun/syringemalf/attack_self__legacy__attackchain(mob/living/user)
 	return
 
 //Load syringe into the chamber
@@ -601,7 +601,7 @@
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
 	force = 20
 
-/obj/item/malfbroom/attack(mob/target, mob/user)
+/obj/item/malfbroom/attack__legacy__attackchain(mob/target, mob/user)
 	if(!ishuman(target))
 		return ..()
 	var/mob/living/carbon/human/H = target

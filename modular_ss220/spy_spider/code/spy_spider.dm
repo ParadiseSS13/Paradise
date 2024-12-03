@@ -18,7 +18,7 @@
 	. = ..()
 	. += span_info("Сейчас он [broadcasting ? "включён" : "выключен"].")
 
-/obj/item/radio/spy_spider/attack_self(mob/user)
+/obj/item/radio/spy_spider/attack_self__legacy__attackchain(mob/user)
 	broadcasting = !broadcasting
 	if(broadcasting)
 		to_chat(user, span_info("Ты включаешь жучок."))
@@ -64,7 +64,7 @@
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
-/obj/item/clothing/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
 	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_OUTER_SUIT) || (slot_flags & ITEM_SLOT_JUMPSUIT)))
@@ -102,7 +102,7 @@
 /**
  * HUMAN PART
  */
-/mob/living/carbon/human/attackby(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/human/attackby__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
 
@@ -130,7 +130,7 @@
 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к одежде [src]."))
 	return TRUE
 
-/obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/suit/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/radio/spy_spider))
 		return
 	. = ..()

@@ -37,7 +37,7 @@
 	butcher_results = list(/obj/item/food/meat = 2)
 	holder_type = /obj/item/holder/possum
 
-/mob/living/simple_animal/possum/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/possum/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	icon_state = icon_harm
 	. = ..()
 

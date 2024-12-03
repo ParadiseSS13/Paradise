@@ -232,7 +232,7 @@
 
 /obj/machinery/economy/vending/virodrobe
 	name = "\improper ViroDrobe"
-	desc = "An unsterilized machine for dispending virology related clothing."
+	desc = "An unsterilized machine for dispensing virology related clothing."
 	icon_state = "base_drobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
@@ -862,7 +862,7 @@
 
 /obj/machinery/economy/vending/lawdrobe
 	name = "\improper LawDrobe"
-	desc = "Objection! This wardrobe dispenses the rule of law... and lawyer clothing."
+	desc = "Objection! This wardrobe dispenses the rule of law... Does not make you a lawyer."
 	icon_state = "lawdrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"

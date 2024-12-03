@@ -81,7 +81,7 @@
 /obj/machinery/vox_shop/attack_ai(mob/user)
 	return FALSE
 
-/obj/machinery/vox_shop/attackby(obj/item/O, mob/user, params)
+/obj/machinery/vox_shop/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(isvoxcash(O))
 		user.do_attack_animation(src)
 		insert_cash(O, user)

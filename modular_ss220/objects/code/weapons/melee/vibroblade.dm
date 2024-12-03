@@ -70,7 +70,7 @@
 		? span_danger("Следующий удар будет крайне травмирующим!") \
 		: span_warning("Следующий удар будет усиленным!")
 
-/obj/item/melee/vibroblade/attack_self(mob/living/user)
+/obj/item/melee/vibroblade/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	if(charge_level >= max_charge_level)
 		user.visible_message(

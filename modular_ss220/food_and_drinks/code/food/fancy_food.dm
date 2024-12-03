@@ -26,7 +26,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/food/fancy/attack_self(mob/user)
+/obj/item/food/fancy/attack_self__legacy__attackchain(mob/user)
 	AltClick(user)
 
 /obj/item/food/fancy/examine(mob/user)

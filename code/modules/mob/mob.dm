@@ -701,12 +701,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(hand)
 		var/obj/item/W = l_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_r_hand()
 	return
 

@@ -77,7 +77,7 @@
 /obj/machinery/economy/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
+/obj/machinery/economy/atm/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		if(has_power())
 			handle_id_insert(I, user)

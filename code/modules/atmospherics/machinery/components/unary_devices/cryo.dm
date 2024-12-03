@@ -298,7 +298,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/attackby__legacy__attackchain(obj/item/G, mob/user, params)
 	if(istype(G, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		var/obj/item/reagent_containers/B = G
 		if(beaker)

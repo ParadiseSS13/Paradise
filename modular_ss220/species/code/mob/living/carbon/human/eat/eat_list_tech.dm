@@ -1,4 +1,4 @@
-/obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+/obj/item/pda/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(try_item_eat(A, user))
 		return FALSE
 

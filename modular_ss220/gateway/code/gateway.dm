@@ -165,7 +165,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 
-/obj/machinery/gateway/centerstation/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/gateway/centerstation/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
@@ -288,7 +288,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			return TRUE
 	return FALSE
 
-/obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/gateway/centeraway/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
 		if(calibrated)
 			to_chat(user, span_notice("The gate is already calibrated, there is no work for you to do here."))

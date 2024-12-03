@@ -27,7 +27,7 @@
 		is_vox_private = TRUE
 		to_chat(user, span_notice("Оружие инициализировало вас, более никто кроме Воксов не сможет им воспользоваться."))
 
-/obj/item/gun/syringe/dart_gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/syringe/dart_gun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(is_vox_private && !isvox(user))
 		if(prob(20))
 			to_chat(user, span_notice("Оружие отказывается с вами работать и не активируется."))
@@ -50,7 +50,7 @@
 			. += image(icon = icon, icon_state = "[cartridge_overlay]_[cartridge_loaded.overlay_state_color]",  pixel_y = pixel_y_offset)
 		. += icon_state
 
-/obj/item/gun/syringe/dart_gun/attackby(obj/item/A, mob/user, params, show_msg)
+/obj/item/gun/syringe/dart_gun/attackby__legacy__attackchain(obj/item/A, mob/user, params, show_msg)
 	if(cartridge_loaded)
 		for(var/hold_type in cartridge_loaded.can_hold)
 			if(!istype(A, hold_type))
@@ -101,7 +101,7 @@
 	cartridge_loaded = null
 	update_icon()
 
-/obj/item/gun/syringe/dart_gun/attack_self(mob/living/user)
+/obj/item/gun/syringe/dart_gun/attack_self__legacy__attackchain(mob/living/user)
 	if(cartridge_loaded)
 		playsound(src, 'modular_ss220/antagonists/sound/guns/m79_unload.ogg', 50, 1)
 		to_chat(user, span_notice("Вы выгрузили [cartridge_loaded] с [src]."))
