@@ -11,10 +11,16 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"i" = (
+/obj/item/hand_labeler_refill,
+/obj/item/hand_labeler_refill,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "u" = (
@@ -23,20 +29,33 @@
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"z" = (
+/obj/item/gun/energy/disabler,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"G" = (
+/mob/living/carbon/human,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"Y" = (
+/obj/item/hand_labeler,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -32035,7 +32054,7 @@ a
 a
 a
 u
-x
+G
 x
 I
 x
@@ -32292,9 +32311,9 @@ a
 a
 a
 u
+z
 x
-x
-x
+i
 x
 x
 u
@@ -32808,7 +32827,7 @@ a
 u
 x
 x
-x
+Y
 x
 x
 u
