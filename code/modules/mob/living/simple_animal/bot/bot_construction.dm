@@ -14,7 +14,7 @@
 	var/created_name = "Cleanbot"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
+/obj/item/bucket_sensor/attackby__legacy__attackchain(obj/item/W, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		if(!user.unEquip(W))
@@ -49,7 +49,7 @@
 	var/lasercolor = ""
 	var/new_name = ""
 
-/obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/ed209_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 
 	if(is_pen(W))
@@ -248,7 +248,7 @@
 	desc = "It's a toolbox with tiles sticking out the top and a sensor attached."
 	icon_state = "toolbox_tiles_sensor"
 
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
+/obj/item/storage/toolbox/attackby__legacy__attackchain(obj/item/stack/tile/plasteel/T, mob/user, params)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
@@ -289,7 +289,7 @@
 /obj/item/toolbox_tiles/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles"
 
-/obj/item/toolbox_tiles/attackby(obj/item/W, mob/user, params)
+/obj/item/toolbox_tiles/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(isprox(W))
 		qdel(W)
@@ -313,7 +313,7 @@
 /obj/item/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"
 
-/obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
+/obj/item/toolbox_tiles/sensor/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
@@ -325,7 +325,7 @@
 		qdel(src)
 
 //Medbot Assembly
-/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/firstaid/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
 		return ..()
 	else
@@ -383,7 +383,7 @@
 	if(build_step > 0)
 		. += "na_scanner"
 
-/obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/firstaid_arm_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
@@ -442,7 +442,7 @@
 	var/build_step = 0
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
+/obj/item/clothing/head/helmet/attackby__legacy__attackchain(obj/item/assembly/signaler/S, mob/user, params)
 	..()
 	if(!issignaler(S))
 		..()
@@ -459,7 +459,7 @@
 	qdel(src)
 
 
-/obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/secbot_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
 		if(!build_step)
@@ -564,7 +564,7 @@
 	var/build_step = 0
 	var/toy_step = 0
 
-/obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/griefsky_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
 		if(!user.unEquip(I))
@@ -612,7 +612,7 @@
 	return TRUE
 
 //Honkbot Assembly
-/obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/clown/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
 		return ..()
 	else
@@ -640,7 +640,7 @@
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/honkbot_arm_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(build_step == 0)
 		if(istype(W, /obj/item/assembly/prox_sensor))

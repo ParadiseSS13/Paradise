@@ -29,9 +29,9 @@
 				"name" = get_access_desc(access),
 				"id" = access))
 
-/obj/item/airlock_electronics/attack_self(mob/user)
-	if(!ishuman(user) && !isrobot(user))
-		return ..()
+/obj/item/airlock_electronics/activate_self(mob/user)
+	if(..() || (!ishuman(user) && !isrobot(user)))
+		return
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -108,7 +108,7 @@
 	name = "burned-out airlock electronics"
 	icon_state = "door_electronics_smoked"
 
-/obj/item/airlock_electronics/destroyed/attack_self(mob/user)
+/obj/item/airlock_electronics/destroyed/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)

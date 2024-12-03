@@ -159,7 +159,7 @@
 		if(!faction_check_mob(M))
 			enemies |= M
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	. = ..()
 	if(W.force == 0)
 		return

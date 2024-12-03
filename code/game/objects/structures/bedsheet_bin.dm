@@ -35,7 +35,7 @@ LINEN BINS
 		return
 	return ..()
 
-/obj/item/bedsheet/attack_self(mob/user as mob)
+/obj/item/bedsheet/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
 	if(layer == initial(layer))
 		layer = 5
@@ -44,7 +44,7 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
@@ -316,7 +316,7 @@ LINEN BINS
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")

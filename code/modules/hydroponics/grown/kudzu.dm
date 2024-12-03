@@ -36,7 +36,7 @@
 	user.drop_item()
 	qdel(src)
 
-/obj/item/seeds/kudzu/attack_self(mob/user)
+/obj/item/seeds/kudzu/attack_self__legacy__attackchain(mob/user)
 	plant(user)
 	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
 
