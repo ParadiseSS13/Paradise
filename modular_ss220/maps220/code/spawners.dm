@@ -1,8 +1,8 @@
 /* Random food spawners */
-/obj/effect/spawner/random/CCfood
+/obj/effect/spawner/random/ccfood
 
 
-/obj/effect/spawner/random/CCfood/dessert
+/obj/effect/spawner/random/ccfood/dessert
 	spawn_loot_count = 3
 	loot = list(
 		/obj/item/food/baguette,
@@ -14,7 +14,7 @@
 		/obj/item/reagent_containers/drinks/cans/cola,
 		)
 
-/obj/effect/spawner/random/CCfood/meat
+/obj/effect/spawner/random/ccfood/meat
 	spawn_loot_count = 3
 	loot = list(
 		/obj/item/food/lasagna,
@@ -26,7 +26,7 @@
 		/obj/item/reagent_containers/drinks/cans/cola,
 		)
 
-/obj/effect/spawner/random/CCfood/alcohol
+/obj/effect/spawner/random/ccfood/alcohol
 	spawn_loot_count = 1
 	loot = list(
 		/obj/item/reagent_containers/drinks/flask/detflask,

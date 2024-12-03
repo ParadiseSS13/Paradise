@@ -95,7 +95,7 @@
 		"Nucleation" = 'modular_ss220/clothing/icons/mob/hats.dmi',
 	)
 
-/obj/item/clothing/head/towel/attackby(obj/item/S, mob/user, params)
+/obj/item/clothing/head/towel/attackby__legacy__attackchain(obj/item/S, mob/user, params)
 	. = ..()
 	if(istype(S, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/spcan = S

@@ -63,17 +63,17 @@
 	path = /obj/item/storage/wallet
 	cost = 12
 
-/datum/gear/donor/Wallet_NT
+/datum/gear/donor/wallet_nt
 	display_name = "Бумажник NT"
 	path = /obj/item/storage/wallet/wallet_NT
 	cost = 12
 
-/datum/gear/donor/Wallet_USSP
+/datum/gear/donor/wallet_ussp
 	display_name = "Бумажник СССП"
 	path = /obj/item/storage/wallet/wallet_USSP_2
 	cost = 12
 
-/datum/gear/donor/Wallet_WYCI
+/datum/gear/donor/wallet_wyci
 	display_name = "Бумажник W.Y.C.I."
 	path = /obj/item/storage/wallet/wallet_wyci
 	cost = 12

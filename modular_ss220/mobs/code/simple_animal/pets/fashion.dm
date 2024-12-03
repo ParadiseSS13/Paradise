@@ -127,5 +127,5 @@
 	emote_see = list("трясётся в наигранном страхе.", "сдаётся.","устраивает тихую битву между своими головами.", "притворяется мёртвой.","ведёт себя так будто перед ней невидимая стенка.")
 
 // Rouge items
-/obj/item/clothing/head/HoS/beret
+/obj/item/clothing/head/hos/beret
 	snake_fashion = /datum/snake_fashion/head/beret_hos_black

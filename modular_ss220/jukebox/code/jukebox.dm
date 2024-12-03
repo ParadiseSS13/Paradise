@@ -80,7 +80,7 @@
 	if(anchored)
 		return ui_interact(user)
 
-/obj/machinery/jukebox/attackby(obj/item/item, mob/user, params)
+/obj/machinery/jukebox/attackby__legacy__attackchain(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/coin))
 		if(payment)
 			to_chat(user, span_info("Монетка уже вставлена."))

@@ -93,7 +93,7 @@
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
 		/obj/item/toy/nuke,
-		/obj/item/toy/AI,
+		/obj/item/toy/ai,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,

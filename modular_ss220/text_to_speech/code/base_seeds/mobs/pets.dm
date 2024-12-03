@@ -3,7 +3,7 @@
 /mob/living/simple_animal/hostile/retaliate/araneus/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/anubarak)
 
-/mob/living/simple_animal/parrot/Poly/add_tts_component()
+/mob/living/simple_animal/parrot/poly/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/gyro)
 
 /mob/living/simple_animal/pet/dog/add_tts_component()
@@ -18,7 +18,7 @@
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/kael)
 
-/mob/living/simple_animal/pet/dog/corgi/Lisa/add_tts_component()
+/mob/living/simple_animal/pet/dog/corgi/lisa/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/luna)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/add_tts_component()
@@ -54,7 +54,7 @@
 /mob/living/simple_animal/pet/cat/fat/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/huntress)
 
-/mob/living/simple_animal/pet/cat/Floppa/add_tts_component()
+/mob/living/simple_animal/pet/cat/floppa/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/uther)
 
 /mob/living/simple_animal/pet/sloth/add_tts_component()

@@ -109,7 +109,7 @@
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
 		/obj/item/reagent_containers/applicator/dual = 2,
-		/obj/item/reagent_containers/iv_bag/blood/OMinus = 10,
+		/obj/item/reagent_containers/iv_bag/blood/o_minus = 10,
 		/obj/item/reagent_containers/iv_bag/blood/vox = 3,
 		/obj/item/reagent_containers/iv_bag/slime = 3,
 		/obj/item/reagent_containers/iv_bag/salglu = 3,

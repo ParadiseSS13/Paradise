@@ -3,7 +3,7 @@
 // An invisible (no icon) mob that the AI controls to look around the station with.
 // It streams chunks as it moves around, which will show it what the AI can and cannot see.
 
-/mob/camera/aiEye
+/mob/camera/ai_eye
 	name = "Inactive AI Eye"
 
 	icon = 'icons/mob/ai.dmi' //Allows ghosts to see what the AI is looking at.
@@ -23,7 +23,7 @@
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/aiEye/setLoc(T)
+/mob/camera/ai_eye/setLoc(T)
 	if(ai)
 		if(!isturf(ai.loc))
 			return
@@ -39,26 +39,26 @@
 			var/obj/machinery/hologram/holopad/H = ai.current
 			H.move_hologram(ai, T)
 
-/mob/camera/aiEye/Move()
+/mob/camera/ai_eye/Move()
 	return 0
 
-/mob/camera/aiEye/Process_Spacemove(movement_dir)
+/mob/camera/ai_eye/Process_Spacemove(movement_dir)
 	// Nothing in space can stop us from moving.
 	return 1
 
-/mob/camera/aiEye/proc/GetViewerClient()
+/mob/camera/ai_eye/proc/GetViewerClient()
 	if(ai)
 		return ai.client
 	return null
 
-/mob/camera/aiEye/proc/RemoveImages()
+/mob/camera/ai_eye/proc/RemoveImages()
 	var/client/C = GetViewerClient()
 	if(C && use_static)
 		for(var/V in visibleCameraChunks)
 			var/datum/camerachunk/chunk = V
 			C.images -= chunk.obscured
 
-/mob/camera/aiEye/Destroy()
+/mob/camera/ai_eye/Destroy()
 	if(ai)
 		ai.all_eyes -= src
 		ai = null
@@ -131,7 +131,7 @@
 /mob/living/silicon/ai/proc/create_eye()
 	if(eyeobj)
 		return
-	eyeobj = new /mob/camera/aiEye()
+	eyeobj = new /mob/camera/ai_eye()
 	all_eyes += eyeobj
 	eyeobj.ai = src
 	eyeobj.setLoc(loc)
@@ -146,7 +146,7 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
+/mob/camera/ai_eye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(relay_speech)
 		if(istype(ai))
 			ai.relay_speech(speaker, message_pieces, verb)

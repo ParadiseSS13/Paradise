@@ -192,7 +192,7 @@
 	icon_state = "se"
 
 // =========== items ===========
-/obj/item/clothing/head/helmet/skull/Yorick
+/obj/item/clothing/head/helmet/skull/yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 
@@ -213,7 +213,7 @@
 	desc = "Особенный унитаз для особенных особ."
 	icon = 'modular_ss220/unique_objects/icons/watercloset.dmi'
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/toilet/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(try_construct(I, user))
 		return TRUE

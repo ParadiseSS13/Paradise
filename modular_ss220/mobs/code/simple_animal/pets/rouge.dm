@@ -123,7 +123,7 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing she ever wears, I guess
-		item_to_add.afterattack(src,user,1)
+		item_to_add.afterattack__legacy__attackchain(src,user,1)
 		return
 
 	if(inventory_head)

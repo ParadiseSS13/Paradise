@@ -30,7 +30,7 @@
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
 
-/obj/item/toy/plushie/macvulpix/attackby(obj/item/clothing/glasses/sunglasses, mob/living/user, params)
+/obj/item/toy/plushie/macvulpix/attackby__legacy__attackchain(obj/item/clothing/glasses/sunglasses, mob/living/user, params)
 	. = ..()
 	if(is_type_in_list(sunglasses, allowed_glasses))
 		user.drop_item()

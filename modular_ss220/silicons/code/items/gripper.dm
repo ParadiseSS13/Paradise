@@ -27,7 +27,7 @@
 		/obj/item/reagent_containers/syringe,
 	)
 
-/obj/item/gripper/medical/attack_self(mob/user)
+/obj/item/gripper/medical/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/gripper/service/Initialize(mapload)

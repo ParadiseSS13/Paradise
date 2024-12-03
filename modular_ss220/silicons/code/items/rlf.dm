@@ -4,7 +4,7 @@
 	icon = 'modular_ss220/silicons/icons/robot_tools.dmi'
 	icon_state = "rlf"
 
-/obj/item/rlf/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/rlf/afterattack__legacy__attackchain(atom/A, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(!isrobot(user))

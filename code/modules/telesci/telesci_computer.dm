@@ -60,7 +60,7 @@
 	. = ..()
 	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
 
-/obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/telescience/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/bluespace_crystal))
 		var/obj/item/stack/ore/bluespace_crystal/B = W
 		if(crystals >= MAX_CRYSTALS)

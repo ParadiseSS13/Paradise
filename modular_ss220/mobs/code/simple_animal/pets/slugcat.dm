@@ -88,7 +88,7 @@
 	regenerate_icons()
 
 
-/mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/pet/slugcat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(stat != DEAD)
 		if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 			place_on_head(user.get_active_hand(), user)

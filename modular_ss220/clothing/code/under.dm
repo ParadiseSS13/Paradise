@@ -77,7 +77,7 @@
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	has_sensor = 0
 
-/obj/item/clothing/under/towel/attackby(obj/item/S, mob/user, params)
+/obj/item/clothing/under/towel/attackby__legacy__attackchain(obj/item/S, mob/user, params)
 	. = ..()
 	if(istype(S, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/spcan = S

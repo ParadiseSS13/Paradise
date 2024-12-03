@@ -192,11 +192,11 @@
 /area/shuttle/transport)
 "Z" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/iv_bag/blood/OMinus{
+/obj/item/reagent_containers/iv_bag/blood/o_minus{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus{
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus{
 	pixel_x = 3
 	},
 /obj/item/reagent_containers/iv_bag/salglu{

@@ -52,7 +52,7 @@
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		if(user.unEquip(I))
 			add_fingerprint(user)
@@ -67,7 +67,7 @@
 		return
 	..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
+/obj/item/clothing/suit/armor/vest/security/attack_self__legacy__attackchain(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
@@ -436,7 +436,7 @@
 	. += "Outside of the strange effects caused by the anomaly core, the armour provides no protection against conventional attacks. \
 	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armour."
 
-/obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
+/obj/item/clothing/suit/armor/reactive/attack_self__legacy__attackchain(mob/user)
 	active = !(active)
 	if(disabled)
 		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")

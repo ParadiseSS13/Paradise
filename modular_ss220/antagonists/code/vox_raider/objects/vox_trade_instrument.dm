@@ -11,7 +11,7 @@
 	if(!isvox(user))
 		. += span_notice("Выглядит непонятно. Как воксы этим пользуются?")
 
-/obj/item/hand_valuer/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/hand_valuer/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 

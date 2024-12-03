@@ -5,7 +5,7 @@
 	var/dry_fire_sound = 'sound/weapons/empty.ogg'
 	var/reclined = FALSE
 
-/obj/item/gun/projectile/revolver/reclinable/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/reclinable/attack_self__legacy__attackchain(mob/living/user)
 	reclined = !reclined
 	playsound(user, reclined ? reclined_sound : snapback_sound, 50, 1)
 	update_icon()
@@ -16,7 +16,7 @@
 /obj/item/gun/projectile/revolver/reclinable/update_icon_state()
 	icon_state = initial(icon_state) + (reclined ? "_reclined" : "")
 
-/obj/item/gun/projectile/revolver/reclinable/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/reclinable/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(!reclined)
 		return
 	return ..()
@@ -40,7 +40,7 @@
 	item_state = "anaconda"
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/gunshot_anaconda.ogg'
 
-/obj/item/gun/projectile/revolver/reclinable/anaconda/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/reclinable/anaconda/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/box_d44))
 		return
 	return ..()
@@ -121,7 +121,7 @@
 	item_state = "rsh12"
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/gunshot_rsh12.ogg'
 
-/obj/item/gun/projectile/revolver/reclinable/rsh12/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/reclinable/rsh12/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/box_mm127))
 		return
 	return ..()

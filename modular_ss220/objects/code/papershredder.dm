@@ -18,7 +18,7 @@
 		/obj/item/book = 5
 		)
 
-/obj/machinery/papershredder/attackby(obj/item/item, mob/user, params)
+/obj/machinery/papershredder/attackby__legacy__attackchain(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/storage))
 		add_fingerprint(user)
 		empty_bin(user, item)
@@ -110,7 +110,7 @@
 /obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
-/obj/item/shredded_paper/attackby(obj/item/shredp as obj, mob/user)
+/obj/item/shredded_paper/attackby__legacy__attackchain(obj/item/shredp as obj, mob/user)
 	if(resistance_flags & ON_FIRE)
 		add_fingerprint(user)
 		return

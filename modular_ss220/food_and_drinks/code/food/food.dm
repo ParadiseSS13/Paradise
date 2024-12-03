@@ -784,7 +784,7 @@
 	bitesize = 2
 	tastes = list("сырое мясо" = 1, "сырое тесто" = 1)
 
-/obj/item/food/doughslice/attackby(obj/item/I, mob/user, params)
+/obj/item/food/doughslice/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/rawcutlet))
 		new /obj/item/food/pelmeni(src)
 		to_chat(user, "Вы сделали немного пельменей.")
@@ -1012,7 +1012,7 @@
 	if(isobserver(user))
 		. += span_deadsay("Эта коробка для пиццы является аномальной и будет производить бесконечное количество пиццы.")
 
-/obj/item/pizzabox/infinite/attack_self(mob/living/user)
+/obj/item/pizzabox/infinite/attack_self__legacy__attackchain(mob/living/user)
 	QDEL_NULL(pizza)
 	if(ishuman(user))
 		pizza = new /obj/item/food/sliceable/pizza/meatpizza(src)

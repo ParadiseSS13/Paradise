@@ -46,7 +46,7 @@
 	return
 
 //mining pet
-/mob/living/simple_animal/cockroach/Brad
+/mob/living/simple_animal/cockroach/brad
 	name = "Brad"
 	desc = "Lavaland's most resilient cockroach. Seeing this little guy walk through the wastes almost makes you wish for nuclear winter."
 	response_help = "carefully pets"

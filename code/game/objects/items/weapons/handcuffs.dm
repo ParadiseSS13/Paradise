@@ -58,7 +58,7 @@
 	/// If set to TRUE, people with the TRAIT_CLUMSY won't cuff themselves when trying to cuff others.
 	var/ignoresClumsy = FALSE
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
+/obj/item/restraints/handcuffs/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -214,8 +214,6 @@
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
-
-
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cablecuff_used"
@@ -227,7 +225,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack()
+/obj/item/restraints/handcuffs/cable/zipties/used/attack__legacy__attackchain()
 	return
 
 //////////////////////////////
@@ -264,7 +262,7 @@
 //////////////////////////////
 // MARK: CRAFTING
 //////////////////////////////
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 
 	handle_attack_construction(I, user)
@@ -305,7 +303,7 @@
 		var/obj/item/toy/crayon/C = I
 		cable_color(C.dye_color)
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
 		cuff(C, user, FALSE)
 

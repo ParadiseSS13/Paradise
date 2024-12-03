@@ -10,7 +10,7 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/structure/loom/attackby(obj/item/I, mob/user)
+/obj/structure/loom/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(weave(I, user))
 		return
 	return ..()

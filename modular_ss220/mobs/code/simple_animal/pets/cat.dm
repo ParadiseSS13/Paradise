@@ -2,7 +2,7 @@
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	holder_type = /obj/item/holder/cat2
 
-/mob/living/simple_animal/pet/cat/Runtime
+/mob/living/simple_animal/pet/cat/runtime
 	holder_type = /obj/item/holder/cat
 
 /mob/living/simple_animal/pet/cat/cak
@@ -80,7 +80,7 @@
 	holder_type = /obj/item/holder/spacecat
 
 //named
-/mob/living/simple_animal/pet/cat/Floppa
+/mob/living/simple_animal/pet/cat/floppa
 	name = "Большой Шлёпа"
 	desc = "Он выглядит так, будто собирается совершить военное преступление."
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
@@ -90,14 +90,14 @@
 	icon_resting = "floppa_rest"
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/cat/fat/Iriska
+/mob/living/simple_animal/pet/cat/fat/iriska
 	name = "Ириска"
 	desc = "Упитана. Счастлива. Бюрократы её обожают. И похоже даже черезчур сильно."
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/pet/cat/white/Penny
+/mob/living/simple_animal/pet/cat/white/penny
 	name = "Копейка"
 	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
@@ -105,7 +105,7 @@
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
 
-/mob/living/simple_animal/pet/cat/birman/Crusher
+/mob/living/simple_animal/pet/cat/birman/crusher
 	name = "Бедокур"
 	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
@@ -113,11 +113,11 @@
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
 
-/mob/living/simple_animal/pet/cat/spacecat/Musya
+/mob/living/simple_animal/pet/cat/spacecat/musya
 	name = "Муся"
 	desc = "Любимая почтенная кошка отдела токсинов. Всегда готова к вылетам!"
 
-/mob/living/simple_animal/pet/cat/black/Salem
+/mob/living/simple_animal/pet/cat/black/salem
 	name = "Салем"
 	real_name = "Салем"
 	desc = "Говорят что это бывший колдун, лишенный всех своих сил и превратившейся в черного кота Советом Колдунов из-за попытки захватить мир, а в руки НТ попал чтобы отбывать своё наказание. Судя по его скверному нраву, это может быть похоже на правду."

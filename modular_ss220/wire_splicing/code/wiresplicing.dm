@@ -143,7 +143,7 @@
 	investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", "wires")
 	qdel(src)
 
-/obj/structure/wire_splicing/attackby(obj/item/I, mob/user, params)
+/obj/structure/wire_splicing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HARM)
 		var/obj/item/stack/cable_coil/coil = I
 		reinforce(user, coil)

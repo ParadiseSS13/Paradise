@@ -16,7 +16,7 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-/obj/item/organ/internal/heart/attack_self(mob/user)
+/obj/item/organ/internal/heart/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(status & ORGAN_DEAD)
 		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
@@ -56,7 +56,7 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
+/obj/item/organ/internal/heart/cursed/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
@@ -237,19 +237,23 @@
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE) // Mötley Crüe - Kickstart My Heart
+			owner.adjustOxyLoss(-100)
+			owner.SetLoseBreath(0)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(10))
 			attempted_restart = TRUE
 			heart_datum.change_beating(TRUE)
+			owner.adjustOxyLoss(-100)
+			owner.SetLoseBreath(0)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 3 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 3 SECONDS)
 
 	if(owner.HasDisease(/datum/disease/critical/heart_failure))
@@ -259,19 +263,19 @@
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 20 SECONDS)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 10 SECONDS)
 			else
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 15 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 

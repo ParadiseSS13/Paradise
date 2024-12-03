@@ -36,11 +36,11 @@
 	free_content()
 	. = ..()
 
-/obj/item/pet_carrier/attack_self(mob/user)
+/obj/item/pet_carrier/attack_self__legacy__attackchain(mob/user)
 	..()
 	change_state()
 
-/obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
+/obj/item/pet_carrier/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holder))
 		var/obj/item/holder/H = I
 		for(var/mob/M in H.contents)

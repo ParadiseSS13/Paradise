@@ -22,7 +22,7 @@
 /mob/living/simple_animal/pet/dog/corgi
 	holder_type = /obj/item/holder/corgi
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
+/mob/living/simple_animal/pet/dog/corgi/ian/persistent_load()
 	. = ..()
 	if(age == record_age)
 		holder_type = /obj/item/holder/old_corgi
@@ -83,7 +83,7 @@
 	minbodytemp = 250 //Weak to cold
 	maxbodytemp = INFINITY
 
-/mob/living/simple_animal/pet/dog/corgi/Lisa
+/mob/living/simple_animal/pet/dog/corgi/lisa
 	holder_type = /obj/item/holder/lisa
 
 /mob/living/simple_animal/pet/dog/corgi/borgi
@@ -135,7 +135,7 @@
 
 
 // named
-/mob/living/simple_animal/pet/dog/brittany/Psycho
+/mob/living/simple_animal/pet/dog/brittany/psycho
 	name = "Перрито"
 	real_name = "Перрито"
 	desc = "Собака, обожающая котов, особенно в сапогах, прекрасно лающая на Испанском, прошла терапевтические курсы, готова выслушать все ваши проблемы и выдать вам целебных объятий с завершением в виде почесыванием животика."
@@ -144,7 +144,7 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/pet/dog/pug/Frank
+/mob/living/simple_animal/pet/dog/pug/frank
 	name = "Фрэнк"
 	real_name = "Фрэнк"
 	desc = "Мопс полученный в результате эксперимента ученых в черном. Почему его не забрали интересный вопрос. Похоже он всем надоел своей болтовней, после чего его лишили дара речи."
@@ -153,7 +153,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 
-/mob/living/simple_animal/pet/dog/bullterrier/Genn
+/mob/living/simple_animal/pet/dog/bullterrier/genn
 	name = "Геннадий"
 	desc = "Собачий аристократ. Выглядит очень важным и начитанным. Доброжелательный любимец ассистентов."
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'

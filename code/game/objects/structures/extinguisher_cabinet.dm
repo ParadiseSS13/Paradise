@@ -62,7 +62,7 @@
 		has_extinguisher = null
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
+/obj/structure/extinguisher_cabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(isrobot(user) || isalien(user))
 		return
 	if(istype(O, /obj/item/extinguisher))

@@ -181,7 +181,7 @@
 /obj/machinery/suit_storage_unit/gulag
 	name = "gulag suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/prisoner_gulag
-	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
+	helmet_type = /obj/item/clothing/head/helmet/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/expedition
@@ -317,7 +317,7 @@
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(shocked)
 		if(shock(user, 100))
 			return

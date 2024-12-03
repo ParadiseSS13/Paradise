@@ -28,7 +28,7 @@
 	plastic_overlay_target = null
 	return ..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
 		if(!user.unEquip(I))
@@ -58,9 +58,9 @@
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/plastic/attack_self(mob/user)
+/obj/item/grenade/plastic/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
-		nadeassembly.attack_self(user)
+		nadeassembly.attack_self__legacy__attackchain(user)
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
@@ -68,7 +68,7 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/grenade/plastic/afterattack(mob/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack__legacy__attackchain(mob/AM, mob/user, flag)
 	if(!flag)
 		return
 	if(ismob(AM) && AM.stat == CONSCIOUS)
@@ -166,7 +166,7 @@
 	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
 	var/ex_breach = FALSE
 
-/obj/item/grenade/plastic/c4/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/c4/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user, AM)
 	..()
 

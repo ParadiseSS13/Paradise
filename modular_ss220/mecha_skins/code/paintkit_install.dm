@@ -1,4 +1,4 @@
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/paintkit))
 		return ..()
 	if(occupant)

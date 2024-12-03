@@ -271,8 +271,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "aru" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/sign/securearea{
@@ -650,13 +648,9 @@
 /area/awaymission/jungle_planet/outside/cave)
 "aZA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -894,8 +888,6 @@
 /obj/item/clothing/head/welding,
 /obj/random/toolbox,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1310,8 +1302,6 @@
 "bKK" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/stack/sheet/mineral/plasma{
@@ -1608,13 +1598,9 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "cfe" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/computerframe{
@@ -1919,8 +1905,6 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/flashlight/seclite,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/window/reinforced/normal{
@@ -3002,8 +2986,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -3647,8 +3629,6 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "eOP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/writing{
@@ -4247,18 +4227,12 @@
 /area/awaymission/jungle_planet/inside/complex)
 "fFg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -4698,8 +4672,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "gmI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/shard{
@@ -4719,8 +4691,6 @@
 /area/awaymission/jungle_planet)
 "gnw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/blood/writing{
@@ -5124,8 +5094,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "gRZ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall,
@@ -5233,8 +5201,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "gYy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -5350,7 +5316,6 @@
 "hfj" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/machine_frame,
@@ -5435,7 +5400,6 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "hhU" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/machine_frame,
@@ -5468,8 +5432,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "hlk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -5525,8 +5487,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "hnY" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -5603,8 +5563,8 @@
 /area/awaymission/jungle_planet/inside/complex)
 "hsD" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/storage/box,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5630,8 +5590,6 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "htM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -5665,7 +5623,6 @@
 "hvt" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/machine_frame,
@@ -5871,8 +5828,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6018,8 +5973,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "hWa" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/stack/rods,
@@ -6320,7 +6273,6 @@
 "imq" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/machine_frame,
@@ -6483,8 +6435,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "ixx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -6570,8 +6520,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -6845,7 +6793,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -7019,7 +6966,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "jgU" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -7103,8 +7049,6 @@
 /area/awaymission/jungle_planet/outside)
 "jlK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall,
@@ -7200,7 +7144,6 @@
 "jrS" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes,
@@ -7718,8 +7661,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -7812,8 +7753,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "kdR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -7964,8 +7903,6 @@
 /area/awaymission/jungle_planet/outside)
 "kmX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/writing{
@@ -8347,7 +8284,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "kKh" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/machine_frame,
@@ -8541,8 +8477,6 @@
 "kWk" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -8644,8 +8578,6 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/flashlight/seclite,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -8674,8 +8606,6 @@
 /obj/item/stack/sheet/metal,
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -9102,8 +9032,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "lGL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/chair{
@@ -9434,7 +9362,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "mfr" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
@@ -9516,8 +9443,6 @@
 	amount = 40
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -9892,8 +9817,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "mEZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -10272,8 +10195,6 @@
 /area/awaymission/jungle_planet/outside)
 "mYm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/wrench,
@@ -10364,8 +10285,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "ncm" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/maybe,
@@ -10714,7 +10633,7 @@
 	},
 /obj/effect/spawner/random/blood/often,
 /obj/effect/spawner/random/dirt/frequent,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -11125,8 +11044,6 @@
 "olI" = (
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -11311,8 +11228,6 @@
 "oyb" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/mining{
@@ -11522,7 +11437,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -11558,8 +11472,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "oLz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/rust/maybe,
@@ -11578,8 +11490,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "oMS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -11905,13 +11815,9 @@
 /area/awaymission/jungle_planet/outside)
 "pjI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -12165,8 +12071,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -12544,8 +12448,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -12603,8 +12505,6 @@
 	},
 /obj/effect/spawner/random/blood/often,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/dirt/maybe,
@@ -12765,8 +12665,6 @@
 "qtS" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/salvage/ruin/soviet,
@@ -12992,8 +12890,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/sign/nosmoking_1{
@@ -13567,8 +13463,6 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "rrw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/ammo_casing/caseless/arrow,
@@ -14040,8 +13934,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rSb" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/engine,
@@ -14308,8 +14200,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "sji" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -14576,7 +14466,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "szY" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -14717,8 +14607,6 @@
 	amount = 15
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -14965,8 +14853,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "tcr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -15177,8 +15063,6 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "tnS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/stack/rods,
@@ -15196,8 +15080,6 @@
 /area/awaymission/jungle_planet/inside)
 "tnX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -15212,8 +15094,6 @@
 "tps" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -15530,8 +15410,6 @@
 	},
 /obj/item/stack/sheet/mineral/plasma,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -15739,8 +15617,6 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "tWr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/window/full/plasmareinforced,
@@ -16072,7 +15948,6 @@
 "urG" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/cobweb2,
@@ -16080,7 +15955,6 @@
 /area/awaymission/jungle_planet/inside)
 "usE" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/port_gen/pacman/super{
@@ -16106,8 +15980,6 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "utb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -16673,8 +16545,6 @@
 /area/awaymission/jungle_planet/outside)
 "vgy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/cobweb2{
@@ -16840,8 +16710,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "vot" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -17159,13 +17027,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "vGb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/sign/electricshock{
@@ -17386,8 +17250,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "vSq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -17667,7 +17529,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "wnr" = (
 /obj/structure/closet/crate/freezer/iv_storage,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -18085,8 +17947,6 @@
 /area/awaymission/jungle_planet/outside/cave/small)
 "wPk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -18525,8 +18385,6 @@
 /area/awaymission/jungle_planet/inside)
 "xtu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -18790,13 +18648,9 @@
 /area/awaymission/jungle_planet/outside/river)
 "xNb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -19161,8 +19015,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "yhO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor/closed,

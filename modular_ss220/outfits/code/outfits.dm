@@ -388,7 +388,7 @@
 		/obj/item/storage/box/smoke_grenades,
 		/obj/item/grenade/plastic/c4 = 2,
 		/obj/item/clothing/accessory/holster,
-		/obj/item/CQC_manual,
+		/obj/item/cqc_manual,
 		/obj/item/shield/energy,
 		/obj/item/gun/energy/gun/skrell_pistol
 	)

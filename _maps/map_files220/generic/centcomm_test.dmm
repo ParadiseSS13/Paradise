@@ -1128,11 +1128,11 @@
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/ids,
 /obj/item/storage/box/ids,
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -2672,7 +2672,7 @@
 /area/holodeck/source_basketball)
 "NQ" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "NT" = (

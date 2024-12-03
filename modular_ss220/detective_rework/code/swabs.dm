@@ -97,7 +97,7 @@
 		inuse = FALSE
 		return TRUE
 
-/obj/item/forensics/swab/afterattack(atom/A, mob/user, proximity)
+/obj/item/forensics/swab/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 
 	if(!proximity || istype(A, /obj/machinery/dnaforensics))
 		return

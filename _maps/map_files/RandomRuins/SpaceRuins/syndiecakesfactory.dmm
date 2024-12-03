@@ -660,8 +660,8 @@
 /area/ruin/space/syndicakefactory)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /obj/machinery/light/small{
@@ -717,7 +717,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
@@ -748,8 +747,8 @@
 /area/ruin/space/syndicakefactory)
 "CW" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
@@ -873,8 +872,6 @@
 /area/template_noop)
 "Hh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/bed/dogbed,
@@ -1044,8 +1041,8 @@
 /area/ruin/space/syndicakefactory)
 "Nx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{

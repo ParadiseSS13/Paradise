@@ -120,7 +120,7 @@
 /obj/item/clothing/head/beret/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
-/obj/item/clothing/head/HoS/Initialize(mapload)
+/obj/item/clothing/head/hos/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/head/warden/Initialize(mapload)

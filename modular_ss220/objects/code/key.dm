@@ -8,10 +8,10 @@
 	/// How fast does the key open an airlock.
 	var/hack_speed = 1 SECONDS
 
-/obj/item/door_remote/key/attack_self(mob/user)
+/obj/item/door_remote/key/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/door_remote/key/afterattack(obj/machinery/door/airlock/attacked_airlock, mob/user, proximity)
+/obj/item/door_remote/key/afterattack__legacy__attackchain(obj/machinery/door/airlock/attacked_airlock, mob/user, proximity)
 	if(!proximity)
 		return
 

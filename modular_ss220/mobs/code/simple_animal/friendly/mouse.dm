@@ -69,7 +69,7 @@
 // 			to_chat(src, "scream, squeak")
 // 			playsound(src, damaged_sound, 40, 1)
 
-/mob/living/simple_animal/mouse/brown/Tom
+/mob/living/simple_animal/mouse/brown/tom
 	maxHealth = 10
 	health = 10
 

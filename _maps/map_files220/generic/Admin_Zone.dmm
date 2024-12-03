@@ -592,7 +592,7 @@
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/bonesetter/alien,
 /obj/item/bonegel/alien,
 /turf/simulated/floor/plating/abductor,
@@ -919,16 +919,16 @@
 /area/ghost_bar/indoor)
 "du" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = 9
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = 1
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = -3
 	},
 /obj/item/hand_labeler{
@@ -4814,11 +4814,11 @@
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/ids,
 /obj/item/storage/box/ids,
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/box/PDAs{
+/obj/item/storage/box/pdas{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -11551,7 +11551,7 @@
 /area/shuttle/vox)
 "NQ" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "NR" = (
@@ -14428,14 +14428,14 @@
 /area/admin)
 "Xz" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = 6
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_y = 9
 	},
 /obj/item/hand_labeler{
@@ -14786,7 +14786,7 @@
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
 /obj/item/bonesetter/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
 /turf/simulated/floor/plating/abductor,
