@@ -38,10 +38,10 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/card/emag/attack()
+/obj/item/card/emag/attack__legacy__attackchain()
 	return
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/emag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	var/atom/A = target
 	if(!proximity)
 		return
@@ -53,7 +53,7 @@
 	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
-/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!isairlock(target))
 		return
 	var/obj/machinery/door/D = target
@@ -75,10 +75,10 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
-/obj/item/card/cmag/attack()
+/obj/item/card/cmag/attack__legacy__attackchain()
 	return
 
-/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/cmag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	target.cmag_act(user)
@@ -151,7 +151,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/card/id/attack_self(mob/user as mob)
+/obj/item/card/id/attack_self__legacy__attackchain(mob/user as mob)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
 		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
 	if(mining_points)
@@ -251,7 +251,7 @@
 /obj/item/card/id/proc/get_departments()
 	return get_departments_from_job(rank)
 
-/obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/card/id/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(istype(W, /obj/item/id_decal/))
@@ -303,7 +303,8 @@
 	data["dna_hash"] = dna_hash
 	data["fprint_hash"] = fingerprint_hash
 	data["access"] = access
-	data["job"] = assignment
+	data["assignment"] = assignment
+	data["rank"] = rank
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
@@ -317,7 +318,9 @@
 	dna_hash = data["dna_hash"]
 	fingerprint_hash = data["fprint_hash"]
 	access = data["access"] // No need for a copy, the list isn't getting touched
-	assignment = data["job"]
+	assignment = data["job"] // backup for old jsons
+	assignment = data["assignment"]
+	rank = data["rank"]
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
@@ -748,7 +751,7 @@
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
-/obj/item/card/id/golem/attack_self(mob/user as mob)
+/obj/item/card/id/golem/attack_self__legacy__attackchain(mob/user as mob)
 	if(!registered && ishuman(user))
 		registered_name = user.real_name
 		SetOwnerInfo(user)

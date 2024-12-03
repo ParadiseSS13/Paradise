@@ -34,7 +34,7 @@
 	syringes.Remove(S)
 	qdel(S)
 
-/obj/item/gun/syringe/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/syringe/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(target == loc)
 		return
 	..()
@@ -44,7 +44,7 @@
 	var/num_syringes = length(syringes) + (chambered.BB ? 1 : 0)
 	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
-/obj/item/gun/syringe/attack_self(mob/living/user)
+/obj/item/gun/syringe/attack_self__legacy__attackchain(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return FALSE
@@ -66,7 +66,7 @@
 	to_chat(user, "<span class='notice'>You unload [S] from [src]!</span>")
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
+/obj/item/gun/syringe/attackby__legacy__attackchain(obj/item/A, mob/user, params, show_msg = TRUE)
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		if(istype(A, /obj/item/reagent_containers/syringe/lethal))
 			to_chat(user, "<span class='warning'>[A] is too big to fit into [src].</span>")
@@ -180,7 +180,7 @@
 	process_chamber() // Chamber the syringe if none is already
 	return TRUE
 
-/obj/item/gun/syringe/rapidsyringe/attackby(obj/item/A, mob/user, params, show_msg)
+/obj/item/gun/syringe/rapidsyringe/attackby__legacy__attackchain(obj/item/A, mob/user, params, show_msg)
 
 	if(isstorage(A))
 		// Boxes can be dumped in.
@@ -244,7 +244,7 @@
 		return ..()
 
 // Allow for emptying your deathmix, or for sec to find out what you were dumping into people
-/obj/item/gun/syringe/rapidsyringe/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/syringe/rapidsyringe/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(istype(target, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/destination = target
 
@@ -328,7 +328,7 @@
 	qdel(S)
 
 // Unload an empty syringe, making sure its existing contents get returned to the reservoir
-/obj/item/gun/syringe/rapidsyringe/attack_self(mob/living/user)
+/obj/item/gun/syringe/rapidsyringe/attack_self__legacy__attackchain(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return FALSE
@@ -396,7 +396,7 @@
 	// add a new syringe so it's technically infinite
 	insert_single_syringe(new /obj/item/reagent_containers/syringe)
 
-/obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/attack_self(mob/living/user)
+/obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/attack_self__legacy__attackchain(mob/living/user)
 	// no printing infinite syringes.
 	return
 

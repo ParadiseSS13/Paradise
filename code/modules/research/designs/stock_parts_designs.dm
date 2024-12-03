@@ -230,7 +230,7 @@
 	category = list("Stock Parts")
 	lathe_time_factor = 0.2
 
-/datum/design/RPED
+/datum/design/rped
 	name = "Rapid Part Exchange Device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	id = "rped"
@@ -240,7 +240,7 @@
 	build_path = /obj/item/storage/part_replacer
 	category = list("Stock Parts")
 
-/datum/design/BS_RPED
+/datum/design/bs_rped
 	name = "Bluespace RPED"
 	desc = "Powered by bluespace technology, this RPED variant can upgrade buildings from a distance, without needing to remove the panel first."
 	id = "bs_rped"

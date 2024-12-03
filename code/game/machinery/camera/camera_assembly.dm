@@ -36,7 +36,7 @@
 			. += "<span class='notice'>The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.</span>"
 			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
 
-/obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
+/obj/item/camera_assembly/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))

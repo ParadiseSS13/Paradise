@@ -14,7 +14,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	icon_state = "elecarm"
 	var/charge_cost = 30
 
-/obj/item/borg/stun/attack(mob/living/M, mob/living/silicon/robot/user)
+/obj/item/borg/stun/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
