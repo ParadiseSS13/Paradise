@@ -16,13 +16,8 @@
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
-/obj/item/rsf/attack_self__legacy__attackchain(mob/user)
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
-	if(!currently_dispensing)
-		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
-	else
-		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
-	var/static/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+	var/list/rsf_items = list(
+							"Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
@@ -71,10 +66,7 @@
 							"Caviar" = POWER_HIGH
 							)
 
-/obj/item/rsf/proc/get_radial_contents()
-	return rsf_icons & rsf_items
-
-/obj/item/rsf/attack_self(mob/user)
+/obj/item/rsf/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(!currently_dispensing)
 		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
@@ -90,6 +82,8 @@
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
 	return TRUE
 
+/obj/item/rsf/proc/get_radial_contents()
+	return rsf_icons & rsf_items
 
 /obj/item/rsf/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!currently_dispensing)
