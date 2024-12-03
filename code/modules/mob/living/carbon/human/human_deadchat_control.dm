@@ -118,7 +118,7 @@
 		visible_message("<span class='warning'>[src] points [held_gun] towards [possible_target]!</span>")
 		return
 	// for his neutral special, he wields a Gun
-	held_gun.afterattack(possible_target, src)
+	held_gun.afterattack__legacy__attackchain(possible_target, src)
 	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
 /mob/living/carbon/human/proc/dchat_step(dir)

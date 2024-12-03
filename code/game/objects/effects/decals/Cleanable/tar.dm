@@ -33,7 +33,7 @@
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
-/obj/effect/decal/cleanable/tar/attackby(obj/item/welder, mob/living/user, params)
+/obj/effect/decal/cleanable/tar/attackby__legacy__attackchain(obj/item/welder, mob/living/user, params)
 	if(!welder.get_heat() || !Adjacent(user))
 		return
 	playsound(welder, 'sound/items/welder.ogg', 50, TRUE)

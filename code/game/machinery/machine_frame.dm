@@ -90,7 +90,7 @@
 		else
 			icon_state = "box_0"
 
-/obj/structure/machine_frame/attackby(obj/item/P, mob/user, params)
+/obj/structure/machine_frame/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	switch(state)
 		if(MACHINE_FRAME_EMPTY)
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -776,7 +776,7 @@ to destroy them and players will be able to make replacements.
 	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
 	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
 
-/obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
+/obj/item/circuitboard/dish_drive/attack_self__legacy__attackchain(mob/living/user)
 	suction = !suction
 	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
 
@@ -932,7 +932,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
-/obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/circuitboard/teleporter_perma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location)
@@ -1134,6 +1134,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)

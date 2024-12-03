@@ -23,6 +23,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	new_attack_chain = TRUE
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -33,7 +34,10 @@
 	. = ..()
 	. += "<span class='notice'>This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.</span>"
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
@@ -44,12 +48,17 @@
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
-		return
+
+		return FINISH_ATTACK
+
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!IS_CULTIST(target))
 		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 		if(S)
 			S.trigger()
-	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
@@ -241,7 +250,7 @@
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
-/obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/cult/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(used)
 		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
@@ -281,7 +290,7 @@
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
-/obj/item/shuttle_curse/attack_self(mob/living/user)
+/obj/item/shuttle_curse/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
 		user.unEquip(src, 1)
 		user.Weaken(10 SECONDS)
@@ -330,7 +339,7 @@
 			pulled.forceMove(turf_behind)
 			. = pulled
 
-/obj/item/cult_shift/attack_self(mob/user)
+/obj/item/cult_shift/attack_self__legacy__attackchain(mob/user)
 
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
@@ -625,7 +634,7 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
@@ -671,7 +680,7 @@
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	flags = NOBLUDGEON | DROPDEL
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(user.holy_check())
 		return
 	..()
@@ -722,7 +731,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 
-/obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
+/obj/item/portal_amulet/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
 	. = ..()
 	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
@@ -802,7 +811,7 @@
 	if(target)
 		exit = new /obj/effect/cult_portal_exit(target)
 
-/obj/effect/portal/cult/attackby(obj/I, mob/user, params)
+/obj/effect/portal/cult/attackby__legacy__attackchain(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)

@@ -60,7 +60,7 @@
 	if(charging)
 		. += "Current charge: [round(charging.percent(), 1)]%"
 
-/obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cell_charger/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell) && !panel_open)
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
