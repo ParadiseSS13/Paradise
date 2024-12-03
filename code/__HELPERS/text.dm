@@ -280,6 +280,7 @@
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(t as text)
+	t = format_text(t) // SS220 EDIT
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Centers text by adding spaces to either side of the string.

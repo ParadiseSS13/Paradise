@@ -1,3 +1,4 @@
+// MARK: Helper procs
 /// Склонения, например "секунда", "секунды", "секунд".
 /proc/declension_ru(num, single_name, double_name, multiple_name)
 	if(!isnum(num) || round(num) != num)
@@ -88,6 +89,10 @@
 /datum/proc/ru_p_themselves(capitalized, temp_gender)
 	. = "само"
 
+/// Применяет одно из "них", "него", "него", или "нее" в зависимости от пола. Установите TRUE для заглавной буквы.
+/datum/proc/ru_p_theirs(capitalized, temp_gender)
+	. = "него"
+
 /// Применяет "имеет" для единственного числа и "имеют" для множественного ("она имеет" / "они имеют").
 /datum/proc/ru_p_have(temp_gender)
 	. = "имеет"
@@ -101,7 +106,7 @@
 	. = "делает"
 
 //////////////////////////////
-// MARK: Client procs
+// MARK: Client pronouns
 //////////////////////////////
 // Like clients, which do have gender.
 /client/ru_p_they(capitalized, temp_gender)
@@ -145,6 +150,21 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/client/ru_p_theirs(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	switch(temp_gender)
+		if(MALE)
+			. = "него"
+		if(FEMALE)
+			. = "нее"
+		if(NEUTER)
+			. = "него"
+		if(PLURAL)
+			. = "них"
+	if(capitalized)
+		. = capitalize(.)
+
 /client/ru_p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
@@ -172,7 +192,7 @@
 		. = "делают"
 
 //////////////////////////////
-// MARK: Mob procs
+// MARK: Mob pronouns
 //////////////////////////////
 // Mobs (and atoms but atoms don't really matter write your own proc overrides) also have gender!
 /mob/ru_p_they(capitalized, temp_gender)
@@ -216,6 +236,21 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/mob/ru_p_theirs(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	switch(temp_gender)
+		if(MALE)
+			. = "него"
+		if(FEMALE)
+			. = "нее"
+		if(NEUTER)
+			. = "него"
+		if(PLURAL)
+			. = "них"
+	if(capitalized)
+		. = capitalize(.)
+
 /mob/ru_p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
@@ -243,7 +278,7 @@
 		. = "делают"
 
 //////////////////////////////
-// MARK: Human procs
+// MARK: Human pronouns
 //////////////////////////////
 // Humans need special handling, because they can have their gender hidden
 /mob/living/carbon/human/ru_p_they(capitalized, temp_gender)
@@ -258,6 +293,10 @@
 	temp_gender = get_visible_gender()
 	return ..()
 
+/mob/living/carbon/human/ru_p_theirs(capitalized, temp_gender)
+	temp_gender = get_visible_gender()
+	return ..()
+
 /mob/living/carbon/human/ru_p_have(temp_gender)
 	temp_gender = get_visible_gender()
 	return ..()
@@ -269,3 +308,33 @@
 /mob/living/carbon/human/ru_p_do(temp_gender)
 	temp_gender = get_visible_gender()
 	return ..()
+
+/atom/proc/ru_p_yours(declent = NOMINATIVE)
+	var/static/list/ru_names_male = ru_names_toml("ваш")
+	var/static/list/ru_names_female = ru_names_toml("ваша")
+	var/static/list/ru_names_neuter = ru_names_toml("ваше")
+	var/static/list/ru_names_plural = ru_names_toml("ваши")
+	switch(gender)
+		if(FEMALE)
+			return ru_names_female[declent] || "ваша"
+		if(NEUTER)
+			return ru_names_neuter[declent] || "ваше"
+		if(PLURAL)
+			return ru_names_plural[declent] || "ваши"
+		else
+			return ru_names_male[declent] || "ваш"
+
+/atom/proc/ru_p_own(declent = NOMINATIVE)
+	var/static/list/ru_names_male = ru_names_toml("свой")
+	var/static/list/ru_names_female = ru_names_toml("своя")
+	var/static/list/ru_names_neuter = ru_names_toml("своё")
+	var/static/list/ru_names_plural = ru_names_toml("свои")
+	switch(gender)
+		if(FEMALE)
+			return ru_names_female[declent] || "своя"
+		if(NEUTER)
+			return ru_names_neuter[declent] || "своё"
+		if(PLURAL)
+			return ru_names_plural[declent] || "свои"
+		else
+			return ru_names_male[declent] || "свой"
