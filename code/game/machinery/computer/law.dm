@@ -28,13 +28,13 @@
 	circuit = /obj/item/circuitboard/aiupload_broken
 	return TRUE
 
-/obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
-	if(!istype(O, /obj/item/aiModule))
+/obj/machinery/computer/aiupload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+	if(!istype(O, /obj/item/ai_module))
 		return ..()
 	if(!check_valid_selection(user))
 		return
 	if(!emagged) //non-emag law change
-		var/obj/item/aiModule/M = O
+		var/obj/item/ai_module/M = O
 		return M.install(src)
 	apply_emag_laws(user)
 	return
@@ -127,8 +127,8 @@
 	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
-/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module, mob/user, params)
-	if(istype(module, /obj/item/aiModule))
+/obj/machinery/computer/borgupload/attackby__legacy__attackchain(obj/item/ai_module/module, mob/user, params)
+	if(istype(module, /obj/item/ai_module))
 		if(!current)//no borg selected
 			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.</span>")
 			return

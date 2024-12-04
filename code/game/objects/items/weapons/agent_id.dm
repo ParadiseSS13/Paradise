@@ -52,7 +52,7 @@
 	untrackable = TRUE
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
-/obj/item/card/id/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/card/id/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, params)
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/item/card/id))
@@ -127,7 +127,7 @@
 		ui = new(user, src, "AgentCard", name)
 		ui.open()
 
-/obj/item/card/id/syndicate/attack_self(mob/user)
+/obj/item/card/id/syndicate/attack_self__legacy__attackchain(mob/user)
 	if(!ishuman(user))
 		return
 	if(!registered_human)
@@ -252,7 +252,7 @@
 	if(option == "Primary")
 		blood_type = registered_human.dna.blood_type
 	else if(new_type)
-		if(!(blood_type in possible_blood_types))
+		if(!(new_type in possible_blood_types))
 			return
 		blood_type = new_type
 	to_chat(registered_human, "ID blood type has been changed to [blood_type].")
@@ -289,8 +289,8 @@
 	if(isAntag(user))
 		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
 
-/obj/item/card/id/syndi_scan_only/afterattack(obj/item/O, mob/user, proximity)
-	if(!proximity)
+/obj/item/card/id/syndi_scan_only/afterattack__legacy__attackchain(atom/O, mob/user, proximity_flag, params)
+	if(!proximity_flag)
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O

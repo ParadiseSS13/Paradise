@@ -11,13 +11,13 @@
 	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
-/obj/item/flag/attackby(obj/item/W, mob/user, params)
+/obj/item/flag/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	. = ..()
 	if(W.get_heat() && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
 
-/obj/item/flag/attack_self(mob/user)
+/obj/item/flag/attack_self__legacy__attackchain(mob/user)
 	rolled = !rolled
 	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
 	update_icon()
@@ -221,7 +221,7 @@
 	updated_icon_state = icon_state
 	..()
 
-/obj/item/flag/chameleon/attack_self(mob/user)
+/obj/item/flag/chameleon/attack_self__legacy__attackchain(mob/user)
 	if(used)
 		return ..()
 
@@ -248,7 +248,7 @@
 			desc = chosen_flag.desc
 			used = TRUE
 
-/obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
+/obj/item/flag/chameleon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade) && !boobytrap)
 		if(user.drop_item())
 			boobytrap = I

@@ -780,7 +780,7 @@
 				H.vomit(20)
 		else if(effect <= 10)
 			M.visible_message(
-				"<span class'warning'>[M] seems to be itching themselves incessantly!</span>",
+				"<span class='warning'>[M] seems to be itching themselves incessantly!</span>",
 				"<span class='danger'>You feel bugs crawling under your skin!</span>"
 			)
 			M.emote("scream")

@@ -90,37 +90,43 @@
 	if(buffer_installed)
 		. += "It has been upgraded with a floor buffer."
 
-/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/janicart/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
-	if(istype(I, /obj/item/storage/bag/trash))
+	if(istype(attacking, /obj/item/storage/bag/trash))
 		if(mybag)
 			to_chat(user, fail_msg)
-			return
+			return FINISH_ATTACK
 		if(!user.drop_item())
-			return
-		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
-		I.forceMove(src)
-		mybag = I
+			return FINISH_ATTACK
+		to_chat(user, "<span class='notice'>You hook [attacking] onto [src].</span>")
+		attacking.forceMove(src)
+		mybag = attacking
 		update_icon(UPDATE_OVERLAYS)
-		return
-	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/borg/upgrade/floorbuffer))
 		if(buffer_installed)
 			to_chat(user, fail_msg)
-			return
+			return FINISH_ATTACK
 		buffer_installed = TRUE
-		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		qdel(attacking)
+		to_chat(user,"<span class='notice'>You upgrade [src] with [attacking].</span>")
 		update_icon(UPDATE_OVERLAYS)
-		return
-	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
+		return FINISH_ATTACK
+	if(mybag && user.a_intent == INTENT_HELP && !is_key(attacking))
+		mybag.attackby__legacy__attackchain(attacking, user)
+	else
+		return FINISH_ATTACK
+
+/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
+	if(..() && floorbuffer)
 		floorbuffer = FALSE
 		vehicle_move_delay -= buffer_delay
-		return ..() //VTEC installation is handled in parent attackby, so we're returning to it early
-	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
-		mybag.attackby(I, user)
-	else
-		return ..()
+
+	return TRUE
 
 /obj/vehicle/janicart/update_overlays()
 	. = ..()

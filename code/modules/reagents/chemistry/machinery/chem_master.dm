@@ -6,6 +6,9 @@
 #define TRANSFER_TO_DISPOSAL 0
 #define TRANSFER_TO_BEAKER   1
 
+#define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
+#define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -111,7 +114,7 @@
 		return
 	update_icon()
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_master/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		return ..()
 
@@ -610,6 +613,8 @@
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!safe_chem_list.Find(A.id))
 			return FALSE
+	if(R.chem_temp < SAFE_MIN_TEMPERATURE || R.chem_temp > SAFE_MAX_TEMPERATURE)
+		return FALSE
 	return TRUE
 
 /datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
@@ -628,7 +633,7 @@
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
-	sprites = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
+	sprites = list("bottle", "reagent_bottle")
 	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
@@ -665,3 +670,6 @@
 
 #undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER
+
+#undef SAFE_MIN_TEMPERATURE
+#undef SAFE_MAX_TEMPERATURE

@@ -1,21 +1,21 @@
 // Modules
 
-/datum/mapGeneratorModule/bottomLayer/syndieFloor
+/datum/map_generator_module/bottom_layer/syndie_floor
 	spawnableTurfs = list(/turf/simulated/floor/mineral/plastitanium/red = 100)
 
-/datum/mapGeneratorModule/border/syndieWalls
+/datum/map_generator_module/border/syndie_walls
 	spawnableAtoms = list()
 	spawnableTurfs = list(/turf/simulated/wall/r_wall = 100)
 
 
-/datum/mapGeneratorModule/syndieFurniture
+/datum/map_generator_module/syndie_furniture
 	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableTurfs = list()
 	spawnableAtoms = list(/obj/structure/table = 20,/obj/structure/chair = 15,/obj/structure/chair/stool = 10, \
 		/obj/structure/computerframe = 15, /obj/item/storage/toolbox/syndicate = 15 ,\
 		/obj/structure/closet/syndicate = 25)
 
-/datum/mapGeneratorModule/splatterLayer/syndieMobs
+/datum/map_generator_module/splatter_layer/syndie_mobs
 	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableAtoms = list(/mob/living/simple_animal/hostile/syndicate = 30, \
 		/mob/living/simple_animal/hostile/syndicate/melee = 20, \
@@ -26,26 +26,26 @@
 // Generators
 
 /// walls and floor only
-/datum/mapGenerator/syndicate/empty
-		modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
-		/datum/mapGeneratorModule/border/syndieWalls,\
-		/datum/mapGeneratorModule/bottomLayer/repressurize)
+/datum/map_generator/syndicate/empty
+		modules = list(/datum/map_generator_module/bottom_layer/syndie_floor, \
+		/datum/map_generator_module/border/syndie_walls,\
+		/datum/map_generator_module/bottom_layer/repressurize)
 
-/datum/mapGenerator/syndicate/mobsonly
-	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
-		/datum/mapGeneratorModule/border/syndieWalls,\
-		/datum/mapGeneratorModule/splatterLayer/syndieMobs, \
-		/datum/mapGeneratorModule/bottomLayer/repressurize)
+/datum/map_generator/syndicate/mobsonly
+	modules = list(/datum/map_generator_module/bottom_layer/syndie_floor, \
+		/datum/map_generator_module/border/syndie_walls,\
+		/datum/map_generator_module/splatter_layer/syndie_mobs, \
+		/datum/map_generator_module/bottom_layer/repressurize)
 
-/datum/mapGenerator/syndicate/furniture
-	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
-		/datum/mapGeneratorModule/border/syndieWalls,\
-		/datum/mapGeneratorModule/syndieFurniture, \
-		/datum/mapGeneratorModule/bottomLayer/repressurize)
+/datum/map_generator/syndicate/furniture
+	modules = list(/datum/map_generator_module/bottom_layer/syndie_floor, \
+		/datum/map_generator_module/border/syndie_walls,\
+		/datum/map_generator_module/syndie_furniture, \
+		/datum/map_generator_module/bottom_layer/repressurize)
 
-/datum/mapGenerator/syndicate/full
-	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
-		/datum/mapGeneratorModule/border/syndieWalls,\
-		/datum/mapGeneratorModule/syndieFurniture, \
-		/datum/mapGeneratorModule/splatterLayer/syndieMobs, \
-		/datum/mapGeneratorModule/bottomLayer/repressurize)
+/datum/map_generator/syndicate/full
+	modules = list(/datum/map_generator_module/bottom_layer/syndie_floor, \
+		/datum/map_generator_module/border/syndie_walls,\
+		/datum/map_generator_module/syndie_furniture, \
+		/datum/map_generator_module/splatter_layer/syndie_mobs, \
+		/datum/map_generator_module/bottom_layer/repressurize)

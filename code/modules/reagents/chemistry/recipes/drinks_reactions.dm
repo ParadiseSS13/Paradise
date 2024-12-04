@@ -134,7 +134,7 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/kahluaVodka
+/datum/chemical_reaction/kahlua_vodka
 	name = "KahluaVodka"
 	id = "kahlauVodka"
 	result = "kahlua"

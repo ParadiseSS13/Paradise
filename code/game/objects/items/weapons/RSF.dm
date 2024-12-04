@@ -16,7 +16,7 @@
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
-/obj/item/rsf/attack_self(mob/user)
+/obj/item/rsf/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
 	if(!currently_dispensing)
 		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
@@ -68,7 +68,7 @@
 	return TRUE
 
 
-/obj/item/rsf/afterattack(atom/A, mob/user, proximity)
+/obj/item/rsf/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!currently_dispensing)
 		return
 	if(!proximity)

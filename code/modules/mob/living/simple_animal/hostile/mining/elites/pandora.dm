@@ -198,7 +198,7 @@
 	friendly_fire_check = TRUE
 
 
-//Pandora's loot: Hope //Hope I know what to make it do
+//Pandora's loot: Hope
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."

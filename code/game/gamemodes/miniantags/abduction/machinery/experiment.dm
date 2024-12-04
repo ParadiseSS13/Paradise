@@ -174,7 +174,7 @@
 	H.clear_restraints()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
+/obj/machinery/abductor/experiment/attackby__legacy__attackchain(obj/item/G, mob/user)
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/grabbed = G
 		if(!ishuman(grabbed.affecting))
@@ -239,7 +239,6 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
-	sleep(1 SECONDS)
 	occupant.electrocute_act(10, src)
 	do_sparks(5, TRUE, src)
 
@@ -248,7 +247,7 @@
 		return
 	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
 	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
-	occupant.reagents.add_reagent("ether", 5)
+	occupant.reagents.add_reagent("pancuronium", 3)
 
 /obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
 	eject_abductee()

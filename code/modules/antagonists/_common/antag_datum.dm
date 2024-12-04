@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// Should we replace the role-banned player with a ghost?
 	var/replace_banned = TRUE
 	/// List of objectives connected to this datum.
-	var/datum/objective_holder/objective_holder
+	VAR_PRIVATE/datum/objective_holder/objective_holder
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -45,10 +45,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/wiki_page_name
 	/// The organization, if any, this antag is associated with
 	var/datum/antag_org/organization
-	/// If set to TRUE, the antag will be notified they are targeted by another antagonist this round.
-	var/targeted_by_antag = FALSE
-	/// The message displayed to the antag if targeted_by_antag is set to TRUE
-	var/targeted_by_antag_message = "You can't shake the feeling someone's been stalking you. You might be an assassin's next target."
 
 	//Blurb stuff
 	/// Intro Blurbs text colour
@@ -283,22 +279,22 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/has_antag_objectives(include_team = TRUE)
 	. = FALSE
-	if(include_team)
+	. |= objective_holder.has_objectives()
+	if(!. && include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.has_objectives()
-	. |= objective_holder.has_objectives()
 
 /**
  * Get all of this antagonist's objectives, including from the team.
  */
 /datum/antagonist/proc/get_antag_objectives(include_team = TRUE)
 	. = list()
+	. |= objective_holder.get_objectives()
 	if(include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.get_objectives()
-	. |= objective_holder.get_objectives()
 
 /**
  * Proc called when the datum is given to a mind.

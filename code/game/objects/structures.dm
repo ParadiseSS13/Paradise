@@ -8,7 +8,7 @@
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
-	var/mob/living/climber
+	var/list/mob/living/climbers = list()
 	var/broken = FALSE
 	/// How long this takes to unbuckle yourself from.
 	var/unbuckle_time = 0 SECONDS
@@ -32,6 +32,7 @@
 	return ..()
 
 /obj/structure/Destroy()
+	climbers = null
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -58,7 +59,7 @@
 	if(..())
 		return TRUE
 	if(C == user)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, do_climb), user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, start_climb), user)
 		return TRUE
 
 /obj/structure/proc/density_check()
@@ -93,12 +94,27 @@
 	if(!can_touch(user) || !climbable)
 		return FALSE
 
-	user.forceMove(get_turf(src))
-	if(get_turf(user) == get_turf(src))
+	return TRUE
+
+/obj/structure/proc/start_climb(mob/living/user)
+	climbers += user
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(remove_climber)) // Just in case the climber is deleted before finishing
+	if(do_climb(user))
+		user.forceMove(get_turf(src))
 		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+	if(QDELETED(src)) // Table was destroyed while we were climbing it
+		return
+	climbers -= user
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+
+/obj/structure/proc/remove_climber(mob/living/climber)
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+
+	climbers -= climber
+	UnregisterSignal(climber, COMSIG_PARENT_QDELETING)
 
 /obj/structure/proc/structure_shaken()
 	for(var/mob/living/M in get_turf(src))
