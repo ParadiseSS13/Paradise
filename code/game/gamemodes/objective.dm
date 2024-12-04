@@ -109,6 +109,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+	if(HAS_TRAIT(possible_target.current, TRAIT_CRYO_DESPAWNING))
+		return TARGET_CRYOING
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
 	. = ..()
