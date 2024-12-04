@@ -40534,7 +40534,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "gtz" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95122,6 +95122,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/locker)
+"vKy" = (
+/obj/item/t_scanner,
+/turf/space,
+/area/space)
 "vKF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -107396,7 +107400,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+vKy
 rNK
 rNK
 rNK

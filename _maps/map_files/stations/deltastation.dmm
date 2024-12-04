@@ -28818,6 +28818,7 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 2
 	},
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

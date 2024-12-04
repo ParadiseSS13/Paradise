@@ -42276,9 +42276,7 @@
 /area/station/engineering/break_room)
 "cMX" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/t_scanner,
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cNb" = (
@@ -42483,7 +42481,8 @@
 /area/station/engineering/break_room)
 "cNP" = (
 /obj/structure/table,
-/obj/item/folder/yellow,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cNS" = (
