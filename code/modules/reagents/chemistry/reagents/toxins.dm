@@ -1083,7 +1083,7 @@
 			return
 		new /obj/item/toy/plushie/nymphplushie(T)
 		new /obj/item/toy/plushie/nymphplushie(T)
-		DP.visible_message("<span class='warning'>The diona plushie splits appart!</span>")
+		DP.visible_message("<span class='warning'>The diona plushie splits apart!</span>")
 		qdel(DP)
 
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)

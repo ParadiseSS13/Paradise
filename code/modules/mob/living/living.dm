@@ -1189,11 +1189,11 @@
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
 
-/mob/living/proc/plushify(plushie_overide, curse_time = 10 MINUTES)
+/mob/living/proc/plushify(plushie_override, curse_time = 10 MINUTES)
 	var/mob/living/simple_animal/shade/sword/generic_item/plushvictim = new(get_turf(src))
 	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
-	if(plushie_overide)
-		plush_type = plushie_overide
+	if(plushie_override)
+		plush_type = plushie_override
 	var/obj/item/toy/plushie/plush_outcome = new plush_type(get_turf(src))
 	plushvictim.forceMove(plush_outcome)
 	plushvictim.key = key
