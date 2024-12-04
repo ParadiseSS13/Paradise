@@ -49,7 +49,7 @@
 
 	for(var/obj/structure/table in tables)
 		if(istype(table))
-			RegisterSignal(table, COMSIG_PARENT_QDELETING, PROC_REF(on_table_qdel))
+			RegisterSignal(table, COMSIG_PARENT_QDELETING, PROC_REF(on_table_qdel), override = TRUE)
 
 	for(var/turf/turf in floors)
 		if(!istype(turf))
