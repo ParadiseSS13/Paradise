@@ -139,3 +139,5 @@
 		if(get_dist_euclidian(get_turf(host), next_turf) > max_total_distance)
 			continue
 		.(next_turf, distance_from_start + 1)
+
+#undef COMSIG_CARD_DECK_FIELD_CLEAR
