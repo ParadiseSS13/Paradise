@@ -2020,3 +2020,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return_list[path] = 0
 		return_list[path] += 1
 	return return_list
+
+/// Used for signal registrars who wish to completely ignore all behavior
+/// in the attack chain from parent types. Should be used sparingly, as
+/// subtypes are meant to build on behavior from the parent type.
+/proc/cancel_attack_by(datum/source, obj/item/attacking, mob/user, params)
+	return COMPONENT_SKIP_AFTERATTACK
+
+/// Used for signal registrars who wish to completely ignore all behavior
+/// in the attack chain from parent types. Should be used sparingly, as
+/// subtypes are meant to build on behavior from the parent type.
+/proc/cancel_activate_self(mob/user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
