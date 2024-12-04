@@ -68469,7 +68469,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area)
+/area/station/engineering/break_room)
 "oCu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine{
