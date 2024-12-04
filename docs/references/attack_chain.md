@@ -607,14 +607,14 @@ problem.
 
 In order to implement behavior such as this, the child type should register to
 listen for the signal that applies to the attack chain proc, and respond by
-calling one of the global procs which return a signal preventing the rest of the
-attack chain from running.
+calling one of the procs which return a signal preventing the rest of the attack
+chain from running.
 
-For `attack_by` prevention, this proc is [/proc/cancel_attack_by][]. For
-`activate_self` prevention, this proc is [/proc/cancel_activate_self][].
+For `attack_by` prevention, this proc is [/datum/proc/signal_cancel_attack_by][]. For
+`activate_self` prevention, this proc is [/datum/proc/signal_cancel_activate_self][].
 
-[/proc/cancel_attack_by]: https://codedocs.paradisestation.org/global.html#proc/cancel_attack_by
-[/proc/cancel_activate_self]: https://codedocs.paradisestation.org/global.html#proc/cancel_activate_self
+[/datum/proc/signal/cancel_attack_by]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_attack_by
+[/datum/proc/signal/cancel_activate_self]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_activate_self
 
 For example, when we migrated the airlock electronics above, we neglected to
 handle the `/destroyed` subtype, which prevents any interaction via
@@ -623,7 +623,7 @@ handle the `/destroyed` subtype, which prevents any interaction via
 ```diff
 +/obj/item/airlock_electronics/destroyed/Initialize(mapload)
 +	. = ..()
-+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, GLOBAL_PROC_REF(cancel_activate_self))
++	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 ```
 
 ## Migration Helpers

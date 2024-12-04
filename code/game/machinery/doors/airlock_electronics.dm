@@ -112,7 +112,7 @@
 
 /obj/item/airlock_electronics/destroyed/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ACTIVATE_SELF, GLOBAL_PROC_REF(cancel_activate_self))
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 /obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["metal"] += 1
