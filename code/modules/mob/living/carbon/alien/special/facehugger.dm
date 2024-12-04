@@ -27,7 +27,7 @@
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
-	proximity_monitor = new(src, 1)
+	proximity_monitor = new(src)
 	ADD_TRAIT(src, TRAIT_XENO_INTERACTABLE, UID())
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -183,6 +183,7 @@
 		return
 
 	stat = CONSCIOUS
+	proximity_monitor = new(src)
 	icon_state = "[initial(icon_state)]"
 
 /obj/item/clothing/mask/facehugger/proc/GoIdle()
@@ -191,6 +192,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
+	qdel(proximity_monitor)
 	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(min_active_time, max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
