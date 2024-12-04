@@ -604,10 +604,20 @@ the _migration plan checker_ and the _attack chain CI checks_.
 
 If you are making a code change and need to update the attack chain on an
 object, the migration plan checker will tell you what other types will need to
-be migrated in the same PR. For example, if I wanted to migrate `/turf/simulated/wall/cult`, I could rune the migration plan checker at the command line:
+be migrated in the same PR. For example, if I wanted to migrate
+`/turf/simulated/wall/cult`, I could run the migration plan checker at the
+command line:
+
+> [!NOTE]
+>
+> When running the migration plan checker, be sure to run it from the root
+> directory of your repository (`\Paradise`) and to use the version of Python
+> provided by the bootstrap module (`tools\bootstrap\python`). If you know
+> specifically that you are running in PowerShell, use the appropriate command
+> (`tools\bootstrap\python_.ps1`).
 
 ```
-$ python .\tools\migrate_attack_chain.py /turf/simulated/wall/cult
+$ tools\bootstrap\python .\tools\migrate_attack_chain.py /turf/simulated/wall/cult
 Migration Plan for Path /turf/simulated/wall/cult
 Required Additional Migrations:
         /turf
@@ -653,7 +663,7 @@ be migrating 28 types. This is a lot! A migration of this size is not recommende
 for new contributors. On the other hand, let us examine migrating wirecutters:
 
 ```
-$ python .\tools\migrate_attack_chain.py /obj/item/wirecutters
+$ tools\bootstrap\python .\tools\migrate_attack_chain.py /obj/item/wirecutters
 Migration Plan for Path /obj/item/wirecutters
 Required Additional Migrations:
         /obj/item/wirecutters
