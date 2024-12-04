@@ -37,13 +37,13 @@
 /obj/item/grenade/bananade/casing/attack_hand()
 	return // No activating an empty grenade
 
-/obj/item/grenade/bananade/casing/attack_self()
+/obj/item/grenade/bananade/casing/attack_self__legacy__attackchain()
 	return // Stop trying to break stuff
 
 /obj/item/grenade/bananade/casing/prime()
 	return // The grenade isnt completed yet, dont even try to blow it up
 
-/obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/bananade/casing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grown/bananapeel))
 		if(deliveryamt < 9)
 			to_chat(user, "<span  class='notice'>You add another banana peel to the assembly.</span>")

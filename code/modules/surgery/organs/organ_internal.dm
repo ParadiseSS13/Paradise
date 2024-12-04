@@ -204,7 +204,7 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/food/S = prepare_eat()

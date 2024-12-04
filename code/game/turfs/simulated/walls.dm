@@ -342,7 +342,7 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(!isturf(user.loc))

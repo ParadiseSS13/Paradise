@@ -166,7 +166,7 @@
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)
 
 /obj/item/assembly/infra/AltClick(mob/user)
 	rotate(user)

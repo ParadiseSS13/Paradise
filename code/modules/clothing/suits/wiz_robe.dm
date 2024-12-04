@@ -222,7 +222,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch

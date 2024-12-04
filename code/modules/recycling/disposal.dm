@@ -123,7 +123,7 @@
 		disposal.update()
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
@@ -1050,7 +1050,7 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
@@ -1228,7 +1228,7 @@
 	if(mapping_fail)
 		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
-/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(..())
 		return
 
@@ -1426,7 +1426,7 @@
 		D.linkedtrunk = src
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/trunk/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	//Disposal bins or chutes
 	//Disposal constructors

@@ -104,8 +104,8 @@
 /datum/component/two_handed/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(on_attack_self))
+	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
@@ -116,8 +116,8 @@
 /datum/component/two_handed/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED,
 								COMSIG_ITEM_DROPPED,
-								COMSIG_ITEM_ATTACK_SELF,
-								COMSIG_ITEM_ATTACK,
+								COMSIG_ACTIVATE_SELF,
+								COMSIG_ATTACK,
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT))
@@ -151,7 +151,7 @@
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK_SELF
+	SIGNAL_HANDLER  // COMSIG_ACTIVATE_SELF
 
 	if(require_twohands)
 		return
@@ -311,7 +311,7 @@
  * on_attack triggers on attack with the parent item
  */
 /datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	SIGNAL_HANDLER  // COMSIG_ATTACK
 	if(wielded && attacksound)
 		var/obj/item/parent_item = parent
 		playsound(parent_item.loc, attacksound, 50, TRUE)
