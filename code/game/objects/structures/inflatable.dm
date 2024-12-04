@@ -9,7 +9,7 @@
 	. = ..()
 	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
 
-/obj/item/inflatable/attack_self(mob/user)
+/obj/item/inflatable/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
@@ -51,7 +51,7 @@
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/inflatable/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
 		user.do_attack_animation(src, used_item = I)
 		deconstruct(FALSE)
@@ -88,7 +88,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door"
 
-/obj/item/inflatable/door/attack_self(mob/user)
+/obj/item/inflatable/door/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
@@ -165,7 +165,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall_torn"
 
-/obj/item/inflatable/torn/attack_self(mob/user)
+/obj/item/inflatable/torn/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
 	add_fingerprint(user)
 
@@ -175,7 +175,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door_torn"
 
-/obj/item/inflatable/door/torn/attack_self(mob/user)
+/obj/item/inflatable/door/torn/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
 	add_fingerprint(user)
 

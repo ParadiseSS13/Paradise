@@ -71,7 +71,7 @@
 		if(species_override)
 			dna.species = new species_override
 
-/obj/item/organ/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/nano = I
 		nano.use(1)

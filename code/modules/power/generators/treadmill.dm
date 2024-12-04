@@ -108,7 +108,7 @@
 		spawn(100)
 			stat &= ~BROKEN
 
-/obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
+/obj/machinery/power/treadmill/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W, time = 60))
 		on_anchor_changed()
 		speed = 0

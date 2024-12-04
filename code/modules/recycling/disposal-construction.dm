@@ -187,7 +187,7 @@
 			nicetype = "sorting pipe"
 	return nicetype
 
-/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 	var/turf/T = get_turf(src)

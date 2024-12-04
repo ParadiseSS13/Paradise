@@ -183,4 +183,4 @@
 		return
 
 	if(usr)
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)

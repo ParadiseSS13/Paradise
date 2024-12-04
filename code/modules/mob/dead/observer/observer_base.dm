@@ -484,6 +484,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		forceMove(get_turf(landmark))
 		update_parallax_contents()
 
+		var/list/messages = list(
+			"<span class='notice'>Jumped to <b>[landmark.ruin_template.name]</b>:</span>",
+			"<span class='notice'>[landmark.ruin_template.description]</span>"
+		)
+		to_chat(usr, chat_box_examine(messages.Join("<br />")))
+
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
 		return

@@ -200,7 +200,7 @@
 	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/plasma/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(C.get_heat() > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
@@ -447,7 +447,7 @@
 	else
 		lock(TRUE)
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(obj/C, mob/user, params)
+/obj/machinery/door/airlock/highsecurity/red/attackby__legacy__attackchain(obj/C, mob/user, params)
 	if(!issilicon(user))
 		if(isElectrified())
 			if(shock(user, 75))

@@ -140,7 +140,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/attack_self(mob/user)
+/obj/item/stack/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/stack/attack_self_tk(mob/user)
@@ -169,7 +169,7 @@
 	if(src && user.machine == src)
 		ui_interact(user)
 
-/obj/item/stack/attackby(obj/item/thing, mob/user, params)
+/obj/item/stack/attackby__legacy__attackchain(obj/item/thing, mob/user, params)
 	if(!can_merge(thing, TRUE))
 		return ..()
 

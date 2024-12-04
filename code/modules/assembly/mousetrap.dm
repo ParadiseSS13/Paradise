@@ -77,7 +77,7 @@
 	update_icon()
 	pulse(0)
 
-/obj/item/assembly/mousetrap/attack_self(mob/living/user)
+/obj/item/assembly/mousetrap/attack_self__legacy__attackchain(mob/living/user)
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else

@@ -46,7 +46,7 @@
 	set_initial_icon_state()
 	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
-/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/shard/afterattack__legacy__attackchain(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))

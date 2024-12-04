@@ -776,7 +776,7 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
 
-/obj/machinery/atmospherics/supermatter_crystal/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/atmospherics/supermatter_crystal/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!istype(I) || (I.flags & ABSTRACT) || !istype(user))
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
