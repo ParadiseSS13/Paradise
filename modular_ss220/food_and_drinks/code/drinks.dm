@@ -1,3 +1,6 @@
+/obj/item/reagent_containers/drinks/drinkingglass
+	name = "drinking glass"
+
 /obj/item/reagent_containers/drinks/drinkingglass/on_reagent_change()
 	. = ..()
 	if(!reagents.reagent_list.len)
