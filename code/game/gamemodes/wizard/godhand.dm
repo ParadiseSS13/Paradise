@@ -29,13 +29,12 @@
 /obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 
-/obj/item/melee/touch_attack/attack__legacy__attackchain(mob/target, mob/living/carbon/user)
-	if(!iscarbon(user)) //Look ma, no hands
-		return
+/obj/item/melee/touch_attack/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..() || !iscarbon(user)) //Look ma, no hands
+		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
-		return
-	..()
+		return FINISH_ATTACK
 
 /obj/item/melee/touch_attack/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(catchphrase)

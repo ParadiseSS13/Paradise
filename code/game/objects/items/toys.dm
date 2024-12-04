@@ -40,8 +40,10 @@
 	..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack__legacy__attackchain(mob/living/carbon/human/M as mob, mob/user as mob)
-	return
+/obj/item/toy/balloon/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+	return FINISH_ATTACK
 
 /obj/item/toy/balloon/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -66,20 +68,22 @@
 		update_icon()
 	return
 
-/obj/item/toy/balloon/attackby__legacy__attackchain(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/drinks/drinkingglass))
-		if(O.reagents)
-			if(O.reagents.total_volume < 1)
-				to_chat(user, "[O] is empty.")
-			else if(O.reagents.total_volume >= 1)
-				if(O.reagents.has_reagent("facid", 1))
+/obj/item/toy/balloon/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/reagent_containers/glass) || istype(attacking, /obj/item/reagent_containers/drinks/drinkingglass))
+		if(attacking.reagents)
+			if(attacking.reagents.total_volume < 1)
+				to_chat(user, "[attacking] is empty.")
+			else if(attacking.reagents.total_volume >= 1)
+				if(attacking.reagents.has_reagent("facid", 1))
 					to_chat(user, "The acid chews through the balloon!")
-					O.reagents.reaction(user)
+					attacking.reagents.reaction(user)
 					qdel(src)
 				else
 					desc = "A translucent balloon with some form of liquid sloshing around in it."
-					to_chat(user, "<span class='notice'>You fill the balloon with the contents of [O].</span>")
-					O.reagents.trans_to(src, 10)
+					to_chat(user, "<span class='notice'>You fill the balloon with the contents of [attacking].</span>")
+					attacking.reagents.trans_to(src, 10)
 	update_icon()
 	return
 
@@ -115,8 +119,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/lastused = null
 
-/obj/item/toy/syndicateballoon/attack_self__legacy__attackchain(mob/user)
-	if(world.time - lastused < CLICK_CD_MELEE)
+/obj/item/toy/syndicateballoon/activate_self(mob/user)
+	if(..() || world.time - lastused < CLICK_CD_MELEE)
 		return
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
@@ -184,7 +188,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 
-/obj/item/toy/sword/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/sword/activate_self(mob/user)
+	if(..())
+		return
 	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
@@ -204,24 +210,23 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	return
 
-// Copied from /obj/item/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
-	..()
-	if(istype(W, /obj/item/toy/sword))
-		if(W == src)
+/obj/item/toy/sword/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/toy/sword))
+		if(attacking == src)
 			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... Itself. You're not very smart, are you?</span>")
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
-		else if((W.flags & NODROP) || (flags & NODROP))
-			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
+		else if((attacking.flags & NODROP) || (flags & NODROP))
+			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : attacking] is stuck to your hand, you can't attach it to \the [flags & NODROP ? attacking : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			new /obj/item/dualsaber/toy(user.loc)
-			user.unEquip(W)
+			user.unEquip(attacking)
 			user.unEquip(src)
-			qdel(W)
+			qdel(attacking)
 			qdel(src)
 
 /obj/item/toy/sword/chaosprank
@@ -229,9 +234,9 @@
 	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
 	var/pranked = FALSE
 
-/obj/item/toy/sword/attack__legacy__attackchain(mob/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+/obj/item/toy/sword/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..() || cigarette_lighter_act(user, target))
+		return FINISH_ATTACK
 
 /obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -423,7 +428,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/nuke/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/nuke/activate_self(mob/user)
+	if(..())
+		return
 	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
@@ -455,11 +462,12 @@
 		desc += " This one is [item_color]."
 		icon_state = "therapy[item_color]"
 
-/obj/item/toy/therapy/attack_self__legacy__attackchain(mob/user)
-	if(cooldown < world.time - 8)
-		to_chat(user, "<span class='notice'>You relieve some stress with \the [src].</span>")
-		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
-		cooldown = world.time
+/obj/item/toy/therapy/activate_self(mob/user)
+	if(..() || !(cooldown < world.time - 8))
+		return
+	to_chat(user, "<span class='notice'>You relieve some stress with \the [src].</span>")
+	playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
+	cooldown = world.time
 
 /obj/random/therapy
 	name = "Random Therapy Doll"
@@ -585,14 +593,17 @@
 	COOLDOWN_DECLARE(rare_hug_cooldown)
 
 
-/obj/item/toy/plushie/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
+/obj/item/toy/plushie/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
 	playsound(loc, pickweight(poof_sound), 20, 1)	// Play the whoosh sound in local area
-	if(iscarbon(M))
+	if(iscarbon(target))
 		if(prob(10))
-			M.reagents.add_reagent("hugs", 10)
-	return ..()
+			target.reagents.add_reagent("hugs", 10)
 
-/obj/item/toy/plushie/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/toy/plushie/activate_self(mob/user as mob)
+	if(..())
+		return
 	if(has_stuffing || grenade)
 		if(rare_hug_sound && rare_hug_word && COOLDOWN_FINISHED(src, rare_hug_cooldown))
 			playsound(src, rare_hug_sound , 10, 0)
@@ -609,7 +620,6 @@
 			addtimer(CALLBACK(src, PROC_REF(explosive_betrayal), grenade), rand(1, 3) SECONDS)
 	else
 		to_chat(user, "<span class='notice'>You try to pet [src], but it has no stuffing. Aww...</span>")
-	return ..()
 
 
 /obj/item/toy/plushie/proc/explosive_betrayal(obj/item/grenade/grenade_callback)
@@ -625,38 +635,39 @@
 	QDEL_NULL(cursed_plushie_victim)
 	return ..()
 
-/obj/item/toy/plushie/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(I.sharp)
+/obj/item/toy/plushie/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(attacking.sharp)
 		if(!grenade)
 			if(!has_stuffing)
 				to_chat(user, "<span class='warning'>You already murdered it!</span>")
-				return
+				return FINISH_ATTACK
 			user.visible_message("<span class='warning'>[user] tears out the stuffing from [src]!</span>", "<span class='notice'>You rip a bunch of the stuffing from [src]. Murderer.</span>")
-			I.play_tool_sound(src)
+			attacking.play_tool_sound(src)
 			has_stuffing = FALSE
 		else
 			to_chat(user, "<span class='notice'>You remove the grenade from [src].</span>")
 			grenade.forceMove(get_turf(src))
 			user.put_in_hands(grenade)
 			grenade = null
-		return
-	if(istype(I, /obj/item/grenade))
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/grenade))
 		if(has_stuffing)
 			to_chat(user, "<span class='warning'>You need to remove some stuffing first!</span>")
-			return
+			return FINISH_ATTACK
 		if(grenade)
 			to_chat(user, "<span class='warning'>[src] already has a grenade!</span>")
-			return
+			return FINISH_ATTACK
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [src].</span>")
-			return
-		user.visible_message("<span class='warning'>[user] slides [I] into [src].</span>", \
-		"<span class='warning'>You slide [I] into [src].</span>")
-		I.forceMove(src)
-		grenade = I
+			to_chat(user, "<span class='warning'>[attacking] is stuck to you and cannot be placed into [src].</span>")
+			return FINISH_ATTACK
+		user.visible_message("<span class='warning'>[user] slides [attacking] into [src].</span>", \
+		"<span class='warning'>You slide [attacking] into [src].</span>")
+		attacking.forceMove(src)
+		grenade = attacking
 		add_attack_logs(user, user, "placed a hidden grenade in [src].", ATKLOG_ALMOSTALL)
-		return
-	return ..()
+		return FINISH_ATTACK
 
 /obj/item/toy/plushie/proc/un_plushify()
 	if(!cursed_plushie_victim)
@@ -825,9 +836,8 @@
 /obj/item/toy/plushie/greyplushie/proc/reset_hugdown()
 	hug_cooldown = FALSE //Resets the hug interaction cooldown.
 
-/obj/item/toy/plushie/greyplushie/attack_self__legacy__attackchain(mob/user)//code for talking when hugged.
-	. = ..()
-	if(hug_cooldown)
+/obj/item/toy/plushie/greyplushie/activate_self(mob/user)//code for talking when hugged.
+	if(..() || hug_cooldown)
 		return
 	hug_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
@@ -850,14 +860,15 @@
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
 
-/obj/item/toy/plushie/ipcplushie/attackby__legacy__attackchain(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/food/breadslice))
+/obj/item/toy/plushie/ipcplushie/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/food/breadslice))
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
-	else
-		return ..()
+		return FINISH_ATTACK
 
 //New generation TG plushies
 
@@ -983,10 +994,11 @@
 	borg_plushie_overlay = (pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi"))
 	update_icon()
 
-/obj/item/toy/plushie/borgplushie/attack_self(mob/user)
+/obj/item/toy/plushie/borgplushie/activate_self(mob/user)
+	if(..())
+		return
 	on = !on
 	update_brightness()
-	return ..()
 
 /obj/item/toy/plushie/borgplushie/proc/update_brightness()
 	if(on)
@@ -1034,9 +1046,11 @@
 	rare_hug_sound = 'sound/creatures/nymphchirp.ogg'
 	rare_hug_word = "Chirp!"
 
-/obj/item/toy/plushie/nymphplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/toy/plushie/nymphplushie))
-		var/obj/item/toy/plushie/nymphplushie/NP = B
+/obj/item/toy/plushie/nymphplushie/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/toy/plushie/nymphplushie))
+		var/obj/item/toy/plushie/nymphplushie/NP = attacking
 		var/found_grenade = FALSE
 		if(grenade)
 			found_grenade = TRUE
@@ -1045,14 +1059,13 @@
 			found_grenade = TRUE
 			NP.explosive_betrayal(NP.grenade)
 		if(found_grenade)
-			return
+			return FINISH_ATTACK
 		new /obj/item/toy/plushie/dionaplushie(get_turf(loc))
 		to_chat(user, "<span class='notice'>The nymph plushies combine seamlessly into an diona plushie!</span>")
 		playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1)
 		qdel(NP)
 		qdel(src)
-	else
-		return ..()
+		return FINISH_ATTACK
 
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
@@ -1066,11 +1079,12 @@
 		bakoom()
 	return TRUE
 
-/obj/item/toy/plushie/plasmamanplushie/attackby(obj/item/I, mob/living/user, params)
-	if(I.get_heat())
+/obj/item/toy/plushie/plasmamanplushie/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(attacking.get_heat())
 		bakoom()
-		return
-	return ..()
+		return FINISH_ATTACK
 
 /obj/item/toy/plushie/plasmamanplushie/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -1091,15 +1105,16 @@
 	rare_hug_sound = 'sound/voice/drasktalk.ogg'
 	rare_hug_word = "Ruuuumble..."
 
-/obj/item/toy/plushie/draskplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/soap))
-		if(prob(10))
+/obj/item/toy/plushie/draskplushie/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/soap))
+		if(prob(20))
 			visible_message("<span class='danger'>[src] consumes the soap...</span>")
-			qdel(B)
+			qdel(attacking)
+			return FINISH_ATTACK
 		visible_message("<span class='danger'>[src] munches the soap...</span>")
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 1)
-		return ..()
-	return ..()
 
 /obj/item/toy/plushie/kidanplushie
 	name = "kidan plushie"
@@ -1109,12 +1124,13 @@
 	rare_hug_sound = 'sound/effects/Kidanclack.ogg'
 	rare_hug_word = "Click clack!"
 
-/obj/item/toy/plushie/kidanplushie/attack_self(mob/user)
+/obj/item/toy/plushie/kidanplushie/activate_self(mob/user)
+	if(..())
+		return
 	if(prob(10) && sadbug)
 		visible_message("<span class='notice'>[src] begins to cheer up!</span>")
 		icon_state = "plushie_kidan"
 		sadbug = FALSE
-	return
 
 /obj/item/toy/plushie/kidanplushie/proc/make_cry()
 	visible_message("<span class='danger'>[src] starts to cry...</span>")
@@ -1162,7 +1178,9 @@
 	else
 		. += "single_latch"
 
-/obj/item/toy/windup_toolbox/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/windup_toolbox/activate_self(mob/user)
+	if(..())
+		return
 	if(!active)
 		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
 		active = TRUE
@@ -1191,10 +1209,12 @@
 	item_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/toy/flash/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/toy/flash/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[initial(icon_state)]2", src)
-	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+	user.visible_message("<span class='disarm'>[user] blinds [target] with the flash!</span>")
 
 
 /*
@@ -1208,7 +1228,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/redbutton/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/redbutton/activate_self(mob/user)
+	if(..())
+		return
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
@@ -1233,16 +1255,15 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/ai/attack_self__legacy__attackchain(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = generate_ion_law()
-		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
+/obj/item/toy/ai/activate_self(mob/user)
+	if(..() || cooldown) //for the sanity of everyone
 		return
-	..()
+	var/message = generate_ion_law()
+	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
+	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+	cooldown = 1
+	spawn(30) cooldown = 0
 
 /obj/item/toy/codex_gigas
 	name = "Toy Codex Gigas"
@@ -1253,18 +1274,19 @@
 	var/list/messages = list("You must challenge the devil to a dance-off!", "The devils true name is Ian", "The devil hates salt!", "Would you like infinite power?", "Would you like infinite wisdom?", " Would you like infinite healing?")
 	var/cooldown = FALSE
 
-/obj/item/toy/codex_gigas/attack_self__legacy__attackchain(mob/user)
-	if(!cooldown)
-		user.visible_message(
-			"<span class='notice'>[user] presses the button on \the [src].</span>",
-			"<span class='notice'>You press the button on \the [src].</span>",
-			"<span class='notice'>You hear a soft click.</span>")
-		playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
-		cooldown = TRUE
-		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 60)
-		for(var/message in pick(messages))
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-			sleep(10)
+/obj/item/toy/codex_gigas/activate_self(mob/user)
+	if(..() || cooldown)
+		return
+	user.visible_message(
+		"<span class='notice'>[user] presses the button on \the [src].</span>",
+		"<span class='notice'>You press the button on \the [src].</span>",
+		"<span class='notice'>You hear a soft click.</span>")
+	playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 60)
+	for(var/message in pick(messages))
+		user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		sleep(10)
 
 // DND Character minis. Use the naming convention (type)character for the icon states.
 /obj/item/toy/character
@@ -1313,7 +1335,7 @@
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
 	hitsound = "swing_hit"
 
-/obj/item/toy/pet_rock/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/pet_rock/activate_self(mob/user)
 	var/cuddle_verb = pick("admires", "respects", "cherises", "appreciates")
 	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 
@@ -1338,8 +1360,9 @@
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
-/obj/item/toy/minigibber/attack_self__legacy__attackchain(mob/user)
-
+/obj/item/toy/minigibber/activate_self(mob/user)
+	if(..())
+		return
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
 		QDEL_NULL(stored_minature)
@@ -1351,20 +1374,22 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
-/obj/item/toy/minigibber/attackby__legacy__attackchain(obj/O, mob/user, params)
-	if(istype(O,/obj/item/toy/character) && O.loc == user)
-		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
+/obj/item/toy/minigibber/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking,/obj/item/toy/character) && attacking.loc == user)
+		to_chat(user, "<span class='notice'>You start feeding \the [attacking] [bicon(attacking)] into \the [src]'s mini-input.</span>")
 		if(do_after(user, 10, target = src))
-			if(O.loc != user)
-				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
+			if(attacking.loc != user)
+				to_chat(user, "<span class='alert'>\The [attacking] is too far away to feed into \the [src]!</span>")
 			else
-				to_chat(user, "<span class='notice'>You feed \the [O] [bicon(O)] into \the [src]!</span>")
-				user.unEquip(O)
-				O.forceMove(src)
-				stored_minature = O
+				to_chat(user, "<span class='notice'>You feed \the [attacking] [bicon(attacking)] into \the [src]!</span>")
+				user.unEquip(attacking)
+				attacking.forceMove(src)
+				stored_minature = attacking
 		else
-			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")
-	else ..()
+			to_chat(user, "<span class='warning'>You stop feeding \the [attacking] into \the [src]'s mini-input.</span>")
+		return FINISH_ATTACK
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
@@ -1397,7 +1422,9 @@
 	..()
 	spin_cylinder()
 
-/obj/item/toy/russian_revolver/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/russian_revolver/activate_self(mob/user)
+	if(..())
+		return
 	if(!bullets_left)
 		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
 		spin_cylinder()
@@ -1405,8 +1432,10 @@
 		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 		spin_cylinder()
 
-/obj/item/toy/russian_revolver/attack__legacy__attackchain(mob/M, mob/living/user)
-	return
+/obj/item/toy/russian_revolver/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+	return FINISH_ATTACK
 
 /obj/item/toy/russian_revolver/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
 	if(flag)
@@ -1476,7 +1505,9 @@
 	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
 	shoot_gun(user)
 
-/obj/item/toy/russian_revolver/trick_revolver/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/russian_revolver/trick_revolver/activate_self(mob/user)
+	if(..())
+		return
 	if(!bullets_left) //You can re-arm the trap...
 		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
 		spin_cylinder()
@@ -1484,17 +1515,18 @@
 		user.visible_message("<span class='warning'>[user] tries to empty [src], but it goes off in their face!</span>")
 		shoot_gun(user)
 
-/obj/item/toy/russian_revolver/trick_revolver/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_pen(I))
+/obj/item/toy/russian_revolver/trick_revolver/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(is_pen(attacking))
 		to_chat(user, "<span class='warning'>You go to write on [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
-	if(istype(I, /obj/item/ammo_casing/a357))
+	if(istype(attacking, /obj/item/ammo_casing/a357))
 		to_chat(user, "<span class='warning'>You go to load a bullet into [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
-	if(istype(I, /obj/item/ammo_box/a357))
+	if(istype(attacking, /obj/item/ammo_box/a357))
 		to_chat(user, "<span class='warning'>You go to speedload [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
-	return ..()
 
 /obj/item/toy/russian_revolver/trick_revolver/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
 	if(target_atom != src)
@@ -1564,8 +1596,9 @@
 	var/cooldown = 0
 	var/cooldown_time = 3 SECONDS
 
-/obj/item/toy/figure/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/toy/figure/activate_self(mob/user)
+	if(..())
+		return
 	if(cooldown < world.time)
 		cooldown = world.time + cooldown_time
 		activate(user)
@@ -1947,14 +1980,14 @@
 	var/cooldown = 0
 	var/list/possible_answers = list("Definitely", "All signs point to yes.", "Most likely.", "Yes.", "Ask again later.", "Better not tell you now.", "Future Unclear.", "Maybe.", "Doubtful.", "No.", "Don't count on it.", "Never.")
 
-/obj/item/toy/eight_ball/attack_self__legacy__attackchain(mob/user as mob)
-	if(!cooldown)
-		var/answer = pick(possible_answers)
-		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
-		user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[answer]\"</span>")
-		spawn(30)
-			cooldown = 0
+/obj/item/toy/eight_ball/activate_self(mob/user as mob)
+	if(..() || cooldown)
 		return
+	var/answer = pick(possible_answers)
+	user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
+	user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[answer]\"</span>")
+	spawn(30)
+		cooldown = 0
 
 /obj/item/toy/eight_ball/conch
 	name = "\improper Magic Conch Shell"
