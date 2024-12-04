@@ -608,7 +608,7 @@ be migrated in the same PR. For example, if I wanted to migrate
 `/turf/simulated/wall/cult`, I could run the migration plan checker at the
 command line:
 
-> ![NOTE]
+> [!NOTE]
 >
 > When running the migration plan checker, be sure to run it from the root
 > directory of your repository (`\Paradise`) and to use the version of Python
