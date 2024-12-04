@@ -9,7 +9,6 @@ LINEN BINS
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/bedsheet.dmi'
 	icon_state = "sheet"
-	item_state = "bedsheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = 4
@@ -19,7 +18,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = ITEM_SLOT_BACK
+	slot_flags = ITEM_SLOT_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
 	dyeing_key = DYE_REGISTRY_BEDSHEET
 
@@ -36,7 +35,7 @@ LINEN BINS
 		return
 	return ..()
 
-/obj/item/bedsheet/attack_self(mob/user as mob)
+/obj/item/bedsheet/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
 	if(layer == initial(layer))
 		layer = 5
@@ -45,7 +44,7 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
@@ -317,7 +316,7 @@ LINEN BINS
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")

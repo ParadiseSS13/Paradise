@@ -6,7 +6,7 @@
 	item_state = "dnainjector"
 	belt_icon = "syringe"
 	var/block = 0
-	var/datum/dna2/record/buf = null
+	var/datum/dna2_record/buf = null
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -118,7 +118,7 @@
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 
-/obj/item/dnainjector/attack(mob/M, mob/user)
+/obj/item/dnainjector/attack__legacy__attackchain(mob/M, mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return

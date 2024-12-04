@@ -184,7 +184,7 @@
 				heardword = html_encode(copytext(heardword, 2))
 			if(copytext(heardword,-1) in punctuation)
 				heardword = html_encode(copytext(heardword, 1, length(heardword)))
-			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+			heard = "<span class='game say'>...<i>You hear something about</i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
 	else

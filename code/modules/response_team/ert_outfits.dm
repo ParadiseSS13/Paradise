@@ -1,6 +1,6 @@
 /* ERT OUTFIT DATUMS */
 
-/datum/outfit/job/centcom/response_team/imprint_idcard(mob/living/carbon/human/H)
+/datum/outfit/job/response_team/imprint_idcard(mob/living/carbon/human/H)
 	var/obj/item/card/id/W = H.wear_id
 	if(!istype(W))
 		return
@@ -15,7 +15,7 @@
 	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
 		W.associated_account_number = H.mind.initial_account.account_number
 
-/datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
+/datum/outfit/job/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.owner = H.real_name
@@ -23,14 +23,14 @@
 		PDA.ownrank = rt_assignment
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
-/datum/outfit/job/centcom/response_team/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/response_team/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
 	H.job = rt_mob_job
 
 //////////////////// COMMANDER ///////////////////
 
-/datum/outfit/job/centcom/response_team/commander
+/datum/outfit/job/response_team/commander
 	name = "RT Commander"
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
@@ -42,13 +42,13 @@
 	l_pocket = /obj/item/pinpointer
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
-/datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
 	H.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
 	H.age = rand(35, 45)
 
-/datum/outfit/job/centcom/response_team/commander/amber
+/datum/outfit/job/response_team/commander/amber
 	name = "RT Commander (Amber)"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/command
@@ -63,7 +63,7 @@
 		/obj/item/flashlight = 1
 	)
 
-/datum/outfit/job/centcom/response_team/commander/red
+/datum/outfit/job/response_team/commander/red
 	name = "RT Commander (Red)"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
@@ -89,7 +89,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/commander/gamma
+/datum/outfit/job/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
@@ -120,7 +120,7 @@
 
 //////////////////// SECURITY ///////////////////
 
-/datum/outfit/job/centcom/response_team/security
+/datum/outfit/job/response_team/security
 	name = "RT Security"
 	rt_assignment = "Emergency Response Team Officer"
 	rt_job = "Emergency Response Team Officer"
@@ -131,7 +131,7 @@
 	pda = /obj/item/pda/heads/ert/security
 	id = /obj/item/card/id/ert/security
 
-/datum/outfit/job/centcom/response_team/security/amber
+/datum/outfit/job/response_team/security/amber
 	name = "RT Security (Amber)"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security
@@ -147,7 +147,7 @@
 		/obj/item/flashlight/seclite = 1
 	)
 
-/datum/outfit/job/centcom/response_team/security/red
+/datum/outfit/job/response_team/security/red
 	name = "RT Security (Red)"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
@@ -174,7 +174,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/security/gamma
+/datum/outfit/job/response_team/security/gamma
 	name = "RT Security (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	belt = /obj/item/storage/belt/security/response_team_gamma
@@ -208,7 +208,7 @@
 
 //////////////////// ENGINEER ///////////////////
 
-/datum/outfit/job/centcom/response_team/engineer
+/datum/outfit/job/response_team/engineer
 	name = "RT Engineer"
 	rt_assignment = "Emergency Response Team Engineer"
 	rt_job = "Emergency Response Team Engineer"
@@ -219,7 +219,7 @@
 	id = /obj/item/card/id/ert/engineering
 	belt = /obj/item/storage/belt/utility/chief/full
 
-/datum/outfit/job/centcom/response_team/engineer/amber
+/datum/outfit/job/response_team/engineer/amber
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
@@ -243,7 +243,7 @@
 		/obj/item/organ/internal/eyes/cybernetic/shield
 	)
 
-/datum/outfit/job/centcom/response_team/engineer/red
+/datum/outfit/job/response_team/engineer/red
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
@@ -272,7 +272,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/engineer/gamma
+/datum/outfit/job/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
@@ -305,7 +305,7 @@
 
 //////////////////// MEDIC ///////////////////
 
-/datum/outfit/job/centcom/response_team/medic
+/datum/outfit/job/response_team/medic
 	name = "RT Medic"
 	rt_assignment = "Emergency Response Team Medic"
 	rt_job = "Emergency Response Team Medic"
@@ -315,7 +315,7 @@
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
 
-/datum/outfit/job/centcom/response_team/medic/amber
+/datum/outfit/job/response_team/medic/amber
 	name = "RT Medic (Amber)"
 	head = /obj/item/clothing/head/helmet/ert/medical
 	shoes = /obj/item/clothing/shoes/white
@@ -337,7 +337,7 @@
 		/obj/item/soap/nanotrasen = 1
 	)
 
-/datum/outfit/job/centcom/response_team/medic/red
+/datum/outfit/job/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
 	shoes = /obj/item/clothing/shoes/magboots
@@ -370,7 +370,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/medic/gamma
+/datum/outfit/job/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	glasses = /obj/item/clothing/glasses/night
@@ -407,7 +407,7 @@
 
 //////////////////// PARANORMAL ///////////////////
 
-/datum/outfit/job/centcom/response_team/paranormal
+/datum/outfit/job/response_team/paranormal
 	name = "RT Paranormal"
 	rt_assignment = "Emergency Response Team Inquisitor"
 	rt_job = "Emergency Response Team Inquisitor"
@@ -428,19 +428,19 @@
 		/obj/item/storage/bible = 1
 	)
 
-/datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(istype(H.mind))
 		ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
 
-/datum/outfit/job/centcom/response_team/paranormal/amber
+/datum/outfit/job/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
 	suit_store = /obj/item/gun/energy/disabler
 	r_pocket = /obj/item/nullrod
 
-/datum/outfit/job/centcom/response_team/paranormal/red
+/datum/outfit/job/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	suit_store = /obj/item/gun/energy/gun
@@ -464,7 +464,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/paranormal/gamma
+/datum/outfit/job/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
@@ -492,7 +492,7 @@
 
 //////////////////// JANITORIAL ///////////////////
 
-/datum/outfit/job/centcom/response_team/janitorial
+/datum/outfit/job/response_team/janitorial
 	name = "RT Janitor"
 	rt_assignment = "Emergency Response Team Janitor"
 	rt_job = "Emergency Response Team Janitor"
@@ -513,13 +513,13 @@
 		/obj/item/melee/flyswatter = 1
 	)
 
-/datum/outfit/job/centcom/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
-/datum/outfit/job/centcom/response_team/janitorial/amber
+/datum/outfit/job/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
@@ -531,7 +531,7 @@
 		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	)
 
-/datum/outfit/job/centcom/response_team/janitorial/red
+/datum/outfit/job/response_team/janitorial/red
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
@@ -550,7 +550,7 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-/datum/outfit/job/centcom/response_team/janitorial/gamma
+/datum/outfit/job/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	glasses = /obj/item/clothing/glasses/hud/janitor/night
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor

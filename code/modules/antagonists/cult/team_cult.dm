@@ -31,13 +31,22 @@ RESTRICT_TYPE(/datum/team/cult)
 	/// Boolean that prevents all_members_timer from being called multiple times
 	var/is_in_transition = FALSE
 
+	/// Timer until we do a recount of cultist members
+	var/recount_timer
+
+/datum/team/cult/New(list/starting_members)
+	. = ..()
+	recount_timer = addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 5 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_LOOP)
+
+/datum/team/cult/Destroy(force, ...)
+	deltimer(recount_timer)
+	return ..()
+
 /datum/team/cult/create_team(list/starting_members)
 	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
 	. = ..()
 
 	objective_holder.add_objective(/datum/objective/servecult)
-
-	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 

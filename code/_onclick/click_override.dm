@@ -10,41 +10,41 @@
  - DaveTheHeacrab
  */
 
-/datum/middleClickOverride/
+/datum/middle_click_override/
 
-/datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
+/datum/middle_click_override/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
 	return TRUE
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
 	Calling the super will do this for you automatically, but if you want a click override to NOT clear itself after the first click, you must do it at some other point in the code*/
 
-/obj/item/badminBook/
+/obj/item/badmin_book/
 	name = "old book"
 	desc = "An old, leather bound tome."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book"
-	var/datum/middleClickOverride/clickBehavior = new /datum/middleClickOverride/badminClicker
+	var/datum/middle_click_override/clickBehavior = new /datum/middle_click_override/badmin_clicker
 
-/obj/item/badminBook/attack_self(mob/living/user as mob)
+/obj/item/badmin_book/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(user.middleClickOverride)
 		to_chat(user, "<span class='warning'>You try to draw power from [src], but you cannot hold the power at this time!</span>")
 		return
 	user.middleClickOverride = clickBehavior
 	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
 
-/datum/middleClickOverride/badminClicker
+/datum/middle_click_override/badmin_clicker
 	var/summon_path = /obj/item/food/cookie
 
-/datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
+/datum/middle_click_override/badmin_clicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
 	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]!</span>")
 	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]!</span>")
 	..()
 
-/datum/middleClickOverride/shock_implant
+/datum/middle_click_override/shock_implant
 
-/datum/middleClickOverride/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
+/datum/middle_click_override/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
 	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
 		return FALSE
 	if(user.incapacitated())
@@ -119,13 +119,13 @@
  * Middle click override which accepts a callback as an arugment in the `New()` proc.
  * When the living mob that has this datum middle-clicks or alt-clicks on something, the callback will be invoked.
  */
-/datum/middleClickOverride/callback_invoker
+/datum/middle_click_override/callback_invoker
 	var/datum/callback/callback
 
-/datum/middleClickOverride/callback_invoker/New(datum/callback/_callback)
+/datum/middle_click_override/callback_invoker/New(datum/callback/_callback)
 	. = ..()
 	callback = _callback
 
-/datum/middleClickOverride/callback_invoker/onClick(atom/A, mob/living/user)
+/datum/middle_click_override/callback_invoker/onClick(atom/A, mob/living/user)
 	if(callback.Invoke(user, A))
 		return TRUE

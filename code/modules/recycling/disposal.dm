@@ -63,7 +63,7 @@
 /obj/machinery/disposal/Moved(atom/OldLoc, Dir)
 	. = ..()
 	eject()
-	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
+	var/ptype = istype(src, /obj/machinery/disposal/delivery_chute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
 	var/turf/T = OldLoc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
@@ -123,7 +123,7 @@
 		disposal.update()
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
@@ -550,7 +550,7 @@
 	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
 		wrapcheck = 1
 
-	for(var/obj/item/smallDelivery/O in src)
+	for(var/obj/item/small_delivery/O in src)
 		wrapcheck = 1
 
 	if(wrapcheck == 1)
@@ -704,11 +704,11 @@
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = TRUE			// set flag on holder
-		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
-			var/obj/structure/bigDelivery/T = AM
+		if(istype(AM, /obj/structure/big_delivery) && !hasmob)
+			var/obj/structure/big_delivery/T = AM
 			destinationTag = T.sortTag
-		if(istype(AM, /obj/item/smallDelivery) && !hasmob)
-			var/obj/item/smallDelivery/T = AM
+		if(istype(AM, /obj/item/small_delivery) && !hasmob)
+			var/obj/item/small_delivery/T = AM
 			destinationTag = T.sortTag
 		//Drones can mail themselves through maint.
 		if(isdrone(AM))
@@ -717,8 +717,8 @@
 		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
 			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
 			destinationTag = S.mail_destination
-		if(istype(AM, /obj/item/shippingPackage) && !hasmob)
-			var/obj/item/shippingPackage/sp = AM
+		if(istype(AM, /obj/item/shipping_package) && !hasmob)
+			var/obj/item/shipping_package/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
 				destinationTag = sp.sortTag
 
@@ -1050,7 +1050,7 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
@@ -1228,12 +1228,12 @@
 	if(mapping_fail)
 		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
-/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(..())
 		return
 
-	if(istype(I, /obj/item/destTagger))
-		var/obj/item/destTagger/O = I
+	if(istype(I, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/O = I
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 		if(O.currTag == 1)
@@ -1426,7 +1426,7 @@
 		D.linkedtrunk = src
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/trunk/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	//Disposal bins or chutes
 	//Disposal constructors
