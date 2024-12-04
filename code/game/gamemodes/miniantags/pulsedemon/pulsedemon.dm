@@ -766,6 +766,13 @@
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
+	if(proj.damage_type == BURN)
+		regen_lock = max(regen_lock, 1)
+		return ..()
+	else
+		visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
+
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return
 
@@ -808,12 +815,17 @@
 	return TRUE
 
 /mob/living/simple_animal/demon/pulse_demon/adjustHealth(amount, updating_health)
+	if(amount > 0) // This damages the pulse demon
+		return ..()
+
+	message_admins("Amount before [amount]")
 	if(!isapc(loc) && !istype(loc, /obj/machinery/power/smes))
 		if(health >= (maxHealth / 2))
 			amount = 0
 		else
-			amount = clamp(amount, 0, ((maxHealth / 2) - health))
-	message_admins(amount)
+			amount = clamp(amount, -((maxHealth / 2) - health), 0)
+	amount = round(amount, 1)
+	message_admins("Amount after [amount]")
 	return ..()
 
 /obj/item/organ/internal/heart/demon/pulse
