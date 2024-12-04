@@ -14,7 +14,7 @@
 	gender = NEUTER
 	speak_chance = 20
 
-	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing
+	damage_coeff = list(BRUTE = 0, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing except some from lasers
 
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
@@ -766,11 +766,6 @@
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
-	if(istype(proj, /obj/item/projectile/ion))
-		return ..()
-	visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
-
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return
 
@@ -811,6 +806,15 @@
 	if(ourapc.hacked_by_ruin_AI || ourapc.malfai || ourapc.malfhack)
 		return FALSE
 	return TRUE
+
+/mob/living/simple_animal/demon/pulse_demon/adjustHealth(amount, updating_health)
+	if(!isapc(loc) && !istype(loc, /obj/machinery/power/smes))
+		if(health >= (maxHealth / 2))
+			amount = 0
+		else
+			amount = clamp(amount, 0, ((maxHealth / 2) - health))
+	message_admins(amount)
+	return ..()
 
 /obj/item/organ/internal/heart/demon/pulse
 	name = "perpetual pacemaker"
