@@ -9,12 +9,22 @@
 	name = "Observer-Start"
 	},
 /obj/effect/landmark/spawner/late/crew,
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"e" = (
+/obj/structure/grille,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"f" = (
+/mob/living/carbon/human/machine,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/girder,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "u" = (
@@ -23,21 +33,42 @@
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"y" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"B" = (
+/turf/simulated/wall,
+/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"H" = (
+/mob/living/carbon/human,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/autolathe,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"Q" = (
+/obj/structure/table,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/shelf,
 /turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"X" = (
+/turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 
 (1,1,1) = {"
@@ -32035,7 +32066,7 @@ a
 a
 a
 u
-x
+y
 x
 I
 x
@@ -32292,11 +32323,11 @@ a
 a
 a
 u
+B
 x
 x
 x
-x
-x
+f
 u
 a
 a
@@ -32806,11 +32837,11 @@ a
 a
 a
 u
+X
 x
 x
 x
-x
-x
+H
 u
 a
 a
@@ -33063,10 +33094,10 @@ a
 a
 a
 u
-x
+e
 x
 U
-x
+Q
 x
 u
 a
