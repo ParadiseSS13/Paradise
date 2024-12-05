@@ -39,6 +39,9 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
+/obj/item/card/emag/pre_attack(atom/target, mob/living/user, params)
+	if(..() || ismob(target))
+		return FINISH_ATTACK
 
 /obj/item/card/emag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target.emag_act(user))
@@ -72,6 +75,10 @@
 /obj/item/card/cmag/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
+
+/obj/item/card/cmag/pre_attack(atom/target, mob/living/user, params)
+	if(..() || ismob(target))
+		return FINISH_ATTACK
 
 /obj/item/card/cmag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target.cmag_act(user))
