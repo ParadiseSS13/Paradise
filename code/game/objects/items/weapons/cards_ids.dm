@@ -11,6 +11,7 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/associated_account_number = 0
 
 	var/list/files = list()
@@ -38,14 +39,10 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/card/emag/attack__legacy__attackchain()
-	return
 
-/obj/item/card/emag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	var/atom/A = target
-	if(!proximity)
-		return
-	A.emag_act(user)
+/obj/item/card/emag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	target.emag_act(user)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/emag/magic_key
 	name = "magic key"
@@ -53,14 +50,15 @@
 	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
-/obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
+/obj/item/card/emag/magic_key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isairlock(target))
-		return
+		return ITEM_INTERACT_BLOCKING
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
-	update_icon()
-	. = ..()
+	D.update_icon()
+	D.emag_act(user)
 	qdel(src)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
@@ -75,13 +73,9 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
-/obj/item/card/cmag/attack__legacy__attackchain()
-	return
-
-/obj/item/card/cmag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/card/cmag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	target.cmag_act(user)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/id
 	name = "identification card"
@@ -117,6 +111,9 @@
 	var/dat
 	var/stamped = 0
 
+	/// Can we flash the ID?
+	var/can_id_flash = TRUE
+
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/card/id/New()
@@ -151,13 +148,11 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/card/id/attack_self__legacy__attackchain(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
-		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
-	if(mining_points)
-		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
-	add_fingerprint(user)
-	return
+/obj/item/card/id/activate_self/activate_self(mob/user)
+	if(..())
+		return
+	if(can_id_flash)
+		flash_card(user)
 
 /obj/item/card/id/proc/UpdateName()
 	name = "[registered_name]'s ID Card ([assignment])"
@@ -751,7 +746,9 @@
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
-/obj/item/card/id/golem/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/card/id/golem/activate_self(mob/user)
+	if(..())
+		return
 	if(!registered && ishuman(user))
 		registered_name = user.real_name
 		SetOwnerInfo(user)
@@ -760,9 +757,8 @@
 		UpdateName()
 		desc = "A card used to claim mining points and buy gear."
 		registered = TRUE
+		can_id_flash = TRUE
 		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
-	else
-		..()
 
 /obj/item/card/id/data
 	icon_state = "data"

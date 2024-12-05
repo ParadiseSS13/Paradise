@@ -501,16 +501,17 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+/obj/item/card/mining_point_card/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/card/id))
 		if(points)
-			var/obj/item/card/id/C = I
+			var/obj/item/card/id/C = attacking
 			C.mining_points += points
 			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
 			points = 0
 		else
 			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
-	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
