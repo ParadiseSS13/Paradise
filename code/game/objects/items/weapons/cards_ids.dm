@@ -41,8 +41,8 @@
 
 
 /obj/item/card/emag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	target.emag_act(user)
-	return ITEM_INTERACT_SUCCESS
+	if(target.emag_act(user))
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/emag/magic_key
 	name = "magic key"
@@ -74,8 +74,8 @@
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
 /obj/item/card/cmag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	target.cmag_act(user)
-	return ITEM_INTERACT_SUCCESS
+	if(target.cmag_act(user))
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/id
 	name = "identification card"
@@ -148,7 +148,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/card/id/activate_self/activate_self(mob/user)
+/obj/item/card/id/activate_self(mob/user)
 	if(..())
 		return
 	if(can_id_flash)
@@ -744,6 +744,7 @@
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 
 /obj/item/card/id/golem/activate_self(mob/user)
