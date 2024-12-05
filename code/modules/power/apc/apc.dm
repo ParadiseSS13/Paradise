@@ -238,7 +238,7 @@
 		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/apc/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 
 	if(issilicon(user) && get_dist(src, user) > 1)
 		return attack_hand(user)

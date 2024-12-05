@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/machinery/autolathe/trapped/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
+	RegisterSignal(src, COMSIG_ATTACK_BY, PROC_REF(material_container_shenanigins))
 
 /obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
 	if(!disguise_broken)
@@ -393,14 +393,14 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/remote_ai_upload/attack_self(mob/user as mob)
+/obj/item/remote_ai_upload/attack_self__legacy__attackchain(mob/user as mob)
 	integrated_console.attack_hand(user)
 
-/obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
+/obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
 		return
-	var/time_to_die = integrated_console.attackby(O, user, params)
+	var/time_to_die = integrated_console.attackby__legacy__attackchain(O, user, params)
 	if(time_to_die)
 		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)

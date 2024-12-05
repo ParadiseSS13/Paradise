@@ -50,7 +50,7 @@
 		cell.emp_act(severity)
 	..(severity)
 
-/obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/space_heater/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
