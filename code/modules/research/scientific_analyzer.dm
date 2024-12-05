@@ -1,60 +1,60 @@
 /*
-Destructive Analyzer
+Scientific Analyzer
 
-It is used to destroy hand-held objects and advance technological research. Controls are in the linked R&D console.
+It is used to analyze hand-held objects and advance technological research. Controls are in the linked R&D console.
 
 Note: Must be placed within 3 tiles of the R&D Console
 */
-/obj/machinery/r_n_d/destructive_analyzer
-	name = "Destructive Analyzer"
-	desc = "Learn science by destroying things!"
-	icon_state = "d_analyzer"
+/obj/machinery/r_n_d/scientific_analyzer
+	name = "Scientific Analyzer"
+	desc = "Learn science by analyzing things!"
+	icon_state = "s_analyzer"
 	var/decon_mod = 0
 
-/obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
+/obj/machinery/r_n_d/scientific_analyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
+	component_parts += new /obj/item/circuitboard/scientific_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
+/obj/machinery/r_n_d/scientific_analyzer/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
+	component_parts += new /obj/item/circuitboard/scientific_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	RefreshParts()
 
-/obj/machinery/r_n_d/destructive_analyzer/Destroy()
+/obj/machinery/r_n_d/scientific_analyzer/Destroy()
 	if(linked_console)
-		linked_console.linked_destroy = null
+		linked_console.linked_analyzer = null
 	return ..()
 
-/obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
+/obj/machinery/r_n_d/scientific_analyzer/RefreshParts()
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating
 	decon_mod = T
 
 
-/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
+/obj/machinery/r_n_d/scientific_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/r_n_d/scientific_analyzer/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
+	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "s_analyzer", O))
 		if(linked_console)
-			linked_console.linked_destroy = null
+			linked_console.linked_analyzer = null
 			linked_console = null
 		return
 
@@ -91,7 +91,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to [src]!</span>")
 		SStgui.update_uis(linked_console)
-		flick("d_analyzer_la", src)
+		flick("s_analyzer_la", src)
 		spawn(10)
-			icon_state = "d_analyzer_l"
+			icon_state = "s_analyzer_l"
 			busy = FALSE

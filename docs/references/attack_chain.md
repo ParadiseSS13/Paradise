@@ -595,6 +595,37 @@ sequence of events. Finally, because we constantly check the parent proc, all
 signals that are expected to be sent, are, so any other components or listeners
 can take appropriate action and cancel the attack chain themselves, if requested.
 
+### Cancelling All Behavior
+
+Frequently, a subtype will want to completely prevent any of its parent type
+behavior from running. Examples may be a holofloor, which should prevent any
+attempts to deconstruct it, or a destroyed variant of an object, which cancels
+out the existing functionality of the parent type.
+
+Attack chain methods must always call their parent procs, so this presents a
+problem.
+
+In order to implement behavior such as this, the child type should register to
+listen for the signal that applies to the attack chain proc, and respond by
+calling one of the procs which return a signal preventing the rest of the attack
+chain from running.
+
+For `attack_by` prevention, this proc is [/datum/proc/signal_cancel_attack_by][]. For
+`activate_self` prevention, this proc is [/datum/proc/signal_cancel_activate_self][].
+
+[/datum/proc/signal/cancel_attack_by]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_attack_by
+[/datum/proc/signal/cancel_activate_self]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_activate_self
+
+For example, when we migrated the airlock electronics above, we neglected to
+handle the `/destroyed` subtype, which prevents any interaction via
+`activate_self`. To ensure this, we make the following change:
+
+```diff
++/obj/item/airlock_electronics/destroyed/Initialize(mapload)
++	. = ..()
++	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
+```
+
 ## Migration Helpers
 
 There are two important tools which can help make the migration process easier:
@@ -604,10 +635,20 @@ the _migration plan checker_ and the _attack chain CI checks_.
 
 If you are making a code change and need to update the attack chain on an
 object, the migration plan checker will tell you what other types will need to
-be migrated in the same PR. For example, if I wanted to migrate `/turf/simulated/wall/cult`, I could rune the migration plan checker at the command line:
+be migrated in the same PR. For example, if I wanted to migrate
+`/turf/simulated/wall/cult`, I could run the migration plan checker at the
+command line:
+
+> [!NOTE]
+>
+> When running the migration plan checker, be sure to run it from the root
+> directory of your repository (`\Paradise`) and to use the version of Python
+> provided by the bootstrap module (`tools\bootstrap\python`). If you know
+> specifically that you are running in PowerShell, use the appropriate command
+> (`tools\bootstrap\python_.ps1`).
 
 ```
-$ python .\tools\migrate_attack_chain.py /turf/simulated/wall/cult
+$ tools\bootstrap\python .\tools\migrate_attack_chain.py /turf/simulated/wall/cult
 Migration Plan for Path /turf/simulated/wall/cult
 Required Additional Migrations:
         /turf
@@ -653,7 +694,7 @@ be migrating 28 types. This is a lot! A migration of this size is not recommende
 for new contributors. On the other hand, let us examine migrating wirecutters:
 
 ```
-$ python .\tools\migrate_attack_chain.py /obj/item/wirecutters
+$ tools\bootstrap\python .\tools\migrate_attack_chain.py /obj/item/wirecutters
 Migration Plan for Path /obj/item/wirecutters
 Required Additional Migrations:
         /obj/item/wirecutters
