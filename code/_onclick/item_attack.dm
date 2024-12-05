@@ -173,6 +173,9 @@
 	if(flags & NOBLUDGEON)
 		return FALSE
 
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(attacked_obj)
+
 	if(!attacked_obj.new_attack_chain)
 		attacked_obj.attacked_by__legacy__attackchain(src, user)
 
