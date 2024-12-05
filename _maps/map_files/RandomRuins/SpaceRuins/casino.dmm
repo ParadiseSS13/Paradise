@@ -8,16 +8,12 @@
 "ad" = (
 /obj/machinery/economy/atm/directional/west,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "ai" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -55,7 +51,6 @@
 /area/ruin/space/powered/casino/floor)
 "aX" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
@@ -91,8 +86,6 @@
 /area/ruin/space/powered/casino/hall)
 "bR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -123,13 +116,12 @@
 "cQ" = (
 /obj/machinery/power/apc/off_station/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "dd" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "dg" = (
@@ -163,7 +155,6 @@
 "dN" = (
 /obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/mineral/silver,
@@ -173,7 +164,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/kitchen)
 "eu" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
@@ -183,27 +174,19 @@
 /area/ruin/space/powered/casino/docked_ships)
 "eQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/space,
 /area/space)
 "ft" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
@@ -214,13 +197,9 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -230,8 +209,6 @@
 	name = "Evidence Storage"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -243,7 +220,6 @@
 "fV" = (
 /obj/machinery/power/apc/off_station/directional/east,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood,
@@ -281,8 +257,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "gO" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/silver,
@@ -313,8 +287,6 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs/cable/random,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -329,7 +301,6 @@
 	},
 /obj/machinery/power/apc/off_station/directional/west,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/carpet/black,
@@ -350,16 +321,12 @@
 	pixel_y = 6
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "in" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -369,8 +336,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -385,8 +350,6 @@
 	pixel_y = 30
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -400,8 +363,6 @@
 "jh" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -438,8 +399,6 @@
 /area/ruin/space/powered/casino/arrivals)
 "jS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -464,7 +423,7 @@
 /turf/space,
 /area/space)
 "ky" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
@@ -481,8 +440,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -504,8 +461,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "lU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/light/small{
@@ -531,7 +486,6 @@
 "mp" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -558,7 +512,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/kitchen)
 "no" = (
@@ -595,8 +549,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "oc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/silver,
@@ -650,8 +602,6 @@
 /area/ruin/space/powered/casino/floor)
 "pO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/pirate/ranged,
@@ -659,8 +609,6 @@
 /area/ruin/space/powered/casino/security)
 "pV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -683,8 +631,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -699,18 +645,14 @@
 	},
 /area/ruin/space/powered/casino/arrivals)
 "qK" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "qZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -730,8 +672,6 @@
 /area/ruin/space/powered/casino/docked_ships)
 "sx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering,
@@ -748,18 +688,12 @@
 /area/ruin/space/powered/casino/kitchen)
 "tu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/silver,
@@ -767,12 +701,9 @@
 "tG" = (
 /obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -786,8 +717,6 @@
 	name = "Evidence Storage"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -811,13 +740,11 @@
 /area/ruin/space/powered/casino/docked_ships)
 "vf" = (
 /obj/structure/grille/broken,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "vh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -825,21 +752,15 @@
 "vo" = (
 /mob/living/simple_animal/hostile/pirate,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "vQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -856,26 +777,18 @@
 /area/space)
 "wh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "wl" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -894,8 +807,6 @@
 "wo" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/space,
@@ -906,8 +817,6 @@
 /area/ruin/space/powered/casino/hall)
 "wu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet/black,
@@ -928,8 +837,6 @@
 /area/ruin/space/powered/casino/arrivals)
 "wF" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -963,8 +870,6 @@
 /area/ruin/space/powered/casino/docked_ships)
 "xq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -992,7 +897,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -1010,7 +914,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "yV" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/wall/mineral/iron,
 /area/ruin/space/powered/casino/security)
 "zg" = (
@@ -1028,8 +932,6 @@
 "zM" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1059,7 +961,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "AM" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1077,7 +979,6 @@
 /area/ruin/space/powered/casino/hall)
 "Bp" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
@@ -1103,7 +1004,7 @@
 /area/ruin/space/powered/casino/kitchen)
 "Cp" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "Cr" = (
@@ -1112,26 +1013,20 @@
 /area/ruin/space/powered/casino/arrivals)
 "CF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "CH" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "CK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1142,16 +1037,12 @@
 /area/space)
 "Do" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "Dp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet/black,
@@ -1167,7 +1058,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "DJ" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
@@ -1204,7 +1095,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -1217,22 +1107,18 @@
 /area/ruin/space/powered/casino/docked_ships)
 "Ex" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "Fk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/space,
@@ -1244,8 +1130,6 @@
 "FP" = (
 /obj/structure/mineral_door/silver,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/silver/fancy,
@@ -1271,18 +1155,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/teleporter)
 "GP" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/maints)
 "GX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mineral/silver,
@@ -1339,16 +1219,12 @@
 /area/ruin/space/powered/casino/kitchen)
 "IR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "IS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1367,8 +1243,6 @@
 	name = "Evidence Storage"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -1382,8 +1256,6 @@
 /area/ruin/space/powered/casino/floor)
 "KD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -1399,14 +1271,12 @@
 	name = "Security Check"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/security)
 "KV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/engine)
 "LI" = (
@@ -1456,14 +1326,12 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Oc" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "Of" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -1491,15 +1359,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "OU" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1512,8 +1376,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "PG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -1537,16 +1399,12 @@
 "Qg" = (
 /obj/structure/mineral_door/silver,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Qk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
@@ -1556,8 +1414,6 @@
 /area/ruin/space/powered/casino/floor)
 "Rh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/light/small{
@@ -1598,13 +1454,9 @@
 "RW" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/space,
@@ -1617,15 +1469,12 @@
 "Sr" = (
 /obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "Sv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/mineral_door/wood,
@@ -1677,8 +1526,6 @@
 "Ty" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -1692,7 +1539,7 @@
 /turf/space,
 /area/space)
 "TO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "TV" = (
@@ -1706,18 +1553,12 @@
 /area/ruin/space/powered/casino/kitchen)
 "Uc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -1734,18 +1575,12 @@
 /area/ruin/space/powered/casino/hall)
 "Ue" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -1815,10 +1650,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/arrivals)
 "VI" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1828,14 +1661,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "VW" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/security)
 "We" = (
@@ -1868,16 +1699,12 @@
 "WA" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/teleporter)
 "WK" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1894,8 +1721,6 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/space,
@@ -1935,7 +1760,6 @@
 "YH" = (
 /obj/machinery/power/apc/off_station/directional/west,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,

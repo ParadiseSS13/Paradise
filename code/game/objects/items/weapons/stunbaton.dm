@@ -6,7 +6,7 @@
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -89,7 +89,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
-	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
+	if(turned_on && (slot == ITEM_SLOT_BELT || slot == ITEM_SLOT_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..()
@@ -121,7 +121,7 @@
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
-/obj/item/melee/baton/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = I
 		if(cell)
@@ -151,7 +151,7 @@
 	turned_on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/attack_self(mob/user)
+/obj/item/melee/baton/attack_self__legacy__attackchain(mob/user)
 	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
 		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
@@ -171,7 +171,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/attack(mob/M, mob/living/user)
+/obj/item/melee/baton/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
@@ -313,7 +313,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
@@ -333,6 +333,9 @@
 	name = "electrically-charged arm"
 	desc = "A piece of scrap metal wired directly to your power cell."
 	hitcost = 100
+
+/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
 
 /obj/item/melee/baton/flayerprod
 	name = "stunprod"
@@ -358,13 +361,13 @@
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
 
-/obj/item/melee/baton/flayerprod/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/flayerprod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
 /obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/melee/baton/flayerprod/attack_self(mob/user)
+/obj/item/melee/baton/flayerprod/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/melee/baton/flayerprod/play_hit_sound()

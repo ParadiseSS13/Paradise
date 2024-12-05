@@ -78,7 +78,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
+						M.show_message(text("<span class='warning'><b>[user] attacks [src]'s stomach wall with [I]!</b></span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -766,21 +766,36 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return wear_suit
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return r_hand
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
 	return null
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	// if(back && (looking_for in back))
+	// 	return ITEM_SLOT_BACKPACK
+
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	return ..()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse()

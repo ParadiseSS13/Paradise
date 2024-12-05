@@ -28,7 +28,7 @@
 	wine_power = 0.2
 	var/carved_type = /obj/item/clothing/head/hardhat/pumpkinhead
 
-/obj/item/food/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/food/grown/pumpkin/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(W.sharp)
 		user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
 		new carved_type(user.loc)

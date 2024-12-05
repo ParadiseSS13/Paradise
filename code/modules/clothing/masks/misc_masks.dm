@@ -113,7 +113,7 @@
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
-/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/mask/muzzle/safety/shock/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
@@ -154,7 +154,6 @@
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
@@ -199,7 +198,7 @@
 		)
 
 
-/obj/item/clothing/mask/surgical/attack_self(mob/user)
+/obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/fakemoustache
@@ -219,11 +218,11 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
+/obj/item/clothing/mask/fakemoustache/attack_self__legacy__attackchain(mob/user)
 	pontificate(user)
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_WEAR_MASK)
+	if(slot == ITEM_SLOT_MASK)
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
@@ -361,8 +360,8 @@
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_MASK
-	adjusted_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_MASK
+	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
@@ -378,7 +377,7 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
-/obj/item/clothing/mask/bandana/attack_self(mob/user)
+/obj/item/clothing/mask/bandana/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/bandana/red
@@ -466,7 +465,7 @@
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()
 	var/mob/living/carbon/human/H = user
-	if(istype(H) && slot == SLOT_HUD_WEAR_MASK)
+	if(istype(H) && slot == ITEM_SLOT_MASK)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()

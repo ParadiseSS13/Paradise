@@ -67,7 +67,6 @@
 	desc = "Yarr."
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
-	flags_inv = HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/cyborg_suit
@@ -149,7 +148,7 @@
 	icon_state = "hastur"
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/imperium_monk
@@ -298,7 +297,7 @@
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_OUTER_SUIT)
 		user.faction += "carp"
 		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
 		playsound(loc, 'sound/weapons/bite.ogg', 35, TRUE)
@@ -697,7 +696,7 @@
 
 /obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
@@ -722,18 +721,6 @@
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
 	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/suit/browncoat
-	name = "brown leather coat"
-	desc = "A long, brown leather coat."
-	icon_state = "browncoat"
-	item_state = "browncoat"
-
-/obj/item/clothing/suit/neocoat
-	name = "black coat"
-	desc = "A flowing, black coat."
-	icon_state = "neocoat"
-	item_state = "neocoat"
 
 /obj/item/clothing/suit/browntrenchcoat
 	name = "brown trench coat"
@@ -791,14 +778,6 @@
 /obj/item/clothing/suit/tracksuit/white
 	name = "white tracksuit"
 	icon_state = "trackjacketwhite_open"
-
-//actual suits
-
-/obj/item/clothing/suit/creamsuit
-	name = "cream suit"
-	desc = "A cream coloured, genteel suit."
-	icon_state = "creamsuit"
-	item_state = "creamsuit"
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "olive military jacket"
@@ -861,7 +840,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 //Basic jacket and subtypes
-/obj/item/clothing/suit/greatcoat/sec
+/obj/item/clothing/suit/sec_greatcoat
 	name = "security greatcoat"
 	desc = "A wool-lined coat made from rugged materials that altogether make up to be a comfortable coat.\ GLORY TO ARSTOSKHA!!"
 	icon_state = "secgreatcoat"
@@ -1172,7 +1151,7 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
-/obj/item/clothing/suit/toggle/attack_self()
+/obj/item/clothing/suit/toggle/attack_self__legacy__attackchain()
 	if(icon_state == initial(icon_state))
 		icon_state = icon_state + "_t"
 		item_state = icon_state + "_t"
@@ -1194,6 +1173,7 @@
 /obj/item/clothing/suit/fluff/noble_coat
 	name = "noble coat"
 	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	icon = 'icons/obj/clothing/suits.dmi'
 	icon_state = "noble_coat"
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1275,7 +1255,7 @@
 	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
-	if(!istype(H) || slot != SLOT_HUD_OUTER_SUIT)
+	if(!istype(H) || slot != ITEM_SLOT_OUTER_SUIT)
 		STOP_PROCESSING(SSobj, src)
 		return
 	else
@@ -1405,7 +1385,7 @@
 	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
 	qdel(src)
 
-/obj/item/clothing/suit/hooded/abaya/attack_self(mob/user)
+/obj/item/clothing/suit/hooded/abaya/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reskin_abaya(user)
 

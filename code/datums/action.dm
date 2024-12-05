@@ -314,7 +314,7 @@
 /datum/action/item_action/toggle_barrier_spread
 	name = "Toggle Barrier Spread"
 
-/datum/action/item_action/equip_unequip_TED_Gun
+/datum/action/item_action/equip_unequip_ted_gun
 	name = "Equip/Unequip TED Gun"
 
 /datum/action/item_action/toggle_paddles
@@ -435,7 +435,7 @@
 /datum/action/item_action/noir
 	name = "Noir"
 
-/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
+/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh
 	name = "YEAH!"
 
 /datum/action/item_action/laugh_track
@@ -616,6 +616,10 @@
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
 
+/datum/action/item_action/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it."
+
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
@@ -637,9 +641,6 @@
 	name = "View Storage"
 
 
-/datum/action/item_action/accessory/herald
-	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action

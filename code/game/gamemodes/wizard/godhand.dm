@@ -6,6 +6,8 @@
 	var/datum/spell/touch/attached_spell
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
@@ -27,7 +29,7 @@
 /obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 
-/obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
+/obj/item/melee/touch_attack/attack__legacy__attackchain(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -35,7 +37,7 @@
 		return
 	..()
 
-/obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/touch_attack/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	var/mob/mob_victim = target
 	if(istype(mob_victim) && mob_victim.can_block_magic(attached_spell.antimagic_flags))
 		to_chat(user, "<span class='danger'>[mob_victim] absorbs your spell!</span>")
@@ -55,7 +57,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
-/obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/disintegrate/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(!.)
 		return
@@ -72,8 +74,7 @@
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
-
-/obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/fleshtostone/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(!.)
 		return
@@ -92,7 +93,7 @@
 	item_state = "disintegrate"
 	needs_permit = FALSE
 
-/obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/fake_disintegrate/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(!.)
 		return
@@ -109,7 +110,7 @@
 	icon_state = "cluwnecurse"
 	item_state = "cluwnecurse"
 
-/obj/item/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/cluwne/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(!.)
 		return

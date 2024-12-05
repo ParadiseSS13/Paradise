@@ -55,7 +55,7 @@
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
-/obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/door_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.

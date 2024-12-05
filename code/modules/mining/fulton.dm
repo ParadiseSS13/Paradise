@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	. = ..()
 	. += "It has [uses_left] use\s remaining."
 
-/obj/item/extraction_pack/attack_self(mob/user)
+/obj/item/extraction_pack/attack_self__legacy__attackchain(mob/user)
 	var/list/possible_beacons = list()
 	for(var/B in GLOB.total_extraction_beacons)
 		var/obj/structure/extraction_point/EP = B
@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		beacon = A
 		to_chat(user, "You link the extraction pack to the beacon system.")
 
-/obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
+/obj/item/extraction_pack/afterattack__legacy__attackchain(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(!beacon)
 		to_chat(user, "<span class='warning'>[src] is not linked to a beacon, and cannot be used!</span>")
@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user, 50, target = A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
-			user.equip_to_slot_if_possible(src, SLOT_HUD_IN_BACKPACK, FALSE, TRUE)
+			user.equip_to_slot_if_possible(src, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
 				user.drop_item(src)
@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "folded_extraction"
 
-/obj/item/fulton_core/attack_self(mob/user)
+/obj/item/fulton_core/attack_self__legacy__attackchain(mob/user)
 	if(do_after(user, 15, target = user) && !QDELETED(src))
 		new /obj/structure/extraction_point(get_turf(user))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)

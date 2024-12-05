@@ -83,7 +83,11 @@
 		return
 
 	if(W == A)
-		W.attack_self(src)
+		if(W.new_attack_chain)
+			W.activate_self(src)
+		else
+			W.attack_self__legacy__attackchain(src)
+
 		return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
@@ -98,7 +102,7 @@
 	if(can_reach(A, W))
 		W.melee_attack_chain(src, A, params)
 		return
-	W.afterattack(A, src, 0, params)
+	W.afterattack__legacy__attackchain(A, src, 0, params)
 	return
 
 /mob/living/silicon/robot/MiddleShiftControlClickOn(atom/A)

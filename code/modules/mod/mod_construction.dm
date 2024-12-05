@@ -1,7 +1,6 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction. You could insert it into a MOD shell."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
-	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
@@ -127,7 +126,7 @@
 			display_text = "All it's missing is <b>external plating</b>..."
 	. += "<span class='notice'>[display_text]</span>"
 
-/obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
+/obj/item/mod/construction/shell/attackby__legacy__attackchain(obj/item/part, mob/user, params)
 	. = ..()
 	switch(construction_step)
 		if(START_STEP)
