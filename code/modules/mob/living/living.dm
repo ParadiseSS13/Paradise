@@ -1189,3 +1189,5 @@
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
 
+/mob/living/proc/sec_hud_set_ID()
+	return
