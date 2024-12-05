@@ -65,7 +65,7 @@
 /obj/machinery/computer/library/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/library/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/book))
 		select_book(O)
 		return
@@ -301,7 +301,7 @@
 		//rating acts
 		if("set_rating")
 			if(params["rating_value"])
-				user_data.selected_rating = text2num(params["rating_value"])
+				user_data.selected_rating = clamp(text2num(params["rating_value"]), 0, 10)
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)

@@ -197,6 +197,12 @@
 	var/silicons_ignore_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
+	/// Sound played when the step is started. Lists or single value can be used for this var as well as tool defines
+	var/preop_sound
+	/// Sound played if the step succeeded. Single value only
+	var/success_sound
+	/// Sound played if the step fails. Single value only
+	var/failure_sound
 
 	// evil infection stuff that will make everyone hate me
 
@@ -331,6 +337,8 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
+	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
+
 	if(tool)
 		speed_mod = tool.toolspeed
 
@@ -386,8 +394,10 @@
 
 	surgery.step_in_progress = FALSE
 	if(advance)
+		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
 	else
+		INVOKE_ASYNC(src, PROC_REF(play_failure_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_FAILURE
 
 /**
@@ -500,7 +510,7 @@
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	target_organ.germ_level = max(germ_level, target_organ.germ_level)
-	spread_germs_by_incision(target_organ, tool) //germ spread from environement to patient
+	INVOKE_ASYNC(src, PROC_REF(spread_germs_by_incision), target_organ, tool) //germ spread from environement to patient
 
 /**
  * Spread germs directly from a tool.
@@ -553,3 +563,26 @@
 		for(var/reagent in chems_needed)
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
+
+/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!preop_sound || (islist(preop_sound) && !length(preop_sound)) || ismachineperson(target))
+		return
+	var/sound_file_use
+	if(islist(preop_sound))
+		for(var/typepath in preop_sound)
+			if((ispath(typepath) && istype(tool, typepath)) || ((typepath in GLOB.surgery_tool_behaviors) && istype(tool) && tool.tool_behaviour == typepath))
+				sound_file_use = preop_sound[typepath]
+				break
+	else
+		sound_file_use = preop_sound
+	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
+
+/datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!success_sound || ismachineperson(target))
+		return
+	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
+
+/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!failure_sound || ismachineperson(target))
+		return
+	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)

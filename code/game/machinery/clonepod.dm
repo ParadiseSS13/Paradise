@@ -245,7 +245,7 @@
 					create_clone()
 					return
 
-				if(clone.cloneloss >= 25)
+				if(clone.getCloneLoss() >= 25)
 					clone.adjustCloneLoss(-2)
 					return
 
@@ -373,7 +373,7 @@
 		reset_cloning()
 		return TRUE
 
-	if(!clone.cloneloss)
+	if(!clone.getCloneLoss())
 		clone.forceMove(loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
@@ -561,7 +561,7 @@
 	return FALSE
 
 //Attackby and x_acts
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/clonepod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_open_container())
 		return
 

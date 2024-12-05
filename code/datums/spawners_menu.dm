@@ -57,5 +57,6 @@
 			owner.forceMove(get_turf(MS))
 			. = TRUE
 		if("spawn")
-			MS.attack_ghost(owner)
+			if(MS.attack_ghost(owner))
+				SSblackbox.record_feedback("tally", "ghost_spawns", 1, "[MS.assignedrole]")
 			. = TRUE

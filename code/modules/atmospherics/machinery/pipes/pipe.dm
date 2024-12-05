@@ -44,6 +44,10 @@
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
+/obj/machinery/atmospherics/pipe/wrench_floor_check()
+	var/turf/T = get_turf(src)
+	return level == 1 && T.transparent_floor
+
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"

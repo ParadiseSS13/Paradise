@@ -344,7 +344,7 @@ Difficulty: Hard
 	if(P.damage)
 		disable_shield()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
@@ -631,7 +631,6 @@ Difficulty: Hard
 	weather_immunities = list("lava","ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -652,6 +651,7 @@ Difficulty: Hard
 	ranged_ignores_vision = TRUE
 	stat_attack = UNCONSCIOUS
 	maxbodytemp = INFINITY
+	initial_traits = list(TRAIT_FLYING)
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300

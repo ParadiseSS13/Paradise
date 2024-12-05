@@ -82,7 +82,7 @@
 /obj/singularity/attack_animal(mob/user)
 	consume(user)
 
-/obj/singularity/attackby(obj/item/W, mob/user, params)
+/obj/singularity/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	consume(user)
 	return 1
 
@@ -336,7 +336,7 @@
 
 	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
 
-	if(get_turf(src) == target || !target)
+	if(!target || get_dist(src, target) <= 2)
 		assign_target()
 	if(force_move)
 		movement_dir = force_move

@@ -224,7 +224,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "hF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/syndicakefactory)
 "hH" = (
@@ -344,7 +344,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "oH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/syndicakefactory)
 "oJ" = (
@@ -628,7 +628,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "wW" = (
-/obj/machinery/suit_storage_unit/syndicate,
+/obj/machinery/suit_storage_unit/mining,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "xy" = (
@@ -660,8 +660,8 @@
 /area/ruin/space/syndicakefactory)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /obj/machinery/light/small{
@@ -717,7 +717,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
@@ -748,8 +747,8 @@
 /area/ruin/space/syndicakefactory)
 "CW" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
@@ -873,8 +872,6 @@
 /area/template_noop)
 "Hh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/bed/dogbed,
@@ -1044,8 +1041,8 @@
 /area/ruin/space/syndicakefactory)
 "Nx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{

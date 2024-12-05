@@ -248,7 +248,7 @@
 	static_inventory += using
 
 //Intent
-	using = new /atom/movable/screen/act_intent/robot/AI()
+	using = new /atom/movable/screen/act_intent/robot/ai()
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using

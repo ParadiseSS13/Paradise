@@ -120,8 +120,8 @@
 /** Checks whether this stack can merge itself into another stack.
  *
  * Arguments:
- * - [check][/obj/item/stack]: The stack to check for mergeability.
- * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
+ * - check: The [/obj/item/stack] to check for mergeability.
+ * - inhand: `TRUE` if the stack should check should act like it's in a mob's hand, `FALSE` otherwise.
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
 	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack
@@ -135,7 +135,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/attack_self(mob/user)
+/obj/item/stack/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/stack/attack_self_tk(mob/user)
@@ -164,7 +164,7 @@
 	if(src && user.machine == src)
 		ui_interact(user)
 
-/obj/item/stack/attackby(obj/item/thing, mob/user, params)
+/obj/item/stack/attackby__legacy__attackchain(obj/item/thing, mob/user, params)
 	if(!can_merge(thing, TRUE))
 		return ..()
 
@@ -271,12 +271,18 @@
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
 	var/list/data = list()
+	var/obj/result = recipe.result_type
 
 	data["uid"] = recipe.UID()
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
-	data["image"] = recipe.image
+	data["icon"] = result.icon
+	data["icon_state"] = result.icon_state
+
+	// DmIcon cannot paint images. So, if we have grayscale sprite, we need ready base64 image.
+	if(recipe.result_image)
+		data["image"] = recipe.result_image
 
 	return data
 

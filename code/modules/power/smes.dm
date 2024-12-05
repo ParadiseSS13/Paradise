@@ -102,7 +102,7 @@
 	if(charge_level > 0)
 		. += "smes-og[charge_level]"
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/smes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	// Opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_icon()
@@ -189,6 +189,7 @@
 
 				make_terminal(user, temporary_direction, temporary_location)
 				terminal.connect_to_network()
+				stat &= ~BROKEN
 		return
 
 	// Disassembling the terminal

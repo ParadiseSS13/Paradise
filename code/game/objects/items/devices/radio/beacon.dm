@@ -6,7 +6,7 @@
 	item_state = "signaler"
 	origin_tech = "bluespace=1"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -15,8 +15,9 @@
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
+	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
 
-/obj/item/beacon/Initialize()
+/obj/item/beacon/Initialize(mapload)
 	. = ..()
 	GLOB.beacons |= src
 
@@ -55,7 +56,7 @@
 		mycomputer.mybeacon = null
 	return ..()
 
-/obj/item/beacon/syndicate/attack_self(mob/user)
+/obj/item/beacon/syndicate/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
@@ -86,7 +87,7 @@
 	var/list/selected = list()
 	var/list/unselected = list()
 
-/obj/item/beacon/syndicate/bundle/attack_self(mob/user)
+/obj/item/beacon/syndicate/bundle/attack_self__legacy__attackchain(mob/user)
 	if(!user)
 		return
 
@@ -114,7 +115,7 @@
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
 
-/obj/item/beacon/syndicate/power_sink/attack_self(mob/user)
+/obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/item/powersink(user.loc)
@@ -128,7 +129,7 @@
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
 
-/obj/item/beacon/syndicate/bomb/attack_self(mob/user)
+/obj/item/beacon/syndicate/bomb/attack_self__legacy__attackchain(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new bomb(user.loc)
@@ -169,3 +170,9 @@
 /obj/item/beacon/engine/sing
 	name = "Engine Beacon for Singularity"
 	enginetype = list(ENGTYPE_SING)
+
+/obj/item/beacon/wormhole_weaver
+	name = "prototype beacon"
+	desc = "A beacon used by a prototype wormhole device."
+	wormhole_weaver = TRUE
+	icon_state = "beacon_wormhole_weaver"

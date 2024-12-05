@@ -85,8 +85,13 @@
 			.++
 		if(affecting.body_part == LEG_LEFT)
 			.++
-///Returns true if all the mob's vital organs are functional, otherwise returns false
-/mob/living/carbon/human/proc/check_vital_organs()
+/* Returns true if all the mob's vital organs are functional, otherwise returns false.
+*  This proc is only used for checking if IPCs can revive from death, so calling it on a non IPC will always return false (right now)
+*/
+/mob/living/carbon/human/proc/ipc_vital_organ_check()
+	var/has_battery = get_int_organ_datum(ORGAN_DATUM_BATTERY)
+	if(!has_battery)
+		return FALSE
 	for(var/obj/item/organ/internal/organ in internal_organs)
 		if(organ.vital && (organ.damage >= organ.max_damage))
 			return FALSE

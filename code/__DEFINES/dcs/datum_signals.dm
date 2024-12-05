@@ -8,7 +8,7 @@
 
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
-/// before a component is removed from a datum because of RemoveComponent: (/datum/component)
+/// before a component is removed from a datum because of UnlinkComponent: (/datum/component)
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
@@ -53,10 +53,12 @@
 #define COMSIG_SONG_END		"song_end"
 
 
-// /datum/component/decal
+// /datum/element/decal
 
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+///called on an object to clean it of cleanables.
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+	///Returned by cleanable components when they are cleaned.
+	#define COMPONENT_CLEANED (1<<0)
 
 
 // /datum/component/two_handed

@@ -117,7 +117,7 @@
 				/obj/item/autosurgeon/organ = 50,
 				/obj/item/mod/construction/plating/research = 25,
 
-				// Research / Experimentor
+				// Research
 				/obj/item/paper/researchnotes = 125, // papers that give random R&D levels
 				/obj/item/storage/box/telescience = 25, // Code green or blue. Probably not antags. People haven't touched it in ages. Let us see what happens.
 
@@ -272,7 +272,7 @@
 				/obj/item/melee/baseball_bat/homerun = 50,
 				/obj/item/rcd/combat = 50,
 				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50,
-				/obj/item/storage/box/buck = 30, //Only seven shots, make them count
+				/obj/item/storage/fancy/shell/buck = 30, //Only eight shots, make them count
 				/obj/item/mod/module/noslip = 40,
 				/obj/item/clothing/mask/holo_cigar = 50
 				)
@@ -331,7 +331,7 @@
 	lootcount = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
 				/obj/item/gun/projectile/revolver/nagant = 50,
-				/obj/item/gun/projectile/automatic/pistol/APS = 30,
+				/obj/item/gun/projectile/automatic/pistol/aps = 30,
 				/obj/item/gun/projectile/shotgun/boltaction = 50,
 				/obj/item/clothing/suit/space/hardsuit/soviet = 40,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
@@ -389,7 +389,7 @@
 				/obj/item/mod/construction/plating/research = 30,
 				/obj/item/assembly/signaler/anomaly/random = 20,
 				/obj/item/gun/energy/gun = 50,
-				/obj/item/storage/box/dragonsbreath = 30,
+				/obj/item/storage/fancy/shell/dragonsbreath = 30,
 				/obj/item/storage/box/turbine_kit = 20,
 				/obj/item/mod/module/firefighting_tank = 40,
 				/obj/item/mod/module/jetpack/advanced = 40
@@ -539,7 +539,7 @@
 				/obj/item/clothing/under/solgov/elite = 50,
 				/obj/item/clothing/under/solgov/command = 50,
 				/obj/item/clothing/under/retro/security = 50,
-				/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 50,
+				/obj/item/clothing/under/misc/gimmick_captain_suit = 50,
 				/obj/item/clothing/under/misc/durathread = 50,
 				/obj/item/clothing/under/psysuit = 50,
 				/obj/item/clothing/under/costume/cuban_suit = 50,
@@ -566,7 +566,7 @@
 				/obj/item/toy/plushie/nukeplushie = 30,
 				/obj/item/toy/plushie/nianplushie = 50, //*buzz
 				/obj/item/toy/windup_toolbox = 50,
-				/obj/item/toy/AI = 50,
+				/obj/item/toy/ai = 50,
 				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 50,
 				/obj/item/storage/box/syndie_kit/chameleon = 50
 				)

@@ -29,7 +29,7 @@
 	resistance_flags = FLAMMABLE
 	var/next_gavel_hit
 
-/obj/item/gavelblock/attackby(obj/item/I, mob/user, params)
+/obj/item/gavelblock/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/gavelhammer))
 		return
 	if(world.time > next_gavel_hit)

@@ -18,7 +18,7 @@
 	list_enginebeacons.Cut()
 	return ..()
 
-/obj/item/enginepicker/attack_self(mob/living/carbon/user)
+/obj/item/enginepicker/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(user.incapacitated())
 		return
 

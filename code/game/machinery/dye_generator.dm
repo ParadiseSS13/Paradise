@@ -8,7 +8,7 @@
 	idle_power_consumption = 40
 	var/dye_color = "#FFFFFF"
 
-/obj/machinery/dye_generator/Initialize()
+/obj/machinery/dye_generator/Initialize(mapload)
 	. = ..()
 	power_change()
 
@@ -44,11 +44,13 @@
 	src.add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
+	var/temp = tgui_input_color(user, "Please select a dye color", "Dye Color")
+	if(isnull(temp))
+		return
 	dye_color = temp
 	set_light(2, l_color = temp)
 
-/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dye_generator/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	if(default_unfasten_wrench(user, I, time = 60))
 		return
@@ -90,7 +92,7 @@
 	I.color = dye_color
 	. += I
 
-/obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
+/obj/item/hair_dye_bottle/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return

@@ -534,6 +534,8 @@
 					continue
 				AM.onShuttleMove(T0, T1, rotation, mobile_port.last_caller)
 
+			SEND_SIGNAL(T0, COMSIG_TURF_ON_SHUTTLE_MOVE, T1)
+
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
@@ -645,20 +647,18 @@
 				var/obj/mecha/mech = AM
 				if(mech.occupant)
 					INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, get_out_and_die))
-			if(ismob(AM))
-				var/mob/M = AM
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					if(L.incorporeal_move || L.status_flags & GODMODE)
-						continue
-					L.stop_pulling()
-					L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-					L.gib()
+			if(isliving(AM))
+				var/mob/living/L = AM
+				if(L.buckled)
+					L.unbuckle(force = TRUE)
+				if(L.incorporeal_move || L.status_flags & GODMODE)
+					continue
+				L.stop_pulling()
+				L.visible_message("<span class='warning'>[L] is hit by \
+								a hyperspace ripple!</span>",
+								"<span class='userdanger'>You feel an immense \
+								crushing pressure as the space around you ripples.</span>")
+				L.gib()
 			else if(lance_docking) //corrupt the child, destroy them all
 				if(!AM.simulated)
 					continue

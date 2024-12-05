@@ -76,7 +76,8 @@
 		/obj/item/food/grown/pumpkin = list("pumpkinjuice" = 0),
 		/obj/item/food/grown/apple = list("applejuice" = 0),
 		/obj/item/food/grown/grapes = list("grapejuice" = 0),
-		/obj/item/food/grown/pineapple = list("pineapplejuice" = 0)
+		/obj/item/food/grown/pineapple = list("pineapplejuice" = 0),
+		/obj/item/food/grown/bungofruit = list("bungojuice" = 0)
 	)
 
 	var/list/dried_items = list(
@@ -156,7 +157,7 @@
 		return
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
+/obj/machinery/reagentgrinder/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		..()
 		SStgui.update_uis(src)

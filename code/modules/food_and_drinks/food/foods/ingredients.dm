@@ -69,6 +69,12 @@
 	filling_color = "#00FF33"
 	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
 
+/obj/item/food/cheese_curds
+	name = "cheese curds"
+	desc = "Known by many names throughout human cuisine, curd cheese is useful for a wide variety of dishes."
+	icon_state = "cheese_curds"
+	filling_color = "#FFF700"
+	list_reagents = list("cheese_curds" = 4, "nutriment" = 3, "vitamin" = 1)
 
 //////////////////////
 //		Plants		//
@@ -119,7 +125,7 @@
 	tastes = list("dough" = 1)
 
 // Dough + rolling pin = flat dough
-/obj/item/food/dough/attackby(obj/item/I, mob/user, params)
+/obj/item/food/dough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/food/sliceable/flatdough(loc)
@@ -174,7 +180,7 @@
 		icon_state = "cookiedough"
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
-/obj/item/food/cookiedough/attackby(obj/item/I, mob/user, params)
+/obj/item/food/cookiedough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/rollingpin) && !flat)
 		if(isturf(loc))
 			to_chat(user, "<span class='notice'>You flatten [src].</span>")
@@ -200,7 +206,7 @@
 	icon_state = "unbaked_cookies"
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
 
-/obj/item/food/rawcookies/attackby(obj/item/I, mob/user, params)
+/obj/item/food/rawcookies/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/choc_pile))
 		if(isturf(loc))
 			new /obj/item/food/rawcookies/chocochips(loc)
@@ -234,7 +240,7 @@
 	goal_difficulty = FOOD_GOAL_EASY
 
 ///Chocolate crumbles/pile
-/obj/item/food/chocolatebar/attackby(obj/item/I, mob/user, params)
+/obj/item/food/chocolatebar/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/knife))
 		if(isturf(loc))
 			new /obj/item/food/choc_pile(loc)

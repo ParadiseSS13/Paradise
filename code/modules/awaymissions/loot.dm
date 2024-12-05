@@ -1,11 +1,11 @@
-/obj/effect/spawner/away/lootdrop
+/obj/effect/spawner/away_lootdrop
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = 0		//if the same item can be spawned twice
 	var/loot = ""			//a list of possible items to spawn- a string of paths
 
-/obj/effect/spawner/away/lootdrop/Initialize()
+/obj/effect/spawner/away_lootdrop/Initialize(mapload)
 	..()
 	var/list/things = params2list(loot)
 

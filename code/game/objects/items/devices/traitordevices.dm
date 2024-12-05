@@ -19,7 +19,7 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/item/jammer/attack_self(mob/user)
+/obj/item/jammer/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
@@ -68,7 +68,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
-/obj/item/teleporter/attack_self(mob/user)
+/obj/item/teleporter/attack_self__legacy__attackchain(mob/user)
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
@@ -108,15 +108,22 @@
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-
+	var/turf/starting = get_turf(src)
+	var/area/starting_area = get_area(starting)
+	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
+		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
+		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, starting) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
-		if(!is_teleport_allowed(T.z))
-			break
+		var/area/dropping_area = get_area(T)
+		if(dropping_area.tele_proof) //There might be some valid turfs before / after you reach such an area, so we continue, not break.
+			continue
 		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
 			if(get_dir(M, T) != M.dir)
 				continue
@@ -226,7 +233,7 @@
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
 		M.Weaken(6 SECONDS)
-		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, "<span class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
@@ -267,7 +274,7 @@
 	icon_state = "combat_hypo"
 	var/used = FALSE
 
-/obj/item/fireproofing_injector/attack_self(mob/living/user)
+/obj/item/fireproofing_injector/attack_self__legacy__attackchain(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
@@ -299,7 +306,7 @@
 	. += ""
 	. += "Clinical trials have shown a four times increase in the rate of healing compared to a placebo. Whilst the product is technically not yet available to the public, the right connections with the right people allow interested parties to obtain samples early..."
 
-/obj/item/cryoregenerative_enhancer/attack_self(mob/living/user)
+/obj/item/cryoregenerative_enhancer/attack_self__legacy__attackchain(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
 		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
 		return
@@ -316,7 +323,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>The injector is empty!</span>")
 		return
-	used = TRUE 
+	used = TRUE
 	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
@@ -361,7 +368,7 @@
 		times_used--
 		icon_state = "batterer"
 
-/obj/item/batterer/attack_self(mob/living/carbon/user)
+/obj/item/batterer/attack_self__legacy__attackchain(mob/living/carbon/user)
 	activate_batterer(user)
 
 /obj/item/batterer/proc/activate_batterer(mob/user)
@@ -451,7 +458,7 @@
 /obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
 	appearance_changer_holder.ui_interact(user, ui)
 
-/obj/item/handheld_mirror/attack_self(mob/user)
+/obj/item/handheld_mirror/attack_self__legacy__attackchain(mob/user)
 	if(ishuman(user))
 		appearance_changer_holder = new(src, user)
 		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
@@ -491,7 +498,7 @@
 	COOLDOWN_DECLARE(scan_cooldown)
 	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
 
-/obj/item/syndi_scanner/attack_self(mob/user)
+/obj/item/syndi_scanner/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, scan_cooldown))
 		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
 		return

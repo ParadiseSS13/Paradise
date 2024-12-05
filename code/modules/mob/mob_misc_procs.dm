@@ -194,7 +194,8 @@
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
-	if(!zone)	return "chest"
+	if(!zone)
+		return "chest"
 	switch(zone)
 		if("eyes")
 			zone = "head"
@@ -214,18 +215,28 @@
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 4)	 return "l_arm"
-		if(5 to 6)   return "l_hand"
-		if(7 to 8)	 return "r_arm"
-		if(9 to 10)  return "r_hand"
-		if(11 to 12) return "l_leg"
-		if(13 to 14) return "l_foot"
-		if(15 to 16) return "r_leg"
-		if(17 to 18) return "r_foot"
+	var/random_zone = rand(1, 18) // randomly pick a different zone, or maybe the same one
+	switch(random_zone)
+		if(1)
+			return "head"
+		if(2)
+			return "chest"
+		if(3 to 4)
+			return "l_arm"
+		if(5 to 6)
+			return "l_hand"
+		if(7 to 8)
+			return "r_arm"
+		if(9 to 10)
+			return "r_hand"
+		if(11 to 12)
+			return "l_leg"
+		if(13 to 14)
+			return "l_foot"
+		if(15 to 16)
+			return "r_leg"
+		if(17 to 18)
+			return "r_foot"
 
 	return zone
 
@@ -265,24 +276,30 @@
 	phrase = html_decode(phrase)
 	var/leng = length_char(phrase)
 	var/counter = length_char(phrase)
-	var/newphrase = ""
-	var/newletter = ""
+	var/list/newphrase = list()
+	var/newletter
 	while(counter >= 1)
-		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
-		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")	newletter="u"
-			if(lowertext(newletter)=="s")	newletter="ch"
-			if(lowertext(newletter)=="a")	newletter="ah"
-			if(lowertext(newletter)=="c")	newletter="k"
-		switch(rand(1,15))
-			if(1,3,5,8)	newletter="[lowertext(newletter)]"
-			if(2,4,6,15)	newletter="[uppertext(newletter)]"
-			if(7)	newletter+=pick(slurletters)
+		newletter = copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
+		if(prob(33.33))
+			if(lowertext(newletter) == "o")
+				newletter = "u"
+			if(lowertext(newletter) == "s")
+				newletter = "ch"
+			if(lowertext(newletter) == "a")
+				newletter = "ah"
+			if(lowertext(newletter) == "c")
+				newletter = "k"
+		if(prob(60))
+			if(prob(11.11))
+				newletter += pick(slurletters)
 			else
-				pass()
-		newphrase+="[newletter]"
-		counter-=1
-	return newphrase
+				if(prob(50))
+					newletter = lowertext(newletter)
+				else
+					newletter = uppertext(newletter)
+		newphrase += newletter
+		counter -= 1
+	return newphrase.Join("")
 
 /proc/stutter(phrase, stamina_loss = 0, robotic = FALSE)
 	phrase = html_decode(phrase)
@@ -496,7 +513,7 @@
 //Direct dead say used both by emote and say
 //It is somewhat messy. I don't know what to do.
 //I know you can't see the change, but I rewrote the name code. It is significantly less messy now
-/proc/say_dead_direct(message, mob/subject = null)
+/proc/say_dead_direct(message, mob/subject, raw_message)
 	var/name
 	var/keyname
 	if(subject && subject.client)
@@ -517,12 +534,14 @@
 	for(var/obj/item/radio/deadsay_radio_system as anything in GLOB.deadsay_radio_systems)
 		deadsay_radio_system.attempt_send_deadsay_message(subject, message)
 
+	var/should_show_runechat = (subject && raw_message && !subject.orbiting_uid)
+
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/simple_animal/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
-				if(subject != M)
+				if(subject != M && M.stat == DEAD)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject)]) "
@@ -541,6 +560,8 @@
 						lname = name
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
+			if(should_show_runechat && (M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.see_invisible >= subject.invisibility)
+				M.create_chat_message(subject, raw_message, symbol = RUNECHAT_SYMBOL_DEAD)
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
 	for(var/mob/O in GLOB.player_list)
@@ -676,49 +697,42 @@
 
 		rename_character(oldname, newname)
 
-/proc/cultslur(n) // Inflicted on victims of a stun talisman
-	var/phrase = html_decode(n)
+/proc/cultslur(phrase)
+	phrase = html_decode(phrase)
 	var/leng = length_char(phrase)
 	var/counter = length_char(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
-		if(rand(1,2)==2)
-			if(lowertext(newletter)=="o")
-				newletter="u"
-			if(lowertext(newletter)=="t")
-				newletter="ch"
-			if(lowertext(newletter)=="a")
-				newletter="ah"
-			if(lowertext(newletter)=="u")
-				newletter="oo"
-			if(lowertext(newletter)=="c")
-				newletter=" NAR "
-			if(lowertext(newletter)=="s")
-				newletter=" SIE "
-		if(rand(1,4)==4)
-			if(newletter==" ")
-				newletter=" no hope... "
-			if(newletter=="H")
-				newletter=" IT COMES... "
+	var/list/newphrase = list()
+	var/newletter
+	while(counter >= 1)
+		newletter = copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
+		if(prob(50))
+			if(lowertext(newletter) == "o")
+				newletter = "u"
+			if(lowertext(newletter) == "t")
+				newletter = "ch"
+			if(lowertext(newletter) == "a")
+				newletter = "ah"
+			if(lowertext(newletter) == "u")
+				newletter = "oo"
+			if(lowertext(newletter) == "c")
+				newletter = " NAR "
+			if(lowertext(newletter) == "s")
+				newletter = " SIE "
+		if(prob(25))
+			if(newletter == " ")
+				newletter = " no hope... "
+			if(newletter == "H")
+				newletter = " IT COMES... "
 
-		switch(rand(1,15))
-			if(1)
-				newletter="'"
-			if(2)
-				newletter+="agn"
-			if(3)
-				newletter="fth"
-			if(4)
-				newletter="nglu"
-			if(5)
-				newletter="glor"
+		if(prob(33.33))
+			if(prob(20))
+				newletter += "agn"
 			else
-				pass()
+				newletter = pick("'", "fth", "nglu", "glor")
 
-		newphrase+="[newletter]";counter-=1
-	return newphrase
+		newphrase += newletter
+		counter -= 1
+	return newphrase.Join("")
 
 // Why does this exist?
 /mob/proc/get_preference(toggleflag)

@@ -48,7 +48,7 @@
 	if(unfastened)
 		. += "<span class='warning'>It has been unfastened.</span>"
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 
@@ -319,12 +319,11 @@
 	atmos_mode = ATMOS_MODE_NO_DECAY
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
 				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
@@ -394,7 +393,7 @@
 		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 

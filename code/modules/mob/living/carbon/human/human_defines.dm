@@ -45,6 +45,7 @@
 	var/obj/item/clothing/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/clothing/gloves = null
+	var/obj/item/clothing/neck = null
 	var/obj/item/clothing/glasses = null
 	var/obj/item/l_ear = null
 	var/obj/item/r_ear = null
@@ -103,3 +104,6 @@
 	var/list/bodyparts = list()
 	/// map organ names to organs
 	var/list/bodyparts_by_name = list()
+
+	/// Lazylist of sources to track what our alpha should be, alpha is set to the minimum. Use the `set_alpha_tracking` and `get_alpha` helpers.
+	var/list/alpha_sources

@@ -41,15 +41,13 @@
 /mob/living/silicon/robot/proc/enter_low_power_mode()
 	low_power_mode = TRUE
 	playsound(src, "sound/mecha/lowpower.ogg", 50, FALSE, SOUND_RANGE_SET(10))
-	to_chat(src, "<span_class='warning'>Alert: Power cell requires immediate charging.</span>")
+	to_chat(src, "<span class='warning'>Alert: Power cell requires immediate charging.</span>")
 	handle_no_power()
 
 /mob/living/silicon/robot/proc/handle_equipment()
-	if(camera && !scrambledcodes)
+	if(camera && camera.status && !scrambledcodes) //Don't turn off cameras already off
 		if(stat == DEAD || wires.is_cut(WIRE_BORG_CAMERA))
-			camera.status = FALSE
-		else
-			camera.status = TRUE
+			camera.turn_off(src, FALSE)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)

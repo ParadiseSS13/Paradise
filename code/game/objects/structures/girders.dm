@@ -26,14 +26,14 @@
 		if(GIRDER_REINF_STRUTS)
 			. += "<span class='notice'>The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.</span>"
 		if(GIRDER_NORMAL)
-			if(can_displace)
-				. += "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
+			. += "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
 		if(GIRDER_DISPLACED)
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
 	. += "<span class='notice'>Various types of metal sheets can be used on this to create different kinds of walls.</span>"
-	. += "<span class='notice'>Apply a crowbar to this item to cause any walls to be made to be false walls. Use a wrench on this item to deconstruct it.</span>"
+	if(can_displace)
+		. += "<span class='notice'>Apply a crowbar to this item to cause any walls to be made to be false walls. Use a wrench on this item to deconstruct it.</span>"
 
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
@@ -46,7 +46,7 @@
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
@@ -437,6 +437,7 @@
 	name = "displaced girder"
 	icon_state = "displaced"
 	anchored = FALSE
+	can_displace = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120
@@ -445,6 +446,7 @@
 	name = "reinforced girder"
 	icon_state = "reinforced"
 	state = GIRDER_REINF
+	can_displace = FALSE
 	girderpasschance = 0
 	max_integrity = 350
 
@@ -461,7 +463,7 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(cult_girder_icon_state, initial(icon_state))
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/cult/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")

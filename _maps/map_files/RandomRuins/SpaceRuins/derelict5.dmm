@@ -167,7 +167,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "xs" = (
-/obj/effect/decal/cleanable/fungus,
+/obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "xQ" = (
@@ -268,7 +268,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "Qx" = (

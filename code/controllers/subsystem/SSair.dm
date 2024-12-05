@@ -57,9 +57,6 @@ SUBSYSTEM_DEF(air)
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
 
-	/// Pipe overlay/underlay icon manager
-	var/datum/pipe_icon_manager/icon_manager
-
 	/// An arbitrary list of stuff currently being processed.
 	var/list/currentrun = list()
 
@@ -138,7 +135,6 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = TRUE
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
-	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()
 	setup_write_to_milla()
 	setup_atmos_machinery(GLOB.machines)
@@ -154,7 +150,6 @@ SUBSYSTEM_DEF(air)
 	pipenets = SSair.pipenets
 	atmos_machinery = SSair.atmos_machinery
 	machinery_to_construct = SSair.machinery_to_construct
-	icon_manager = SSair.icon_manager
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
 	is_synchronous = SSair.is_synchronous

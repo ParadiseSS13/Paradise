@@ -75,7 +75,7 @@
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -170,9 +170,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
-	AddComponent(/datum/component/multitile, 2, list(
-		list(0, 0,		 0,	   0, 0),
-		list(0, 0,		 0,	   0, 0),
+	AddComponent(/datum/component/multitile, list(
 		list(0, 1, MACH_CENTER, 1, 0),
 		list(0, 1,		 0,	   1, 0),
 		list(0, 1,		 0,	   1, 0)
@@ -254,7 +252,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
-/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dna_vault/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dna_probe))
 		var/obj/item/dna_probe/P = I
 		var/uploaded = 0

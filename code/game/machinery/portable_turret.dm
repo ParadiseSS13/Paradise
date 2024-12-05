@@ -13,6 +13,8 @@
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
+	///this will be visible when above doors/firelocks/blastdoors to prevent cheese
+	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -391,7 +393,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 	qdel(src) // qdel
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
 		return
 
@@ -872,7 +874,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/gun_charge = 0			//the gun charge of the gun type installed
 
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret_construct/attackby__legacy__attackchain(obj/item/I, mob/user)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step

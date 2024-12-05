@@ -68,7 +68,7 @@
 /datum/objective/abductee/floors
 	explanation_text = "Replace all the floor tiles with wood, carpeting, grass or bling."
 
-/datum/objective/abductee/POWERUNLIMITED
+/datum/objective/abductee/powerunlimited
 	explanation_text = "Flood the station's powernet with as much electricity as you can."
 
 /datum/objective/abductee/pristine

@@ -116,7 +116,7 @@
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice>Going nice and slow at walk speed will prevent crashing into things.</span>"
+	examine_list += "<span class='notice'>Going nice and slow at walk speed will prevent crashing into things.</span>"
 
 /datum/component/riding/vehicle/scooter/skateboard/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
 	. = ..()
@@ -144,7 +144,7 @@
 		return
 	var/obj/tgvehicle/scooter/skateboard/S = parent
 	for(var/mob/living/L in S.return_occupants()) // Only one on a skateboard unless an admin var edits it. If an admin var edits it, that is on them.
-		if((L.staminaloss >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
+		if((L.getStaminaLoss() >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
 			S.unbuckle_mob(L)
 			L.KnockDown(2 SECONDS)
 			L.visible_message("<span class='warning'>[L] gets shot off [S] by [projectile]!</span>",

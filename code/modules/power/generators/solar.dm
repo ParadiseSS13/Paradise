@@ -179,7 +179,7 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
+	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker."
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	item_state = "electropack"
@@ -205,11 +205,11 @@
 	if(tracker)
 		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
 	else
-		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit</i> board.</span>"
 	if(anchored)
-		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
+		.+= "<span class='notice'>The solar assembly needs <i>glass</i> to be completed.</span>"
 
-/obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/solar_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 
 	if(anchored || !isturf(loc))
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
@@ -297,7 +297,7 @@
 	track = TRACKER_AUTO
 	autostart = TRUE // Automatically search for connected devices
 
-/obj/machinery/power/solar_control/Initialize()
+/obj/machinery/power/solar_control/Initialize(mapload)
 	SSsun.solars |= src
 	setup()
 	. = ..()

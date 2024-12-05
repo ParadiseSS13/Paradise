@@ -574,21 +574,19 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/burned_fuel = 0
+		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent, private_sleeping_agent)
+		private_sleeping_agent -= burned_fuel
 
-		burned_fuel = max(0, 0.00002 * (private_temperature - (0.00001 * (private_temperature ** 2)))) * private_sleeping_agent
-		if(private_sleeping_agent - burned_fuel > 0)
-			private_sleeping_agent -= burned_fuel
+		if(burned_fuel)
+			energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-			if(burned_fuel)
-				energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
+			private_oxygen += burned_fuel * 0.5
+			private_nitrogen += burned_fuel
 
-				private_oxygen += burned_fuel * 0.5
-				private_nitrogen += burned_fuel
-
-				var/new_heat_capacity = heat_capacity()
-				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-					private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
-				reacting = TRUE
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			reacting = TRUE
 
 	fuel_burnt = 0
 	//Handle plasma burning
@@ -666,6 +664,9 @@ What are the archived variables for?
 	var/total_agent_b = 0
 
 	for(var/datum/gas_mixture/G as anything in mixtures)
+		if(!istype(G))
+			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
+			continue
 		total_volume += G.volume
 		var/heat_capacity = G.heat_capacity()
 		total_heat_capacity += heat_capacity
@@ -687,6 +688,8 @@ What are the archived variables for?
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G as anything in mixtures)
+			if(!istype(G))
+				continue
 			G.private_oxygen = total_oxygen * G.volume / total_volume
 			G.private_nitrogen = total_nitrogen * G.volume / total_volume
 			G.private_toxins = total_toxins * G.volume / total_volume

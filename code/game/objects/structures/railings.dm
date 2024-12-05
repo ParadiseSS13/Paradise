@@ -33,7 +33,7 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
 
@@ -106,7 +106,7 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
-		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
@@ -133,7 +133,7 @@
 	if(isprojectile(O))
 		return TRUE
 	if(istype(M))
-		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(O.throwing)
 		return TRUE
@@ -165,7 +165,7 @@
 				return TRUE
 	return FALSE
 
-/obj/structure/railing/do_climb(mob/living/user)
+/obj/structure/railing/start_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
 	. = ..()
 	if(.)
