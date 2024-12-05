@@ -301,7 +301,7 @@
 		I.color = wrapper_color
 		overlays += I
 
-/obj/item/storage/pill_bottle/attack(mob/M, mob/user)
+/obj/item/storage/pill_bottle/attack__legacy__attackchain(mob/M, mob/user)
 	if(iscarbon(M) && length(contents))
 		if(applying_meds)
 			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
@@ -363,7 +363,7 @@
 
 	return ..()
 
-/obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/pill_bottle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
 	else

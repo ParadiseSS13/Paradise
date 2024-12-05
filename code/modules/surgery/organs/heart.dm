@@ -16,7 +16,7 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-/obj/item/organ/internal/heart/attack_self(mob/user)
+/obj/item/organ/internal/heart/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(status & ORGAN_DEAD)
 		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
@@ -56,7 +56,7 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
+/obj/item/organ/internal/heart/cursed/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")

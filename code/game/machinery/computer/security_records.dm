@@ -57,7 +57,7 @@
 	record_security = null
 	return ..()
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/secure_data/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(ui_login_attackby(O, user))
 		return
 	return ..()

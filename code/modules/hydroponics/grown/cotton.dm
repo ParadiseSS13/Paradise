@@ -31,7 +31,7 @@
 	var/cotton_type = /obj/item/stack/sheet/cotton
 	var/cotton_name = "raw cotton"
 
-/obj/item/grown/cotton/attack_self(mob/user)
+/obj/item/grown/cotton/attack_self__legacy__attackchain(mob/user)
 	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
 	var/seed_modifier = 0
 	if(seed)
@@ -40,7 +40,7 @@
 	var/old_cotton_amount = cotton.amount
 	for(var/obj/item/stack/ST in user.loc)
 		if(ST != cotton && istype(ST, cotton_type) && ST.amount < ST.max_amount)
-			ST.attackby(cotton, user)
+			ST.attackby__legacy__attackchain(cotton, user)
 	if(cotton.amount > old_cotton_amount)
 		to_chat(user, "<span class='notice'>You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name].</span>")
 	qdel(src)

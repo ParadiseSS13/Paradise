@@ -119,7 +119,7 @@
 				L.IgniteMob()
 
 
-/turf/simulated/floor/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
+/turf/simulated/floor/lava/attackby__legacy__attackchain(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
 	if(istype(C, /obj/item/stack/rods/lava))
 		var/obj/item/stack/rods/lava/R = C
 		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
@@ -183,7 +183,7 @@
 	. = ..()
 	. += "<span class='notice'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/lava_land_surface/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!I.is_open_container())
 		return ..()
 	if(!I.reagents.add_reagent("plasma", 10))

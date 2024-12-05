@@ -25,11 +25,11 @@
 	return ..()
 
 /datum/component/sticky/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
+	RegisterSignal(parent, COMSIG_PRE_ATTACK, PROC_REF(stick_to_it))
 	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(stick_to_it_throwing))
 
 /datum/component/sticky/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ITEM_PRE_ATTACK)
+	UnregisterSignal(parent, COMSIG_PRE_ATTACK)
 	UnregisterSignal(parent, COMSIG_MOVABLE_IMPACT)
 
 /datum/component/sticky/proc/stick_to_it(obj/item/I, atom/target, mob/user, params)

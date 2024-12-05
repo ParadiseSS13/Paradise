@@ -88,7 +88,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/attack_animal(mob/user)
 	consume(user)
 
-/obj/singularity/attackby(obj/item/W, mob/user, params)
+/obj/singularity/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	consume(user)
 	return 1
 
