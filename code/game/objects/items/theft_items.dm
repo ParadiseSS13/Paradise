@@ -42,6 +42,10 @@
 /// The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
 /obj/item/nuke_core/plutonium
 
+/obj/item/nuke_core/plutonium/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
 	name = "nuke core container"
@@ -160,6 +164,10 @@
 	pulseicon = "supermatter_sliver_pulse"
 	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
 	layer = ABOVE_MOB_LAYER + 0.02
+
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/nuke_core/supermatter_sliver/process()
 	. = ..()
