@@ -253,11 +253,9 @@
 /obj/item/card/id/proc/get_departments()
 	return get_departments_from_job(rank)
 
-/obj/item/card/id/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-
-	if(istype(W, /obj/item/id_decal/))
-		var/obj/item/id_decal/decal = W
+/obj/item/card/id/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/id_decal/))
+		var/obj/item/id_decal/decal = used
 		to_chat(user, "You apply [decal] to [src].")
 		if(decal.override_name)
 			name = decal.decal_name
@@ -265,25 +263,28 @@
 		icon_state = decal.decal_icon_state
 		item_state = decal.decal_item_state
 		qdel(decal)
-		qdel(W)
-		return
+		qdel(used)
+		return ITEM_INTERACT_SUCCESS
 
-	else if(istype(W, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/B = W
+	else if(istype(used, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = used
 		B.scanID(src, user)
-		return
+		return ITEM_INTERACT_SUCCESS
 
-	else if(istype (W,/obj/item/stamp))
+	else if(istype(used, /obj/item/stamp))
 		if(!stamped)
-			dat+="<img src=large_[W.icon_state].png>"
+			dat+="<img src=large_[used.icon_state].png>"
 			stamped = 1
 			to_chat(user, "You stamp the ID card!")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-		else
-			to_chat(user, "This ID has already been stamped!")
+			return ITEM_INTERACT_SUCCESS
+		to_chat(user, "This ID has already been stamped!")
+		return ITEM_INTERACT_BLOCKING
 
-	else if(istype(W, /obj/item/card/id/guest))
-		attach_guest_pass(W, user)
+
+	else if(istype(used, /obj/item/card/id/guest))
+		attach_guest_pass(used, user)
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
