@@ -7,7 +7,7 @@
 /turf/space/transit/Initialize(mapload)
 	. = ..()
 	// We don't want people building rods in space.
-	RegisterSignal(src, COMSIG_ATTACK_BY, GLOBAL_PROC_REF(cancel_attack_by))
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /// moving to the north
 /turf/space/transit/north

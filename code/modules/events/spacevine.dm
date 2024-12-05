@@ -84,7 +84,7 @@
 
 /turf/simulated/floor/vines/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATTACK_BY, GLOBAL_PROC_REF(cancel_attack_by))
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /turf/simulated/floor/vines/get_broken_states()
 	return list()

@@ -274,3 +274,10 @@
 		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>"
 	)
 	return TRUE
+
+/// Used for signal registrars who wish to completely ignore all behavior
+/// in the attack chain from parent types calling `attack_by`. Should be
+/// used sparingly, as subtypes are meant to build on behavior from the parent
+/// type.
+/datum/proc/signal_cancel_attack_by(datum/source, obj/item/attacking, mob/user, params)
+	return COMPONENT_SKIP_AFTERATTACK

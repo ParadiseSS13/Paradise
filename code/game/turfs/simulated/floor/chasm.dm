@@ -62,11 +62,11 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attack_by(obj/item/attacking, mob/user, params)
+/turf/simulated/floor/chasm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(..())
-		return FINISH_ATTACK
+		return ITEM_INTERACT_ANY_BLOCKER
 
-	if(istype(attacking, /obj/item/stack/rods))
+	if(istype(used, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			var/obj/item/inactive = user.get_inactive_hand()
@@ -79,8 +79,8 @@
 
 			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
-				return FINISH_ATTACK
-			var/obj/item/stack/rods/R = attacking
+				return ITEM_INTERACT_BLOCKING
+			var/obj/item/stack/rods/R = used
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -88,12 +88,12 @@
 			else
 				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 
-			return FINISH_ATTACK
+			return ITEM_INTERACT_ANY_BLOCKER
 
-	if(istype(attacking, /obj/item/stack/tile/plasteel))
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = attacking
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
@@ -104,7 +104,7 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-		return FINISH_ATTACK
+		return ITEM_INTERACT_ANY_BLOCKER
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())

@@ -50,18 +50,6 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/light/bulb)) //only for light tiles
-		if(!light_broken)
-			qdel(used)
-			light_broken = FALSE
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-
-		return ITEM_INTERACT_SUCCESS
-
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!can_modify_colour)
