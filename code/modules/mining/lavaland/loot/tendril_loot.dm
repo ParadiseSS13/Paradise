@@ -398,10 +398,11 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, ALL)
 
-/obj/item/immortality_talisman/pickup(mob/user)
-	var/user_UID = user.UID()
-	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, user_UID)
-	. = ..() //QWERTODO: This needs to work in pockets but not bags. This is temporary for testing
+/obj/item/immortality_talisman/equipped(mob/user, slot)
+	..()
+	if(slot != ITEM_SLOT_IN_BACKPACK)
+		var/user_UID = user.UID()
+		ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, user_UID)
 
 /obj/item/immortality_talisman/dropped(mob/user, silent)
 	. = ..()

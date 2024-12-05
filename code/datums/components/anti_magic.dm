@@ -36,7 +36,7 @@
 /datum/component/anti_magic/Initialize(
 		antimagic_flags = MAGIC_RESISTANCE,
 		charges = INFINITY,
-		inventory_flags = ~SLOT_FLAG_BACK, // items in a backpack won't activate, anywhere else is fine
+		inventory_flags = ~ITEM_SLOT_IN_BACKPACK, // items in a backpack won't activate, anywhere else is fine
 		datum/callback/drain_antimagic,
 		datum/callback/expiration,
 	)
@@ -50,7 +50,7 @@
 	if(isitem(movable))
 		RegisterSignal(movable, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 		RegisterSignal(movable, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-		RegisterSignal(movable, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
+		RegisterSignal(movable, COMSIG_ATTACK, PROC_REF(on_attack))
 		compatible = TRUE
 	else if(ismob(movable))
 		register_antimagic_signals(movable)
@@ -92,12 +92,16 @@
 
 /datum/component/anti_magic/proc/on_equip(atom/movable/source, mob/equipper, slot)
 	SIGNAL_HANDLER // COMSIG_ITEM_EQUIPPED
+	addtimer(CALLBACK(src, PROC_REF(on_equip_part_2), source, equipper, slot), 0.1 SECONDS) //We wait a moment to see if the item grants antimagic flags
 
+/datum/component/anti_magic/proc/on_equip_part_2(atom/movable/source, mob/equipper, slot)
 	if(!(inventory_flags & slot)) //Check that the slot is valid for antimagic
 		unregister_antimagic_signals(equipper)
 		return
 
 	register_antimagic_signals(equipper)
+	if(HAS_TRAIT(equipper, TRAIT_ANTIMAGIC_NO_SELFBLOCK)) //If they do not care about antimagic, don't warn them
+		return
 	if(!alert_caster_on_equip)
 		return
 
@@ -158,5 +162,5 @@
 	return NONE
 
 /datum/component/anti_magic/proc/on_attack(atom/movable/source, atom/target, mob/user)
-	SIGNAL_HANDLER
-	SEND_SIGNAL(target, COMSIG_ATOM_HOLYATTACK, source, user, antimagic_flags)
+	SIGNAL_HANDLER //COMSIG_ATTACK
+	SEND_SIGNAL(target, COMSIG_ATOM_HOLY_ATTACK, source, user, antimagic_flags)

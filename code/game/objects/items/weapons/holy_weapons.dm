@@ -38,11 +38,6 @@
 
 /obj/item/nullrod/attack__legacy__attackchain(mob/M, mob/living/carbon/user)
 	..()
-	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY)) //QWERTODO: CONVERT TO COMSIG_ATOM_HOLYATTACK BEFORE MERGE
-		if(!V.get_ability(/datum/vampire_passive/full))
-			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 	if(!sanctify_force)
 		return
 	if(isliving(M))

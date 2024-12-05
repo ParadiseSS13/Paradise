@@ -186,7 +186,7 @@
 
 /obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = SLOT_FLAG_OCLOTHING)
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
