@@ -1206,16 +1206,15 @@
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
 			if("clear")
-				if(src in SSticker.mode.eventmiscs)
-					SSticker.mode.eventmiscs -= src
-					SSticker.mode.update_eventmisc_icons_removed(src)
-					special_role = null
-					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
-					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
+				if(!has_antag_datum(/datum/antagonist/event_misc))
+					return
+				remove_antag_datum(/datum/antagonist/event_misc)
+				message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
+				log_admin("[key_name(usr)] has de-eventantag'ed [current].")
 			if("eventmisc")
-				SSticker.mode.eventmiscs += src
-				special_role = SPECIAL_ROLE_EVENTMISC
-				SSticker.mode.update_eventmisc_icons_added(src)
+				if(has_antag_datum(/datum/antagonist/event_misc))
+					return
+				add_antag_datum(/datum/antagonist/event_misc)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
 				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
