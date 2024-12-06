@@ -136,12 +136,12 @@ const SupermatterMonitorDataView = (props, context) => {
                   <ProgressBar
                     value={logScale(SM_moles)}
                     minValue={0}
-                    maxValue={logScale(12000)}
+                    maxValue={12000}
                     ranges={{
-                      teal: [-Infinity, logScale(100)],
-                      good: [logScale(100), logScale(11333)],
-                      average: [logScale(11333), logScale(12000)],
-                      bad: [logScale(12000), Infinity],
+                      teal: [-Infinity, 100],
+                      average: [100, 11333],
+                      good: [11333, 12000],
+                      bad: [12000, Infinity],
                     }}
                   >
                     {toFixed(SM_moles) + ' mol'}
