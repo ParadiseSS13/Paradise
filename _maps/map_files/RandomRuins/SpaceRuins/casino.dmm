@@ -59,7 +59,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/template_noop)
 "bq" = (
 /obj/structure/rack,
 /obj/item/radio{
@@ -183,8 +183,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ft" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -420,8 +420,8 @@
 	brightness_color = "#FF0000";
 	color = "#FF0000"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ky" = (
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/economy/vending/coffee,
@@ -474,8 +474,8 @@
 	brightness_color = "#FF0000";
 	color = "#FF0000"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "mh" = (
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/carpet/black,
@@ -731,7 +731,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/template_noop)
 "vb" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
@@ -773,8 +773,8 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wg" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "wh" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -792,8 +792,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "wn" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -809,8 +809,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "wq" = (
 /obj/structure/mineral_door/silver,
 /turf/simulated/floor/mineral/silver/fancy,
@@ -987,7 +987,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/template_noop)
 "BC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1033,8 +1033,8 @@
 /area/ruin/space/powered/casino/teleporter)
 "CP" = (
 /obj/structure/lattice,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Do" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1067,8 +1067,8 @@
 	brightness_color = "#FF0000";
 	color = "#FF0000"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "DM" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -1121,8 +1121,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Fm" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -1459,8 +1459,8 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Sk" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards/black,
@@ -1536,8 +1536,8 @@
 	brightness_color = "#FF0000";
 	color = "#FF0000"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "TO" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -1562,8 +1562,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Ud" = (
 /obj/machinery/light{
 	dir = 4
@@ -1584,8 +1584,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Uf" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty{
@@ -1723,8 +1723,8 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Xm" = (
 /obj/effect/mob_spawn/human/corpse/bartender,
 /turf/simulated/floor/carpet/black,
@@ -1841,7 +1841,6 @@ wg
 wg
 wg
 wg
-wg
 "}
 (2,1,1) = {"
 wg
@@ -1853,12 +1852,11 @@ wg
 wg
 wg
 wg
-wg
-wg
-wg
-wg
-wg
-wg
+Mt
+Mt
+Mt
+Mt
+Mt
 wg
 wg
 wg
@@ -1890,53 +1888,6 @@ wg
 wg
 "}
 (3,1,1) = {"
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-Mt
-Mt
-Mt
-Mt
-Mt
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-"}
-(4,1,1) = {"
-wg
 wg
 wg
 wg
@@ -1981,8 +1932,7 @@ wg
 wg
 wg
 "}
-(5,1,1) = {"
-wg
+(4,1,1) = {"
 wg
 wg
 wg
@@ -1996,6 +1946,51 @@ Mt
 MG
 MG
 MG
+Mt
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
+(5,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+Mt
+yK
+yK
+yK
 Mt
 wg
 wg
@@ -2037,11 +2032,10 @@ wg
 wg
 wg
 wg
-wg
+Mt
 Mt
 yK
-yK
-yK
+Mt
 Mt
 wg
 wg
@@ -2074,53 +2068,6 @@ wg
 wg
 "}
 (7,1,1) = {"
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-Mt
-Mt
-yK
-Mt
-Mt
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-"}
-(8,1,1) = {"
-wg
 wg
 wg
 wg
@@ -2165,8 +2112,7 @@ wg
 wg
 wg
 "}
-(9,1,1) = {"
-wg
+(8,1,1) = {"
 wg
 wg
 wg
@@ -2211,8 +2157,7 @@ wg
 wg
 wg
 "}
-(10,1,1) = {"
-wg
+(9,1,1) = {"
 wg
 wg
 wg
@@ -2257,8 +2202,7 @@ wg
 wg
 wg
 "}
-(11,1,1) = {"
-wg
+(10,1,1) = {"
 wg
 wg
 wg
@@ -2303,8 +2247,7 @@ sO
 lZ
 wg
 "}
-(12,1,1) = {"
-wg
+(11,1,1) = {"
 wg
 wg
 wg
@@ -2349,8 +2292,7 @@ ep
 wg
 wg
 "}
-(13,1,1) = {"
-wg
+(12,1,1) = {"
 wg
 wg
 wg
@@ -2395,8 +2337,7 @@ ep
 wg
 wg
 "}
-(14,1,1) = {"
-wg
+(13,1,1) = {"
 wg
 wg
 wg
@@ -2441,8 +2382,7 @@ ep
 wg
 wg
 "}
-(15,1,1) = {"
-wg
+(14,1,1) = {"
 wg
 wg
 wg
@@ -2487,8 +2427,7 @@ ep
 wg
 wg
 "}
-(16,1,1) = {"
-wg
+(15,1,1) = {"
 wg
 wg
 SK
@@ -2533,8 +2472,7 @@ ep
 wg
 wg
 "}
-(17,1,1) = {"
-wg
+(16,1,1) = {"
 wg
 wg
 SK
@@ -2579,8 +2517,7 @@ ep
 wg
 wg
 "}
-(18,1,1) = {"
-wg
+(17,1,1) = {"
 wg
 wg
 SK
@@ -2625,8 +2562,7 @@ ep
 wg
 wg
 "}
-(19,1,1) = {"
-wg
+(18,1,1) = {"
 wg
 wg
 vb
@@ -2671,8 +2607,7 @@ ep
 wg
 wg
 "}
-(20,1,1) = {"
-wg
+(19,1,1) = {"
 wg
 LK
 LK
@@ -2717,8 +2652,7 @@ sO
 wg
 wg
 "}
-(21,1,1) = {"
-wg
+(20,1,1) = {"
 wg
 xw
 Dv
@@ -2763,8 +2697,7 @@ ar
 wg
 wg
 "}
-(22,1,1) = {"
-wg
+(21,1,1) = {"
 wg
 xw
 wD
@@ -2809,8 +2742,7 @@ ar
 wg
 wg
 "}
-(23,1,1) = {"
-wg
+(22,1,1) = {"
 wg
 LK
 LK
@@ -2855,8 +2787,7 @@ QW
 wg
 wg
 "}
-(24,1,1) = {"
-wg
+(23,1,1) = {"
 wg
 wg
 oo
@@ -2901,8 +2832,7 @@ ON
 wg
 wg
 "}
-(25,1,1) = {"
-wg
+(24,1,1) = {"
 wg
 wg
 SK
@@ -2947,8 +2877,7 @@ ON
 wg
 wg
 "}
-(26,1,1) = {"
-wg
+(25,1,1) = {"
 wg
 wg
 SK
@@ -2993,8 +2922,7 @@ ON
 wg
 wg
 "}
-(27,1,1) = {"
-wg
+(26,1,1) = {"
 wg
 wg
 SK
@@ -3039,8 +2967,7 @@ ON
 wg
 wg
 "}
-(28,1,1) = {"
-wg
+(27,1,1) = {"
 wg
 wg
 wg
@@ -3085,8 +3012,7 @@ ON
 wg
 wg
 "}
-(29,1,1) = {"
-wg
+(28,1,1) = {"
 wg
 wg
 wg
@@ -3131,8 +3057,7 @@ ON
 wg
 wg
 "}
-(30,1,1) = {"
-wg
+(29,1,1) = {"
 wg
 wg
 wg
@@ -3177,8 +3102,7 @@ ON
 wg
 wg
 "}
-(31,1,1) = {"
-wg
+(30,1,1) = {"
 wg
 wg
 wg
@@ -3223,8 +3147,7 @@ ON
 wg
 wg
 "}
-(32,1,1) = {"
-wg
+(31,1,1) = {"
 wg
 wg
 wg
@@ -3269,8 +3192,7 @@ QW
 lZ
 wg
 "}
-(33,1,1) = {"
-wg
+(32,1,1) = {"
 wg
 wg
 wg
@@ -3315,8 +3237,7 @@ wg
 wg
 wg
 "}
-(34,1,1) = {"
-wg
+(33,1,1) = {"
 wg
 wg
 wg
@@ -3361,8 +3282,7 @@ wg
 wg
 wg
 "}
-(35,1,1) = {"
-wg
+(34,1,1) = {"
 wg
 wg
 wg
@@ -3407,8 +3327,7 @@ wg
 wg
 wg
 "}
-(36,1,1) = {"
-wg
+(35,1,1) = {"
 wg
 wg
 wg
@@ -3453,8 +3372,7 @@ wg
 wg
 wg
 "}
-(37,1,1) = {"
-wg
+(36,1,1) = {"
 wg
 wg
 wg
@@ -3499,8 +3417,7 @@ wg
 wg
 wg
 "}
-(38,1,1) = {"
-wg
+(37,1,1) = {"
 wg
 wg
 wg
@@ -3545,8 +3462,7 @@ wg
 wg
 wg
 "}
-(39,1,1) = {"
-wg
+(38,1,1) = {"
 wg
 wg
 wg
@@ -3591,100 +3507,52 @@ wg
 wg
 wg
 "}
+(39,1,1) = {"
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+SK
+SK
+SK
+SK
+SK
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+wg
+"}
 (40,1,1) = {"
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-SK
-SK
-SK
-SK
-SK
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-"}
-(41,1,1) = {"
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-wg
-"}
-(42,1,1) = {"
-wg
 wg
 wg
 wg
