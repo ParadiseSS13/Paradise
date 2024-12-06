@@ -134,7 +134,7 @@ const SupermatterMonitorDataView = (props, context) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="Mole Per Tile">
                   <ProgressBar
-                    value={logScale(SM_moles)}
+                    value={SM_moles}
                     minValue={0}
                     maxValue={12000}
                     ranges={{
