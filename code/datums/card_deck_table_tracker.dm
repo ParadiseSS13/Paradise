@@ -85,7 +85,7 @@
 		if(debug)
 			source.color = "#ff0000"
 
-/datum/card_deck_table_tracker/proc/on_atom_exited(turf/source, atom/movable/exited, new_loc)
+/datum/card_deck_table_tracker/proc/on_atom_exited(turf/source, atom/movable/exited, direction)
 	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 
 	var/mob/living/L = exited

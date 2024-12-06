@@ -74,6 +74,7 @@
 	orient2hud()
 
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_atom_exited))
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
@@ -489,6 +490,9 @@
 	I.in_inventory = TRUE
 	update_icon()
 	return TRUE
+
+/obj/item/storage/proc/on_atom_exited(datum/source, atom/exited, direction)
+	return remove_from_storage(exited, exited.loc)
 
 /**
   * Handles the removal of an item from a storage container.
