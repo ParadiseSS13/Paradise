@@ -36,11 +36,11 @@
 /obj/item/clothing/shoes/magboots/ui_action_click(mob/user)
 	toggle_magpulse(user)
 
-/obj/item/clothing/shoes/magboots/activate_self(mob/user, forced = FALSE)
+/obj/item/clothing/shoes/magboots/activate_self(mob/user)
 	. = ..()
 	toggle_magpulse(user, forced)
 
-/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
 	magpulse = !magpulse
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
 		attach_clothing_traits(active_traits)
@@ -50,7 +50,7 @@
 		slowdown = slowdown_passive
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
-	if(!forced)
+	if(!no_message)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
