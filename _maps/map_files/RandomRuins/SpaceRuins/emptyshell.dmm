@@ -13,7 +13,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "e" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "f" = (
