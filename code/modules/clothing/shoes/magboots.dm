@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-	no_slip = FALSE
+
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -16,6 +16,7 @@
 	var/magpulse_name = "mag-pulse traction system"
 	///If a pair of magboots has different icons for being on or off
 	var/multiple_icons = TRUE
+	var/list/active_traits = list(TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
@@ -24,48 +25,34 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
-		return
-	check_mag_pulse(user)
+	if(magpulse)
+		attach_clothing_traits(active_traits)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
-	if(!ishuman(user))
-		return
-	check_mag_pulse(user, removing = TRUE)
+	if(magpulse)
+		detach_clothing_traits(active_traits)
 
-/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
-	toggle_magpulse(user)
+/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
 
-/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
-	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_passive
-	else
-		if(user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
-			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_active
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	magpulse = !magpulse
-	no_slip = !no_slip
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		attach_clothing_traits(active_traits)
+		slowdown = slowdown_active
+	else
+		detach_clothing_traits(active_traits)
+		slowdown = slowdown_passive
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
-	if(!no_message)
+	if(!forced)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
-
-/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
-	if(!user)
-		return
-	if(magpulse && !removing)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
-		return
-	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
