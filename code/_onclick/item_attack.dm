@@ -163,6 +163,8 @@
 	user.do_attack_animation(target)
 	add_fingerprint(user)
 
+	return TRUE
+
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_obj(obj/attacked_obj, mob/living/user, params)
 	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, attacked_obj, user) | SEND_SIGNAL(user, COMSIG_ATTACK_OBJ_LIVING, attacked_obj)
