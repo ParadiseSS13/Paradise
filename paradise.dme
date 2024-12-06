@@ -2832,7 +2832,6 @@
 #include "code\modules\space_management\zlevel_manager.dm"
 #include "code\modules\station_goals\bluespace_tap.dm"
 #include "code\modules\station_goals\bluespace_tap_events.dm"
-#include "code\modules\station_goals\bluespace_tap_lootpools.dm"
 #include "code\modules\station_goals\bsa.dm"
 #include "code\modules\station_goals\dna_vault.dm"
 #include "code\modules\station_goals\shield.dm"

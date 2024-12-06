@@ -84,24 +84,24 @@
 	/// list of possible products
 	var/static/product_list = list(
 	new /datum/data/bluespace_tap_product("Unknown Exotic Clothing",
-		/obj/effect/spawner/lootdrop/bluespace_tap/clothes_common,
-		/obj/effect/spawner/lootdrop/bluespace_tap/clothes_uncommon,
-		/obj/effect/spawner/lootdrop/bluespace_tap/clothes_rare,
+		/obj/effect/spawner/random/bluespace_tap/clothes_common,
+		/obj/effect/spawner/random/bluespace_tap/clothes_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/clothes_rare,
 		5000),
 	new /datum/data/bluespace_tap_product("Unknown Food",
-		/obj/effect/spawner/lootdrop/bluespace_tap/food_common,
-		/obj/effect/spawner/lootdrop/bluespace_tap/food_uncommon,
-		/obj/effect/spawner/lootdrop/bluespace_tap/food_rare,
+		/obj/effect/spawner/random/bluespace_tap/food_common,
+		/obj/effect/spawner/random/bluespace_tap/food_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/food_rare,
 		6000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact",
-		/obj/effect/spawner/lootdrop/bluespace_tap/cultural_common,
-		/obj/effect/spawner/lootdrop/bluespace_tap/cultural_uncommon,
-		/obj/effect/spawner/lootdrop/bluespace_tap/cultural_rare,
+		/obj/effect/spawner/random/bluespace_tap/cultural_common,
+		/obj/effect/spawner/random/bluespace_tap/cultural_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 		15000),
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact",
-		/obj/effect/spawner/lootdrop/bluespace_tap/organic_common,
-		/obj/effect/spawner/lootdrop/bluespace_tap/organic_uncommon,
-		/obj/effect/spawner/lootdrop/bluespace_tap/organic_rare,
+		/obj/effect/spawner/random/bluespace_tap/organic_common,
+		/obj/effect/spawner/random/bluespace_tap/organic_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/organic_rare,
 		20000)
 	)
 
@@ -485,7 +485,7 @@
 		product.product_path_uncommon = 30,
 		product.product_path_rare = 10
 	)
-	var/obj/effect/spawner/lootdrop/bluespace_tap/product_path = pickweight(loot_rarities)
+	var/obj/effect/spawner/random/bluespace_tap/product_path = pickweight(loot_rarities)
 	var/obj/effect/portal/tap_portal = new /obj/effect/portal(turf, null, src, 10)
 	tap_portal.name = "Bluespace Harvester Portal"
 	playsound(src, 'sound/magic/blink.ogg', 50)
