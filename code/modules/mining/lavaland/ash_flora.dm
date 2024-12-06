@@ -60,7 +60,7 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
+/obj/structure/flora/ash/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.sharp)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
 		if(do_after(user, harvest_time, target = src))

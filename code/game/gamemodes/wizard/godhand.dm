@@ -29,7 +29,7 @@
 /obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 
-/obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
+/obj/item/melee/touch_attack/attack__legacy__attackchain(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -37,7 +37,7 @@
 		return
 	..()
 
-/obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/touch_attack/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(catchphrase)
 		user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound, 50, 1)
@@ -53,7 +53,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
-/obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/disintegrate/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
@@ -69,7 +69,7 @@
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
 
-/obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/fleshtostone/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
 	var/mob/living/L = target
@@ -86,7 +86,7 @@
 	item_state = "disintegrate"
 	needs_permit = FALSE
 
-/obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/fake_disintegrate/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, 0, target.loc)
@@ -101,7 +101,7 @@
 	icon_state = "cluwnecurse"
 	item_state = "cluwnecurse"
 
-/obj/item/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/cluwne/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //clowning around after touching yourself would unsurprisingly, be bad
 		return
 

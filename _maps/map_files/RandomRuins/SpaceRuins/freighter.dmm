@@ -248,7 +248,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/space/powered)
 "wa" = (
 /obj/structure/safe,
@@ -493,7 +493,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Kh" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "Ki" = (
 /obj/structure/table,
@@ -714,9 +714,8 @@ Kh
 Kh
 Kh
 Kh
-vN
-vN
-vN
+Kh
+Kh
 Kh
 Kh
 Kh
@@ -733,10 +732,9 @@ Kh
 Kh
 Kh
 Kh
-Kh
-JC
-JC
-JC
+vN
+vN
+vN
 Kh
 Kh
 Kh
@@ -753,6 +751,24 @@ Kh
 Kh
 Kh
 Kh
+JC
+JC
+JC
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+"}
+(4,1,1) = {"
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
 LW
 LW
 LW
@@ -765,8 +781,7 @@ Kh
 Kh
 Kh
 "}
-(4,1,1) = {"
-Kh
+(5,1,1) = {"
 Kh
 Kh
 Kh
@@ -785,8 +800,7 @@ Kh
 Kh
 Kh
 "}
-(5,1,1) = {"
-Kh
+(6,1,1) = {"
 Kh
 Kh
 Kh
@@ -805,8 +819,7 @@ Kh
 Kh
 Kh
 "}
-(6,1,1) = {"
-Kh
+(7,1,1) = {"
 Kh
 Kh
 Kh
@@ -825,8 +838,7 @@ Kh
 Kh
 Kh
 "}
-(7,1,1) = {"
-Kh
+(8,1,1) = {"
 Kh
 Kh
 Kh
@@ -845,8 +857,7 @@ Kh
 Kh
 Kh
 "}
-(8,1,1) = {"
-Kh
+(9,1,1) = {"
 Kh
 Kh
 Kh
@@ -865,8 +876,7 @@ Kh
 Kh
 Kh
 "}
-(9,1,1) = {"
-Kh
+(10,1,1) = {"
 Kh
 Kh
 Kh
@@ -885,8 +895,7 @@ Kh
 Kh
 Kh
 "}
-(10,1,1) = {"
-Kh
+(11,1,1) = {"
 Kh
 Kh
 Kh
@@ -905,8 +914,7 @@ Kh
 Kh
 Kh
 "}
-(11,1,1) = {"
-Kh
+(12,1,1) = {"
 Kh
 Kh
 Kh
@@ -925,8 +933,7 @@ Kh
 Kh
 Kh
 "}
-(12,1,1) = {"
-Kh
+(13,1,1) = {"
 Kh
 Kh
 Kh
@@ -945,8 +952,7 @@ Kh
 Kh
 Kh
 "}
-(13,1,1) = {"
-Kh
+(14,1,1) = {"
 Kh
 Kh
 Kh
@@ -965,8 +971,7 @@ Kh
 Kh
 Kh
 "}
-(14,1,1) = {"
-Kh
+(15,1,1) = {"
 Kh
 Kh
 vN
@@ -985,8 +990,7 @@ vN
 Kh
 Kh
 "}
-(15,1,1) = {"
-Kh
+(16,1,1) = {"
 Kh
 Kh
 JC
@@ -1005,8 +1009,7 @@ JC
 Kh
 Kh
 "}
-(16,1,1) = {"
-Kh
+(17,1,1) = {"
 Kh
 LW
 LW
@@ -1025,8 +1028,7 @@ LW
 LW
 Kh
 "}
-(17,1,1) = {"
-Kh
+(18,1,1) = {"
 Kh
 LW
 Zt
@@ -1045,8 +1047,7 @@ zL
 LW
 Kh
 "}
-(18,1,1) = {"
-Kh
+(19,1,1) = {"
 Kh
 LW
 MX
@@ -1065,8 +1066,7 @@ Ix
 fY
 Kh
 "}
-(19,1,1) = {"
-Kh
+(20,1,1) = {"
 Kh
 LW
 LW
@@ -1085,8 +1085,7 @@ LW
 LW
 Kh
 "}
-(20,1,1) = {"
-Kh
+(21,1,1) = {"
 Kh
 Kh
 Kh
@@ -1105,8 +1104,7 @@ As
 LW
 Kh
 "}
-(21,1,1) = {"
-Kh
+(22,1,1) = {"
 Kh
 Kh
 Kh
@@ -1125,8 +1123,7 @@ fL
 fY
 Kh
 "}
-(22,1,1) = {"
-Kh
+(23,1,1) = {"
 Kh
 Kh
 Kh
@@ -1145,8 +1142,7 @@ LW
 LW
 Kh
 "}
-(23,1,1) = {"
-Kh
+(24,1,1) = {"
 Kh
 Kh
 Kh
@@ -1165,8 +1161,7 @@ Kh
 Kh
 Kh
 "}
-(24,1,1) = {"
-Kh
+(25,1,1) = {"
 Kh
 Kh
 Kh
@@ -1185,8 +1180,7 @@ Kh
 Kh
 Kh
 "}
-(25,1,1) = {"
-Kh
+(26,1,1) = {"
 Kh
 Kh
 Kh
@@ -1205,8 +1199,7 @@ Kh
 Kh
 Kh
 "}
-(26,1,1) = {"
-Kh
+(27,1,1) = {"
 Kh
 Kh
 Kh
@@ -1225,8 +1218,7 @@ Kh
 Kh
 Kh
 "}
-(27,1,1) = {"
-Kh
+(28,1,1) = {"
 Kh
 Kh
 Kh
@@ -1245,40 +1237,19 @@ Kh
 Kh
 Kh
 "}
-(28,1,1) = {"
-Kh
-Kh
-Kh
-Kh
-Kh
-LW
-LW
-fY
-fY
-fY
-fY
-LW
-LW
-Kh
-Kh
-Kh
-Kh
-Kh
-"}
 (29,1,1) = {"
 Kh
 Kh
 Kh
 Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
+LW
+LW
+fY
+fY
+fY
+fY
+LW
+LW
 Kh
 Kh
 Kh
@@ -1286,7 +1257,6 @@ Kh
 Kh
 "}
 (30,1,1) = {"
-Kh
 Kh
 Kh
 Kh

@@ -76,7 +76,7 @@
 /atom/movable/screen/grab/attack_hand()
 	return
 
-/atom/movable/screen/grab/attackby()
+/atom/movable/screen/grab/attackby__legacy__attackchain()
 	return
 /atom/movable/screen/act_intent
 	name = "intent"
@@ -106,7 +106,7 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
-/atom/movable/screen/act_intent/robot/AI
+/atom/movable/screen/act_intent/robot/ai
 	screen_loc = "SOUTH+1:6,EAST-1:32"
 
 /atom/movable/screen/mov_intent
@@ -170,7 +170,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr, params)
+			master.attackby__legacy__attackchain(I, usr, params)
 	return TRUE
 
 /atom/movable/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
@@ -226,7 +226,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		S.attackby(I, user)
+		S.attackby__legacy__attackchain(I, user)
 	return TRUE
 
 /atom/movable/screen/zone_sel

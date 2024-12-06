@@ -61,7 +61,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/obj/item/melee/saber/attack(mob/living/target, mob/living/user)
+/obj/item/melee/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(user.a_intent != INTENT_HELP || !ishuman(target))
 		return ..()
 	if(!COOLDOWN_FINISHED(src, slap_cooldown))
@@ -180,12 +180,12 @@
 	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
+/obj/item/melee/breach_cleaver/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
 		return ..()
 	if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
 		return ..()
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+	if(SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
 	if(flags & (NOBLUDGEON))
 		return
@@ -197,7 +197,7 @@
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 
-/obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
+/obj/item/melee/breach_cleaver/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
 
@@ -286,7 +286,7 @@
 					/obj/item/queen_bee))
 	strong_against -= /mob/living/simple_animal/hostile/poison/bees/syndi // Syndi-bees have special anti-flyswatter tech installed
 
-/obj/item/melee/flyswatter/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/melee/flyswatter/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	if(is_type_in_typecache(M, strong_against))
 		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
@@ -324,11 +324,11 @@
 	QDEL_NULL(enchant)
 	return ..()
 
-/obj/item/melee/spellblade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/spellblade/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	. = ..()
 	enchant?.on_hit(target, user, proximity, src)
 
-/obj/item/melee/spellblade/attack_self(mob/user)
+/obj/item/melee/spellblade/attack_self__legacy__attackchain(mob/user)
 	if(enchant)
 		return
 

@@ -166,7 +166,7 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-/obj/item/organ/external/attack(mob/M, mob/living/user)
+/obj/item/organ/external/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/C = M
@@ -713,7 +713,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/external/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))

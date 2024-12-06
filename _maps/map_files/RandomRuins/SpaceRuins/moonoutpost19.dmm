@@ -42,8 +42,6 @@
 /area/ruin/space/moonbase19)
 "ah" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -149,8 +147,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -754,8 +750,6 @@
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -1338,8 +1332,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1625,18 +1617,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -2334,8 +2320,6 @@
 /area/ruin/space/moonbase19)
 "hw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2925,8 +2909,6 @@
 "iZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
@@ -3242,8 +3224,6 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3443,7 +3423,6 @@
 /area/ruin/space/moonbase19)
 "kz" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -3579,7 +3558,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/box,
@@ -3715,8 +3693,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -3796,8 +3772,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -4031,12 +4005,9 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/box,
@@ -4047,8 +4018,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/alien/sentinel,
@@ -4141,7 +4110,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -4218,13 +4186,9 @@
 /area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/engine,
@@ -4261,8 +4225,6 @@
 /area/ruin/space/moonbase19)
 "nK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4331,8 +4293,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4362,8 +4322,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4375,8 +4333,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien,
@@ -4466,13 +4422,9 @@
 "oH" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4595,7 +4547,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -4634,13 +4585,9 @@
 /area/ruin/space/moonbase19)
 "pp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/clothing/gloves/color/yellow,
@@ -4662,8 +4609,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -4778,8 +4723,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4815,8 +4758,6 @@
 "pW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4874,12 +4815,9 @@
 /area/ruin/space/moonbase19)
 "qm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -5034,8 +4972,6 @@
 /obj/machinery/atmospherics/air_sensor,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -5206,8 +5142,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/item/paper/fluff/ruins/moonoutpost19/engineering,
@@ -5274,8 +5208,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair{
@@ -5316,13 +5248,9 @@
 /area/ruin/space/moonbase19)
 "rS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/alien/weeds/node,
@@ -5413,8 +5341,6 @@
 	pixel_y = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -5422,8 +5348,6 @@
 /area/ruin/space/moonbase19)
 "si" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -5444,8 +5368,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5494,8 +5416,6 @@
 /obj/item/kirbyplants,
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5518,7 +5438,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
@@ -5630,8 +5549,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5668,8 +5585,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -5730,8 +5645,6 @@
 /area/ruin/space/moonbase19)
 "tG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/sign/security{
@@ -5899,15 +5812,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -5985,13 +5895,9 @@
 /area/ruin/space/moonbase19)
 "vd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -6066,8 +5972,6 @@
 	},
 /obj/item/hand_labeler,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6368,8 +6272,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6392,8 +6294,6 @@
 /area/ruin/space/moonbase19)
 "xl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6440,13 +6340,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -6570,7 +6466,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xZ" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
@@ -6671,8 +6567,6 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6686,13 +6580,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6841,8 +6731,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -6886,8 +6774,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -6921,8 +6807,6 @@
 "zu" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -6952,8 +6836,6 @@
 	pixel_x = 2
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -7248,8 +7130,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7269,8 +7149,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -7443,8 +7321,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -7525,8 +7401,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -7586,8 +7460,6 @@
 /area/ruin/space/moonbase19)
 "Cr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -7626,8 +7498,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7711,8 +7581,6 @@
 /area/ruin/space/moonbase19)
 "CM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7724,8 +7592,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7752,8 +7618,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -7899,8 +7763,6 @@
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
@@ -8083,8 +7945,6 @@
 	},
 /mob/living/simple_animal/hostile/alien,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8136,8 +7996,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8235,8 +8093,6 @@
 /area/ruin/space/moonbase19)
 "Fc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8256,8 +8112,6 @@
 /obj/structure/table/reinforced,
 /obj/item/stock_parts/cell/high,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -8449,8 +8303,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/air_sensor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -8509,8 +8361,6 @@
 /area/ruin/space/moonbase19)
 "Gq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8523,8 +8373,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8538,8 +8386,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/shard{
@@ -8582,8 +8428,6 @@
 /obj/structure/holosign/barrier/engineering,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -8767,8 +8611,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -8804,8 +8646,6 @@
 	status = 2
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8814,13 +8654,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/clothing/glasses/welding{
@@ -8930,8 +8766,6 @@
 /area/ruin/space/moonbase19)
 "Ip" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/engine,
@@ -9075,13 +8909,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -9276,12 +9107,9 @@
 	locked = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/light{
@@ -9370,8 +9198,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9415,7 +9241,7 @@
 	},
 /area/ruin/space/moonbase19)
 "KC" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -9452,7 +9278,6 @@
 /area/ruin/space/moonbase19)
 "KI" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/box,
@@ -9535,7 +9360,6 @@
 	id_tag = "awaycontlockdown"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -9677,8 +9501,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -9887,8 +9709,6 @@
 "MJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -9922,8 +9742,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9933,6 +9751,9 @@
 /area/ruin/space/moonbase19)
 "MT" = (
 /obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "MU" = (
@@ -9966,7 +9787,6 @@
 /area/ruin/space/moonbase19)
 "Nc" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -10015,8 +9835,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10082,8 +9900,6 @@
 "Ny" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10133,8 +9949,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10319,8 +10133,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -10431,8 +10243,6 @@
 /area/ruin/space/moonbase19)
 "OX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10486,8 +10296,6 @@
 "Pj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10632,8 +10440,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille/broken,
@@ -10641,7 +10447,6 @@
 /obj/item/stack/rods,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -10680,8 +10485,6 @@
 /area/ruin/space/moonbase19)
 "Qh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -10779,8 +10582,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -10918,8 +10719,6 @@
 "QZ" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs,
@@ -10934,13 +10733,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10952,8 +10747,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10997,8 +10790,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11138,8 +10929,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11229,8 +11018,6 @@
 "Sz" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11322,12 +11109,9 @@
 	dir = 2
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box,
@@ -11371,12 +11155,9 @@
 /area/ruin/space/moonbase19)
 "Tn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -11461,8 +11242,6 @@
 /area/ruin/space/moonbase19)
 "TF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -11477,8 +11256,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11526,15 +11303,11 @@
 	pixel_y = -32
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -11596,8 +11369,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11623,8 +11394,6 @@
 /area/ruin/space/moonbase19)
 "Ur" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -11647,8 +11416,6 @@
 	color = "green"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11747,11 +11514,9 @@
 /area/ruin/space/moonbase19)
 "UO" = (
 /obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/machinery/door/firedoor/closed,
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/moonbase19)
 "UQ" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -11899,8 +11664,6 @@
 /area/ruin/space/moonbase19)
 "VH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -11966,8 +11729,6 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -12031,10 +11792,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Wg" = (
-/obj/structure/lattice,
-/obj/machinery/door/firedoor/closed,
+/obj/item/stack/rods,
 /turf/template_noop,
-/area/ruin/space/moonbase19)
+/area/space/nearstation)
 "Wi" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
@@ -12121,8 +11881,6 @@
 "WF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -12190,16 +11948,12 @@
 	},
 /obj/structure/alien/weeds/node,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12208,7 +11962,9 @@
 	},
 /area/ruin/space/moonbase19)
 "WX" = (
-/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "WZ" = (
@@ -12266,9 +12022,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Xl" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "Xm" = (
@@ -12298,8 +12052,6 @@
 /area/ruin/space/moonbase19)
 "Xq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -12344,8 +12096,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12688,8 +12438,6 @@
 "YS" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -12751,8 +12499,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12841,8 +12587,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -12894,8 +12638,6 @@
 "ZL" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12979,42 +12721,43 @@ aa
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
 aa
-tX
-tX
 aa
-tX
-tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -13031,6 +12774,67 @@ aa
 aa
 "}
 (2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+tX
+tX
+aa
+tX
+tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
 aa
 aa
 aa
@@ -13089,8 +12893,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 aa
 aa
 aa
@@ -13149,8 +12954,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 aa
 aa
 aa
@@ -13209,8 +13015,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 aa
 aa
 aa
@@ -13269,8 +13076,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 aa
 aa
 aa
@@ -13329,8 +13137,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aa
 aa
 aa
@@ -13389,8 +13198,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aa
 aa
 tX
@@ -13449,8 +13259,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aa
 aa
 tX
@@ -13509,8 +13320,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aa
 aa
 tX
@@ -13569,8 +13381,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aa
 aa
 tX
@@ -13629,8 +13442,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 aa
 aa
 tX
@@ -13689,8 +13503,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 aa
 aa
 tX
@@ -13749,8 +13564,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 aa
 aa
 tX
@@ -13809,8 +13625,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 aa
 aa
 tX
@@ -13869,8 +13686,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 aa
 aa
 tX
@@ -13929,8 +13747,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 aa
 aa
 aa
@@ -13989,8 +13808,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 aa
 aa
 aa
@@ -14049,8 +13869,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -14109,8 +13930,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
 aa
 aa
 aa
@@ -14169,8 +13991,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(21,1,1) = {"
+(22,1,1) = {"
 aa
 aa
 aa
@@ -14229,8 +14052,9 @@ Wl
 tX
 tX
 tX
+aa
 "}
-(22,1,1) = {"
+(23,1,1) = {"
 aa
 aa
 tX
@@ -14289,8 +14113,9 @@ gi
 fV
 tX
 tX
+aa
 "}
-(23,1,1) = {"
+(24,1,1) = {"
 aa
 tX
 tX
@@ -14300,7 +14125,7 @@ PB
 ag
 ag
 ny
-MT
+Xl
 EE
 ag
 ag
@@ -14349,8 +14174,9 @@ fw
 hI
 tX
 tX
+aa
 "}
-(24,1,1) = {"
+(25,1,1) = {"
 aa
 tX
 tX
@@ -14359,8 +14185,8 @@ tE
 bP
 ag
 wl
-MT
 Xl
+WX
 ON
 ny
 wP
@@ -14409,8 +14235,9 @@ Ob
 ph
 tX
 tX
+aa
 "}
-(25,1,1) = {"
+(26,1,1) = {"
 aa
 tX
 tX
@@ -14418,12 +14245,12 @@ af
 DM
 bP
 ag
-MT
-MT
-ON
-WX
+Xl
+Xl
 ON
 Wg
+ON
+UO
 Za
 Sz
 ag
@@ -14469,8 +14296,9 @@ ad
 tX
 tX
 tX
+aa
 "}
-(26,1,1) = {"
+(27,1,1) = {"
 aa
 tX
 tX
@@ -14482,8 +14310,8 @@ IW
 wl
 ON
 RA
+MT
 UO
-Wg
 GD
 Fc
 mJ
@@ -14529,8 +14357,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(27,1,1) = {"
+(28,1,1) = {"
 aa
 tX
 tX
@@ -14541,7 +14370,7 @@ af
 af
 IW
 nu
-MT
+Xl
 af
 af
 RN
@@ -14589,8 +14418,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(28,1,1) = {"
+(29,1,1) = {"
 aa
 tX
 tX
@@ -14649,8 +14479,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(29,1,1) = {"
+(30,1,1) = {"
 aa
 aa
 tX
@@ -14709,8 +14540,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(30,1,1) = {"
+(31,1,1) = {"
 aa
 aa
 tX
@@ -14769,8 +14601,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(31,1,1) = {"
+(32,1,1) = {"
 aa
 aa
 tX
@@ -14829,8 +14662,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(32,1,1) = {"
+(33,1,1) = {"
 aa
 aa
 tX
@@ -14889,8 +14723,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(33,1,1) = {"
+(34,1,1) = {"
 aa
 aa
 aa
@@ -14949,8 +14784,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(34,1,1) = {"
+(35,1,1) = {"
 aa
 aa
 aa
@@ -15009,8 +14845,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(35,1,1) = {"
+(36,1,1) = {"
 aa
 aa
 aa
@@ -15069,8 +14906,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(36,1,1) = {"
+(37,1,1) = {"
 aa
 aa
 tX
@@ -15129,8 +14967,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(37,1,1) = {"
+(38,1,1) = {"
 aa
 aa
 tX
@@ -15189,8 +15028,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(38,1,1) = {"
+(39,1,1) = {"
 aa
 aa
 tX
@@ -15249,8 +15089,9 @@ ag
 tX
 tX
 aa
+aa
 "}
-(39,1,1) = {"
+(40,1,1) = {"
 aa
 aa
 tX
@@ -15309,8 +15150,9 @@ ag
 ag
 tX
 aa
+aa
 "}
-(40,1,1) = {"
+(41,1,1) = {"
 aa
 aa
 tX
@@ -15369,8 +15211,9 @@ tW
 ag
 tX
 tX
+aa
 "}
-(41,1,1) = {"
+(42,1,1) = {"
 aa
 aa
 tX
@@ -15429,8 +15272,9 @@ cm
 af
 tX
 tX
+aa
 "}
-(42,1,1) = {"
+(43,1,1) = {"
 aa
 aa
 tX
@@ -15489,8 +15333,9 @@ rZ
 ag
 tX
 tX
+aa
 "}
-(43,1,1) = {"
+(44,1,1) = {"
 aa
 aa
 tX
@@ -15549,8 +15394,9 @@ jb
 tX
 tX
 tX
+aa
 "}
-(44,1,1) = {"
+(45,1,1) = {"
 aa
 tX
 tX
@@ -15609,8 +15455,9 @@ pK
 tX
 tX
 tX
+aa
 "}
-(45,1,1) = {"
+(46,1,1) = {"
 aa
 tX
 tX
@@ -15669,8 +15516,9 @@ db
 pK
 tX
 tX
+aa
 "}
-(46,1,1) = {"
+(47,1,1) = {"
 aa
 tX
 tX
@@ -15729,8 +15577,9 @@ ag
 jb
 tX
 tX
+aa
 "}
-(47,1,1) = {"
+(48,1,1) = {"
 aa
 tX
 tX
@@ -15789,8 +15638,9 @@ ag
 kp
 Rv
 tX
+aa
 "}
-(48,1,1) = {"
+(49,1,1) = {"
 aa
 tX
 tX
@@ -15849,8 +15699,9 @@ ag
 jb
 pK
 tX
+aa
 "}
-(49,1,1) = {"
+(50,1,1) = {"
 aa
 tX
 tX
@@ -15909,8 +15760,9 @@ ag
 aj
 eC
 tX
+aa
 "}
-(50,1,1) = {"
+(51,1,1) = {"
 aa
 aa
 tX
@@ -15969,8 +15821,9 @@ ag
 hP
 Gg
 tX
+aa
 "}
-(51,1,1) = {"
+(52,1,1) = {"
 aa
 aa
 tX
@@ -16029,8 +15882,9 @@ jb
 kp
 Gg
 tX
+aa
 "}
-(52,1,1) = {"
+(53,1,1) = {"
 aa
 aa
 tX
@@ -16089,8 +15943,9 @@ tI
 Gg
 Gg
 tX
+aa
 "}
-(53,1,1) = {"
+(54,1,1) = {"
 aa
 aa
 tX
@@ -16149,8 +16004,9 @@ pK
 Gg
 tX
 tX
+aa
 "}
-(54,1,1) = {"
+(55,1,1) = {"
 aa
 aa
 tX
@@ -16209,8 +16065,9 @@ Ln
 Gg
 tX
 tX
+aa
 "}
-(55,1,1) = {"
+(56,1,1) = {"
 aa
 aa
 tX
@@ -16269,8 +16126,9 @@ qA
 Gg
 tX
 tX
+aa
 "}
-(56,1,1) = {"
+(57,1,1) = {"
 aa
 tX
 tX
@@ -16329,8 +16187,9 @@ Oi
 Gg
 tX
 aa
+aa
 "}
-(57,1,1) = {"
+(58,1,1) = {"
 aa
 tX
 tX
@@ -16389,8 +16248,9 @@ Gg
 Gg
 tX
 aa
+aa
 "}
-(58,1,1) = {"
+(59,1,1) = {"
 aa
 tX
 tX
@@ -16449,8 +16309,9 @@ Gg
 tX
 tX
 aa
+aa
 "}
-(59,1,1) = {"
+(60,1,1) = {"
 aa
 tX
 tX
@@ -16509,8 +16370,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(60,1,1) = {"
+(61,1,1) = {"
 aa
 tX
 tX
@@ -16569,8 +16431,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(61,1,1) = {"
+(62,1,1) = {"
 aa
 tX
 tX
@@ -16629,8 +16492,9 @@ db
 tX
 tX
 aa
+aa
 "}
-(62,1,1) = {"
+(63,1,1) = {"
 aa
 tX
 tX
@@ -16689,8 +16553,9 @@ jb
 tX
 aa
 aa
+aa
 "}
-(63,1,1) = {"
+(64,1,1) = {"
 aa
 tX
 tX
@@ -16749,8 +16614,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(64,1,1) = {"
+(65,1,1) = {"
 aa
 tX
 tX
@@ -16809,8 +16675,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(65,1,1) = {"
+(66,1,1) = {"
 aa
 tX
 tX
@@ -16869,8 +16736,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(66,1,1) = {"
+(67,1,1) = {"
 aa
 aa
 tX
@@ -16929,8 +16797,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(67,1,1) = {"
+(68,1,1) = {"
 aa
 aa
 tX
@@ -16989,8 +16858,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(68,1,1) = {"
+(69,1,1) = {"
 aa
 aa
 tX
@@ -17049,8 +16919,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(69,1,1) = {"
+(70,1,1) = {"
 aa
 aa
 tX
@@ -17109,8 +16980,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(70,1,1) = {"
+(71,1,1) = {"
 aa
 aa
 aa
@@ -17169,8 +17041,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(71,1,1) = {"
+(72,1,1) = {"
 aa
 aa
 aa
@@ -17229,8 +17102,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(72,1,1) = {"
+(73,1,1) = {"
 aa
 aa
 aa
@@ -17289,8 +17163,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(73,1,1) = {"
+(74,1,1) = {"
 aa
 aa
 aa
@@ -17349,8 +17224,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(74,1,1) = {"
+(75,1,1) = {"
 aa
 aa
 aa
@@ -17409,8 +17285,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(75,1,1) = {"
+(76,1,1) = {"
 aa
 aa
 aa
@@ -17469,8 +17346,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(76,1,1) = {"
+(77,1,1) = {"
 aa
 aa
 aa
@@ -17529,8 +17407,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(77,1,1) = {"
+(78,1,1) = {"
 aa
 aa
 aa
@@ -17589,8 +17468,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(78,1,1) = {"
+(79,1,1) = {"
 aa
 aa
 aa
@@ -17649,8 +17529,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(79,1,1) = {"
+(80,1,1) = {"
 aa
 aa
 aa
@@ -17709,8 +17590,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(80,1,1) = {"
+(81,1,1) = {"
 aa
 aa
 aa
@@ -17764,6 +17646,68 @@ tX
 tX
 tX
 tX
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(82,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa

@@ -30,7 +30,7 @@
 	lighter_color = pick("r","c","y","g")
 	update_icon()
 
-/obj/item/lighter/attack_self(mob/living/user)
+/obj/item/lighter/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	if(!lit)
 		turn_on_lighter(user)
@@ -96,7 +96,7 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/target, mob/living/user)
+/obj/item/lighter/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return
 
@@ -315,7 +315,7 @@
 	else
 		return TRUE
 
-/obj/item/match/attack(mob/living/target, mob/living/user)
+/obj/item/match/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return
 

@@ -103,15 +103,16 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/do_climb(mob/living/user)
+/obj/structure/table/start_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
 
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
-	if(climber)
-		climber.Weaken(4 SECONDS)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
+	if(length(climbers))
+		for(var/mob/living/climber as anything in climbers)
+			climber.Weaken(4 SECONDS)
+			climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
@@ -222,7 +223,7 @@
 		return TRUE
 	qdel(G)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
@@ -934,7 +935,7 @@
 		step(O, get_dir(O, src))
 		return TRUE
 
-/obj/structure/rack/attackby(obj/item/W, mob/user, params)
+/obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -1015,7 +1016,7 @@
 	new /obj/item/stack/sheet/metal(user.loc)
 	qdel(src)
 
-/obj/item/rack_parts/attack_self(mob/user)
+/obj/item/rack_parts/attack_self__legacy__attackchain(mob/user)
 	if(building)
 		return
 	building = TRUE

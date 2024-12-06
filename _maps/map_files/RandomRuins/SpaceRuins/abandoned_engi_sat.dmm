@@ -188,8 +188,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "fe" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -326,10 +325,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "kg" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -375,8 +373,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -385,8 +381,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "lf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -397,19 +391,13 @@
 "lu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -434,8 +422,6 @@
 /area/space/nearstation)
 "mB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -479,14 +465,10 @@
 "ne" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -508,8 +490,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "nR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -542,8 +522,6 @@
 "pb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -561,7 +539,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "pM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -589,8 +567,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "rE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/sign/securearea{
@@ -634,14 +610,10 @@
 "st" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -708,8 +680,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "wl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -724,13 +694,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "wV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -753,8 +719,7 @@
 "xW" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -858,14 +823,10 @@
 "AD" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -931,8 +892,7 @@
 "Dj" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -985,8 +945,7 @@
 "Fm" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-8";
-	d2 = 8
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -1004,13 +963,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "Gg" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1024,8 +979,6 @@
 "Gt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1033,9 +986,7 @@
 "Gy" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1097,8 +1048,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -1141,14 +1091,10 @@
 "Mv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1171,7 +1117,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "NM" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -1179,19 +1125,13 @@
 "NY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1212,9 +1152,7 @@
 "OZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1228,13 +1166,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "Pb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1252,18 +1186,12 @@
 /area/space/nearstation)
 "PH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -1271,8 +1199,6 @@
 "Qa" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -1282,14 +1208,10 @@
 "QI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1391,14 +1313,10 @@
 "VJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1441,19 +1359,13 @@
 "YG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1496,13 +1408,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "ZA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -2539,40 +2447,6 @@ LP
 LP
 "}
 (31,1,1) = {"
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-"}
-(32,1,1) = {"
 LP
 LP
 LP

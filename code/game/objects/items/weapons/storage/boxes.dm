@@ -218,12 +218,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
-/obj/item/storage/box/PDAs
+/obj/item/storage/box/pdas
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
 	icon_state = "pda_box"
 
-/obj/item/storage/box/PDAs/populate_contents()
+/obj/item/storage/box/pdas/populate_contents()
 	var/newcart = pick(
 		/obj/item/cartridge/engineering,
 		/obj/item/cartridge/security,
@@ -324,7 +324,7 @@
 	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -1016,7 +1016,7 @@
 	else
 		icon_state = "[item_state]_closed"
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
@@ -1150,7 +1150,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -1193,7 +1193,7 @@
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
 	return (BRUTELOSS)
 
-/obj/item/storage/box/hug/attack_self(mob/user)
+/obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)

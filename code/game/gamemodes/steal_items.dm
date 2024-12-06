@@ -117,7 +117,7 @@
 	protected_jobs = list("Research Director", "Scientist", "Roboticist") //no one with protolathe access, who will often be handed a core
 	location_override = "the Research Director's Office"
 
-/datum/theft_objective/steal/documents
+/datum/theft_objective/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	location_override = "the Vault"
@@ -126,7 +126,7 @@
 
 /datum/theft_objective/hypospray
 	name = "the chief medical officer's advanced hypospray"
-	typepath = /obj/item/reagent_containers/hypospray/CMO
+	typepath = /obj/item/reagent_containers/hypospray/cmo
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 

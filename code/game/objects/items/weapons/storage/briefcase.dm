@@ -41,13 +41,13 @@
 		QDEL_NULL(stored_item)
 	return ..()
 
-/obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
+/obj/item/storage/briefcase/false_bottomed/afterattack__legacy__attackchain(atom/A, mob/user, flag, params)
 	..()
 	if(stored_item && isgun(stored_item))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack(A, user, flag, params)
+		stored_gun.afterattack__legacy__attackchain(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
+/obj/item/storage/briefcase/false_bottomed/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
 			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")

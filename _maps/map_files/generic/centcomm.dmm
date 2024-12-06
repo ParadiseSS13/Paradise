@@ -578,7 +578,7 @@
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
 /obj/item/bonesetter/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
 /turf/simulated/floor/plating/abductor,
@@ -828,7 +828,7 @@
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/bonesetter/alien,
 /obj/item/bonegel/alien,
 /turf/simulated/floor/plating/abductor,
@@ -3906,7 +3906,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ne" = (
-/mob/living/simple_animal/pet/dog/fox/Syndifox,
+/mob/living/simple_animal/pet/dog/fox/syndifox,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4388,7 +4388,7 @@
 	},
 /area/syndicate_mothership)
 "oI" = (
-/obj/effect/spawner/lootdrop/trade_sol/civ,
+/obj/effect/spawner/random/traders/civilian,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4419,7 +4419,7 @@
 	},
 /area/tdome/tdomeobserve)
 "oL" = (
-/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/obj/effect/spawner/random/traders/minerals,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4462,7 +4462,7 @@
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
 "oR" = (
-/mob/living/simple_animal/pet/cat/Syndi,
+/mob/living/simple_animal/pet/cat/syndi,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4471,7 +4471,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/obj/effect/spawner/random/traders/donksoft,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4763,12 +4763,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/a_minus,
+/obj/item/reagent_containers/iv_bag/blood/a_plus,
+/obj/item/reagent_containers/iv_bag/blood/b_minus,
+/obj/item/reagent_containers/iv_bag/blood/b_plus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_plus,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5309,7 +5309,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
 "rK" = (
-/obj/effect/spawner/lootdrop/trade_sol/sci,
+/obj/effect/spawner/random/traders/science,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -5384,7 +5384,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "rY" = (
-/obj/effect/spawner/lootdrop/trade_sol/med,
+/obj/effect/spawner/random/traders/medical,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -5973,7 +5973,7 @@
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/robot_parts/l_leg,
@@ -6142,7 +6142,7 @@
 	},
 /area/centcom/evac)
 "uP" = (
-/obj/effect/spawner/lootdrop/trade_sol/sec,
+/obj/effect/spawner/random/traders/security,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -6188,7 +6188,7 @@
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "vb" = (
-/obj/effect/spawner/lootdrop/trade_sol/eng,
+/obj/effect/spawner/random/traders/engineering,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -6485,16 +6485,16 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "vY" = (
-/obj/effect/spawner/lootdrop/trade_sol/largeitem,
+/obj/effect/spawner/random/traders/large_item,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "vZ" = (
-/obj/effect/spawner/lootdrop/trade_sol/vehicle,
+/obj/effect/spawner/random/traders/vehicle,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "wa" = (
 /obj/machinery/light/spot,
-/obj/effect/spawner/lootdrop/trade_sol/serv,
+/obj/effect/spawner/random/traders/service,
 /obj/structure/closet,
 /obj/item/stack/tile/disco_light/thirty,
 /turf/simulated/floor/mineral/titanium,
@@ -7444,7 +7444,7 @@
 /obj/item/scalpel/laser/manager,
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -8878,7 +8878,7 @@
 "FD" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/classic_baton/telescopic,
-/obj/item/paper/Court,
+/obj/item/paper/court,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -13040,7 +13040,7 @@
 /obj/item/circular_saw,
 /obj/item/scalpel,
 /obj/item/retractor,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "Ua" = (
