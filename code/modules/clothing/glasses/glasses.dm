@@ -88,6 +88,7 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "meson"
+	clothing_traits = list(TRAIT_MESON_VISION)
 	origin_tech = "magnets=1;engineering=2"
 	prescription_upgradable = TRUE
 
@@ -100,16 +101,6 @@
 		)
 
 	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/night
 	name = "night vision optical meson scanner"

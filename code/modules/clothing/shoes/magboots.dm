@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-
+	new_attack_chain = TRUE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -33,7 +33,11 @@
 	if(magpulse)
 		detach_clothing_traits(active_traits)
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+/obj/item/clothing/shoes/magboots/ui_action_click(mob/user)
+	toggle_magpulse(user)
+
+/obj/item/clothing/shoes/magboots/activate_self(mob/user, forced = FALSE)
+	. = ..()
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)

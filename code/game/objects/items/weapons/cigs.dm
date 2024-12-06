@@ -452,6 +452,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "Holo-Cigar"
 	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
 	icon_state = "holocigaroff"
+	clothing_traits = list(TRAIT_BADASS) //CHAP-TODO: Convert holo_cigar to using clothing traits.
 	/// Is the holo-cigar lit?
 	var/enabled = FALSE
 	/// Tracks if this is the first cycle smoking the cigar.

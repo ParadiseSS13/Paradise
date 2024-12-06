@@ -527,16 +527,7 @@
 	desc = "This armor uses the power of a pyro anomaly core to shoot protective jets of fire, in addition to absorbing all damage from fire."
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-/obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
-	..()
-	if(slot != ITEM_SLOT_OUTER_SUIT)
-		return
-	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
-
-/obj/item/clothing/suit/armor/reactive/fire/dropped(mob/user, silent)
-	..()
-	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
+	clothing_traits = list(TRAIT_RESISTHEAT)
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)

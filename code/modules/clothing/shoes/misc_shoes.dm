@@ -23,8 +23,8 @@
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
+	clothing_traits = list(TRAIT_NOSLIP)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
-	no_slip = TRUE
 
 /obj/item/clothing/shoes/sandal
 	name = "sandals"
@@ -53,7 +53,7 @@
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
-	no_slip = TRUE
+	clothing_traits = list(TRAIT_NOSLIP)
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
