@@ -50,12 +50,12 @@
 		cell.emp_act(severity)
 	..(severity)
 
-/obj/machinery/space_heater/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/machinery/space_heater/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "There is already a power cell inside.")
-				return
+				return ITEM_INTERACT_COMPLETE
 			else
 				// insert cell
 				var/obj/item/stock_parts/cell/C = user.get_active_hand()
@@ -66,12 +66,13 @@
 						C.add_fingerprint(user)
 
 						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+
+				return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

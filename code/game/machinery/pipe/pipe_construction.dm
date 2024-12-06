@@ -141,6 +141,7 @@
 			flipped = TRUE
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
+		circP.item_interaction(null, src, null)
 		if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 			flipped = TRUE
 

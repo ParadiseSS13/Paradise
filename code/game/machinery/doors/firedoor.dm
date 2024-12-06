@@ -124,11 +124,12 @@
 			"<span class='notice'>You open [src].</span>")
 		open(auto_close = FALSE)
 
-/obj/machinery/door/firedoor/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
