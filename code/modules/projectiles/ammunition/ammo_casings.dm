@@ -252,6 +252,15 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 
+/obj/item/ammo_casing/shotgun/laserslug
+	name = "laser slug"
+	desc = "A rudimentary 12 gauge shotgun shell that replicates the effects of a laser weapon with a low-powered laser."
+	icon_state = "improvshell"
+	projectile_type = /obj/item/projectile/beam/laser
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
 	desc = "An advanced 12 gauge shell that uses a multitude of lenses to split a high-powered laser into eight small beams."
