@@ -1,6 +1,18 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Input, LabeledList, NoticeBox, ProgressBar, Section, Stack, Table, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+} from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -46,7 +58,9 @@ export const AdminAntagMenu = (properties, context) => {
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>
-            <NoticeBox>This menu is a Work in Progress. Some antagonists like Nuclear Operatives and Biohazards will not show up.</NoticeBox>
+            <NoticeBox>
+              This menu is a Work in Progress. Some antagonists like Nuclear Operatives and Biohazards will not show up.
+            </NoticeBox>
           </Stack.Item>
           <Stack.Item>
             <Tabs>
@@ -99,11 +113,7 @@ export const AdminAntagMenu = (properties, context) => {
               scrollable
               buttons={
                 <Stack fill>
-                  <Input
-                    placeholder="Search..."
-                    width="300px"
-                    onInput={(e, value) => setSearchText(value)}
-                  />
+                  <Input placeholder="Search..." width="300px" onInput={(e, value) => setSearchText(value)} />
                   <Button icon="sync" onClick={() => act('refresh')}>
                     Refresh
                   </Button>
@@ -143,14 +153,14 @@ const AntagList = (properties, context) => {
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
-          if(a[sortId] === undefined || a[sortId] === null) {
-            return i
+          if (a[sortId] === undefined || a[sortId] === null) {
+            return i;
           }
-          if(b[sortId] === undefined || b[sortId] === null) {
-            return -1 * i
+          if (b[sortId] === undefined || b[sortId] === null) {
+            return -1 * i;
           }
-          if(a[sortId] === 1 || a[sortId] === 0) {
-            return (a[sortId] - b[sortId]) * i
+          if (a[sortId] === 1 || a[sortId] === 0) {
+            return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
         })
@@ -158,8 +168,8 @@ const AntagList = (properties, context) => {
           <Table.Row key={index}>
             <Table.Cell>
               <Button
-                color={antag.is_hijacker ? "red" : ""}
-                tooltip={antag.is_hijacker ? "Hijacker" : ""}
+                color={antag.is_hijacker ? 'red' : ''}
+                tooltip={antag.is_hijacker ? 'Hijacker' : ''}
                 onClick={() =>
                   act('show_player_panel', {
                     mind_uid: antag.antag_mind_uid,
@@ -246,20 +256,26 @@ const Objectives = (properties, context) => {
         .filter(
           createSearch(searchText, (objective) => {
             return (
-              objective.obj_name + '|' + objective.target_name + '|' + (objective.status ? 'success' : 'incompleted') + '|' + objective.owner_name
+              objective.obj_name +
+              '|' +
+              objective.target_name +
+              '|' +
+              (objective.status ? 'success' : 'incompleted') +
+              '|' +
+              objective.owner_name
             );
           })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
-          if(a[sortId] === undefined || a[sortId] === null) {
-            return i
+          if (a[sortId] === undefined || a[sortId] === null) {
+            return i;
           }
-          if(b[sortId] === undefined || b[sortId] === null) {
-            return -1 * i
+          if (b[sortId] === undefined || b[sortId] === null) {
+            return -1 * i;
           }
-          if(a[sortId] === 1 || a[sortId] === 0) {
-            return (a[sortId] - b[sortId]) * i
+          if (a[sortId] === 1 || a[sortId] === 0) {
+            return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
         })
@@ -267,31 +283,34 @@ const Objectives = (properties, context) => {
           <Table.Row key={index}>
             <Table.Cell>
               <Button
-              tooltip={objective.obj_desc}
-              onClick={() =>
-                act('vv', {
-                  uid: objective.obj_uid,
-                })
-              }
-              >{objective.obj_name}</Button>
+                tooltip={objective.obj_desc}
+                onClick={() =>
+                  act('vv', {
+                    uid: objective.obj_uid,
+                  })
+                }
+              >
+                {objective.obj_name}
+              </Button>
             </Table.Cell>
             <Table.Cell>
-              {objective.no_target ? ""
-              :
-              (objective.track.length
-                ? objective.track.map((target, index) => (
-                    <Button
-                      key={index}
-                      onClick={() =>
-                        act('follow', {
-                          datum_uid: target,
-                        })
-                      }
-                    >
-                      {objective.target_name} {objective.track.length > 1 ? '(' + (parseInt(index, 10)+1) + ')' : ''}
-                    </Button>
-                  ))
-                : 'No ' + objective.target_name + ' Found')}
+              {objective.no_target
+                ? ''
+                : objective.track.length
+                  ? objective.track.map((target, index) => (
+                      <Button
+                        key={index}
+                        onClick={() =>
+                          act('follow', {
+                            datum_uid: target,
+                          })
+                        }
+                      >
+                        {objective.target_name}{' '}
+                        {objective.track.length > 1 ? '(' + (parseInt(index, 10) + 1) + ')' : ''}
+                      </Button>
+                    ))
+                  : 'No ' + objective.target_name + ' Found'}
             </Table.Cell>
             <Table.Cell>
               <Box color={objective.status ? 'green' : 'grey'}>{objective.status ? 'Success' : 'Incomplete'}</Box>
@@ -376,19 +395,19 @@ const Security = (properties, context) => {
       {security
         .filter(
           createSearch(searchText, (officer) => {
-            return (officer.name + '|' + officer.role + '|' + getStatus(officer) + '|' + officer.antag) ;
+            return officer.name + '|' + officer.role + '|' + getStatus(officer) + '|' + officer.antag;
           })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
-          if(a[sortId] === undefined || a[sortId] === null) {
-            return i
+          if (a[sortId] === undefined || a[sortId] === null) {
+            return i;
           }
-          if(b[sortId] === undefined || b[sortId] === null) {
-            return -1 * i
+          if (b[sortId] === undefined || b[sortId] === null) {
+            return -1 * i;
           }
-          if(a[sortId] === 1 || a[sortId] === 0) {
-            return (a[sortId] - b[sortId]) * i
+          if (a[sortId] === 1 || a[sortId] === 0) {
+            return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
         })
@@ -429,7 +448,7 @@ const Security = (properties, context) => {
             <Table.Cell>
               <ProgressBar
                 minValue={0}
-                value={officer.health/officer.max_health}
+                value={officer.health / officer.max_health}
                 maxValue={1}
                 ranges={{
                   good: [0.6, Infinity],
@@ -479,7 +498,7 @@ const HighValueItems = (properties, context) => {
   const { act, data } = useBackend(context);
   const { high_value_items } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   if (!high_value_items.length) {
     return 'No High Value Items!';
@@ -503,21 +522,19 @@ const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
       {high_value_items
         .filter(
           createSearch(searchText, (item) => {
-            return (
-              item.name + '|' + item.loc
-            );
+            return item.name + '|' + item.loc;
           })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
-          if(a[sortId] === undefined || a[sortId] === null) {
-            return i
+          if (a[sortId] === undefined || a[sortId] === null) {
+            return i;
           }
-          if(b[sortId] === undefined || b[sortId] === null) {
-            return -1 * i
+          if (b[sortId] === undefined || b[sortId] === null) {
+            return -1 * i;
           }
-          if(a[sortId] === 1 || a[sortId] === 0) {
-            return (a[sortId] - b[sortId]) * i
+          if (a[sortId] === 1 || a[sortId] === 0) {
+            return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
         })
@@ -525,14 +542,16 @@ const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
           <Table.Row key={index}>
             <Table.Cell>
               <Button
-              tooltip={item.obj_desc}
-              translucent={item.admin_z}
-              onClick={() =>
-                act('vv', {
-                  uid: item.uid,
-                })
-              }
-              >{item.name}</Button>
+                tooltip={item.obj_desc}
+                translucent={item.admin_z}
+                onClick={() =>
+                  act('vv', {
+                    uid: item.uid,
+                  })
+                }
+              >
+                {item.name}
+              </Button>
             </Table.Cell>
             <Table.Cell>
               <Box color={item.admin_z ? 'grey' : ''}>{item.person}</Box>
@@ -541,7 +560,7 @@ const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
               <Box color={item.admin_z ? 'grey' : ''}>{item.loc}</Box>
             </Table.Cell>
             <Table.Cell>
-              <Box color="grey">{item.admin_z ? "On Admin Z-level" : ""}</Box>
+              <Box color="grey">{item.admin_z ? 'On Admin Z-level' : ''}</Box>
             </Table.Cell>
             <Table.Cell collapsing>
               <Button
