@@ -38,9 +38,9 @@
 
 /obj/item/clothing/shoes/magboots/activate_self(mob/user)
 	. = ..()
-	toggle_magpulse(user, forced)
+	toggle_magpulse(user)
 
-/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message = FALSE)
 	magpulse = !magpulse
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
 		attach_clothing_traits(active_traits)
