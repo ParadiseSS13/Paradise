@@ -179,6 +179,7 @@
 			for(var/obj/singularity/S in singularities)
 				if(S.singulo_id == newuid)
 					active = S
+					last_size = S.current_size
 					if(active)
 						field_gens = active.find_field_gens()
 					break
