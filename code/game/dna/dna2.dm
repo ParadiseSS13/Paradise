@@ -383,10 +383,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
 
-
-/proc/EncodeDNABlock(value)
-	return num2hex(value, 3)
-
 /datum/dna/proc/UpdateUI()
 	var/list/ui_text_list = list()
 	uni_identity = ""
