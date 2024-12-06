@@ -118,7 +118,7 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/atmospherics/portable/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/portable/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
@@ -155,7 +155,7 @@
 		else
 			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
-/obj/machinery/atmospherics/portable/attacked_by(obj/item/I, mob/user)
+/obj/machinery/atmospherics/portable/attacked_by__legacy__attackchain(obj/item/I, mob/user)
 	if(I.force < 10 && !(stat & BROKEN))
 		take_damage(0)
 	else

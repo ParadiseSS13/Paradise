@@ -225,7 +225,7 @@
 
 	current_heat = min(current_heat + 1, max_heat)
 
-/obj/item/gun/medbeam/damaged/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/gun/medbeam/damaged/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
 	. = ..()
 
 	if(broken == INSTALL_CELL)

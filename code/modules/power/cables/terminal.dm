@@ -77,7 +77,7 @@
 					qdel(src)
 
 
-/obj/machinery/power/terminal/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/terminal/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/wirecutters))
 		dismantle(user, W)
 	else

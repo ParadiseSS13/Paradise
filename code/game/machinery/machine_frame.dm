@@ -1,26 +1,34 @@
-/// Made into a seperate type to make future revisions easier.
-/obj/machinery/constructable_frame
+#define MACHINE_FRAME_EMPTY 1
+#define MACHINE_FRAME_WIRED 2
+#define MACHINE_FRAME_CIRCUITBOARD 3
+
+/obj/structure/machine_frame
 	name = "machine frame"
+	desc = "The standard frame for most station machines. Its appearance and function is controlled by the inserted board."
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = TRUE
 	anchored = TRUE
-	power_state = NO_POWER_USE
+
+	pressure_resistance = 15
 	max_integrity = 250
+	layer = BELOW_OBJ_LAYER
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
+	atom_say_verb = "beeps"
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.3
+
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
-	var/list/req_component_names = null // user-friendly names of components
-	var/state = 1
+	var/state = MACHINE_FRAME_EMPTY
+	var/frame_type = "machine"
+	var/extra_desc
 
-	// For pods
-	var/list/connected_parts = list()
-	var/pattern_idx=0
-
-/obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
+/obj/structure/machine_frame/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
-		if(state >= 2)
+		if(state >= MACHINE_FRAME_WIRED)
 			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
 			A.amount = 5
 		if(circuit)
@@ -28,63 +36,73 @@
 			circuit = null
 	return ..()
 
-/obj/machinery/constructable_frame/obj_break(damage_flag)
+/obj/structure/machine_frame/obj_break(damage_flag)
 	deconstruct()
 
-// unfortunately, we have to instance the objects really quickly to get the names
-// fortunately, this is only called once when the board is added and the items are immediately GC'd
-// and none of the parts do much in their constructors
-/obj/machinery/constructable_frame/proc/update_namelist()
-	if(!req_components)
-		return
-
-	req_component_names = new()
-	for(var/tname in req_components)
-		var/path = tname
-		var/obj/O = new path()
-		req_component_names[tname] = O.name
-
-/obj/machinery/constructable_frame/proc/get_req_components_amt()
+/obj/structure/machine_frame/proc/get_req_components_amt()
 	var/amt = 0
 	for(var/path in req_components)
 		amt += req_components[path]
 	return amt
 
-// update description of required components remaining
-/obj/machinery/constructable_frame/proc/update_req_desc()
-	if(!req_components || !req_component_names)
-		desc = "Does not require any more components."
+/obj/structure/machine_frame/examine(mob/user)
+	. = ..()
+	if(extra_desc)
+		. += "<span class='notice'>[extra_desc]</span>"
+
+/obj/structure/machine_frame/update_name(updates)
+	. = ..()
+	if(circuit)
+		name = "[initial(name)] ([circuit.board_name])"
+		return
+	name = initial(name)
+
+/obj/structure/machine_frame/update_desc(updates)
+	. = ..()
+	if(!circuit)
+		extra_desc = null
+		return
+	if(!req_components)
+		extra_desc = "Does not require any more components."
 		return
 
-	var/hasContent = 0
-	desc = "Requires"
-	for(var/i = 1 to length(req_components))
-		var/tname = req_components[i]
-		var/amt = req_components[tname]
-		if(amt == 0)
+	var/list/needed_components = list()
+	for(var/obj/component as anything in req_components)
+		var/amt = req_components[component]
+		if(amt <= 0)
 			continue
-		var/use_and = i == length(req_components)
-		desc += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
-		hasContent = 1
+		needed_components += "[amt] [component.name]\s"
 
-	if(!hasContent)
-		desc = "Does not require any more components."
-	else
-		desc += "."
+	if(!length(needed_components))
+		extra_desc = "Does not require any more components."
+		return
+	extra_desc = "Requires [english_list(needed_components)]."
 
-/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P, mob/user, params)
+/obj/structure/machine_frame/update_icon_state()
+	. = ..()
 	switch(state)
-		if(1)
+		if(MACHINE_FRAME_EMPTY)
+			icon_state = "box_0"
+		if(MACHINE_FRAME_WIRED)
+			icon_state = "box_1"
+		if(MACHINE_FRAME_CIRCUITBOARD)
+			icon_state = "box_2"
+		else
+			icon_state = "box_0"
+
+/obj/structure/machine_frame/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
+	switch(state)
+		if(MACHINE_FRAME_EMPTY)
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 1 && C.get_amount() >= 5 && C.use(5))
+						if(state == MACHINE_FRAME_EMPTY && C.get_amount() >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-							state = 2
-							icon_state = "box_1"
+							state = MACHINE_FRAME_WIRED
+							update_icon(UPDATE_ICON_STATE)
 						else
 							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
 							return
@@ -97,10 +115,12 @@
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
 				return
-		if(2)
+		if(MACHINE_FRAME_WIRED)
+			// see wirecutter_act()
+
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
-				if(B.board_type == "machine")
+				if(B.board_type == frame_type)
 					if(!B.build_path)
 						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
 						return
@@ -108,43 +128,17 @@
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
 					user.drop_item()
-					P.loc = src
-					name += " ([B.board_name])"
-					icon_state = "box_2"
-					state = 3
+					P.forceMove(src)
+					state = MACHINE_FRAME_CIRCUITBOARD
 					components = list()
 					req_components = circuit.req_components?.Copy()
-					update_namelist()
-					update_req_desc()
+					update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 				return
-			if(istype(P, /obj/item/wirecutters))
-				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 1
-				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
-				A.amount = 5
-				return
-		if(3)
-			if(P.tool_behaviour == TOOL_CROWBAR)
-				playsound(src.loc, P.usesound, 50, 1)
-				state = 2
-				circuit.loc = src.loc
-				circuit = null
-				if(length(components) == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
-					for(var/obj/item/I in components)
-						I.loc = src.loc
-				name = initial(name)
-				desc = initial(desc)
-				req_components = null
-				components = null
-				icon_state = "box_1"
-				return
+
+		if(MACHINE_FRAME_CIRCUITBOARD)
+			// see crowbar_act()
 
 			if(istype(P, /obj/item/storage/part_replacer) && length(P.contents) && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
@@ -171,7 +165,7 @@
 					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
 				replacer.play_rped_sound()
 
-				update_req_desc()
+				update_appearance(UPDATE_DESC)
 				return
 
 			if(isitem(P))
@@ -189,13 +183,13 @@
 							S.use(camt)
 							components += NS
 							req_components[I] -= camt
-							update_req_desc()
+							update_appearance(UPDATE_DESC)
 							break
 						user.drop_item()
 						P.forceMove(src)
 						components += P
 						req_components[I]--
-						update_req_desc()
+						update_appearance(UPDATE_DESC)
 						return 1
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
@@ -204,9 +198,44 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
-	if(state != 3)
+/obj/structure/machine_frame/wirecutter_act(mob/living/user, obj/item/I)
+	if(state != MACHINE_FRAME_WIRED)
 		return
+
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove the cables.</span>")
+	state = MACHINE_FRAME_EMPTY
+	new /obj/item/stack/cable_coil(loc, 5)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/structure/machine_frame/crowbar_act(mob/living/user, obj/item/I)
+	if(state != MACHINE_FRAME_CIRCUITBOARD)
+		return
+
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	state = MACHINE_FRAME_WIRED
+	circuit.forceMove(loc)
+	circuit = null
+	if(length(components) == 0)
+		to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+	else
+		to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+		for(var/obj/item/comp in components)
+			comp.forceMove(loc)
+
+	req_components = null
+	components = null
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+
+/obj/structure/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(state != MACHINE_FRAME_CIRCUITBOARD)
+		return
+	. = TRUE
 
 	var/component_check = 1
 	for(var/R in req_components)
@@ -222,12 +251,15 @@
 		qdel(O)
 	new_machine.component_parts = list()
 	for(var/obj/O in src)
-		O.loc = null
+		O.forceMove(null)
 		new_machine.component_parts += O
-	circuit.loc = null
+	circuit.forceMove(null)
 	new_machine.RefreshParts()
 	qdel(src)
-	return TRUE
+
+#undef MACHINE_FRAME_EMPTY
+#undef MACHINE_FRAME_WIRED
+#undef MACHINE_FRAME_CIRCUITBOARD
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -684,22 +716,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 
-//Almost the same recipe as destructive analyzer to give people choices.
-/obj/item/circuitboard/experimentor
-	board_name = "E.X.P.E.R.I-MENTOR"
+/obj/item/circuitboard/scientific_analyzer // fucking US spelling
+	board_name = "Scientific Analyzer"
 	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/experimentor
-	board_type = "machine"
-	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
-	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 2)
-
-/obj/item/circuitboard/destructive_analyzer
-	board_name = "Destructive Analyzer"
-	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/destructive_analyzer
+	build_path = /obj/machinery/r_n_d/scientific_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(
@@ -756,7 +776,7 @@ to destroy them and players will be able to make replacements.
 	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
 	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
 
-/obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
+/obj/item/circuitboard/dish_drive/attack_self__legacy__attackchain(mob/living/user)
 	suction = !suction
 	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
 
@@ -912,7 +932,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
-/obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/circuitboard/teleporter_perma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location)
@@ -1114,6 +1134,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)

@@ -281,7 +281,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
-	R.add_language("Neo-Russkiya", 0)
+	R.add_language("Zvezhan", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -346,7 +346,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/extinguisher/mini,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/dropper,
@@ -415,7 +415,7 @@
 		process_chamber()
 
 //Cannot manually remove syringes
-/obj/item/gun/syringemalf/attack_self(mob/living/user)
+/obj/item/gun/syringemalf/attack_self__legacy__attackchain(mob/living/user)
 	return
 
 //Load syringe into the chamber
@@ -601,7 +601,7 @@
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
 	force = 20
 
-/obj/item/malfbroom/attack(mob/target, mob/user)
+/obj/item/malfbroom/attack__legacy__attackchain(mob/target, mob/user)
 	if(!ishuman(target))
 		return ..()
 	var/mob/living/carbon/human/H = target
@@ -687,7 +687,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
-	R.add_language("Neo-Russkiya", 1)
+	R.add_language("Zvezhan", 1)
 	R.add_language("Tkachi", 1)
 
 // Mining
@@ -847,7 +847,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/pinpointer/operative,
@@ -1110,7 +1110,7 @@
 	max_amount = 25
 
 //Energy stack for landmines
-/datum/robot_storage/energy/janitor/landmine
+/datum/robot_storage/energy/jani_landmine
 	name = "Landmine Synthesizer"
 	statpanel_name = "Landmines"
 	max_amount = 4

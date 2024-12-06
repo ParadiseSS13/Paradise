@@ -78,7 +78,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
+						M.show_message(text("<span class='warning'><b>[user] attacks [src]'s stomach wall with [I]!</b></span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))

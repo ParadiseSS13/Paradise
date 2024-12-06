@@ -363,11 +363,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building
-	var/list/access_types = list("R&D Core", "E.X.P.E.R.I-MENTOR", "Public")
-
-/obj/item/circuitboard/rdconsole/experiment
-	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-	build_path = /obj/machinery/computer/rdconsole/experiment
+	var/list/access_types = list("R&D Core", "Public")
 
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
@@ -475,10 +471,10 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
 
-/obj/item/circuitboard/HolodeckControl
+/obj/item/circuitboard/holodeck_control
 	board_name = "Holodeck Control"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/HolodeckControl
+	build_path = /obj/machinery/computer/holodeck_control
 	origin_tech = "programming=4"
 
 /obj/item/circuitboard/aifixer
@@ -529,7 +525,7 @@
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
-/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/rdconsole/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
@@ -540,9 +536,6 @@
 				if("R&D Core")
 					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-				if("E.X.P.E.R.I-MENTOR")
-					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-					build_path = /obj/machinery/computer/rdconsole/experiment
 				if("Public")
 					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
@@ -698,7 +691,7 @@
 		I.play_tool_sound(src)
 		update_icon()
 
-/obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
+/obj/structure/computerframe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	switch(state)
 		if(STATE_EMPTY)
 			if(!istype(I, /obj/item/circuitboard))

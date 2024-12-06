@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
+/obj/item/emptysandbag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/glass))
 		var/obj/item/stack/ore/glass/G = I
 		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 		log_and_set_aflame(user, I)
 	return TRUE
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/stack/sheet/mineral/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.get_heat())
 		log_and_set_aflame(user, I)
 	else

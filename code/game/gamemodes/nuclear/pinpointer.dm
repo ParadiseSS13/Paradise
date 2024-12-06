@@ -55,7 +55,7 @@
 	else if(mode == MODE_NUKE)
 		workbomb()
 
-/obj/item/pinpointer/attack_self(mob/user)
+/obj/item/pinpointer/attack_self__legacy__attackchain(mob/user)
 	if(mode == PINPOINTER_MODE_DET)
 		return
 	cycle(user)
@@ -396,7 +396,7 @@
 	///Var to track the linked detective gun
 	var/linked_gun_UID
 
-/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+/obj/item/pinpointer/crew/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/gun/energy/detective))
 		link_gun(I.UID())

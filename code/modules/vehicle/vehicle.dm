@@ -24,6 +24,8 @@
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
 	var/spaceworthy = FALSE
 
+	new_attack_chain = TRUE
+
 
 /obj/vehicle/Initialize(mapload)
 	. = ..()
@@ -58,23 +60,30 @@
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 
-/obj/vehicle/attackby(obj/item/I, mob/user, params)
-	if(key_type && !is_key(inserted_key) && is_key(I))
+/obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
+	if(vehicle_move_delay > 1)
+		vehicle_move_delay = 1
+		qdel(vtec)
+		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+
+		return TRUE
+
+/obj/vehicle/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(key_type && !is_key(inserted_key) && is_key(attacking))
 		if(user.drop_item())
-			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			attacking.forceMove(src)
+			to_chat(user, "<span class='notice'>You insert [attacking] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
-			inserted_key = I
+			inserted_key = attacking
 		else
-			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
-		return
-	if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
-		vehicle_move_delay = 1
-		qdel(I)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
-		return
-	return ..()
+			to_chat(user, "<span class='warning'>[attacking] seems to be stuck to your hand!</span>")
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/borg/upgrade/vtec) && install_vtec(attacking, user))
+		return FINISH_ATTACK
 
 /obj/vehicle/AltClick(mob/user)
 	if(inserted_key && user.Adjacent(user))
