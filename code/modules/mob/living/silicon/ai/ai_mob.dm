@@ -1282,7 +1282,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_RADIO))
 		return
 
-	to_chat(src, "Accessing Subspace Transceiver control...")
+	to_chat(src, "Accessing Radio Transceiver control...")
 	if(aiRadio)
 		aiRadio.interact(src)
 

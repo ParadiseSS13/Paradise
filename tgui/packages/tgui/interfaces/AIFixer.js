@@ -87,7 +87,7 @@ export const AIFixer = (props, context) => {
                       onClick={() => act('wireless')}
                     />
                   </LabeledList.Item>
-                  <LabeledList.Item label="Subspace Transceiver">
+                  <LabeledList.Item label="Radio Transceiver">
                     <Button
                       icon={data.radio ? 'times' : 'check'}
                       content={data.radio ? 'Disabled' : 'Enabled'}

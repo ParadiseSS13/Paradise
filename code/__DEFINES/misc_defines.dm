@@ -366,9 +366,9 @@
 // Macro that returns true if it's too early in a round to freely ghost out
 #define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period MINUTES)
 
-// Used by radios to indicate that they have sent a message via something other than subspace
+// Used by radios to indicate that they have sent a message via something other than standard radio.
 #define RADIO_CONNECTION_FAIL 0
-#define RADIO_CONNECTION_NON_SUBSPACE 1
+#define RADIO_CONNECTION_NON_STANDARD 1
 
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"

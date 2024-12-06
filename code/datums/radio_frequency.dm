@@ -67,7 +67,7 @@
 	var/transmission_method = 0 //unused at the moment
 	//0 = wire
 	//1 = radio transmission
-	//2 = subspace transmission
+	//2 = non-standard transmission
 
 	var/list/data = list()
 	var/encryption

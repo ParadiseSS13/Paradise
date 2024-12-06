@@ -19,7 +19,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		"Medical Machinery",
 		"Misc. Machinery",
 		"Research Machinery",
-		"Subspace Telecomms",
+		"Intra-System Telecomms",
 		"Teleportation Machinery"
 	)
 

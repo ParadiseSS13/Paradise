@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
+	desc = "A robust handheld radio with a variable frequency selector. Its transceiver is powerful enough to function without the aid of a telecommunications hub and can cut through the interference caused by ion storms, \
+		although in both cases there will be some latency in transmission."
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
@@ -382,7 +384,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		if(RADIO_CONNECTION_FAIL)
 			return 0
 		// This is if were using either a binary key, or a hivemind through a headset somehow. Dont ask.
-		if(RADIO_CONNECTION_NON_SUBSPACE)
+		if(RADIO_CONNECTION_NON_STANDARD)
 			return 1
 
 	if(!istype(message_mode, /datum/radio_frequency)) //if not a special case, it should be returning a radio connection

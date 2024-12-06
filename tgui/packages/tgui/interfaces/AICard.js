@@ -69,7 +69,7 @@ export const AICard = (props, context) => {
                       onClick={() => act('wireless')}
                     />
                   </LabeledList.Item>
-                  <LabeledList.Item label="Subspace Transceiver">
+                  <LabeledList.Item label="Radio Transceiver">
                     <Button
                       width={10}
                       icon={data.radio ? 'check' : 'times'}

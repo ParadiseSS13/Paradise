@@ -872,7 +872,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bio_chips/storage
 	name = "Storage Bio-chip"
-	desc = "A bio-chip injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
+	desc = "A bio-chip injected into the body, and later activated at the user's will. It will open a small extradimensional pocket capable of storing two items."
 	reference = "ESI"
 	item = /obj/item/bio_chip_implanter/storage
 	cost = 40
