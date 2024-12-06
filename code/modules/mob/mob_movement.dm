@@ -21,7 +21,7 @@
 	return (!mover.density || !density || horizontal)
 
 /mob/proc/projectile_hit_check(obj/item/projectile/P)
-	return !density
+	return !(P.always_hit_living_nondense && (stat != DEAD)) && !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1

@@ -479,7 +479,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/spawner/lootdrop/wizardcrash,
+/obj/effect/spawner/random/wizardcrash,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bP" = (
