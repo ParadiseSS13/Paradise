@@ -9,7 +9,7 @@
 	department_head = list("Captain")
 	req_admin_notify = 1
 	minimal_player_age = 30
-	exp_map = list(EXP_TYPE_SILICON = 300)
+	exp_map = list(EXP_TYPE_SILICON = 20 HOURS)
 	has_bank_account = FALSE
 
 /datum/job/ai/equip(mob/living/carbon/human/H)

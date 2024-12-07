@@ -31,7 +31,7 @@
 		ACCESS_WEAPONS
 	)
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
+	exp_map = list(EXP_TYPE_ENGINEERING = 40 HOURS)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/chief_engineer

@@ -12,7 +12,7 @@
 	department_account_access = TRUE
 	access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_map = list(EXP_TYPE_COMMAND = 1200)
+	exp_map = list(EXP_TYPE_COMMAND = 50 HOURS)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/captain
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
@@ -66,7 +66,7 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	minimal_player_age = 21
 	department_account_access = TRUE
-	exp_map = list(EXP_TYPE_SERVICE = 1200)
+	exp_map = list(EXP_TYPE_SERVICE = 40 HOURS)
 	access = list(
 		ACCESS_AI_UPLOAD,
 		ACCESS_ALL_PERSONAL_LOCKERS,
@@ -137,7 +137,7 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
+	exp_map = list(EXP_TYPE_COMMAND = 50 HOURS) // 50 hours baby
 	access = list(
 		ACCESS_ALL_PERSONAL_LOCKERS,
 		ACCESS_BAR,
@@ -210,7 +210,7 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
+	exp_map = list(EXP_TYPE_COMMAND = 50 HOURS) // 50 hours baby
 	access = list(
 		ACCESS_BLUESHIELD,
 		ACCESS_CARGO,
@@ -265,7 +265,7 @@
 	job_department_flags = DEP_FLAG_LEGAL
 	transfer_allowed = FALSE
 	minimal_player_age = 30
-	exp_map = list(EXP_TYPE_SECURITY = 6000) // 100 hours baby
+	exp_map = list(EXP_TYPE_SECURITY = 100 HOURS) // 100 hours baby
 	access = list(
 		ACCESS_BRIG,
 		ACCESS_COURT,
