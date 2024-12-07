@@ -14,7 +14,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
-	force = 15
+	force = 25
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
@@ -65,11 +65,16 @@
 	if(!awakened)
 		INVOKE_ASYNC(src, PROC_REF(awaken), user)
 
-/obj/item/his_grace/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/his_grace/attack__legacy__attackchain(mob/living/M, mob/user, obj/O)
 	if(awakened && M.stat)
 		consume(M)
+	if(awakened && isstructure(O))
+		var/damage = force
+		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, M), 30) // yoinked from breaching cleaver
 	else
 		..()
+
+
 
 /obj/item/his_grace/can_be_pulled(user, grab_state, force, show_message = FALSE) //you can't pull his grace
 	return FALSE
@@ -105,7 +110,7 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
-		adjust_bloodthirst(0.5 + round(length(contents) * (1 / 6), 1))
+		adjust_bloodthirst(0.5 + round(length(contents) * (1 / 10), 1))
 	else
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
 
