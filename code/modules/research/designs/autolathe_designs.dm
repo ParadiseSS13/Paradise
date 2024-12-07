@@ -769,6 +769,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 
+/datum/design/laser_slug
+	name = "Laser Slug"
+	id = "laser_slug"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000) //Power comes at a price of 4000 glass
+	build_path = /obj/item/ammo_casing/shotgun/laserslug
+	category = list("hacked", "Security")
+
 /datum/design/buckshot
 	name = "Buckshot Shell"
 	id = "buckshot"
