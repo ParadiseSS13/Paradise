@@ -1062,20 +1062,31 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
+	remove_overlay(UNDER_SUIT_LAYER)
+
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_NECK)]
 		if(inv)
 			inv.update_icon()
 
 	if(neck)
+		var/mutable_appearance/new_neck
 		update_hud_neck(neck)
+
 		if(neck.icon_override)
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
+			new_neck = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
 		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.sprite_sheet_name])
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.sprite_sheets[dna.species.sprite_sheet_name], "[neck.icon_state]", layer = -NECK_LAYER)
+			new_neck = mutable_appearance(neck.sprite_sheets[dna.species.sprite_sheet_name], "[neck.icon_state]", layer = -NECK_LAYER)
 		else
-			overlays_standing[NECK_LAYER] = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
-		apply_overlay(NECK_LAYER)
+			new_neck = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+		var/obj/item/clothing/neck/tie/N = neck
+		if(istype(N) && N.under_suit)
+			new_neck.layer = -UNDER_SUIT_LAYER
+			overlays_standing[UNDER_SUIT_LAYER] = new_neck
+			apply_overlay(UNDER_SUIT_LAYER)
+		else
+			overlays_standing[NECK_LAYER] = new_neck
+			apply_overlay(NECK_LAYER)
 
 /mob/living/carbon/human/update_inv_back()
 	..()

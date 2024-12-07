@@ -2,6 +2,7 @@
 	name = "tie"
 	desc = "A neosilk clip-on tie."
 	w_class = WEIGHT_CLASS_SMALL
+	var/under_suit = FALSE
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
@@ -23,6 +24,19 @@
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
 	item_color = "horribletie"
+
+/obj/item/clothing/neck/tie/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to adjust if it is worn under or over your suit.</span>"
+
+/obj/item/clothing/neck/tie/AltClick(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+		return
+
+	under_suit = !under_suit
+	if(user.neck == src)
+		user.update_inv_neck()
+	to_chat(user, "<span class='notice'>You adjust [src] to be worn [under_suit ? "under" : "over"] your suit.</span>")
 
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
