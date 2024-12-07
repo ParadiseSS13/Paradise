@@ -146,7 +146,7 @@
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
-	message_admins("<span class='boldnotice'>DirectNarrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<br></span>", 1)
+	message_admins("<span class='boldnotice'>Direct Narrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<br></span>", 1)
 	M.create_log(MISC_LOG, "Direct Narrate: [msg]", "From: [key_name_admin(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
