@@ -317,7 +317,7 @@
 
 /obj/item/radio/headset/heads/magistrate/alt
 	name = "magistrate's bowman headset"
-	desc = "A tactical headset used by Nanotrasen magistrates."
+	desc = "A tactical headset used by Nanotrasen magistrates. Protects against loud noises."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
