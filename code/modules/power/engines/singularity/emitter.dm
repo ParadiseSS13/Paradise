@@ -4,7 +4,7 @@
 
 /obj/machinery/power/emitter
 	name = "emitter"
-	desc = "A heavy duty industrial laser"
+	desc = "A heavy duty industrial laser."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = FALSE
@@ -146,7 +146,7 @@
 	if(!anchored)
 		step(src, get_dir(M, src))
 
-/obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/emitter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/card/id) && !istype(I, /obj/item/pda))
 		return ..()
 

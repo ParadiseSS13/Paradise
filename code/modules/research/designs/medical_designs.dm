@@ -300,7 +300,7 @@
 	desc = "An advanced FixOVein obtained through Abductor technology."
 	id = "alien_fixovein"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/FixOVein/alien
+	build_path = /obj/item/fix_o_vein/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -616,7 +616,7 @@
 	name = "Reviver Implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
 	id = "ci-reviver"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 5)
+	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 7)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
@@ -757,7 +757,7 @@
 
 /datum/design/cybernetic_eyes
 	name = "Cybernetic Eyes"
-	desc = "A cybernetic pair of eyes"
+	desc = "A cybernetic pair of eyes."
 	id = "cybernetic_eyes"
 	req_tech = list("biotech" = 4, "materials" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -768,7 +768,7 @@
 
 /datum/design/cybernetic_ears
 	name = "Cybernetic Ears"
-	desc = "A cybernetic pair of ears"
+	desc = "A cybernetic pair of ears."
 	id = "cybernetic_ears"
 	req_tech = list("biotech" = 4, "materials" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -779,7 +779,7 @@
 
 /datum/design/cybernetic_liver
 	name = "Cybernetic Liver"
-	desc = "A cybernetic liver"
+	desc = "A cybernetic liver."
 	id = "cybernetic_liver"
 	req_tech = list("biotech" = 4, "materials" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -790,7 +790,7 @@
 
 /datum/design/cybernetic_kidneys
 	name = "Cybernetic Kidneys"
-	desc = "A cybernetic pair of kidneys"
+	desc = "A cybernetic pair of kidneys."
 	id = "cybernetic_kidneys"
 	req_tech = list("biotech" = 4, "materials" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -801,7 +801,7 @@
 
 /datum/design/cybernetic_heart
 	name = "Cybernetic Heart"
-	desc = "A cybernetic heart"
+	desc = "A cybernetic heart."
 	id = "cybernetic_heart"
 	req_tech = list("biotech" = 4, "materials" = 4)
 	build_type = PROTOLATHE | MECHFAB

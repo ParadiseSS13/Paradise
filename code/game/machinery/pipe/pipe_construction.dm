@@ -336,7 +336,7 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
@@ -531,7 +531,7 @@
 
 /obj/item/pipe_meter
 	name = "meter"
-	desc = "A meter that can be laid on pipes"
+	desc = "A meter that can be laid on pipes."
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
@@ -557,7 +557,7 @@
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
-	desc = "A sensor that can be hooked to a computer"
+	desc = "A sensor that can be hooked to a computer."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	item_state = "buildpipe"

@@ -143,7 +143,7 @@
 /obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
+/obj/machinery/satellite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 	else
@@ -151,7 +151,7 @@
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"
-	desc = "Meteor Point Defense Satellite"
+	desc = "Meteor Point Defense Satellite."
 	mode = "M-SHIELD"
 	speed_process = TRUE
 	var/kill_range = 14

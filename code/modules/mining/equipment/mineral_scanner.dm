@@ -7,13 +7,13 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/mining_scanner/attack_self(mob/user)
+/obj/item/mining_scanner/attack_self__legacy__attackchain(mob/user)
 	if(!user.client)
 		return
 	if(current_cooldown <= world.time)
@@ -24,7 +24,7 @@
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
 
-/obj/item/mining_scanner/admin/attack_self(mob/user)
+/obj/item/mining_scanner/admin/attack_self__legacy__attackchain(mob/user)
 	for(var/turf/simulated/mineral/M in world)
 		if(M.ore?.scan_icon_state)
 			M.icon_state = M.ore.scan_icon_state
@@ -37,7 +37,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/range = 7
@@ -75,6 +75,7 @@
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
 	icon = 'icons/effects/ore_visuals.dmi'
+	icon_state = null
 	appearance_flags = 0 //to avoid having TILE_BOUND in the flags, so that the 480x480 icon states let you see it no matter where you are
 	duration = 35
 	pixel_x = -224

@@ -14,7 +14,7 @@
 // Uniform slot
 /datum/gear/uniform
 	main_typepath = /datum/gear/uniform
-	slot = SLOT_HUD_JUMPSUIT
+	slot = ITEM_SLOT_JUMPSUIT
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
@@ -344,6 +344,28 @@
 	display_name = "Cargo uniform, delivery"
 	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
+
+/datum/gear/uniform/overalls
+	main_typepath = /datum/gear/uniform/overalls
+
+/datum/gear/uniform/overalls/job
+	main_typepath = /datum/gear/uniform/overalls/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/uniform/overalls/job/janitor
+	display_name = "Overalls, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/overalls
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/overalls/job/cargo
+	display_name = "Overalls, cargo tech"
+	path = /obj/item/clothing/under/rank/cargo/tech/overalls
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
+/datum/gear/uniform/overalls/job/expedition
+	display_name = "Overalls, expedition"
+	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
+	allowed_roles = list("Quartermaster", "Explorer")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec

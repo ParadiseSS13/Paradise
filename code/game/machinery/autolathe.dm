@@ -80,10 +80,11 @@
 	return ..()
 
 /obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_TOOL_ATTACK
 	var/obj/item/I = tool
 	if(!istype(I))
 		return
+
 	// Allows screwdrivers to be recycled on harm intent
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
 		return COMPONENT_CANCEL_TOOLACT
@@ -262,7 +263,7 @@
 		data["queue"] = null
 	return data
 
-/obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
+/obj/machinery/autolathe/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE

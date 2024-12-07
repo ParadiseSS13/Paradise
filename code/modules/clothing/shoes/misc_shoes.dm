@@ -103,7 +103,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
@@ -154,7 +154,7 @@
 	var/recharging_time = 0
 
 /obj/item/clothing/shoes/clown_shoes/slippers/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
@@ -265,7 +265,7 @@
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
-	desc = "Shoes for a cyborg costume"
+	desc = "Shoes for a cyborg costume."
 	icon_state = "boots"
 	dyeable = FALSE
 
@@ -390,7 +390,7 @@
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
-	desc = "A pair a' black rustlers' boots"
+	desc = "A pair a' black rustlers' boots."
 	icon_state = "cowboy_black"
 	item_color = "cowboy_black"
 
@@ -423,9 +423,9 @@
 	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
 	icon_state = "lizardboots_blue"
 
-/obj/effect/spawner/lootdrop/lizardboots
+/obj/effect/spawner/random/lizardboots
 	name = "random lizard boot quality"
-	desc = "Which ever gets picked, the lizard race loses"
+	desc = "Which ever gets picked, the lizard race loses."
 	icon = 'icons/obj/clothing/shoes.dmi'
 	icon_state = "lizardboots_green"
 	loot = list(
@@ -460,7 +460,7 @@
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)

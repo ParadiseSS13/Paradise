@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -395,7 +395,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby(obj/item/key, mob/user)
+/obj/item/radio/headset/attackby__legacy__attackchain(obj/item/key, mob/user)
 	if(istype(key, /obj/item/encryptionkey/))
 
 		if(keyslot1 && keyslot2)

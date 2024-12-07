@@ -664,6 +664,9 @@ What are the archived variables for?
 	var/total_agent_b = 0
 
 	for(var/datum/gas_mixture/G as anything in mixtures)
+		if(!istype(G))
+			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
+			continue
 		total_volume += G.volume
 		var/heat_capacity = G.heat_capacity()
 		total_heat_capacity += heat_capacity
@@ -685,6 +688,8 @@ What are the archived variables for?
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G as anything in mixtures)
+			if(!istype(G))
+				continue
 			G.private_oxygen = total_oxygen * G.volume / total_volume
 			G.private_nitrogen = total_nitrogen * G.volume / total_volume
 			G.private_toxins = total_toxins * G.volume / total_volume

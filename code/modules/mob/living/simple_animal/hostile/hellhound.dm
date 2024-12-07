@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
-	var/datum/action/innate/demon/whisper/whisper_action = new
+	var/datum/action/innate/demon_whisper/whisper_action = new
 	whisper_action.Grant(src)
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
@@ -92,7 +92,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
+/mob/living/simple_animal/hostile/hellhound/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	. = ..()
 	if(target && isliving(target))
 		var/mob/living/L = target

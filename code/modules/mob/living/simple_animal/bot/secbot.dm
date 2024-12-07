@@ -3,7 +3,7 @@
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
-	desc = "A little security robot.  He looks less than thrilled."
+	desc = "A little security robot. He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
@@ -192,7 +192,7 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/secbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
@@ -263,7 +263,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
-	baton.attack(C, src)
+	baton.attack__legacy__attackchain(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

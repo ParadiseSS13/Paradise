@@ -40,6 +40,9 @@
 /mob/proc/update_inv_gloves()
 	return
 
+/mob/proc/update_inv_neck()
+	return
+
 /mob/proc/update_mutations()
 	return
 
