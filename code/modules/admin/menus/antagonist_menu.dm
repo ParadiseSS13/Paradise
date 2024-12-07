@@ -27,9 +27,12 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		var/datum/mind/antag_mind = antagonist.owner
 		temp_list["antag_mind_uid"] = antag_mind.UID()
 		temp_list["name"] = ""
-		temp_list["status"] = ""
+		temp_list["status"] = "No Body"
+		temp_list["name"] = antag_mind.name
+		temp_list["body_destroyed"] = FALSE
 		if(!QDELETED(antag_mind.current))
-			temp_list["name"] = antag_mind.current.real_name
+			temp_list["body_destroyed"] = TRUE
+			temp_list["status"] = ""
 			if(antag_mind.current.stat == DEAD)
 				temp_list["status"] = "(DEAD)"
 			else if(!antag_mind.current.client)
@@ -74,7 +77,8 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 			for(var/atom/target in GLOB.high_value_items)
 				if(!istype(target, theft.typepath))
 					continue
-				if(is_admin_level(target.z))
+				var/turf/T = get_turf(target)
+				if(!T || is_admin_level(T.z))
 					continue
 				temp_list["target_name"] = target.name // is usually more accurate, i.e. captains modsuit
 				target_uids += target.UID()
@@ -173,17 +177,22 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		if("vv")
 			ui.user.client.debug_variables(locateUID(params["uid"]), null)
 		if("obj_owner")
+			var/client/C = ui.user.client
 			var/datum/target = locateUID(params["owner_uid"])
 			if(QDELETED(target))
 				to_chat(ui.user, "<span class='warning'>It seems the target you are looking for is null or deleted.</span>")
 				return
-			if(istype(target, /datum/mind))
-				var/datum/mind/mind = target
-				mind.edit_memory()
-				return
 			if(istype(target, /datum/antagonist))
 				var/datum/antagonist/antag = target
-				antag.owner.edit_memory()
+				target = antag.owner
+			if(istype(target, /datum/mind))
+				var/datum/mind/mind = target
+				if(!ismob(mind.current))
+					to_chat(ui.user, "<span class='warning'>This can only be used on instances of type /mob</span>")
+					return
+				target = mind.current
+				var/mob/dead/observer/A = C.mob
+				A.ManualFollow(target)
 				return
 			if(istype(target, /datum/team))
 				ui.user.client.holder.team_switch_tab_index = clamp(GLOB.antagonist_teams.Find(target), 1, length(GLOB.antagonist_teams))

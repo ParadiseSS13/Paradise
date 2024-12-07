@@ -159,7 +159,7 @@ const AntagList = (properties, context) => {
           if (b[sortId] === undefined || b[sortId] === null) {
             return -1 * i;
           }
-          if (a[sortId] === 1 || a[sortId] === 0) {
+          if (typeof a[sortId] === 'number') {
             return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
@@ -167,17 +167,21 @@ const AntagList = (properties, context) => {
         .map((antag, index) => (
           <Table.Row key={index}>
             <Table.Cell>
-              <Button
-                color={antag.is_hijacker ? 'red' : ''}
-                tooltip={antag.is_hijacker ? 'Hijacker' : ''}
-                onClick={() =>
-                  act('show_player_panel', {
-                    mind_uid: antag.antag_mind_uid,
-                  })
-                }
-              >
-                {antag.name}
-              </Button>
+              {!antag.body_destroyed ? (
+                <Button
+                  color={antag.is_hijacker || !antag.name ? 'red' : ''}
+                  tooltip={antag.is_hijacker ? 'Hijacker' : ''}
+                  onClick={() =>
+                    act('show_player_panel', {
+                      mind_uid: antag.antag_mind_uid,
+                    })
+                  }
+                >
+                  {antag.name ? antag.name : '??? (NO NAME)'}
+                </Button>
+              ) : (
+                antag.name
+              )}
             </Table.Cell>
             <Table.Cell>
               <Box color={antag.status ? 'red' : 'grey'}>{antag.status ? antag.status : 'Alive'}</Box>
@@ -231,7 +235,7 @@ const Objectives = (properties, context) => {
   const { act, data } = useBackend(context);
   const { objectives } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId2', 'owner_name');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId2', 'target_name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   if (!objectives.length) {
     return 'No Objectives!';
@@ -268,13 +272,13 @@ const Objectives = (properties, context) => {
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
-          if (a[sortId] === undefined || a[sortId] === null) {
+          if (a[sortId] === undefined || a[sortId] === null || (sortId === 'target_name' && a.no_target)) {
             return i;
           }
-          if (b[sortId] === undefined || b[sortId] === null) {
+          if (b[sortId] === undefined || b[sortId] === null || (sortId === 'target_name' && b.no_target)) {
             return -1 * i;
           }
-          if (a[sortId] === 1 || a[sortId] === 0) {
+          if (typeof a[sortId] === 'number') {
             return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
@@ -336,7 +340,7 @@ const Security = (properties, context) => {
   const { act, data } = useBackend(context);
   const { security } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId3', 'name');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId3', 'health');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
 
   const getColor = (officer) => {
@@ -406,7 +410,7 @@ const Security = (properties, context) => {
           if (b[sortId] === undefined || b[sortId] === null) {
             return -1 * i;
           }
-          if (a[sortId] === 1 || a[sortId] === 0) {
+          if (typeof a[sortId] === 'number') {
             return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
@@ -498,7 +502,7 @@ const HighValueItems = (properties, context) => {
   const { act, data } = useBackend(context);
   const { high_value_items } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'name');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'person');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   if (!high_value_items.length) {
     return 'No High Value Items!';
@@ -533,7 +537,7 @@ const HighValueItems = (properties, context) => {
           if (b[sortId] === undefined || b[sortId] === null) {
             return -1 * i;
           }
-          if (a[sortId] === 1 || a[sortId] === 0) {
+          if (typeof a[sortId] === 'number') {
             return (a[sortId] - b[sortId]) * i;
           }
           return a[sortId].localeCompare(b[sortId]) * i;
