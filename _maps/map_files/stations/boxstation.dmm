@@ -26026,8 +26026,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -61602,8 +61602,8 @@
 	},
 /obj/item/clothing/mask/cigarette/random,
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -73240,8 +73240,8 @@
 /area/station/engineering/atmos)
 "qpi" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel,
