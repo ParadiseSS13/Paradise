@@ -95,6 +95,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
+"ic" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/ruin/space/powered)
 "iY" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
@@ -332,9 +336,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/powered)
-"JY" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
 "Kh" = (
 /obj/structure/safe/floor,
 /obj/item/stack/spacecash/c200,
@@ -426,6 +427,7 @@
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -835,7 +837,7 @@ CF
 zx
 zx
 zx
-zx
+ic
 zx
 gY
 DV
@@ -943,7 +945,7 @@ CF
 zx
 zx
 zx
-JY
+TT
 Ed
 zx
 kP
@@ -997,7 +999,7 @@ Ya
 Ya
 CF
 zx
-JY
+TT
 zx
 Ya
 Aa
