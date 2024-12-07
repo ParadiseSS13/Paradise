@@ -361,7 +361,7 @@
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
-	desc = "An advanced tactical headset used by high-ranking Nanotrasen PMCs. Equipped with an advanced transmission array and ear protection."
+	desc = "An advanced tactical headset used by high-ranking Nanotrasen PMCs. Equipped with an advanced transmission array that doesn't require a telecom core, and protects against loud noises."
 	requires_tcomms = FALSE
 	instant = TRUE
 
