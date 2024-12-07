@@ -211,7 +211,7 @@
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack(H, H)
+			S.attack__legacy__attackchain(H, H)
 			qdel(src)
 	else
 		..()

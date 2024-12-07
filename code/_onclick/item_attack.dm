@@ -163,6 +163,8 @@
 	user.do_attack_animation(target)
 	add_fingerprint(user)
 
+	return TRUE
+
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_obj(obj/attacked_obj, mob/living/user, params)
 	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, attacked_obj, user) | SEND_SIGNAL(user, COMSIG_ATTACK_OBJ_LIVING, attacked_obj)
@@ -172,6 +174,9 @@
 		return FALSE
 	if(flags & NOBLUDGEON)
 		return FALSE
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(attacked_obj)
 
 	if(!attacked_obj.new_attack_chain)
 		attacked_obj.attacked_by__legacy__attackchain(src, user)
@@ -274,3 +279,16 @@
 		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>"
 	)
 	return TRUE
+
+/// Used for signal registrars who wish to completely ignore all behavior
+/// in the attack chain from parent types. Should be used sparingly, as
+/// subtypes are meant to build on behavior from the parent type.
+/datum/proc/signal_cancel_activate_self(mob/user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/// Used for signal registrars who wish to completely ignore all behavior
+/// in the attack chain from parent types calling `attack_by`. Should be
+/// used sparingly, as subtypes are meant to build on behavior from the parent
+/// type.
+/datum/proc/signal_cancel_attack_by(datum/source, obj/item/attacking, mob/user, params)
+	return COMPONENT_SKIP_AFTERATTACK
