@@ -30,6 +30,8 @@
 	var/victims = 0
 	var/victims_needed = 25
 
+	new_attack_chain = TRUE
+
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
@@ -61,20 +63,30 @@
 	else
 		. += "single_latch"
 
-/obj/item/his_grace/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/his_grace/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!awakened)
 		INVOKE_ASYNC(src, PROC_REF(awaken), user)
 
-/obj/item/his_grace/attack__legacy__attackchain(mob/living/M, mob/user, obj/O)
-	if(awakened && M.stat)
-		consume(M)
-	if(awakened && isstructure(O))
-		var/damage = force
-		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, M), 30) // yoinked from breaching cleaver
+/obj/item/his_grace/attack(mob/living/target, mob/living/user, params)
+	if(awakened && target.stat)
+		consume(target)
+		return FINISH_ATTACK
 	else
-		..()
+		return ..()
 
-
+/obj/item/his_grace/attack_obj(obj/attacked_obj, mob/living/user, params)
+	if(awakened && isstructure(attacked_obj))
+		var/mob/living/carbon/human/H = user
+		H.changeNext_move(CLICK_CD_MELEE)
+		H.do_attack_animation(attacked_obj)
+		H.visible_message("<span class='danger'>[H] has hit [attacked_obj] with [src]!</span>", "<span class='danger'>You hit [attacked_obj] with [src]!</span>")
+		var/damage = force
+		attacked_obj.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, user), 30) // yoinked from breaching cleaver
+	else
+		return ..()
 
 /obj/item/his_grace/can_be_pulled(user, grab_state, force, show_message = FALSE) //you can't pull his grace
 	return FALSE
