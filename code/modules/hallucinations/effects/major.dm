@@ -408,3 +408,66 @@
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alien.dmi'
 		images[1].icon_state = "alienh_pounce"
+
+/**
+  * # Hallucination - Sniper
+  *
+  * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
+  */
+ /obj/effect/hallucination/sniper
+	duration = 15 SECONDS
+
+/obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	// Find a start spot for the sniper bullet
+	var/list/possible_turfs = list()
+	for(var/turf/t in range(world.view + 5, target))
+		if (get_dist(t, target.loc) > world.view)
+			possible_turfs += t
+	if(!length(possible_turfs))
+		return
+
+	// Fire the bullet
+	var/turf/shot_loc = get_turf(pick(possible_turfs))
+	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
+	bullet.Angle = round(get_angle(src, target))
+	// Start flying
+	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, bullet.Angle, SSprojectiles.global_pixel_speed)
+	bullet.last_projectile_move = world.time
+	bullet.has_been_fired = TRUE
+	target.playsound_local(shot_loc, 'sound/weapons/gunshots/gunshot_sniper.ogg', 50)
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination
+	damage_type = STAMINA
+	knockdown = 2
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	// Force blood splatter
+	var/turf/target_loca = get_turf(target)
+	var/mob/living/L = target
+	var/mob/living/carbon/human/H
+	var/splatter_dir = dir
+	if(starting)
+		splatter_dir = get_dir(starting, target_loca)
+	if(isalien(L))
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+	else
+		var/blood_color = "#C80000"
+		if(ishuman(target))
+			H = target
+			blood_color = H.dna.species.blood_color
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+	if(prob(33))
+		var/list/shift = list("x" = 0, "y" = 0)
+		var/turf/step_over = get_step(target_loca, splatter_dir)
+
+		if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
+			shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+		else
+			target_loca = step_over
+		L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
+		if(istype(H))
+			for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
+				M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
