@@ -29,9 +29,9 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		temp_list["name"] = ""
 		temp_list["status"] = "No Body"
 		temp_list["name"] = antag_mind.name
-		temp_list["body_destroyed"] = FALSE
+		temp_list["body_destroyed"] = TRUE
 		if(!QDELETED(antag_mind.current))
-			temp_list["body_destroyed"] = TRUE
+			temp_list["body_destroyed"] = FALSE
 			temp_list["status"] = ""
 			if(antag_mind.current.stat == DEAD)
 				temp_list["status"] = "(DEAD)"
