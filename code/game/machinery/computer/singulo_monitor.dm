@@ -9,8 +9,6 @@
 	var/list/singularities
 	/// Last energy level of the singularity so we know if it went up or down between cycles
 	var/last_energy
-	/// Last size of the singularity so we know if it went up or down between cycles
-	var/last_size
 	/// Reference to the active singularity
 	var/obj/singularity/active
 	/// Channel to send warning through to the engineers
@@ -134,25 +132,12 @@
 	if(!(active in singularities))
 		active = null
 
-/obj/machinery/computer/singulo_monitor/proc/send_alerts()
-	// Breach alerts
-	if(length(field_gens) && (active.current_size > (last_size + 2) || active.current_size >= STAGE_FIVE))// We should only see a singulo grow 2 stages at once when breaching containment.
-		singu_radio.autosay("<span class='reallybig'>Warning: The singularity in [get_area(active)] has exceeded containment field limits!</span>", name, breach_channel)
-		field_gens = list() // The singularity is no longer contained
-		return
-	for(var/obj/machinery/field/generator/gen in field_gens)
-		if(QDELETED(gen) || (gen.active < 2))
-			singu_radio.autosay("<span class='reallybig'>Warning: The containment field of the singularity in [get_area(active)] has been disabled!</span>", name, breach_channel)
-			field_gens = list() // The singularity is no longer contained
-			return
 
 /obj/machinery/computer/singulo_monitor/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	if(active)
-		send_alerts() // Send an alert if there was a containment breach
 		if(last_energy != active.energy)
-			last_size = active.current_size
 			last_energy = active.energy
 			icon_screen = (((active.allowed_size + 1) / 2) == 4 && active.energy >= (STAGE_FIVE_THRESHOLD - 100)) ? "singumon_pre5" : "singumon_[(active.allowed_size + 1) / 2]"
 	else
@@ -179,7 +164,6 @@
 			for(var/obj/singularity/S in singularities)
 				if(S.singulo_id == newuid)
 					active = S
-					last_size = S.current_size
 					if(active)
 						field_gens = active.find_field_gens()
 					break
