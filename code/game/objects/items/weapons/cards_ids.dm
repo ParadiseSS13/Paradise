@@ -71,7 +71,6 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
-	slot_flags = ITEM_SLOT_ID
 
 /obj/item/card/cmag/Initialize(mapload)
 	. = ..()
