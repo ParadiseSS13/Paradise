@@ -244,7 +244,7 @@
 
 /obj/item/radio/headset/heads/hos/alt
 	name = "head of security's bowman headset"
-	desc = "An intimidating tactical headset used by senior Asset Protection personnel."
+	desc = "An intimidating tactical headset used by senior Asset Protection personnel. Protects against loud noises."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
