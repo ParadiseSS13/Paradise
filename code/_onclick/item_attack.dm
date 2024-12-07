@@ -38,7 +38,7 @@
 
 	// TODO: `target` here should probably be another `!QDELETED` check.
 	// Preserved for backwards compatibility, may be fixed post-migration.
-	if(!resolved && target && !QDELETED(src))
+	if(target && !QDELETED(src))
 		if(new_attack_chain)
 			after_attack(target, user, proximity_flag, params)
 		else
