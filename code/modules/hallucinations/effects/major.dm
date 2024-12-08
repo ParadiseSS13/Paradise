@@ -433,7 +433,7 @@
 	// Fire the bullet
 	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
 	bullet.hallucinator = target
-	bullet.def_zone = HEAD
+	bullet.def_zone = BODY_ZONE_HEAD
 	bullet.suppressed = TRUE
 
 	// Turn right away
@@ -457,14 +457,14 @@
 
 /obj/effect/hallucination/sniper_bloodsplatter
 	duration = 15 SECONDS
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "mfloor1"
+	hallucination_icon = 'icons/effects/blood.dmi'
+	hallucination_icon_state = "mfloor1"
 	plane = FLOOR_PLANE
 	color = "#A10808"
 
 /obj/effect/hallucination/sniper_bloodsplatter/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
-	icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
+	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	color = target.blood_color
 
 /obj/item/projectile/bullet/sniper/penetrator/hallucination
