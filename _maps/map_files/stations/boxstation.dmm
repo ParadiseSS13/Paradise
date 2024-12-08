@@ -26026,8 +26026,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -29129,6 +29129,10 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"bXq" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/asmaint2)
 "bXB" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51081,7 +51085,7 @@
 /area/station/engineering/atmos)
 "eUk" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -61602,8 +61606,8 @@
 	},
 /obj/item/clothing/mask/cigarette/random,
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -61806,7 +61810,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
 "kzB" = (
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -67141,7 +67145,7 @@
 /obj/structure/table,
 /obj/item/paper{
 	desc = "";
-	info = "Brusies sustained in the holodeck can be healed simply by sleeping.";
+	info = "Bruises sustained in the holodeck can be healed simply by sleeping.";
 	name = "Holodeck Disclaimer"
 	},
 /turf/simulated/floor/plasteel,
@@ -69574,10 +69578,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
-"oyY" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/asmaint2)
 "ozk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -73240,8 +73240,8 @@
 /area/station/engineering/atmos)
 "qpi" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel,
@@ -132455,7 +132455,7 @@ cuQ
 bGG
 cKQ
 jxu
-oyY
+bXq
 bGG
 bKl
 dgy
@@ -132715,8 +132715,8 @@ bGG
 dCw
 bGG
 qZN
-oyY
-oyY
+bXq
+bXq
 pUR
 bGG
 qZN
@@ -133226,7 +133226,7 @@ cuQ
 lpS
 cLc
 bGG
-oyY
+bXq
 bYk
 bKd
 oJZ

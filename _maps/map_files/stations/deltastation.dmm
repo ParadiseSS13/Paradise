@@ -63075,6 +63075,15 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"fys" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "fzd" = (
 /obj/machinery/access_button{
 	autolink_id = "virolab_btn_int";
@@ -70855,6 +70864,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
+"kol" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "koC" = (
 /obj/item/kirbyplants,
 /obj/machinery/light/small{
@@ -72557,7 +72570,7 @@
 /area/station/engineering/atmos)
 "ltw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
@@ -79489,10 +79502,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/warden)
-"pvo" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "pvv" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
@@ -93207,15 +93216,6 @@
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/south)
-"xph" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plasteel,
-/area/station/supply/expedition)
 "xpm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -128861,7 +128861,7 @@ tik
 xjh
 mQi
 rLQ
-pvo
+kol
 drn
 dhG
 fBk
@@ -136561,7 +136561,7 @@ cul
 cDa
 cDa
 cyt
-xph
+fys
 cBv
 cCW
 cyv
