@@ -628,6 +628,7 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced
@@ -662,7 +663,7 @@
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
-	icon = 'icons/obj/smooth_structures/windows/window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
@@ -671,7 +672,7 @@
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
-	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -682,14 +683,14 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
-	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -711,7 +712,7 @@
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
