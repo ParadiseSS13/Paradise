@@ -77,6 +77,22 @@
 	new /obj/structure/closet/statue(L.loc, L)
 	..()
 
+/obj/item/melee/touch_attack/plushify
+	name = "fabric touch"
+	desc = "The power to sew your foes into a doom cut from the fabric of fate."
+	catchphrase = "MAHR-XET 'ABL"
+	on_use_sound = 'sound/magic/smoke.ogg'
+	icon_state = "disintegrate"
+	item_state = "disintegrate"
+	color = COLOR_PURPLE
+
+/obj/item/melee/touch_attack/plushify/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
+		return
+	var/mob/living/L = target
+	L.plushify()
+	..()
+
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."

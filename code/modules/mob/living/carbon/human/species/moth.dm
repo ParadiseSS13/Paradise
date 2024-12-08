@@ -59,6 +59,9 @@
 		"is ripping their wings off!",
 		"is holding their breath!"
 	)
+
+	plushie_type = /obj/item/toy/plushie/nianplushie
+
 /datum/species/moth/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the nian race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/nian/r_moth.dmi' //Default nian.
