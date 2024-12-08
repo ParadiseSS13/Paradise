@@ -33,6 +33,8 @@
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 
+	new_attack_chain = TRUE
+
 /obj/machinery/Initialize(mapload)
 	. = ..()
 	GLOB.machines += src
@@ -354,43 +356,43 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(exchange_parts(user, used))
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(O, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = O
+	if(istype(used, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = used
 		if(stat & BROKEN)
 			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(being_repaired)
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(N.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
-		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		to_chat(user, "<span class='notice'>You start applying [used] to [src].</span>")
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(!N.use(1))
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		obj_integrity = min(obj_integrity + 50, max_integrity)
-		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
-	else
-		return ..()
+		user.visible_message("<span class='notice'>[user] applied some [used] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [used] at [src]'s damaged areas.</span>")
+
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
