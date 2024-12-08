@@ -1062,7 +1062,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
-	remove_overlay(UNDER_SUIT_LAYER)
+	remove_overlay(SPECIAL_NECK_LAYER)
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_NECK)]
@@ -1081,9 +1081,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			new_neck = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
 		var/obj/item/clothing/neck/tie/N = neck
 		if(istype(N) && N.under_suit)
-			new_neck.layer = -UNDER_SUIT_LAYER
-			overlays_standing[UNDER_SUIT_LAYER] = new_neck
-			apply_overlay(UNDER_SUIT_LAYER)
+			new_neck.layer = -SPECIAL_NECK_LAYER
+			overlays_standing[SPECIAL_NECK_LAYER] = new_neck
+			apply_overlay(SPECIAL_NECK_LAYER)
 		else
 			overlays_standing[NECK_LAYER] = new_neck
 			apply_overlay(NECK_LAYER)
