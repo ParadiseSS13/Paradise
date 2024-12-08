@@ -454,7 +454,7 @@
 /obj/item/projectile/bullet/sniper/penetrator/hallucination
 	damage_type = STAMINA
 	knockdown = 2
-	invisibility = 100 // You no see boolet
+	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
 	/// The hallucinator
 	var/mob/living/carbon/hallucinator = null
 	/// Handles only the victim seeing it
