@@ -433,6 +433,8 @@
 	// Fire the bullet
 	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
 	bullet.hallucinator = target
+	bullet.def_zone = HEAD
+	bullet.suppressed = TRUE
 
 	// Turn right away
 	var/matrix/M = new
