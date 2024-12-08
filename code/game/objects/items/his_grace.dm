@@ -30,6 +30,8 @@
 	var/victims = 0
 	var/victims_needed = 25
 
+	new_attack_chain = TRUE
+
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
@@ -61,15 +63,19 @@
 	else
 		. += "single_latch"
 
-/obj/item/his_grace/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/his_grace/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!awakened)
 		INVOKE_ASYNC(src, PROC_REF(awaken), user)
 
-/obj/item/his_grace/attack__legacy__attackchain(mob/living/M, mob/user)
-	if(awakened && M.stat)
-		consume(M)
+/obj/item/his_grace/attack(mob/living/target, mob/living/user, params)
+	if(awakened && target.stat)
+		consume(target)
+		return FINISH_ATTACK
 	else
-		..()
+		return ..()
 
 /obj/item/his_grace/can_be_pulled(user, grab_state, force, show_message = FALSE) //you can't pull his grace
 	return FALSE
