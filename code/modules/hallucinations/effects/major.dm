@@ -433,11 +433,25 @@
 	// Fire the bullet
 	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
 	bullet.hallucinator = target
-	bullet.fire(round(get_angle(src, target)))
+
+	// Turn right away
+	var/matrix/M = new
+	var/angle = round(get_angle(shot_loc, target))
+	M.Turn(angle)
+	bullet.transform = M
+
+	// Handle who can see the bullet
 	if(target.client)
 		bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
+		bullet.bullet_image.transform = M
 		target.client.images.Add(bullet.bullet_image)
+
+	// Start flying
+	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, angle, SSprojectiles.global_pixel_speed)
+	bullet.last_projectile_move = world.time
+	bullet.has_been_fired = TRUE
 	target.playsound_local(target.loc, 'sound/weapons/gunshots/gunshot_sniper.ogg', 50)
+	START_PROCESSING(SSprojectiles, bullet)
 
 /obj/effect/hallucination/sniper_bloodsplatter
 	duration = 15 SECONDS
@@ -453,7 +467,7 @@
 
 /obj/item/projectile/bullet/sniper/penetrator/hallucination
 	damage_type = STAMINA
-	knockdown = 2
+	knockdown = 2 SECONDS
 	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
 	/// The hallucinator
 	var/mob/living/carbon/hallucinator = null
