@@ -50,18 +50,6 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby__legacy__attackchain(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/light/bulb)) //only for light tiles
-		if(!light_broken)
-			qdel(C)
-			light_broken = FALSE
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	else
-		return ..()
-
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!can_modify_colour)
