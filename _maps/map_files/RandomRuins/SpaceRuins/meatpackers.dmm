@@ -1964,7 +1964,7 @@
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)

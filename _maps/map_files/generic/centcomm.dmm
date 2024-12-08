@@ -4117,7 +4117,7 @@
 /area/shuttle/administration)
 "nI" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -2;
 	pixel_y = 5
 	},
@@ -4241,7 +4241,7 @@
 /area/admin)
 "ob" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},

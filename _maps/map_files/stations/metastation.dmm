@@ -24433,7 +24433,7 @@
 /area/station/command/teleporter)
 "bPB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/ale,
+/obj/item/reagent_containers/drinks/bottle/ale,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bPE" = (
@@ -63165,7 +63165,7 @@
 /area/station/public/construction)
 "nfj" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	desc = "Takes you to a whole new level of thinking.";
 	name = "Meta-Cider"
 	},
@@ -78207,7 +78207,7 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/drinks/bottle/vodka,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
