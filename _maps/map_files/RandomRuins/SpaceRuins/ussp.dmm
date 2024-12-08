@@ -1380,11 +1380,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/window/reinforced,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1788,11 +1785,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 30
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
@@ -5621,11 +5615,8 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6141,11 +6132,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
