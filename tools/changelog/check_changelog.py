@@ -19,7 +19,7 @@ import json
 DISCORD_EMBED_DESCRIPTION_LIMIT = 4096
 
 CL_BODY = re.compile(r"(:cl:|🆑)[ \t]*(?P<author>.+?)?\s*\n(?P<content>(.|\n)*?)\n/(:cl:|🆑)", re.MULTILINE)
-CL_SPLIT = re.compile(r"\s*((?P<tag>\w+)\s*:)?\s*(?P<message>.*)")
+CL_SPLIT = re.compile(r"\s*(?:<!--.*-->)?((?P<tag>\w+)\s*:)?\s*(?P<message>.*)")
 
 DISCORD_TAG_EMOJI = {
     "soundadd": ":notes:",
@@ -95,7 +95,7 @@ def parse_changelog(message: str) -> dict:
         else:
             if len(cl_changes):
                 prev_change = cl_changes[-1]
-                prev_change["message"] += f" {change_parse_result['message']}"
+                prev_change["message"] += f" {message}"
             else:
                 raise Exception(f"Change with no tag: {cl_line}")
 
