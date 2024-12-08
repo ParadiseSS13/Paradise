@@ -64115,9 +64115,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "gdm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
@@ -78888,7 +78886,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Research Lobby";
+	c_tag = "Power Transmission Laser";
 	dir = 1;
 	network = list("Research","SS13")
 	},
