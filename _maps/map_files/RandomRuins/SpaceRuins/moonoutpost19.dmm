@@ -2501,7 +2501,7 @@
 "hV" = (
 /obj/structure/railing,
 /obj/structure/closet/secure_closet,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -11875,7 +11875,7 @@
 /obj/item/cigbutt{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WF" = (

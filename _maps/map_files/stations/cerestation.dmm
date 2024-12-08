@@ -28950,14 +28950,14 @@
 /area/station/hallway/primary/aft/west)
 "ekJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/nitrogen,
 /area/station/maintenance/abandonedbar)
@@ -47128,8 +47128,8 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_carp{
@@ -53532,8 +53532,8 @@
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/clothing/mask/cigarette/rollie,
 /obj/item/clothing/mask/cigarette/rollie,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/apmaint)
 "kGN" = (
@@ -100388,10 +100388,10 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
