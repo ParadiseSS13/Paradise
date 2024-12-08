@@ -2066,7 +2066,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
 
 /*
- * Invokes a hallucination on the mob. Hallucination must be a path.
+ * Invokes a hallucination on the mob. Hallucination must be a path or a string of a path
  */
 /mob/living/carbon/human/proc/invoke_hallucination(hallucination_to_make)
 	var/string_path = text2path(hallucination_to_make)
