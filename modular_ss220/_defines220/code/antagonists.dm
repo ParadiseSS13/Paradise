@@ -3,4 +3,5 @@
 
 #define VOX_RAID_FREQ 1220
 
+#define BIOHAZARD_TERROR_SPIDERS "Terrors"
 GLOBAL_LIST_EMPTY(raider_spawn)

@@ -5,3 +5,4 @@
 #include "code/infestation_extended.dm"
 #include "code/christmas.dm"
 #include "code/spider_terror.dm"
+#include "code/SSticker.dm"
