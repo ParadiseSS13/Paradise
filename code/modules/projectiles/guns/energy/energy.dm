@@ -119,7 +119,7 @@
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 //////////////////////////////
 // MARK: ENERGY REVOLVER

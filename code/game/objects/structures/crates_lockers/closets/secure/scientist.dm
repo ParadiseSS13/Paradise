@@ -52,7 +52,7 @@
 	new /obj/item/radio/headset/heads/rd(src)
 	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/suit/armor/reactive/random(src)
+	new /obj/effect/spawner/reactive_armor(src)
 	new /obj/item/flash(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
