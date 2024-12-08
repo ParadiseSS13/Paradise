@@ -31,7 +31,6 @@
 /datum/hallucination_manager/Destroy(force, ...)
 	. = ..()
 	owner = null
-	deltimer(trigger_timer)
 	QDEL_NULL(hallucination_list)
 	QDEL_NULL(images)
 
