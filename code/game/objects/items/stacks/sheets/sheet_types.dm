@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
-		new /datum/stack_recipe("white scarf", /obj/item/clothing/accessory/scarf/white, 1),
+		new /datum/stack_recipe("white scarf", /obj/item/clothing/neck/scarf/white, 1),
 		new /datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
 		new /datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2),
 		null,
