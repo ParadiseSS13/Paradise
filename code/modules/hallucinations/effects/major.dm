@@ -408,3 +408,78 @@
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alien.dmi'
 		images[1].icon_state = "alienh_pounce"
+
+/**
+  * # Hallucination - Sniper
+  *
+  * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
+  */
+/obj/effect/hallucination/sniper
+	duration = 15 SECONDS
+
+/obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	// Find a start spot for the sniper bullet
+	var/list/possible_turfs = list()
+	for(var/turf/t in RANGE_TURFS(13, target.loc))
+		possible_turfs += t
+	if(!length(possible_turfs))
+		return
+	var/turf/shot_loc = get_turf(pick(possible_turfs))
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/hallucination/sniper, fire_bullet), shot_loc, target)
+
+/obj/effect/hallucination/sniper/proc/fire_bullet(turf/shot_loc, mob/living/carbon/target)
+	// Fire the bullet
+	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
+	bullet.hallucinator = target
+	bullet.def_zone = BODY_ZONE_HEAD
+	bullet.suppressed = TRUE
+
+	// Turn right away
+	var/matrix/M = new
+	var/angle = round(get_angle(shot_loc, target))
+	M.Turn(angle)
+	bullet.transform = M
+
+	// Handle who can see the bullet
+	if(target.client)
+		bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
+		bullet.bullet_image.transform = M
+		target.client.images.Add(bullet.bullet_image)
+
+	// Start flying
+	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, angle, SSprojectiles.global_pixel_speed)
+	bullet.last_projectile_move = world.time
+	bullet.has_been_fired = TRUE
+	target.playsound_local(target.loc, 'sound/weapons/gunshots/gunshot_sniper.ogg', 50)
+	START_PROCESSING(SSprojectiles, bullet)
+
+/obj/effect/hallucination/sniper_bloodsplatter
+	duration = 15 SECONDS
+	hallucination_icon = 'icons/effects/blood.dmi'
+	hallucination_icon_state = "mfloor1"
+	plane = FLOOR_PLANE
+	color = "#A10808"
+
+/obj/effect/hallucination/sniper_bloodsplatter/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
+	color = target.blood_color
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination
+	damage_type = STAMINA
+	knockdown = 2 SECONDS
+	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
+	/// The hallucinator
+	var/mob/living/carbon/hallucinator = null
+	/// Handles only the victim seeing it
+	var/image/bullet_image = null
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
+	if(!isliving(target))
+		return
+	if(target != hallucinator)
+		return
+	. = ..()
+	new /obj/effect/hallucination/sniper_bloodsplatter(src.loc, target)
