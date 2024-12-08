@@ -15,6 +15,16 @@
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/food/meat/mouse = 2)
 
+/mob/living/simple_animal/mouse/rat/update_desc()
+	. = ..()
+	switch(mouse_color)
+		if("white")
+			desc = /mob/living/simple_animal/mouse/rat/white::desc
+		if("irish")
+			desc = /mob/living/simple_animal/mouse/rat/irish::desc
+		else
+			desc = /mob/living/simple_animal/mouse/rat::desc
+
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
 	real_name = "white rat"

@@ -10,14 +10,13 @@
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
-
-/mob/living/simple_animal/mouse/New()
-	..()
+	
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
 	mouse_color = initial(mouse_color) // сбрасываем из-за наследования чтобы своим проком переписать
 	color_pick()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
@@ -26,15 +25,6 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	update_appearance(UPDATE_DESC)
-
-/mob/living/simple_animal/mouse/proc/reinitial()
-	desc = initial(desc)
-	mouse_color = initial(mouse_color)
-	icon_state = initial(icon_state)
-	icon_living = initial(icon_living)
-	icon_dead = initial(icon_dead)
-	icon_resting = initial(icon_resting)
 
 /mob/living/simple_animal/mouse/splat(obj/item/item = null, mob/living/user = null)
 	if(non_standard)

@@ -39,24 +39,29 @@
 #define MAX_HAMSTER 20
 GLOBAL_VAR_INIT(hamster_count, 0)
 
-/mob/living/simple_animal/mouse/hamster/color_pick()
-	reinitial()
-	return
-
-/mob/living/simple_animal/mouse/hamster/New()
-	gender = prob(80) ? MALE : FEMALE
-	desc += MALE ? " Самец!" : " Самочка! Ох... Нет... "
-	GLOB.hamster_count++
+/mob/living/simple_animal/mouse/hamster/Initialize(mapload)
 	. = ..()
+	gender = prob(80) ? MALE : FEMALE
+
+	icon_state = initial(icon_state)
+	icon_living = initial(icon_living)
+	icon_dead = initial(icon_dead)
+	icon_resting = initial(icon_resting)
+
+	update_appearance(UPDATE_ICON_STATE, UPDATE_DESC)
+	GLOB.hamster_count++
 
 /mob/living/simple_animal/mouse/hamster/Destroy()
 	GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/death(gibbed)
-	if(!gibbed)
-		GLOB.hamster_count--
+/mob/living/simple_animal/mouse/hamster/color_pick()
+	return
+
+/mob/living/simple_animal/mouse/hamster/update_desc()
 	. = ..()
+	desc = initial(desc)
+	desc += MALE ? " Самец!" : " Самочка! Ох... Нет... "
 
 /mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
 	return TRUE

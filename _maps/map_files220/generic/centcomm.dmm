@@ -19668,10 +19668,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "lCD" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Секретная разработка синдиката. Сидит тут потому, что сам хочет";
-	name = "Мышедемон"
-	},
+/mob/living/simple_animal/mouse/brown/demon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
