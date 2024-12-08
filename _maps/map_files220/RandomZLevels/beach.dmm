@@ -227,10 +227,7 @@
 	pixel_y = 13;
 	pixel_x = 3
 	},
-/obj/item/paper_bin/carbon{
-	pixel_y = 4;
-	pixel_x = -6
-	},
+/obj/item/paper_bin,
 /obj/item/pen{
 	pixel_x = 9;
 	pixel_y = 3
@@ -3576,10 +3573,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/paper_bin/carbon{
-	pixel_y = 6;
-	pixel_x = 4
-	},
+/obj/item/paper_bin,
 /obj/item/reagent_containers/drinks/cans/grape_juice{
 	pixel_x = -8;
 	pixel_y = 9
@@ -3845,9 +3839,7 @@
 /area/awaymission/beach)
 "XU" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/paper_bin/carbon{
-	pixel_y = 8
-	},
+/obj/item/paper_bin,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "XW" = (

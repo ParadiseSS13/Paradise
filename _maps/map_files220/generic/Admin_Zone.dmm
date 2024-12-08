@@ -13461,10 +13461,7 @@
 /obj/item/pen/blue{
 	pixel_x = -8
 	},
-/obj/item/paper_bin/carbon{
-	pixel_x = 4;
-	pixel_y = 4
-	},
+/obj/item/paper_bin,
 /turf/simulated/floor/wood/oak,
 /area/ghost_bar/indoor)
 "Uh" = (
@@ -14095,9 +14092,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
 "Wn" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
