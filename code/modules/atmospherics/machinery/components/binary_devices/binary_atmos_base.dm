@@ -15,6 +15,8 @@
 	var/datum/pipeline/parent1
 	var/datum/pipeline/parent2
 
+	new_attack_chain = TRUE
+
 /obj/machinery/atmospherics/binary/New()
 	..()
 	switch(dir)
