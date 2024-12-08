@@ -2796,10 +2796,11 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
+/obj/item/toy/russian_revolver,
+/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
-/obj/item/toy/figure/crew/captain,
-/obj/item/gun/projectile/revolver/russian,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/toy/figure/crew/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
@@ -18905,6 +18906,12 @@
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
+"czu" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/fore)
 "czG" = (
 /obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
@@ -39097,6 +39104,17 @@
 	icon_state = "floorgrime"
 	},
 /area/station/security/permabrig)
+"hhl" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/toy/russian_revolver,
+/obj/effect/landmark/spawner/rev,
+/turf/simulated/floor/wood,
+/area/station/maintenance/gambling_den)
 "hhs" = (
 /obj/structure/fence{
 	dir = 4
@@ -50975,6 +50993,12 @@
 	icon_state = "vault"
 	},
 /area/station/command/vault)
+"jZe" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/fore/north)
 "jZl" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -51149,12 +51173,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
-"kaP" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/fore/north)
 "kbd" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -53767,9 +53785,6 @@
 "kKk" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
@@ -56666,12 +56681,6 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
-"lwF" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/fore/north)
 "lwM" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment,
@@ -63831,6 +63840,15 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
+"nnP" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/fore/north)
 "nnU" = (
 /obj/machinery/light/small,
 /obj/structure/table,
@@ -69564,12 +69582,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
-"oPy" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/fore)
 "oPG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82828,15 +82840,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/east)
-"sls" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/gun/projectile/revolver/russian,
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/wood,
-/area/station/maintenance/gambling_den)
 "slw" = (
 /obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/riot{
@@ -130251,7 +130254,7 @@ dgP
 dgP
 dgP
 jyM
-sls
+hhl
 nmx
 eMb
 hUU
@@ -140457,7 +140460,7 @@ kpu
 kpu
 kpu
 iwG
-kaP
+jZe
 cgt
 wCG
 ecz
@@ -140712,11 +140715,11 @@ nhG
 aKp
 cSj
 jZE
-lwF
+kKk
 nAG
 lhg
 ksP
-kKk
+nnP
 ddm
 cHz
 cHz
@@ -142513,7 +142516,7 @@ uIx
 wSy
 uIx
 aWI
-kaP
+jZe
 gYL
 ezU
 xZI
@@ -145066,7 +145069,7 @@ pls
 pls
 cpQ
 vpg
-oPy
+czu
 gKc
 eUJ
 gKc
