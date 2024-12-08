@@ -102,18 +102,18 @@
 /obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/biogenerator/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/biogenerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
 		return
 
-	if(istype(O, /obj/item/reagent_containers/glass))
+	if(istype(used, /obj/item/reagent_containers/glass))
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 			return
@@ -125,19 +125,19 @@
 		if(!user.drop_item())
 			return
 
-		O.forceMove(src)
-		container = O
+		used.forceMove(src)
+		container = used
 		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return TRUE
 
-	if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(used, /obj/item/storage/bag/plants))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
 
-		var/obj/item/storage/bag/plants/PB = O
+		var/obj/item/storage/bag/plants/PB = used
 		for(var/obj/item/P in PB.contents)
 			// No need to filter here, because plant bags should have the same list of acceptable items we do.
 			if(length(stored_plants) >= max_storable_plants)
@@ -153,27 +153,27 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	if(is_type_in_typecache(O, acceptable_items))
+	if(is_type_in_typecache(used, acceptable_items))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
-		if(!user.unEquip(O))
+		if(!user.unEquip(used))
 			return
 
-		O.forceMove(src)
-		stored_plants += O
-		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
+		used.forceMove(src)
+		stored_plants += used
+		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
 		SStgui.update_uis(src)
 		return TRUE
 
-	if(istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] begins to load [O] in [src]...",
-			"You begin to load a design from [O]...",
+	if(istype(used, /obj/item/disk/design_disk))
+		user.visible_message("[user] begins to load [used] in [src]...",
+			"You begin to load a design from [used]...",
 			"You hear the chatter of a floppy drive.")
 		processing = TRUE
 		SStgui.update_uis(src)
 
-		var/obj/item/disk/design_disk/D = O
+		var/obj/item/disk/design_disk/D = used
 		if(do_after(user, 1 SECONDS, target = src))
 			files.AddDesign2Known(D.blueprint)
 
