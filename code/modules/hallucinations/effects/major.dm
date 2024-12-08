@@ -423,7 +423,7 @@
 	// Find a start spot for the sniper bullet
 	var/list/possible_turfs = list()
 	for(var/turf/t in range(world.view + 5, target))
-		if (get_dist(t, target.loc) > world.view)
+		if(get_dist(t, target.loc) > world.view)
 			possible_turfs += t
 	if(!length(possible_turfs))
 		return
