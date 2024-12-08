@@ -3,6 +3,7 @@
 	desc = "This spell needs a description!"
 	human_req = TRUE
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	/// A reference to the owner mindflayer's antag datum.
 	var/datum/antagonist/mindflayer/flayer
 

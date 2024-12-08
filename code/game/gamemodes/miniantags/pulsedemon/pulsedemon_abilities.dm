@@ -11,6 +11,7 @@
 /datum/spell/pulse_demon
 	school = "pulse demon"
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_background_icon_state = "bg_pulsedemon"
 	var/locked = TRUE
 	var/unlock_cost = 1 KJ
