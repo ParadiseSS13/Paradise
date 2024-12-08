@@ -276,5 +276,6 @@
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
-	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
+	desc = "A robust multi-frequency radio set designed for integration into robots and cyborgs. The built-in transceivers are able to function without the aid of a telecommunications hub \
+		 and resist interference from ion storms, although in both cases there will be some latency in transmission."
 	icon_state = "radio"
