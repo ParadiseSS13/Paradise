@@ -49836,7 +49836,7 @@
 /area/station/maintenance/starboard)
 "cZc" = (
 /obj/structure/rack,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -60115,7 +60115,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/syringe/epinephrine,
 /obj/item/reagent_containers/syringe,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -72705,13 +72705,13 @@
 /area/station/science/research)
 "lwY" = (
 /obj/structure/table/glass,
-/obj/item/clothing/neck/stethoscope{
+/obj/item/clothing/accessory/stethoscope{
 	pixel_y = 6
 	},
-/obj/item/clothing/neck/stethoscope{
+/obj/item/clothing/accessory/stethoscope{
 	pixel_y = 3
 	},
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -88446,7 +88446,7 @@
 "uud" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "uuh" = (
