@@ -23415,9 +23415,9 @@
 "eHd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
-	c_tag = "AI Satellite Exterior West";
 	dir = 8;
-	network = list("SS13","MiniSat")
+	network = list("SS13","MiniSat");
+	c_tag = "Power Transmission Laser"
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
