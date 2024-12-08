@@ -375,6 +375,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
+/obj/item/toy/snappop/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
@@ -391,10 +398,10 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/Crossed(H as mob|obj, oldloc)
-	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
-		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
+/obj/item/toy/snappop/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ishuman(entered) || issilicon(entered)) //i guess carp and shit shouldn't set them off
+		var/mob/living/carbon/M = entered
+		if(issilicon(entered) || M.m_intent == MOVE_INTENT_RUN)
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
 

@@ -25,6 +25,10 @@
 	var/spawn_mob_options = list(/mob/living/simple_animal/crab)	// The nest picks one mob type of this list and spawns them
 	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
+/obj/structure/nest/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
@@ -35,12 +39,12 @@
 		return
 	..()
 
-/obj/structure/nest/Crossed(atom/movable/AM)
+/obj/structure/nest/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(spawn_is_triggered)
 		return
-	if(!isliving(AM))
+	if(!isliving(crossed))
 		return
-	var/mob/living/L = AM
+	var/mob/living/L = crossed
 	if(!L.mind)
 		return
 

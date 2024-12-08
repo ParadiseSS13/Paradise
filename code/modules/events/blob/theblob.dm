@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return FALSE
 	return ..()
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blob/CanPass(atom/movable/mover, border_dir)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(direction)
@@ -201,9 +201,12 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			color = incoming_overmind.blob_reagent_datum.color
 			return
 
-/obj/structure/blob/Crossed(mob/living/L, oldloc)
-	..()
-	L.blob_act(src)
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/structure/blob/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	crossed.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
 	take_damage(power * 0.0025, BURN, ENERGY)

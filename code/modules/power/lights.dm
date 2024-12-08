@@ -999,15 +999,16 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
-/obj/item/light/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
+/obj/item/light/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	var/mob/living/living_crossed = crossed
+	if(istype(living_crossed) && has_gravity(loc))
+		if(living_crossed.incorporeal_move || HAS_TRAIT(living_crossed, TRAIT_FLYING) || living_crossed.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
-	return ..()
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

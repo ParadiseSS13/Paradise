@@ -3,11 +3,16 @@
 	var/energy_cost
 	var/delay_between_shocks
 	var/requires_cable
+	///given to connect_loc to listen for something moving over target
+	var/static/list/crossed_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(do_shock),
+	)
+
 	COOLDOWN_DECLARE(last_shock)
 
 /datum/component/cross_shock/Initialize(_shock_damage, _energy_cost, _delay_between_shocks, _requires_cable = TRUE)
 	if(ismovable(parent))
-		RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(do_shock))
+		AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
 		if(ismob(parent))
 			RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removal))
 	else if(isarea(parent))
@@ -22,11 +27,12 @@
 	delay_between_shocks = _delay_between_shocks
 	requires_cable = _requires_cable
 
-/datum/component/cross_shock/proc/do_shock(datum/source, mob/living/thing_were_gonna_shock)
+/datum/component/cross_shock/proc/do_shock(atom/source, atom/movable/to_shock, turf/old_loc)
 	SIGNAL_HANDLER
 	if(!COOLDOWN_FINISHED(src, last_shock))
 		return
-	if(!istype(thing_were_gonna_shock))
+	var/mob/living/living_to_shock = to_shock
+	if(!istype(living_to_shock))
 		return
 	if(isliving(parent))
 		var/mob/living/M = parent
@@ -40,11 +46,11 @@
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.available_power)
 			return
 		var/area/to_deduct_from = get_area(our_cable)
-		thing_were_gonna_shock.electrocute_act(shock_damage, source)
+		living_to_shock.electrocute_act(shock_damage, source)
 		to_deduct_from.powernet.use_active_power(energy_cost)
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	else
-		thing_were_gonna_shock.electrocute_act(shock_damage, source)
+		living_to_shock.electrocute_act(shock_damage, source)
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	COOLDOWN_START(src, last_shock, delay_between_shocks)
 

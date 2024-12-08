@@ -45,6 +45,11 @@
 	if(!. && !QDELETED(src))
 		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
@@ -138,12 +143,7 @@
 	return FALSE
 
 
-/obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
-	// this is to prevent double or triple bumps from calling splat after src is qdel'd.
-	// only god knows why this fixes the issue
-	if(yes)
-		return
-
+/obj/effect/decal/cleanable/blood/Bump(atom/A)
 	if(gravity_check)
 		return ..()
 

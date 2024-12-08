@@ -138,6 +138,10 @@
 /obj/item/projectile/New()
 	return ..()
 
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -262,10 +266,7 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return
-
+/obj/item/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
@@ -432,10 +433,10 @@
 	xo = new_x - curloc.x
 	set_angle(get_angle(curloc, original))
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+/// A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isliving(crossed) && crossed.density && !checkpass(PASSMOB))
+		Bump(crossed, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)
