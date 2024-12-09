@@ -73,18 +73,21 @@
 	QDEL_NULL(shackles)
 	return ..()
 
-/obj/item/clothing/shoes/orange/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/orange/activate_self(mob/user)
+	if(..())
+		return
+
 	if(shackles)
 		user.put_in_hands(shackles)
 		shackles = null
 		slowdown = SHOES_SLOWDOWN
 		icon_state = "orange"
 
-/obj/item/clothing/shoes/orange/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs) && !shackles)
+/obj/item/clothing/shoes/orange/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/restraints/handcuffs) && !shackles)
 		if(user.drop_item())
-			I.forceMove(src)
-			shackles = I
+			used.forceMove(src)
+			shackles = used
 			slowdown = 15
 			icon_state = "orange1"
 			return
