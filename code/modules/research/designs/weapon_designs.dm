@@ -409,4 +409,4 @@
 	construction_time = 6 SECONDS
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/organ/internal/cyberimp/arm/NT_mantis
-	category = ("Medical", "Weapons")
+	category = list("Medical", "Weapons")
