@@ -851,6 +851,7 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	new_attack_chain = TRUE
 	var/double_attack = TRUE
 	var/double_attack_cd = (3 / 2) // so every second attack
 	sharp = TRUE
@@ -865,27 +866,24 @@
 		transform = null
 
 // make double attack if blades in both hands and not on CD
-/obj/item/melee/mantis/blade/pre_attack(atom/target, mob/living/user, params)
-	. = ..()
-
-	if(istype(target, /turf))
-		return // runtimes if turf is clicked ( proc name: initiate surgery moment and  proc name: attack core (/obj/item/proc/__attack_core))
-
-	var/obj/item/melee/mantis/firstsword = user.get_active_hand()
-	var/obj/item/melee/mantis/secondsword = user.get_inactive_hand()
-	if(!istype(firstsword, secondsword))
+/obj/item/melee/mantis/blade/attack(mob/living/target, mob/living/user, params, second_attack = FALSE)
+	var/obj/item/melee/mantis/firstsblade = user.get_active_hand()
+	var/obj/item/melee/mantis/secondblade = user.get_inactive_hand()
+	if(!istype(firstsblade, secondblade) || !double_attack)
 		return ..()
 
-	if(!double_attack)
+	if(second_attack) // if attack from second blade to prevent switching your attacking hand
+		double_attack = FALSE
+		addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
 		return ..()
 
 	double_attack = FALSE
-	user.changeNext_move(CLICK_CD_MELEE)
-	firstsword.attack(target, user)
+	firstsblade.attack(target, user, params, FALSE)
 	sleep(2) // not instant second attack
-	secondsword.attack(target, user)
-	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-	return COMPONENT_SKIP_ATTACK
+	secondblade.attack(target, user, params, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
+	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
+	return FINISH_ATTACK
 
 /obj/item/melee/mantis/blade/proc/reset_double_attack()
 	double_attack = TRUE
