@@ -190,47 +190,47 @@
 	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
-/obj/machinery/dna_scannernew/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+/obj/machinery/dna_scannernew/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-			return
+			to_chat(user, "<span class='warning'>\The [used] is stuck to you!</span>")
+			return ITEM_INTERACT_BLOCKING
 
-		beaker = I
+		beaker = used
 		SStgui.update_uis(src)
-		I.forceMove(src)
-		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
-		return
+		used.forceMove(src)
+		user.visible_message("[user] adds \a [used] to \the [src]!", "You add \a [used] to \the [src]!")
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(!ismob(G.affecting))
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(G.affecting.abiotic())
 			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_BLOCKING
 
 		put_in(G.affecting)
 		add_fingerprint(user)
 		qdel(G)
-		return
+		return ITEM_INTERACT_SUCCESS
 
 	return ..()
 

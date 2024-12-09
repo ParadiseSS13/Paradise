@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	else
 		icon_state = "access_button_off"
 
-/obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/access_button/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Swiping ID on the access button
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		attack_hand(user)
