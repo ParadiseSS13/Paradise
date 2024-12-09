@@ -859,7 +859,7 @@
 
 /obj/item/melee/mantis/blade/equipped(mob/user, slot, initial)
 	. = ..()
-	if (slot == ITEM_SLOT_LEFT_HAND)
+	if(slot == ITEM_SLOT_LEFT_HAND)
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 	else
 		transform = null
@@ -876,7 +876,7 @@
 	if(!istype(firstsword, secondsword))
 		return ..()
 
-	if (!double_attack)
+	if(!double_attack)
 		return ..()
 
 	double_attack = FALSE
