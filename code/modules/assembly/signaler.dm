@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	activate()
 
-/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(issignaler(W))
 		var/obj/item/assembly/signaler/signaler2 = W
 		if(secured && signaler2.secured)
@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // UI STUFF //
 
-/obj/item/assembly/signaler/attack_self(mob/user)
+/obj/item/assembly/signaler/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

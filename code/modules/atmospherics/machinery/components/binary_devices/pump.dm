@@ -157,7 +157,7 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/binary/pump/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W)
 		return TRUE

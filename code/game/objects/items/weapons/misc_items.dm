@@ -71,7 +71,7 @@
 	icon_state = "crutches0"
 	return ..()
 
-/obj/item/crutches/attackby(obj/item/I, mob/user, params)
+/obj/item/crutches/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!is_open)
 		return
@@ -160,7 +160,7 @@
 	..()
 	icon_state = "1"
 
-/obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+/obj/item/lightning/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	var/angle = get_angle(A, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
@@ -204,7 +204,7 @@
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
 
-/obj/item/phone/attack_self(mob/user)
+/obj/item/phone/attack_self__legacy__attackchain(mob/user)
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time

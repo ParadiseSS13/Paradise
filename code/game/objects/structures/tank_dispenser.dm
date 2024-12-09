@@ -95,7 +95,7 @@
 	add_fingerprint(usr)
 	return TRUE
 
-/obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
+/obj/structure/dispenser/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
 		try_insert_tank(user, stored_oxygen_tanks, I)
 		return

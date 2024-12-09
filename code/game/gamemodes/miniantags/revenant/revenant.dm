@@ -228,7 +228,7 @@
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/revenant/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
 						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")

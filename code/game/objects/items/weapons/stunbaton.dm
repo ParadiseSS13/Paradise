@@ -121,7 +121,7 @@
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
-/obj/item/melee/baton/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = I
 		if(cell)
@@ -151,7 +151,7 @@
 	turned_on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/attack_self(mob/user)
+/obj/item/melee/baton/attack_self__legacy__attackchain(mob/user)
 	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
 		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
@@ -171,7 +171,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/attack(mob/M, mob/living/user)
+/obj/item/melee/baton/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
@@ -361,13 +361,13 @@
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
 
-/obj/item/melee/baton/flayerprod/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/flayerprod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
 /obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/melee/baton/flayerprod/attack_self(mob/user)
+/obj/item/melee/baton/flayerprod/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/melee/baton/flayerprod/play_hit_sound()

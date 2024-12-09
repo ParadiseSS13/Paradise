@@ -17,7 +17,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
+/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
 	return
 
 /obj/item/trash/raisins
@@ -130,6 +130,11 @@
 	name = "used popsicle stick"
 	icon_state = "popsicle_stick_s"
 	desc = "Still tastes sweet."
+
+/obj/item/trash/caviar
+	name = "caviar can"
+	icon_state = "caviar-empty"
+	desc = "There's none left."
 
 // Ammo casings
 /obj/item/trash/spentcasing
