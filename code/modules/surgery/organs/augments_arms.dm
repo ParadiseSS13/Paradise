@@ -878,12 +878,18 @@
 		return ..()
 
 	double_attack = FALSE
+	double_attack(target, user, params, firstsblade, secondblade)
+	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
+	return FINISH_ATTACK
+
+/obj/item/melee/mantis/blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis/firstsblade, obj/item/melee/mantis/secondblade)
+	if(QDELETED(secondblade) || QDELETED(src))
+		return
+
 	firstsblade.attack(target, user, params, FALSE)
 	sleep(2) // not instant second attack
 	secondblade.attack(target, user, params, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
-	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
-	return FINISH_ATTACK
 
 /obj/item/melee/mantis/blade/proc/reset_double_attack()
 	double_attack = TRUE
