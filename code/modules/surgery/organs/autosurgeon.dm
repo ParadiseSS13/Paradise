@@ -152,4 +152,10 @@
 /obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart
 	starting_organ = /obj/item/organ/internal/heart/cybernetic/upgraded/hardened
 
+/obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
+
 #undef INFINITE

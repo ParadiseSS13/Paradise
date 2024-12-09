@@ -948,6 +948,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
 	cost = 10
 
+/datum/uplink_item/cyber_implants/mantis_kit
+	name = "G.O.R.L.E.X.. Mantis Blades Kit"
+	desc = "Comes with 2 G.O.R.L.E.X. Mantis blades. All packaged with autosurgeons."
+	reference = "MBK"
+	item = /obj/item/storage/box/syndie_kit/syndie_mantis
+	cost = 60
 
 ////////////////////////////////////////
 // MARK: POINTLESS BADASSERY

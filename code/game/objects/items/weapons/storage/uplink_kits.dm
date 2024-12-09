@@ -577,3 +577,12 @@
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/syndie_mantis
+	name = "\improper Mantis Blades kit"
+	desc = "A box labeled with the letters G.O.R.L.E.X."
+
+/obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l(src)
+

@@ -617,6 +617,14 @@
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/cyber_implants/mantis_kit
+	name = "G.O.R.L.E.X.. Mantis Blades Kit"
+	desc = "Comes with 2 G.O.R.L.E.X. Mantis blades. All packaged with autosurgeons."
+	item = /obj/item/storage/box/syndie_kit/syndie_mantis
+	cost = 80
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 ////////////////////////////////////////
 // MARK: BUNDLES
 ////////////////////////////////////////
