@@ -20,9 +20,9 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			possible_rulesets += ruleset.implied_ruleset
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
-/datum/game_mode/dynamic/proc/allocate_gamemode_budget()
-	var/gamemode_budget = text2num(pickweight(list("0" = 3, "1" = 8, "2" = 9, "3" = 3))) // more likely to be 1 or 2, than 3 or 0.
-	if(gamemode_budget <= 0)
+/datum/game_mode/dynamic/proc/allocate_ruleset_budget()
+	var/ruleset_budget = text2num(pickweight(list("0" = 3, "1" = 5, "2" = 12, "3" = 3))) // more likely to or 2
+	if(ruleset_budget <= 0)
 		return
 	var/list/possible_rulesets = list()
 	for(var/datum/ruleset/ruleset as anything in subtypesof(/datum/ruleset))
@@ -35,21 +35,21 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		if(!ispath(ruleset, /datum/ruleset))
 			stack_trace("Non-ruleset in GLOB.dynamic_forced_rulesets: \"[ruleset]\" ([ruleset?.type])")
 			continue
-		gamemode_budget -= pick_ruleset(new ruleset, gamemode_budget, ignore_budget = TRUE)
+		ruleset_budget -= pick_ruleset(new ruleset, ruleset_budget, ignore_budget = TRUE)
 
-	while(gamemode_budget >= 0)
+	while(ruleset_budget >= 0)
 		var/datum/ruleset/ruleset = pickweight(possible_rulesets)
 		if(!ruleset)
 			return
-		gamemode_budget -= pick_ruleset(ruleset, gamemode_budget)
+		ruleset_budget -= pick_ruleset(ruleset, ruleset_budget)
 		possible_rulesets -= ruleset
 
-/datum/game_mode/dynamic/proc/pick_ruleset(datum/ruleset/ruleset, gamemode_budget, ignore_budget)
+/datum/game_mode/dynamic/proc/pick_ruleset(datum/ruleset/ruleset, ruleset_budget, ignore_budget)
 	if(!ruleset)
 		return
 	if(!ruleset.ruleset_possible())
 		return
-	if(!ignore_budget && (gamemode_budget < ruleset.ruleset_cost))
+	if(!ignore_budget && (ruleset_budget < ruleset.ruleset_cost))
 		return
 
 	rulesets[ruleset] = ruleset.weight
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		budget -= ruleset.cost
 
 /datum/game_mode/dynamic/pre_setup()
-	allocate_gamemode_budget()
+	allocate_ruleset_budget()
 	allocate_antagonist_budget()
 	var/budget_overflow = 0
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets)) // rulesets first, then implied rulesets

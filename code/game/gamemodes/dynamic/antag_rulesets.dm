@@ -79,7 +79,7 @@
 
 /datum/ruleset/traitor
 	name = "Traitor"
-	ruleset_weight = 13
+	ruleset_weight = 11
 	cost = 5
 	weight = 2
 	antagonist = /datum/antagonist/traitor
@@ -96,7 +96,7 @@
 
 /datum/ruleset/vampire
 	name = "Vampire"
-	ruleset_weight = 9
+	ruleset_weight = 12
 	cost = 10
 	antagonist = /datum/antagonist/vampire
 	mind_role = ROLE_VAMPIRE
