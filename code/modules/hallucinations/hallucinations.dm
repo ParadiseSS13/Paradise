@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/hallucination_icon_state
 	/// Hallucination override.
 	var/hallucination_override = FALSE
+	/// Hallucination color
+	var/hallucination_color
 	/// Hallucination layer.
 	var/hallucination_layer = MOB_LAYER
 	/// The mob that sees this hallucination.
@@ -63,6 +65,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	target = hallucination_target
 	if(hallucination_icon && hallucination_icon_state)
 		var/image/I = image(hallucination_icon, hallucination_override ? src : get_turf(src), hallucination_icon_state)
+		if(hallucination_color)
+			I.color = hallucination_color
 		I.override = hallucination_override
 		I.layer = hallucination_layer
 		add_icon(I)

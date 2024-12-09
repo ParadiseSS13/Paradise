@@ -459,13 +459,15 @@
 	duration = 15 SECONDS
 	hallucination_icon = 'icons/effects/blood.dmi'
 	hallucination_icon_state = "mfloor1"
-	plane = FLOOR_PLANE
-	color = "#A10808"
+	hallucination_color = "#A10808"
 
 /obj/effect/hallucination/sniper_bloodsplatter/Initialize(mapload, mob/living/carbon/target)
+	var/list/b_data = target.get_blood_data(target.get_blood_id())
+	if(b_data && !isnull(b_data["blood_color"]))
+		hallucination_color = b_data["blood_color"]
 	. = ..()
 	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
-	color = target.blood_color
+
 
 /obj/item/projectile/bullet/sniper/penetrator/hallucination
 	damage_type = STAMINA
