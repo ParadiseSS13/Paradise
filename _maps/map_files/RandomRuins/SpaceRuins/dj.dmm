@@ -815,10 +815,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
