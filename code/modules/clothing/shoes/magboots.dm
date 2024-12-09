@@ -263,31 +263,30 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/item/clothing/shoes/magboots/gravity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.unEquip(used))
 			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		used.forceMove(src)
+		cell = used
+		to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
 		update_icon()
-		return
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+	if(istype(used, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			to_chat(user, "<span class='notice'>[src] already has a [used]!</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
+		used.forceMove(src)
+		core = used
+		to_chat(user, "<span class='notice'>You insert [used] into [src], and [src] starts to warm up.</span>")
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
 	..()
