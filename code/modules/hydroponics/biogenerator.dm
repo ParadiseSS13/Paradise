@@ -102,7 +102,7 @@
 /obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/biogenerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/biogenerator/attackby__legacy__attackchain(obj/item/used, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
