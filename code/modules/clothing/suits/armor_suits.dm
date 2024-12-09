@@ -545,16 +545,7 @@
 /obj/item/clothing/suit/armor/reactive/cryo
 	name = "reactive gelidic armor" //is "gelidic" a word? probably not, but it sounds cool
 	desc = "This armor harnesses a cryogenic anomaly core to defend its user from the cold and attacks alike. Its unstable thermal regulation system occasionally vents gasses."
-
-/obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
-	..()
-	if(slot != ITEM_SLOT_OUTER_SUIT)
-		return
-	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
-
-/obj/item/clothing/suit/armor/reactive/cryo/dropped(mob/user, silent)
-	..()
-	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
+	clothing_traits = list(TRAIT_RESISTCOLD)
 
 /obj/item/clothing/suit/armor/reactive/cryo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
