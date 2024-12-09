@@ -918,7 +918,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis
 	name = "G.O.R.L.E.X. mantis blade implants"
-	desc = "Modernized mantis blades designed and coined by Tiger operatives. Energy actuators makes the blade a much deadlier weapon."
+	desc = "Modernized mantis blade designed and coined by Tiger operatives. Energy actuators makes the blade a much deadlier weapon."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
 	contents = newlist(/obj/item/melee/mantis/blade/syndicate)
 	icon_state = "syndie_mantis"
@@ -928,5 +928,20 @@
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l/Initialize(mapload)
+	. = ..()
+	transform = matrix(-1, 0, 0, 0, 1, 0)
+
+/obj/item/organ/internal/cyberimp/arm/NT_mantis
+	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
+	desc = "Mantis blade reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
+	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
+	contents = newlist(/obj/item/melee/mantis/blade/NT)
+	icon_state = "mantis"
+	icon = 'icons/obj/weapons/melee.dmi'
+
+/obj/item/organ/internal/cyberimp/arm/NT_mantis/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/NT_mantis/l/Initialize(mapload)
 	. = ..()
 	transform = matrix(-1, 0, 0, 0, 1, 0)

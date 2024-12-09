@@ -399,3 +399,14 @@
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics
 	category = list("Weapons")
+
+/datum/design/NT_mantis
+	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
+	desc = "Mantis blades reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
+	id = "mantis_blade_NT"
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
+	build_path = /obj/item/organ/internal/cyberimp/arm/NT_mantis
+	category = ("Medical", "Weapons")
