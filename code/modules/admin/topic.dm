@@ -71,7 +71,7 @@
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-					
+
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -1034,11 +1034,26 @@
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
+		if(GLOB.master_mode != "dynamic")
+			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		var/dat = {"<!DOCTYPE html><b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		for(var/mode in GLOB.configuration.gamemode.gamemodes)
 			dat += {"<A href='byond://?src=[UID()];f_secret2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='byond://?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
+		usr << browse(dat, "window=f_secret")
+
+	else if(href_list["f_dynamic"])
+		if(!check_rights(R_ADMIN))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic")
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		var/dat = {"<!DOCTYPE html><b>Possible Rulesets:</b><hr>"}
+		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied)
+		for(var/datum/ruleset/ruleset as anything in rulesets)
+			dat += {"<A href='byond://?src=[UID()];f_dynamic2=[ruleset.type]'>[ruleset]</A>: [(ruleset in GLOB.dynamic_forced_rulesets) ? "<b>Forced</b>" : "Normal"]<br>"}
 		usr << browse(dat, "window=f_secret")
 
 	else if(href_list["c_mode2"])
@@ -1066,6 +1081,25 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>", 1)
 		Game() // updates the main game menu
 		.(href, list("f_secret"=1))
+
+	else if(href_list["f_dynamic2"])
+		if(!check_rights(R_ADMIN|R_SERVER))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic")
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		var/datum/ruleset/ruleset = href_list["f_dynamic2"]
+		if(ruleset in GLOB.dynamic_forced_rulesets)
+			log_admin("[key_name(usr)] un-forced the [ruleset.type] ruleset.")
+			message_admins("<span class='notice'>[key_name_admin(usr)] un-forced the [ruleset.name] (ruleset.type) ruleset].</span>")
+			GLOB.dynamic_forced_rulesets -= ruleset
+		else
+			log_admin("[key_name(usr)] forced the [ruleset.type] ruleset.")
+			message_admins("<span class='notice'>[key_name_admin(usr)] forced the [ruleset.name] (ruleset.type) ruleset].</span>")
+			GLOB.dynamic_forced_rulesets += ruleset
+		Game() // updates the main game menu
+		.(href, list("f_dynamic"=1))
 
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
