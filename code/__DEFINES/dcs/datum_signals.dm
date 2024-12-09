@@ -120,3 +120,8 @@
 /// Sent when bodies transfer between shades/shards and constructs
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
+
+// /datum/ruleset
+
+/// from base of /datum/ruleset/proc/can_apply()
+#define COMSIG_RULESET_FAILED_SPECIES "failed_species"

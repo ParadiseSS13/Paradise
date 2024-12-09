@@ -1,13 +1,13 @@
 #define MINDSHIELDED_JOBS list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Trans-Solar Federation General")
 
-/datum/antagonist_ruleset
+/datum/ruleset
 	var/name = "BASE RULESET"
 	var/ruleset_cost = 1
 	var/ruleset_weight = 1
 	var/cost = 1
 	var/weight = 1
 	// var/list/banned_mutual_rulesets = list() // could be used to prevent nukies rolling while theres cultists, or wizards, etc
-	var/datum/antagonist_ruleset/implied_ruleset
+	var/datum/ruleset/implied/implied_ruleset
 
 	var/datum/antagonist/antagonist
 	var/mind_role
@@ -27,18 +27,14 @@
 	var/list/datum/mind/pre_antags = list()
 
 
-/datum/antagonist_ruleset/proc/ruleset_possible(gamerule_budget)
-	if(gamerule_budget < ruleset_cost)
-		return FALSE
-	if(!length(Ssticker.mode.get_players_for_role(mind_role)))
-		return FALSE
-	return TRUE
+/datum/ruleset/proc/ruleset_possible()
+	return length(SSticker.mode.get_players_for_role(mind_role))
 
-/datum/antagonist_ruleset/proc/antagonist_possible(budget)
+/datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= cost
 
-/datum/antagonist_ruleset/proc/pre_setup()
-	var/list/datum/mind/possible_antags = get_players_for_role(mind_role)
+/datum/ruleset/proc/pre_setup()
+	var/list/datum/mind/possible_antags = SSticker.mode.get_players_for_role(mind_role)
 	if(!length(possible_antags))
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return cost*antag_amount // shitty refund for now
@@ -62,7 +58,7 @@
 		refund("Missing [antag_amount] antagonists for [src] ruleset.")
 		return cost*antag_amount // shitty refund for now
 
-/datum/antagonist_ruleset/proc/can_apply(datum/mind/antag)
+/datum/ruleset/proc/can_apply(datum/mind/antag)
 	if(EXCLUSIVE_OR(antag.current.client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
@@ -70,18 +66,18 @@
 		return FALSE
 	return TRUE
 
-/datum/antagonist_ruleset/proc/post_setup()
+/datum/ruleset/proc/post_setup()
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist)
 
-/datum/antagonist_ruleset/proc/refund(info)
+/datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
 	stack_trace("[info] Refunding [cost*antag_amount] budget.")
 	stack_trace("REFUNDING NOT IMPLEMENTED!!")
 	// ctodo real refunding?
 
-/datum/antagonist_ruleset/traitor
+/datum/ruleset/traitor
 	name = "Traitor"
 	ruleset_weight = 13
 	cost = 5
@@ -89,7 +85,7 @@
 	antagonist = /datum/antagonist/traitor
 	mind_role = SPECIAL_ROLE_TRAITOR
 
-/datum/antagonist_ruleset/traitor/post_setup()
+/datum/ruleset/traitor/post_setup()
 	var/random_time = rand(5 MINUTES, 15 MINUTES)
 	for(var/datum/mind/antag as anything in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new antagonist()
@@ -98,7 +94,7 @@
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
 
-/datum/antagonist_ruleset/vampire
+/datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 9
 	cost = 10
@@ -107,9 +103,9 @@
 
 	banned_jobs = list("Cyborg", "AI", "Chaplain")
 	banned_species = list("Machine")
-	implied_ruleset = /datum/antagonist_ruleset/implied/mindflayer
+	implied_ruleset = /datum/ruleset/implied/mindflayer
 
-/datum/antagonist_ruleset/changeling
+/datum/ruleset/changeling
 	name = "Changeling"
 	ruleset_weight = 9
 	cost = 10
@@ -118,21 +114,22 @@
 
 	banned_jobs = list("Cyborg", "AI")
 	banned_species = list("Machine")
-	implied_ruleset = /datum/antagonist_ruleset/implied/mindflayer
+	implied_ruleset = /datum/ruleset/implied/mindflayer
 
-/datum/antagonist_ruleset/implied
+// This is the fucking worst, but its required to not change functionality with mindflayers
+/datum/ruleset/implied
 	// cannot be rolled normally, this is applied by other methods.
 	ruleset_cost = 0
-	var/ruleset_weight = 0
-	var/cost = 0
-	var/weight = 0
+	ruleset_weight = 0
+	cost = 0
+	weight = 0
 	// This signal is registered on whatever (multiple) rulesets implied us. This will call on_implied.
 	var/target_signal
 
-/datum/antagonist_ruleset/implied/proc/on_implied(datum/antagonist/implier)
+/datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	return
 
-/datum/antagonist_ruleset/implied/mindflayer
+/datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
 	antagonist = /datum/antagonist/mindflayer
 	mind_role = ROLE_MIND_FLAYER
@@ -142,9 +139,9 @@
 	banned_species = list("Machine")
 	banned_species_only = TRUE
 
-/datum/antagonist_ruleset/implied/mindflayer/on_implied(datum/antagonist/implier)
+/datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
 	implier.antag_amount -= 1
 	antag_amount += 1
 
-// /datum/antagonist_ruleset/team
+// /datum/ruleset/team
 // 	var/datum/team/team_type
