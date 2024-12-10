@@ -79693,7 +79693,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
 	dir = 4;
-	c_tag = "Power Transmission Laser"
+	c_tag = "Power Transmission Laser";
+	network = list("Engineering","SS13")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
