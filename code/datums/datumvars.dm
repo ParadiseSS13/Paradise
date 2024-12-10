@@ -781,9 +781,9 @@
 		if(!check_rights(R_SERVER | R_EVENT))
 			return
 
-		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		var/mob/living/carbon/human/C = locateUID(href_list["hallucinate"])
 		if(!istype(C))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
 		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager))
