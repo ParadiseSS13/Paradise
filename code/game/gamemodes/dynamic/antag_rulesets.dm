@@ -12,11 +12,11 @@
 	var/datum/antagonist/antagonist
 	var/mind_role
 
-	// these roles 100% cannot be this antagonist
+	/// These roles 100% cannot be this antagonist
 	var/list/banned_jobs = list("Cyborg")
-	// These roles can't be antagonists because mindshielding (this can be disabled via config)
+	/// These roles can't be antagonists because mindshielding (this can be disabled via config)
 	var/list/protected_jobs = MINDSHIELDED_JOBS
-	// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
+	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
 
 	var/list/banned_species = list()
@@ -143,5 +143,4 @@
 	implier.antag_amount -= 1
 	antag_amount += 1
 
-// /datum/ruleset/team
-// 	var/datum/team/team_type
+#undef
