@@ -26,10 +26,10 @@
 	else
 		icon_state = "implantpad-off"
 
-/obj/item/bio_chip_pad/attack_self(mob/user)
+/obj/item/bio_chip_pad/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/bio_chip_pad/attackby(obj/item/bio_chip_case/C, mob/user)
+/obj/item/bio_chip_pad/attackby__legacy__attackchain(obj/item/bio_chip_case/C, mob/user)
 	if(istype(C))
 		addcase(user, C)
 	else

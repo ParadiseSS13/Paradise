@@ -125,7 +125,7 @@ FIRE ALARM
 		alarm(rand(30/severity, 60/severity))
 	..()
 
-/obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/firealarm/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(wiresexposed)
 		if(buildstage == FIRE_ALARM_UNWIRED)

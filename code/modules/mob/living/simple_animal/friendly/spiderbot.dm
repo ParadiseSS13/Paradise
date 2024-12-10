@@ -46,7 +46,7 @@
 		eject_brain()
 	return ..()
 
-/mob/living/simple_animal/spiderbot/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/spiderbot/attackby__legacy__attackchain(obj/item/O, mob/living/user, params)
 	if(istype(O, /obj/item/mmi))
 		var/obj/item/mmi/B = O
 		if(mmi) //There's already a brain in it.

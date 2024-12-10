@@ -88,7 +88,7 @@
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/attack_self(mob/user)
+/obj/item/reagent_containers/attack_self__legacy__attackchain(mob/user)
 	if(has_lid)
 		if(is_open_container())
 			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
@@ -97,7 +97,7 @@
 			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 			remove_lid()
 
-/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

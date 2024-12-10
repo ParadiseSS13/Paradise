@@ -34,7 +34,7 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
+/obj/item/stack/ore/bluespace_crystal/attack_self__legacy__attackchain(mob/user)
 	if(use(1))
 		blink_mob(user)
 		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")

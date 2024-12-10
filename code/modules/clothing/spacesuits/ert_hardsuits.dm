@@ -28,7 +28,7 @@
 			register_camera(wearer)
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self__legacy__attackchain(mob/user)
 	if(camera || !has_camera)
 		..(user)
 	else
