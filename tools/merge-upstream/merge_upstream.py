@@ -79,9 +79,9 @@ def run_command(command) -> str:
 def setup_repo():
     """Clone the repository and set up the upstream remote."""
     print(f"Cloning repository: {TARGET_REPO}")
-    run_command(f"git clone https://{GITHUB_TOKEN}@github.com/{TARGET_REPO}.git repo")
+    run_command(f"git clone https://x-access-token:{GITHUB_TOKEN}@github.com/{TARGET_REPO}.git repo")
     os.chdir("repo")
-    run_command(f"git remote add upstream https://{GITHUB_TOKEN}@github.com/{UPSTREAM_REPO}.git")
+    run_command(f"git remote add upstream https://x-access-token:{GITHUB_TOKEN}@github.com/{UPSTREAM_REPO}.git")
     print(run_command(f"git remote -v"))
 
 
