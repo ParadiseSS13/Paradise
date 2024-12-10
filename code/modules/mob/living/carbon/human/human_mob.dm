@@ -2075,5 +2075,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return
 		hallucination_to_make = string_path
 	new hallucination_to_make(get_turf(src), src)
-
-/datum/hallucination_manager/test
