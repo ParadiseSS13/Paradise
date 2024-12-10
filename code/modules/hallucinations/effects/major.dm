@@ -427,7 +427,7 @@
 	if(!length(possible_turfs))
 		return
 	var/turf/shot_loc = get_turf(pick(possible_turfs))
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/hallucination/sniper, fire_bullet), shot_loc, target)
+	fire_bullet(shot_loc, target)
 
 /obj/effect/hallucination/sniper/proc/fire_bullet(turf/shot_loc, mob/living/carbon/target)
 	// Fire the bullet
