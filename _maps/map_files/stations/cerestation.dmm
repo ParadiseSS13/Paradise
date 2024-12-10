@@ -18700,6 +18700,12 @@
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
+"czu" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/fore)
 "czG" = (
 /obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
@@ -36273,12 +36279,6 @@
 /mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
-"gtz" = (
-/obj/structure/machine_frame,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/break_room)
 "gtH" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -50700,6 +50700,12 @@
 	icon_state = "vault"
 	},
 /area/station/command/vault)
+"jZe" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/fore/north)
 "jZl" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -50874,12 +50880,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
-"kaP" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/fore/north)
 "kbd" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -53475,9 +53475,6 @@
 "kKk" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
@@ -56383,12 +56380,6 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
-"lwF" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/fore/north)
 "lwM" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment,
@@ -68308,6 +68299,12 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/control)
+"oCr" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/break_room)
 "oCu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine{
@@ -69282,12 +69279,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
-"oPy" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/fore)
 "oPG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93041,6 +93032,15 @@
 "uNG" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/break_room/secondary)
+"uNL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/fore/north)
 "uNN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -96802,6 +96802,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/locker)
+"vKy" = (
+/obj/item/t_scanner,
+/turf/space,
+/area/space)
 "vKE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -109967,7 +109971,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+vKy
 rNK
 rNK
 rNK
@@ -138402,7 +138406,7 @@ bxv
 byx
 bzv
 jpU
-gtz
+oCr
 bCK
 nGm
 bFi
@@ -140159,7 +140163,7 @@ kpu
 kpu
 kpu
 iwG
-kaP
+jZe
 cgt
 wCG
 ecz
@@ -140414,11 +140418,11 @@ nhG
 aKp
 cSj
 jZE
-lwF
+kKk
 nAG
 lhg
 ksP
-kKk
+uNL
 ddm
 cHz
 cHz
@@ -142215,7 +142219,7 @@ uIx
 wSy
 uIx
 aWI
-kaP
+jZe
 gYL
 ezU
 xZI
@@ -144768,7 +144772,7 @@ pls
 pls
 cpQ
 vpg
-oPy
+czu
 gKc
 eUJ
 gKc
