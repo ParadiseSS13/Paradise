@@ -71,7 +71,7 @@
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-					
+
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -2353,7 +2353,7 @@
 		sending.sent_by = usr
 		sending.sent_at = world.time
 
-		fax.receivefax(P)
+		fax.receivefax(sending)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
