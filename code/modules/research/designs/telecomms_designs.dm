@@ -10,7 +10,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tcomms/core
-	category = list("Subspace Telecomms")
+	category = list("Intra-System Telecomms")
 
 /datum/design/telecomms_relay
 	name = "Machine Board (Telecommunications Relay)"
@@ -20,4 +20,4 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tcomms/relay
-	category = list("Subspace Telecomms")
+	category = list("Intra-System Telecomms")
