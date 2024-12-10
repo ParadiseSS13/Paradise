@@ -669,6 +669,8 @@
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
+	return FALSE
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)

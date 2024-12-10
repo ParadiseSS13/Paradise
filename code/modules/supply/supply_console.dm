@@ -518,7 +518,7 @@
 
 /obj/machinery/computer/supplycomp/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

@@ -575,6 +575,8 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce.</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		return TRUE
+	return FALSE
 
 /obj/item/pizzabox/pizza_bomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!open)

@@ -295,7 +295,7 @@
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	operating = DOOR_MALF
 	flick("[base_state]spark", src)
