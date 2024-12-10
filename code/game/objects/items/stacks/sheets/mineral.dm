@@ -393,6 +393,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
 
+/obj/item/stack/sheet/mineral/bananium/thirty
+	amount = 30
+
 /obj/item/stack/sheet/mineral/bananium/fifty
 	amount = 50
 
@@ -423,6 +426,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
+
+/obj/item/stack/sheet/mineral/tranquillite/thirty
+	amount = 30
 
 /obj/item/stack/sheet/mineral/tranquillite/fifty
 	amount = 50
