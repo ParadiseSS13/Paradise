@@ -731,6 +731,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 		return
 	eject_photo(user)
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
+
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH
 #undef STORY_NAME_MAX_LENGTH
