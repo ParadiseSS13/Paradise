@@ -214,7 +214,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 	multiple_icons = FALSE
 
-/obj/item/clothing/shoes/magboots/vox/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/vox/activate_self(mob/user)
 	if(magpulse)
 		flags &= ~NODROP
 		to_chat(user, "You relax your deathgrip on the flooring.")
@@ -237,7 +237,6 @@
 	if(magpulse)
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		magpulse = FALSE
-		no_slip = FALSE
 		flags &= ~NODROP
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
