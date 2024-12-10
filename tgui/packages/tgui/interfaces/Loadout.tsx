@@ -54,7 +54,7 @@ export const Loadout = (props, context) => {
   const [tweakedGear, setTweakedGear] = useLocalState(context, 'tweakedGear', '');
 
   return (
-    <Window width={975} height={650}>
+    <Window width={1105} height={650}>
       {tweakedGear && <GearTweak tweakedGear={tweakedGear} setTweakedGear={setTweakedGear} />}
       <Window.Content scrollable>
         <Stack fill vertical>
