@@ -775,7 +775,7 @@
 	icon_state = "data"
 
 /obj/item/card/id/nct_data_chip
-	name = "NCT Trainee Access Chip"
+	name = "\improper NCT Trainee Access Chip"
 	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
 	icon_state = "nct_chip"
 	assignment = "Nanotrasen Career Trainer"
