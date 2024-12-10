@@ -39,7 +39,7 @@
 /area/ruin/powered/pizza_party)
 "k" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
@@ -48,7 +48,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood/lavaland_air,
@@ -111,7 +111,7 @@
 /area/ruin/powered/pizza_party)
 "x" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "y" = (

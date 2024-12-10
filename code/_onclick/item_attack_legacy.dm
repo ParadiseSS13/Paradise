@@ -25,10 +25,11 @@
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 
-	. = __attack_core(M, user)
+	if(!__attack_core(M, user))
+		return
 
 	if(!M.new_attack_chain)
-		M.attacked_by__legacy__attackchain(src, user, def_zone)
+		return M.attacked_by__legacy__attackchain(src, user, def_zone)
 
 /**
  * Called when `user` attacks us with item `W`.

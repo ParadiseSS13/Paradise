@@ -68,15 +68,13 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "gE" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/ruin/space/derelict/teleporter)
+"hg" = (
+/mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
-"hg" = (
-/obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "ic" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -201,12 +199,8 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "qQ" = (
-/obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
-	amount = 1
-	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "sY" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -272,8 +266,10 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "vT" = (
-/obj/item/shard,
 /obj/structure/lattice,
+/obj/item/stack/cable_coil/cut{
+	amount = 1
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "vX" = (
@@ -431,13 +427,17 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "ZI" = (
-/mob/living/simple_animal/hostile/carp,
+/obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "small"
+	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ZM" = (
-/obj/structure/lattice/catwalk,
+/obj/item/shard,
+/obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/space/derelict/teleporter)
+/area/space/nearstation)
 "ZN" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
@@ -446,33 +446,56 @@
 /area/ruin/space/derelict/teleporter)
 
 (1,1,1) = {"
-gE
-vx
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-PS
-wj
-wj
-wj
-PS
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (2,1,1) = {"
-gE
+qQ
+qQ
+vx
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+PS
+wj
+wj
+wj
+PS
+qQ
+qQ
+"}
+(3,1,1) = {"
+qQ
+qQ
 vx
 vx
-gE
-ZI
-gE
-gE
-gE
-gE
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
 PS
 ds
 We
@@ -480,12 +503,14 @@ iQ
 gr
 ds
 PS
+qQ
 "}
-(3,1,1) = {"
-gE
-gE
+(4,1,1) = {"
+qQ
+qQ
+qQ
 vx
-hg
+ZI
 HC
 FQ
 Wu
@@ -498,12 +523,14 @@ mq
 sY
 vr
 ds
-"}
-(4,1,1) = {"
-gE
-gE
-gE
 qQ
+"}
+(5,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+vT
 vx
 HL
 ZN
@@ -516,12 +543,14 @@ bk
 gA
 fX
 wj
+qQ
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+qQ
 vx
 vx
-gE
-gE
+qQ
+qQ
 vx
 Av
 Vu
@@ -534,14 +563,16 @@ oy
 vE
 fX
 wj
-"}
-(6,1,1) = {"
-gE
-vx
 qQ
-dj
+"}
+(7,1,1) = {"
+qQ
+qQ
 vx
 vT
+dj
+vx
+ZM
 Av
 ZN
 pZ
@@ -552,11 +583,13 @@ Vc
 SQ
 fX
 wj
+qQ
 "}
-(7,1,1) = {"
-gE
-gE
-gE
+(8,1,1) = {"
+qQ
+qQ
+qQ
+qQ
 vx
 vx
 vx
@@ -570,17 +603,19 @@ NU
 vG
 dJ
 ds
+qQ
 "}
-(8,1,1) = {"
-gE
-gE
-gE
-gE
+(9,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
 vx
 vx
-gE
-gE
-gE
+qQ
+qQ
+qQ
 PS
 ds
 oK
@@ -588,148 +623,185 @@ DX
 uD
 ds
 PS
+qQ
 "}
-(9,1,1) = {"
-gE
-gE
-gE
-gE
+(10,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
 vx
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
 PS
 Io
 tF
 iS
 PS
-gE
+qQ
+qQ
 "}
-(10,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+(11,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 PS
 Dp
 PS
-gE
-gE
+qQ
+qQ
+qQ
 "}
-(11,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-ZI
-gE
-gE
-gE
-gE
-gE
+(12,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
+qQ
 ds
 tF
 ds
-gE
-gE
-"}
-(12,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-ZM
-ZM
-ZM
-gE
-gE
+qQ
+qQ
+qQ
 "}
 (13,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 gE
 gE
 gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
 "}
 (14,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (15,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-ZI
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (16,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-ZI
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+"}
+(17,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+"}
+(18,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
