@@ -35,11 +35,14 @@
 	// At this point it means the attack was "successful", or at least
 	// handled, in some way. This can mean nothing happened, this can mean the
 	// target took damage, etc.
-	if(target.new_attack_chain)
-		target.attacked_by(src, user)
-		after_attack(target, user, proximity_flag, params)
-	else
-		afterattack__legacy__attackchain(target, user, proximity_flag, params)
+
+	// TODO: `target` here should probably be another `!QDELETED` check.
+	// Preserved for backwards compatibility, may be fixed post-migration.
+	if(target && !QDELETED(src))
+		if(new_attack_chain)
+			after_attack(target, user, proximity_flag, params)
+		else
+			afterattack__legacy__attackchain(target, user, proximity_flag, params)
 
 /// Called when the item is in the active hand, and clicked; alternately, there
 /// is an 'activate held object' verb or you can hit pagedown.
@@ -101,7 +104,7 @@
 		return FINISH_ATTACK
 
 	if(!can_be_hit)
-		return FINISH_ATTACK
+		return
 
 	return attacking.attack_obj(src, user, params)
 
@@ -163,6 +166,8 @@
 	user.do_attack_animation(target)
 	add_fingerprint(user)
 
+	return TRUE
+
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_obj(obj/attacked_obj, mob/living/user, params)
 	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, attacked_obj, user) | SEND_SIGNAL(user, COMSIG_ATTACK_OBJ_LIVING, attacked_obj)
@@ -173,7 +178,12 @@
 	if(flags & NOBLUDGEON)
 		return FALSE
 
-	if(!attacked_obj.new_attack_chain)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(attacked_obj)
+
+	if(attacked_obj.new_attack_chain)
+		attacked_obj.attacked_by(src, user)
+	else
 		attacked_obj.attacked_by__legacy__attackchain(src, user)
 
 /**

@@ -75,15 +75,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
-"o" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/turf/space,
-/area/ruin/space/sec_shuttle)
 "t" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/footprints,
@@ -102,7 +93,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "z" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "B" = (
 /obj/machinery/recharge_station/upgraded,
@@ -149,7 +140,7 @@
 /area/ruin/space/sec_shuttle)
 "N" = (
 /obj/effect/mob_spawn/human/corpse/skeleton/prisoner,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
@@ -187,7 +178,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/space/sec_shuttle)
 "V" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -206,7 +197,7 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/space/sec_shuttle)
 "Z" = (
 /obj/structure/computerframe,
@@ -219,23 +210,40 @@
 z
 z
 z
-Y
-U
-V
-V
-e
+z
+z
+z
+z
+z
+z
+z
 "}
 (2,1,1) = {"
 z
 z
 z
+z
+Y
+U
+V
+V
+e
+z
+"}
+(3,1,1) = {"
+z
+z
+z
+z
 h
-o
+g
 g
 a
 h
+z
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+z
 z
 z
 z
@@ -244,8 +252,10 @@ D
 d
 j
 h
+z
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+z
 z
 z
 z
@@ -254,8 +264,10 @@ Z
 f
 S
 h
+z
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+z
 z
 z
 z
@@ -264,8 +276,10 @@ B
 f
 Q
 h
+z
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+z
 z
 z
 z
@@ -274,8 +288,10 @@ H
 H
 w
 h
+z
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+z
 z
 z
 z
@@ -284,8 +300,10 @@ G
 J
 F
 h
+z
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+z
 N
 z
 z
@@ -294,8 +312,10 @@ X
 J
 R
 h
+z
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+z
 z
 z
 z
@@ -304,8 +324,10 @@ m
 n
 E
 h
+z
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+z
 z
 z
 z
@@ -314,8 +336,10 @@ h
 H
 h
 h
+z
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+z
 z
 z
 z
@@ -323,5 +347,18 @@ z
 h
 T
 h
+z
+z
+"}
+(13,1,1) = {"
+z
+z
+z
+z
+z
+z
+z
+z
+z
 z
 "}
