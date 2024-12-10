@@ -184,6 +184,10 @@
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
+/obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
+
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
