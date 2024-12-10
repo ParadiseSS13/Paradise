@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		to_chat(user, "There is nothing to remove from the console.")
 
-/obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
+/obj/machinery/computer/card/attackby__legacy__attackchain(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
 		return ..()
 	if(istype(id_card, /obj/item/card/id/nct_data_chip))

@@ -920,7 +920,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 2
 
 
-/mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
+/mob/living/silicon/robot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
@@ -978,7 +978,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
-			radio.attackby(W,user)//GTFO, you have your own procs
+			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
 		else
 			to_chat(user, "Unable to locate a radio.")
 
@@ -1132,7 +1132,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 
-/mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	..()
@@ -1303,7 +1303,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
-			O.attack_self(src)
+			O.attack_self__legacy__attackchain(src)
 		return 1
 
 	if(href_list["act"])
@@ -1456,7 +1456,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/obj/item/W = get_active_hand()
 	if(W)
-		W.attack_self(src)
+		W.attack_self__legacy__attackchain(src)
 
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.

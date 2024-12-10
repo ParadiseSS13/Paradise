@@ -137,28 +137,28 @@
 	result = /obj/item/food/donut/blumpkin/jelly/cherry
 
 /datum/recipe/microwave/bungo_donut
-	reagents = list("bungojuice" = 5, "coldsauce" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo
 
 /datum/recipe/microwave/bungo_donut/jelly
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "berryjuice" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "berryjuice" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo/jelly
 
 /datum/recipe/microwave/bungo_donut/jelly/slime
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "slimejelly" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "slimejelly" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo/jelly/slime
 
 /datum/recipe/microwave/bungo_donut/jelly/cherry
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "cherryjelly" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "cherryjelly" = 5)
 	items = list(
 		/obj/item/food/donut
 	)

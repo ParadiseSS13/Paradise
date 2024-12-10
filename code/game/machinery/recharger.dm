@@ -30,7 +30,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
+/obj/machinery/recharger/attackby__legacy__attackchain(obj/item/G, mob/user, params)
 	var/allowed = is_type_in_list(G, allowed_devices)
 
 	if(!allowed)

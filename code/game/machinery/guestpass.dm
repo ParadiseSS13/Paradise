@@ -60,7 +60,7 @@
 	. = ..()
 	my_terminal_id = ++global_terminal_id
 
-/obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/guestpass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/nct_data_chip))
 		to_chat(user, "<span class='warning'>[I] does not seem compatible with this terminal!</span>")
 		return

@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			silent = !silent
 
 
-/obj/machinery/requests_console/attackby(obj/item/I, mob/user)
+/obj/machinery/requests_console/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		if(inoperable(MAINT))
 			return

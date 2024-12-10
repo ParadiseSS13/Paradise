@@ -21,7 +21,7 @@
 	/// the number that is added to the failure_prob, which is the probability of whether it will spread or not
 	var/adding_failure = 50
 
-/obj/item/resonator/attack_self(mob/user)
+/obj/item/resonator/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
 		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate only after you hit it with [src].</span>")
 		mode = RESONATOR_MODE_MANUAL
@@ -37,7 +37,7 @@
 	fieldlimit = 6
 	quick_burst_mod = 1
 
-/obj/item/resonator/upgraded/attack_self(mob/user)
+/obj/item/resonator/upgraded/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
 		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate only after being attacked by [src].</span>")
 		mode = RESONATOR_MODE_MANUAL

@@ -14,7 +14,7 @@
 	..()
 	create_reagents(100)
 
-/obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/mixing_bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(dirty)
 		if(istype(I, /obj/item/soap))
 			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
@@ -58,7 +58,7 @@
 		I.forceMove(src)
 		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
-/obj/item/mixing_bowl/attack_self(mob/user)
+/obj/item/mixing_bowl/attack_self__legacy__attackchain(mob/user)
 	var/dat = ""
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}

@@ -368,3 +368,13 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/caviar
+	name = "\improper Three-Star caviar"
+	desc = "A small, pretentious looking can of fish eggs."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "caviar"
+	bitesize = 1
+	trash = /obj/item/trash/caviar
+	list_reagents = list("protein" = 5)
+	tastes = list("fish" = 2, "high society" = 1)

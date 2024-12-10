@@ -68,7 +68,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "bY" = (
-/obj/structure/girder,
+/obj/item/stack/ore/glass/basalt,
 /turf/template_noop,
 /area/template_noop)
 "co" = (
@@ -558,7 +558,7 @@
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "vE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/kitchen_machine/microwave,
@@ -737,7 +737,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/syndicakefactory)
 "Cu" = (
-/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
 "CR" = (
@@ -867,9 +867,9 @@
 	},
 /area/ruin/space/syndicakefactory)
 "Ha" = (
-/obj/item/stack/sheet/metal,
+/obj/structure/girder,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "Hh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1052,7 +1052,7 @@
 "NQ" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "Ov" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/donkpocket{
@@ -1371,21 +1371,17 @@ pd
 pd
 pd
 pd
-pd
-pd
 "}
 (2,1,1) = {"
 pd
 pd
 pd
-OK
-pd
-pd
 pd
 OK
 pd
 pd
 pd
+OK
 pd
 pd
 pd
@@ -1419,6 +1415,7 @@ pd
 (3,1,1) = {"
 pd
 pd
+pd
 OK
 OK
 OK
@@ -1445,9 +1442,6 @@ OK
 OK
 pd
 OK
-pd
-pd
-pd
 pd
 pd
 pd
@@ -1460,36 +1454,34 @@ pd
 "}
 (4,1,1) = {"
 pd
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
 pd
-pd
-pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
 pd
 pd
 pd
@@ -1504,36 +1496,34 @@ pd
 pd
 pd
 pd
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
 pd
-pd
-pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
 pd
 pd
 pd
@@ -1543,6 +1533,7 @@ pd
 pd
 "}
 (6,1,1) = {"
+pd
 OK
 pd
 OK
@@ -1574,9 +1565,6 @@ OK
 OK
 OK
 OK
-pd
-pd
-pd
 pd
 pd
 pd
@@ -1586,6 +1574,7 @@ pd
 "}
 (7,1,1) = {"
 pd
+pd
 OK
 OK
 OK
@@ -1616,9 +1605,6 @@ EJ
 OK
 OK
 OK
-pd
-pd
-pd
 pd
 pd
 pd
@@ -1627,6 +1613,7 @@ pd
 pd
 "}
 (8,1,1) = {"
+pd
 OK
 OK
 OK
@@ -1664,11 +1651,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (9,1,1) = {"
+pd
 pd
 pd
 OK
@@ -1706,11 +1691,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (10,1,1) = {"
+pd
 OK
 pd
 OK
@@ -1748,11 +1731,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (11,1,1) = {"
+pd
 pd
 OK
 OK
@@ -1790,11 +1771,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (12,1,1) = {"
+pd
 OK
 OK
 OK
@@ -1828,15 +1807,13 @@ OK
 OK
 pd
 pd
-Cu
-pd
-pd
-pd
+bY
 pd
 pd
 pd
 "}
 (13,1,1) = {"
+pd
 pd
 OK
 OK
@@ -1867,18 +1844,16 @@ wI
 EJ
 OK
 OK
-Cu
-Cu
-Cu
-pd
-pd
-pd
+bY
+bY
+bY
 pd
 pd
 pd
 pd
 "}
 (14,1,1) = {"
+pd
 pd
 pd
 OK
@@ -1908,19 +1883,17 @@ EJ
 EJ
 EJ
 OK
-Cu
-Cu
+bY
+bY
 pd
-Cu
-pd
-pd
-pd
+bY
 pd
 pd
 pd
 pd
 "}
 (15,1,1) = {"
+pd
 pd
 OK
 OK
@@ -1950,19 +1923,17 @@ tX
 EJ
 OK
 OK
-bY
-pd
 Ha
-pd
 pd
 Cu
 pd
 pd
-pd
+bY
 pd
 pd
 "}
 (16,1,1) = {"
+pd
 pd
 OK
 OK
@@ -1992,19 +1963,17 @@ YE
 EJ
 OK
 EJ
-bY
-pd
-pd
 Ha
 pd
 pd
-pd
+Cu
 pd
 pd
 pd
 pd
 "}
 (17,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2042,11 +2011,9 @@ pd
 oo
 pd
 pd
-pd
-pd
-pd
 "}
 (18,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2084,11 +2051,9 @@ vo
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (19,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2123,14 +2088,12 @@ LN
 lZ
 lZ
 NQ
-bY
+Ha
 EJ
-pd
-pd
-pd
 pd
 "}
 (20,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2168,11 +2131,9 @@ Hy
 lZ
 Hy
 pd
-pd
-pd
-pd
 "}
 (21,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2210,11 +2171,9 @@ EJ
 EJ
 EJ
 pd
-pd
-pd
-pd
 "}
 (22,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2252,11 +2211,9 @@ oH
 OK
 OK
 pd
-pd
-pd
-pd
 "}
 (23,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2294,11 +2251,9 @@ EJ
 OK
 OK
 pd
-pd
-pd
-pd
 "}
 (24,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2336,11 +2291,9 @@ EJ
 OK
 pd
 pd
-pd
-pd
-pd
 "}
 (25,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2378,11 +2331,9 @@ OK
 OK
 pd
 pd
-pd
-pd
-pd
 "}
 (26,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2420,11 +2371,9 @@ OK
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (27,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2462,11 +2411,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (28,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2504,11 +2451,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (29,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2546,11 +2491,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (30,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2588,11 +2531,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (31,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2630,11 +2571,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (32,1,1) = {"
+pd
 OK
 OK
 OK
@@ -2672,11 +2611,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (33,1,1) = {"
+pd
 pd
 OK
 OK
@@ -2714,11 +2651,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (34,1,1) = {"
+pd
 pd
 pd
 OK
@@ -2756,11 +2691,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (35,1,1) = {"
+pd
 pd
 pd
 OK
@@ -2798,11 +2731,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (36,1,1) = {"
+pd
 pd
 pd
 OK
@@ -2840,11 +2771,9 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (37,1,1) = {"
+pd
 pd
 pd
 pd
@@ -2882,14 +2811,12 @@ pd
 pd
 pd
 pd
-pd
-pd
-pd
 "}
 (38,1,1) = {"
 pd
 pd
 pd
+pd
 OK
 pd
 pd
@@ -2913,9 +2840,6 @@ OK
 OK
 OK
 OK
-pd
-pd
-pd
 pd
 pd
 pd
@@ -2937,24 +2861,22 @@ pd
 pd
 pd
 pd
-OK
 pd
 OK
 pd
 OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
-OK
 pd
-pd
-pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
 pd
 pd
 pd
@@ -2971,8 +2893,6 @@ pd
 pd
 "}
 (40,1,1) = {"
-pd
-pd
 pd
 pd
 pd

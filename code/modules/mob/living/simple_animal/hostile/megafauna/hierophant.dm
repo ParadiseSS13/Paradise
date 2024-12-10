@@ -784,7 +784,7 @@ Difficulty: Hard
 /obj/effect/hierophant/ex_act()
 	return
 
-/obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
+/obj/effect/hierophant/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = I
 		if(H.timer > world.time)

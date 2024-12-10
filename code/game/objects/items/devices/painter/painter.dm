@@ -82,13 +82,13 @@
 /**
   * Calls `pick_color()` on the `selected_module`.
   */
-/obj/item/painter/attack_self(mob/user)
+/obj/item/painter/attack_self__legacy__attackchain(mob/user)
 	selected_module.pick_color(user)
 
 /**
   * If adjacent, calls `paint_atom()` on the `selected_module`, then plays the `usesound`.
   */
-/obj/item/painter/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/painter/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(selected_module.paint_atom(target, user))
