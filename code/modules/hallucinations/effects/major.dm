@@ -470,8 +470,7 @@
 
 
 /obj/item/projectile/bullet/sniper/penetrator/hallucination
-	damage_type = STAMINA
-	knockdown = 2 SECONDS
+	nodamage = TRUE
 	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
 	/// The hallucinator
 	var/mob/living/carbon/hallucinator = null
@@ -483,5 +482,31 @@
 		return
 	if(target != hallucinator)
 		return
-	. = ..()
-	new /obj/effect/hallucination/sniper_bloodsplatter(src.loc, target)
+	var/mob/living/hit_target = target
+	var/organ_hit_text = ""
+	if(hit_target.has_limbs)
+		organ_hit_text = " in \the [parse_zone(def_zone)]"
+	hit_target.playsound_local(loc, hitsound, 5, TRUE)
+	hit_target.apply_damage(60, STAMINA, def_zone)
+	hit_target.apply_effects(knockdown = 2 SECONDS)
+	new /obj/effect/hallucination/sniper_bloodsplatter(src.loc, hit_target)
+	to_chat(hit_target, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
+	if(!yes) // prevents double bumps.
+		return
+	var/turf/target_turf = get_turf(A)
+	prehit(A)
+	var/mob/living/hit_target = A
+	if(hit_target == hallucinator)
+		hit_target.bullet_act(src, def_zone)
+	var/permutation = -1
+	if(permutation == -1 || forcedodge) // the bullet passes through a dense object!
+		if(forcedodge)
+			forcedodge -= 1
+		loc = target_turf
+		if(A)
+			permutated.Add(A)
+		return 0
+	if(!isliving(A))
+		return 0
