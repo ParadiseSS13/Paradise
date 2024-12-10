@@ -57,7 +57,7 @@
 		update_icon()
 	return TRUE
 
-/obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+/obj/structure/barricade/CanPass(atom/movable/mover, border_dir)//So bullets will fly over and stuff.
 	if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
 	else if(istype(mover) && mover.checkpass(PASSBARRICADE))
@@ -450,12 +450,15 @@
 		0, 0, 0, 1
 	)
 	color = target_matrix
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/barricade/dropwall/firewall/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!isprojectile(AM))
+/obj/structure/barricade/dropwall/firewall/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isprojectile(entered))
 		return
-	var/obj/item/projectile/P = AM
+	var/obj/item/projectile/P = entered
 	P.immolate ++
 
 /obj/item/grenade/turret
@@ -496,7 +499,7 @@
 	. = ..()
 	. += "It would need [(5 - foam_level)] more blobs of foam to fully block the airlock."
 
-/obj/structure/barricade/foam/CanPass(atom/movable/mover, turf/target)
+/obj/structure/barricade/foam/CanPass(atom/movable/mover, border_dir)
 	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
 
 /obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)

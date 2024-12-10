@@ -29,7 +29,7 @@
 		return
 	return ..()
 
-/obj/structure/coatrack/CanPass(atom/movable/mover, turf/target)
+/obj/structure/coatrack/CanPass(atom/movable/mover, border_dir)
 	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(mover,T))

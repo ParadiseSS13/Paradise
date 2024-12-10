@@ -171,15 +171,16 @@
 			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
-/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/effect/decal/cleanable/vomit/Bump(atom/A)
 	. = ..()
 	if(A.density)
 		splat(A)
 
-/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+/obj/effect/decal/cleanable/vomit/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(!gravity_check)
-		splat(AM)
-	..()
+		splat(crossed)
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(gravity_check)

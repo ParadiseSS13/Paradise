@@ -33,6 +33,11 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	GLOB.flame_effects += src
 	START_PROCESSING(SSprocessing, src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/fire/Destroy()
 	. = ..()
 	GLOB.flame_effects -= src
@@ -75,18 +80,17 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(duration <= 0)
 		fizzle()
 
-/obj/effect/fire/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(isliving(AM))
-		if(!damage_mob(AM))
+/obj/effect/fire/proc/on_atom_entered(datum/source, atom/movable/entered, old_loc)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(isliving(entered))
+		if(!damage_mob(entered))
 			return
-		to_chat(AM, "<span class='warning'>[src] burns you!</span>")
+		to_chat(entered, "<span class='warning'>[src] burns you!</span>")
 		return
 
-	if(isitem(AM))
-		var/obj/item/item_to_burn = AM
+	if(isitem(entered))
+		var/obj/item/item_to_burn = entered
 		item_to_burn.fire_act(null, temperature)
-		return
 
 /obj/effect/fire/proc/fizzle()
 	playsound(src, 'sound/effects/fire_sizzle.ogg', 50, TRUE)

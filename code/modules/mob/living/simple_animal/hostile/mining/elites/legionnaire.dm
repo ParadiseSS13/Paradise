@@ -292,12 +292,16 @@
 	light_color = LIGHT_COLOR_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
-/obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(source))
-		var/obj/object = source
+/obj/structure/legionnaire_bonfire/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/structure/legionnaire_bonfire/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isobj(crossed))
+		var/obj/object = crossed
 		object.fire_act(1000, 500)
-	if(isliving(source))
-		var/mob/living/fire_walker = source
+	if(isliving(crossed))
+		var/mob/living/fire_walker = crossed
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
