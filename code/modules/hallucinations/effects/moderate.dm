@@ -486,6 +486,7 @@
 	hallucination_layer = 3.1
 	///A list of potential grenades to pick from, one is picked at random to copy
 	var/list/grenade_type = list(/obj/item/grenade/chem_grenade, /obj/item/grenade/clusterbuster, /obj/item/grenade/spawnergrenade, /obj/item/grenade/empgrenade, /obj/item/grenade/flashbang, /obj/item/grenade/chem_grenade/large, /obj/item/grenade/syndieminibomb, /obj/item/grenade/chem_grenade/cryo, /obj/item/grenade/chem_grenade/pyro)
+	///The turf the grenade will land on, and that sounds will play from
 	var/turf/grenade_turf
 
 /obj/effect/hallucination/fake_grenade/Destroy()
