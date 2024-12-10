@@ -9486,9 +9486,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/railing/corner{
 	dir = 4
 	},
@@ -27387,9 +27384,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -31147,14 +31141,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -31237,13 +31223,6 @@
 "eQY" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore)
-"eRc" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
-	},
-/turf/simulated/floor/plating,
-/area/station/public/pet_store)
 "eRq" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -32029,6 +32008,7 @@
 	dir = 4
 	},
 /obj/machinery/alarm/directional/east,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -32818,6 +32798,7 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkgreen"
@@ -33060,10 +33041,6 @@
 "ful" = (
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/ai_upload)
-"fum" = (
-/turf/simulated/floor/plating,
-/turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored/cere/command)
 "fup" = (
 /obj/docking_port/stationary{
 	dheight = 9;
@@ -34531,6 +34508,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37698,14 +37676,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fsmaint)
-"gLi" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
-	},
-/turf/simulated/floor/plating,
-/area/station/public/pet_store)
 "gLj" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random/maintenance,
@@ -40663,10 +40633,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/supply/sorting)
-"hBA" = (
-/turf/simulated/wall,
-/turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored/cere/command)
 "hBH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -47001,6 +46967,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
@@ -56487,14 +56454,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68297,10 +68258,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
-"oyM" = (
-/turf/simulated/wall,
-/turf/simulated/mineral/ancient,
-/area/station/public/pet_store)
 "oyN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -68855,9 +68812,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -138400,9 +138354,9 @@ nPU
 pFe
 qPN
 gkA
-oyM
+eNW
 dJc
-hBA
+cRv
 abE
 rNK
 rNK
@@ -138658,7 +138612,7 @@ xtv
 hGZ
 iBK
 jQT
-gLi
+sGk
 abE
 abE
 rNK
@@ -138916,7 +138870,7 @@ jHr
 nSI
 gFs
 sGk
-fum
+abE
 rNK
 rNK
 rNK
@@ -139172,8 +139126,8 @@ nSI
 toj
 nSI
 nSI
-eRc
-fum
+sGk
+abE
 rNK
 rNK
 rNK
@@ -139429,8 +139383,8 @@ aJa
 pEh
 aji
 rHd
-eRc
-fum
+sGk
+abE
 rNK
 rNK
 rNK

@@ -788,7 +788,7 @@
 	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
 	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.</span>"
 
-/obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
+/obj/item/card/id/nct_data_chip/attack_self__legacy__attackchain(mob/user as mob)
 	if(!trainee)
 		return ..()
 
@@ -798,7 +798,7 @@
 		icon_state = "nct_chip"
 		access = list()
 
-/obj/item/card/id/nct_data_chip/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/card/id/nct_data_chip/afterattack__legacy__attackchain(obj/item/O, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!istype(O, /obj/item/card/id))
