@@ -109,7 +109,7 @@
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()

@@ -70,6 +70,10 @@
 	materials = list(MAT_GOLD = 500, MAT_TITANIUM = 200, MAT_PLASMA = 200)
 	trauma = 10
 
+/obj/item/melee/knuckleduster/nanotrasen/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/melee/knuckleduster/nanotrasen/examine_more(mob/user)
 	. = ..()
 	. += "These engraved knuckledusters are crafted from 20 karat gold alloyed with plastitanium, all mined from Lavaland. A symbol of prestige and a reminder of the wealth under the feet of the miners working down there."
