@@ -66590,8 +66590,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
 "odF" = (
@@ -83057,8 +83056,8 @@
 /area/station/hallway/secondary/exit)
 "sqB" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
 /area/station/science/toxins/mixing)
 "sqG" = (
@@ -91066,7 +91065,6 @@
 /area/station/security/prison/cell_block/a)
 "umy" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
