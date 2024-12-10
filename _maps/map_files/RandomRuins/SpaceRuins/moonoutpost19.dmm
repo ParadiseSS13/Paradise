@@ -9964,7 +9964,7 @@
 	pixel_y = 7;
 	pixel_x = -3
 	},
-/obj/item/clothing/accessory/horrible{
+/obj/item/clothing/neck/tie/horrible{
 	pixel_y = -2;
 	pixel_x = 2
 	},
