@@ -1161,3 +1161,11 @@ tag = "vox_raiders"
 "candidates_required" = 2
 
 ################################################################
+
+[gpt_configuration]
+gpt_enabled = false
+access_token = ""
+endpoint = "https://models.inference.ai.azure.com/chat/completions" # Allows github authorization with free tiers
+model = "gpt-4o"
+
+################################################################
