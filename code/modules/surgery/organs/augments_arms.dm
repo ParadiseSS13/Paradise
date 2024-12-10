@@ -851,6 +851,9 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	tool_behaviour = TOOL_CROWBAR // to pry open doors
+	toolspeed = 0.5
+	usesound = 'sound/items/crowbar.ogg'
 	new_attack_chain = TRUE
 	var/double_attack = TRUE
 	var/double_attack_cd = (3 / 2) // so every second attack
