@@ -842,7 +842,7 @@
 // MARK: Mantis Blades
 ////////////////////////////////////////
 
-/obj/item/melee/mantis/blade
+/obj/item/melee/mantis_blade
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	icon_state = "mantis"
@@ -858,7 +858,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "lacerated", "ripped", "diced", "cut")
 
-/obj/item/melee/mantis/blade/equipped(mob/user, slot, initial)
+/obj/item/melee/mantis_blade/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_LEFT_HAND)
 		transform = matrix(-1, 0, 0, 0, 1, 0)
@@ -866,10 +866,9 @@
 		transform = null
 
 // make double attack if blades in both hands and not on CD
-/obj/item/melee/mantis/blade/attack(mob/living/target, mob/living/user, params, second_attack = FALSE)
-	var/obj/item/melee/mantis/firstsblade = user.get_active_hand()
-	var/obj/item/melee/mantis/secondblade = user.get_inactive_hand()
-	if(!istype(firstsblade, secondblade) || !double_attack)
+/obj/item/melee/mantis_blade/attack(mob/living/target, mob/living/user, params, second_attack = FALSE)
+	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
+	if(!istype(src, secondblade) || !double_attack)
 		return ..()
 
 	if(second_attack) // if attack from second blade to prevent switching your attacking hand
@@ -878,39 +877,33 @@
 		return ..()
 
 	double_attack = FALSE
-	double_attack(target, user, params, firstsblade, secondblade)
-	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
-	return FINISH_ATTACK
-
-/obj/item/melee/mantis/blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis/firstsblade, obj/item/melee/mantis/secondblade)
-	if(QDELETED(secondblade) || QDELETED(src))
-		return
-
-	firstsblade.attack(target, user, params, FALSE)
+	src.attack(target, user, params, FALSE)
 	sleep(2) // not instant second attack
 	secondblade.attack(target, user, params, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
+	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
+	return FINISH_ATTACK
 
-/obj/item/melee/mantis/blade/proc/reset_double_attack()
+/obj/item/melee/mantis_blade/proc/reset_double_attack()
 	double_attack = TRUE
 
-/obj/item/melee/mantis/blade/syndicate
+/obj/item/melee/mantis_blade/syndicate
 	name = "G.O.R.L.E.X. mantis blade"
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
 	force = 20
 	armour_penetration_percentage = 30
 
-/obj/item/melee/mantis/blade/syndicate/Initialize(mapload)
+/obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, non projectile
 
-/obj/item/melee/mantis/blade/NT
+/obj/item/melee/mantis_blade/NT
 	name = "H.E.P.H.A.E.S.T.U.S. mantis blade"
 	icon_state = "mantis"
 	force = 18
 
-/obj/item/melee/mantis/blade/NT/Initialize(mapload)
+/obj/item/melee/mantis_blade/NT/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (5 / 3) SECONDS, _no_parry_sound = TRUE) // 0.666667 seconds for 60% uptime, non projectile
 
@@ -920,7 +913,7 @@
 	name = "G.O.R.L.E.X. mantis blade implants"
 	desc = "Modernized mantis blade designed and coined by Tiger operatives. Energy actuators makes the blade a much deadlier weapon."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
-	contents = newlist(/obj/item/melee/mantis/blade/syndicate)
+	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
 	icon_state = "syndie_mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 
@@ -935,7 +928,7 @@
 	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
 	desc = "Mantis blade reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
-	contents = newlist(/obj/item/melee/mantis/blade/NT)
+	contents = newlist(/obj/item/melee/mantis_blade/NT)
 	icon_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 
