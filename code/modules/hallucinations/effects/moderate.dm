@@ -525,7 +525,6 @@
 			pixel_x = -32 * distance
 			pixel_y = 32 * distance
 	var/image/grenade = image(hallucination_icon, grenade_turf, hallucination_icon_state, pixel_x = pixel_x, pixel_y = pixel_y)
-	grenade.layer = hallucination_layer
 	target.playsound_local(grenade_turf, 'sound/weapons/armbomb.ogg', 75, TRUE)
 	animate(grenade, 9, pixel_x = 0, pixel_y = 0, flags = ANIMATION_PARALLEL)
 	animate(transform = matrix(120, MATRIX_ROTATE), time = 3, flags = ANIMATION_PARALLEL)
