@@ -775,6 +775,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	icon_state = "red_phone"
 	listening = TRUE
 	name = "phone"
+	desc = "An old rotary dial telephone, retrofitted with components from a modern handheld radio. Thankfully it's wireless, too!"
 	dog_fashion = null
 
 /obj/item/radio/phone/medbay
