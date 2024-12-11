@@ -502,5 +502,5 @@
 		hit_target.bullet_act(src, def_zone)
 	loc = target_turf
 	if(A)
-		permutated.Add(A)
+		permutated += A
 	return 0
