@@ -280,6 +280,7 @@
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(t as text)
+	t = format_text(t) // SS220 EDIT
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Centers text by adding spaces to either side of the string.
@@ -377,7 +378,7 @@
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(text, first, last)
-	return html_encode(copytext(html_decode(text), first, last))
+	return html_encode(copytext_char(html_decode(text), first, last)) // SS220 EDIT - ORIGINAL: copytext
 
 //Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
 //Best used for sanitize object names, window titles.

@@ -19,23 +19,23 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
 	var/blackbox_save_name
 
-/datum/team/New(list/starting_members)
+/datum/team/New(list/starting_members, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
 	..()
 	if(!can_create_team())
 		QDEL_IN(src, 0 SECONDS) // Give us time to crash so we can get the full call stack
 		CRASH("[src] ([type]) is not allowed to be created, this may be a duplicate team. Deleting...")
 	// Assign the team before member assignment to prevent duplicate teams
 	assign_team()
-	if(!create_team(starting_members))
+	if(!create_team(starting_members, add_antag_datum)) // SS220 EDIT - add_antag_datum arg
 		CRASH("[src] ([type]) somehow failed to create a team!")
 
-/datum/team/proc/create_team(list/starting_members)
+/datum/team/proc/create_team(list/starting_members, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
 	PROTECTED_PROC(TRUE)
 	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
-		add_member(M)
+		add_member(M, add_antag_datum = add_antag_datum) // SS220 EDIT - add_antag_datum arg
 	GLOB.antagonist_teams += src
 	return TRUE
 
@@ -63,13 +63,20 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * This is an interface proc, to prevent handle_removing_member from being called multiple times.
  * It is better if this is only called from `add_antag_datum()`, but it is not required.
  */
-/datum/team/proc/add_member(datum/mind/new_member, force = FALSE)
+/datum/team/proc/add_member(datum/mind/new_member, force = FALSE, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!force && (new_member in members))
 		return FALSE
 	members |= new_member
+	// SS220 EDIT START
+	. = TRUE
+	if(add_antag_datum && antag_datum_type)
+		var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+		// If no matching antag datum was found, give them one.
+		if(!antag)
+			. = new_member.add_antag_datum(antag_datum_type, src)
 	handle_adding_member(new_member)
-	return TRUE
+	// SS220 EDIT END
 
 /**
  * An internal proc to allow teams to handle custom parts of adding a member.
@@ -79,9 +86,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
-	if(!antag) // this team has no antag role, we'll add it directly to their mind team
-		LAZYDISTINCTADD(new_member.teams, src)
+	// SS220 EDIT START - Commented for #840
+	// var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+	// if(!antag) // this team has no antag role, we'll add it directly to their mind team
+		// LAZYDISTINCTADD(new_member.teams, src)
+	return
+	// SS220 EDIT END
 
 /**
  * Removes `member` from this team.
@@ -102,7 +112,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	LAZYREMOVE(member.teams, src)
+	// LAZYREMOVE(member.teams, src) // SS220 EDIT - Commented for #840
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
 	if(!QDELETED(antag))
 		qdel(antag)

@@ -116,7 +116,7 @@ export class NanoMap extends Component {
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
-    const mapUrl = config.map + '_nanomap_z1.png';
+    const mapUrl = this.props.mapUrl || config.map + '_nanomap_z1.png';
     const mapSize = MAP_SIZE * zoom + 'px';
     const newStyle = {
       width: mapSize,
@@ -151,6 +151,7 @@ export class NanoMap extends Component {
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} onReset={this.handleReset} />
+        <NanoMapZSelector />
       </Box>
     );
   }
@@ -235,3 +236,62 @@ const NanoMapZoomer = (props, context) => {
 };
 
 NanoMap.Zoomer = NanoMapZoomer;
+
+let ActiveButton;
+class NanoButton extends Component {
+  constructor(props) {
+    super(props);
+    const { act } = useBackend(this.props.context);
+    this.state = {
+      color: this.props.color,
+    };
+    this.handleClick = (e) => {
+      if (ActiveButton !== undefined) {
+        ActiveButton.setState({
+          color: 'blue',
+        });
+      }
+      act('switch_camera', {
+        name: this.props.name,
+      });
+      ActiveButton = this;
+      this.setState({
+        color: 'green',
+      });
+    };
+  }
+  render() {
+    let rx = this.props.x * 2 * this.props.zoom - this.props.zoom - 3;
+    let ry = this.props.y * 2 * this.props.zoom - this.props.zoom - 3;
+    return (
+      <Button
+        key={this.props.key}
+        // icon={this.props.icon}
+        onClick={this.handleClick}
+        position="absolute"
+        className="NanoMap__button"
+        lineHeight="0"
+        color={this.props.status ? this.state.color : 'red'}
+        bottom={ry + 'px'}
+        left={rx + 'px'}
+      >
+        <Tooltip content={this.props.tooltip} />
+      </Button>
+    );
+  }
+}
+NanoMap.NanoButton = NanoButton;
+
+const NanoMapZSelector = (props, context) => {
+  const { act, data } = useBackend(context);
+  return (
+    <Box className="NanoMap__zchooser">
+      <Box>
+        <Button icon={'chevron-up'} tooltip={'Уровнем выше'} onClick={() => act('switch_z_level', { z_dir: 1 })} />
+      </Box>
+      <Box>
+        <Button icon={'chevron-down'} tooltip={'Уровнем ниже'} onClick={() => act('switch_z_level', { z_dir: -1 })} />
+      </Box>
+    </Box>
+  );
+};

@@ -150,15 +150,15 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 		switch(pick(safety))//Chance based on the safety list.
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
-				. += pick(GLOB.joblist)//Returns a job.
+				. += pick(GLOB.jobs)//Returns a job. // SS220 EDIT - ORIGINAL: GLOB.joblist
 				safety -= 1
 			if(2)
-				. += pick(GLOB.codeword_locations)
+				. += pick(GLOB.locations) // SS220 EDIT - ORIGINAL: GLOB.codeword_locations
 				safety -= 2
 			if(3)
 				switch(rand(1, 3)) // Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						. += pick(GLOB.codeword_nouns)
+						. += pick(GLOB.nouns) // SS220 EDIT - ORIGINAL:(GLOB.codeword_nouns
 					if(2)
 						. += pick(GLOB.adjectives)
 					if(3)

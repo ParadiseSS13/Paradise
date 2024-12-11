@@ -107,6 +107,8 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
+/datum/job/scientist/student	// SS220 ADDITION - new jobs
+
 /datum/job/roboticist
 	title = "Roboticist"
 	flag = JOB_ROBOTICIST

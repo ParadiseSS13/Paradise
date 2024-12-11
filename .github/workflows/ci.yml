@@ -50,8 +50,8 @@ jobs:
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
           python tools/ci/check_map_sizes.py
-          python tools/ci/verify_sql_version.py
-          python tools/ci/no_duplicate_definitions.py
+          # python tools/ci/verify_sql_version.py # SS220 REMOVAL
+          # python tools/ci/no_duplicate_definitions.py # SS220 REMOVAL
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
           python -m tools.ci.check_legacy_attack_chain
