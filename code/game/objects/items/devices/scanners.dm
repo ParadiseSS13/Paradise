@@ -354,7 +354,7 @@ SLIME SCANNER
 		)
 		msgs += pick(spooky_conditions)
 
-	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5) && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))) )
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5) && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='danger'>[H]'s head snaps to look at you.</span>"), rand(1 SECONDS, 3 SECONDS))
 
 	// Blood.
