@@ -488,7 +488,7 @@
 		organ_hit_text = " in \the [parse_zone(def_zone)]"
 	hit_target.playsound_local(loc, hitsound, 5, TRUE)
 	hit_target.apply_damage(60, STAMINA, def_zone)
-	hit_target.apply_effects(knockdown = 2 SECONDS)
+	hit_target.Knockdown(2 SECONDS)
 	new /obj/effect/hallucination/sniper_bloodsplatter(src.loc, hit_target)
 	to_chat(hit_target, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 
