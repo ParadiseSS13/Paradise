@@ -50,6 +50,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
+	/// If set, this determines which slots are considered when using quick equip
+	var/prefered_slot_flags = 0
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
