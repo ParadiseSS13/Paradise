@@ -22,12 +22,12 @@
 	apply_label()
 
 /datum/component/label/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(on_attack_by))
+	RegisterSignal(parent, COMSIG_LABEL_REMOVE, PROC_REF(on_remove))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(on_update_name))
 
 /datum/component/label/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATTACK_BY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
+	UnregisterSignal(parent, list(COMSIG_LABEL_REMOVE, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
 
 /**
 	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
@@ -41,29 +41,10 @@
 		label_name = _label_name
 	apply_label()
 
-/**
-	This proc will trigger when any object is used to attack the parent.
-
-	If the attacking object is not a hand labeler, it will return.
-	If the attacking object is a hand labeler it will restore the name of the parent to what it was before this component was added to it, and the component will be deleted.
-
-	Arguments:
-	* source: The parent.
-	* attacker: The object that is hitting the parent.
-	* user: The mob who is wielding the attacking object.
-*/
-/datum/component/label/proc/on_attack_by(datum/source, obj/item/attacker, mob/user)
-	SIGNAL_HANDLER // COMSIG_ATTACK_BY
-	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
-	// The hand labeler should be off in order to remove a label.
-	var/obj/item/hand_labeler/labeler = attacker
-	if(!istype(labeler) || labeler.mode)
-		return
-
+/datum/component/label/proc/on_remove(datum/source)
 	remove_label()
-	playsound(parent, 'sound/items/poster_ripped.ogg', 20, TRUE)
-	to_chat(user, "<span class='warning'>You remove the label from [parent].</span>")
 	qdel(src) // Remove the component from the object.
+	return TRUE
 
 /**
 	This proc will trigger when someone examines the parent.
