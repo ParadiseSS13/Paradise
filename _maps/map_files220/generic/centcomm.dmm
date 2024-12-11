@@ -22395,7 +22395,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/general)
 "nox" = (
-/obj/machinery/newscaster/security_unit/north,
+/obj/machinery/newscaster/security_unit/directional/north,
 /obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)

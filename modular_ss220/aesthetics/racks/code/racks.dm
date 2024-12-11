@@ -7,6 +7,9 @@
 /obj/structure/gunrack
 	icon = 'modular_ss220/aesthetics/racks/icons/racks.dmi'
 
+/obj/structure/gunrack/clockwork
+	icon = 'icons/obj/structures.dmi'
+
 // Return original icon path
 /obj/structure/rack/skeletal_bar
 	icon = 'icons/obj/stationobjs.dmi'

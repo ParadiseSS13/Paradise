@@ -941,7 +941,7 @@
 /obj/item/food/monstermeat/lizardmeat,
 /obj/item/food/monstermeat/lizardmeat,
 /obj/item/stack/sheet/animalhide/lizard,
-/obj/effect/spawner/lootdrop/lizardboots,
+/obj/effect/spawner/random/lizardboots,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/gate)

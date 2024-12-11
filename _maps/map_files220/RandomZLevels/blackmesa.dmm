@@ -14280,7 +14280,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "rvi" = (
-/obj/machinery/r_n_d/destructive_analyzer,
+/obj/machinery/r_n_d/scientific_analyzer,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},

@@ -414,43 +414,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 	pixel_x = 32
 	dir = 8
 
-/* NewsCaster */
-/obj/machinery/newscaster/directional
-	name = "\improper newscaster"
-
-/obj/machinery/newscaster/directional/south
-	pixel_y = -28
-	dir = 1
-
-/obj/machinery/newscaster/directional/north
-	pixel_y = 28
-
-/obj/machinery/newscaster/directional/west
-	pixel_x = -28
-	dir = 4
-
-/obj/machinery/newscaster/directional/east
-	pixel_x = 28
-	dir = 8
-
-/obj/machinery/newscaster/security_unit
-	name = "\improper security newscaster"
-
-/obj/machinery/newscaster/security_unit/south
-	pixel_y = -28
-	dir = 1
-
-/obj/machinery/newscaster/security_unit/north
-	pixel_y = 28
-
-/obj/machinery/newscaster/security_unit/west
-	pixel_x = -28
-	dir = 4
-
-/obj/machinery/newscaster/security_unit/east
-	pixel_x = 28
-	dir = 8
-
 /* Sinks */
 /obj/structure/sink/directional
 	name = "\improper sink"
