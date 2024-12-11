@@ -72758,6 +72758,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"osD" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/junction,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "osJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/beach/away/water/deep,
@@ -164469,7 +164478,7 @@ wyU
 wyU
 aSM
 tMv
-oCW
+osD
 tMv
 vhx
 cwf
