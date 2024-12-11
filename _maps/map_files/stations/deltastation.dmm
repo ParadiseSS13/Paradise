@@ -14099,7 +14099,6 @@
 	pixel_x = 32
 	},
 /obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "aYJ" = (
