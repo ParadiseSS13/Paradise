@@ -574,9 +574,7 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.set_temperature(removed.temperature() + (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))
-		//We can only emit so much heat, that being 57500
-		removed.set_temperature(max(0, min(removed.temperature(), 2500 * dynamic_heat_modifier)))
+		removed.set_temperature(removed.temperature() + max(0, min((2500 * dynamic_heat_modifier) - removed.temperature(), (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
