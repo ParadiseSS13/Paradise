@@ -21490,10 +21490,7 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
-/obj/machinery/r_n_d/circuit_imprinter{
-	pixel_x = 3;
-	pixel_y = 5
-	},
+/obj/machinery/r_n_d/circuit_imprinter,
 /obj/machinery/button/windowtint/west{
 	id = "rnd"
 	},
@@ -65528,6 +65525,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "lTr" = (
+/obj/machinery/r_n_d/scientific_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"

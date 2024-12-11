@@ -37364,6 +37364,7 @@
 /area/station/science/research)
 "cYm" = (
 /obj/machinery/alarm/directional/west,
+/obj/machinery/r_n_d/scientific_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
