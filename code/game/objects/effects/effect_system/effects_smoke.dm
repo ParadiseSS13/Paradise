@@ -23,7 +23,7 @@
 /obj/effect/particle_effect/smoke/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
+	RegisterSignal(src, list(COMSIG_MOVABLE_CROSS, COMSIG_MOVABLE_CROSS_OVER), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
 	GLOB.smokes_active++
 	lifetime += rand(-1, 1)
 	create_reagents(10)
@@ -31,7 +31,7 @@
 /obj/effect/particle_effect/smoke/Destroy()
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	STOP_PROCESSING(SSobj, src)
-	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
+	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSS, COMSIG_MOVABLE_CROSS_OVER))
 	GLOB.smokes_active--
 	return ..()
 
@@ -125,7 +125,7 @@
 	lifetime = 16 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target)
+/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage / 2)
@@ -143,25 +143,23 @@
 	lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/steam/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!isliving(AM))
+/obj/effect/particle_effect/smoke/steam/smoke_mob(mob/living/breather)
+	if(!istype(breather))
 		return
-	var/mob/living/crosser = AM
-	if(IS_MINDFLAYER(crosser))
+	if(IS_MINDFLAYER(breather))
 		return // Mindflayers are fully immune to steam
-	if(!ishuman(crosser))
-		crosser.adjustFireLoss(8)
+	if(!ishuman(breather))
+		breather.adjustFireLoss(8)
 		return
 
-	var/mob/living/carbon/human/human_crosser = AM
+	var/mob/living/carbon/human/human_crosser = breather
 	var/fire_armour = human_crosser.get_thermal_protection()
 	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
 		return
 
-	crosser.adjustFireLoss(5)
+	breather.adjustFireLoss(5)
 	if(prob(20))
-		to_chat(crosser, "<span class='warning'>You are being scalded by the hot steam!</span>")
+		to_chat(breather, "<span class='warning'>You are being scalded by the hot steam!</span>")
 
 /////////////////////////////////////////////
 // Nanofrost smoke
