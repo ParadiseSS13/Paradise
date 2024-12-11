@@ -200,6 +200,17 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/setup_shielding()
 	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID(src)]")
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID(src)]")
+
+
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
