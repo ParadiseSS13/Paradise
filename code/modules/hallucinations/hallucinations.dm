@@ -6,8 +6,6 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/speech = 15,
 		/obj/effect/hallucination/audio = 25,
 		/obj/effect/hallucination/audio/localized = 25,
-		
-
 	),
 	HALLUCINATE_MODERATE = list(
 		/obj/effect/hallucination/delusion = 5,
