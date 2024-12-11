@@ -556,7 +556,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "dA" = (
-/turf/space,
+/turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "dD" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -2797,7 +2797,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "pS" = (
-/turf/space,
+/turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pT" = (
 /obj/machinery/light{
@@ -5715,7 +5715,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "HO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6836,6 +6836,9 @@
 "OT" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered/syndicate_space_base/inner)
+"OU" = (
+/turf/template_noop,
+/area/ruin/unpowered/syndicate_space_base/outer)
 "OY" = (
 /obj/machinery/light{
 	dir = 1
@@ -8725,41 +8728,6 @@ AV
 AV
 AV
 AV
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-Ri
-Ri
-AV
-Ri
-Ri
 AV
 AV
 AV
@@ -8782,7 +8750,43 @@ AV
 AV
 AV
 AV
-Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -8798,31 +8802,19 @@ AV
 AV
 AV
 AV
-AV
-Ri
-AV
 Ri
 AV
 AV
 AV
-Ri
 AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 Ri
 Ri
 Ri
@@ -8836,25 +8828,38 @@ Ri
 Ri
 AV
 AV
-Ri
-Ri
-Ri
-AV
 AV
 AV
 AV
 AV
 Ri
+Ri
 AV
-AV
-AV
+Ri
 Ri
 AV
 AV
 AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 Ri
-AV
-AV
 AV
 AV
 AV
@@ -8872,6 +8877,80 @@ AV
 AV
 AV
 AV
+Ri
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+Ri
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+"}
+(4,1,1) = {"
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -8936,7 +9015,8 @@ AV
 AV
 AV
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+AV
 AV
 Ri
 AV
@@ -9008,7 +9088,8 @@ AV
 AV
 AV
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9080,7 +9161,8 @@ AV
 AV
 AV
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -9152,7 +9234,8 @@ AV
 Ri
 AV
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -9224,7 +9307,8 @@ AV
 AV
 AV
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9296,7 +9380,8 @@ AV
 AV
 AV
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9368,7 +9453,8 @@ AV
 AV
 AV
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9440,7 +9526,8 @@ AV
 AV
 AV
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9512,7 +9599,8 @@ Ri
 AV
 AV
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -9584,7 +9672,8 @@ AV
 AV
 AV
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9656,7 +9745,8 @@ AV
 AV
 AV
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9728,7 +9818,8 @@ AV
 AV
 AV
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+AV
 Ri
 Ri
 AV
@@ -9800,7 +9891,8 @@ AV
 AV
 AV
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9872,7 +9964,8 @@ AV
 AV
 AV
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9944,7 +10037,8 @@ AV
 Ri
 AV
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10016,7 +10110,8 @@ Ri
 AV
 AV
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10088,7 +10183,8 @@ Ri
 AV
 AV
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10160,7 +10256,8 @@ Ri
 AV
 AV
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -10232,7 +10329,8 @@ Ri
 Ri
 AV
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10304,7 +10402,8 @@ Ri
 AV
 AV
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10376,7 +10475,8 @@ Ri
 AV
 AV
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10448,7 +10548,8 @@ Ri
 AV
 AV
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10520,7 +10621,8 @@ Ri
 AV
 AV
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10592,7 +10694,8 @@ Ri
 AV
 AV
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+AV
 Ri
 AV
 Ri
@@ -10664,7 +10767,8 @@ Ri
 AV
 AV
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10736,7 +10840,8 @@ AV
 Ri
 AV
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10808,7 +10913,8 @@ AV
 AV
 AV
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10880,7 +10986,8 @@ AV
 AV
 AV
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10952,7 +11059,8 @@ AV
 AV
 AV
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11024,7 +11132,8 @@ AV
 AV
 AV
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -11096,7 +11205,8 @@ Ri
 AV
 AV
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11168,7 +11278,8 @@ AV
 AV
 AV
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11240,7 +11351,8 @@ AV
 Ri
 AV
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11312,7 +11424,8 @@ Ri
 Ri
 AV
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11384,7 +11497,8 @@ AV
 AV
 AV
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11456,7 +11570,8 @@ Ri
 AV
 AV
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11528,7 +11643,8 @@ AV
 AV
 AV
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11600,7 +11716,8 @@ Ri
 AV
 AV
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11672,7 +11789,8 @@ AV
 AV
 AV
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+AV
 Ri
 AV
 AV
@@ -11744,7 +11862,8 @@ Ri
 AV
 AV
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11816,7 +11935,8 @@ Ri
 AV
 AV
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11888,7 +12008,8 @@ Ri
 Ri
 AV
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -11960,7 +12081,8 @@ Ri
 AV
 AV
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12032,7 +12154,8 @@ Ri
 AV
 AV
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12104,7 +12227,8 @@ Ri
 Ri
 AV
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12176,7 +12300,8 @@ Ri
 Ri
 AV
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12248,7 +12373,8 @@ Ri
 Ri
 AV
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12320,7 +12446,8 @@ Ri
 Ri
 AV
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12392,7 +12519,8 @@ Ri
 Ri
 AV
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12464,7 +12592,8 @@ Ri
 Ri
 AV
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12536,7 +12665,8 @@ Ri
 Ri
 AV
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12608,7 +12738,8 @@ Ri
 Ri
 AV
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12680,7 +12811,8 @@ Ri
 Ri
 AV
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12752,7 +12884,8 @@ Ri
 Ri
 AV
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12824,7 +12957,8 @@ Ri
 Ri
 AV
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -12896,7 +13030,8 @@ Ri
 Ri
 AV
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12968,95 +13103,14 @@ Ri
 Ri
 AV
 "}
-(60,1,1) = {"
-AV
-AV
-Ri
-Ri
-Ri
-AD
-AD
-AD
-Mf
-AD
-Mf
-Mf
-AD
-Mf
-Mf
-Mf
-LE
-AD
-AD
-kE
-kE
-kE
-AD
-LE
-kE
-AD
-Mf
-Mf
-Mf
-Mf
-AD
-AD
-Mf
-AD
-AD
-Mf
-AD
-kE
-kE
-AD
-AD
-kE
-kE
-kE
-kE
-kE
-Vl
-Vl
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-Vl
-Vl
-kE
-kE
-kE
-kE
-kE
-Ri
-Ri
-AV
-AV
-"}
 (61,1,1) = {"
 AV
-Ri
+AV
 AV
 Ri
 Ri
 Ri
-kE
-kE
-kE
 AD
-AD
-AD
-kE
-kE
-AD
-Mf
 AD
 AD
 Mf
@@ -13064,33 +13118,41 @@ AD
 Mf
 Mf
 AD
-AD
-AD
-AD
 Mf
-AD
+Mf
+Mf
 LE
 AD
+AD
 kE
 kE
+kE
+AD
+LE
+kE
+AD
+Mf
+Mf
+Mf
+Mf
+AD
+AD
+Mf
+AD
 AD
 Mf
 AD
 kE
 kE
 AD
-kE
-kE
 AD
 kE
 kE
-OT
 kE
 kE
 kE
 Vl
 Vl
-rw
 nv
 nv
 nv
@@ -13098,21 +13160,97 @@ nv
 nv
 nv
 nv
-rw
+nv
+nv
+nv
+nv
 Vl
 Vl
 kE
 kE
 kE
-OT
 kE
-Ri
+kE
 Ri
 Ri
 AV
 AV
 "}
 (62,1,1) = {"
+AV
+AV
+Ri
+AV
+Ri
+Ri
+Ri
+kE
+kE
+kE
+AD
+AD
+AD
+kE
+kE
+AD
+Mf
+AD
+AD
+Mf
+AD
+Mf
+Mf
+AD
+AD
+AD
+AD
+Mf
+AD
+LE
+AD
+kE
+kE
+AD
+Mf
+AD
+kE
+kE
+AD
+kE
+kE
+AD
+kE
+kE
+OT
+kE
+kE
+kE
+Vl
+Vl
+rw
+nv
+nv
+nv
+nv
+nv
+nv
+nv
+rw
+Vl
+Vl
+kE
+kE
+kE
+OT
+kE
+Ri
+Ri
+Ri
+AV
+AV
+"}
+(63,1,1) = {"
+AV
 AV
 AV
 AV
@@ -13184,7 +13322,8 @@ AV
 AV
 AV
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -13256,107 +13395,26 @@ AV
 AV
 AV
 "}
-(64,1,1) = {"
-AV
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-kE
-Ri
-kE
-kE
-Ri
-kE
-Ri
-kE
-kE
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-kE
-Ri
-kE
-Ri
-Ri
-kE
-Ri
-kE
-kE
-kE
-kE
-kE
-OT
-OT
-OT
-OT
-kE
-OT
-OT
-kE
-kE
-kE
-Vl
-Vl
-Vl
-kE
-kE
-OT
-OT
-kE
-kE
-kE
-OT
-OT
-OT
-Ri
-Ri
-Ri
-AV
-AV
-"}
 (65,1,1) = {"
 AV
-Ri
 AV
-AV
-Ri
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-Ri
 AV
 AV
 AV
 Ri
 Ri
+Ri
+Ri
+Ri
+kE
+Ri
+kE
+kE
+Ri
+kE
+Ri
+kE
+kE
 Ri
 Ri
 Ri
@@ -13371,14 +13429,11 @@ Ri
 Ri
 kE
 Ri
-OT
-OT
 kE
+Ri
+Ri
 kE
-kE
-kE
-kE
-kE
+Ri
 kE
 kE
 kE
@@ -13386,50 +13441,62 @@ kE
 kE
 OT
 OT
+OT
+OT
 kE
+OT
+OT
+kE
+kE
+kE
+Vl
+Vl
+Vl
+kE
+kE
+OT
+OT
 kE
 kE
 kE
 OT
+OT
+OT
 Ri
 Ri
 Ri
-Ri
-Ri
-AV
 AV
 AV
 "}
 (66,1,1) = {"
 AV
 AV
-AV
-AV
-AV
-AV
 Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
 AV
 AV
 Ri
 AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
 AV
+Ri
+AV
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13444,14 +13511,7 @@ Ri
 Ri
 Ri
 kE
-kE
 Ri
-kE
-kE
-kE
-Ri
-kE
-OT
 OT
 OT
 kE
@@ -13460,14 +13520,23 @@ kE
 kE
 kE
 kE
-Ri
+kE
+kE
+kE
+kE
+kE
+OT
+OT
+kE
+kE
+kE
 kE
 OT
 Ri
 Ri
 Ri
 Ri
-AV
+Ri
 AV
 AV
 AV
@@ -13481,28 +13550,17 @@ AV
 AV
 AV
 Ri
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
 Ri
 AV
 AV
@@ -13510,6 +13568,11 @@ AV
 AV
 AV
 AV
+AV
+Ri
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13524,23 +13587,30 @@ Ri
 Ri
 kE
 kE
+Ri
 kE
 kE
 kE
 Ri
 kE
+OT
+OT
+OT
+kE
+kE
+kE
+kE
+kE
 kE
 Ri
-Ri
-Ri
+kE
+OT
 Ri
 Ri
 Ri
 Ri
 AV
 AV
-AV
-Ri
 AV
 AV
 "}
@@ -13549,31 +13619,19 @@ AV
 AV
 AV
 AV
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 AV
 AV
 AV
 AV
 Ri
+AV
+AV
+AV
 Ri
+AV
+AV
+AV
 Ri
-AV
-AV
-AV
-AV
 AV
 AV
 AV
@@ -13586,6 +13644,16 @@ AV
 AV
 AV
 AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13598,11 +13666,15 @@ Ri
 Ri
 Ri
 kE
+kE
+kE
+kE
+kE
 Ri
 kE
 kE
-kE
-kE
+Ri
+Ri
 Ri
 Ri
 Ri
@@ -13610,9 +13682,8 @@ Ri
 Ri
 AV
 AV
-Ri
-Ri
 AV
+Ri
 AV
 AV
 "}
@@ -13620,29 +13691,12 @@ AV
 AV
 AV
 AV
-Ri
-Ri
-AV
-AV
-AV
 AV
 AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 Ri
 AV
 AV
-Ri
 AV
 AV
 AV
@@ -13658,24 +13712,6 @@ AV
 AV
 AV
 Ri
-AV
-AV
-Ri
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
 Ri
 Ri
 AV
@@ -13683,8 +13719,44 @@ AV
 AV
 AV
 AV
+AV
+AV
+AV
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
 Ri
 Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+kE
+Ri
+kE
+kE
+kE
+kE
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+Ri
+Ri
+AV
 AV
 AV
 "}
@@ -13693,6 +13765,14 @@ AV
 AV
 AV
 AV
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
 AV
 AV
 AV
@@ -13704,24 +13784,10 @@ AV
 AV
 AV
 AV
+Ri
 AV
 AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
+Ri
 AV
 AV
 AV
@@ -13739,18 +13805,98 @@ AV
 Ri
 AV
 AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
 Ri
 AV
 AV
+AV
 Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
+OU
+AV
+AV
+"}
+(71,1,1) = {"
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
