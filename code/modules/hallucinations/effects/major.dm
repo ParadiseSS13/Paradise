@@ -500,13 +500,7 @@
 	var/mob/living/hit_target = A
 	if(hit_target == hallucinator)
 		hit_target.bullet_act(src, def_zone)
-	var/permutation = -1
-	if(permutation == -1 || forcedodge) // the bullet passes through a dense object!
-		if(forcedodge)
-			forcedodge -= 1
-		loc = target_turf
-		if(A)
-			permutated.Add(A)
-		return 0
-	if(!isliving(A))
-		return 0
+	loc = target_turf
+	if(A)
+		permutated.Add(A)
+	return 0
