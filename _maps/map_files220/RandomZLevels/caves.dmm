@@ -843,10 +843,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "dS" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/experimentor{
-	pixel_x = 5;
-	pixel_y = 8
-	},
 /obj/item/flashlight/lamp,
 /obj/effect/turf_decal/siding/wood/neutral,
 /obj/effect/spawner/random/dirt/often,
@@ -5742,10 +5738,10 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "ET" = (
@@ -8931,8 +8927,8 @@
 /area/awaymission/caves)
 "Wr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},

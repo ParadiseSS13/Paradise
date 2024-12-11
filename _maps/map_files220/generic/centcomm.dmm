@@ -2204,7 +2204,7 @@
 /obj/item/circuitboard/aiupload,
 /obj/item/circuitboard/circuit_imprinter,
 /obj/item/circuitboard/communications,
-/obj/item/circuitboard/destructive_analyzer,
+/obj/item/circuitboard/scientific_analyzer,
 /obj/item/circuitboard/ore_redemption,
 /obj/item/circuitboard/mining_shuttle,
 /obj/item/circuitboard/protolathe,
@@ -12325,11 +12325,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/security_unit/directional/south,
 /obj/structure/table/wood/fancy/black,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/clothing/mask/cigarette/cigar{
@@ -14335,11 +14331,11 @@
 /area/centcom/ss220/admin3)
 "iuR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -6;
 	pixel_y = 4
 	},
@@ -21795,23 +21791,23 @@
 /area/centcom/ss220/supply)
 "mWo" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 4;
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 10;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -22399,7 +22395,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/general)
 "nox" = (
-/obj/machinery/newscaster/security_unit/north,
+/obj/machinery/newscaster/security_unit/directional/north,
 /obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)
@@ -23560,10 +23556,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "nXD" = (
@@ -36149,7 +36142,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vwI" = (

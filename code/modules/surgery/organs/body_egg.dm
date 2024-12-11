@@ -26,12 +26,16 @@
 	. = ..()
 
 /obj/item/organ/internal/body_egg/on_life()
+	SHOULD_CALL_PARENT(TRUE)
+	..()
 	if(!(src in owner.internal_organs)) // I can only presume this is here for a reason, so not touching it.
 		remove(owner)
 		return
 	egg_process()
 
 /obj/item/organ/internal/body_egg/dead_process()
+	SHOULD_CALL_PARENT(TRUE)
+	..()
 	if(!(src in owner.internal_organs)) // I can only presume this is here for a reason, so not touching it.
 		remove(owner)
 		return

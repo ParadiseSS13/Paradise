@@ -80,8 +80,8 @@
 /area/ruin/space/powered)
 "r" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	list_reagents = list("beer"=0);
 	pixel_x = 9;
 	pixel_y = -3

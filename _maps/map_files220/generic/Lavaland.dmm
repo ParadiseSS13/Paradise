@@ -622,22 +622,22 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bG" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},

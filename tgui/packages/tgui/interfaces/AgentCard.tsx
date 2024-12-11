@@ -209,6 +209,9 @@ export const AgentCardInfo = (props, context) => {
                     />
                   </Stack.Item>
                 ))}
+                <Stack.Item grow>
+                  <Button fluid icon="file-signature" onClick={() => act('change_blood_type', { option: 'Primary' })} />
+                </Stack.Item>
               </Stack>
             </LabeledList.Item>
             <InfoInput

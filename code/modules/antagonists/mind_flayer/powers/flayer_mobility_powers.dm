@@ -40,7 +40,6 @@
 									/obj/machinery/sleeper,
 									/obj/machinery/bodyscanner,
 									/obj/machinery/photocopier, // HI YES ONE FLAYER FAXED TO MY OFFICE PLEASE
-									/obj/machinery/r_n_d/experimentor, // Like anyone is ever gonna teleport to this
 									/obj/machinery/barsign
 								))
 

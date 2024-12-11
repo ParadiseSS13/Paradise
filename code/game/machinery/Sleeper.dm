@@ -563,4 +563,16 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
+/obj/machinery/sleeper/clockwork
+	name = "soothing sleeper"
+	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
+	icon_state = "sleeper_c-open"
+	base_icon = "sleeper_c"
+	possible_chems = list("epinephrine", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "mannitol")
+	light_color = LIGHT_COLOR_DARKRED
+
+/obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/I)
+	to_chat(user, "<span class='warning'>You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!</span>")
+	return FALSE
+
 #undef ADDICTION_SPEEDUP_TIME

@@ -371,7 +371,7 @@
 /area/ruin/space/powered)
 "jq" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -4;
 	pixel_y = 6
 	},
@@ -763,7 +763,7 @@
 /area/ruin/space/powered)
 "rZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4;
 	volume = 0
@@ -898,7 +898,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "vo" = (
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -2082,7 +2082,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "QS" = (
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4;
 	volume = 0
@@ -2112,8 +2112,8 @@
 /area/ruin/space/powered)
 "RM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	list_reagents = list("beer"=0);
 	pixel_x = 9;
 	pixel_y = -3

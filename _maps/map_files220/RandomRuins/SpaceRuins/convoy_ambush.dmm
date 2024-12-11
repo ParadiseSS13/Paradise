@@ -439,8 +439,8 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "uW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},

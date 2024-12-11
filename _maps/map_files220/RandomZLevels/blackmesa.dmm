@@ -6273,7 +6273,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_uplift{
 	pixel_x = 10
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 10;
 	pixel_x = -9
 	},
@@ -6596,7 +6596,7 @@
 /area/awaymission/black_mesa/black_ops_armory)
 "ikb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -9708,7 +9708,7 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "lWK" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 10;
 	pixel_x = 9
 	},
@@ -14280,7 +14280,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "rvi" = (
-/obj/machinery/r_n_d/destructive_analyzer,
+/obj/machinery/r_n_d/scientific_analyzer,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -14518,7 +14518,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "rKj" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/item/kitchen/knife/plastic,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -18125,7 +18125,7 @@
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "wnV" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 8;
 	pixel_y = 2
 	},

@@ -505,7 +505,7 @@
 /area/ghost_bar/indoor)
 "bV" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/mineral/plastitanium{
@@ -821,7 +821,7 @@
 /area/trader_station/sol)
 "dg" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/sci,
+/obj/effect/spawner/random/traders/science,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "di" = (
@@ -1996,7 +1996,7 @@
 /area/shuttle/vox)
 "gX" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/sec,
+/obj/effect/spawner/random/traders/security,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "gY" = (
@@ -3691,7 +3691,7 @@
 /area/ghost_bar/outdoor)
 "mH" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/obj/effect/spawner/random/traders/minerals,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "mI" = (
@@ -3840,7 +3840,7 @@
 	},
 /area/ghost_bar/outdoor/beach)
 "no" = (
-/obj/effect/spawner/lootdrop/trade_sol/vehicle,
+/obj/effect/spawner/random/traders/vehicle,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "np" = (
@@ -4705,23 +4705,23 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/indoor/cave)
 "qA" = (
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 4;
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 10;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -4772,7 +4772,7 @@
 /area/vox_base)
 "qL" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
 	nitrogen = 103.984;
@@ -8310,7 +8310,7 @@
 /area/ghost_bar/outdoor/beach)
 "Cv" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/obj/effect/spawner/random/traders/donksoft,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "Cw" = (
@@ -8571,11 +8571,11 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/ghost_bar/indoor)
 "Dl" = (
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
 /turf/simulated/floor/carpet/orange,
@@ -8766,7 +8766,7 @@
 /area/holodeck/source_emptycourt)
 "DP" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/med,
+/obj/effect/spawner/random/traders/medical,
 /obj/machinery/light/spot,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
@@ -9031,7 +9031,7 @@
 /area/admin)
 "EN" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/eng,
+/obj/effect/spawner/random/traders/engineering,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "EO" = (
@@ -9051,7 +9051,7 @@
 /area/vox_base)
 "ER" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/serv,
+/obj/effect/spawner/random/traders/service,
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -10012,7 +10012,7 @@
 "Ij" = (
 /obj/structure/table/reinforced/brass,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurplefull";
 	nitrogen = 103.984
@@ -11408,7 +11408,7 @@
 /area/space/nearstation/centcom)
 "Nr" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -13387,7 +13387,7 @@
 /area/shuttle/trade/sol)
 "TU" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot/crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -14077,7 +14077,7 @@
 /area/vox_base)
 "Wj" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/trade_sol/civ,
+/obj/effect/spawner/random/traders/civilian,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "Wl" = (
@@ -14576,7 +14576,7 @@
 	},
 /area/vox_base)
 "XU" = (
-/obj/effect/spawner/lootdrop/trade_sol/largeitem,
+/obj/effect/spawner/random/traders/large_item,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "XW" = (

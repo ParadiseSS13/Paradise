@@ -2,17 +2,17 @@ import { classes } from 'common/react';
 import { useBackend } from '../../backend';
 import { Button, Icon, LabeledList, Section, Table } from '../../components';
 
-export const DeconstructionMenu = (props, context) => {
+export const AnalyzerMenu = (props, context) => {
   const { data, act } = useBackend(context);
 
-  const { tech_levels, loaded_item, linked_destroy } = data;
+  const { tech_levels, loaded_item, linked_analyzer, can_discover } = data;
 
-  if (!linked_destroy) {
-    return <Section title="Deconstruction Menu">NO DESTRUCTIVE ANALYZER LINKED TO CONSOLE</Section>;
+  if (!linked_analyzer) {
+    return <Section title="Analysis Menu">NO SCIENTIFIC ANALYZER LINKED TO CONSOLE</Section>;
   }
 
   if (!loaded_item) {
-    return <Section title="Deconstruction Menu">No item loaded. Standing by...</Section>;
+    return <Section title="Analysis Menu">No item loaded. Standing by...</Section>;
   }
 
   return (
@@ -35,6 +35,15 @@ export const DeconstructionMenu = (props, context) => {
                 act('eject_item');
               }}
             />
+            {!can_discover || (
+              <Button
+                content="Discover"
+                icon="atom"
+                onClick={() => {
+                  act('discover');
+                }}
+              />
+            )}
           </>
         }
       >

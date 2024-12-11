@@ -5711,7 +5711,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "HO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

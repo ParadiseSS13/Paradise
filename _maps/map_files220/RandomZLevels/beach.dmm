@@ -1258,7 +1258,7 @@
 /obj/structure/chair/plastic{
 	dir = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 16;
 	pixel_y = -16
 	},
@@ -2292,7 +2292,7 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_y = 4;
 	pixel_x = -1
 	},

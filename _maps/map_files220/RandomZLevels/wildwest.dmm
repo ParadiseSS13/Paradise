@@ -1648,7 +1648,7 @@
 "oR" = (
 /obj/structure/table/holotable/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/soda,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
 /turf/simulated/floor/wood/oak,
@@ -2571,7 +2571,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "yH" = (
 /obj/structure/table/holotable/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "yK" = (
@@ -4484,10 +4484,10 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Sq" = (
 /obj/structure/table/holotable/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Sr" = (

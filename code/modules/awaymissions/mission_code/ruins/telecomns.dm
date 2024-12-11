@@ -410,14 +410,14 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		explosion(loc, -1, -1, 2, 4, flame_range = 4)
 		qdel(src)
 
-/obj/effect/spawner/lootdrop/telecomms_core_table
+/obj/effect/spawner/random/telecomms_core_table
 	name = "telecomms core table spawner"
-	lootcount = 1
+	spawn_loot_count = 1
 	loot = list(
-			/obj/item/rcd/combat,
-			/obj/item/gun/medbeam,
-			/obj/item/gun/energy/wormhole_projector,
-			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
+		/obj/item/rcd/combat,
+		/obj/item/gun/medbeam,
+		/obj/item/gun/energy/wormhole_projector,
+		/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
 	)
 
 /obj/item/storage/box/syndie_kit/oops_all_extraction_flares
