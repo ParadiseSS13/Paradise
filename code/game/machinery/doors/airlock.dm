@@ -1210,9 +1210,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			else
 				close(1)
 		return
-	else if(!ispowertool(I))
+	else if(!ispowertool(I) && !istype(I, /obj/item/melee/mantis_blade))
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 		return
+	if(istype(I, /obj/item/melee/mantis_blade))
+		var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
+		if(!istype(secondblade, /obj/item/melee/mantis_blade))
+			to_chat(user, "<span class='warning'>You need a second [I] to pry open doors!")
+			return
 	if(isElectrified())
 		shock(user, 100)//it's like sticking a forck in a power socket
 		return
