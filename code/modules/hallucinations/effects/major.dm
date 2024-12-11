@@ -446,7 +446,7 @@
 	if(target.client)
 		bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
 		bullet.bullet_image.transform = M
-		target.client.images.Add(bullet.bullet_image)
+		target.client.images += bullet.bullet_image
 
 	// Start flying
 	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, angle, SSprojectiles.global_pixel_speed)
