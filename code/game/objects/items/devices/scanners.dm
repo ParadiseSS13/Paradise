@@ -81,18 +81,51 @@ SLIME SCANNER
 	if(!ishuman(M))
 		return
 
+	var/hallucinating = HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING)
+
 	var/mob/living/carbon/human/H = M
+	var/has_real_or_fake_reagents = FALSE
 	if(length(H.reagents.reagent_list))
+		has_real_or_fake_reagents = TRUE
 		msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 		for(var/datum/reagent/R in H.reagents.reagent_list)
+			var/volume = R.volume
+			var/overdosing = R.overdosed
+
+			if(hallucinating)
+				if(prob(20))
+					// make reagents look like they may exist in really crazy amounts, but also disappear
+					volume = max(rand(hallucinating - 10, hallucinating + 100), 0)
+				if(!volume)
+					continue
+				if(!overdosing)
+					overdosing = prob(10)
+
 			msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
-	else
+
+	if(hallucinating && prob(10))
+		has_real_or_fake_reagents = TRUE
+		if(!length(H.reagents.reagent_list))
+			msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
+			for(var/i in 1 to rand(1, 2))
+				var/reagent_name = pick(GLOB.chemical_reagents_list)
+				msgs += "<span class='notice'>[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+
+	if(!has_real_or_fake_reagents)
 		msgs += "<span class='notice'>Subject contains no reagents.</span>"
 
 	if(length(H.reagents.addiction_list))
 		msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
 		for(var/datum/reagent/R in H.reagents.addiction_list)
 			msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
+
+	if(hallucinating && prob(10))
+		if(!length(H.reagents.addiction_list))
+			msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
+		// try to add two random chems
+		for(var/i in 1 to rand(1, 2))
+			var/reagent_name = pick(GLOB.chemical_reagents_list)
+			msgs += "<span class='danger'>[GLOB.chemical_reagents_list[reagent_name]] Stage: [rand(1, 5)]/5</span>"
 
 	return msgs
 
@@ -154,6 +187,13 @@ SLIME SCANNER
 // Used by the PDA medical scanner too.
 /proc/healthscan(mob/user, mob/living/M, mode = DETAILED_HEALTH_SCAN, advanced = FALSE)
 	var/list/msgs = list()
+
+	var/scanned_name = "[M]"
+
+	// show your own health, evil
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		M = user
+
 	if(issimple_animal(M))
 		// No box here, keep it simple.
 		if(M.stat == DEAD)
@@ -165,7 +205,7 @@ SLIME SCANNER
 		return
 
 	// These sensors are designed for organic life.
-	if(!ishuman(M) || ismachineperson(M))
+	if(!ishuman(M) || ismachineperson(M) || (HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5)))
 		msgs += "<span class='notice'>Analyzing Results for ERROR:\nOverall Status: ERROR</span>"
 		msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 		msgs += "Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
@@ -177,10 +217,36 @@ SLIME SCANNER
 
 	var/mob/living/carbon/human/H = M
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
-	var/OX = H.getOxyLoss() > 50 	? 	"<b>[H.getOxyLoss()]</b>" 		: H.getOxyLoss()
-	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
-	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
-	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
+	var/OX = H.getOxyLoss()
+	var/TX = H.getToxLoss()
+	var/BU = H.getFireLoss()
+	var/BR = H.getBruteLoss()
+
+	// adjust health randomly if hallucinating
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		var/temp
+		switch(rand(1, 4))
+			if(1)
+				temp = OX
+				OX = BU
+				BU = temp
+			if(2)
+				temp = BU
+				BU = TX
+				TX = temp
+			if(3)
+				temp = TX
+				TX = BR
+				BR = temp
+			if(4)
+				temp = TX
+				TX = OX
+				OX = temp
+
+	OX = OX > 50 ? "<b>[OX]</b>" : OX
+	TX = TX > 50 ? "<b>[TX]</b>" : TX
+	BU = BU > 50 ? "<b>[BU]</b>" : BU
+	BR = BR > 50 ? "<b>[BR]</b>" : BR
 
 	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
 	var/DNR = !H.ghost_can_reenter() // If the ghost can't reenter
@@ -193,7 +259,7 @@ SLIME SCANNER
 		else
 			status = "[H.health]% Healthy"
 
-	msgs += "<span class='notice'>Analyzing Results for [H]:\nOverall Status: [status]"
+	msgs += "<span class='notice'>Analyzing Results for [scanned_name]:\nOverall Status: [status]"
 	msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 	msgs += "Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 
@@ -234,10 +300,10 @@ SLIME SCANNER
 		else if(!heart)
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
-	if(H.getStaminaLoss())
+	if(H.getStaminaLoss() || HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		msgs += "<span class='notice'>Subject appears to be suffering from fatigue.</span>"
 
-	if(H.getCloneLoss())
+	if(H.getCloneLoss() || HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
 	// Brain.
@@ -275,6 +341,21 @@ SLIME SCANNER
 		msgs += "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"
 	if(burn_wound)
 		msgs += "<span class='warning'>Critical burn detected. Examine patient's body for location.</span>"
+
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		var/list/spooky_conditions = list(
+			"<span class='dead'>Patient appears to be infested.</span>",
+			"<span class='dead'>Patient's bones are hollow.</span>",
+			"<span class='dead'>Patient has limited attachment to this physical plane.</span>",
+			"<span class='userdanger'>Patient is aggressive. Immediate sedation recommended.</span>",
+			"<span class='warning'>Patient's vitamin D levels are dangerously low.</span>",
+			"<span class='warning'>Patient's spider levels are dangerously low.</span>",
+			"<span class='dead'>Subject is ready for experimentation.</span>",
+		)
+		msgs += pick(spooky_conditions)
+
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5) && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))) )
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='danger'>[H]'s head snaps to look at you.</span>"), rand(1 SECONDS, 3 SECONDS))
 
 	// Blood.
 	var/blood_id = H.get_blood_id()
