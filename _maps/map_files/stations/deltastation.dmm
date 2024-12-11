@@ -71096,7 +71096,7 @@
 /area/station/science/toxins/test)
 "mtL" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "muh" = (
