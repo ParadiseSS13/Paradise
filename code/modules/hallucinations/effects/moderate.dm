@@ -486,13 +486,13 @@
 	var/list/venttargets = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
 		venttargets += vent
-	if(length(venttargets))
-		var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
-		add_icon(I)
-		flick("hallucination_clown", I)
-		addtimer(CALLBACK(src, PROC_REF(play_honk)), 2.3 SECONDS)
-	else(Destroy())
-
+	if(!length(venttargets))
+		qdel(src)
+		return
+	var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
+	add_icon(I)
+	flick("hallucination_clown", I)
+	addtimer(CALLBACK(src, PROC_REF(play_honk)), 2.3 SECONDS)
 
 /obj/effect/hallucination/ventpeek/proc/play_honk()
 	target.playsound_local(target, 'sound/items/bikehorn.ogg', 10, TRUE)
