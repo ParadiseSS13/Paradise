@@ -12,7 +12,7 @@
   */
 /obj/machinery/tcomms/core
 	name = "Telecommunications Core"
-	desc = "A large rack full of communications equipment. Looks important."
+	desc = "A towering assembly of relay systems, routing equipment, and cooling fans. Vital for the continued use of radio communications on the station."
 	icon_state = "core"
 	// This starts as off so you cant make cores as hot spares
 	active = FALSE
