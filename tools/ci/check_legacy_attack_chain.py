@@ -35,6 +35,14 @@ class AttackChainCall:
             return f"{self.source_info.file_path}:{self.source_info.line}: {RED}{self.make_error_message()}{NC}"
 
 
+def make_error_from_procdecl(proc_decl: ProcDecl, msg) -> str:
+    if os.getenv("GITHUB_ACTIONS") == "true":
+        return f"::error file={proc_decl.source_info.file_path},line={proc_decl.source_info.line},title=Attack Chain::{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+
+    else:
+        return f"{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+
+
 # Walker for determining if a proc contains any calls to a legacy attack chain
 # proc on an object that is in the type tree of our migrating type.
 #
@@ -149,11 +157,10 @@ if __name__ == "__main__":
     start = time.time()
 
     CALLS = defaultdict(set)
+    ERROR_STRINGS = list()
+    LEGACY_PROCS = defaultdict(list)
+    MODERN_PROCS = defaultdict(list)
     SETTING_CACHE = dict()
-    LEGACY_PROCS = dict()
-    MODERN_PROCS = dict()
-    BAD_TREES = dict()
-    PROCS = dict()
 
     dme = DME.from_file("paradise.dme", parse_procs=True)
 
@@ -171,44 +178,57 @@ if __name__ == "__main__":
                 )
             except:
                 SETTING_CACHE[pth] = False
-        LEGACY_PROCS[pth] = {
-            x for x in td.proc_names(modified=True) if "__legacy__attackchain" in x
-        }
-        MODERN_PROCS[pth] = {x for x in td.proc_names(modified=True) if x in NEW_PROCS}
+        for proc_name in td.proc_names(modified=True):
+            if "__legacy__attackchain" in proc_name:
+                for proc_decl in td.proc_decls(proc_name):
+                    LEGACY_PROCS[pth].append(proc_decl)
+            elif proc_name in NEW_PROCS:
+                for proc_decl in td.proc_decls(proc_name):
+                    MODERN_PROCS[pth].append(proc_decl)
         for proc_decl in td.proc_decls():
             walker = AttackChainCallWalker(td, proc_decl)
             proc_decl.walk(walker)
 
-    for pth, new_attack_chain in SETTING_CACHE.items():
+    for pth in sorted(SETTING_CACHE.keys()):
+        new_attack_chain = SETTING_CACHE[pth]
         cursor = pth
         if new_attack_chain:
             if LEGACY_PROCS[pth]:
                 exit_code = 1
-                print(f"new_attack_chain on {pth} still has legacy procs:")
-                for proc in sorted(LEGACY_PROCS[pth]):
-                    print(f"\t{proc}")
+                for proc_decl in sorted(LEGACY_PROCS[pth], key=lambda x: x.name):
+                    ERROR_STRINGS.append(
+                        make_error_from_procdecl(
+                            proc_decl,
+                            f"migrated type with legacy proc {pth}/{proc_decl.name}(...)",
+                        )
+                    )
             while cursor not in ASSISTED_TYPES and not cursor.is_root:
                 if LEGACY_PROCS[cursor] and not SETTING_CACHE[cursor]:
                     exit_code = 1
                     print(f"new_attack_chain on {pth} but related type {cursor} is not")
                 cursor = cursor.parent
             if pth in CALLS and any([x.legacy for x in CALLS[pth]]):
-                print("Legacy sites requiring migration:")
                 for call in CALLS[pth]:
                     if call.legacy:
-                        print(call.format_error())
+                        ERROR_STRINGS.append(call.format_error())
         elif pth not in ASSISTED_TYPES:
             if MODERN_PROCS[pth]:
                 exit_code = 1
-                print(f"new_attack_chain not on {pth} using new procs:")
-                for proc in sorted(MODERN_PROCS[pth]):
-                    print(f"\t{proc}")
+                for proc_decl in sorted(MODERN_PROCS[pth], key=lambda x: x.name):
+                    ERROR_STRINGS.append(
+                        make_error_from_procdecl(
+                            proc_decl,
+                            f"legacy type with migrated proc {pth}/{proc_decl.name}(...)",
+                        )
+                    )
             if pth in CALLS and any([not x.legacy for x in CALLS[pth]]):
                 exit_code = 1
-                print("Unexpected new call sites:")
                 for call in CALLS[pth]:
                     if not call.legacy:
-                        print(call.format_error())
+                        ERROR_STRINGS.append(call.format_error())
+
+    for legacy_proc_error in sorted(ERROR_STRINGS):
+        print(legacy_proc_error)
 
     end = time.time()
     print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")
