@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-	no_slip = FALSE
+	new_attack_chain = TRUE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -16,6 +16,7 @@
 	var/magpulse_name = "mag-pulse traction system"
 	///If a pair of magboots has different icons for being on or off
 	var/multiple_icons = TRUE
+	var/list/active_traits = list(TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
@@ -24,29 +25,29 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
-		return
-	check_mag_pulse(user)
+	if(magpulse)
+		attach_clothing_traits(active_traits)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
-	if(!ishuman(user))
-		return
-	check_mag_pulse(user, removing = TRUE)
+	if(magpulse)
+		detach_clothing_traits(active_traits)
 
-/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/ui_action_click(mob/user)
+	toggle_magpulse(user)
+
+/obj/item/clothing/shoes/magboots/activate_self(mob/user)
+	. = ..()
 	toggle_magpulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
-	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_passive
-	else
-		if(user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
-			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_active
 	magpulse = !magpulse
-	no_slip = !no_slip
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		attach_clothing_traits(active_traits)
+		slowdown = slowdown_active
+	else
+		detach_clothing_traits(active_traits)
+		slowdown = slowdown_passive
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!no_message)
@@ -56,16 +57,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
-
-/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
-	if(!user)
-		return
-	if(magpulse && !removing)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
-		return
-	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -272,31 +263,30 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/item/clothing/shoes/magboots/gravity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.unEquip(used))
 			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		used.forceMove(src)
+		cell = used
+		to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
 		update_icon()
-		return
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+	if(istype(used, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			to_chat(user, "<span class='notice'>[src] already has a [used]!</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
+		used.forceMove(src)
+		core = used
+		to_chat(user, "<span class='notice'>You insert [used] into [src], and [src] starts to warm up.</span>")
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
 	..()
