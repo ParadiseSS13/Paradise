@@ -101,7 +101,7 @@ SLIME SCANNER
 				if(!overdosing)
 					overdosing = prob(10)
 
-			msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+			msgs += "<span class='notice'>[volume]u of [R.name][overdosing ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 
 	if(hallucinating && prob(10))
 		has_real_or_fake_reagents = TRUE
