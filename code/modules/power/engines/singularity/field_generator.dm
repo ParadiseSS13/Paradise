@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 /obj/machinery/field/generator/proc/find_containment_gens(_dir, obj/singularity/singulo, list/containment_gens = list())
 	// We can't go in a direction that doesn't exist
 	if(!dir)
-		return
+		return list()
 
 	containment_gens |= src
 	// This is used to evaluate a path before returning it. We don't want to stop after the first dead end.

@@ -18,7 +18,7 @@
 	/// Radio for sending announcements
 	var/obj/item/radio/singu_radio
 	/// List of field generators containing the singulo
-	var/list/field_gens
+	var/list/field_gens = list()
 
 /obj/machinery/computer/singulo_monitor/Initialize(mapload)
 	. = ..()
@@ -30,8 +30,10 @@
 /obj/machinery/computer/singulo_monitor/Destroy()
 	active = null
 	QDEL_NULL(singu_radio)
-	field_gens.Cut()
-	singularities.Cut()
+	if(field_gens)
+		field_gens.Cut()
+	if(singularities)
+		singularities.Cut()
 	return ..()
 
 /obj/machinery/computer/singulo_monitor/attack_ai(mob/user)
