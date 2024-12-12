@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
-			to_chat(C, msg)
+			to_chat(C, msg, MESSAGE_TYPE_ADMINPM)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(C, fax_sound)
 
