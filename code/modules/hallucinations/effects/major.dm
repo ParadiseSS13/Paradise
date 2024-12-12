@@ -408,36 +408,3 @@
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alien.dmi'
 		images[1].icon_state = "alienh_pounce"
-
-/obj/effect/hallucination/anotheryou
-	duration = 15 SECONDS
-	var/obj/effect/hallucination/chaser/fake_you = null
-
-/obj/effect/hallucination/anotheryou/Initialize(mapload, mob/living/carbon/target)
-	. = ..()
-
-	var/list/locs = list()
-	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
-			locs += T
-	if(!length(locs))
-		qdel(src)
-		return
-
-	var/turf/T = pick(locs)
-	fake_you = new(T, target)
-
-
-/obj/effect/hallucination/chaser/you
-	duration = 15 SECONDS
-
-/obj/effect/hallucination/chaser/you/Initialize(...)
-	. = ..()
-	appearance = target.appearance
-	add_appearance()
-
-/obj/effect/hallucination/chaser/you/add_icon()
-    return
-
-/obj/effect/hallucination/chaser/you/proc/add_appearance()
-    target?.client?.images += appearance

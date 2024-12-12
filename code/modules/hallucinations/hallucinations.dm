@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/gunfire = 10,
 		/obj/effect/hallucination/plasma_flood = 10,
 		/obj/effect/hallucination/stunprodding = 10,
+		/obj/effect/hallucination/doppelganger = 10,
 		/obj/effect/hallucination/delamination_alarm = 15,
 		/obj/effect/hallucination/fake_item = 15,
 		/obj/effect/hallucination/fake_weapon = 15,
@@ -26,7 +27,6 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/assault = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
-		/obj/effect/hallucination/anotheryou = 10,
 	)
 ))
 
