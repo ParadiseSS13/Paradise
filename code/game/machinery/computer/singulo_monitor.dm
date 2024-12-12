@@ -142,6 +142,9 @@
 		if(last_energy != active.energy)
 			last_energy = active.energy
 			icon_screen = (((active.allowed_size + 1) / 2) == 4 && active.energy >= (STAGE_FIVE_THRESHOLD - 100)) ? "singumon_pre5" : "singumon_[(active.allowed_size + 1) / 2]"
+		for(var/obj/machinery/field/generator/generator in field_gens)
+			if(generator?.active < 2 && field_gens)
+				field_gens = list()
 	else
 		icon_screen = "singumon_0"
 	update_icon()
