@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	var/shelf_style = "basic"
 	/// The current overlay of the top shelf. Used for interleaving objects and shelf layers for the illusion of depth.
 	var/image/shelf_overlay
-	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/build_stack_type = /obj/item/stack/sheet/metal
 	COOLDOWN_DECLARE(spraypaint_cd)
 
 /obj/structure/shelf/Initialize(mapload)
@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
-/obj/structure/shelf/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/shelf/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	var/obj/item/toy/crayon/spraycan/spraycan = I
 	if(!istype(spraycan))
 		return ..()
@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	deconstruct()
 
 /obj/structure/shelf/deconstruct(disassembled)
-	new buildstacktype(get_turf(src), 5)
+	new build_stack_type(get_turf(src), 5)
 	return ..()
 
 /obj/structure/shelf/engineering
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	name = "brass shelf"
 	icon_state = "shelf_clockwork"
 	shelf_style = "clockwork"
-	buildstacktype = /obj/item/stack/tile/brass
+	build_stack_type = /obj/item/stack/tile/brass
 
 /obj/structure/gunrack
 	name = "gun rack"
@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	anchored = TRUE
 	pass_flags_self = PASSTAKE
 	max_integrity = 80
-	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/build_stack_type = /obj/item/stack/sheet/metal
 
 /obj/structure/gunrack/Initialize(mapload)
 	. = ..()
@@ -148,10 +148,10 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	deconstruct()
 
 /obj/structure/gunrack/deconstruct(disassembled)
-	new buildstacktype(get_turf(src), 5)
+	new build_stack_type(get_turf(src), 5)
 	return ..()
 
 /obj/structure/gunrack/clockwork
 	name = "brass weapon rack"
 	icon_state = "gunrack_clockwork"
-	buildstacktype = /obj/item/stack/tile/brass
+	build_stack_type = /obj/item/stack/tile/brass

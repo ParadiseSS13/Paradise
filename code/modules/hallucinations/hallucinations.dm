@@ -51,6 +51,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/mob/living/carbon/target = null
 	/// Lazy list of images created as part of the hallucination. Cleared on destruction.
 	var/list/image/images = null
+	/// Should this hallucination delete itself
+	var/should_delete = TRUE
 
 /obj/effect/hallucination/Initialize(mapload, mob/living/carbon/hallucination_target)
 	. = ..()
@@ -66,7 +68,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	// Lifetime
 	if(islist(duration))
 		duration = rand(duration[1], duration[2])
-	QDEL_IN(src, duration)
+	if(should_delete)
+		QDEL_IN(src, duration)
 
 /obj/effect/hallucination/Destroy()
 	clear_icons()
@@ -145,3 +148,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		target?.playsound_local(source, snd, volume, vary, frequency)
 		return
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, snd, volume, vary, frequency), time)
+
+/// Subtype that doesn't delete itself.
+/// Mostly used for hallucination managers because they delete the hallucinations when required
+/obj/effect/hallucination/no_delete
+	should_delete = FALSE

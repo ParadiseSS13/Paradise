@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
 		return
 
-/obj/structure/largecrate/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
@@ -65,7 +65,7 @@
 /obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
-	new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
+	new /mob/living/simple_animal/pet/dog/corgi/lisa(loc)
 	return ..()
 
 /obj/structure/largecrate/cow

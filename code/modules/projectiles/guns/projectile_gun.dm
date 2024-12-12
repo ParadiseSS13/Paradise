@@ -98,7 +98,7 @@
 		user.update_inv_l_hand()
 	return
 
-/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -161,7 +161,7 @@
 			return
 	..()
 
-/obj/item/gun/projectile/attack_self(mob/living/user as mob)
+/obj/item/gun/projectile/attack_self__legacy__attackchain(mob/living/user as mob)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.loc = get_turf(loc)
@@ -206,7 +206,7 @@
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 

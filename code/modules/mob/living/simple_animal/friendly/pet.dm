@@ -7,7 +7,7 @@
 	speed = 0 // same speed as a person.
 	hud_type = /datum/hud/corgi
 
-/mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/newspaper))
 		return ..()
 	var/obj/item/newspaper/paper = O
