@@ -502,7 +502,7 @@
 	duration = 10 SECONDS
 	min_distance = 2
 
-/obj/effect/hallucination/chaser/you/Initialize(...)
+/obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	appearance = target.appearance
 
