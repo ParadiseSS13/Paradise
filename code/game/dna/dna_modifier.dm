@@ -327,15 +327,15 @@
 	idle_power_consumption = 10
 	active_power_consumption = 400
 
-/obj/machinery/computer/scan_consolenew/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
+/obj/machinery/computer/scan_consolenew/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/data)) //INSERT SOME diskS
 		if(!disk)
 			user.drop_item()
-			I.forceMove(src)
-			disk = I
-			to_chat(user, "You insert [I].")
+			used.forceMove(src)
+			disk = used
+			to_chat(user, "You insert [used].")
 			SStgui.update_uis(src)
-			return
+			return ITEM_INTERACT_SUCCESS
 	else
 		return ..()
 

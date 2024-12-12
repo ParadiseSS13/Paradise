@@ -561,11 +561,11 @@
 	return FALSE
 
 //Attackby and x_acts
-/obj/machinery/clonepod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.is_open_container())
+/obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.is_open_container())
 		return
 
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
@@ -577,8 +577,8 @@
 				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
 		return
 
-	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
-		insert_organ(I, user)
+	if(is_organ(used) || is_type_in_list(used, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+		insert_organ(used, user)
 		return
 
 	return ..()

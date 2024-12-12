@@ -45,7 +45,7 @@
 			return ITEM_INTERACT_BLOCKING
 
 		used.forceMove(src)
-		inserted_disk = O
+		inserted_disk = used
 		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_BLOCKING
