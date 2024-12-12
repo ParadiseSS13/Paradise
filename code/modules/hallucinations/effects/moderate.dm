@@ -497,7 +497,6 @@
 	var/turf/T = pick(locs)
 	fake_you = new(T, target)
 
-
 /obj/effect/hallucination/chaser/you
 	duration = 10 SECONDS
 	min_distance = 2
@@ -507,4 +506,4 @@
 	appearance = target.appearance
 
 /obj/effect/hallucination/chaser/you/add_icon()
-	 return
+	return
