@@ -481,7 +481,7 @@
 // Spawns a copy of the player that briefly follows them around
 /obj/effect/hallucination/doppelganger
 	duration = 10 SECONDS
-	var/obj/effect/hallucination/chaser/you/fake_you = null
+	var/obj/effect/hallucination/chaser/you/fake_you
 
 /obj/effect/hallucination/doppelganger/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
