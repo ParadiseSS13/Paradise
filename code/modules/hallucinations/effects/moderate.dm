@@ -584,3 +584,24 @@
 	target.playsound_local(grenade_turf, 'sound/effects/phasein.ogg', 60, TRUE)
 	target.flash_eyes(visual = TRUE)
 	new /obj/effect/hallucination/chaser/attacker/space_carp(grenade_turf, target)
+
+/**
+  * # Hallucination - Space Carp
+  */
+/obj/effect/hallucination/chaser/attacker/space_carp
+	hallucination_icon = 'icons/mob/carp.dmi'
+	hallucination_icon_state = "base"
+	duration = 30 SECONDS
+	damage = 25
+
+/obj/effect/hallucination/chaser/attacker/space_carp/Initialize(mapload, mob/living/carbon/hallucination_target)
+	. = ..()
+	name = "space carp"
+
+/obj/effect/hallucination/chaser/attacker/space_carp/attack_effects()
+	do_attack_animation(target, ATTACK_EFFECT_BITE)
+	target.playsound_local(get_turf(src), 'sound/weapons/bite.ogg', 50, TRUE)
+	to_chat(target, "<span class='userdanger'>[name] bites you!</span>")
+
+/obj/effect/hallucination/chaser/attacker/space_carp/on_knockdown()
+	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>", "<span class='userdanger'>[name] bites you!</span>")
