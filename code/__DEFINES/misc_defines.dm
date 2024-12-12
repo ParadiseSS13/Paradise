@@ -104,6 +104,12 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define STAGE_TWO_THRESHOLD 200
+#define STAGE_THREE_THRESHOLD 500
+#define STAGE_FOUR_THRESHOLD 1000
+#define STAGE_FIVE_THRESHOLD 2000
+#define STAGE_SIX_THRESHOLD 3000
+
 /// A define for the center of the coordinate map of big machinery
 #define MACH_CENTER 2
 
