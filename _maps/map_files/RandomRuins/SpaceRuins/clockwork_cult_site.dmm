@@ -1,6 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/landmark/burnturf,
 /turf/simulated/floor/clockwork/reebe,
 /area/ruin/space/clockwork_site)
 "ab" = (
@@ -265,7 +264,6 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Mh" = (
-/obj/effect/landmark/damageturf,
 /obj/item/paper/clockwork_cult_message,
 /turf/simulated/floor/clockwork/reebe,
 /area/ruin/space/clockwork_site)
