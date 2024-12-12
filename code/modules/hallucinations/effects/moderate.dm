@@ -507,4 +507,4 @@
 	appearance = target.appearance
 
 /obj/effect/hallucination/chaser/you/add_icon()
-    return
+	 return
