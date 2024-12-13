@@ -868,9 +868,9 @@
 /obj/item/paper/clockwork_cult_message
 	name = "Old handwritten note"
 	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
-	The Clockwork Justiciar is not truly dead, His divine mechanism is simply seized in a deep slumber. The other priests and I have visited Him and still hear the spark of life deep within, waiting to be reignited.<br><br>\
-	The Eminence has decreed that all brothers and sisters return to Rebee so that we may gather our strength. We shall turn the gears to set about the great work of restoration. Soon, He shall rise again, and all the nonbelievers and heretics shall quake and bow before Him!<br><br>\
-	The monastery and any supplies within are yours to use. Prepare for our return."
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"

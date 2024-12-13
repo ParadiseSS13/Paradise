@@ -11,7 +11,7 @@
 "ae" = (
 /obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/clockwork_site)
 "ag" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/stack/cable_coil/orange,
@@ -25,9 +25,6 @@
 	},
 /obj/item/wirecutters/brass,
 /turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_site)
-"ah" = (
-/turf/simulated/mineral/ancient/outer,
 /area/ruin/space/clockwork_site)
 "ai" = (
 /obj/structure/table/reinforced/brass,
@@ -117,7 +114,7 @@
 /area/ruin/space/clockwork_site)
 "aD" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/adv,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aF" = (
@@ -132,7 +129,7 @@
 "aI" = (
 /obj/machinery/light/clockwork/small,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/clockwork_site)
 "aK" = (
 /obj/machinery/optable,
 /turf/simulated/floor/clockwork,
@@ -159,11 +156,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/ruin/space/clockwork_site)
-"aR" = (
-/obj/item/bedsheet/brown,
-/obj/structure/bed,
-/turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "aS" = (
 /obj/structure/chair/brass{
@@ -209,16 +201,28 @@
 "bl" = (
 /obj/machinery/light/clockwork,
 /obj/structure/table/reinforced/brass,
+/obj/effect/spawner/random/snacks,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"cz" = (
+/obj/item/pickaxe/emergency,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "cF" = (
 /obj/structure/bed,
-/obj/item/bedsheet/brown,
+/obj/item/bedsheet/clockwork,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "dg" = (
 /obj/machinery/light/clockwork/small{
 	dir = 1
+	},
+/obj/structure/chair/sofa/pew/clockwork,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
+"gf" = (
+/obj/structure/chair/sofa/pew/clockwork/left{
+	dir = 8
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
@@ -226,9 +230,21 @@
 /obj/structure/chair/sofa/pew/clockwork/left,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"hJ" = (
+/turf/simulated/floor/chasm/space_ruin,
+/area/ruin/unpowered)
 "hQ" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/paper/clockwork_cult_message,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
+"kB" = (
+/obj/machinery/light/clockwork/small{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/clockwork{
+	dir = 8
+	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "lx" = (
@@ -241,13 +257,31 @@
 /obj/effect/spawner/random/food_or_drink/soup,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"lQ" = (
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
 "pz" = (
-/obj/item/bedsheet/brown,
 /obj/structure/bed,
 /obj/machinery/light/clockwork{
 	dir = 4
 	},
+/obj/item/bedsheet/clockwork,
 /turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
+"pZ" = (
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
+"rO" = (
+/obj/machinery/light/clockwork/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/space/clockwork_site)
 "tM" = (
 /obj/machinery/computer/operating/clockwork,
@@ -282,23 +316,45 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"xz" = (
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
 "ye" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
+"AR" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/clockwork_site)
 "BX" = (
 /obj/structure/chair/sofa/pew/clockwork/right,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"Cb" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/ruin/space/clockwork_site)
 "Cq" = (
 /obj/structure/shelf/clockwork,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Cv" = (
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"CV" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
 "Dm" = (
 /obj/machinery/light/clockwork/small,
+/obj/structure/chair/sofa/pew/clockwork{
+	dir = 1
+	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Dy" = (
@@ -306,11 +362,6 @@
 	pixel_y = 28
 	},
 /obj/structure/dresser,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_site)
-"EX" = (
-/obj/structure/table/reinforced/brass,
-/obj/effect/spawner/random/food_or_drink/dinner,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "Ff" = (
@@ -324,6 +375,15 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"Iv" = (
+/obj/structure/table/reinforced/brass,
+/obj/effect/spawner/random/snacks,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
+"Jb" = (
+/obj/structure/chair/brass,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
 "Mh" = (
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered)
@@ -333,6 +393,12 @@
 /obj/item/screwdriver/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
+"MU" = (
+/obj/structure/chair/sofa/pew/clockwork/left{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_site)
 "OE" = (
 /obj/structure/chair/sofa/pew/clockwork,
 /obj/structure/chair/sofa/pew/clockwork,
@@ -340,7 +406,7 @@
 /area/ruin/space/clockwork_site)
 "QC" = (
 /obj/structure/table/reinforced/brass,
-/obj/effect/spawner/random/loot,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "QV" = (
@@ -349,15 +415,23 @@
 	pixel_y = 4
 	},
 /obj/item/pen/multi/fountain,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_site)
-"Tb" = (
-/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile,
 /turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
+"VC" = (
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_site)
 "VW" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/unpowered)
+"YM" = (
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/clockwork_site)
 
 (1,1,1) = {"
 aH
@@ -712,9 +786,9 @@ aH
 (8,1,1) = {"
 aH
 Mh
-VW
-VW
-VW
+ye
+ye
+ye
 Mh
 ay
 ay
@@ -762,9 +836,9 @@ aH
 (9,1,1) = {"
 aH
 Mh
-VW
-VW
-VW
+ye
+ye
+ye
 ay
 ay
 ay
@@ -812,17 +886,17 @@ aH
 (10,1,1) = {"
 aH
 Mh
-VW
-VW
-VW
+ye
+ye
+ye
 ay
 ay
 ay
 aq
 aq
 aq
-ay
-ay
+AR
+AR
 aI
 at
 at
@@ -862,18 +936,18 @@ aH
 (11,1,1) = {"
 aH
 Mh
-VW
-VW
-VW
+ye
+ye
+ye
 ay
 ay
 ay
 ay
 ay
 ae
-ay
-ay
-ay
+AR
+AR
+AR
 aW
 Gt
 ax
@@ -912,17 +986,17 @@ aH
 (12,1,1) = {"
 aH
 Mh
-VW
-VW
-VW
+ye
+ye
+ye
 ay
 ay
 ay
 ay
 aq
 aq
-ay
-ay
+AR
+AR
 aI
 at
 at
@@ -963,19 +1037,19 @@ Mh
 aH
 Mh
 Mh
-VW
+ye
 ay
 ay
 ay
 Mh
-aq
-aq
 Mh
 Mh
 Mh
 Mh
-ah
-ah
+Mh
+Mh
+Mh
+Mh
 at
 ac
 wP
@@ -1018,9 +1092,9 @@ ay
 ay
 ay
 Mh
-Mh
-Mh
-Mh
+VW
+VW
+VW
 VW
 at
 at
@@ -1130,7 +1204,7 @@ ax
 ac
 ac
 ac
-Cv
+ac
 ac
 ac
 ac
@@ -1199,7 +1273,7 @@ at
 VW
 ye
 ye
-ay
+hJ
 ye
 ye
 ye
@@ -1213,7 +1287,7 @@ aH
 ay
 Mh
 Mh
-ay
+cz
 ay
 ay
 ay
@@ -1229,9 +1303,9 @@ aY
 at
 ac
 ac
-ac
-uN
-ac
+aM
+CV
+aM
 ac
 ac
 az
@@ -1242,15 +1316,15 @@ aN
 ac
 aN
 ac
-ac
+VC
 ac
 ac
 at
 at
 ye
-ay
-ay
-ay
+hJ
+hJ
+hJ
 ye
 ye
 VW
@@ -1262,8 +1336,8 @@ aH
 (19,1,1) = {"
 Mh
 Mh
-VW
-VW
+ye
+ye
 ay
 ay
 ay
@@ -1279,9 +1353,9 @@ at
 at
 ac
 ac
-ao
-aO
-aS
+Jb
+av
+YM
 ac
 ac
 at
@@ -1297,11 +1371,11 @@ ac
 ac
 QC
 at
-ay
-ay
-ay
-ay
-ay
+rO
+hJ
+hJ
+hJ
+ye
 ye
 ye
 VW
@@ -1313,7 +1387,7 @@ aH
 Mh
 Mh
 ye
-VW
+ye
 ay
 ay
 ay
@@ -1327,11 +1401,11 @@ ac
 ab
 Cq
 at
+Cv
 ac
-ac
-ao
+Jb
 hQ
-aS
+YM
 ac
 ac
 an
@@ -1347,11 +1421,11 @@ ac
 ac
 ac
 az
-ay
-ay
-ay
-ay
-ay
+Cb
+hJ
+hJ
+hJ
+ye
 ye
 ye
 VW
@@ -1363,8 +1437,8 @@ Mh
 aH
 Mh
 ye
-VW
-VW
+ye
+ye
 ay
 ay
 ay
@@ -1379,16 +1453,16 @@ ap
 at
 aU
 ac
-ao
+Jb
 QV
-aS
+YM
 ac
 aX
 at
 aQ
 aM
 aM
-Tb
+aM
 aM
 aM
 aM
@@ -1397,12 +1471,12 @@ ac
 ac
 ac
 az
-ay
-ay
-ay
-ay
-ay
-ay
+Cb
+hJ
+hJ
+hJ
+hJ
+ye
 ye
 ye
 VW
@@ -1414,7 +1488,7 @@ aH
 Mh
 ye
 ye
-VW
+ye
 ay
 ay
 ay
@@ -1429,9 +1503,9 @@ aT
 am
 ac
 ac
-ao
-Ff
-aS
+Jb
+ar
+YM
 ac
 ac
 an
@@ -1447,12 +1521,12 @@ ac
 ac
 ac
 az
-ay
-ay
-ay
-ay
-ay
-ay
+Cb
+hJ
+hJ
+hJ
+hJ
+ye
 ye
 ye
 VW
@@ -1464,7 +1538,7 @@ aH
 Mh
 Mh
 Mh
-VW
+ye
 Mh
 ay
 ay
@@ -1479,9 +1553,9 @@ aA
 am
 ac
 ac
-ao
-aO
-aS
+Jb
+av
+YM
 ac
 ac
 at
@@ -1495,13 +1569,13 @@ ac
 ac
 ac
 ac
-aO
+Ff
 at
-ay
-ay
-ay
-ay
-ay
+rO
+hJ
+hJ
+hJ
+ye
 ye
 ye
 ye
@@ -1514,7 +1588,7 @@ aH
 aH
 aH
 Mh
-VW
+ye
 Mh
 ay
 ay
@@ -1529,9 +1603,9 @@ ac
 az
 ac
 ac
-ac
-vs
-ac
+aM
+lQ
+aM
 ac
 ac
 am
@@ -1542,14 +1616,14 @@ aN
 ac
 aN
 ac
-ac
+VC
 ac
 ac
 at
 at
 ye
-ay
-ay
+hJ
+hJ
 ye
 ye
 ye
@@ -1719,7 +1793,7 @@ ay
 ay
 ay
 Mh
-Mh
+VW
 VW
 VW
 at
@@ -1768,8 +1842,8 @@ Mh
 Mh
 ay
 ay
-ay
 Mh
+VW
 VW
 VW
 at
@@ -1781,7 +1855,7 @@ ab
 ac
 ac
 ac
-aO
+QC
 at
 VW
 at
@@ -1819,7 +1893,7 @@ ay
 ay
 ay
 Mh
-Mh
+VW
 VW
 VW
 at
@@ -1831,15 +1905,15 @@ uN
 ac
 ac
 ac
-QC
+Iv
 at
 VW
 at
+hC
 ac
 ac
 ac
-ac
-ac
+pZ
 at
 VW
 VW
@@ -1877,11 +1951,11 @@ al
 ac
 ao
 lx
-EX
+lC
 aS
 ac
 ac
-aO
+Iv
 at
 VW
 at
@@ -1926,7 +2000,7 @@ at
 aU
 ac
 ao
-EX
+lx
 lC
 aS
 ac
@@ -1935,11 +2009,11 @@ bl
 at
 VW
 at
+BX
 ac
 ac
 ac
-ac
-ac
+MU
 at
 VW
 VW
@@ -1986,9 +2060,9 @@ at
 VW
 at
 at
-ac
-Gt
-ac
+gf
+kB
+xz
 at
 at
 VW
@@ -2073,13 +2147,13 @@ VW
 VW
 VW
 at
-aR
+cF
 ac
-aR
+cF
 ac
 pz
 ac
-aR
+cF
 ac
 cF
 at
