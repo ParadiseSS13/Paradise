@@ -167,9 +167,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	target = null
 	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
 
-/**
-  * Called a tick after when the objective's target goes to cryo.
-  */
 /datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
 	if(!target)
