@@ -32,7 +32,6 @@
 
 	new_attack_chain = TRUE
 
-
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
