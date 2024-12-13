@@ -477,6 +477,11 @@
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
 	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
 
+/**
+  * # Hallucination - Vent Peek
+  *
+  * A suspicious individual peers out of a nearby vent at the target.
+  */
 /obj/effect/hallucination/ventpeek
 	duration = 4 SECONDS
 
