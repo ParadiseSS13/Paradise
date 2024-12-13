@@ -290,6 +290,10 @@
 	female_scream_sound = 'modular_ss220/emotes/audio/unathi/scream_female.ogg'
 	male_sneeze_sound = 'modular_ss220/emotes/audio/unathi/sneeze_male.ogg'
 	female_sneeze_sound = 'modular_ss220/emotes/audio/unathi/sneeze_female.ogg'
+	male_giggle_sound = 'modular_ss220/emotes/audio/unathi/unathi_giggle.ogg'
+	female_giggle_sound = 'modular_ss220/emotes/audio/unathi/unathi_giggle.ogg'
+	male_laugh_sound = 'modular_ss220/emotes/audio/unathi/unathi_laugh.ogg'
+	female_laugh_sound = 'modular_ss220/emotes/audio/unathi/unathi_laugh.ogg'
 	death_sounds = 'modular_ss220/emotes/audio/unathi/deathsound_unathi.ogg'
 	suicide_messages = list(
 		"пытается откусить себе язык!",
