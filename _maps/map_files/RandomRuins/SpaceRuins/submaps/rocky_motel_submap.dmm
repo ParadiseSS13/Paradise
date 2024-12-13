@@ -92,7 +92,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "lB" = (
