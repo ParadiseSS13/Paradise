@@ -10029,7 +10029,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /obj/item/storage/box/gloves,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -14103,7 +14103,7 @@
 "bSv" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/o2,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -20622,7 +20622,7 @@
 /area/shuttle/pod_1)
 "cOC" = (
 /obj/structure/table/glass,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /obj/item/folder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -29476,8 +29476,8 @@
 /area/station/medical/medbay)
 "evS" = (
 /obj/structure/table/wood,
-/obj/item/clothing/accessory/skullcodpiece,
-/obj/item/clothing/accessory/talisman,
+/obj/item/clothing/accessory/necklace/skullcodpiece,
+/obj/item/clothing/accessory/necklace/talisman,
 /obj/item/clothing/gloves/bracer,
 /obj/item/clothing/head/helmet/skull,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -55400,7 +55400,7 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -90359,7 +90359,7 @@
 	pixel_y = -3
 	},
 /obj/item/flashlight/pen,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
