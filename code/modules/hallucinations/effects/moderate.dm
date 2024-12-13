@@ -487,8 +487,7 @@
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
 		venttargets += vent
 	if(!length(venttargets))
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
 	add_icon(I)
 	flick("hallucination_clown", I)
