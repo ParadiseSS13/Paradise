@@ -14,7 +14,7 @@
 	maxHealth = 140
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	movement_type = FLYING
+	initial_traits = list(TRAIT_FLYING)
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	pass_flags = PASSTABLE
@@ -32,13 +32,20 @@
 	AIStatus = AI_OFF
 	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
-	playstyle_string = "<b>You are a Marauder, an instrument of destruction built to fight those that oppose the will of Ratvar. \
-						You are a highly effective melee combatent but are very vulnerable to holy weapons. \
+	deathmessage = "collapses in a shattered heap."
+	var/playstyle_string = "<b>You are a Marauder, an instrument of destruction built to fight those that oppose the will of Ratvar. \
+						You are a highly effective melee combatent but are vulnerable to holy weapons. \
 						You can block up to 4 ranged attacks with your shield. It requires a welder to be repaired.</b>"
 	var/shield_health = MARAUDER_SHIELD_MAX
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/Initialize(mapload)
+	. = ..()
 	set_light(2, 3, l_color = LIGHT_COLOR_FIRE)
+
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/death(gibbed)
+	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
+	return ..()
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
@@ -46,13 +53,13 @@
 		if(shield_health > 0)
 			damage_shield()
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg', 40, 1)
+
 	if((I.tool_behaviour == TOOL_WELDER) && (user.a_intent == INTENT_HELP))
 		welder_act(user, I)
 		return
 	. = ..()
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
-	//Block Ranged Attacks
 	if(shield_health > 0)
 		damage_shield()
 		to_chat(src, "<span class='danger'>Your shield blocks the attack!</span>")
@@ -71,10 +78,8 @@
 		to_chat(user, "<span class='notice'>[src] has no damage to repair.</span>")
 		return
 
-	if(!do_after(user, 25, target = src))
-		return
-
-	health = min(health + 10, maxHealth)
+	playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
+	adjustBruteLoss(-10)
 	user.visible_message(
 		"<span class='notice'>You repair some of [src]'s damage.</span>",
 		"<span class='notice'>[user] repairs some of [src]'s damage.</span>"
@@ -83,6 +88,29 @@
 		shield_health ++
 		playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
 	return TRUE
+
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/narsie_act()
+	visible_message(
+		"<span class='danger'>[src] is instantly crushed by an unholy aura!</span>",
+		"<span class='userdanger'>The uncaring gaze of a dark god looks down upon you for a single moment, and your shell is instantly pulverized into dust!</span>"
+	)
+	gib()
+
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	return FALSE
+
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/Life(seconds, times_fired)
+	if(holy_check(src))
+		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
+		visible_message(
+			"<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
+			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>"
+		)
+		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
+		adjustBruteLoss(maxHealth/8)
+	else
+		clear_alert("holy_fire", clear_override = TRUE)
+	return ..()
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile
 	AIStatus = AI_ON
