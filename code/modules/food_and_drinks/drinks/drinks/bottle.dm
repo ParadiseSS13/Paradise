@@ -277,6 +277,20 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
+/obj/item/reagent_containers/drinks/bottle/beer
+	name = "space beer"
+	desc = "Contains only water, malt and hops."
+	icon_state = "beer"
+	volume = 50
+	list_reagents = list("beer" = 50)
+
+/obj/item/reagent_containers/drinks/bottle/ale
+	name = "Magm-Ale"
+	desc = "A true dorf's drink of choice."
+	icon_state = "alebottle"
+	volume = 50
+	list_reagents = list("ale" = 50)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/drinks/bottle/orangejuice
