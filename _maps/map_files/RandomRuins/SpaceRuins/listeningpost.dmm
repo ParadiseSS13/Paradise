@@ -104,10 +104,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "kx" = (
-/obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "kE" = (

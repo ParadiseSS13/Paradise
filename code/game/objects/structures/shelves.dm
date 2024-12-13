@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	var/shelf_style = "basic"
 	/// The current overlay of the top shelf. Used for interleaving objects and shelf layers for the illusion of depth.
 	var/image/shelf_overlay
+	var/build_stack_type = /obj/item/stack/sheet/metal
 	COOLDOWN_DECLARE(spraypaint_cd)
 
 /obj/structure/shelf/Initialize(mapload)
@@ -30,7 +31,12 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	var/obj/item/toy/crayon/spraycan/spraycan = I
 	if(!istype(spraycan))
 		return ..()
+
 	if(spraycan.capped)
+		return ..()
+
+	// Spraypaint cannot turn brass into steel.
+	if(shelf_style == "clockwork")
 		return ..()
 
 	if(!COOLDOWN_FINISHED(src, spraypaint_cd))
@@ -74,7 +80,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	deconstruct()
 
 /obj/structure/shelf/deconstruct(disassembled)
-	new /obj/item/stack/sheet/metal(get_turf(src), 5)
+	new build_stack_type(get_turf(src), 5)
 	return ..()
 
 /obj/structure/shelf/engineering
@@ -105,6 +111,12 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	icon_state = "shelf_sup"
 	shelf_style = "sup"
 
+/obj/structure/shelf/clockwork
+	name = "brass shelf"
+	icon_state = "shelf_clockwork"
+	shelf_style = "clockwork"
+	build_stack_type = /obj/item/stack/tile/brass
+
 /obj/structure/gunrack
 	name = "gun rack"
 	desc = "A rack for stowing firearms."
@@ -115,6 +127,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	anchored = TRUE
 	pass_flags_self = PASSTAKE
 	max_integrity = 80
+	var/build_stack_type = /obj/item/stack/sheet/metal
 
 /obj/structure/gunrack/Initialize(mapload)
 	. = ..()
@@ -135,5 +148,10 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	deconstruct()
 
 /obj/structure/gunrack/deconstruct(disassembled)
-	new /obj/item/stack/sheet/metal(get_turf(src), 5)
+	new build_stack_type(get_turf(src), 5)
 	return ..()
+
+/obj/structure/gunrack/clockwork
+	name = "brass weapon rack"
+	icon_state = "gunrack_clockwork"
+	build_stack_type = /obj/item/stack/tile/brass
