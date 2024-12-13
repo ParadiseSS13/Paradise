@@ -32,7 +32,6 @@
 
 	new_attack_chain = TRUE
 
-	new_attack_chain = TRUE
 
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
