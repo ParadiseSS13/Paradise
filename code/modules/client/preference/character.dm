@@ -2084,6 +2084,11 @@
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
 				continue
+			// SS220 EDIT START - RACE/JOB BANS
+			if(job.species_ban(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[SPECIES BLOCK\]</b></td></tr>"
+				continue
+			// SS220 EDIT END - RACE/JOB BANS
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
 				continue

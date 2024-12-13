@@ -1169,3 +1169,96 @@ endpoint = "https://models.inference.ai.azure.com/chat/completions" # Allows git
 model = "gpt-4o"
 
 ################################################################
+
+[job_configuration_restriction]
+
+# Should enable job ban for species
+allow_to_ban_job_for_species = false
+
+# Job blacklist marks. Add species name to ban job for a specific species. Example: { name = "Captain", species_blacklist = ["Vox"] },
+job_species_blacklist = [
+	# Cental Command
+	{ name = "Nanotrasen Navy Officer", species_blacklist = [] },
+	{ name = "Special Operations Officer", species_blacklist = [] },
+	{ name = "Trans-Solar Federation General", species_blacklist = [] },
+	{ name = "Syndicate Officer", species_blacklist = [] },
+	# Commmand
+	{ name = "Captain", species_blacklist = [] },
+	{ name = "Head of Personnel", species_blacklist = [] },
+	{ name = "Head of Security", species_blacklist = [] },
+	{ name = "Chief Engineer", species_blacklist = [] },
+	{ name = "Research Director", species_blacklist = [] },
+	{ name = "Chief Medical Officer", species_blacklist = [] },
+	{ name = "Quartermaster", species_blacklist = [] },
+	{ name = "Nanotrasen Representative", species_blacklist = [] },
+	{ name = "Blueshield", species_blacklist = [] },
+	{ name = "Magistrate", species_blacklist = [] },
+	# Engineering
+	{ name = "Life Support Specialist", species_blacklist = [] },
+	{ name = "Station Engineer", species_blacklist = [] },
+	{ name = "Trainee Engineer", species_blacklist = [] },
+	# Medical
+	{ name = "Chemist", species_blacklist = [] },
+	{ name = "Paramedic", species_blacklist = [] },
+	{ name = "Geneticist", species_blacklist = [] },
+	{ name = "Coroner", species_blacklist = [] },
+	{ name = "Psychiatrist", species_blacklist = [] },
+	{ name = "Medical Doctor", species_blacklist = [] },
+	{ name = "Medical Intern", species_blacklist = [] },
+	{ name = "Virologist", species_blacklist = [] },
+	# Science
+	{ name = "Roboticist", species_blacklist = [] },
+	{ name = "Scientist", species_blacklist = [] },
+	{ name = "Student Scientist", species_blacklist = [] },
+	# Security
+	{ name = "Detective", species_blacklist = [] },
+	{ name = "Security Officer", species_blacklist = [] },
+	{ name = "Security Cadet", species_blacklist = [] },
+	{ name = "Warden", species_blacklist = [] },
+	{ name = "Internal Affairs Agent", species_blacklist = [] },
+	# Service
+	{ name = "Bartender", species_blacklist = [] },
+	{ name = "Botanist", species_blacklist = [] },
+	{ name = "Chaplain", species_blacklist = [] },
+	{ name = "Chef", species_blacklist = [] },
+	{ name = "Janitor", species_blacklist = [] },
+	{ name = "Librarian", species_blacklist = [] },
+	{ name = "Clown", species_blacklist = [] },
+	{ name = "Mime", species_blacklist = [] },
+	# Cargo/Supply
+	{ name = "Explorer", species_blacklist = [] },
+	{ name = "Shaft Miner", species_blacklist = [] },
+	{ name = "Cargo Technician", species_blacklist = [] },
+	# Silicon
+	{ name = "AI", species_blacklist = [] },
+	{ name = "Cyborg", species_blacklist = [] },
+	# Misc
+	{ name = "Assistant", species_blacklist = [] },
+	# Donor
+	{ name = "Donor", species_blacklist = [] },
+	{ name = "Prisoner", species_blacklist = [] },
+	{ name = "Barber", species_blacklist = [] },
+	{ name = "Bath", species_blacklist = [] },
+	{ name = "Casino", species_blacklist = [] },
+	{ name = "Waiter", species_blacklist = [] },
+	{ name = "Acolyte", species_blacklist = [] },
+	{ name = "Wrestler", species_blacklist = [] },
+	{ name = "Musician", species_blacklist = [] },
+	{ name = "Actor", species_blacklist = [] },
+	{ name = "Administrator", species_blacklist = [] },
+	{ name = "Tourist TSF", species_blacklist = [] },
+	{ name = "Tourist USSP", species_blacklist = [] },
+	{ name = "Cleaning Manager", species_blacklist = [] },
+	{ name = "Guard", species_blacklist = [] },
+	{ name = "Migrant", species_blacklist = [] },
+	{ name = "Uncertain", species_blacklist = [] },
+	{ name = "Adjutant", species_blacklist = [] },
+	{ name = "Representative TSF", species_blacklist = [] },
+	{ name = "Representative USSP", species_blacklist = [] },
+	{ name = "Dealer", species_blacklist = [] },
+	{ name = "VIP Corporate Guest", species_blacklist = [] },
+	{ name = "Banker", species_blacklist = [] },
+	{ name = "Security Clown", species_blacklist = [] },
+]
+
+################################################################
