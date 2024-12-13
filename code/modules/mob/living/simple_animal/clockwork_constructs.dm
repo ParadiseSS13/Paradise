@@ -36,11 +36,15 @@
 	var/playstyle_string = "<b>You are a Marauder, an instrument of destruction built to fight those that oppose the will of Ratvar. \
 						You are a highly effective melee combatent but are vulnerable to holy weapons. \
 						You can block up to 4 ranged attacks with your shield. It requires a welder to be repaired.</b>"
+	var/list/construct_spells = list(/datum/spell/night_vision)
 	var/shield_health = MARAUDER_SHIELD_MAX
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/Initialize(mapload)
 	. = ..()
+	name = "[name] ([rand(1, 1000)])"
 	set_light(2, 3, l_color = LIGHT_COLOR_FIRE)
+	for(var/spell in construct_spells)
+		AddSpell(new spell(null))
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/death(gibbed)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
