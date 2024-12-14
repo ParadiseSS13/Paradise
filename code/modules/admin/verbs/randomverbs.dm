@@ -1194,14 +1194,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
 			ADD_TRAIT(D, chosen_trait, source)
 		if("Remove")
-			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			var/specific = tgui_list_input(usr, "All or from a specific source?", "Add or Remove Trait", list("All","Specific"))
 			if(!specific)
 				return
 			switch(specific)
 				if("All")
 					source = null
 				if("Specific")
-					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					source = tgui_list_input(usr, "Source to be removed?", "Add or Remove Trait", D.status_traits[chosen_trait])
 					if(!source)
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
