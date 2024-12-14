@@ -8,7 +8,7 @@
 
 /datum/configuration_section/redis_configuration/load_data(list/data)
 	// UNIT TESTS ARE DEFINED - USE CUSTOM CI VALUES
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 
 	// enabled = TRUE
 
