@@ -4,7 +4,7 @@
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Trans-Solar Federation General")
 	restricted_jobs = list("Cyborg")
-	secondary_restricted_jobs = list("AI", "Chaplain", "Explorer")
+	secondary_restricted_jobs = list("AI", "Chaplain")
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
