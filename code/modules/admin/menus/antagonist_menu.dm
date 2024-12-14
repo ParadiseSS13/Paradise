@@ -52,6 +52,14 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		temp_list["obj_uid"] = objective.UID()
 
 		temp_list["status"] = objective.check_completion()
+		if(!objective.holder)
+			temp_list["owner_uid"] = "This shit fucked up"
+			temp_list["owner_name"] = "???"
+			if(istype(objective.owner, /datum/mind))
+				// special handling for contractor objectives I guess
+				temp_list["owner_uid"] = objective.owner.UID()
+				temp_list["owner_name"] = objective.owner.name
+			continue
 		var/datum/thingy = objective.holder.get_holder_owner()
 		temp_list["owner_uid"] = thingy.UID()
 		if(istype(thingy, /datum/antagonist))
