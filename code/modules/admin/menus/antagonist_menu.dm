@@ -59,14 +59,14 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 				// special handling for contractor objectives I guess
 				temp_list["owner_uid"] = objective.owner.UID()
 				temp_list["owner_name"] = objective.owner.name
-			continue
-		var/datum/thingy = objective.holder.get_holder_owner()
-		temp_list["owner_uid"] = thingy.UID()
-		if(istype(thingy, /datum/antagonist))
-			var/datum/antagonist/antag = thingy
-			temp_list["owner_name"] = antag.owner.name
 		else
-			temp_list["owner_name"] = "[thingy]"
+			var/datum/thingy = objective.holder.get_holder_owner()
+			temp_list["owner_uid"] = thingy.UID()
+			if(istype(thingy, /datum/antagonist))
+				var/datum/antagonist/antag = thingy
+				temp_list["owner_name"] = antag.owner.name
+			else
+				temp_list["owner_name"] = "[thingy]"
 
 		var/datum/the_target = objective.found_target()
 		temp_list["no_target"] = (!objective.needs_target && !the_target)
