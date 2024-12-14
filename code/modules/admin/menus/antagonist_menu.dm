@@ -112,7 +112,7 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		if(!player.mind)
 			continue
 		var/role = determine_role(player)
-		if(!(determine_role(player) in GLOB.active_security_positions) && player.mind.special_role != SPECIAL_ROLE_ERT)
+		if(!(role in GLOB.active_security_positions) && player.mind.special_role != SPECIAL_ROLE_ERT)
 			continue
 		var/list/temp_list = list()
 		temp_list["name"] = player.mind.name
