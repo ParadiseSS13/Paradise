@@ -30,7 +30,7 @@
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF
-	loot = list(/obj/item/food/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm, /obj/item/clockwork/component/geis_capacitor/fallen_armor)
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/playstyle_string = "<b>You are a Marauder, an instrument of destruction built to fight those that oppose the will of Ratvar. \
