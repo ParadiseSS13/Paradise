@@ -76,6 +76,25 @@
 
 		CHECK_TICK
 
+	for(var/interaction_test_type in subtypesof(/datum/interaction_test))
+		var/datum/interaction_test/test = new interaction_test_type
+		test_logs[interaction_test_type] = list()
+		current_test = test
+		var/duration = REALTIMEOFDAY
+
+		test.Run()
+
+		durations[interaction_test_type] = REALTIMEOFDAY - duration
+		current_test = null
+
+		if(!test.succeeded)
+			failed_any_test = TRUE
+			test_logs[interaction_test_type] += test.fail_reasons
+
+		qdel(test)
+
+		CHECK_TICK
+
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
 
 
