@@ -361,7 +361,7 @@
 
 /datum/map_template/ruin/space/clockwork_cult_site
 	id = "clockwork_monastery"
-	suffix = "clcokwork_cult_site.dmm"
+	suffix = "clockwork_cult_site.dmm"
 	name = "Abandoned Clockwork Monastery"
 	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
 		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
