@@ -139,11 +139,12 @@ const AntagList = (properties, context) => {
     return 'No Antagonists!';
   }
   return (
-    <Table className="AccountsUplinkTerminal__list">
+    <Table className="AdminAntagMenu__list">
       <Table.Row bold>
         <SortButton id="name">Mob Name</SortButton>
-        <SortButton id="status">Status</SortButton>
+        <SortButton id="">Buttons</SortButton>
         <SortButton id="antag_name">Antagonist Type</SortButton>
+        <SortButton id="status">Status</SortButton>
       </Table.Row>
       {antagonists
         .filter(
@@ -166,7 +167,7 @@ const AntagList = (properties, context) => {
         })
         .map((antag, index) => (
           <Table.Row key={index}>
-            <Table.Cell>
+            <Table.Cell collapsing>
               {!antag.body_destroyed ? (
                 <Button
                   color={antag.is_hijacker || !antag.name ? 'red' : ''}
@@ -183,10 +184,6 @@ const AntagList = (properties, context) => {
                 antag.name
               )}
             </Table.Cell>
-            <Table.Cell>
-              <Box color={antag.status ? 'red' : 'grey'}>{antag.status ? antag.status : 'Alive'}</Box>
-            </Table.Cell>
-            <Table.Cell>{antag.antag_name}</Table.Cell>
             <Table.Cell collapsing>
               <Button
                 onClick={() => {
@@ -225,6 +222,10 @@ const AntagList = (properties, context) => {
                 TP
               </Button>
             </Table.Cell>
+            <Table.Cell>{antag.antag_name}</Table.Cell>
+            <Table.Cell>
+              <Box color={antag.status ? 'red' : 'grey'}>{antag.status ? antag.status : 'Alive'}</Box>
+            </Table.Cell>
           </Table.Row>
         ))}
     </Table>
@@ -241,7 +242,7 @@ const Objectives = (properties, context) => {
     return 'No Objectives!';
   }
   return (
-    <Table className="AccountsUplinkTerminal__list">
+    <Table className="AdminAntagMenu__list">
       <Table.Row bold>
         <SortButton sort_group="sortId2" id="obj_name">
           Name
@@ -378,7 +379,7 @@ const Security = (properties, context) => {
     return 'No Security!';
   }
   return (
-    <Table className="AccountsUplinkTerminal__list">
+    <Table className="AdminAntagMenu__list">
       <Table.Row bold>
         <SortButton sort_group="sortId3" id="name">
           Name
@@ -508,7 +509,7 @@ const HighValueItems = (properties, context) => {
     return 'No High Value Items!';
   }
   return (
-    <Table className="AccountsUplinkTerminal__list">
+    <Table className="AdminAntagMenu__list">
       <Table.Row bold>
         <SortButton sort_group="sortId4" id="name">
           Name
