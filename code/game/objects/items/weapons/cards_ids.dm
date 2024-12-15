@@ -55,7 +55,7 @@
 
 /obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	update_icon()
-	to_chat(user, "<span class='notice'>When you use the key, he flickers and disappears right before your eyes!</span>")
+	to_chat(user, "<span class='notice'>[src] flickers and disappears right before your eyes!</span>")
 	playsound(loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
 	. = ..()
 	qdel(src)
