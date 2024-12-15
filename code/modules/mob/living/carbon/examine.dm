@@ -98,7 +98,6 @@
 	var/skipeyes = FALSE
 	var/skipface = FALSE
 
-//[p_they(TRUE)] [p_are()]
 	// List of hallucination messages
 	var/list/hallucination_texts = list(
             "You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
