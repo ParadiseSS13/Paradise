@@ -126,12 +126,12 @@
 					/obj/item/reagent_containers/drinks/shaker,
 					/obj/item/reagent_containers/drinks/bottle/patron,
 					/obj/item/reagent_containers/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 250

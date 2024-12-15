@@ -375,7 +375,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
@@ -546,7 +546,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (

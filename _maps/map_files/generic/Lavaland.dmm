@@ -154,11 +154,7 @@
 /area/mine/laborcamp)
 "aI" = (
 /obj/structure/chair/sofa/bench/left,
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -359,10 +355,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "bv" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/requests_console/directional/east,
 /obj/structure/closet/secure_closet/quartermaster/lavaland,
 /turf/simulated/floor/carpet,
@@ -1786,22 +1779,22 @@
 /area/mine/outpost/medbay)
 "eJ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
@@ -3706,10 +3699,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "lZ" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -5101,11 +5091,7 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "tt" = (
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding"
@@ -5656,11 +5642,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/east)
 "wP" = (
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5677,11 +5659,7 @@
 /area/lavaland/surface/outdoors/targetable)
 "xg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -8227,10 +8205,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
