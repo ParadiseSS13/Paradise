@@ -46,6 +46,21 @@
 		if(!locate(/obj/structure/disposalpipe/trunk) in T.contents)
 			Fail(T, "tile has disposal unit/chute but no pipe trunk")
 
+/**
+  * Check that only one cable node exists on a tile.
+  */
+/datum/map_per_tile_test/cable_node_checker
+
+/datum/map_per_tile_test/cable_node_checker/CheckTile(turf/T)
+	var/center_nodes = 0
+
+	for(var/obj/structure/cable/cable in T.contents)
+		if(cable.d1 == 0 || cable.d2 == 0)
+			center_nodes++
+
+	if(center_nodes > 1)
+		Fail(T, "tile has multiple center cable nodes")
+
 /datum/map_per_tile_test/nearspace_checker
 	var/allowed_turfs = list(/turf/space,
 		/turf/simulated/floor/plating/airless,
