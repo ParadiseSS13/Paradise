@@ -104368,10 +104368,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/obj/machinery/camera{
-	c_tag = "Atsmospherics Control ROom";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "uDa" = (
