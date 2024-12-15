@@ -21,7 +21,7 @@ import sys
 INCLUDER_FILES = [
     'paradise.dme',
     'code/modules/tgs/includes.dm',
-    'code/modules/unit_tests/_unit_tests.dm',
+    'code/tests/game_tests.dm',
 ]
 
 IGNORE_FILES = {
