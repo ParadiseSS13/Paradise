@@ -646,7 +646,7 @@ redis_connstring = "redis://127.0.0.1/"
 # This section contains configuration for all space ruins and lava ruins
 
 # Whether to load the lavaland Z-level.
-enable_lavaland = false
+enable_lavaland = true
 # Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
 enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
@@ -701,6 +701,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clockwork_cult_site.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
