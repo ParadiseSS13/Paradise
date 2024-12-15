@@ -13,6 +13,12 @@
 /obj/item/weldingtool/experimental/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"bF" = (
+/obj/machinery/light/clockwork/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/ruin/space/clockwork_monastery)
 "bW" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
@@ -37,8 +43,8 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "dx" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "eg" = (
 /obj/machinery/light/clockwork{
 	dir = 1
@@ -50,11 +56,11 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "gV" = (
-/obj/machinery/light/clockwork/small{
-	dir = 1
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/basalt,
-/area/ruin/unpowered)
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "hk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clockwork,
@@ -93,7 +99,7 @@
 /area/ruin/space/clockwork_monastery)
 "kC" = (
 /obj/machinery/door/airlock/clockwork{
-	name = "Narthex"
+	name = "Inner Narthex"
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
@@ -370,6 +376,12 @@
 /obj/item/wrench/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"He" = (
+/obj/structure/chair/sofa/pew/clockwork/left{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "Ht" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/unpowered)
@@ -586,15 +598,15 @@ dx
 dx
 dx
 dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
 dx
 dx
 dx
@@ -644,18 +656,18 @@ dx
 dx
 dx
 dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
 dx
-dx
-dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
 dx
 dx
 dx
@@ -700,11 +712,6 @@ dx
 dx
 dx
 dx
-dx
-dx
-dx
-dx
-dx
 Ht
 Ht
 Ht
@@ -716,8 +723,13 @@ Ht
 Ht
 Ht
 Ht
-dx
-dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
 dx
 dx
 dx
@@ -757,10 +769,6 @@ dx
 dx
 dx
 dx
-dx
-dx
-dx
-dx
 Ht
 Ht
 Ht
@@ -771,17 +779,17 @@ Ht
 Ht
 Ht
 Ht
+oW
+oW
+oW
+oW
+oW
+oW
+oW
 Ht
 Ht
 Ht
 Ht
-Ht
-Ht
-Ht
-Ht
-dx
-dx
-dx
 dx
 dx
 dx
@@ -790,6 +798,10 @@ dx
 dx
 dx
 dx
+dx
+dx
+Ht
+Ht
 dx
 dx
 dx
@@ -817,8 +829,6 @@ dx
 dx
 dx
 dx
-dx
-Ht
 Ht
 Ht
 Ht
@@ -830,27 +840,29 @@ Ht
 Ht
 oW
 oW
+Rv
+rJ
+rJ
+rJ
+Rv
 oW
 oW
-oW
-oW
-oW
 Ht
 Ht
 Ht
 Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
+Ht
+Ht
+Ht
 dx
 dx
 dx
 Ht
 Ht
+Ht
+Ht
+Ht
+dx
 dx
 dx
 dx
@@ -876,8 +888,7 @@ dx
 dx
 dx
 dx
-dx
-dx
+Ht
 Ht
 Ht
 Ht
@@ -888,30 +899,31 @@ Ht
 Ht
 Ht
 oW
-oW
-Rv
 rJ
 rJ
 rJ
-Rv
+rJ
+rJ
+rJ
+rJ
 oW
-oW
 Ht
 Ht
 Ht
 Ht
-Ht
-Ht
-Ht
-dx
-dx
-dx
 Ht
 Ht
 Ht
 Ht
 Ht
 dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
 dx
 dx
 dx
@@ -923,67 +935,6 @@ dx
 dx
 "}
 (7,1,1) = {"
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-oW
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-oW
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-"}
-(8,1,1) = {"
-dx
 dx
 dx
 dx
@@ -1041,9 +992,9 @@ dx
 dx
 dx
 dx
-"}
-(9,1,1) = {"
 dx
+"}
+(8,1,1) = {"
 dx
 dx
 dx
@@ -1101,9 +1052,9 @@ dx
 dx
 dx
 dx
-"}
-(10,1,1) = {"
 dx
+"}
+(9,1,1) = {"
 dx
 dx
 dx
@@ -1161,9 +1112,9 @@ dx
 dx
 dx
 dx
-"}
-(11,1,1) = {"
 dx
+"}
+(10,1,1) = {"
 dx
 dx
 dx
@@ -1221,9 +1172,9 @@ dx
 dx
 dx
 dx
-"}
-(12,1,1) = {"
 dx
+"}
+(11,1,1) = {"
 dx
 dx
 dx
@@ -1259,8 +1210,8 @@ oW
 oW
 CB
 rJ
-rJ
-rJ
+mn
+mn
 rJ
 Ki
 oW
@@ -1281,9 +1232,9 @@ dx
 dx
 dx
 dx
-"}
-(13,1,1) = {"
 dx
+"}
+(12,1,1) = {"
 dx
 dx
 dx
@@ -1341,9 +1292,9 @@ dx
 dx
 dx
 dx
-"}
-(14,1,1) = {"
 dx
+"}
+(13,1,1) = {"
 dx
 dx
 dx
@@ -1377,12 +1328,12 @@ rJ
 ME
 oW
 Az
-rJ
+mn
 rJ
 bg
 bg
 rJ
-rJ
+mn
 KZ
 oW
 Ht
@@ -1401,9 +1352,9 @@ dx
 dx
 dx
 dx
-"}
-(15,1,1) = {"
 dx
+"}
+(14,1,1) = {"
 dx
 dx
 dx
@@ -1437,12 +1388,12 @@ rJ
 rJ
 oW
 Az
-rJ
+mn
 rJ
 bg
 bg
 rJ
-rJ
+mn
 KZ
 oW
 Ht
@@ -1461,13 +1412,13 @@ dx
 dx
 dx
 dx
+dx
 "}
-(16,1,1) = {"
+(15,1,1) = {"
 dx
 dx
 dx
-dx
-dx
+Ht
 Ht
 Ht
 Ht
@@ -1521,11 +1472,11 @@ dx
 dx
 dx
 dx
+dx
 "}
-(17,1,1) = {"
+(16,1,1) = {"
 dx
-dx
-dx
+Ht
 Ht
 Ht
 Ht
@@ -1581,11 +1532,11 @@ dx
 dx
 dx
 dx
+dx
 "}
-(18,1,1) = {"
+(17,1,1) = {"
 dx
-dx
-dx
+Ht
 Ht
 Ht
 Ht
@@ -1639,13 +1590,13 @@ ch
 Ht
 Ht
 Ht
+Ht
 dx
 dx
 "}
-(19,1,1) = {"
+(18,1,1) = {"
 dx
-dx
-dx
+Ht
 Ht
 Ht
 Ht
@@ -1679,8 +1630,8 @@ rJ
 rJ
 oW
 oW
-rJ
-rJ
+He
+gV
 oW
 sc
 oW
@@ -1693,9 +1644,70 @@ rJ
 rJ
 mn
 oW
-gV
+bF
 ch
 ch
+ch
+ch
+Ht
+Ht
+dx
+dx
+"}
+(19,1,1) = {"
+dx
+Ht
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+Rv
+rJ
+rJ
+rJ
+Rv
+oW
+sZ
+Bo
+rJ
+rJ
+Lh
+rJ
+rJ
+rJ
+Lh
+rJ
+rJ
+rJ
+Lh
+rJ
+rJ
+oW
+oW
+oW
+oW
+rJ
+rJ
+rJ
+vc
+rJ
+Az
+rJ
+rJ
+rJ
+rJ
+sZ
+ow
+ch
+ch
+Jm
 ch
 ch
 Ht
@@ -1704,67 +1716,6 @@ dx
 "}
 (20,1,1) = {"
 dx
-dx
-dx
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-Rv
-rJ
-rJ
-rJ
-Rv
-oW
-sZ
-Bo
-rJ
-rJ
-Lh
-rJ
-rJ
-rJ
-Lh
-rJ
-rJ
-rJ
-Lh
-rJ
-rJ
-oW
-oW
-oW
-oW
-rJ
-rJ
-rJ
-vc
-rJ
-Az
-rJ
-rJ
-rJ
-rJ
-sZ
-ow
-ch
-ch
-Jm
-ch
-ch
-Ht
-dx
-"}
-(21,1,1) = {"
-dx
-dx
 oW
 oW
 Lh
@@ -1820,10 +1771,10 @@ Jm
 ch
 ch
 Ht
-dx
+Ht
+Ht
 "}
-(22,1,1) = {"
-dx
+(21,1,1) = {"
 oW
 oW
 rJ
@@ -1880,10 +1831,10 @@ Jm
 Jm
 ch
 Ht
-dx
+Ht
+Ht
 "}
-(23,1,1) = {"
-dx
+(22,1,1) = {"
 HF
 rJ
 rJ
@@ -1940,10 +1891,10 @@ Jm
 Jm
 Jm
 Ht
-dx
+Ht
+Ht
 "}
-(24,1,1) = {"
-dx
+(23,1,1) = {"
 HF
 rJ
 rJ
@@ -2000,73 +1951,73 @@ Jm
 Jm
 Jm
 Ht
-dx
+Ht
+Ht
+"}
+(24,1,1) = {"
+oW
+oW
+rJ
+rJ
+rJ
+rJ
+rJ
+rJ
+rJ
+rJ
+rJ
+oW
+rJ
+bg
+bg
+bg
+bg
+bg
+RD
+oW
+rJ
+rJ
+rJ
+rJ
+rJ
+pe
+xp
+xp
+xp
+qc
+rJ
+rJ
+rJ
+rJ
+rJ
+oW
+WR
+rJ
+rJ
+vc
+rJ
+vc
+rJ
+vc
+rJ
+rJ
+rJ
+rJ
+sZ
+ow
+Jm
+Jm
+Jm
+Jm
+Jm
+Ht
+Ht
+Ht
 "}
 (25,1,1) = {"
 dx
 oW
 oW
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
-oW
-rJ
-bg
-bg
-bg
-bg
-bg
-RD
-oW
-rJ
-rJ
-rJ
-rJ
-rJ
-pe
-xp
-xp
-xp
-qc
-rJ
-rJ
-rJ
-rJ
-rJ
-oW
-WR
-rJ
-rJ
-vc
-rJ
-vc
-rJ
-vc
-rJ
-rJ
-rJ
-rJ
-sZ
-ow
-Jm
-Jm
-Jm
-Jm
-Jm
-Ht
-dx
-"}
-(26,1,1) = {"
-dx
-dx
-oW
-oW
 Lh
 Iw
 Lh
@@ -2120,12 +2071,12 @@ Jm
 ch
 ch
 Ht
-dx
+Ht
+Ht
 "}
-(27,1,1) = {"
+(26,1,1) = {"
 dx
-dx
-dx
+Ht
 oW
 oW
 oW
@@ -2180,13 +2131,13 @@ Jm
 ch
 ch
 Ht
-dx
+Ht
+Ht
 "}
-(28,1,1) = {"
+(27,1,1) = {"
 dx
-dx
-dx
-dx
+Ht
+Ht
 Ht
 Ht
 Ht
@@ -2219,8 +2170,8 @@ rJ
 rJ
 oW
 oW
-rJ
-rJ
+Yx
+NF
 oW
 Em
 oW
@@ -2233,17 +2184,17 @@ rJ
 rJ
 mn
 oW
-gV
+bF
 ch
 ch
 ch
 ch
 ch
 Ht
+Ht
 dx
 "}
-(29,1,1) = {"
-dx
+(28,1,1) = {"
 dx
 dx
 dx
@@ -2300,10 +2251,10 @@ Ht
 ch
 ch
 Ht
+Ht
 dx
 "}
-(30,1,1) = {"
-dx
+(29,1,1) = {"
 dx
 dx
 dx
@@ -2360,10 +2311,10 @@ Ht
 Ht
 Ht
 Ht
+Ht
 dx
 "}
-(31,1,1) = {"
-dx
+(30,1,1) = {"
 dx
 dx
 dx
@@ -2418,12 +2369,12 @@ Ht
 Ht
 Ht
 Ht
+Ht
 dx
 dx
 dx
 "}
-(32,1,1) = {"
-dx
+(31,1,1) = {"
 dx
 dx
 dx
@@ -2462,7 +2413,7 @@ rJ
 bg
 bg
 rJ
-rJ
+mn
 KZ
 oW
 Ht
@@ -2481,9 +2432,9 @@ dx
 dx
 dx
 dx
-"}
-(33,1,1) = {"
 dx
+"}
+(32,1,1) = {"
 dx
 dx
 dx
@@ -2502,8 +2453,8 @@ NC
 rJ
 rJ
 Jx
-Ea
 Sq
+Ea
 rJ
 rJ
 EN
@@ -2522,7 +2473,7 @@ rJ
 bg
 bg
 rJ
-rJ
+mn
 KZ
 oW
 Ht
@@ -2541,9 +2492,9 @@ dx
 dx
 dx
 dx
-"}
-(34,1,1) = {"
 dx
+"}
+(33,1,1) = {"
 dx
 dx
 dx
@@ -2601,9 +2552,9 @@ dx
 dx
 dx
 dx
-"}
-(35,1,1) = {"
 dx
+"}
+(34,1,1) = {"
 dx
 dx
 dx
@@ -2661,9 +2612,9 @@ dx
 dx
 dx
 dx
-"}
-(36,1,1) = {"
 dx
+"}
+(35,1,1) = {"
 dx
 dx
 dx
@@ -2721,9 +2672,9 @@ dx
 dx
 dx
 dx
-"}
-(37,1,1) = {"
 dx
+"}
+(36,1,1) = {"
 dx
 dx
 dx
@@ -2781,9 +2732,9 @@ dx
 dx
 dx
 dx
-"}
-(38,1,1) = {"
 dx
+"}
+(37,1,1) = {"
 dx
 dx
 dx
@@ -2841,9 +2792,9 @@ dx
 dx
 dx
 dx
-"}
-(39,1,1) = {"
 dx
+"}
+(38,1,1) = {"
 dx
 dx
 dx
@@ -2901,69 +2852,69 @@ dx
 dx
 dx
 dx
+dx
+"}
+(39,1,1) = {"
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+oW
+jP
+rJ
+rJ
+rJ
+rJ
+rJ
+jP
+oW
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
 "}
 (40,1,1) = {"
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-oW
-jP
-rJ
-rJ
-rJ
-rJ
-rJ
-jP
-oW
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-"}
-(41,1,1) = {"
-dx
 dx
 dx
 dx
@@ -3021,6 +2972,67 @@ dx
 dx
 dx
 dx
+dx
+"}
+(41,1,1) = {"
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+oW
+oW
+oW
+oW
+oW
+oW
+oW
+Ht
+Ht
+Ht
+Ht
+Ht
+dx
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+Ht
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
 "}
 (42,1,1) = {"
 dx
@@ -3041,25 +3053,8 @@ dx
 dx
 dx
 dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-oW
-oW
-oW
-oW
-oW
-oW
-oW
-Ht
-Ht
-Ht
-Ht
-Ht
+dx
+dx
 dx
 Ht
 Ht
@@ -3071,6 +3066,23 @@ Ht
 Ht
 Ht
 Ht
+Ht
+Ht
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+dx
+Ht
+Ht
+Ht
+dx
+dx
+dx
 dx
 dx
 dx
@@ -3105,10 +3117,7 @@ dx
 dx
 dx
 dx
-Ht
-Ht
-Ht
-Ht
+dx
 Ht
 Ht
 Ht
@@ -3126,9 +3135,12 @@ dx
 dx
 dx
 dx
+dx
+dx
 Ht
 Ht
 Ht
+dx
 dx
 dx
 dx
@@ -3166,7 +3178,6 @@ dx
 dx
 dx
 dx
-dx
 Ht
 Ht
 Ht
@@ -3174,125 +3185,6 @@ Ht
 Ht
 Ht
 Ht
-Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-Ht
-Ht
-Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-"}
-(45,1,1) = {"
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-Ht
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-"}
-(46,1,1) = {"
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
-dx
 dx
 dx
 dx
