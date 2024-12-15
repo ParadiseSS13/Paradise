@@ -31,10 +31,7 @@
 			new /obj/item/clothing/suit/hooded/cultrobes(src)
 			new /obj/item/bedsheet/cult(src)
 		if(8)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disk/resonator_blast(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disk/rapid_repeater(src)
+			new /obj/item/card/emag/magic_key(src)
 		if(9)
 			new /obj/item/rod_of_asclepius(src)
 		if(10)
@@ -48,10 +45,15 @@
 		if(14)
 			new /obj/item/nullrod/armblade/mining(src)
 		if(15)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disk/bounty(src)
+			switch(rand(1, 4))
+				if(1)
+					new /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe(src)
+				if(2)
+					new /obj/item/disk/design_disk/modkit_disk/bounty(src)
+				if(3)
+					new /obj/item/disk/design_disk/modkit_disk/resonator_blast(src)
+				if(4)
+					new /obj/item/disk/design_disk/modkit_disk/rapid_repeater(src)
 		if(16)
 			new /obj/item/warp_cube/red(src)
 		if(17)
@@ -81,7 +83,7 @@
 					new /obj/item/tarot_card_pack/mega(src)
 				if(11)
 					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
-
+/obj/item/card/emag/magic_key
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
 	name = "\improper KA mod disk"

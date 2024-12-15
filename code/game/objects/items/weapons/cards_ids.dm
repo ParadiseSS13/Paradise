@@ -49,16 +49,14 @@
 
 /obj/item/card/emag/magic_key
 	name = "magic key"
-	desc = "It's a magic key, that will open one door!"
+	desc = "A strange key with a powerful electromagnetic aura."
 	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
 /obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!isairlock(target))
-		return
-	var/obj/machinery/door/D = target
-	D.locked = FALSE
 	update_icon()
+	to_chat(user, "<span class='notice'>When you use the key, he flickers and disappears right before your eyes!</span>")
+	playsound(loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
 	. = ..()
 	qdel(src)
 
