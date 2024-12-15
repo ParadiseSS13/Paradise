@@ -84,6 +84,12 @@
 		stack_trace("  The file of [src] appears to be empty/non-existent.")
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
+	var/list/coordinate_bounds = get_coordinate_bounds(T, centered)
+	var/datum/coords/bottom_left = coordinate_bounds["bottom_left"]
+	var/datum/coords/top_right = coordinate_bounds["top_right"]
+	return block(max(bottom_left.x_pos, 1), max(bottom_left.y_pos, 1), T.z, min(top_right.x_pos, world.maxx), min(top_right.y_pos, world.maxy), T.z)
+
+/datum/map_template/proc/get_coordinate_bounds(turf/T, centered = FALSE)
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -93,7 +99,10 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	return block(max(min_x, 1), max(min_y, 1), placement.z, min(max_x, world.maxx), min(max_y, world.maxy), placement.z)
+
+	var/datum/coords/bottom_left = new(min_x, min_y, 1)
+	var/datum/coords/top_right = new(max_x, max_y, 1)
+	return list("bottom_left" = bottom_left, "top_right" = top_right)
 
 /datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
 	var/turf/placement = T
