@@ -71,7 +71,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/proc/damage_shield()
-	shield_health --
+	shield_health--
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
