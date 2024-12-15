@@ -51,7 +51,7 @@
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
 		adjustFireLoss(15)
 		if(shield_health > 0)
