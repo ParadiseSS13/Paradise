@@ -31,7 +31,7 @@
 			new /obj/item/clothing/suit/hooded/cultrobes(src)
 			new /obj/item/bedsheet/cult(src)
 		if(8)
-			new /obj/item/card/emag/magic_key(src)
+			new /obj/item/card/emag/skeleton_key(src)
 		if(9)
 			new /obj/item/rod_of_asclepius(src)
 		if(10)
