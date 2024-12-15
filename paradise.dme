@@ -3014,7 +3014,7 @@
 #include "code\modules\world_topic\pr_announce_topic.dm"
 #include "code\modules\world_topic\queue_status.dm"
 #include "code\modules\world_topic\status.dm"
-#include "code\testing\game_tests.dm"
+#include "code\tests\game_tests.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE

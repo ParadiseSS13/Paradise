@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load all Z level templates
 	preloadTemplates()
-	preloadTemplates(path = "code/testing/atmos/")
+	preloadTemplates(path = "code/tests/atmos/")
 
 	// Load the station
 	loadStation()

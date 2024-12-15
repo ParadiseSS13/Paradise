@@ -3,35 +3,35 @@
 
 /// Asserts that a condition is true
 /// If the condition is not true, fails the test
-#define TEST_ASSERT(assertion, reason) if (!(assertion)) { return Fail("Assertion failed: [reason || "No reason"]", __FILE__, __LINE__) }
+#define TEST_ASSERT(assertion, reason) if(!(assertion)) { return Fail("Assertion failed: [reason || "No reason"]", __FILE__, __LINE__) }
 
-#define TEST_ASSERT_NOT(assertion, reason) if (assertion) { return Fail("Assertion failed: [reason || "No reason"]", __FILE__, __LINE__) }
+#define TEST_ASSERT_NOT(assertion, reason) if(assertion) { return Fail("Assertion failed: [reason || "No reason"]", __FILE__, __LINE__) }
 
 /// Asserts that a parameter is not null
-#define TEST_ASSERT_NOTNULL(a, reason) if (isnull(a)) { return Fail("Expected non-null value: [reason || "No reason"]", __FILE__, __LINE__) }
+#define TEST_ASSERT_NOTNULL(a, reason) if(isnull(a)) { return Fail("Expected non-null value: [reason || "No reason"]", __FILE__, __LINE__) }
 
 /// Asserts that a parameter is null
-#define TEST_ASSERT_NULL(a, reason) if (!isnull(a)) { return Fail("Expected null value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
+#define TEST_ASSERT_NULL(a, reason) if(!isnull(a)) { return Fail("Expected null value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
 
 /// Asserts that the two parameters passed are equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_EQUAL(a, b, message) do { \
 	var/lhs = ##a; \
 	var/rhs = ##b; \
-	if (lhs != rhs) { \
+	if(lhs != rhs) { \
 		return Fail("Expected [isnull(lhs) ? "null" : lhs] to be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
-} while (FALSE)
+} while(FALSE)
 
 /// Asserts that the two parameters passed are not equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_NOTEQUAL(a, b, message) do { \
 	var/lhs = ##a; \
 	var/rhs = ##b; \
-	if (lhs == rhs) { \
+	if(lhs == rhs) { \
 		return Fail("Expected [isnull(lhs) ? "null" : lhs] to not be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
-} while (FALSE)
+} while(FALSE)
 
 /**
  * Usage:
@@ -82,9 +82,9 @@
 /datum/game_test/proc/allocate(type, ...)
 	var/list/arguments = args.Copy(2)
 	if(ispath(type, /atom))
-		if (!arguments.len)
+		if(!arguments.len)
 			arguments = list(run_loc_bottom_left)
-		else if (arguments[1] == null)
+		else if(arguments[1] == null)
 			arguments[1] = run_loc_bottom_left
 	var/instance
 	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
