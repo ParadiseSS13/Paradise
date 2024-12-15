@@ -359,9 +359,9 @@
 	description = "A small Drakehound craft, damaged from an engine malfunction."
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/space/clockwork_cult_site
+/datum/map_template/ruin/space/clockwork_monastery
 	id = "clockwork_monastery"
-	suffix = "clockwork_cult_site.dmm"
+	suffix = "clockwork_monastery.dmm"
 	name = "Abandoned Clockwork Monastery"
 	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
 		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
