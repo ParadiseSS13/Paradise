@@ -17,6 +17,10 @@
 	var/list/images = list()
 	/// The first hallucination that we spawn. Also doubles as a reference to our hallucination
 	var/obj/effect/hallucination/no_delete/initial_hallucination
+	/// A list of all managers except for this one. Only used for rerolling
+	var/list/additional_options = list()
+	/// What severity is our hallucination? Only checked if not null
+	var/severity
 
 // `ignore_this_argument` is here because there are still old hallucinations which require a location passed
 /datum/hallucination_manager/New(turf/ignore_this_argument, mob/living/hallucinator)
@@ -27,6 +31,8 @@
 		return
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(signal_qdel))
 	spawn_hallucination()
+	if(severity)
+		additional_options = GLOB.hallucinations[severity] - type
 
 /datum/hallucination_manager/Destroy(force, ...)
 	. = ..()
@@ -55,3 +61,10 @@
 /datum/hallucination_manager/proc/on_trigger()
 	// If you want to have more behaviour after this callback, define a new proc on your own manager
 	qdel(src)
+
+/// Rerolls the hallucination
+/datum/hallucination_manager/proc/reroll_ourself()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/target = owner
+	target.invoke_hallucination(pick(additional_options))

@@ -15,6 +15,7 @@
 				break
 
 	if(!target)
+		reroll_ourself()
 		qdel(src)
 		return
 	return ..()
@@ -36,13 +37,24 @@
 	playsound(spawn_turf, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /datum/hallucination_manager/stealing_traitor/on_trigger()
+	hide_item(target)
 	if(ishuman(target.loc) && target.loc == owner)
 		owner.Weaken(5 SECONDS)
-		var/image/override_image = image(target.icon, target, target.icon_state)
-		override_image.override = TRUE
-		images += override_image
-		owner.client.images += override_image
+		owner.Jitter(5 SECONDS)
+		owner.AdjustStuttering(10 SECONDS)
+		owner.playsound_local(get_turf(owner), 'sound/weapons/contractorbatonhit.ogg')
+	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_second_trigger)), 2 SECONDS, TIMER_DELETE_ME)
 
+/datum/hallucination_manager/stealing_traitor/proc/hide_item(obj/item/target)
+	var/image/override_image = image(target.icon, target, target.icon_state)
+	override_image.override = TRUE
+	images += override_image
+	owner.client.images += override_image
+
+/datum/hallucination_manager/stealing_traitor/proc/on_second_trigger()
+	playsound(get_turf(initial_hallucination), "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	qdel(initial_hallucination)
+	QDEL_IN(src, 10 SECONDS) // This is when the image override is actually removed
 
 /obj/effect/hallucination/no_delete/stealing_traitor
 	hallucination_icon = 'icons/mob/simple_human.dmi'
