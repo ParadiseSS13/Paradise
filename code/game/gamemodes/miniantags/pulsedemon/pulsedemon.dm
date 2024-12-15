@@ -818,14 +818,12 @@
 	if(amount > 0) // This damages the pulse demon
 		return ..()
 
-	message_admins("Amount before [amount]")
-	if(!isapc(loc) && !istype(loc, /obj/machinery/power/smes))
+	if(!ismachinery(loc))
 		if(health >= (maxHealth / 2))
 			amount = 0
 		else
 			amount = clamp(amount, -((maxHealth / 2) - health), 0)
 	amount = round(amount, 1)
-	message_admins("Amount after [amount]")
 	return ..()
 
 /obj/item/organ/internal/heart/demon/pulse
