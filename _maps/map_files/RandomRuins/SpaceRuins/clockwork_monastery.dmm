@@ -75,7 +75,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "jq" = (
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "jC" = (
 /obj/structure/window/reinforced/clockwork,
@@ -141,7 +141,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "pp" = (
 /obj/structure/chair/sofa/pew/clockwork{
@@ -164,12 +164,9 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "rb" = (
-/obj/machinery/light/clockwork/small{
-	dir = 1
-	},
 /obj/structure/shelf/clockwork,
 /obj/item/clockwork/component/replicant_alloy/smashed_anima_fragment,
 /obj/item/clockwork/component/replicant_alloy/replication_plate,
@@ -207,9 +204,6 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "uz" = (
-/obj/machinery/light/clockwork/small{
-	dir = 1
-	},
 /obj/structure/table/reinforced/brass,
 /obj/item/clockwork/component/vanguard_cogwheel/onyx_prism,
 /turf/simulated/floor/clockwork,
@@ -230,7 +224,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "xv" = (
 /obj/machinery/door/airlock/clockwork/glass{
@@ -289,10 +283,9 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "CH" = (
-/obj/structure/gunrack/clockwork,
-/obj/item/clockwork/weapon/ratvarian_spear,
-/obj/item/clockwork/weapon/ratvarian_spear,
 /obj/machinery/light/clockwork/small,
+/obj/item/stack/tile/brass/fifty,
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "CI" = (
@@ -310,7 +303,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 10
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "Ea" = (
 /obj/structure/table/reinforced/brass,
@@ -456,7 +449,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "ME" = (
 /obj/machinery/light/clockwork,
@@ -467,8 +460,9 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/clockwork_monastery)
 "NC" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/stack/tile/brass/fifty,
+/obj/structure/gunrack/clockwork,
+/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/clockwork/weapon/ratvarian_spear,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "NF" = (
@@ -485,10 +479,6 @@
 "NV" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/clockwork/component/belligerent_eye/lens_gem,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
-"Pp" = (
-/obj/structure/clockwork/wall_gear,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Rv" = (
@@ -508,23 +498,23 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"RE" = (
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 1
+	},
+/obj/machinery/light/clockwork/small,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "Sq" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/clockwork/component/hierophant_ansible/obelisk,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
-"Tr" = (
-/obj/machinery/light/clockwork/small,
-/obj/structure/chair/sofa/pew/clockwork{
-	dir = 1
-	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Vh" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma,
 /area/ruin/space/clockwork_monastery)
 "VU" = (
 /obj/structure/table/reinforced/brass,
@@ -1609,7 +1599,7 @@ Ht
 Ht
 Ht
 oW
-Bo
+oW
 rJ
 rJ
 rJ
@@ -1619,11 +1609,11 @@ Bo
 Bo
 ka
 rJ
-Rv
 rJ
 rJ
 rJ
-Rv
+rJ
+rJ
 rJ
 ka
 oW
@@ -1737,15 +1727,15 @@ sZ
 Bo
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 oW
@@ -1811,7 +1801,7 @@ rJ
 rJ
 oW
 oW
-rJ
+eg
 rJ
 vc
 rJ
@@ -2111,7 +2101,7 @@ rJ
 rJ
 oW
 oW
-rJ
+eg
 rJ
 vU
 rJ
@@ -2157,15 +2147,15 @@ Bo
 Bo
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 rJ
-Pp
+Lh
 rJ
 rJ
 oW
@@ -2279,11 +2269,11 @@ Bo
 Bo
 pI
 rJ
-zC
 rJ
 rJ
 rJ
-zC
+rJ
+rJ
 rJ
 pI
 oW
@@ -2413,7 +2403,7 @@ rJ
 rJ
 rJ
 rJ
-HB
+RE
 oW
 Ht
 Ht
@@ -2473,7 +2463,7 @@ bg
 bg
 rJ
 rJ
-Tr
+KZ
 oW
 Ht
 Ht
@@ -2569,7 +2559,7 @@ Ht
 Ht
 oW
 oW
-rJ
+CB
 rJ
 rJ
 rJ
