@@ -458,8 +458,6 @@
 
 /atom/movable/screen/inventory/hand/update_overlays()
 	. = ..()
-	if(!active_overlay)
-		active_overlay = image("icon"=icon, "icon_state"="hand_active")
 	if(!handcuff_overlay)
 		var/state = (slot_id == ITEM_SLOT_RIGHT_HAND) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
@@ -475,9 +473,9 @@
 				. += blocked_overlay
 
 		if(slot_id == ITEM_SLOT_LEFT_HAND && hud.mymob.hand)
-			. += active_overlay
+			. += "hand_active"
 		else if(slot_id == ITEM_SLOT_RIGHT_HAND && !hud.mymob.hand)
-			. += active_overlay
+			. += "hand_active"
 
 /atom/movable/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
