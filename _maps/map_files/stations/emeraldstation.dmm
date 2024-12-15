@@ -92353,7 +92353,7 @@
 /area/station/hallway/primary/starboard)
 "sjz" = (
 /obj/machinery/camera{
-	c_tag = "AI Satellite ExteriorEast";
+	c_tag = "AI Satellite Exterior East";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
