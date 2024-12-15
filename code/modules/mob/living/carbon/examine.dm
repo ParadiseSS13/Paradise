@@ -100,8 +100,8 @@
 
 	// List of hallucination messages
 	var/list/hallucination_texts = list(
-            "You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
-        	"[p_they(TRUE)] appears to be surrounded by a swarm of tiny, glowing butterflies.",
+			"You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
+			"[p_they(TRUE)] appears to be surrounded by a swarm of tiny, glowing butterflies.",
 			"[p_they(TRUE)] is wearing a crown made of spaghetti. Wait, no... it's gone now.",
 			"[p_they(TRUE)] look suspicious, as if plotting a jelly heist.",
 			"[p_they(TRUE)] begins to hum a tune, but the sound seems to echo from all directions at once.",
@@ -185,7 +185,7 @@
 
 	// hallucinating?
 	if(hallucinating && prob(25))
-        // Pick a random hallucination description
+		// Pick a random hallucination description
 		var/random_text = pick(hallucination_texts)
 		msg += "<span class='warning'>[random_text]</span>\n"
 
