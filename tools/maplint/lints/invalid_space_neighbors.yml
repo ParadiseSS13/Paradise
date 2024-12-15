@@ -1,14 +1,6 @@
 /area/space:
   banned_neighbors:
   - /obj/machinery/door/airlock
-# TODO: See if the windows around holodeck scenes on z-1 are necessary
-# so we can apply this to all subtypes
 =/area/space:
-  banned_neighbors:
-  - /obj/structure
-=/area/space/nearstation:
-  banned_neighbors:
-  - /obj/structure
-=/area/space/no_teleport:
   banned_neighbors:
   - /obj/structure
