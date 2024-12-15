@@ -331,6 +331,7 @@
 	glow_icon_state = "clockwork_tube"
 	base_state = "clockwork_tube"
 	deconstruct_type = /obj/machinery/light_construct/clockwork
+	brightness_color = "#ffbb8d"
 
 /obj/machinery/light/clockwork/small
 	icon_state = "clockwork_bulb1"
