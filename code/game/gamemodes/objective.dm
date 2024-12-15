@@ -482,7 +482,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/escape/escape_with_identity
-	name = null
+	name = "Escape With Identity"
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
 	/// If the objective has an assassinate objective tied to it.
@@ -832,7 +832,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
-	name = "Spread blood"
+	name = "Drink blood"
 	needs_target = FALSE
 
 /datum/objective/blood/New()

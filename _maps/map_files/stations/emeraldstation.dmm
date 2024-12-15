@@ -114449,6 +114449,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/stamp/clown,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "wDu" = (
