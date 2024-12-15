@@ -88,7 +88,7 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
-	var/hallucinating = has_status_effect(STATUS_EFFECT_HALLUCINATION)
+	var/hallucinating = HAS_TRAIT(user, TRAIT_EXAMINE_HALLUCINATING)
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -97,27 +97,6 @@
 	var/skipears = FALSE
 	var/skipeyes = FALSE
 	var/skipface = FALSE
-
-	// List of hallucination messages
-	var/list/hallucination_texts = list(
-			"You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
-			"[p_they(TRUE)] appears to be surrounded by a swarm of tiny, glowing butterflies.",
-			"[p_they(TRUE)] is wearing a crown made of spaghetti. Wait, no... it's gone now.",
-			"[p_they(TRUE)] look suspicious, as if plotting a jelly heist.",
-			"[p_they(TRUE)] begins to hum a tune, but the sound seems to echo from all directions at once.",
-			"[p_they(TRUE)] smiles, and for a second, [p_their()] face twists into a thousand tiny reflections.",
-			"[p_they(TRUE)] seems to float slightly above the ground, [p_their()] feet just brushing against the floor.",
-			"[p_they(TRUE)]'s hands flicker like holograms, shifting between different gestures before returning to normal.",
-			"[p_they(TRUE)] seems to be cloaked in a faint, swirling fog that disappears the moment you focus on it.",
-			"You glance at [p_they()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
-			"You glance at [p_they()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
-			"[p_they(TRUE)] walks past, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they(TRUE)] move.",
-			"For a moment, [p_they()] snaps to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to their sides, and you see black where [p_their()] eyes should be.",
-			"[p_they(TRUE)] has no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still have eyes.",
-			"You swear you just saw [p_they()] sobbing and begging!",
-			"[p_they(TRUE)] is bleeding profusely! [p_their(TRUE)] blood is crawling its way back in!",
-			"[p_they(TRUE)]'s head violently jerks to meet your gaze."
-	)
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -185,6 +164,26 @@
 
 	// hallucinating?
 	if(hallucinating && prob(25))
+		// List of hallucination messages
+		var/list/hallucination_texts = list(
+			"You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
+			"[p_they(TRUE)] appear[p_are()] to be surrounded by a swarm of tiny, glowing butterflies.",
+			"[p_they(TRUE)] [p_are()] wearing a crown made of spaghetti. Wait, no... it's gone now.",
+			"[p_they(TRUE)] look[p_s()] suspicious, as if plotting a jelly heist.",
+			"[p_they(TRUE)] begin[p_s()] to hum a tune, but the sound seems to echo from all directions at once.",
+			"[p_they(TRUE)] smiles, and for a second, [p_their()] face twists into a thousand tiny reflections.",
+			"[p_they(TRUE)] seem[p_s()] to float slightly above the ground, [p_their()] feet just brushing against the floor.",
+			"[p_their(TRUE)] hands flicker like holograms, shifting between different gestures before returning to normal.",
+			"[p_they(TRUE)] seems to be cloaked in a faint, swirling fog that disappears the moment you focus on it.",
+			"You glance at [p_they()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
+			"You glance at [p_they()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
+			"[p_they(TRUE)] walks past, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they()] move.",
+			"For a moment, [p_they()] snaps to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to their sides, and you see black where [p_their()] eyes should be.",
+			"[p_they(TRUE)] has no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still have eyes.",
+			"You swear you just saw [p_them()] sobbing and begging!",
+			"[p_they(TRUE)] [p_are()] bleeding profusely! [p_their(TRUE)] blood is crawling its way back in!",
+			"[p_their(TRUE)] head violently jerks to meet your gaze."
+	)
 		// Pick a random hallucination description
 		var/random_text = pick(hallucination_texts)
 		msg += "<span class='warning'>[random_text]</span>\n"
