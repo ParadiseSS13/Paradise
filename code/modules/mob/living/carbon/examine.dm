@@ -166,20 +166,20 @@
 	if(hallucinating && prob(25))
 		// List of hallucination messages
 		var/list/hallucination_texts = list(
-			"You blink, and for a moment, [p_they()]'s body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
-			"[p_they(TRUE)] appear[p_are()] to be surrounded by a swarm of tiny, glowing butterflies.",
+			"You blink, and for a moment, [p_their()] body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
+			"[p_they(TRUE)] appear[p_s()] to be surrounded by a swarm of tiny, glowing butterflies.",
 			"[p_they(TRUE)] [p_are()] wearing a crown made of spaghetti. Wait, no... it's gone now.",
 			"[p_they(TRUE)] look[p_s()] suspicious, as if plotting a jelly heist.",
 			"[p_they(TRUE)] begin[p_s()] to hum a tune, but the sound seems to echo from all directions at once.",
-			"[p_they(TRUE)] smiles, and for a second, [p_their()] face twists into a thousand tiny reflections.",
+			"[p_they(TRUE)] smile [p_s()], and for a second, [p_their()] face twists into a thousand tiny reflections.",
 			"[p_they(TRUE)] seem[p_s()] to float slightly above the ground, [p_their()] feet just brushing against the floor.",
 			"[p_their(TRUE)] hands flicker like holograms, shifting between different gestures before returning to normal.",
 			"[p_they(TRUE)] seems to be cloaked in a faint, swirling fog that disappears the moment you focus on it.",
-			"You glance at [p_they()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
-			"You glance at [p_they()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
-			"[p_they(TRUE)] walks past, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they()] move.",
-			"For a moment, [p_they()] snaps to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to their sides, and you see black where [p_their()] eyes should be.",
-			"[p_they(TRUE)] has no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still have eyes.",
+			"You glance at [p_them()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
+			"You glance at [p_them()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
+			"[p_they(TRUE)] walk[p_s()] past, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they()] move.",
+			"For a moment, [p_they()] snap[p_s()] to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to their sides, and you see black where [p_their()] eyes should be.",
+			"[p_they(TRUE)] [p_have()] no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still have eyes.",
 			"You swear you just saw [p_them()] sobbing and begging!",
 			"[p_they(TRUE)] [p_are()] bleeding profusely! [p_their(TRUE)] blood is crawling its way back in!",
 			"[p_their(TRUE)] head violently jerks to meet your gaze."
