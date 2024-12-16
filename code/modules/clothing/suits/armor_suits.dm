@@ -417,7 +417,7 @@
 /obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
 	. = ..()
 	cell = new(src)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/suit/armor/reactive/Destroy()
 	QDEL_NULL(cell)
@@ -682,15 +682,15 @@
 		disable(rand(2, 5))
 		return TRUE
 
-/// Spawner for random reactive armor
-/obj/item/clothing/suit/armor/reactive/random
+/obj/effect/spawner/reactive_armor
 	name = "Random Reactive Armor"
+	icon = 'icons/obj/clothing/suits.dmi'
+	icon_state = "reactiveoff"
 
-/obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)
+/obj/effect/spawner/reactive_armor/Initialize(mapload)
 	. = ..()
-	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
+	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive))
 	new spawnpath(loc)
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	return INITIALIZE_HINT_QDEL
 
 //All of the armor below is mostly unused
