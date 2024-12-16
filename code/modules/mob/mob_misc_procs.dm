@@ -108,11 +108,12 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(isliving(A))
-		var/mob/living/L = A
-		if(L.mind?.special_role)
-			return TRUE
-	return FALSE
+	if(!isliving(A))
+		return FALSE
+	var/mob/living/L = A
+	if(!L.mind || !L.mind.special_role)
+		return FALSE
+	return L.mind.special_role != SPECIAL_ROLE_ERT
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
@@ -566,7 +567,7 @@
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && HAS_TRAIT(O, TRAIT_RESPAWNABLE) && (!role || (role in O.client.prefs.be_special)))
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>", MESSAGE_TYPE_DEADCHAT)
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)
