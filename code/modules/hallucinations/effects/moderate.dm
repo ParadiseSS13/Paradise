@@ -497,6 +497,10 @@
 	var/turf/T = pick(locs)
 	fake_you = new(T, target)
 
+/obj/effect/hallucination/doppelganger/Destroy()
+	QDEL_NULL(fake_you)
+	return ..()
+
 /obj/effect/hallucination/chaser/you
 	duration = 10 SECONDS
 	min_distance = 2
