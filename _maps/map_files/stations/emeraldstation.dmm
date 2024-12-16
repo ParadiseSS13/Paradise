@@ -80425,14 +80425,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/starboard)
-"pTv" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/fore_port)
 "pTE" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -145264,7 +145256,7 @@ jnP
 jnP
 wXf
 jnP
-pTv
+pay
 jSB
 jSB
 bsP
