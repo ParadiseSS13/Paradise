@@ -6,7 +6,7 @@
 /datum/hallucination_manager/xeno_pounce
 	trigger_time = 5 SECONDS
 	initial_hallucination = /obj/effect/hallucination/no_delete/xeno_pouncer
-	// Typecasted reference to the xeno pouncer
+	/// Typecasted reference to the xeno pouncer
 	var/obj/effect/hallucination/no_delete/xeno_pouncer/xeno
 
 /datum/hallucination_manager/xeno_pounce/get_spawn_location()
