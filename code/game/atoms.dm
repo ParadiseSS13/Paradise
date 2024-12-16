@@ -586,7 +586,7 @@
 	return
 
 /atom/proc/cmag_act(mob/user)
-	return FALSE
+	return
 
 /atom/proc/uncmag()
 	return

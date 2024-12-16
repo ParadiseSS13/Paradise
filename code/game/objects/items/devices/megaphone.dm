@@ -89,19 +89,18 @@
 
 /obj/item/megaphone/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return FALSE
+		return
 	if(user)
 		to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]'s voice synthesizer, gunking it up.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-	return TRUE
 
 /obj/item/megaphone/emag_act(mob/user)
 	if(emagged)
-		return FALSE
+		return
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))  // one at a time
 		to_chat(user, "<span class='warning'>You go to short out [src], but it's covered in yellow ooze! You don't want to gunk up your emag!</span>")
-		return FALSE
+		return
 	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
 	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud

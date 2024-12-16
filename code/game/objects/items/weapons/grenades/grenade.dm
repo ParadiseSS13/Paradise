@@ -117,11 +117,10 @@
 
 /obj/item/grenade/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return FALSE
+		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
 	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
 	AddComponent(/datum/component/boomerang, throw_range, TRUE)
-	return TRUE
 
 /obj/item/grenade/uncmag()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
