@@ -1,4 +1,5 @@
 #define QPAD_ANIM_WINDUP 0.8 SECONDS
+#define QPAD_ANIM_COOLDOWN 0.7 SECONDS
 
 /obj/machinery/quantumpad
 	name = "quantum pad"
@@ -175,8 +176,16 @@
 		ghost.forceMove(get_turf(linked_pad))
 
 /obj/machinery/quantumpad/proc/precharge()
+	layer = HIGH_OBJ_LAYER
+	linked_pad.layer = HIGH_OBJ_LAYER
 	flick("qpad-beam", src)
 	flick("qpad-beam", linked_pad)
+	addtimer(CALLBACK(src, PROC_REF(finish_teleport)), max((teleport_speed + QPAD_ANIM_COOLDOWN), 1))
+
+/obj/machinery/quantumpad/proc/finish_teleport()
+	if(!teleporting)
+		layer = BELOW_OBJ_LAYER
+		linked_pad.layer = BELOW_OBJ_LAYER
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
 	if(linked_pad)
@@ -228,3 +237,4 @@
 	linked_pad.icon_state = "qpad-idle"
 
 #undef QPAD_ANIM_WINDUP
+#undef QPAD_ANIM_COOLDOWN
