@@ -286,6 +286,10 @@
 		attach_guest_pass(used, user)
 		return ITEM_INTERACT_SUCCESS
 
+	else if(istype(used, /obj/item/storage/wallet))
+		used.attackby__legacy__attackchain(src, user)
+		return ITEM_INTERACT_SUCCESS
+
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
