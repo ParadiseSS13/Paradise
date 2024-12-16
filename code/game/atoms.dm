@@ -590,7 +590,7 @@
 	return
 
 /atom/proc/cmag_act(mob/user)
-	return
+	return FALSE
 
 /atom/proc/uncmag()
 	return
