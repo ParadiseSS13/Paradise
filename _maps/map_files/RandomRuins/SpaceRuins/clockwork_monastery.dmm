@@ -249,6 +249,9 @@
 /obj/effect/spawner/random/food_or_drink/soup,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"yp" = (
+/turf/simulated/mineral/ancient/outer,
+/area/template_noop)
 "yy" = (
 /obj/structure/chair/brass{
 	dir = 1
@@ -2001,8 +2004,8 @@ gV
 gV
 gV
 dx
-dx
 Ht
+kC
 kC
 kC
 zG
@@ -2070,9 +2073,9 @@ gV
 gV
 gV
 gV
-gV
-dx
+yp
 Ht
+kC
 kC
 kC
 Xw
@@ -2140,8 +2143,8 @@ gV
 gV
 gV
 gV
-gV
-dx
+yp
+Ht
 Ht
 kC
 kC
@@ -2211,7 +2214,7 @@ gV
 gV
 gV
 dx
-dx
+Ht
 Ht
 kC
 kC
@@ -2281,9 +2284,9 @@ gV
 gV
 dx
 dx
-dx
 Ht
-kC
+Ht
+Ht
 kC
 kC
 dx
@@ -2350,8 +2353,8 @@ gV
 gV
 gV
 dx
-dx
-dx
+Ht
+Ht
 Ht
 Ht
 AA
@@ -2420,8 +2423,8 @@ gV
 gV
 gV
 dx
-dx
-dx
+Ht
+Ht
 Ht
 Ht
 kC
