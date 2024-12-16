@@ -108,11 +108,12 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(isliving(A))
-		var/mob/living/L = A
-		if(L.mind?.special_role)
-			return TRUE
-	return FALSE
+	if(!isliving(A))
+		return FALSE
+	var/mob/living/L = A
+	if(!L.mind || !L.mind.special_role)
+		return FALSE
+	return L.mind.special_role != SPECIAL_ROLE_ERT
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
