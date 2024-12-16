@@ -2,15 +2,14 @@
 #define SSAIR_PIPENETS 2
 #define SSAIR_ATMOSMACHINERY 3
 #define SSAIR_INTERESTING_TILES 4
-#define SSAIR_HOTSPOTS 5
-#define SSAIR_BOUND_MIXTURES 6
-#define SSAIR_MILLA_TICK 7
+#define SSAIR_BOUND_MIXTURES 5
+#define SSAIR_MILLA_TICK 6
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
 	init_order = INIT_ORDER_AIR
 	priority = FIRE_PRIORITY_AIR
-	wait = 5
+	wait = 2
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
@@ -26,8 +25,6 @@ SUBSYSTEM_DEF(air)
 	var/cost_milla_tick = 0
 	/// The cost of a pass through interesting tiles, shown in SS Info's C block as IT.
 	var/datum/resumable_cost_counter/cost_interesting_tiles = new()
-	/// The cost of a pass through hotspots, shown in SS Info's C block as HS.
-	var/datum/resumable_cost_counter/cost_hotspots = new()
 	/// The cost of a pass through pipenets, shown in SS Info's C block as PN.
 	var/datum/resumable_cost_counter/cost_pipenets = new()
 	/// The cost of a pass through building pipenets, shown in SS Info's C block as DPN.
@@ -45,8 +42,6 @@ SUBSYSTEM_DEF(air)
 	var/added_bound_mixtures = 0
 	/// The length of the most recent interesting tiles list, shown in SS Info as IT.
 	var/interesting_tile_count = 0
-	/// The set of current active hotspots. Length shown in SS Info as HS.
-	var/list/hotspots = list()
 	/// The set of pipenets that need to be built. Length shown in SS Info as PTB.
 	var/list/pipenets_to_build = list()
 	/// The set of active pipenets. Length shown in SS Info as PN.
@@ -68,15 +63,6 @@ SUBSYSTEM_DEF(air)
 
 	/// Are we currently running in a MILLA-safe context, i.e. is is_synchronous *guaranteed* to be TRUE. Nothing outside of this file should change this.
 	VAR_PRIVATE/in_milla_safe_code = FALSE
-
-	/// When did we start the last MILLA tick?
-	var/milla_tick_start = null
-
-	/// Is MILLA (and hence SSair) reliably healthy?
-	var/healthy = TRUE
-
-	/// When was MILLA last seen unhealthy?
-	var/last_unhealthy = 0
 
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
@@ -111,14 +97,12 @@ SUBSYSTEM_DEF(air)
 	msg += "BM:[cost_bound_mixtures.to_string()]|"
 	msg += "MT:[round(cost_milla_tick,1)]|"
 	msg += "IT:[cost_interesting_tiles.to_string()]|"
-	msg += "HS:[cost_hotspots.to_string()]|"
 	msg += "PN:[cost_pipenets.to_string()]|"
 	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
 	msg += "AM:[cost_atmos_machinery.to_string()]"
 	msg += "} "
 	msg += "BM:[original_bound_mixtures]+[added_bound_mixtures]|"
 	msg += "IT:[interesting_tile_count]|"
-	msg += "HS:[length(hotspots)]|"
 	msg += "PN:[length(pipenets)]|"
 	msg += "AM:[length(atmos_machinery)]|"
 	return msg.Join("")
@@ -126,7 +110,6 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/get_metrics()
 	. = ..()
 	var/list/cust = list()
-	cust["hotspots"] = length(hotspots)
 	cust["interesting turfs"] = interesting_tile_count
 	.["cost"] = cost_full.last_complete_ms
 	.["custom"] = cust
@@ -145,7 +128,6 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/Recover()
-	hotspots = SSair.hotspots
 	pipenets_to_build = SSair.pipenets_to_build
 	pipenets = SSair.pipenets
 	atmos_machinery = SSair.atmos_machinery
@@ -229,19 +211,6 @@ SUBSYSTEM_DEF(air)
 			in_milla_safe_code = FALSE
 			return
 		resumed = 0
-		currentpart = SSAIR_HOTSPOTS
-
-	if(currentpart == SSAIR_HOTSPOTS)
-		timer = TICK_USAGE_REAL
-
-		process_hotspots(resumed)
-
-		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
-		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-		if(state == SS_PAUSED || state == SS_PAUSING)
-			in_milla_safe_code = FALSE
-			return
-		resumed = 0
 		currentpart = SSAIR_BOUND_MIXTURES
 
 	if(currentpart == SSAIR_BOUND_MIXTURES)
@@ -317,21 +286,6 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
-	if(!resumed)
-		src.currentrun = hotspots.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(length(currentrun))
-		var/obj/effect/hotspot/H = currentrun[length(currentrun)]
-		currentrun.len--
-		if(H)
-			H.process()
-		else
-			hotspots -= H
-		if(MC_TICK_CHECK)
-			return
-
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)
 		// Fetch the list of interesting tiles from MILLA.
@@ -369,10 +323,12 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				S.update_visuals()
+				T.update_hotspot()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/datum/gas_mixture/air = T.get_readonly_air()
-			T.hotspot_expose(air.temperature(), CELL_VOLUME)
+			T.update_hotspot()
+			T.temperature_expose(air.temperature())
 			for(var/atom/movable/item in T)
 				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
 			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
@@ -530,6 +486,14 @@ SUBSYSTEM_DEF(air)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	SSair.on_milla_tick_finished()
+
+/proc/milla_tick_error(err)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	log_debug(err)
+	SSair.on_milla_tick_finished()
+
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
