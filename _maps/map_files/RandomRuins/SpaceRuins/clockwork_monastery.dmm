@@ -574,9 +574,6 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"YE" = (
-/turf/template_noop,
-/area/ruin/unpowered)
 "YX" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/firstaid/adv,
@@ -2073,7 +2070,7 @@ gV
 gV
 gV
 gV
-YE
+gV
 dx
 Ht
 kC
@@ -2143,7 +2140,7 @@ gV
 gV
 gV
 gV
-YE
+gV
 dx
 Ht
 kC
