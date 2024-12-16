@@ -712,7 +712,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
-		GLOB.high_risk_items |= src
+		GLOB.high_risk_items |= UID()
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)

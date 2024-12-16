@@ -336,3 +336,4 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	GLOB.high_risk_items |= UID(src)

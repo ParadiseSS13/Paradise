@@ -37,8 +37,8 @@
 /datum/hallucination_manager/Destroy(force, ...)
 	. = ..()
 	owner = null
-	QDEL_NULL(hallucination_list)
-	QDEL_NULL(images)
+	QDEL_LIST_CONTENTS(hallucination_list)
+	QDEL_LIST_CONTENTS(images)
 
 /datum/hallucination_manager/proc/spawn_hallucination()
 	var/turf/spawn_location = get_spawn_location()

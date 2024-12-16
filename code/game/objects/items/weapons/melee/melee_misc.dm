@@ -60,6 +60,7 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	GLOB.high_risk_items |= UID()
 
 /obj/item/melee/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(user.a_intent != INTENT_HELP || !ishuman(target))

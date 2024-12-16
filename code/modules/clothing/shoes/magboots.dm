@@ -86,6 +86,10 @@
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
+	. = ..()
+	GLOB.high_risk_items |= UID()
+
 /obj/item/clothing/shoes/magboots/advance/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] will not slow you down when active.</span>"
