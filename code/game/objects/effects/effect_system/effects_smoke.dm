@@ -126,8 +126,10 @@
 /////////////////////////////////////////////
 
 /obj/effect/particle_effect/smoke/bad
-	lifetime = 16 SECONDS_TO_LIFE_CYCLES
+	lifetime = 60 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
+	direction = SOUTH
+	steps = 10
 
 /obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/item/projectile/beam))
