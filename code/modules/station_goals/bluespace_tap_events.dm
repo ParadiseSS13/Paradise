@@ -1,5 +1,6 @@
 /datum/engi_event/bluespace_tap_event
 	name = "Unknown Anomaly (Report this to coders)"
+	/// Which bluespace tap started the event
 	var/obj/machinery/power/bluespace_tap/tap
 
 /datum/engi_event/bluespace_tap_event/New(obj/machinery/power/bluespace_tap/_tap)
@@ -14,6 +15,10 @@
 
 /datum/engi_event/bluespace_tap_event/start_event()
 	tap.investigate_log("event [src] has been triggered", "bluespace_tap")
+	return ..()
+
+/datum/engi_event/Destroy(force, ...)
+	tap = null
 	return ..()
 
 // gas events
