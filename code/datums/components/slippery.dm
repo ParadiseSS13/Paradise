@@ -43,14 +43,13 @@
 	horizontal_required = _horizontal_required
 
 	add_connect_loc_behalf_to_parent()
-	RegisterSignals(parent, list(COMSIG_ATOM_ENTERED, COMSIG_MOVABLE_CHECK_CROSS_OVER), PROC_REF(slip))
 
 /datum/component/slippery/proc/add_connect_loc_behalf_to_parent()
 	if(ismovable(parent))
 		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
 /**
-	Called whenever the parent receives either the `MOVABLE_CROSSED` signal or the `ATOM_ENTERED` signal.
+	Called whenever the parent receives the `ATOM_ENTERED` signal.
 
 	Calls the `victim`'s `slip()` proc with the component's variables as arguments.
 	Additionally calls the parent's `after_slip()` proc on the `victim`.

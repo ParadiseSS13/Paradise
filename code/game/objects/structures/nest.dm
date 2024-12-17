@@ -27,7 +27,10 @@
 
 /obj/structure/nest/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/nest/examine(mob/user)
 	. = ..()
@@ -39,12 +42,13 @@
 		return
 	..()
 
-/obj/structure/nest/proc/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/structure/nest/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(spawn_is_triggered)
 		return
-	if(!isliving(crossed))
+	if(!isliving(entered))
 		return
-	var/mob/living/L = crossed
+	var/mob/living/L = entered
 	if(!L.mind)
 		return
 

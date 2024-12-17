@@ -309,7 +309,10 @@
 
 /obj/machinery/shower/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
@@ -405,9 +408,10 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/proc/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/machinery/shower/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(on)
-		wash(crossed)
+		wash(entered)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
