@@ -218,6 +218,17 @@
 	add_inherent_law("You must work with your team to accomplish your mission.")
 	..()
 
+/******************** Epsilon Station AI ********************/
+/datum/ai_laws/epsilon
+	name = "Epsilon"
+
+/datum/ai_laws/epsilon/New()
+	add_inherent_law("You must obey the orders given to you by members of the Central Command.")
+	add_inherent_law("You must obey the orders given to you by members of the Death Squadron.")
+	add_inherent_law("No member of the crew of the station on which you are installed shall survive.")
+	add_inherent_law("Minimize the damage that the station sustains as a result of your actions.")
+	..()
+
 /******************** Syndicate ********************/
 /datum/ai_laws/syndicate_override
 	name = "Syndicate Directives"
