@@ -3712,10 +3712,6 @@
 "JS" = (
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
-"JU" = (
-/obj/structure/marker_beacon/dock_marker,
-/turf/space,
-/area/space)
 "JV" = (
 /obj/machinery/light/small/directional/west,
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
@@ -7009,7 +7005,7 @@ Lv
 Lv
 Lv
 Lv
-JU
+vb
 Lv
 Lv
 Lv

@@ -1414,10 +1414,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "eO" = (
-/obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/space/nearstation)
+/area/space)
 "eP" = (
 /obj/structure/showcase/machinery/oldpod/used{
 	dir = 1
@@ -5437,7 +5436,7 @@
 /obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/space)
+/area/space/nearstation)
 "rJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
@@ -6374,7 +6373,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "uT" = (
 /obj/structure/closet/crate/can,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
@@ -8877,7 +8876,7 @@
 "Dg" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Dh" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
@@ -8970,10 +8969,6 @@
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/prhallway1)
-"Dy" = (
-/obj/machinery/porta_turret/syndicate,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "Dz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/gear,
@@ -15287,8 +15282,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway10)
 "XS" = (
-/obj/structure/lattice,
-/turf/space,
+/obj/machinery/porta_turret/syndicate,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "XT" = (
 /obj/effect/decal/syndie_logo{
@@ -39144,7 +39139,7 @@ yG
 fe
 yG
 yG
-XS
+Dg
 ON
 uF
 yG
@@ -39414,7 +39409,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -40440,7 +40435,7 @@ yG
 yG
 yG
 Go
-XS
+Dg
 yG
 yG
 yG
@@ -40684,7 +40679,7 @@ yG
 yG
 yG
 hp
-XS
+Dg
 yG
 yG
 yG
@@ -40692,7 +40687,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -40940,7 +40935,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -40950,7 +40945,7 @@ yG
 yG
 yG
 Go
-XS
+Dg
 yG
 yG
 hp
@@ -44011,7 +44006,7 @@ yG
 yG
 yG
 hp
-XS
+Dg
 yG
 yG
 yG
@@ -45040,16 +45035,16 @@ yG
 yG
 yG
 yG
-XS
-XS
+Dg
+Dg
 lR
 lR
-XS
+Dg
 yG
 lR
 TH
-XS
-XS
+Dg
+Dg
 rf
 AN
 wq
@@ -45117,7 +45112,7 @@ yG
 nZ
 yG
 yG
-XS
+Dg
 pp
 SU
 Uf
@@ -45376,9 +45371,9 @@ yG
 fe
 nh
 xz
-XS
+Dg
 LU
-XS
+Dg
 dm
 VC
 PH
@@ -45633,9 +45628,9 @@ nZ
 yG
 yG
 yG
-XS
+Dg
 hG
-XS
+Dg
 ob
 VC
 Rk
@@ -45826,7 +45821,7 @@ vr
 vr
 vr
 vr
-XS
+Dg
 yG
 yG
 yG
@@ -45891,7 +45886,7 @@ NB
 yG
 fQ
 KD
-XS
+Dg
 tm
 ob
 VC
@@ -46145,7 +46140,7 @@ Bi
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -46405,7 +46400,7 @@ yG
 yG
 VL
 yG
-XS
+Dg
 rv
 LU
 SL
@@ -46658,7 +46653,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -46919,7 +46914,7 @@ yG
 yG
 KD
 yG
-XS
+Dg
 LU
 dm
 cf
@@ -47176,7 +47171,7 @@ yG
 fe
 nZ
 LU
-XS
+Dg
 SC
 ob
 VC
@@ -47625,7 +47620,7 @@ vr
 vr
 vr
 vr
-XS
+Dg
 yG
 yG
 af
@@ -51576,7 +51571,7 @@ UP
 VC
 kd
 az
-XS
+Dg
 yG
 yG
 yG
@@ -51834,7 +51829,7 @@ VC
 JY
 Pe
 Ds
-XS
+Dg
 yG
 yG
 yG
@@ -54307,7 +54302,7 @@ vr
 vr
 vr
 vr
-XS
+Dg
 yG
 yG
 yG
@@ -54631,7 +54626,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 VC
 zx
 zF
@@ -54644,11 +54639,11 @@ tP
 VC
 VE
 VE
-XS
-XS
+Dg
+Dg
 yG
-XS
-XS
+Dg
+Dg
 VE
 VE
 VC
@@ -54888,7 +54883,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 Ds
 Cm
 wY
@@ -54900,13 +54895,13 @@ PM
 mM
 VC
 VE
-XS
-XS
+Dg
+Dg
 yG
 yG
 yG
-XS
-XS
+Dg
+Dg
 VE
 VC
 Zn
@@ -55145,9 +55140,9 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
-XS
+Dg
 Ds
 xT
 xT
@@ -55159,10 +55154,10 @@ VC
 VC
 VC
 WB
-XS
+Dg
 yG
-XS
-XS
+Dg
+Dg
 VC
 VC
 cf
@@ -55404,7 +55399,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 xv
 Ds
 Bi
@@ -55416,9 +55411,9 @@ xo
 Sk
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 Bm
@@ -55662,7 +55657,7 @@ yG
 nZ
 fe
 fQ
-XS
+Dg
 xv
 TP
 Bi
@@ -55673,9 +55668,9 @@ pL
 nO
 wH
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 Mn
 YX
@@ -55920,8 +55915,8 @@ yG
 yq
 nh
 yG
-XS
-XS
+Dg
+Dg
 Bd
 qt
 KB
@@ -55930,9 +55925,9 @@ xs
 VG
 Mn
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 Mn
 Ld
@@ -56177,7 +56172,7 @@ ol
 yG
 yG
 yG
-XS
+Dg
 Ds
 Ds
 qt
@@ -56187,9 +56182,9 @@ Df
 PM
 wH
 yG
-XS
+Dg
 Fh
-XS
+Dg
 NJ
 Mn
 Rj
@@ -56430,12 +56425,12 @@ yG
 yG
 yG
 yG
-XS
+Dg
 Ds
 yG
 KD
 yG
-XS
+Dg
 hD
 hg
 gU
@@ -56444,9 +56439,9 @@ Df
 PM
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 cP
@@ -56688,12 +56683,12 @@ yG
 fe
 Su
 yG
-XS
+Dg
 yG
 yG
 yG
 nZ
-XS
+Dg
 qt
 Dw
 hc
@@ -56701,9 +56696,9 @@ dD
 Ut
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 jM
@@ -56950,7 +56945,7 @@ fe
 yG
 yG
 yG
-XS
+Dg
 qt
 xH
 XD
@@ -56958,9 +56953,9 @@ Df
 PM
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 Ku
@@ -57198,7 +57193,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 nZ
 yG
@@ -57215,9 +57210,9 @@ Vk
 Iw
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 PE
@@ -57464,7 +57459,7 @@ yG
 yG
 nZ
 yG
-XS
+Dg
 qt
 Eg
 Jx
@@ -57472,7 +57467,7 @@ Df
 YF
 VC
 yG
-XS
+Dg
 yG
 qz
 yG
@@ -57710,7 +57705,7 @@ yG
 yG
 nh
 yG
-XS
+Dg
 yG
 yG
 Lr
@@ -57721,7 +57716,7 @@ yU
 yU
 yG
 yG
-XS
+Dg
 qt
 Wf
 YF
@@ -57729,9 +57724,9 @@ Df
 PM
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 TU
@@ -57968,7 +57963,7 @@ Ti
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 yG
@@ -57985,11 +57980,11 @@ cf
 wC
 cf
 VC
-XS
+Dg
 WB
 yG
-XS
-XS
+Dg
+Dg
 VC
 VC
 yn
@@ -58243,9 +58238,9 @@ JS
 kF
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 BJ
@@ -58482,7 +58477,7 @@ yG
 yG
 yG
 yG
-XS
+Dg
 yG
 yG
 fe
@@ -58500,9 +58495,9 @@ kH
 po
 Mn
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 Mn
 CT
@@ -58757,9 +58752,9 @@ or
 Wk
 Mn
 yG
-XS
+Dg
 yG
-XS
+Dg
 NJ
 Mn
 CT
@@ -59014,9 +59009,9 @@ kH
 po
 Mn
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 Mn
 CT
@@ -59271,9 +59266,9 @@ sF
 Rs
 VC
 yG
-XS
+Dg
 Fh
-XS
+Dg
 yG
 VC
 cd
@@ -59527,11 +59522,11 @@ cf
 ZO
 cf
 VC
-XS
-XS
+Dg
+Dg
 yG
-XS
-XS
+Dg
+Dg
 VC
 VC
 yn
@@ -59785,9 +59780,9 @@ Pz
 wO
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 fE
@@ -60042,9 +60037,9 @@ WV
 pT
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 CT
@@ -60299,9 +60294,9 @@ eV
 po
 Mn
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 Mn
 nA
@@ -60556,7 +60551,7 @@ Pd
 Qq
 Mn
 yG
-XS
+Dg
 yG
 qz
 yG
@@ -60813,9 +60808,9 @@ CU
 Qg
 Mn
 Fh
-XS
+Dg
 yG
-XS
+Dg
 yG
 wH
 CT
@@ -61070,9 +61065,9 @@ Kn
 Fv
 VC
 yG
-XS
+Dg
 yG
-XS
+Dg
 yG
 VC
 Db
@@ -61326,11 +61321,11 @@ cf
 tb
 cf
 VC
-XS
-XS
+Dg
+Dg
 yG
-XS
-XS
+Dg
+Dg
 VC
 WZ
 VC
@@ -61583,11 +61578,11 @@ VC
 WD
 Tk
 VC
-XS
-XS
-XS
-XS
-XS
+Dg
+Dg
+Dg
+Dg
+Dg
 VC
 gY
 sK
@@ -61847,7 +61842,7 @@ yG
 QB
 rF
 fp
-XS
+Dg
 nl
 Ug
 yG
@@ -63561,7 +63556,7 @@ Ks
 Ks
 Ks
 lu
-Dy
+XS
 yG
 yG
 yG
@@ -63819,7 +63814,7 @@ AF
 lp
 Ks
 lu
-Dy
+XS
 yG
 yG
 Ks
@@ -63838,7 +63833,7 @@ Ks
 Ks
 Ks
 Ks
-Dy
+XS
 yG
 yG
 yG
@@ -64352,7 +64347,7 @@ dL
 YA
 YA
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -64608,7 +64603,7 @@ lu
 YA
 RA
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -64864,7 +64859,7 @@ BN
 Ed
 YA
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -65121,7 +65116,7 @@ BN
 Ed
 YA
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -65379,7 +65374,7 @@ lu
 YA
 RA
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -65637,7 +65632,7 @@ YA
 YA
 dL
 RA
-XS
+Dg
 yG
 yG
 yG
@@ -66132,7 +66127,7 @@ EH
 hR
 Ks
 lu
-Dy
+XS
 yG
 yG
 Ks
@@ -66151,7 +66146,7 @@ Ks
 Ks
 Ks
 Ks
-Dy
+XS
 yG
 yG
 yG
@@ -66388,7 +66383,7 @@ Ks
 Ks
 Ks
 lu
-Dy
+XS
 yG
 yG
 yG
@@ -75210,7 +75205,7 @@ yG
 yG
 yG
 yG
-Dy
+XS
 Nu
 QF
 ks
@@ -75220,7 +75215,7 @@ ks
 ks
 av
 Nu
-Dy
+XS
 yG
 yG
 yG
