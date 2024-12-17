@@ -1,12 +1,8 @@
 // MARK: Item Interactions
 
 // Return values for non-attack interactions.
-#define ITEM_INTERACT_SUCCESS			(1<<0) //! Cancel the rest of the attack chain, indicating success.
-#define ITEM_INTERACT_BLOCKING 			(1<<1) //! Cancel the rest of the attack chain, without indicating success.
-#define ITEM_INTERACT_SKIP_TO_ATTACK	(1<<2) //! Skip the rest of the interaction chain, going straight to the attack phase.
-
-/// Combination return value for any item interaction that cancels the rest of the attack chain.
-#define ITEM_INTERACT_ANY_BLOCKER		(ITEM_INTERACT_SUCCESS | ITEM_INTERACT_BLOCKING)
+#define ITEM_INTERACT_COMPLETE				1 //! Cancel the rest of the attack chain, indicating success.
+#define ITEM_INTERACT_SKIP_TO_AFTER_ATTACK	2 //! Skip pre-attack and attack/attack_by, going straight to after_attack.
 
 /// Sent when this atom is clicked on by a mob with an item.
 ///
