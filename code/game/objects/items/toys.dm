@@ -880,7 +880,7 @@
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 	
-/obj/item/toy/plushie/nianplushie/monarch // the beginning of the nian plush army
+/obj/item/toy/plushie/nianplushie/monarch
 	name = "monarch nian plushie"
 	desc = "A monarch nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_monarch"
