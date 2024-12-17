@@ -36,11 +36,11 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 		for(var/mob/living/silicon/ai/AI in ais)
 			death_squad_ai_law_set.sync(AI, TRUE, FALSE) // Reset all laws exept zero
-			to_chat(AI, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them. \an From now on: ")
+			to_chat(AI, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them.")
 			AI.show_laws()
 			for(var/mob/living/silicon/robot/R in AI.connected_robots)
 				R.sync()
-				to_chat(R, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them. \an From now on: ")
+				to_chat(R, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them.")
 				R.show_laws()
 				// should we hack them all
 		// my_test_proc()
