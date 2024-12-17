@@ -38,9 +38,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/isnt_shutting_down = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
-	var/datum/proximity_monitor/singulo/proximity_monitor
-	var/angle_to_singulo
-	var/distance_to_singulo
+	var/datum/proximity_monitor/advanced/singulo/proximity_monitor
 
 	/// Id for monitoring.
 	var/singulo_id = 1
@@ -510,28 +508,6 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
-/obj/singularity/HasProximity(atom/movable/crossed)
-	if(!isprojectile(crossed))
-		return
-	var/obj/item/projectile/P = crossed
-	var/distance = get_dist(src, crossed)
-	var/projectile_angle = P.Angle
-	var/angle_to_projectile = angle_to_singulo
-	if(angle_to_projectile == 180)
-		angle_to_projectile = -180
-	angle_to_projectile -= projectile_angle
-	if(angle_to_projectile > 180)
-		angle_to_projectile -= 360
-	else if(angle_to_projectile < -180)
-		angle_to_projectile += 360
-
-	if(distance == 0)
-		qdel(P)
-		return
-	projectile_angle += angle_to_projectile / (distance ** 2)
-	P.damage += 10 / distance
-	P.set_angle(projectile_angle)
-
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2), 1)
@@ -551,23 +527,6 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	eat()
 	if(prob(1))
 		mezzer()
-
-/datum/proximity_monitor/singulo
-	var/obj/singularity/singularity
-
-/datum/proximity_monitor/singulo/New(atom/_host, range, _ignore_if_not_on_turf = TRUE)
-	. = ..()
-	calibrate()
-
-/datum/proximity_monitor/singulo/proc/calibrate()
-	if(!host)
-		return
-	var/obj/singularity/singularity = host
-	if(!istype(host))
-		return
-
-	singularity.angle_to_singulo = ATAN2(hasprox_receiver.y - singularity.y, hasprox_receiver.x - singularity.x)
-	singularity.distance_to_singulo = get_dist(hasprox_receiver, src)
 
 /obj/singularity/proc/end_deadchat_plays()
 	move_self = TRUE
