@@ -14,12 +14,11 @@
 /obj/item/card/id/thunderdome
 	skinable = FALSE
 
-/obj/item/card/id/attackby__legacy__attackchain(obj/item/item, mob/user, params)
+/obj/item/card/id/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
-	if(!istype(item, /obj/item/id_skin))
-		return .
-
-	return apply_skin(item, user)
+	if(istype(used, /obj/item/id_skin))
+		apply_skin(used, user)
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
