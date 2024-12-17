@@ -52,11 +52,11 @@
 	if(istype(used, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/rods/R = used
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30 * used.toolspeed, target = src))
@@ -65,27 +65,27 @@
 					playsound(src, used.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return ITEM_INTERACT_ANY_BLOCKER
+				return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/stack/tile))
 		if(!broken && !burnt)
 			var/obj/item/stack/tile/W = used
 			if(!W.use(1))
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			ChangeTurf(W.turf_type)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 	else if(is_glass_sheet(used))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/sheet/R = used
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
 		if(do_after(user, 3 SECONDS * used.toolspeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
@@ -105,13 +105,13 @@
 				R.use(2)
 				to_chat(user, "<span class='notice'>You swap the plating for [used].</span>")
 				new /obj/item/stack/sheet/metal(src, 2)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
 		if(user.drop_item())
 			used.forceMove(src)
 
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))

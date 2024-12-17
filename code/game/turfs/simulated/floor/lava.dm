@@ -125,31 +125,31 @@
 		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
 		if(H)
 			to_chat(user, "<span class='warning'>There is already a lattice here!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(R.use(1))
 			to_chat(user, "<span class='warning'>You construct a lattice.</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 			new /obj/structure/lattice/lava(locate(x, y, z))
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice/lava, src)
 		if(!L)
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/tile/plasteel/S = used
 		if(S.use(1))
 			qdel(L)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/lava/screwdriver_act()
 	return
@@ -192,10 +192,10 @@
 		return ..()
 	if(!used.reagents.add_reagent("plasma", 10))
 		to_chat(user, "<span class='warning'>[used] is full.</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [used].</span>")
-	return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE

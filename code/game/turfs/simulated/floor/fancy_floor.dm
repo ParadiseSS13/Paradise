@@ -88,7 +88,7 @@
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"

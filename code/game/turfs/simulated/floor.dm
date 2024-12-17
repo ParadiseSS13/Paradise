@@ -154,11 +154,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(..() || QDELETED(used) || QDELETED(user))
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	if((intact || transparent_floor) && istype(used, /obj/item/stack/tile))
 		try_replace_tile(used, user, modifiers)
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/pipe))
 		var/obj/item/pipe/P = used
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			P.y = src.y
 			P.z = src.z
 			P.forceMove(src)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
 	if(!intact)

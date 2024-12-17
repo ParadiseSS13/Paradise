@@ -68,7 +68,7 @@
 
 /turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(QDELETED(user)|| QDELETED(used))
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if((istype(used, /obj/item/shovel) || istype(used, /obj/item/pickaxe)))
 		if(!can_dig(user))
