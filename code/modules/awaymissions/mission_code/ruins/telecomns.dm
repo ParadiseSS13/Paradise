@@ -50,10 +50,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/abstract/bot_trap/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/abstract/bot_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isrobot(crossed) || ishuman(crossed))
+/obj/effect/abstract/bot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
@@ -65,10 +68,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/abstract/loot_trap/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/abstract/loot_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isrobot(crossed) || ishuman(crossed))
+/obj/effect/abstract/loot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			DD.thief = TRUE
@@ -83,10 +89,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/abstract/cheese_trap/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/abstract/cheese_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isrobot(crossed) || ishuman(crossed))
+/obj/effect/abstract/cheese_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			if(DD.thief)
 				DD.start_the_party(TRUE)

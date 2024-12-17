@@ -43,7 +43,10 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 		var/obj/machinery/conveyor_switch/S = I
 		S.link_conveyers(src)
 
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/conveyor/Destroy()
 	GLOB.conveyor_belts -= src
@@ -201,8 +204,8 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	else if(still_stuff_to_move && !speed_process)
 		makeSpeedProcess()
 
-/obj/machinery/conveyor/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(!speed_process && !crossed.anchored)
+/obj/machinery/conveyor/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!speed_process && !entered.anchored)
 		makeSpeedProcess()
 
 /obj/machinery/conveyor/proc/move_thing(atom/movable/AM)

@@ -27,7 +27,7 @@
 
 /obj/structure/nest/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(on_movable_cross))
 
 /obj/structure/nest/examine(mob/user)
 	. = ..()

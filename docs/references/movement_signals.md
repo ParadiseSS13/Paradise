@@ -61,21 +61,21 @@ crossover/entry behavior:
   atom can enter a new turf. Any subscribed handler can return
   `COMPONENT_MOVABLE_BLOCK_PRE_MOVE` to prevent the move.
 - [`COMSIG_MOVABLE_MOVED`][moved] is sent after a successful move.
-- [`COMSIG_MOVABLE_CROSS`][cross] is sent when trying to determine if an atom
-  can cross over another one. Any subscribed handler can return
+- [`COMSIG_MOVABLE_CHECK_CROSS`][cross] is sent when trying to determine if an
+  atom can cross over another one. Any subscribed handler can return
   `COMPONENT_BLOCK_CROSS` to prevent the cross.
-- Similarly, [`COMSIG_MOVABLE_CROSS_OVER`][crossover] is sent if an atom will
-  allow another one to cross over it--the reverse of `COMSIG_MOVABLE_CROSS`.
-  Again, any subscribed handler can return `COMPONENT_BLOCK_CROSS` to prevent
-  it.
+- Similarly, [`COMSIG_MOVABLE_CHECK_CROSS_OVER`][crossover] is sent if an atom
+  will allow another one to cross over it--the reverse of
+  `COMSIG_MOVABLE_CHECK_CROSS`. Again, any subscribed handler can return
+  `COMPONENT_BLOCK_CROSS` to prevent it.
 - [`COMSIG_ATOM_ENTERED`][entered] is sent if an atom enters this atom's
   contents. Similarly, [`COMSIG_ATOM_EXITED`][exited] is sent if an atom exits
   this atom's contents.
 
 [pre_move]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_PRE_MOVE
 [moved]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_MOVED
-[cross]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_CROSS
-[crossover]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_CROSS_OVER
+[cross]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_CHECK_CROSS
+[crossover]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_MOVABLE_CHECK_CROSS_OVER
 [entered]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_ATOM_ENTERED
 [exited]: https://codedocs.paradisestation.org/code/__DEFINES/dcs/movable_signals.html#define/COMSIG_ATOM_EXITED
 
@@ -128,9 +128,9 @@ If you care about every time a movable attempts to overlap you, listen to
 prevent it from happening.
 
 If you want to prevent a movable from crossing you, listen to
-`COMSIG_MOVABLE_CROSS` and return `COMPONENT_BLOCK_CROSS` to prevent it. If you
+`COMSIG_MOVABLE_CHECK_CROSS` and return `COMPONENT_BLOCK_CROSS` to prevent it. If you
 want to prevent a movable from being crossed by you, listen to
-`COMSIG_MOVABLE_CROSS_OVER` and return `COMPONENT_BLOCK_CROSS` to prevent it.
+`COMSIG_MOVABLE_CHECK_CROSS_OVER` and return `COMPONENT_BLOCK_CROSS` to prevent it.
 
 If you care about an atom entering or exiting your contents, listen to
 `COMSIG_ATOM_ENTERED` or `COMSIG_ATOM_EXITED`.

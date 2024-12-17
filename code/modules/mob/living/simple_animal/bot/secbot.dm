@@ -50,7 +50,10 @@
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
 	prev_access = access_card.access
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -459,9 +462,9 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/secbot/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(ismob(crossed) && target)
-		var/mob/living/carbon/C = crossed
+/mob/living/simple_animal/bot/secbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && target)
+		var/mob/living/carbon/C = entered
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \

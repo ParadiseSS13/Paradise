@@ -36,7 +36,10 @@
 	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
@@ -374,10 +377,10 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(ismob(crossed) && on) //only if its online
+/mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = crossed
+			var/mob/living/carbon/C = entered
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \

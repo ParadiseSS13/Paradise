@@ -203,10 +203,13 @@ GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/blob/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	crossed.blob_act(src)
+/obj/structure/blob/proc/on_atom_entered(datum/source, atom/movable/entered)
+	entered.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
 	take_damage(power * 0.0025, BURN, ENERGY)

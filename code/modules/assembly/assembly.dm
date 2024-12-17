@@ -26,7 +26,10 @@
 
 /obj/item/assembly/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /// Called when the holder is moved
 /obj/item/assembly/proc/holder_movement()
@@ -36,7 +39,7 @@
 /obj/item/assembly/interact(mob/user)
 	return
 
-/obj/item/assembly/proc/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/item/assembly/proc/on_atom_entered(datum/source, atom/movable/entered)
 	return
 
 /// Called to constantly step down the countdown/cooldown

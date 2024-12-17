@@ -309,7 +309,7 @@
 
 /obj/machinery/shower/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(on_movable_cross))
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)

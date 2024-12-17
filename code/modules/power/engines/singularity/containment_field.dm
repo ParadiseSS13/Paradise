@@ -16,7 +16,10 @@
 
 /obj/machinery/field/containment/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/field/containment/Destroy()
 	if(FG1)// These checks are mostly in case a field is spawned in by accident.
@@ -61,12 +64,12 @@
 	else
 		..()
 
-/obj/machinery/field/containment/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isliving(crossed))
-		shock_field(crossed)
+/obj/machinery/field/containment/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered))
+		shock_field(entered)
 
-	if(ismachinery(crossed) || isstructure(crossed) || ismecha(crossed))
-		bump_field(crossed)
+	if(ismachinery(entered) || isstructure(entered) || ismecha(entered))
+		bump_field(entered)
 
 /obj/machinery/field/containment/proc/set_master(master1, master2)
 	if(!master1 || !master2)

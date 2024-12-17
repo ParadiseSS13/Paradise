@@ -108,19 +108,19 @@
 			return
 	..()
 
-/obj/item/assembly/mousetrap/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/item/assembly/mousetrap/on_atom_entered(datum/source, atom/movable/entered)
 	if(armed)
-		if(ishuman(crossed))
-			var/mob/living/carbon/H = crossed
+		if(ishuman(entered))
+			var/mob/living/carbon/H = entered
 			if(H.m_intent == MOVE_INTENT_RUN)
 				triggered(H)
 				H.visible_message("<span class='warning'>[H] accidentally steps on [src].</span>", "<span class='warning'>You accidentally step on [src]</span>")
 
-		else if(ismouse(crossed))
-			triggered(crossed)
+		else if(ismouse(entered))
+			triggered(entered)
 
-		else if(crossed.density) // For mousetrap grenades, set off by anything heavy
-			triggered(crossed)
+		else if(entered.density) // For mousetrap grenades, set off by anything heavy
+			triggered(entered)
 
 	..()
 

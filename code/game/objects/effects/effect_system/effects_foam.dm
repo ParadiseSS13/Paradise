@@ -30,7 +30,10 @@
 	create_reagents(25)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(initial_process)), spread_time)
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/particle_effect/foam/proc/disperse_reagents()
 	if(!reagents)
@@ -123,10 +126,10 @@
 		flick("[icon_state]-disolve", src)
 		QDEL_IN(src, 0.5 SECONDS)
 
-/obj/effect/particle_effect/foam/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(!iscarbon(crossed))
+/obj/effect/particle_effect/foam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered))
 		return
-	var/mob/living/carbon/M = crossed
+	var/mob/living/carbon/M = entered
 	if((M.slip("foam", 10 SECONDS) || IS_HORIZONTAL(M)) && reagents)
 		fill_with_reagents(M)
 
@@ -155,7 +158,7 @@
 /obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
-/obj/effect/particle_effect/foam/metal/on_movable_cross(datum/source, atom/movable/crossed)
+/obj/effect/particle_effect/foam/metal/on_atom_entered(datum/source, atom/movable/entered)
 	return
 
 /datum/effect_system/foam_spread

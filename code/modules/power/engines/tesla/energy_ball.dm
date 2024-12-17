@@ -47,7 +47,10 @@
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(on_start_orbit))
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(on_stop_orbit))
 	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_delete))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	. = ..()
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
@@ -136,10 +139,10 @@
 	sleep(0.5 SECONDS)
 	walk_towards(src, move_target, 0, 10)
 
-/obj/singularity/energy_ball/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	var/mob/living/living_crossed = crossed
-	if(istype(living_crossed))
-		living_crossed.dust()
+/obj/singularity/energy_ball/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered))
+		living_entered.dust()
 
 /datum/move_with_corner
 	var/turf/start

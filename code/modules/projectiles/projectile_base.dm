@@ -140,7 +140,10 @@
 
 /obj/item/projectile/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -434,9 +437,9 @@
 	set_angle(get_angle(curloc, original))
 
 /// A mob moving on a tile with a projectile is hit by it.
-/obj/item/projectile/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isliving(crossed) && crossed.density && !checkpass(PASSMOB))
-		Bump(crossed, 1)
+/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

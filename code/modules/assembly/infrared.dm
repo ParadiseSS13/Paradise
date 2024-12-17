@@ -216,7 +216,10 @@
 
 /obj/effect/beam/i_beam/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/beam/i_beam/proc/hit()
 	if(master)
@@ -271,10 +274,10 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(!isobj(crossed) && !isliving(crossed))
+/obj/effect/beam/i_beam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isobj(entered) && !isliving(entered))
 		return
-	if(iseffect(crossed))
+	if(iseffect(entered))
 		return
 	hit()
 

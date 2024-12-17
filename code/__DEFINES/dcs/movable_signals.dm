@@ -10,10 +10,10 @@
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
-#define COMSIG_MOVABLE_CROSS "movable_cross"
+#define COMSIG_MOVABLE_CHECK_CROSS "movable_cross"
 	#define COMPONENT_BLOCK_CROSS (1<<0)
 ///from base of atom/movable/Move(): (/atom/movable)
-#define COMSIG_MOVABLE_CROSS_OVER "movable_cross_over"
+#define COMSIG_MOVABLE_CHECK_CROSS_OVER "movable_cross_over"
 ///from base of atom/movable/Uncross(): (/atom/movable)
 #define COMSIG_MOVABLE_UNCROSS "movable_uncross"
 	#define COMPONENT_MOVABLE_BLOCK_UNCROSS (1<<0)

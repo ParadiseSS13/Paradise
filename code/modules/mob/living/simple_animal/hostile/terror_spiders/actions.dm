@@ -170,8 +170,10 @@
 	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
-
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, border_dir)
 	if(isterrorspider(mover))
@@ -187,9 +189,9 @@
 		return prob(20)
 	return ..()
 
-/obj/structure/spider/terrorweb/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isliving(crossed) && !isterrorspider(crossed))
-		var/mob/living/M = crossed
+/obj/structure/spider/terrorweb/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && !isterrorspider(entered))
+		var/mob/living/M = entered
 		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))

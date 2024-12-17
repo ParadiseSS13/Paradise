@@ -294,14 +294,17 @@
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/legionnaire_bonfire/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	if(isobj(crossed))
-		var/obj/object = crossed
+/obj/structure/legionnaire_bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isobj(entered))
+		var/obj/object = entered
 		object.fire_act(1000, 500)
-	if(isliving(crossed))
-		var/mob/living/fire_walker = crossed
+	if(isliving(entered))
+		var/mob/living/fire_walker = entered
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 

@@ -999,12 +999,15 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/proc/on_movable_cross(datum/source, atom/movable/crossed)
-	var/mob/living/living_crossed = crossed
-	if(istype(living_crossed) && has_gravity(loc))
-		if(living_crossed.incorporeal_move || HAS_TRAIT(living_crossed, TRAIT_FLYING) || living_crossed.floating)
+/obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered) && has_gravity(loc))
+		if(living_entered.incorporeal_move || HAS_TRAIT(living_entered, TRAIT_FLYING) || living_entered.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)

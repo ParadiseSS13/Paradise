@@ -43,7 +43,7 @@
 	horizontal_required = _horizontal_required
 
 	add_connect_loc_behalf_to_parent()
-	RegisterSignals(parent, list(COMSIG_ATOM_ENTERED, COMSIG_MOVABLE_CROSS_OVER), PROC_REF(slip))
+	RegisterSignals(parent, list(COMSIG_ATOM_ENTERED, COMSIG_MOVABLE_CHECK_CROSS_OVER), PROC_REF(slip))
 
 /datum/component/slippery/proc/add_connect_loc_behalf_to_parent()
 	if(ismovable(parent))
