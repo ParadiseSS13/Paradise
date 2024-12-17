@@ -17,7 +17,7 @@
 	tap.investigate_log("event [src] has been triggered", "bluespace_tap")
 	return ..()
 
-/datum/engi_event/Destroy(force, ...)
+/datum/engi_event/bluespace_tap_event/Destroy(force, ...)
 	tap = null
 	return ..()
 
@@ -52,7 +52,8 @@
 			air.set_agent_b(250)
 
 	air.set_temperature(T20C)
-	get_turf(tap).blind_release_air(air)
+	var/turf/tap_turf = get_turf(tap)
+	tap_turf.blind_release_air(air)
 
 // dirty
 /datum/engi_event/bluespace_tap_event/dirty
