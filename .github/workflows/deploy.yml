@@ -1,0 +1,24 @@
+name: Deploy
+
+concurrency:
+  group: deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['master', 'devtest']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger update
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.GAME1_HOST }}
+          username: ${{ secrets.GAME1_USERNAME }}
+          key: ${{ secrets.GAME1_SSH_KEY }}
+          script: |
+            cd /opt/ss13/paradise/
+            ./upgrade.sh

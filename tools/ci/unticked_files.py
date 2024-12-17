@@ -28,17 +28,24 @@ IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
     'code/modules/tgs/v5/v5_interop_version.dm',
     # Included as part of OD lints
-    'tools/ci/lints.dm'
+    'tools/ci/lints.dm',
+    # Example files. They should not be included in the build
+    'modular_ss220/example/code/example.dm',
+    'modular_ss220/example/_example.dm',
 }
 
 def get_unticked_files(root:Path):
     ticked_files = set()
     for includer in INCLUDER_FILES:
         with open(root / includer, 'r') as f:
-            lines = [line for line in f.readlines() if line.startswith('#include')]
-            included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            print(f'Found {len(included)} includes in {root / includer}')
+            lines = [line for line in f.readlines() if line.startswith('#include') or line.startswith('// #include')]
+            included = [line.replace('// ', '').replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
+            includer_path = "/".join(includer.split('/')[0:-1])
+            nested_dmes = [(includer_path + "/" if includer_path else "") + file for file in included if ".dme" in file]
+            print(f'Found {len(included)} includes and {len(nested_dmes)} nested .dme\'s in {root / includer}')
             ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
+            if nested_dmes: print(f"Additional include files: {', '.join(nested_dmes)}")
+            INCLUDER_FILES.extend([file.replace("\\", "/") for file in nested_dmes])
 
     all_dm_files = {f for f in root.glob('**/*.dm')}
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}

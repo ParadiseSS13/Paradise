@@ -99,6 +99,7 @@
 	..()
 	updatespeciescolor(H)
 	H.update_icons()
+	H.faction |= list("Vox")
 
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)

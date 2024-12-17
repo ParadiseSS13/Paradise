@@ -1,0 +1,5 @@
+#include "mecha_skins.dm"
+
+#include "code/fabricator_design.dm"
+#include "code/paintkit_install.dm"
+#include "code/paintkit_menu.dm"

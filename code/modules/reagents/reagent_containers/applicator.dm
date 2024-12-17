@@ -51,11 +51,11 @@
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid")
+		var/mutable_appearance/filling = mutable_appearance('modular_ss220/aesthetics/applicator/icons/applicator.dmi', "mender-fluid") // SS220 EDIT - ORIGINAL: icons/goonstation/objects/objects.dmi
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
+	var/mutable_appearance/applicator_bar = mutable_appearance('modular_ss220/aesthetics/applicator/icons/applicator.dmi', "app_e") // SS220 EDIT - ORIGINAL: icons/goonstation/objects/objects.dmi
 	switch(reag_pct)
 		if(51 to 100)
 			applicator_bar.icon_state = "app_hf"

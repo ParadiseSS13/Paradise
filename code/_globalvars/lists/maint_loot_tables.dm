@@ -175,6 +175,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		// Other rare but useful items
 		/obj/item/radio/headset,
 		/obj/item/melee/knuckleduster,
+		/obj/item/melee/stylet, // SS220 ADDITION
 	) = 3,
 ))
 
