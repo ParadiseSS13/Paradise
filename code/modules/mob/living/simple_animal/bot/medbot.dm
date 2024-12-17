@@ -236,7 +236,7 @@
 			reagent_glass.forceMove(get_turf(src))
 			reagent_glass = null
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/medbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/glass))
 		. = TRUE //no afterattack
 		if(locked)
@@ -538,7 +538,7 @@
 			if("machine")
 				new /obj/item/storage/firstaid/machine/empty(Tsec)
 			else
-				new /obj/item/storage/firstaid(Tsec)
+				new /obj/item/storage/firstaid/regular/empty(Tsec)
 
 		new /obj/item/assembly/prox_sensor(Tsec)
 

@@ -42,8 +42,6 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 20
-	/// A name that will display in place of the changeling's real name when speaking.
-	var/mimicing = ""
 	/// If the changeling can respec their purchased abilities.
 	var/can_respec = FALSE
 	/// The current sting power the changeling has active.
@@ -89,10 +87,10 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	. += "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, "<span class='biggerdanger'><b>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>")
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -100,6 +98,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		START_PROCESSING(SSobj, src)
 	add_new_languages(L.languages) // Absorb the languages of the new body.
 	update_languages() // But also, give the changeling the languages they've already absorbed before this.
+	L.add_language("Changeling")
 	// If there's a mob_override, this is a body transfer, and therefore we should give them back their powers they had while in the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -127,6 +126,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	if(L.hud_used?.lingstingdisplay)
 		L.hud_used.lingstingdisplay.invisibility = 101
 		L.hud_used.lingchemdisplay.invisibility = 101
+	L.remove_language("Changeling")
 	remove_unnatural_languages(L)
 	UnregisterSignal(L, COMSIG_MOB_DEATH)
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
@@ -221,7 +221,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = null
+	mimicking = null
 
 /**
  * Removes a changeling's abilities.

@@ -656,7 +656,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/powered/clownplanet)
 "bf" = (
-/turf/simulated/mineral/clown/volcanic,
+/turf/simulated/mineral/volcanic/clown,
 /area/ruin/powered/clownplanet)
 "bg" = (
 /obj/item/pickaxe,
@@ -773,7 +773,7 @@
 /turf/simulated/floor/lubed/lavaland_air,
 /area/ruin/powered/clownplanet)
 "bq" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
@@ -890,7 +890,7 @@
 /turf/simulated/floor/carpet/lavaland_air,
 /area/ruin/powered/clownplanet)
 "bN" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -1006,7 +1006,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/turf/simulated/mineral/clown/volcanic,
+/turf/simulated/mineral/volcanic/clown,
 /area/ruin/powered/clownplanet)
 "pv" = (
 /obj/machinery/light{
@@ -1103,7 +1103,7 @@
 /turf/simulated/floor/light/lavaland_air,
 /area/ruin/powered/clownplanet)
 "LH" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	desc = "The following is engraved upon the chute: A FATE WORSE THAN DEATH LIES WITHIN";
 	dir = 1;
 	name = "THE TRIAL OF HONKITUDE"

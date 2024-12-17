@@ -12,6 +12,7 @@
 #define TARGET_INVALID_NOTHEAD			11
 #define TARGET_INVALID_CULTIST			12
 #define TARGET_INVALID_CULT_CONVERTABLE	13
+#define TARGET_CRYOING					14
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
@@ -45,6 +46,7 @@
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
 #define SPECIAL_ROLE_VAMPIRE "Vampire"
+#define SPECIAL_ROLE_MIND_FLAYER "Mind Flayer"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"

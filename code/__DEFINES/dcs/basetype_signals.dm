@@ -27,3 +27,7 @@
 
 ///from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
 #define COMSIG_TURF_CHANGE "turf_change"
+///from base of turf/proc/onShuttleMove(): (turf/new_turf)
+#define COMSIG_TURF_ON_SHUTTLE_MOVE "turf_on_shuttle_move"
+///from base of turf/proc/get_decals(): (list/datum/element/decal/decals)
+#define COMSIG_ATOM_GET_DECALS "atom_get_decals"

@@ -40,6 +40,8 @@
 	var/detectTime = 0
 	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
+	/// If this camera doesnt add to camera chunks. Used by camera bugs.
+	var/non_chunking_camera = FALSE
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
@@ -128,7 +130,7 @@
 		toggle_cam(null, 0)
 	..()
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/camera/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 

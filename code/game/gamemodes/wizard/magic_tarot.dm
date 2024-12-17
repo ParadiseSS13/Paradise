@@ -16,7 +16,7 @@
 	maximum_cards = 5
 	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
 
-/obj/item/tarot_generator/attack_self(mob/user)
+/obj/item/tarot_generator/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
 		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!</span>")
 		return
@@ -50,7 +50,7 @@
 	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
 	var/cards = 3
 
-/obj/item/tarot_card_pack/attack_self(mob/user)
+/obj/item/tarot_card_pack/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
 						"<span class='hierophant'>You tear open [src]!</span>")
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
@@ -92,7 +92,7 @@
 	else
 		. += "<span class='hierophant'>We have the Ink... Could you provide your Vision instead?</span>"
 
-/obj/item/blank_tarot_card/attack_self(mob/user)
+/obj/item/blank_tarot_card/attack_self__legacy__attackchain(mob/user)
 	if(!ishuman(user))
 		return
 	if(!let_people_choose)
@@ -122,7 +122,7 @@
 		user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
 		user.put_in_hands(MTC)
-		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, "<span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
 		qdel(src)
 
 /obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
@@ -181,7 +181,7 @@
 	if(!face_down)
 		. += "<span class='hierophant'>[src] [our_tarot.extended_desc]</span>"
 
-/obj/item/magic_tarot_card/attack_self(mob/user)
+/obj/item/magic_tarot_card/attack_self__legacy__attackchain(mob/user)
 	poof()
 	if(has_been_activated)
 		return
@@ -234,7 +234,7 @@
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	var/obj/effect/temp_visual/card_preview/tarot/draft = new(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
@@ -242,17 +242,35 @@
 		add_attack_logs(thrower, user, "[thrower] has activated [our_tarot.name] on [user]", ATKLOG_FEW)
 	QDEL_IN(src, 0.6 SECONDS)
 
-/obj/effect/temp_visual/tarot_preview
+/obj/effect/temp_visual/card_preview
+	name = "a card"
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_the_unknown"
+	pixel_y = 20
+	duration = 1.5 SECONDS
+
+/obj/effect/temp_visual/card_preview/Initialize(mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state
+
+	flourish()
+
+/obj/effect/temp_visual/card_preview/proc/flourish()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40, "#fcf3dc", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
+		animate(offset = 0, time = duration)
+
+/obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_the_unknown"
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
-	. = ..()
-	if(new_icon_state)
-		icon_state = "tarot_[new_icon_state]"
+/obj/effect/temp_visual/card_preview/tarot/flourish()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
 	if(new_filter)
@@ -287,6 +305,8 @@
 	card_icon = "the_fool"
 
 /datum/tarot/the_fool/activate(mob/living/target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(GLOB.latejoin))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -364,7 +384,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No bridge? Well, that sucks.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -440,7 +461,8 @@
 	if(!length(viable_vendors))
 		to_chat(target, "<span class='warning'>No vending machines? Well, with luck cargo will have something to offer. If you go there yourself.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(viable_vendors)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -475,10 +497,10 @@
 	card_icon = "the_hanged_man"
 
 /datum/tarot/the_hanged_man/activate(mob/living/target)
-	if(target.flying)
+	if(HAS_TRAIT(target, TRAIT_FLYING))
 		return
-	target.flying = TRUE
-	addtimer(VARSET_CALLBACK(target, flying, FALSE), 60 SECONDS)
+	ADD_TRAIT(target, TRAIT_FLYING, "tarot")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), target, TRAIT_FLYING, "tarot"), 60 SECONDS)
 
 /datum/tarot/death
 	name = "XIII - Death"
@@ -554,7 +576,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No evidence? Well, that means they can't charge you with a crime, right?</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 	for(var/obj/structure/closet/C in shuffle(view(9, target)))
@@ -573,6 +596,8 @@
 /datum/tarot/the_moon/activate(mob/living/target)
 	var/list/funny_ruin_list = list()
 	var/turf/target_turf = get_turf(target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	for(var/I in GLOB.ruin_landmarks)
 		var/obj/effect/landmark/ruin/ruin_landmark = I
 		if(ruin_landmark.z == target_turf.z)
@@ -722,7 +747,8 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No command members? I hope you didn't kill them all already...</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(L)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
@@ -949,7 +975,7 @@
 
 /datum/tarot/reversed/judgement
 	name = "XX - Judgement?"
-	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	desc = "May you redeem those found wanting." //Who wants more, but ghosts for something interesting
 	extended_desc = "nudges the future events of this shift to be more... interesting."
 	card_icon = "judgement?"
 
@@ -975,6 +1001,7 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Hmm. No base? A miner issue.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")

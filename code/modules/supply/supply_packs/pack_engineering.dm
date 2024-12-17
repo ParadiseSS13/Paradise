@@ -122,8 +122,8 @@
 	containername = "field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
-	name = "Singularity Generator Crate"
-	contains = list(/obj/machinery/the_singularitygen)
+	name = "Singularity Generator And Console Circuitboard Crate"
+	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
 	cost = 350
 	containername = "singularity generator crate"
 
@@ -156,7 +156,7 @@
 	cost = 100
 	containername = "collector crate"
 
-/datum/supply_packs/engineering/engine/PA
+/datum/supply_packs/engineering/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
@@ -167,6 +167,12 @@
 					/obj/structure/particle_accelerator/end_cap)
 	cost = 250
 	containername = "particle accelerator crate"
+
+/datum/supply_packs/engineering/transmission_laser
+	name = "Power Transmission Laser Circuitboard"
+	cost = 1500
+	contains = list(/obj/item/circuitboard/machine/transmission_laser)
+	containername = "power transmission laser circuitboard crate"
 
 /datum/supply_packs/engineering/radiation
 	name = "Radiation Protection Crate"

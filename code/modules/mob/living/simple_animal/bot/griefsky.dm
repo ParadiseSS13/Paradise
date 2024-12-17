@@ -23,7 +23,7 @@
 /// A toy version of general griefsky!
 /mob/living/simple_animal/bot/secbot/griefsky/toy
 	name = "Genewul Giftskee"
-	desc = "An adorable looking secbot with four toy swords taped to its arms"
+	desc = "An adorable looking secbot with four toy swords taped to its arms."
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
@@ -222,7 +222,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
+/mob/living/simple_animal/bot/secbot/griefsky/attackby__legacy__attackchain(obj/item/W, mob/user, params) //cant touch or attack him while spinning
 	if(src.icon_state == spin_icon)
 		if(prob(block_chance_melee))
 			user.changeNext_move(CLICK_CD_MELEE)

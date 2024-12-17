@@ -55,7 +55,7 @@
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
-/obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/door_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.
@@ -285,8 +285,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon(UPDATE_OVERLAYS)
-	target.update_name()
+	target.update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	qdel(source)
 
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)

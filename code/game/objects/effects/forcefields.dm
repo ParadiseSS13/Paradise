@@ -59,8 +59,8 @@
 	desc = "You have a bad feeling about this."
 	max_integrity = 80
 
-/obj/effect/forcefield/mime/advanced
-	icon_state = "empty"
+/obj/effect/forcefield/mime
+	icon_state = null
 	name = "invisible blockade"
 	desc = "You might be here a while."
 	lifetime = 60 SECONDS

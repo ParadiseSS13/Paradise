@@ -16,7 +16,6 @@
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
 	stop_automated_movement = TRUE
-	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -31,6 +30,7 @@
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/food/ectoplasm = 1)
 	hud_type = /datum/hud/guardian
+	initial_traits = list(TRAIT_FLYING)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -279,11 +279,11 @@
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
-/obj/item/guardiancreator/attack_self(mob/living/user)
+/obj/item/guardiancreator/attack_self__legacy__attackchain(mob/living/user)
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)

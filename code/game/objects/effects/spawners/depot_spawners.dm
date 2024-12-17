@@ -37,14 +37,14 @@
 	name = "33pc trap pizza"
 	icon_state = "pizzabox"
 	loot = list(
-		/obj/item/pizzabox/pepperoni = 7, // Higher weight as a pizza bomb looks like pepperoni by default
-		/obj/item/pizzabox/pizza_bomb/autoarm = 7,
+		/obj/item/pizzabox/pizza_bomb/autoarm = 4,
 		/obj/item/pizzabox/firecracker = 1,
 		/obj/item/pizzabox/garlic = 1,
 		/obj/item/pizzabox/hawaiian = 1,
 		/obj/item/pizzabox/margherita = 1,
 		/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/mushroom = 1,
+		/obj/item/pizzabox/pepperoni = 1,
 		/obj/item/pizzabox/vegetable = 1,
 	)
 
@@ -58,7 +58,7 @@
 /obj/effect/spawner/random/syndicate/trapped_documents
 	name = "50pc trapped documents"
 	icon_state = "folder"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
+	spawn_inside = /obj/structure/closet/secure_closet/depot
 	loot = list(
 		/obj/item/documents/syndicate/yellow,
 		/obj/item/documents/syndicate/yellow/trapped,
@@ -66,7 +66,7 @@
 
 // Loot
 /obj/effect/spawner/random/syndicate/loot
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
+	spawn_inside = /obj/structure/closet/secure_closet/depot
 
 /obj/effect/spawner/random/syndicate/loot/common
 	name = "syndicate depot loot, common"
@@ -160,13 +160,13 @@
 
 /obj/effect/spawner/random/syndicate/loot/armory
 	name = "syndicate depot loot, armory"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
+	spawn_inside = /obj/structure/closet/secure_closet/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	loot = list(
 		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
 		/obj/item/chameleon,
 		/obj/item/clothing/gloves/fingerless/rapid,
-		/obj/item/CQC_manual,
+		/obj/item/cqc_manual,
 		/obj/item/gun/medbeam,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants,

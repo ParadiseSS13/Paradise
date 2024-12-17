@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	active = FALSE
 	det_time = 5 SECONDS
 	display_timer = FALSE
@@ -42,7 +42,7 @@
 		underlays += can_underlay
 
 
-/obj/item/grenade/iedcasing/attack_self(mob/user) //
+/obj/item/grenade/iedcasing/attack_self__legacy__attackchain(mob/user) //
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You light [src]!</span>")

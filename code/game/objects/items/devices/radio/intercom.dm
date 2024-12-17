@@ -67,7 +67,7 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/item/radio/intercom/Initialize()
+/obj/item/radio/intercom/Initialize(mapload)
 	. = ..()
 	if(!custom_name)
 		name = "station intercom (General)"
@@ -121,11 +121,11 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/radio/intercom/receive_range(freq, level)
 	if(!is_listening())
@@ -151,7 +151,7 @@
 		if(2)
 			. += "<span class='notice'>The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.</span>"
 
-/obj/item/radio/intercom/attackby(obj/item/W, mob/user)
+/obj/item/radio/intercom/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
 	else if(iscoil(W) && buildstage == 1)

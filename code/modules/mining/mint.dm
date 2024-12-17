@@ -122,7 +122,7 @@
 		if("ejectBag")
 			eject_bag(usr)
 
-/obj/machinery/mineral/mint/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/mint/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/money))
 		if(money_bag)
 			to_chat(user, "<span class='notice'>There is already a [money_bag.name] inside!</span>")

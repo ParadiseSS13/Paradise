@@ -20,7 +20,7 @@
 	force = 10
 	modifystate = TRUE
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
 	execution_speed = 2 SECONDS
@@ -57,7 +57,7 @@
 	name = "pulse carbine"
 	desc = "A lighter, more compact version of the pulse rifle. Easier to store and transport, but has fewer shots. It has a mounting point for a flashlight. The fire selector has three settings: 'stun', 'kill', 'DESTROY'."
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
@@ -81,7 +81,7 @@
 	name = "pulse pistol"
 	desc = "A pulse gun miniaturised into a pistol-sized form factor. Easy to conceal, but has a low capacity. The fire selector has three settings: 'stun', 'kill', 'DESTROY'."
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
 	item_state = null
 	can_holster = TRUE
@@ -115,7 +115,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
-/obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
+/obj/item/gun/energy/pulse/destroyer/attack_self__legacy__attackchain(mob/living/user)
 	to_chat(user, "<span class='notice'>[src] is now set to DESTROY.</span>")
 
 //////////////////////////////
@@ -126,7 +126,7 @@
 	desc = "A pulse rifle fitted with a heavy duty prism, spreading a cone of destruction in front of the user. The fire selector has three settings, and they are all 'ANNIHILATE'."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
-/obj/item/gun/energy/pulse/destroyer/annihilator/attack_self(mob/living/user)
+/obj/item/gun/energy/pulse/destroyer/annihilator/attack_self__legacy__attackchain(mob/living/user)
 	to_chat(user, "<span class='boldannounceic'>[src] is now set to ANNIHILATE.</span>")
 
 //////////////////////////////

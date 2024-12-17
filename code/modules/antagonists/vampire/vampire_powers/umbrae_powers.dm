@@ -84,7 +84,7 @@
 		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
 		C.EyeBlind(20 SECONDS)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
@@ -173,6 +173,8 @@
 		user.make_invisible()
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 	else
+		if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, end_turf) & COMPONENT_BLOCK_TELEPORT) //You can fake it out, but no teleporting
+			return FALSE
 		user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
@@ -226,6 +228,8 @@
 
 /datum/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
 

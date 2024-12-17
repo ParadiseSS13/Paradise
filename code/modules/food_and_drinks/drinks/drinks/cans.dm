@@ -15,7 +15,7 @@
 	else
 		. += "<span class='notice'>Ctrl-click to shake it up!</span>"
 
-/obj/item/reagent_containers/drinks/cans/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/cans/attack_self__legacy__attackchain(mob/user)
 	if(can_opened)
 		return ..()
 	if(times_shaken)
@@ -67,7 +67,7 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/drinks/cans/attack(mob/M, mob/user, proximity)
+/obj/item/reagent_containers/drinks/cans/attack__legacy__attackchain(mob/M, mob/user, proximity)
 	if(!can_opened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
@@ -77,15 +77,15 @@
 		return
 	return ..()
 
-/obj/item/reagent_containers/drinks/cans/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/drinks/cans/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
 		var/obj/can = crush(user)
-		can.attackby(I, user, params)
+		can.attackby__legacy__attackchain(I, user, params)
 		return TRUE
 	..()
 
-/obj/item/reagent_containers/drinks/cans/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/drinks/cans/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers) && !can_opened)
@@ -165,13 +165,6 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
-/obj/item/reagent_containers/drinks/cans/beer
-	name = "space beer"
-	desc = "Contains only water, malt and hops."
-	icon_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("beer" = 30)
-
 /obj/item/reagent_containers/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
@@ -192,14 +185,6 @@
 	icon_state = "badminbrew"
 	is_glass = TRUE
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
-
-/obj/item/reagent_containers/drinks/cans/ale
-	name = "Magm-Ale"
-	desc = "A true dorf's drink of choice."
-	icon_state = "alebottle"
-	item_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("ale" = 30)
 
 /obj/item/reagent_containers/drinks/cans/space_mountain_wind
 	name = "Space Mountain Wind"

@@ -67,7 +67,7 @@
 			A.turret_controls -= src
 	return ..()
 
-/obj/machinery/turretid/Initialize()
+/obj/machinery/turretid/Initialize(mapload)
 	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
@@ -106,7 +106,7 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/W, mob/user)
+/obj/machinery/turretid/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(stat & BROKEN)
 		return
 

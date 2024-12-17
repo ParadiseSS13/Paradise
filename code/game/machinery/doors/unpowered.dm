@@ -6,7 +6,7 @@
 		return
 	..()
 
-/obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/unpowered/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(locked)
 		return
 	else

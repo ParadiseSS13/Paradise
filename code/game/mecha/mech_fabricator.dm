@@ -71,6 +71,7 @@
 		"MODsuit Modules",
 		"Ripley",
 		"Firefighter",
+		"Nkarrdem",
 		"Odysseus",
 		"Gygax",
 		"Durand",
@@ -246,6 +247,8 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, output_dir))
+	if(is_station_level(z))
+		SSblackbox.record_feedback("tally", "station_mechfab_production", 1, "[D.type]")
 	if(isitem(A))
 		var/obj/item/I = A
 		I.materials = final_cost
@@ -308,7 +311,7 @@
 	return TRUE
 
 // Interaction code
-/obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mecha_part_fabricator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
 		return
 

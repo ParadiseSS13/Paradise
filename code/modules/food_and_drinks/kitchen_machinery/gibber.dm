@@ -45,7 +45,7 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message("<span class='danger'><b>[user] climbs into [src] and turns it on!</b></span>")
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -93,7 +93,7 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
+/obj/machinery/gibber/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/grab))
 		var/obj/item/grab/G = P
 		if(G.state < 2)
@@ -281,18 +281,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
-			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
-			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET))
+			var/obj/item/ls = H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
-			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET))
+			var/obj/item/rs = H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null

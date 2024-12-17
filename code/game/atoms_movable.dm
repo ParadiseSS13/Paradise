@@ -504,9 +504,9 @@
 	verbs.Cut()
 	return
 
-/atom/movable/overlay/attackby(a, b, c)
+/atom/movable/overlay/attackby__legacy__attackchain(a, b, c)
 	if(master)
-		return master.attackby(a, b, c)
+		return master.attackby__legacy__attackchain(a, b, c)
 
 /atom/movable/overlay/attack_hand(a, b, c)
 	if(master)
@@ -677,9 +677,7 @@
 
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		qdel(comp)
+	DeleteComponent(/datum/component/deadchat_control)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()

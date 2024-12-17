@@ -47,7 +47,7 @@
 	buffer = null
 	return ..()
 
-/obj/item/multitool/attack_self(mob/user)
+/obj/item/multitool/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
 		return
 	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)
@@ -102,7 +102,7 @@
 		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
 		if(chunk)
 			if(length(chunk.seenby))
-				for(var/mob/camera/aiEye/A in chunk.seenby)
+				for(var/mob/camera/ai_eye/A in chunk.seenby)
 					//Checks if the A is to be detected or not
 					if(!A.ai_detector_visible)
 						continue

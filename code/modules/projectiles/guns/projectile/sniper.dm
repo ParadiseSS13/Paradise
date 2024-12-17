@@ -15,9 +15,9 @@
 	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
-	execution_speed = 8 SECONDS
+	execution_speed = 4 SECONDS
 	var/zoomable = TRUE
 
 /obj/item/gun/projectile/automatic/sniper_rifle/Initialize(mapload)
@@ -133,7 +133,7 @@
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
 	name = "sniper rounds (Bleed)"
-	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
+	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain."
 	icon_state = "haemorrhage"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5

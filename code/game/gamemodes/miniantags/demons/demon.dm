@@ -1,6 +1,6 @@
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	desc = "you shouldnt be reading this, file a github report"
+	desc = "you shouldnt be reading this, file a github report."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -27,7 +27,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
-	var/datum/action/innate/demon/whisper/whisper_action
+	var/datum/action/innate/demon_whisper/whisper_action
 
 /mob/living/simple_animal/demon/Initialize(mapload)
 	. = ..()

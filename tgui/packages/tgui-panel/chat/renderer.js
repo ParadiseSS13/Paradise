@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import DOMPurify from 'dompurify';
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
 import { createLogger } from 'tgui/logging';
@@ -28,6 +29,9 @@ const logger = createLogger('chatRenderer');
 // We consider this as the smallest possible scroll offset
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
+
+// List of blacklisted tags
+const blacklisted_tags = ['iframe', 'video'];
 
 const findNearestScrollableParent = (startingNode) => {
   const body = document.body;
@@ -92,10 +96,7 @@ const updateMessageBadge = (message) => {
   const foundBadge = node.querySelector('.Chat__badge');
   const badge = foundBadge || document.createElement('div');
   badge.textContent = times;
-  badge.className = classes(['Chat__badge', 'Chat__badge--animate']);
-  requestAnimationFrame(() => {
-    badge.className = 'Chat__badge';
-  });
+  badge.className = 'Chat__badge';
   if (!foundBadge) {
     node.appendChild(badge);
   }
@@ -293,11 +294,7 @@ class ChatRenderer {
     }
   }
 
-  getCombinableMessage(predicate) {
-    const now = Date.now();
-    const len = this.visibleMessages.length;
-    const from = len - 1;
-    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
+  getCombinableMessage(predicate, now, from, to) {
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
       // prettier-ignore
@@ -332,10 +329,14 @@ class ChatRenderer {
     const fragment = document.createDocumentFragment();
     const countByType = {};
     let node;
+
+    const len = this.visibleMessages.length;
+    const from = len - 1;
+    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let payload of batch) {
       const message = createMessage(payload);
       // Combine messages
-      const combinable = this.getCombinableMessage(message);
+      const combinable = this.getCombinableMessage(message, now, from, to);
       if (combinable) {
         combinable.times = (combinable.times || 1) + 1;
         updateMessageBadge(combinable);
@@ -359,6 +360,11 @@ class ChatRenderer {
         // Payload is HTML
         else if (message.html) {
           node.innerHTML = message.html;
+          node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
+            // No iframes in my chat kkthxbye
+            FORBID_TAGS: blacklisted_tags,
+            ALLOW_UNKNOWN_PROTOCOLS: true,
+          });
         } else {
           logger.error('Error: message is missing text payload', message);
         }

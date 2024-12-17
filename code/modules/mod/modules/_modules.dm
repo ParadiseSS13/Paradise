@@ -118,8 +118,9 @@
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
-				to_chat(mod.wearer, "<span class='warning'>You can not extend the [device]!</span>")
-				mod.wearer.drop_item()
+				to_chat(mod.wearer, "<span class='warning'>You cannot extend [device]!</span>")
+				if(device.loc != src)
+					device.forceMove(src)
 				return FALSE
 		else
 			var/used_button = "Middle Click"
@@ -362,7 +363,7 @@
 		return
 	var/core_path = pick(accepted_anomalies)
 	core = new core_path(src)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/Destroy()
 	QDEL_NULL(core)
@@ -397,7 +398,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
 	if(item.type in accepted_anomalies)
 		if(core)
 			to_chat(user, "<span class='warning'>A core is already installed!</span>")
@@ -407,7 +408,7 @@
 		core = item
 		to_chat(user, "<span class='notice'>You install [item].</span>")
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		core.forceMove(src)
 	else
 		return ..()
@@ -424,7 +425,7 @@
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
 	core = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/update_icon_state()
 	icon_state = initial(icon_state) + (core ? "-core" : "")
