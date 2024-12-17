@@ -351,7 +351,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bc" = (
 /obj/structure/lattice,
 /turf/space,
@@ -521,7 +521,7 @@
 	anchored = 0
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bB" = (
 /obj/machinery/cryopod/offstation{
 	icon_state = "sleeper_s";
@@ -1417,7 +1417,7 @@
 /obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/space)
+/area/space/nearstation)
 "eP" = (
 /obj/structure/showcase/machinery/oldpod/used{
 	dir = 1
@@ -1577,7 +1577,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fq" = (
 /obj/structure/sign/poster/official/random/north,
 /obj/effect/decal/cleanable/blood,
@@ -2231,7 +2231,7 @@
 /obj/structure/inflatable/door,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hh" = (
 /obj/machinery/conveyor/northwest/ccw{
 	dir = 5;
@@ -3229,7 +3229,7 @@
 "kf" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kg" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -3303,7 +3303,7 @@
 	id = "CenterBridge"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ku" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -3743,7 +3743,7 @@
 "lS" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lT" = (
 /obj/machinery/economy/vending/cigarette/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4128,7 +4128,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "nm" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/blood/oil,
@@ -5062,7 +5062,7 @@
 "qt" = (
 /obj/structure/inflatable,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "qu" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
@@ -5095,7 +5095,7 @@
 	id = "BSAdown"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "qB" = (
 /obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
@@ -5873,7 +5873,7 @@
 	},
 /obj/item/kirbyplants,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "to" = (
 /obj/structure/rack,
 /obj/item/ammo_box/c9mm,
@@ -6209,7 +6209,7 @@
 /obj/structure/girder/reinforced,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "up" = (
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
@@ -7003,7 +7003,7 @@
 "wU" = (
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "wV" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -7403,7 +7403,7 @@
 "yq" = (
 /obj/structure/computerframe,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yr" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
 /turf/space,
@@ -7490,7 +7490,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/unary/outlet_injector,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yG" = (
 /turf/space,
 /area/space)
@@ -7624,7 +7624,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "zd" = (
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating/airless,
@@ -7715,7 +7715,7 @@
 "zq" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "zr" = (
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/space_battle/sec_storage)
@@ -8970,6 +8970,10 @@
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/prhallway1)
+"Dy" = (
+/obj/machinery/porta_turret/syndicate,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "Dz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/gear,
@@ -9142,7 +9146,7 @@
 	id = "hangar"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Eb" = (
 /obj/structure/window/plasmareinforced{
 	color = "red";
@@ -9604,7 +9608,7 @@
 	},
 /obj/item/stack/cable_coil,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Fy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10084,7 +10088,7 @@
 "GW" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "GX" = (
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
@@ -10530,7 +10534,7 @@
 "Iq" = (
 /obj/structure/disposalpipe/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Ir" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -10685,7 +10689,7 @@
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "IQ" = (
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -10809,7 +10813,7 @@
 "Jl" = (
 /obj/structure/inflatable/door,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "Jn" = (
 /obj/structure/gunrack,
 /obj/machinery/light/small/directional/west,
@@ -11268,7 +11272,7 @@
 "KU" = (
 /obj/structure/door_assembly/door_assembly_sec,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "KV" = (
 /obj/machinery/porta_turret/syndicate,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -11282,7 +11286,7 @@
 	density = 0
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "KY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11428,7 +11432,7 @@
 	opened = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Ls" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway1)
@@ -11822,7 +11826,7 @@
 	id = "pod1"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "MD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -12290,7 +12294,7 @@
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "NZ" = (
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -13993,7 +13997,7 @@
 /obj/structure/lattice,
 /obj/item/stack/sheet/plastitaniumglass,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "TK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -14081,7 +14085,7 @@
 "TY" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "TZ" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -14871,7 +14875,7 @@
 	id = "BSAup"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "WC" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -15283,9 +15287,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway10)
 "XS" = (
-/obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "XT" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo4"
@@ -39140,7 +39144,7 @@ yG
 fe
 yG
 yG
-Dg
+XS
 ON
 uF
 yG
@@ -39410,7 +39414,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -40436,7 +40440,7 @@ yG
 yG
 yG
 Go
-Dg
+XS
 yG
 yG
 yG
@@ -40680,7 +40684,7 @@ yG
 yG
 yG
 hp
-Dg
+XS
 yG
 yG
 yG
@@ -40688,7 +40692,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -40936,7 +40940,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -40946,7 +40950,7 @@ yG
 yG
 yG
 Go
-Dg
+XS
 yG
 yG
 hp
@@ -44007,7 +44011,7 @@ yG
 yG
 yG
 hp
-Dg
+XS
 yG
 yG
 yG
@@ -45036,16 +45040,16 @@ yG
 yG
 yG
 yG
-Dg
-Dg
+XS
+XS
 lR
 lR
-Dg
+XS
 yG
 lR
 TH
-Dg
-Dg
+XS
+XS
 rf
 AN
 wq
@@ -45113,7 +45117,7 @@ yG
 nZ
 yG
 yG
-Dg
+XS
 pp
 SU
 Uf
@@ -45372,9 +45376,9 @@ yG
 fe
 nh
 xz
-Dg
+XS
 LU
-Dg
+XS
 dm
 VC
 PH
@@ -45629,9 +45633,9 @@ nZ
 yG
 yG
 yG
-Dg
+XS
 hG
-Dg
+XS
 ob
 VC
 Rk
@@ -45822,7 +45826,7 @@ vr
 vr
 vr
 vr
-Dg
+XS
 yG
 yG
 yG
@@ -45887,7 +45891,7 @@ NB
 yG
 fQ
 KD
-Dg
+XS
 tm
 ob
 VC
@@ -46141,7 +46145,7 @@ Bi
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -46401,7 +46405,7 @@ yG
 yG
 VL
 yG
-Dg
+XS
 rv
 LU
 SL
@@ -46597,7 +46601,7 @@ LM
 LM
 LM
 Kj
-aV
+yG
 yG
 yG
 yG
@@ -46654,7 +46658,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -46854,7 +46858,7 @@ LM
 LM
 LM
 Kj
-aV
+yG
 yG
 yG
 yG
@@ -46915,7 +46919,7 @@ yG
 yG
 KD
 yG
-Dg
+XS
 LU
 dm
 cf
@@ -47172,7 +47176,7 @@ yG
 fe
 nZ
 LU
-Dg
+XS
 SC
 ob
 VC
@@ -47621,7 +47625,7 @@ vr
 vr
 vr
 vr
-Dg
+XS
 yG
 yG
 af
@@ -51572,7 +51576,7 @@ UP
 VC
 kd
 az
-Dg
+XS
 yG
 yG
 yG
@@ -51830,7 +51834,7 @@ VC
 JY
 Pe
 Ds
-Dg
+XS
 yG
 yG
 yG
@@ -54303,7 +54307,7 @@ vr
 vr
 vr
 vr
-Dg
+XS
 yG
 yG
 yG
@@ -54627,7 +54631,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 VC
 zx
 zF
@@ -54640,11 +54644,11 @@ tP
 VC
 VE
 VE
-Dg
-Dg
+XS
+XS
 yG
-Dg
-Dg
+XS
+XS
 VE
 VE
 VC
@@ -54884,7 +54888,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 Ds
 Cm
 wY
@@ -54896,13 +54900,13 @@ PM
 mM
 VC
 VE
-Dg
-Dg
+XS
+XS
 yG
 yG
 yG
-Dg
-Dg
+XS
+XS
 VE
 VC
 Zn
@@ -55141,9 +55145,9 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
-Dg
+XS
 Ds
 xT
 xT
@@ -55155,10 +55159,10 @@ VC
 VC
 VC
 WB
-Dg
+XS
 yG
-Dg
-Dg
+XS
+XS
 VC
 VC
 cf
@@ -55400,7 +55404,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 xv
 Ds
 Bi
@@ -55412,9 +55416,9 @@ xo
 Sk
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 Bm
@@ -55658,7 +55662,7 @@ yG
 nZ
 fe
 fQ
-Dg
+XS
 xv
 TP
 Bi
@@ -55669,9 +55673,9 @@ pL
 nO
 wH
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 Mn
 YX
@@ -55916,8 +55920,8 @@ yG
 yq
 nh
 yG
-Dg
-Dg
+XS
+XS
 Bd
 qt
 KB
@@ -55926,9 +55930,9 @@ xs
 VG
 Mn
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 Mn
 Ld
@@ -56173,7 +56177,7 @@ ol
 yG
 yG
 yG
-Dg
+XS
 Ds
 Ds
 qt
@@ -56183,9 +56187,9 @@ Df
 PM
 wH
 yG
-Dg
+XS
 Fh
-Dg
+XS
 NJ
 Mn
 Rj
@@ -56426,12 +56430,12 @@ yG
 yG
 yG
 yG
-Dg
+XS
 Ds
 yG
 KD
 yG
-Dg
+XS
 hD
 hg
 gU
@@ -56440,9 +56444,9 @@ Df
 PM
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 cP
@@ -56684,12 +56688,12 @@ yG
 fe
 Su
 yG
-Dg
+XS
 yG
 yG
 yG
 nZ
-Dg
+XS
 qt
 Dw
 hc
@@ -56697,9 +56701,9 @@ dD
 Ut
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 jM
@@ -56946,7 +56950,7 @@ fe
 yG
 yG
 yG
-Dg
+XS
 qt
 xH
 XD
@@ -56954,9 +56958,9 @@ Df
 PM
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 Ku
@@ -57194,7 +57198,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 nZ
 yG
@@ -57211,9 +57215,9 @@ Vk
 Iw
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 PE
@@ -57460,7 +57464,7 @@ yG
 yG
 nZ
 yG
-Dg
+XS
 qt
 Eg
 Jx
@@ -57468,7 +57472,7 @@ Df
 YF
 VC
 yG
-Dg
+XS
 yG
 qz
 yG
@@ -57706,7 +57710,7 @@ yG
 yG
 nh
 yG
-Dg
+XS
 yG
 yG
 Lr
@@ -57717,7 +57721,7 @@ yU
 yU
 yG
 yG
-Dg
+XS
 qt
 Wf
 YF
@@ -57725,9 +57729,9 @@ Df
 PM
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 TU
@@ -57964,7 +57968,7 @@ Ti
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 yG
@@ -57981,11 +57985,11 @@ cf
 wC
 cf
 VC
-Dg
+XS
 WB
 yG
-Dg
-Dg
+XS
+XS
 VC
 VC
 yn
@@ -58239,9 +58243,9 @@ JS
 kF
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 BJ
@@ -58478,7 +58482,7 @@ yG
 yG
 yG
 yG
-Dg
+XS
 yG
 yG
 fe
@@ -58496,9 +58500,9 @@ kH
 po
 Mn
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 Mn
 CT
@@ -58753,9 +58757,9 @@ or
 Wk
 Mn
 yG
-Dg
+XS
 yG
-Dg
+XS
 NJ
 Mn
 CT
@@ -59010,9 +59014,9 @@ kH
 po
 Mn
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 Mn
 CT
@@ -59267,9 +59271,9 @@ sF
 Rs
 VC
 yG
-Dg
+XS
 Fh
-Dg
+XS
 yG
 VC
 cd
@@ -59523,11 +59527,11 @@ cf
 ZO
 cf
 VC
-Dg
-Dg
+XS
+XS
 yG
-Dg
-Dg
+XS
+XS
 VC
 VC
 yn
@@ -59781,9 +59785,9 @@ Pz
 wO
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 fE
@@ -60038,9 +60042,9 @@ WV
 pT
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 CT
@@ -60295,9 +60299,9 @@ eV
 po
 Mn
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 Mn
 nA
@@ -60552,7 +60556,7 @@ Pd
 Qq
 Mn
 yG
-Dg
+XS
 yG
 qz
 yG
@@ -60809,9 +60813,9 @@ CU
 Qg
 Mn
 Fh
-Dg
+XS
 yG
-Dg
+XS
 yG
 wH
 CT
@@ -61066,9 +61070,9 @@ Kn
 Fv
 VC
 yG
-Dg
+XS
 yG
-Dg
+XS
 yG
 VC
 Db
@@ -61322,11 +61326,11 @@ cf
 tb
 cf
 VC
-Dg
-Dg
+XS
+XS
 yG
-Dg
-Dg
+XS
+XS
 VC
 WZ
 VC
@@ -61579,11 +61583,11 @@ VC
 WD
 Tk
 VC
-Dg
-Dg
-Dg
-Dg
-Dg
+XS
+XS
+XS
+XS
+XS
 VC
 gY
 sK
@@ -61843,7 +61847,7 @@ yG
 QB
 rF
 fp
-Dg
+XS
 nl
 Ug
 yG
@@ -63296,7 +63300,7 @@ Jd
 BN
 BN
 Jd
-XS
+Jc
 yG
 yG
 yG
@@ -63557,7 +63561,7 @@ Ks
 Ks
 Ks
 lu
-ps
+Dy
 yG
 yG
 yG
@@ -63815,7 +63819,7 @@ AF
 lp
 Ks
 lu
-ps
+Dy
 yG
 yG
 Ks
@@ -63834,7 +63838,7 @@ Ks
 Ks
 Ks
 Ks
-ps
+Dy
 yG
 yG
 yG
@@ -64348,7 +64352,7 @@ dL
 YA
 YA
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -64604,7 +64608,7 @@ lu
 YA
 RA
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -64860,7 +64864,7 @@ BN
 Ed
 YA
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -65117,7 +65121,7 @@ BN
 Ed
 YA
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -65375,7 +65379,7 @@ lu
 YA
 RA
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -65633,7 +65637,7 @@ YA
 YA
 dL
 RA
-Dg
+XS
 yG
 yG
 yG
@@ -66128,7 +66132,7 @@ EH
 hR
 Ks
 lu
-ps
+Dy
 yG
 yG
 Ks
@@ -66147,7 +66151,7 @@ Ks
 Ks
 Ks
 Ks
-ps
+Dy
 yG
 yG
 yG
@@ -66384,7 +66388,7 @@ Ks
 Ks
 Ks
 lu
-ps
+Dy
 yG
 yG
 yG
@@ -75206,7 +75210,7 @@ yG
 yG
 yG
 yG
-ps
+Dy
 Nu
 QF
 ks
@@ -75216,7 +75220,7 @@ ks
 ks
 av
 Nu
-ps
+Dy
 yG
 yG
 yG

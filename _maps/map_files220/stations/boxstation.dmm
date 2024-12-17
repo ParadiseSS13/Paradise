@@ -8707,11 +8707,6 @@
 "aIc" = (
 /turf/simulated/wall,
 /area/station/service/clown)
-"aIf" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "aIg" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -56665,10 +56660,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/public/toilet/unisex)
-"ixr" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "ixy" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "qm"
@@ -124353,11 +124344,11 @@ eKL
 vyz
 gvg
 doE
-ixr
-ixr
-ixr
-ixr
-ixr
+aab
+aab
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -124613,8 +124604,8 @@ oJq
 kBq
 oJq
 doE
-ixr
-aIf
+aab
+alv
 aaa
 aaa
 aaa
@@ -124870,8 +124861,8 @@ bXq
 bXq
 bXq
 oJq
-ixr
-aIf
+aab
+alv
 aaa
 aaa
 aaa
@@ -125127,8 +125118,8 @@ rov
 gJI
 rov
 gJI
-ixr
-aIf
+aab
+alv
 aaa
 aaa
 aaa
@@ -125382,10 +125373,10 @@ cZS
 cZS
 aab
 aab
-ixr
-ixr
-ixr
-ixr
+aab
+aab
+aab
+aab
 aaa
 aaa
 aaa

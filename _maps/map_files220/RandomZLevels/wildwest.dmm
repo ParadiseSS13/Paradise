@@ -157,7 +157,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "bw" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -1325,7 +1325,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "mg" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "mm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2271,6 +2271,10 @@
 	icon_state = "freezerfloor"
 	},
 /area/awaymission/wildwest/wildwest_mines)
+"vb" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/space,
+/area/space/nearstation)
 "vc" = (
 /obj/structure/curtain/medical,
 /turf/simulated/floor/wood/oak,
@@ -2484,7 +2488,7 @@
 "xp" = (
 /obj/structure/girder/displaced,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "xq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -2941,6 +2945,9 @@
 	icon_state = "gcircuitoff"
 	},
 /area/awaymission/wildwest/wildwest_vault)
+"BX" = (
+/turf/space,
+/area/space/nearstation)
 "Cb" = (
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/cobweb,
@@ -2995,7 +3002,7 @@
 "CF" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "CG" = (
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3325,7 +3332,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "FL" = (
 /obj/structure/table/holotable/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
@@ -3495,7 +3502,7 @@
 "Hw" = (
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "Hx" = (
 /obj/structure/curtain/black,
 /turf/simulated/floor/carpet/red,
@@ -3611,7 +3618,7 @@
 /obj/structure/marker_beacon/dock_marker,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "IH" = (
 /obj/structure/shuttle/engine/router,
 /obj/structure/shuttle/engine/router,
@@ -3823,7 +3830,7 @@
 "LO" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "LP" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
@@ -3850,7 +3857,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "LU" = (
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroid8"
@@ -3962,7 +3969,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "MK" = (
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
@@ -4303,7 +4310,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Ql" = (
 /obj/structure/curtain/black,
 /turf/simulated/floor/carpet/orange,
@@ -4412,7 +4419,7 @@
 "Rm" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Rs" = (
 /obj/machinery/gateway{
 	dir = 9
@@ -6730,7 +6737,7 @@ Lv
 Lv
 Lv
 Lv
-JU
+vb
 nW
 Lv
 Lv
@@ -7293,7 +7300,7 @@ Lv
 Lv
 Lv
 Lv
-Lv
+BX
 Qj
 Lv
 Lv
