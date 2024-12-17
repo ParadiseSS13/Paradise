@@ -31,10 +31,15 @@
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
+	/// Name of the product
 	var/product_name = "generic"
+	/// The path to a list containing the common drops
 	var/product_path_common = null
+	/// The path to a list containing the uncommon drops
 	var/product_path_uncommon = null
+	/// The path to a list containing the rare drops
 	var/product_path_rare = null
+	/// How much the product costs to produce
 	var/product_cost = 100	//cost in mining points to generate
 
 /datum/data/bluespace_tap_product/New(name, path_common, path_uncommon, path_rare, cost)

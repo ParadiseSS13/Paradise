@@ -1,12 +1,10 @@
 /datum/engi_event/bluespace_tap_event
 	name = "Unknown Anomaly (Report this to coders)"
 	var/obj/machinery/power/bluespace_tap/tap
-	var/turf/tap_turf
 
 /datum/engi_event/bluespace_tap_event/New(obj/machinery/power/bluespace_tap/_tap)
 	. = ..()
 	tap = _tap
-	tap_turf = get_turf(tap)
 	if(!tap)
 		stack_trace("a /datum/bluespace_tap_event was called without an involved bluespace tap.")
 		return
@@ -16,7 +14,7 @@
 
 /datum/engi_event/bluespace_tap_event/start_event()
 	tap.investigate_log("event [src] has been triggered", "bluespace_tap")
-	. = ..()
+	return ..()
 
 // gas events
 /datum/engi_event/bluespace_tap_event/gas
@@ -49,7 +47,7 @@
 			air.set_agent_b(250)
 
 	air.set_temperature(T20C)
-	tap_turf.blind_release_air(air)
+	get_turf(tap).blind_release_air(air)
 
 // dirty
 /datum/engi_event/bluespace_tap_event/dirty
@@ -60,8 +58,8 @@
 
 /datum/engi_event/bluespace_tap_event/dirty/on_start()
 	tap.dirty = TRUE
-	var/list/gunk = list("carbon","flour","blood")
-	var/datum/reagents/R = new/datum/reagents(50)
+	var/list/gunk = list("carbon", "flour", "blood")
+	var/datum/reagents/R = new /datum/reagents(50)
 	R.my_atom = tap
 	R.add_reagent(pick(gunk), 50)
 
@@ -93,7 +91,7 @@
 	switch(shock_type)
 		if("single")
 			var/list/shock_mobs = list()
-			for(var/C in view(tap_turf, 5)) // We only want to shock a single random mob in range, not every one.
+			for(var/C in view(get_turf(tap), 5)) // We only want to shock a single random mob in range, not every one.
 				if(isliving(C))
 					shock_mobs += C
 			if(length(shock_mobs))
@@ -103,7 +101,7 @@
 				tap.Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 		if("mass")
 			name = "E-2"
-			for(var/C in view(tap_turf, 5)) // Zap everyone
+			for(var/C in view(get_turf(tap), 5)) // Zap everyone
 				if(isliving(C))
 					var/mob/living/L = C
 					L.electrocute_act(rand(5, 25), "electrical arc")
