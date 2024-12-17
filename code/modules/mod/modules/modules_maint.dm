@@ -122,7 +122,7 @@
 	desc = "A high-power stamp, able to switch between accept and deny mode when used."
 	flags = NODROP
 
-/obj/item/stamp/mod/attack_self(mob/user, modifiers)
+/obj/item/stamp/mod/attack_self__legacy__attackchain(mob/user, modifiers)
 	. = ..()
 	if(icon_state == "stamp-ok")
 		icon_state = "stamp-deny"

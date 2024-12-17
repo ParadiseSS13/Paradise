@@ -8,8 +8,6 @@
 /area/ruin/space/syndicate_listening_station)
 "bk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -46,8 +44,6 @@
 /area/ruin/space/syndicate_listening_station)
 "dS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -73,8 +69,6 @@
 /area/ruin/space/syndicate_listening_station)
 "hr" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless{
@@ -110,17 +104,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "kx" = (
-/obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "kE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -154,7 +143,6 @@
 /area/ruin/space/syndicate_listening_station)
 "pV" = (
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar,
@@ -168,8 +156,6 @@
 /area/ruin/space/syndicate_listening_station)
 "qW" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -183,8 +169,6 @@
 "rS" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -195,18 +179,12 @@
 /area/ruin/space/syndicate_listening_station)
 "sf" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless{
@@ -216,16 +194,12 @@
 "sq" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "tk" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless{
@@ -235,8 +209,6 @@
 "tF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -318,8 +290,6 @@
 /area/ruin/space/syndicate_listening_station)
 "xh" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -334,8 +304,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "yv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -362,8 +330,6 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Bt" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -377,13 +343,9 @@
 /area/ruin/space/syndicate_listening_station)
 "BD" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless{
@@ -418,7 +380,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -436,8 +397,6 @@
 "CI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -451,8 +410,6 @@
 "Ej" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
@@ -461,7 +418,6 @@
 "Em" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar_control/autostart,
@@ -493,21 +449,15 @@
 "GQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "HZ" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -519,7 +469,6 @@
 "Il" = (
 /obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -580,8 +529,6 @@
 /area/ruin/space/syndicate_listening_station)
 "OO" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless{
@@ -623,8 +570,6 @@
 /area/ruin/space/syndicate_listening_station)
 "TF" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -653,7 +598,6 @@
 	output_level = 100000
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -663,8 +607,6 @@
 	name = "Engineering"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -697,13 +639,9 @@
 /area/ruin/space/syndicate_listening_station)
 "WN" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless{
@@ -722,8 +660,6 @@
 	dir = 9
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -749,13 +685,14 @@ Zw
 Zw
 Zw
 Zw
-pV
-WN
-mC
-AT
-pV
-WN
-mC
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
 Zw
 Zw
 Zw
@@ -776,7 +713,6 @@ Zw
 "}
 (2,1,1) = {"
 Zw
-yn
 Zw
 Zw
 Zw
@@ -789,16 +725,16 @@ Zw
 Zw
 Zw
 Zw
-yn
-AT
+Zw
+Zw
+Zw
 pV
-sf
+WN
 mC
 AT
 pV
-sf
+WN
 mC
-AT
 Zw
 Zw
 Zw
@@ -808,7 +744,9 @@ Zw
 Zw
 Zw
 Zw
-yn
+Zw
+Zw
+Zw
 Zw
 Zw
 Zw
@@ -819,9 +757,6 @@ Zw
 (3,1,1) = {"
 Zw
 yn
-yn
-yn
-yn
 Zw
 Zw
 Zw
@@ -830,7 +765,10 @@ Zw
 Zw
 Zw
 Zw
-yn
+Zw
+Zw
+Zw
+Zw
 yn
 AT
 pV
@@ -847,12 +785,13 @@ Zw
 Zw
 Zw
 Zw
-yn
+Zw
+Zw
 Zw
 yn
-yn
 Zw
-yn
+Zw
+Zw
 Zw
 Zw
 Zw
@@ -860,11 +799,11 @@ Zw
 "}
 (4,1,1) = {"
 Zw
+yn
+yn
+yn
+yn
 Zw
-yn
-yn
-yn
-yn
 Zw
 Zw
 Zw
@@ -883,66 +822,111 @@ pV
 sf
 mC
 AT
-AT
 Zw
 Zw
 Zw
 Zw
 Zw
-yn
-yn
-yn
+Zw
 yn
 Zw
 yn
 yn
-yn
 Zw
 yn
+Zw
+Zw
+Zw
+Zw
+Zw
 "}
 (5,1,1) = {"
 Zw
 Zw
 yn
 yn
-cB
-cB
+yn
 yn
 Zw
 Zw
-Zw
-Zw
-Zw
-yn
-yn
-yn
-yn
-AT
-hr
-AT
-AT
-AT
-hr
-AT
-AT
-AT
-AT
 Zw
 Zw
 Zw
 Zw
 Zw
 yn
-cB
+yn
+AT
+pV
+sf
+mC
+AT
+pV
+sf
+mC
+AT
+AT
 Zw
 Zw
-cB
+Zw
+Zw
+Zw
 yn
 yn
+yn
+yn
+Zw
+yn
+yn
+yn
+Zw
 yn
 Zw
 "}
 (6,1,1) = {"
+Zw
+Zw
+yn
+yn
+cB
+cB
+yn
+Zw
+Zw
+Zw
+Zw
+Zw
+yn
+yn
+yn
+yn
+AT
+hr
+AT
+AT
+AT
+hr
+AT
+AT
+AT
+AT
+Zw
+Zw
+Zw
+Zw
+Zw
+yn
+cB
+Zw
+Zw
+cB
+yn
+yn
+yn
+Zw
+Zw
+"}
+(7,1,1) = {"
 Zw
 Zw
 yn
@@ -983,8 +967,9 @@ yn
 Zw
 yn
 Zw
+Zw
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 Zw
 Zw
 Zw
@@ -1025,8 +1010,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 Zw
 Zw
 Zw
@@ -1067,8 +1053,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 Zw
 Zw
 Zw
@@ -1109,8 +1096,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 Zw
 Zw
 Zw
@@ -1151,8 +1139,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 Zw
 Zw
 Zw
@@ -1193,8 +1182,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 Zw
 Zw
 Zw
@@ -1235,8 +1225,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 Zw
 Zw
 Zw
@@ -1277,8 +1268,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 Zw
 Zw
 Zw
@@ -1319,8 +1311,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 Zw
 Zw
 Zw
@@ -1361,8 +1354,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 Zw
 Zw
 Zw
@@ -1403,8 +1397,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 Zw
 Zw
 Zw
@@ -1445,8 +1440,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 Zw
 Zw
 Zw
@@ -1487,8 +1483,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 Zw
 Zw
 Zw
@@ -1529,8 +1526,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(20,1,1) = {"
+(21,1,1) = {"
 Zw
 Zw
 Zw
@@ -1571,8 +1569,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(21,1,1) = {"
+(22,1,1) = {"
 Zw
 Zw
 Zw
@@ -1613,8 +1612,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(22,1,1) = {"
+(23,1,1) = {"
 Zw
 Zw
 Zw
@@ -1655,8 +1655,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(23,1,1) = {"
+(24,1,1) = {"
 Zw
 Zw
 Zw
@@ -1697,8 +1698,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(24,1,1) = {"
+(25,1,1) = {"
 Zw
 Zw
 yn
@@ -1739,8 +1741,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(25,1,1) = {"
+(26,1,1) = {"
 Zw
 Zw
 Zw
@@ -1781,8 +1784,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(26,1,1) = {"
+(27,1,1) = {"
 Zw
 yn
 Zw
@@ -1823,8 +1827,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(27,1,1) = {"
+(28,1,1) = {"
 Zw
 Zw
 Zw
@@ -1865,8 +1870,9 @@ Zw
 Zw
 Zw
 Zw
+Zw
 "}
-(28,1,1) = {"
+(29,1,1) = {"
 Zw
 Zw
 Zw
@@ -1907,50 +1913,52 @@ Zw
 Zw
 Zw
 Zw
-"}
-(29,1,1) = {"
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-yn
-yn
-AT
-AT
-yn
-yn
-yn
-Zw
-yn
-yn
-Zw
-Zw
-yn
-AT
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
 Zw
 "}
 (30,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+yn
+yn
+AT
+AT
+yn
+yn
+yn
+Zw
+yn
+yn
+Zw
+Zw
+yn
+AT
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(31,1,1) = {"
 Zw
 Zw
 Zw
@@ -1991,64 +1999,24 @@ Zw
 Zw
 Zw
 Zw
-"}
-(31,1,1) = {"
-Zw
-Zw
-Zw
-yn
-yn
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-yn
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
-Zw
 Zw
 "}
 (32,1,1) = {"
 Zw
 Zw
+Zw
 yn
-yn
-yn
-Zw
-Zw
-Zw
-Zw
 yn
 Zw
 Zw
 Zw
 Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+yn
 Zw
 Zw
 Zw
@@ -2081,12 +2049,13 @@ Zw
 Zw
 yn
 yn
-cB
-cB
+yn
+Zw
+Zw
 Zw
 Zw
 yn
-yn
+Zw
 Zw
 Zw
 Zw
@@ -2121,15 +2090,16 @@ Zw
 (34,1,1) = {"
 Zw
 Zw
+yn
+yn
+cB
+cB
+Zw
 Zw
 yn
 yn
-yn
 Zw
 Zw
-yn
-yn
-yn
 Zw
 Zw
 Zw
@@ -2163,16 +2133,17 @@ Zw
 (35,1,1) = {"
 Zw
 Zw
-yn
-Zw
-Zw
-Zw
-Zw
-Zw
 Zw
 yn
 yn
 yn
+Zw
+Zw
+yn
+yn
+yn
+Zw
+Zw
 Zw
 Zw
 Zw
@@ -2212,9 +2183,10 @@ Zw
 Zw
 Zw
 Zw
+yn
+yn
+yn
 Zw
-yn
-yn
 Zw
 Zw
 Zw
@@ -2247,6 +2219,49 @@ Zw
 (37,1,1) = {"
 Zw
 Zw
+yn
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+yn
+yn
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(38,1,1) = {"
+Zw
+Zw
 Zw
 Zw
 Zw
@@ -2257,6 +2272,50 @@ Zw
 Zw
 Zw
 yn
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(39,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
 Zw
 Zw
 Zw

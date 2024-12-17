@@ -393,7 +393,7 @@
 
 /obj/structure/closet/crate/secure/oldstation/research/populate_contents()
 	new /obj/item/circuitboard/circuit_imprinter(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -424,7 +424,7 @@
 	new /obj/item/hemostat(src)
 	new /obj/item/scalpel(src)
 	new /obj/item/cautery(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)

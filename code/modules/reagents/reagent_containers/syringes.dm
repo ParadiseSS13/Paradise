@@ -33,7 +33,7 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack_self(mob/user)
+/obj/item/reagent_containers/syringe/attack_self__legacy__attackchain(mob/user)
 	mode = !mode
 	update_icon()
 
@@ -41,14 +41,14 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/syringe/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/syringe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag))
 		..()
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
+/obj/item/reagent_containers/syringe/afterattack__legacy__attackchain(atom/target, mob/user , proximity)
 	if(!proximity)
 		return
 	if(!target.reagents)

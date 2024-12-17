@@ -34,7 +34,7 @@
 /turf/simulated/wall/indestructible/burn_down()
 	return
 
-/turf/simulated/wall/indestructible/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/indestructible/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)

@@ -127,7 +127,7 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-/obj/item/paper/attack_self(mob/living/user as mob)
+/obj/item/paper/attack_self__legacy__attackchain(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(!spam_flag)
@@ -149,7 +149,7 @@
 	else
 		show_content(user, forcestars = 1)
 
-/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+/obj/item/paper/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
@@ -391,7 +391,7 @@
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
+/obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
 
 	if(resistance_flags & ON_FIRE)
@@ -535,11 +535,11 @@
 /*
  * Premade paper
  */
-/obj/item/paper/Court
+/obj/item/paper/court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 
-/obj/item/paper/Toxin
+/obj/item/paper/toxin
 	name = "Chemical Information"
 	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
@@ -1040,17 +1040,18 @@
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/paper/researchnotes/New()
-	..()
+/obj/item/paper/researchnotes/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
+// I want this type dead
 /obj/item/paper/instruction
 	name = "Instruction Notes"
 

@@ -112,7 +112,7 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
@@ -132,7 +132,7 @@
 
 /mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	if(locked || !open)
 		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
 		return FALSE
@@ -147,6 +147,7 @@
 		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
+	return TRUE
 
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()

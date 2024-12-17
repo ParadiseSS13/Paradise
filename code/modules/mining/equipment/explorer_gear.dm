@@ -125,7 +125,7 @@
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
-/obj/item/clothing/head/space/prisoner_gulag
+/obj/item/clothing/head/helmet/space/prisoner_gulag
 	name = "gulag helmet"
 	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside heat."
 	icon_state = "hardsuit_gulag"

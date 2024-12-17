@@ -41,11 +41,11 @@
 	item_state = "gold_horn"
 	var/cooldown = 0
 
-/obj/item/bikehorn/golden/attack(mob/M, mob/user)
+/obj/item/bikehorn/golden/attack__legacy__attackchain(mob/M, mob/user)
 	flip_mobs(user)
 	return ..()
 
-/obj/item/bikehorn/golden/attack_self(mob/user)
+/obj/item/bikehorn/golden/attack_self__legacy__attackchain(mob/user)
 	flip_mobs(user)
 	..()
 
@@ -81,7 +81,7 @@
 	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown = 0
 
-/obj/item/clown_recorder/attack_self(mob/user)
+/obj/item/clown_recorder/attack_self__legacy__attackchain(mob/user)
 	if(cooldown > world.time)
 		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
 		return
@@ -95,6 +95,8 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		return TRUE
+	return FALSE
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG

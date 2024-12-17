@@ -56,7 +56,7 @@
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	if(!owner.get_num_legs())
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</spawn>")
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
@@ -176,7 +176,7 @@
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/examine_more(mob/user)
 	..()

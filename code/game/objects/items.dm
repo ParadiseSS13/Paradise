@@ -233,17 +233,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	master = null
 	return ..()
 
-/obj/item/proc/alert_admins_on_destroy()
-	SIGNAL_HANDLER
-	var/turf/turf_loc = get_turf(src)
-	if(turf_loc)
-		// guess it's actually just in nullspace. lol. lmao
-		message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
-		log_game("[src] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [loc].")
-	else
-		message_admins("[src] has been destroyed in nullspace.")
-		log_game("[src] has been destroyed in nullspace.")
-
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
 		return FALSE
@@ -400,7 +389,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, params)
+/obj/item/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
@@ -593,7 +582,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // The default action is attack_self().
 // Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE

@@ -319,7 +319,7 @@
 
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
-/datum/status_effect/hippocraticOath
+/datum/status_effect/hippocratic_oath
 	id = "Hippocratic Oath"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
@@ -332,19 +332,19 @@
 	/// Max heal points for the rod to spend on healing people
 	var/max_heal_points = 50
 
-/datum/status_effect/hippocraticOath/on_apply()
+/datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
 	return ..()
 
-/datum/status_effect/hippocraticOath/on_remove()
+/datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
-/datum/status_effect/hippocraticOath/tick()
+/datum/status_effect/hippocratic_oath/tick()
 	// Death transforms you into a snake after a short grace period
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
@@ -386,7 +386,7 @@
 		if(!heal_points)
 			break
 
-/datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
+/datum/status_effect/hippocratic_oath/proc/heal(mob/living/L)
 	var/starting_points = heal_points
 	var/force_particle = FALSE
 
@@ -417,7 +417,7 @@
 	if(starting_points < heal_points || force_particle)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 
-/datum/status_effect/hippocraticOath/proc/heal_human(mob/living/carbon/human/H)
+/datum/status_effect/hippocratic_oath/proc/heal_human(mob/living/carbon/human/H)
 	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
 		H.adjustBruteLoss(-3.5, robotic = TRUE)
 		H.adjustFireLoss(-3.5, robotic = TRUE)
@@ -673,14 +673,23 @@
 /datum/status_effect/hope/tick()
 	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
 		return
+	var/heal_multiplier = 0
+	switch(owner.health)
+		if(50 to INFINITY)
+			heal_multiplier = 1
+		if(0 to 50)
+			heal_multiplier = 2
+		if(-50 to 0)
+			heal_multiplier = 3
+		if(-100 to -50)
+			heal_multiplier = 4
+	owner.adjustBruteLoss(-heal_multiplier)
+	owner.adjustFireLoss(-heal_multiplier)
+	owner.adjustOxyLoss(-heal_multiplier)
 	if(owner.health > 50)
 		if(prob(0.5))
 			hope_message()
 		return
-	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
-	owner.adjustBruteLoss(-heal_multiplier * 0.5)
-	owner.adjustFireLoss(-heal_multiplier * 0.5)
-	owner.adjustOxyLoss(-heal_multiplier)
 	if(prob(heal_multiplier * 2))
 		hope_message()
 

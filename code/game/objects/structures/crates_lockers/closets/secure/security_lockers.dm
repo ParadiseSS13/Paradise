@@ -29,7 +29,7 @@
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
 	new /obj/item/storage/box/ids(src)
-	new /obj/item/storage/box/PDAs(src)
+	new /obj/item/storage/box/pdas(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/civillian(src)
