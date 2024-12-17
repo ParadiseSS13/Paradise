@@ -21,7 +21,7 @@
 
 	///what we set connect_loc to if parent is an item
 	var/static/list/item_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(play_squeak_crossed),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
 	)
 
 
@@ -78,25 +78,23 @@
 	else
 		steps++
 
-/datum/component/squeak/proc/play_squeak_crossed(atom/source, atom/movable/enterer, old_loc)
-	if(!isturf(enterer.loc) || !isturf(source.loc))
+/datum/component/squeak/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(istype(entered, /obj/effect))
 		return
-	if(istype(enterer, /obj/effect))
-		return
-	if(ismob(enterer))
-		var/mob/M = enterer
+	if(ismob(entered))
+		var/mob/M = entered
 		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
-		if(isliving(enterer))
+		if(isliving(entered))
 			var/mob/living/L = M
 			if(L.floating)
 				return
-	else if(isitem(enterer))
+	else if(isitem(entered))
 		var/obj/item/I = source
 		if(I.flags & ABSTRACT)
 			return
-		if(isprojectile(enterer))
-			var/obj/item/projectile/P = enterer
+		if(isprojectile(entered))
+			var/obj/item/projectile/P = entered
 			if(P.original != parent)
 				return
 	if(ismob(source))
