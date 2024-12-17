@@ -23,7 +23,11 @@
 /obj/effect/particle_effect/smoke/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, list(COMSIG_MOVABLE_CROSS, COMSIG_MOVABLE_CROSS_OVER), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(smoke_mob)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(smoke_mob))
 	GLOB.smokes_active++
 	lifetime += rand(-1, 1)
 	create_reagents(10)
@@ -31,7 +35,7 @@
 /obj/effect/particle_effect/smoke/Destroy()
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	STOP_PROCESSING(SSobj, src)
-	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSS, COMSIG_MOVABLE_CROSS_OVER))
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.smokes_active--
 	return ..()
 
@@ -56,7 +60,7 @@
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/breather)
-	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED + COMSIG_MOVABLE_MOVED
 	if(!istype(breather))
 		return FALSE
 	if(lifetime < 1)
