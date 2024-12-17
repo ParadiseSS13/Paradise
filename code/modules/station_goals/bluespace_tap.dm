@@ -428,11 +428,18 @@
 	do_sparks(2, FALSE, src)
 
 	var/spawn_location = find_spawn_location()
-	spawn_item(product, spawn_location)
+	if(!spawn_location)
+		// If there is no valid space, spawn the item on the BSH harvester itself
+		spawn_item(get_turf(src))
+	else
+		spawn_item(product, spawn_location)
 
 	if(prob(25) && double_chance)
 		// Spawn second item in random spot on station - places it where NADs can respawn
 		spawn_location = find_spawn_location(TRUE)
+		if(!spawn_location)
+			// If there is no valid space, do not spawn the item
+			return
 		spawn_item(product, spawn_location)
 
 /// Handles a motherlode - each product is spawned 5 times at both the machine and around the station
