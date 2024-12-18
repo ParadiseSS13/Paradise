@@ -59,20 +59,11 @@
 	name = "\improper Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
+	clothing_traits = list(TRAIT_MESON_VISION)
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
-
-/obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/cargo
 	name = "\improper Tajaran mining meson veil"
@@ -129,21 +120,11 @@
 	name = "shaded Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
+	clothing_traits = list(TRAIT_MESON_VISION)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo
 	name = "shaded Tajaran mining meson veil"
