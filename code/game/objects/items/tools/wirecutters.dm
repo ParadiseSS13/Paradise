@@ -36,7 +36,7 @@
 /obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/mob = target
 	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user]w cuts [mob]'s restraints with [src]!</span>")
+		user.visible_message("<span class='notice'>[user] cuts [mob]'s restraints with [src]!</span>")
 		QDEL_NULL(mob.handcuffed)
 		if(mob.buckled && mob.buckled.buckle_requires_restraints)
 			mob.unbuckle()
