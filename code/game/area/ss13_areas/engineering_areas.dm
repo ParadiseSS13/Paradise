@@ -40,7 +40,7 @@
 	sound_environment = SOUND_AREA_ASTEROID
 	
 /area/station/engineering/atmos/canister_storage
-	name = "Atmospherics Cannister Storage"
+	name = "Atmospherics Canister Storage"
 	icon_state = "atmos"
 
 // general engineering
