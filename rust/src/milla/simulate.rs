@@ -323,11 +323,10 @@ pub(crate) fn post_process(
             let my_next_tile = next.get_tile_mut(my_index);
 
             // Track how much "fuel" was burnt across all reactions.
-            fuel_burnt = react(my_next_tile, true);
-            fuel_burnt += react(my_next_tile, false);
-
-            // Remove any unnecessary hotspots.
-            consider_delete_hotspot(my_next_tile);
+            fuel_burnt = react(my_next_tile, false);
+            if my_next_tile.hotspot_volume > 0.0 {
+                fuel_burnt += react(my_next_tile, true);
+            }
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
@@ -519,15 +518,6 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
     let mut cached_temperature: f32;
     let mut thermal_energy: f32;
     if hotspot_step {
-        if my_next_tile.hotspot_volume <= 0.0
-            || my_next_tile.hotspot_temperature <= my_next_tile.temperature()
-        {
-            // No need for a hotspot.
-            my_next_tile.hotspot_temperature = 0.0;
-            my_next_tile.hotspot_volume = 0.0;
-            return 0.0;
-        }
-
         fraction = my_next_tile.hotspot_volume;
         hotspot_boost = PLASMA_BURN_HOTSPOT_RATIO_BOOST;
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
@@ -655,21 +645,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
     }
 
     if hotspot_step {
-        if fuel_burnt == 0.0 {
-            // No need for a hotspot.
-            // Dump the excess energy into the tile.
-            my_next_tile.thermal_energy += thermal_energy
-                - (my_next_tile.hotspot_temperature - my_next_tile.temperature())
-                    * cached_heat_capacity;
-            // Delete the hotspot.
-            my_next_tile.hotspot_temperature = 0.0;
-            my_next_tile.hotspot_volume = 0.0;
-            return 0.0;
-        }
-        adjust_hotspot(
-            my_next_tile,
-            thermal_energy - my_next_tile.hotspot_temperature * cached_heat_capacity,
-        );
+        adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
@@ -788,17 +764,46 @@ pub(crate) fn superconduct(my_tile: &mut Tile, their_tile: &mut Tile, is_east: b
     }
 }
 
-pub(crate) fn consider_delete_hotspot(tile: &mut Tile) {
+pub(crate) fn normalise_hotspot(tile: &mut Tile) {
     if tile.hotspot_volume <= 0.0 || tile.hotspot_temperature <= tile.temperature() {
+        // Unnecesary hotspot.
         tile.hotspot_temperature = 0.0;
         tile.hotspot_volume = 0.0;
         return;
     }
-    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP || !is_significant(tile, GAS_TOXINS) || !is_significant(tile, GAS_OXYGEN) {
-        let excess_thermal_energy = tile.hotspot_volume * (tile.hotspot_temperature - tile.temperature()) * tile.heat_capacity();
-        tile.thermal_energy += excess_thermal_energy;
+
+    if tile.hotspot_volume >= 1.0 {
+        // Hotspot has expanded to fill the tile.
+        tile.thermal_energy = tile.hotspot_temperature * tile.heat_capacity();
         tile.hotspot_temperature = 0.0;
         tile.hotspot_volume = 0.0;
+        return;
+    }
+
+    let optimal_thermal_energy = PLASMA_BURN_OPTIMAL_TEMP * tile.heat_capacity();
+    let hotspot_extra_thermal_energy = tile.hotspot_volume * (tile.hotspot_temperature - tile.temperature()) * tile.heat_capacity();
+    if tile.thermal_energy + hotspot_extra_thermal_energy >= optimal_thermal_energy {
+        // Hotspot has done its job, dump the remaining heat into the tile.
+        tile.thermal_energy += hotspot_extra_thermal_energy;
+        tile.hotspot_temperature = 0.0;
+        tile.hotspot_volume = 0.0;
+        return;
+    }
+
+    let hotspot_thermal_energy = tile.hotspot_volume * tile.hotspot_temperature * tile.heat_capacity();
+    if tile.hotspot_temperature > PLASMA_BURN_OPTIMAL_TEMP {
+        // Use excess heat to expand the hotspot.
+        tile.hotspot_volume = hotspot_thermal_energy / optimal_thermal_energy;
+        tile.hotspot_temperature = PLASMA_BURN_OPTIMAL_TEMP;
+        return;
+    }
+
+    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP || !is_significant(tile, GAS_TOXINS) || !is_significant(tile, GAS_OXYGEN) {
+        // Hotspot can't sustain combustion.
+        tile.thermal_energy += hotspot_extra_thermal_energy;
+        tile.hotspot_temperature = 0.0;
+        tile.hotspot_volume = 0.0;
+        return;
     }
 }
 
@@ -807,61 +812,33 @@ pub(crate) fn consider_delete_hotspot(tile: &mut Tile) {
 // to expand volume up to 1 (filled), and finally dumped into the tile's thermal energy.
 // For negative values, only the hotspot's volume is affected.
 pub(crate) fn adjust_hotspot(tile: &mut Tile, thermal_energy_delta: f32) {
-    let avg_heat_capacity = tile.heat_capacity() / TILE_VOLUME;
-
     if thermal_energy_delta < 0.0 {
+        if tile.hotspot_volume <= 0.0 {
+            // No hotspot to sap heat from.
+            return;
+        }
         // Shrink volume accordingly.
         // How much heat do we need to fill the whole tile?
-        let total_heat_needed = avg_heat_capacity * tile.hotspot_temperature * TILE_VOLUME;
+        let total_heat_needed = tile.heat_capacity() * tile.hotspot_temperature;
         // How much heat do we have now?
-        let heat_available = avg_heat_capacity * tile.hotspot_temperature * tile.hotspot_volume
+        let heat_available = tile.heat_capacity() * tile.hotspot_temperature * tile.hotspot_volume
             + thermal_energy_delta;
         // We fill that portion of the tile.
-        tile.hotspot_volume = heat_available / total_heat_needed;
-        return;
-    }
-
-    // Figure out how much heat we need to reach optimal temp.
-    let temperature_delta =
-        PLASMA_BURN_OPTIMAL_TEMP - tile.hotspot_temperature.min(PLASMA_BURN_OPTIMAL_TEMP);
-    let heating_needed = avg_heat_capacity * temperature_delta * tile.hotspot_volume;
-
-    if heating_needed <= thermal_energy_delta {
-        // Heat the hotspot to optimal.
-        tile.hotspot_temperature = PLASMA_BURN_OPTIMAL_TEMP;
-        let mut remaining_thermal_energy = thermal_energy_delta - heating_needed;
-
-        // Expand to new volume.
-        // How much heat do we need to fill the whole tile?
-        let total_heat_needed = avg_heat_capacity * PLASMA_BURN_OPTIMAL_TEMP * TILE_VOLUME;
-        // How hot is the tile?
-        let tile_temperature = tile.thermal_energy / (avg_heat_capacity * TILE_VOLUME);
-        // How much thermal energy does the hotspot have, in addition to the tile's thermal energy?
-        let hotspot_thermal_energy = avg_heat_capacity
-            * tile.hotspot_volume
-            * (tile.hotspot_temperature - tile_temperature);
-        // How much heat do we have total?
-        let heat_available =
-            tile.thermal_energy + hotspot_thermal_energy + remaining_thermal_energy;
-        if total_heat_needed <= heat_available {
-            // We can fill the tile!
-            // Overflow thermal energy.
-            remaining_thermal_energy = heat_available - total_heat_needed;
-            // Heat the tile up to match.
-            tile.thermal_energy =
-                avg_heat_capacity * PLASMA_BURN_OPTIMAL_TEMP * TILE_VOLUME + remaining_thermal_energy;
-            // Destroy the hotspot.
-            tile.hotspot_temperature = 0.0;
-            tile.hotspot_volume = 0.0;
-        } else {
-            // Fill up the tile as much as we can.
-            tile.hotspot_volume = heat_available / total_heat_needed;
-        }
+        tile.hotspot_volume = (heat_available / total_heat_needed).max(0.0);
+    } else if tile.hotspot_volume > 0.0 {
+        // Heat up the hotspot; it'll expand when normalised.
+        tile.hotspot_temperature += thermal_energy_delta / (tile.heat_capacity() * tile.hotspot_volume);
+    } else if tile.temperature() > PLASMA_BURN_OPTIMAL_TEMP {
+        // No need to make a hotspot, just heat the tile.
+        tile.thermal_energy += thermal_energy_delta;
     } else {
-        // Heat the hotspot as much as we can.
-        tile.hotspot_temperature +=
-            thermal_energy_delta / (tile.hotspot_volume * avg_heat_capacity);
+        // Create an optimal hotspot with the available energy.
+        let optimal_thermal_energy = PLASMA_BURN_OPTIMAL_TEMP * tile.heat_capacity();
+        tile.hotspot_temperature = PLASMA_BURN_OPTIMAL_TEMP;
+        tile.hotspot_volume = thermal_energy_delta / (optimal_thermal_energy - tile.thermal_energy);
     }
+
+    normalise_hotspot(tile);
 }
 
 // Yay, tests!

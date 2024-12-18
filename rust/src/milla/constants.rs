@@ -123,7 +123,7 @@ pub(crate) const PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY: f32 = 10.0;
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
 
 /// How much of the plasma do we burn anyway if the ratio would make it really small?
-pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.1;
+pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 1.0;
 
 /// How much of a boost to burn ratio do we give to hotspots?
 pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
@@ -171,18 +171,18 @@ pub(crate) const THERMAL_CHANGE_SIGNIFICANCE: f32 = 0.1;
 pub(crate) const THERMAL_CHANGE_SIGNIFICANCE_FRACTION: f32 = 0.001;
 
 /// How strongly we want to diffuse gas types across equal pressure tiles.
-pub(crate) const DIFFUSION_FACTOR: f32 = 0.1;
+pub(crate) const DIFFUSION_FACTOR: f32 = 0.5;
 
 /// How strongly we want the pressure+wind bias to move gases across tiles.
 pub(crate) const BIAS_FACTOR: f32 = 10.0;
 
 /// How much the previous tick's wind contributes to this tick's bias.
-pub(crate) const OLD_WIND_FACTOR: f32 = 0.99;
+pub(crate) const OLD_WIND_FACTOR: f32 = 0.95;
 /// How much this tick's pressure difference contributes to this tick's bias.
-pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.05;
+pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.1;
 
 /// How much are we willing to bias?
-pub(crate) const MAX_BIAS: f32 = 10.0;
+pub(crate) const MAX_BIAS: f32 = 1.0;
 
 /// How much air can flow between tiles before we start softcapping it, roughly in kPa?
 pub(crate) const AIRFLOW_SOFTCAP: f32 = 100.0;

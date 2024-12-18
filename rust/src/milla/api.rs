@@ -456,7 +456,7 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) {
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_temperature = conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot temperature is required.."))?;
-    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot volume is required.."))?;
+    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?.ok_or(eyre!("Hotspot volume is required.."))?;
 
     internal_create_hotspot(x as i32 - 1, y as i32 - 1, z as i32 - 1, rust_temperature, rust_volume / TILE_VOLUME)?;
     Ok(Default::default())
@@ -491,7 +491,9 @@ pub(crate) fn internal_create_hotspot(x: i32, y: i32, z: i32, temperature: f32, 
     }
 
     let excess_thermal_energy = (temperature - tile.temperature()) * tile.heat_capacity() * volume;
-    simulate::adjust_hotspot(tile, excess_thermal_energy);
+    if excess_thermal_energy > 0.0 {
+        simulate::adjust_hotspot(tile, excess_thermal_energy);
+    }
 
     Ok(())
 }
