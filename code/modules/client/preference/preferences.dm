@@ -749,6 +749,9 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		total_cost += added_cost
 	return total_cost
 
+/datum/preferences/proc/get_quirk_balance()
+	var/point_total = 0
+
 /datum/preferences/proc/init_keybindings(overrides, raw)
 	if(raw)
 		try
