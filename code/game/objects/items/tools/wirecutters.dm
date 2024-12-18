@@ -34,9 +34,6 @@
 		icon_state = "cutters_[param_color]"
 
 /obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return NONE
-	
 	var/mob/living/carbon/mob = target
 	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user]w cuts [mob]'s restraints with [src]!</span>")
@@ -44,7 +41,7 @@
 		if(mob.buckled && mob.buckled.buckle_requires_restraints)
 			mob.unbuckle()
 		mob.update_handcuffed()
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else
 		return NONE
 
