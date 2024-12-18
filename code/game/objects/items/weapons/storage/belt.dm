@@ -135,6 +135,14 @@
 	new /obj/item/extinguisher/mini(src)
 	update_icon()
 
+/obj/item/storage/belt/utility/brass/populate_contents()
+	new /obj/item/wrench/brass(src)
+	new /obj/item/crowbar/brass(src)
+	new /obj/item/screwdriver/brass(src)
+	new /obj/item/weldingtool/experimental/brass(src)
+	new /obj/item/wirecutters/brass(src)
+	update_icon()
+
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
 	desc = "Holds tools, looks snazzy, and fits nicely into a bag."
