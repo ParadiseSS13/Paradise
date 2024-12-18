@@ -223,7 +223,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aY" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/scalpel,
 /obj/structure/table,

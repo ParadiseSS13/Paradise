@@ -746,7 +746,7 @@
 
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
-	result = list(/obj/item/clothing/accessory/necklace/talisman)
+	result = list(/obj/item/clothing/accessory/talisman)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/sinew = 1)
@@ -754,7 +754,7 @@
 
 /datum/crafting_recipe/bonecodpiece
 	name = "Skull Codpiece"
-	result = list(/obj/item/clothing/accessory/necklace/skullcodpiece)
+	result = list(/obj/item/clothing/accessory/skullcodpiece)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
