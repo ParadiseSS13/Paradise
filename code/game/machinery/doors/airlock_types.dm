@@ -487,6 +487,29 @@
 	security_level = 1
 	paintable = FALSE
 
+// MARK: Clockwork Airlocks
+
+/obj/machinery/door/airlock/clockwork
+	name = "pinion airlock"
+	desc = "A massive cogwheel set into two heavy slabs of brass."
+	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
+	paintable = FALSE
+
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/door(loc)
+
+/obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+	if(..())
+		new /obj/effect/temp_visual/ratvar/door(loc)
+		return TRUE
+
+/obj/machinery/door/airlock/clockwork/glass
+	glass = TRUE
+	opacity = FALSE
+
 //////////////////////////////////
 /*
 	MARK: Cult Airlocks

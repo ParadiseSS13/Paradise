@@ -196,7 +196,8 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 3,
 					/obj/item/clothing/under/plasmaman/medical = 3)
 
-	contraband = list(/obj/item/toy/figure/crew/md = 1)
+	contraband = list(/obj/item/toy/figure/crew/md = 1,
+					/obj/item/toy/figure/crew/cmo = 1)
 
 	prices = list(/obj/item/clothing/under/rank/medical/doctor = 50,
 				/obj/item/clothing/under/rank/medical/doctor/skirt = 50,

@@ -22,7 +22,7 @@ const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   const { supermatters = [] } = data;
   return (
-    <Window width={450} height={185}>
+    <Window width={450} height={250}>
       <Window.Content scrollable>
         <Section
           fill
@@ -67,13 +67,13 @@ const SupermatterMonitorListView = (props, context) => {
 
 const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, SM_integrity, SM_power, SM_ambienttemp, SM_ambientpressure } = data;
+  const { active, SM_integrity, SM_power, SM_ambienttemp, SM_ambientpressure, SM_moles, SM_gas_coefficient } = data;
   const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(
     data.gases || []
   );
-  const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.amount));
+  const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.portion));
   return (
-    <Window width={550} height={185}>
+    <Window width={550} height={250}>
       <Window.Content>
         <Stack fill>
           <Stack.Item width="270px">
@@ -103,6 +103,20 @@ const SupermatterMonitorDataView = (props, context) => {
                     {toFixed(SM_power) + ' MeV/cm3'}
                   </ProgressBar>
                 </LabeledList.Item>
+                <LabeledList.Item label="Gas Coefficient">
+                  <ProgressBar
+                    value={SM_gas_coefficient}
+                    minValue={1}
+                    maxValue={5.25}
+                    ranges={{
+                      bad: [1, 1.55],
+                      average: [1.55, 5.25],
+                      good: [5.25, Infinity],
+                    }}
+                  >
+                    {SM_gas_coefficient.toFixed(2)}
+                  </ProgressBar>
+                </LabeledList.Item>
                 <LabeledList.Item label="Temperature">
                   <ProgressBar
                     value={logScale(SM_ambienttemp)}
@@ -116,6 +130,21 @@ const SupermatterMonitorDataView = (props, context) => {
                     }}
                   >
                     {toFixed(SM_ambienttemp) + ' K'}
+                  </ProgressBar>
+                </LabeledList.Item>
+                <LabeledList.Item label="Mole Per Tile">
+                  <ProgressBar
+                    value={SM_moles}
+                    minValue={0}
+                    maxValue={12000}
+                    ranges={{
+                      teal: [-Infinity, 100],
+                      average: [100, 11333],
+                      good: [11333, 12000],
+                      bad: [12000, Infinity],
+                    }}
+                  >
+                    {toFixed(SM_moles) + ' mol'}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Pressure">
@@ -145,8 +174,8 @@ const SupermatterMonitorDataView = (props, context) => {
               <LabeledList>
                 {gases.map((gas) => (
                   <LabeledList.Item key={gas.name} label={getGasLabel(gas.name)}>
-                    <ProgressBar color={getGasColor(gas.name)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
-                      {toFixed(gas.amount, 2) + '%'}
+                    <ProgressBar color={getGasColor(gas.name)} value={gas.portion} minValue={0} maxValue={gasMaxAmount}>
+                      {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
                     </ProgressBar>
                   </LabeledList.Item>
                 ))}
