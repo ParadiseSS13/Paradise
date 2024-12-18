@@ -16118,7 +16118,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bfw" = (
 /obj/machinery/light{
 	dir = 1
@@ -18519,7 +18519,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bmO" = (
 /obj/structure/table,
 /obj/item/storage/box/prisoner,
@@ -19431,7 +19431,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bpS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -19942,17 +19942,17 @@
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "brO" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "brP" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "brR" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/sign/nosmoking_2{
@@ -19960,7 +19960,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "brS" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
@@ -20404,7 +20404,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "btt" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/structure/cable{
@@ -20415,7 +20415,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "btu" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/structure/cable{
@@ -20427,17 +20427,17 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "btv" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "btw" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "btx" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -20705,7 +20705,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "buE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20718,7 +20718,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "buF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -21009,7 +21009,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bvO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21020,7 +21020,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bvP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -21035,7 +21035,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bvR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21045,7 +21045,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bvT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21407,14 +21407,14 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bxc" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bxe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -21862,7 +21862,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "byB" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -21876,7 +21876,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "byC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -21887,7 +21887,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "byD" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -21902,7 +21902,7 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "byF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -22353,7 +22353,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bzY" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -22361,13 +22361,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bzZ" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bAa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -22385,7 +22385,7 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bAd" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -22860,7 +22860,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bBK" = (
 /obj/machinery/alarm/directional/south,
 /obj/machinery/computer/station_alert{
@@ -22869,7 +22869,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bBL" = (
 /obj/machinery/light,
 /obj/machinery/computer/atmos_alert{
@@ -22879,7 +22879,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bBM" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen,
@@ -22890,7 +22890,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bBN" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -22903,7 +22903,7 @@
 	dir = 6;
 	icon_state = "caution"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "bBO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -51282,7 +51282,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "dxD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -52085,7 +52085,7 @@
 "dCK" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "dCU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -59070,7 +59070,7 @@
 "fvB" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "fvQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -59981,7 +59981,7 @@
 	},
 /obj/machinery/power/apc/important/directional/east,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "fRa" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67455,7 +67455,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "kna" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69430,7 +69430,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "ltY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -75368,7 +75368,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "oLv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -77120,7 +77120,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "pHd" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -79107,7 +79107,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "qQv" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -79969,7 +79969,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "rkt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/bluegrid{
@@ -80396,7 +80396,7 @@
 /area/station/security/prisonershuttle)
 "rvv" = (
 /turf/simulated/wall/r_wall,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "rvx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -82985,7 +82985,7 @@
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "sIB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -86503,7 +86503,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "uwm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -89440,7 +89440,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/cannisterstorage)
+/area/station/engineering/atmos/canisterstorage)
 "wbZ" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
