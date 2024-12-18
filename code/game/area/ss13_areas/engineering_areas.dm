@@ -39,7 +39,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	sound_environment = SOUND_AREA_ASTEROID
 	
-/area/station/engineering/atmos/cannisterstorage
+/area/station/engineering/atmos/canister_storage
 	name = "Atmospherics Cannister Storage"
 	icon_state = "atmos"
 
