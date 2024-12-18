@@ -51,6 +51,7 @@
 	name = "brass wrench"
 	desc = "A brass wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
+	belt_icon = "wrench_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
