@@ -66,6 +66,33 @@
 		if(ITEM_SLOT_RIGHT_HAND)
 			return put_in_r_hand(I)
 
+/// Swapping items between hands.
+///
+/// I can't believe there needs to be a unique implementation for this one
+/// specific use case but all the equipping/unequipping procs are too tightly
+/// coupled with other garbage and expectations
+/mob/proc/swap_item_between_hands()
+	var/obj/item/I = get_inactive_hand()
+	if(!put_in_hand_check(I))
+		return FALSE
+
+	if(I == r_hand)
+		r_hand = null
+		l_hand = I
+		update_inv_r_hand()
+		update_inv_l_hand()
+		I.equipped(src, ITEM_SLOT_LEFT_HAND)
+		return TRUE
+	else if(I == l_hand)
+		l_hand = null
+		r_hand = I
+		update_inv_l_hand()
+		update_inv_r_hand()
+		I.equipped(src, ITEM_SLOT_RIGHT_HAND)
+		return TRUE
+
+	return FALSE // What did you do to get here
+
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))
@@ -166,12 +193,19 @@
 
 	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
+/// Unequip an item from the hand that the item is found in.
+/// `force` overrides NODROP for things like wizarditis and admin undress.
+/// `destination` allows for items to be unequipped directly into storage and should only be used for that.
+/// Horrid stop-gap until we get atom storage or something.
+/mob/proc/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination = null)
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
 	if(!canUnEquip(I, force))
 		return 0
+
+	if(isnull(destination))
+		destination = drop_location()
 
 	if(I == r_hand)
 		r_hand = null
@@ -181,12 +215,12 @@
 		update_inv_l_hand()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
-		unEquip(tkgrab, force)
+		unEquip(tkgrab, force, silent, destination)
 
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(drop_location())
+		I.forceMove(destination)
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)

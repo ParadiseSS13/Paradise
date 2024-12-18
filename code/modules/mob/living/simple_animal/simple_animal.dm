@@ -504,7 +504,7 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination = null)
 	. = ..()
 	if(!. || !I)
 		return
