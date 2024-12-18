@@ -109,6 +109,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+	if(HAS_TRAIT(possible_target.current, TRAIT_CRYO_DESPAWNING))
+		return TARGET_CRYOING
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -165,9 +167,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	target = null
 	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
 
-/**
-  * Called a tick after when the objective's target goes to cryo.
-  */
 /datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
 	if(!target)
@@ -483,7 +482,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/escape/escape_with_identity
-	name = null
+	name = "Escape With Identity"
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
 	/// If the objective has an assassinate objective tied to it.
@@ -833,7 +832,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
-	name = "Spread blood"
+	name = "Drink blood"
 	needs_target = FALSE
 
 /datum/objective/blood/New()

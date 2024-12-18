@@ -22395,7 +22395,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bPo" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -43547,7 +43547,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "dEi" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -90345,10 +90345,6 @@
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"rkU" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "rkV" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/barricade/wooden{
@@ -160157,7 +160153,7 @@ aaa
 dij
 aaa
 aaa
-rkU
+abj
 aaa
 aaa
 ace
@@ -160165,7 +160161,7 @@ acf
 acG
 aaa
 aaa
-rkU
+abj
 aaa
 aaa
 abj
@@ -167519,8 +167515,8 @@ cPS
 cPS
 cPS
 cPC
-wXe
-wXe
+aaa
+aaa
 abj
 abj
 cTN
@@ -168295,7 +168291,7 @@ abj
 aaa
 aaa
 daG
-rkU
+abj
 cTN
 ewF
 ics

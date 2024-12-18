@@ -351,7 +351,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bc" = (
 /obj/structure/lattice,
 /turf/space,
@@ -521,7 +521,7 @@
 	anchored = 0
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "bB" = (
 /obj/machinery/cryopod/offstation{
 	icon_state = "sleeper_s";
@@ -1414,7 +1414,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "eO" = (
-/obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/space)
@@ -1577,7 +1576,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "fq" = (
 /obj/structure/sign/poster/official/random/north,
 /obj/effect/decal/cleanable/blood,
@@ -2231,7 +2230,7 @@
 /obj/structure/inflatable/door,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "hh" = (
 /obj/machinery/conveyor/northwest/ccw{
 	dir = 5;
@@ -3229,7 +3228,7 @@
 "kf" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kg" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -3303,7 +3302,7 @@
 	id = "CenterBridge"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ku" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -3743,7 +3742,7 @@
 "lS" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lT" = (
 /obj/machinery/economy/vending/cigarette/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4128,7 +4127,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "nm" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/blood/oil,
@@ -5062,7 +5061,7 @@
 "qt" = (
 /obj/structure/inflatable,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "qu" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
@@ -5095,7 +5094,7 @@
 	id = "BSAdown"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "qB" = (
 /obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
@@ -5437,7 +5436,7 @@
 /obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/space)
+/area/space/nearstation)
 "rJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
@@ -5873,7 +5872,7 @@
 	},
 /obj/item/kirbyplants,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "to" = (
 /obj/structure/rack,
 /obj/item/ammo_box/c9mm,
@@ -6209,7 +6208,7 @@
 /obj/structure/girder/reinforced,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "up" = (
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
@@ -6374,7 +6373,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "uT" = (
 /obj/structure/closet/crate/can,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
@@ -7003,7 +7002,7 @@
 "wU" = (
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "wV" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -7403,7 +7402,7 @@
 "yq" = (
 /obj/structure/computerframe,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yr" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
 /turf/space,
@@ -7490,7 +7489,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/unary/outlet_injector,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "yG" = (
 /turf/space,
 /area/space)
@@ -7624,7 +7623,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "zd" = (
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating/airless,
@@ -7715,7 +7714,7 @@
 "zq" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "zr" = (
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/space_battle/sec_storage)
@@ -8877,7 +8876,7 @@
 "Dg" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Dh" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
@@ -9142,7 +9141,7 @@
 	id = "hangar"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Eb" = (
 /obj/structure/window/plasmareinforced{
 	color = "red";
@@ -9604,7 +9603,7 @@
 	},
 /obj/item/stack/cable_coil,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Fy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10084,7 +10083,7 @@
 "GW" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "GX" = (
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
@@ -10530,7 +10529,7 @@
 "Iq" = (
 /obj/structure/disposalpipe/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Ir" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -10685,7 +10684,7 @@
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "IQ" = (
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -10809,7 +10808,7 @@
 "Jl" = (
 /obj/structure/inflatable/door,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "Jn" = (
 /obj/structure/gunrack,
 /obj/machinery/light/small/directional/west,
@@ -11268,7 +11267,7 @@
 "KU" = (
 /obj/structure/door_assembly/door_assembly_sec,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "KV" = (
 /obj/machinery/porta_turret/syndicate,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -11282,7 +11281,7 @@
 	density = 0
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "KY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11428,7 +11427,7 @@
 	opened = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Ls" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway1)
@@ -11822,7 +11821,7 @@
 	id = "pod1"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "MD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -12290,7 +12289,7 @@
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "NZ" = (
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -13993,7 +13992,7 @@
 /obj/structure/lattice,
 /obj/item/stack/sheet/plastitaniumglass,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "TK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -14081,7 +14080,7 @@
 "TY" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "TZ" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -14871,7 +14870,7 @@
 	id = "BSAup"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "WC" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -15283,9 +15282,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway10)
 "XS" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/machinery/porta_turret/syndicate,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "XT" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo4"
@@ -46597,7 +46596,7 @@ LM
 LM
 LM
 Kj
-aV
+yG
 yG
 yG
 yG
@@ -46854,7 +46853,7 @@ LM
 LM
 LM
 Kj
-aV
+yG
 yG
 yG
 yG
@@ -63296,7 +63295,7 @@ Jd
 BN
 BN
 Jd
-XS
+Jc
 yG
 yG
 yG
@@ -63557,7 +63556,7 @@ Ks
 Ks
 Ks
 lu
-ps
+XS
 yG
 yG
 yG
@@ -63815,7 +63814,7 @@ AF
 lp
 Ks
 lu
-ps
+XS
 yG
 yG
 Ks
@@ -63834,7 +63833,7 @@ Ks
 Ks
 Ks
 Ks
-ps
+XS
 yG
 yG
 yG
@@ -66128,7 +66127,7 @@ EH
 hR
 Ks
 lu
-ps
+XS
 yG
 yG
 Ks
@@ -66147,7 +66146,7 @@ Ks
 Ks
 Ks
 Ks
-ps
+XS
 yG
 yG
 yG
@@ -66384,7 +66383,7 @@ Ks
 Ks
 Ks
 lu
-ps
+XS
 yG
 yG
 yG
@@ -75206,7 +75205,7 @@ yG
 yG
 yG
 yG
-ps
+XS
 Nu
 QF
 ks
@@ -75216,7 +75215,7 @@ ks
 ks
 av
 Nu
-ps
+XS
 yG
 yG
 yG

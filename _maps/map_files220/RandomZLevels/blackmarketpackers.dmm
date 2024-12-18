@@ -2211,7 +2211,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gB" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -3639,7 +3639,7 @@
 	},
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "pc" = (
 /obj/item/food/grown/banana,
 /obj/item/food/grown/banana{
@@ -5409,7 +5409,7 @@
 "Fp" = (
 /obj/structure/table/tray,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Fs" = (
 /obj/machinery/light/small/directional/north,
 /obj/item/reagent_containers/pill/charcoal,

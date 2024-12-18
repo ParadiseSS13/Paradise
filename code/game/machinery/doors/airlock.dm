@@ -1406,12 +1406,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
-		return
+		return FALSE
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
 	sleep(6)
 	if(QDELETED(src))
-		return
+		return FALSE
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
