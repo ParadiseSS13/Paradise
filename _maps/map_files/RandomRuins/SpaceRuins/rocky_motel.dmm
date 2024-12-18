@@ -95,6 +95,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
+"ic" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/ruin/space/powered)
 "iY" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
@@ -229,6 +233,12 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"AF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
 "Cq" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -274,6 +284,13 @@
 	dir = 6;
 	icon_state = "black"
 	},
+/area/ruin/space/powered)
+"EZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Gh" = (
 /obj/structure/disposalpipe/segment{
@@ -332,9 +349,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/powered)
-"JY" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
 "Kh" = (
 /obj/structure/safe/floor,
 /obj/item/stack/spacecash/c200,
@@ -376,6 +390,12 @@
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
+"Sg" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
 "Sk" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/plastitanium,
@@ -407,6 +427,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/powered)
+"TK" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "TQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -426,6 +452,7 @@
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -675,7 +702,7 @@ XP
 Yu
 Ya
 Ya
-Ya
+Sg
 Ya
 Ya
 Ya
@@ -835,7 +862,7 @@ CF
 zx
 zx
 zx
-zx
+ic
 zx
 gY
 DV
@@ -943,7 +970,7 @@ CF
 zx
 zx
 zx
-JY
+TT
 Ed
 zx
 kP
@@ -997,7 +1024,7 @@ Ya
 Ya
 CF
 zx
-JY
+TT
 zx
 Ya
 Aa
@@ -1024,7 +1051,7 @@ vN
 Ya
 gs
 Id
-Vl
+EZ
 PM
 Ya
 qN
@@ -1034,7 +1061,7 @@ Ml
 PM
 vN
 vN
-vN
+AF
 vN
 vN
 vN
@@ -1056,7 +1083,7 @@ ph
 Ya
 vN
 vN
-vN
+TK
 vN
 vN
 vN
