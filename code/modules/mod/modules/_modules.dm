@@ -305,9 +305,9 @@
 		return
 	var/image/final_overlay
 	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
-		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	else
-		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	if(mod_color_overide)
 		final_overlay.color = mod_color_overide
 	. += final_overlay
