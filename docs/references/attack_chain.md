@@ -32,10 +32,13 @@ The core of the attack chain commences:
    `COMSIG_INTERACT_USER`. If any listeners request it (usually by returning a
    non-null value), the attack chain may end here.
 5. If the target implements `item_interaction()`, it is called here, and can
-   return one of the `ITEM_INTERACT_` flags to end the attack chain.
+   either return `ITEM_INTERACT_COMPLETE` to end the attack chain, or
+   `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` to skip all phases of the attack chain
+   except for after-attack.
 6. If the item being used on the target implements `interact_with_atom()`, it is
-   called here, and can return one of the `ITEM_INTERACT_` flags to end the
-   attack chain.
+   called here, and can either return `ITEM_INTERACT_COMPLETE` to end the attack
+   chain, or `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` to skip all phases of the
+   attack chain except for after-attack.
 
 The above steps can generally be considered the "item interaction phase", when
 the action is not meant to cause in-game harm to the target. If the attack chain
@@ -89,12 +92,16 @@ into the attack chain.
 
 ### ITEM_INTERACT flags
 
-One may also ask why there are several `ITEM_INTERACT_` flags if returning any
-of them always results in the end of the attack chain. This is for two reasons:
+One may also ask why the `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` flag is necessary.
+Pre-migration, a common pattern was for an object to skip certain items in its
+`attackby`, and let those items handle the interaction in their `afterattack`.
+Some examples of this include:
 
-1. To make it clear at the call site what the intent of the code is, and
-2. So that in the future, if we do wish to separate the behavior of these flags,
-   we do not need to refactor all of the call sites.
+- Mountable frames being "ignored" in `/turf/attackby`, in order to let
+  `/obj/item/mounted/frame/afterattack` handle its specific behavior.
+- Reagent containers being "ignored" in various machines' `attackby`, in order
+  to let the container's `afterattack` handle reagent transfer or other specific
+  behavior.
 
 ## Attack Chain Refactor
 
@@ -257,33 +264,33 @@ at each junction whenever we have handled the item interaction.
  		if(mybag)
  			to_chat(user, fail_msg)
 -			return
-+			return ITEM_INTERACT_BLOCKING
++			return ITEM_INTERACT_COMPLETE
  		if(!user.drop_item())
 -			return
-+			return ITEM_INTERACT_BLOCKING
++			return ITEM_INTERACT_COMPLETE
  		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
  		I.forceMove(src)
  		mybag = I
  		update_icon(UPDATE_OVERLAYS)
 -		return
-+		return ITEM_INTERACT_SUCCESS
++		return ITEM_INTERACT_COMPLETE
 +
  	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
  		if(buffer_installed)
  			to_chat(user, fail_msg)
 -			return
-+			return ITEM_INTERACT_BLOCKING
++			return ITEM_INTERACT_COMPLETE
  		buffer_installed = TRUE
  		qdel(I)
  		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
  		update_icon(UPDATE_OVERLAYS)
 -		return
 -	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
-+		return ITEM_INTERACT_SUCCESS
++		return ITEM_INTERACT_COMPLETE
 +
 +	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
 +		mybag.attackby__legacy__attackchain(I, user)
-+		return ITEM_INTERACT_ANY_BLOCKER
++		return ITEM_INTERACT_COMPLETE
 +
 +	return ..()
 ```

@@ -712,6 +712,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)
