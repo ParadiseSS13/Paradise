@@ -124,5 +124,6 @@
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
 
 
-// datum/component/label
+/// /datum/component/label
+/// Called when a handlabeler is used on an item when off
 #define COMSIG_LABEL_REMOVE "label_remove"

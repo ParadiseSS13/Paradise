@@ -11,42 +11,39 @@
 
 /obj/item/hand_labeler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There [labels_left == 1 ? "is" : "are"] [labels_left] label[labels_left == 1 ? "" : "s"] remaining.</span>"
+	. += "<span class='notice'>There [labels_left == 1 ? "is" : "are"] [labels_left] label\s remaining.</span>"
 	if(label)
 		. += "<span class='notice'>The label is currently set to \"[label]\".</span>"
 	
 /obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return NONE
-
 	if(mode == LABEL_MODE_OFF)
 		if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE))
 			playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
 			to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(!labels_left)
 		to_chat(user, "<span class='warning'>No labels left!</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 	if(!label || !length(label))
 		to_chat(user, "<span class='warning'>No text set!</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 	if(ismob(target))
 		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(mode == LABEL_MODE_GOAL)
 		if(istype(target, /obj/item))
 			to_chat(user, "<span class='warning'>Put it in a personal crate instead!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
 		target.AddComponent(/datum/component/label/goal, label)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(length(target.name) + length(label) > 64)
 		to_chat(user, "<span class='warning'>Label too big!</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message("<span class='notice'>[user] labels [target] as [label].</span>", \
 						"<span class='notice'>You label [target] as [label].</span>")
@@ -54,7 +51,7 @@
 	target.AddComponent(/datum/component/label, label)
 	playsound(target, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
-	return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/hand_labeler/activate_self(mob/user)
 	if(..())
@@ -78,25 +75,25 @@
 
 /obj/item/hand_labeler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(..())
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/hand_labeler_refill))
 		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		user.drop_item()
 		qdel(used)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/id = used
 		if(istype(id, /obj/item/card/id/guest) || !id.registered_name)
 			to_chat(user, "<span class='warning'>Invalid ID card.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		else
 			label = id.registered_name
 			mode = LABEL_MODE_GOAL
 			to_chat(user, "<span class='notice'>You configure the hand labeler with [used].</span>")
 			icon_state = "labeler1"
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/hand_labeler_refill
 	name = "hand labeler paper roll"
