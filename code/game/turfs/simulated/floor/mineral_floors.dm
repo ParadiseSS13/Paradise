@@ -34,14 +34,16 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+/turf/simulated/floor/mineral/plasma/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(attacking.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		ignite(W.get_heat())
-		return
-	..()
+		ignite(attacking.get_heat())
+		return FINISH_ATTACK
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -174,10 +176,11 @@
 		if(istype(M))
 			squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		honk()
+/turf/simulated/floor/mineral/bananium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	honk()
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
@@ -250,10 +253,11 @@
 		if(istype(AM))
 			radiate()
 
-/turf/simulated/floor/mineral/uranium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		radiate()
+/turf/simulated/floor/mineral/uranium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	radiate()
 
 /turf/simulated/floor/mineral/uranium/attack_hand(mob/user)
 	.=..()
