@@ -38,13 +38,13 @@
 	new /obj/item/radio/headset/headset_sci(src)
 
 
-/obj/structure/closet/secure_closet/RD
+/obj/structure/closet/secure_closet/rd
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
 
 
-/obj/structure/closet/secure_closet/RD/populate_contents()
+/obj/structure/closet/secure_closet/rd/populate_contents()
 	new /obj/item/storage/bag/garment/research_director(src)
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)
@@ -52,7 +52,7 @@
 	new /obj/item/radio/headset/heads/rd(src)
 	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/suit/armor/reactive/random(src)
+	new /obj/effect/spawner/reactive_armor(src)
 	new /obj/item/flash(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)

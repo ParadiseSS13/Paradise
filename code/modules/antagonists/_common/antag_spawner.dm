@@ -40,7 +40,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
+/obj/item/antag_spawner/nuke_ops/attack_self__legacy__attackchain(mob/user)
 	if(!(check_usability(user)))
 		return
 
@@ -104,7 +104,7 @@
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
 	. = ..()
-	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndie-bloodhound-preview")
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "spidersyndi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
@@ -187,7 +187,7 @@
 	var/objective_verb = "Kill"
 	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
 
-/obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
+/obj/item/antag_spawner/slaughter_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
@@ -279,7 +279,7 @@
 	var/objective_verb = "Eat"
 	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
 
-/obj/item/antag_spawner/morph/attack_self(mob/user)
+/obj/item/antag_spawner/morph/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
@@ -349,7 +349,7 @@
 	var/objective_verb = "Harvest"
 	var/mob/living/revenant = /mob/living/simple_animal/revenant
 
-/obj/item/antag_spawner/revenant/attack_self(mob/user)
+/obj/item/antag_spawner/revenant/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
@@ -398,7 +398,7 @@
 
 /obj/item/antag_spawner/pulse_demon
 	name = "living lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. It is *heavily* advised not to summon it in maintenance areas."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
@@ -406,7 +406,7 @@
 	var/objective_verb = "Electrocute"
 	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon
 
-/obj/item/antag_spawner/pulse_demon/attack_self(mob/user)
+/obj/item/antag_spawner/pulse_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
@@ -422,7 +422,7 @@
 		return
 
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bulb, waiting for the creature to spark to life...</span>")
+	to_chat(user, "<span class='danger'>You break the seal on the bulb, waiting for the creature to spark to life... you might wish to get to safety!</span>")
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 

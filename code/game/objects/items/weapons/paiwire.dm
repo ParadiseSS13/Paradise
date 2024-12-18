@@ -7,5 +7,5 @@
 	else
 		user.visible_message("[user] dumbly fumbles to find a place on [M] to plug in [src].", "There aren't any ports on [M] that match the jack belonging to [src].")
 
-/obj/item/pai_cable/attack(obj/machinery/M as obj, mob/user as mob)
+/obj/item/pai_cable/attack__legacy__attackchain(obj/machinery/M as obj, mob/user as mob)
 	src.plugin(M, user)

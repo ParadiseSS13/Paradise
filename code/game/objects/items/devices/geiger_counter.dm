@@ -12,7 +12,7 @@
 	icon_state = "geiger_off"
 	item_state = "multitool"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags = NOBLUDGEON
 	materials = list(MAT_METAL = 210, MAT_GLASS = 150)
 
@@ -116,12 +116,12 @@
 	current_tick_amount += amount
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/geiger_counter/attack_self(mob/user)
+/obj/item/geiger_counter/attack_self__legacy__attackchain(mob/user)
 	scanning = !scanning
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>[bicon(src)] You switch [scanning ? "on" : "off"] [src].</span>")
 
-/obj/item/geiger_counter/afterattack(atom/target, mob/user)
+/obj/item/geiger_counter/afterattack__legacy__attackchain(atom/target, mob/user)
 	. = ..()
 	if(user.a_intent == INTENT_HELP)
 		if(!emagged)
@@ -148,7 +148,7 @@
 	else
 		to_chat(user, "<span class='notice'>[bicon(src)] Target is free of radioactive contamination.</span>")
 
-/obj/item/geiger_counter/attackby(obj/item/I, mob/user, params)
+/obj/item/geiger_counter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && emagged)
 		if(scanning)
 			to_chat(user, "<span class='warning'>Turn off [src] before you perform this action!</span>")

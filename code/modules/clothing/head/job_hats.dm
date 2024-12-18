@@ -4,7 +4,7 @@
 	name = "chef's hat"
 	desc = "The commander in chef's head wear."
 	icon_state = "chef"
-	item_state = "chef"
+	item_state = "chefhat"
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
@@ -117,13 +117,13 @@
 	)
 
 //Security
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hos
 	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hos_cap"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"

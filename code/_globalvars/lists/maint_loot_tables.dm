@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 	list(
 		// Rarer items
-		/obj/effect/spawner/random/mod/maint,
+		/obj/effect/spawner/random/mod_maint,
 		/obj/item/clothing/glasses/meson,
 		/obj/item/clothing/head/welding,
 		/obj/item/crowbar/red,

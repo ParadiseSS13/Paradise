@@ -75,16 +75,11 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
-/obj/effect/rune/attackby(obj/I, mob/user, params)
+/obj/effect/rune/attackby__legacy__attackchain(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
-		// Telerunes with portals open
-		if(istype(src, /obj/effect/rune/teleport))
-			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
-			if(T.inner_portal || T.outer_portal)
-				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
-				return
+		if(!can_dagger_erase_rune(user))
+			return
 
-		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
@@ -101,6 +96,9 @@ To draw a rune, use a ritual dagger.
 		qdel(src)
 		return
 	return ..()
+
+/obj/effect/rune/proc/can_dagger_erase_rune(mob/user)
+	return TRUE
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
@@ -360,7 +358,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting
 
 		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-		if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
+		if(H.equip_to_slot_if_possible(D, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE))
 			to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
 		else
 			to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
@@ -452,6 +450,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	QDEL_NULL(inner_portal)
 	QDEL_NULL(outer_portal)
 	return ..()
+
+/obj/effect/rune/teleport/can_dagger_erase_rune(mob/user)
+	// Can't erase telerunes if they have a portal open
+	if(inner_portal || outer_portal)
+		to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+		return FALSE
+	return TRUE
 
 /obj/effect/rune/teleport/invoke(list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
@@ -587,7 +592,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
-		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
+		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic'> [SOULS_TO_REVIVE]</span>"
 
 /obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
 	target.visible_message("<span class='warning'>Dark magic begins to surround [target], regenerating their body.</span>")
@@ -1093,7 +1098,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/attackby__legacy__attackchain(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")

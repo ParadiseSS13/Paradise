@@ -1,4 +1,4 @@
-/datum/action/changeling/absorbDNA
+/datum/action/changeling/absorb_dna
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
 	button_overlay_icon_state = "absorb_dna"
@@ -6,7 +6,7 @@
 	power_type = CHANGELING_INNATE_POWER
 	req_human = TRUE
 
-/datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
+/datum/action/changeling/absorb_dna/can_sting(mob/living/carbon/user)
 	if(!..())
 		return FALSE
 
@@ -24,7 +24,7 @@
 
 	return cling.can_absorb_dna(G.affecting)
 
-/datum/action/changeling/absorbDNA/sting_action(mob/user)
+/datum/action/changeling/absorb_dna/sting_action(mob/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	cling.is_absorbing = TRUE

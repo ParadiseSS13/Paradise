@@ -1,7 +1,7 @@
 /mob/living/simple_animal/shade
 	name = "Shade"
 	real_name = "Shade"
-	desc = "A bound spirit"
+	desc = "A bound spirit."
 	icon = 'icons/mob/cult.dmi'
 	icon_state = "shade"
 	icon_living = "shade"
@@ -33,7 +33,7 @@
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
+/mob/living/simple_animal/shade/attackby__legacy__attackchain(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		SS.transfer_soul("SHADE", src, user)

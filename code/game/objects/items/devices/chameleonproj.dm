@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -25,10 +25,10 @@
 /obj/item/chameleon/equipped()
 	disrupt()
 
-/obj/item/chameleon/attack_self()
+/obj/item/chameleon/attack_self__legacy__attackchain()
 	toggle()
 
-/obj/item/chameleon/afterattack(atom/target, mob/user, proximity)
+/obj/item/chameleon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!check_sprite(target))
@@ -117,7 +117,7 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby()
+/obj/effect/dummy/chameleon/attackby__legacy__attackchain()
 	for(var/mob/M in src)
 		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
@@ -204,7 +204,7 @@
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
+/obj/item/borg_chameleon/attack_self__legacy__attackchain(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(user && user.cell && user.cell.charge > activationCost)
 		if(isturf(user.loc))
 			toggle(user)

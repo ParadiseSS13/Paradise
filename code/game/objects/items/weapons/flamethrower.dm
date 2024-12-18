@@ -74,7 +74,7 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/target, mob/living/user)
+/obj/item/flamethrower/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -121,7 +121,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
+/obj/item/flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
@@ -140,7 +140,7 @@
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
 
-/obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
+/obj/item/flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(isigniter(I))
 		var/obj/item/assembly/igniter/IG = I
 		if(IG.secured)
@@ -206,7 +206,7 @@
 		return ptank.return_analyzable_air()
 	return null
 
-/obj/item/flamethrower/attack_self(mob/user)
+/obj/item/flamethrower/attack_self__legacy__attackchain(mob/user)
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/user)
@@ -269,7 +269,7 @@
 	operating = FALSE
 	for(var/mob/M in viewers(1, loc))
 		if(M.client && M.machine == src)
-			attack_self(M)
+			attack_self__legacy__attackchain(M)
 
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)

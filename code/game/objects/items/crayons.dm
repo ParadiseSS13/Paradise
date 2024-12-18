@@ -11,7 +11,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
 	var/colour = COLOR_RED
@@ -42,7 +42,7 @@
 	..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
-/obj/item/toy/crayon/attack_self(mob/living/user as mob)
+/obj/item/toy/crayon/attack_self__legacy__attackchain(mob/living/user as mob)
 	update_window(user)
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
@@ -105,7 +105,7 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/crayon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
@@ -137,7 +137,7 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
+/obj/item/toy/crayon/attack__legacy__attackchain(mob/M, mob/user)
 	if(M == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -255,7 +255,7 @@
 	dye_color = DYE_MIME
 	uses = 0
 
-/obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
+/obj/item/toy/crayon/mime/attack_self__legacy__attackchain(mob/living/user as mob)
 	update_window(user)
 
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
@@ -281,7 +281,7 @@
 	dye_color = DYE_RAINBOW
 	uses = 0
 
-/obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
+/obj/item/toy/crayon/rainbow/attack_self__legacy__attackchain(mob/living/user as mob)
 	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
@@ -292,7 +292,9 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		var/temp = input(usr, "Please select colour.", "Crayon colour") as color
+		var/temp = tgui_input_color(usr, "Please select crayon color.", "Crayon color")
+		if(isnull(temp))
+			return
 		colour = temp
 		update_window(usr)
 	else
@@ -305,7 +307,7 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing spray paint."
 	icon_state = "spraycan_cap"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/capped = TRUE
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
@@ -315,10 +317,10 @@
 	..()
 	update_icon()
 
-/obj/item/toy/crayon/spraycan/attack(mob/M, mob/user)
+/obj/item/toy/crayon/spraycan/attack__legacy__attackchain(mob/M, mob/user)
 	return // To stop you from eating spraycans. It's TOO SILLY!
 
-/obj/item/toy/crayon/spraycan/attack_self(mob/living/user)
+/obj/item/toy/crayon/spraycan/attack_self__legacy__attackchain(mob/living/user)
 	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
@@ -328,10 +330,12 @@
 		if("Change Drawing")
 			..()
 		if("Change Color")
-			colour = input(user,"Choose Color") as color
+			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
+			if(isnull(colour))
+				return
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/afterattack__legacy__attackchain(atom/target, mob/user as mob, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -387,7 +391,7 @@
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
-		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		"Death Bot" = image('icons/mob/robots.dmi', "spidersyndi-preview")
 		)
 	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
 

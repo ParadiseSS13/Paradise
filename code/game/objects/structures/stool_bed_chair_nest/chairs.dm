@@ -36,7 +36,7 @@
 	. = ..()
 	handle_rotation()
 
-/obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/chair/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
@@ -294,7 +294,7 @@
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-/obj/structure/chair/sofa/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/sofa/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
 		return
@@ -373,6 +373,19 @@
 /obj/structure/chair/sofa/pew/right
 	icon_state = "pewend_right"
 
+/obj/structure/chair/sofa/pew/clockwork
+	name = "brass pew"
+	desc = "An ornate pew fashioned from brass. It is even less comfortable than a regular pew, but it does radiate a pleasent warmth."
+	icon_state = "clockwork_pew_middle"
+	buildstacktype = /obj/item/stack/tile/brass
+	buildstackamount = 5
+
+/obj/structure/chair/sofa/pew/clockwork/left
+	icon_state = "clockwork_pew_left"
+
+/obj/structure/chair/sofa/pew/clockwork/right
+	icon_state = "clockwork_pew_right"
+
 /obj/structure/chair/sofa/bench
 	name = "bench"
 	desc = "You sit in this. Either by will or force."
@@ -399,7 +412,7 @@
 /obj/structure/chair/sofa/bench/handle_layer()
 	return
 
-/obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/sofa/bench/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
@@ -557,7 +570,7 @@
 		return 1
 	return 0
 
-/obj/item/chair/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/chair/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	..()
 	if(!proximity)
 		return
@@ -571,7 +584,7 @@
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		smash(user)
 
-/obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
+/obj/item/chair/stool/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.unEquip(src)

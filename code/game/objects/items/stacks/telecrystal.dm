@@ -11,7 +11,7 @@
 	origin_tech = "materials=6;syndicate=1"
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/telecrystal/attack(mob/target, mob/user)
+/obj/item/stack/telecrystal/attack__legacy__attackchain(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		for(var/obj/item/bio_chip/uplink/I in target)
 			if(I && I.imp_in)
@@ -19,7 +19,7 @@
 				use(amount)
 				to_chat(user, "<span class='notice'>You press [src] onto yourself and charge your hidden uplink.</span>")
 
-/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
+/obj/item/stack/telecrystal/afterattack__legacy__attackchain(obj/item/I, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.

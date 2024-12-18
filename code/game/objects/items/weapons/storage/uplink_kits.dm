@@ -75,7 +75,7 @@
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail, // 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
-		/obj/item/CQC_manual) // 50tc
+		/obj/item/cqc_manual) // 50tc
 
 /// 145TC + RCD & Mesons Autoimplanter
 /obj/item/storage/box/syndie_kit/bundle/infiltrator
@@ -124,20 +124,20 @@
 		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 220TC
+/// 200TC
 /obj/item/storage/box/syndie_kit/bundle/hacker
 	name = "Hacker Bundle"
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
-		/obj/item/melee/energy/sword/saber/blue, // 40TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire, // 20TC
 		/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
-		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/aiModule/syndicate, // 15TC
+		/obj/item/ai_module/toy_ai, // 0TC
+		/obj/item/ai_module/syndicate, // 15TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5TC
 		/obj/item/bio_chip_implanter/freedom/prototype, // 10TC
 		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
@@ -528,7 +528,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)
@@ -570,3 +570,10 @@
 /obj/item/storage/box/syndie_kit/decoy/populate_contents()
 	for(var/i in 1 to 5)
 		new /obj/item/grenade/firecracker/decoy(src)
+
+/obj/item/storage/box/syndie_kit/forgers_kit
+	name = "\improper Forger's kit"
+
+/obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pen/chameleon(src)
