@@ -72,6 +72,7 @@
 		turfs += T
 	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
+	flick("hand_tele_activated", src)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return
