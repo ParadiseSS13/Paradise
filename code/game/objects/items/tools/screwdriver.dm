@@ -23,6 +23,8 @@
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
+	new_attack_chain = TRUE
+
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
@@ -50,14 +52,18 @@
 	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M) || user.a_intent == INTENT_HELP)
-		return ..()
+/obj/item/screwdriver/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+		
+	if(!istype(target) || user.a_intent == INTENT_HELP)
+		return FINISH_ATTACK
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
-		return ..()
+		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
+		target = user
+	eyestab(target, user)
+	return FINISH_ATTACK
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
@@ -117,7 +123,10 @@
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/screwdriver/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
