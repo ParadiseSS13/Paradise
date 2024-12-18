@@ -683,41 +683,7 @@
 /mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/direction = 0
-		if(flow_x > 100)
-			direction |= EAST
-		if(flow_x < -100)
-			direction |= WEST
-		if(flow_y > 100)
-			direction |= NORTH
-		if(flow_y < -100)
-			direction |= SOUTH
-
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(flow_x, flow_y, pressure_resistance_prob_delta)
+	..()
 
 /*//////////////////////
 	START RESIST PROCS

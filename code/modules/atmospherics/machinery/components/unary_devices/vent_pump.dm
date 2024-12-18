@@ -18,6 +18,7 @@
 	var/area/initial_loc
 
 	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
+	var/max_transfer_joules = 35000 // in J=kPa*L, default = 500 kPa * 70L
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -149,7 +150,9 @@
 			pressure_delta = min(pressure_delta, (vent_pump.air_contents.return_pressure() - vent_pump.internal_pressure_bound))
 
 		if(pressure_delta > 0.5 && vent_pump.air_contents.temperature() > 0)
-			var/transfer_moles = pressure_delta * environment.volume / (vent_pump.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+			// 1kPa * 1L = 1J
+			var/wanted_joules = pressure_delta * environment.volume
+			var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (vent_pump.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = vent_pump.air_contents.remove(transfer_moles)
 			environment.merge(removed)
 			vent_pump.parent.update = TRUE
@@ -162,7 +165,9 @@
 			pressure_delta = min(pressure_delta, (vent_pump.internal_pressure_bound - vent_pump.air_contents.return_pressure()))
 
 		if(pressure_delta > 0.5 && environment.temperature() > 0)
-			var/transfer_moles = pressure_delta * vent_pump.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+			// 1kPa * 1L = 1J
+			var/wanted_joules = pressure_delta * environment.volume
+			var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (environment.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 			vent_pump.air_contents.merge(removed)
 			vent_pump.parent.update = TRUE

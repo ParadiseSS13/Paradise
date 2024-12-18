@@ -4,6 +4,9 @@ pub(crate) const MAX_Z_LEVELS: i32 = 10;
 /// How big is the map? Assumed square.
 pub(crate) const MAP_SIZE: usize = 255;
 
+/// The temperature of space, in Kelvin
+pub(crate) const TCMB: f32 = 2.725;
+
 /// 0 degrees Celsius, in Kelvin
 pub(crate) const T0C: f32 = 273.15;
 
@@ -19,8 +22,12 @@ pub(crate) const R_IDEAL_GAS_EQUATION: f32 = 8.31;
 /// How big a tile is, in liters.
 pub(crate) const TILE_VOLUME: f32 = 2500.0;
 
-/// How many moles are needed to make toxins visible.
-pub(crate) const TOXINS_VISIBILITY_MOLES: f32 = 0.5;
+/// How many moles of toxins are needed for a fire to exist. For reasons, this is also how hany
+/// moles are needed to be visible.
+pub(crate) const TOXINS_MIN_FIRE_AND_VISIBILITY_MOLES: f32 = 0.5;
+
+/// How many moles of oxygen are needed for a fire to exist.
+pub(crate) const OXYGEN_MIN_FIRE_MOLES: f32 = 0.5;
 
 /// How many moles are needed to make sleeping gas visible.
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
@@ -58,12 +65,19 @@ pub(crate) const GAS_AGENT_B: usize = 5;
 /// How many gases are there?
 pub(crate) const GAS_COUNT: usize = GAS_AGENT_B + 1;
 
-/// The two axes, Y and X. The order is arbitrary, but will break the copy from active to inactive
-/// if changed.
-pub(crate) const AXES: [(i32, i32); 2] = [(0, 1), (1, 0)];
+/// The two axes, Y and X. The order is arbitrary, but may break things if changed.
+pub(crate) const AXES: [(i32, i32); 2] = [(1, 0), (0, 1)];
 
-/// The four cardinal directions. The order is arbitrary, and doesn't matter.
-pub(crate) const DIRECTIONS: [(i32, i32); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+/// The index of the X axis in AXES.
+pub(crate) const AXIS_X: usize = 0;
+/// The index of the Y axis in AXES.
+pub(crate) const AXIS_Y: usize = 1;
+
+/// The four directions: up, down, right, and left. The order is arbitrary, but may break things if changed.
+pub(crate) const DIRECTIONS: [(i32, i32); 4] = [(1, 0), (-1, 0), (0, -1), (0, 1)];
+
+/// Gives the axis for each direction.
+pub(crate) const DIRECTION_AXIS:  [usize; 4] = [0, 0, 1, 1];
 
 // The numbers here are completely wrong for actual gases, but they're what LINDA used, so we'll
 // keep them for now.
@@ -106,7 +120,13 @@ pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 pub(crate) const PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY: f32 = 10.0;
 
 /// How much of the plasma are we willing to burn each tick?
-pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.25;
+pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
+
+/// How much of the plasma do we burn anyway if the ratio would make it really small?
+pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.1;
+
+/// How much of a boost to burn ratio do we give to hotspots?
+pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 
 /// How much oxygen do we use per plasma at min temp?
 pub(crate) const PLASMA_BURN_WORST_OXYGEN_PER_PLASMA: f32 = 1.4;
@@ -123,12 +143,56 @@ pub(crate) const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
 /// How much thermal energy is produced, in joules per mole of sleeping toxins.
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 
-/// We allow small deviations in tests, so that floating point precision doesn't cause problems.
+/// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]
-pub(crate) const TEST_TOLERANCE: f32 = 0.00001;
+pub(crate) const TEST_TOLERANCE: f32 = 0.1;
 
-/// Lose this multiple of heat energy per tick if above T20C.
-pub(crate) const SPACE_COOLING_FACTOR: f32 = 0.005;
+/// Lose this amount of heat energy per tick if above 100 C.
+pub(crate) const SPACE_COOLING_CAPACITY: f32 = 200.0;
 
 /// Tiles with less than this much gas will become empty.
 pub(crate) const MINIMUM_NONZERO_MOLES: f32 = 0.1;
+
+/// How many iterations of gas flow are we willing to run per tick?
+pub(crate) const MAX_ITERATIONS: usize = 100;
+
+/// When we stop caring about gas changes and end iteration, in moles on a single tile.
+pub(crate) const GAS_CHANGE_SIGNIFICANCE: f32 = 0.01;
+
+/// When we stop caring about gas changes and end iteration, roughly as a fraction of the gas.
+pub(crate) const GAS_CHANGE_SIGNIFICANCE_FRACTION: f32 = 0.001;
+
+/// When we stop caring about thermal energy changes and end iteration, in thermal energy on a
+/// single tile.
+pub(crate) const THERMAL_CHANGE_SIGNIFICANCE: f32 = 0.1;
+
+/// When we stop caring about thermal energy changes and end iteration, roughly as a fraction of
+/// the thermal energy.
+pub(crate) const THERMAL_CHANGE_SIGNIFICANCE_FRACTION: f32 = 0.001;
+
+/// How strongly we want to diffuse gas types across equal pressure tiles.
+pub(crate) const DIFFUSION_FACTOR: f32 = 0.1;
+
+/// How strongly we want the pressure+wind bias to move gases across tiles.
+pub(crate) const BIAS_FACTOR: f32 = 10.0;
+
+/// How much the previous tick's wind contributes to this tick's bias.
+pub(crate) const OLD_WIND_FACTOR: f32 = 0.99;
+/// How much this tick's pressure difference contributes to this tick's bias.
+pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.05;
+
+/// How much are we willing to bias?
+pub(crate) const MAX_BIAS: f32 = 10.0;
+
+/// How much air can flow between tiles before we start softcapping it, roughly in kPa?
+pub(crate) const AIRFLOW_SOFTCAP: f32 = 100.0;
+
+/// What exponent do we use to reduce airflow over the softcap?
+pub(crate) const AIRFLOW_SOFTCAP_EXPONENT: f32 = 0.1;
+
+/// Balancing factor to adjust the strength of wind reported to BYOND.
+pub(crate) const WIND_MULTIPLIER: f32 = 1.0;
+
+/// The smallest temperature allowed for the purpose of caluclating pressure.
+/// Prevents weirdness from absolute-zero gas having no pressure at all.
+pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;

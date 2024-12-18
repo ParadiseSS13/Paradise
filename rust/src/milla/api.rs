@@ -1,7 +1,8 @@
-use crate::logging;
+use crate::milla::logging;
 use crate::milla::constants::*;
 use crate::milla::conversion;
 use crate::milla::model::*;
+use crate::milla::simulate;
 use crate::milla::statics::*;
 use crate::milla::tick;
 use byondapi::global_call::call_global;
@@ -9,6 +10,7 @@ use byondapi::map::byond_xyz;
 use byondapi::prelude::*;
 use eyre::eyre;
 use eyre::Result;
+use std::env;
 use std::thread;
 use std::time::Instant;
 
@@ -16,6 +18,7 @@ use std::time::Instant;
 #[byondapi::bind]
 fn milla_initialize(byond_z: ByondValue) {
     logging::setup_panic_handler();
+    env::set_var("RUST_BACKTRACE", "1");
     let z = f32::try_from(byond_z)? as i32 - 1;
     internal_initialize(z)?;
     Ok(Default::default())
@@ -112,6 +115,8 @@ fn milla_set_tile(
     agent_b: ByondValue,
     temperature: ByondValue,
     _innate_heat_capacity: ByondValue,
+    hotspot_temperature: ByondValue,
+    hotspot_volume: ByondValue,
 ) {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
@@ -136,6 +141,8 @@ fn milla_set_tile(
         // Temporarily disabled to better match the existing system.
         //bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
         Some(0.0),
+        conversion::bounded_byond_to_option_f32(hotspot_temperature, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(hotspot_volume, 0.0, 1.0)?,
     )?;
     Ok(Default::default())
 }
@@ -160,6 +167,8 @@ fn milla_set_tile_airtight(
         conversion::byond_to_option_f32(airtight_east)?,
         conversion::byond_to_option_f32(airtight_south)?,
         conversion::byond_to_option_f32(airtight_west)?,
+        None,
+        None,
         None,
         None,
         None,
@@ -196,6 +205,8 @@ pub(crate) fn internal_set_tile(
     temperature: Option<f32>,
     thermal_energy: Option<f32>,
     innate_heat_capacity: Option<f32>,
+    hotspot_temperature: Option<f32>,
+    hotspot_volume: Option<f32>,
 ) -> Result<()> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let active = buffers.get_active().read().unwrap();
@@ -271,6 +282,12 @@ pub(crate) fn internal_set_tile(
     }
     if let Some(value) = thermal_energy {
         tile.thermal_energy = value;
+    }
+    if let Some(value) = hotspot_temperature {
+        tile.hotspot_temperature = value;
+    }
+    if let Some(value) = hotspot_volume {
+        tile.hotspot_volume = value;
     }
 
     Ok(())
@@ -434,6 +451,51 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
     Ok(())
 }
 
+/// BYOND API for a heat source creating a hotspot on a tile.
+#[byondapi::bind]
+fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) {
+    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let rust_temperature = conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot temperature is required.."))?;
+    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot volume is required.."))?;
+
+    internal_create_hotspot(x as i32 - 1, y as i32 - 1, z as i32 - 1, rust_temperature, rust_volume / TILE_VOLUME)?;
+    Ok(Default::default())
+}
+
+/// Rust version of a heat source creating a hotspot.
+pub(crate) fn internal_create_hotspot(x: i32, y: i32, z: i32, temperature: f32, volume: f32) -> Result<()> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let active = buffers.get_active().read().unwrap();
+    let maybe_z_level = active.0[z as usize].try_write();
+    if maybe_z_level.is_err() {
+        return Err(eyre!(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
+        ));
+    }
+    let mut z_level = maybe_z_level.unwrap();
+    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
+        "Bad coordinates ({}, {}, {})",
+        x + 1,
+        y + 1,
+        z + 1
+    ))?);
+
+    if temperature <= tile.temperature() || volume == 0.0 {
+        return Ok(());
+    }
+
+    if tile.hotspot_volume == 0.0 {
+        tile.hotspot_temperature = temperature;
+        tile.hotspot_volume = volume;
+        return Ok(());
+    }
+
+    let excess_thermal_energy = (temperature - tile.temperature()) * tile.heat_capacity() * volume;
+    simulate::adjust_hotspot(tile, excess_thermal_energy);
+
+    Ok(())
+}
+
 /// BYOND API for starting an atmos tick.
 #[byondapi::bind]
 fn milla_spawn_tick_thread() {
@@ -441,12 +503,19 @@ fn milla_spawn_tick_thread() {
     thread::spawn(|| -> Result<(), eyre::Error> {
         let now = Instant::now();
         let buffers = BUFFERS.get_or_init(Buffers::new);
-        tick::tick(buffers)?;
+        let result = tick::tick(buffers);
         TICK_TIME.store(
             now.elapsed().as_millis() as usize,
             std::sync::atomic::Ordering::Relaxed,
         );
-        call_global("milla_tick_finished", &[])?;
+        if result.is_ok() {
+            call_global("milla_tick_finished", &[])?;
+        } else {
+            let err = format!("MILLA tick error:\n----\n{:#?}\n----", result);
+            logging::write_log(err.clone());
+            call_global("milla_tick_error", &[ByondValue::new_str(err)?])?;
+        }
+
         Ok(())
     });
     Ok(Default::default())
@@ -492,6 +561,8 @@ mod tests {
             None,
             None,
             Some(1.0),
+            None,
+            Some(1.0),
         )
         .unwrap();
 
@@ -507,6 +578,8 @@ mod tests {
             }
             assert_eq!(tile.thermal_energy, 0.0);
             assert_eq!(tile.innate_heat_capacity, 1.0);
+            assert_eq!(tile.hotspot_temperature, 0.0);
+            assert_eq!(tile.hotspot_volume, 1.0);
         }
 
         // Set a different set of arbitrary data.
@@ -529,6 +602,8 @@ mod tests {
             None,
             Some(1.0),
             None,
+            Some(1.0),
+            None,
         )
         .unwrap();
 
@@ -544,6 +619,8 @@ mod tests {
             }
             assert_eq!(tile.thermal_energy, 1.0);
             assert_eq!(tile.innate_heat_capacity, 0.0);
+            assert_eq!(tile.hotspot_temperature, 1.0);
+            assert_eq!(tile.hotspot_volume, 0.0);
         }
     }
 }
