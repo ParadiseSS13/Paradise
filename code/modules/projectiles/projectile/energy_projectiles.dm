@@ -61,8 +61,9 @@
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
-	damage = 60
+	damage = 90
 	damage_type = BURN
+	armour_penetration_flat = 50
 	range = 9
 	knockdown = 4 SECONDS //This is going to knock you off your feet
 	eyeblur = 10 SECONDS
@@ -79,7 +80,7 @@
 
 /obj/item/projectile/energy/bsg/on_hit(atom/target)
 	. = ..()
-	kaboom()
+	kaboom(target)
 	qdel(src)
 
 /obj/item/projectile/energy/bsg/on_range()
@@ -87,22 +88,22 @@
 	new /obj/effect/temp_visual/bsg_kaboom(loc)
 	..()
 
-/obj/item/projectile/energy/bsg/proc/kaboom()
+/obj/item/projectile/energy/bsg/proc/kaboom(atom/target)
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
 	for(var/mob/living/M in hearers(7, src)) //No stuning people with thermals through a wall.
+		if(M == target)
+			continue
 		var/floored = FALSE
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/obj/item/gun/energy/bsg/N = locate() in H
-			if(N)
-				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
-				continue
+		if(HAS_TRAIT(M, TRAIT_BSG_IMMUNE))
+			to_chat(M, "<span class='notice'>Your B.S.G deploys an energy shield to project you from [src]'s explosion.</span>")
+			new /obj/effect/temp_visual/at_shield(get_turf(M), M)
+			continue
 		var/distance = (1 + get_dist(M, src))
 		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
-			if(prob(min(150 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 75% at 1 tile, 50% at 2, 37.5% at 3, 30% at 4, 25% at 5, 21% at 6, and finaly 19% at 7. This is calculated after the first hit however.
+			if(prob(min(200 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 100% at 1 tile, 66% at 2, 50% at 3, 40% at 4, 33% at 5, 28.5% at 6, and finaly 25% at 7. This is calculated after the first hit however.
 				floored = TRUE
-			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
-			add_attack_logs(src, M, "Hit heavily by [src]")
+			M.apply_damage((rand(60, 80) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
+			add_attack_logs(firer, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
 				M.KnockDown(4 SECONDS)
@@ -113,8 +114,10 @@
 				M.IgniteMob()
 		else
 			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
-			add_attack_logs(src, M, "Hit lightly by [src]")
-			M.apply_damage(rand(1, 5), BURN)
+			add_attack_logs(firer, M, "Hit lightly by [src]")
+			M.apply_damage(rand(20, 25), BURN)
+		if(ROLE_BLOB in M.faction)
+			M.apply_damage(rand(20, 25), BURN) //Ensures it clears all blob spores on the screen without fail.
 
 /obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
@@ -122,14 +125,31 @@
 	damage = 12.5
 	damage_type = BURN
 
-/obj/item/projectile/energy/charged_plasma
+/obj/item/projectile/homing/charged_plasma
 	name = "charged plasma bolt"
 	icon_state = "plasma_heavy"
 	damage = 45
 	damage_type = BURN
+	flag = "energy"
 	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.
+	var/reached_target = FALSE
+
+/obj/item/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
+	homing_active = FALSE
+	if(isturf(original))
+		return ..() //It gets weird if it is a turf. Turfs don't move anyway.
+	if(reached_target || get_turf(original) == get_turf(src))
+		reached_target = TRUE
+		return ..()
+	var/fake_Angle = Angle
+	if(fake_Angle < 0)
+		fake_Angle += 360
+	if(abs(get_angle(get_turf(src), original) - fake_Angle) > 45)
+		return ..()
+	homing_active = TRUE
+	..()
 
 /obj/item/projectile/energy/arc_revolver
 	name = "arc emitter"

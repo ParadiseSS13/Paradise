@@ -50,7 +50,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-	RegisterSignal(src, COMSIG_ATTACK_BY, PROC_REF(on_attack_by))
+	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(on_tool_attack))
 
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
@@ -79,15 +79,15 @@
 	materials.retrieve_all()
 	return ..()
 
-/obj/machinery/autolathe/proc/on_attack_by(datum/source, obj/item/attacking, mob/user)
-	SIGNAL_HANDLER // COMSIG_ATTACK_BY
-
-	if(!istype(attacking))
+/obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
+	SIGNAL_HANDLER // COMSIG_TOOL_ATTACK
+	var/obj/item/I = tool
+	if(!istype(I))
 		return
 
 	// Allows screwdrivers to be recycled on harm intent
-	if(attacking.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
-		return COMPONENT_SKIP_AFTERATTACK
+	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
+		return COMPONENT_CANCEL_TOOLACT
 
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))

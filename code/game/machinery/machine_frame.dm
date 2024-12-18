@@ -716,22 +716,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 
-//Almost the same recipe as destructive analyzer to give people choices.
-/obj/item/circuitboard/experimentor
-	board_name = "E.X.P.E.R.I-MENTOR"
+/obj/item/circuitboard/scientific_analyzer // fucking US spelling
+	board_name = "Scientific Analyzer"
 	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/experimentor
-	board_type = "machine"
-	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
-	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 2)
-
-/obj/item/circuitboard/destructive_analyzer
-	board_name = "Destructive Analyzer"
-	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/destructive_analyzer
+	build_path = /obj/machinery/r_n_d/scientific_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(

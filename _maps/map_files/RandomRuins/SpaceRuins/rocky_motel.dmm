@@ -214,7 +214,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "vN" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "zs" = (
 /obj/structure/bed,
@@ -549,9 +549,11 @@ vN
 vN
 vN
 vN
-Ya
-Ya
-Ya
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 "}
@@ -574,13 +576,43 @@ vN
 vN
 vN
 vN
+vN
+Ya
+Ya
+Ya
+vN
+vN
+vN
+"}
+(3,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 Ya
 Ya
 Ya
 Ya
 vN
+vN
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+vN
 vN
 vN
 vN
@@ -604,8 +636,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+vN
 vN
 vN
 vN
@@ -629,8 +663,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+vN
 vN
 vN
 vN
@@ -654,8 +690,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+vN
 vN
 vN
 vN
@@ -679,8 +717,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+vN
 vN
 vN
 PM
@@ -704,8 +744,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+vN
 vN
 Ya
 PM
@@ -729,8 +771,10 @@ Ya
 vN
 vN
 vN
+vN
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+vN
 Ya
 Ya
 CP
@@ -754,8 +798,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -779,8 +825,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -804,8 +852,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -829,8 +879,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -854,8 +906,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -879,8 +933,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -904,8 +960,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+vN
 vN
 Ya
 gs
@@ -929,8 +987,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+vN
 vN
 vN
 Ya
@@ -954,8 +1014,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+vN
 vN
 vN
 vN
@@ -979,8 +1041,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+vN
 vN
 vN
 vN
@@ -1004,8 +1068,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+vN
 vN
 vN
 vN
@@ -1013,6 +1079,34 @@ vN
 Ya
 Ya
 ph
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(22,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 vN
