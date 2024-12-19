@@ -17,7 +17,7 @@
 	throw_speed = 2
 	throw_range = 5
 	toolspeed = 1
-	usesound = 'sound/machines/click.ogg'
+	usesound = 'sound/weapons/flash.ogg'
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
@@ -124,7 +124,7 @@
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
-	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
+	playsound(get_turf(src), usesound, 25, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
 		teleporting = FALSE
