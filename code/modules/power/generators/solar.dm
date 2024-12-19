@@ -209,7 +209,7 @@
 	if(anchored)
 		.+= "<span class='notice'>The solar assembly needs <i>glass</i> to be completed.</span>"
 
-/obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/solar_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 
 	if(anchored || !isturf(loc))
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))

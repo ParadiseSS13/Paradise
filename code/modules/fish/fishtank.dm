@@ -604,7 +604,7 @@
 		new /obj/item/stack/sheet/glass(get_turf(src), shard_count + 1)		//Produce the appropriate number of glass sheets, in a single stack
 	qdel(src)
 
-/obj/machinery/fishtank/attackby(obj/item/O, mob/user)
+/obj/machinery/fishtank/attackby__legacy__attackchain(obj/item/O, mob/user)
 	//Open reagent containers add and remove water
 	if(O.is_drainable())
 		//Containers with any reagents will get dumped in

@@ -66,7 +66,7 @@
 	if(!up)
 		. += visor_icon
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/attack_self__legacy__attackchain(mob/user)
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user, update_light)

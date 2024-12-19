@@ -25,7 +25,7 @@
 	icon_state = "book"
 	var/datum/middle_click_override/clickBehavior = new /datum/middle_click_override/badmin_clicker
 
-/obj/item/badmin_book/attack_self(mob/living/user as mob)
+/obj/item/badmin_book/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(user.middleClickOverride)
 		to_chat(user, "<span class='warning'>You try to draw power from [src], but you cannot hold the power at this time!</span>")
 		return

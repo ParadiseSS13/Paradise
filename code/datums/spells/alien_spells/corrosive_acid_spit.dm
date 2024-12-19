@@ -11,7 +11,7 @@
 	desc = "A fistfull of death."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
 		..()
@@ -45,7 +45,7 @@
 	desc = "The air warps around your hand, somehow the heat doesn't hurt."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/burning_touch/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/burning_touch/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You cool down your boiled aid.</span>")
 		..()

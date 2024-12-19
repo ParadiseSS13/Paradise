@@ -16,7 +16,7 @@
 	QDEL_NULL(brain)
 	return ..()
 
-/obj/structure/ai_core/attackby(obj/item/P, mob/user, params)
+/obj/structure/ai_core/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))

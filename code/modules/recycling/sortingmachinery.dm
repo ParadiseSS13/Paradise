@@ -35,7 +35,7 @@
 
 	qdel(src)
 
-/obj/structure/big_delivery/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/big_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 
@@ -95,7 +95,7 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/obj/item/small_delivery/attack_self(mob/user)
+/obj/item/small_delivery/attack_self__legacy__attackchain(mob/user)
 	if(wrapped?.loc == src) //sometimes items can disappear. For example, bombs. --rastaf0
 		wrapped.forceMove(get_turf(src))
 		if(ishuman(user))
@@ -103,7 +103,7 @@
 	playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/small_delivery/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/small_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 
@@ -262,7 +262,7 @@
 	QDEL_NULL(destination_tagger)
 	return ..()
 
-/obj/item/dest_tagger/attack_self(mob/user)
+/obj/item/dest_tagger/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -405,7 +405,7 @@
 	var/sortTag = 1
 	var/sealed = 0
 
-/obj/item/shipping_package/attackby(obj/item/O, mob/user, params)
+/obj/item/shipping_package/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(sealed)
 		if(is_pen(O))
 			var/str = tgui_input_text(user, "Intended recipient?", "Address", max_length = MAX_NAME_LEN)
@@ -432,7 +432,7 @@
 			add_fingerprint(usr)
 			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 
-/obj/item/shipping_package/attack_self(mob/user)
+/obj/item/shipping_package/attack_self__legacy__attackchain(mob/user)
 	if(sealed)
 		to_chat(user, "<span class='notice'>You tear open [src], dropping the contents onto the floor.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)

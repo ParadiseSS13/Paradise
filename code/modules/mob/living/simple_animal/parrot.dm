@@ -167,7 +167,7 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/parrot/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)

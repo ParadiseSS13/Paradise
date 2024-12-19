@@ -301,14 +301,14 @@
 		I.color = wrapper_color
 		overlays += I
 
-/obj/item/storage/pill_bottle/attack(mob/M, mob/user)
+/obj/item/storage/pill_bottle/attack__legacy__attackchain(mob/M, mob/user)
 	if(iscarbon(M) && length(contents))
 		if(applying_meds)
 			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
 			return
 		applying_meds = TRUE
 		for(var/obj/item/reagent_containers/P in contents)
-			if(P.attack(M, user))
+			if(P.attack__legacy__attackchain(M, user))
 				applying_meds = FALSE
 			else
 				applying_meds = FALSE
@@ -357,13 +357,13 @@
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds
 				for(var/obj/item/reagent_containers/pill/P in contents)
-					P.attack(C, C)
+					P.attack__legacy__attackchain(C, C)
 				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
 			return
 
 	return ..()
 
-/obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/pill_bottle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
 	else

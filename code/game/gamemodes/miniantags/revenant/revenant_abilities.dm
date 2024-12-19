@@ -378,12 +378,12 @@
 	possessed_object.escape_chance = 100 // We cannot be contained
 	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
 
-	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
-/datum/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+/datum/spell/aoe/revenant/haunt_object/proc/attack__legacy__attackchain(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
 		for(var/mob/living/carbon/potential_victim in turf_to_search)

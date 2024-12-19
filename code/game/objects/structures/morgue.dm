@@ -172,7 +172,7 @@
 		return ..()
 	attack_hand(user)
 
-/obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
+/obj/structure/morgue/attackby__legacy__attackchain(P as obj, mob/user as mob, params)
 	if(is_pen(P))
 		var/t = rename_interactive(user, P)
 
@@ -419,7 +419,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	GLOB.crematoriums += src
 	return TRUE
 
-/obj/structure/crematorium/attackby(obj/item/P, mob/user, params)
+/obj/structure/crematorium/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(is_pen(P))
 		rename_interactive(user, P)
 		add_fingerprint(user)

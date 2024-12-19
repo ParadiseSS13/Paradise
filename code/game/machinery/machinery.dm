@@ -354,7 +354,7 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/O, mob/user, params)
+/obj/machinery/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(exchange_parts(user, O))
 		return
 

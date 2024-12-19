@@ -184,7 +184,7 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/ed209/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
@@ -560,7 +560,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = INTENT_HELP
-	baton.attack(C, src)
+	baton.attack__legacy__attackchain(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

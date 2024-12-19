@@ -43,7 +43,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
 
-/obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/tesla_coil/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/signaler) && panel_open)
 		wires.Interact(user)
 	else
@@ -129,7 +129,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
-/obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/grounding_rod/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
 

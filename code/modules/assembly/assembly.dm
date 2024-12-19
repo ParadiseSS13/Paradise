@@ -99,7 +99,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(isassembly(W))
 		var/obj/item/assembly/A = W
 		if(!A.secured && !secured)
@@ -128,7 +128,7 @@
 		else
 			. += "[src] can be attached!"
 
-/obj/item/assembly/attack_self(mob/user)
+/obj/item/assembly/attack_self__legacy__attackchain(mob/user)
 	if(!user)
 		return
 	user.set_machine(src)

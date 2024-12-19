@@ -96,7 +96,7 @@
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light_construct/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(stage != LIGHT_CONSTRUCT_EMPTY_FRAME)
@@ -591,7 +591,7 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
@@ -710,7 +710,7 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/light/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
 		if(on && (I.flags & CONDUCT))
@@ -1075,7 +1075,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
-/obj/item/light/attackby(obj/item/I, mob/user, params)
+/obj/item/light/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
@@ -1096,11 +1096,11 @@
 	else // If it's not a syringe
 		return ..()
 
-/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/light/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	..()
 	shatter()
 
-/obj/item/light/attack_obj(obj/O, mob/living/user, params)
+/obj/item/light/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	..()
 	shatter()
 

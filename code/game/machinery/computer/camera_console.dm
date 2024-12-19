@@ -273,6 +273,9 @@
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		return TRUE
 
+/obj/machinery/computer/security/telescreen/entertainment/television/multitool_act(mob/user, obj/item/I)
+	return
+
 /obj/machinery/computer/security/telescreen/entertainment/television/on_deconstruction()
 	return
 

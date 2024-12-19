@@ -102,7 +102,7 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSGRILLE
 
-/obj/structure/grille/attackby(obj/item/I, mob/user, params)
+/obj/structure/grille/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && broken)

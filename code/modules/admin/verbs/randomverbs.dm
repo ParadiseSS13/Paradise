@@ -1128,8 +1128,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	// If we've already tipped, then send it straight away.
 	if(SSticker.tipped)
 		SSticker.send_tip_of_the_round()
+		message_admins("[key_name_admin(usr)] sent a custom Tip of the round.")
+		log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
+		return
 
-	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
+	message_admins("[key_name_admin(usr)] set the Tip of the round to \"[html_encode(SSticker.selected_tip)]\".")
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 
 /client/proc/modify_goals()

@@ -244,7 +244,7 @@
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/attack_self__legacy__attackchain(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
@@ -303,7 +303,7 @@
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
@@ -340,7 +340,7 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/storage/bag/tray/cyborg/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	// We cannot reach the target.
 	if(!proximity_flag)
 		return

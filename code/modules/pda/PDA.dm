@@ -108,9 +108,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
 	if((!is_screen_atom(over_object)) && can_use())
-		return attack_self(M)
+		return attack_self__legacy__attackchain(M)
 
-/obj/item/pda/attack_self(mob/user as mob)
+/obj/item/pda/attack_self__legacy__attackchain(mob/user as mob)
 	if(active_uplink_check(user))
 		return
 	ui_interact(user)
@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(wearing_human.wear_id == src)
 			wearing_human.sec_hud_set_ID()
 
-/obj/item/pda/attackby(obj/item/C, mob/user, params)
+/obj/item/pda/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
@@ -309,11 +309,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
 	held_pen = null
 
-/obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
+/obj/item/pda/attack__legacy__attackchain(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
-/obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+/obj/item/pda/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 

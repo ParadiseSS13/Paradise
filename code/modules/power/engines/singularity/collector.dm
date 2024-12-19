@@ -66,7 +66,7 @@
 		disconnect_from_network()
 
 
-/obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/rad_collector/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")

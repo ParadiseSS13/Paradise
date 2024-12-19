@@ -43,7 +43,7 @@
 /obj/machinery/computer/holodeck_control/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/holodeck_control/attackby(obj/item/D, mob/user)
+/obj/machinery/computer/holodeck_control/attackby__legacy__attackchain(obj/item/D, mob/user)
 	return
 
 /obj/machinery/computer/holodeck_control/attack_ghost(mob/user)
@@ -265,7 +265,7 @@
 	pixel_y = -9
 	layer = ABOVE_OPEN_TURF_LAYER
 
-/turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
+/turf/simulated/floor/holofloor/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	return
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
@@ -396,7 +396,7 @@
 	..()
 	item_color = pick("red","blue","green","purple")
 
-/obj/item/holo/esword/attack_self(mob/living/user as mob)
+/obj/item/holo/esword/attack_self__legacy__attackchain(mob/living/user as mob)
 	active = !active
 	if(active)
 		force = 30
@@ -437,7 +437,7 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/readybutton/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user)

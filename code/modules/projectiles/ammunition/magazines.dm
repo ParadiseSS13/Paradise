@@ -281,7 +281,7 @@
 	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
-/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_box/magazine/wt550m9/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
@@ -625,10 +625,10 @@
 	. = ..()
 	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
 	return
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby__legacy__attackchain()
 	return
 
 /obj/item/ammo_box/magazine/c_foam
@@ -638,5 +638,5 @@
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/c_foam/attack_self(mob/user)
+/obj/item/ammo_box/magazine/c_foam/attack_self__legacy__attackchain(mob/user)
 	return

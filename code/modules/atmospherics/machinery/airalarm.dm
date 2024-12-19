@@ -994,7 +994,7 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/alarm/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 
 	switch(buildstage)

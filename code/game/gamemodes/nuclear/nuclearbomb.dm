@@ -168,7 +168,7 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += core ? "nukecore3" : "nukecore4"
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/nuclearbomb/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(auth)
@@ -712,6 +712,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)

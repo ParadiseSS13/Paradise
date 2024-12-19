@@ -21,7 +21,7 @@
 	GLOB.prisoncomputer_list -= src
 	return ..()
 
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/prisoner/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)
 		var/obj/item/card/id/prisoner/I = O

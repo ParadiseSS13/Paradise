@@ -111,9 +111,9 @@
 		if(!cham_proj)
 			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
 			return
-	cham_proj.attack_self(src)
+	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
+/mob/living/silicon/robot/syndicate/saboteur/attackby__legacy__attackchain()
 	if(cham_proj)
 		cham_proj.disrupt(src)
 	..()

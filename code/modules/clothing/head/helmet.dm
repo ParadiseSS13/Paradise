@@ -21,7 +21,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/attack_self(mob/user)
+/obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)
 			cooldown = world.time

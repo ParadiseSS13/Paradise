@@ -49,7 +49,7 @@
 		BB = new projectile_type(src, params)
 	return
 
-/obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/ammo_casing/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
 		if(box.slow_loading)
@@ -192,7 +192,7 @@
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return 1
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
+/obj/item/ammo_box/attackby__legacy__attackchain(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
@@ -220,7 +220,7 @@
 
 	return num_loaded
 
-/obj/item/ammo_box/attack_self(mob/user as mob)
+/obj/item/ammo_box/attack_self__legacy__attackchain(mob/user as mob)
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)

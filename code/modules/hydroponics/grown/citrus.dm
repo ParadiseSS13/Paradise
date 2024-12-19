@@ -114,7 +114,7 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/grown/firelemon/attack_self(mob/living/user)
+/obj/item/food/grown/firelemon/attack_self__legacy__attackchain(mob/living/user)
 	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)

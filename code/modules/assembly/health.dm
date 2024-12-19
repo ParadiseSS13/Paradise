@@ -70,7 +70,7 @@
 		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/assembly/health/attack_self(mob/user)
+/obj/item/assembly/health/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/assembly/health/ui_state(mob/user)

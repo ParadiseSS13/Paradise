@@ -543,7 +543,7 @@
 	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
@@ -634,7 +634,7 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/storage/attack_self(mob/user)
+/obj/item/storage/attack_self__legacy__attackchain(mob/user)
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)

@@ -71,7 +71,7 @@
 	else
 		. += "It glows weakly."
 
-/obj/item/melee/ghost_sword/attack_self(mob/user)
+/obj/item/melee/ghost_sword/attack_self__legacy__attackchain(mob/user)
 	if(summon_cooldown > world.time)
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
@@ -163,7 +163,7 @@
 			break
 
 
-/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/ghost_sword/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	force = 0
 	var/ghost_counter = length(orbs)
 
@@ -203,7 +203,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
-/obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
+/obj/item/dragons_blood/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
 
@@ -273,7 +273,7 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/attack(mob/target, mob/living/user)
+/obj/item/lava_staff/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -295,7 +295,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(timer > world.time)
 		return

@@ -339,7 +339,7 @@
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user)
+/obj/item/dice/attack_self__legacy__attackchain(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)

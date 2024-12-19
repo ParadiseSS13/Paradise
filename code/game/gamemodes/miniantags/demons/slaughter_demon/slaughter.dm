@@ -220,7 +220,7 @@
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
 
-/obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/attack_self__legacy__attackchain(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						"<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
@@ -230,7 +230,7 @@
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /// SLAUGHTER DEMON HEART
 
-/obj/item/organ/internal/heart/demon/slaughter/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/slaughter/attack_self__legacy__attackchain(mob/living/user)
 	..()
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
@@ -326,6 +326,7 @@
 	return FALSE
 
 /datum/objective/demon_fluff
+	name = "Spread blood"
 	needs_target = FALSE
 
 /datum/objective/demon_fluff/New()

@@ -297,7 +297,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 			H.color = "#FF0000"
 
-/obj/structure/elite_tumor/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/elite_tumor/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
 	. = ..()
 	if(istype(attacking_item, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
 		var/obj/item/organ/internal/regenerative_core/core = attacking_item
@@ -425,7 +425,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	throw_speed = 3
 	throw_range = 5
 
-/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/tumor_shard/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target

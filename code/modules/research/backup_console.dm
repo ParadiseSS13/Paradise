@@ -38,7 +38,7 @@
 	SStgui.update_uis(src)
 
 
-/obj/machinery/computer/rnd_backup/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/rnd_backup/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		if(!H.unEquip(O))

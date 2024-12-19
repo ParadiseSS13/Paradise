@@ -38,7 +38,7 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self__legacy__attackchain()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -217,7 +217,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bed
 /obj/structure/bed/pod

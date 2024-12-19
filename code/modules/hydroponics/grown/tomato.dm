@@ -129,13 +129,13 @@
 	origin_tech = "biotech=4;combat=5"
 	distill_reagent = "demonsblood"
 
-/obj/item/food/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
+/obj/item/food/grown/tomato/killer/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(awakening)
 		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
 		return
 	..()
 
-/obj/item/food/grown/tomato/killer/attack_self(mob/user)
+/obj/item/food/grown/tomato/killer/attack_self__legacy__attackchain(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")

@@ -36,7 +36,7 @@
 		if(hijack_announce)
 			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/id/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby__legacy__attackchain(obj/item/card/id/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!istype(W, /obj/item/card/id))

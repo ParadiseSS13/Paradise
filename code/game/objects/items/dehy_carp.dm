@@ -14,7 +14,7 @@
 	return ..()
 
 // Attack self
-/obj/item/toy/plushie/carpplushie/dehy_carp/attack_self(mob/user as mob)
+/obj/item/toy/plushie/carpplushie/dehy_carp/attack_self__legacy__attackchain(mob/user as mob)
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this
 	if(owned)
 		to_chat(user, "<span class='notice'>[src] stares up at you with friendly eyes.</span>")
@@ -27,7 +27,7 @@
 	if(volume >= 1)
 		Swell()
 
-/obj/item/toy/plushie/carpplushie/dehy_carp/afterattack(obj/O, mob/user,proximity)
+/obj/item/toy/plushie/carpplushie/dehy_carp/afterattack__legacy__attackchain(obj/O, mob/user,proximity)
 	if(!proximity) return
 	if(istype(O,/obj/structure/sink))
 		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")

@@ -62,10 +62,10 @@
 /turf/simulated/mineral/shuttleRotate(rotation)
 	QUEUE_SMOOTH(src)
 
-/turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	// TODO: Just sticking this here for now because attack chain refactor is coming later
 	// No point in threading this through everything right now
-	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params) & COMPONENT_NO_AFTERATTACK)
+	if(SEND_SIGNAL(src, COMSIG_ATTACK_BY, I, user, params) & COMPONENT_SKIP_AFTERATTACK)
 		return
 
 	if(!user.IsAdvancedToolUser())
@@ -126,15 +126,15 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
-			attackby(H.l_hand,H)
+			attackby__legacy__attackchain(H.l_hand,H)
 		else if((istype(H.r_hand,/obj/item/pickaxe)) && H.hand)
-			attackby(H.r_hand,H)
+			attackby__legacy__attackchain(H.r_hand,H)
 		return
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		if(istype(R.module_active, /obj/item/pickaxe))
-			attackby(R.module_active, R)
+			attackby__legacy__attackchain(R.module_active, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM
@@ -192,7 +192,7 @@
 	should_reset_color = FALSE
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
-/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -250,7 +250,7 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/outer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
@@ -278,7 +278,7 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return

@@ -86,7 +86,7 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
@@ -306,7 +306,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 

@@ -86,7 +86,7 @@
 		return
 	remove_fuel(maximum_fuel)
 
-/obj/item/weldingtool/attack_self(mob/user)
+/obj/item/weldingtool/attack_self__legacy__attackchain(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")
 		toggle_welder()
@@ -145,7 +145,7 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/weldingtool/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!tool_enabled)
 		return
@@ -153,7 +153,7 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
+/obj/item/weldingtool/attack__legacy__attackchain(mob/living/target, mob/living/user, def_zone)
 	if(cigarette_lighter_act(user, target))
 		return
 	if(tool_enabled && target.IgniteMob())

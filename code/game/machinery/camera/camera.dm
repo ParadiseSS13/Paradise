@@ -130,7 +130,7 @@
 		toggle_cam(null, 0)
 	..()
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/camera/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 

@@ -31,7 +31,7 @@
 	else
 		. += "<span class='warning'>The implant is missing.</span>"
 
-/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, params)
+/obj/item/mod/module/pathfinder/attack__legacy__attackchain(mob/living/target, mob/living/user, params)
 	if(!ishuman(target) || !implant)
 		return
 	if(!do_after(user, 1.5 SECONDS, target = target))

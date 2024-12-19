@@ -3,7 +3,7 @@
 	desc = "A red and black lootbox full of things the Head of Security is going to flip their shit over."
 	locked = FALSE
 	anchored = TRUE
-	req_access = list()
+	req_access = list(ACCESS_SYNDICATE)
 	icon_state = "tac"
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	var/is_armory = FALSE
@@ -36,7 +36,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/secure_closet/depot/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/depot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))
 		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
 		return
@@ -57,6 +57,6 @@
 		ignore_use = FALSE
 
 /obj/structure/closet/secure_closet/depot/armory
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_COMMAND) // can't open without killing QM/breaking a closet
 	is_armory = TRUE
 	icon_state = "armory"

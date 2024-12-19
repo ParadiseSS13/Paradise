@@ -280,7 +280,7 @@
 	if(!broken && !(flags & NODECONSTRUCT))
 		bust_open()
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
 		E.try_send_container(user, src)

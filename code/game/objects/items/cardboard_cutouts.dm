@@ -33,7 +33,7 @@
 	alpha = initial(alpha)
 	pushed_over = TRUE
 
-/obj/item/cardboard_cutout/attack_self(mob/living/user)
+/obj/item/cardboard_cutout/attack_self__legacy__attackchain(mob/living/user)
 	if(!pushed_over)
 		return
 	to_chat(user, "<span class='notice'>You right [src].</span>")
@@ -42,7 +42,7 @@
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 	pushed_over = FALSE
 
-/obj/item/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+/obj/item/cardboard_cutout/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		change_appearance(I, user)
 		return
