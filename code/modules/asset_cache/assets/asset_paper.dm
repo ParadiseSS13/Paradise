@@ -19,5 +19,13 @@
 		"large_stamp-magistrate.png" = 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png" = 'icons/paper_icons/talisman.png',
 		"ntlogo.png" = 'icons/paper_icons/ntlogo.png',
-		"syndielogo.png" ='icons/paper_icons/syndielogo.png'
+		"syndielogo.png" ='icons/paper_icons/syndielogo.png',
+
+		// SS220 ADDITION
+		"large_stamp-ward.png"     	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-ward.png',
+		"large_stamp-ploho.png"		= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-ploho.png',
+		"large_stamp-BIGdeny.png"	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-BIGdeny.png',
+		"large_stamp-navcom.png"	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-navcom.png',
+		"large_stamp-mime.png"     	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-mime.png',
+		"large_stamp-ussp.png"		= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-ussp.png'
 	)

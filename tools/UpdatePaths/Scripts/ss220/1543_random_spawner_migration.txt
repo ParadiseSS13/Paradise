@@ -1,0 +1,4 @@
+/obj/effect/spawner/lootdrop/trash : /obj/effect/spawner/random/trash
+/obj/effect/spawner/lootdrop/officetoys : /obj/effect/spawner/random/officetoys
+/obj/effect/spawner/lootdrop/CCfood/@SUBTYPES : /obj/effect/spawner/random/CCfood/@SUBTYPES
+/obj/effect/spawner/random/CCfood/desert : /obj/effect/spawner/random/CCfood/dessert

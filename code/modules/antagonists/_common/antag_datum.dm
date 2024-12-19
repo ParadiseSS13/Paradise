@@ -163,7 +163,11 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	SHOULD_CALL_PARENT(TRUE)
-	var/mob/living/L = mob_override || owner.current
+	// SS220 EDIT START - null safe var access
+	var/mob/living/L = mob_override || owner?.current
+	if(!L)
+		return
+	// SS220 EDIT END
 	if(antag_hud_type && antag_hud_name)
 		remove_antag_hud(L)
 	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.

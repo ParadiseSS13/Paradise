@@ -69,7 +69,7 @@
 		return
 	. += mutable_appearance(front_id.icon, front_id.icon_state)
 	. += front_id.overlays
-	. += mutable_appearance(icon, "wallet_overlay")
+	. += mutable_appearance(icon, "[icon_state]_overlay")		// SS220 EDIT
 
 	// fuck yeah, ass photo in my wallet
 	var/obj/item/photo/photo = locate(/obj/item/photo) in contents
@@ -79,7 +79,7 @@
 	MA.pixel_x = 11
 	MA.pixel_y = 1
 	. += MA
-	. += mutable_appearance(icon, "photo_overlay")
+	. += mutable_appearance(icon, "[photo_overlay]_overlay")		// SS220 EDIT
 
 /obj/item/storage/wallet/update_name(updates)
 	. = ..()

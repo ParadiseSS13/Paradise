@@ -1,0 +1,9 @@
+#ifndef MODPACK_HAILER
+#define MODPACK_HAILER
+
+#endif
+
+// BEGIN INCLUDE
+#include "code/sechailer.dm"
+// END_INCLUDE
+

@@ -1,0 +1,8 @@
+#include "_silicons.dm"
+
+#include "code/items/gripper.dm"
+#include "code/items/rlf.dm"
+#include "code/mechfabricator_designs.dm"
+#include "code/robot_items.dm"
+#include "code/robot_modules.dm"
+#include "code/robot_upgrades.dm"
