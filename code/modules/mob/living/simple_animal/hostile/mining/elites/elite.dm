@@ -179,6 +179,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
 	var/list/invaders = list()
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -241,7 +242,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
-	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
+	proximity_monitor = new(src, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
@@ -254,7 +255,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
-	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
+	proximity_monitor = new(src, ARENA_RADIUS)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
@@ -413,7 +414,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"
 		to_chat(mychild, text.Join(" "))
 
-	DeleteComponent(/datum/component/proximity_monitor)
+	QDEL_NULL(proximity_monitor)
 
 /obj/item/tumor_shard
 	name = "tumor shard"

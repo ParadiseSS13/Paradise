@@ -93,7 +93,11 @@
 	if(mode == RESONATOR_MODE_MATRIX)
 		icon_state = "shield2"
 		name = "resonance matrix"
-		RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(burst))
+		RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(burst))
+		var/static/list/loc_connections = list(
+				COMSIG_ATOM_ENTERED = PROC_REF(burst),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
 	. = ..()
 	creator = set_creator
 	parent_resonator = set_resonator
@@ -126,7 +130,7 @@
 	resonance_damage *= damage_multiplier
 
 /obj/effect/temp_visual/resonance/proc/burst()
-	SIGNAL_HANDLER  // COMSIG_MOVABLE_CROSSED
+	SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED
 	if(rupturing)
 		return
 	rupturing = TRUE

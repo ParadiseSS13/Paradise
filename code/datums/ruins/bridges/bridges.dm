@@ -139,9 +139,15 @@
 	name = "clockwork floor"
 	icon_state = "clockwork_floor"
 
-// Pretend to be a normal clockwork floor and duplicate its visual effect
-/obj/structure/bridge_walkway/clockwork/Crossed(atom/crosser, atom/old_loc)
+/obj/structure/bridge_walkway/clockwork/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_crossed)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+// Pretend to be a normal clockwork floor and duplicate its visual effect
+/obj/structure/bridge_walkway/clockwork/proc/on_crossed(atom/crosser)
 	var/counter = 0
 	for(var/obj/effect/temp_visual/ratvar/floor/floor in contents)
 		if(++counter == 3)

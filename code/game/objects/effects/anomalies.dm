@@ -121,6 +121,11 @@
 		if(prob(75))
 			new /obj/item/shard(loc)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
 	QDEL_NULL(warp)  // don't want to leave it hanging
@@ -147,9 +152,8 @@
 	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
 	animate(time = 14, transform = matrix())
 
-/obj/effect/anomaly/grav/Crossed(atom/movable/AM)
-	. = ..()
-	gravShock(AM)
+/obj/effect/anomaly/grav/proc/on_atom_entered(datum/source, atom/movable/entered)
+	gravShock(entered)
 
 /obj/effect/anomaly/grav/Bump(atom/A)
 	gravShock(A)
@@ -195,6 +199,10 @@
 	if(explosive)
 		zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
 		power = 15000
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
@@ -204,10 +212,8 @@
 	if(explosive) //Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
-
-/obj/effect/anomaly/flux/Crossed(atom/movable/AM)
-	. = ..()
-	mobShock(AM)
+/obj/effect/anomaly/flux/proc/on_atom_entered(datum/source, atom/movable/entered)
+	mobShock(entered)
 
 /obj/effect/anomaly/flux/Bump(atom/A)
 	mobShock(A)

@@ -289,7 +289,7 @@
  * Removes all orbit-related signals up its hierarchy and moves orbiters to the current child.
  * As this will never be called by a turf, this should not conflict with parent_move_react.
  */
-/datum/component/orbiter/proc/on_remove_child(atom/movable/exiting, atom/new_loc)
+/datum/component/orbiter/proc/on_remove_child(datum/source, atom/movable/exiting, direction)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EXITED
 
 	// ensure the child is actually connected to the orbited atom
@@ -299,6 +299,7 @@
 	remove_signals(exiting)
 	RegisterSignal(exiting, COMSIG_MOVABLE_MOVED, PROC_REF(parent_move_react), TRUE)
 	RegisterSignal(exiting, COMSIG_ATOM_EXITED, PROC_REF(on_remove_child), TRUE)
+	var/new_loc = get_step(exiting, direction)
 	INVOKE_ASYNC(src, PROC_REF(handle_parent_move), exiting, exiting.loc, new_loc)
 
 /**

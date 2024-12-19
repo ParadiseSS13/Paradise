@@ -214,6 +214,12 @@
 	anchored = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/beam/i_beam/proc/hit()
 	if(master)
@@ -268,10 +274,10 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
+/obj/effect/beam/i_beam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isobj(entered) && !isliving(entered))
 		return
-	if(iseffect(AM))
+	if(iseffect(entered))
 		return
 	hit()
 

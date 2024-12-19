@@ -26,6 +26,13 @@
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
+/obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "beartrap[armed]"
 
@@ -97,16 +104,15 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
-	if(!armed || !isturf(loc))
-		return ..()
+/obj/item/restraints/legcuffs/beartrap/proc/on_atom_entered(datum/source, mob/living/entered)
+	if(!armed || !isturf(loc) || !istype(entered))
+		return
 
-	var/mob/living/L = AM
-	if((iscarbon(AM) || isanimal(AM)) && !HAS_TRAIT(L, TRAIT_FLYING))
-		spring_trap(AM)
+	if((iscarbon(entered) || isanimal(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
+		spring_trap(entered)
 
-		if(ishuman(AM))
-			var/mob/living/carbon/H = AM
+		if(ishuman(entered))
+			var/mob/living/carbon/H = entered
 			if(IS_HORIZONTAL(H))
 				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
@@ -117,11 +123,10 @@
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
-			if(istype(L, /mob/living/simple_animal/hostile/bear))
-				L.apply_damage(trap_damage * 2.5, BRUTE)
+			if(istype(entered, /mob/living/simple_animal/hostile/bear))
+				entered.apply_damage(trap_damage * 2.5, BRUTE)
 			else
-				L.apply_damage(trap_damage * 1.75, BRUTE)
-	..()
+				entered.apply_damage(trap_damage * 1.75, BRUTE)
 
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
 	if(!armed)

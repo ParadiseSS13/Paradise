@@ -74,6 +74,7 @@
 	orient2hud()
 
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_atom_exited))
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
@@ -490,6 +491,9 @@
 	update_icon()
 	return TRUE
 
+/obj/item/storage/proc/on_atom_exited(datum/source, atom/exited, direction)
+	return remove_from_storage(exited, exited.loc)
+
 /**
   * Handles the removal of an item from a storage container.
   *
@@ -529,10 +533,6 @@
 	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
-
-/obj/item/storage/Exited(atom/A, loc)
-	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
-	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
