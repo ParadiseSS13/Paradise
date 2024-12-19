@@ -128,6 +128,7 @@
 	return TRUE
 
 /obj/item/sample/pre_attack(atom/A, mob/living/user, params)
+	. = ..()
 	// Fingerprints will be handled in after_attack() to not mess up the samples taken
 	return A.attackby(src, user, params)
 
