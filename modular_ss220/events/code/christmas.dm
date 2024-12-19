@@ -147,7 +147,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 	for(var/obj/structure/reagent_dispensers/beerkeg/nuke/beernuke in world)
 		beernuke.icon = 'modular_ss220/events/icons/nuclearbomb.dmi'
 	for(var/obj/machinery/nuclearbomb/nuke in world)
-		nuke.icon = 'modular_ss220/events/icons/nuclearbomb.dmi'
+		if(nuke.type == /obj/machinery/nuclearbomb)
+			nuke.icon = 'modular_ss220/events/icons/nuclearbomb.dmi'
 	// Новогодние цветочки (И снеговик)
 	for(var/obj/item/kirbyplants/plants in world)
 		plants.icon = 'modular_ss220/events/icons/xmas.dmi'
