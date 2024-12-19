@@ -6,6 +6,7 @@
 	item_state = "jammer"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
+	new_attack_chain = TRUE
 	var/active = FALSE
 	var/range = 15
 
@@ -19,7 +20,9 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/item/jammer/attack_self__legacy__attackchain(mob/user)
+/obj/item/jammer/activate_self(mob/user)
+	if(..())
+		return
 	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
@@ -42,6 +45,7 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	new_attack_chain = TRUE
 	var/list/icons_charges = list(
 		"syndi-tele-0",
 		"syndi-tele-1",
@@ -68,7 +72,9 @@
 	. = ..()
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
-/obj/item/teleporter/attack_self__legacy__attackchain(mob/user)
+/obj/item/teleporter/activate_self(mob/user)
+	if(..())
+		return
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
@@ -272,9 +278,12 @@
 	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
+	new_attack_chain = TRUE
 	var/used = FALSE
 
-/obj/item/fireproofing_injector/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/fireproofing_injector/activate_self(mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
@@ -298,6 +307,7 @@
 	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
+	new_attack_chain = TRUE
 	var/used = FALSE
 
 /obj/item/cryoregenerative_enhancer/examine_more(mob/user)
@@ -306,7 +316,9 @@
 	. += ""
 	. += "Clinical trials have shown a four times increase in the rate of healing compared to a placebo. Whilst the product is technically not yet available to the public, the right connections with the right people allow interested parties to obtain samples early..."
 
-/obj/item/cryoregenerative_enhancer/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/cryoregenerative_enhancer/activate_self(mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
 		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
 		return
@@ -339,6 +351,7 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	new_attack_chain = TRUE
 
 	/// How many times the mind batter has been used
 	var/times_used = 0
@@ -368,7 +381,9 @@
 		times_used--
 		icon_state = "batterer"
 
-/obj/item/batterer/attack_self__legacy__attackchain(mob/living/carbon/user)
+/obj/item/batterer/activate_self(mob/user)
+	if(..())
+		return
 	activate_batterer(user)
 
 /obj/item/batterer/proc/activate_batterer(mob/user)
@@ -450,6 +465,7 @@
 	icon = 'icons/obj/hhmirror.dmi'
 	icon_state = "hhmirror"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/datum/ui_module/appearance_changer/appearance_changer_holder
 
 /obj/item/handheld_mirror/ui_state(mob/user)
@@ -458,11 +474,12 @@
 /obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
 	appearance_changer_holder.ui_interact(user, ui)
 
-/obj/item/handheld_mirror/attack_self__legacy__attackchain(mob/user)
-	if(ishuman(user))
-		appearance_changer_holder = new(src, user)
-		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
-		ui_interact(user)
+/obj/item/handheld_mirror/activate_self(mob/user)
+	if(..() || !ishuman(user))
+		return
+	appearance_changer_holder = new(src, user)
+	appearance_changer_holder.flags = APPEARANCE_ALL_BODY
+	ui_interact(user)
 
 /obj/item/handheld_mirror/Initialize(mapload)
 	. = ..()
@@ -485,6 +502,7 @@
 	throw_range = 10
 	flags = CONDUCT
 	item_state = "electronic"
+	new_attack_chain = TRUE
 	/// Split points for range_messages.
 	var/list/ranges = list(5, 15, 30)
 	/// Messages to output to the user.
@@ -498,7 +516,9 @@
 	COOLDOWN_DECLARE(scan_cooldown)
 	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
 
-/obj/item/syndi_scanner/attack_self__legacy__attackchain(mob/user)
+/obj/item/syndi_scanner/activate_self(mob/user)
+	if(..())
+		return
 	if(!COOLDOWN_FINISHED(src, scan_cooldown))
 		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
 		return
