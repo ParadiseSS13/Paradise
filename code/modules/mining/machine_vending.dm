@@ -510,7 +510,7 @@
 			points = 0
 		else
 			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
