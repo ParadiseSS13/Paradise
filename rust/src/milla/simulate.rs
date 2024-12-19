@@ -318,14 +318,14 @@ pub(crate) fn post_process(
             }
         }
 
-        let mut fuel_burnt;
         {
             let my_next_tile = next.get_tile_mut(my_index);
+            // New tick, reset the fuel tracker.
+            my_next_tile.fuel_burnt = 0.0;
 
-            // Track how much "fuel" was burnt across all reactions.
-            fuel_burnt = react(my_next_tile, false);
+            react(my_next_tile, false);
             if my_next_tile.hotspot_volume > 0.0 {
-                fuel_burnt += react(my_next_tile, true);
+                react(my_next_tile, true);
             }
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
@@ -339,7 +339,6 @@ pub(crate) fn post_process(
             next,
             my_tile,
             my_index,
-            fuel_burnt,
             new_interesting_tiles,
         )?;
     }
@@ -400,37 +399,23 @@ pub(crate) fn check_interesting(
     next: &mut ZLevel,
     my_tile: &Tile,
     my_index: usize,
-    fuel_burnt: f32,
     new_interesting_tiles: &Bag<InterestingTile>,
 ) -> Result<(), eyre::Error> {
     let mut reasons: ReasonFlags = ReasonFlags::empty();
     {
         let my_next_tile = next.get_tile_mut(my_index);
-        if fuel_burnt > 0.0 || my_next_tile.hotspot_volume > 0.0 {
-            // FIRE!
+        if (my_next_tile.fuel_burnt > 0.0) != (my_tile.fuel_burnt > 0.0) {
+            // Fire started or stopped.
             reasons |= ReasonFlags::DISPLAY;
-        } else if my_next_tile.hotspot_volume == 0.0 && my_tile.hotspot_volume > 0.0 {
-            // Hotspot went away.
-            reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.gases.toxins() >= TOXINS_MIN_FIRE_AND_VISIBILITY_MOLES)
-            != (my_tile.gases.toxins() >= TOXINS_MIN_FIRE_AND_VISIBILITY_MOLES)
+        } else if (my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
+            != (my_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
         {
-            // Crossed the toxins fire and visibility threshold.
+            // Crossed the toxins visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
         } else if (my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
             != (my_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
         {
             // Crossed the sleeping agent visibility threshold.
-            reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.gases.oxygen() >= OXYGEN_MIN_FIRE_MOLES)
-            != (my_tile.gases.oxygen() >= OXYGEN_MIN_FIRE_MOLES)
-        {
-            // Crossed the oxygen fire threshold.
-            reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.temperature() >= PLASMA_BURN_MIN_TEMP)
-            != (my_tile.temperature() >= PLASMA_BURN_MIN_TEMP)
-        {
-            // Fire might have started or stopped.
             reasons |= ReasonFlags::DISPLAY;
         }
 
@@ -439,7 +424,7 @@ pub(crate) fn check_interesting(
             if let AtmosMode::ExposedTo { .. } = my_next_tile.mode {
                 // Since environments have fixed gases and temperatures, we only count them as
                 // interesting (for heat) if there's an active fire.
-                if fuel_burnt > 0.0 {
+                if my_next_tile.fuel_burnt > 0.0 {
                     reasons |= ReasonFlags::HOT;
                 }
             } else {
@@ -497,9 +482,6 @@ pub(crate) fn check_interesting(
 
 /// Is the amount of gas present significant?
 pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
-    if tile.gases.values[gas] < REACTION_SIGNIFICANCE_MOLES {
-        return false;
-    }
     if gas != GAS_AGENT_B
         && tile.gases.values[gas] / tile.gases.moles() < REACTION_SIGNIFICANCE_RATIO
     {
@@ -509,9 +491,7 @@ pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
 }
 
 /// Perform chemical reactions on the tile.
-pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
-    let mut fuel_burnt: f32 = 0.0;
-
+pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     let fraction: f32;
     let hotspot_boost: f32;
     let mut cached_heat_capacity: f32;
@@ -527,7 +507,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
         fraction = 1.0 - my_next_tile.hotspot_volume;
         hotspot_boost = 1.0;
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = my_next_tile.thermal_energy;
+        thermal_energy = fraction * my_next_tile.thermal_energy;
         cached_temperature = thermal_energy / cached_heat_capacity;
     }
     let initial_thermal_energy = thermal_energy;
@@ -559,7 +539,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
         thermal_energy += AGENT_B_CONVERSION_ENERGY * co2_converted;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
-        fuel_burnt += co2_converted;
+        my_next_tile.fuel_burnt += co2_converted;
     }
     // Nitrous Oxide breaking down into nitrogen and oxygen.
     if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
@@ -589,7 +569,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
 
-        fuel_burnt += nitrous_decomposed;
+        my_next_tile.fuel_burnt += nitrous_decomposed;
     }
     // Plasmafire!
     if cached_temperature > PLASMA_BURN_MIN_TEMP
@@ -603,24 +583,19 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
             .max(0.0)
             .min(1.0);
 
-        // How much oxygen do we consume per plasma burnt?
-        // Linear scaling from worst to best as efficiency goes from 0 to 1.
-        let oxygen_per_plasma = PLASMA_BURN_WORST_OXYGEN_PER_PLASMA
-            + (PLASMA_BURN_BEST_OXYGEN_PER_PLASMA - PLASMA_BURN_WORST_OXYGEN_PER_PLASMA)
-                * efficiency;
-
         // How much plasma is available to burn?
-        // Capped by oxygen availability. Significantly more oxygen is required than is
-        // consumed. This means that if there is enough oxygen to burn all the plasma, the
-        // oxygen-to-plasm ratio will increase while burning.
-        let burnable_plasma = fraction
-            * my_next_tile
-                .gases
-                .toxins()
-                .min(my_next_tile.gases.oxygen() / PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY);
+        let burnable_plasma = fraction * my_next_tile.gases.toxins();
 
         // Actual burn amount.
-        let plasma_burnt = (efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_plasma).max(PLASMA_BURN_MIN_MOLES.min(burnable_plasma));
+        let mut plasma_burnt = efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_plasma;
+        if plasma_burnt < PLASMA_BURN_MIN_MOLES {
+            // Boost up to the minimum.
+            plasma_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_plasma);
+        }
+        if plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA > fraction * my_next_tile.gases.oxygen() {
+            // Restrict based on available oxygen.
+            plasma_burnt = fraction * my_next_tile.gases.oxygen() / PLASMA_BURN_OXYGEN_PER_PLASMA;
+        }
 
         my_next_tile
             .gases
@@ -630,7 +605,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
             .set_carbon_dioxide(my_next_tile.gases.carbon_dioxide() + plasma_burnt);
         my_next_tile
             .gases
-            .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * oxygen_per_plasma);
+            .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA);
 
         // Recalculate existing thermal energy to account for the change in heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
@@ -641,7 +616,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
         // (or we would, but this is the last reaction)
         //cached_temperature = thermal_energy / cached_heat_capacity;
 
-        fuel_burnt += plasma_burnt;
+        my_next_tile.fuel_burnt += plasma_burnt;
     }
 
     if hotspot_step {
@@ -649,8 +624,6 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) -> f32 {
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
-
-    fuel_burnt
 }
 
 /// Apply effects caused by the tile's atmos mode.

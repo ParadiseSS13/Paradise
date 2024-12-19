@@ -129,15 +129,16 @@
 #define MILLA_INDEX_HOTSPOT_VOLUME			17
 #define MILLA_INDEX_WIND_X					18
 #define MILLA_INDEX_WIND_Y					19
+#define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_WIND_Y
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					20
-#define MILLA_INDEX_INTERESTING_REASONS		21
-#define MILLA_INDEX_AIRFLOW_X				22
-#define MILLA_INDEX_AIRFLOW_Y				23
+#define MILLA_INDEX_TURF					21
+#define MILLA_INDEX_INTERESTING_REASONS		22
+#define MILLA_INDEX_AIRFLOW_X				23
+#define MILLA_INDEX_AIRFLOW_Y				24
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y

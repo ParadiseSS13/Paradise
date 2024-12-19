@@ -35,6 +35,7 @@ What are the archived variables for?
 	var/private_temperature = 0 //in Kelvin
 	var/private_hotspot_temperature = 0
 	var/private_hotspot_volume = 0
+	var/private_fuel_burnt = 0
 
 	// Archived versions of the private fields.
 	// Only gas_mixture should use these.
@@ -107,6 +108,9 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/hotspot_volume()
 	return private_hotspot_volume
+
+/datum/gas_mixture/proc/fuel_burnt()
+	return private_fuel_burnt
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
@@ -661,6 +665,7 @@ What are the archived variables for?
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
+	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
 
 /proc/share_many_airs(list/mixtures)
 	var/total_volume = 0
@@ -746,6 +751,7 @@ What are the archived variables for?
 		readonly.private_temperature = private_temperature
 		readonly.private_hotspot_temperature = private_hotspot_temperature
 		readonly.private_hotspot_volume = private_hotspot_volume
+		readonly.private_fuel_burnt = private_fuel_burnt
 
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
@@ -806,6 +812,9 @@ What are the archived variables for?
 	private_agent_b = parent.private_agent_b
 
 	private_temperature = parent.private_temperature
+	private_hotspot_temperature = parent.private_hotspot_temperature
+	private_hotspot_volume = parent.private_hotspot_volume
+	private_fuel_burnt = parent.private_fuel_burnt
 
 /datum/gas_mixture/readonly/set_dirty()
 	CRASH("Attempted to modify a readonly gas_mixture.")

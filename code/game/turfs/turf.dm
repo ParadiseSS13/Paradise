@@ -665,30 +665,21 @@
 /turf/return_analyzable_air()
 	return get_readonly_air()
 
-/turf/proc/update_hotspot()
-	return
-
-/turf/simulated/update_hotspot()
+/turf/simulated/proc/update_hotspot()
 	var/datum/gas_mixture/air = get_readonly_air()
-
-	var/hotspot_temperature
-	var/hotspot_volume
-	if(air.hotspot_volume() > 0)
-		hotspot_temperature = air.hotspot_temperature()
-		hotspot_volume = air.hotspot_volume() * CELL_VOLUME
-	else if(air.temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-		if(air.oxygen() < 0.5 || air.toxins() < 0.5)
-			QDEL_NULL(active_hotspot)
-			return
-
-		hotspot_temperature = air.temperature()
-		hotspot_volume = CELL_VOLUME
-	else
+	if(air.fuel_burnt() <= 0)
 		QDEL_NULL(active_hotspot)
-		return
+		return FALSE
 
 	if(isnull(active_hotspot))
-		active_hotspot = new /obj/effect/hotspot(src)
-	active_hotspot.temperature = hotspot_temperature
-	active_hotspot.volume = hotspot_volume
+		active_hotspot = new(src)
+
+	if(air.hotspot_volume() > 0)
+		active_hotspot.temperature = air.hotspot_temperature()
+		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+	else
+		active_hotspot.temperature = air.temperature()
+		active_hotspot.volume = CELL_VOLUME
+
 	active_hotspot.update_visuals()
+	return TRUE

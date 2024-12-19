@@ -24,16 +24,10 @@ pub(crate) const TILE_VOLUME: f32 = 2500.0;
 
 /// How many moles of toxins are needed for a fire to exist. For reasons, this is also how hany
 /// moles are needed to be visible.
-pub(crate) const TOXINS_MIN_FIRE_AND_VISIBILITY_MOLES: f32 = 0.5;
-
-/// How many moles of oxygen are needed for a fire to exist.
-pub(crate) const OXYGEN_MIN_FIRE_MOLES: f32 = 0.5;
+pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 
 /// How many moles are needed to make sleeping gas visible.
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
-
-/// How many moles of each gas are needed before a reaction should happen.
-pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.5;
 
 /// How much of the tile a reaction's gas needs to occupy to happen.
 pub(crate) const REACTION_SIGNIFICANCE_RATIO: f32 = 0.01;
@@ -116,23 +110,17 @@ pub(crate) const PLASMA_BURN_MIN_TEMP: f32 = 100.0 + T0C;
 /// How hot does it need to be for a plasma fire to work as well as possible?
 pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 
-/// How much oxygen needs to be available per unit of plasma.
-pub(crate) const PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY: f32 = 10.0;
-
 /// How much of the plasma are we willing to burn each tick?
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
 
 /// How much of the plasma do we burn anyway if the ratio would make it really small?
-pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 1.0;
+pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.1;
 
 /// How much of a boost to burn ratio do we give to hotspots?
 pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 
-/// How much oxygen do we use per plasma at min temp?
-pub(crate) const PLASMA_BURN_WORST_OXYGEN_PER_PLASMA: f32 = 1.4;
-
-/// How much oxygen do we use per plasma at optimal temp?
-pub(crate) const PLASMA_BURN_BEST_OXYGEN_PER_PLASMA: f32 = 0.4;
+/// How much oxygen do we use per plasma?
+pub(crate) const PLASMA_BURN_OXYGEN_PER_PLASMA: f32 = 0.4;
 
 /// How much thermal energy is produced, in joules per mole of agent b.
 pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;

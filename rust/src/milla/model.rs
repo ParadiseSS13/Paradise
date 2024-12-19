@@ -228,6 +228,8 @@ pub(crate) struct Tile {
     pub(crate) wind: [f32; AXES.len()],
     /// Is there a wall in this direction?
     pub(crate) wall: [bool; AXES.len()],
+    /// How much fuel was burnt this tick?
+    pub(crate) fuel_burnt: f32,
 }
 
 impl Tile {
@@ -243,6 +245,7 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
+            fuel_burnt: 0.0,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
@@ -290,6 +293,7 @@ impl Tile {
             self.wind[i] = other.wind[i];
             self.wall[i] = other.wall[i];
         }
+        self.fuel_burnt = other.fuel_burnt;
     }
 }
 
@@ -324,6 +328,7 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.hotspot_volume),
             ByondValue::from(value.wind[AXIS_X]),
             ByondValue::from(value.wind[AXIS_Y]),
+            ByondValue::from(value.fuel_burnt),
         ]
     }
 }

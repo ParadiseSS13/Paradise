@@ -323,11 +323,13 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				S.update_visuals()
-				T.update_hotspot()
+				S.update_hotspot()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/datum/gas_mixture/air = T.get_readonly_air()
-			T.update_hotspot()
+			var/turf/simulated/S = T
+			if(istype(S))
+				S.update_hotspot()
 			T.temperature_expose(air.temperature())
 			for(var/atom/movable/item in T)
 				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
