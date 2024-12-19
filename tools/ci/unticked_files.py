@@ -22,6 +22,7 @@ INCLUDER_FILES = [
     'paradise.dme',
     'code/modules/tgs/includes.dm',
     'code/modules/unit_tests/_unit_tests.dm',
+    'code/modules/interaction_tests/_interaction_tests.dm',
 ]
 
 IGNORE_FILES = {
