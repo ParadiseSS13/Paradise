@@ -126,6 +126,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/ebeam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // ON_ATOM_ENTERED
 	return
 
 /obj/effect/ebeam/ex_act(severity)

@@ -79,7 +79,7 @@
 	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
 
 /obj/item/deck/Destroy()
-	tracker = null
+	qdel(tracker)
 	. = ..()
 
 /obj/item/deck/examine(mob/user)

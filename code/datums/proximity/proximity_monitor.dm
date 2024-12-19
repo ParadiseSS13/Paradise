@@ -41,7 +41,7 @@
 	set_range(current_range, TRUE)
 
 /datum/proximity_monitor/proc/on_host_or_receiver_del(datum/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	qdel(src)
 
 /datum/proximity_monitor/Destroy()
@@ -59,12 +59,12 @@
 	AddComponent(/datum/component/connect_range, host, loc_connections, range, !ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_moved(atom/movable/source, atom/old_loc)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	if(source == host)
 		hasprox_receiver?.HasProximity(host)
 
 /datum/proximity_monitor/proc/on_z_change()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_Z_CHANGED
 	return
 
 /datum/proximity_monitor/proc/set_ignore_if_not_on_turf(does_ignore = TRUE)
@@ -75,15 +75,15 @@
 	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_uncrossed()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 	return //Used by the advanced subtype for effect fields.
 
 /datum/proximity_monitor/proc/on_entered(atom/source, atom/movable/arrived, turf/old_loc)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(source != host)
 		hasprox_receiver?.HasProximity(arrived)
 
 /datum/proximity_monitor/proc/on_initialized(turf/location, atom/created, init_flags)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
 	if(location != host)
 		hasprox_receiver?.HasProximity(created)

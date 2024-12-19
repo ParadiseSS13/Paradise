@@ -170,6 +170,10 @@
 	/// The mob currently holding the ore bag, to track moving over ore to auto-pickup.
 	var/mob/listening_to
 
+/obj/item/storage/bag/ore/Destroy()
+	. = ..()
+	listening_to = null
+
 /obj/item/storage/bag/ore/equipped(mob/user, slot, initial)
 	. = ..()
 	if(listening_to == user)

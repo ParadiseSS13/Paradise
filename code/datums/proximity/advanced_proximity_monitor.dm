@@ -106,6 +106,7 @@
 /// Called when a turf in the field of the monitor is unlinked
 /// Do NOT call this manually, requires management of the field_turfs list
 /datum/proximity_monitor/advanced/proc/cleanup_field_turf(turf/target)
+	PRIVATE_PROC(TRUE)
 	return
 
 /// Called when a turf in the edge of the monitor is linked

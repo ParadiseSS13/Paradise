@@ -70,6 +70,8 @@
 	host = null
 	for(var/turf/floor in floors)
 		SEND_SIGNAL(floor, COMSIG_CARD_DECK_FIELD_CLEAR)
+		for(var/mob/living/L in floor)
+			REMOVE_TRAIT(L, TRAIT_PLAYING_CARDS, "deck_[deck_uid]")
 
 	floors.Cut()
 	tables.Cut()

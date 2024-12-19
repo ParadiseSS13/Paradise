@@ -7,9 +7,7 @@
 
 	/// An assoc list of signal -> procpath to register to the loc this object is on.
 	var/list/connections
-
 	var/atom/movable/tracked
-
 	var/atom/tracked_loc
 
 /datum/component/connect_loc_behalf/Initialize(atom/movable/tracked, list/connections)
