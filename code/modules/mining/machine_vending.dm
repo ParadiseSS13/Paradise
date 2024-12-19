@@ -354,7 +354,7 @@
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
 		EQUIPMENT("Whisky", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
-		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/cans/beer, 50),
+		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/bottle/beer, 50),
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
@@ -501,16 +501,16 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+/obj/item/card/mining_point_card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id))
 		if(points)
-			var/obj/item/card/id/C = I
+			var/obj/item/card/id/C = used
 			C.mining_points += points
 			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
 			points = 0
 		else
 			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
-	..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()

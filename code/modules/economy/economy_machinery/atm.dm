@@ -315,10 +315,11 @@
 
 /obj/machinery/economy/atm/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='warning'>Yellow ooze seeps into the [src]'s card slot...</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	return TRUE
 
 /obj/machinery/economy/atm/examine(mob/user)
 	. = ..()

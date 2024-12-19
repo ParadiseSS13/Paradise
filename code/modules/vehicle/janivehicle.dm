@@ -90,36 +90,36 @@
 	if(buffer_installed)
 		. += "It has been upgraded with a floor buffer."
 
-/obj/vehicle/janicart/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return FINISH_ATTACK
-
+/obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
-	if(istype(attacking, /obj/item/storage/bag/trash))
+	if(istype(used, /obj/item/storage/bag/trash))
 		if(mybag)
 			to_chat(user, fail_msg)
-			return FINISH_ATTACK
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return FINISH_ATTACK
-		to_chat(user, "<span class='notice'>You hook [attacking] onto [src].</span>")
-		attacking.forceMove(src)
-		mybag = attacking
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You hook [used] onto [src].</span>")
+		used.forceMove(src)
+		mybag = used
 		update_icon(UPDATE_OVERLAYS)
-		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/borg/upgrade/floorbuffer))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/borg/upgrade/floorbuffer))
 		if(buffer_installed)
 			to_chat(user, fail_msg)
-			return FINISH_ATTACK
+			return ITEM_INTERACT_COMPLETE
 		buffer_installed = TRUE
-		qdel(attacking)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [attacking].</span>")
+		qdel(used)
+		to_chat(user,"<span class='notice'>You upgrade [src] with [used].</span>")
 		update_icon(UPDATE_OVERLAYS)
-		return FINISH_ATTACK
-	if(mybag && user.a_intent == INTENT_HELP && !is_key(attacking))
-		mybag.attackby__legacy__attackchain(attacking, user)
-	else
-		return FINISH_ATTACK
+		return ITEM_INTERACT_COMPLETE
+
+	if(mybag && user.a_intent == INTENT_HELP && !is_key(used))
+		mybag.attackby__legacy__attackchain(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
 	if(..() && floorbuffer)

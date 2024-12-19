@@ -263,7 +263,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
-	baton.attack(C, src)
+	baton.attack__legacy__attackchain(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

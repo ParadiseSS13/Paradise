@@ -95,6 +95,8 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		return TRUE
+	return FALSE
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG
