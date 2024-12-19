@@ -380,10 +380,10 @@
 	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/changeling/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
 
 	..()

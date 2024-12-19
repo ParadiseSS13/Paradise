@@ -131,9 +131,13 @@
 	ADD_TRAIT(src, TRAIT_AI_UNTRACKABLE, PULSEDEMON_TRAIT)
 	flags_2 |= RAD_NO_CONTAMINATE_2
 
-	// don't step on me
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+	// For when someone steps on us
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	// For when we move somewhere else
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
 	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
@@ -639,8 +643,18 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
-/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
-	SIGNAL_HANDLER
+/mob/living/simple_animal/demon/pulse_demon/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	try_cross_shock(entered)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_movable_moved(datum/source, old_location, direction, forced)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	if(is_under_tile())
+		return
+	for(var/mob/living/mob in loc)
+		try_shock_mob(mob)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(atom/movable/A)
 	if(!isliving(A) || is_under_tile())
 		return
 	var/mob/living/L = A
@@ -761,7 +775,7 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE

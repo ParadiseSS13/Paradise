@@ -27,7 +27,7 @@
 	if(activeFor % shift_frequency == 0)
 		for(var/obj/effect/portal/wormhole/O in wormholes)
 			var/turf/T = pick(pick_turfs)
-			if(T)	O.loc = T
+			if(T)	O.forceMove(T)
 
 /datum/event/wormholes/end()
 	for(var/obj/effect/portal/wormhole/O in wormholes)

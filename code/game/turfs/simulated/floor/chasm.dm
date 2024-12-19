@@ -263,7 +263,7 @@
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(isliving(gone))
 		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
@@ -296,7 +296,7 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
+/turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return 1
 
 /turf/simulated/floor/chasm/pride/Initialize(mapload)

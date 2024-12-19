@@ -142,6 +142,8 @@
 	/// How often will the vendor tip when you walk by it when aggressive is true?
 	var/aggressive_tilt_chance = 25
 
+	var/datum/proximity_monitor/proximity_monitor
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -175,7 +177,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
 	if(aggressive)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src, 1)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -943,8 +945,9 @@
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
-/obj/machinery/economy/vending/onTransitZ()
-	return
+/obj/machinery/economy/vending/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	// Don't bother notifying contents (for some reason (probably historical reasons (probably for no reason)))
+	return ..()
 
 /obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)

@@ -19,13 +19,20 @@
 	///sound exponent for squeak. Defaults to 10 as squeaking is loud and annoying enough.
 	var/sound_falloff_exponent = 10
 
+	///what we set connect_loc to if parent is an item
+	var/static/list/item_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+
+
 /datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, squeak_on_move, extrarange, falloff_exponent, fallof_distance)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATTACK_BY), PROC_REF(play_squeak))
 	if(ismovable(parent))
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), PROC_REF(play_squeak))
-		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(play_squeak_crossed))
+
+		AddComponent(/datum/component/connect_loc_behalf, parent, item_connections)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react))
 		if(squeak_on_move)
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_squeak))
@@ -71,25 +78,23 @@
 	else
 		steps++
 
-/datum/component/squeak/proc/play_squeak_crossed(atom/source, atom/movable/crossing)
-	if(!isturf(crossing.loc) || !isturf(source.loc))
+/datum/component/squeak/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(istype(entered, /obj/effect))
 		return
-	if(istype(crossing, /obj/effect))
-		return
-	if(ismob(crossing))
-		var/mob/M = crossing
+	if(ismob(entered))
+		var/mob/M = entered
 		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
-		if(isliving(crossing))
+		if(isliving(entered))
 			var/mob/living/L = M
 			if(L.floating)
 				return
-	else if(isitem(crossing))
+	else if(isitem(entered))
 		var/obj/item/I = source
 		if(I.flags & ABSTRACT)
 			return
-		if(isprojectile(crossing))
-			var/obj/item/projectile/P = crossing
+		if(isprojectile(entered))
+			var/obj/item/projectile/P = entered
 			if(P.original != parent)
 				return
 	if(ismob(source))

@@ -37,7 +37,7 @@
 	. = ..()
 	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
-/obj/machinery/optable/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/optable/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(isliving(mover))

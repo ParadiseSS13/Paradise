@@ -307,6 +307,13 @@
 				pixel_y = -5
 				layer = FLY_LAYER
 
+/obj/machinery/shower/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -401,10 +408,10 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(on)
-		wash(AM)
+		wash(entered)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)

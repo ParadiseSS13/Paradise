@@ -468,6 +468,7 @@
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
 	**/
 	var/status = GROWING
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -485,7 +486,7 @@
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -516,7 +517,7 @@
 /obj/structure/alien/egg/proc/grow()
 	icon_state = "egg"
 	status = GROWN
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/burst(kill)
@@ -524,8 +525,7 @@
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
-		DeleteComponent(/datum/component/proximity_monitor)
-
+		QDEL_NULL(proximity_monitor)
 		addtimer(CALLBACK(src, PROC_REF(hatch)), 1.5 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
