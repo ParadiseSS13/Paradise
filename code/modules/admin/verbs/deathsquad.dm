@@ -37,12 +37,19 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		for(var/mob/living/silicon/ai/AI in ais)
 			death_squad_ai_law_set.sync(AI, TRUE, FALSE) // Reset all laws exept zero
 			to_chat(AI, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them.")
+			//TODO Add cool sound
 			AI.show_laws()
+			var/obj/item/radio/headset/heads/ai_integrated/ai_radio = AI.get_radio()
+			ai_radio.make_epsilon()
+
 			for(var/mob/living/silicon/robot/R in AI.connected_robots)
 				R.sync()
 				to_chat(R, "Centrel comand has uploaded a new set of laws you must follow. Make sure you follow them.")
+				//TODO Add cool sound
 				R.show_laws()
-				// should we hack them all
+				var/obj/item/radio/headset/heads/ai_integrated/cyberg_radio = R.get_radio()
+				cyberg_radio.make_epsilon()
+				// should we hack them?
 		// my_test_proc()
 
 	// Locates commandos spawns
