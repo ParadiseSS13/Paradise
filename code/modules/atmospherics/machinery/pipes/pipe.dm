@@ -64,7 +64,7 @@
 /obj/machinery/atmospherics/pipe/return_analyzable_air()
 	if(!parent)
 		return null
-	return parent.air
+	return list(parent.air) + parent.other_airs
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
