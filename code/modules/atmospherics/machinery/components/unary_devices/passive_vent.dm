@@ -44,7 +44,7 @@
 	if(pressure_delta > 0)
 		// transfer from pipe air to environment
 		if((vent.air_contents.total_moles() > 0) && (vent.air_contents.temperature() > 0))
-			var/transfer_moles = pressure_delta * environment.volume / (vent.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+			var/transfer_moles = pressure_delta * vent.air_contents.volume / (vent.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			transfer_moles = min(transfer_moles, vent.volume)
 
 			var/datum/gas_mixture/removed = vent.air_contents.remove(transfer_moles)
