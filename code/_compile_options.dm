@@ -2,7 +2,7 @@
 //#define TESTING
 
 // Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
-// #define LOCAL_UNIT_TESTS
+// #define LOCAL_GAME_TESTS
 
 // Uncomment the following line to enable Tracy profiling.
 // DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS
@@ -12,16 +12,16 @@
 // Uncomment this to enable support for multiple instances
 // #define MULTIINSTANCE
 
-#ifdef LOCAL_UNIT_TESTS
-#define UNIT_TESTS
+#ifdef LOCAL_GAME_TESTS
+#define GAME_TESTS
 #endif
 
 #ifdef CIBUILDING
-#define UNIT_TESTS
+#define GAME_TESTS
 #endif
 
-#if defined(CIBUILDING) && defined(LOCAL_UNIT_TESTS)
-#error CIBUILDING and LOCAL_UNIT_TESTS should not be enabled at the same time!
+#if defined(CIBUILDING) && defined(LOCAL_GAME_TESTS)
+#error CIBUILDING and LOCAL_GAME_TESTS should not be enabled at the same time!
 #endif
 
 /***** All toggles for the GC ref finder *****/

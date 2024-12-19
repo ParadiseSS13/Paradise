@@ -363,7 +363,7 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	// Run map tests first in case unit tests futz with map state
 	GLOB.test_runner.RunMap()
 	GLOB.test_runner.Run()
