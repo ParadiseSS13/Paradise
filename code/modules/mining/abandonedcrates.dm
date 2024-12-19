@@ -49,7 +49,7 @@
 		if(46 to 50)
 			new /obj/item/clothing/under/chameleon(src)
 			for(var/i in 1 to 7)
-				new /obj/item/clothing/accessory/horrible(src)
+				new /obj/item/clothing/neck/tie/horrible(src)
 		if(51 to 52) // 2% chance
 			new /obj/item/melee/classic_baton(src)
 		if(53 to 54)
