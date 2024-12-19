@@ -273,7 +273,15 @@
 	var/old_baseturf = baseturf
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
+	var/list/old_comp_lookup = comp_lookup?.Copy()
+	var/list/old_signal_procs = signal_procs?.Copy()
+
 	var/turf/W = new path(src)
+	if(old_comp_lookup)
+		LAZYOR(W.comp_lookup, old_comp_lookup)
+	if(old_signal_procs)
+		LAZYOR(W.signal_procs, old_signal_procs)
+
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
 
@@ -645,3 +653,6 @@
 
 /turf/return_analyzable_air()
 	return get_readonly_air()
+
+/turf/_clear_signal_refs()
+	return

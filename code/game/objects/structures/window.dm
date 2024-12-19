@@ -135,7 +135,11 @@
 	return 1
 
 /obj/structure/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
 	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+	if(leaving == src)
 		return
 	if(dir == FULLTILE_WINDOW_DIR)
 		return
