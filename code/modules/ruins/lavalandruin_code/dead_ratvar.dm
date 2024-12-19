@@ -210,12 +210,15 @@
 
 //Components: Used in scripture.
 /obj/item/clockwork/component
+	name = "arbitrary clockwork component"
+	desc = "A strange artifact and powerful of Ratvar that should not exist. Make an issue report to GitHub if you see this."
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "dread_ipad"	// So it's visible.
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clockwork/component/belligerent_eye
 	name = "belligerent eye"
 	desc = "A brass construct with a rotating red center. It's as though it's looking for something to hurt."
-	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "belligerent_eye"
 
 /obj/item/clockwork/component/belligerent_eye/blind_eye
@@ -224,11 +227,68 @@
 	icon_state = "blind_eye"
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/clockwork/component/belligerent_eye/lens_gem
+	name = "lens gem"
+	desc = "A tiny pinkish gem. It catches the light oddly, almost glowing."
+	icon_state = "lens_gem"
+	w_class = WEIGHT_CLASS_TINY
+	light_range = 1.4
+	light_power = 0.4
+	light_color = "#F42B9D"
+
+/obj/item/clockwork/component/vanguard_cogwheel
+	name = "vanguard_cogwheel"
+	desc = "A sturdy brass cog with a faintly glowing blue gem in its center."
+	icon_state = "vanguard_cogwheel"
+
+/obj/item/clockwork/component/vanguard_cogwheel/onyx_prism
+	name = "onyx prism"
+	desc = "An onyx prism with a small aperture. It's very heavy."
+	icon_state = "onyx_prism"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/clockwork/component/geis_capacitor
+	name = "geis capacitor"
+	desc = "A curiously cold brass doodad. It seems as though it really doesn't appreciate being held."
+	icon_state = "geis_capacitor"
+
 /obj/item/clockwork/component/geis_capacitor/fallen_armor
 	name = "fallen armor"
 	desc = "Lifeless chunks of armor. They're designed in a strange way and won't fit on you."
-	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "fallen_armor"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/clockwork/component/geis_capacitor/antennae
+	name = "mania motor antennae"
+	desc = "A pair of dented and bent antennae. They constantly emit a static hiss."
+	icon_state = "mania_motor_antennae"
+
+/obj/item/clockwork/component/replicant_alloy
+	name = "replicant alloy"
+	desc = "A seemingly strong but very malleable chunk of metal. It seems as though it wants to be molded into something greater."
+	icon_state = "replicant_alloy"
+
+/obj/item/clockwork/component/replicant_alloy/smashed_anima_fragment
+	name = "smashed anima fragment"
+	desc = "Shattered chunks of metal. Damaged beyond repair and completely unusable."
+	icon_state = "smashed_anime_fragment"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/clockwork/component/replicant_alloy/replication_plate
+	name = "replication plate"
+	desc = "A flat, heavy disc of metal with a triangular formation on its surface."
+	icon_state = "replication_plate"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/clockwork/component/hierophant_ansible
+	name = "hierophant ansible"
+	desc = "Some sort of transmitter? It seems as though it's trying to say something."
+	icon_state = "hierophant_ansible"
+
+/obj/item/clockwork/component/hierophant_ansible/obelisk
+	name = "obelisk prism"
+	desc = "A prism that occasionally glows brightly. It seems not-quite there."
+	icon_state = "obelisk_prism"
 	w_class = WEIGHT_CLASS_NORMAL
 
 //Ratvarian spear
