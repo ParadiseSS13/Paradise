@@ -74,7 +74,7 @@
 	floors.Cut()
 	tables.Cut()
 
-	. = ..()
+	return ..()
 
 /datum/card_deck_table_tracker/proc/on_atom_entered(turf/source, atom/movable/entered, old_loc)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
