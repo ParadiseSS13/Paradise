@@ -374,12 +374,14 @@
 		if(S)
 			qdel(S)
 	shield_list = list()
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+		A.unlock()
+
+/area/syndicate_depot/core/proc/unlock_lockers() // used on QM's death
 	for(var/obj/structure/closet/secure_closet/depot/armory/L in src)
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
-	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
-		A.unlock()
 
 /area/syndicate_depot/core/proc/despawn_guards()
 	for(var/mob/thismob in list_getmobs(guard_list))
