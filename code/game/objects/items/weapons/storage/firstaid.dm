@@ -308,7 +308,7 @@
 			return
 		applying_meds = TRUE
 		for(var/obj/item/reagent_containers/P in contents)
-			if(P.attack(M, user))
+			if(P.attack__legacy__attackchain(M, user))
 				applying_meds = FALSE
 			else
 				applying_meds = FALSE
@@ -357,7 +357,7 @@
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds
 				for(var/obj/item/reagent_containers/pill/P in contents)
-					P.attack(C, C)
+					P.attack__legacy__attackchain(C, C)
 				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
 			return
 

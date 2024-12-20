@@ -64,7 +64,7 @@
 	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		bump_field(mover)
 
-/obj/machinery/field/containment/proc/set_master(master1,master2)
+/obj/machinery/field/containment/proc/set_master(master1, master2)
 	if(!master1 || !master2)
 		return 0
 	FG1 = master1
@@ -99,7 +99,7 @@
 
 /obj/machinery/field/proc/shock_field(mob/living/user)
 	if(isliving(user))
-		var/shock_damage = min(rand(30,40),rand(30,40))
+		var/shock_damage = min(rand(30, 40), rand(30, 40))
 
 		if(isliving(user) && !issilicon(user))
 			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT

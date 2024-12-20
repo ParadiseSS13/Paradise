@@ -1210,3 +1210,5 @@
 		addtimer(CALLBACK(plush_outcome, TYPE_PROC_REF(/obj/item/toy/plushie, un_plushify)), curse_time)
 	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
 
+/mob/living/proc/sec_hud_set_ID()
+	return
