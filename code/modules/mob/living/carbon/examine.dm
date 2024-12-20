@@ -163,7 +163,7 @@
 			msg += examine_handle_individual_limb(limb_name)
 
 	// hallucinating?
-	if(hallucinating && prob(25))
+	if(hallucinating && prob(50))
 		// List of hallucination messages
 		var/list/hallucination_texts = list(
 			"You blink, and for a moment, [p_their()] body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
