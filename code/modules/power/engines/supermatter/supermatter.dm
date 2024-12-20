@@ -230,6 +230,11 @@
 	/// Run S-Class event? So we can only run one S-class event per round per crystal
 	var/has_run_sclass = FALSE
 
+	/// How often do we want to process the crystal?
+	var/ticks_per_run = 5
+	/// How long has it been since we processed the crystal?
+	var/tick_counter = 0
+
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -407,8 +412,11 @@
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
-	var/datum/milla_safe/supermatter_process/milla = new()
-	milla.invoke_async(src)
+	tick_counter += SSair.wait
+	if(tick_counter >= ticks_per_run)
+		var/datum/milla_safe/supermatter_process/milla = new()
+		milla.invoke_async(src)
+		tick_counter -= ticks_per_run
 
 /datum/milla_safe/supermatter_process
 
@@ -424,7 +432,7 @@
 	if(isnull(T))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(T)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
+	if(!istype(loc, /turf)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
 	if(T.density)

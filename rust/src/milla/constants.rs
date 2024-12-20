@@ -120,7 +120,7 @@ pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
 
 /// How much of the plasma do we burn anyway if the ratio would make it really small?
-pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.1;
+pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.01;
 
 /// How much of a boost to burn ratio do we give to hotspots?
 pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;

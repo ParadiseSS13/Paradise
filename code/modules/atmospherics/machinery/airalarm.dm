@@ -272,6 +272,15 @@
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
+	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_SCRUBBING)
+		mode = AALARM_MODE_OFF
+		apply_mode()
+		var/area/A = location.loc
+		A.firealert(src)
+
+	if(mode == AALARM_MODE_REFILL && environment_pressure >= cur_tlv.min1)
+		mode = AALARM_MODE_SCRUBBING
+		apply_mode()
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
@@ -310,7 +319,7 @@
 		apply_danger_level()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
-		mode = AALARM_MODE_SCRUBBING
+		mode = AALARM_MODE_REFILL
 		apply_mode()
 
 /datum/milla_safe/airalarm_heat_cool
