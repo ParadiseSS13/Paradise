@@ -32,7 +32,7 @@
 	tracked = null
 
 /datum/component/connect_loc_behalf/proc/handle_tracked_qdel()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	qdel(src)
 
 /datum/component/connect_loc_behalf/proc/update_signals()
@@ -62,6 +62,6 @@
 	tracked_loc = null
 
 /datum/component/connect_loc_behalf/proc/on_moved(sigtype, atom/movable/tracked, atom/old_loc)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	update_signals()
 

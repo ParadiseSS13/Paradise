@@ -38,6 +38,6 @@
 	listener.UnregisterSignal(old_loc, connections)
 
 /datum/element/connect_loc/proc/on_moved(atom/movable/listener, atom/old_loc)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	unregister_signals(listener, old_loc)
 	update_signals(listener)

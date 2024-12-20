@@ -37,6 +37,7 @@
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/proc/on_atom_entered(datum/source, mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(crossed.anchored || crossed.throwing)
 		return
 
@@ -46,6 +47,7 @@
 		mobs_running[crossed] = crossed.last_movement
 
 /obj/machinery/power/treadmill/proc/on_atom_exited(mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 	if(istype(crossed))
 		mobs_running -= crossed
 

@@ -524,7 +524,7 @@
  * Arguments:
  * * old_turf - The previous turf they were on before.
  * * new_turf - The turf they have now entered.
- * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed. NOTE, IF YOU SET THIS, YOU NEED TO MANUALLY SET PLANE OF THE CONTENTS LATER
+ * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed.
  */
 /atom/movable/proc/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = TRUE)
 	SHOULD_CALL_PARENT(TRUE)

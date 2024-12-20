@@ -129,7 +129,7 @@
 	..()
 
 /obj/machinery/camera/proc/proximity_deleted()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	proximity_monitor = null
 
 /obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)

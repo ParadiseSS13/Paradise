@@ -42,7 +42,7 @@
 	update_signals(tracked)
 
 /datum/component/connect_containers/proc/handle_tracked_qdel()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	qdel(src)
 
 /datum/component/connect_containers/proc/update_signals(atom/movable/listener)
@@ -63,6 +63,6 @@
 		parent.UnregisterSignal(target, connections)
 
 /datum/component/connect_containers/proc/on_moved(atom/movable/listener, atom/old_loc)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	unregister_signals(old_loc)
 	update_signals(listener)
