@@ -89,7 +89,7 @@
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/plaincakeslice
-	name = "vanilla cake slice"
+	name = "plain cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake_slice"
