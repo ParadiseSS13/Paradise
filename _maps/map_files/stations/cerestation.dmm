@@ -36304,12 +36304,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"gpZ" = (
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/turf/space,
-/area/space)
 "gqQ" = (
 /obj/structure/table/wood,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -145858,7 +145852,7 @@ rNK
 rNK
 rNK
 rNK
-gpZ
+rNK
 rNK
 sox
 oEP
