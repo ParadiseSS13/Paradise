@@ -1,3 +1,7 @@
+#define LABEL_MODE_OFF 0
+#define LABEL_MODE_NORMAL 1
+#define LABEL_MODE_GOAL 2
+
 /obj/item/hand_labeler
 	name = "hand labeler"
 	desc = "A combined label printer, applicator, and remover, all in a single portable device. Designed to be easy to operate and use."
@@ -102,3 +106,7 @@
 	icon_state = "labeler_refill"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_TINY
+
+#undef LABEL_MODE_OFF
+#undef LABEL_MODE_NORMAL
+#undef LABEL_MODE_GOAL

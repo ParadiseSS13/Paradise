@@ -6,11 +6,6 @@
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
 
-// Paperwork Tools
-#define LABEL_MODE_OFF 0
-#define LABEL_MODE_NORMAL 1
-#define LABEL_MODE_GOAL 2
-
 // Surgery tools
 #define TOOL_RETRACTOR "retractor"
 #define TOOL_HEMOSTAT "hemostat"
