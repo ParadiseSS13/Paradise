@@ -2,11 +2,13 @@
 
 /datum/ruin_placement
 	var/datum/map_template/ruin/ruin
+	var/base_padding
 	var/padding
 
-/datum/ruin_placement/New(datum/map_template/ruin/ruin_, padding_ = DEFAULT_PADDING)
+/datum/ruin_placement/New(datum/map_template/ruin/ruin_, padding_ = DEFAULT_PADDING, base_padding_ = 0)
 	. = ..()
 	ruin = ruin_
+	base_padding = base_padding_
 	padding = padding_
 
 /datum/ruin_placement/proc/reduce_padding()
@@ -18,11 +20,10 @@
 	// Our goal is to maximize padding, so we'll perform some number of attempts
 	// on one z-level, then the next, until we reach some limit, then reduce the
 	// padding and start again.
-	var/attempt_count = 0
 	padding = DEFAULT_PADDING
 	while(padding >= 0)
-		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(ruin.width / 2) + padding
-		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(ruin.height / 2) + padding
+		var/width_border = base_padding + round(ruin.width / 2) + padding
+		var/height_border = base_padding + round(ruin.height / 2) + padding
 
 		for(var/z_level in z_levels)
 			var/placement_tries = PLACEMENT_TRIES
@@ -100,6 +101,7 @@
 	var/ruin_budget
 	var/area_whitelist
 	var/list/templates
+	var/base_padding
 
 /datum/ruin_placer/proc/place_ruins(z_levels)
 	if(!z_levels || !length(z_levels))
@@ -142,7 +144,7 @@
 		else //Otherwise just pick random one
 			current_pick = pickweight(ruins_availible)
 
-		var/datum/ruin_placement/placement = new(current_pick)
+		var/datum/ruin_placement/placement = new(current_pick, base_padding_ = base_padding)
 		var/placement_success = placement.try_to_place(forced_z ? forced_z : z_levels, area_whitelist)
 
 		//That's done remove from priority even if it failed
@@ -181,6 +183,7 @@
 
 /datum/ruin_placer/space
 	area_whitelist = /area/space
+	base_padding = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD
 
 /datum/ruin_placer/space/New()
 	ruin_budget = rand(
