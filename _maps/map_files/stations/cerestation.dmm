@@ -71057,16 +71057,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
-"piO" = (
-/obj/effect/spawner/grouped_spawner{
-	group_id = "tunnelbats";
-	max_per_spawner = 1;
-	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
-	total_amount = 20
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "piZ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Starboard SMES Access"
@@ -148939,7 +148929,7 @@ neh
 gPa
 qpD
 goH
-piO
+imG
 imG
 imG
 aXn
