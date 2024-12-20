@@ -72,31 +72,55 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
             // No wind across walls.
             if my_new_tile.wall[axis] {
                 my_new_tile.wind[axis] = 0.0;
+                for i in 0..GAS_COUNT {
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
+                }
                 continue;
             }
 
             // If there's no air, there's no wind.
             if my_tile.pressure() + neighbor.pressure() <= 0.0 {
                 my_new_tile.wind[axis] = 0.0;
+                for i in 0..GAS_COUNT {
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
+                }
                 continue;
             }
 
             // How much pressure do these tiles have together?
-            let total_pressure = my_tile.pressure() + neighbor.pressure();
+            let combined_pressure = my_tile.pressure() + neighbor.pressure();
 
             // A bias from [-1.0, 1.0] representing how much air is flowing from the negative tile
             // to the positive one, based purely on pressure.
-            let pressure_bias = 2.0 * (my_tile.pressure() / total_pressure) - 1.0;
+            let pressure_bias = 2.0 * (my_tile.pressure() / combined_pressure) - 1.0;
 
             // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
             // bounds.
             my_new_tile.wind[axis] = (my_tile.wind[axis] * OLD_WIND_FACTOR + pressure_bias * NEW_PRESSURE_FACTOR).clamp(-MAX_BIAS, MAX_BIAS);
 
-            // Softcap the wind so high-pressure air doesn't teleport.
-            let total_airflow = (total_pressure * my_new_tile.wind[axis]).abs();
-            if total_airflow > AIRFLOW_SOFTCAP {
-                let softcapped_airflow = AIRFLOW_SOFTCAP + (total_airflow - AIRFLOW_SOFTCAP + 1.0).powf(AIRFLOW_SOFTCAP_EXPONENT) - 1.0;
-                my_new_tile.wind[axis] = my_new_tile.wind[axis].signum() * softcapped_airflow / total_pressure;
+            for i in 0..GAS_COUNT {
+                my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
+                my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
+
+                // Calculate how much gas should flow based on pressure.
+                let combined_partial_pressure = my_tile.partial_pressure(i) + neighbor.partial_pressure(i);
+                if combined_partial_pressure <= 0.0 {
+                    // Gas? What gas?
+                    continue;
+                }
+                let wind_gas_flow = BIAS_FACTOR * my_new_tile.wind[axis];
+                if wind_gas_flow > 0.0 {
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += wind_gas_flow;
+                } else {
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += -wind_gas_flow;
+                }
+
+                // And how much gas should flow based on diffusion.
+                let diffusion_gas_flow = DIFFUSION_FACTOR;
+                my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += diffusion_gas_flow;
+                my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += diffusion_gas_flow;
             }
         }
     }
@@ -175,7 +199,9 @@ pub(crate) fn flow_air_once_at_index(
         my_new_tile.gases.copy_from(&my_tile.gases);
         my_new_tile.thermal_energy = my_tile.thermal_energy;
     }
-    let mut total_outgoing_mult: f32 = 0.0;
+    let mut outgoing_gas_mult: [f32; GAS_COUNT] = [0.0; GAS_COUNT];
+    let mut total_weighted_temperature = my_tile.temperature() * my_tile.heat_capacity();
+    let mut total_temperature_weights: f32 = my_tile.heat_capacity();
     for (dir, (dx, dy)) in DIRECTIONS.iter().enumerate() {
         let maybe_neighbor_index = ZLevel::maybe_get_index(x + dx, y + dy);
         let neighbor_index;
@@ -199,41 +225,47 @@ pub(crate) fn flow_air_once_at_index(
         }
 
         // If there's no air, don't do anything.
-        if my_tile.pressure() + new_neighbor.pressure() <= 0.0 {
+        let total_pressure = my_tile.pressure() + new_neighbor.pressure();
+        if total_pressure <= 0.0 {
             continue;
         }
 
-        // Redistribute the wind to [0.0, 1.0], with higher values representing more air
-        // coming into this tile.
-        let my_bias;
-        if dx + dy > 0 {
-            my_bias = my_new_tile.wind[axis] / 2.0 + 0.5;
-        } else {
-            my_bias = -new_neighbor.wind[axis] / 2.0 + 0.5;
-        }
-
-        // Add in the diffusion factor to determine how much of the neighbor's air is coming
-        // in...
-        let incoming_mult = DIFFUSION_FACTOR + BIAS_FACTOR * (0.5 - my_bias).max(0.0);
-        // ... and how much of this tile's air is going out.
-        total_outgoing_mult += DIFFUSION_FACTOR + BIAS_FACTOR * (my_bias - 0.5).max(0.0);
-
-        // Once again, this looks a bit odd, but it's the second step of Gauss-Seidel, summing
-        // together all of the incoming stuff.
         for i in 0..GAS_COUNT {
-            my_new_tile.gases.values[i] += incoming_mult * new_neighbor.gases.values[i];
+            // Normalise the gas flow direction.
+            let gas_flow_in;
+            let gas_flow_out;
+            if dx + dy > 0 {
+                gas_flow_in = my_new_tile.gas_flow[axis][i][GAS_FLOW_IN];
+                gas_flow_out = my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT];
+            } else {
+                gas_flow_in = new_neighbor.gas_flow[axis][i][GAS_FLOW_OUT];
+                gas_flow_out = new_neighbor.gas_flow[axis][i][GAS_FLOW_IN];
+            }
+
+            // Once again, this may looks a bit odd, but it's the second step of Gauss-Seidel,
+            // summing together this tile's value from the last iteration with the incoming values
+            // from other tiles this tick.
+            my_new_tile.gases.values[i] += gas_flow_in * new_neighbor.gases.values[i];
+            let temperature_weight = gas_flow_in * new_neighbor.gases.values[i] *  SPECIFIC_HEATS[i];
+
+            // Track the outgoing values as well.
+            outgoing_gas_mult[i] += gas_flow_out;
+
+            // Temperature is not Gauss-Seidel, though it looks similar. It's just a weighted
+            // average.
+            total_weighted_temperature += new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
+            total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
         }
+
         my_new_tile.gases.set_dirty();
-        my_new_tile.thermal_energy += incoming_mult * new_neighbor.thermal_energy;
     }
 
     // And now we finish off Gauss-Seidel by dividing by the total outgoing weights, plus one
     // to represent this tile.
-    let gauss_factor = 1.0 + total_outgoing_mult;
     let mut max_gas_delta: f32 = 0.0;
     let my_new_tile = next.get_tile_mut(my_index);
     for i in 0..GAS_COUNT {
-        my_new_tile.gases.values[i] /= gauss_factor;
+        my_new_tile.gases.values[i] /= 1.0 + outgoing_gas_mult[i];
 
         if (prev_iter.gases.values[i] - my_new_tile.gases.values[i]).abs() >= GAS_CHANGE_SIGNIFICANCE {
             let new_gas_delta = (2.0 * prev_iter.gases.values[i] / (prev_iter.gases.values[i] + my_new_tile.gases.values[i]) - 1.0).abs();
@@ -242,7 +274,7 @@ pub(crate) fn flow_air_once_at_index(
     }
     my_new_tile.gases.set_dirty();
 
-    my_new_tile.thermal_energy /= gauss_factor;
+    my_new_tile.thermal_energy = my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
 
     let new_thermal_energy_delta;
     if (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs() >= THERMAL_CHANGE_SIGNIFICANCE {
@@ -404,7 +436,7 @@ pub(crate) fn check_interesting(
     let mut reasons: ReasonFlags = ReasonFlags::empty();
     {
         let my_next_tile = next.get_tile_mut(my_index);
-        if (my_next_tile.fuel_burnt > 0.0) != (my_tile.fuel_burnt > 0.0) {
+        if (my_next_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES) != (my_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES) {
             // Fire started or stopped.
             reasons |= ReasonFlags::DISPLAY;
         } else if (my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
@@ -424,7 +456,7 @@ pub(crate) fn check_interesting(
             if let AtmosMode::ExposedTo { .. } = my_next_tile.mode {
                 // Since environments have fixed gases and temperatures, we only count them as
                 // interesting (for heat) if there's an active fire.
-                if my_next_tile.fuel_burnt > 0.0 {
+                if my_next_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES {
                     reasons |= ReasonFlags::HOT;
                 }
             } else {
@@ -480,16 +512,6 @@ pub(crate) fn check_interesting(
     Ok(())
 }
 
-/// Is the amount of gas present significant?
-pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
-    if gas != GAS_AGENT_B
-        && tile.gases.values[gas] / tile.gases.moles() < REACTION_SIGNIFICANCE_RATIO
-    {
-        return false;
-    }
-    return true;
-}
-
 /// Perform chemical reactions on the tile.
 pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     let fraction: f32;
@@ -514,9 +536,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Agent B converting CO2 to O2
     if cached_temperature > AGENT_B_CONVERSION_TEMP
-        && is_significant(my_next_tile, GAS_AGENT_B)
-        && is_significant(my_next_tile, GAS_CARBON_DIOXIDE)
-        && is_significant(my_next_tile, GAS_TOXINS)
+        && my_next_tile.gases.agent_b() > 0.0
+        && my_next_tile.gases.carbon_dioxide() > 0.0
+        && my_next_tile.gases.toxins() > 0.0
     {
         let co2_converted = fraction
             * (my_next_tile.gases.carbon_dioxide() * 0.75)
@@ -543,7 +565,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
     // Nitrous Oxide breaking down into nitrogen and oxygen.
     if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
-        && is_significant(my_next_tile, GAS_SLEEPING_AGENT)
+        && my_next_tile.gases.sleeping_agent() > 0.0
     {
         let reaction_percent = (0.00002
             * (cached_temperature - (0.00001 * (cached_temperature.powi(2)))))
@@ -573,8 +595,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
     // Plasmafire!
     if cached_temperature > PLASMA_BURN_MIN_TEMP
-        && is_significant(my_next_tile, GAS_TOXINS)
-        && is_significant(my_next_tile, GAS_OXYGEN)
+        && my_next_tile.gases.toxins() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
@@ -771,7 +793,7 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
         return;
     }
 
-    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP || !is_significant(tile, GAS_TOXINS) || !is_significant(tile, GAS_OXYGEN) {
+    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP || tile.gases.toxins() <= REACTION_SIGNIFICANCE_MOLES || tile.gases.oxygen() <= REACTION_SIGNIFICANCE_MOLES {
         // Hotspot can't sustain combustion.
         tile.thermal_energy += hotspot_extra_thermal_energy;
         tile.hotspot_temperature = 0.0;

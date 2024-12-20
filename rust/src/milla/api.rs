@@ -1,4 +1,4 @@
-use crate::milla::logging;
+use crate::logging;
 use crate::milla::constants::*;
 use crate::milla::conversion;
 use crate::milla::model::*;
@@ -360,6 +360,7 @@ fn milla_reduce_superconductivity(
     south: ByondValue,
     west: ByondValue,
 ) {
+    logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_north = conversion::bounded_byond_to_option_f32(north, 0.0, 1.0)?;
     let rust_east = conversion::bounded_byond_to_option_f32(east, 0.0, 1.0)?;
@@ -422,6 +423,7 @@ pub(crate) fn internal_reduce_superconductivity(
 /// BYOND API for resetting the superconductivity of a tile.
 #[byondapi::bind]
 fn milla_reset_superconductivity(turf: ByondValue) {
+    logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     internal_reset_superconductivity(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
     Ok(Default::default())
@@ -454,6 +456,7 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 /// BYOND API for a heat source creating a hotspot on a tile.
 #[byondapi::bind]
 fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) {
+    logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_temperature = conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot temperature is required.."))?;
     let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?.ok_or(eyre!("Hotspot volume is required.."))?;
@@ -514,7 +517,6 @@ fn milla_spawn_tick_thread() {
             call_global("milla_tick_finished", &[])?;
         } else {
             let err = format!("MILLA tick error:\n----\n{:#?}\n----", result);
-            logging::write_log(err.clone());
             call_global("milla_tick_error", &[ByondValue::new_str(err)?])?;
         }
 

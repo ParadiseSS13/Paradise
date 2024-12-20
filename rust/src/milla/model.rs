@@ -228,6 +228,7 @@ pub(crate) struct Tile {
     pub(crate) wind: [f32; AXES.len()],
     /// Is there a wall in this direction?
     pub(crate) wall: [bool; AXES.len()],
+    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
 }
@@ -245,6 +246,7 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
+            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
         }
     }
@@ -269,14 +271,21 @@ impl Tile {
         let mut heat_capacity = self.gases.heat_capacity();
         heat_capacity += self.innate_heat_capacity;
         if heat_capacity <= 0.0 {
-            0.0
-        } else {
-            let temperature = self.thermal_energy / heat_capacity;
-            self.gases.moles()
-                * temperature.max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
-                * R_IDEAL_GAS_EQUATION
-                / TILE_VOLUME
+            return 0.0;
         }
+        let temperature = self.thermal_energy / heat_capacity;
+        self.gases.moles()
+            * temperature.max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
+            * R_IDEAL_GAS_EQUATION
+            / TILE_VOLUME
+    }
+    /// Calculates the partial pressure of a gas in a tile.
+    pub(crate) fn partial_pressure(&self, gas: usize) -> f32 {
+        if self.gases.values[gas] <= 0.0 {
+            return 0.0;
+        }
+
+        self.gases.values[gas] * self.temperature().max(MINIMUM_TEMPERATURE_FOR_PRESSURE) * R_IDEAL_GAS_EQUATION / TILE_VOLUME
     }
 
     #[allow(clippy::needless_range_loop)]
@@ -289,9 +298,13 @@ impl Tile {
         self.innate_heat_capacity = other.innate_heat_capacity;
         self.hotspot_temperature = other.hotspot_temperature;
         self.hotspot_volume = other.hotspot_volume;
-        for i in 0..AXES.len() {
-            self.wind[i] = other.wind[i];
-            self.wall[i] = other.wall[i];
+        for axis in 0..AXES.len() {
+            self.wind[axis] = other.wind[axis];
+            self.wall[axis] = other.wall[axis];
+            for gas in 0..GAS_COUNT {
+                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
+                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
+            }
         }
         self.fuel_burnt = other.fuel_burnt;
     }

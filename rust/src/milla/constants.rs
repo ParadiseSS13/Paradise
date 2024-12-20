@@ -29,8 +29,8 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 /// How many moles are needed to make sleeping gas visible.
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
-/// How much of the tile a reaction's gas needs to occupy to happen.
-pub(crate) const REACTION_SIGNIFICANCE_RATIO: f32 = 0.01;
+/// How much stuff needs to react before we think hotspots and BYOND care.
+pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.01;
 
 /// How hot does it need to be for Agent B to work?
 pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
@@ -72,6 +72,12 @@ pub(crate) const DIRECTIONS: [(i32, i32); 4] = [(1, 0), (-1, 0), (0, -1), (0, 1)
 
 /// Gives the axis for each direction.
 pub(crate) const DIRECTION_AXIS:  [usize; 4] = [0, 0, 1, 1];
+
+/// Index for incoming gas.
+pub(crate) const GAS_FLOW_IN: usize = 0;
+
+/// Index for outgoing gas.
+pub(crate) const GAS_FLOW_OUT: usize = 1;
 
 // The numbers here are completely wrong for actual gases, but they're what LINDA used, so we'll
 // keep them for now.
@@ -136,7 +142,7 @@ pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 pub(crate) const TEST_TOLERANCE: f32 = 0.1;
 
 /// Lose this amount of heat energy per tick if above 100 C.
-pub(crate) const SPACE_COOLING_CAPACITY: f32 = 200.0;
+pub(crate) const SPACE_COOLING_CAPACITY: f32 = 2000.0;
 
 /// Tiles with less than this much gas will become empty.
 pub(crate) const MINIMUM_NONZERO_MOLES: f32 = 0.1;
@@ -172,11 +178,8 @@ pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.1;
 /// How much are we willing to bias?
 pub(crate) const MAX_BIAS: f32 = 1.0;
 
-/// How much air can flow between tiles before we start softcapping it, roughly in kPa?
-pub(crate) const AIRFLOW_SOFTCAP: f32 = 100.0;
-
-/// What exponent do we use to reduce airflow over the softcap?
-pub(crate) const AIRFLOW_SOFTCAP_EXPONENT: f32 = 0.1;
+/// How fast should temperature flow?
+pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 100.0;
 
 /// Balancing factor to adjust the strength of wind reported to BYOND.
 pub(crate) const WIND_MULTIPLIER: f32 = 1.0;
