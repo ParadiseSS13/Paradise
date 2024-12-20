@@ -662,9 +662,6 @@
 /datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
 	get_turf_air(T).copy_from(air)
 
-/turf/return_analyzable_air()
-	return get_readonly_air()
-
 /turf/simulated/proc/update_hotspot()
 	var/datum/gas_mixture/air = get_readonly_air()
 	if(air.fuel_burnt() >= 0.1)
@@ -691,3 +688,6 @@
 
 /turf/simulated/proc/clear_hotspot()
 	QDEL_NULL(active_hotspot)
+
+/turf/return_analyzable_air()
+	return get_readonly_air()

@@ -203,7 +203,7 @@
 	sleep(10)
 
 	density = FALSE
-//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
