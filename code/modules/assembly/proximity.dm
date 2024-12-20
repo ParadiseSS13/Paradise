@@ -13,7 +13,7 @@
 	var/timing = FALSE
 	COOLDOWN_DECLARE(timing_cd)
 	var/timing_cd_duration = 10 SECONDS
-	///Proximity monitor associated with this atom, needed for it to work.
+	/// Proximity monitor associated with this atom, needed for it to work.
 	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
@@ -145,15 +145,15 @@
 	if(timing)
 		var/time_left = COOLDOWN_TIMELEFT(src, timing_cd)
 		time_display = deciseconds_to_time_stamp(time_left)
-		timing_ui = "<A href='byond://?src=[UID()];time=0'>Arming</A>"
+		timing_ui = "<a href='byond://?src=[UID()];time=0'>Arming</a>"
 	else
 		var/time_left = timing_cd_duration
 		time_display = deciseconds_to_time_stamp(time_left)
-		timing_ui = "<A href='byond://?src=[UID()];time=1'>Not Arming</A>"
-	var/dat = "<TT><B>Proximity Sensor</B>\n[timing_ui] [time_display]\n<A href='byond://?src=[UID()];tp=-300'>-</A> <A href='byond://?src=[UID()];tp=-10'>-</A> <A href='byond://?src=[UID()];tp=10'>+</A> <A href='byond://?src=[UID()];tp=300'>+</A>\n</TT>"
-	dat += "<BR><A href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
-	dat += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A>"
-	dat += "<BR><BR><A href='byond://?src=[UID()];close=1'>Close</A>"
+		timing_ui = "<a href='byond://?src=[UID()];time=1'>Not Arming</a>"
+	var/dat = "<tt><b>Proximity Sensor</b>\n[timing_ui] [time_display]\n<a href='byond://?src=[UID()];tp=-300'>-</a> <a href='byond://?src=[UID()];tp=-10'>-</a> <a href='byond://?src=[UID()];tp=10'>+</a> <a href='byond://?src=[UID()];tp=300'>+</a>\n</tt>"
+	dat += "<br><a href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</a> (Movement sensor active when armed!)"
+	dat += "<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"
 	var/datum/browser/popup = new(user, "prox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -176,7 +176,7 @@
 	if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
 		timing_cd_duration += tp
-		timing_cd_duration = min(max(round(timing_cd_duration), 0), 600)
+		timing_cd_duration = min(max(round(timing_cd_duration), 0), 1 MINUTES)
 
 	if(href_list["close"])
 		usr << browse(null, "window=prox")

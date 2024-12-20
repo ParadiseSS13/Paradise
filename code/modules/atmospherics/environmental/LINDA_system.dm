@@ -24,7 +24,7 @@
 /turf/CanPass(atom/movable/mover, border_dir)
 	var/turf/target = get_step(src, border_dir)
 	if(!target)
-		return 0
+		return FALSE
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
 		return !density

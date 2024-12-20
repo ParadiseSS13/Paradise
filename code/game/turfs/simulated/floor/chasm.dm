@@ -297,7 +297,7 @@
 	atmos_environment = null
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
-	return 1
+	return TRUE
 
 /turf/simulated/floor/chasm/pride/Initialize(mapload)
 	. = ..()
