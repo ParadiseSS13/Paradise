@@ -36,7 +36,7 @@
 /turf/template_noop,
 /area/template_noop)
 "k" = (
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /turf/template_noop,
 /area/template_noop)
 "l" = (

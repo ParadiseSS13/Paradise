@@ -89372,7 +89372,7 @@
 /area/station/hallway/primary/central)
 "waJ" = (
 /obj/structure/table/glass,
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /obj/machinery/light{
 	dir = 1
 	},

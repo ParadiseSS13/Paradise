@@ -83695,7 +83695,7 @@
 /area/station/hallway/primary/fore/west)
 "sAJ" = (
 /obj/structure/table/wood,
-/obj/random/carp_plushie,
+/obj/effect/spawner/random/toy/carp_plushie,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
