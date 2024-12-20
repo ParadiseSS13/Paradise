@@ -40,7 +40,7 @@
 "yu" = (/obj/effect/spawner/random/maintenance,/turf/simulated/floor/plasteel{icon_state = "white"},/area/station/hallway/spacebridge/scidock)
 "zC" = (/obj/machinery/door/airlock/glass,/obj/structure/barricade/wooden,/obj/structure/fans/tiny,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
 "Af" = (/obj/machinery/door/airlock/research,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
-"BP" = (/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
+"BP" = (/obj/structure/machine_frame,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
 "Cy" = (/turf/simulated/floor/plating/asteroid/ancient,/area/station/hallway/spacebridge/scidock)
 "DD" = (/obj/structure/chair/comfy/corp,/turf/simulated/floor/plasteel{dir = 9; icon_state = "whitepurple"},/area/station/hallway/spacebridge/scidock)
 "DV" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
@@ -57,13 +57,13 @@
 "IY" = (/turf/simulated/mineral/ancient/outer,/area/station/hallway/spacebridge/scidock)
 "Ju" = (/obj/structure/girder,/turf/simulated/floor/plating,/area/station/maintenance/maintcentral)
 "Kf" = (/obj/effect/spawner/random/maintenance,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
-"KO" = (/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
+"KO" = (/obj/structure/machine_frame,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
 "Ms" = (/obj/machinery/door/airlock/research,/turf/simulated/floor/plasteel{icon_state = "white"},/area/station/hallway/spacebridge/scidock)
 "Pe" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/pill/random_drugs,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
 "PA" = (/turf/simulated/mineral/ancient,/area/mine/unexplored/cere/civilian)
 "Qu" = (/obj/structure/chair/comfy/corp{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 10; icon_state = "whitepurple"},/area/station/hallway/spacebridge/scidock)
 "QJ" = (/obj/item/reagent_containers/dropper{pixel_x = -10; pixel_y = 5},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel/freezer,/area/station/hallway/spacebridge/scidock)
-"Rl" = (/obj/effect/spawner/random_spawners/wall_rusted_always,/turf/simulated/wall,/area/station/maintenance/maintcentral)
+"Rl" = (/obj/effect/mapping_helpers/turfs/rust,/turf/simulated/wall,/area/station/maintenance/maintcentral)
 "RH" = (/obj/effect/spawner/grouped_spawner{group_id = "tunnelbats"; max_per_spawner = 1; name = "bat spawner"; path_to_spawn = /mob/living/simple_animal/hostile/scarybat; total_amount = 20},/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
 "Sn" = (/obj/structure/closet/secure_closet/freezer/fridge,/obj/effect/spawner/random/food_trash,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurplecorner"},/area/station/hallway/spacebridge/scidock)
 "Ss" = (/obj/machinery/chem_master,/turf/simulated/floor/plating{icon_state = "asteroidplating"},/area/station/hallway/spacebridge/scidock)
@@ -92,8 +92,8 @@ ETgEgEgEgEFfbHbHbHPAETETETPAPAPAPAPAPAPAPAETETETETETETETETETETETETETETETETETETET
 ETYgPAgEgEFfbHbHbHbHTjETETYgPAPAPAPAPAPAPATjETETETETETETETETETETETETETETETETETETETETETETETETETETETET
 ETETETETETgLETETETgLETETETETETETgLETETETgLETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
 ETSCETETETETSCETETETETETETSCETETETETSCETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
-mUvRJuRlwyzCRlTjETETETETmUvRJuRlwyzCRlTjETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
-ETccpypywyfQRlETETETETETETccpypywyfQRlETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+mUvRJuwywyzCRlTjETETETETmUvRJuwywyzCwyTjETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
+ETccpypywyfQRlETETETETETETccpypywyfQwyETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
 ETpypyVookldokETETETETETETpypyEVokldokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
 ETpyVoVookXfokETETETETETETpyVoEVokXfokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET
 ETVoVoVookldokETETETETETETVoVoEVokldokETETETETETETETETETETETETETETETETETETETETETETETETETETETETETETET

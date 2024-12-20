@@ -28227,6 +28227,7 @@
 /area/station/supply/lobby)
 "ebJ" = (
 /obj/structure/table/wood,
+/obj/effect/spawner/random/food_or_drink,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "ecd" = (
@@ -36794,12 +36795,6 @@
 	dir = 4
 	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -53398,8 +53393,7 @@
 /area/station/maintenance/disposal/north)
 "kEQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/meat/human,
-/obj/machinery/kitchen_machine/microwave,
+/obj/effect/spawner/random/food_or_drink,
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -58514,8 +58508,8 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/machinery/cooker/deepfryer,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "lTH" = (
@@ -98927,6 +98921,11 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
