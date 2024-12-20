@@ -89,8 +89,7 @@
 			continue
 		if(M.pulledby)
 			continue
-		if(M.last_high_pressure_movement_time + 0.4 < world.timeofday || M.last_high_pressure_movement_time > world.timeofday + 1000)
-			M.experience_pressure_difference(flow_x, flow_y)
+		M.experience_pressure_difference(flow_x, flow_y)
 
 /atom/movable/proc/experience_pressure_difference(flow_x, flow_y)
 	if(move_resist == INFINITY)
@@ -117,12 +116,21 @@
 		direction |= NORTH
 	if(flow_y < -0.5)
 		direction |= SOUTH
-	if(isliving(src))
-		var/mob/living/me = src
-		me.apply_status_effect(STATUS_EFFECT_UNBALANCED)
 
-	last_high_pressure_movement_time = world.timeofday
+	if(last_high_pressure_movement_time == SSair.times_fired)
+		return
+	last_high_pressure_movement_time = SSair.times_fired
+
+	air_push(direction)
+
+/atom/movable/proc/air_push(direction)
 	step(src, direction)
+
+/mob/living/air_push(direction)
+	apply_status_effect(STATUS_EFFECT_UNBALANCED)
+	Slowed(1 SECONDS)
+	if(!has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
+		return ..()
 
 /turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
