@@ -665,11 +665,10 @@ pub(crate) fn apply_tile_mode(
             my_next_tile.thermal_energy = environment.thermal_energy;
         }
         AtmosMode::Sealed => {
-            if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {
-                my_next_tile.thermal_energy -= SPACE_COOLING_CAPACITY;
-                if my_next_tile.temperature() < TCMB {
-                    my_next_tile.thermal_energy = TCMB * my_next_tile.heat_capacity();
-                }
+            if my_next_tile.temperature() > SPACE_COOLING_THRESHOLD {
+                let excess_thermal_energy = my_next_tile.thermal_energy - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
+                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_RATIO * excess_thermal_energy).min(excess_thermal_energy);
+                my_next_tile.thermal_energy -= cooling;
             }
         }
         AtmosMode::NoDecay => {} // No special interactions

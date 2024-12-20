@@ -30,7 +30,7 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
 /// How much stuff needs to react before we think hotspots and BYOND care.
-pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.01;
+pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;
 
 /// How hot does it need to be for Agent B to work?
 pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
@@ -120,7 +120,7 @@ pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
 
 /// How much of the plasma do we burn anyway if the ratio would make it really small?
-pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.01;
+pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.2;
 
 /// How much of a boost to burn ratio do we give to hotspots?
 pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
@@ -141,8 +141,14 @@ pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 #[cfg(test)]
 pub(crate) const TEST_TOLERANCE: f32 = 0.1;
 
-/// Lose this amount of heat energy per tick if above 100 C.
-pub(crate) const SPACE_COOLING_CAPACITY: f32 = 2000.0;
+/// When space cooling starts, in Kelvin.
+pub(crate) const SPACE_COOLING_THRESHOLD: f32 = T20C;
+
+/// Lose this amount of heat energy per tick if above SPACE_COOLING_THRESHOLD.
+pub(crate) const SPACE_COOLING_FLAT: f32 = 0.0;
+
+/// Lose this ratio of heat energy per tick if above SPACE_COOLING_THRESHOLD.
+pub(crate) const SPACE_COOLING_RATIO: f32 = 0.01;
 
 /// Tiles with less than this much gas will become empty.
 pub(crate) const MINIMUM_NONZERO_MOLES: f32 = 0.1;
@@ -179,7 +185,7 @@ pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.1;
 pub(crate) const MAX_BIAS: f32 = 1.0;
 
 /// How fast should temperature flow?
-pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 100.0;
+pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 1.0;
 
 /// Balancing factor to adjust the strength of wind reported to BYOND.
 pub(crate) const WIND_MULTIPLIER: f32 = 1.0;

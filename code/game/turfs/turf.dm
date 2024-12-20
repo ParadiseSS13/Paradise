@@ -667,7 +667,7 @@
 
 /turf/simulated/proc/update_hotspot()
 	var/datum/gas_mixture/air = get_readonly_air()
-	if(air.fuel_burnt() >= 0.01)
+	if(air.fuel_burnt() >= 0.1)
 		if(active_hotspot?.death_timer)
 			deltimer(active_hotspot.death_timer)
 			active_hotspot.death_timer = null
