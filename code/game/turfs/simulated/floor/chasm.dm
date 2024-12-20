@@ -205,6 +205,7 @@
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
+	var/old_pixel_y = AM.pixel_y
 	animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
 	for(var/i in 1 to 5)
 		//Make sure the item is still there after our sleep
@@ -222,6 +223,7 @@
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
+		AM.pixel_y = old_pixel_y
 		var/mob/living/fallen_mob = AM
 		fallen_mob.notransform = FALSE
 		if(fallen_mob.stat != DEAD)
@@ -237,6 +239,14 @@
 		M.forceMove(src)
 
 	qdel(AM)
+
+	if(!QDELETED(AM))	//It's indestructible, mobs have already returned above!
+		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
+		AM.alpha = oldalpha
+		AM.color = oldcolor
+		AM.transform = oldtransform
+		AM.pixel_y = old_pixel_y
+		AM.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
 
 /**
  * An abstract object which is basically just a bag that the chasm puts people inside

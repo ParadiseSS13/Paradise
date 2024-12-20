@@ -50,16 +50,16 @@
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
 	untrackable = TRUE
+	can_id_flash = FALSE //This can ID flash, this just prevents it from always flashing.
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
-/obj/item/card/id/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, params)
-	if(!proximity_flag)
-		return
+/obj/item/card/id/syndicate/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/item/card/id))
 		var/obj/item/card/id/I = target
 		if(isliving(user) && user?.mind?.special_role)
 			to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
 			access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -127,8 +127,8 @@
 		ui = new(user, src, "AgentCard", name)
 		ui.open()
 
-/obj/item/card/id/syndicate/attack_self__legacy__attackchain(mob/user)
-	if(!ishuman(user))
+/obj/item/card/id/syndicate/activate_self(mob/user)
+	if(..() || !ishuman(user))
 		return
 	if(!registered_human)
 		registered_human = user
@@ -289,12 +289,11 @@
 	if(isAntag(user))
 		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
 
-/obj/item/card/id/syndi_scan_only/afterattack__legacy__attackchain(atom/O, mob/user, proximity_flag, params)
-	if(!proximity_flag)
-		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/I = O
+/obj/item/card/id/syndi_scan_only/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/item/card/id))
+		var/obj/item/card/id/I = target
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
 				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
 				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
+				return ITEM_INTERACT_COMPLETE
