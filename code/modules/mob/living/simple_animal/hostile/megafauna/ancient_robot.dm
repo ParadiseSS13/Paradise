@@ -344,7 +344,7 @@ Difficulty: Hard
 	if(P.damage)
 		disable_shield()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)

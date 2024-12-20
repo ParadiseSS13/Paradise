@@ -22,7 +22,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	item_state = "cigoff"
 	throw_speed = 0.5
-	slot_flags = SLOT_FLAG_MASK
+	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -33,8 +33,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	/// Unlit cigarette sprite.
 	var/icon_off = "cigoff"
-	/// Are we an extra-classy smokable?
-	var/fancy = FALSE
+	/// Do we require special items to be lit?
+	var/list/fancy_lighters = list()
 	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
 	/// How long does the cigarette last before going out? Decrements by 1 every cycle.
@@ -72,7 +72,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 	return ..()
 
-/obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/clothing/mask/cigarette/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
@@ -90,7 +90,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light(user, user)
 		return TRUE
 
-/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity)
 	if(!proximity)
 		return
 
@@ -99,7 +99,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/carbon/M = target
 		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
 			user.unEquip(src, TRUE)
-			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+			M.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
 			if(target != user)
 				user.visible_message(
 					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
@@ -108,7 +108,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			else
 				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
 			return TRUE
-		
+
 		// If they DO have a cig, try to light it with your own cig.
 		if(!cigarette_lighter_act(user, M))
 			return ..()
@@ -129,7 +129,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/attack_self(mob/user)
+/obj/item/clothing/mask/cigarette/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		user.visible_message(
 			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
@@ -176,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
+/obj/item/clothing/mask/cigarette/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.cigarette_lighter_act(user, user, src))
 		return
 
@@ -380,7 +380,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cig_paper"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
+/obj/item/rollingpaper/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -417,7 +417,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	throw_speed = 0.5
-	fancy = TRUE
+	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	type_butt = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
 	chem_volume = 120
@@ -488,7 +488,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == SLOT_HUD_WEAR_MASK)
+	if(enabled && slot == ITEM_SLOT_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
@@ -500,7 +500,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 		to_chat(user, "<span class='notice'>You feel less badass.</span>")
 
-/obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
+/obj/item/clothing/mask/holo_cigar/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(enabled)
 		enabled = FALSE
@@ -523,7 +523,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
-	fancy = TRUE
+	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)
@@ -555,7 +555,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
-/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
+/obj/item/clothing/mask/cigarette/pipe/attack_self__legacy__attackchain(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message(
 			"<span class='notice'>[user] puts out [src].</span>",
@@ -569,7 +569,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 // Refill the pipe
-/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/mask/cigarette/pipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/grown))
 		var/obj/item/food/grown/O = I
 		if(O.dry)
@@ -583,7 +583,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 		return
-	
+
 	return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe

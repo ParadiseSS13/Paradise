@@ -49,7 +49,7 @@
 	..()
 	ActivationReaction(user,"touch")
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/anomalous_crystal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	ActivationReaction(user,"weapon")
 	return ..()
 
@@ -376,7 +376,7 @@
 
 /datum/spell/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing"
+	desc = "Exits the body you are possessing."
 	base_cooldown = 60
 	clothes_req = FALSE
 	invocation_type = "none"

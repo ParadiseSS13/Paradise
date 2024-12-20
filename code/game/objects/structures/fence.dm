@@ -121,7 +121,7 @@
 					return
 			update_cut_status()
 
-/obj/structure/fence/attackby(obj/item/C, mob/user)
+/obj/structure/fence/attackby__legacy__attackchain(obj/item/C, mob/user)
 	if(shock(user, 90))
 		return
 	if(istype(C, /obj/item/stack/rods))

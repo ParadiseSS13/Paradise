@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
+	base_icon = "spidersyndi"
+	icon_state = "spidersyndi"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
@@ -9,6 +9,7 @@
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
+	allow_resprite = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = TRUE
 	damage_protection = 5
@@ -110,9 +111,9 @@
 		if(!cham_proj)
 			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
 			return
-	cham_proj.attack_self(src)
+	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
+/mob/living/silicon/robot/syndicate/saboteur/attackby__legacy__attackchain()
 	if(cham_proj)
 		cham_proj.disrupt(src)
 	..()

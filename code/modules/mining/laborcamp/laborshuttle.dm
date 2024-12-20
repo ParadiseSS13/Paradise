@@ -46,7 +46,7 @@
 	QDEL_NULL(announcer)
 	return ..()
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_prisoner_shuttle_console/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
 		if(inserted_id_uid)
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
@@ -172,7 +172,7 @@
 		return
 	user.examinate(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_points_checker/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
 		var/obj/item/card/id/prisoner/prisoner_id = I
 		if(!prisoner_id.goal)

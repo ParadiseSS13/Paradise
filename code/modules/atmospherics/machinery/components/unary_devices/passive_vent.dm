@@ -5,7 +5,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + 0.004
 	layer_offset = 0.004
 	name = "passive vent"
-	desc = "A large air vent"
+	desc = "A large air vent."
 
 	can_unwrench = TRUE
 

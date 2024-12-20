@@ -132,12 +132,12 @@
 		var/candy = pick(subtypesof(/obj/item/food/candy/fudge))
 		new candy(src)
 
-/obj/structure/closet/secure_closet/CMO
+/obj/structure/closet/secure_closet/cmo
 	name = "chief medical officer's locker"
 	req_access = list(ACCESS_CMO)
 	icon_state = "cmo"
 
-/obj/structure/closet/secure_closet/CMO/populate_contents()
+/obj/structure/closet/secure_closet/cmo/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/medic(src)
 	else
@@ -153,7 +153,7 @@
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/flash(src)
 	new /obj/item/gun/syringe(src)
-	new /obj/item/reagent_containers/hypospray/CMO(src)
+	new /obj/item/reagent_containers/hypospray/cmo(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/drinks/mug/cmo(src)

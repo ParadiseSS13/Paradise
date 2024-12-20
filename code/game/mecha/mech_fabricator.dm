@@ -311,7 +311,7 @@
 	return TRUE
 
 // Interaction code
-/obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mecha_part_fabricator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
 		return
 

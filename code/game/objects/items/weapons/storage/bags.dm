@@ -24,7 +24,7 @@
 	allow_quick_empty = TRUE
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -117,7 +117,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -127,14 +127,14 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
-	if(slot == SLOT_HUD_HEAD && length(contents))
+	if(slot == ITEM_SLOT_HEAD && length(contents))
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
 	return ..()
 
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
-	if(slot==SLOT_HUD_HEAD)
+	if(slot==ITEM_SLOT_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -143,7 +143,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+			if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)
@@ -161,7 +161,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
@@ -244,7 +244,7 @@
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/attack_self__legacy__attackchain(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
@@ -303,7 +303,7 @@
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
@@ -340,7 +340,7 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/storage/bag/tray/cyborg/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	// We cannot reach the target.
 	if(!proximity_flag)
 		return
@@ -473,7 +473,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 15
 	max_combined_w_class = 60

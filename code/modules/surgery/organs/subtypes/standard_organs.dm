@@ -264,6 +264,10 @@
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
 
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
+	return ..(clean, disintegrate, ignore_children, nodamage)
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))

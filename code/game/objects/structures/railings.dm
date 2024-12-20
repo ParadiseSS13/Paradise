@@ -33,7 +33,7 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
 
@@ -165,7 +165,7 @@
 				return TRUE
 	return FALSE
 
-/obj/structure/railing/do_climb(mob/living/user)
+/obj/structure/railing/start_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
 	. = ..()
 	if(.)

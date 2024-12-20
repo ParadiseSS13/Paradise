@@ -126,7 +126,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -14)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
@@ -165,7 +166,7 @@
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)
 
 /obj/item/assembly/infra/AltClick(mob/user)
 	rotate(user)

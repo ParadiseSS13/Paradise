@@ -18,7 +18,7 @@
 	/// How many SSobj ticks it takes for the reagents to recharge by 10 units
 	var/recharge_time = 3
 	/// Can the autohypo inject through thick materials?
-	var/bypass_protection = 0
+	var/penetrate_thick = FALSE
 	var/choosen_reagent = "salglu_solution"
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
@@ -57,14 +57,14 @@
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
 	total_reagents = 30
 	maximum_reagents = 30
-	bypass_protection = TRUE
+	penetrate_thick = TRUE
 	choosen_reagent = "syndicate_nanites"
 
 /obj/item/reagent_containers/borghypo/abductor
 	charge_cost = 40
 	recharge_time = 3
 	reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol", "corazone")
-	bypass_protection = 1
+	penetrate_thick = TRUE
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	. = ..()
@@ -88,13 +88,13 @@
 		robot.cell.use(charge_cost)
 	total_reagents = min((total_reagents + BORGHYPO_REFILL_VALUE), maximum_reagents)
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/reagent_containers/borghypo/attack__legacy__attackchain(mob/living/carbon/human/M, mob/user)
 	if(!total_reagents)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
 		return
 	if(!istype(M))
 		return
-	if(total_reagents && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick = bypass_protection))
+	if(total_reagents && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
@@ -109,7 +109,7 @@
 /obj/item/reagent_containers/borghypo/proc/get_radial_contents()
 	return reagent_icons & reagent_ids
 
-/obj/item/reagent_containers/borghypo/attack_self(mob/user)
+/obj/item/reagent_containers/borghypo/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
 	var/selected_reagent = show_radial_menu(user, src, get_radial_contents(), radius = 48)
 	if(!selected_reagent)
@@ -127,11 +127,11 @@
 /obj/item/reagent_containers/borghypo/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		bypass_protection = TRUE
+		penetrate_thick = TRUE
 		reagent_ids += reagent_ids_emagged
 		return
 	emagged = FALSE
-	bypass_protection = FALSE
+	penetrate_thick = FALSE
 	reagent_ids -= reagent_ids_emagged
 
 /obj/item/reagent_containers/borghypo/basic

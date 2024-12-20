@@ -137,28 +137,28 @@
 	result = /obj/item/food/donut/blumpkin/jelly/cherry
 
 /datum/recipe/microwave/bungo_donut
-	reagents = list("bungojuice" = 5, "coldsauce" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo
 
 /datum/recipe/microwave/bungo_donut/jelly
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "berryjuice" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "berryjuice" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo/jelly
 
 /datum/recipe/microwave/bungo_donut/jelly/slime
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "slimejelly" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "slimejelly" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
 	result = /obj/item/food/donut/bungo/jelly/slime
 
 /datum/recipe/microwave/bungo_donut/jelly/cherry
-	reagents = list("bungojuice" = 5, "coldsauce" = 5, "cherryjelly" = 5)
+	reagents = list("bungojuice" = 5, "frostoil" = 5, "cherryjelly" = 5)
 	items = list(
 		/obj/item/food/donut
 	)
@@ -293,7 +293,7 @@
 	)
 	result = /obj/item/food/donut/spaceman/jelly/cherry
 
-/datum/recipe/microwave/human/burger
+/datum/recipe/microwave/human_burger
 	items = list(
 		/obj/item/food/meat/human,
 		/obj/item/food/grown/lettuce,
@@ -312,7 +312,7 @@
 	items = list(
 		/obj/item/food/bun,
 		/obj/item/food/grown/lettuce,
-		/obj/item/food/meat //do not place this recipe before /datum/recipe/microwave/human/burger
+		/obj/item/food/meat //do not place this recipe before /datum/recipe/microwave/human_burger
 	)
 	result = /obj/item/food/burger/plain
 

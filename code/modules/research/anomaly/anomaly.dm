@@ -13,7 +13,7 @@
 		var/obj/effect/anomaly/A = loc
 		A.anomalyNeutralize()
 
-/obj/item/assembly/signaler/anomaly/attack_self()
+/obj/item/assembly/signaler/anomaly/attack_self__legacy__attackchain()
 	return
 
 //Anomaly cores
@@ -76,7 +76,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/reactive_armour_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(
 		/obj/item/assembly/signaler/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,

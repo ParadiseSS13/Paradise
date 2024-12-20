@@ -246,7 +246,7 @@
 //Botany Queen Bee
 /mob/living/simple_animal/hostile/poison/bees/queen
 	name = "queen bee"
-	desc = "She's the queen of bees, BZZ BZZ"
+	desc = "She's the queen of bees, BZZ BZZ!"
 	icon_base = "queen"
 	isqueen = TRUE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -278,7 +278,7 @@
 
 /obj/item/queen_bee
 	name = "queen bee"
-	desc = "She's the queen of bees, BZZ BZZ"
+	desc = "She's the queen of bees, BZZ BZZ!"
 	icon_state = "queen_item"
 	item_state = ""
 	icon = 'icons/mob/bees.dmi'
@@ -286,7 +286,7 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
+/obj/item/queen_bee/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/syringe))
 		return ..()
 	var/obj/item/reagent_containers/syringe/S = I

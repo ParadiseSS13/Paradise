@@ -117,7 +117,7 @@
 		var/obj/item/flash/F = holder
 		F.set_light(7)
 
-	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ == "r_arm" ? ITEM_SLOT_RIGHT_HAND : ITEM_SLOT_LEFT_HAND)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -151,7 +151,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ == "r_arm" ? ITEM_SLOT_RIGHT_HAND : ITEM_SLOT_LEFT_HAND)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -269,7 +269,7 @@
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
-	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
@@ -312,7 +312,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/combat
 	name = "combat cybernetics implant"
-	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm"
+	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
@@ -333,9 +333,9 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
-	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
+	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_surgical"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
@@ -346,7 +346,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
-	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
+	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_janitor"
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
@@ -374,7 +374,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/botanical
 	name = "botanical toolset implant"
-	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
+	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_hydro"
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/reagent_containers/spray/weedspray, /obj/item/reagent_containers/spray/pestspray)
 	origin_tech = "materials=3;engineering=4;biotech=3"
@@ -388,7 +388,7 @@
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"
-	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
+	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment."
 	icon_state = "toolkit_ipc"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
@@ -416,7 +416,7 @@
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
@@ -801,7 +801,7 @@
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
-/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
 		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))

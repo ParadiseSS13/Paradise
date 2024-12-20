@@ -13,7 +13,7 @@
 
 /datum/gear/accessory
 	main_typepath = /datum/gear/accessory
-	slot = SLOT_HUD_TIE
+	slot = ITEM_SLOT_ACCESSORY
 	sort_category = "Accessories"
 
 /datum/gear/accessory/scarf

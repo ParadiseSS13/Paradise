@@ -1,7 +1,7 @@
 ////////////////////HOLOSIGN///////////////////////////////////////
 /obj/machinery/holosign
 	name = "holosign"
-	desc = "Small wall-mounted holographic projector"
+	desc = "Small wall-mounted holographic projector."
 	icon = 'icons/obj/holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
@@ -49,7 +49,7 @@
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
+/obj/machinery/holosign_switch/attackby__legacy__attackchain(obj/item/W, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
 	return ..()

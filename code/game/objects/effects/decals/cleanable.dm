@@ -87,10 +87,10 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	prepare_huds()
 	if(should_merge_decal(loc))
 		return INITIALIZE_HINT_QDEL
 	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-	prepare_huds()
 	jani_hud.add_to_hud(src)
 	jani_hud_set_sign()
 	if(random_icon_states && length(src.random_icon_states) > 0)

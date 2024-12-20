@@ -74,7 +74,7 @@
 	icon_state = "beret_hos_black"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
@@ -179,7 +179,7 @@
 
 
 //Special Roles
-/obj/item/clothing/head/beret/solgov/command
+/obj/item/clothing/head/beret/solgov
 	name = "\improper TSF Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "beret_solgovc"
@@ -188,7 +188,7 @@
 	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
 
-/obj/item/clothing/head/beret/solgov/command/elite
+/obj/item/clothing/head/beret/solgov/elite
 	name = "\improper MARSOC Lieutenant's beret"
 	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)

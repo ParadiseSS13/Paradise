@@ -1,6 +1,6 @@
 /datum/map/boxstation
 	fluff_name = "NSS Cyberiad"
-	technical_name = "Cyberiad"
+	technical_name = "BoxStation"
 	map_path = "_maps/map_files/stations/boxstation.dmm"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/cyberiad/"
 	welcome_sound = 'sound/AI/welcome_cyberiad.ogg'
@@ -14,7 +14,7 @@
 
 /datum/map/deltastation
 	fluff_name = "NSS Kerberos"
-	technical_name = "Delta"
+	technical_name = "DeltaStation"
 	map_path = "_maps/map_files/stations/deltastation.dmm"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/deltastation/"
 	welcome_sound = 'sound/AI/welcome_kerberos.ogg'

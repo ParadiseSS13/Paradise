@@ -271,6 +271,7 @@
 		icon_state = "plant-eye"
 	if(icon_state == "random_plant")
 		icon_state = "plant-[rand(1, 34)]"
+	update_appearance(UPDATE_ICON_STATE)
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/kirbyplants/Destroy()
@@ -514,7 +515,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby(obj/I as obj, mob/user as mob, params)
+/obj/structure/bush/attackby__legacy__attackchain(obj/I as obj, mob/user as mob, params)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)

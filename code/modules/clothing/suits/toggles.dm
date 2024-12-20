@@ -12,7 +12,7 @@
 	if(ishuman(helmet.loc))
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
-			helmet.attack_self(H)
+			helmet.attack_self__legacy__attackchain(H)
 		H.unEquip(helmet, TRUE)
 		helmet.forceMove(src)
 		H.update_inv_wear_suit()
@@ -35,7 +35,7 @@
 			if(H.head)
 				to_chat(H, "<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(helmet, SLOT_HUD_HEAD, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD, FALSE, FALSE))
 				to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
 				suit_toggled = TRUE
 				H.update_inv_wear_suit()

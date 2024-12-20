@@ -69,8 +69,7 @@
 
 	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
-	if(jobban_isbanned(H, ROLE_VAMPIRE))
-		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
+
 	H.Stun(4 SECONDS)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)

@@ -40,10 +40,10 @@
 	..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+/obj/item/toy/balloon/attack__legacy__attackchain(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity)
+/obj/item/toy/balloon/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(A, /obj/structure/reagent_dispensers))
@@ -66,7 +66,7 @@
 		update_icon()
 	return
 
-/obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
+/obj/item/toy/balloon/attackby__legacy__attackchain(obj/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
@@ -115,7 +115,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/lastused = null
 
-/obj/item/toy/syndicateballoon/attack_self(mob/user)
+/obj/item/toy/syndicateballoon/attack_self__legacy__attackchain(mob/user)
 	if(world.time - lastused < CLICK_CD_MELEE)
 		return
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
@@ -155,7 +155,7 @@
  */
 /obj/item/toy/blink
 	name = "electronic blink toy game"
-	desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	desc = "Blink. Blink. Blink. Ages 8 and up."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -184,7 +184,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 
-/obj/item/toy/sword/attack_self(mob/user)
+/obj/item/toy/sword/attack_self__legacy__attackchain(mob/user)
 	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
@@ -207,7 +207,7 @@
 	return
 
 // Copied from /obj/item/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/W, mob/living/user, params)
+/obj/item/toy/sword/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/toy/sword))
 		if(W == src)
@@ -229,7 +229,7 @@
 	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
 	var/pranked = FALSE
 
-/obj/item/toy/sword/attack(mob/target, mob/living/user)
+/obj/item/toy/sword/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -283,7 +283,7 @@
 	target.unEquip(cig, TRUE)
 	return TRUE
 
-/obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
+/obj/item/toy/sword/chaosprank/afterattack__legacy__attackchain(mob/living/target, mob/living/user, proximity)
 	..()
 	if(!pranked)
 		to_chat(user, "<span class='chaosverybad'>Oh... It's a fake.</span>")
@@ -325,7 +325,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
@@ -423,7 +423,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/nuke/attack_self(mob/user)
+/obj/item/toy/nuke/attack_self__legacy__attackchain(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
@@ -455,7 +455,7 @@
 		desc += " This one is [item_color]."
 		icon_state = "therapy[item_color]"
 
-/obj/item/toy/therapy/attack_self(mob/user)
+/obj/item/toy/therapy/attack_self__legacy__attackchain(mob/user)
 	if(cooldown < world.time - 8)
 		to_chat(user, "<span class='notice'>You relieve some stress with \the [src].</span>")
 		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
@@ -494,18 +494,6 @@
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
 
-
-//This should really be somewhere else but I don't know where. w/e
-
-/obj/item/inflatable_duck
-	name = "inflatable duck"
-	desc = "No bother to sink or swim when you can just float!"
-	icon_state = "inflatable"
-	item_state = "inflatable"
-	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
-
 /*
  * Fake meteor
  */
@@ -539,7 +527,7 @@
 
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 
@@ -592,14 +580,14 @@
 	var/obj/item/grenade/grenade //You can remove the stuffing from a plushie and add a grenade to it for *nefarious uses*
 
 
-/obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
+/obj/item/toy/plushie/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	playsound(loc, pickweight(poof_sound), 20, 1)	// Play the whoosh sound in local area
 	if(iscarbon(M))
 		if(prob(10))
 			M.reagents.add_reagent("hugs", 10)
 	return ..()
 
-/obj/item/toy/plushie/attack_self(mob/user as mob)
+/obj/item/toy/plushie/attack_self__legacy__attackchain(mob/user as mob)
 	if(has_stuffing || grenade)
 		var/cuddle_verb = pick("hugs", "cuddles", "snugs")
 		user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
@@ -621,7 +609,7 @@
 	QDEL_NULL(grenade)
 	return ..()
 
-/obj/item/toy/plushie/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/plushie/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.sharp)
 		if(!grenade)
 			if(!has_stuffing)
@@ -656,7 +644,7 @@
 
 /obj/random/plushie
 	name = "Random Plushie"
-	desc = "This is a random plushie"
+	desc = "This is a random plushie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
 
@@ -808,7 +796,7 @@
 /obj/item/toy/plushie/greyplushie/proc/reset_hugdown()
 	hug_cooldown = FALSE //Resets the hug interaction cooldown.
 
-/obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
+/obj/item/toy/plushie/greyplushie/attack_self__legacy__attackchain(mob/user)//code for talking when hugged.
 	. = ..()
 	if(hug_cooldown)
 		return
@@ -826,7 +814,7 @@
 	item_state = "plushie_vox"
 	var/cooldown = 0
 
-/obj/item/toy/plushie/voxplushie/attack_self(mob/user)
+/obj/item/toy/plushie/voxplushie/attack_self__legacy__attackchain(mob/user)
 	if(!cooldown)
 		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
 		visible_message("<span class='danger'>Skreee!</span>")
@@ -841,7 +829,7 @@
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
 
-/obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
+/obj/item/toy/plushie/ipcplushie/attackby__legacy__attackchain(obj/item/B, mob/user, params)
 	if(istype(B, /obj/item/food/breadslice))
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
@@ -883,7 +871,7 @@
 	item_state = "plushie_nian"
 	var/cooldown = FALSE
 
-/obj/item/toy/plushie/nianplushie/attack_self(mob/user)
+/obj/item/toy/plushie/nianplushie/attack_self__legacy__attackchain(mob/user)
 	if(cooldown)
 		return ..()
 
@@ -891,7 +879,109 @@
 	visible_message("<span class='danger'>Buzzzz!</span>")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	
+/obj/item/toy/plushie/nianplushie/monarch
+	name = "monarch nian plushie"
+	desc = "A monarch nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_monarch"
+	item_state = "plushie_nian_monarch"
+	
+/obj/item/toy/plushie/nianplushie/luna
+	name = "luna nian plushie"
+	desc = "A luna nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_luna"
+	item_state = "plushie_nian_luna"
 
+/obj/item/toy/plushie/nianplushie/atlas
+	name = "atlas nian plushie"
+	desc = "An atlas nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_atlas"
+	item_state = "plushie_nian_atlas"
+	
+/obj/item/toy/plushie/nianplushie/reddish
+	name = "reddish nian plushie"
+	desc = "A reddish nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_reddish"
+	item_state = "plushie_nian_reddish"
+	
+/obj/item/toy/plushie/nianplushie/royal
+	name = "royal nian plushie"
+	desc = "A royal nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_royal"
+	item_state = "plushie_nian_royal"
+	
+/obj/item/toy/plushie/nianplushie/gothic
+	name = "gothic nian plushie"
+	desc = "A gothic nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_gothic"
+	item_state = "plushie_nian_gothic"
+	
+/obj/item/toy/plushie/nianplushie/lovers
+	name = "lovers nian plushie"
+	desc = "A lovers nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_lovers"
+	item_state = "plushie_nian_lovers"
+	
+/obj/item/toy/plushie/nianplushie/whitefly
+	name = "whitefly nian plushie"
+	desc = "A whitefly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_whitefly"
+	item_state = "plushie_nian_whitefly"
+
+/obj/item/toy/plushie/nianplushie/punished
+	name = "punished nian plushie"
+	desc = "A punnished nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_punished"
+	item_state = "plushie_nian_punished"
+	
+/obj/item/toy/plushie/nianplushie/firewatch
+	name = "firewatch nian plushie"
+	desc = "A firewtach nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_firewatch"
+	item_state = "plushie_nian_firewatch"
+
+/obj/item/toy/plushie/nianplushie/deadhead
+	name = "deathshead nian plushie"
+	desc = "A deathshead nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_deadhead"
+	item_state = "plushie_nian_deadhead"
+	
+/obj/item/toy/plushie/nianplushie/poison
+	name = "poison nian plushie"
+	desc = "A poison nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_poison"
+	item_state = "plushie_nian_poison"
+	
+/obj/item/toy/plushie/nianplushie/ragged
+	name = "ragged nian plushie"
+	desc = "A ragged nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_ragged"
+	item_state = "plushie_nian_ragged"
+	
+/obj/item/toy/plushie/nianplushie/snow
+	name = "snow nian plushie"
+	desc = "A snow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_snow"
+	item_state = "plushie_nian_snow"
+	
+/obj/item/toy/plushie/nianplushie/clockwork
+	name = "clockwork nian plushie"
+	desc = "A clockwork nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_clockwork"
+	item_state = "plushie_nian_clockwork"
+	
+/obj/item/toy/plushie/nianplushie/moonfly
+	name = "moonfly nian plushie"
+	desc = "A moonfly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_moonfly"
+	item_state = "plushie_nian_moonfly"
+	
+/obj/item/toy/plushie/nianplushie/rainbow
+	name = "rainbow nian plushie"
+	desc = "A rainbow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian_rainbow"
+	item_state = "plushie_nian_rainbow"
+	
 /obj/item/toy/plushie/shark
 	name = "shark plushie"
 	desc = "A plushie depicting a somewhat cartoonish shark. The tag calls it a 'hákarl', noting that it was made by an obscure furniture manufacturer in old Scandinavia."
@@ -957,7 +1047,7 @@
 	else
 		. += "single_latch"
 
-/obj/item/toy/windup_toolbox/attack_self(mob/user)
+/obj/item/toy/windup_toolbox/attack_self__legacy__attackchain(mob/user)
 	if(!active)
 		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
 		active = TRUE
@@ -986,7 +1076,7 @@
 	item_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/toy/flash/attack(mob/living/M, mob/user)
+/obj/item/toy/flash/attack__legacy__attackchain(mob/living/M, mob/user)
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[initial(icon_state)]2", src)
 	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -1003,7 +1093,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/redbutton/attack_self(mob/user)
+/obj/item/toy/redbutton/attack_self__legacy__attackchain(mob/user)
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
@@ -1020,7 +1110,7 @@
 /*
  * AI core prizes
  */
-/obj/item/toy/AI
+/obj/item/toy/ai
 	name = "toy AI"
 	desc = "A little toy model AI core with real law announcing action!"
 	icon = 'icons/obj/toy.dmi'
@@ -1028,7 +1118,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
-/obj/item/toy/AI/attack_self(mob/user)
+/obj/item/toy/ai/attack_self__legacy__attackchain(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
 		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
@@ -1048,7 +1138,7 @@
 	var/list/messages = list("You must challenge the devil to a dance-off!", "The devils true name is Ian", "The devil hates salt!", "Would you like infinite power?", "Would you like infinite wisdom?", " Would you like infinite healing?")
 	var/cooldown = FALSE
 
-/obj/item/toy/codex_gigas/attack_self(mob/user)
+/obj/item/toy/codex_gigas/attack_self__legacy__attackchain(mob/user)
 	if(!cooldown)
 		user.visible_message(
 			"<span class='notice'>[user] presses the button on \the [src].</span>",
@@ -1108,7 +1198,7 @@
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
 	hitsound = "swing_hit"
 
-/obj/item/toy/pet_rock/attack_self(mob/user)
+/obj/item/toy/pet_rock/attack_self__legacy__attackchain(mob/user)
 	var/cuddle_verb = pick("admires", "respects", "cherises", "appreciates")
 	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 
@@ -1133,7 +1223,7 @@
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
-/obj/item/toy/minigibber/attack_self(mob/user)
+/obj/item/toy/minigibber/attack_self__legacy__attackchain(mob/user)
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
@@ -1146,7 +1236,7 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
-/obj/item/toy/minigibber/attackby(obj/O, mob/user, params)
+/obj/item/toy/minigibber/attackby__legacy__attackchain(obj/O, mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
 		if(do_after(user, 10, target = src))
@@ -1171,7 +1261,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -1192,7 +1282,7 @@
 	..()
 	spin_cylinder()
 
-/obj/item/toy/russian_revolver/attack_self(mob/user)
+/obj/item/toy/russian_revolver/attack_self__legacy__attackchain(mob/user)
 	if(!bullets_left)
 		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
 		spin_cylinder()
@@ -1200,10 +1290,10 @@
 		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 		spin_cylinder()
 
-/obj/item/toy/russian_revolver/attack(mob/M, mob/living/user)
+/obj/item/toy/russian_revolver/attack__legacy__attackchain(mob/M, mob/living/user)
 	return
 
-/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
+/obj/item/toy/russian_revolver/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
 	if(flag)
 		if(target in user.contents)
 			return
@@ -1271,7 +1361,7 @@
 	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
 	shoot_gun(user)
 
-/obj/item/toy/russian_revolver/trick_revolver/attack_self(mob/user)
+/obj/item/toy/russian_revolver/trick_revolver/attack_self__legacy__attackchain(mob/user)
 	if(!bullets_left) //You can re-arm the trap...
 		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
 		spin_cylinder()
@@ -1279,7 +1369,7 @@
 		user.visible_message("<span class='warning'>[user] tries to empty [src], but it goes off in their face!</span>")
 		shoot_gun(user)
 
-/obj/item/toy/russian_revolver/trick_revolver/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/russian_revolver/trick_revolver/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		to_chat(user, "<span class='warning'>You go to write on [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
@@ -1342,7 +1432,7 @@
 
 /obj/random/figure
 	name = "Random Action Figure"
-	desc = "This is a random toy action figure"
+	desc = "This is a random toy action figure."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
@@ -1359,7 +1449,7 @@
 	var/cooldown = 0
 	var/cooldown_time = 3 SECONDS
 
-/obj/item/toy/figure/attack_self(mob/user)
+/obj/item/toy/figure/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(cooldown < world.time)
 		cooldown = world.time + cooldown_time
@@ -1667,7 +1757,7 @@
 
 /obj/random/mech
 	name = "Random Mech Prize"
-	desc = "This is a random prize"
+	desc = "This is a random prize."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 
@@ -1742,7 +1832,7 @@
 	var/cooldown = 0
 	var/list/possible_answers = list("Definitely", "All signs point to yes.", "Most likely.", "Yes.", "Ask again later.", "Better not tell you now.", "Future Unclear.", "Maybe.", "Doubtful.", "No.", "Don't count on it.", "Never.")
 
-/obj/item/toy/eight_ball/attack_self(mob/user as mob)
+/obj/item/toy/eight_ball/attack_self__legacy__attackchain(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
 		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")

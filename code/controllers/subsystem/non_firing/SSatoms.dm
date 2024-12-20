@@ -100,6 +100,8 @@ SUBSYSTEM_DEF(atoms)
 		qdeleted = TRUE
 	else if(!A.initialized)
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
+	else
+		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 
 	return qdeleted || QDELING(A)
 

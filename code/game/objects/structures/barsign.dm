@@ -178,7 +178,7 @@
 		return
 	attack_hand(user)
 
-/obj/machinery/barsign/attackby(obj/item/I, mob/user, params)
+/obj/machinery/barsign/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	switch(build_stage)
 		// Inserting the electronics/circuit
 		if(BARSIGN_FRAME)
@@ -483,7 +483,7 @@
 	. = ..()
 	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
 
-/obj/item/barsign_electronics/attack_self(mob/user)
+/obj/item/barsign_electronics/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(destroyed)
 		return

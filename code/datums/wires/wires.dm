@@ -106,7 +106,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		var/obj/item/clothing/glasses/glasses = H.get_item_by_slot(SLOT_HUD_GLASSES)
+		var/obj/item/clothing/glasses/glasses = H.get_item_by_slot(ITEM_SLOT_EYES)
 		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND) && (!glasses || !glasses.correct_wires)) // Check if the human has colorblindness.
 			replace_colors = eyes.replace_colours // Get the colorblind replacement colors list.
 

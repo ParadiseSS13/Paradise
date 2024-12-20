@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/attack_self__legacy__attackchain(mob/user)
 	toggle_veil(user, TRUE)
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)
@@ -66,7 +66,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
@@ -91,7 +91,7 @@
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/med
@@ -136,7 +136,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/dropped(mob/user)
@@ -162,7 +162,7 @@
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med

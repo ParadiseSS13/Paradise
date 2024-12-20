@@ -19,7 +19,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
-	desc = "A large magic box with similar power and design to the Hierophant.  Once it opens, it's not easy to close it."
+	desc = "A large magic box with similar power and design to the Hierophant. Once it opens, it's not easy to close it."
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"
@@ -198,7 +198,7 @@
 	friendly_fire_check = TRUE
 
 
-//Pandora's loot: Hope //Hope I know what to make it do
+//Pandora's loot: Hope
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
@@ -206,7 +206,7 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 

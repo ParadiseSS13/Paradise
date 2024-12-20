@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_antagonists2,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
@@ -574,6 +575,19 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
+/client/proc/check_antagonists2()
+	set name = "TGUI - Antagonists"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
 /client/proc/ban_panel()
 	set name = "Ban Panel"
 	set category = "Admin"
@@ -1103,8 +1117,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
+			var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector")
+			if(isnull(message_color))
 				return
 
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)

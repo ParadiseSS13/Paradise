@@ -14,7 +14,7 @@
 	teleport_target = null
 	return ..()
 
-/obj/item/gun/energy/telegun/attack_self(mob/living/user)
+/obj/item/gun/energy/telegun/attack_self__legacy__attackchain(mob/living/user)
 	var/list/L = list()
 	var/list/areaindex = list()
 

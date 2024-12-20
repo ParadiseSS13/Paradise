@@ -57,7 +57,7 @@
 
 	return TRUE
 
-/obj/item/assembly/igniter/attack(mob/living/target, mob/living/user)
+/obj/item/assembly/igniter/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -82,7 +82,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/assembly/igniter/attack_self(mob/user)
+/obj/item/assembly/igniter/attack_self__legacy__attackchain(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
 	add_fingerprint(user)

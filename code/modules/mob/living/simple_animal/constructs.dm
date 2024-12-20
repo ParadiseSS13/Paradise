@@ -109,7 +109,7 @@
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
 	real_name = "Juggernaut"
-	desc = "A possessed suit of armour driven by the will of the restless dead"
+	desc = "A possessed suit of armour driven by the will of the restless dead."
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	hud_type = /datum/hud/construct/armoured
@@ -153,7 +153,7 @@
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
-	desc = "A wicked bladed shell contraption piloted by a bound spirit"
+	desc = "A wicked bladed shell contraption piloted by a bound spirit."
 	icon_state = "floating"
 	icon_living = "floating"
 	hud_type = /datum/hud/construct/wraith

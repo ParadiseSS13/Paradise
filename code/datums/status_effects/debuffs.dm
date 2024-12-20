@@ -752,7 +752,7 @@
 
 #define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
 #define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
-/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
+/// This is multiplied with [/datum/status_effect/transient/var/strength] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
 #define HALLUCINATE_CHANCE 80
@@ -1131,7 +1131,7 @@
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse
 	name = "I SEE YOU"
-	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
+	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE."
 	icon_state = "bubblegumjumpscare"
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
@@ -1342,7 +1342,7 @@
 
 /obj/effect/bubblegum_warning
 	name = "bloody rift"
-	desc = "You feel like even being *near* this is a bad idea"
+	desc = "You feel like even being *near* this is a bad idea."
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	color = "red"
@@ -1406,3 +1406,64 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+/// This is the threshold where the attack will stun on the last hit. Why? Because it is cool, that's why.
+#define FINISHER_THRESHOLD 7
+
+/datum/status_effect/temporal_slash
+	id = "temporal_slash"
+	duration = 3 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	/// How many times the user has been cut. Each cut adds a damage value below
+	var/cuts = 1
+	/// How much damage the blade will do each slice
+	var/damage_per_cut = 20
+
+/datum/status_effect/temporal_slash/on_creation(mob/living/new_owner, cut_damage = 20)
+	. = ..()
+	damage_per_cut = cut_damage
+
+/datum/status_effect/temporal_slash/refresh()
+	cuts++
+	return ..()
+
+/datum/status_effect/temporal_slash/on_remove()
+	owner.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH_FINISHER, cuts, damage_per_cut) //We apply this to a new status effect, to avoid refreshing while on_remove happens.
+
+/datum/status_effect/temporal_slash_finisher
+	id = "temporal_slash_finisher"
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	tick_interval = 0.25 SECONDS
+	/// How many times the user has been cut. Each cut adds a damage value below
+	var/cuts = 1
+	/// How much damage the blade will do each slice
+	var/damage_per_cut = 20
+	/// Have we done enough damage to trigger the finisher?
+	var/finishing_cuts = FALSE
+
+/datum/status_effect/temporal_slash_finisher/on_creation(mob/living/new_owner, final_cuts = 1, cut_damage = 20)
+	. = ..()
+	cuts = final_cuts
+	damage_per_cut = cut_damage
+	if(ismegafauna(owner))
+		damage_per_cut *= 4 //This will deal 40 damage bonus per cut on megafauna as a miner, and 80 as a wizard. To kill a megafauna, you need to hit it 48 times. You don't get the buffs of a crusher though. Also you already killed bubblegum, so, you know.
+	if(cuts >= FINISHER_THRESHOLD)
+		finishing_cuts = TRUE
+	new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
+
+/datum/status_effect/temporal_slash_finisher/tick()
+	. = ..()
+	owner.visible_message("<span class='danger'>[owner] gets slashed by a cut through spacetime!</span>", "<span class='userdanger'>You get slashed by a cut through spacetime!</span>")
+	playsound(owner, 'sound/weapons/rapierhit.ogg', 50, TRUE)
+	owner.apply_damage(damage_per_cut, BRUTE, pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG), 0, TRUE, null, FALSE)
+	cuts--
+	if(cuts <= 0)
+		if(finishing_cuts)
+			owner.Weaken(7 SECONDS)
+		qdel(src)
+	else
+		new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
+
+#undef FINISHER_THRESHOLD

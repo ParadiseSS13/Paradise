@@ -1,6 +1,6 @@
 /obj/structure/spider
 	name = "web"
-	desc = "it's stringy and sticky"
+	desc = "it's stringy and sticky."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "stickyweb1"
 	anchored = TRUE
@@ -52,7 +52,7 @@
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
-	desc = "They seem to pulse slightly with an inner life"
+	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = FALSE
@@ -232,7 +232,7 @@
 
 /obj/structure/spider/cocoon
 	name = "cocoon"
-	desc = "Something wrapped in silky spider web"
+	desc = "Something wrapped in silky spider web."
 	icon_state = "cocoon1"
 	max_integrity = 60
 

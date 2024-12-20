@@ -52,7 +52,7 @@
 	/obj/item/food/grown/ambrosia/deus,
 	/obj/item/food/grown/wheat))
 
-/obj/item/grown/log/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/log/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
@@ -146,7 +146,7 @@
 	. = ..()
 	StartBurning()
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+/obj/structure/bonfire/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
 		R.use(1)

@@ -75,7 +75,7 @@
 
 /obj/effect/cross_action
 	name = "cross me"
-	desc = "for crossing"
+	desc = "for crossing."
 	anchored = TRUE
 
 /obj/effect/cross_action/spacetime_dist
@@ -110,7 +110,7 @@
 	if(!cant_teleport)
 		walk_link(AM)
 
-/obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)
+/obj/effect/cross_action/spacetime_dist/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(user.drop_item(W))
 		walk_link(W)
 	else

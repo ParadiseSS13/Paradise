@@ -36,7 +36,7 @@
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
-///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
+///from base of obj/item/afterattack__legacy__attackchain(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 ///from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
@@ -212,3 +212,6 @@
 /// Sent from datum/spell/ethereal_jaunt/cast, before the mob enters jaunting as a pre-check: (mob/jaunter)
 #define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
 	#define COMPONENT_BLOCK_JAUNT (1<<0)
+
+/// from remove_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"

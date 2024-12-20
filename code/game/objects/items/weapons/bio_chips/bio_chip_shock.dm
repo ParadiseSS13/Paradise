@@ -8,7 +8,7 @@
 	implant_state = "implant-syndicate"
 	var/enabled = TRUE
 	var/old_mclick_override
-	var/datum/middleClickOverride/shock_implant/mclick_override = new /datum/middleClickOverride/shock_implant
+	var/datum/middle_click_override/shock_implant/mclick_override = new /datum/middle_click_override/shock_implant
 	var/last_shocked = 0
 	var/shock_delay = 3 SECONDS
 	var/unlimited_power = FALSE // Does this really need explanation?

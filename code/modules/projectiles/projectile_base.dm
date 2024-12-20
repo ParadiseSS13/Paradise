@@ -88,6 +88,9 @@
 	///Has the projectile been fired?
 	var/has_been_fired = FALSE
 
+	/// Does this projectile hit living non dense mobs?
+	var/always_hit_living_nondense = FALSE
+
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.

@@ -14,7 +14,7 @@
 	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
-/obj/item/toy/prizeball/attack_self(mob/user as mob)
+/obj/item/toy/prizeball/attack_self__legacy__attackchain(mob/user as mob)
 	if(opening)
 		return
 	opening = 1
@@ -73,7 +73,7 @@
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/tickets/attack_self(mob/user as mob)
+/obj/item/stack/tickets/attack_self__legacy__attackchain(mob/user as mob)
 	return
 
 /obj/item/stack/tickets/update_icon_state()

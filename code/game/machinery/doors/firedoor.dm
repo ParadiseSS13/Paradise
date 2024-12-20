@@ -124,7 +124,7 @@
 			"<span class='notice'>You open [src].</span>")
 		open(auto_close = FALSE)
 
-/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 
 	if(operating)
@@ -387,7 +387,7 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
+/obj/structure/firelock_frame/attackby__legacy__attackchain(obj/item/C, mob/user)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(istype(C, /obj/item/stack/sheet/plasteel))

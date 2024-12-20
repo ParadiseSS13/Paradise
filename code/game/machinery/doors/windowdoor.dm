@@ -295,7 +295,7 @@
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	operating = DOOR_MALF
 	flick("[base_state]spark", src)
@@ -304,7 +304,7 @@
 	operating = NONE
 	return TRUE
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		return

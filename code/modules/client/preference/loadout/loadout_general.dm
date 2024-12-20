@@ -157,7 +157,7 @@
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
 
-/datum/gear/pAI
+/datum/gear/pai
 	display_name = "Personal Artificial Intelligence"
 	path = /obj/item/paicard
 	cost = 2

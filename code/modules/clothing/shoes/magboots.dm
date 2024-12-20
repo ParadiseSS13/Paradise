@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-
+	no_slip = FALSE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -24,7 +24,7 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
 		return
 	check_mag_pulse(user)
 
@@ -34,7 +34,7 @@
 		return
 	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
 	toggle_magpulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
@@ -42,7 +42,7 @@
 		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		if(user.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		if(user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
@@ -56,7 +56,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-	check_mag_pulse(user, removing = (user.get_item_by_slot(SLOT_HUD_SHOES) != src))
+	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
 	if(!user)
@@ -101,7 +101,7 @@
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
@@ -144,7 +144,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
@@ -272,7 +272,7 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
@@ -302,7 +302,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_SHOES && cell && core)
+	if(slot == ITEM_SLOT_SHOES && cell && core)
 		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
@@ -310,14 +310,14 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
 			toggle_magpulse(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
@@ -341,11 +341,12 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
+	ADD_TRAIT(user, TRAIT_FLYING, "gravity_boots")
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "gravity_boots")))
-		ADD_TRAIT(user, TRAIT_FLYING, "gravity_boots")
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
+		REMOVE_TRAIT(user, TRAIT_FLYING, "gravity_boots")
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")

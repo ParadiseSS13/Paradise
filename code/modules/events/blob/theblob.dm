@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
-	desc = "Some blob creature thingy"
+	desc = "Some blob creature thingy."
 	density = FALSE
 	opacity = FALSE
 	anchored = TRUE

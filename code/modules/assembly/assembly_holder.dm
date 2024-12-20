@@ -153,7 +153,7 @@
 		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
 	update_icon()
 
-/obj/item/assembly_holder/attack_self(mob/user)
+/obj/item/assembly_holder/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
@@ -162,13 +162,13 @@
 		if(istype(a_left, a_right.type)) // If they are the same type it causes issues due to window code
 			switch(tgui_alert(user, "Which side would you like to use?", "Choose", list("Left", "Right")))
 				if("Left")
-					a_left.attack_self(user)
+					a_left.attack_self__legacy__attackchain(user)
 				if("Right")
-					a_right.attack_self(user)
+					a_right.attack_self__legacy__attackchain(user)
 			return
 		else
-			a_left.attack_self(user)
-			a_right.attack_self(user)
+			a_left.attack_self__legacy__attackchain(user)
+			a_right.attack_self__legacy__attackchain(user)
 	else
 		var/turf/T = get_turf(src)
 		if(!T)

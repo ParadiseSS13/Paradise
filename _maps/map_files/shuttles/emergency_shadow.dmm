@@ -752,7 +752,7 @@
 /area/shuttle/escape)
 "GB" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /obj/machinery/light{
 	dir = 8
 	},

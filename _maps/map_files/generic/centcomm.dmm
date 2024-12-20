@@ -319,15 +319,6 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
-"bj" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/assault_pod)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -587,7 +578,7 @@
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
 /obj/item/bonesetter/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
 /turf/simulated/floor/plating/abductor,
@@ -837,7 +828,7 @@
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
-/obj/item/FixOVein/alien,
+/obj/item/fix_o_vein/alien,
 /obj/item/bonesetter/alien,
 /obj/item/bonegel/alien,
 /turf/simulated/floor/plating/abductor,
@@ -2362,7 +2353,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "ip" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "iq" = (
@@ -3915,7 +3906,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ne" = (
-/mob/living/simple_animal/pet/dog/fox/Syndifox,
+/mob/living/simple_animal/pet/dog/fox/syndifox,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4126,7 +4117,7 @@
 /area/shuttle/administration)
 "nI" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -2;
 	pixel_y = 5
 	},
@@ -4250,7 +4241,7 @@
 /area/admin)
 "ob" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -4397,7 +4388,7 @@
 	},
 /area/syndicate_mothership)
 "oI" = (
-/obj/effect/spawner/lootdrop/trade_sol/civ,
+/obj/effect/spawner/random/traders/civilian,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4411,11 +4402,7 @@
 	pixel_x = -8
 	},
 /obj/item/kitchen/knife,
-/obj/machinery/newscaster{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
 	},
@@ -4428,7 +4415,7 @@
 	},
 /area/tdome/tdomeobserve)
 "oL" = (
-/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/obj/effect/spawner/random/traders/minerals,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4471,7 +4458,7 @@
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
 "oR" = (
-/mob/living/simple_animal/pet/cat/Syndi,
+/mob/living/simple_animal/pet/cat/syndi,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4480,7 +4467,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/obj/effect/spawner/random/traders/donksoft,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -4772,12 +4759,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/a_minus,
+/obj/item/reagent_containers/iv_bag/blood/a_plus,
+/obj/item/reagent_containers/iv_bag/blood/b_minus,
+/obj/item/reagent_containers/iv_bag/blood/b_plus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_plus,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4883,11 +4870,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5315,10 +5298,10 @@
 /area/shuttle/assault_pod)
 "rJ" = (
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
 "rK" = (
-/obj/effect/spawner/lootdrop/trade_sol/sci,
+/obj/effect/spawner/random/traders/science,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -5393,7 +5376,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "rY" = (
-/obj/effect/spawner/lootdrop/trade_sol/med,
+/obj/effect/spawner/random/traders/medical,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -5982,7 +5965,7 @@
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/robot_parts/l_leg,
@@ -6151,7 +6134,7 @@
 	},
 /area/centcom/evac)
 "uP" = (
-/obj/effect/spawner/lootdrop/trade_sol/sec,
+/obj/effect/spawner/random/traders/security,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -6197,7 +6180,7 @@
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "vb" = (
-/obj/effect/spawner/lootdrop/trade_sol/eng,
+/obj/effect/spawner/random/traders/engineering,
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -6229,7 +6212,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "vj" = (
@@ -6494,16 +6477,16 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "vY" = (
-/obj/effect/spawner/lootdrop/trade_sol/largeitem,
+/obj/effect/spawner/random/traders/large_item,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "vZ" = (
-/obj/effect/spawner/lootdrop/trade_sol/vehicle,
+/obj/effect/spawner/random/traders/vehicle,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "wa" = (
 /obj/machinery/light/spot,
-/obj/effect/spawner/lootdrop/trade_sol/serv,
+/obj/effect/spawner/random/traders/service,
 /obj/structure/closet,
 /obj/item/stack/tile/disco_light/thirty,
 /turf/simulated/floor/mineral/titanium,
@@ -7453,7 +7436,7 @@
 /obj/item/scalpel/laser/manager,
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -8092,10 +8075,7 @@
 "CG" = (
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -8887,7 +8867,7 @@
 "FD" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/classic_baton/telescopic,
-/obj/item/paper/Court,
+/obj/item/paper/court,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -9259,10 +9239,7 @@
 /obj/item/folder/blue,
 /obj/item/melee/chainofcommand,
 /obj/item/stamp/captain,
-/obj/machinery/newscaster/security_unit{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GT" = (
@@ -10805,11 +10782,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/lighter,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -11765,7 +11738,7 @@
 /area/centcom/specops)
 "OZ" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -11880,11 +11853,7 @@
 /obj/machinery/computer/emergency_shuttle{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/security_unit/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -12871,11 +12840,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/lighter,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -13049,7 +13014,7 @@
 /obj/item/circular_saw,
 /obj/item/scalpel,
 /obj/item/retractor,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "Ua" = (
@@ -13196,11 +13161,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/east,
 /obj/item/storage/lockbox/medal/cc,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -14538,10 +14499,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 4.5
 	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -68871,11 +68829,11 @@ aN
 Yi
 nO
 ov
-bj
+qs
 qo
 rL
 qo
-bj
+qs
 ov
 tp
 Yi
@@ -69131,7 +69089,7 @@ ou
 ov
 qs
 qo
-qo
+qs
 ov
 ou
 tp

@@ -8,6 +8,8 @@
 
 	var/mobname = "Unknown"
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
+	/// Tracking to prevent multiple EMPs in the same tick from flooding radio.
+	COOLDOWN_DECLARE(emp_spam_lock)
 
 /obj/item/bio_chip/death_alarm/implant(mob/target)
 	. = ..()
@@ -26,8 +28,11 @@
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(src)
 		if("emp")
+			if(!COOLDOWN_FINISHED(src, emp_spam_lock))
+				return
 			var/name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
 			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
+			COOLDOWN_START(src, emp_spam_lock, 0.1 SECONDS)
 		else
 			if(is_type_in_typecache(t, stealth_areas))
 				//give the syndies a bit of stealth

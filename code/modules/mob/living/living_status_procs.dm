@@ -118,7 +118,6 @@ STATUS EFFECTS
 			layer = BLASTDOOR_LAYER
 		else
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))

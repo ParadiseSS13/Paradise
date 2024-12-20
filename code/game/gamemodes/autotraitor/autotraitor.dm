@@ -64,10 +64,12 @@
 	var/list/possible_traitors = list()
 	for(var/mob/living/player in GLOB.mob_list)
 		if(player.client && player.stat != DEAD)
-			player_count += 1
 			if(!player.mind)
 				continue
-			if(player.mind.special_role)
+			if(player.mind.offstation_role) //Don't count as crew.
+				continue
+			player_count += 1
+			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
 				traitor_count += 1
 				continue
 			if(ishuman(player) || isAI(player))

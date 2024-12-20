@@ -142,9 +142,12 @@
 	if(machine_powernet?.powernet_area != get_area(src))
 		var/area/machine_area = get_area(src)
 		if(machine_area)
+			var/old_power_mode = power_state
+			change_power_mode(NO_POWER_USE) // Take away our current power from the old network
 			machine_powernet?.unregister_machine(src)
 			machine_powernet = machine_area.powernet
 			machine_powernet.register_machine(src)
+			change_power_mode(old_power_mode) // add it to the new network
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
@@ -290,7 +293,7 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
 	. = M
 	M.anchored = anchored
 	if(!disassembled)
@@ -351,7 +354,7 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/O, mob/user, params)
+/obj/machinery/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(exchange_parts(user, O))
 		return
 

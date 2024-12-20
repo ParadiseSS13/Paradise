@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/list/chunks_post_seen = list()
 
 	for(var/V in moved_eyes)
-		var/mob/camera/aiEye/eye = V
+		var/mob/camera/ai_eye/eye = V
 		if(C)
 			chunks_pre_seen |= eye.visibleCameraChunks
 		// 0xf = 15
@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 	if(C)
 		for(var/V in other_eyes)
-			var/mob/camera/aiEye/eye = V
+			var/mob/camera/ai_eye/eye = V
 			chunks_post_seen |= eye.visibleCameraChunks
 
 		var/list/remove = chunks_pre_seen - chunks_post_seen

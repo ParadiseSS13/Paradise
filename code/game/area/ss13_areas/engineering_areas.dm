@@ -85,6 +85,10 @@
 	name = "\improper Gravity Generator"
 	icon_state = "gravgen"
 
+/area/station/engineering/transmission_laser
+	name = "\improper Power Transmission Laser"
+	icon_state = "engi"
+
 /area/station/engineering/ai_transit_tube
 	name = "\improper AI Minisat Tranit Tube"
 	icon_state = "ai"

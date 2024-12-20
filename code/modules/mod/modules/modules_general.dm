@@ -251,8 +251,8 @@
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = input(usr, "Pick new light color", "Flashlight Color") as color|null
-			if(!value)
+			value = tgui_input_color(usr, "Pick new light color", "Flashlight Color", light_color)
+			if(isnull(value))
 				return
 			if(is_color_dark(value, 50))
 				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))

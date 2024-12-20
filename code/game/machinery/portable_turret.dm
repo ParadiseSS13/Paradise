@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 	qdel(src) // qdel
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
 		return
 
@@ -874,7 +874,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/gun_charge = 0			//the gun charge of the gun type installed
 
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret_construct/attackby__legacy__attackchain(obj/item/I, mob/user)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step

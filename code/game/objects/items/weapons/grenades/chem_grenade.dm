@@ -89,12 +89,12 @@
 			underlays += "[O]_r"
 
 
-/obj/item/grenade/chem_grenade/attack_self(mob/user)
+/obj/item/grenade/chem_grenade/attack_self__legacy__attackchain(mob/user)
 	if(stage == READY &&  !active)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		if(nadeassembly)
-			nadeassembly.attack_self(user)
+			nadeassembly.attack_self__legacy__attackchain(user)
 			update_icon(UPDATE_ICON_STATE)
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
@@ -114,14 +114,17 @@
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		owner.visible_message("<span class='userdanger'>[hitby] hits [owner]'s [name], setting it off! What a shot!</span>")
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
-		return 1 //It hit the grenade, not them
+		if(!QDELETED(src)) // some grenades don't detonate but we want them destroyed, otherwise you can just hold empty grenades as shields.
+			qdel(src)
+		return TRUE
+	return ..()
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/hand_labeler))
 		var/obj/item/hand_labeler/HL = I
 		if(length(HL.label))
@@ -357,7 +360,7 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/large/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 		user.drop_item()

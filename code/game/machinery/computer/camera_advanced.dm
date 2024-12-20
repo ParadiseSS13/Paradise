@@ -3,7 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	var/mob/camera/aiEye/remote/eyeobj
+	var/mob/camera/ai_eye/remote/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
@@ -101,7 +101,7 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 
-/mob/camera/aiEye/remote
+/mob/camera/ai_eye/remote
 	name = "Inactive Camera Eye"
 	// Abductors dont trigger the Ai Detector
 	ai_detector_visible = FALSE
@@ -114,24 +114,24 @@
 	var/visible_icon = 0
 	var/image/user_image = null
 
-/mob/camera/aiEye/remote/Destroy()
+/mob/camera/ai_eye/remote/Destroy()
 	eye_user = null
 	origin = null
 	return ..()
 
-/mob/camera/aiEye/remote/RemoveImages()
+/mob/camera/ai_eye/remote/RemoveImages()
 	..()
 	if(visible_icon)
 		var/client/C = GetViewerClient()
 		if(C)
 			C.images -= user_image
 
-/mob/camera/aiEye/remote/GetViewerClient()
+/mob/camera/ai_eye/remote/GetViewerClient()
 	if(eye_user)
 		return eye_user.client
 	return null
 
-/mob/camera/aiEye/remote/setLoc(T)
+/mob/camera/ai_eye/remote/setLoc(T)
 	if(eye_user)
 		if(!isturf(eye_user.loc))
 			return
@@ -147,7 +147,7 @@
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
 				eye_user.client.images += user_image
 
-/mob/camera/aiEye/remote/relaymove(mob/user,direct)
+/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
@@ -173,7 +173,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
 	console.remove_eye_control(target)
 
@@ -185,7 +185,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()

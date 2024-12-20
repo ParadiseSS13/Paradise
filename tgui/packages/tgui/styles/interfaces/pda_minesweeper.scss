@@ -1,0 +1,40 @@
+@use '../base.scss';
+@use '../functions.scss' as *;
+
+.Minesweeper__closed {
+  vertical-align: middle;
+  background-color: lighten(base.$color-bg, 20%);
+  border: base.em(2px) outset lighten(base.$color-bg, 80%);
+}
+
+.Minesweeper__open {
+  vertical-align: middle;
+  text-align: center;
+  font-size: medium;
+  background-color: lighten(base.$color-bg, 50%) !important;
+}
+
+.Minesweeper__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 2em;
+    line-height: 1.75em;
+    transition: background-color 50ms;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(base.$color-bg, 1);
+    }
+  }
+}
+
+.Minesweeper__infobox {
+  max-height: 8em;
+  border: base.em(3px) outset lighten(base.$color-bg, 25%);
+  user-select: none;
+  -ms-user-select: none; // Remove with Byond 516 release
+}

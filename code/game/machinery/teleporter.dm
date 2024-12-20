@@ -47,7 +47,7 @@
 	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
-/obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/teleporter/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
@@ -335,7 +335,7 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(isAI(A) || istype(A, /obj/structure/AIcore))
+	if(isAI(A) || istype(A, /obj/structure/ai_core))
 		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
 			if(T.allow_teleporter)
@@ -625,7 +625,7 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
+/obj/machinery/teleport/station/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
 		if(!teleporter_console)
 			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")

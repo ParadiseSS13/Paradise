@@ -27,9 +27,9 @@
 		. += bombassembly.overlays
 		. += "bomb_assembly"
 
-/obj/item/onetankbomb/attackby(obj/item/W, mob/user, params)
+/obj/item/onetankbomb/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
-		bombtank.attackby(W, user, params)
+		bombtank.attackby__legacy__attackchain(W, user, params)
 		return
 	return ..()
 
@@ -65,8 +65,8 @@
 		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 
 
-/obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly
-	bombassembly.attack_self(user, 1)
+/obj/item/onetankbomb/attack_self__legacy__attackchain(mob/user) //pressing the bomb accesses its assembly
+	bombassembly.attack_self__legacy__attackchain(user, 1)
 	add_fingerprint(user)
 	return
 

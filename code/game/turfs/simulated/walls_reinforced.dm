@@ -40,7 +40,7 @@
 		if(RWALL_SHEATH)
 			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
-/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/r_wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && d_state == RWALL_COVER)
