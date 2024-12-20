@@ -11,17 +11,15 @@ pub(crate) fn find_walls(next: &mut ZLevel) {
         let y = (my_index % MAP_SIZE) as i32;
 
         for (axis, (dx, dy)) in AXES.iter().enumerate() {
-            let maybe_their_index = ZLevel::maybe_get_index(x + dx, y + dy);
-            let their_index;
-            match maybe_their_index {
-                Some(index) => their_index = index,
+            let their_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
+                Some(index) => index,
                 None => {
                     // Edge of the map, acts like a wall.
                     let my_tile = next.get_tile_mut(my_index);
                     my_tile.wall[axis] = true;
                     continue;
                 }
-            }
+            };
 
             let (my_tile, their_tile) = next.get_pair_mut(my_index, their_index);
             if *dx > 0
@@ -60,12 +58,10 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
         let my_tile = prev.get_tile(my_index);
 
         for (axis, (dx, dy)) in AXES.iter().enumerate() {
-            let maybe_neighbor_index = ZLevel::maybe_get_index(x + dx, y + dy);
-            let neighbor_index;
-            match maybe_neighbor_index {
-                Some(index) => neighbor_index = index,
+            let neighbor_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
+                Some(index) => index,
                 None => continue,
-            }
+            };
             let neighbor = prev.get_tile(neighbor_index);
             let my_new_tile = next.get_tile_mut(my_index);
 
@@ -203,12 +199,10 @@ pub(crate) fn flow_air_once_at_index(
     let mut total_weighted_temperature = my_tile.temperature() * my_tile.heat_capacity();
     let mut total_temperature_weights: f32 = my_tile.heat_capacity();
     for (dir, (dx, dy)) in DIRECTIONS.iter().enumerate() {
-        let maybe_neighbor_index = ZLevel::maybe_get_index(x + dx, y + dy);
-        let neighbor_index;
-        match maybe_neighbor_index {
-            Some(value) => neighbor_index = value,
+        let neighbor_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
+            Some(value) => value,
             None => continue,
-        }
+        };
         let (my_new_tile, new_neighbor) = next.get_pair_mut(my_index, neighbor_index);
 
         let axis = DIRECTION_AXIS[dir];
@@ -336,12 +330,10 @@ pub(crate) fn post_process(
         }
 
         for (dx, dy) in AXES {
-            let maybe_their_index = ZLevel::maybe_get_index(x + dx, y + dy);
-            let their_index;
-            match maybe_their_index {
-                Some(index) => their_index = index,
+            let their_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
+                Some(index) => index,
                 None => continue,
-            }
+            };
 
             let (my_next_tile, their_next_tile) = next.get_pair_mut(my_index, their_index);
 

@@ -315,10 +315,6 @@
 	return 0
 
 /mob/get_spacemove_backup(movement_dir)
-	if(movement_dir == 0 && isliving(src))
-		var/mob/living/me = src
-		if(me.has_status_effect(STATUS_EFFECT_UNBALANCED))
-			return
 	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
 			continue
