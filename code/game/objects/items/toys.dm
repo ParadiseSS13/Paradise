@@ -42,8 +42,7 @@
 	create_reagents(10)
 
 /obj/item/toy/balloon/pre_attack(atom/target, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
+	..()
 	return FINISH_ATTACK
 
 /obj/item/toy/balloon/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
