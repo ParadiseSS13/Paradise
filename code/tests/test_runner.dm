@@ -70,26 +70,15 @@
 
 		if(!test.succeeded)
 			failed_any_test = TRUE
-			test_logs[I] += test.fail_reasons
+			for(var/fail_reason in test.fail_reasons)
+				if(islist(fail_reason))
+					var/text = fail_reason[1]
+					var/file = fail_reason[2]
+					var/line = fail_reason[3]
 
-		qdel(test)
-
-		CHECK_TICK
-
-	for(var/interaction_test_type in subtypesof(/datum/interaction_test))
-		var/datum/interaction_test/test = new interaction_test_type
-		test_logs[interaction_test_type] = list()
-		current_test = test
-		var/duration = REALTIMEOFDAY
-
-		test.Run()
-
-		durations[interaction_test_type] = REALTIMEOFDAY - duration
-		current_test = null
-
-		if(!test.succeeded)
-			failed_any_test = TRUE
-			test_logs[interaction_test_type] += test.fail_reasons
+					test_logs[I] += "[file]:[line]: [text]"
+				else
+					test_logs[I] += fail_reason
 
 		qdel(test)
 
