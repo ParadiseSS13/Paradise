@@ -134,6 +134,7 @@
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
+	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
 
 /datum/spell/revenant_transmit/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -165,6 +166,7 @@
 	var/unlock_amount = 100
 	/// How much essence it costs to use
 	var/cast_amount = 50
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
 
 /datum/spell/aoe/revenant/New()
 	..()
