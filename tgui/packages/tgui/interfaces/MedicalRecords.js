@@ -132,7 +132,7 @@ const MedicalRecordsList = (_properties, context) => {
             {records
               .filter(
                 createSearch(searchText, (record) => {
-                  return record.name + '|' + record.id + '|' + record.rank + '|' + record.p_stat + '|' + record.m_stat;
+                  return record.name + '|' + record.id + '|' + record.rank + '|' + record.p_stat + '|' + record.m_stat + '|' + record.dna;
                 })
               )
               .sort((a, b) => {
