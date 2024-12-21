@@ -772,6 +772,14 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
+/datum/coords/New(x_pos_, y_pos_, z_pos_)
+	x_pos = x_pos_
+	y_pos = y_pos_
+	z_pos = z_pos_
+
+/datum/coords/proc/to_string(z = null)
+	return "([x_pos],[y_pos],[z ? z : z_pos])"
+
 /area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
