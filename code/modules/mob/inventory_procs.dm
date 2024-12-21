@@ -227,7 +227,10 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(destination)
+		if(destination)
+			I.forceMove(destination)
+		else
+			I.moveToNullspace()
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)
