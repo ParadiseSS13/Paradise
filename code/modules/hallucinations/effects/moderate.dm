@@ -476,3 +476,27 @@
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
 	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+
+/**
+  * # Hallucination - Vent Peek
+  *
+  * A suspicious individual peers out of a nearby vent at the target.
+  */
+/obj/effect/hallucination/ventpeek
+	duration = 4 SECONDS
+
+/obj/effect/hallucination/ventpeek/Initialize(mapload, mob/living/carbon/hallucination_target)
+	. = ..()
+	
+	var/list/venttargets = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
+		venttargets += vent
+	if(!length(venttargets))
+		return INITIALIZE_HINT_QDEL
+	var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
+	add_icon(I)
+	flick("hallucination_clown", I)
+	addtimer(CALLBACK(src, PROC_REF(play_honk)), 2.3 SECONDS)
+
+/obj/effect/hallucination/ventpeek/proc/play_honk()
+	target.playsound_local(target, 'sound/items/bikehorn.ogg', 10, TRUE)
