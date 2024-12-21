@@ -793,7 +793,7 @@ What are the archived variables for?
 		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
-	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature, hotspot_temperature = private_hotspot_temperature, hotspot_volume = private_hotspot_volume)
+	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
 
 /datum/gas_mixture/bound_to_turf/proc/get_readonly()
 	if(isnull(readonly))
