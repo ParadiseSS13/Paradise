@@ -405,10 +405,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"UR" = (
-/turf/simulated/mineral/ancient,
-/turf/simulated/floor/plasteel/freezer,
-/area/station/hallway/spacebridge/scidock)
 "US" = (
 /obj/item/chair{
 	dir = 1
@@ -1290,7 +1286,7 @@ Ev
 xS
 ny
 EX
-UR
+fh
 ET
 ET
 ET
