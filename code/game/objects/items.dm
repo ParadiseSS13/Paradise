@@ -338,25 +338,26 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
+	if(isstorage(src.loc))
+		/// If the item is in a storage item, take it out
+		var/obj/item/storage/S = src.loc
+		S.remove_from_storage(src)
+
 	if(..())
 		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
-			return FALSE
-		if(!user.canUnEquip(src, force = FALSE))
+		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
 			return FALSE
 
 	if(flags & ABSTRACT)
 		return FALSE
 
-	if(user.is_in_inactive_hand(src))
-		return user.swap_item_between_hands()
-
-	if(isliving(loc))
-		return FALSE
+	else
+		if(isliving(loc))
+			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)

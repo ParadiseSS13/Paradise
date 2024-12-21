@@ -436,41 +436,37 @@
   * * prevent_warning - Stop the insertion message being displayed. Intended for cases when you are inserting multiple items at once.
   */
 /obj/item/storage/proc/handle_item_insertion(obj/item/I, mob/user, prevent_warning = FALSE)
-	if(!istype(I) || QDELING(I))
+	if(!istype(I))
 		return FALSE
-	if(silent || HAS_TRAIT(I, TRAIT_SILENT_INSERTION))
-		prevent_warning = TRUE
 	if(user)
 		if(!Adjacent(user) && !isnewplayer(user))
 			return FALSE
-		if(!user.unEquip(I, force = FALSE, silent = TRUE, destination = src))
+		if(!user.unEquip(I, silent = TRUE))
 			return FALSE
+		user.update_icons()	//update our overlays
+	if(QDELING(I))
+		return FALSE
+	if(silent || HAS_TRAIT(I, TRAIT_SILENT_INSERTION))
+		prevent_warning = TRUE
+	I.forceMove(src)
+	if(QDELING(I))
+		return FALSE
+	I.on_enter_storage(src)
+
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen += I
+	if(user)
 		if(user.client && user.s_active != src)
 			user.client.screen -= I
 		if(length(user.observers))
 			for(var/mob/observer in user.observers)
 				if(observer.client && observer.s_active != src)
 					observer.client.screen -= I
-
+		I.dropped(user, TRUE)
+	if(user)
 		add_fingerprint(user)
-
-		user.update_icons()
-
-		orient2hud(user)
-		if(user.s_active)
-			user.s_active.show_to(user)
-	else
-		I.forceMove(src)
-
-	I.on_enter_storage(src)
-	// So you can click on the area around the item to equip it, instead of having to pixel hunt
-	I.mouse_opacity = MOUSE_OPACITY_OPAQUE
-	I.in_inventory = TRUE
-
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
-		if((M.s_active == src) && M.client)
-			M.client.screen += I
 
 	if(!prevent_warning)
 		// the item's user will always get a notification
@@ -485,7 +481,13 @@
 			// restrict player list to include only those in view
 			for(var/mob/M in oviewers(7, user))
 				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+	orient2hud(user)
+	if(user)
+		if(user.s_active)
+			user.s_active.show_to(user)
 
+	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
+	I.in_inventory = TRUE
 	update_icon()
 	return TRUE
 
