@@ -74,8 +74,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
-	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
-	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
@@ -97,9 +95,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/overlay_icon = 'icons/obj/wizard.dmi'
 	var/overlay_icon_state = "spell"
 	var/overlay_lifespan = 0
-
-	var/sparks_spread = FALSE
-	var/sparks_amt = 0
 
 	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
 	var/smoke_type = SMOKE_NONE
@@ -390,8 +385,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 			location = target
 		if(isliving(target) && message)
 			to_chat(target, "[message]")
-		if(sparks_spread)
-			do_sparks(sparks_amt, 0, location)
+
 		if(smoke_type)
 			var/datum/effect_system/smoke_spread/smoke
 			switch(smoke_type)
