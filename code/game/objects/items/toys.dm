@@ -218,7 +218,8 @@
 		if(attacking == src)
 			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... Itself. You're not very smart, are you?</span>")
 			if(ishuman(user))
-				user.adjustBrainLoss(10)
+				var/mob/living/carbon/human/H = user
+				H.adjustBrainLoss(10)
 		else if((attacking.flags & NODROP) || (flags & NODROP))
 			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : attacking] is stuck to your hand, you can't attach it to \the [flags & NODROP ? attacking : src]!</span>")
 		else
@@ -867,7 +868,7 @@
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-		qdel(B)
+		qdel(attacking)
 		return FINISH_ATTACK
 
 //New generation TG plushies
@@ -1438,6 +1439,7 @@
 	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/activate_self(mob/user)
+	. = ..()
 	var/cuddle_verb = pick("admires", "respects", "cherises", "appreciates")
 	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 
