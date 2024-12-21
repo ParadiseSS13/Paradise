@@ -90,7 +90,7 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
+/obj/structure/grille/CanPass(atom/movable/mover, border_dir)
 	. = !density
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE

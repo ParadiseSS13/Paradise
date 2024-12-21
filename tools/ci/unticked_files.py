@@ -19,32 +19,41 @@ import argparse
 import sys
 
 INCLUDER_FILES = [
-    'paradise.dme',
-    'code/modules/tgs/includes.dm',
-    'code/modules/unit_tests/_unit_tests.dm',
-    'code/modules/interaction_tests/_interaction_tests.dm',
+    "paradise.dme",
+    "code/modules/tgs/includes.dm",
+    "code/tests/game_tests.dm",
 ]
 
 IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
-    'code/modules/tgs/v5/v5_interop_version.dm',
+    "code/modules/tgs/v5/v5_interop_version.dm",
     # Included as part of OD lints
-    'tools/ci/lints.dm'
+    "tools/ci/lints.dm",
 }
 
-def get_unticked_files(root:Path):
+
+def get_unticked_files(root: Path):
     ticked_files = set()
     for includer in INCLUDER_FILES:
-        with open(root / includer, 'r') as f:
-            lines = [line for line in f.readlines() if line.startswith('#include')]
-            included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            print(f'Found {len(included)} includes in {root / includer}')
-            ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
+        with open(root / includer, "r") as f:
+            lines = [line for line in f.readlines() if line.startswith("#include")]
+            included = [
+                line.replace("#include ", "").rstrip("\r\n").strip('"')
+                for line in lines
+            ]
+            print(f"Found {len(included)} includes in {root / includer}")
+            ticked_files.update(
+                [
+                    root / Path(includer).parent / Path(PureWindowsPath(i))
+                    for i in included
+                ]
+            )
 
-    all_dm_files = {f for f in root.glob('**/*.dm')}
+    all_dm_files = {f for f in root.glob("**/*.dm")}
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("root", help="paracode root directory")
     args = parser.parse_args()
@@ -52,8 +61,8 @@ if __name__ == '__main__':
     # Windows quoting behavior for directories adds trailing double-quote
     unticked_files = get_unticked_files(Path(args.root.strip('"')))
     if unticked_files:
-        print(f'Found {len(unticked_files)} unticked files:')
-        print('\n'.join(str(x) for x in sorted(unticked_files)))
+        print(f"Found {len(unticked_files)} unticked files:")
+        print("\n".join(str(x) for x in sorted(unticked_files)))
         sys.exit(1)
     else:
-        print(f'Found no unticked files')
+        print(f"Found no unticked files")
