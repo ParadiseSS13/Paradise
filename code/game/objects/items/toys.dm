@@ -469,7 +469,7 @@
 	if(..() || !(cooldown < world.time - 8))
 		return
 	to_chat(user, "<span class='notice'>You relieve some stress with \the [src].</span>")
-	playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
+	playsound(user, 'sound/items/squeaktoy.ogg', 20, TRUE)
 	cooldown = world.time
 
 /obj/random/therapy
@@ -609,7 +609,7 @@
 		return
 	if(has_stuffing || grenade)
 		if(rare_hug_sound && rare_hug_word && COOLDOWN_FINISHED(src, rare_hug_cooldown))
-			playsound(src, rare_hug_sound , 10, 0)
+			playsound(src, rare_hug_sound , 10, FALSE)
 			visible_message("<span class='danger'>[rare_hug_word]</span>")
 			COOLDOWN_START(src, rare_hug_cooldown, 3 SECONDS)
 		else
@@ -1130,7 +1130,7 @@
 		atom_say("Self-destruct command received!</span>")
 		visible_message("<span class='danger'>[src] explodes!</span>")
 		var/turf/T = get_turf(src)
-		playsound(T, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+		playsound(T, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 		robogibs(T)
 		if(grenade)
 			explosive_betrayal(grenade)
@@ -1167,7 +1167,7 @@
 			return FINISH_ATTACK
 		new /obj/item/toy/plushie/dionaplushie(get_turf(loc))
 		to_chat(user, "<span class='notice'>The nymph plushies combine seamlessly into an diona plushie!</span>")
-		playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1)
+		playsound(loc, 'sound/voice/dionatalk1.ogg', 50, TRUE)
 		qdel(NP)
 		qdel(src)
 		return FINISH_ATTACK
@@ -1219,7 +1219,7 @@
 			qdel(attacking)
 			return FINISH_ATTACK
 		visible_message("<span class='danger'>[src] munches the soap...</span>")
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 1)
+		playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE)
 
 /obj/item/toy/plushie/kidanplushie
 	name = "kidan plushie"
@@ -1365,7 +1365,7 @@
 		return
 	var/message = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 	cooldown = 1
 	spawn(30) cooldown = 0
