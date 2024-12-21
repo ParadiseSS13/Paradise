@@ -493,7 +493,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	var/ventcrawl_delay = 0 SECONDS
 #else
 	var/ventcrawl_delay = 4.5 SECONDS
@@ -731,7 +731,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination)
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
