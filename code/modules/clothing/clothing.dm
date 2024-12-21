@@ -436,6 +436,7 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
+		. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
@@ -1102,15 +1103,15 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='notice'>Alt-click to toggle the sensors mode.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='notice'>Alt-Shift-Click to remove an accessory.</span>"
-	. += "<span class='notice'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to roll down this jumpsuit.</span>"
 
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
