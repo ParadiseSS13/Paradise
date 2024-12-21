@@ -43,7 +43,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ao" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/template_noop,
 /area/template_noop)
 "ap" = (
@@ -85,7 +85,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "aG" = (
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/burnt/airless,
 /area/template_noop)
 "aI" = (

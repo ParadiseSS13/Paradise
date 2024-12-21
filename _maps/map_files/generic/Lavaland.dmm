@@ -1416,7 +1416,7 @@
 /area/mine/outpost/hallway/west)
 "dU" = (
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "dV" = (

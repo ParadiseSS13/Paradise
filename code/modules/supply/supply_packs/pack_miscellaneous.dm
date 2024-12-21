@@ -351,7 +351,11 @@
 	name = "Collectable Plushies Crate"
 	cost = 1000
 	containername = "collectable plushies crate! Brought to you by Bass.inc!"
-	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
+	contains = list(
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies/explosive,
+	)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"

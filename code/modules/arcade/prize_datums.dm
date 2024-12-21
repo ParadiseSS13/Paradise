@@ -236,7 +236,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/action_figure
 	name = "Random Action Figure"
 	desc = "A random action figure, collect them all!"
-	typepath = /obj/item/toy/prizeball/figure
+	typepath = /obj/item/toy/prizeball/action_figure
 	cost = 75
 
 /datum/prize_item/ai

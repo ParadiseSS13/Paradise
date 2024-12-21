@@ -39878,7 +39878,7 @@
 /area/station/maintenance/incinerator)
 "hTk" = (
 /obj/structure/table,
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -49250,9 +49250,7 @@
 	pixel_y = 2;
 	pixel_x = -9
 	},
-/obj/random/carp_plushie{
-	pixel_y = -8
-	},
+/obj/effect/spawner/random/toy/carp_plushie,
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)

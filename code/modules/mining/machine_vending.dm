@@ -364,7 +364,7 @@
 		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/food/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
-		EQUIPMENT("Plushie", /obj/random/plushie, 750),
+		EQUIPMENT("Plushie", /obj/effect/spawner/random/plushies, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),

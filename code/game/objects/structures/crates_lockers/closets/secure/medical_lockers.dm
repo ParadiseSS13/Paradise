@@ -127,7 +127,7 @@
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/pill_bottle/psychiatrist(src)
-	new /obj/random/plushie(src)
+	new /obj/effect/spawner/random/plushies
 	for(var/i in 0 to 3)
 		var/candy = pick(subtypesof(/obj/item/food/candy/fudge))
 		new candy(src)

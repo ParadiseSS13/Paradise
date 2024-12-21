@@ -6403,8 +6403,7 @@
 /area/admin)
 "vJ" = (
 /obj/structure/table,
-/obj/random/toolbox,
-/obj/random/bomb_supply,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/machinery/syndicatebomb/badmin/clown,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -6602,7 +6601,6 @@
 "wx" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
-/obj/random/bomb_supply,
 /obj/item/clothing/under/costume/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
@@ -6746,7 +6744,7 @@
 /area/admin)
 "wT" = (
 /obj/structure/table,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
 /turf/simulated/floor/plasteel/dark,
@@ -12325,7 +12323,10 @@
 /area/centcom/control)
 "Rh" = (
 /obj/structure/table,
-/obj/random/powercell,
+/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/super,
+/obj/item/stock_parts/cell/hyper,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Ri" = (
@@ -12365,8 +12366,7 @@
 /area/centcom/evac)
 "Rn" = (
 /obj/structure/table,
-/obj/random/tool,
-/obj/random/bomb_supply,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Ro" = (
@@ -12824,8 +12824,6 @@
 /area/admin)
 "To" = (
 /obj/structure/table,
-/obj/random/technology_scanner,
-/obj/random/tech_supply,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Tp" = (
@@ -13609,7 +13607,6 @@
 "Wt" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
-/obj/random/bomb_supply,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wu" = (
