@@ -122,3 +122,8 @@
 /// Sent when bodies transfer between shades/shards and constructs
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
+
+
+/// /datum/component/label
+/// Called when a handlabeler is used on an item when off
+#define COMSIG_LABEL_REMOVE "label_remove"
