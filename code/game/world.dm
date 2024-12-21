@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
@@ -51,7 +51,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(TgsAvailable())
 		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
@@ -69,7 +69,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	Master.Initialize(10, FALSE, TRUE)
 
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	GLOB.test_runner.Finalize()
 	return
 	#endif
