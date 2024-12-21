@@ -1,16 +1,5 @@
 [
 	{
-		// Arrivals maintenance, can either be a wall or be transformed into a walkway
-		"type": "SubmapExtractInsert",
-		"submap_size_x": 9,
-		"submap_size_y": 3,
-		"submap_size_z": 1,
-		"submaps_dmm": "submaps/cerestation.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints",
-		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/cerestation/arrivals_maints",
-		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
-		},
-		{
 		// Engineering-Science maintenance, can either be separated by space or have a passage between the asteroids
 		"type": "SubmapExtractInsert",
 		"submap_size_x": 6,
