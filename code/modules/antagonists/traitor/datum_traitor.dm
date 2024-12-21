@@ -272,8 +272,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return message
 
 /datum/antagonist/traitor/custom_blurb()
-	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
-
+		return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)], \n[organization.intro_desc] BEGIN MISSION"
 /datum/antagonist/traitor/proc/reveal_delayed_objectives()
 
 	for(var/datum/objective/delayed/delayed_obj in get_antag_objectives(FALSE))
