@@ -174,6 +174,60 @@ relevant directional mapper, as it has predefined pixel offsets and directions
 that are standardised: APC, Air alarm, Fire alarm, station intercom, newscaster,
 extinguisher cabinet, light switches.
 
+## Submap Requirements
+
+1. Currently, while they do not have to be exactly rectangular, submaps cannot
+   be larger than 24x24 tiles. This is in order to prevent them from being too
+   difficult to review or navigate and get used to in-game.
+
+2. Submaps are **not** to be used as a proxy to change something you do not like
+   about a map. If you have issues with the balance or design of a map, those
+   issues should be addressed with ordinary remap PRs.
+
+### Stations
+
+1. Submaps on stations may only be used in maintenance tunnels, and only one
+   submap per area (i.e. fore, aft) is permitted. This restriction may be
+   relaxed in the future, but is in place to prevent player confusion and
+   frustration with too many map areas changing.
+
+2. Submaps in maintenance tunnels should continue to comply with existing rules
+   about signposting. Areas in maints should remain recognizable regardless of
+   submap configuration. This means that pre-existing signposts should be
+   respected, such as the abandoned medical area in Box medmaints, the mining
+   equipment in Cere cargo maints, etc.
+
+3. To prevent overuse of submaps, there is currently a restriction of three per
+   station. This limit may be raised depending on how submaps are received by
+   players. The areas chosen are first-come, first serve. Whoever gets their
+   changes mapped in first sets the available submaps.
+   
+4. There is no hard limit on the number of variants per submap, though we ask
+   you keep it to a reasonable number.
+
+5. Submaps may not replace tiles which have atmos pipes, power cables, or other
+   engineering/atmospherics equipment. This is to prevent this equipment from
+   being hidden with walls or no longer accessible via their pre-existing
+   primary paths through maintenance. The exception is for equipment that is
+   only used in the submap; for example, the cables to a rage cage.
+
+6. One submap variant must be an exact duplicate of the original area's
+   contents. A variant will always be chosen, and so it's necessary that an
+   "original" variant is available. The original contents of the submap should
+   remain as is, in case mapmanip fails to load altogether.
+
+### Ruins
+
+1. Submaps on ruins are allowed to be more flexible. There's currently no limit
+   on how many submaps may be used on a given ruin, however the 24x24 tile limit
+   remains.
+
+2. Submaps should be used to increase the number of unique ways a ruin can be
+   approached and run, including randomizing specific challenges, rewards, and
+   paths through the ruin. They should not be used purely for decorative
+   purposes, or for changes that could be accomplished using existing random
+   spawners.
+
 ## Mapper Contribution Guidelines
 
 These guidelines apply to **all** mapping contributors.
@@ -184,12 +238,12 @@ your PR if we disagree with your reasoning. Large remaps, such as those to a
 department, must be justified with clear, specific reasons.
 
 Before committing a map change, you **MUST** run Mapmerge to normalise your
-changes. You can do this manually before every commit with
-`tools\mapmerge2\Run Before Committing.bat` or by letting the
-[git hooks](./quickstart.md#mapmerge) do it for you. Failure to run Mapmerge on
-a map after editing greatly increases the risk of the map's key dictionary
-becoming corrupted by future edits after running map merge. Resolving the
-corruption issue involves rebuilding the map's key dictionary.
+changes. You can do this manually before every commit with `tools\mapmerge2\Run
+Before Committing.bat` or by letting the [git hooks](./quickstart.md#mapmerge)
+do it for you. Failure to run Mapmerge on a map after editing greatly increases
+the risk of the map's key dictionary becoming corrupted by future edits after
+running map merge. Resolving the corruption issue involves rebuilding the map's
+key dictionary.
 
 If you are making non-minor edits to an area or room, (non-minor being anything
 more than moving a few objects or fixing small bugs) then you should ensure the
