@@ -1127,7 +1127,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/closet/crate/medical,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
