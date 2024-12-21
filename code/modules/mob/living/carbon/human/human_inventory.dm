@@ -67,7 +67,7 @@
 		if(ITEM_SLOT_ACCESSORY)
 			return TRUE
 
-/mob/living/carbon/human/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination = null)
+/mob/living/carbon/human/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return

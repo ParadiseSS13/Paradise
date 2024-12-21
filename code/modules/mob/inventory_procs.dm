@@ -197,7 +197,7 @@
 /// `force` overrides NODROP for things like wizarditis and admin undress.
 /// `destination` allows for items to be unequipped directly into storage and should only be used for that.
 /// Horrid stop-gap until we get atom storage or something.
-/mob/proc/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination = null)
+/mob/proc/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination)
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
