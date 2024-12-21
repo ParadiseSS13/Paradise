@@ -589,6 +589,16 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
+/mob/living/get_spacemove_backup(movement_dir)
+	if(movement_dir == 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		return
+	return ..()
+
+/mob/living/key_loop(client/C)
+	if(C.input_data?.desired_move_dir != 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		apply_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW, 0.1 SECONDS)
+	. = ..()
+
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
@@ -683,41 +693,7 @@
 /mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/direction = 0
-		if(flow_x > 100)
-			direction |= EAST
-		if(flow_x < -100)
-			direction |= WEST
-		if(flow_y > 100)
-			direction |= NORTH
-		if(flow_y < -100)
-			direction |= SOUTH
-
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(flow_x, flow_y, pressure_resistance_prob_delta)
+	..()
 
 /*//////////////////////
 	START RESIST PROCS

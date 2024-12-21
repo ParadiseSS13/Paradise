@@ -71,7 +71,7 @@
 	if(tool_enabled)
 		var/turf/T = get_turf(src)
 		if(T) // Implants for instance won't find a turf
-			T.hotspot_expose(2500, 5)
+			T.hotspot_expose(2500, 1)
 		if(prob(5))
 			remove_fuel(1)
 	if(refills_over_time)

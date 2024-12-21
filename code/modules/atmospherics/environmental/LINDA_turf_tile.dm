@@ -82,43 +82,55 @@
 	return null
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
-	var/atom/movable/M
-	for(var/thing in src)
-		M = thing
+	for(var/atom/movable/M in src)
 		if(QDELETED(M))
 			continue
 		if(M.anchored)
 			continue
 		if(M.pulledby)
 			continue
-		if(M.last_high_pressure_movement_air_cycle < SSair.times_fired)
-			M.experience_pressure_difference(flow_x, flow_y)
+		M.experience_pressure_difference(flow_x, flow_y)
 
-/atom/movable/proc/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
-	var/const/PROBABILITY_OFFSET = 25
-	var/const/PROBABILITY_BASE_PRECENT = 75
+/atom/movable/proc/experience_pressure_difference(flow_x, flow_y)
+	if(move_resist == INFINITY)
+		return
+
+	var/force_needed = move_resist
+	if(anchored)
+		force_needed *= MOVE_FORCE_FORCEPUSH_RATIO
+	else
+		force_needed *= MOVE_FORCE_PUSH_RATIO
 
 	var/pressure_difference = sqrt(flow_x ** 2 + flow_y ** 2)
-	var/max_force = sqrt(pressure_difference) * (MOVE_FORCE_DEFAULT / 5)
-	set waitfor = 0
-	var/move_prob = 100
-	if(pressure_resistance > 0)
-		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET
-	move_prob += pressure_resistance_prob_delta
-	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		var/direction = 0
-		if(flow_x > 0.5)
-			direction |= EAST
-		if(flow_x < -0.5)
-			direction |= WEST
-		if(flow_y > 0.5)
-			direction |= NORTH
-		if(flow_y < -0.5)
-			direction |= SOUTH
-		step(src, direction)
-		last_high_pressure_movement_air_cycle = SSair.times_fired
+	var/force = pressure_difference * (MOVE_FORCE_DEFAULT / 5)
 
-	return pressure_difference
+	if(force < force_needed)
+		return
+
+	var/direction = 0
+	if(flow_x > 0.5)
+		direction |= EAST
+	if(flow_x < -0.5)
+		direction |= WEST
+	if(flow_y > 0.5)
+		direction |= NORTH
+	if(flow_y < -0.5)
+		direction |= SOUTH
+
+	if(last_high_pressure_movement_time == SSair.times_fired)
+		return
+	last_high_pressure_movement_time = SSair.times_fired
+
+	air_push(direction)
+
+/atom/movable/proc/air_push(direction)
+	step(src, direction)
+
+/mob/living/air_push(direction)
+	apply_status_effect(STATUS_EFFECT_UNBALANCED)
+	Slowed(1 SECONDS)
+	if(!has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
+		return ..()
 
 /turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out

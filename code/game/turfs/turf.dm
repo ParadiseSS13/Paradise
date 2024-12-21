@@ -651,6 +651,33 @@
 /datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
 	get_turf_air(T).copy_from(air)
 
+/turf/simulated/proc/update_hotspot()
+	var/datum/gas_mixture/air = get_readonly_air()
+	if(air.fuel_burnt() >= 0.1)
+		if(active_hotspot?.death_timer)
+			deltimer(active_hotspot.death_timer)
+			active_hotspot.death_timer = null
+	else
+		if(!isnull(active_hotspot))
+			// Delete it in a second, assuming it doesn't burn again first.
+			active_hotspot.death_timer = addtimer(CALLBACK(src, PROC_REF(clear_hotspot)), 1 SECONDS, TIMER_STOPPABLE|TIMER_UNIQUE)
+		return
+
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+
+	if(air.hotspot_volume() > 0)
+		active_hotspot.temperature = air.hotspot_temperature()
+		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+	else
+		active_hotspot.temperature = air.temperature()
+		active_hotspot.volume = CELL_VOLUME
+
+	active_hotspot.update_visuals()
+
+/turf/simulated/proc/clear_hotspot()
+	QDEL_NULL(active_hotspot)
+
 /turf/return_analyzable_air()
 	return get_readonly_air()
 

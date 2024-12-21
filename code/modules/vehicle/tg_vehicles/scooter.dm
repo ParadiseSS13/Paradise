@@ -176,7 +176,7 @@
 
 	if(location)
 		if(prob(33))
-			location.hotspot_expose(1000, 1000)
+			location.hotspot_expose(1000, 1)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)

@@ -1355,6 +1355,25 @@
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
 
+/// The mob has been pushed by airflow recently, and won't automatically grab nearby objects to stop drifting.
+/datum/status_effect/unbalanced
+	id = "unbalanced"
+	duration = 1 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/unbalanced
+
+/atom/movable/screen/alert/status_effect/unbalanced
+	name = "Unbalanced"
+	desc = "You're being shoved around by airflow!"
+	icon_state = "unbalanced"
+
+/// The mob is fighting against airflow, and will not be pushed by it.
+/datum/status_effect/fighting_airflow
+	id = "fighting_airflow"
+	duration = 0.1 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
 /datum/status_effect/c_foamed
 	id = "c_foamed up"
 	duration = 1 MINUTES

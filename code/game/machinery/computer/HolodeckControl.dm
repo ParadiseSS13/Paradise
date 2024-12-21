@@ -76,7 +76,7 @@
 				if(prob(30))
 					do_sparks(2, 1, T)
 				T.ex_act(EXPLODE_LIGHT)
-				T.hotspot_expose(1000,500,1)
+				T.hotspot_expose(1000,500)
 
 /obj/machinery/computer/holodeck_control/proc/loadProgram(area/A)
 
