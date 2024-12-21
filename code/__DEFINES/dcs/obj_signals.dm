@@ -22,6 +22,14 @@
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
 
 
+// /obj/item/tank/jetpack
+
+/// from /obj/item/tank/jetpack/proc/turn_on() : ()
+#define COMSIG_JETPACK_ACTIVATED "jetpack_activated"
+	#define JETPACK_ACTIVATION_FAILED (1<<0)
+/// from /obj/item/tank/jetpack/proc/turn_off() : ()
+#define COMSIG_JETPACK_DEACTIVATED "jetpack_deactivated"
+
 // other subtypes
 
 /// from /datum/component/shelved/UnregisterFromParent(): (parent_uid)

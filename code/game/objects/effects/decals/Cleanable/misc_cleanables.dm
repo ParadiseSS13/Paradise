@@ -204,7 +204,7 @@
 		plane = initial(plane)
 	animate(src)
 
-/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
 		return 1
 

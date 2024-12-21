@@ -36,7 +36,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space bears!
 
 /mob/living/simple_animal/hostile/bear/black

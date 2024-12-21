@@ -92,7 +92,7 @@
 	base_dead_overlay.appearance_flags = RESET_COLOR
 	add_overlay(base_dead_overlay)
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/carp/AttackingTarget()

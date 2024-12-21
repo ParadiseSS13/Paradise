@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
-/mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
+/mob/living/carbon/alien/humanoid/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(..())
 		return TRUE
 	return FALSE

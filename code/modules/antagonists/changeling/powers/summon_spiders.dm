@@ -114,7 +114,7 @@
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
 			Find_Enemies(around)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 		if(FOLLOW_AGGRESSIVE)
 			Find_Enemies(around)
 			for(var/mob/living/carbon/C in around)
@@ -131,7 +131,7 @@
 					return TRUE
 				Goto(C, 0.5 SECONDS, 1)
 		if(IDLE_RETALIATE)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)

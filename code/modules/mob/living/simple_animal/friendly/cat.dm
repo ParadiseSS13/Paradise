@@ -157,7 +157,7 @@
 
 	turns_since_scan++
 	if(turns_since_scan > 5)
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
@@ -172,7 +172,7 @@
 				break
 	if(movement_target)
 		stop_automated_movement = TRUE
-		walk(src, movement_target, 0, 3)
+		GLOB.move_manager.move_to(src, movement_target, 0, 3)
 
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"

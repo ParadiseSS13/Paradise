@@ -18,6 +18,8 @@
 		/////////
 	var/datum/preferences/prefs = null
 	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
 	var/move_delay		= 1
 	var/moving			= null
 	var/area			= null

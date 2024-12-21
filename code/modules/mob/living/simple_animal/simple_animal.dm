@@ -167,7 +167,7 @@
 
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	QDEL_NULL(pcollar)
 	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
@@ -627,7 +627,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE

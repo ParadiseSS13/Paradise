@@ -77,23 +77,14 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
-	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
-	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
+	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
+	chem_puff.create_reagents(amount_per_transfer_from_this)
+	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
+	chem_puff.icon += mix_color_from_reagents(chem_puff.reagents.reagent_list)
 
-	for(var/i in 1 to spray_currentrange)
-		if(!step_towards(D, A) && i != 1)
-			qdel(D)
-			return
-		D.reagents.reaction(get_turf(D))
-		for(var/atom/T in get_turf(D))
-			D.reagents.reaction(T)
-		sleep(3)
-		if(QDELETED(D))
-			return
-	qdel(D)
-
+	var/datum/move_loop/our_loop = GLOB.move_manager.move_towards_legacy(chem_puff, A, 3 DECISECONDS, timeout = spray_currentrange * 3 DECISECONDS, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
 /obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
 
