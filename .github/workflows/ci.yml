@@ -104,7 +104,7 @@ jobs:
             '/datum/map/cerestation',
             '/datum/map/emeraldstation',
           ]
-        byondtype: ['STABLE']
+        byondtype: ['STABLE', 'BETA']
     services:
       mariadb:
         image: mariadb:latest

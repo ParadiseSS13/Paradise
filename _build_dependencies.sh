@@ -8,9 +8,9 @@ export STABLE_BYOND_MAJOR=515
 # Stable Byond Minor
 export STABLE_BYOND_MINOR=1633
 # Beta Byond Major - Uncomment and update if beta cycle active
-#export BETA_BYOND_MAJOR=515
+export BETA_BYOND_MAJOR=516
 # Beta Byond Minor - Uncomment and update if beta cycle active
-#export BETA_BYOND_MINOR=1633
+export BETA_BYOND_MINOR=1648
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.6
 # RUSTG version
