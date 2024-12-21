@@ -34,12 +34,6 @@
 	icon_state = "mapmanip_submap_edge"
 
 // Farragus mapmanips
-/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints
-	name = "Cerestation, Arrivals Maintenance"
-
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/cerestation/arrivals_maints
-	name = "Cerestation, Arrivals Maintenance"
-
 /obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/engineering_science
 	name = "Cerestation, Engineering-Science Maintenance"
 

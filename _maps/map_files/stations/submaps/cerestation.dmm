@@ -10,9 +10,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
-"bH" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "cc" = (
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/engineering)
@@ -68,15 +65,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"gE" = (
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry/north)
-"gL" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/template_noop,
-/area/template_noop)
 "ho" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -301,19 +289,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
-"Ff" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "Fg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -353,9 +328,6 @@
 /obj/item/reagent_containers/pill/random_drugs,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
-"PA" = (
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "Qu" = (
 /obj/structure/chair/comfy/corp{
 	dir = 1
@@ -497,10 +469,6 @@
 "Xf" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"Yg" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints,
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "YQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -567,10 +535,10 @@ ET
 ET
 "}
 (2,1,1) = {"
-SC
-gE
-gE
-Yg
+ET
+ET
+ET
+ET
 ET
 SC
 vR
@@ -620,9 +588,9 @@ ET
 "}
 (3,1,1) = {"
 ET
-gE
-gE
-PA
+ET
+ET
+ET
 ET
 ET
 Ju
@@ -672,9 +640,9 @@ ET
 "}
 (4,1,1) = {"
 ET
-gE
-gE
-gE
+ET
+ET
+ET
 ET
 ET
 wy
@@ -724,9 +692,9 @@ ET
 "}
 (5,1,1) = {"
 ET
-PA
-gE
-gE
+ET
+ET
+ET
 ET
 ET
 wy
@@ -775,11 +743,11 @@ ET
 ET
 "}
 (6,1,1) = {"
-SC
-PA
-Ff
-Ff
-gL
+ET
+ET
+ET
+ET
+ET
 ET
 zC
 fQ
@@ -828,9 +796,9 @@ ET
 "}
 (7,1,1) = {"
 ET
-PA
-bH
-bH
+ET
+ET
+ET
 ET
 SC
 Rl
@@ -880,9 +848,9 @@ ET
 "}
 (8,1,1) = {"
 ET
-PA
-bH
-bH
+ET
+ET
+ET
 ET
 ET
 Tj
@@ -932,9 +900,9 @@ ET
 "}
 (9,1,1) = {"
 ET
-PA
-bH
-bH
+ET
+ET
+ET
 ET
 ET
 ET
@@ -983,11 +951,11 @@ ET
 ET
 "}
 (10,1,1) = {"
-SC
-PA
-PA
-bH
-gL
+ET
+ET
+ET
+ET
+ET
 ET
 ET
 ET
@@ -1036,9 +1004,9 @@ ET
 "}
 (11,1,1) = {"
 ET
-Tj
 ET
-Tj
+ET
+ET
 ET
 ET
 ET
@@ -1191,10 +1159,10 @@ ET
 ET
 "}
 (14,1,1) = {"
-SC
-PA
-PA
-Yg
+ET
+ET
+ET
+ET
 ET
 SC
 vR
@@ -1244,9 +1212,9 @@ ET
 "}
 (15,1,1) = {"
 ET
-PA
-PA
-PA
+ET
+ET
+ET
 ET
 ET
 Ju
@@ -1296,9 +1264,9 @@ ET
 "}
 (16,1,1) = {"
 ET
-PA
-PA
-PA
+ET
+ET
+ET
 ET
 ET
 wy
@@ -1347,11 +1315,11 @@ ET
 ET
 "}
 (17,1,1) = {"
-SC
-PA
-PA
-PA
-gL
+ET
+ET
+ET
+ET
+ET
 ET
 wy
 wy
@@ -1400,9 +1368,9 @@ ET
 "}
 (18,1,1) = {"
 ET
-PA
-PA
-PA
+ET
+ET
+ET
 ET
 ET
 zC
@@ -1452,9 +1420,9 @@ ET
 "}
 (19,1,1) = {"
 ET
-PA
-PA
-PA
+ET
+ET
+ET
 ET
 SC
 wy
@@ -1504,9 +1472,9 @@ ET
 "}
 (20,1,1) = {"
 ET
-PA
-PA
-PA
+ET
+ET
+ET
 ET
 ET
 Tj
@@ -1555,11 +1523,11 @@ ET
 ET
 "}
 (21,1,1) = {"
-SC
-PA
-PA
-PA
-gL
+ET
+ET
+ET
+ET
+ET
 ET
 ET
 ET
@@ -1608,9 +1576,9 @@ ET
 "}
 (22,1,1) = {"
 ET
-Tj
 ET
-Tj
+ET
+ET
 ET
 ET
 ET
@@ -1920,7 +1888,7 @@ ET
 "}
 (28,1,1) = {"
 ET
-ET
+mU
 ET
 ET
 ET

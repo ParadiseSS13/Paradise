@@ -17864,12 +17864,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/asmaint)
-"crG" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "crM" = (
 /obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
@@ -55309,14 +55303,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
-"lgx" = (
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "lgC" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -72095,10 +72081,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"pvY" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/arrivals_maints,
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "pwq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/flora/grass/jungle,
@@ -78030,12 +78012,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"qVT" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "qVW" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -81341,10 +81317,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"rRF" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "rRJ" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -95239,10 +95211,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
-"vlE" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "vlP" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -153811,7 +153779,7 @@ dPj
 dPj
 aXn
 aXn
-pvY
+aXn
 aXn
 aXn
 aXn
@@ -154836,11 +154804,11 @@ aXn
 aXn
 aXn
 aXn
-rRF
 aXn
 aXn
 aXn
-qVT
+aXn
+aXn
 aXn
 aXn
 aXn
@@ -155864,11 +155832,11 @@ xvx
 nKr
 vPr
 aXn
-vlE
+vpJ
 aXn
 aXn
 aXn
-qVT
+aXn
 tVf
 djo
 djo
@@ -156122,9 +156090,9 @@ iJa
 imG
 imG
 imG
-lgx
+gge
 aXn
-crG
+imG
 vRX
 tVf
 djo
