@@ -63,6 +63,7 @@
 	name = "brass screwdriver"
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
+	belt_icon = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
