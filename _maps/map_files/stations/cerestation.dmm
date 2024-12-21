@@ -98863,10 +98863,6 @@
 	},
 /area/station/medical/reception)
 "whC" = (
-/obj/structure/cable/orange{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/structure/fence,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
