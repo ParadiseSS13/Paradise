@@ -83,9 +83,9 @@
 // TODO: All these assemblies passing the crossed args around needs to be cleaned up with signals
 /obj/item/assembly_holder/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(a_left)
-		a_left.on_atom_entered(entered)
+		a_left.on_atom_entered(source, entered)
 	if(a_right)
-		a_right.on_atom_entered(entered)
+		a_right.on_atom_entered(source, entered)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)

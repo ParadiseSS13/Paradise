@@ -253,7 +253,7 @@
 
 /obj/item/grenade/chem_grenade/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.on_atom_entered(entered)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
