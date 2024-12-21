@@ -237,7 +237,7 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
 		if(faction_check_mob(blocker))

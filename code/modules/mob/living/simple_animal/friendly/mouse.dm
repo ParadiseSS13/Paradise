@@ -85,6 +85,10 @@
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -102,12 +106,11 @@
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
+/mob/living/simple_animal/mouse/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ishuman(entered))
 		if(stat == CONSCIOUS)
-			var/mob/M = AM
+			var/mob/M = entered
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
 
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
