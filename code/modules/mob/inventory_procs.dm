@@ -186,7 +186,11 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(drop_location())
+		var/turf/drop_loc = drop_location()
+		if(drop_loc)
+			I.forceMove(drop_loc)
+		else
+			I.moveToNullspace()
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)

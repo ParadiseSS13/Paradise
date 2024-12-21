@@ -326,6 +326,7 @@
 	return FALSE
 
 /datum/objective/demon_fluff
+	name = "Spread blood"
 	needs_target = FALSE
 
 /datum/objective/demon_fluff/New()

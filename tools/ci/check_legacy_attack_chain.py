@@ -22,6 +22,7 @@ class AttackChainCall:
     var_type: p | None
     call_name: str
     source_info: any
+    legacy: bool
 
     def make_error_message(self):
         return f"{self.proc_decl.type_path}/{self.proc_decl.name}(...) calls {self.call_name}(...) on var {self.var_type}/{self.var_name}"
@@ -66,7 +67,7 @@ class AttackChainCallWalker:
 
         return None
 
-    def add_attack_call(self, var_name, chain_call, source_info):
+    def add_attack_call(self, var_name, chain_call, source_info, legacy):
         var_type = self.get_var_type(var_name)
         CALLS[var_type].add(
             AttackChainCall(
@@ -75,6 +76,7 @@ class AttackChainCallWalker:
                 self.get_var_type(var_name),
                 chain_call,
                 source_info,
+                legacy=legacy,
             )
         )
 
@@ -83,15 +85,22 @@ class AttackChainCallWalker:
 
     def visit_Expr(self, node, source_info):
         if node.kind == NodeKind.CALL:
+            legacy = False
+            record = False
             if "__legacy__attackchain" in node.name.name:
-                if node.expr:
-                    if node.expr.kind == NodeKind.IDENTIFIER:
-                        self.add_attack_call(
-                            str(node.expr), node.name.name, source_info
-                        )
-                    elif node.expr.kind == NodeKind.CONSTANT:
-                        if not node.expr.constant.val:
-                            self.add_attack_call("src", node.name.name, source_info)
+                legacy = True
+                record = True
+            elif node.name.name in NEW_PROCS:
+                legacy = False
+                record = True
+            if record and node.expr:
+                if node.expr.kind == NodeKind.IDENTIFIER:
+                    self.add_attack_call(
+                        str(node.expr), node.name.name, source_info, legacy
+                    )
+                elif node.expr.kind == NodeKind.CONSTANT:
+                    if not node.expr.constant.val:
+                        self.add_attack_call("src", node.name.name, source_info, legacy)
 
 
 # Ignored types will never be part of the attack chain.
@@ -117,8 +126,19 @@ IGNORED_TYPES = [
 ASSISTED_TYPES = [
     p("/atom"),
     p("/mob"),
+    p("/mob/living"),
     p("/obj"),
     p("/obj/item"),
+]
+
+NEW_PROCS = [
+    "activate_self",
+    "after_attack",
+    "attack_by",
+    "attack",
+    "attacked",
+    "interact_with_atom",
+    "item_interaction",
 ]
 
 
@@ -131,6 +151,7 @@ if __name__ == "__main__":
     CALLS = defaultdict(set)
     SETTING_CACHE = dict()
     LEGACY_PROCS = dict()
+    MODERN_PROCS = dict()
     BAD_TREES = dict()
     PROCS = dict()
 
@@ -153,6 +174,7 @@ if __name__ == "__main__":
         LEGACY_PROCS[pth] = {
             x for x in td.proc_names(modified=True) if "__legacy__attackchain" in x
         }
+        MODERN_PROCS[pth] = {x for x in td.proc_names(modified=True) if x in NEW_PROCS}
         for proc_decl in td.proc_decls():
             walker = AttackChainCallWalker(td, proc_decl)
             proc_decl.walk(walker)
@@ -170,11 +192,23 @@ if __name__ == "__main__":
                     exit_code = 1
                     print(f"new_attack_chain on {pth} but related type {cursor} is not")
                 cursor = cursor.parent
-            if pth in CALLS:
-                exit_code = 1
-                print("Call sites requiring migration:")
+            if pth in CALLS and any([x.legacy for x in CALLS[pth]]):
+                print("Legacy sites requiring migration:")
                 for call in CALLS[pth]:
-                    print(call.format_error())
+                    if call.legacy:
+                        print(call.format_error())
+        elif pth not in ASSISTED_TYPES:
+            if MODERN_PROCS[pth]:
+                exit_code = 1
+                print(f"new_attack_chain not on {pth} using new procs:")
+                for proc in sorted(MODERN_PROCS[pth]):
+                    print(f"\t{proc}")
+            if pth in CALLS and any([not x.legacy for x in CALLS[pth]]):
+                exit_code = 1
+                print("Unexpected new call sites:")
+                for call in CALLS[pth]:
+                    if not call.legacy:
+                        print(call.format_error())
 
     end = time.time()
     print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")

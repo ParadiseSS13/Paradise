@@ -62,7 +62,7 @@
 /area/ruin/powered/seedvault)
 "ed" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/seed_vault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "eI" = (

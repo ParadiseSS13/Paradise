@@ -2,7 +2,8 @@
  * This is the proc that handles the order of an item_attack.
  *
  * The order of procs called is:
- * * [/atom/proc/base_item_interaction] on the target. If it returns ITEM_INTERACT_SUCCESS or ITEM_INTERACT_BLOCKING, the chain will be stopped.
+ * * [/atom/proc/base_item_interaction] on the target. If it returns ITEM_INTERACT_COMPLETE, the chain will be stopped.
+ *   If it returns ITEM_INTERACT_SKIP_TO_AFTER_ATTACK, all attack chain steps except after-attack will be skipped.
  * * [/obj/item/proc/pre_attack] on `src`. If this returns FINISH_ATTACK, the chain will be stopped.
  * * [/atom/proc/attack_by] on the target. If it returns FINISH_ATTACK, the chain will be stopped.
  * * [/obj/item/proc/after_attack]. The return value does not matter.
@@ -14,13 +15,14 @@
 	var/list/modifiers = params2list(params)
 
 	var/item_interact_result = target.base_item_interaction(user, src, modifiers)
-	if(item_interact_result & ITEM_INTERACT_SUCCESS)
-		return
-	if(item_interact_result & ITEM_INTERACT_BLOCKING)
-		return
+	switch(item_interact_result)
+		if(ITEM_INTERACT_COMPLETE)
+			return
+		if(ITEM_INTERACT_SKIP_TO_AFTER_ATTACK)
+			__after_attack_core(user, target, params, proximity_flag)
+			return
 
 	// Attack phase
-
 	if(pre_attack(target, user, params))
 		return
 
@@ -35,11 +37,8 @@
 	// At this point it means the attack was "successful", or at least
 	// handled, in some way. This can mean nothing happened, this can mean the
 	// target took damage, etc.
-	if(target.new_attack_chain)
-		target.attacked_by(src, user)
-		after_attack(target, user, proximity_flag, params)
-	else
-		afterattack__legacy__attackchain(target, user, proximity_flag, params)
+	__after_attack_core(user, target, params, proximity_flag)
+
 
 /// Called when the item is in the active hand, and clicked; alternately, there
 /// is an 'activate held object' verb or you can hit pagedown.
@@ -101,7 +100,7 @@
 		return FINISH_ATTACK
 
 	if(!can_be_hit)
-		return FINISH_ATTACK
+		return
 
 	return attacking.attack_obj(src, user, params)
 
@@ -134,6 +133,17 @@
 	if(!target.new_attack_chain)
 		return target.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
 
+/obj/item/proc/__after_attack_core(mob/user, atom/target, params, proximity_flag = 1)
+	PRIVATE_PROC(TRUE)
+
+	// TODO: `target` here should probably be another `!QDELETED` check.
+	// Preserved for backwards compatibility, may be fixed post-migration.
+	if(target && !QDELETED(src))
+		if(new_attack_chain)
+			after_attack(target, user, proximity_flag, params)
+		else
+			afterattack__legacy__attackchain(target, user, proximity_flag, params)
+
 /obj/item/proc/__attack_core(mob/living/target, mob/living/user)
 	PRIVATE_PROC(TRUE)
 
@@ -163,6 +173,8 @@
 	user.do_attack_animation(target)
 	add_fingerprint(user)
 
+	return TRUE
+
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_obj(obj/attacked_obj, mob/living/user, params)
 	var/signal_return = SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, attacked_obj, user) | SEND_SIGNAL(user, COMSIG_ATTACK_OBJ_LIVING, attacked_obj)
@@ -173,7 +185,12 @@
 	if(flags & NOBLUDGEON)
 		return FALSE
 
-	if(!attacked_obj.new_attack_chain)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(attacked_obj)
+
+	if(attacked_obj.new_attack_chain)
+		attacked_obj.attacked_by(src, user)
+	else
 		attacked_obj.attacked_by__legacy__attackchain(src, user)
 
 /**

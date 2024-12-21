@@ -249,6 +249,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
 /// This mob recently blocked magic with some form of antimagic
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+#define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
+#define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
+
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

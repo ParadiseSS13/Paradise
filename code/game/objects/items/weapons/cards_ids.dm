@@ -11,6 +11,7 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/associated_account_number = 0
 
 	var/list/files = list()
@@ -38,14 +39,13 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/card/emag/attack__legacy__attackchain()
-	return
+/obj/item/card/emag/pre_attack(atom/target, mob/living/user, params)
+	if(..() || ismob(target))
+		return FINISH_ATTACK
 
-/obj/item/card/emag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	var/atom/A = target
-	if(!proximity)
-		return
-	A.emag_act(user)
+/obj/item/card/emag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(target.emag_act(user))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/emag/magic_key
 	name = "magic key"
@@ -53,14 +53,15 @@
 	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
-/obj/item/card/emag/magic_key/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
+/obj/item/card/emag/magic_key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isairlock(target))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
-	update_icon()
-	. = ..()
+	D.update_icon()
+	D.emag_act(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
@@ -75,13 +76,13 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
-/obj/item/card/cmag/attack__legacy__attackchain()
-	return
+/obj/item/card/cmag/pre_attack(atom/target, mob/living/user, params)
+	if(..() || ismob(target))
+		return FINISH_ATTACK
 
-/obj/item/card/cmag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
-	target.cmag_act(user)
+/obj/item/card/cmag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(target.cmag_act(user))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id
 	name = "identification card"
@@ -117,6 +118,9 @@
 	var/dat
 	var/stamped = 0
 
+	/// Can we flash the ID?
+	var/can_id_flash = TRUE
+
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/card/id/New()
@@ -151,13 +155,11 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/card/id/attack_self__legacy__attackchain(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
-		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
-	if(mining_points)
-		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
-	add_fingerprint(user)
-	return
+/obj/item/card/id/activate_self(mob/user)
+	if(..())
+		return
+	if(can_id_flash)
+		flash_card(user)
 
 /obj/item/card/id/proc/UpdateName()
 	name = "[registered_name]'s ID Card ([assignment])"
@@ -251,11 +253,9 @@
 /obj/item/card/id/proc/get_departments()
 	return get_departments_from_job(rank)
 
-/obj/item/card/id/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-
-	if(istype(W, /obj/item/id_decal/))
-		var/obj/item/id_decal/decal = W
+/obj/item/card/id/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/id_decal/))
+		var/obj/item/id_decal/decal = used
 		to_chat(user, "You apply [decal] to [src].")
 		if(decal.override_name)
 			name = decal.decal_name
@@ -263,25 +263,32 @@
 		icon_state = decal.decal_icon_state
 		item_state = decal.decal_item_state
 		qdel(decal)
-		qdel(W)
-		return
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/B = W
+	else if(istype(used, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = used
 		B.scanID(src, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype (W,/obj/item/stamp))
+	else if(istype(used, /obj/item/stamp))
 		if(!stamped)
-			dat+="<img src=large_[W.icon_state].png>"
+			dat+="<img src=large_[used.icon_state].png>"
 			stamped = 1
 			to_chat(user, "You stamp the ID card!")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-		else
-			to_chat(user, "This ID has already been stamped!")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "This ID has already been stamped!")
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/card/id/guest))
-		attach_guest_pass(W, user)
+
+	else if(istype(used, /obj/item/card/id/guest))
+		attach_guest_pass(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/storage/wallet))
+		used.attackby__legacy__attackchain(src, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -749,9 +756,12 @@
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 
-/obj/item/card/id/golem/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/card/id/golem/activate_self(mob/user)
+	if(..())
+		return
 	if(!registered && ishuman(user))
 		registered_name = user.real_name
 		SetOwnerInfo(user)
@@ -760,9 +770,8 @@
 		UpdateName()
 		desc = "A card used to claim mining points and buy gear."
 		registered = TRUE
+		can_id_flash = TRUE
 		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
-	else
-		..()
 
 /obj/item/card/id/data
 	icon_state = "data"
