@@ -4,7 +4,6 @@
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
 		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/banana
-	school = "transmutation"
 
 	base_cooldown = 30 SECONDS
 	clothes_req = TRUE

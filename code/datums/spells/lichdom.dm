@@ -1,7 +1,6 @@
 /datum/spell/lichdom
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
-	school = "necromancy"
 	base_cooldown = 10
 	clothes_req = FALSE
 	centcom_cancast = FALSE

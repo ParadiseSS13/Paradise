@@ -9,7 +9,6 @@
 #define PD_UPGRADE_MAX_CHARGE   "Capacity"
 
 /datum/spell/pulse_demon
-	school = "pulse demon"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_pulsedemon"
 	var/locked = TRUE

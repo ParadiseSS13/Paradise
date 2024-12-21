@@ -3,8 +3,6 @@
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
 	hand_path = /obj/item/melee/touch_attack/cluwne
 
-	school = "transmutation"
-
 	base_cooldown = 1 MINUTES
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank

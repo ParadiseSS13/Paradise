@@ -3,7 +3,6 @@
 	name = "Bless"
 	desc = "Blesses a single person."
 
-	school = "transmutation"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "none"

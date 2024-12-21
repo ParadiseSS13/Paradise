@@ -3,7 +3,6 @@
 	desc = "Why reload when you have infinite guns? Summons an unending stream of bolt action rifles. Requires both hands free to use."
 	invocation_type = "none"
 
-	school = "conjuration"
 	base_cooldown = 600
 	clothes_req = TRUE
 	cooldown_min = 10 //Gun wizard
@@ -25,7 +24,6 @@
 	name = "Rapid-fire Fireball"
 	desc = "Multiple Fireballs. Need I explain more? Requires both hands free to use."
 
-	school = "evocation"
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	invocation = "ONI SOMA-SOMA-SOMA"
