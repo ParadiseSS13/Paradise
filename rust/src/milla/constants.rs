@@ -145,10 +145,10 @@ pub(crate) const TEST_TOLERANCE: f32 = 0.1;
 pub(crate) const SPACE_COOLING_THRESHOLD: f32 = T20C;
 
 /// Lose this amount of heat energy per tick if above SPACE_COOLING_THRESHOLD.
-pub(crate) const SPACE_COOLING_FLAT: f32 = 0.0;
+pub(crate) const SPACE_COOLING_FLAT: f32 = 2000.0;
 
 /// Lose this ratio of heat energy per tick if above SPACE_COOLING_THRESHOLD.
-pub(crate) const SPACE_COOLING_RATIO: f32 = 0.01;
+pub(crate) const SPACE_COOLING_RATIO: f32 = 0.002;
 
 /// Tiles with less than this much gas will become empty.
 pub(crate) const MINIMUM_NONZERO_MOLES: f32 = 0.1;
@@ -191,7 +191,8 @@ pub(crate) const WIND_SPEED: f32 = 0.5;
 pub(crate) const MAX_WIND: f32 = f32::INFINITY;
 
 /// How fast should temperature flow?
-pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 1.0;
+/// [0.0, f32::INFINITY]
+pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 0.2;
 
 /// Direct multiplier on strength of wind reported to BYOND.
 /// [0.0, f32::INFINITY]
