@@ -26,6 +26,7 @@
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	plushie_type = /obj/item/toy/plushie/abductor
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
 

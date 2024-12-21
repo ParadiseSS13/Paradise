@@ -14,8 +14,8 @@
 	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
-/obj/item/toy/prizeball/attack_self__legacy__attackchain(mob/user as mob)
-	if(opening)
+/obj/item/toy/prizeball/activate_self(mob/user)
+	if(..() || opening)
 		return
 	opening = 1
 	playsound(loc, 'sound/items/bubblewrap.ogg', 30, TRUE)
