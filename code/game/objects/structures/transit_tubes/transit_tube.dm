@@ -33,7 +33,7 @@
 		P.empty_pod()
 	return ..()
 
-/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
+/obj/structure/transit_tube/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
 	return !density
