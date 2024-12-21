@@ -237,15 +237,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
 	)
+	clothing_traits = list(TRAIT_SUPERMATTER_IMMUNE)
 
 /obj/item/clothing/gloves/color/white/supermatter_immune/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
 
-/obj/item/clothing/gloves/color/white/supermatter_immune/equipped(mob/user, slot, initial)
-	. = ..()
-	ADD_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
-
-/obj/item/clothing/gloves/color/white/supermatter_immune/dropped(mob/user, silent)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
