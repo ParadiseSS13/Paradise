@@ -24,6 +24,7 @@
 	throw_speed = 4
 	throw_range = 20
 	force = 0
+	new_attack_chain = TRUE
 
 
 /*
@@ -45,18 +46,19 @@
 		return FINISH_ATTACK
 	return FINISH_ATTACK
 
-/obj/item/toy/balloon/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
+/obj/item/toy/balloon/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
 		return
-	if(istype(A, /obj/structure/reagent_dispensers))
-		var/obj/structure/reagent_dispensers/RD = A
+	if(istype(target, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = target
 		if(RD.reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
 		else if(reagents.total_volume >= 10)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 		else
-			A.reagents.trans_to(src, 10)
-			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
+			target.reagents.trans_to(src, 10)
+			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [target].</span>")
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
@@ -289,8 +291,8 @@
 	target.unEquip(cig, TRUE)
 	return TRUE
 
-/obj/item/toy/sword/chaosprank/afterattack__legacy__attackchain(mob/living/target, mob/living/user, proximity)
-	..()
+/obj/item/toy/sword/chaosprank/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(!pranked)
 		to_chat(user, "<span class='chaosverybad'>Oh... It's a fake.</span>")
 		name = "toy sword"
@@ -1536,13 +1538,12 @@
 		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 		spin_cylinder()
 
-/obj/item/toy/russian_revolver/pre_attack(atom/target, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-	return FINISH_ATTACK
+/obj/item/toy/russian_revolver/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
-/obj/item/toy/russian_revolver/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
-	if(flag)
+/obj/item/toy/russian_revolver/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(proximity_flag)
 		if(target in user.contents)
 			return
 		if(!ismob(target))
