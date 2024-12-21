@@ -170,25 +170,32 @@ pub(crate) const THERMAL_CHANGE_SIGNIFICANCE: f32 = 0.1;
 /// the thermal energy.
 pub(crate) const THERMAL_CHANGE_SIGNIFICANCE_FRACTION: f32 = 0.001;
 
-/// How strongly we want to diffuse gas types across equal pressure tiles.
-pub(crate) const DIFFUSION_FACTOR: f32 = 0.5;
+/// Controls how strongly each type of gas moves towards an even spread, ignoring wind.
+/// [0.0, f32::INFINITY]
+pub(crate) const DIFFUSION_SPEED: f32 = 0.2;
 
-/// How strongly we want the pressure+wind bias to move gases across tiles.
-pub(crate) const BIAS_FACTOR: f32 = 10.0;
+/// Controls how quickly the wind moves air.
+/// (0.0, f32::INFINITY]
+pub(crate) const WIND_STRENGTH: f32 = 5.0;
 
-/// How much the previous tick's wind contributes to this tick's bias.
-pub(crate) const OLD_WIND_FACTOR: f32 = 0.95;
-/// How much this tick's pressure difference contributes to this tick's bias.
-pub(crate) const NEW_PRESSURE_FACTOR: f32 = 0.1;
+/// Controls how fast the wind changes towards what the current pressur gradient wants.
+/// (0.0, 1.0], a value of 0.25 means getting 25% closer every tick.
+pub(crate) const WIND_ACCELERATION: f32 = 0.05;
 
-/// How much are we willing to bias?
-pub(crate) const MAX_BIAS: f32 = 1.0;
+/// Controls how quickly the wind spreads from tile to tile.
+/// [0.0, f32::INFINITY]
+pub(crate) const WIND_SPEED: f32 = 0.5;
+
+/// A hard cap on how strong wind can become.
+/// [0.0, f32::INFINITY]
+pub(crate) const MAX_WIND: f32 = f32::INFINITY;
 
 /// How fast should temperature flow?
 pub(crate) const TEMPERATURE_FLOW_RATE: f32 = 1.0;
 
-/// Balancing factor to adjust the strength of wind reported to BYOND.
-pub(crate) const WIND_MULTIPLIER: f32 = 1.0;
+/// Direct multiplier on strength of wind reported to BYOND.
+/// [0.0, f32::INFINITY]
+pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 
 /// The smallest temperature allowed for the purpose of caluclating pressure.
 /// Prevents weirdness from absolute-zero gas having no pressure at all.

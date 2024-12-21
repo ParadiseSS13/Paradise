@@ -94,7 +94,7 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
 
             // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
             // bounds.
-            my_new_tile.wind[axis] = (my_tile.wind[axis] * OLD_WIND_FACTOR + pressure_bias * NEW_PRESSURE_FACTOR).clamp(-MAX_BIAS, MAX_BIAS);
+            my_new_tile.wind[axis] = (my_tile.wind[axis] + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis])).clamp(-MAX_WIND, MAX_WIND);
 
             for i in 0..GAS_COUNT {
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
@@ -106,15 +106,15 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
                     // Gas? What gas?
                     continue;
                 }
-                let wind_gas_flow = BIAS_FACTOR * my_new_tile.wind[axis];
-                if wind_gas_flow > 0.0 {
+                let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
+                if my_new_tile.wind[axis] > 0.0 {
                     my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += wind_gas_flow;
                 } else {
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += -wind_gas_flow;
+                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += wind_gas_flow;
                 }
 
                 // And how much gas should flow based on diffusion.
-                let diffusion_gas_flow = DIFFUSION_FACTOR;
+                let diffusion_gas_flow = DIFFUSION_SPEED;
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += diffusion_gas_flow;
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += diffusion_gas_flow;
             }
@@ -460,27 +460,27 @@ pub(crate) fn check_interesting(
     let my_next_tile = next.get_tile(my_index);
     let mut wind_x: f32 = 0.0;
     if my_next_tile.wind[AXIS_X] > 0.0 {
-        wind_x += my_next_tile.wind[AXIS_X] * WIND_MULTIPLIER;
+        wind_x += my_next_tile.wind[AXIS_X] * WIND_SPEED * BYOND_WIND_MULTIPLIER;
     }
     if let Some(index) = ZLevel::maybe_get_index(x - 1, y) {
         let their_next_tile = next.get_tile(index);
         if their_next_tile.wind[AXIS_X] < 0.0 {
             // This is negative, but that's good, because we want it to fight against the wind
             // towards +X.
-            wind_x += their_next_tile.wind[AXIS_X] * WIND_MULTIPLIER;
+            wind_x += their_next_tile.wind[AXIS_X] * BYOND_WIND_MULTIPLIER;
         }
     }
     wind_x *= my_next_tile.pressure();
     let mut wind_y: f32 = 0.0;
     if my_next_tile.wind[AXIS_Y] > 0.0 {
-        wind_y += my_next_tile.wind[AXIS_Y] * WIND_MULTIPLIER;
+        wind_y += my_next_tile.wind[AXIS_Y] * BYOND_WIND_MULTIPLIER;
     }
     if let Some(index) = ZLevel::maybe_get_index(x, y - 1) {
         let their_next_tile = next.get_tile(index);
         if their_next_tile.wind[AXIS_Y] < 0.0 {
             // This is negative, but that's good, because we want it to fight against the wind
             // towards +Y.
-            wind_y += their_next_tile.wind[AXIS_Y] * WIND_MULTIPLIER;
+            wind_y += their_next_tile.wind[AXIS_Y] * BYOND_WIND_MULTIPLIER;
         }
     }
     wind_y *= my_next_tile.pressure();
