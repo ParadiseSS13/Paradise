@@ -167,6 +167,41 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/stack/ore)
+	/// The mob currently holding the ore bag, to track moving over ore to auto-pickup.
+	var/mob/listening_to
+
+/obj/item/storage/bag/ore/Destroy()
+	. = ..()
+	listening_to = null
+
+/obj/item/storage/bag/ore/equipped(mob/user, slot, initial)
+	. = ..()
+	if(listening_to == user)
+		return
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(pickup_ores))
+	listening_to = user
+
+/obj/item/storage/bag/ore/dropped()
+	. = ..()
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+		listening_to = null
+
+/obj/item/storage/bag/ore/proc/pickup_ores(mob/living/user)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	var/turf/simulated/floor/plating/asteroid/tile = get_turf(user)
+
+	if(!istype(tile))
+		return
+
+	tile.attempt_ore_pickup(src, user)
+	// Then, if the user is dragging an ore box, empty the satchel
+	// into the box.
+	if(istype(user.pulling, /obj/structure/ore_box))
+		var/obj/structure/ore_box/box = user.pulling
+		box.attackby__legacy__attackchain(src, user)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
