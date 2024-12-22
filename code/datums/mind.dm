@@ -1213,6 +1213,7 @@
 				log_admin("[key_name(usr)] has de-eventantag'ed [current].")
 			if("eventmisc")
 				if(has_antag_datum(/datum/antagonist/eventmisc))
+					to_chat(usr, "[current] is already an event antag!")
 					return
 				add_antag_datum(/datum/antagonist/eventmisc)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
