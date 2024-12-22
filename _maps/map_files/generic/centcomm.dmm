@@ -424,9 +424,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "bO" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "bP" = (
@@ -1862,6 +1860,10 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
+"gZ" = (
+/obj/machinery/light,
+/turf/simulated/floor/carpet,
+/area/backrooms)
 "ha" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -4505,6 +4507,12 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"oZ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/backrooms)
 "pa" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -7529,6 +7537,11 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Ay" = (
+/turf/simulated/wall/indestructible/backrooms{
+	icon_state = "backrooms_wall-6"
+	},
+/area/backrooms)
 "AB" = (
 /obj/machinery/computer/arcade/battle{
 	dir = 4
@@ -7860,6 +7873,12 @@
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"BU" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/backrooms)
 "BV" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
@@ -10449,6 +10468,11 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"KT" = (
+/turf/simulated/wall/indestructible/backrooms{
+	icon_state = "backrooms_wall-9"
+	},
+/area/backrooms)
 "KU" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -11998,6 +12022,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"PV" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/backrooms)
 "PW" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light{
@@ -13157,6 +13187,11 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ux" = (
+/turf/simulated/wall/indestructible/backrooms{
+	icon_state = "backrooms_wall-5"
+	},
+/area/backrooms)
 "Uy" = (
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
@@ -14518,6 +14553,11 @@
 "Ze" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
+"Zf" = (
+/turf/simulated/wall/indestructible/backrooms{
+	icon_state = "backrooms_wall-10"
+	},
+/area/backrooms)
 "Zi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
@@ -54833,6 +54873,7 @@ aN
 aN
 aN
 aN
+Ay
 oy
 oy
 oy
@@ -54864,8 +54905,7 @@ oy
 oy
 oy
 oy
-oy
-oy
+Ux
 aN
 aN
 aN
@@ -55108,13 +55148,13 @@ oy
 kB
 oy
 sd
+BU
 sd
 sd
 sd
 sd
 sd
-sd
-sd
+BU
 sd
 sd
 sd
@@ -55373,7 +55413,7 @@ sd
 sd
 sd
 sd
-oy
+Ay
 oy
 oy
 oy
@@ -55617,7 +55657,7 @@ oy
 sd
 sd
 kB
-sd
+gZ
 oy
 sd
 oy
@@ -55632,7 +55672,7 @@ sd
 sd
 oy
 sd
-sd
+BU
 sd
 sd
 sd
@@ -55866,7 +55906,7 @@ sd
 oy
 sd
 sd
-sd
+BU
 sd
 sd
 sd
@@ -56384,7 +56424,7 @@ sd
 sd
 sd
 sd
-oy
+Zf
 oy
 sd
 sd
@@ -56393,7 +56433,7 @@ oy
 oy
 oy
 oy
-oy
+KT
 sd
 sd
 sd
@@ -56661,7 +56701,7 @@ sd
 oy
 sd
 sd
-oy
+Ay
 oy
 oy
 oy
@@ -56906,7 +56946,7 @@ sd
 oy
 sd
 oy
-sd
+PV
 sd
 sd
 sd
@@ -57148,7 +57188,7 @@ aN
 aN
 oy
 oy
-oy
+KT
 sd
 sd
 sd
@@ -57159,7 +57199,7 @@ oy
 sd
 sd
 sd
-sd
+gZ
 oy
 sd
 sd
@@ -57171,7 +57211,7 @@ sd
 sd
 sd
 sd
-sd
+gZ
 oy
 sd
 sd
@@ -57434,7 +57474,7 @@ sd
 sd
 oy
 sd
-sd
+gZ
 oy
 aN
 aN
@@ -57677,7 +57717,7 @@ sd
 oy
 sd
 oy
-sd
+PV
 sd
 sd
 sd
@@ -57922,7 +57962,7 @@ sd
 sd
 sd
 sd
-sd
+oZ
 sd
 sd
 sd
@@ -58436,7 +58476,7 @@ sd
 sd
 sd
 sd
-sd
+BU
 sd
 sd
 sd
@@ -58453,7 +58493,7 @@ sd
 sd
 sd
 sd
-sd
+BU
 sd
 sd
 oy
@@ -58946,7 +58986,22 @@ aN
 aN
 aN
 oy
+PV
 sd
+sd
+sd
+sd
+sd
+sd
+sd
+sd
+Ay
+oy
+oy
+oy
+oy
+oy
+oy
 sd
 sd
 sd
@@ -58956,27 +59011,12 @@ sd
 sd
 sd
 oy
-oy
-oy
-oy
-oy
-oy
-oy
 sd
 sd
 sd
 sd
 sd
-sd
-sd
-sd
-oy
-sd
-sd
-sd
-sd
-sd
-sd
+gZ
 oy
 aN
 aN
@@ -59211,24 +59251,24 @@ sd
 sd
 sd
 sd
+gZ
+oy
+sd
+sd
+BU
+sd
 sd
 oy
 sd
 sd
-sd
-sd
-sd
-oy
-sd
-sd
-oy
+Ay
 oy
 oy
 sd
 sd
 sd
 oy
-sd
+PV
 sd
 sd
 sd
@@ -59995,7 +60035,7 @@ sd
 oy
 oy
 oy
-sd
+PV
 sd
 sd
 sd
@@ -60231,7 +60271,7 @@ aN
 aN
 aN
 oy
-sd
+PV
 sd
 sd
 sd
@@ -60247,7 +60287,7 @@ sd
 sd
 sd
 oy
-sd
+PV
 sd
 oy
 kB
@@ -60496,7 +60536,7 @@ sd
 sd
 sd
 sd
-sd
+gZ
 oy
 sd
 sd
@@ -60513,7 +60553,7 @@ sd
 sd
 sd
 oy
-sd
+PV
 sd
 sd
 sd
@@ -60759,8 +60799,8 @@ sd
 sd
 sd
 sd
-oy
-oy
+Ay
+KT
 sd
 sd
 oy
@@ -60775,7 +60815,7 @@ sd
 sd
 sd
 sd
-sd
+gZ
 oy
 aN
 aN
@@ -61003,17 +61043,17 @@ aN
 aN
 oy
 sd
-oy
-oy
-oy
-sd
-sd
-sd
-oy
-oy
+Ay
 oy
 oy
 sd
+sd
+sd
+oy
+oy
+oy
+oy
+PV
 sd
 sd
 oy
@@ -61280,7 +61320,7 @@ sd
 oy
 sd
 sd
-sd
+oZ
 sd
 sd
 oy
@@ -61518,7 +61558,7 @@ aN
 oy
 kB
 oy
-sd
+PV
 sd
 sd
 sd
@@ -61529,7 +61569,7 @@ sd
 oy
 sd
 sd
-oy
+Ay
 oy
 oy
 oy
@@ -61798,7 +61838,7 @@ sd
 sd
 sd
 sd
-sd
+BU
 sd
 sd
 sd
@@ -62039,7 +62079,7 @@ kB
 sd
 sd
 sd
-sd
+gZ
 oy
 sd
 sd
@@ -62302,9 +62342,9 @@ sd
 sd
 oy
 sd
-sd
+gZ
 oy
-sd
+PV
 sd
 sd
 sd
@@ -62317,7 +62357,7 @@ sd
 sd
 sd
 kB
-sd
+gZ
 oy
 aN
 aN
@@ -62806,6 +62846,12 @@ oy
 sd
 sd
 sd
+oZ
+sd
+sd
+sd
+sd
+oy
 sd
 sd
 sd
@@ -62815,18 +62861,12 @@ oy
 sd
 sd
 sd
-sd
-sd
-oy
-sd
-sd
-sd
 oy
 sd
 sd
 sd
 sd
-sd
+oZ
 sd
 sd
 sd
@@ -63057,6 +63097,7 @@ aN
 aN
 aN
 aN
+Zf
 oy
 oy
 oy
@@ -63088,8 +63129,7 @@ oy
 oy
 oy
 oy
-oy
-oy
+KT
 aN
 aN
 aN
