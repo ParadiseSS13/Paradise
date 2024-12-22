@@ -668,7 +668,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(isitem(examined))
 		var/obj/item/I = examined
-		if((I.in_storage))
+		if(I.in_storage)
 			if(get(I, /mob/living) == src)
 				loc_str = "inside [p_their()] [I.loc.name]..."
 			else
