@@ -971,6 +971,8 @@
 				. += DS.slowdown_value
 			else if(REVERSE_DIR(DS.direction) == last_move)
 				// Moving directly opposite to the slow, no penalty.
+				// Lint doesn't like this block being empty so, uh, add zero, I guess.
+				. += 0
 			else if(IS_DIR_CARDINAL(DS.direction) || IS_DIR_CARDINAL(last_move))
 				if(DS.direction & last_move)
 					// Moving roughly in the direction we're slowed, full penalty.
