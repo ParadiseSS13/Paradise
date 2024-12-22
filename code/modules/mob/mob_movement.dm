@@ -1,4 +1,4 @@
-/mob/CanPass(atom/movable/mover, turf/target)
+/mob/CanPass(atom/movable/mover, border_dir)
 	var/horizontal = FALSE
 	if(isliving(src))
 		var/mob/living/L = src

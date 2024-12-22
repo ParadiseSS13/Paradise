@@ -36,7 +36,7 @@
 	return ..()
 
 // So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target)
+/obj/vehicle/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSMOB))
 		return TRUE
 	else
@@ -78,10 +78,10 @@
 			inserted_key = used
 		else
 			to_chat(user, "<span class='warning'>[used] seems to be stuck to your hand!</span>")
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/borg/upgrade/vtec) && install_vtec(used, user))
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 /obj/vehicle/AltClick(mob/user)
 	if(inserted_key && user.Adjacent(user))

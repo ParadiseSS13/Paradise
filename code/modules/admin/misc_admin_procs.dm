@@ -473,9 +473,9 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
 	if(GLOB.dsay_enabled)
-		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally enabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	else
-		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally disabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc

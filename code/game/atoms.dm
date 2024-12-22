@@ -311,6 +311,13 @@
 	return
 
 /atom/proc/Bumped(atom/movable/AM)
+	// This may seem scary but one will find that replacing this with
+	// SHOULD_NOT_SLEEP(TRUE) surfaces two dozen instances where /Bumped sleeps,
+	// such as airlocks. We cannot wait for these procs to finish because they
+	// will clobber any movement which occurred in the intervening time. If we
+	// want to get rid of this we need to move bumping in its entirety to signal
+	// handlers, which is scarier.
+	set waitfor = FALSE
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -332,9 +339,6 @@
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
-
-/atom/proc/CheckExit()
-	return TRUE
 
 /atom/proc/HasProximity(atom/movable/AM)
 	return
@@ -586,7 +590,7 @@
 	return
 
 /atom/proc/cmag_act(mob/user)
-	return
+	return FALSE
 
 /atom/proc/uncmag()
 	return
@@ -1205,13 +1209,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/Entered(atom/movable/AM, atom/oldLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, direction)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+/atom/Exited(atom/movable/AM, direction)
+	var/new_loc = get_step(AM, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, new_loc)
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
