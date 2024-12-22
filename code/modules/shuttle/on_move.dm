@@ -2,7 +2,7 @@
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
+		on_changed_z_level(oldT, newT)
 	if(light)
 		update_light()
 	if(rotation)

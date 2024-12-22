@@ -88,6 +88,8 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list("<span class='notice'>You're struggling to make out any details...</span>")
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
