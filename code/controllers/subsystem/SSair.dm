@@ -278,12 +278,26 @@ SUBSYSTEM_DEF(air)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/list/supermatters = list()
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
-		if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
+		if(istype(M, /obj/machinery/atmospherics/supermatter_crystal))
+			supermatters += M
+		else if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery -= M
 		if(MC_TICK_CHECK)
+			for(var/SM in supermatters)
+				currentrun += SM
+			return
+	while(length(supermatters))
+		var/obj/machinery/atmospherics/supermatter_crystal/SM = supermatters[length(supermatters)]
+		supermatters.len--
+		if(isnull(SM) || (SM.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= SM
+		if(MC_TICK_CHECK)
+			for(var/other_sm in supermatters)
+				currentrun += other_sm
 			return
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
