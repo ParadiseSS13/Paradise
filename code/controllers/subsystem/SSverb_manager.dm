@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(verb_manager)
 
 	//we want unit tests to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
 	//to happen as if it was actually from player input if its called on a mob.
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.usr_uid = incoming_callback.object.UID()
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, GLOBAL_PROC_REF(_queue_verb)) + args.Copy()))
