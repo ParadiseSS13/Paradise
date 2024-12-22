@@ -715,7 +715,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
-	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
 		return
 
 	// We'll just assume if your eyes have tinted covering you can't see them very well.
