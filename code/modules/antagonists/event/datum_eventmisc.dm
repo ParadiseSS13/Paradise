@@ -2,7 +2,7 @@ RESTRICT_TYPE(/datum/antagonist/eventmisc)
 
 /datum/antagonist/eventmisc
 	name = "Event"
-	job_rank = ROLE_EVENT_MISC
+	job_rank = ROLE_EVENTMISC
 	special_role = SPECIAL_ROLE_EVENTMISC
 	give_objectives = FALSE
 	antag_hud_name = "hudeventmisc"
