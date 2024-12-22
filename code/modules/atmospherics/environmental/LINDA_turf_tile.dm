@@ -128,7 +128,7 @@
 
 /mob/living/air_push(direction)
 	apply_status_effect(STATUS_EFFECT_UNBALANCED)
-	Slowed(1 SECONDS)
+	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction))
 	if(!has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
 		return ..()
 

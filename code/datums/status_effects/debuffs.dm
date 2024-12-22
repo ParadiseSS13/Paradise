@@ -696,6 +696,18 @@
 	if(isnum(_slowdown_value))
 		slowdown_value = _slowdown_value
 
+// Directional slow - Like slowed, but only if you're moving in a certain direction.
+/datum/status_effect/incapacitating/directional_slow
+	id = "directional_slow"
+	var/direction
+	var/slowdown_value = 10 // defaults to this value if none is specified
+
+/datum/status_effect/incapacitating/directional_slow/on_creation(mob/living/new_owner, set_duration, _direction, _slowdown_value)
+	. = ..()
+	direction = _direction
+	if(isnum(_slowdown_value))
+		slowdown_value = _slowdown_value
+
 /datum/status_effect/transient/silence
 	id = "silenced"
 
@@ -1364,7 +1376,7 @@
 
 /atom/movable/screen/alert/status_effect/unbalanced
 	name = "Unbalanced"
-	desc = "You're being shoved around by airflow!"
+	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
 
 /// The mob is fighting against airflow, and will not be pushed by it.
