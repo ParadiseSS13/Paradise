@@ -267,7 +267,7 @@
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
-	if(src.flags & NODROP)
+	if(flags & NODROP)
 		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
 
