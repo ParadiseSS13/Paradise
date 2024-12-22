@@ -1150,6 +1150,33 @@ tag = "blood_brothers"
 ]
 
 [[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "mindflayer"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+possible_species = ["Machine"]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
 tag = "vox_raiders"
 
 [antag_mix_gamemode_configuration.antag_scenarios_configuration.params]

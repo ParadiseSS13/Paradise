@@ -45,7 +45,7 @@
 
 /obj/item/card/emag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target.emag_act(user))
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/emag/magic_key
 	name = "magic key"
@@ -55,13 +55,13 @@
 
 /obj/item/card/emag/magic_key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isairlock(target))
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
 	D.update_icon()
 	D.emag_act(user)
 	qdel(src)
-	return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
@@ -82,7 +82,7 @@
 
 /obj/item/card/cmag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target.cmag_act(user))
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id
 	name = "identification card"
@@ -264,12 +264,12 @@
 		item_state = decal.decal_item_state
 		qdel(decal)
 		qdel(used)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/B = used
 		B.scanID(src, user)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/stamp))
 		if(!stamped)
@@ -277,18 +277,18 @@
 			stamped = 1
 			to_chat(user, "You stamp the ID card!")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "This ID has already been stamped!")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 
 	else if(istype(used, /obj/item/card/id/guest))
 		attach_guest_pass(used, user)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/storage/wallet))
 		used.attackby__legacy__attackchain(src, user)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

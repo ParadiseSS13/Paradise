@@ -18,7 +18,7 @@
 	. = ..()
 	if(istype(used, /obj/item/id_skin))
 		apply_skin(used, user)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()

@@ -87,6 +87,36 @@
 		"Solar Federation General")
 	restricted_species = list("Machine")
 
+/datum/antag_scenario/mindflayer
+	name = "Mindflayer"
+	config_tag = "mindflayer"
+	abstract = FALSE
+	antag_role = ROLE_MIND_FLAYER
+	antag_special_role = SPECIAL_ROLE_MIND_FLAYER
+	antag_datum = /datum/antagonist/mindflayer
+	required_players = 1
+	cost = 10
+	weight = 1
+	antag_cap = 1
+	candidates_required = 1
+	restricted_roles = list("Cyborg", "AI")
+	protected_roles = list(
+		"Security Cadet",
+		"Security Officer",
+		"Warden",
+		"Detective",
+		"Head of Security",
+		"Captain",
+		"Blueshield",
+		"Nanotrasen Representative",
+		"Magistrate",
+		"Internal Affairs Agent",
+		"Nanotrasen Navy Officer",
+		"Special Operations Officer",
+		"Syndicate Officer",
+		"Solar Federation General")
+	possible_species = list("Machine")
+
 /datum/antag_scenario/team/blood_brothers
 	name = "Blood Brothers"
 	config_tag = "blood_brothers"
