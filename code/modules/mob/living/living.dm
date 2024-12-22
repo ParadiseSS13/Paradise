@@ -121,6 +121,10 @@
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return TRUE
 
+	if(has_status_effect(STATUS_EFFECT_UNBALANCED))
+		// Don't swap while being shoved by air.
+		return TRUE
+
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
 			return TRUE
