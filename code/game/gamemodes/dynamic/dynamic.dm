@@ -56,7 +56,6 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			return
 		ruleset_budget -= pick_ruleset(ruleset, ruleset_budget)
 		possible_rulesets -= ruleset
-		qdel(ruleset)
 	log_dynamic("No more ruleset budget")
 
 /datum/game_mode/dynamic/proc/pick_ruleset(datum/ruleset/ruleset, ruleset_budget, force)
@@ -78,8 +77,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		log_dynamic("Adding implied ruleset: [ruleset.implied_ruleset.name]")
 		implied = new ruleset.implied_ruleset
 		implied_rulesets += implied
-	implied.RegisterSignal(ruleset, implied.target_signal, TYPE_PROC_REF(/datum/ruleset/implied, handle_signal))
-	// ruleset.RegisterSignal(implied, implied.target_signal, TYPE_PROC_REF(/datum/ruleset/implied, handle_signal)) // ctodo remove this line?
+	implied.RegisterSignal(ruleset, implied.target_signal, TYPE_PROC_REF(/datum/ruleset/implied, on_implied))
 
 /datum/game_mode/dynamic/proc/allocate_antagonist_budget()
 	if(!length(rulesets))

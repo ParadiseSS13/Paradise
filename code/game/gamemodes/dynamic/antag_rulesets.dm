@@ -149,9 +149,6 @@
 	// This signal is registered on whatever (multiple) rulesets implied us. This will call on_implied.
 	var/target_signal
 
-/datum/ruleset/implied/proc/handle_signal(datum/antagonist/implier)
-	stack_trace("[type]/on_implied() wrugv9nwefguinwegujibner!")
-	on_implied()
 
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
