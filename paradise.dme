@@ -25,6 +25,7 @@
 #include "code\__DEFINES\_protection.dm"
 #include "code\__DEFINES\_readme.dm"
 #include "code\__DEFINES\_spacemandmm.dm"
+#include "code\__DEFINES\_span.dm"
 #include "code\__DEFINES\_tgs_defines.dm"
 #include "code\__DEFINES\_tick.dm"
 #include "code\__DEFINES\_versions.dm"
