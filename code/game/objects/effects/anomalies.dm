@@ -353,8 +353,8 @@
 	if(istype(T))
 		var/datum/gas_mixture/air = new()
 		air.set_temperature(1000)
-		air.set_toxins(2)
-		air.set_oxygen(2)
+		air.set_toxins(20)
+		air.set_oxygen(20)
 		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
