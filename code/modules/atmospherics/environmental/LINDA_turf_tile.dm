@@ -129,8 +129,17 @@
 /mob/living/air_push(direction)
 	apply_status_effect(STATUS_EFFECT_UNBALANCED)
 	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction))
-	if(!has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
+	if(has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
+		return
+	if(!pulling)
 		return ..()
+
+	// Make sure we don't let go of something just because the wind pushed us into it.
+	var/atom/movable/was_pulling = pulling
+	. = ..()
+	// We were just pulling it, so we can skip all the other stuff in start_pulling and just re-establish the pull.
+	pulling = was_pulling
+	was_pulling.pulledby = src
 
 /turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
