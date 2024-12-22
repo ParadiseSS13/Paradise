@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/assault = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
+		/datum/hallucination_manager/blind_rush = 1,
 	)
 ))
 
@@ -47,6 +48,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/hallucination_override = FALSE
 	/// Hallucination layer.
 	var/hallucination_layer = MOB_LAYER
+	///Hallucination plane.
+	var/hallucination_plane = AREA_PLANE
 	/// The mob that sees this hallucination.
 	var/mob/living/carbon/target = null
 	/// Lazy list of images created as part of the hallucination. Cleared on destruction.
@@ -64,6 +67,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		var/image/I = image(hallucination_icon, hallucination_override ? src : get_turf(src), hallucination_icon_state)
 		I.override = hallucination_override
 		I.layer = hallucination_layer
+		I.plane = hallucination_plane
 		add_icon(I)
 	// Lifetime
 	if(islist(duration))
