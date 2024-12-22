@@ -117,7 +117,7 @@
 	if(flow_y < -0.5)
 		direction |= SOUTH
 
-	if(last_high_pressure_movement_time == SSair.times_fired)
+	if(last_high_pressure_movement_time >= SSair.times_fired - 3)
 		return
 	last_high_pressure_movement_time = SSair.times_fired
 
