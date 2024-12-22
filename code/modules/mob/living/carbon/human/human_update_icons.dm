@@ -636,7 +636,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
 		for(var/obj/item/thing in uniform_slots)												// whoever made this
 			if(thing)																			// you're a piece of fucking garbage
-				unEquip(thing)																	// why the fuck would you goddamn do this motherfucking shit
+				drop_item_to_ground(thing)														// why the fuck would you goddamn do this motherfucking shit
 				if(client)																		// INVENTORY CODE IN FUCKING ICON CODE
 					client.screen -= thing														// WHAT THE FUCKING FUCK BAY GODDAMNIT
 																								// **I FUCKING HATE YOU AAAAAAAAAA**

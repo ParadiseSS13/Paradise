@@ -53,7 +53,7 @@
 	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_FLAYER_RETRACT_IMPLANTS
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
-	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, drop_item_to_ground), weapon_ref, TRUE)
 	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), owner) // Just kinda shove it into the user
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()

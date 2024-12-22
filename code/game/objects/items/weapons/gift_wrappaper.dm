@@ -118,7 +118,7 @@
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.unequip(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

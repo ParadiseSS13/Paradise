@@ -97,15 +97,15 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
-	if(!user.unEquip(user.wear_suit))
+	if(!user.drop_item_to_ground(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return FALSE
-	if(!user.unEquip(user.head))
+	if(!user.drop_item_to_ground(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return FALSE
 
-	user.unEquip(user.head)
-	user.unEquip(user.wear_suit)
+	user.drop_item_to_ground(user.head)
+	user.drop_item_to_ground(user.wear_suit)
 
 	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
 	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
@@ -438,7 +438,7 @@
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			H.unEquip(src, 1)
+			H.unequip(src, 1)
 		qdel(src)
 		return FALSE
 	else
@@ -576,9 +576,9 @@
 	// you've torn it up, get rid of it.
 	new /obj/effect/decal/cleanable/shreds(owner.loc)
 	// just unequip them since they qdel on drop
-	owner.unEquip(src, TRUE, TRUE)
+	owner.drop_item_to_ground(src, force = TRUE, silent = TRUE)
 	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
-		owner.unEquip(owner.head, TRUE, TRUE)
+		owner.drop_item_to_ground(owner.head, force = TRUE, silent = TRUE)
 
 	return TRUE
 

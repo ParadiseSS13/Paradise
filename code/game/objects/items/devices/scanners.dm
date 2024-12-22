@@ -332,7 +332,7 @@ SLIME SCANNER
 		to_chat(user, "<span class='notice'>An upgrade is already installed on [src].</span>")
 		return
 
-	if(!user.unEquip(I))
+	if(!user.unequip(I))
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 

@@ -18,5 +18,5 @@
 	var/obj/item/nullrod/scythe/talking/user_sword = user.loc
 	var/mob/living/carbon/holder = user_sword.loc
 	if(istype(holder))
-		holder.unEquip(user_sword)
+		holder.drop_item_to_ground(user_sword)
 	user_sword.throw_at(targets[1], 10, 3, user)

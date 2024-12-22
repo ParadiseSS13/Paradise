@@ -91,7 +91,7 @@
 			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
-				if(!M.unEquip(src))
+				if(!M.unequip(src))
 					return
 				M.put_in_active_hand(src)
 			else

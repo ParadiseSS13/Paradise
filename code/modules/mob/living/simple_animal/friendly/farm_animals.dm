@@ -239,7 +239,7 @@
 				mind.transfer_to(C)
 			if(pcollar)
 				var/the_collar = pcollar
-				unEquip(pcollar)
+				drop_item_to_ground(pcollar)
 				C.add_collar(the_collar)
 			qdel(src)
 

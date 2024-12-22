@@ -362,7 +362,7 @@
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return FALSE
 				else
-					M.unEquip(I)
+					M.drop_item_to_ground(I)
 				I.forceMove(src)
 			else
 				I.forceMove(src)
