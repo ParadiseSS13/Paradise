@@ -243,6 +243,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
 #define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
 #define TRAIT_FLYING "flying"
+#define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
+#define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
