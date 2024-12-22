@@ -272,7 +272,7 @@
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
-		if(M.hand)\
+		if(M.hand)
 			M.update_inv_l_hand()
 		else
 			M.update_inv_r_hand()
