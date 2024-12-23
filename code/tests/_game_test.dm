@@ -47,7 +47,7 @@
 	var/list/procs_tested
 
 	//usable vars
-	var/list/available_turfs
+	var/static/list/available_turfs
 
 	//internal shit
 	var/succeeded = TRUE
@@ -55,16 +55,13 @@
 	var/list/fail_reasons
 
 /datum/game_test/New()
-	available_turfs = list()
-	for(var/turf/T in get_area_turfs(/area/game_test))
-		if(istype(T, /turf/simulated/wall/indestructible/riveted))
-			continue
-		available_turfs |= T
+	if(!length(available_turfs))
+		available_turfs = get_test_turfs()
 
 /datum/game_test/Destroy()
 	QDEL_LIST_CONTENTS(allocated)
-	//clear the test area
-	for(var/turf/T in available_turfs)
+	// clear the whole test area, not just the bounds of the landmarks
+	for(var/turf/T in get_area_turfs(/area/game_test))
 		for(var/atom/movable/AM in T)
 			qdel(AM)
 	return ..()
@@ -79,6 +76,27 @@
 		reason = "FORMATTED: [reason != null ? reason : "NULL"]"
 
 	LAZYADD(fail_reasons, list(list(reason, file, line)))
+
+/datum/game_test/proc/get_test_turfs()
+	var/list/result = list()
+	var/obj/effect/landmark/bottom_left
+	var/obj/effect/landmark/top_right
+	for(var/obj/effect/landmark in GLOB.landmarks_list)
+		if(istype(landmark, /obj/effect/landmark/game_test/bottom_left_corner))
+			bottom_left = landmark
+		else if(istype(landmark, /obj/effect/landmark/game_test/top_right_corner))
+			top_right = landmark
+
+	if(!(bottom_left && top_right))
+		Fail("could not find test area landmarks")
+
+	for(var/turf/T in block(bottom_left.loc, top_right.loc))
+		result |= T
+
+	if(!length(result))
+		Fail("could not find any test turfs")
+
+	return result
 
 /// Allocates an instance of the provided type, and places it somewhere in an available loc
 /// Instances allocated through this proc will be destroyed when the test is over

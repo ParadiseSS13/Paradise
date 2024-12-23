@@ -10340,6 +10340,10 @@
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"KB" = (
+/obj/effect/landmark/game_test/top_right_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "KC" = (
 /obj/machinery/button/windowtint{
 	pixel_y = 24
@@ -10616,6 +10620,10 @@
 	dir = 8
 	},
 /area/ghost_bar)
+"LB" = (
+/obj/effect/landmark/game_test/bottom_left_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "LC" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -53159,7 +53167,7 @@ ZM
 ZM
 ZM
 ZM
-ZM
+LB
 ZM
 oo
 aN
@@ -55983,7 +55991,7 @@ aN
 aN
 oo
 ZM
-ZM
+KB
 ZM
 ZM
 ZM
