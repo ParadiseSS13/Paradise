@@ -267,6 +267,10 @@
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
+	if(flags & NODROP)
+		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
+		return FALSE
+
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
 			M.update_inv_l_hand()
