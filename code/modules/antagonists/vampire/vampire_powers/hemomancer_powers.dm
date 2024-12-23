@@ -250,7 +250,7 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return FALSE
 	var/mob/living/L = mover

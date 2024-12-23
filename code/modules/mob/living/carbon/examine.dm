@@ -88,7 +88,10 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
-	var/hallucinating = HAS_TRAIT(user, TRAIT_EXAMINE_HALLUCINATING)
+
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list("<span class='notice'>You're struggling to make out any details...</span>")
+    
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -97,6 +100,7 @@
 	var/skipears = FALSE
 	var/skipeyes = FALSE
 	var/skipface = FALSE
+  var/hallucinating = HAS_TRAIT(user, TRAIT_EXAMINE_HALLUCINATING)
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
