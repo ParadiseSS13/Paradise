@@ -331,7 +331,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(old_danger_level != danger_level)
 		apply_danger_level()
 
-	if(mode == AALARM_MODE_CYCLE && environment_pressure < TLV["pressure"].min2 * 0.05)
+	cur_tlv = TLV["pressure"]
+	if(mode == AALARM_MODE_CYCLE && environment_pressure < cur_tlv.min2 * 0.05)
 		mode = AALARM_MODE_REFILL
 		apply_mode()
 
@@ -415,6 +416,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	underlays += emissive_appearance(icon, "alarm_lightmask")
 
 /obj/machinery/alarm/proc/apply_mode()
+	var/datum/tlv/pressure_tlv = TLV["pressure"]
 	switch(mode)
 		if(AALARM_MODE_FILTERING)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
@@ -435,7 +437,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.external_pressure_bound = (TLV["pressure"].min1 + TLV["pressure"].max1) / 2
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -456,7 +458,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.external_pressure_bound = (TLV["pressure"].min1 + TLV["pressure"].max1) / 2
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -474,7 +476,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.external_pressure_bound = TLV["pressure"].max1
+				P.external_pressure_bound = pressure_tlv.max1
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -495,7 +497,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.external_pressure_bound = (TLV["pressure"].min1 + TLV["pressure"].max1) / 2
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
