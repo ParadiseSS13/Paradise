@@ -1082,8 +1082,9 @@
 	headpocket_item = I
 
 /obj/item/toy/plushie/skrellplushie/Destroy()
-	headpocket_item.forceMove(get_turf(src))
-	headpocket_item = null
+	if(headpocket_item)
+		headpocket_item.forceMove(get_turf(src))
+		headpocket_item = null
 	return ..()
 
 /obj/item/toy/plushie/humanplushie
