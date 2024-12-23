@@ -4,7 +4,7 @@
  * Temporarily sends the target to the backrooms. Their body's movement matches their movement in the backrooms.
  */
 
-/var/global/backrooms_occupied = FALSE
+GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 
 /obj/effect/hallucination/no_delete/backrooms
 	// hallucination_icon = '' // TODO
@@ -31,8 +31,8 @@
 		return
 
 	// One person at a time in the backrooms, no backroom brawls allowed.
-	if(backrooms_occupied == FALSE)
-		backrooms_occupied = TRUE
+	if(GLOB.backrooms_occupied == FALSE)
+		GLOB.backrooms_occupied = TRUE
 	else
 		return
 
@@ -47,9 +47,32 @@
 	human_owner.mind.transfer_to(backrooms_clone)
 	backrooms_clone.share_control = human_owner
 
-/datum/hallucination_manager/backrooms/proc/copy_appearance_and_clothes(var/mob/living/carbon/human/original, var/mob/living/carbon/target)
+	// If the original dies, do cleanup early.
+	RegisterSignal(human_owner, COMSIG_MOB_DEATH, PROC_REF(on_trigger))
+
+	// Alert admins if the user has overstayed their welcome in the backrooms somehow.
+	addtimer(CALLBACK(src, PROC_REF(overstay_alert)), 15 SECONDS, TIMER_DELETE_ME)
+
+/datum/hallucination_manager/backrooms/proc/copy_appearance_and_clothes(mob/living/carbon/human/original, mob/living/carbon/human/target)
 	target.real_name = original.dna.real_name
 	original.dna.transfer_identity(target)
+
+	var/obj/item/organ/external/head/original_head_organ = original.get_organ("head")
+	var/obj/item/organ/internal/eyes/original_eyes_organ = original.get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/external/head/target_head_organ = target.get_organ("head")
+	var/obj/item/organ/internal/eyes/target_eyes_organ = target.get_int_organ(/obj/item/organ/internal/eyes)
+
+	target_head_organ.facial_colour = original_head_organ.facial_colour
+	target_head_organ.sec_facial_colour = original_head_organ.sec_facial_colour
+	target_head_organ.hair_colour = original_head_organ.hair_colour
+	target_head_organ.sec_hair_colour = original_head_organ.sec_hair_colour
+	target_eyes_organ.eye_color = original_eyes_organ.eye_color
+	target.s_tone = original.s_tone
+	target.skin_colour = original.skin_colour
+	target_head_organ.h_style = original_head_organ.h_style
+	target_head_organ.f_style = original_head_organ.f_style
+
+	target.overlays = original.get_overlays_copy(list(L_HAND_LAYER, R_HAND_LAYER))
 
 	var/list/obj/item/stuff_to_keep = list()
 
@@ -85,7 +108,11 @@
 	// Delete all created items, then the clone
 	for(var/obj/item/I in created_items)
 		qdel(I)
-	qdel(backrooms_clone)
+	if(backrooms_clone)
+		qdel(backrooms_clone)
 
-	backrooms_occupied = FALSE
+	GLOB.backrooms_occupied = FALSE
 	qdel(src) // Cleanup hallucination manager
+
+/datum/hallucination_manager/backrooms/proc/overstay_alert()
+	message_admins("[ADMIN_LOOKUPFLW(usr)] has been in the Backrooms for too long - something may have gone wrong with their original body. Manual intervention may be required!")
