@@ -1491,7 +1491,7 @@
 				to_chat(usr, "Not implemented yet. Sorry!")
 				//ticker.mode.update_abductor_icons_removed(src)
 			if("abductor")
-				if(!ishuman(current)) // ctodo rip this out
+				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
@@ -1712,51 +1712,24 @@
 		SSticker.mode.mindflayers |= src
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
-	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
-
-	if(!role || !team || !teleport)
+	if(alert(usr, "Are you sure you want to turn this person into an abductor? This can't be undone!", "New Abductor?", "Yes", "No") != "Yes")
 		return
 
-	if(!ishuman(current))
+	for(var/datum/team/team in SSticker.mode.actual_abductor_teams)
+		if(length(team.members) < 2)
+			team.add_member(src)
+			team.create_agent()
+			team.create_scientist()
+			return
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist", "Cancel")
+	if(!role || role == "Cancel")
 		return
+	var/datum/team/team = new /datum/team/abductor(list(src))
+	if(role == "Agent")
+		team.create_agent()
+	else
+		team.create_scientist()
 
-	SSticker.mode.abductors |= src
-
-	add_mind_objective(/datum/objective/stay_hidden)
-	add_mind_objective(/datum/objective/experiment)
-
-	var/mob/living/carbon/human/H = current
-
-	H.set_species(/datum/species/abductor)
-	var/datum/species/abductor/S = H.dna.species
-
-	if(role == "Scientist")
-		S.scientist = TRUE
-
-	S.team = team
-
-	var/list/obj/effect/landmark/abductor/agent_landmarks = list()
-	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
-	agent_landmarks.len = 4
-	scientist_landmarks.len = 4
-	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
-		if(istype(A, /obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A, /obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team)] = A
-
-	var/obj/effect/landmark/L
-	if(teleport == "Yes")
-		switch(role)
-			if("Agent")
-				L = agent_landmarks[team]
-			if("Scientist")
-				L = agent_landmarks[team]
-		H.forceMove(L.loc)
-		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
-	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
 /datum/mind/proc/AddSpell(datum/spell/S)
 	spell_list += S

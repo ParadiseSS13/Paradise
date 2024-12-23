@@ -27,7 +27,7 @@ RESTRICT_TYPE(/datum/team/abductor)
 	SSticker.mode.actual_abductor_teams -= src
 
 /datum/team/abductor/proc/handle_team_number()
-	// ctodo, make this more complex to make sure if a team is lost somehow, that we can recycle their number
+	// Maybe someday, make this more complex to make sure if a team is lost somehow, that we can recycle their number
 	team_number = length(length(SSticker.mode.actual_abductor_teams)) + 1
 
 /datum/team/abductor/proc/create_body(location, datum/mind/mind, is_scientist = FALSE)
