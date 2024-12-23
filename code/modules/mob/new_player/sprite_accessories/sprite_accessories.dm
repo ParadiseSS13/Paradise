@@ -462,6 +462,10 @@
 	name = "Rainbow Shirt"
 	icon_state = "shirt_rainbow"
 
+/datum/sprite_accessory/undershirt/shirt_wave
+	name = "Great Wave Shirt"
+	icon_state = "shirt_wave"
+
 //end graphic shirts
 
 //short sleeved

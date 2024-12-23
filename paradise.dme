@@ -3002,7 +3002,6 @@
 #include "code\modules\tgui_input\say_modal\tgui_say_speech.dm"
 #include "code\modules\tgui_input\say_modal\tgui_say_typing.dm"
 #include "code\modules\tooltip\tooltip.dm"
-#include "code\modules\unit_tests\_unit_tests.dm"
 #include "code\modules\vehicle\ambulance.dm"
 #include "code\modules\vehicle\atv.dm"
 #include "code\modules\vehicle\bicycle.dm"
@@ -3030,6 +3029,7 @@
 #include "code\modules\world_topic\pr_announce_topic.dm"
 #include "code\modules\world_topic\queue_status.dm"
 #include "code\modules\world_topic\status.dm"
+#include "code\tests\game_tests.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
