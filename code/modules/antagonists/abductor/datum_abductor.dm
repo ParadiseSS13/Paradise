@@ -20,17 +20,33 @@ RESTRICT_TYPE(/datum/antagonist/abductor)
 	owner.offstation_role = TRUE
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/abductors.ogg'))
 
+/datum/antagonist/abductor/greet()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are an agent of [our_team.name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
+	return messages
+
 /datum/antagonist/abductor/add_owner_to_gamemode()
 	SSticker.mode.abductors |= owner
 
 /datum/antagonist/abductor/remove_owner_from_gamemode()
 	SSticker.mode.abductors -= owner
 
-/datum/team/abductor/proc/equip_abductor()
-	owner.current.equipOutfit(/datum/outfit/abductor/agent)
+/datum/antagonist/abductor/proc/equip_abductor()
+	var/mob/living/carbon/human/agent = owner.current
+	agent.equipOutfit(/datum/outfit/abductor/agent)
 
 /datum/antagonist/abductor/scientist
 	special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 
-/datum/team/abductor/abductor/equip_abductor()
-	owner.current.equipOutfit(/datum/outfit/abductor/scientist)
+/datum/antagonist/abductor/scientist/equip_abductor()
+	var/mob/living/carbon/human/scientist = owner.current
+	scientist.equipOutfit(/datum/outfit/abductor/scientist)
+
+/datum/antagonist/abductor/scientist/greet()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are a scientist of [our_team.name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
+	return messages

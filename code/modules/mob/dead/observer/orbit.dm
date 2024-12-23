@@ -121,7 +121,6 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
 							"Event Roles" = (mind.special_role == SPECIAL_ROLE_EVENTMISC)
 						)
 

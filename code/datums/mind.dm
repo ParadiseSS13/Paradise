@@ -420,9 +420,8 @@
 
 /datum/mind/proc/memory_edit_abductor(mob/living/carbon/human/H)
 	. = _memory_edit_header("abductor")
-	if(src in SSticker.mode.abductors)
+	if(has_antag_datum(/datum/antagonist/abductor))
 		. += "<b><font color='red'>ABDUCTOR</font></b>|<a href='byond://?src=[UID()];abductor=clear'>no</a>"
-		. += "|<a href='byond://?src=[UID()];common=undress'>undress</a>|<a href='byond://?src=[UID()];abductor=equip'>equip</a>"
 	else
 		. += "<a href='byond://?src=[UID()];abductor=abductor'>abductor</a>|<b>NO</b>"
 
@@ -1492,25 +1491,12 @@
 				to_chat(usr, "Not implemented yet. Sorry!")
 				//ticker.mode.update_abductor_icons_removed(src)
 			if("abductor")
-				if(!ishuman(current))
+				if(!ishuman(current)) // ctodo rip this out
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into an abductor.")
-				SSticker.mode.update_abductor_icons_added(src)
 				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
-			if("equip")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-
-				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
-				if(gear)
-					if(gear=="Agent")
-						H.equipOutfit(/datum/outfit/abductor/agent)
-					else
-						H.equipOutfit(/datum/outfit/abductor/scientist)
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
