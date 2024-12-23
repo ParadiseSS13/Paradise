@@ -47,6 +47,19 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
+GLOBAL_LIST_INIT(aalarm_modes, list(
+	"[AALARM_MODE_FILTERING]" = "Filtering",
+	"[AALARM_MODE_DRAUGHT]" = "Draught",
+	"[AALARM_MODE_PANIC]" = "Panic",
+	"[AALARM_MODE_CYCLE]" = "Cycle",
+	"[AALARM_MODE_SIPHON]" = "Siphon",
+	"[AALARM_MODE_CONTAMINATED]" = "Contaminated",
+	"[AALARM_MODE_REFILL]" = "Refill",
+	"[AALARM_MODE_CUSTOM]" = "Custom",
+	"[AALARM_MODE_OFF]" = "Off",
+	"[AALARM_MODE_FLOOD]" = "Flood",
+))
+
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
@@ -75,7 +88,7 @@
 	var/AAlarmwires = 31
 	var/shorted = FALSE
 
-	var/mode = AALARM_MODE_SCRUBBING
+	var/mode = AALARM_MODE_FILTERING
 	var/preset = AALARM_PRESET_HUMAN
 	var/area/alarm_area
 	var/danger_level = ATMOS_ALARM_NONE
@@ -187,7 +200,7 @@
 			)
 
 	if(!no_cycle_after)
-		mode = AALARM_MODE_REPLACEMENT
+		mode = AALARM_MODE_CYCLE
 		apply_mode()
 
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
@@ -272,14 +285,14 @@
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
-	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_SCRUBBING)
+	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_FILTERING)
 		mode = AALARM_MODE_OFF
 		apply_mode()
 		var/area/A = location.loc
 		A.firealert(src)
 
 	if(mode == AALARM_MODE_REFILL && environment_pressure >= cur_tlv.min1)
-		mode = AALARM_MODE_SCRUBBING
+		mode = AALARM_MODE_FILTERING
 		apply_mode()
 
 	cur_tlv = TLV["oxygen"]
@@ -318,7 +331,7 @@
 	if(old_danger_level != danger_level)
 		apply_danger_level()
 
-	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
+	if(mode == AALARM_MODE_CYCLE && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_REFILL
 		apply_mode()
 
@@ -403,7 +416,7 @@
 
 /obj/machinery/alarm/proc/apply_mode()
 	switch(mode)
-		if(AALARM_MODE_SCRUBBING)
+		if(AALARM_MODE_FILTERING)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -447,7 +460,7 @@
 				P.update_icon(UPDATE_ICON_STATE)
 
 
-		if(AALARM_MODE_VENTING)
+		if(AALARM_MODE_DRAUGHT)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -482,11 +495,11 @@
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.external_pressure_bound = ONE_ATMOSPHERE * 3
+				P.external_pressure_bound = ONE_ATMOSPHERE
 				P.update_icon(UPDATE_ICON_STATE)
 
 
-		if(AALARM_MODE_PANIC, AALARM_MODE_REPLACEMENT)
+		if(AALARM_MODE_PANIC, AALARM_MODE_CYCLE)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -680,15 +693,16 @@
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
-		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
-		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
-		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
-		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
-		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		"mode[AALARM_MODE_FILTERING]"		= list("name"=GLOB.aalarm_modes["[AALARM_MODE_FILTERING]"],	"desc"="Scrubs out contaminants. Will shut off and drop firelocks if pressure drops too low.", "id" = AALARM_MODE_FILTERING),
+		"mode[AALARM_MODE_DRAUGHT]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_DRAUGHT]"],			"desc"="Siphons out air while replacing", "id" = AALARM_MODE_DRAUGHT),
+		"mode[AALARM_MODE_PANIC]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_PANIC]"],				"desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),
+		"mode[AALARM_MODE_CYCLE]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CYCLE]"],				"desc"="Siphons air before replacing", "id" = AALARM_MODE_CYCLE),
+		"mode[AALARM_MODE_SIPHON]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_SIPHON]"],			"desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),
+		"mode[AALARM_MODE_CONTAMINATED]"	= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CONTAMINATED]"],		"desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),
+		"mode[AALARM_MODE_REFILL]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_REFILL]"],			"desc"="Refills a room to normal pressure, then switches to Filtering.", "id" = AALARM_MODE_REFILL),
+		"mode[AALARM_MODE_CUSTOM]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CUSTOM]"],			"desc"="Custom settings with no automatic mode switching.", "id" = AALARM_MODE_CUSTOM),
+		"mode[AALARM_MODE_OFF]"				= list("name"=GLOB.aalarm_modes["[AALARM_MODE_OFF]"],				"desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),
+		"mode[AALARM_MODE_FLOOD]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_FLOOD]"],				"desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
@@ -880,6 +894,8 @@
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
 						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
 						return
+
+					mode = AALARM_MODE_CUSTOM
 
 					// Its a vent. Handle
 					if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
