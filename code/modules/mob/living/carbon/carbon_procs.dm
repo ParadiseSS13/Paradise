@@ -84,10 +84,9 @@
 				if(prob(getBruteLoss() - 50))
 					gib()
 	else
-		if(ishuman(user))
+		if(ishuman(user) && client)
 			var/mob/living/carbon/human/human_user = user
-			// TODO: This movement is clunky, how do we smooth it out?
-			return human_user.Move(get_step(human_user, direction))
+			return user.client.Move(get_step(human_user, direction))
 
 #undef STOMACH_ATTACK_DELAY
 
