@@ -47,8 +47,7 @@
 	var/list/procs_tested
 
 	//usable vars
-	var/turf/run_loc_bottom_left
-	var/turf/run_loc_top_right
+	var/list/available_turfs
 
 	//internal shit
 	var/succeeded = TRUE
@@ -56,14 +55,18 @@
 	var/list/fail_reasons
 
 /datum/game_test/New()
-	run_loc_bottom_left = locate(1, 1, 1)
-	run_loc_top_right = locate(5, 5, 1)
+	available_turfs = list()
+	for(var/turf/T in get_area_turfs(/area/game_test))
+		if(istype(T, /turf/simulated/wall/indestructible/riveted))
+			continue
+		available_turfs |= T
 
 /datum/game_test/Destroy()
 	QDEL_LIST_CONTENTS(allocated)
 	//clear the test area
-	for(var/atom/movable/AM in block(run_loc_bottom_left, run_loc_top_right))
-		qdel(AM)
+	for(var/turf/T in available_turfs)
+		for(var/atom/movable/AM in T)
+			qdel(AM)
 	return ..()
 
 /datum/game_test/proc/Run()
@@ -83,9 +86,9 @@
 	var/list/arguments = args.Copy(2)
 	if(ispath(type, /atom))
 		if(!arguments.len)
-			arguments = list(run_loc_bottom_left)
+			arguments = list(pick(available_turfs))
 		else if(arguments[1] == null)
-			arguments[1] = run_loc_bottom_left
+			arguments[1] = pick(available_turfs)
 	var/instance
 	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
 	if(length(arguments))
