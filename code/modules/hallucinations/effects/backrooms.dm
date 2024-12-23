@@ -80,12 +80,7 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 	// Want them to look as close to their real counterpart as possible, without introducing risk of weird stuff happening with items.
 	for(var/obj/item/I in human_owner)
 		if(I == human_owner.w_uniform || I == human_owner.shoes || I == human_owner.glasses || I == human_owner.head)
-			// Keep dyes and all other metadata associated with items.
-			var/obj/cloned_item = new I.type()
-			for(var/property in clothing_var_whitelist)
-				if(property in I.vars)
-					cloned_item.vars[property] = I.vars[property]
-			stuff_to_keep += cloned_item
+			stuff_to_keep += I
 
 	// They're spawned naked, but just to be safe...
 	for(var/obj/item/I in backrooms_clone)
