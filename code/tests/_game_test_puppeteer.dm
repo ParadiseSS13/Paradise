@@ -9,10 +9,21 @@
 	var/mob/living/carbon/puppet
 	var/datum/game_test/origin_test
 
+/datum/test_puppeteer/New(datum/game_test/origin_test_, carbon_type = /mob/living/carbon/human, turf/initial_location)
+	if(!ispath(carbon_type, /mob/living/carbon/human))
+		origin_test.Fail("unexpected puppeteer carbon type [carbon_type]", __FILE__, __LINE__)
+
+	if(!initial_location)
+		initial_location = locate(179, 136, 1) // Center of admin testing area
+	origin_test = origin_test_
+	puppet = origin_test.allocate(carbon_type, initial_location)
+	var/datum/mind/new_mind = new("interaction_test_[puppet.UID()]")
+	new_mind.transfer_to(puppet)
+
 /datum/test_puppeteer/proc/spawn_puppet_nearby(carbon_type = /mob/living/carbon/human)
 	for(var/turf/T in RANGE_TURFS(1, puppet.loc))
 		if(!is_blocked_turf(T, exclude_mobs = FALSE))
-			return origin_test.puppeteer(carbon_type, T)
+			return new/datum/test_puppeteer(origin_test, carbon_type, T)
 
 	origin_test.Fail("could not spawn puppeteer near [src]")
 

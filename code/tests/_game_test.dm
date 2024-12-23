@@ -94,16 +94,3 @@
 		instance = new type()
 	LAZYADD(allocated, instance)
 	return instance
-
-/datum/game_test/proc/puppeteer(carbon_type = /mob/living/carbon/human, turf/initial_location)
-	TEST_ASSERT(ispath(carbon_type, /mob/living/carbon/human), "unexpected puppeteer carbon type [carbon_type]")
-	var/datum/test_puppeteer/puppeteer = new
-
-	if(!initial_location)
-		initial_location = locate(179, 136, 1) // Center of admin testing area
-	puppeteer.origin_test = src
-	puppeteer.puppet = allocate(carbon_type, initial_location)
-	var/datum/mind/new_mind = new("interaction_test_[puppeteer.puppet.UID()]")
-	new_mind.transfer_to(puppeteer.puppet)
-
-	return puppeteer

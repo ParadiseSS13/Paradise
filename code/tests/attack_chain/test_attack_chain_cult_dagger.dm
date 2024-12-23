@@ -1,5 +1,5 @@
 /datum/game_test/attack_chain_cult_dagger/Run()
-	var/datum/test_puppeteer/cultist = puppeteer()
+	var/datum/test_puppeteer/cultist = new(src)
 	var/datum/test_puppeteer/target = cultist.spawn_puppet_nearby()
 
 	cultist.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
