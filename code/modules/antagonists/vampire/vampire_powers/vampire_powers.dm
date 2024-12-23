@@ -59,6 +59,7 @@
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
+	antimagic_flags = NONE // So. If you have a null rod on your person, you can't cast vampire spells. I would rather not have officers abuse this by putting a nullrod in their pocket or something to block rejuvinate.
 
 /datum/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user

@@ -21,10 +21,12 @@
 	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+	/// The antimagic type the nullrod has.
+	var/antimagic_type = MAGIC_RESISTANCE_HOLY
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+	AddComponent(/datum/component/anti_magic, antimagic_type)
 	if(!length(variant_names))
 		for(var/I in typesof(/obj/item/nullrod))
 			var/obj/item/nullrod/rod = I
@@ -588,6 +590,16 @@
 	else
 		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
 		praying = FALSE
+
+
+/obj/item/nullrod/nazar
+	name = "nazar"
+	icon_state = "nazar"
+	item_state = null
+	desc = "A set of glass beads and amulet, which has been forged to provide powerful magic protection to the wielder."
+	force = 0
+	throwforce = 0
+	antimagic_type = ALL
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"

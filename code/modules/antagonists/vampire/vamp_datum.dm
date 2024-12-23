@@ -363,18 +363,20 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
-	RegisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK, PROC_REF(holy_attack_reaction))
+	RegisterSignal(mob_override, COMSIG_ATOM_HOLY_ATTACK, PROC_REF(holy_attack_reaction))
 
-/datum/antagonist/vampire/proc/holy_attack_reaction(atom/movable/source, mob/user, antimagic_flags)
+/datum/antagonist/vampire/proc/holy_attack_reaction(mob/target, obj/item/source, mob/user, antimagic_flags)
 	SIGNAL_HANDLER // COMSIG_ATOM_HOLY_ATTACK
-	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY)) //Sec officer with a nullrod, or miner with a imoratality talisman, does not get to do this
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY)) // Sec officer with a nullrod, or miner with a talisman, does not get to do this
+		return
+	if(!source.force) // Needs force to work.
 		return
 	var/bonus_force = 0
 	if(istype(source, /obj/item/nullrod))
 		var/obj/item/nullrod/N = source
 		bonus_force = N.sanctify_force
 	if(!get_ability(/datum/vampire_passive/full))
-		to_chat(owner, "<span class='warning'>[source]'s power interferes with your own!</span>")
+		to_chat(owner.current, "<span class='warning'>[source]'s power interferes with your own!</span>")
 		adjust_nullification(30 + bonus_force, 15 + bonus_force)
 
 /datum/antagonist/vampire/custom_blurb()

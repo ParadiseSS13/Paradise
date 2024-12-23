@@ -161,6 +161,6 @@
 
 	return NONE
 
-/datum/component/anti_magic/proc/on_attack(atom/movable/source, atom/target, mob/user)
+/datum/component/anti_magic/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
 	SIGNAL_HANDLER //COMSIG_ATTACK
 	SEND_SIGNAL(target, COMSIG_ATOM_HOLY_ATTACK, source, user, antimagic_flags)
