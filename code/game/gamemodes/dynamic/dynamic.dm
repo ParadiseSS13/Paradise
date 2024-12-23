@@ -106,9 +106,9 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			log_dynamic("Rolled [ruleset.name]: failed, removing [ruleset.name] ruleset.")
 			temp_rulesets -= ruleset
 			continue
-		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [budget].")
 		ruleset.antag_amount++
 		budget -= ruleset.cost
+		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [budget].")
 	log_dynamic("No more antagonist budget remaining.")
 
 /datum/game_mode/dynamic/pre_setup()
