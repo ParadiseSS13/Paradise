@@ -275,7 +275,6 @@
 			lung.clear_alerts(H)
 		return TRUE
 
-
 ////////////////
 // MOVE SPEED //
 ////////////////
