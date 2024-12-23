@@ -270,7 +270,7 @@
 		return TRUE
 
 	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
 		return TRUE
 
 /turf/simulated/mineral/random/high_chance
