@@ -1715,7 +1715,7 @@
 	if(alert(usr, "Are you sure you want to turn this person into an abductor? This can't be undone!", "New Abductor?", "Yes", "No") != "Yes")
 		return
 
-	for(var/datum/team/team in SSticker.mode.actual_abductor_teams)
+	for(var/datum/team/abductor/team in SSticker.mode.actual_abductor_teams)
 		if(length(team.members) < 2)
 			team.add_member(src)
 			team.create_agent()
@@ -1724,7 +1724,7 @@
 	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist", "Cancel")
 	if(!role || role == "Cancel")
 		return
-	var/datum/team/team = new /datum/team/abductor(list(src))
+	var/datum/team/abductor/team = new /datum/team/abductor(list(src))
 	if(role == "Agent")
 		team.create_agent()
 	else

@@ -1,6 +1,4 @@
-RESTRICT_TYPE(/datum/antagonist/abductor)
 
-// Syndicate Traitors.
 /datum/antagonist/abductor
 	name = "Abductor"
 	roundend_category = "abductors"
