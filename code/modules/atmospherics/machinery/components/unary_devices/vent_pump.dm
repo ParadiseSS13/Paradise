@@ -15,29 +15,26 @@
 	plane = FLOOR_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
-
 	can_unwrench = TRUE
-	var/open = FALSE
+
+	/// Is the vent open to put a piece of paper in it
+	var/open = FALSE // A living relic of papercult
 
 	var/area/initial_loc
 
-	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
+	/// If false, siphons instead of releasing air
+	var/releasing = TRUE
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
 
-	var/pressure_checks = PRESSURE_CHECKS
-	//1: Do not pass external_pressure_bound
-	//2: Do not pass internal_pressure_bound
-	//3: Do not pass either
+	/// What do we check when releasing/siphoning air - internal or external pressure
+	var/pressure_checks = ONLY_CHECK_EXT_PRESSURE
 
-	// Used when handling incoming radio signals requesting default settings
-	var/external_pressure_bound_default = EXTERNAL_PRESSURE_BOUND
-	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
-	var/pressure_checks_default = PRESSURE_CHECKS
-
-	var/welded = FALSE // Added for aliens -- TLE
-	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
+	/// Is this vent welded shut
+	var/welded = FALSE
+	/// How much pressure does there have to be in the pipe to burst the vent open?
+	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE
 
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
