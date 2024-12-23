@@ -49,6 +49,7 @@
 	playsound(get_turf(user), on_use_sound, 50, 1)
 	if(attached_spell)
 		attached_spell.perform(list())
+	qdel(src)
 
 /obj/item/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
