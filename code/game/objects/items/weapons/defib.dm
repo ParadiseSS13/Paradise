@@ -97,7 +97,7 @@
 	if(ishuman(user) && Adjacent(user))
 		toggle_paddles(user)
 
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
@@ -271,7 +271,7 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
 	update_icon(UPDATE_OVERLAYS)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)

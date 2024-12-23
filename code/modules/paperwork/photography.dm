@@ -36,10 +36,10 @@
 	var/icon/tiny
 	var/photo_size = 3
 
-/obj/item/photo/attack_self(mob/user as mob)
+/obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
 	user.examinate(src)
 
-/obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/item/photo/attackby__legacy__attackchain(obj/item/P as obj, mob/user as mob, params)
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
 		if(!txt)
@@ -230,10 +230,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		size = nsize
 		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
-/obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+/obj/item/camera/attack__legacy__attackchain(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/camera/attack_self(mob/user)
+/obj/item/camera/attack_self__legacy__attackchain(mob/user)
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is still on cooldown!</span>")
 		return
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
-/obj/item/camera/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/camera/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/camera_film))
 		if(pictures_left)
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack(atom/target, mob/user, flag)
+/obj/item/camera/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 	captureimage(target, user, flag)
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
 	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
-/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
+/obj/item/camera/digital/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 
@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		TV.update_icon(UPDATE_OVERLAYS)
 	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
 
-/obj/item/videocam/attack_self(mob/user)
+/obj/item/videocam/attack_self__legacy__attackchain(mob/user)
 	if(world.time < video_cooldown)
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return

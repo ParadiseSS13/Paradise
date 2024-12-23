@@ -18,7 +18,7 @@
 	if(get_dist(user, src) <= 2)
 		. += "<span class='notice'>[length(grenades)] / [max_grenades] grenades.</span>"
 
-/obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/gun/grenadelauncher/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
 		if(length(grenades) < max_grenades)
 			if(!user.unEquip(I))
@@ -32,7 +32,7 @@
 	else
 		return ..()
 
-/obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
+/obj/item/gun/grenadelauncher/afterattack__legacy__attackchain(obj/target, mob/user , flag)
 	if(target == user)
 		return
 

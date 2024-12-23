@@ -281,7 +281,7 @@
 	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
-/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_box/magazine/wt550m9/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
@@ -487,7 +487,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
+/obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
@@ -495,12 +495,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
 	icon_state = "m12gXlBs"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
@@ -625,10 +625,10 @@
 	. = ..()
 	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
 	return
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby__legacy__attackchain()
 	return
 
 /obj/item/ammo_box/magazine/c_foam
@@ -638,5 +638,5 @@
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/c_foam/attack_self(mob/user)
+/obj/item/ammo_box/magazine/c_foam/attack_self__legacy__attackchain(mob/user)
 	return

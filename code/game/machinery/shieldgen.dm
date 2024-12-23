@@ -232,7 +232,7 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/shieldgen/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/card/emag))
 		malfunction = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -427,7 +427,7 @@
 	var/list/L = active_shields["[direction]"]
 	L -= SW
 
-/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shieldwallgen/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
@@ -542,7 +542,7 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
@@ -557,7 +557,7 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
@@ -583,7 +583,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldwall/syndicate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	phaseout()
 	return ..()
 

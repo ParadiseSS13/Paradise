@@ -281,6 +281,8 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		if(H.client?.prefs.active_character.pda_ringtone)
+			PDA.ttone = H.client.prefs.active_character.pda_ringtone
 
 /datum/outfit/job/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

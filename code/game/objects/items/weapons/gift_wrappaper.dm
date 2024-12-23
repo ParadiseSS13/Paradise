@@ -25,7 +25,7 @@
 		icon_state = "gift[pick(1, 2, 3)]"
 	return
 
-/obj/item/gift/attack_self(mob/user as mob)
+/obj/item/gift/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
 	if(src.gift)
 		user.put_in_active_hand(gift)
@@ -39,7 +39,7 @@
 		return
 	to_chat(user, "<span class='notice'>You can't move.</span>")
 
-/obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/effect/spresent/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(!istype(W, /obj/item/wirecutters))
@@ -53,7 +53,7 @@
 
 	qdel(src)
 
-/obj/item/a_gift/attack_self(mob/M as mob)
+/obj/item/a_gift/attack_self__legacy__attackchain(mob/M as mob)
 	var/gift_type = pick(/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
@@ -107,7 +107,7 @@
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
 		/obj/item/toy/nuke,
-		/obj/item/toy/AI,
+		/obj/item/toy/ai,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/clothing/under/syndicate/greyman,
 		/obj/item/storage/box/fakesyndiesuit,
@@ -138,5 +138,5 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/stack/wrapping_paper/attack_self(mob/user)
+/obj/item/stack/wrapping_paper/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")

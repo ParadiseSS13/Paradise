@@ -88,7 +88,6 @@
 /area/ruin/space/deepstorage)
 "ap" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -143,8 +142,6 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -306,7 +303,6 @@
 /area/ruin/space/deepstorage)
 "aV" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor,
@@ -982,7 +978,7 @@
 	},
 /area/ruin/space/deepstorage)
 "dR" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "dT" = (
@@ -1281,7 +1277,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2005,8 +2001,6 @@
 /area/ruin/space/unpowered)
 "kR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2665,7 +2659,7 @@
 /obj/item/salvage/ruin/soviet,
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2675,7 +2669,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2782,7 +2776,7 @@
 /area/ruin/space/deepstorage)
 "qn" = (
 /turf/template_noop,
-/area/space)
+/area/template_noop)
 "qp" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -3541,8 +3535,6 @@
 "vt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
@@ -3947,13 +3939,9 @@
 /area/ruin/space/deepstorage)
 "yf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4475,7 +4463,7 @@
 /area/ruin/space/deepstorage)
 "Br" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -4702,7 +4690,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "CD" = (
@@ -4831,9 +4819,9 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -5480,7 +5468,7 @@
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7111,8 +7099,6 @@
 /area/ruin/space/deepstorage)
 "UO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -7316,7 +7302,6 @@
 	pixel_x = -32
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes{
@@ -7931,35 +7916,6 @@ qn
 qn
 qn
 qn
-ab
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-ab
 qn
 qn
 qn
@@ -7972,8 +7928,39 @@ qn
 qn
 qn
 qn
-ab
-ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -7998,50 +7985,7 @@ qn
 qn
 qn
 qn
-ab
 qn
-qn
-ab
-ab
-ab
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-ab
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-ab
 qn
 qn
 ab
@@ -8053,7 +7997,52 @@ qn
 ab
 qn
 qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8066,13 +8055,11 @@ qn
 qn
 qn
 qn
+qn
+qn
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+qn
+qn
 ab
 ab
 ab
@@ -8080,12 +8067,10 @@ ab
 qn
 qn
 qn
+ab
 qn
 qn
-ab
-ab
-ab
-ab
+qn
 ab
 qn
 qn
@@ -8097,21 +8082,12 @@ qn
 qn
 qn
 ab
+qn
+qn
+qn
 ab
 ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
+ab
 qn
 qn
 ab
@@ -8120,8 +8096,23 @@ qn
 ab
 qn
 qn
+ab
 qn
 qn
+ab
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+ab
 qn
 qn
 qn
@@ -8132,22 +8123,12 @@ qn
 qn
 qn
 qn
-ab
+qn
+qn
 qn
 qn
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-qn
 ab
 ab
 ab
@@ -8162,6 +8143,30 @@ qn
 qn
 qn
 qn
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8174,23 +8179,11 @@ ab
 qn
 qn
 ab
-ab
-ab
-ab
-iZ
-iZ
-ab
-aM
-aM
-ab
-ab
-ab
 qn
 qn
 qn
 qn
 qn
-ab
 qn
 qn
 qn
@@ -8202,23 +8195,9 @@ qn
 qn
 qn
 qn
+ab
 qn
 qn
-qn
-ab
-ab
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-ab
-ab
-ab
-ab
 ab
 ab
 ab
@@ -8235,26 +8214,39 @@ qn
 ab
 ab
 ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
 qn
 qn
 ab
+qn
+qn
 ab
 ab
-aM
+ab
+ab
 iZ
 iZ
-iZ
 ab
 aM
 aM
-aM
-aM
 ab
-aM
-aM
+ab
 ab
 qn
 qn
@@ -8262,6 +8254,9 @@ qn
 qn
 qn
 ab
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8271,6 +8266,78 @@ qn
 qn
 qn
 qn
+qn
+qn
+qn
+qn
+ab
+ab
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+ab
+aM
+iZ
+iZ
+iZ
+ab
+aM
+aM
+aM
+aM
+ab
+aM
+aM
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+"}
+(7,1,1) = {"
+qn
+qn
+qn
+qn
+qn
 ab
 qn
 qn
@@ -8334,8 +8401,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+qn
 qn
 ab
 qn
@@ -8403,8 +8472,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+qn
 qn
 qn
 qn
@@ -8472,8 +8543,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+qn
 qn
 qn
 qn
@@ -8541,8 +8614,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+qn
 qn
 qn
 ab
@@ -8610,8 +8685,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+qn
 qn
 ab
 ab
@@ -8679,8 +8756,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+qn
 ab
 ab
 ab
@@ -8748,8 +8827,10 @@ ab
 qn
 qn
 ab
+qn
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+qn
 ab
 ab
 jB
@@ -8817,8 +8898,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+qn
 ab
 ab
 jB
@@ -8886,8 +8969,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+qn
 qn
 ab
 jB
@@ -8955,8 +9040,10 @@ aM
 ab
 qn
 qn
+qn
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9024,8 +9111,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9093,8 +9182,10 @@ iZ
 ab
 qn
 qn
+qn
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9162,8 +9253,10 @@ iZ
 iZ
 qn
 qn
+qn
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+qn
 qn
 ab
 ab
@@ -9231,8 +9324,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+qn
 qn
 ab
 ab
@@ -9300,8 +9395,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+qn
 qn
 ab
 jB
@@ -9369,8 +9466,10 @@ qn
 ab
 qn
 qn
+qn
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9438,8 +9537,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+qn
 ab
 jB
 jB
@@ -9507,8 +9608,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+qn
 ab
 jB
 hH
@@ -9576,8 +9679,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+qn
 ab
 jB
 Nv
@@ -9645,8 +9750,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+qn
 ab
 jB
 jB
@@ -9714,8 +9821,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+qn
 ab
 jB
 Ej
@@ -9783,8 +9892,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+qn
 ab
 jB
 BL
@@ -9852,8 +9963,10 @@ iZ
 ab
 qn
 qn
+qn
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+qn
 ab
 jB
 lg
@@ -9921,8 +10034,10 @@ iZ
 iZ
 qn
 qn
+qn
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+qn
 ab
 jB
 vX
@@ -9990,8 +10105,10 @@ ab
 iZ
 qn
 ab
+qn
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+qn
 ab
 jB
 jB
@@ -10059,8 +10176,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+qn
 ab
 jB
 QD
@@ -10128,8 +10247,10 @@ Id
 qn
 qn
 qn
+qn
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+qn
 ab
 jB
 nG
@@ -10197,8 +10318,10 @@ bM
 bM
 bM
 qn
+qn
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+qn
 ab
 jB
 nQ
@@ -10266,8 +10389,10 @@ hn
 hn
 qn
 qn
+qn
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+qn
 ab
 jB
 zd
@@ -10335,8 +10460,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+qn
 ab
 jB
 jB
@@ -10404,8 +10531,10 @@ ab
 qn
 qn
 ab
+qn
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+qn
 ab
 ab
 ab
@@ -10473,8 +10602,10 @@ ab
 qn
 iZ
 iZ
+qn
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+qn
 qn
 ab
 ab
@@ -10542,8 +10673,10 @@ qn
 qn
 ab
 iZ
+qn
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+qn
 qn
 ab
 ab
@@ -10611,8 +10744,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+qn
 qn
 qn
 ab
@@ -10680,8 +10815,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+qn
 qn
 ab
 qn
@@ -10749,8 +10886,10 @@ qn
 ab
 qn
 qn
+qn
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+qn
 qn
 qn
 qn
@@ -10818,8 +10957,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+qn
 qn
 qn
 qn
@@ -10887,8 +11028,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+qn
 qn
 qn
 ab
@@ -10956,8 +11099,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11025,8 +11170,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+qn
 qn
 ab
 qn
@@ -11094,8 +11241,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11163,8 +11312,10 @@ iZ
 iZ
 ab
 qn
+qn
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11232,8 +11383,10 @@ iZ
 iZ
 iZ
 qn
+qn
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+qn
 qn
 ab
 qn
@@ -11301,8 +11454,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11370,8 +11525,10 @@ bD
 ab
 ab
 qn
+qn
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11439,8 +11596,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11508,8 +11667,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11577,8 +11738,10 @@ ab
 iZ
 qn
 qn
+qn
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11646,8 +11809,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11715,8 +11880,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11784,8 +11951,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11853,8 +12022,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11922,8 +12093,10 @@ jB
 ab
 iZ
 iZ
+qn
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11991,8 +12164,10 @@ jB
 ab
 ab
 iZ
+qn
 "}
-(60,1,1) = {"
+(61,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12060,8 +12235,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(61,1,1) = {"
+(62,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12129,8 +12306,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(62,1,1) = {"
+(63,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12198,8 +12377,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12267,8 +12448,10 @@ jB
 ab
 qn
 qn
+qn
 "}
-(64,1,1) = {"
+(65,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12336,8 +12519,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(65,1,1) = {"
+(66,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12405,8 +12590,10 @@ jB
 iZ
 ab
 qn
+qn
 "}
-(66,1,1) = {"
+(67,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12474,8 +12661,10 @@ jB
 ab
 qn
 qn
+qn
 "}
-(67,1,1) = {"
+(68,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12543,8 +12732,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(68,1,1) = {"
+(69,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12612,8 +12803,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(69,1,1) = {"
+(70,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12681,8 +12874,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(70,1,1) = {"
+(71,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12750,8 +12945,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(71,1,1) = {"
+(72,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12819,8 +13016,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(72,1,1) = {"
+(73,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12888,8 +13087,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(73,1,1) = {"
+(74,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12957,8 +13158,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(74,1,1) = {"
+(75,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13026,8 +13229,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(75,1,1) = {"
+(76,1,1) = {"
+qn
 qn
 ab
 qn
@@ -13095,8 +13300,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(76,1,1) = {"
+(77,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13164,8 +13371,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(77,1,1) = {"
+(78,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13233,8 +13442,10 @@ ab
 ab
 qn
 ab
+qn
 "}
-(78,1,1) = {"
+(79,1,1) = {"
+qn
 qn
 qn
 ab
@@ -13302,8 +13513,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(79,1,1) = {"
+(80,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13371,8 +13584,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(80,1,1) = {"
+(81,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13440,8 +13655,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(81,1,1) = {"
+(82,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13509,8 +13726,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(82,1,1) = {"
+(83,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13578,91 +13797,19 @@ ab
 qn
 qn
 qn
-"}
-(83,1,1) = {"
 qn
-qn
-qn
-ab
-ab
-ab
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-ab
-qn
-qn
-qn
-qn
-sk
-sk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-bB
-Fk
-Fk
-sk
-sk
-qn
-qn
-qn
-ab
-ab
-ab
-ab
-ab
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-ab
-ab
-ab
-qn
-ab
 "}
 (84,1,1) = {"
 qn
 qn
 qn
 qn
-qn
 ab
-qn
 ab
-qn
-qn
 ab
 qn
 qn
-qn
+ab
 qn
 qn
 qn
@@ -13674,47 +13821,53 @@ qn
 qn
 qn
 ab
+ab
+qn
+qn
+qn
 qn
 sk
 sk
-sk
-sk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
 bB
 Fk
 Fk
-Fk
-Fk
-sk
-sk
-sk
 sk
 sk
 qn
 qn
-ab
-qn
 qn
 ab
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
 ab
 ab
 ab
 qn
-qn
+ab
 qn
 "}
 (85,1,1) = {"
@@ -13724,6 +13877,78 @@ qn
 qn
 qn
 qn
+ab
+qn
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+sk
+sk
+sk
+sk
+bB
+Fk
+Fk
+Fk
+Fk
+sk
+sk
+sk
+sk
+sk
+qn
+qn
+ab
+qn
+qn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+"}
+(86,1,1) = {"
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -13784,5 +14009,77 @@ ab
 qn
 qn
 ab
+qn
+qn
+"}
+(87,1,1) = {"
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 "}

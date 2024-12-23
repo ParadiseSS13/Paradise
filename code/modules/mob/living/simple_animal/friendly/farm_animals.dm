@@ -73,7 +73,7 @@
 	if(stat == CONSCIOUS)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/retaliate/goat/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 	else
@@ -146,7 +146,7 @@
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/cow/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return TRUE
@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/chicken/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
 		if(stat == CONSCIOUS && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"

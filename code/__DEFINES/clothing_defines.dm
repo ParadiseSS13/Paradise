@@ -25,8 +25,9 @@
 #define ITEM_SLOT_PDA 			(1<<20) // pda
 #define ITEM_SLOT_ACCESSORY 	(1<<21) // accessories
 #define ITEM_SLOT_COLLAR 		(1<<22) // pet collar
-#define ITEM_SLOT_AMOUNT_FLAG	(1<<ITEM_SLOT_AMOUNT)
-#define ITEM_SLOT_AMOUNT 		22 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
+#define ITEM_SLOT_NECK			(1<<23) // neck
+#define ITEM_SLOT_AMOUNT_FLAG	(1<<(ITEM_SLOT_AMOUNT-1))
+#define ITEM_SLOT_AMOUNT 		24 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
 
 /// Translates an ITEM_SLOT back to an index that can be looked up in inv_slots. e.g. (1<<19) becomes 19.
 #define ITEM_SLOT_2_INDEX(slot) (log(2, slot) + 1)

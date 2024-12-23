@@ -136,6 +136,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)
+#ifdef CIBUILDING
+	log_world("::error file=[e.file],line=[e.line],title=Runtime::[e]")
+#endif
 	if(GLOB.error_cache)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif

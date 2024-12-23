@@ -23,7 +23,7 @@
 		new /obj/item/paper(src)
 		amount += 1
 
-/obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/paper_bundle/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
 	if(istype(W, /obj/item/paper))
@@ -73,7 +73,7 @@
 		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = get_page()
-		P.attackby(W, user, params)
+		P.attackby__legacy__attackchain(W, user, params)
 
 	update_icon()
 
@@ -133,7 +133,7 @@
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
 		+ "</body></html>", "window=PaperBundle[UID()]")
 
-/obj/item/paper_bundle/attack_self(mob/user as mob)
+/obj/item/paper_bundle/attack_self__legacy__attackchain(mob/user as mob)
 	show_content(user)
 	add_fingerprint(usr)
 
@@ -189,7 +189,7 @@
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if(ismob(loc))
-		attack_self(loc)
+		attack_self__legacy__attackchain(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())

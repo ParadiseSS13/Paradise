@@ -199,6 +199,16 @@
 	toggleable_inventory += inv_box
 
 	inv_box = new /atom/movable/screen/inventory()
+	inv_box.name = "neck"
+	inv_box.icon = ui_style
+	inv_box.icon_state = "neck"
+	inv_box.screen_loc = ui_neck
+	inv_box.slot_id = ITEM_SLOT_NECK
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
+	toggleable_inventory += inv_box
+
+	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "back"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
@@ -434,6 +444,9 @@
 		if(H.wear_mask)
 			H.wear_mask.screen_loc = ui_mask
 			screenmob.client.screen += H.wear_mask
+		if(H.neck)
+			H.neck.screen_loc = ui_neck
+			screenmob.client.screen += H.neck
 		if(H.head)
 			H.head.screen_loc = ui_head
 			screenmob.client.screen += H.head
@@ -454,6 +467,8 @@
 			screenmob.client.screen -= H.wear_suit
 		if(H.wear_mask)
 			screenmob.client.screen -= H.wear_mask
+		if(H.neck)
+			screenmob.client.screen -= H.neck
 		if(H.head)
 			screenmob.client.screen -= H.head
 

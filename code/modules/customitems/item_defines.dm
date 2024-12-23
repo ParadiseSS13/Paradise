@@ -33,7 +33,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/fluff/tattoo_gun/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
@@ -98,7 +98,7 @@
 	tattoo_g = 138
 	tattoo_b = 176
 
-/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
+/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self__legacy__attackchain(mob/user as mob)
 	if(!used)
 		var/ink_color = tgui_input_color(user, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
 		if(!isnull(ink_color) && !(user.incapacitated() || used))
@@ -120,7 +120,7 @@
 	icon_state = "bird_orb"
 	icon = 'icons/obj/custom_items.dmi'
 
-/obj/item/fluff/bird_painter/attack_self(mob/user)
+/obj/item/fluff/bird_painter/attack_self__legacy__attackchain(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.s_tone = -115
@@ -194,7 +194,7 @@
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -255,7 +255,7 @@
 	item_state = "dogwhistle"
 	force = 2
 
-/obj/item/fluff/dogwhistle/attack_self(mob/user)
+/obj/item/fluff/dogwhistle/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
 	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
@@ -300,7 +300,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/wingler_comb/attack_self(mob/user)
+/obj/item/fluff/wingler_comb/attack_self__legacy__attackchain(mob/user)
 	if(used)
 		return
 
@@ -319,7 +319,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_coat_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -351,7 +351,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/fei_gasmask_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -379,7 +379,7 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_baton_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -407,7 +407,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/cardgage_helmet_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -430,7 +430,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/merchant_sallet_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -474,7 +474,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/k3_webbing_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -498,7 +498,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 /*
-/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/pyro_wintersec_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -552,7 +552,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 /*
-/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/sylus_conversion_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -707,7 +707,7 @@
 	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
 	var/state = "Soldier Up"
 
-/obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
+/obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self__legacy__attackchain(mob/user)
 	if(!user.incapacitated() && (world.time > cooldown + toggle_cooldown) && Adjacent(user))
 		var/list/options = list()
 		options["Soldier Up"] = list(
@@ -778,7 +778,7 @@
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/jacket/miljacket/patch/attack_self(mob/user)
+/obj/item/clothing/suit/jacket/miljacket/patch/attack_self__legacy__attackchain(mob/user)
 	var/list/options = list()
 	options["purple"] = "shazjacket_purple"
 	options["purple light"] = "shazjacket_purple_light"
@@ -1067,7 +1067,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/pinapplehairgel/attack_self(mob/user)
+/obj/item/fluff/pinapplehairgel/attack_self__legacy__attackchain(mob/user)
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isslimeperson(target))
 		return
@@ -1502,7 +1502,7 @@
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self__legacy__attackchain(mob/user)
 	var/list/options = list()
 	options["Classic"] = "classic_witch"
 	options["Good"] = "good_witch"
@@ -1539,7 +1539,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/zekemirror/attack_self(mob/user)
+/obj/item/fluff/zekemirror/attack_self__legacy__attackchain(mob/user)
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isskrell(target)) // It'd be strange to see other races with head tendrils.
 		return
@@ -1597,7 +1597,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/fluff/lighty_plasman_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
 		return
 	var/mob/living/carbon/human/H = user
@@ -1693,7 +1693,7 @@
 	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Sagrotter: Xann Zxiax
-/obj/item/clothing/accessory/medal/fluff/XannZxiax
+/obj/item/clothing/accessory/medal/fluff/xann_zxiax
 	name = "Zxiax Garnet"
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1777,7 +1777,7 @@
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
 	return
 
-/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/ring/fluff/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	return
 
 

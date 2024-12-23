@@ -106,7 +106,7 @@
 	return
 
 
-/obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
+/obj/item/paper_bin/attackby__legacy__attackchain(obj/item/paper/i as obj, mob/user as mob, params)
 	if(istype(i))
 		user.drop_item()
 		i.loc = src

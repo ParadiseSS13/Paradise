@@ -174,7 +174,7 @@
 	H.clear_restraints()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
+/obj/machinery/abductor/experiment/attackby__legacy__attackchain(obj/item/G, mob/user)
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/grabbed = G
 		if(!ishuman(grabbed.affecting))

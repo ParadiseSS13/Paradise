@@ -22,12 +22,12 @@
 	apply_label()
 
 /datum/component/label/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(on_attack_by))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(on_update_name))
 
 /datum/component/label/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
+	UnregisterSignal(parent, list(COMSIG_ATTACK_BY, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
 
 /**
 	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
@@ -53,7 +53,7 @@
 	* user: The mob who is wielding the attacking object.
 */
 /datum/component/label/proc/on_attack_by(datum/source, obj/item/attacker, mob/user)
-	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
 	// The hand labeler should be off in order to remove a label.
 	var/obj/item/hand_labeler/labeler = attacker

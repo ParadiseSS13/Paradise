@@ -75,7 +75,7 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
-/obj/effect/rune/attackby(obj/I, mob/user, params)
+/obj/effect/rune/attackby__legacy__attackchain(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(!can_dagger_erase_rune(user))
 			return
@@ -592,7 +592,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
-		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
+		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic'> [SOULS_TO_REVIVE]</span>"
 
 /obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
 	target.visible_message("<span class='warning'>Dark magic begins to surround [target], regenerating their body.</span>")
@@ -1098,7 +1098,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/attackby__legacy__attackchain(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")

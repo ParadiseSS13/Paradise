@@ -309,6 +309,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		ITEM_SLOT_JUMPSUIT,\
 		ITEM_SLOT_OUTER_SUIT,\
 		ITEM_SLOT_MASK,\
+		ITEM_SLOT_NECK,\
 		ITEM_SLOT_HEAD,\
 		ITEM_SLOT_SHOES,\
 		ITEM_SLOT_GLOVES,\
@@ -389,6 +390,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(ITEM_SLOT_NECK)
+				if(!(slot_flags & ITEM_SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -691,12 +701,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(hand)
 		var/obj/item/W = l_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_r_hand()
 	return
 

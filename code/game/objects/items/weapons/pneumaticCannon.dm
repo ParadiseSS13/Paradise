@@ -75,7 +75,7 @@
 		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
+/obj/item/pneumatic_cannon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/tank/internals) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
@@ -92,7 +92,7 @@
 	remove_tank(user)
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, flag, params)
 	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/rack)) //So you can store it on racks

@@ -111,7 +111,7 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
-/obj/item/food/twimsts/attack_self(mob/user)
+/obj/item/food/twimsts/attack_self__legacy__attackchain(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	L.create_reagents(100)
 	reagents.copy_to(L, reagents.total_volume)

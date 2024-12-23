@@ -83,7 +83,7 @@
 /turf/simulated/floor/grass/get_broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/grass/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))

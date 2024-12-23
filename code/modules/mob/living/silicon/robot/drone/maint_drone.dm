@@ -35,7 +35,7 @@
 	var/obj/item/matter_decompiler/decompiler = null
 
 	// What objects can drones bump into
-	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
+	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/delivery_chute,
 													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
 
 	var/reboot_cooldown = 1 MINUTES
@@ -155,7 +155,7 @@
 	. += "<span class='notice'><i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i></span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/drone/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
 		return
@@ -359,7 +359,7 @@
 */
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
+/mob/living/silicon/robot/drone/Bump(atom/movable/AM)
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 

@@ -64,7 +64,7 @@
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	wall_type = /obj/effect/forcefield/mime/advanced
+	wall_type = /obj/effect/forcefield/mime
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
 	base_cooldown = 60 SECONDS
@@ -134,7 +134,7 @@
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
 	icon_state = "bookmime"
 
-/obj/item/spellbook/oneuse/mime/attack_self(mob/user)
+/obj/item/spellbook/oneuse/mime/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)

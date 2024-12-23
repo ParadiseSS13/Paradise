@@ -44,7 +44,7 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
+/obj/structure/filingcabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(insert(O, user))
 		return
 	if(user.a_intent != INTENT_HARM)

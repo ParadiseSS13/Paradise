@@ -52,12 +52,12 @@
 		reagents.add_reagent("water", max_water)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/extinguisher/attack_self(mob/user as mob)
+/obj/item/extinguisher/attack_self__legacy__attackchain(mob/user as mob)
 	safety = !safety
 	icon_state = "[base_icon_state][!safety]"
 	to_chat(user, "<span class='notice'>You [safety ? "enable" : "disable"] [src]'s safety.</span>")
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
+/obj/item/extinguisher/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
 		refilling = TRUE
 		return FALSE
@@ -85,7 +85,7 @@
 	safety = old_safety
 	return TRUE
 
-/obj/item/extinguisher/afterattack(atom/target, mob/user, flag)
+/obj/item/extinguisher/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	. = ..()
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away

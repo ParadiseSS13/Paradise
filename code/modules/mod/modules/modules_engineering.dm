@@ -188,7 +188,7 @@
 	var/metal_synthesis_charge = 5
 	COOLDOWN_DECLARE(nanofrost_cooldown)
 
-/obj/item/extinguisher/mini/mod/attack_self(mob/user)
+/obj/item/extinguisher/mini/mod/attack_self__legacy__attackchain(mob/user)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
@@ -220,7 +220,7 @@
 		if(METAL_FOAM)
 			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
 
-/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/mod/afterattack__legacy__attackchain(atom/target, mob/user)
 	var/is_adjacent = user.Adjacent(target)
 	if(is_adjacent && AttemptRefill(target, user))
 		return

@@ -281,7 +281,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
-	R.add_language("Neo-Russkiya", 0)
+	R.add_language("Zvezhan", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -346,7 +346,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/extinguisher/mini,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/dropper,
@@ -415,7 +415,7 @@
 		process_chamber()
 
 //Cannot manually remove syringes
-/obj/item/gun/syringemalf/attack_self(mob/living/user)
+/obj/item/gun/syringemalf/attack_self__legacy__attackchain(mob/living/user)
 	return
 
 //Load syringe into the chamber
@@ -601,7 +601,7 @@
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
 	force = 20
 
-/obj/item/malfbroom/attack(mob/target, mob/user)
+/obj/item/malfbroom/attack__legacy__attackchain(mob/target, mob/user)
 	if(!ishuman(target))
 		return ..()
 	var/mob/living/carbon/human/H = target
@@ -635,12 +635,12 @@
 		/obj/item/reagent_containers/drinks/shaker,
 		/obj/item/gripper/service
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
+	emag_override_modules = list(/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
 	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
-		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+		/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 		/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	)
 
@@ -663,11 +663,12 @@
 	return ..()
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
-/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer
 	name = "Mickey Finn's Special Brew"
 	list_reagents = list("beer2" = 50)
+	is_glass = FALSE // Smashing a borgs sole beer bottle would be sad
 
-/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer/cyborg_recharge(coeff, emagged)
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer/cyborg_recharge(coeff, emagged)
 	if(emagged)
 		reagents.check_and_add("beer2", volume, 5)
 
@@ -687,7 +688,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
-	R.add_language("Neo-Russkiya", 1)
+	R.add_language("Zvezhan", 1)
 	R.add_language("Tkachi", 1)
 
 // Mining
@@ -847,7 +848,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/pinpointer/operative,
@@ -1110,7 +1111,7 @@
 	max_amount = 25
 
 //Energy stack for landmines
-/datum/robot_storage/energy/janitor/landmine
+/datum/robot_storage/energy/jani_landmine
 	name = "Landmine Synthesizer"
 	statpanel_name = "Landmines"
 	max_amount = 4

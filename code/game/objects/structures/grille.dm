@@ -90,7 +90,7 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
+/obj/structure/grille/CanPass(atom/movable/mover, border_dir)
 	. = !density
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
@@ -102,7 +102,7 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSGRILLE
 
-/obj/structure/grille/attackby(obj/item/I, mob/user, params)
+/obj/structure/grille/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && broken)

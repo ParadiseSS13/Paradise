@@ -38,7 +38,7 @@
 	distill_reagent = "sbiten"
 
 
-/obj/item/food/grown/potato/attackby(obj/item/W, mob/user, params)
+/obj/item/food/grown/potato/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
 		var/obj/item/food/grown/potato/wedges/Wedges = new /obj/item/food/grown/potato/wedges

@@ -277,7 +277,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/fedora/attack_self(mob/user)
+/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
@@ -488,7 +488,7 @@
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/attack_self()
+/obj/item/clothing/head/griffin/attack_self__legacy__attackchain()
 	caw()
 
 /obj/item/clothing/head/griffin/proc/caw()

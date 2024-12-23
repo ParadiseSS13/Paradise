@@ -14,8 +14,8 @@
 	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
-/obj/item/toy/prizeball/attack_self(mob/user as mob)
-	if(opening)
+/obj/item/toy/prizeball/activate_self(mob/user)
+	if(..() || opening)
 		return
 	opening = 1
 	playsound(loc, 'sound/items/bubblewrap.ogg', 30, TRUE)
@@ -69,7 +69,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/attack_self(mob/user as mob)
+/obj/item/stack/tickets/attack_self__legacy__attackchain(mob/user as mob)
 	return
 
 /obj/item/stack/tickets/update_icon_state()

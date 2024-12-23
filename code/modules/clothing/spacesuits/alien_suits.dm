@@ -214,7 +214,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 	multiple_icons = FALSE
 
-/obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/vox/attack_self__legacy__attackchain(mob/user)
 	if(magpulse)
 		flags &= ~NODROP
 		to_chat(user, "You relax your deathgrip on the flooring.")
