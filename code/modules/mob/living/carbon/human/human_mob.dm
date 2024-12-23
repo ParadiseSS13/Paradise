@@ -2071,6 +2071,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
 	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
 
+
+/mob/living/carbon/human/plushify(plushie_override, curse_time)
+	. = ..(dna.species.plushie_type, curse_time)
+
 /*
  * Invokes a hallucination on the mob. Hallucination must be a path or a string of a path
  */
@@ -2081,3 +2085,4 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return
 		hallucination_to_make = string_path
 	new hallucination_to_make(get_turf(src), src)
+
