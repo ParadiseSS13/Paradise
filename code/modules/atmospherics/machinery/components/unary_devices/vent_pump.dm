@@ -1,5 +1,9 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2
 #define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
@@ -143,9 +147,10 @@
 	var/environment_pressure = environment.return_pressure()
 	if(vent_pump.releasing) //internal -> external
 		var/pressure_delta = 10000
-		if(vent_pump.pressure_checks & 1)
+		if(vent_pump.pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+			// Only checks difference between set pressure and environment pressure
 			pressure_delta = min(pressure_delta, (vent_pump.external_pressure_bound - environment_pressure))
-		if(vent_pump.pressure_checks & 2)
+		if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (vent_pump.air_contents.return_pressure() - vent_pump.internal_pressure_bound))
 
 		if(pressure_delta > 0.5 && vent_pump.air_contents.temperature() > 0)
@@ -156,9 +161,9 @@
 
 	else //external -> internal
 		var/pressure_delta = 10000
-		if(vent_pump.pressure_checks & 1)
+		if(vent_pump.pressure_checks == ONLY_CHECK_EXT_PRESSURE)
 			pressure_delta = min(pressure_delta, (environment_pressure - vent_pump.external_pressure_bound))
-		if(vent_pump.pressure_checks & 2)
+		if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (vent_pump.internal_pressure_bound - vent_pump.air_contents.return_pressure()))
 
 		if(pressure_delta > 0.5 && environment.temperature() > 0)
