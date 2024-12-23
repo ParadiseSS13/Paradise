@@ -13,7 +13,7 @@
 	. = ..()
 	initialize_directions = dir
 	air_contents = new
-	air_contents.volume = 70
+	air_contents.volume = 200
 
 /obj/machinery/atmospherics/unary/Destroy()
 	if(node)

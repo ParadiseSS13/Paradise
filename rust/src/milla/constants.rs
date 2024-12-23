@@ -176,7 +176,7 @@ pub(crate) const DIFFUSION_SPEED: f32 = 0.2;
 
 /// Controls how quickly the wind moves air.
 /// (0.0, f32::INFINITY]
-pub(crate) const WIND_STRENGTH: f32 = 5.0;
+pub(crate) const WIND_STRENGTH: f32 = 8.0;
 
 /// Controls how fast the wind changes towards what the current pressur gradient wants.
 /// (0.0, 1.0], a value of 0.25 means getting 25% closer every tick.

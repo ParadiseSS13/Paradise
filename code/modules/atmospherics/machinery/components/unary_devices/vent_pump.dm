@@ -18,7 +18,7 @@
 	var/area/initial_loc
 
 	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
-	var/max_transfer_joules = 35000 // in J=kPa*L, default = 500 kPa * 70L
+	var/max_transfer_joules = 200 /*kPa*/ * 2 * ONE_ATMOSPHERE
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
