@@ -88,18 +88,25 @@
 	var/mob/living/spawner
 	invisibility = 101
 
+/obj/effect/snare/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/snare/singularity_act()
 	return
 
 /obj/effect/snare/singularity_pull()
 	return
 
-/obj/effect/snare/Crossed(AM as mob|obj, oldloc)
-	if(isliving(AM))
+/obj/effect/snare/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
-			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+			to_chat(spawner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
 			if(isguardian(spawner))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+					to_chat(G.summoner, "<span class='danger'>[entered] has crossed your surveillance trap at [get_area(snare_loc)].</span>")

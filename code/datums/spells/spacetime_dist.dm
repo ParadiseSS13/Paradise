@@ -94,6 +94,13 @@
 /obj/effect/cross_action/singularity_pull()
 	return
 
+/obj/effect/cross_action/spacetime_dist/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
@@ -106,9 +113,9 @@
 	AM.forceMove(get_turf(src))
 	cant_teleport = FALSE
 
-/obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
+/obj/effect/cross_action/spacetime_dist/proc/on_atom_entered(atom/source, atom/movable/entered, turf/old_loc)
 	if(!cant_teleport)
-		walk_link(AM)
+		walk_link(entered)
 
 /obj/effect/cross_action/spacetime_dist/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(user.drop_item(W))
@@ -123,4 +130,5 @@
 /obj/effect/cross_action/spacetime_dist/Destroy()
 	cant_teleport = TRUE
 	linked_dist = null
+	RemoveElement(/datum/element/connect_loc)
 	return ..()
