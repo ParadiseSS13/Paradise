@@ -847,7 +847,7 @@
 				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
-					"checks", 1 = external, 2 - internal
+					"checks",
 					"co2_scrub",
 					"tox_scrub",
 					"n2o_scrub",
