@@ -56,7 +56,17 @@
 
 /datum/game_test/New()
 	if(!length(available_turfs))
+		load_testing_area()
 		available_turfs = get_test_turfs()
+
+/datum/game_test/proc/load_testing_area()
+	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
+	if(!length(testing_levels))
+		Fail("Could not find appropriate z-level for spawning test areas")
+	var/testing_z_level = pick(testing_levels)
+	var/datum/map_template/generic_test_area = GLOB.map_templates["test_generic.dmm"]
+	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
+		Fail("Could not place generic testing area on z-level [testing_z_level]")
 
 /datum/game_test/Destroy()
 	QDEL_LIST_CONTENTS(allocated)
