@@ -566,8 +566,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	. += ""
 	. += "Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."
 
-/obj/item/stack/sheet/runed_metal/New()
-// /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge)
+/obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge)
 	. = ..()
 	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))

@@ -31,7 +31,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
 	if(paramcolor)
-		log_chat_debug("initialized with mapload=[mapload] length=[length] paramcolor=[paramcolor]")
 		color = paramcolor
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
