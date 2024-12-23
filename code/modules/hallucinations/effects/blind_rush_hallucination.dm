@@ -60,8 +60,9 @@
 
 /obj/effect/hallucination/no_delete/blind_rusher/proc/rush()
 	if(get_dist(src, target) > min_distance)
-		var/turf/step = get_step(src, get_dir(src, target))
-		forceMove(step) //forceMove to go through walls and other dense turfs.
+		var/direction = get_dir(src, target) //making sure the hallucination is facing the player correctly.
+		forceMove(get_step(src, direction)) //forceMove to go through walls and other dense turfs.
+		dir = direction
 	else
 		target.playsound_local(get_turf(src), istext("bodyfall") ? get_sfx("bodyfall") : "bodyfall", 25, TRUE)
 		qdel(src)
