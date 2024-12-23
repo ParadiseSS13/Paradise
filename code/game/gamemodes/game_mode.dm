@@ -81,6 +81,8 @@
 	var/list/datum/mind/abductors = list()
 	/// A list which contains the minds of all abductees
 	var/list/datum/mind/abductees = list()
+	/// A list which contains the all the abductor teams
+	var/list/datum/team/abductor/actual_abductor_teams = list()
 
 	/// A list of all the nuclear operatives' minds
 	var/list/datum/mind/syndicates = list()
