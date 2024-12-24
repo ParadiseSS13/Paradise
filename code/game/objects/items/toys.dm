@@ -1181,7 +1181,7 @@
 
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
-	desc = "A freindly plasma-being in plush form. WARNING: KEEP AWAY FROM OPEN FLAME!"
+	desc = "A friendly plasma-being in plush form. WARNING: KEEP AWAY FROM OPEN FLAME!"
 	icon_state = "plushie_plasma"
 	rare_hug_sound = 'sound/voice/plas_rattle.ogg'
 	rare_hug_word = "Rattle!"

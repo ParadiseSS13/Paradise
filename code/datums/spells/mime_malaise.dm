@@ -30,6 +30,7 @@
 
 	var/mob/living/carbon/human/H = target
 	H.mimetouched()
+	handle_delete(user)
 
 /mob/living/carbon/human/proc/mimetouched()
 	Weaken(14 SECONDS)
