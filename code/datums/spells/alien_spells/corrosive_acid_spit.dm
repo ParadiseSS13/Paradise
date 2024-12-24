@@ -11,26 +11,26 @@
 	desc = "A fistfull of death."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
-		..()
 		return
-	if(!proximity || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+	if(!proximity_flag || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
-	if(!plasma_check(200, user))
-		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+	var/mob/living/carbon/C = user
+	if(!plasma_check(200, C))
+		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	var/acid_damage_modifier = 100
 	if(isliving(target))
 		acid_damage_modifier = 50
 	if(target.acid_act(2 * acid_damage_modifier, acid_damage_modifier))
-		visible_message("<span class='alertalien'>[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
-		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
-		user.add_plasma(-200)
+		visible_message("<span class='alertalien'>[C] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+		add_attack_logs(C, target, "Applied corrosive acid") // Want this logged
+		C.add_plasma(-200)
 	else
-		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
-	..()
+		to_chat(C, "<span class='noticealien'>You cannot dissolve this object.</span>")
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
@@ -45,31 +45,30 @@
 	desc = "The air warps around your hand, somehow the heat doesn't hurt."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/burning_touch/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/burning_touch/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You cool down your boiled aid.</span>")
-		..()
 		return
-	if(!proximity || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(!plasma_check(100, user))
-		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+	var/mob/living/carbon/C = user
+	if(!plasma_check(100, C))
+		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	if(isliving(target))
 		var/mob/living/guy_to_burn = target
-		add_attack_logs(user, target, "Applied blazing touch") // Want this logged
+		add_attack_logs(C, target, "Applied blazing touch") // Want this logged
 		guy_to_burn.adjustFireLoss(60)
 		guy_to_burn.adjust_fire_stacks(3)
 		guy_to_burn.IgniteMob()
-		user.visible_message("<span class='alertalien'>[user] touches [target] and a fireball erupts on contact!</span>")
-		user.add_plasma(-100)
-		..()
+		C.visible_message("<span class='alertalien'>[C] touches [target] and a fireball erupts on contact!</span>")
+		C.add_plasma(-100)
 	else
 		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
 		for(var/resin_type in resin_objects)
 			if(!istype(target, resin_type))
 				continue
-			user.visible_message("<span class='alertalien'>[user] touches [target] and burns right through it!</span>")
-			user.add_plasma(-100)
+			C.visible_message("<span class='alertalien'>[C] touches [target] and burns right through it!</span>")
+			C.add_plasma(-100)
 			qdel(target)
-			..()

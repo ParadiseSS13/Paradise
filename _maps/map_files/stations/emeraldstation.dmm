@@ -72263,7 +72263,7 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/machinery/camera{
-	c_tag = "Atsmospherics Hardsuit Storage West";
+	c_tag = "Atmospherics Hardsuit Storage West";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -89384,7 +89384,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/alarm/directional/north,
 /obj/machinery/camera{
-	c_tag = "Atsmospherics Hardsuit Storage North East"
+	c_tag = "Atmospherics Hardsuit Storage North East"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -92375,7 +92375,7 @@
 /area/station/hallway/primary/starboard)
 "sjz" = (
 /obj/machinery/camera{
-	c_tag = "AI Satellite ExteriorEast";
+	c_tag = "AI Satellite Exterior East";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -113546,7 +113546,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/t_scanner,
 /obj/machinery/camera{
-	c_tag = "Atsmospherics Control ROom";
+	c_tag = "Atmospherics Control Room";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

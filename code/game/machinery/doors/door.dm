@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE
@@ -306,7 +306,7 @@
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
-		return
+		return FALSE
 	flick("door_spark", src)
 	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

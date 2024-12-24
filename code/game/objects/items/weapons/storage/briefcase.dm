@@ -61,7 +61,7 @@
 
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
-		I.forceMove(null) //null space here we go - to stop it showing up in the briefcase
+		I.moveToNullspace() // to stop it showing up in the briefcase
 		to_chat(user, "<span class='notice'>You place [I] into the false bottom of the briefcase.</span>")
 	else
 		return ..()
