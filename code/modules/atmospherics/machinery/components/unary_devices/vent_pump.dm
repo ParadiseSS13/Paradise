@@ -1,10 +1,5 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
-/// Don't go over the external pressure
-#define ONLY_CHECK_EXT_PRESSURE 1
-/// Only release until we reach this pressure
-#define ONLY_CHECK_INT_PRESSURE 2
-#define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
 	name = "air vent"
@@ -254,4 +249,3 @@
 
 #undef EXTERNAL_PRESSURE_BOUND
 #undef INTERNAL_PRESSURE_BOUND
-#undef PRESSURE_CHECKS

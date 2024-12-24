@@ -169,3 +169,9 @@
 #define ENVIRONMENT_TEMPERATE "temperate"
 /// Cold environment: Normal atmosphere, -93 C.
 #define ENVIRONMENT_COLD "cold"
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2
