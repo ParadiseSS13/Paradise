@@ -7,8 +7,6 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
  */
 
 /obj/effect/hallucination/no_delete/backrooms
-	hallucination_icon = 'icons/effects/effects.dmi'
-	hallucination_icon_state = "anom"
 
 /datum/hallucination_manager/backrooms
     var/mob/living/carbon/human/human_owner
