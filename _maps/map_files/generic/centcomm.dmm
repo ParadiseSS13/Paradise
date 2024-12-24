@@ -4984,11 +4984,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
-"qQ" = (
-/turf/simulated/floor/backrooms_carpet,
-/turf/simulated/floor/backrooms_carpet,
-/turf/simulated/floor/backrooms_carpet,
-/area/backrooms)
 "qR" = (
 /turf/simulated/wall/indestructible,
 /area/ghost_bar)
@@ -13285,10 +13280,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
-"UY" = (
-/turf/simulated/floor/backrooms_carpet,
-/turf/simulated/floor/backrooms_carpet,
-/area/backrooms)
 "UZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -55136,12 +55127,12 @@ sd
 oy
 tI
 oy
-UY
+sd
 BU
-UY
 sd
 sd
-UY
+sd
+sd
 sd
 BU
 sd
@@ -55395,12 +55386,12 @@ sd
 oy
 sd
 oy
-UY
-UY
-UY
-qQ
-UY
-UY
+sd
+sd
+sd
+sd
+sd
+sd
 sd
 oy
 oy
@@ -55655,9 +55646,9 @@ oy
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 oy
 sd
@@ -55912,9 +55903,9 @@ oy
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 sd
 sd
@@ -56169,9 +56160,9 @@ oy
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 sd
 sd
@@ -56426,9 +56417,9 @@ oy
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 oy
 sd
@@ -56683,9 +56674,9 @@ sd
 sd
 sd
 tI
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 oy
 sd
@@ -56940,9 +56931,9 @@ sd
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 oy
 sd
@@ -57197,9 +57188,9 @@ sd
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 gZ
 oy
 sd
@@ -57454,9 +57445,9 @@ sd
 sd
 sd
 sd
-UY
-UY
-UY
+sd
+sd
+sd
 sd
 oy
 sd
