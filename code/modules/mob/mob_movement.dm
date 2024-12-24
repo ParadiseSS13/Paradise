@@ -91,9 +91,6 @@
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
-	if(mob.share_control) // we're sharing control with something, movement is duplicated to it
-		mob.relaymove(mob.share_control, direct)
-
 	if(isAI(mob))
 		if(istype(mob.loc, /obj/item/aicard))
 			var/obj/O = mob.loc
