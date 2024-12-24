@@ -121,14 +121,16 @@
 		return
 	last_high_pressure_movement_time = SSair.times_fired
 
-	air_push(direction)
+	air_push(direction, (force - force_needed) / force_needed)
 
-/atom/movable/proc/air_push(direction)
+/atom/movable/proc/air_push(direction, strength)
 	step(src, direction)
 
-/mob/living/air_push(direction)
+/mob/living/air_push(direction, strength)
+	if(HAS_TRAIT(src, TRAIT_MAGPULSE))
+		return
 	apply_status_effect(STATUS_EFFECT_UNBALANCED)
-	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction))
+	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction), min(10, strength * 10))
 	if(has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
 		return
 	if(!pulling)
