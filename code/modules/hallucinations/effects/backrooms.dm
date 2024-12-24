@@ -58,15 +58,12 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 	original.dna.transfer_identity(target)
 
 	var/obj/item/organ/external/head/original_head_organ = original.get_organ("head")
-	var/obj/item/organ/internal/eyes/original_eyes_organ = original.get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/external/head/target_head_organ = target.get_organ("head")
-	var/obj/item/organ/internal/eyes/target_eyes_organ = target.get_int_organ(/obj/item/organ/internal/eyes)
 
 	target_head_organ.facial_colour = original_head_organ.facial_colour
 	target_head_organ.sec_facial_colour = original_head_organ.sec_facial_colour
 	target_head_organ.hair_colour = original_head_organ.hair_colour
 	target_head_organ.sec_hair_colour = original_head_organ.sec_hair_colour
-	target_eyes_organ.eye_color = original_eyes_organ.eye_color
 	target.s_tone = original.s_tone
 	target.skin_colour = original.skin_colour
 	target_head_organ.h_style = original_head_organ.h_style

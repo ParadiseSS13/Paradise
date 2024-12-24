@@ -84,9 +84,9 @@
 				if(prob(getBruteLoss() - 50))
 					gib()
 	else
-		if(ishuman(user) && client)
+		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
-			return user.client.Move(get_step(human_user, direction))
+			return step_towards(human_user, get_step(human_user, direction))
 
 #undef STOMACH_ATTACK_DELAY
 
