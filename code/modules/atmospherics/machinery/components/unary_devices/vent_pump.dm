@@ -182,7 +182,7 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/unary/vent_pump/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper))
 		if(!welded)
 			if(open)

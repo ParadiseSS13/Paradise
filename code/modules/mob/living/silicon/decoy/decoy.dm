@@ -6,7 +6,7 @@
 	mobility_flags = 0
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
-/mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
+/mob/living/silicon/decoy/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/aicard))
 		to_chat(user, "<span class='warning'>You cannot find an intellicard slot on [src].</span>")
 		return TRUE

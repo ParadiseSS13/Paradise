@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
+/obj/effect/meteor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)

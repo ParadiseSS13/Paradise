@@ -280,7 +280,7 @@
 
 	return 2
 
-/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return TRUE

@@ -67,7 +67,7 @@
 		var/datum/action/A = X
 		A.UpdateButtons()
 
-/obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
+/obj/item/clothing/glasses/meson/engine/attack_self__legacy__attackchain(mob/user)
 	toggle_mode(user, TRUE)
 
 /obj/item/clothing/glasses/meson/engine/process()

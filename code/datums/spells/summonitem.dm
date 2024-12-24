@@ -68,7 +68,7 @@
 						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
 					visible_item = FALSE
 					break
-				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden/implant)) //The implant should be left alone
+				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden_implant)) //The implant should be left alone
 					var/obj/item/storage/S = item_to_retrieve.loc
 					for(var/mob/M in S.mobs_viewing)
 						to_chat(M, "<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")

@@ -19,7 +19,7 @@
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
 
-/obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/mime_malaise/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

@@ -42,7 +42,7 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user)
+/obj/item/reagent_containers/drinks/bottle/attack__legacy__attackchain(mob/living/target, mob/living/user)
 
 	if(!target)
 		return
@@ -277,6 +277,20 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
+/obj/item/reagent_containers/drinks/bottle/beer
+	name = "space beer"
+	desc = "Contains only water, malt and hops."
+	icon_state = "beer"
+	volume = 50
+	list_reagents = list("beer" = 50)
+
+/obj/item/reagent_containers/drinks/bottle/ale
+	name = "Magm-Ale"
+	desc = "A true dorf's drink of choice."
+	icon_state = "alebottle"
+	volume = 50
+	list_reagents = list("ale" = 50)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/drinks/bottle/orangejuice
@@ -378,7 +392,7 @@
 		hotspot.temperature = 1000
 		hotspot.recolor()
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/drinks/bottle/molotov/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.get_heat() && !active)
 		active = TRUE
 		var/turf/bombturf = get_turf(src)
@@ -402,7 +416,7 @@
 						A.fire_act()
 					qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/bottle/molotov/attack_self__legacy__attackchain(mob/user)
 	if(active)
 		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")

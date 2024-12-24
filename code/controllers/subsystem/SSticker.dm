@@ -299,11 +299,11 @@ SUBSYSTEM_DEF(ticker)
 			if(tripai.name == "tripai")
 				if(locate(/mob/living) in get_turf(tripai))
 					continue
-				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
+				GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
+		GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -363,7 +363,7 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	// Run map tests first in case unit tests futz with map state
 	GLOB.test_runner.RunMap()
 	GLOB.test_runner.Run()

@@ -64,7 +64,7 @@
 	else
 		icon_state = "bodyscanner-open"
 
-/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
+/obj/machinery/bodyscanner/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)

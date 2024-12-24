@@ -10,7 +10,7 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
+/obj/item/aicard/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -45,7 +45,7 @@
 		else
 			. += "ai"
 
-/obj/item/aicard/attack_self(mob/user)
+/obj/item/aicard/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/aicard/ui_state(mob/user)

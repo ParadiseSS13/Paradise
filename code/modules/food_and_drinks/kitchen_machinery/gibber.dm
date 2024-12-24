@@ -45,7 +45,7 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message("<span class='danger'><b>[user] climbs into [src] and turns it on!</b></span>")
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -93,7 +93,7 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
+/obj/machinery/gibber/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/grab))
 		var/obj/item/grab/G = P
 		if(G.state < 2)

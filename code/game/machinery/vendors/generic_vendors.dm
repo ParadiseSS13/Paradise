@@ -51,8 +51,8 @@
 					/obj/item/reagent_containers/drinks/bag/goonbag = 3,
 					/obj/item/reagent_containers/drinks/bottle/cognac = 5,
 					/obj/item/reagent_containers/drinks/bottle/kahlua = 5,
-					/obj/item/reagent_containers/drinks/cans/beer = 6,
-					/obj/item/reagent_containers/drinks/cans/ale = 6,
+					/obj/item/reagent_containers/drinks/bottle/beer = 6,
+					/obj/item/reagent_containers/drinks/bottle/ale = 6,
 					/obj/item/reagent_containers/drinks/cans/synthanol = 15,
 					/obj/item/reagent_containers/drinks/bottle/orangejuice = 4,
 					/obj/item/reagent_containers/drinks/bottle/tomatojuice = 4,
@@ -655,7 +655,7 @@
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/costume/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,
-					/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 1,
+					/obj/item/clothing/under/misc/gimmick_captain_suit = 1,
 					/obj/item/clothing/head/flatcap = 1,
 					/obj/item/clothing/suit/storage/labcoat/mad = 1,
 					/obj/item/clothing/glasses/gglasses = 1,
@@ -773,7 +773,7 @@
 				/obj/item/clothing/head/chicken = 50,
 				/obj/item/clothing/under/costume/gladiator = 100,
 				/obj/item/clothing/head/helmet/gladiator = 50,
-				/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 100,
+				/obj/item/clothing/under/misc/gimmick_captain_suit = 100,
 				/obj/item/clothing/head/flatcap = 30,
 				/obj/item/clothing/suit/storage/labcoat/mad = 75,
 				/obj/item/clothing/glasses/gglasses = 20,
@@ -973,6 +973,7 @@
 					/obj/item/food/spacetwinkie = 6,
 					/obj/item/food/cheesiehonkers = 6,
 					/obj/item/food/tastybread = 6,
+					/obj/item/food/deluxe_chocolate_bar = 6,
 					/obj/item/food/stroopwafel = 2)
 
 	contraband = list(/obj/item/food/syndicake = 6)
@@ -987,6 +988,7 @@
 				/obj/item/food/spacetwinkie = 64,
 				/obj/item/food/cheesiehonkers = 64,
 				/obj/item/food/tastybread = 80,
+				/obj/item/food/deluxe_chocolate_bar = 100,
 				/obj/item/food/stroopwafel = 100,
 				/obj/item/food/syndicake = 175) //syndicakes are genuinely kind of powerful
 
@@ -1089,7 +1091,7 @@
 					/obj/item/camera_film = 6,
 					/obj/item/storage/photo_album = 2,
 					/obj/item/stack/wrapping_paper = 4,
-					/obj/item/stack/packageWrap = 4,
+					/obj/item/stack/package_wrap = 4,
 					/obj/item/c_tube = 10,
 					/obj/item/hand_labeler = 4,
 					/obj/item/stack/tape_roll = 5,

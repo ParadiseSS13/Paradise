@@ -37,7 +37,7 @@
 	else
 		. += "<span class='notice'>You can hijack the latent functions of this organ by using a Hemostat on it.</span>"
 
-/obj/item/organ/internal/alien/attackby(obj/item/hemostat/item, mob/user, params)
+/obj/item/organ/internal/alien/attackby__legacy__attackchain(obj/item/hemostat/item, mob/user, params)
 	if(istype(item))
 		if(!hijacked)
 			to_chat(user, "<span class='notice'>You slice off the control node of this organ. This organ will now be effective against aliens.</span>")

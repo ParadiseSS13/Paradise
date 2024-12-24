@@ -284,6 +284,8 @@
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id))
 		return id.rank || if_no_job
@@ -292,6 +294,8 @@
 //gets assignment from ID, PDA, Wallet, etc.
 //This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	if(!wear_id)
 		return if_no_id
 	var/obj/item/card/id/id = wear_id.GetID()
@@ -331,6 +335,8 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(id_override = FALSE)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -1111,7 +1117,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND)
+	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_NECK)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1782,9 +1788,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	// Equipment
 	equip_list.len = ITEM_SLOT_AMOUNT
-	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
-		var/obj/item/thing = get_item_by_slot(i)
-		if(thing != null)
+	for(var/i in 1 to ITEM_SLOT_AMOUNT)
+		var/obj/item/thing = get_item_by_slot(1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
+		if(!isnull(thing))
 			equip_list[i] = thing.serialize()
 
 	for(var/obj/item/bio_chip/implant in src)
@@ -1841,20 +1847,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[ITEM_SLOT_JUMPSUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_JUMPSUIT], T)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)], T)
 		equip_to_slot_if_possible(C, ITEM_SLOT_JUMPSUIT)
 
-	if(islist(equip_list[ITEM_SLOT_OUTER_SUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_OUTER_SUIT], T)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)], T)
 		equip_to_slot_if_possible(C, ITEM_SLOT_OUTER_SUIT)
 
-	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
-		if(i == ITEM_SLOT_JUMPSUIT || i == ITEM_SLOT_OUTER_SUIT)
+	for(var/i in 1 to (ITEM_SLOT_AMOUNT))
+		if(i == ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT) || i == ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT))
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
-			equip_to_slot_if_possible(C, i)
+			equip_to_slot_if_possible(C, 1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
 	update_icons()
 
 	..()
@@ -2064,3 +2070,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/check_brain_threshold(threshold_level)
 	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
 	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
+
+/*
+ * Invokes a hallucination on the mob. Hallucination must be a path or a string of a path
+ */
+/mob/living/carbon/human/proc/invoke_hallucination(hallucination_to_make)
+	var/string_path = text2path(hallucination_to_make)
+	if(!ispath(hallucination_to_make))
+		if(!string_path)
+			return
+		hallucination_to_make = string_path
+	new hallucination_to_make(get_turf(src), src)

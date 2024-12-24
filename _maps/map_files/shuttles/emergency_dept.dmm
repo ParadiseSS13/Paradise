@@ -756,7 +756,7 @@
 	layer = 2.9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "fz" = (

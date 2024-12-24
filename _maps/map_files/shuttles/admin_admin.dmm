@@ -464,7 +464,7 @@
 /obj/item/circular_saw,
 /obj/item/scalpel,
 /obj/item/retractor,
-/obj/item/FixOVein,
+/obj/item/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "by" = (

@@ -209,7 +209,7 @@
 	recruiting = FALSE
 	to_chat(user, "<span class='notice'>You have recruited <b>[target]</b> as your henchman!</span>")
 	to_chat(target, "<span class='deadsay'><b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b></span>")
-	to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes.</span>")
+	to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes.</b></span>")
 	to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts.</span>")
 	SSticker.mode.greyshirts += target.mind
 	target.set_species(/datum/species/human)

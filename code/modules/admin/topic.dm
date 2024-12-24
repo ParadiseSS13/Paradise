@@ -71,7 +71,7 @@
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-					
+
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -414,12 +414,12 @@
 			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1)
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1)
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1)
-			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1)
+			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/runtime , null, null, delmob, 1)
 			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1)
 			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1)
-			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1)
+			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/coffee , null, null, delmob, 1)
 			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1)
-			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1)
+			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/poly , null, null, delmob, 1)
 			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1)
 			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1)
 			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1)
@@ -2011,7 +2011,7 @@
 					possible_guardians -= "Random"
 					scarab.possible_guardians = list()
 					scarab.possible_guardians += typechoice
-				scarab.attack_self(H)
+				scarab.attack_self__legacy__attackchain(H)
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."
@@ -2353,7 +2353,7 @@
 		sending.sent_by = usr
 		sending.sent_at = world.time
 
-		fax.receivefax(P)
+		fax.receivefax(sending)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
@@ -3342,7 +3342,7 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locateUID(href_list["viewruntime"])
 		if(!istype(error_viewer))
 			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
 			return

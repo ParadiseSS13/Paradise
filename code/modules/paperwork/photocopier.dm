@@ -477,7 +477,7 @@
 	use_power(active_power_consumption)
 	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 
-/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+/obj/machinery/photocopier/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
 			user.drop_item()

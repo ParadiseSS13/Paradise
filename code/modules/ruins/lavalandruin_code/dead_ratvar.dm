@@ -93,7 +93,7 @@
 		return
 	default_unfasten_wrench(user, I, 10)
 
-/obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)

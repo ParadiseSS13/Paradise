@@ -28,6 +28,7 @@
 	return S
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life()
+	..()
 	switch(stage)
 		if(2)
 			if(prob(2))

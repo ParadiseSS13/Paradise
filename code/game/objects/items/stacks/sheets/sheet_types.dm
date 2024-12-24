@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("machine frame", /obj/structure/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 // MARK: PLASTEEL
 //////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
-	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("AI core", /obj/structure/ai_core, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		)),
 ))
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
@@ -572,7 +572,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 	recipes = GLOB.cult_recipes
 
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
+/obj/item/stack/sheet/runed_metal/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
@@ -611,7 +611,15 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe_list("pews", list(
+		new /datum/stack_recipe("brass pew (middle)", /obj/structure/chair/sofa/pew/clockwork, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brass pew (left)", /obj/structure/chair/sofa/pew/clockwork/left, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brass pew (right)", /obj/structure/chair/sofa/pew/clockwork/right, 5, one_per_turf = TRUE, on_floor = TRUE)
+		)),
+	new /datum/stack_recipe("pinion airlock assembly", /obj/structure/door_assembly/door_assembly_clockwork, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass storage shelf", /obj/structure/shelf/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass gun rack", /obj/structure/gunrack/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork, 2, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
 	new /datum/stack_recipe("small brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/small, 1, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
 	new /datum/stack_recipe("brass floor light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/floor, 3, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),

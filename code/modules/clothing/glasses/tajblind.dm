@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/attack_self__legacy__attackchain(mob/user)
 	toggle_veil(user, TRUE)
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)

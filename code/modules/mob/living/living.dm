@@ -71,10 +71,10 @@
 	return
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
-/mob/living/Bump(atom/A, yes)
+/mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if(buckled || !yes || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(ismob(A))
 		if(MobBump(A))
@@ -415,7 +415,7 @@
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
-		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
+		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
@@ -441,7 +441,7 @@
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
-		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
+		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
@@ -1056,9 +1056,9 @@
 		else
 			registered_z = null
 
-/mob/living/onTransitZ(old_z,new_z)
+/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 
 /mob/living/rad_act(amount)
 	. = ..()
@@ -1180,11 +1180,9 @@
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
 
-/mob/living/Crossed(atom/movable/mover)
-	if(istype(mover, /obj/singularity/energy_ball))
-		dust()
-	return ..()
-
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
+
+/mob/living/proc/sec_hud_set_ID()
+	return

@@ -198,13 +198,13 @@
 	vehicle_target = null
 	return ..()
 
-/datum/action/vehicle/scooter/skateboard/ollie
+/datum/action/vehicle/skateboard/ollie
 	name = "Ollie"
 	desc = "Get some air! Land on a table or fence to do a gnarly grind."
 	button_overlay_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/scooter/skateboard/ollie/Trigger(left_click)
+/datum/action/vehicle/skateboard/ollie/Trigger(left_click)
 	. = ..()
 	if(!.)
 		return
@@ -248,13 +248,13 @@
 	rider.pass_flags = old_pass
 	vehicle.pass_flags = old_v_pass
 
-/datum/action/vehicle/scooter/skateboard/kickflip
+/datum/action/vehicle/skateboard/kickflip
 	name = "Kickflip"
 	desc = "Kick your board up and catch it."
 	button_overlay_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/scooter/skateboard/kickflip/Trigger(left_click)
+/datum/action/vehicle/skateboard/kickflip/Trigger(left_click)
 	var/obj/tgvehicle/scooter/skateboard/board = vehicle_target
 	var/mob/living/rider = owner
 

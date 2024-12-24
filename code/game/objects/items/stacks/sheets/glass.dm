@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	recipes = GLOB.glass_recipes
 	..()
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/glass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.get_amount() < 5)
@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	recipes = GLOB.pglass_recipes
 	..()
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/plasmaglass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W

@@ -146,7 +146,7 @@
 		to_chat(usr, "  at: [e.file]:[e.line]")
 
 /proc/SDQL_parse(list/query_list)
-	var/datum/SDQL_parser/parser = new()
+	var/datum/sdql_parser/parser = new()
 	var/list/querys = list()
 	var/list/query_tree = list()
 	var/pos = 1

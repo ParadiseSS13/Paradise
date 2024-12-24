@@ -181,6 +181,12 @@ def check_istype_src(idx, line):
     if CONDITIONAL_ISTYPE_SRC.search(line):
         return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
 
+CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
+def check_camel_case_type_names(idx, line):
+    if result := CAMEL_CASE_TYPE_NAMES.search(line):
+        type_result = result.group(0)
+        return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -197,6 +203,7 @@ CODE_CHECKS = [
     check_initialize_missing_mapload,
     check_empty_list_whitespace,
     check_istype_src,
+    check_camel_case_type_names,
 ]
 
 

@@ -3,7 +3,7 @@
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
-/obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
+/obj/item/clothing/glasses/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
@@ -366,7 +366,7 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+/obj/item/clothing/glasses/sunglasses/noir/attack_self__legacy__attackchain(mob/user)
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
@@ -381,9 +381,9 @@
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
 	var/punused = FALSE
-	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
+	actions_types = list(/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self__legacy__attackchain(mob/user)
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
@@ -451,7 +451,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/attack_self(mob/user)
+/obj/item/clothing/glasses/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/welding/superior

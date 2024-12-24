@@ -108,6 +108,8 @@
 	var/list/custom_emotes = list()
 	/// Runechat color
 	var/runechat_color = "#FFFFFF"
+	/// The ringtone their PDA should start with
+	var/pda_ringtone
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -199,7 +201,8 @@
 					custom_emotes=:custom_emotes,
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
-					body_type=:body_type
+					body_type=:body_type,
+					pda_ringtone=:pda_ringtone
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -262,6 +265,7 @@
 						"custom_emotes" = json_encode(custom_emotes),
 						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
+						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -302,7 +306,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -329,7 +333,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -392,7 +396,8 @@
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
-		"cyborg_brain_type" = cyborg_brain_type
+		"cyborg_brain_type" = cyborg_brain_type,
+		"pda_ringtone" = pda_ringtone
 	))
 
 	if(!query.warn_execute())
@@ -487,6 +492,7 @@
 	height = query.item[58]
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
+	pda_ringtone = query.item[61]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -574,6 +580,7 @@
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 	runechat_color = sanitize_hexcolor(runechat_color)
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
+	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)

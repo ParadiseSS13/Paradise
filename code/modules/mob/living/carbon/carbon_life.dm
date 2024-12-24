@@ -10,6 +10,8 @@
 
 	if(stat != DEAD)
 		handle_organs()
+	else
+		handle_dead_organs()
 
 	//stuff in the stomach
 	if(LAZYLEN(stomach_contents))
@@ -204,6 +206,14 @@
 	for(var/organ_tag in internal_organ_datums)
 		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
 		datum_organ_var_name_idk.on_life()
+
+/mob/living/carbon/proc/handle_dead_organs()
+	for(var/thing in internal_organs)
+		var/obj/item/organ/internal/O = thing
+		O.dead_process()
+	for(var/organ_tag in internal_organ_datums)
+		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
+		datum_organ_var_name_idk.dead_process()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)

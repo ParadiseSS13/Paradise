@@ -20,7 +20,7 @@
 
 #define STATUS_EFFECT_SHADOW_MEND_DEVIL /datum/status_effect/shadow_mend/devil //Tarot version, hurts others over self
 
-#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocraticOath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
+#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocratic_oath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
@@ -137,6 +137,10 @@
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
+
+#define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
+
+#define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured

@@ -167,6 +167,41 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/stack/ore)
+	/// The mob currently holding the ore bag, to track moving over ore to auto-pickup.
+	var/mob/listening_to
+
+/obj/item/storage/bag/ore/Destroy()
+	. = ..()
+	listening_to = null
+
+/obj/item/storage/bag/ore/equipped(mob/user, slot, initial)
+	. = ..()
+	if(listening_to == user)
+		return
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(pickup_ores))
+	listening_to = user
+
+/obj/item/storage/bag/ore/dropped()
+	. = ..()
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+		listening_to = null
+
+/obj/item/storage/bag/ore/proc/pickup_ores(mob/living/user)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	var/turf/simulated/floor/plating/asteroid/tile = get_turf(user)
+
+	if(!istype(tile))
+		return
+
+	tile.attempt_ore_pickup(src, user)
+	// Then, if the user is dragging an ore box, empty the satchel
+	// into the box.
+	if(istype(user.pulling, /obj/structure/ore_box))
+		var/obj/structure/ore_box/box = user.pulling
+		box.attackby__legacy__attackchain(src, user)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -244,7 +279,7 @@
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/attack_self__legacy__attackchain(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
@@ -303,7 +338,7 @@
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
@@ -340,7 +375,7 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/storage/bag/tray/cyborg/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	// We cannot reach the target.
 	if(!proximity_flag)
 		return

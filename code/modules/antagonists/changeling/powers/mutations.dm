@@ -159,7 +159,7 @@
 		parent_action = null
 	return ..()
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/table))
@@ -380,10 +380,10 @@
 	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/changeling/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
 
 	..()
@@ -436,7 +436,7 @@
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
+			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			H.unEquip(src, 1)
 		qdel(src)
@@ -517,7 +517,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT | HIDESHOES
 	cold_protection = 0
 	heat_protection = 0
 	sprite_sheets = null

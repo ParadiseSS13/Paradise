@@ -391,7 +391,7 @@
 		"Tourist")
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")
+	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner", "Centcom", "Solgov", "Soviet", "Unknown")
 
 /proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval
