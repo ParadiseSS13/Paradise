@@ -32,8 +32,8 @@
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-	///Countdown to OUR DOOM.
-	var/datum/timedevent/death_timer = null
+	// The last tick this hotspot should be alive for.
+	var/death_timer = 0
 
 /obj/effect/hotspot/New()
 	..()

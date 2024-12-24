@@ -664,20 +664,21 @@
 
 /turf/simulated/proc/update_hotspot()
 	var/datum/gas_mixture/air = get_readonly_air()
-	if(air.fuel_burnt() > 0.001)
-		active_hotspot.death_timer = SSair.times_fired + 4
-	else
+	if(air.fuel_burnt() < 0.001)
 		if(isnull(active_hotspot))
 			return FALSE
 
 		// If it's old, delete it.
 		if(active_hotspot.death_timer < SSair.times_fired)
 			QDEL_NULL(active_hotspot)
-		return FALSE
+			return FALSE
+		else
+			return TRUE
 
 	if(isnull(active_hotspot))
 		active_hotspot = new(src)
 
+	active_hotspot.death_timer = SSair.times_fired + 4
 	if(air.hotspot_volume() > 0)
 		active_hotspot.temperature = air.hotspot_temperature()
 		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME

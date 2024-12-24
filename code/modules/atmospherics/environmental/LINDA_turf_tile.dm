@@ -234,6 +234,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"
+	layer = MASSIVE_OBJ_LAYER
+	blend_mode = BLEND_OVERLAY
 
 #undef INDEX_NORTH
 #undef INDEX_EAST
