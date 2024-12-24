@@ -41,7 +41,7 @@
 	if(istype(L))
 		faction += "\ref[L]"
 
-/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(check_drift = 0)
+/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/scarybat/AttackingTarget()

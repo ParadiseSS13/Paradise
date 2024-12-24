@@ -234,7 +234,7 @@
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
-/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/beam/i_beam/process()

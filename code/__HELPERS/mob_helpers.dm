@@ -336,7 +336,7 @@
 	var/user_loc = user.loc
 
 	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(GLOB.move_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/target_loc = target.loc
@@ -367,7 +367,7 @@
 				break
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && !GLOB.move_manager.processing_on(user, SSspacedrift))
 			drifting = 0
 			user_loc = user.loc
 
@@ -398,7 +398,7 @@
 	var/atom/Uloc = user.loc
 
 	var/drifting = FALSE
-	if(!allow_moving && !user.Process_Spacemove(0) && user.inertia_dir)
+	if(!allow_moving && GLOB.move_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -426,7 +426,7 @@
 		if(progress)
 			progbar.update(world.time - starttime)
 		if(!allow_moving)
-			if(drifting && !user.inertia_dir)
+			if(drifting && !GLOB.move_manager.processing_on(user, SSspacedrift))
 				drifting = FALSE
 				Uloc = user.loc
 			if(!drifting && user.loc != Uloc)

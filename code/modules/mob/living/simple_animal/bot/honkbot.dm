@@ -61,7 +61,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -266,7 +266,7 @@
 		return
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
@@ -274,7 +274,7 @@
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -358,7 +358,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)

@@ -422,7 +422,7 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /obj/effect/temp_visual/lava_warning

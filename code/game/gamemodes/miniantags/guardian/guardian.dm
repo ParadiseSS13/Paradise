@@ -185,7 +185,7 @@
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
 
 //Manifest, Recall, Communicate

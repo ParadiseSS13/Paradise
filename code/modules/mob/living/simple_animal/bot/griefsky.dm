@@ -110,7 +110,7 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "griefsky1"
-			walk_to(src,0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(find_new_target())
 				return	// see if any criminals are in range
@@ -120,7 +120,7 @@
 			icon_state = spin_icon
 			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
-				walk_to(src,0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -182,7 +182,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)

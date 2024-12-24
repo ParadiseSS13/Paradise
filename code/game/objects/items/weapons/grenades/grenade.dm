@@ -107,12 +107,11 @@
 
 /obj/item/grenade/attack_hand()
 	///We need to clear the walk_to on grabbing a moving grenade to have it not leap straight out of your hand
-	walk(src, null, null)
+	GLOB.move_manager.stop_looping(src)
 	..()
 
 /obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	return ..()
 
 /obj/item/grenade/cmag_act(mob/user)
