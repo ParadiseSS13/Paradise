@@ -563,9 +563,7 @@
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "dG" = (
 /obj/structure/cable/green{
-	d2 = 4;
-	icon_state = "1-4";
-	d1 = 1
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1965,14 +1963,10 @@
 	dir = 5
 	},
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	icon_state = "1-2"
 	},
 /obj/structure/cable/green{
-	d2 = 4;
-	icon_state = "1-4";
-	d1 = 1
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3236,9 +3230,7 @@
 	dir = 10
 	},
 /obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "2-8";
-	d1 = 2
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3487,9 +3479,7 @@
 	location = "SBW5"
 	},
 /obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "4-8";
-	d1 = 4
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3577,7 +3567,6 @@
 	pixel_x = 32
 	},
 /obj/structure/cable/green{
-	d2 = 2;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/syndicate/directional/north,
@@ -3756,9 +3745,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "vN" = (
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5378,9 +5365,7 @@
 	dir = 10
 	},
 /obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "4-8";
-	d1 = 4
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6832,18 +6817,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"Or" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Ox" = (
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered/syndicate_space_base/main)
@@ -7341,9 +7314,7 @@
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7554,9 +7525,7 @@
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7733,9 +7702,7 @@
 	dir = 1
 	},
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11927,7 +11894,7 @@ lo
 lo
 LP
 Rf
-Or
+lo
 ls
 vN
 ST
