@@ -79,15 +79,12 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 		if(I == human_owner.w_uniform || I == human_owner.shoes || I == human_owner.glasses || I == human_owner.head)
 			stuff_to_keep += I
 
-	// They're spawned naked, but just to be safe...
-	for(var/obj/item/I in backrooms_clone)
-		qdel(I)
-
 	// Now populate clone inventory
 	created_items = list()
 	for(var/obj/item/I in stuff_to_keep)
-		backrooms_clone.equip_to_appropriate_slot(I)
-		created_items += I
+		var/obj/cloned_item = new I.type()
+		backrooms_clone.equip_to_appropriate_slot(cloned_item)
+		created_items += cloned_item
 
 	// Force the clone facing the same direction as the original for immersion!
 	backrooms_clone.dir = human_owner.dir
