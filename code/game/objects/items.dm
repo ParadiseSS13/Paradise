@@ -343,16 +343,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(throwing)
 		throwing.finalize(FALSE)
-	if(loc == user)
-		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unequip(src))
+
+	if(isliving(loc))
+		if(loc == user)
+			if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unequip(src))
+				return FALSE
+		else
 			return FALSE
 
 	if(flags & ABSTRACT)
 		return FALSE
-
-	else
-		if(isliving(loc))
-			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
