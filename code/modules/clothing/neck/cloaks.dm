@@ -46,7 +46,7 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
-//Mantles
+//Mantles.
 
 /obj/item/clothing/neck/cloak/mantle
 	name = "mantle"
