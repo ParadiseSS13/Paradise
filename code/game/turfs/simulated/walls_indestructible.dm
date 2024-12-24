@@ -308,6 +308,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "backrooms_wall-0"
 	base_icon_state = "backrooms_wall"
 	explosion_block = 4
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_BACKROOMS_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BACKROOMS_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
