@@ -42,9 +42,12 @@
 /obj/effect/hotspot/proc/update_visuals()
 	color = heat2color(temperature)
 	set_light(l_color = color)
-	if(volume >= CELL_VOLUME * 0.95)
+	var/turf/here = get_turf(src)
+	var/datum/gas_mixture/gas = here.get_readonly_air()
+	var/fuel_burnt = gas.fuel_burnt()
+	if(fuel_burnt > 1)
 		icon_state = "3"
-	else if(volume > CELL_VOLUME*0.4)
+	else if(fuel_burnt > 0.1)
 		icon_state = "2"
 	else
 		icon_state = "1"
