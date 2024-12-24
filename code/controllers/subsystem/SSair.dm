@@ -2,8 +2,10 @@
 #define SSAIR_PIPENETS 2
 #define SSAIR_ATMOSMACHINERY 3
 #define SSAIR_INTERESTING_TILES 4
-#define SSAIR_BOUND_MIXTURES 5
-#define SSAIR_MILLA_TICK 6
+#define SSAIR_HOTSPOTS 5
+#define SSAIR_WINDY_TILES 6
+#define SSAIR_BOUND_MIXTURES 7
+#define SSAIR_MILLA_TICK 8
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -25,6 +27,10 @@ SUBSYSTEM_DEF(air)
 	var/cost_milla_tick = 0
 	/// The cost of a pass through interesting tiles, shown in SS Info's C block as IT.
 	var/datum/resumable_cost_counter/cost_interesting_tiles = new()
+	/// The cost of a pass through hotspots, shown in SS Info's C block as HS.
+	var/datum/resumable_cost_counter/cost_hotspots = new()
+	/// The cost of a pass through windy tiles, shown in SS Info's C block as WT.
+	var/datum/resumable_cost_counter/cost_windy_tiles = new()
 	/// The cost of a pass through pipenets, shown in SS Info's C block as PN.
 	var/datum/resumable_cost_counter/cost_pipenets = new()
 	/// The cost of a pass through building pipenets, shown in SS Info's C block as DPN.
@@ -42,12 +48,24 @@ SUBSYSTEM_DEF(air)
 	var/added_bound_mixtures = 0
 	/// The length of the most recent interesting tiles list, shown in SS Info as IT.
 	var/interesting_tile_count = 0
+	/// The length of the most recent hotspot list, shown in SS Info as HS.
+	var/hotspot_count = 0
+	/// The length of the most recent windy tiles list, shown in SS Info as WT.
+	var/windy_tile_count = 0
 	/// The set of pipenets that need to be built. Length shown in SS Info as PTB.
 	var/list/pipenets_to_build = list()
 	/// The set of active pipenets. Length shown in SS Info as PN.
 	var/list/pipenets = list()
 	/// The set of active atmos machinery. Length shown in SS Info as AM.
 	var/list/atmos_machinery = list()
+	/// The set of tiles that are currently on fire.
+	var/list/hotspots
+	/// The set of tiles that are still on fire after this tick.
+	var/list/new_hotspots
+	/// The set of tiles that are currently experiencing wind.
+	var/list/windy_tiles
+	/// The set of tiles that are still experiencing wind after this tick.
+	var/list/new_windy_tiles
 
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
@@ -97,12 +115,16 @@ SUBSYSTEM_DEF(air)
 	msg += "BM:[cost_bound_mixtures.to_string()]|"
 	msg += "MT:[round(cost_milla_tick,1)]|"
 	msg += "IT:[cost_interesting_tiles.to_string()]|"
+	msg += "HS:[cost_hotspots.to_string()]|"
+	msg += "WT:[cost_windy_tiles.to_string()]|"
 	msg += "PN:[cost_pipenets.to_string()]|"
 	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
 	msg += "AM:[cost_atmos_machinery.to_string()]"
 	msg += "} "
 	msg += "BM:[original_bound_mixtures]+[added_bound_mixtures]|"
 	msg += "IT:[interesting_tile_count]|"
+	msg += "HS:[hotspot_count]|"
+	msg += "WT:[windy_tile_count]|"
 	msg += "PN:[length(pipenets)]|"
 	msg += "AM:[length(atmos_machinery)]|"
 	return msg.Join("")
@@ -111,6 +133,8 @@ SUBSYSTEM_DEF(air)
 	. = ..()
 	var/list/cust = list()
 	cust["interesting turfs"] = interesting_tile_count
+	cust["hotspots"] = hotspot_count
+	cust["windy turfs"] = windy_tile_count
 	.["cost"] = cost_full.last_complete_ms
 	.["custom"] = cust
 
@@ -206,6 +230,32 @@ SUBSYSTEM_DEF(air)
 		process_interesting_tiles(resumed)
 
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
+			return
+		resumed = 0
+		currentpart = SSAIR_HOTSPOTS
+
+	if(currentpart == SSAIR_HOTSPOTS)
+		timer = TICK_USAGE_REAL
+
+		process_hotspots(resumed)
+
+		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
+			return
+		resumed = 0
+		currentpart = SSAIR_WINDY_TILES
+
+	if(currentpart == SSAIR_WINDY_TILES)
+		timer = TICK_USAGE_REAL
+
+		process_windy_tiles(resumed)
+
+		cost_windy_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			in_milla_safe_code = FALSE
@@ -337,23 +387,78 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				S.update_visuals()
-				S.update_hotspot()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
-			var/datum/gas_mixture/air = T.get_readonly_air()
 			var/turf/simulated/S = T
 			if(istype(S))
-				S.update_hotspot()
-			T.temperature_expose(air.temperature())
-			for(var/atom/movable/item in T)
-				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
-			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
+				if(isnull(S.active_hotspot))
+					// Wasn't an active hotspot before, add it.
+					hotspots += S
+
+				var/datum/gas_mixture/air = T.get_readonly_air()
+				T.temperature_expose(air.temperature())
+				for(var/atom/movable/item in T)
+					item.temperature_expose(air, air.temperature(), CELL_VOLUME)
+				T.temperature_expose(air, air.temperature(), CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
+			var/turf/simulated/S = T
+			if(istype(S))
+				if(isnull(S.wind_tick))
+					// Didn't have wind before, add it.
+					windy_tiles += S
+				S.wind_tick = times_fired
+				S.wind_x = x_flow
+				S.wind_y = y_flow
 			T.high_pressure_movements(x_flow, y_flow)
 
 		if(MC_TICK_CHECK)
 			return
+
+/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
+	if(!resumed)
+		src.currentrun = hotspots
+		new_hotspots = list()
+		hotspot_count = length(src.currentrun)
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+	while(length(currentrun))
+		var/turf/simulated/S = currentrun[length(currentrun)]
+		currentrun.len--
+
+		if(!istype(S))
+			continue
+
+		if(S.update_hotspot())
+			// Is still a hotspot, keep it.
+			new_hotspots += S
+
+		if(MC_TICK_CHECK)
+			return
+
+	hotspots = new_hotspots
+
+/datum/controller/subsystem/air/proc/process_windy_tiles(resumed = 0)
+	if(!resumed)
+		src.currentrun = windy_tiles
+		new_windy_tiles = list()
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+	while(length(currentrun))
+		var/turf/simulated/S = currentrun[length(currentrun)]
+		currentrun.len--
+
+		if(!istype(S))
+			continue
+
+		if(S.update_wind())
+			// Still has wind, keep it.
+			new_windy_tiles += S
+
+		if(MC_TICK_CHECK)
+			return
+
+	windy_tiles = new_windy_tiles
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
 	if(!resumed)

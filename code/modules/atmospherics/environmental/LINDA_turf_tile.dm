@@ -26,6 +26,7 @@
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
 	QDEL_NULL(wet_overlay)
+	QDEL_NULL(wind_effect)
 	return ..()
 
 /turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
@@ -91,6 +92,19 @@
 			continue
 		M.experience_pressure_difference(flow_x, flow_y)
 
+/proc/wind_direction(flow_x, flow_y)
+	var/direction = 0
+	if(flow_x > 0.5)
+		direction |= EAST
+	if(flow_x < -0.5)
+		direction |= WEST
+	if(flow_y > 0.5)
+		direction |= NORTH
+	if(flow_y < -0.5)
+		direction |= SOUTH
+
+	return direction
+
 /atom/movable/proc/experience_pressure_difference(flow_x, flow_y)
 	if(move_resist == INFINITY)
 		return
@@ -107,15 +121,9 @@
 	if(force < force_needed)
 		return
 
-	var/direction = 0
-	if(flow_x > 0.5)
-		direction |= EAST
-	if(flow_x < -0.5)
-		direction |= WEST
-	if(flow_y > 0.5)
-		direction |= NORTH
-	if(flow_y < -0.5)
-		direction |= SOUTH
+	var/direction = wind_direction(flow_x, flow_y)
+	if(direction == 0)
+		return
 
 	if(last_high_pressure_movement_time >= SSair.times_fired - 3)
 		return
@@ -220,6 +228,12 @@
 	set_tile_airtight(T, atmos_airtight)
 	reset_superconductivity(T)
 	reduce_superconductivity(T, superconductivity)
+
+/obj/effect/wind
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	icon = 'icons/effects/tile_effects.dmi'
+	icon_state = "wind"
 
 #undef INDEX_NORTH
 #undef INDEX_EAST
