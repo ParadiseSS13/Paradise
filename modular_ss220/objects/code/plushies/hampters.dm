@@ -6,7 +6,10 @@
 	RegisterSignal(parent, list(COMSIG_ATOM_HULK_ATTACK, COMSIG_ATTACK_BY, COMSIG_MOVABLE_BUMP, COMSIG_ATTACK, COMSIG_ATTACK_OBJ), PROC_REF(play_squeak))
 
 	// Пищит при наступании
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(play_squeak_crossed))
+	var/static/list/crossed_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(play_squeak_crossed),
+	)
+	AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
 
 // Пищание
 /datum/component/plushtoy/proc/play_squeak()
@@ -65,34 +68,34 @@
 	AddComponent(/datum/component/plushtoy)
 
 // Действия при взаимодействии в руке при разных интентах
-/obj/item/toy/hampter/attack_self__legacy__attackchain(mob/living/carbon/human/user)
+/obj/item/toy/hampter/activate_self(mob/user)
 	. = ..()
-	// Небольшой кулдаун дабы нельзя было спамить
-	if(cooldown < world.time - 10)
-		switch(user.a_intent)
-			// Если выбрано что угодно кроме харма - жмякаем с писком хамптера
-			if(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
-				playsound(get_turf(src), squeak, 50, 1, -10)
+	if(. || cooldown >= world.time - 1 SECONDS)
+		return
+	switch(user.a_intent)
+		// Если выбрано что угодно кроме харма - жмякаем с писком хамптера
+		if(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
+			playsound(get_turf(src), squeak, 50, 1, -10)
 
-			// Если выбран харм, сжимаем хамптера до "краски" (?) в его туловище
-			if(INTENT_HARM)
+		// Если выбран харм, сжимаем хамптера до "краски" (?) в его туловище
+		if(INTENT_HARM)
+			if(istype(user, /mob/living/carbon/human))
+				var/mob/living/carbon/human/human = user
+
 				// Прописываю это здесь ибо иначе хомяки будут отмечаться кровавыми в игре
 				blood_DNA = "Plush hampter's paint"
-
-				user.visible_message(
-					span_warning("[user] раздавил хамптера в своей руке!"),
+				human.visible_message(
+					span_warning("[human] раздавил хамптера в своей руке!"),
 					span_warning("Вы раздавили хамптера в своей руке!"))
 				playsound(get_turf(src), "bonebreak", 50, TRUE, -10)
+				human.hand_blood_color = blood_color
+				human.transfer_blood_dna(blood_DNA)
 
-				user.hand_blood_color = blood_color
-				user.transfer_blood_dna(blood_DNA)
 				// Сколько бы я не хотел ставить 0 - не выйдет. Нельзя будет отмыть руки в раковине
-				user.bloody_hands = 1
-				user.update_inv_gloves()
-
+				human.bloody_hands = 1
+				human.update_inv_gloves()
 				qdel(src)
-
-		cooldown = world.time
+	cooldown = world.time
 
 // Подвиды
 /obj/item/toy/hampter/assistant

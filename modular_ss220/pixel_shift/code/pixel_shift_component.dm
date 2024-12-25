@@ -37,7 +37,7 @@
 		pixel_shift(source, movement_dir)
 		return COMPONENT_BLOCK_SPACEMOVE
 
-/datum/component/pixel_shift/proc/check_passable(mob/source, atom/movable/mover, target, height)
+/datum/component/pixel_shift/proc/check_passable(mob/source, atom/movable/mover, border_dir)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/owner = parent
 	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable & get_dir(owner, mover))

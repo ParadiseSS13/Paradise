@@ -27,6 +27,10 @@
 /obj/structure/platform/Initialize(mapload)
 	. = ..()
 	CheckLayer()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/platform/New()
 	..()
@@ -87,23 +91,27 @@
 	qdel(src)
 
 
-/obj/structure/platform/CheckExit(atom/movable/O, turf/target)
+/obj/structure/platform/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
+
 	if(!anchored)
 		CheckLayer()
-	if(istype(O, /obj/structure/platform))
-		return FALSE
-	if(istype(O, /obj/item/projectile) || istype(O, /obj/effect))
-		return TRUE
-	if(corner)
-		return !density
-	if(O && O.throwing)
-		return TRUE
-	if(((flags & ON_BORDER) && get_dir(loc, target) == dir))
-		return FALSE
-	else
-		return TRUE
+	if(istype(leaving, /obj/structure/platform))
+		return COMPONENT_ATOM_BLOCK_EXIT
+	if(istype(leaving, /obj/item/projectile) || istype(leaving, /obj/effect))
+		return
+	var/mob/living/M = leaving
+	if(istype(M))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+			return
+	if(leaving.throwing)
+		return
+	if(leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+		return
+	if(!(flags & ON_BORDER) || direction == dir)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/platform/CanPass(atom/movable/mover, turf/target)
+/obj/structure/platform/CanPass(atom/movable/mover, border_dir)
 	if(!anchored)
 		CheckLayer()
 	if(istype(mover, /obj/structure/platform))
@@ -117,10 +125,9 @@
 	var/obj/structure/S = locate(/obj/structure) in get_turf(mover)
 	if(S && S.climbable && !(S.flags & ON_BORDER) && climbable && isliving(mover))// Climbable objects allow you to universally climb over others
 		return TRUE
-	if(!(flags & ON_BORDER) || get_dir(loc, target) == dir)
+	if(!(flags & ON_BORDER) || border_dir == dir)
 		return FALSE
-	else
-		return TRUE
+	return TRUE
 
 /obj/structure/platform/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)

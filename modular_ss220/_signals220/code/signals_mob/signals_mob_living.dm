@@ -1,7 +1,7 @@
 // Signals for /mob/living
 
-/mob/living/CanPass(atom/movable/mover, turf/target, height)
-	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_PASS, mover, target, height) & COMPONENT_LIVING_PASSABLE)
+/mob/living/CanPass(atom/movable/mover, border_dir)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_PASS, mover, border_dir) & COMPONENT_LIVING_PASSABLE)
 		return TRUE
 	return ..()
 
