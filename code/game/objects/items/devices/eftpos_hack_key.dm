@@ -94,7 +94,7 @@
 		rank_text = "..."
 		victim_rank = "Mime"
 
-	else if((ACCESS_BAR in access) (ACCESS_LIBRARY in access) (ACCESS_KITCHEN in access) (ACCESS_HYDROPONICS in access))
+	else if((ACCESS_BAR in access) || (ACCESS_LIBRARY in access) || (ACCESS_KITCHEN in access) || (ACCESS_HYDROPONICS in access))
 		rank_text = "You were my brother, Anakin! I loved you!"
 		victim_rank = "Service Staff"
 
@@ -102,7 +102,7 @@
 		rank_text = "Oh yes! Oh yes! I think I know what you're up to!"
 		victim_rank = "Virologist"
 
-	else if((ACCESS_ENGINE_EQUIP in access) (ACCESS_ATMOSPHERICS in access))
+	else if((ACCESS_ENGINE_EQUIP in access) || (ACCESS_ATMOSPHERICS in access))
 		rank_text = "In our time it is so hard to find crafty guys."
 		victim_rank = "Engineer"
 
