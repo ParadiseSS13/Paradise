@@ -528,7 +528,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines." // SS220 EDIT - Zvezhan -> Neo-Russkiya
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)
@@ -577,3 +577,10 @@
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/eftpos_hacking_kit
+	name = "\improper EFTPOS Hacking Kit"
+
+/obj/item/storage/box/syndie_kit/eftpos_hacking_kit/populate_contents()
+	new /obj/item/eftpos_hack_key(src)
+	new /obj/item/paper/eftpos_hack_key(src)

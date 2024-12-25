@@ -1106,6 +1106,7 @@
 #include "code\game\objects\items\devices\camera_bug.dm"
 #include "code\game\objects\items\devices\chameleon_counter.dm"
 #include "code\game\objects\items\devices\chameleonproj.dm"
+#include "code\game\objects\items\devices\eftpos_hack_key.dm"
 #include "code\game\objects\items\devices\enginepicker.dm"
 #include "code\game\objects\items\devices\flash.dm"
 #include "code\game\objects\items\devices\flashlight.dm"

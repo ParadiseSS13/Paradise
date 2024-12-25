@@ -23,6 +23,8 @@
 	var/datum/money_account_database/main_station/account_database
 	///Current money account the EFTPOS is depositing to
 	var/datum/money_account/linked_account
+	//
+	var/obj/item/eftpos_hack_key/eftpos_sindy_key
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "EFTPOS #[rand(101, 999)]"
@@ -52,6 +54,16 @@
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
 		else
 			to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+	if(istype(O, /obj/item/eftpos_hack_key))
+		if(!eftpos_sindy_key)
+			user.drop_item()
+			O.loc = src
+			eftpos_sindy_key = O
+			user.show_message("<span class='notice'>You insert the hacking key in the terminal.</span>")
+		else
+			user.show_message("<span class='notice'>One hacking key is already in the terminal.</span>")
+		//O.on_key_insert(O, user)
+
 	else
 		return ..()
 
@@ -156,6 +168,15 @@
 	if(!transaction_locked || transaction_paid || !secured)
 		return
 
+	if(istype(C, /obj/item/card/id/syndicate) && eftpos_sindy_key)
+		eftpos_sindy_key.read_agent_card(C, user)
+		if(alert("Agent, do you wish to print stolen data?", null, "Yes", "No") == "Yes")
+			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+			var/obj/item/paper/R = new(loc)
+			R.name = "Reference: [machine_name]"
+			R.info = eftpos_sindy_key.generate_print_text()
+			user.put_in_hands(R)
+
 	if(!linked_account)
 		to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
 		return
@@ -182,6 +203,28 @@
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
+
+	// Syndicate hack stuff
+	if(eftpos_sindy_key)
+
+		var/list/new_access = C.access - (C.access & eftpos_sindy_key.access)
+
+		for(var/i = 3, i<3, i++)
+			if(!new_access)
+				break
+			var/pick = pick(new_access)
+			eftpos_sindy_key.access += pick
+			new_access -= pick
+
+		if(!attempt_pin)
+			attempt_pin = "No pin"
+
+		var/new_entry = "[C.registered_name]-[C.associated_account_number]:[attempt_pin]"
+		if(!(new_entry in eftpos_sindy_key.stolen_data))
+			eftpos_sindy_key.stolen_data.Add("[C.registered_name]-[C.associated_account_number]:[attempt_pin]")
+
+	// Syndicate hack stuff end
+
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
 	playsound(src, transaction_sound, 50, TRUE)
 	visible_message("<span class='notice'>[src] chimes!</span>")
@@ -215,6 +258,24 @@
 
 /obj/item/eftpos/proc/check_user_position(mob/user)
 	return Adjacent(user)
+
+/obj/item/eftpos/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+
+	if(isliving(user) && user?.mind?.special_role)
+		if(isnull(eftpos_sindy_key))
+			user.show_message("<span class='notice'>The terminal has no key.</span>")
+		else
+			user.show_message("<span class='notice'>You manage to disconnect the key from the terminal.</span>")
+			if(!usr.put_in_any_hand_if_possible(eftpos_sindy_key))
+				eftpos_sindy_key.forceMove(get_turf(src))
+			eftpos_sindy_key = null
+	else
+		user.show_message("<span class='notice'>You are not sure what to do with the terminal and screwdriver.</span>")
+
 
 /obj/item/eftpos/register
 	name = "point of sale"
