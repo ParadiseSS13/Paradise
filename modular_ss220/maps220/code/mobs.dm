@@ -424,6 +424,17 @@
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 		return .
 
+/obj/effect/landmark/awaymissions/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/landmark/awaymissions/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER
+	return
+
 /* Jungle Mob Spawners */
 /obj/effect/landmark/awaymissions/gate_lizard/mine_spawner
 	icon = 'icons/obj/restraints.dmi'
@@ -440,10 +451,10 @@
 	var/id = null
 	var/jungle_mob = null
 
-/obj/effect/landmark/awaymissions/gate_lizard/mine_spawner/Crossed(AM as mob|obj, oldloc)
-	if(!isliving(AM))
+/obj/effect/landmark/awaymissions/gate_lizard/mine_spawner/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(source))
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = source
 	if(faction && (faction in M.faction))
 		return
 	triggerlandmark(M)
@@ -1285,10 +1296,10 @@
 	var/id = null
 	var/syndi_mob = null
 
-/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Crossed(AM as mob|obj, oldloc)
-	if(!isliving(AM))
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(source))
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = source
 	if(faction && (faction in M.faction))
 		return
 	triggerlandmark(M)

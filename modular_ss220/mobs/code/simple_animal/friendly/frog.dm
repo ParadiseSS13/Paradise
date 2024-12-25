@@ -59,18 +59,27 @@
 	var/squeak_sound = list ('modular_ss220/mobs/sound/creatures/frog_scream1.ogg','modular_ss220/mobs/sound/creatures/frog_scream2.ogg')
 	gold_core_spawnable = NO_SPAWN
 
+
+/mob/living/simple_animal/frog/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 // Frog procs
 /mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/frog/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, span_notice("[bicon(src)] квакнул!"))
-	..()
+/mob/living/simple_animal/frog/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER
+	if(!ishuman(source))
+		return
+	if(stat)
+		return
+	to_chat(source, span_notice("[bicon(src)] квакнул!"))
 
 // Toxic frog procs
 /mob/living/simple_animal/frog/toxic/attack_hand(mob/living/carbon/human/H as mob)
@@ -85,16 +94,18 @@
 							..()
 	..()
 
-/mob/living/simple_animal/frog/toxic/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(!istype(H.shoes, /obj/item/clothing/shoes))
-			for(var/obj/item/organ/external/F in H.bodyparts)
-				if(!F.is_robotic())
-					if((F.body_part == FOOT_LEFT) || (F.body_part == FOOT_RIGHT))
-						toxin_affect(H)
-						to_chat(H, span_warning("Ваши ступни начинают чесаться!"))
+/mob/living/simple_animal/frog/toxic/on_atom_entered(datum/source, atom/movable/entered)
 	..()
+	if(!ishuman(source))
+		return
+	var/mob/living/carbon/human/H = source
+	if(istype(H.shoes, /obj/item/clothing/shoes))
+		return
+	for(var/obj/item/organ/external/F in H.bodyparts)
+		if(F.is_robotic() || (F.body_part != FOOT_LEFT && !F.body_part == FOOT_RIGHT))
+			continue
+		toxin_affect(H)
+		to_chat(H, span_warning("Ваши ступни начинают чесаться!"))
 
 /mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/M as mob)
 	if(M.reagents && !toxin_per_touch == 0)

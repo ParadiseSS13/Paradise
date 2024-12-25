@@ -35,6 +35,14 @@
 	can_collar = 0
 	holder_type = /obj/item/holder/hamster
 
+
+/mob/living/simple_animal/mouse/hamster/baby/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 // Hamster procs
 #define MAX_HAMSTER 20
 GLOBAL_VAR_INIT(hamster_count, 0)
@@ -86,11 +94,9 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, span_notice("[bicon(src)] раздавлен!"))
-			death()
-			splat(user = AM)
-	..()
+/mob/living/simple_animal/mouse/hamster/baby/on_atom_entered(datum/source, atom/movable/entered)
+	if(!ishuman(source) || stat)
+		return ..()
+	to_chat(source, span_notice("[bicon(src)] раздавлен!"))
+	death()
+	splat(user = source)
