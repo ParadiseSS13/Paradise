@@ -43,6 +43,7 @@ jobs:
           CHANGELOG_AUTHOR: 'ParadiseSS13'
           TRANSLATE_CHANGES: 'true'
           OPENAI_API_KEY: ${{ secrets.ORG_EMPTY_TOKEN }}
+          LOG_LEVEL: ${{ runner.debug && 'DEBUG' || 'INFO' }}
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "Upstream Sync"
