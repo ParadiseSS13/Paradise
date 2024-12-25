@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		allowing you as an agent to steal their account number and access after transaction. \
 		Beware, you need an Agent Card to access stolen data and accesses; those are sold separately."
 	reference = "EFTHK"
-	item = /obj/item/storage/box/syndie_kit/eftpos_hacking_kit // TODO
+	item = /obj/item/storage/box/syndie_kit/eftpos_hacking_kit
 	cost = 15 // Ask Balance Team
 
 ////////////////////////////////////////

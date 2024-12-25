@@ -23,7 +23,7 @@
 	var/datum/money_account_database/main_station/account_database
 	///Current money account the EFTPOS is depositing to
 	var/datum/money_account/linked_account
-	//
+	// If hacked there will be a sindy key
 	var/obj/item/eftpos_hack_key/eftpos_sindy_key
 
 /obj/item/eftpos/Initialize(mapload)
@@ -62,7 +62,6 @@
 			user.show_message("<span class='notice'>You insert the hacking key in the terminal.</span>")
 		else
 			user.show_message("<span class='notice'>One hacking key is already in the terminal.</span>")
-		//O.on_key_insert(O, user)
 
 	else
 		return ..()
