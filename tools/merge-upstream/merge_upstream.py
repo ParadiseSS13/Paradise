@@ -348,7 +348,10 @@ def create_pr(repo: Repository, details: PullDetails):
 def check_pull_exists(target_repo: Repository, base: str, head: str):
     """Check if the merge pull request already exist. In this case, fail the action."""
     print("Checking on existing pull request...")
-    existing_pulls: PaginatedList[PullRequest] = target_repo.get_pulls(state="open", base=base, head=head)
+    owner: str = target_repo.owner.login
+    base_strict = f"{owner}:{base}"
+    head_strict = f"{owner}:{head}"
+    existing_pulls: PaginatedList[PullRequest] = target_repo.get_pulls(state="open", base=base_strict, head=head_strict)
     for pull in existing_pulls:
         print(f"Pull request already exists. {pull.html_url}")
 
