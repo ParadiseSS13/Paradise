@@ -297,9 +297,16 @@ def translate_changelog(changelog: typing.Dict[int, list[Change]]):
         logging.debug("Translation API response: %s", response)
         return
 
+    translated_text = sanitize_translation(translated_text)
+
     for change, translated_message in zip(changes, translated_text.split("\n"), strict=True):
         change["translated_message"] = translated_message
         logging.debug("Translated: %s -> %s", change["message"], translated_message)
+
+
+def sanitize_translation(translated_text: str):
+    """Sanitize changelog translation."""
+    return re.sub(r"\\n+", "\n+", translated_text.strip())
 
 
 def silence_pull_url(pull_url: str) -> str:
