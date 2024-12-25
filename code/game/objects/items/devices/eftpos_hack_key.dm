@@ -39,92 +39,93 @@
 
 
 	if(ACCESS_CENT_COMMANDER in access)
-		rank_text = "Эээ, разве у них вообще есть банковские аккаунты?"
-		victim_rank = "Центральное командование"
+		rank_text = "Ehh, do they even have bank accounts?"
+		victim_rank = "Central Command"
 
 	else if(ACCESS_CENT_SPECOPS in access)
-		rank_text = "Откуда у них только свободное время на тебя."
+		rank_text = "Where do they find the free time for you."
 		victim_rank = "ERT"
 
 	else if(ACCESS_CAPTAIN in access)
-		rank_text = "Крупный улов, неплохо."
-		victim_rank = "Капитан"
+		rank_text = "A big catch, not bad."
+		victim_rank = "Captain"
 
 	else if(ACCESS_BLUESHIELD in access)
-		rank_text = "Ещё ода бестрашная гора мышц"
+		rank_text = "Another fearless mountain of muscle."
 		victim_rank = "Blueshield"
 
 	else if(ACCESS_MAGISTRATE in access)
-		rank_text = "\"Закон - лишь цепь, для тех кто не принадлежит к элите\""
-		victim_rank = "Судья"
+		rank_text = "Treyzon's watch dog"
+		victim_rank = "Magistrate"
 
 	else if(ACCESS_NTREP in access)
-		rank_text = "Кажется, он тут, чтобы наблюдать за их рабами."
-		victim_rank = "Представитель нанотрейзен"
+		rank_text = "Looks like he's here to watch over their slaves."
+		victim_rank = "Nanotrasen Representative"
 
 	else if(ACCESS_QM in access)
-		rank_text = "Старый добрый, рабочий класс."
-		victim_rank = "Квартирмейстер"
+		rank_text = "Old good, working class."
+		victim_rank = "Quartermaster"
 
 	else if(ACCESS_CE in access)
-		rank_text = "Он вообще делает перерывы от работы?"
-		victim_rank = "Главный инженер"
+		rank_text = "Does he even take breaks from working?"
+		victim_rank = "Chief Engineer"
 
 	else if(ACCESS_HOP in access)
-		rank_text = "Мы оба знаем – он был лёгкой добычей."
-		victim_rank = "Глава персонала"
+		rank_text = "We both know – he was easy prey."
+		victim_rank = "Head of Staff"
 
 	else if(ACCESS_CMO in access)
-		rank_text = "Простите, док, сегодня мы будем вредить по полной."
-		victim_rank = "Главный врач"
+		rank_text = "Sorry, doc, today we’re going to cause some serious harm."
+		victim_rank = "Chief Medical Officer"
 
 	else if(ACCESS_RD in access)
-		rank_text = "Судя по базе... Его докторская скука смертная."
-		victim_rank = "Директор Исследований"
+		rank_text = "Judging by the database... His doctoral is boring as hell."
+		victim_rank = "Director of Research"
 
 	else if(ACCESS_HOS in access)
-		rank_text = "Если бы он только знал, что ты с ним только что сделал."
-		victim_rank = "Глава службы безопасности"
+		rank_text = "If only he knew what you just did to him."
+		victim_rank = "Head of Security"
 
 	else if(ACCESS_CLOWN in access)
 		rank_text = "Mission has been failed successfully."
-		victim_rank = "Клоун"
+		victim_rank = "Clown"
 
 	else if(ACCESS_MIME in access)
-		rank_text = "Как насчет: \"Говорить не умею, но взгляд у меня убийственный!\""
-		victim_rank = "Мим"
+		rank_text = "..."
+		victim_rank = "Mime"
 
-	else if((ACCESS_BAR  in access) || (ACCESS_LIBRARY  in access) || (ACCESS_KITCHEN  in access) || (ACCESS_HYDROPONICS  in access))
+	else if((ACCESS_BAR in access) (ACCESS_LIBRARY in access) (ACCESS_KITCHEN in access) (ACCESS_HYDROPONICS in access))
 		rank_text = "You were my brother, Anakin! I loved you!"
-		victim_rank = "Сотрудник сервиса"
+		victim_rank = "Service Staff"
 
 	else if(ACCESS_VIROLOGY in access)
-		rank_text = "О да! о Да! Кажется, я знаю, что ты задумал!"
-		victim_rank = "Вирусолог"
+		rank_text = "Oh yes! Oh yes! I think I know what you're up to!"
+		victim_rank = "Virologist"
 
-	else if((ACCESS_ENGINE_EQUIP  in access) || (ACCESS_ATMOSPHERICS  in access))
-		rank_text = "В наше время так сложно найти рукастых парней."
-		victim_rank = "Инженер"
+	else if((ACCESS_ENGINE_EQUIP in access) (ACCESS_ATMOSPHERICS in access))
+		rank_text = "In our time it is so hard to find crafty guys."
+		victim_rank = "Engineer"
 
 	else if(ACCESS_MEDICAL in access)
-		rank_text = "Знаешь? Ничего не имею против - этих ребят."
-		victim_rank = "Медик"
+		rank_text = "You know? I have nothing against these guys."
+		victim_rank = "Medic"
 
 	else if(ACCESS_RESEARCH in access)
-		rank_text = "Недостаточно умен, чтобы заметить обман, хах!"
-		victim_rank = "Учёный"
+		rank_text = "Not smart enough to notice the trick, haha!"
+		victim_rank = "Scientist"
 
 	else if(ACCESS_SECURITY in access)
-		rank_text = "Теперь не такая безопасная, благодаря тебе."
-		victim_rank = "Сотрудник безопасности"
+		rank_text = "Now it’s not so safe, thanks to you."
+		victim_rank = "Security Staff"
 
 	else if(ACCESS_CARGO in access)
-		rank_text = "Кажется, у вас много общего! Например, вам обоим пора за работу!"
-		victim_rank = "Грузчик"
+		rank_text = "Looks like you have a lot in common! For example, it’s time for both of you to get to work!"
+		victim_rank = "Cargo Handler"
 
 	else
-		rank_text = "Не уверен как это поможет тебе"
-		victim_rank = "Не уверен кто это"
+		rank_text = "Not sure how this will help you"
+		victim_rank = "Not sure who this is"
+
 
 	var/text_to_print = {"
 		<b>N@m3 Er0r r3f3r3nc3</b><br>
