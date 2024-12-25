@@ -13,6 +13,7 @@
 	return pick(turfs)
 
 /datum/hallucination_manager/blind_rush/on_spawn()
+	owner.playsound_local(get_turf(src), istext('sound/spookoween/ghost_whisper.ogg') ? get_sfx('sound/spookoween/ghost_whisper.ogg') : 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
 	owner.become_blind("hallucination")
 	to_chat(owner, "<span class='whisper'>Who turned off the light?</span>", MESSAGE_TYPE_INFO)
 
@@ -64,5 +65,5 @@
 		forceMove(get_step(src, direction)) //forceMove to go through walls and other dense turfs.
 		dir = direction
 	else
-		target.playsound_local(get_turf(src), istext("bodyfall") ? get_sfx("bodyfall") : "bodyfall", 25, TRUE)
+		target.playsound_local(get_turf(src), istext('sound/misc/demon_attack1.ogg') ? get_sfx('sound/misc/demon_attack1.ogg') : 'sound/misc/demon_attack1.ogg', 25, TRUE)
 		qdel(src)
