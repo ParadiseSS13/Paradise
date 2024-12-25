@@ -5,7 +5,7 @@
   */
 /datum/hallucination_manager/blind_rush
 	initial_hallucination = /obj/effect/hallucination/no_delete/blind_rusher
-	trigger_time = 34 //total lenght of the hallucination is a little more than ten seconds
+	trigger_time = 34 //total length of the hallucination is a little more than ten seconds
 
 
 /datum/hallucination_manager/get_spawn_location()
