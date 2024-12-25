@@ -6,8 +6,19 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=2;bluespace=1" // TODO
-	var/list/access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS) // TODO
+	var/highest_stolen_rank
+	var/highest_stolen_rank_text
+	var/list/access = list()
 	var/list/stolen_data = list()
+
+	// List of all imortant access, that should be copy on contact.
+	var/list/comand_access = list(ACCESS_CENT_COMMANDER, ACCESS_CENT_SPECOPS, ACCESS_CAPTAIN,
+	ACCESS_BLUESHIELD,  ACCESS_HOS, ACCESS_MAGISTRATE, ACCESS_NTREP, ACCESS_QM, ACCESS_CE,
+	ACCESS_HOP, ACCESS_CMO, ACCESS_RD)
+
+	var/list/not_important_jobs = list(ACCESS_MIME, ACCESS_MIME,ACCESS_BAR, ACCESS_LIBRARY,
+	ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_VIROLOGY, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS,
+	ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_CARGO )
 
 
 /obj/item/eftpos_hack_key/proc/read_agent_card(card, mob/living/user)
@@ -34,99 +45,6 @@
 		if(101 to 150) 	victim_text = "At this point, i just don't beleave you"
 		else       		victim_text = "AGENT, STOP BRAKING MY STUF!!!"
 
-	var/victim_rank
-	var/rank_text
-
-
-	if(ACCESS_CENT_COMMANDER in access)
-		rank_text = "Ehh, do they even have bank accounts?"
-		victim_rank = "Central Command"
-
-	else if(ACCESS_CENT_SPECOPS in access)
-		rank_text = "Where do they find the free time for you."
-		victim_rank = "ERT"
-
-	else if(ACCESS_CAPTAIN in access)
-		rank_text = "A big catch, not bad."
-		victim_rank = "Captain"
-
-	else if(ACCESS_BLUESHIELD in access)
-		rank_text = "Another fearless mountain of muscle."
-		victim_rank = "Blueshield"
-
-	else if(ACCESS_MAGISTRATE in access)
-		rank_text = "Treyzon's watch dog"
-		victim_rank = "Magistrate"
-
-	else if(ACCESS_NTREP in access)
-		rank_text = "Looks like he's here to watch over their slaves."
-		victim_rank = "Nanotrasen Representative"
-
-	else if(ACCESS_QM in access)
-		rank_text = "Old good, working class."
-		victim_rank = "Quartermaster"
-
-	else if(ACCESS_CE in access)
-		rank_text = "Does he even take breaks from working?"
-		victim_rank = "Chief Engineer"
-
-	else if(ACCESS_HOP in access)
-		rank_text = "We both know – he was easy prey."
-		victim_rank = "Head of Staff"
-
-	else if(ACCESS_CMO in access)
-		rank_text = "Sorry, doc, today we’re going to cause some serious harm."
-		victim_rank = "Chief Medical Officer"
-
-	else if(ACCESS_RD in access)
-		rank_text = "Judging by the database... His doctoral is boring as hell."
-		victim_rank = "Director of Research"
-
-	else if(ACCESS_HOS in access)
-		rank_text = "If only he knew what you just did to him."
-		victim_rank = "Head of Security"
-
-	else if(ACCESS_CLOWN in access)
-		rank_text = "Mission has been failed successfully."
-		victim_rank = "Clown"
-
-	else if(ACCESS_MIME in access)
-		rank_text = "..."
-		victim_rank = "Mime"
-
-	else if((ACCESS_BAR in access) || (ACCESS_LIBRARY in access) || (ACCESS_KITCHEN in access) || (ACCESS_HYDROPONICS in access))
-		rank_text = "You were my brother, Anakin! I loved you!"
-		victim_rank = "Service Staff"
-
-	else if(ACCESS_VIROLOGY in access)
-		rank_text = "Oh yes! Oh yes! I think I know what you're up to!"
-		victim_rank = "Virologist"
-
-	else if((ACCESS_ENGINE_EQUIP in access) || (ACCESS_ATMOSPHERICS in access))
-		rank_text = "In our time it is so hard to find crafty guys."
-		victim_rank = "Engineer"
-
-	else if(ACCESS_MEDICAL in access)
-		rank_text = "You know? I have nothing against these guys."
-		victim_rank = "Medic"
-
-	else if(ACCESS_RESEARCH in access)
-		rank_text = "Not smart enough to notice the trick, haha!"
-		victim_rank = "Scientist"
-
-	else if(ACCESS_SECURITY in access)
-		rank_text = "Now it’s not so safe, thanks to you."
-		victim_rank = "Security Staff"
-
-	else if(ACCESS_CARGO in access)
-		rank_text = "Looks like you have a lot in common! For example, it’s time for both of you to get to work!"
-		victim_rank = "Cargo Handler"
-
-	else
-		rank_text = "Not sure how this will help you"
-		victim_rank = "Not sure who this is"
-
-
 	var/text_to_print = {"
 		<b>N@m3 Er0r r3f3r3nc3</b><br>
 		<b>4cc3ss c0d3: @#_#@ </b><br>
@@ -135,8 +53,8 @@
 		<center>Agent, you have stolen data [victim_number] times </center>
 		<center>[victim_text]</center>
 		<br>
-		<center>Your most important target was: [victim_rank]</center>
-		<center>[rank_text]</center>
+		<center>Your most important target was: [highest_stolen_rank]</center>
+		<center>[highest_stolen_rank_text]</center>
 		<br>
 		<center>Here is your victims accounts details:</center><br>
 		"}
@@ -150,6 +68,114 @@
 
 
 /obj/item/eftpos_hack_key/proc/on_key_insert()
+	return null
+
+/obj/item/eftpos_hack_key/proc/get_rank_text(access)
+	switch(access)
+		if(ACCESS_CENT_COMMANDER)
+			return  "Ehh, do they even have bank accounts?"
+
+		if(ACCESS_CENT_SPECOPS)
+			return  "Where do they find the free time for you."
+
+		if(ACCESS_CAPTAIN)
+			return  "A big catch, not bad."
+
+		if(ACCESS_BLUESHIELD)
+			return  "Another fearless mountain of muscle."
+
+		if(ACCESS_MAGISTRATE)
+			return  "Treyzon's watch dog"
+
+		if(ACCESS_NTREP)
+			return  "Looks like he's here to watch over their slaves."
+
+		if(ACCESS_QM)
+			return  "Old good, working class."
+
+		if(ACCESS_CE)
+			return  "Does he even take breaks from working?"
+
+		if(ACCESS_HOP)
+			return  "We both know – he was easy prey."
+
+		if(ACCESS_CMO)
+			return  "Sorry, doc, today we’re going to cause some serious harm."
+
+		if(ACCESS_RD)
+			return  "Judging by the database... His doctoral is boring as hell."
+
+		if(ACCESS_HOS)
+			return  "If only he knew what you just did to him."
+
+		if(ACCESS_CLOWN)
+			return  "Mission has been failed successfully."
+
+		if(ACCESS_MIME)
+			return  "..."
+
+		if(ACCESS_BAR)
+			return  "You were my brother, Anakin! I loved you!"
+
+		if(ACCESS_LIBRARY)
+			return  "You were my brother, Anakin! I loved you!"
+
+		if(ACCESS_KITCHEN)
+			return  "You were my brother, Anakin! I loved you!"
+
+		if(ACCESS_HYDROPONICS)
+			return  "You were my brother, Anakin! I loved you!"
+
+		if(ACCESS_VIROLOGY)
+			return  "Oh yes! Oh yes! I think I know what you're up to!"
+
+		if(ACCESS_ENGINE_EQUIP)
+			return  "In our time it is so hard to find crafty guys."
+
+		if(ACCESS_MEDICAL)
+			return  "You know? I have nothing against these guys."
+
+		if(ACCESS_RESEARCH)
+			return  "Not smart enough to notice the trick, haha!"
+
+		if(ACCESS_SECURITY)
+			return  "Now it’s not so safe, thanks to you."
+
+		if(ACCESS_CARGO)
+			return  "Looks like you have a lot in common! For example, it’s time for both of you to get to work!"
+
+		else
+			return  "Not sure how this will help you"
+
+
+
+/obj/item/eftpos_hack_key/proc/update_access(C)
+
+	if(!istype(C, /obj/item/card/id))
+		return
+	var/obj/item/card/id/card = C
+	var/list/new_access = card.access - (card.access & access)
+
+	if(!isnull(comand_access & card.access))
+		for(var/temp_access in comand_access)
+			if(temp_access in card.access)
+				highest_stolen_rank = card.rank
+				highest_stolen_rank_text = get_rank_text(temp_access)
+				access |= temp_access
+				break
+	else if(!isnull(not_important_jobs & card.access))
+		for(var/temp_access in not_important_jobs)
+			if(temp_access in card.access)
+				highest_stolen_rank = card.rank
+				highest_stolen_rank_text = get_rank_text(temp_access)
+				break
+
+	for(var/i = 0, i < 3, i++)
+		if(!new_access)
+			break
+		var/pick = pick(new_access)
+		access += pick
+		new_access -= pick
 
 
 /obj/item/paper/eftpos_hack_key

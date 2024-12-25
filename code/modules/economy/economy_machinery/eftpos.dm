@@ -206,19 +206,9 @@
 
 	// Syndicate hack stuff
 	if(eftpos_sindy_key)
-
-		var/list/new_access = C.access - (C.access & eftpos_sindy_key.access)
-
-		for(var/i = 3, i<3, i++)
-			if(!new_access)
-				break
-			var/pick = pick(new_access)
-			eftpos_sindy_key.access += pick
-			new_access -= pick
-
+		eftpos_sindy_key.update_access(C)
 		if(!attempt_pin)
 			attempt_pin = "No pin"
-
 		var/new_entry = "[C.registered_name]-[C.associated_account_number]:[attempt_pin]"
 		if(!(new_entry in eftpos_sindy_key.stolen_data))
 			eftpos_sindy_key.stolen_data.Add("[C.registered_name]-[C.associated_account_number]:[attempt_pin]")
