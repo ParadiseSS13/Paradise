@@ -582,47 +582,47 @@
 
 /obj/structure/sign/poster/official/darkpurpl
 	name = "Dark Purp-L"
-	desc = "A poster for a plasmawave band called \"Dark Purp-L\"."
+	desc = "A poster for the band \"Dark Purp-L\". They label their music 'Plasmawave'; mixed from various space age sounds like creaking hulls and plasma emitters, it's gained traction in recent years amongst bored ship engineers. "
 	icon_state = "poster41_legit"
 
 /obj/structure/sign/poster/official/root
 	name = "Root Song"
-	desc = "A poster for all-Diona Jazz band \"Root Song\"."
+	desc = "A poster for all-Diona Jazz band \"Root Song\". When a travelling jazz band's ship crashed on a Diona overgrowth planet, a whole host of musically-inclined Dionea sprung forth. Though the beloved band members sadly perished in the crash, their love of Jazz lived on with these dionea, who travel the galaxy in the repaired wreck of that ship, under the moniker \"Root Song\"."
 	icon_state = "poster42_legit"
 
 /obj/structure/sign/poster/official/core
 	name = "CO!RE"
-	desc = "A poster for a slimeperson band."
+	desc = "A poster for the all-Slime melodic rap label CO!RE. Known for their unique blend of hard-hitting vocals and traditional Xarxis woodwind instruments, CO!RE took the Federation R&B scene by storm during their debut, and has since engaged in several high-intensity tours across the sector."
 	icon_state = "poster43_legit"
 
 /obj/structure/sign/poster/official/metal
 	name = "METAL"
-	desc = "A poster for an IPC metal band."
+	desc = "A poster for an IPC metal band, aptly named \"METAL\". Though their chassis are dated and badly damaged, they rage on evermore! The electric guitarist, SKULL, has an amp built into their head."
 	icon_state = "poster44_legit"
 
 /obj/structure/sign/poster/official/kpop
 	name = "Kidan Pop"
-	desc = "A poster for a Kidan boyband known as \"K-Pop\"."
+	desc = "A poster for a Kidan boyband known as \"K-Pop\". Though other species find their music bizzare and grating, they're popular among Kidan in the TSF."
 	icon_state = "poster45_legit"
 
 /obj/structure/sign/poster/official/graydays
 	name = "Gray Days"
-	desc = "A poster for an emo band of greys."
+	desc = "A poster for an emo band of greys. They're known to play a form of Death Metal, but it's so quiet you can only barely hear the words. If you turn the speaker way up, the lyrics are mournful and deep."
 	icon_state = "poster46_legit"
 
 /obj/structure/sign/poster/official/unathicrush
 	name = "CRUSH"
-	desc = "A poster for a unathi band called \"CRUSH\". Bitter rivals with unathi band \"SMASH\"."
+	desc = "A poster for a unathi band called \"Heart Crush\". They're famously bitter rivals with a very similar band, \"Heart Smash\". After multiple fruitless murder and assault prosecutions levied against both bands, they're now back on tour."
 	icon_state = "poster47_legit"
 
 /obj/structure/sign/poster/official/unathismash
 	name = "SMASH"
-	desc = "A poster for a unathi band called \"SMASH\". Bitter rivals with unathi band \"CRUSH\"."
+	desc = "A poster for a unathi band called \"Heart Smash\". They're famously bitter rivals with a very similar band, \"Heart Crush\". After multiple fruitless murder and assault prosecutions levied against both bands, they're now back on tour."
 	icon_state = "poster48_legit"
 
 /obj/structure/sign/poster/official/star
 	name = "Star"
-	desc = "A poster for a famous Skrell singer."
+	desc = "A poster for a musical called \"Star\". The lead singer and actor searches across the galaxy in a cruise ship for his one true love - the titular \"Star\"."
 	icon_state = "poster49_legit"
 
 #undef PLACE_SPEED
