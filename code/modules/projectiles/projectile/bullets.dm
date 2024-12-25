@@ -191,7 +191,7 @@
 
 /obj/item/projectile/bullet/meteorshot/New()
 	..()
-	SpinAnimation()
+	SpinAnimation(5)
 
 /obj/item/projectile/bullet/mime
 	damage = 40

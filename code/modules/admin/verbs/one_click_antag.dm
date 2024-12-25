@@ -21,7 +21,10 @@
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
+		<a href='byond://?src=[UID()];makeAntag=9'>Make Blood Brothers Team</a><br>
+		<a href='byond://?src=[UID()];makeAntag=10'>Make Vox Raiders</a><br>
 		"}
+
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
