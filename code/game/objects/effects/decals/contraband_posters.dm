@@ -580,4 +580,49 @@
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
 
+/obj/structure/sign/poster/official/darkpurpl
+	name = "Dark Purp-L"
+	desc = "A poster for a plasmawave band called \"Dark Purp-L\"."
+	icon_state = "poster41_legit"
+
+/obj/structure/sign/poster/official/root
+	name = "Root Song"
+	desc = "A poster for all-Diona Jazz band \"Root Song\"."
+	icon_state = "poster42_legit"
+
+/obj/structure/sign/poster/official/core
+	name = "CO!RE"
+	desc = "A poster for a slimeperson band."
+	icon_state = "poster43_legit"
+
+/obj/structure/sign/poster/official/metal
+	name = "METAL"
+	desc = "A poster for an IPC metal band."
+	icon_state = "poster44_legit"
+
+/obj/structure/sign/poster/official/kpop
+	name = "Kidan Pop"
+	desc = "A poster for a Kidan boyband known as \"K-Pop\"."
+	icon_state = "poster45_legit"
+
+/obj/structure/sign/poster/official/graydays
+	name = "Gray Days"
+	desc = "A poster for an emo band of greys."
+	icon_state = "poster46_legit"
+
+/obj/structure/sign/poster/official/unathicrush
+	name = "CRUSH"
+	desc = "A poster for a unathi band called \"CRUSH\". Bitter rivals with unathi band \"SMASH\"."
+	icon_state = "poster47_legit"
+
+/obj/structure/sign/poster/official/unathismash
+	name = "SMASH"
+	desc = "A poster for a unathi band called \"SMASH\". Bitter rivals with unathi band \"CRUSH\"."
+	icon_state = "poster48_legit"
+
+/obj/structure/sign/poster/official/star
+	name = "Star"
+	desc = "A poster for a famous Skrell singer."
+	icon_state = "poster49_legit"
+
 #undef PLACE_SPEED
