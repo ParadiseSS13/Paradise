@@ -69,13 +69,11 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "gZ" = (
-/obj/item/stack/tile{
-	pixel_y = 14
-	},
+/obj/item/stack/tile/mineral/plastitanium,
 /turf/template_noop,
 /area/template_noop)
 "he" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/mineral/plastitanium,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "hp" = (
@@ -99,7 +97,6 @@
 	dir = 8
 	},
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9;
 	pixel_x = 19
 	},
@@ -234,10 +231,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
-"rT" = (
-/obj/item/stack/tile,
-/turf/template_noop,
-/area/template_noop)
 "sP" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
@@ -489,7 +482,6 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "KK" = (
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9;
 	pixel_x = 19
 	},
@@ -517,12 +509,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
-"Mt" = (
-/obj/item/stack/tile{
-	pixel_x = 22
-	},
-/turf/template_noop,
-/area/template_noop)
 "ME" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -539,7 +525,6 @@
 	icon_state = "small"
 	},
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9
 	},
 /turf/template_noop,
@@ -620,13 +605,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
-"Ss" = (
-/obj/item/stack/tile{
-	pixel_y = 14;
-	pixel_x = 18
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered/unpowered_structures)
 "SJ" = (
 /obj/structure/table_frame,
 /obj/item/wrench,
@@ -642,10 +620,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "Uf" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/item/stack/tile{
-	pixel_y = 14;
-	pixel_x = 18
-	},
+/obj/item/stack/tile/mineral/plastitanium,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Ui" = (
@@ -734,9 +709,7 @@
 /area/template_noop)
 "YV" = (
 /obj/structure/lattice,
-/obj/item/stack/tile{
-	pixel_y = 14
-	},
+/obj/item/stack/tile/mineral/plastitanium,
 /turf/template_noop,
 /area/template_noop)
 "ZY" = (
@@ -1001,7 +974,7 @@ VC
 nr
 Dj
 YS
-rT
+gZ
 VC
 CH
 sP
@@ -1024,7 +997,7 @@ Ly
 VC
 EM
 SK
-Ss
+he
 nr
 OI
 VC
@@ -1634,7 +1607,7 @@ Pg
 Ok
 jF
 SK
-Mt
+gZ
 Ly
 Ly
 Ly
@@ -1749,7 +1722,7 @@ Ly
 Ly
 Ly
 ao
-Mt
+gZ
 Ly
 Ly
 Ly
