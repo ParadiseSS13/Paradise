@@ -401,9 +401,8 @@ def check_pull_exists(target_repo: Repository, base: str, head: str):
     """Check if the merge pull request already exists."""
     logging.info("Checking if pull request already exists between '%s' and '%s'...", base, head)
     owner: str = target_repo.owner.login
-    base_strict = f"{owner}:{base}"
     head_strict = f"{owner}:{head}"
-    existing_pulls: PaginatedList[PullRequest] = target_repo.get_pulls(state="open", base=base_strict, head=head_strict)
+    existing_pulls: PaginatedList[PullRequest] = target_repo.get_pulls(state="open", base=base, head=head_strict)
     if existing_pulls.totalCount > 0:
         logging.error("Pull request already exists: %s", ", ".join(pull.html_url for pull in existing_pulls))
         exit(1)
