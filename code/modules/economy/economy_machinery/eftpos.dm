@@ -169,7 +169,7 @@
 
 	if(istype(C, /obj/item/card/id/syndicate) && eftpos_sindy_key)
 		eftpos_sindy_key.read_agent_card(C, user)
-		if(alert("Agent, do you wish to print stolen data?", null, "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Agent, do you wish to print stolen data?", "Print slolen data?", list("Yes", "No")) == "Yes")
 			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 			var/obj/item/paper/R = new(loc)
 			R.name = "Reference: [machine_name]"
