@@ -319,7 +319,7 @@
 	if(H.stat == DEAD)
 		return
 
-	if((H.unique_datum_id == previous_patient) && (world.time < last_found + 200))
+	if((H.UID() == previous_patient) && (world.time < last_found + 200))
 		return
 
 	if(assess_patient(H))
