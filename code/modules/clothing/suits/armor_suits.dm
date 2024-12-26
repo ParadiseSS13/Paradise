@@ -343,7 +343,7 @@
 
 /obj/item/clothing/suit/armor/swat
 	name = "SWAT armor"
-	desc = "A large, bulky suit of tactical armor commonly used by specialized police units. Offers moderate protection in all areas."
+	desc = "A large, bulky suit of tactical armor commonly used by specialized police units. Offers moderate protection in all areas. It has a surface coating that completely resists harm from fire and corrosive attacks."
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
