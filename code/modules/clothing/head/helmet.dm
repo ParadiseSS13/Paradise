@@ -80,7 +80,7 @@
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
-	desc = "A durable combat helmet reinforced with strike plates and cushioning to protect against high-velocity kinetic impacts. Does little to stop energy weapons or melee hits."
+	desc = "A durable combat helmet reinforced with strike plates and cushioning to protect against high-velocity kinetic impacts and the concussive force of explosions. Does little to stop energy weapons or melee hits."
 	icon_state = "bulletproof"
 	item_state = "bulletproof"
 	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 45, RAD = 0, FIRE = 50, ACID = 50)
