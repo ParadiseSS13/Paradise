@@ -518,7 +518,7 @@
 		"<span class='userdanger'>[src] is trying to inject you!</span>"
 	)
 
-	if(!do_after(src, 3 SECONDS, target = C) || !on || get_dist(src, patient <= 1))
+	if(!do_after(src, 3 SECONDS, target = C) || !on || get_dist(src, patient <= 1) || !assess_patient(patient))
 		soft_reset()
 		visible_message("[src] retracts its syringe.")
 		return
