@@ -300,7 +300,7 @@
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
-	desc = "A heavy suit of cosplay-grade armor that vaguely resembles something from a low-quality documentary about the crusades. Provides mediocre protection against melee attacks and little else."
+	desc = "A heavy suit of cosplay-grade armor that vaguely resembles something from a low-quality documentary about the crusades. Whilst the plating provides mediocre protection against melee attacks and little else, the asbestos-lined padding does hold up quite well to fire and corrosive substances."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
