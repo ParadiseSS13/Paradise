@@ -602,27 +602,37 @@
 
 /obj/structure/sign/poster/official/kpop
 	name = "Kidan Pop"
-	desc = "A poster for a Kidan boyband known as \"K-Pop\". Though other species find their music bizzare and grating, they're popular among Kidan in the TSF."
+	desc = "A poster for a Kidan boyband known as \"K-Pop\". Though other species find their chittering vocals grating and tuneless, they're wildly popular among young Kidan living in the TSF."
 	icon_state = "poster45_legit"
 
 /obj/structure/sign/poster/official/graydays
 	name = "Gray Days"
-	desc = "A poster for an emo band of greys. They're known to play a form of Death Metal, but it's so quiet you can only barely hear the words. If you turn the speaker way up, the lyrics are mournful and deep."
+	desc = "A poster for an emo band of greys. They're known to play a form of Death Metal, but it's so quiet you can only barely hear the words. If you turn the speaker way up, the lyrics are mournful and deep; just remember to turn it back down once you're finished listening."
 	icon_state = "poster46_legit"
 
 /obj/structure/sign/poster/official/unathicrush
 	name = "CRUSH"
-	desc = "A poster for a unathi band called \"Heart Crush\". They're famously bitter rivals with a very similar band, \"Heart Smash\". After multiple fruitless murder and assault prosecutions levied against both bands, they're now back on tour."
+	desc = "A poster for a unathi band called \"Heart Crush\". They mostly write diss tracks about their bitter rivals, the band \"Heart Smash\". Never tell one of their fans you like the other band, or you can expect a violent argument."
 	icon_state = "poster47_legit"
 
 /obj/structure/sign/poster/official/unathismash
 	name = "SMASH"
-	desc = "A poster for a unathi band called \"Heart Smash\". They're famously bitter rivals with a very similar band, \"Heart Crush\". After multiple fruitless murder and assault prosecutions levied against both bands, they're now back on tour."
+	desc = "A poster for a unathi band called \"Heart Smash\". They're famously bitter rivals with a very similar band, \"Heart Crush\", who they constantly accuse of copying their style. After multiple assaults and restraining orders, the two are back on tour."
 	icon_state = "poster48_legit"
 
 /obj/structure/sign/poster/official/star
 	name = "Star"
 	desc = "A poster for a musical called \"Star\". The lead singer and actor searches across the galaxy in a cruise ship for his one true love - the titular \"Star\"."
 	icon_state = "poster49_legit"
+
+/obj/structure/sign/poster/official/soul
+	name = "Kindred Soul"
+	desc = "A poster for a rarely-seen orchestral band known as \"Kindred Soul\". Those who have been lucky enough to catch a performance say their vocals are deeply moving."
+	icon_state = "poster50_legit"
+
+/obj/structure/sign/poster/official/choir
+	name = "\"Skreethoven's\" Choir"
+	desc = "A poster for a classical Vox performance group including a full choir and orchestra. The chorists have a great harmony. Despite his violent protestation, the star organist can't shake his popular moniker, \"Skreethoven\"."
+	icon_state = "poster51_legit"
 
 #undef PLACE_SPEED
