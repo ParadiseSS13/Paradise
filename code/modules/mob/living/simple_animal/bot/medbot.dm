@@ -364,7 +364,7 @@
 			return
 
 		//Patient has moved away from us!
-		else if(!path.len || (path.len && (get_dist(patient,path[path.len]) > 2)))
+		else if(!length(path) || (length(path) && (get_dist(patient, path[length(path)]) > 2)))
 			path = list()
 			set_mode(BOT_IDLE)
 			last_found = world.time
