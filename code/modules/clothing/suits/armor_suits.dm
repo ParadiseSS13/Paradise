@@ -279,7 +279,7 @@
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
-	desc = "A full suit of steel plate armor, it looks like it came right out of a documentary about the Middle Ages. Provides excellent protection against melee hits, but won't be stopping any weapon designed in the last half-millenium."
+	desc = "A full suit of steel plate armor, it looks like it came right out of a documentary about the Middle Ages. The plating offers excellent protection against melee, and the asbestos-lined padding provides excellent protection against fire and corrosive substances, but it won't be stopping any weapon designed in the last half-millennium."
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
