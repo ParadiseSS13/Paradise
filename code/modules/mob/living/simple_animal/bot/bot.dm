@@ -70,7 +70,7 @@
 	/// List of jobs claimed by bot
 	var/static/list/ignore_job = list()
 	/// Standardizes the vars that indicate the bot is busy with its function.
-	var/mode = BOT_IDLE
+	var/set_mode(BOT_IDLE)
 	/// Number of times the bot tried and failed to move.
 	var/tries = 0
 	/// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
@@ -185,6 +185,10 @@
 		set_path(last_target_pos_path)
 		bot_move(last_target_location, move_speed = 6)
 	frustration++
+
+/// Setter for mode, so it's all tracable to one place.
+/mob/living/simple_animal/bot/proc/set_mode(new_mode)
+	mode = new_mode
 
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) // Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
@@ -669,7 +673,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
 		pathset = TRUE
-		mode = BOT_RESPONDING
+		set_mode(BOT_RESPONDING)
 		tries = 0
 	else
 		if(message)
@@ -704,7 +708,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	pathset = FALSE
 	access_card.access = prev_access
 	tries = 0
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
@@ -732,7 +736,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 
 	if(!auto_patrol) // A bot not set to patrol should not be patrolling.
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 
 
@@ -748,7 +752,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!length(path))
 		patrol_target = null
 		return
-	mode = BOT_PATROL
+	set_mode(BOT_PATROL)
 
 // Perform a single patrol step
 
@@ -774,7 +778,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
 	else // No path, so calculate new one
-		mode = BOT_START_PATROL
+		set_mode(BOT_START_PATROL)
 
 /mob/living/simple_animal/bot/proc/patrol_step_not_moved()
 	calc_path()
@@ -792,7 +796,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		destination = next_destination
 	else
 		auto_patrol = FALSE
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		speak("Disengaging patrol mode.")
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
@@ -866,7 +870,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			if(length(user_access))
 				access_card.access = user_access + prev_access // Adds the user's access, if any.
 
-			mode = BOT_SUMMON
+			set_mode(BOT_SUMMON)
 			calc_summon_path()
 			speak("Responding.", radio_channel)
 

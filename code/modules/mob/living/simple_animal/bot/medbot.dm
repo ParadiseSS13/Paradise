@@ -145,7 +145,7 @@
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	patient = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	last_found = world.time
 	update_icon()
 
@@ -318,7 +318,7 @@
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
-			mode = BOT_HEALING
+			set_mode(BOT_HEALING)
 			update_icon()
 			frustration = 0
 			medicate_patient(patient)
@@ -327,7 +327,7 @@
 	//Patient has moved away from us!
 	else if(patient && length(path) && (get_dist(patient,path[length(path)]) > 2))
 		path = list()
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		last_found = world.time
 
 	else if(stationary_mode && patient) //Since we cannot move in this mode, ignore the patient and wait for another.
@@ -336,7 +336,7 @@
 
 	if(patient && !length(path) && (get_dist(src,patient) > 1))
 		path = get_path_to(src, patient, 30, access = access_card.access)
-		mode = BOT_MOVING
+		set_mode(BOT_MOVING)
 		if(!length(path)) //try to get closer if you can't reach the patient directly
 			path = get_path_to(src, patient, 30, 1, access = access_card.access)
 			if(!length(path)) //Do not chase a patient we cannot reach.
@@ -431,7 +431,7 @@
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C
-		mode = BOT_HEALING
+		set_mode(BOT_HEALING)
 		update_icon()
 		medicate_patient(C)
 		update_icon()

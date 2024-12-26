@@ -164,11 +164,11 @@
 				target = null
 				path = list()
 				return
-			mode = BOT_MOVING
+			set_mode(BOT_MOVING)
 		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -184,7 +184,7 @@
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
-	mode = BOT_CLEANING
+	set_mode(BOT_CLEANING)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
@@ -193,7 +193,7 @@
 		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()
