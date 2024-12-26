@@ -5,11 +5,11 @@
   */
 /datum/hallucination_manager/blind_rush
 	initial_hallucination = /obj/effect/hallucination/no_delete/blind_rusher
-	trigger_time = 34 //total length of the hallucination is a little more than ten seconds
+	trigger_time = 3.4 SECONDS //total length of the hallucination is a little more than ten seconds
 
 
-/datum/hallucination_manager/get_spawn_location()
-	var/list/turfs = range(13, owner.loc)
+/datum/hallucination_manager/blind_rush/get_spawn_location()
+	var/list/turfs = orange(13, owner.loc)
 	return pick(turfs)
 
 /datum/hallucination_manager/blind_rush/on_spawn()
@@ -17,13 +17,13 @@
 	owner.become_blind("hallucination")
 	to_chat(owner, "<span class='whisper'>Who turned off the light?</span>", MESSAGE_TYPE_INFO)
 
-/datum/hallucination_manager/on_trigger()
+/datum/hallucination_manager/blind_rush/on_trigger()
 	var/turf/spawn_location = get_spawn_location() //we need a new spawn location incase the player moved
 	new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
 	to_chat(owner, "<span class='danger'>They're here.</span>", MESSAGE_TYPE_INFO)
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_second_trigger)), trigger_time, TIMER_DELETE_ME)
 
-/datum/hallucination_manager/proc/on_second_trigger()
+/datum/hallucination_manager/blind_rush/proc/on_second_trigger()
 	var/turf/spawn_location = get_spawn_location()
 	new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
 	owner.Confused(9 SECONDS)
@@ -31,7 +31,7 @@
 	to_chat(owner, "<span class='userdanger'>Run!</span>", MESSAGE_TYPE_INFO)
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_last_trigger)), trigger_time, TIMER_DELETE_ME)
 
-/datum/hallucination_manager/proc/on_last_trigger()
+/datum/hallucination_manager/blind_rush/proc/on_last_trigger()
 	owner.emote("collapse")
 	owner.cure_blind("hallucination")
 	qdel(src)
@@ -44,7 +44,7 @@
 	hallucination_icon_state = ("faceless")
 	hallucination_override = TRUE
 	var/min_distance = 0
-	var/rush_time = 2
+	var/rush_time = 2 DECISECONDS
 	var/rush_timer = null
 
 /obj/effect/hallucination/no_delete/blind_rusher/Initialize(mapload, mob/living/carbon/target)
