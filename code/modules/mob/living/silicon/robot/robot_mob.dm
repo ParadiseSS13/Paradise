@@ -1809,3 +1809,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/robot/plushify(plushie_override, curse_time)
+	if(curse_time == -1)
+		QDEL_NULL(mmi)
+	return ..()

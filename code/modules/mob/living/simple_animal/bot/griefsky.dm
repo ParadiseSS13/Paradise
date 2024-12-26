@@ -48,10 +48,9 @@
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
-	..()
-	if(ismob(AM) && AM == target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/griefsky/on_atom_entered(datum/source, atom/movable/entered)
+	if(iscarbon(entered) && entered == target)
+		var/mob/living/carbon/C = entered
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
 		C.KnockDown(4 SECONDS)
 

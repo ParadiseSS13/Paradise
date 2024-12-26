@@ -1,6 +1,12 @@
-/obj/structure/table/Crossed(atom/movable/AM, oldloc)
-	AddComponent(/datum/component/clumsy_climb, 5)
+/obj/structure/table/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_crossed)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/table/proc/on_crossed(atom/crosser)
+	AddComponent(/datum/component/clumsy_climb, 5)
 
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()

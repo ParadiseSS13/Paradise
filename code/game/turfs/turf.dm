@@ -188,52 +188,33 @@
 	..()
 	return FALSE
 
-/turf/Enter(atom/movable/mover as mob|obj, atom/forget)
-	if(!mover)
-		return TRUE
+//There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
+/turf/Enter(atom/movable/mover)
+	// Do not call ..()
+	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
+	// By default byond will call Bump() on the first dense object in contents
+	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
+	var/atom/first_bump
+	var/can_pass_self = CanPass(mover, get_dir(src, mover))
 
-	// First, make sure it can leave its square
-	if(isturf(mover.loc))
-		// Nothing but border objects stop you from leaving a tile, only one loop is needed
-		// This as anything looks odd, since we check istype shortly after, but it's so we can save an istype check for items, which are far more common than other objects.
-		for(var/obj/obstacle as anything in mover.loc)
-			if(isitem(obstacle) || !istype(obstacle) || obstacle == mover || obstacle == forget)
+	if(can_pass_self)
+		var/atom/mover_loc = mover.loc
+		for(var/atom/movable/thing as anything in contents)
+			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
-			if(!obstacle.CheckExit(mover, src))
-				mover.Bump(obstacle, TRUE)
-				return FALSE
-
-	var/list/large_dense = list()
-	// Next, check for border obstacles on this turf
-	// Everyting inside a turf is an atom/movable.
-	for(var/atom/movable/border_obstacle as anything in src)
-		if(isitem(border_obstacle) || border_obstacle == forget || isnull(border_obstacle))
-			continue
-		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1))
-				mover.Bump(border_obstacle, TRUE)
-				return FALSE
-		else
-			large_dense += border_obstacle
-
-	//Then, check the turf itself
-	if(!src.CanPass(mover, src))
-		mover.Bump(src, TRUE)
+			if(!thing.Cross(mover))
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen)
+					return FALSE
+				if(!first_bump || (thing.layer > first_bump.layer))
+					first_bump = thing
+	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
-
-	// Finally, check objects/mobs that block entry and are not on the border
-	var/atom/movable/tompost_bump
-	var/top_layer = FALSE
-	for(var/atom/movable/obstacle as anything in large_dense)
-		if(obstacle.layer <= top_layer)
-			continue
-		if(!obstacle.CanPass(mover, mover.loc, 1))
-			tompost_bump = obstacle
-			top_layer = obstacle.layer
-	if(tompost_bump)
-		mover.Bump(tompost_bump, TRUE)
+	if(!can_pass_self) //Even if mover is unstoppable they need to bump us.
+		first_bump = src
+	if(first_bump)
+		mover.Bump(first_bump)
 		return FALSE
-	return TRUE //Nothing found to block so return success!
+	return TRUE
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()
@@ -292,7 +273,15 @@
 	var/old_baseturf = baseturf
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
+	var/list/old_comp_lookup = comp_lookup?.Copy()
+	var/list/old_signal_procs = signal_procs?.Copy()
+
 	var/turf/W = new path(src)
+	if(old_comp_lookup)
+		LAZYOR(W.comp_lookup, old_comp_lookup)
+	if(old_signal_procs)
+		LAZYOR(W.signal_procs, old_signal_procs)
+
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
 
@@ -664,3 +653,6 @@
 
 /turf/return_analyzable_air()
 	return get_readonly_air()
+
+/turf/_clear_signal_refs()
+	return

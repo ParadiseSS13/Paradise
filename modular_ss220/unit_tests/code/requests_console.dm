@@ -7,12 +7,12 @@
 #define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition")
 #define OTHER_AREAS list("Arrival Shuttle", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
 
-/datum/unit_test/requests_console
+/datum/game_test/requests_console
 
-/datum/unit_test/requests_console/Run()
+/datum/game_test/requests_console/Run()
 	all_department_names_in_set()
 
-/datum/unit_test/requests_console/proc/all_department_names_in_set()
+/datum/game_test/requests_console/proc/all_department_names_in_set()
 	var/list/expected_departments = list()
 	expected_departments |= ENGI_AREAS
 	expected_departments |= SEC_AREAS

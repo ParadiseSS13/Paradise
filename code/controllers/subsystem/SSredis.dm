@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(redis)
 /datum/controller/subsystem/redis/proc/connect()
 	if(GLOB.configuration.redis.enabled)
 		/* SS220 REMOVE
-		#ifndef UNIT_TESTS // CI uses linux so dont flag up a fail there
+		#ifndef GAME_TESTS // CI uses linux so dont flag up a fail there
 		if(world.system_type == UNIX)
 			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif

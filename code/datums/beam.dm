@@ -118,6 +118,17 @@
 	anchored = TRUE
 	var/datum/beam/owner
 
+/obj/effect/ebeam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/ebeam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // ON_ATOM_ENTERED
+	return
+
 /obj/effect/ebeam/ex_act(severity)
 	return
 
@@ -131,9 +142,8 @@
 /obj/effect/ebeam/singularity_act()
 	return
 
-/obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
-	..()
-	A.ex_act(EXPLODE_DEVASTATE)
+/obj/effect/ebeam/deadly/on_atom_entered(datum/source, atom/movable/entered)
+	entered.ex_act(EXPLODE_DEVASTATE)
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/M in get_turf(src))
@@ -147,11 +157,10 @@
 /obj/effect/ebeam/disintegration
 	layer = ON_EDGED_TURF_LAYER
 
-/obj/effect/ebeam/disintegration/Crossed(atom/A, oldloc)
-	..()
-	if(!isliving(A))
+/obj/effect/ebeam/disintegration/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(entered))
 		return
-	var/mob/living/L = A
+	var/mob/living/L = entered
 	var/damage = 50
 	if(L.stat == DEAD)
 		visible_message("<span class='danger'>[L] is disintegrated by the beam!</span>")

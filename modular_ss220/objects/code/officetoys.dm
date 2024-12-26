@@ -109,12 +109,14 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/item/toy/desk/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/desk/activate_self(mob/user)
+	. = ..()
+	if(.)
+		return
 	on = !on
 	if(activation_sound)
 		playsound(src.loc, activation_sound, 75, 1)
 	update_icon()
-	return TRUE
 
 /obj/item/toy/desk/examine(mob/user)
 	. = ..()
@@ -155,7 +157,10 @@
 	. = ..()
 	soundloop = new(list(src), FALSE)
 
-/obj/item/toy/desk/newtoncradle/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/desk/newtoncradle/activate_self(mob/user)
+	. = ..()
+	if(.)
+		return
 	on = !on
 	update_icon()
 	if(on)
@@ -173,7 +178,10 @@
 	. = ..()
 	soundloop = new(list(src), FALSE)
 
-/obj/item/toy/desk/fan/attack_self__legacy__attackchain(mob/user)
+/obj/item/toy/desk/fan/activate_self(mob/user)
+	. = ..()
+	if(.)
+		return
 	on = !on
 	update_icon()
 	if(on)

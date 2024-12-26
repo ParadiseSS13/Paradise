@@ -48023,7 +48023,7 @@
 	},
 /area/station/public/dorms)
 "fmT" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
@@ -87066,7 +87066,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/apmaint)
 "tUi" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"

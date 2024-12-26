@@ -1404,9 +1404,7 @@
 /area/awaymission/space_battle/engineering)
 "eM" = (
 /obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/binary/circulator{
-	icon_state = "circ8-off"
-	},
+/obj/machinery/atmospherics/binary/circulator,
 /turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "eN" = (
@@ -2242,7 +2240,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/hallway2)
 "hj" = (
@@ -4360,7 +4358,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "nZ" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/space,
 /area/space)
 "oa" = (
@@ -4502,9 +4500,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/binary/circulator{
-	icon_state = "circ8-off"
-	},
+/obj/machinery/atmospherics/binary/circulator,
 /turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "ov" = (
