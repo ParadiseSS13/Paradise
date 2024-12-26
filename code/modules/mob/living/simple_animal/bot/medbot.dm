@@ -63,7 +63,7 @@
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/mob/living/carbon/patient = null
 	/// UID of the previous patient. Used to avoid running selection checks on them if we failed to heal them.
-	var/previous_patient = null
+	var/previous_patient
 
 	var/oldloc = null
 	var/last_found = 0
@@ -319,7 +319,7 @@
 	if(H.stat == DEAD)
 		return
 
-	if((H.unique_datum_id == previous_patient) && (world.time < last_found + 200))
+	if((H.UID() == previous_patient) && (world.time < last_found + 200))
 		return
 
 	if(assess_patient(H))
@@ -364,7 +364,7 @@
 			return
 
 		//Patient has moved away from us!
-		else if(!path.len || (path.len && (get_dist(patient,path[path.len]) > 2)))
+		else if(!length(path) || (length(path) && (get_dist(patient, path[length(path)]) > 2)))
 			path = list()
 			set_mode(BOT_IDLE)
 			last_found = world.time
@@ -603,7 +603,7 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
-/// Given a proper medbot phrase key, say the line with any replacements, and play it's sound.
+/// Given a proper medbot phrase key, say the line with any replacements, and play its sound.
 /mob/living/simple_animal/bot/medbot/proc/medbot_phrase(phrase, mob/target)
 	var/sound_path = all_phrases[phrase]
 	if(target)
