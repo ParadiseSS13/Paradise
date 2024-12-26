@@ -342,7 +342,7 @@
 	if(isnull(subject) || (subject in ignore_list))
 		return
 
-	if(ignore_list.len >= 50)
+	if(length(ignore_list) >= 50)
 		remove_ignored_atom(ignore_list[1])
 
 	ignore_list += subject
