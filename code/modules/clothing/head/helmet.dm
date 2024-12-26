@@ -88,7 +88,7 @@
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
-	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The attached plexiglass visor should also prevent things from jumping on your face."
+	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The helmet is treated with a fire and acid-resistant surface coating, and the attached plexiglass visor should prevent things from jumping on your face."
 	icon_state = "riot"
 	item_state = "helmet"
 	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
