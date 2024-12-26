@@ -9,6 +9,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
 
