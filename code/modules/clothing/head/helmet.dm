@@ -166,7 +166,7 @@
 
 /obj/item/clothing/head/helmet/roman
 	name = "legionnaire helmet"
-	desc = "A lovingly-crafted helmet based off of a Roman legionnaire's. Provides light protection against melee and laser impacts."
+	desc = "A lovingly-crafted helmet based off examples used by Roman legionnaires. Provides light protection against melee and laser impacts. It's also completely fireproof!"
 	flags = null
 	armor = list(MELEE = 15, BULLET = 0, LASER = 15, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = INFINITY, ACID = 50)
 	resistance_flags = FIRE_PROOF
