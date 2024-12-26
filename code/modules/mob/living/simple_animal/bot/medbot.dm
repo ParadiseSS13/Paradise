@@ -370,7 +370,7 @@
 			last_found = world.time
 
 		if(!length(path) && (get_dist(src,patient) > 1))
-			set_mode(BOT_MOVING)
+			set_mode(BOT_PATHING)
 			path = get_path_to(src, patient, 30, access = access_card.access)
 			set_mode(BOT_MOVING)
 			if(!length(path)) //try to get closer if you can't reach the patient directly
