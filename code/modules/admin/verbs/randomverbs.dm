@@ -1167,7 +1167,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!D)
 		return
 
-	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
+	var/add_or_remove = tgui_input_list(usr, "Add or Remove Trait?", "Modify Trait", list("Add","Remove"))
 	if(!add_or_remove)
 		return
 	var/list/availible_traits = list()
@@ -1175,7 +1175,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	switch(add_or_remove)
 		if("Add")
 			for(var/key in GLOB.traits_by_type)
-				if(istype(D,key))
+				if(istype(D, key))
 					availible_traits += GLOB.traits_by_type[key]
 		if("Remove")
 			if(!GLOB.trait_name_map)
@@ -1184,7 +1184,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				availible_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in availible_traits
+	var/chosen_trait = tgui_input_list(usr, "Select trait to modify.", "Traits", availible_traits)
 	if(!chosen_trait)
 		return
 	chosen_trait = availible_traits[chosen_trait]
@@ -1194,14 +1194,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
 			ADD_TRAIT(D, chosen_trait, source)
 		if("Remove")
-			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			var/specific = tgui_input_list(usr, "All or from a specific source?", "Add or Remove Trait", list("All","Specific"))
 			if(!specific)
 				return
 			switch(specific)
 				if("All")
 					source = null
 				if("Specific")
-					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					source = tgui_input_list(usr, "Source to be removed?", "Add or Remove Trait", D.status_traits[chosen_trait])
 					if(!source)
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
