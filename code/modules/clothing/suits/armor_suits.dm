@@ -318,7 +318,7 @@
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
-	desc = "A full-body suit of armor fitted with Level IV ballistic armor inserts and paneling across the body. Will stop most low-caliber kinetic projectiles, but does little against melee and energy attacks."
+	desc = "A full-body suit of armor fitted with Level IV ballistic armor inserts and panelling across the body. Will stop most low-caliber kinetic projectiles and help resist the concussive force of explosions, but it does little against melee and energy attacks."
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
