@@ -70,7 +70,7 @@
 	/// List of jobs claimed by bot
 	var/static/list/ignore_job = list()
 	/// Standardizes the vars that indicate the bot is busy with its function.
-	var/set_mode(BOT_IDLE)
+	var/mode = BOT_IDLE
 	/// Number of times the bot tried and failed to move.
 	var/tries = 0
 	/// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.

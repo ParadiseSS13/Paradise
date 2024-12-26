@@ -26,10 +26,41 @@
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
+	var/list/idle_phrases = list(
+		MEDIBOT_VOICED_MASK_ON = 'sound/voice/mradar.ogg',
+		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/voice/mcatch.ogg',
+		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/voice/msurgeon.ogg',
+		MEDIBOT_VOICED_LIKE_FLIES = 'sound/voice/mflies.ogg',
+		MEDIBOT_VOICED_DELICIOUS = 'sound/voice/mdelicious.ogg',
+	)
+
+	var/list/finish_healing_phrases = list(
+		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/voice/mpatchedup.ogg',
+		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/voice/mapple.ogg',
+		MEDIBOT_VOICED_FEEL_BETTER = 'sound/voice/mfeelbetter.ogg',
+	)
+
+	var/list/located_patient_phrases = list(
+		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/mcoming.ogg',
+		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/mhelp.ogg',
+		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/minjured.ogg'
+	)
+
+	var/list/patient_died_phrases = list(
+		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/voice/mno.ogg',
+		MEDIBOT_VOICED_LIVE = 'sound/voice/mlive.ogg',
+		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/mlost.ogg'
+	)
+
+	/// The above lists joined into one, for one-place lookups
+	var/list/all_phrases
+
 	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/mob/living/carbon/patient = null
-	var/mob/living/carbon/oldpatient = null
+	/// UID of the previous patient. Used to avoid running selection checks on them if we failed to heal them.
+	var/previous_patient = null
+
 	var/oldloc = null
 	var/last_found = 0
 	var/last_warning = 0
@@ -136,7 +167,7 @@
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
 	patient = null
-	oldpatient = null
+	previous_patient = null
 	oldloc = null
 	last_found = world.time
 	declare_cooldown = FALSE
@@ -268,7 +299,7 @@
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		flick("medibot_spark", src)
 		if(user)
-			oldpatient = user
+			previous_patient = user.UID()
 
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
@@ -280,16 +311,13 @@
 	if(H.stat == DEAD)
 		return
 
-	if((H == oldpatient) && (world.time < last_found + 200))
+	if((H.unique_datum_id == previous_patient) && (world.time < last_found + 200))
 		return
 
 	if(assess_patient(H))
 		last_found = world.time
-		if((last_newpatient_speak + 300) < world.time) //Don't spam these messages!
-			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/mcoming.ogg', "Wait [H.name]! I want to help!" = 'sound/voice/mhelp.ogg', "[H.name], you appear to be injured!" = 'sound/voice/minjured.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+		if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
+			medbot_phrase(pick(located_patient_phrases), H)
 			last_newpatient_speak = world.time
 		return H
 	else
@@ -303,18 +331,16 @@
 		return
 
 	if(frustration > 8)
-		oldpatient = patient
+		previous_patient = patient.UID()
 		soft_reset()
 
 	if(!patient)
 		if(!shut_up && prob(1))
-			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/mradar.ogg', "There's always a catch, and I'm the best there is." = 'sound/voice/mcatch.ogg', "I knew it, I should've been a plastic surgeon." = 'sound/voice/msurgeon.ogg', "What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/mflies.ogg', "Delicious!" = 'sound/voice/mdelicious.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+			medbot_phrase(pick(idle_phrases))
+
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
-		oldpatient = patient
+		patient = scan(/mob/living/carbon/human, scan_range = scan_range)
+		previous_patient = patient.UID()
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
@@ -344,7 +370,7 @@
 
 	if(length(path) && patient)
 		if(!bot_move(path[length(path)]))
-			oldpatient = patient
+			previous_patient = patient.UID()
 			soft_reset()
 		return
 
@@ -448,16 +474,13 @@
 		return
 
 	if(!istype(C))
-		oldpatient = patient
+		previous_patient = patient.UID()
 		soft_reset()
 		return
 
 	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
-		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
-		var/message = pick(messagevoice)
-		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
-		oldpatient = patient
+		medbot_phrase(pick(patient_died_phrases), C)
+		previous_patient = patient.UID()
 		soft_reset()
 		return
 
@@ -471,10 +494,7 @@
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
-		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg', "An apple a day keeps me away." = 'sound/voice/mapple.ogg', "Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
-		var/message = pick(messagevoice)
-		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
+		medbot_phrase(pick(finish_healing_phrases), C)
 		bot_reset()
 		return
 	else
@@ -568,6 +588,14 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
+/// Given a proper medbot phrase key, say the line with any replacements, and play it's sound.
+/mob/living/simple_animal/bot/medbot/proc/medbot_phrase(phrase, mob/target)
+	var/sound_path = all_phrases[phrase]
+	if(target)
+		phrase = replacetext(phrase, "%TARGET%", "[target]")
+
+	speak(phrase)
+	playsound(src, sound_path, 75, FALSE)
 
 #undef MEDBOT_MIN_HEALING_THRESHOLD
 #undef MEDBOT_MAX_HEALING_THRESHOLD
