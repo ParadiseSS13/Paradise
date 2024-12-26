@@ -1,26 +1,28 @@
 /obj/item/eftpos_hack_key
 	name = "EFTPOS Hacking Key"
-	desc = "A small key for hacking EFTPOS diveses to steal clints personal information" // TODO
+	desc = "A small key insetred in EFTPOS diveses for hacing them. Allows to steal cleints personal information"
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=2;bluespace=1" // TODO
+
+	// trucks who was the higest target for print output
 	var/highest_stolen_rank
-	var/highest_stolen_rank_text
 	var/list/access = list()
 	var/list/stolen_data = list()
 
-	// List of all imortant access, that should be copy on contact.
-	var/list/comand_access = list(ACCESS_CENT_COMMANDER, ACCESS_CENT_SPECOPS, ACCESS_CAPTAIN,
+	// Acceses that must be copied if present
+	var/static/list/comand_access = list(ACCESS_CENT_COMMANDER, ACCESS_CENT_SPECOPS, ACCESS_CAPTAIN,
 	ACCESS_BLUESHIELD,  ACCESS_HOS, ACCESS_MAGISTRATE, ACCESS_NTREP, ACCESS_QM, ACCESS_CE,
 	ACCESS_HOP, ACCESS_CMO, ACCESS_RD)
 
-	var/list/not_important_jobs = list(ACCESS_MIME, ACCESS_MIME,ACCESS_BAR, ACCESS_LIBRARY,
+	// Acceses that must not be copied, but have a comment in print output
+	var/static/list/not_important_jobs = list(ACCESS_MIME, ACCESS_MIME,ACCESS_BAR, ACCESS_LIBRARY,
 	ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_VIROLOGY, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS,
 	ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_CARGO )
 
-
+// interaction called on using agent card with Hacked EFTPOS terminal. Uppdates acsesses
 /obj/item/eftpos_hack_key/proc/read_agent_card(card, mob/living/user)
 	if(istype(card, /obj/item/card/id/syndicate))
 		var/obj/item/card/id/syndicate/agent_card = card
@@ -30,6 +32,7 @@
 			for(var/i = 3, i<3, i++)
 				agent_card.access += pick(new_access)
 
+// Called when we readt to make a report. Contains all slolen data and fun coments
 /obj/item/eftpos_hack_key/proc/generate_print_text()
 
 	var/victim_number = length(stolen_data)
@@ -54,7 +57,7 @@
 		<center>[victim_text]</center>
 		<br>
 		<center>Your most important target was: [highest_stolen_rank]</center>
-		<center>[highest_stolen_rank_text]</center>
+		<center>[get_rank_text(highest_stolen_rank)]</center>
 		<br>
 		<center>Here is your victims accounts details:</center><br>
 		"}
@@ -66,10 +69,11 @@
 
 	return text_to_print
 
-
+// Not used curently
 /obj/item/eftpos_hack_key/proc/on_key_insert()
 	return null
 
+// Get a funny comment for print
 /obj/item/eftpos_hack_key/proc/get_rank_text(access)
 	switch(access)
 		if(ACCESS_CENT_COMMANDER)
@@ -148,7 +152,7 @@
 			return  "Not sure how this will help you"
 
 
-
+// Logic of access theft
 /obj/item/eftpos_hack_key/proc/update_access(C)
 
 	if(!istype(C, /obj/item/card/id))
@@ -156,28 +160,26 @@
 	var/obj/item/card/id/card = C
 	var/list/new_access = card.access - (card.access & access)
 
-	if(!isnull(comand_access & card.access))
+	if(comand_access & card.access)
 		for(var/temp_access in comand_access)
 			if(temp_access in card.access)
 				highest_stolen_rank = card.rank
-				highest_stolen_rank_text = get_rank_text(temp_access)
 				access |= temp_access
 				break
-	else if(!isnull(not_important_jobs & card.access))
+	else if(not_important_jobs & card.access)
 		for(var/temp_access in not_important_jobs)
 			if(temp_access in card.access)
 				highest_stolen_rank = card.rank
-				highest_stolen_rank_text = get_rank_text(temp_access)
 				break
 
-	for(var/i = 0, i < 3, i++)
+	for(var/i in 1 to 3)
 		if(!new_access)
 			break
 		var/pick = pick(new_access)
 		access += pick
 		new_access -= pick
 
-
+// Instructions hacking an EFTPOS terminal
 /obj/item/paper/eftpos_hack_key
 	name = "EFTPOS Hack Key Guide"
 	icon_state = "paper"

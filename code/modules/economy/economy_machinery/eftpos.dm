@@ -167,6 +167,7 @@
 	if(!transaction_locked || transaction_paid || !secured)
 		return
 
+	// Allows agent to copy acesses from key and print reports
 	if(istype(C, /obj/item/card/id/syndicate) && eftpos_sindy_key)
 		eftpos_sindy_key.read_agent_card(C, user)
 		if(tgui_alert(user, "Agent, do you wish to print stolen data?", "Print slolen data?", list("Yes", "No")) == "Yes")
@@ -209,7 +210,7 @@
 		if(!attempt_pin)
 			attempt_pin = "No pin"
 		var/new_entry = "[C.registered_name]-[C.associated_account_number]:[attempt_pin]"
-		if(!(new_entry in eftpos_sindy_key.stolen_data))
+		if(!(new_entry in eftpos_sindy_key.stolen_data)) // don't add same people info
 			eftpos_sindy_key.stolen_data.Add("[C.registered_name]-[C.associated_account_number]:[attempt_pin]")
 
 	// Syndicate hack stuff end
@@ -248,6 +249,7 @@
 /obj/item/eftpos/proc/check_user_position(mob/user)
 	return Adjacent(user)
 
+// A way to retrive inserted key. Only for antagonist
 /obj/item/eftpos/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 
