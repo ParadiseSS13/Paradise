@@ -336,7 +336,7 @@
 
 /obj/item/clothing/suit/armor/bulletproof/sec
 	name = "security bulletproof armor"
-	desc = "A full-body suit of armor fitted with Level IV ballistic inserts and panelling. Will stop most low-caliber kinetic rounds, but does little against melee and energy attacks. This suit is covered in redSecurity stripes."
+	desc = "A full-body suit of armor fitted with Level IV ballistic inserts and panelling. Will stop most low-caliber kinetic rounds and resist the concussive force of explosions somewhat, but it does little against melee and energy attacks. This suit is covered in red Security stripes."
 	icon_state = "bulletproof-sec"
 	item_state = "armor"
 	blood_overlay_type = "armor"
