@@ -128,7 +128,7 @@
 
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"
-	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection in all areas."
+	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection against all threats."
 	icon_state = "swat"
 	item_state = "swat"
 
