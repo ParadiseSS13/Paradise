@@ -363,7 +363,7 @@
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
 
-	if (COOLDOWN_FINISHED(src, ignore_list_cleanup_cd))
+	if(COOLDOWN_FINISHED(src, ignore_list_cleanup_cd))
 		clear_ignore_list()
 		COOLDOWN_START(src, ignore_list_cleanup_cd, 20 SECONDS)
 
