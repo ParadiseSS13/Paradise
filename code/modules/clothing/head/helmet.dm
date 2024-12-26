@@ -181,7 +181,7 @@
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "centurion helmet"
-	desc = "A lovingly-crafted helmet based off a Roman centurion's. Provides light protection against melee and laser impacts, and has a fancy crest on top!."
+	desc = "A lovingly-crafted helmet based off those used by Roman centurions. Provides light protection against melee and laser impacts, is completely fireproof, and has a fancy crest on top!"
 	icon_state = "roman_c"
 	item_state = "roman_c"
 
