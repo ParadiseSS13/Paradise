@@ -26,6 +26,7 @@
 #define BOT_NO_ROUTE		17	// no destination beacon found (or no route)
 #define BOT_MAKE_TILE		18	// converting metal into tiles (floorbots)
 #define BOT_EAT_TILE		19	// adding said tiles to inventory (floorbots)
+#define BOT_PATHING			20	// Actively pathfinding.
 
 //Bot types
 #define SEC_BOT				"Security"	// Secutritrons (Beepsky) and ED-209s

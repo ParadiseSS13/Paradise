@@ -327,12 +327,14 @@
 	if(!..())
 		return
 
-	if(mode == BOT_HEALING)
-		return
+	switch(mode)
+		if(BOT_HEALING)
+			return
 
-	if(frustration > 8)
+	if(frustration > 5)
 		previous_patient = patient.UID()
 		soft_reset()
+		medbot_phrase(MEDIBOT_VOICED_FUCK_YOU)
 
 	if(!patient)
 		if(!shut_up && prob(1))
@@ -340,42 +342,43 @@
 
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
 		patient = scan(/mob/living/carbon/human, scan_range = scan_range)
-		previous_patient = patient.UID()
 
-	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
-		if(mode != BOT_HEALING)
-			set_mode(BOT_HEALING)
-			update_icon()
-			frustration = 0
-			medicate_patient(patient)
-		return
+	if(patient)
+		if((get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
+			if(mode != BOT_HEALING)
+				set_mode(BOT_HEALING)
+				update_icon()
+				medicate_patient(patient)
+			return
 
-	//Patient has moved away from us!
-	else if(patient && length(path) && (get_dist(patient,path[length(path)]) > 2))
-		path = list()
-		set_mode(BOT_IDLE)
-		last_found = world.time
-
-	else if(stationary_mode && patient) //Since we cannot move in this mode, ignore the patient and wait for another.
-		soft_reset()
-		return
-
-	if(patient && !length(path) && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30, access = access_card.access)
-		set_mode(BOT_MOVING)
-		if(!length(path)) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30, 1, access = access_card.access)
-			if(!length(path)) //Do not chase a patient we cannot reach.
-				soft_reset()
-
-	if(length(path) && patient)
-		if(!bot_move(path[length(path)]))
-			previous_patient = patient.UID()
+		else if(stationary_mode) //Since we cannot move in this mode, ignore the patient and wait for another.
 			soft_reset()
-		return
+			return
 
-	if(length(path) > 8 && patient)
-		frustration++
+		//Patient has moved away from us!
+		else if(!path.len || (path.len && (get_dist(patient,path[path.len]) > 2)))
+			path = list()
+			set_mode(BOT_IDLE)
+			last_found = world.time
+
+
+		if(!length(path) && (get_dist(src,patient) > 1))
+			set_mode(BOT_MOVING)
+			path = get_path_to(src, patient, 30, access = access_card.access)
+			set_mode(BOT_MOVING)
+			if(!length(path)) //try to get closer if you can't reach the patient directly
+				path = get_path_to(src, patient, 30, 1, access = access_card.access)
+				if(!length(path)) //Do not chase a patient we cannot reach.
+					add_to_ignore(patient)
+					soft_reset()
+
+			if(length(path))
+				frustration++
+				if(!bot_move(path[length(path)]))
+					previous_patient = patient.UID()
+					soft_reset()
+				return
+
 
 	if(auto_patrol && !stationary_mode && !patient)
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
@@ -384,7 +387,6 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
-	return
 
 /mob/living/simple_animal/bot/medbot/proc/assess_beaker_injection(mob/living/carbon/C)
 	//If we have and are using a medicine beaker, return any reagent the patient is missing

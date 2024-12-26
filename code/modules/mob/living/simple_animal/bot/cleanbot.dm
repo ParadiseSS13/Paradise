@@ -155,8 +155,8 @@
 		target = null
 
 	if(target)
-		if(!path || !length(path)) //No path, need a new one
-			//Try to produce a path to the target, and ignore airlocks to which it has access.
+		if(!length(path)) //No path, need a new one
+			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
 				ignore_job -= target.UID()
@@ -165,6 +165,7 @@
 				path = list()
 				return
 			set_mode(BOT_MOVING)
+
 		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
