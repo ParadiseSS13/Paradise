@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
-	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
+	clear_ignore_list()
 	target = null
 	oldloc = null
 	area_locked = null

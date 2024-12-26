@@ -60,7 +60,7 @@
 	..()
 	target = null
 	oldloc = null
-	ignore_list.Cut()
+	clear_ignore_list()
 	nagged = 0
 	anchored = FALSE
 	update_icon()

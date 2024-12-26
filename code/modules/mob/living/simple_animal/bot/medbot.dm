@@ -43,13 +43,17 @@
 	var/list/located_patient_phrases = list(
 		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/mcoming.ogg',
 		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/mhelp.ogg',
-		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/minjured.ogg'
+		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/minjured.ogg',
 	)
 
 	var/list/patient_died_phrases = list(
 		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/voice/mno.ogg',
 		MEDIBOT_VOICED_LIVE = 'sound/voice/mlive.ogg',
-		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/mlost.ogg'
+		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/mlost.ogg',
+	)
+
+	var/list/frustration_phrases = list(
+		MEDIBOT_VOICED_FUCK_YOU = 'sound/voice/mfuck_you.ogg',
 	)
 
 	/// The above lists joined into one, for one-place lookups
@@ -160,6 +164,8 @@
 	prev_access = access_card.access
 	qdel(J)
 
+	all_phrases = idle_phrases + located_patient_phrases + finish_healing_phrases + patient_died_phrases + frustration_phrases
+
 	if(new_skin)
 		skin = new_skin
 	update_icon()
@@ -171,6 +177,7 @@
 	oldloc = null
 	last_found = world.time
 	declare_cooldown = FALSE
+	frustration = 0
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
@@ -178,6 +185,7 @@
 	patient = null
 	set_mode(BOT_IDLE)
 	last_found = world.time
+	frustration = 0
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
@@ -361,7 +369,6 @@
 			set_mode(BOT_IDLE)
 			last_found = world.time
 
-
 		if(!length(path) && (get_dist(src,patient) > 1))
 			set_mode(BOT_MOVING)
 			path = get_path_to(src, patient, 30, access = access_card.access)
@@ -472,6 +479,8 @@
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
+	set waitfor = FALSE
+
 	if(!on)
 		return
 
@@ -499,15 +508,33 @@
 		medbot_phrase(pick(finish_healing_phrases), C)
 		bot_reset()
 		return
-	else
-		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
-			soft_reset()
-			return
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-		addtimer(CALLBACK(src, PROC_REF(do_inject), C, !isnull(beaker_injection), reagent_id), 3 SECONDS)
+	if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
+		soft_reset()
 		return
+
+	C.visible_message(
+		"<span class='danger'>[src] is trying to inject [patient]!</span>",
+		"<span class='userdanger'>[src] is trying to inject you!</span>"
+	)
+
+	if(!do_after(src, 3 SECONDS, target = C) || !on || get_dist(src, patient <= 1))
+		soft_reset()
+		visible_message("[src] retracts its syringe.")
+		return
+
+	if(!isnull(beaker_injection))
+		if(use_beaker && reagent_glass?.reagents.total_volume)
+			var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+			reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
+			reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
+	else
+		patient.reagents.add_reagent(reagent_id, injection_amount)
+
+	C.visible_message(
+		"<span class='danger'>[src] injects [patient] with its syringe!</span>",
+		"<span class='userdanger'>[src] injects you with its syringe!</span>"
+	)
 
 /mob/living/simple_animal/bot/medbot/proc/do_inject(mob/living/carbon/C, inject_beaker, reagent_id)
 	if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
