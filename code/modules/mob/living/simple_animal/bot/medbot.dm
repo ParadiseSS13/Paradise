@@ -617,7 +617,7 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
-/// Given a proper medbot phrase key, say the line with any replacements, and play it's sound.
+/// Given a proper medbot phrase key, say the line with any replacements, and play its sound.
 /mob/living/simple_animal/bot/medbot/proc/medbot_phrase(phrase, mob/target)
 	var/sound_path = all_phrases[phrase]
 	if(target)
