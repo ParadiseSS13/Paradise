@@ -36,17 +36,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(!station) // If there are no unused stations, just no.
 		return
 
-	var/datum/traders/T = pick(//datum/traders/sol,
-								///datum/traders/cyber,
+	var/datum/traders/T = pick(/datum/traders/sol,
+								/datum/traders/cyber,
 								/datum/traders/commie,
-								///datum/traders/unathi,
-								///datum/traders/vulp,
-								///datum/traders/ipc,
-								///datum/traders/vox,
-								///datum/traders/skrell,
-								///datum/traders/grey,
-								///datum/traders/nian
-								)
+								/datum/traders/unathi,
+								/datum/traders/vulp,
+								/datum/traders/ipc,
+								/datum/traders/vox,
+								/datum/traders/skrell,
+								/datum/traders/grey,
+								/datum/traders/nian)
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused", 'sound/AI/traderdeny.ogg')
