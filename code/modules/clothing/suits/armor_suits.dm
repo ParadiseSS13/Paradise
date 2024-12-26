@@ -256,7 +256,7 @@
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
-	desc = "A bulky, full-body suit of layered armor and impact cushions that provides outstanding protection against blunt trauma. Much less effective against all other forms of damage, however."
+	desc = "A bulky, full-body suit of layered armor and impact cushions that provides outstanding protection against blunt trauma, fire, and corrosive substances. Much less effective against all other forms of damage, however."
 	icon_state = "riot"
 	item_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
