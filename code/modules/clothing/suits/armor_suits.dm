@@ -16,7 +16,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
-	name = "armor"
+	name = "perfectly generic armor vest"
 	desc = "A perfectly generic armored vest. Every aspect of it is exceptionally boring. If you see this, make an issue report on GitHub."
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
