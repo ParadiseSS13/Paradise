@@ -252,7 +252,7 @@
 
 /obj/item/clothing/head/helmet/riot/knight/templar
 	name = "crusader helmet"
-	desc = "A cheap metal helmet that looks straight out of a poorly-funded documentary about the crusades. Might stop a crude melee weapon, but don't expect much beyond that."
+	desc = "A cheap metal helmet that looks straight out of a poorly-funded documentary about the crusades. Might stop a crude melee weapon. The asbestos-lined padding <b>does</b> provide great protection from fire and acid, however..."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 200, ACID = 200)
