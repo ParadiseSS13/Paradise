@@ -63,7 +63,7 @@
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/mob/living/carbon/patient = null
 	/// UID of the previous patient. Used to avoid running selection checks on them if we failed to heal them.
-	var/previous_patient = null
+	var/previous_patient
 
 	var/oldloc = null
 	var/last_found = 0
