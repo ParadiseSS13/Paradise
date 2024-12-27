@@ -706,6 +706,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
 	simulated = FALSE
+	// Please do not splat the visual effect with a shuttle.
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 
 	var/image/overlay
 
@@ -716,6 +718,10 @@
 	overlay.plane = ABOVE_LIGHTING_PLANE
 	overlay.blend_mode = BLEND_OVERLAY
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/obj/effect/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	// No, I don't think I will.
+	return FALSE
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
