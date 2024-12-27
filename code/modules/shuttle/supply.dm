@@ -219,6 +219,7 @@
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return CARGO_OK
+		return CARGO_SKIP_ATOM
 
 	return CARGO_OK
 
