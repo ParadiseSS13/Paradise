@@ -188,6 +188,9 @@
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
 	var/digital = FALSE
+	/// Should camera light up the scene
+	var/flashing_light = TRUE
+	actions_types = list(/datum/action/item_action/toogle_camera_flash)
 
 /obj/item/camera/autopsy
 	name = "autopsy camera"
@@ -223,6 +226,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	change_size(user)
+
+/obj/item/camera/ui_action_click(mob/user, actiontype)
+	toggle_flash(user)
+
+/obj/item/camera/proc/toggle_flash(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	flashing_light = !flashing_light
+
+	to_chat(user, "<span class='notice'>You turned [src] flash [flashing_light ? "on" : "off"].</span>")
 
 /obj/item/camera/proc/change_size(mob/user)
 	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
@@ -272,6 +286,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		atoms.Add(the_turf)
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
+			if(istype(A, /atom/movable/lighting_object)) //Add lighting to make image look nice
+				atoms.Add(A)
+				continue
+
 			if(A.invisibility)
 				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
@@ -301,6 +319,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/center_offset = (size-1)/2 * 32 + 1
 	for(var/i; i <= length(sorted); i++)
 		var/atom/A = sorted[i]
+		if(istype(A, /atom/movable/lighting_object))
+			continue //Lighting objects render last, need to be above all atoms and turfs displayed
+
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -328,6 +349,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		var/xoff = (the_turf.x - center.x) * 32 + center_offset
 		var/yoff = (the_turf.y - center.y) * 32 + center_offset
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
+
+	// Render lighting objects to make picture look nice.
+	for(var/atom/movable/lighting_object/light in sorted)
+		var/xoff = (light.x - center.x) * 32 + center_offset
+		var/yoff = (light.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+
 	return res
 
 
@@ -367,11 +395,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
-	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	if(flashing_light)
+		set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+		sleep(0.2 SECONDS) //Allow lights to update before capturing image
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.1 SECONDS)
+
+	captureimage(target, user, flag)
 	pictures_left--
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
