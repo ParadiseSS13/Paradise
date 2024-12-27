@@ -1379,13 +1379,6 @@
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
 
-/// The mob is fighting against airflow, and will not be pushed by it.
-/datum/status_effect/fighting_airflow
-	id = "fighting_airflow"
-	duration = 0.1 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-	alert_type = null
-
 /datum/status_effect/c_foamed
 	id = "c_foamed up"
 	duration = 1 MINUTES

@@ -699,7 +699,11 @@
 		wind_effect = new(src)
 
 	wind_effect.dir = wind_direction(wind_x, wind_y)
-	wind_effect.alpha = min(255, 5 + sqrt(wind_x**2 + wind_y**2) * 25)
+
+	var/datum/gas_mixture/air = get_readonly_air()
+	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
+	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
+	wind_effect.alpha = min(255, 5 + wind_strength * 25)
 	return TRUE
 
 /turf/return_analyzable_air()

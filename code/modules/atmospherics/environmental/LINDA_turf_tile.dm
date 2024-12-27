@@ -115,8 +115,12 @@
 	else
 		force_needed *= MOVE_FORCE_PUSH_RATIO
 
-	var/pressure_difference = sqrt(flow_x ** 2 + flow_y ** 2)
-	var/force = pressure_difference * (MOVE_FORCE_DEFAULT / 5)
+	var/turf/my_turf = get_turf(src)
+	var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
+
+	var/air = my_air.total_moles() / MOLES_CELLSTANDARD
+	var/wind = sqrt(flow_x ** 2 + flow_y ** 2)
+	var/force = wind * air * (MOVE_FORCE_DEFAULT / 5)
 
 	if(force < force_needed)
 		return
@@ -137,9 +141,11 @@
 /mob/living/air_push(direction, strength)
 	if(HAS_TRAIT(src, TRAIT_MAGPULSE))
 		return
+
 	apply_status_effect(STATUS_EFFECT_UNBALANCED)
-	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction), min(10, strength * 10))
-	if(has_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW))
+	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction), min(10, strength * 5))
+
+	if(client?.input_data?.desired_move_dir != 0)
 		return
 	if(!pulling)
 		return ..()

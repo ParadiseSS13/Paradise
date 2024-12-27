@@ -39,7 +39,6 @@
 	/// Wind effect
 	var/obj/effect/wind/wind_effect = null
 
-
 /turf/simulated/proc/break_tile()
 	return
 
