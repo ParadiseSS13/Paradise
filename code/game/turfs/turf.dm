@@ -342,10 +342,6 @@
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
-	for(var/obj/effect/pressure_overlay/overlay in src)
-		pressure_overlay = overlay
-	if(isnull(pressure_overlay))
-		pressure_overlay = new(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()
@@ -718,6 +714,22 @@
 	overlay.plane = ABOVE_LIGHTING_PLANE
 	overlay.blend_mode = BLEND_OVERLAY
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/turf/proc/ensure_pressure_overlay()
+	if(isnull(pressure_overlay))
+		for(var/obj/effect/pressure_overlay/found_overlay in src)
+			pressure_overlay = found_overlay
+	if(isnull(pressure_overlay))
+		pressure_overlay = new(src)
+
+	if(isnull(pressure_overlay.loc))
+		// Not sure how exactly this happens, but I've seen it happen, so fix it.
+		pressure_overlay.forceMove(src)
+
+	if(isnull(pressure_overlay.overlay))
+		pressure_overlay.Initialize()
+
+	return pressure_overlay
 
 /turf/_clear_signal_refs()
 	return

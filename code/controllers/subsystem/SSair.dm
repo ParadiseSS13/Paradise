@@ -503,18 +503,11 @@ SUBSYSTEM_DEF(air)
 		tracked_tiles.len -= 4
 
 		var/turf/tile = locate(x, y, z)
-		if(istype(tile) && !isnull(tile.pressure_overlay))
-			if(isnull(tile.pressure_overlay))
-				tile.pressure_overlay = new(tile)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
-			if(isnull(pressure_overlay.overlay))
-				tile.pressure_overlay.Initialize()
-			if(isnull(pressure_overlay.loc))
-				// Not sure how exactly this happens, but I've seen it happen, so fix it.
-				pressure_overlay.forceMove(tile)
+		if(istype(tile))
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			var/ratio = pressure / ONE_ATMOSPHERE
-			tile.pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
-			tile.pressure_overlay.overlay.alpha = pressure_overlay_alpha
+			pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
+			pressure_overlay.overlay.alpha = pressure_overlay_alpha
 
 		if(MC_TICK_CHECK)
 			return
@@ -575,10 +568,8 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, oldloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
-			if(!isnull(pressure_overlay?.overlay))
-				// We only need to check this on the remove side, because it happens in process_pressure_overlay for any tiles added.
-				user.client.images -= pressure_overlay.overlay
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			user.client.images -= pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
 	var/turf/newloc = get_turf(user)
@@ -600,7 +591,7 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, newloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			user.client.images += pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
