@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 
 	// Sort the atoms into their layers
-	var/list/sorted = sort_atoms_by_layer(atoms)
+	var/list/sorted = sort_atoms(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
 	for(var/i; i <= length(sorted); i++)
 		var/atom/A = sorted[i]
@@ -695,6 +695,39 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
 	return composite
 
+///Sorts atoms firstly by plane, then by layer on each plane
+/obj/item/camera/proc/sort_atoms(list/atoms)
+	var/list/plane_sorted = atoms.Copy()
+	var/gap = length(plane_sorted)
+	var/swapped = 1
+	while(gap > 1 || swapped)
+		swapped = 0
+		if(gap > 1)
+			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
+		if(gap < 1)
+			gap = 1
+		for(var/i = 1; gap + i <= length(plane_sorted); i++)
+			var/atom/l = plane_sorted[i]		//Fucking hate
+			var/atom/r = plane_sorted[gap+i]	//how lists work here
+			if(l.plane > r.plane)		//no "plane_sorted[i].layer" for me
+				plane_sorted.Swap(i, gap + i)
+				swapped = 1
+
+	var/list/result_by_planes = list()
+	for(var/atom/atom_to_sort as anything in plane_sorted)
+		if(!result_by_planes["[atom_to_sort.plane]"]) // Todo: fix it in 516 with alist()
+			result_by_planes["[atom_to_sort.plane]"] = list()
+
+		result_by_planes["[atom_to_sort.plane]"] += atom_to_sort
+
+	var/list/final_result = list()
+
+	for(var/plane in result_by_planes)
+		var/list/sorted = sort_atoms_by_layer(result_by_planes[plane])
+		final_result += sorted
+
+	return final_result
+
 /obj/item/camera/proc/sort_atoms_by_layer(list/atoms)
 	// Comb sort icons based on levels
 	var/list/result = atoms.Copy()
@@ -712,4 +745,5 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(l.layer > r.layer)		//no "result[i].layer" for me
 				result.Swap(i, gap + i)
 				swapped = 1
+
 	return result
