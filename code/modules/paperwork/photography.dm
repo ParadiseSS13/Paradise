@@ -341,6 +341,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				if(istype(A,/atom/movable))
 					xoff+=A:step_x
 					yoff+=A:step_y
+				else
+					// In case of an issue where icon size of a turf is different from 32x32 (grass, alien weeds, etc.)
+					xoff += (32 - img.Width()) / 2
+					yoff += (32 - img.Height()) / 2
+
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
 
 	// Lastly, render any contained effects on top.
