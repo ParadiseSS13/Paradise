@@ -36,7 +36,7 @@
 	return ..()
 
 // So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target)
+/obj/vehicle/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSMOB))
 		return TRUE
 	else
@@ -68,22 +68,20 @@
 
 		return TRUE
 
-/obj/vehicle/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return FINISH_ATTACK
-
-	if(key_type && !is_key(inserted_key) && is_key(attacking))
+/obj/vehicle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(key_type && !is_key(inserted_key) && is_key(used))
 		if(user.drop_item())
-			attacking.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert [attacking] into [src].</span>")
+			used.forceMove(src)
+			to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
-			inserted_key = attacking
+			inserted_key = used
 		else
-			to_chat(user, "<span class='warning'>[attacking] seems to be stuck to your hand!</span>")
-		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/borg/upgrade/vtec) && install_vtec(attacking, user))
-		return FINISH_ATTACK
+			to_chat(user, "<span class='warning'>[used] seems to be stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/borg/upgrade/vtec) && install_vtec(used, user))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/vehicle/AltClick(mob/user)
 	if(inserted_key && user.Adjacent(user))

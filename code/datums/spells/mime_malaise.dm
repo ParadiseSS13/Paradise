@@ -4,7 +4,6 @@
 		stun them so that they may contemplate Art, and silence them. \
 		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
-	school = "transmutation"
 
 	base_cooldown = 300
 	clothes_req = TRUE
@@ -19,8 +18,9 @@
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
 
-/obj/item/melee/touch_attack/mime_malaise/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/melee/touch_attack/mime_malaise/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -29,7 +29,6 @@
 
 	var/mob/living/carbon/human/H = target
 	H.mimetouched()
-	..()
 
 /mob/living/carbon/human/proc/mimetouched()
 	Weaken(14 SECONDS)

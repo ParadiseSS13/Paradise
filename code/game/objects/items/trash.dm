@@ -131,6 +131,11 @@
 	icon_state = "popsicle_stick_s"
 	desc = "Still tastes sweet."
 
+/obj/item/trash/caviar
+	name = "caviar can"
+	icon_state = "caviar-empty"
+	desc = "There's none left."
+
 // Ammo casings
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
