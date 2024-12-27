@@ -16,16 +16,16 @@ use std::time::Instant;
 
 /// BYOND API for ensuring the buffers are usable.
 #[byondapi::bind]
-fn milla_initialize(byond_z: ByondValue) {
+fn milla_initialize(byond_z: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     env::set_var("RUST_BACKTRACE", "1");
     let z = f32::try_from(byond_z)? as i32 - 1;
     internal_initialize(z)?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Ensure that buffers are available.
-pub(crate) fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
+pub(crate) fn internal_initialize(z: i32) -> eyre::Result<ByondValue> {
     if z >= MAX_Z_LEVELS {
         return Err(eyre!(
             "Suspiciously high Z level {} initialized, update MAX_Z_LEVELS if this is intentional.",
@@ -34,7 +34,7 @@ pub(crate) fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
     }
     let buffers = BUFFERS.get_or_init(Buffers::new);
     buffers.init_to(z);
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// BYOND API for defining an environment that a tile can be exposed to.
@@ -47,7 +47,7 @@ fn milla_create_environment(
     sleeping_agent: ByondValue,
     agent_b: ByondValue,
     temperature: ByondValue,
-) {
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     Ok(ByondValue::from(internal_create_environment(
         conversion::byond_to_option_f32(oxygen)?,
@@ -117,7 +117,7 @@ fn milla_set_tile(
     _innate_heat_capacity: ByondValue,
     hotspot_temperature: ByondValue,
     hotspot_volume: ByondValue,
-) {
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     internal_set_tile(
@@ -144,7 +144,7 @@ fn milla_set_tile(
         conversion::bounded_byond_to_option_f32(hotspot_temperature, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(hotspot_volume, 0.0, 1.0)?,
     )?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// BYOND API for setting the directions a tile is airtight in.
@@ -156,7 +156,7 @@ fn milla_set_tile_airtight(
     airtight_east: ByondValue,
     airtight_south: ByondValue,
     airtight_west: ByondValue,
-) {
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     internal_set_tile(
@@ -181,7 +181,7 @@ fn milla_set_tile_airtight(
         None,
         None,
     )?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Rust version of setting the atmos details of a tile.
@@ -295,19 +295,25 @@ pub(crate) fn internal_set_tile(
 
 /// BYOND API for fetching the atmos details of a tile.
 #[byondapi::bind]
-fn milla_get_tile(turf: ByondValue, list: ByondValue) {
+fn milla_get_tile(turf: ByondValue, list: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let tile = internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
     let vec: Vec<ByondValue> = (&tile).into();
     list.write_list(vec.as_slice())?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Rust version of fetching the atmos details of a tile.
 pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
-    let active = buffers.get_active().read().unwrap();
+    let maybe_active = buffers.get_active().read();
+    if maybe_active.is_err() {
+        return Err(eyre!(
+            "MILLA buffers have been poisoned, MILLA cannot run."
+        ));
+    }
+    let active = maybe_active.unwrap();
     let z_level = active.0[z as usize].read().unwrap();
     Ok(z_level
         .get_tile(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
@@ -325,7 +331,7 @@ pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
 /// * Turfs that just passed the threshold for showing plasma or sleeping gas.
 /// * Turfs with strong airflow out.
 #[byondapi::bind]
-fn milla_get_interesting_tiles() {
+fn milla_get_interesting_tiles() -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let byond_interesting_tiles = interesting_tiles
@@ -337,7 +343,7 @@ fn milla_get_interesting_tiles() {
 
 /// BYOND API for getting a single random interesting tile.
 #[byondapi::bind]
-fn milla_get_random_interesting_tile() {
+fn milla_get_random_interesting_tile() -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let length = interesting_tiles.len() as f32;
@@ -359,7 +365,7 @@ fn milla_reduce_superconductivity(
     east: ByondValue,
     south: ByondValue,
     west: ByondValue,
-) {
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_north = conversion::bounded_byond_to_option_f32(north, 0.0, 1.0)?;
@@ -375,7 +381,7 @@ fn milla_reduce_superconductivity(
         rust_south,
         rust_west,
     )?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Rust version of capping the superconductivity of a tile.
@@ -389,7 +395,7 @@ pub(crate) fn internal_reduce_superconductivity(
     east: Option<f32>,
     south: Option<f32>,
     west: Option<f32>,
-) -> Result<(), eyre::Error> {
+) -> eyre::Result<()> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
@@ -422,11 +428,11 @@ pub(crate) fn internal_reduce_superconductivity(
 
 /// BYOND API for resetting the superconductivity of a tile.
 #[byondapi::bind]
-fn milla_reset_superconductivity(turf: ByondValue) {
+fn milla_reset_superconductivity(turf: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     internal_reset_superconductivity(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Rust version of resetting the superconductivity of a tile.
@@ -455,14 +461,14 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 
 /// BYOND API for a heat source creating a hotspot on a tile.
 #[byondapi::bind]
-fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) {
+fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_temperature = conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot temperature is required.."))?;
     let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?.ok_or(eyre!("Hotspot volume is required.."))?;
 
     internal_create_hotspot(x as i32 - 1, y as i32 - 1, z as i32 - 1, rust_temperature, rust_volume / TILE_VOLUME)?;
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// Rust version of a heat source creating a hotspot.
@@ -501,10 +507,91 @@ pub(crate) fn internal_create_hotspot(x: i32, y: i32, z: i32, temperature: f32, 
     Ok(())
 }
 
+/// BYOND API for tracking the pressure of all nearby tiles next tick.
+#[byondapi::bind]
+fn milla_track_pressure_tiles(turf: ByondValue, byond_radius: ByondValue) -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let radius = conversion::bounded_byond_to_option_f32(byond_radius, 0.0, MAP_SIZE as f32)?.ok_or(eyre!("Invalid radius: {:#?}", byond_radius))? as i32;
+
+    internal_track_pressure_tiles(x as i32 - 1, y as i32 - 1, z as i32 - 1, radius)?;
+    Ok(ByondValue::null())
+}
+
+/// Rust version of tracking the pressure of all nearby tiles next tick.
+fn internal_track_pressure_tiles(x: i32, y: i32, z: i32, radius: i32) -> eyre::Result<()> {
+    let mut tracked_pressure_tiles = TRACKED_PRESSURE_TILES.lock().unwrap();
+    for dx in -radius..=radius {
+        if x + dx < 0 {
+            continue;
+        }
+        if x + dx >= MAP_SIZE as i32 {
+            break;
+        }
+        for dy in -radius..=radius {
+            if y + dy < 0 {
+                continue;
+            }
+            if y + dy >= MAP_SIZE as i32 {
+                break;
+            }
+            tracked_pressure_tiles.push((x+dx, y+dy, z as usize));
+        }
+    }
+
+    Ok(())
+}
+
+/// BYOND API for getting the tracked pressure tiles.
+#[byondapi::bind]
+fn milla_get_tracked_pressure_tiles() -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let tracked_pressures = internal_get_tracked_pressure_tiles()?
+        .iter()
+        .map(|v: &f32| ByondValue::from(*v))
+        .collect::<Vec<ByondValue>>();
+    Ok(tracked_pressures.as_slice().try_into()?)
+}
+
+/// Rust version of getting the tracked pressure tiles.
+fn internal_get_tracked_pressure_tiles() -> eyre::Result<Vec<f32>> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let inactive = buffers.get_inactive().read().unwrap();
+    let mut tracked_pressure_tiles = TRACKED_PRESSURE_TILES.lock().unwrap();
+
+    let mut tiles_by_zlevel: Vec<Vec<(i32, i32)>> = Vec::new();
+    for _z in 0..inactive.0.len() {
+        tiles_by_zlevel.push(Vec::new());
+    }
+
+    for (x, y, z) in tracked_pressure_tiles.drain(..) {
+        if z < tiles_by_zlevel.len() {
+            tiles_by_zlevel[z].push((x, y));
+        }
+    }
+
+    // This is a bit gross, but the easiest way to return the coordinates and data is to cast the
+    // coordinates to f32. It feels bad in Rust, but everything is an f32 in BYOND, so it's more or
+    // less a no-op.
+    let mut tracked_pressures: Vec<f32> = Vec::new();
+    for z in 0..tiles_by_zlevel.len() {
+        let z_level = inactive.0[z as usize].read().unwrap();
+        for (x, y) in &tiles_by_zlevel[z] {
+            if let Some(index) = ZLevel::maybe_get_index(*x, *y) {
+                tracked_pressures.push(*x as f32 + 1.0);
+                tracked_pressures.push(*y as f32 + 1.0);
+                tracked_pressures.push(z as f32 + 1.0);
+                tracked_pressures.push(z_level.get_tile(index).pressure());
+            }
+        }
+    }
+
+    Ok(tracked_pressures)
+}
+
 /// BYOND API for starting an atmos tick.
 #[byondapi::bind]
-fn milla_spawn_tick_thread() {
-    logging::setup_panic_handler();
+fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
     thread::spawn(|| -> Result<(), eyre::Error> {
         let now = Instant::now();
         let buffers = BUFFERS.get_or_init(Buffers::new);
@@ -522,12 +609,12 @@ fn milla_spawn_tick_thread() {
 
         Ok(())
     });
-    Ok(Default::default())
+    Ok(ByondValue::null())
 }
 
 /// BYOND API for asking how long the prior tick took.
 #[byondapi::bind]
-fn milla_get_tick_time() {
+fn milla_get_tick_time() -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     Ok(ByondValue::from(
         TICK_TIME.load(std::sync::atomic::Ordering::Relaxed) as f32,

@@ -4,6 +4,9 @@ pub(crate) const MAX_Z_LEVELS: i32 = 10;
 /// How big is the map? Assumed square.
 pub(crate) const MAP_SIZE: usize = 255;
 
+/// One atmosphere, in kPa.
+pub(crate) const ONE_ATMOSPHERE: f32 = 101.325;
+
 /// The temperature of space, in Kelvin
 pub(crate) const TCMB: f32 = 2.725;
 

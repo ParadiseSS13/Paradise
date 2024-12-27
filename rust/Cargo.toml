@@ -33,3 +33,4 @@ serde_json = { version = "1.0" }
 walkdir = "2.5.0"
 # regex
 regex = "1.10.5"
+png = "0.17.16"

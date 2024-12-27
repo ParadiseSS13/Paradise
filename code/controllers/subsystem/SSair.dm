@@ -5,7 +5,8 @@
 #define SSAIR_HOTSPOTS 5
 #define SSAIR_WINDY_TILES 6
 #define SSAIR_BOUND_MIXTURES 7
-#define SSAIR_MILLA_TICK 8
+#define SSAIR_PRESSURE_OVERLAY 8
+#define SSAIR_MILLA_TICK 9
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -37,6 +38,8 @@ SUBSYSTEM_DEF(air)
 	var/datum/resumable_cost_counter/cost_pipenets_to_build = new()
 	/// The cost of a pass through atmos machinery, shown in SS Info's C block as AM.
 	var/datum/resumable_cost_counter/cost_atmos_machinery = new()
+	/// The cost of a pass through loading pressure tiles, shown in SS Info's C block as PT.
+	var/datum/resumable_cost_counter/cost_pressure_tiles = new()
 
 	/// The set of current bound mixtures. Shown in SS Info as BM:x+y, where x is the length at the start of the most recent processing, and y is the number of mixtures that have been added during processing.
 	var/list/bound_mixtures = list()
@@ -85,6 +88,17 @@ SUBSYSTEM_DEF(air)
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
 
+	/// The coordinates of the pressure image we're currently loading.
+	var/pressure_x = 0
+	var/pressure_y = 0
+	var/pressure_z = 0
+
+	/// The people who were using the pressure HUD last tick.
+	var/list/pressure_hud_users = list()
+
+	/// What alpha to use for the pressure overlay. Applies to everyone using the overlay.
+	var/pressure_overlay_alpha = 50
+
 /// A cost counter for resumable, repeating processes.
 /datum/resumable_cost_counter
 	var/last_complete_ms = 0
@@ -119,7 +133,8 @@ SUBSYSTEM_DEF(air)
 	msg += "WT:[cost_windy_tiles.to_string()]|"
 	msg += "PN:[cost_pipenets.to_string()]|"
 	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
-	msg += "AM:[cost_atmos_machinery.to_string()]"
+	msg += "AM:[cost_atmos_machinery.to_string()]|"
+	msg += "PT:[cost_pressure_tiles.to_string()]"
 	msg += "} "
 	msg += "BM:[original_bound_mixtures]+[added_bound_mixtures]|"
 	msg += "IT:[interesting_tile_count]|"
@@ -269,6 +284,19 @@ SUBSYSTEM_DEF(air)
 		process_bound_mixtures(resumed)
 
 		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
+			return
+		resumed = 0
+		currentpart = SSAIR_PRESSURE_OVERLAY
+
+	if(currentpart == SSAIR_PRESSURE_OVERLAY)
+		timer = TICK_USAGE_REAL
+
+		process_pressure_overlay(resumed)
+
+		cost_pressure_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			in_milla_safe_code = FALSE
@@ -459,6 +487,117 @@ SUBSYSTEM_DEF(air)
 			return
 
 	windy_tiles = new_windy_tiles
+
+/datum/controller/subsystem/air/proc/process_pressure_overlay(resumed = 0)
+	if(!resumed)
+		currentrun = list(get_tracked_pressure_tiles(), pressure_hud_users)
+		pressure_hud_users = list()
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/tracked_tiles = currentrun[1]
+	while(length(tracked_tiles))
+		var/x = tracked_tiles[length(tracked_tiles) - 3]
+		var/y = tracked_tiles[length(tracked_tiles) - 2]
+		var/z = tracked_tiles[length(tracked_tiles) - 1]
+		var/pressure = tracked_tiles[length(tracked_tiles) - 0]
+		tracked_tiles.len -= 4
+
+		var/turf/tile = locate(x, y, z)
+		if(istype(tile) && !isnull(tile.pressure_overlay))
+			var/ratio = pressure / ONE_ATMOSPHERE
+			tile.pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
+			tile.pressure_overlay.overlay.alpha = pressure_overlay_alpha
+
+		if(MC_TICK_CHECK)
+			return
+
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/users = currentrun[2]
+	while(length(users))
+		var/mob/user = users[length(users)]
+		var/turf/oldloc = users[user]
+		users.len--
+
+		if(!istype(user) || QDELETED(user) || isnull(user.client) || !istype(oldloc))
+			continue
+
+		if(user in hud.hudusers)
+			var/turf/newloc = get_turf(user)
+			if(oldloc == newloc)
+				// Ya ain't moved, son. Ya get the same tiles ya already had.
+				continue
+			clear_pressure_hud(user, oldloc, FALSE)
+			add_pressure_hud(user, oldloc, FALSE)
+			pressure_hud_users[user] = newloc
+		else
+			clear_pressure_hud(user, oldloc, TRUE)
+
+		if(MC_TICK_CHECK)
+			return
+
+	for(var/mob/user in hud.hudusers)
+		if(isnull(user.client))
+			continue
+		track_pressure_tiles(user, PRESSURE_HUD_LOAD_RADIUS)
+		if(!(user in pressure_hud_users))
+			pressure_hud_users[user] = get_turf(user)
+
+	// Clean up currentrun so we don't confuse the next step.
+	currentrun = list()
+
+/datum/controller/subsystem/air/proc/clear_pressure_hud(mob/user, turf/oldloc, full_clear)
+	if(!istype(oldloc) || isnull(user.client))
+		return
+	var/turf/newloc = get_turf(user)
+	if(!istype(newloc))
+		full_clear = TRUE
+	else if(oldloc.z != newloc.z)
+		full_clear = TRUE
+
+	for(var/x in oldloc.x - PRESSURE_HUD_RADIUS to oldloc.x + PRESSURE_HUD_RADIUS)
+		if(x < 1 || x > world.maxx)
+			continue
+
+		for(var/y in oldloc.y - PRESSURE_HUD_RADIUS to oldloc.y + PRESSURE_HUD_RADIUS)
+			if(y < 1 || y > world.maxy)
+				continue
+			if(!full_clear && abs(newloc.x - x) <= PRESSURE_HUD_RADIUS && abs(newloc.y - y) <= PRESSURE_HUD_RADIUS)
+				continue
+
+			var/turf/tile = locate(x, y, oldloc.z)
+			if(isnull(tile.pressure_overlay))
+				tile.pressure_overlay = new(tile)
+			if(isnull(tile.pressure_overlay.overlay))
+				tile.pressure_overlay.Initialize()
+			user.client.images -= locate(x, y, oldloc.z).pressure_overlay.overlay
+
+/datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
+	var/turf/newloc = get_turf(user)
+	if(!istype(newloc) || isnull(user.client))
+		return
+	if(!istype(oldloc))
+		full_send = TRUE
+	else if(oldloc.z != newloc.z)
+		full_send = TRUE
+
+	for(var/x in newloc.x - PRESSURE_HUD_RADIUS to newloc.x + PRESSURE_HUD_RADIUS)
+		if(x < 1 || x > world.maxx)
+			continue
+
+		for(var/y in newloc.y - PRESSURE_HUD_RADIUS to newloc.y + PRESSURE_HUD_RADIUS)
+			if(y < 1 || y > world.maxy)
+				continue
+			if(!full_send && abs(oldloc.x - x) <= PRESSURE_HUD_RADIUS && abs(oldloc.y - y) <= PRESSURE_HUD_RADIUS)
+				continue
+
+			var/turf/tile = locate(x, y, newloc.z)
+			if(isnull(tile.pressure_overlay))
+				tile.pressure_overlay = new(tile)
+			if(isnull(tile.pressure_overlay.overlay))
+				tile.pressure_overlay.Initialize()
+			user.client.images += locate(x, y, newloc.z).pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
 	if(!resumed)
@@ -676,4 +815,5 @@ SUBSYSTEM_DEF(air)
 #undef SSAIR_HOTSPOTS
 #undef SSAIR_WINDY_TILES
 #undef SSAIR_BOUND_MIXTURES
+#undef SSAIR_PRESSURE_OVERLAY
 #undef SSAIR_MILLA_TICK

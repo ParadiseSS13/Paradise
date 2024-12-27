@@ -1,6 +1,7 @@
 use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
+use eyre;
 use scc::Bag;
 use std::sync::RwLock;
 use std::thread;
@@ -16,7 +17,8 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     let next = buffers.get_inactive().read().unwrap();
 
     let new_interesting_tiles: Bag<InterestingTile> = Bag::default();
-    let mut result: Result<(), eyre::Error> = Ok(());
+    let mut result: eyre::Result<()> = Ok(());
+    let handle_results: RwLock<Vec<eyre::Result<()>>> = RwLock::new(Vec::new());
 
     // The scope tells Rust that all the threads we create here will end by the time the scope
     // closes. This allows us to pass things into them that are only borrowed for the lifetime of
@@ -30,24 +32,30 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
 
         // Handle each Z level in its own thread.
         let mut handles = Vec::<ScopedJoinHandle<()>>::new();
+        let handle_results = &handle_results;
         for z in 0..prev.0.len() {
             handles.push(s.spawn(move || {
                 assert!(thread_priority::ThreadPriority::Min
                     .set_for_current()
                     .is_ok());
-                tick_z_level(
+                let result = tick_z_level(
                     buffers,
                     &prev.0[z],
                     &next.0[z],
                     z as i32,
                     &new_interesting_tiles,
-                )
-                .unwrap();
+                );
+                let mut results = handle_results.write().unwrap();
+                results.push(result);
             }));
         }
         for handle in handles {
-            if let Err(e) = handle.join() {
-                result = Err(eyre::eyre!("Worker thread failed: {:#?}", e));
+            let _ = handle.join();
+        }
+        let readable_results = handle_results.read().unwrap();
+        for index in 0..readable_results.len() {
+            if readable_results[index].is_err() {
+                result = Err(eyre::eyre!("MILLA worker thread failed: {:#?}", readable_results[index].as_ref().err()));
             }
         }
     });
@@ -72,7 +80,7 @@ pub(crate) fn tick_z_level(
     next_atmos_lock: &RwLock<ZLevel>,
     z: i32,
     new_interesting_tiles: &Bag<InterestingTile>,
-) -> Result<(), eyre::Error> {
+) -> eyre::Result<()> {
     let environments;
     {
         let global_environments = buffers.environments.read().unwrap();
@@ -88,6 +96,8 @@ pub(crate) fn tick_z_level(
     simulate::update_wind(&prev, &mut next);
     simulate::flow_air(&prev, &mut next)?;
     simulate::post_process(&prev, &mut next, &environments, new_interesting_tiles, z)?;
+
+    next.active_pressure_chunks.clear();
 
     Ok(())
 }

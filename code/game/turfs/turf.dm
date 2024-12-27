@@ -82,6 +82,9 @@
 
 	var/datum/gas_mixture/bound_to_turf/bound_air
 
+	/// The effect used to render a pressure overlay from this tile.
+	var/obj/effect/pressure_overlay/pressure_overlay
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -350,6 +353,10 @@
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
+	for(var/obj/effect/pressure_overlay/overlay in src)
+		pressure_overlay = overlay
+	if(isnull(pressure_overlay))
+		pressure_overlay = new(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()
@@ -708,3 +715,16 @@
 
 /turf/return_analyzable_air()
 	return get_readonly_air()
+
+/obj/effect/pressure_overlay
+	icon_state = "nothing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	var/image/overlay
+
+/obj/effect/pressure_overlay/Initialize()
+	overlay = new(icon, src, "white")
+	overlay.alpha = 0
+	overlay.plane = ABOVE_LIGHTING_PLANE
+	overlay.blend_mode = BLEND_OVERLAY
+	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM

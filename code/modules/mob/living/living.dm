@@ -598,11 +598,6 @@
 		return
 	return ..()
 
-/mob/living/key_loop(client/C)
-	if(C.input_data?.desired_move_dir != 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
-		apply_status_effect(STATUS_EFFECT_FIGHTING_AIRFLOW, 0.1 SECONDS)
-	. = ..()
-
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)

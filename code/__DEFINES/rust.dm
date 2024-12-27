@@ -53,6 +53,9 @@
 // This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
 #undef RUSTLIBS_SUFFIX
 
+/proc/byondapi_stack_trace(err)
+	CRASH(err)
+
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
@@ -73,6 +76,9 @@
 
 /proc/get_interesting_atmos_tiles()
 	return RUSTLIB_CALL(milla_get_interesting_tiles)
+
+/proc/get_tracked_pressure_tiles()
+	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -95,6 +101,11 @@
 
 /proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
 	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+
+/proc/track_pressure_tiles(atom/A, radius)
+	var/turf/T = get_turf(A)
+	if(istype(T))
+		return RUSTLIB_CALL(milla_track_pressure_tiles, T, radius)
 
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)

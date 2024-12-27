@@ -3,6 +3,7 @@ use atomic_float::AtomicF32;
 use bitflags::bitflags;
 use byondapi::map::{byond_locatexyz, ByondXYZ};
 use byondapi::prelude::*;
+use std::collections::HashSet;
 use std::ops::Add;
 use std::sync::{atomic::AtomicBool, atomic::Ordering::Relaxed, RwLock};
 
@@ -394,7 +395,10 @@ impl From<&InterestingTile> for Vec<ByondValue> {
 }
 
 /// A single Z level in the atmos model.
-pub(crate) struct ZLevel(Box<[Tile; MAP_SIZE * MAP_SIZE]>);
+pub(crate) struct ZLevel {
+    tiles: Box<[Tile; MAP_SIZE * MAP_SIZE]>,
+    pub(crate) active_pressure_chunks: HashSet<(u8, u8)>,
+}
 
 impl ZLevel {
     pub(crate) fn new() -> Self {
@@ -402,7 +406,10 @@ impl ZLevel {
         for _ in 0..MAP_SIZE * MAP_SIZE {
             unbuilt.push(Tile::new());
         }
-        ZLevel(unbuilt.into_boxed_slice().try_into().unwrap())
+        ZLevel {
+            tiles: unbuilt.into_boxed_slice().try_into().unwrap(),
+            active_pressure_chunks: HashSet::new(),
+        }
     }
 
     pub(crate) fn maybe_get_index(x: i32, y: i32) -> Option<usize> {
@@ -414,22 +421,22 @@ impl ZLevel {
     }
 
     pub(crate) fn get_tile(&self, index: usize) -> &Tile {
-        &self.0[index]
+        &self.tiles[index]
     }
 
     #[allow(dead_code)]
     pub(crate) fn maybe_get_tile(&self, x: i32, y: i32) -> Option<&Tile> {
-        Some(&self.0[ZLevel::maybe_get_index(x, y)?])
+        Some(&self.tiles[ZLevel::maybe_get_index(x, y)?])
     }
 
     pub(crate) fn get_tile_mut(&mut self, index: usize) -> &mut Tile {
-        &mut self.0[index]
+        &mut self.tiles[index]
     }
 
     pub(crate) fn get_pair_mut(&mut self, index1: usize, index2: usize) -> (&mut Tile, &mut Tile) {
         // Split borrow to get two mutable tiles at the same time.
         // Ref: https://doc.rust-lang.org/nomicon/borrow-splitting.html
-        let ptr = self.0.as_mut_ptr();
+        let ptr = self.tiles.as_mut_ptr();
         unsafe {
             assert!(index1 != index2);
 
@@ -441,9 +448,10 @@ impl ZLevel {
     }
 
     pub(crate) fn copy_from(&mut self, other: &ZLevel) {
-        for i in 0..self.0.len() {
-            self.0[i].copy_from(&other.0[i]);
+        for i in 0..self.tiles.len() {
+            self.tiles[i].copy_from(&other.tiles[i]);
         }
+        self.active_pressure_chunks = other.active_pressure_chunks.clone();
     }
 }
 
