@@ -273,7 +273,7 @@
 
 /obj/item/clothing/suit/armor/riot/sec
 	name = "security riot suit"
-	desc = "A full-body suit of riot gear that provides excellent protection against blunt force trauma, but little protection otherwise. This suit is covered in red Security stripes."
+	desc = "A full-body suit of riot gear that provides excellent protection against blunt force trauma, fire, and corrosive substances, but little protection otherwise. This suit is covered in red Security stripes."
 	icon_state = "riot-sec"
 	item_state = "swat_suit"
 
