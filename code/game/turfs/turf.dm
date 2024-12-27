@@ -704,6 +704,8 @@
 /obj/effect/pressure_overlay
 	icon_state = "nothing"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
+	simulated = FALSE
 
 	var/image/overlay
 
