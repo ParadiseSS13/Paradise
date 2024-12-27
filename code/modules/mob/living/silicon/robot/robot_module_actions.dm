@@ -90,6 +90,7 @@
 #undef MODE_MESON
 #undef MODE_TRAY
 #undef MODE_RAD
+#undef MODE_PRESSURE
 #undef RAD_RANGE
 
 /datum/action/innate/robot_magpulse
