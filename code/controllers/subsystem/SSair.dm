@@ -597,6 +597,9 @@ SUBSYSTEM_DEF(air)
 			if(isnull(tile.pressure_overlay))
 				tile.pressure_overlay = new(tile)
 			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
+			if(isnull(pressure_overlay.loc))
+				// Not sure how exactly this happens, but I've seen it happen, so fix it.
+				pressure_overlay.forceMove(tile)
 			if(isnull(pressure_overlay.overlay))
 				tile.pressure_overlay.Initialize()
 			user.client.images += pressure_overlay.overlay
