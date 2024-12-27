@@ -52,6 +52,14 @@
 	else
 		icon_state = "1"
 
+
+/obj/effect/hotspot/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
@@ -81,10 +89,11 @@
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/Crossed(mob/living/L, oldloc)
-	..()
-	if(isliving(L))
-		L.fire_act()
+/obj/effect/hotspot/proc/on_atom_entered(datum/source, mob/living/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(istype(entered))
+		entered.fire_act()
 
 /obj/effect/hotspot/singularity_pull()
 	return

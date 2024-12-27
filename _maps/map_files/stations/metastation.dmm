@@ -27328,7 +27328,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/obj/machinery/alarm/directional/north,
+/obj/machinery/alarm/server/directional/north,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server/coldroom)
 "cbi" = (

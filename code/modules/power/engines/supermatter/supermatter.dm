@@ -852,7 +852,7 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
 
-/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
 	..()
 	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 		Bumped(A)

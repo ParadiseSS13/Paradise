@@ -2,7 +2,6 @@
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
-	school = "evocation"
 	base_cooldown = 200
 	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
@@ -40,7 +39,6 @@
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
-	school = "evocation"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
@@ -87,7 +85,6 @@
 	name = "Mutate"
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
-	school = "transmutation"
 	base_cooldown = 400
 	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
@@ -113,7 +110,6 @@
 	name = "Smoke"
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
 
-	school = "conjuration"
 	base_cooldown = 120
 	clothes_req = FALSE
 	invocation = "none"
@@ -146,7 +142,6 @@
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
 
-	school = "abjuration"
 	base_cooldown = 20
 	clothes_req = TRUE
 	invocation = "none"
@@ -174,7 +169,6 @@
 	name = "Teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 
-	school = "abjuration"
 	base_cooldown = 600
 	clothes_req = TRUE
 	invocation = "SCYAR NILA"
@@ -194,7 +188,6 @@
 	name = "Return to Teacher"
 	desc = "This spell teleports you back to your teacher."
 
-	school = "abjuration"
 	base_cooldown = 30 SECONDS
 	clothes_req = TRUE
 	invocation = "SCYAR TESO"
@@ -217,7 +210,6 @@
 	name = "Force Wall"
 	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
-	school = "transmutation"
 	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
@@ -259,7 +251,6 @@
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
 
-	school = "conjuration"
 	base_cooldown = 1200
 	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
@@ -274,7 +265,6 @@
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades."
 
-	school = "conjuration"
 	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "none"
@@ -290,7 +280,6 @@
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth."
 
-	school = "conjuration"
 	base_cooldown = 1200
 	clothes_req = FALSE
 	invocation = "IA IA"
@@ -304,7 +293,6 @@
 /datum/spell/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
-	school = "transmutation"
 	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "STI KALY"
@@ -335,7 +323,6 @@
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
-	school = "evocation"
 	base_cooldown = 60
 	clothes_req = FALSE
 	invocation = "ONI SOMA"
@@ -478,7 +465,6 @@
 /datum/spell/corpse_explosion
 	name = "Corpse Explosion"
 	desc = "Fills a corpse with energy, causing it to explode violently."
-	school = "evocation"
 	base_cooldown = 5 SECONDS
 	clothes_req = TRUE
 	invocation = "JAH ITH BER"
