@@ -587,7 +587,7 @@
 
 /obj/structure/sign/poster/official/root
 	name = "Root Song"
-	desc = "A poster for all-Diona Jazz band \"Root Song\". When a travelling jazz band's ship crashed on a Diona overgrowth planet, a whole host of musically-inclined Dionea sprung forth. Though the beloved band members sadly perished in the crash, their love of Jazz lived on with these dionea, who travel the galaxy in the repaired wreck of that ship, under the moniker \"Root Song\"."
+	desc = "A poster for all-Diona Jazz band \"Root Song\". When a travelling jazz band's ship crashed on a Diona overgrowth planet, a whole host of musically-inclined Dionea sprung forth. Though the beloved band members sadly perished in the crash, their love of Jazz lived on with these Dionea, who travel the galaxy in the repaired wreck of that ship, under the moniker \"Root Song\"."
 	icon_state = "poster42_legit"
 
 /obj/structure/sign/poster/official/core
@@ -632,7 +632,7 @@
 
 /obj/structure/sign/poster/official/choir
 	name = "\"Skreethoven's\" Choir"
-	desc = "A poster for a classical Vox performance group including a full choir and orchestra. The chorists have a great harmony. Despite his violent protestation, the star organist can't shake his popular moniker, \"Skreethoven\"."
+	desc = "A poster for a classical Vox performance group including a full choir and orchestra. The chorists have a great harmony. Despite his violent protestation, the star organist can't shake his popular nickname, \"Skreethoven\"."
 	icon_state = "poster51_legit"
 
 #undef PLACE_SPEED
