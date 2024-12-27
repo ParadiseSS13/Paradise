@@ -711,7 +711,8 @@
 
 	var/image/overlay
 
-/obj/effect/pressure_overlay/Initialize()
+/obj/effect/pressure_overlay/Initialize(mapload)
+	..()
 	overlay = new(icon, src, "white")
 	overlay.alpha = 0
 	overlay.plane = ABOVE_LIGHTING_PLANE

@@ -569,9 +569,10 @@ SUBSYSTEM_DEF(air)
 			var/turf/tile = locate(x, y, oldloc.z)
 			if(isnull(tile.pressure_overlay))
 				tile.pressure_overlay = new(tile)
-			if(isnull(tile.pressure_overlay.overlay))
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
+			if(isnull(pressure_overlay.overlay))
 				tile.pressure_overlay.Initialize()
-			user.client.images -= locate(x, y, oldloc.z).pressure_overlay.overlay
+			user.client.images -= pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
 	var/turf/newloc = get_turf(user)
@@ -595,9 +596,10 @@ SUBSYSTEM_DEF(air)
 			var/turf/tile = locate(x, y, newloc.z)
 			if(isnull(tile.pressure_overlay))
 				tile.pressure_overlay = new(tile)
-			if(isnull(tile.pressure_overlay.overlay))
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.pressure_overlay
+			if(isnull(pressure_overlay.overlay))
 				tile.pressure_overlay.Initialize()
-			user.client.images += locate(x, y, newloc.z).pressure_overlay.overlay
+			user.client.images += pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
 	if(!resumed)
