@@ -160,23 +160,23 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSair.currentpart
 	is_synchronous = SSair.is_synchronous
 
+#define SLEEPABLE_TIMER (world.time + world.tick_usage * world.tick_lag / 100)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	if(!is_synchronous)
-		var/timer = TICK_USAGE_REAL
+		var/timer = SLEEPABLE_TIMER
 
 		while(!is_synchronous)
 			// Sleep for 1ms.
 			sleep(0.01)
 			if(MC_TICK_CHECK)
-				time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-				cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+				time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, FALSE)
 				return
 
-		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-		time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), TRUE)
+		time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, TRUE)
 
 	fire_sleepless(resumed)
+#undef SLEEPABLE_TIMER
 
 /datum/controller/subsystem/air/proc/fire_sleepless(resumed)
 	// Any proc that wants MILLA to be synchronous should not sleep.
