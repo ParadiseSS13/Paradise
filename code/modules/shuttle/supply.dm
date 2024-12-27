@@ -221,6 +221,9 @@
 			return CARGO_OK
 		return CARGO_SKIP_ATOM
 
+	if(istype(AM, /mob/dead))
+		return CARGO_SKIP_ATOM
+
 	return CARGO_OK
 
 
