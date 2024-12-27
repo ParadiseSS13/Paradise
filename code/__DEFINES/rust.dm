@@ -53,6 +53,7 @@
 // This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
 #undef RUSTLIBS_SUFFIX
 
+/// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
 
