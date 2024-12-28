@@ -488,7 +488,10 @@
 /**
  * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.
  *
- * * surgery - A surgery in progress.
+ * Arguments:
+ * * surgery - The main surgery this is being invoked by.
+ * * with_tools - Whether to include the tool necessary for the step at the end of the step information.
+ * *
  */
 /datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
 	if(!with_tools)
