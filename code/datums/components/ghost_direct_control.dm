@@ -14,15 +14,15 @@
 	var/awaiting_ghosts = FALSE
 
 /datum/component/ghost_direct_control/Initialize(
-	ban_type = ROLE_SENTIENT,
-	role_name = null,
-	poll_question = null,
-	poll_candidates = TRUE,
-	poll_length = 10 SECONDS,
-	assumed_control_message = null,
-	datum/callback/extra_control_checks,
-	datum/callback/after_assumed_control,
-)
+			ban_type = ROLE_SENTIENT,
+			role_name = null,
+			poll_question = null,
+			poll_candidates = TRUE,
+			poll_length = 10 SECONDS,
+			assumed_control_message = null,
+			datum/callback/extra_control_checks,
+			datum/callback/after_assumed_control,
+		)
 	. = ..()
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
