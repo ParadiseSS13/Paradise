@@ -11,7 +11,6 @@
 	if(.)
 		handle_robot_hud_updates()
 		handle_robot_cell()
-		update_items()
 
 
 /mob/living/silicon/robot/proc/handle_robot_cell()

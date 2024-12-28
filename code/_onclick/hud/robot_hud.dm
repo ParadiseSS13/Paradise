@@ -26,13 +26,19 @@
 	name = "module"
 	icon_state = "inv"
 	/// If it's slot 1, 2, or 3
-	var/module_number
+	var/module_number = 1
+	/// Where the string for the deactivated icon state is stored
+	var/deactivated_icon_string
+	/// Where the string for the activated icon state is stored
+	var/activated_icon_string
 
-/atom/moveable/screen/robot/active_module/Initialize(mapload, slot_number)
+/atom/movable/screen/robot/active_module/Initialize(mapload, slot_number)
 	. = ..()
 	module_number = slot_number
 	name = name + "[module_number]"
 	icon_state = icon_state + "[module_number]"
+	deactivated_icon_string = icon_state
+	activated_icon_string = icon_state + " +a"
 
 /atom/movable/screen/robot/active_module/Click()
 	if(..() || !module_number)
@@ -99,7 +105,7 @@
 	var/shown_robot_modules = FALSE	// Used to determine whether they have the module menu shown or not
 	var/atom/movable/screen/robot_modules_background
 
-#define MAX_MODULES 3
+
 /datum/hud/robot/New(mob/user)
 	..()
 
@@ -123,7 +129,7 @@
 	static_inventory += using
 
 //Module select
-	for(i in 1 to MAX_MODULES)
+	for(var/i in 1 to CYBORG_MAX_MODULES)
 		using = new /atom/movable/screen/robot/active_module(i)
 		using.screen_loc = CYBORG_HUD_LOCATIONS[i]
 		static_inventory += using
@@ -246,29 +252,29 @@
 		var/y = 1
 
 		for(var/atom/movable/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
-				//Module is not currently active
-				screenmob.client.screen += A
-				if(x < 0)
-					A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
-				else
-					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
-				A.layer = ABOVE_HUD_LAYER
-				A.plane = ABOVE_HUD_PLANE
+			if(A in R.all_active_items) // Don't need to display it if it's already active
+				continue
+			screenmob.client.screen += A
+			if(x < 0)
+				A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
+			else
+				A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
+			A.layer = ABOVE_HUD_LAYER
+			A.plane = ABOVE_HUD_PLANE
 
-				x++
-				if(x == 4)
-					x = -4
-					y++
+			x++
+			if(x == 4)
+				x = -4
+				y++
 
 	else
 		//Modules display is hidden
 		screenmob.client.screen -= module_store_icon
 
 		for(var/atom/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
-				//Module is not currently active
-				screenmob.client.screen -= A
+			if(A in R.all_active_items) // Don't need to display it if it's already active
+				continue
+			screenmob.client.screen -= A
 		shown_robot_modules = FALSE
 		screenmob.client.screen -= robot_modules_background
 
@@ -279,17 +285,14 @@
 
 	var/mob/screenmob = viewer || R
 
-	var/held_items = list(R.module_state_1, R.module_state_2, R.module_state_3)
 	if(!screenmob.hud_used)
 		return
 	if(screenmob.hud_used.hud_shown)
-		for(var/i in 1 to length(held_items))
-			var/obj/item/I = held_items[i]
-			if(I)
-				I.screen_loc = CYBORG_HUD_LOCATIONS[i]
-				screenmob.client.screen += I
+		for(var/i in 1 to length(R.all_active_items))
+			var/obj/item/active_item = R.all_active_items[i]
+			if(active_item)
+				active_item.screen_loc = CYBORG_HUD_LOCATIONS[i]
+				screenmob.client.screen |= active_item
 	else
-		for(var/obj/item/I in held_items)
+		for(var/obj/item/I in R.all_active_items)
 			screenmob.client.screen -= I
-
-#undef MAX_MODULES
