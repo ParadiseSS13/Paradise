@@ -490,8 +490,22 @@
  *
  * * surgery - A surgery in progress.
  */
-/datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
-	return name
+/datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
+	if(!with_tools)
+		return name
+
+	var/list/tools = list()
+	for(var/tool in allowed_tools)
+		// only list main surgery tools. you can figure out the ghetto version by trying (or reading the wiki lul)
+		if(tool in GLOB.surgery_tool_behaviors)
+			tools |= tool
+	if(!length(tools))
+		// if nothing else, just pick the first in the list.
+		var/atom/tool = allowed_tools[1]
+		tools |= tool.name
+
+
+	return "[name] ([english_list(tools, and_text="or")])"
 
 /**
  * Spread some nasty germs to an organ.

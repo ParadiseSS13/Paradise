@@ -13,9 +13,9 @@
 #define TOOL_DRILL "drill"
 #define TOOL_SCALPEL "scalpel"
 #define TOOL_SAW "saw"
-#define TOOL_BONESET "bonesetter"
-#define TOOL_BONEGEL "bonegel"
-#define TOOL_FIXOVEIN "fixovein"
+#define TOOL_BONESET "bone setter"
+#define TOOL_BONEGEL "bone gel"
+#define TOOL_FIXOVEIN "fix-o-vein"
 
 GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 	TOOL_RETRACTOR,
