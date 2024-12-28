@@ -75577,7 +75577,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
