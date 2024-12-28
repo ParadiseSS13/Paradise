@@ -22,39 +22,24 @@
 	return TRUE
 
 
-/atom/movable/screen/robot/module1
-	name = "module1"
-	icon_state = "inv1"
+/atom/movable/screen/robot/active_module
+	name = "module"
+	icon_state = "inv"
+	/// If it's slot 1, 2, or 3
+	var/module_number
 
-/atom/movable/screen/robot/module1/Click()
-	if(..())
+/atom/moveable/screen/robot/active_module/Initialize(mapload, slot_number)
+	. = ..()
+	module_number = slot_number
+	name = name + "[module_number]"
+	icon_state = icon_state + "[module_number]"
+
+/atom/movable/screen/robot/active_module/Click()
+	if(..() || !module_number)
 		return
 	if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(1)
-
-/atom/movable/screen/robot/module2
-	name = "module2"
-	icon_state = "inv2"
-
-/atom/movable/screen/robot/module2/Click()
-	if(..())
-		return
-	if(isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(2)
-
-/atom/movable/screen/robot/module3
-	name = "module3"
-	icon_state = "inv3"
-
-/atom/movable/screen/robot/module3/Click()
-	if(..())
-		return
-	if(isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(3)
-
+		R.toggle_module(module_number)
 
 /atom/movable/screen/robot/radio
 	name = "radio"
@@ -114,6 +99,7 @@
 	var/shown_robot_modules = FALSE	// Used to determine whether they have the module menu shown or not
 	var/atom/movable/screen/robot_modules_background
 
+#define MAX_MODULES 3
 /datum/hud/robot/New(mob/user)
 	..()
 
@@ -137,20 +123,11 @@
 	static_inventory += using
 
 //Module select
-	using = new /atom/movable/screen/robot/module1()
-	using.screen_loc = ui_inv1
-	static_inventory += using
-	mymobR.inv1 = using
-
-	using = new /atom/movable/screen/robot/module2()
-	using.screen_loc = ui_inv2
-	static_inventory += using
-	mymobR.inv2 = using
-
-	using = new /atom/movable/screen/robot/module3()
-	using.screen_loc = ui_inv3
-	static_inventory += using
-	mymobR.inv3 = using
+	for(i in 1 to MAX_MODULES)
+		using = new /atom/movable/screen/robot/active_module(i)
+		using.screen_loc = CYBORG_HUD_LOCATIONS[i]
+		static_inventory += using
+		mymobR.inventory_screens += using
 
 //End of module select
 
@@ -212,10 +189,8 @@
 
 /datum/hud/robot/Destroy()
 	var/mob/living/silicon/robot/myrob = mymob
-	myrob.inv1 = null
 	myrob.hands = null
-	myrob.inv2 = null
-	myrob.inv3 = null
+	QDEL_LAZYLIST(myrob.inventory_screens)
 	myrob.lamp_button = null
 	myrob.thruster_button = null
 
@@ -311,16 +286,10 @@
 		for(var/i in 1 to length(held_items))
 			var/obj/item/I = held_items[i]
 			if(I)
-				switch(i)
-					if(1)
-						I.screen_loc = ui_inv1
-					if(2)
-						I.screen_loc = ui_inv2
-					if(3)
-						I.screen_loc = ui_inv3
-					else
-						return
+				I.screen_loc = CYBORG_HUD_LOCATIONS[i]
 				screenmob.client.screen += I
 	else
 		for(var/obj/item/I in held_items)
 			screenmob.client.screen -= I
+
+#undef MAX_MODULES
