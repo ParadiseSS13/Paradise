@@ -145,7 +145,7 @@
 	apply_status_effect(STATUS_EFFECT_UNBALANCED)
 	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction), min(10, strength * 5))
 
-	if(client?.input_data?.desired_move_dir != 0)
+	if(client?.input_data?.desired_move_dir)
 		return
 	if(!pulling)
 		return ..()
