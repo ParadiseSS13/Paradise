@@ -7,7 +7,6 @@
 	sound = 'sound/magic/strings.ogg'
 	action_icon_state = "spacetime"
 
-	school = "transmutation"
 	base_cooldown = 30 SECONDS
 	clothes_req = TRUE
 	invocation = "none"
