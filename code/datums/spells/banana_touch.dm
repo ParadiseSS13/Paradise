@@ -4,7 +4,6 @@
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
 		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/banana
-	school = "transmutation"
 
 	base_cooldown = 30 SECONDS
 	clothes_req = TRUE
@@ -24,14 +23,15 @@
 
 /obj/item/melee/touch_attack/banana/apprentice
 
-/obj/item/melee/touch_attack/banana/apprentice/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/banana/apprentice/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(iswizard(target) && target != user)
 		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
 		return
-	..()
 
-/obj/item/melee/touch_attack/banana/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/melee/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -41,7 +41,6 @@
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/H = target
 	H.bananatouched()
-	..()
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")

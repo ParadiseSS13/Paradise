@@ -457,7 +457,7 @@
 	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
 
 	if(destination)
-		if(pulledby)
+		if(pulledby && !HAS_TRAIT(src, TRAIT_CURRENTLY_Z_MOVING))
 			pulledby.stop_pulling()
 
 		var/same_loc = oldloc == destination
