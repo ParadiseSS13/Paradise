@@ -21,18 +21,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
-	var/atom/movable/screen/inv1 = null
-	var/atom/movable/screen/inv2 = null
-	var/atom/movable/screen/inv3 = null
+	var/list/inventory_screens = list()
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	// 3 Modules can be activated at any one time.
+	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
+	/// The item the borg is currently "holding" (This isn't a very good var name but changing every use of it is too much of a pain.)
 	var/module_active = null
-	var/module_state_1 = null
-	var/module_state_2 = null
-	var/module_state_3 = null
+	/// The list of up to 3 items the borg can have "equipped"
+	var/list/all_active_items = list(CYBORG_MODULE_ONE, CYBORG_MODULE_TWO, CYBORG_MODULE_THREE)
 
 	var/obj/item/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
