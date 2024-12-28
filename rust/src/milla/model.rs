@@ -153,8 +153,8 @@ pub(crate) enum AtmosMode {
     Sealed,
     /// Tile is exposed to the given environment.
     ExposedTo { environment_id: u8 },
-	/// Prevents hot tiles from automatically decaying towards T20C
-	NoDecay,
+    /// Prevents hot tiles from automatically decaying towards T20C
+    NoDecay,
 }
 
 impl From<AtmosMode> for ByondValue {
@@ -163,7 +163,7 @@ impl From<AtmosMode> for ByondValue {
             AtmosMode::Space => ByondValue::from(0.0),
             AtmosMode::Sealed => ByondValue::from(1.0),
             AtmosMode::ExposedTo { .. } => ByondValue::from(2.0),
-			AtmosMode::NoDecay => ByondValue::from(3.0),
+            AtmosMode::NoDecay => ByondValue::from(3.0),
         }
     }
 }
@@ -286,7 +286,10 @@ impl Tile {
             return 0.0;
         }
 
-        self.gases.values[gas] * self.temperature().max(MINIMUM_TEMPERATURE_FOR_PRESSURE) * R_IDEAL_GAS_EQUATION / TILE_VOLUME
+        self.gases.values[gas]
+            * self.temperature().max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
+            * R_IDEAL_GAS_EQUATION
+            / TILE_VOLUME
     }
 
     #[allow(clippy::needless_range_loop)]

@@ -94,14 +94,17 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
 
             // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
             // bounds.
-            my_new_tile.wind[axis] = (my_tile.wind[axis] + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis])).clamp(-MAX_WIND, MAX_WIND);
+            my_new_tile.wind[axis] = (my_tile.wind[axis]
+                + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis]))
+                .clamp(-MAX_WIND, MAX_WIND);
 
             for i in 0..GAS_COUNT {
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
 
                 // Calculate how much gas should flow based on pressure.
-                let combined_partial_pressure = my_tile.partial_pressure(i) + neighbor.partial_pressure(i);
+                let combined_partial_pressure =
+                    my_tile.partial_pressure(i) + neighbor.partial_pressure(i);
                 if combined_partial_pressure <= 0.0 {
                     // Gas? What gas?
                     continue;
@@ -129,15 +132,15 @@ pub(crate) struct AirflowOutcome {
 }
 
 /// Let the air flow until it stabilizes for this tick or we run out of patience.
-pub(crate) fn flow_air(
-    prev: &ZLevel,
-    next: &mut ZLevel) -> Result<AirflowOutcome, eyre::Error> {
+pub(crate) fn flow_air(prev: &ZLevel, next: &mut ZLevel) -> Result<AirflowOutcome, eyre::Error> {
     let mut outcome = flow_air_once(prev, next, None)?;
     for _iter in 1..MAX_ITERATIONS {
         outcome = flow_air_once(prev, next, Some(outcome))?;
 
         // Check for significant changes.
-        if outcome.max_gas_delta < GAS_CHANGE_SIGNIFICANCE && outcome.max_thermal_energy_delta < THERMAL_CHANGE_SIGNIFICANCE {
+        if outcome.max_gas_delta < GAS_CHANGE_SIGNIFICANCE
+            && outcome.max_thermal_energy_delta < THERMAL_CHANGE_SIGNIFICANCE
+        {
             // We've stabilized.
             return Ok(outcome);
         }
@@ -150,8 +153,13 @@ pub(crate) fn flow_air(
 pub(crate) fn flow_air_once(
     prev: &ZLevel,
     next: &mut ZLevel,
-    maybe_old_outcome: Option<AirflowOutcome>) -> Result<AirflowOutcome, eyre::Error> {
-    let mut new_outcome = AirflowOutcome { active_tiles: HashSet::new(), max_gas_delta: 0.0, max_thermal_energy_delta: 0.0 };
+    maybe_old_outcome: Option<AirflowOutcome>,
+) -> Result<AirflowOutcome, eyre::Error> {
+    let mut new_outcome = AirflowOutcome {
+        active_tiles: HashSet::new(),
+        max_gas_delta: 0.0,
+        max_thermal_energy_delta: 0.0,
+    };
 
     if let Some(old_outcome) = maybe_old_outcome {
         for my_index in &old_outcome.active_tiles {
@@ -170,7 +178,8 @@ pub(crate) fn flow_air_once_at_index(
     prev: &ZLevel,
     next: &mut ZLevel,
     my_index: usize,
-    outcome: &mut AirflowOutcome) -> Result<(), eyre::Error> {
+    outcome: &mut AirflowOutcome,
+) -> Result<(), eyre::Error> {
     let x = (my_index / MAP_SIZE) as i32;
     let y = (my_index % MAP_SIZE) as i32;
     let my_tile = prev.get_tile(my_index);
@@ -210,11 +219,11 @@ pub(crate) fn flow_air_once_at_index(
         // Don't do anything across walls.
         if dx + dy > 0 {
             if my_new_tile.wall[axis] {
-                continue
+                continue;
             }
         } else {
             if new_neighbor.wall[axis] {
-                continue
+                continue;
             }
         }
 
@@ -240,14 +249,15 @@ pub(crate) fn flow_air_once_at_index(
             // summing together this tile's value from the last iteration with the incoming values
             // from other tiles this tick.
             my_new_tile.gases.values[i] += gas_flow_in * new_neighbor.gases.values[i];
-            let temperature_weight = gas_flow_in * new_neighbor.gases.values[i] *  SPECIFIC_HEATS[i];
+            let temperature_weight = gas_flow_in * new_neighbor.gases.values[i] * SPECIFIC_HEATS[i];
 
             // Track the outgoing values as well.
             outgoing_gas_mult[i] += gas_flow_out;
 
             // Temperature is not Gauss-Seidel, though it looks similar. It's just a weighted
             // average.
-            total_weighted_temperature += new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
+            total_weighted_temperature +=
+                new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
             total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
         }
 
@@ -261,26 +271,37 @@ pub(crate) fn flow_air_once_at_index(
     for i in 0..GAS_COUNT {
         my_new_tile.gases.values[i] /= 1.0 + outgoing_gas_mult[i];
 
-        if (prev_iter.gases.values[i] - my_new_tile.gases.values[i]).abs() >= GAS_CHANGE_SIGNIFICANCE {
-            let new_gas_delta = (2.0 * prev_iter.gases.values[i] / (prev_iter.gases.values[i] + my_new_tile.gases.values[i]) - 1.0).abs();
+        if (prev_iter.gases.values[i] - my_new_tile.gases.values[i]).abs()
+            >= GAS_CHANGE_SIGNIFICANCE
+        {
+            let new_gas_delta = (2.0 * prev_iter.gases.values[i]
+                / (prev_iter.gases.values[i] + my_new_tile.gases.values[i])
+                - 1.0)
+                .abs();
             max_gas_delta = max_gas_delta.max(new_gas_delta);
         }
     }
     my_new_tile.gases.set_dirty();
 
-    my_new_tile.thermal_energy = my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
+    my_new_tile.thermal_energy =
+        my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
 
     let new_thermal_energy_delta;
-    if (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs() >= THERMAL_CHANGE_SIGNIFICANCE {
-        new_thermal_energy_delta = (2.0 * prev_iter.thermal_energy / (prev_iter.thermal_energy + my_new_tile.thermal_energy) - 1.0).abs();
+    if (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs() >= THERMAL_CHANGE_SIGNIFICANCE
+    {
+        new_thermal_energy_delta = (2.0 * prev_iter.thermal_energy
+            / (prev_iter.thermal_energy + my_new_tile.thermal_energy)
+            - 1.0)
+            .abs();
     } else {
         new_thermal_energy_delta = 0.0
     }
 
     // outcome is the global version across all tiles.
     outcome.max_gas_delta = outcome.max_gas_delta.max(max_gas_delta);
-    outcome.max_thermal_energy_delta = outcome.max_thermal_energy_delta.max(new_thermal_energy_delta);
-
+    outcome.max_thermal_energy_delta = outcome
+        .max_thermal_energy_delta
+        .max(new_thermal_energy_delta);
 
     // Check for significant changes.
     if max_gas_delta < GAS_CHANGE_SIGNIFICANCE_FRACTION {
@@ -356,15 +377,7 @@ pub(crate) fn post_process(
             sanitize(my_next_tile, my_tile);
         }
 
-        check_interesting(
-            x,
-            y,
-            z,
-            next,
-            my_tile,
-            my_index,
-            new_interesting_tiles,
-        )?;
+        check_interesting(x, y, z, next, my_tile, my_index, new_interesting_tiles)?;
     }
     Ok(())
 }
@@ -428,7 +441,9 @@ pub(crate) fn check_interesting(
     let mut reasons: ReasonFlags = ReasonFlags::empty();
     {
         let my_next_tile = next.get_tile_mut(my_index);
-        if (my_next_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES) != (my_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES) {
+        if (my_next_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES)
+            != (my_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES)
+        {
             // Fire started or stopped.
             reasons |= ReasonFlags::DISPLAY;
         } else if (my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
@@ -442,7 +457,6 @@ pub(crate) fn check_interesting(
             // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
         }
-
 
         if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {
             if let AtmosMode::ExposedTo { .. } = my_next_tile.mode {
@@ -556,8 +570,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile.fuel_burnt += co2_converted;
     }
     // Nitrous Oxide breaking down into nitrogen and oxygen.
-    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
-        && my_next_tile.gases.sleeping_agent() > 0.0
+    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP && my_next_tile.gases.sleeping_agent() > 0.0
     {
         let reaction_percent = (0.00002
             * (cached_temperature - (0.00001 * (cached_temperature.powi(2)))))
@@ -666,8 +679,10 @@ pub(crate) fn apply_tile_mode(
         }
         AtmosMode::Sealed => {
             if my_next_tile.temperature() > SPACE_COOLING_THRESHOLD {
-                let excess_thermal_energy = my_next_tile.thermal_energy - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
-                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_RATIO * excess_thermal_energy).min(excess_thermal_energy);
+                let excess_thermal_energy = my_next_tile.thermal_energy
+                    - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
+                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_RATIO * excess_thermal_energy)
+                    .min(excess_thermal_energy);
                 my_next_tile.thermal_energy -= cooling;
             }
         }
@@ -767,7 +782,9 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
     }
 
     let optimal_thermal_energy = PLASMA_BURN_OPTIMAL_TEMP * tile.heat_capacity();
-    let hotspot_extra_thermal_energy = tile.hotspot_volume * (tile.hotspot_temperature - tile.temperature()) * tile.heat_capacity();
+    let hotspot_extra_thermal_energy = tile.hotspot_volume
+        * (tile.hotspot_temperature - tile.temperature())
+        * tile.heat_capacity();
     if tile.thermal_energy + hotspot_extra_thermal_energy >= optimal_thermal_energy {
         // Hotspot has done its job, dump the remaining heat into the tile.
         tile.thermal_energy += hotspot_extra_thermal_energy;
@@ -776,7 +793,8 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
         return;
     }
 
-    let hotspot_thermal_energy = tile.hotspot_volume * tile.hotspot_temperature * tile.heat_capacity();
+    let hotspot_thermal_energy =
+        tile.hotspot_volume * tile.hotspot_temperature * tile.heat_capacity();
     if tile.hotspot_temperature > PLASMA_BURN_OPTIMAL_TEMP {
         // Use excess heat to expand the hotspot.
         tile.hotspot_volume = hotspot_thermal_energy / optimal_thermal_energy;
@@ -784,7 +802,10 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
         return;
     }
 
-    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP || tile.gases.toxins() <= REACTION_SIGNIFICANCE_MOLES || tile.gases.oxygen() <= REACTION_SIGNIFICANCE_MOLES {
+    if tile.hotspot_temperature < PLASMA_BURN_MIN_TEMP
+        || tile.gases.toxins() <= REACTION_SIGNIFICANCE_MOLES
+        || tile.gases.oxygen() <= REACTION_SIGNIFICANCE_MOLES
+    {
         // Hotspot can't sustain combustion.
         tile.thermal_energy += hotspot_extra_thermal_energy;
         tile.hotspot_temperature = 0.0;
@@ -813,7 +834,8 @@ pub(crate) fn adjust_hotspot(tile: &mut Tile, thermal_energy_delta: f32) {
         tile.hotspot_volume = (heat_available / total_heat_needed).max(0.0);
     } else if tile.hotspot_volume > 0.0 {
         // Heat up the hotspot; it'll expand when normalised.
-        tile.hotspot_temperature += thermal_energy_delta / (tile.heat_capacity() * tile.hotspot_volume);
+        tile.hotspot_temperature +=
+            thermal_energy_delta / (tile.heat_capacity() * tile.hotspot_volume);
     } else if tile.temperature() > PLASMA_BURN_OPTIMAL_TEMP {
         // No need to make a hotspot, just heat the tile.
         tile.thermal_energy += thermal_energy_delta;

@@ -74,7 +74,7 @@ pub(crate) const AXIS_Y: usize = 1;
 pub(crate) const DIRECTIONS: [(i32, i32); 4] = [(1, 0), (-1, 0), (0, -1), (0, 1)];
 
 /// Gives the axis for each direction.
-pub(crate) const DIRECTION_AXIS:  [usize; 4] = [0, 0, 1, 1];
+pub(crate) const DIRECTION_AXIS: [usize; 4] = [0, 0, 1, 1];
 
 /// Index for incoming gas.
 pub(crate) const GAS_FLOW_IN: usize = 0;

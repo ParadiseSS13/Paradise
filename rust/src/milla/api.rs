@@ -309,9 +309,7 @@ pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let maybe_active = buffers.get_active().read();
     if maybe_active.is_err() {
-        return Err(eyre!(
-            "MILLA buffers have been poisoned, MILLA cannot run."
-        ));
+        return Err(eyre!("MILLA buffers have been poisoned, MILLA cannot run."));
     }
     let active = maybe_active.unwrap();
     let z_level = active.0[z as usize].read().unwrap();
@@ -461,18 +459,37 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 
 /// BYOND API for a heat source creating a hotspot on a tile.
 #[byondapi::bind]
-fn milla_create_hotspot(turf: ByondValue, temperature: ByondValue, volume: ByondValue) -> eyre::Result<ByondValue> {
+fn milla_create_hotspot(
+    turf: ByondValue,
+    temperature: ByondValue,
+    volume: ByondValue,
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let rust_temperature = conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?.ok_or(eyre!("Hotspot temperature is required.."))?;
-    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?.ok_or(eyre!("Hotspot volume is required.."))?;
+    let rust_temperature =
+        conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?
+            .ok_or(eyre!("Hotspot temperature is required.."))?;
+    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?
+        .ok_or(eyre!("Hotspot volume is required.."))?;
 
-    internal_create_hotspot(x as i32 - 1, y as i32 - 1, z as i32 - 1, rust_temperature, rust_volume / TILE_VOLUME)?;
+    internal_create_hotspot(
+        x as i32 - 1,
+        y as i32 - 1,
+        z as i32 - 1,
+        rust_temperature,
+        rust_volume / TILE_VOLUME,
+    )?;
     Ok(ByondValue::null())
 }
 
 /// Rust version of a heat source creating a hotspot.
-pub(crate) fn internal_create_hotspot(x: i32, y: i32, z: i32, temperature: f32, volume: f32) -> Result<()> {
+pub(crate) fn internal_create_hotspot(
+    x: i32,
+    y: i32,
+    z: i32,
+    temperature: f32,
+    volume: f32,
+) -> Result<()> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
@@ -509,10 +526,14 @@ pub(crate) fn internal_create_hotspot(x: i32, y: i32, z: i32, temperature: f32, 
 
 /// BYOND API for tracking the pressure of all nearby tiles next tick.
 #[byondapi::bind]
-fn milla_track_pressure_tiles(turf: ByondValue, byond_radius: ByondValue) -> eyre::Result<ByondValue> {
+fn milla_track_pressure_tiles(
+    turf: ByondValue,
+    byond_radius: ByondValue,
+) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let radius = conversion::bounded_byond_to_option_f32(byond_radius, 0.0, MAP_SIZE as f32)?.ok_or(eyre!("Invalid radius: {:#?}", byond_radius))? as i32;
+    let radius = conversion::bounded_byond_to_option_f32(byond_radius, 0.0, MAP_SIZE as f32)?
+        .ok_or(eyre!("Invalid radius: {:#?}", byond_radius))? as i32;
 
     internal_track_pressure_tiles(x as i32 - 1, y as i32 - 1, z as i32 - 1, radius)?;
     Ok(ByondValue::null())
@@ -535,7 +556,7 @@ fn internal_track_pressure_tiles(x: i32, y: i32, z: i32, radius: i32) -> eyre::R
             if y + dy >= MAP_SIZE as i32 {
                 break;
             }
-            tracked_pressure_tiles.push((x+dx, y+dy, z as usize));
+            tracked_pressure_tiles.push((x + dx, y + dy, z as usize));
         }
     }
 

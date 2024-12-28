@@ -55,7 +55,10 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
         let readable_results = handle_results.read().unwrap();
         for index in 0..readable_results.len() {
             if readable_results[index].is_err() {
-                result = Err(eyre::eyre!("MILLA worker thread failed: {:#?}", readable_results[index].as_ref().err()));
+                result = Err(eyre::eyre!(
+                    "MILLA worker thread failed: {:#?}",
+                    readable_results[index].as_ref().err()
+                ));
             }
         }
     });

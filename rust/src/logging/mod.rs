@@ -16,13 +16,16 @@ pub(crate) fn setup_panic_handler() {
     std::panic::set_hook(Box::new(|info| {
         let msg = format!("Panic \n {:#?}", info);
         let msg_copy = msg.clone();
-        let _ = thread_sync(|| -> ByondValue {
-            if let Err(error) = dm_call_stack_trace(msg_copy) {
-                let second_msg = format!("BYOND error \n {:#?}", error);
-                let _ = std::fs::write("./rustlibs_cant_tell_byond.txt", second_msg.clone());
-            }
-            Default::default()
-        }, true);
+        let _ = thread_sync(
+            || -> ByondValue {
+                if let Err(error) = dm_call_stack_trace(msg_copy) {
+                    let second_msg = format!("BYOND error \n {:#?}", error);
+                    let _ = std::fs::write("./rustlibs_cant_tell_byond.txt", second_msg.clone());
+                }
+                Default::default()
+            },
+            true,
+        );
         let _ = std::fs::write("./rustlibs_panic.txt", msg.clone());
     }))
 }
