@@ -97446,7 +97446,7 @@
 /obj/item/healthanalyzer/advanced,
 /obj/item/healthanalyzer/advanced,
 /obj/item/reagent_containers/glass/bottle/potassium_iodide,
-/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/glass/bottle/potassium_iodide,
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
