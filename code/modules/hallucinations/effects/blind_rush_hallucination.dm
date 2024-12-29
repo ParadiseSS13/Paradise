@@ -38,6 +38,7 @@
 	qdel(src)
 
 /obj/effect/hallucination/no_delete/blind_rusher
+	name = "Unknown"
 	alpha = 100
 	hallucination_plane = 25 //to make sure we render the hallucination above the blindness layer.
 	hallucination_layer = 25
@@ -49,12 +50,11 @@
 	var/rush_timer = null
 
 /obj/effect/hallucination/no_delete/blind_rusher/Initialize(mapload, mob/living/carbon/target)
-	name = "Unknown"
 	rush_timer = addtimer(CALLBACK(src, PROC_REF(rush)), rush_time, TIMER_LOOP | TIMER_STOPPABLE)
 	if(prob(50))
 		hallucination_icon = 'icons/mob/simple_human.dmi'
 		hallucination_icon_state = pick("clown", "skeleton_warden", "skeleton_warden_alt")
-	. = ..()
+	return ..()
 
 /obj/effect/hallucination/no_delete/blind_rusher/Destroy()
 	deltimer(rush_timer)
