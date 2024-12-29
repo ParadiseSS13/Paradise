@@ -109,7 +109,7 @@
 	if(move_resist == INFINITY)
 		return
 
-	var/force_needed = move_resist
+	var/force_needed = max(move_resist, 1)
 	if(anchored)
 		force_needed *= MOVE_FORCE_FORCEPUSH_RATIO
 	else
