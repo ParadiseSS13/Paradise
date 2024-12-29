@@ -452,9 +452,9 @@
 	var/jungle_mob = null
 
 /obj/effect/landmark/awaymissions/gate_lizard/mine_spawner/on_atom_entered(datum/source, atom/movable/entered)
-	if(!isliving(source))
+	if(!isliving(entered))
 		return
-	var/mob/living/M = source
+	var/mob/living/M = entered
 	if(faction && (faction in M.faction))
 		return
 	triggerlandmark(M)
@@ -1297,9 +1297,9 @@
 	var/syndi_mob = null
 
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/on_atom_entered(datum/source, atom/movable/entered)
-	if(!isliving(source))
+	if(!isliving(entered))
 		return
-	var/mob/living/M = source
+	var/mob/living/M = entered
 	if(faction && (faction in M.faction))
 		return
 	triggerlandmark(M)

@@ -14,11 +14,11 @@
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
-	on_changed_z_level(new_turf = loc.z)
+	on_changed_z_level(new_turf = loc)
 
 /obj/item/gun/energy/laser/awaymission_aeg/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
-	if(is_away_level(new_turf))
+	if(is_away_level(new_turf.z))
 		if(ismob(loc))
 			to_chat(loc, span_notice("Ваш [src] активируется, начиная аккумулировать энергию из материи сущего."))
 		selfcharge = TRUE
