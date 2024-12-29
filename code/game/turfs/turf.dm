@@ -723,6 +723,14 @@
 	// No, I don't think I will.
 	return FALSE
 
+/obj/effect/pressure_overlay/singularity_pull()
+	// I am not a physical object, you have no control over me!
+	return FALSE
+
+/obj/effect/pressure_overlay/singularity_act()
+	// I don't taste good, either!
+	return FALSE
+
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
 		for(var/obj/effect/pressure_overlay/found_overlay in src)
