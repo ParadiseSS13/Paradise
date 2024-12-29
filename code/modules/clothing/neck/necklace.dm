@@ -45,7 +45,7 @@
 		return
 
 	open = !open
-	to_chat(user, "You flip [src] [open?"open":"closed"].")
+	to_chat(user, "You flip [src] [open ? "open" : "closed"].")
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
