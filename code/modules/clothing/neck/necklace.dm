@@ -35,7 +35,7 @@
 	return ..()
 
 
-/obj/item/clothing/neck/necklace/locket/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/clothing/neck/necklace/locket/attack_self__legacy__attackchain(mob/user)
 	if(!base_icon)
 		base_icon = icon_state
 
