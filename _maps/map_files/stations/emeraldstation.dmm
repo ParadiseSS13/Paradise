@@ -37516,7 +37516,7 @@
 	layer = 2.9
 	},
 /obj/structure/rack,
-/obj/item/clothing/neck/stripedbluescarf,
+/obj/item/clothing/neck/scarf/stripedblue,
 /obj/item/clothing/neck/tie/blue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
