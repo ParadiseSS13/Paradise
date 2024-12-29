@@ -33,6 +33,8 @@
 	var/preset_message
 	/// The index of the character in the message that will be drawn next.
 	var/preset_message_index = 0
+	/// Can this crayon be consumed or not
+	var/consumable = TRUE
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -42,7 +44,9 @@
 	..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
-/obj/item/toy/crayon/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/toy/crayon/activate_self(mob/user)
+	if(..())
+		return
 	update_window(user)
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
@@ -105,9 +109,12 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity) return
-	if(busy) return
+/obj/item/toy/crayon/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(busy)
+		return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(preset_message_index > 0)
@@ -137,8 +144,10 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack__legacy__attackchain(mob/M, mob/user)
-	if(M == user)
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..() || !consumable)
+		return FINISH_ATTACK
+	if(target == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(!H.check_has_mouth())
@@ -152,8 +161,6 @@
 		else
 			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 			qdel(src)
-	else
-		..()
 
 /obj/item/toy/crayon/examine(mob/user)
 	. = ..()
@@ -255,9 +262,6 @@
 	dye_color = DYE_MIME
 	uses = 0
 
-/obj/item/toy/crayon/mime/attack_self__legacy__attackchain(mob/living/user as mob)
-	update_window(user)
-
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
 	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
@@ -280,9 +284,6 @@
 	colour = "#FFF000"
 	dye_color = DYE_RAINBOW
 	uses = 0
-
-/obj/item/toy/crayon/rainbow/attack_self__legacy__attackchain(mob/living/user as mob)
-	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
 	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
@@ -312,15 +313,15 @@
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
+	consumable = FALSE // To stop you from eating spraycans. It's TOO SILLY!
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
 	update_icon()
 
-/obj/item/toy/crayon/spraycan/attack__legacy__attackchain(mob/M, mob/user)
-	return // To stop you from eating spraycans. It's TOO SILLY!
-
-/obj/item/toy/crayon/spraycan/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/toy/crayon/spraycan/activate_self(mob/user)
+	if(..())
+		return
 	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
@@ -335,9 +336,9 @@
 				return
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack__legacy__attackchain(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(capped)
 		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
