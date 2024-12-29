@@ -78,15 +78,15 @@
 
 /datum/gear/neck/scarf/stripedred
 	display_name = "Scarf, striped red"
-	path = /obj/item/clothing/neck/stripedredscarf
+	path = /obj/item/clothing/neck/scarf/stripedred
 
 /datum/gear/neck/scarf/stripedgreen
 	display_name = "Scarf, striped green"
-	path = /obj/item/clothing/neck/stripedgreenscarf
+	path = /obj/item/clothing/neck/scarf/stripedgreen
 
 /datum/gear/neck/scarf/stripedblue
 	display_name = "Scarf, striped blue"
-	path = /obj/item/clothing/neck/stripedbluescarf
+	path = /obj/item/clothing/neck/scarf/stripedblue
 
 /datum/gear/neck/stethoscope
 	display_name = "Stethoscope"

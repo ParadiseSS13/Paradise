@@ -59,26 +59,20 @@
 	icon_state = "christmasscarf"
 	item_color = "christmasscarf"
 
-//The three following scarves don't have the scarf subtype
-//This is because Ian can equip anything from that subtype
-//However, these 3 don't have corgi versions of their sprites
-/obj/item/clothing/neck/stripedredscarf
+/obj/item/clothing/neck/scarf/stripedred
 	name = "striped red scarf"
-	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedredscarf"
 	item_color = "stripedredscarf"
-	w_class = WEIGHT_CLASS_SMALL
+	dog_fashion = null
 
-/obj/item/clothing/neck/stripedgreenscarf
+/obj/item/clothing/neck/scarf/stripedgreen
 	name = "striped green scarf"
-	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedgreenscarf"
 	item_color = "stripedgreenscarf"
-	w_class = WEIGHT_CLASS_SMALL
+	dog_fashion = null
 
-/obj/item/clothing/neck/stripedbluescarf
+/obj/item/clothing/neck/scarf/stripedblue
 	name = "striped blue scarf"
-	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedbluescarf"
 	item_color = "stripedbluescarf"
-	w_class = WEIGHT_CLASS_SMALL
+	dog_fashion = null

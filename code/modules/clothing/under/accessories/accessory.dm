@@ -8,9 +8,12 @@
 	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
-	var/obj/item/clothing/under/has_suit = null		//the suit the accessory may be attached to
-	var/image/inv_overlay = null	//overlay used when attached to clothing.
-	var/allow_duplicates = TRUE // Allow accessories of the same type.
+	/// the suit the accessory may be attached to
+	var/obj/item/clothing/under/has_suit = null
+	/// overlay used when attached to clothing.
+	var/image/inv_overlay = null
+	/// Allow accessories of the same type.
+	var/allow_duplicates = TRUE
 
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
