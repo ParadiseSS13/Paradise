@@ -28,7 +28,8 @@
 	item_color = "locketgold"
 	var/base_icon
 	var/open
-	var/obj/item/held //Item inside locket.
+	/// Item inside locket.
+	var/obj/item/held 
 
 /obj/item/clothing/neck/necklace/locket/Destroy()
 	QDEL_NULL(held)
