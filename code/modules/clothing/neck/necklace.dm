@@ -55,7 +55,7 @@
 	else
 		icon_state = "[base_icon]"
 
-/obj/item/clothing/neck/necklace/locket/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/neck/necklace/locket/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(!open)
 		to_chat(user, "You have to open it first.")
 		return
