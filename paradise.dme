@@ -1345,6 +1345,7 @@
 #include "code\game\objects\structures\nest.dm"
 #include "code\game\objects\structures\noticeboard.dm"
 #include "code\game\objects\structures\plasma_geyser.dm"
+#include "code\game\objects\structures\plasmafire_generator.dm"
 #include "code\game\objects\structures\plasticflaps.dm"
 #include "code\game\objects\structures\pondering_orb.dm"
 #include "code\game\objects\structures\railings.dm"
