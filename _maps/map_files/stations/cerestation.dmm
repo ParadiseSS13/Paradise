@@ -24240,6 +24240,13 @@
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"dmm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/genetics)
 "dmo" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/preopen{
@@ -37083,17 +37090,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
-"gDv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/science/genetics)
 "gDx" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -40172,13 +40168,6 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/servsci)
-"hwg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/science/genetics)
 "hwm" = (
 /obj/structure/chair/comfy{
 	dir = 8
@@ -47286,6 +47275,12 @@
 "jiv" = (
 /obj/machinery/camera/autoname{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -66883,10 +66878,10 @@
 /area/station/service/chapel)
 "ogJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -97082,6 +97077,17 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"vJd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/genetics)
 "vJh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -122364,7 +122370,7 @@ jTr
 cmL
 cmL
 cmL
-cmL
+pQM
 nLc
 lDh
 omL
@@ -122621,10 +122627,10 @@ cmJ
 cmL
 cmL
 cmL
-pQM
-cmL
-cmL
-jum
+vJd
+dmm
+dmm
+dzr
 jiv
 bDA
 pqv
@@ -122878,10 +122884,10 @@ jTr
 cmL
 cmL
 cmL
-gDv
-hwg
-hwg
-dzr
+hrj
+cmL
+cmL
+jum
 ogJ
 coy
 sjC
@@ -123135,7 +123141,7 @@ xOm
 jOt
 cGW
 fmq
-hrj
+cmL
 cmL
 cmL
 wEK
