@@ -129,6 +129,13 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
@@ -187,9 +194,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+/obj/item/reagent_containers/glass/beaker/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.on_atom_entered(source, entered)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
