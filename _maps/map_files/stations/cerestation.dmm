@@ -1550,6 +1550,18 @@
 	icon_state = "cafeteria"
 	},
 /area/station/command/office/rd)
+"alH" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "scieva";
+	name = "Science EVA shutter control";
+	pixel_y = 24;
+	req_one_access = list(19,41)
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "alM" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -4167,6 +4179,10 @@
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
+"aLO" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "aLQ" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters"
@@ -6091,6 +6107,22 @@
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
+"bcJ" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/disks{
+	pixel_x = 6;
+	pixel_y = 16
+	},
+/obj/item/book/manual/wiki/sop_science,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "bcK" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -6419,14 +6451,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/south)
-"bfg" = (
-/obj/item/clothing/head/cone,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	dir = 6
-	},
-/area/station/maintenance/apmaint)
 "bfh" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -7247,6 +7271,15 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore)
+"bjI" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/apmaint)
 "bjJ" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -15084,6 +15117,9 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos/distribution)
+"bWk" = (
+/turf/simulated/wall/r_wall,
+/area/station/hallway/primary/aft/west)
 "bWn" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -16748,20 +16784,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
-"cjN" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/geneticist,
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurple"
-	},
-/area/station/science/genetics)
 "cjR" = (
 /turf/simulated/wall,
 /area/station/public/quantum/security)
@@ -18177,9 +18199,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/break_room)
-"cvg" = (
-/turf/simulated/mineral/ancient,
-/area/station/hallway/primary/aft/west)
 "cvq" = (
 /obj/machinery/door_control{
 	id = "arrivalseva";
@@ -19336,10 +19355,12 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "cFP" = (
-/obj/machinery/economy/vending/genedrobe,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
+	},
+/obj/structure/chair/comfy/purp{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -19517,9 +19538,20 @@
 	},
 /area/station/command/meeting_room)
 "cGW" = (
-/obj/structure/window/reinforced,
-/mob/living/carbon/human/monkey,
-/turf/simulated/floor/grass,
+/obj/machinery/door_control{
+	id = "genetics";
+	name = "Genetics Privacy Shutters";
+	pixel_y = -23;
+	req_access = list(9);
+	pixel_x = 24
+	},
+/obj/structure/table/glass,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
 /area/station/science/genetics)
 "cGY" = (
 /obj/structure/disposalpipe/segment{
@@ -20558,14 +20590,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/theatre)
-"cOi" = (
-/obj/machinery/computer/scan_consolenew,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkpurple"
-	},
-/area/station/science/genetics)
 "cOo" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Escape Pod Airlock"
@@ -21344,19 +21368,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fore)
-"cRV" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/aft/west)
 "cRZ" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -23905,6 +23916,12 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/fore/north)
+"diW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "diY" = (
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
@@ -26356,6 +26373,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port2)
+"dEg" = (
+/obj/structure/sink{
+	pixel_y = 24
+	},
+/mob/living/carbon/human/monkey,
+/turf/simulated/floor/grass,
+/area/station/science/genetics)
 "dEi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -31791,13 +31815,6 @@
 	icon_state = "grimy"
 	},
 /area/station/maintenance/fore2)
-"faV" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/item/clothing/head/cone,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/aft/west)
 "fbs" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -32015,10 +32032,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/port)
 "ffy" = (
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/obj/effect/landmark/start/geneticist,
+/obj/machinery/economy/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -32325,11 +32339,6 @@
 	},
 /area/station/supply/lobby)
 "fkc" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 10
-	},
-/obj/item/storage/box/disks,
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -32469,6 +32478,20 @@
 	icon_state = "solarpanel"
 	},
 /area/station/engineering/solar/aft_starboard)
+"fmq" = (
+/obj/structure/table/glass,
+/obj/item/roller{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/roller{
+	pixel_x = -2;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/genetics)
 "fmz" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
@@ -33122,6 +33145,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"fvu" = (
+/obj/structure/table/glass,
+/obj/item/toy/figure/crew/geneticist{
+	pixel_y = 10;
+	pixel_x = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "fvz" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -35784,14 +35818,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cloning)
-"gjN" = (
-/mob/living/carbon/human/monkey,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/turf/simulated/floor/grass,
-/area/station/science/genetics)
 "gjQ" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/pickaxe/mini,
@@ -37057,6 +37083,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
+"gDv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/genetics)
 "gDx" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -37626,13 +37663,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard)
-"gLW" = (
-/obj/machinery/door/window/classic/normal{
-	name = "Monkey Pen"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/turf/simulated/floor/grass,
-/area/station/science/genetics)
 "gLX" = (
 /mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating{
@@ -38648,14 +38678,6 @@
 /obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"hcm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/science/genetics)
 "hco" = (
 /mob/living/carbon/human/monkey/teeny,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40152,9 +40174,7 @@
 /area/station/hallway/spacebridge/servsci)
 "hwg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45743,6 +45763,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"iPQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/disks,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "iPT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
@@ -49661,6 +49692,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
+"jKe" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/station/hallway/primary/aft/west)
 "jKg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49988,11 +50027,14 @@
 	},
 /area/station/science/xenobiology)
 "jOt" = (
-/obj/structure/flora/tree/palm,
-/obj/machinery/light{
-	dir = 1
+/obj/structure/chair/office/light{
+	dir = 4
 	},
-/turf/simulated/floor/grass,
+/obj/effect/landmark/start/geneticist,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
 /area/station/science/genetics)
 "jOE" = (
 /obj/structure/disposalpipe/segment/corner,
@@ -51166,6 +51208,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
+"kem" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = -32
+	},
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/station/hallway/primary/aft/west)
 "ken" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /obj/machinery/atmospherics/meter,
@@ -51579,6 +51636,17 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"kkn" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/station/hallway/primary/aft/west)
 "kkq" = (
 /obj/structure/table/flipped{
 	dir = 4
@@ -52797,6 +52865,11 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/expedition)
+"kzi" = (
+/mob/living/carbon/human/monkey,
+/obj/structure/flora/tree/palm,
+/turf/simulated/floor/grass,
+/area/station/science/genetics)
 "kzo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
@@ -54309,6 +54382,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
+"kTR" = (
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start/geneticist,
+/obj/machinery/requests_console/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "kUi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -57045,14 +57127,7 @@
 /area/station/maintenance/apmaint)
 "lDh" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/table/glass,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/hand_labeler,
-/obj/item/toy/figure/crew/geneticist{
-	pixel_y = 14;
-	pixel_x = -7
-	},
+/obj/structure/chair/comfy/purp,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -58584,6 +58659,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
+"lWE" = (
+/mob/living/carbon/human/monkey,
+/turf/simulated/floor/grass,
+/area/station/science/genetics)
 "lWT" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/garden)
@@ -60970,6 +61049,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mDy" = (
@@ -62711,6 +62794,10 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"naB" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "naI" = (
 /obj/structure/closet/wardrobe/white,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -63669,16 +63756,16 @@
 /area/station/legal/courtroom)
 "nop" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
+	},
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
@@ -65348,18 +65435,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "nLc" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/storage/box/disks,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurple"
+	icon_state = "darkpurplecorners"
 	},
 /area/station/science/genetics)
 "nLd" = (
@@ -66918,18 +66996,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/port)
-"oii" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft/west)
 "oip" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -67261,7 +67327,12 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/structure/closet/secure_closet/genetics,
+/obj/structure/table/glass,
+/obj/item/ashtray/glass,
+/obj/item/storage/fancy/cigarettes/cigpack_carp{
+	pixel_x = 9;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -67344,29 +67415,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
-"oop" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/machinery/door_control{
-	id = "scieva";
-	name = "Science EVA shutter control";
-	pixel_x = -25;
-	pixel_y = 24;
-	req_one_access = list(19,41)
-	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft/west)
 "ooq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -67509,6 +67557,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation/disposals)
+"oqg" = (
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/window/classic/normal{
+	name = "Monkey Pen"
+	},
+/turf/simulated/floor/grass,
+/area/station/science/genetics)
 "oql" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -71493,6 +71548,18 @@
 	icon_state = "white"
 	},
 /area/station/science/test_chamber)
+"pqq" = (
+/obj/machinery/computer/scan_consolenew,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "pqv" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -71790,18 +71857,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "puz" = (
-/obj/machinery/requests_console/directional/east,
-/obj/structure/table/glass,
-/obj/item/roller{
-	pixel_x = 4;
-	pixel_y = 6
+/obj/structure/closet/secure_closet/genetics,
+/obj/machinery/light{
+	dir = 4
 	},
-/obj/item/roller{
-	pixel_x = -2;
-	pixel_y = 10
-	},
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -72360,12 +72419,11 @@
 	},
 /area/station/maintenance/electrical_shop)
 "pCN" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	name = "Science Emergency EVA Storage";
-	id_tag = "scieva"
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
 "pCW" = (
@@ -77653,6 +77711,7 @@
 	dir = 4;
 	color = "#954535"
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -78142,6 +78201,10 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/xenobiology)
+"qZL" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "qZT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -78202,12 +78265,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"raH" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/hallway/primary/aft/west)
 "raP" = (
 /obj/machinery/floodlight{
 	light_power = 1
@@ -79235,6 +79292,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
+"rrI" = (
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	name = "Science Emergency EVA Storage";
+	id_tag = "scieva"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "rrN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -84797,16 +84861,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel/office)
-"sLK" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/machinery/newscaster/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft/west)
 "sLO" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/alarm/directional/north,
@@ -85696,6 +85750,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
+"sWu" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "genetics";
+	name = "Genetics Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/genetics)
 "sWz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -87115,6 +87177,28 @@
 "tpl" = (
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
+"tpo" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "genetics";
+	name = "Genetics Privacy Shutters"
+	},
+/obj/item/desk_bell{
+	pixel_x = 7;
+	pixel_y = 7;
+	anchored = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/science/genetics)
 "tpp" = (
 /obj/structure/sink{
 	dir = 8;
@@ -91647,9 +91731,6 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -97360,6 +97441,19 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"vOp" = (
+/obj/structure/shelf/science,
+/obj/item/healthanalyzer/advanced,
+/obj/item/healthanalyzer/advanced,
+/obj/item/reagent_containers/glass/bottle/potassium_iodide,
+/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/hand_labeler,
+/obj/item/reagent_containers/spray/cleaner,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "vOq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
@@ -97651,18 +97745,6 @@
 /obj/item/analyzer,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"vRu" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft/west)
 "vRH" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -97700,6 +97782,12 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"vSl" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/station/science/genetics)
 "vSr" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -98298,16 +98386,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/station/security/execution)
-"waT" = (
-/obj/machinery/light,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/aft/west)
 "waZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -103793,13 +103871,6 @@
 "xut" = (
 /turf/simulated/floor/carpet/blue,
 /area/station/hallway/secondary/garden)
-"xux" = (
-/mob/living/carbon/human/monkey,
-/obj/structure/sink{
-	pixel_y = 24
-	},
-/turf/simulated/floor/grass,
-/area/station/science/genetics)
 "xuC" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/light{
@@ -104783,7 +104854,11 @@
 /area/station/maintenance/starboard)
 "xFi" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "purple";
+	dir = 6
+	},
 /area/station/maintenance/apmaint)
 "xFj" = (
 /obj/structure/table/glass,
@@ -120990,7 +121065,7 @@ aXn
 aXn
 aXn
 aXn
-ccW
+wIq
 azv
 bGB
 ccW
@@ -121246,8 +121321,8 @@ aXn
 aXn
 aXn
 aXn
-ccW
-ccW
+aXn
+wIq
 wsR
 rSX
 sKh
@@ -121502,9 +121577,9 @@ hUU
 hUU
 hUU
 hUU
-ccW
-ccW
-ccW
+aXn
+wIq
+wIq
 wsR
 wsR
 sKh
@@ -121758,28 +121833,28 @@ rNK
 rNK
 rNK
 rNK
-rWw
-ccW
-ccW
+hUU
+aXn
+wIq
 czP
 wsR
 wsR
-sKh
+bjI
 uuf
 xFi
-ftr
-ftr
-ftr
-wIq
-wIq
-wIq
-wIq
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
+cGd
 vNV
 rhw
-wIq
-wIq
-sKh
-sKh
 sKo
 twp
 iBC
@@ -122015,25 +122090,25 @@ rNK
 rNK
 rNK
 rNK
-rWw
-rWw
-ccW
-ccW
-ccW
-ccW
-fmF
-mDv
-bfg
+hUU
+hUU
+wIq
+wIq
+wIq
 ftr
-ccW
-ccW
-ccW
-nzo
-nzo
+ftr
+mDv
+sKo
 cGd
-cGd
-cGd
-cGd
+lWE
+lWE
+jgc
+pqq
+kTR
+iPQ
+bcJ
+fvu
+vOp
 cGd
 cGd
 cGd
@@ -122273,23 +122348,23 @@ rNK
 rNK
 rNK
 rNK
-rWw
-ccW
-ccW
-ccW
-ccW
-vkl
-cRV
-vkl
-ftr
-ccW
-ccW
-ccW
-nzo
-gjN
-cGW
-cOi
-cjN
+hUU
+aXn
+aXn
+naB
+rrI
+diW
+wHE
+rFq
+bWk
+gbJ
+gbJ
+jgc
+jTr
+cmL
+cmL
+cmL
+cmL
 nLc
 lDh
 omL
@@ -122530,25 +122605,25 @@ rNK
 rNK
 rNK
 rNK
-rWw
-rWw
-ccW
-ccW
-ccW
-xtM
+hUU
+hUU
+aXn
+naB
+chQ
+diW
 tqh
 tuK
-ccW
-ccW
-ccW
-ccW
-nzo
+bWk
+dEg
 gbJ
-jgc
-jTr
+oqg
+cmJ
+cmL
 cmL
 cmL
 pQM
+cmL
+cmL
 jum
 jiv
 bDA
@@ -122788,23 +122863,23 @@ rNK
 rNK
 rNK
 rNK
-rWw
-ccW
-ccW
-ayp
-rFq
-waT
+hUU
+aXn
 vkl
-cvg
-ccW
-ccW
-ccW
-nzo
-xux
-gLW
-cmJ
+vkl
+alH
+wHE
+qZL
+bWk
+vSl
+kzi
+jgc
+jTr
 cmL
-hcm
+cmL
+cmL
+gDv
+hwg
 hwg
 dzr
 ogJ
@@ -123048,20 +123123,20 @@ rNK
 fxg
 nOP
 yez
-faV
+ayp
 qNj
 wHE
-bSc
-vkl
-vkl
-vkl
-ccW
-nzo
+aLO
+bWk
+gbJ
+egx
+jgc
+xOm
 jOt
 cGW
-jTr
-cmL
+fmq
 hrj
+cmL
 cmL
 wEK
 vQk
@@ -123308,15 +123383,15 @@ hEC
 nop
 nNd
 xNu
-vkl
-raH
-raH
-vkl
-ccW
+xtM
+bWk
 nzo
-egx
-jgc
-xOm
+nzo
+nzo
+sWu
+tpo
+sWu
+nzo
 ffy
 fkc
 puz
@@ -123566,13 +123641,13 @@ vkl
 vkl
 tjL
 vkl
-xEd
-pCN
 vkl
-ccW
-nzo
-nzo
-nzo
+pCN
+jKe
+kem
+jRs
+alw
+kkn
 nzo
 aFb
 bDA
@@ -123823,12 +123898,12 @@ pEi
 qbD
 fKX
 qDv
-oii
-oii
-vRu
-oop
 gwg
-sLK
+gwg
+gwg
+gwg
+gwg
+gwg
 aTi
 tHG
 xRh
