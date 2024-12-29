@@ -28,9 +28,14 @@
 	T.blind_release_air(fire)
 
 /obj/structure/plasmafire_generator/shadow
+	var/enabled = FALSE
+
+/obj/structure/plasmafire_generator/shadow/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	if(T1.z != 1)
+		enabled = TRUE
+	return ..()
 
 /obj/structure/plasmafire_generator/shadow/process()
-	var/turf/T = get_turf(src)
-	if(!istype(T) || T.z == 1)
+	if(!enabled)
 		return
 	return ..()
