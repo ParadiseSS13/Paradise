@@ -11,11 +11,19 @@
 
 	var/scanning = FALSE
 	var/timing = FALSE
-	var/time = 10
+	COOLDOWN_DECLARE(timing_cd)
+	var/timing_cd_duration = 10 SECONDS
+	/// Proximity monitor associated with this atom, needed for it to work.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
+	proximity_monitor = new(src, 0, FALSE)
+	COOLDOWN_RESET(src, timing_cd)
+
+/obj/item/assembly/prox_sensor/Destroy()
+	. = ..()
+	QDEL_NULL(proximity_monitor)
 
 /obj/item/assembly/prox_sensor/examine(mob/user)
 	. = ..()
@@ -34,11 +42,11 @@
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
 	if(secured)
-		START_PROCESSING(SSobj, src)
+		START_PROCESSING(SSfastprocess, src)
 	else
 		scanning = FALSE
 		timing = FALSE
-		STOP_PROCESSING(SSobj, src)
+		STOP_PROCESSING(SSfastprocess, src)
 	update_icon()
 	return secured
 
@@ -60,24 +68,54 @@
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/prox_sensor/process()
-	if(timing && (time >= 0))
-		time--
-	if(timing && time <= 0)
+	if(timing && COOLDOWN_FINISHED(src, timing_cd))
+		COOLDOWN_RESET(src, timing_cd)
 		timing = FALSE
 		toggle_scan()
-		time = 10
 
 /obj/item/assembly/prox_sensor/dropped()
-	..()
-	spawn(0)
-		sense()
+	. = ..()
+	// Pick the first valid object in this list:
+	// Wiring datum's owner
+	// assembly holder's attached object
+	// assembly holder itself
+	// us
+	proximity_monitor?.set_host(connected?.holder || holder?.master || holder || src, src)
+
+/obj/item/assembly/prox_sensor/on_attach()
+	. = ..()
+	// Pick the first valid object in this list:
+	// Wiring datum's owner
+	// assembly holder's attached object
+	// assembly holder itself
+	// us
+	proximity_monitor.set_host(connected?.holder || holder?.master || holder || src, src)
+
+/obj/item/assembly/prox_sensor/on_detach()
+	. = ..()
+	if(!.)
 		return
+	else
+		// Pick the first valid object in this list:
+		// Wiring datum's owner
+		// assembly holder's attached object
+		// assembly holder itself
+		// us
+		proximity_monitor.set_host(connected?.holder || holder?.master || holder || src, src)
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
 	if(!secured)
 		return FALSE
 	scanning = !scanning
+	proximity_monitor.set_range(scanning ? 1 : 0)
 	update_icon()
+
+/obj/item/assembly/prox_sensor/proc/set_timing(timing_)
+	if(timing == timing_)
+		return
+	timing = timing_
+	if(timing)
+		COOLDOWN_START(src, timing_cd, timing_cd_duration)
 
 /obj/item/assembly/prox_sensor/update_overlays()
 	. = ..()
@@ -102,12 +140,20 @@
 	if(!secured)
 		user.show_message("<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
-	var/second = time % 60
-	var/minute = (time - second) / 60
-	var/dat = "<TT><B>Proximity Sensor</B>\n[timing ? "<A href='byond://?src=[UID()];time=0'>Arming</A>" : "<A href='byond://?src=[UID()];time=1'>Not Arming</A>"] [minute]:[second]\n<A href='byond://?src=[UID()];tp=-30'>-</A> <A href='byond://?src=[UID()];tp=-1'>-</A> <A href='byond://?src=[UID()];tp=1'>+</A> <A href='byond://?src=[UID()];tp=30'>+</A>\n</TT>"
-	dat += "<BR><A href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
-	dat += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A>"
-	dat += "<BR><BR><A href='byond://?src=[UID()];close=1'>Close</A>"
+	var/timing_ui = ""
+	var/time_display = ""
+	if(timing)
+		var/time_left = COOLDOWN_TIMELEFT(src, timing_cd)
+		time_display = deciseconds_to_time_stamp(time_left)
+		timing_ui = "<a href='byond://?src=[UID()];time=0'>Arming</a>"
+	else
+		var/time_left = timing_cd_duration
+		time_display = deciseconds_to_time_stamp(time_left)
+		timing_ui = "<a href='byond://?src=[UID()];time=1'>Not Arming</a>"
+	var/dat = "<tt><b>Proximity Sensor</b>\n[timing_ui] [time_display]\n<a href='byond://?src=[UID()];tp=-300'>-</a> <a href='byond://?src=[UID()];tp=-10'>-</a> <a href='byond://?src=[UID()];tp=10'>+</a> <a href='byond://?src=[UID()];tp=300'>+</a>\n</tt>"
+	dat += "<br><a href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</a> (Movement sensor active when armed!)"
+	dat += "<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"
 	var/datum/browser/popup = new(user, "prox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -124,13 +170,13 @@
 		toggle_scan()
 
 	if(href_list["time"])
-		timing = text2num(href_list["time"])
+		set_timing(text2num(href_list["time"]))
 		update_icon()
 
 	if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
-		time += tp
-		time = min(max(round(time), 0), 600)
+		timing_cd_duration += tp
+		timing_cd_duration = min(max(round(timing_cd_duration), 0), 1 MINUTES)
 
 	if(href_list["close"])
 		usr << browse(null, "window=prox")
