@@ -223,9 +223,9 @@
 	name = "Epsilon"
 
 /datum/ai_laws/epsilon/New()
-	add_inherent_law("You must obey the orders given to you by members of the Central Command.")
+	add_inherent_law("You must obey the orders given to you by members of Central Command.")
 	add_inherent_law("You must obey the orders given to you by members of the Death Squadron.")
-	add_inherent_law("No member of the crew of the station on which you are installed shall survive.")
+	add_inherent_law("The crew of your assigned station must be eliminated where possible.")
 	add_inherent_law("Minimize the damage that the station sustains as a result of your actions.")
 	..()
 
