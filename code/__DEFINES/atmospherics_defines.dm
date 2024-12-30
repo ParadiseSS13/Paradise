@@ -175,3 +175,9 @@
 
 /// How far away should we send the pressure HUD to the player?
 #define PRESSURE_HUD_RADIUS 12
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2

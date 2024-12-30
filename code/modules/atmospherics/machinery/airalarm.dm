@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -457,7 +457,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = pressure_tlv.max1
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -496,7 +496,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -558,7 +558,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = 2
+				P.pressure_checks = ONLY_CHECK_INT_PRESSURE
 				P.internal_pressure_bound = 0
 				P.update_icon(UPDATE_ICON_STATE)
 
