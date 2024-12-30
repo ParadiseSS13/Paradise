@@ -64,8 +64,6 @@
 
 /obj/item/melee/touch_attack/disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
 	if(!proximity_flag || target == user || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
@@ -83,8 +81,7 @@
 
 /obj/item/melee/touch_attack/fleshtostone/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
+
 	if(!proximity_flag || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
 	var/mob/living/L = target
@@ -103,8 +100,7 @@
 
 /obj/item/melee/touch_attack/plushify/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
+
 	if(!proximity_flag || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
 		return
 	var/mob/living/L = target
@@ -123,8 +119,7 @@
 
 /obj/item/melee/touch_attack/fake_disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
+
 	if(!proximity_flag || target == user || !ismob(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, 0, target.loc)
@@ -141,8 +136,7 @@
 
 /obj/item/melee/touch_attack/cluwne/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
+
 	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //clowning around after touching yourself would unsurprisingly, be bad
 		return
 

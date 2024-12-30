@@ -27,8 +27,7 @@
 
 /obj/item/melee/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
-		return
+
 	if(is_apprentice_spell && iswizard(target) && target != user)
 		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
 		return
