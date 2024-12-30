@@ -1,7 +1,6 @@
 /datum/spell/aoe/conjure/build/mime_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
-	school = "mime"
 	summon_type = list(/obj/structure/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -30,7 +29,6 @@
 /datum/spell/mime/speak
 	name = "Speech"
 	desc = "Make or break a vow of silence."
-	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 	human_req = TRUE
@@ -63,7 +61,6 @@
 /datum/spell/forcewall/mime
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
-	school = "mime"
 	wall_type = /obj/effect/forcefield/mime
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
@@ -87,7 +84,6 @@
 /datum/spell/mime/fingergun
 	name = "Finger Gun"
 	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
-	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 	human_req = TRUE

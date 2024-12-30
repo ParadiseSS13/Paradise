@@ -269,7 +269,9 @@
 		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
+	var/datum/organ/lungs/lung = H.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		lung?.clear_alerts(H)
 		return TRUE
 
 ////////////////
