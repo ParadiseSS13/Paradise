@@ -412,7 +412,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = ONE_ATMOSPHERE
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -433,7 +433,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = ONE_ATMOSPHERE
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -451,7 +451,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = ONE_ATMOSPHERE * 2
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -472,7 +472,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
 				P.external_pressure_bound = ONE_ATMOSPHERE * 3
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -534,7 +534,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = 2
+				P.pressure_checks = ONLY_CHECK_INT_PRESSURE
 				P.internal_pressure_bound = 0
 				P.update_icon(UPDATE_ICON_STATE)
 
