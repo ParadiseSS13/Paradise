@@ -44,6 +44,8 @@
 		to_chat(user, "<span class='danger'>[mob_victim] absorbs your spell!</span>")
 		qdel(src)
 		return
+
+/obj/item/melee/touch_attack/proc/handle_delete(mob/user)
 	if(catchphrase)
 		user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound, 50, 1)
@@ -69,6 +71,7 @@
 	var/mob/M = target
 	do_sparks(4, 0, M.loc) //no idea what the 0 is
 	M.gib()
+	handle_delete(user)
 
 /obj/item/melee/touch_attack/fleshtostone
 	name = "petrifying touch"
@@ -87,6 +90,7 @@
 	var/mob/living/L = target
 	L.Stun(4 SECONDS)
 	new /obj/structure/closet/statue(L.loc, L)
+	handle_delete(user)
 
 /obj/item/melee/touch_attack/plushify
 	name = "fabric touch"
@@ -105,6 +109,7 @@
 		return
 	var/mob/living/L = target
 	L.plushify()
+	handle_delete(user)
 
 
 /obj/item/melee/touch_attack/fake_disintegrate
@@ -124,6 +129,7 @@
 		return
 	do_sparks(4, 0, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	handle_delete(user)
 
 /obj/item/melee/touch_attack/cluwne
 	name = "cluwne touch"
@@ -154,3 +160,4 @@
 			H.makeCluwne()
 		else
 			H.makeAntiCluwne()
+	handle_delete(user)

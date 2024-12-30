@@ -132,7 +132,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"

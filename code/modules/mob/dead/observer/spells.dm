@@ -18,7 +18,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	ghost = TRUE
 
 	action_icon_state = "boo"
-	school = "transmutation"
 	base_cooldown = 2 MINUTES
 	starts_charged = FALSE
 	clothes_req = FALSE

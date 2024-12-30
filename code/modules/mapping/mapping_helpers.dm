@@ -93,7 +93,7 @@
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
-	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
+	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -161,7 +161,7 @@
 
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
-	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/airlock)
 
 /// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
 /obj/effect/mapping_helpers/bombable_wall

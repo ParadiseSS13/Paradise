@@ -35253,7 +35253,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fpmaint)
 "gbz" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "gbC" = (
@@ -83695,7 +83695,7 @@
 /area/station/hallway/primary/fore/west)
 "sAJ" = (
 /obj/structure/table/wood,
-/obj/random/carp_plushie,
+/obj/effect/spawner/random/toy/carp_plushie,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -85789,9 +85789,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/storage)
-"tba" = (
-/turf/simulated/mineral/ancient/outer,
-/area/station/maintenance/abandonedbar)
 "tbe" = (
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -115525,12 +115522,12 @@ hUU
 hUU
 aXn
 stw
-tba
+qUT
 gbz
 gbz
 gbz
 gbz
-tba
+qUT
 stw
 sMZ
 qIF
@@ -115778,7 +115775,7 @@ rNK
 rNK
 bhO
 hUU
-aXn
+hUU
 aXn
 aXn
 stw

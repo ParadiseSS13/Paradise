@@ -4,7 +4,6 @@
 		stun them so that they may contemplate Art, and silence them. \
 		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
-	school = "transmutation"
 
 	base_cooldown = 300
 	clothes_req = TRUE
@@ -32,6 +31,7 @@
 
 	var/mob/living/carbon/human/H = target
 	H.mimetouched()
+	handle_delete(user)
 
 /mob/living/carbon/human/proc/mimetouched()
 	Weaken(14 SECONDS)

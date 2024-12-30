@@ -21295,7 +21295,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "bsi" = (
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bsk" = (
@@ -51723,7 +51723,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "fmT" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -56700,7 +56700,7 @@
 "hRq" = (
 /obj/machinery/firealarm/directional/north,
 /obj/structure/table,
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -79446,7 +79446,7 @@
 "tMs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/random/blood/often,
-/obj/random/mech,
+/obj/effect/spawner/random/toy/mech_figure,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "tMC" = (
@@ -87313,7 +87313,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "xWz" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
