@@ -24,6 +24,6 @@
 			to_chat(user, "<span class='warning'>You fail to break out of [user_sword.loc]!</span>")
 			return
 		var/turf/our_turf = get_turf(user_sword.loc)
-		our_turf.visible_message("<span class='danger'>[user_sword] magically teleports out of [user_sword.loc]!</span>")
+		our_turf.visible_message("<span class='danger'>[user_sword] leaps out of [user_sword.loc]!</span>")
 		user_sword.forceMove(our_turf)
 	user_sword.throw_at(targets[1], 10, 3, user)
