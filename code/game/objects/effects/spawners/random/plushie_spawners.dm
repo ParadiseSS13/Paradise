@@ -96,8 +96,7 @@
 
 	if(prob(explosive_chance))
 		plushie.has_stuffing = FALSE
-		var/obj/item/grenade/syndieminibomb/grenade = new
+		var/obj/item/grenade/syndieminibomb/grenade = new(plushie)
 		plushie.grenade = grenade
-		grenade.forceMove(plushie)
 
 	return plushie
