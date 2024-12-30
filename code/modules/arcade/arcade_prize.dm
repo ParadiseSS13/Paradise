@@ -69,10 +69,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/New(loc, amount=null)
-	..()
-	update_icon(UPDATE_ICON_STATE)
-
 /obj/item/stack/tickets/attack_self__legacy__attackchain(mob/user as mob)
 	return
 
