@@ -249,23 +249,23 @@
 /obj/item/eftpos/proc/check_user_position(mob/user)
 	return Adjacent(user)
 
-// A way to retrive inserted key. Only for antagonist
+// A way to retrive inserted key
 /obj/item/eftpos/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	user.visible_message("[capitalize(user.name)] starts disassembling [src] with a screwdriver!", \
+	 "<span class='notice'>You start using the screwdriver on [src].</span>")
+
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return
 
-	if(isliving(user) && user?.mind?.special_role)
-		if(isnull(eftpos_sindy_key))
-			user.show_message("<span class='notice'>The terminal has no key.</span>")
-		else
-			user.show_message("<span class='notice'>You manage to disconnect the key from the terminal.</span>")
-			if(!usr.put_in_any_hand_if_possible(eftpos_sindy_key))
-				eftpos_sindy_key.forceMove(get_turf(src))
-			eftpos_sindy_key = null
+	if(isnull(eftpos_sindy_key))
+		user.show_message("<span class='notice'>You remove the cover but find nothing of interest.</span>")
 	else
-		user.show_message("<span class='notice'>You are not sure what to do with the terminal and screwdriver.</span>")
+		user.show_message("<span class='notice'>You discover a strange device. You carefully remove it and disconnect it from the terminal.</span>")
+		if(!user.put_in_any_hand_if_possible(eftpos_sindy_key))
+			eftpos_sindy_key.forceMove(get_turf(src))
+		eftpos_sindy_key = null
 
 
 /obj/item/eftpos/register
