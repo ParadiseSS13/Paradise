@@ -108,7 +108,7 @@
 			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			message_admins("[key_name(new_traitor)] was added in as a traitor!")
-			log_game("[new_traitor] was added in as a traitor.")
+			log_game("[key_name(new_traitor)] was added in as a traitor.")
 
 	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
