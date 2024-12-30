@@ -85,6 +85,7 @@
 		to_chat(C, "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
 		C.add_plasma(-10)
 		qdel(target)
+	handle_delete(user)
 
 #undef RESIN_WALL
 #undef RESIN_NEST
