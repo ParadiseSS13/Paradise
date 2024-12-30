@@ -84028,15 +84028,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
-"sAJ" = (
-/obj/machinery/door/poddoor/shutters{
-	name = s;
-	id_tag = "pet_shop";
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel,
-/area/station/public/pet_store)
 "sAQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -139385,7 +139376,7 @@ vuY
 oFY
 ugQ
 oBw
-sAJ
+rtu
 aJa
 pEh
 aji
