@@ -34,3 +34,4 @@ walkdir = "2.5.0"
 # regex
 regex = "1.10.5"
 png = "0.17.16"
+chrono = "0.4.39"
