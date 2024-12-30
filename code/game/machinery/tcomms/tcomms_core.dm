@@ -140,7 +140,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
   */
-/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/core/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	refresh_zlevels()
 

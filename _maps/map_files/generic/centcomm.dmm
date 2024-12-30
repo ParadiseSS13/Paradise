@@ -4402,11 +4402,7 @@
 	pixel_x = -8
 	},
 /obj/item/kitchen/knife,
-/obj/machinery/newscaster{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
 	},
@@ -4874,11 +4870,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6411,8 +6403,7 @@
 /area/admin)
 "vJ" = (
 /obj/structure/table,
-/obj/random/toolbox,
-/obj/random/bomb_supply,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/machinery/syndicatebomb/badmin/clown,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -6610,7 +6601,6 @@
 "wx" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
-/obj/random/bomb_supply,
 /obj/item/clothing/under/costume/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
@@ -6754,7 +6744,7 @@
 /area/admin)
 "wT" = (
 /obj/structure/table,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
 /turf/simulated/floor/plasteel/dark,
@@ -8083,10 +8073,7 @@
 "CG" = (
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -9250,10 +9237,7 @@
 /obj/item/folder/blue,
 /obj/item/melee/chainofcommand,
 /obj/item/stamp/captain,
-/obj/machinery/newscaster/security_unit{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GT" = (
@@ -10796,11 +10780,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/lighter,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -11871,11 +11851,7 @@
 /obj/machinery/computer/emergency_shuttle{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/security_unit/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -12347,7 +12323,10 @@
 /area/centcom/control)
 "Rh" = (
 /obj/structure/table,
-/obj/random/powercell,
+/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/super,
+/obj/item/stock_parts/cell/hyper,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Ri" = (
@@ -12387,8 +12366,7 @@
 /area/centcom/evac)
 "Rn" = (
 /obj/structure/table,
-/obj/random/tool,
-/obj/random/bomb_supply,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Ro" = (
@@ -12846,8 +12824,6 @@
 /area/admin)
 "To" = (
 /obj/structure/table,
-/obj/random/technology_scanner,
-/obj/random/tech_supply,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Tp" = (
@@ -12862,11 +12838,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/lighter,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -13187,11 +13159,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/east,
 /obj/item/storage/lockbox/medal/cc,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -13639,7 +13607,6 @@
 "Wt" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
-/obj/random/bomb_supply,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wu" = (
@@ -14529,10 +14496,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 4.5
 	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"

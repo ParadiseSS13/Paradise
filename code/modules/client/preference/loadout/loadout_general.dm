@@ -89,6 +89,34 @@
 	display_name = "Nian plushie"
 	path = /obj/item/toy/plushie/nianplushie
 
+/datum/gear/ipcplushie
+	display_name = "IPC plushie"
+	path = /obj/item/toy/plushie/ipcplushie
+
+/datum/gear/kidanplushie
+	display_name = "Kidan plushie"
+	path = /obj/item/toy/plushie/kidanplushie
+
+/datum/gear/plasmaplushie
+	display_name = "Plasmaman plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/skrellplushie
+	display_name = "Skrell plushie"
+	path = /obj/item/toy/plushie/skrellplushie
+
+/datum/gear/draskplushie
+	display_name = "Drask plushie"
+	path = /obj/item/toy/plushie/draskplushie
+
+/datum/gear/borgplushie
+	display_name = "Borg plushie"
+	path = /obj/item/toy/plushie/borgplushie
+
+/datum/gear/nymphplushie
+	display_name = "Diona nymph plushie"
+	path = /obj/item/toy/plushie/nymphplushie
+
 /datum/gear/sharkplushie
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark

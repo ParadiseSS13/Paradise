@@ -7924,9 +7924,7 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -9069,9 +9067,7 @@
 /area/ruin/space/moonbase19)
 "JP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JQ" = (
@@ -9666,9 +9662,7 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -12275,9 +12269,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
