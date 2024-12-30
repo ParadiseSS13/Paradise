@@ -164,7 +164,16 @@
 /**
  * Unequip `target` and drop it at our current location.
  *
- * Returns FALSE if the unequip failed, and `target` if it succeeded.
+ * Returns `FALSE` if the unequip failed, and `target` if it succeeded. Returns
+ * `FALSE` if there is no target to drop. If the caller cares about handling the
+ * resultant dropped object, they are responsible for ensuring that the thing
+ * actually exists. This is to ensure that the return value is meaningful and that
+ * a nonexistant item being unequipped and returning null is not interpreted as
+ * a failure.
+ *
+ * However, if you don't care about the return value, feel free to pass in possibly
+ * nonexistant objects, such as when dropping anything in a slot for a spell/virus
+ * that replaces existing clothing.
  */
 /mob/proc/drop_item_to_ground(obj/item/target, force = FALSE, silent = FALSE, drop_inventory = TRUE)
 	if(isnull(target))
@@ -179,12 +188,16 @@
 
 /**
  * Unequip `target` and relocate it to `destination`.
+ *
+ * Returns `FALSE` if the transfer failed for any reason, and `TRUE` if it succeeded.
  */
 /mob/proc/transfer_item_to(obj/item/target, atom/destination, force = FALSE, silent = TRUE)
 	return unequip_to(target, destination, force, silent, no_move = FALSE)
 
 /**
  * Unequip `target` without relocating it.
+ *
+ * Returns `FALSE` if the transfer failed for any reason, and `TRUE` if it succeeded.
  *
  * A destination cannot be specified; you must either `forceMove` or `qdel` it.
  * If you intend to `qdel` it immediately, it is not necessary to call this;
