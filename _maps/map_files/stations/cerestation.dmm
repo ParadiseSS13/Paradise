@@ -32041,7 +32041,7 @@
 "ffy" = (
 /obj/machinery/economy/vending/genedrobe,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 5;
 	icon_state = "darkpurple"
 	},
 /area/station/science/genetics)
@@ -32496,7 +32496,8 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/station/science/genetics)
 "fmz" = (
@@ -69534,6 +69535,12 @@
 /obj/structure/sign/custodian,
 /turf/simulated/wall,
 /area/station/maintenance/port2)
+"oPZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurplecorners"
+	},
+/area/station/science/genetics)
 "oQc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/bluegrid{
@@ -97456,7 +97463,7 @@
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "darkpurple"
 	},
 /area/station/science/genetics)
@@ -123141,7 +123148,7 @@ xOm
 jOt
 cGW
 fmq
-cmL
+oPZ
 cmL
 cmL
 wEK
