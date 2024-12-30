@@ -16,7 +16,7 @@
 
 /datum/game_test/card_deck/Run()
 	// setup
-	var/loc = pick(block(run_loc_bottom_left, run_loc_top_right))
+	var/loc = pick(available_turfs)
 	var/obj/item/deck/cards/cards = allocate(/obj/item/deck/cards, loc)
 	cards.build_decks()
 
