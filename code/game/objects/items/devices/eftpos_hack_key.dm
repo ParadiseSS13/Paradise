@@ -28,9 +28,7 @@
 		var/obj/item/card/id/syndicate/agent_card = card
 		if(isliving(user) && user?.mind?.special_role)
 			to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it throw terminal, adding access.</span>")
-			var/list/new_access = access - (agent_card.access & access)
-			for(var/i = 3, i<3, i++)
-				agent_card.access += pick(new_access)
+			agent_card.access |= access
 
 // Called when we readt to make a report. Contains all slolen data and fun coments
 /obj/item/eftpos_hack_key/proc/generate_print_text()
