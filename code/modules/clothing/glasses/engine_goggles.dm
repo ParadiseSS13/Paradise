@@ -118,10 +118,10 @@
 	name = "atmospherics scanner goggles"
 	icon_state = "trayson-pressure"
 	item_state = "trayson-pressure"
-	desc = "Used by atmospherics techs to visualize pressure and see underfloor objects such as cables and pipes."
+	desc = "Used by atmospherics techs to visualize pressure, see station structure, and see underfloor objects such as cables and pipes."
 	range = 2
 	origin_tech = "materials=3;magnets=2;engineering=2"
-	modes = list(MODE_NONE = MODE_PRESSURE, MODE_PRESSURE = MODE_TRAY, MODE_TRAY = MODE_NONE)
+	modes = list(MODE_NONE = MODE_PRESSURE, MODE_PRESSURE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 
 #undef MODE_NONE
 #undef MODE_MESON
