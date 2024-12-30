@@ -58,8 +58,8 @@
 	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/drinks/bottle/beer(src)
+	new /obj/item/reagent_containers/drinks/bottle/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)

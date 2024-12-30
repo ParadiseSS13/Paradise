@@ -323,7 +323,7 @@
 /area/ruin/space/powered/bar)
 "bn" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bo" = (
@@ -375,7 +375,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
@@ -484,7 +484,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "pb" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/machinery/door_control{
 	id = "SpaceBar";
 	name = "Public Shutters";
@@ -546,7 +546,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (
@@ -895,7 +895,7 @@
 /area/ruin/space/powered)
 "QU" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -949,7 +949,7 @@
 	},
 /area/ruin/space/powered/bar)
 "VR" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "VU" = (

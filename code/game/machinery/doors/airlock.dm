@@ -90,6 +90,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/heat_resistance = 1500
 	/// Have we created sparks too recently?
 	var/on_spark_cooldown = FALSE
+	/// Synced with icon state for checking on callbacks
+	var/airlock_state
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
@@ -392,6 +394,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 
+	airlock_state = state
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
 
 	set_airlock_overlays(state)
@@ -614,8 +617,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(stat == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
 				playsound(src, doorDeni, 50, FALSE, 3)
-				sleep(6)
-				update_icon(AIRLOCK_CLOSED)
+				addtimer(CALLBACK(src, PROC_REF(handle_deny_end)), 0.6 SECONDS)
+
+/obj/machinery/door/airlock/proc/handle_deny_end()
+	if(airlock_state == AIRLOCK_DENY)
+		update_icon(AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -760,7 +766,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(user)
 			attack_ai(user)
 
-/obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/airlock/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && !locked)
 		if(mover.checkpass(PASSDOOR))
 			return TRUE
@@ -1396,12 +1402,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
-		return
+		return FALSE
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
 	sleep(6)
 	if(QDELETED(src))
-		return
+		return FALSE
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

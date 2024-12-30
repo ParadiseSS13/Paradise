@@ -71,7 +71,7 @@
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-					
+
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
@@ -2076,7 +2076,7 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust")
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust", "Plushify")
 		if(ishuman(M))
 			H = M
 			ptypes += "Brain Damage"
@@ -2121,6 +2121,9 @@
 			if("Dust")
 				M.dust()
 				logmsg = "dust"
+			if("Plushify")
+				M.plushify(curse_time = -1)
+				logmsg = "plushified"
 
 			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
@@ -2220,12 +2223,13 @@
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 				logmsg = "nugget"
 			if("Bread")
-				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/mob/living/simple_animal/shade/sword/generic_item/breadshade = new(H.loc)
 				var/bready = pick(/obj/item/food/customizable/cook/bread, /obj/item/food/sliceable/meatbread, /obj/item/food/sliceable/xenomeatbread, /obj/item/food/sliceable/spidermeatbread, /obj/item/food/sliceable/bananabread, /obj/item/food/sliceable/tofubread, /obj/item/food/sliceable/bread, /obj/item/food/sliceable/creamcheesebread, /obj/item/food/sliceable/banarnarbread, /obj/item/food/flatbread, /obj/item/food/baguette)
 				var/obj/item/bread = new bready(get_turf(H))
 				breadshade.forceMove(bread)
 				breadshade.key = H.key
-				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				breadshade.name = "Bread spirit"
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/generic_item, handle_item_deletion))
 				qdel(H)
 				logmsg = "baked"
 				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
@@ -2353,7 +2357,7 @@
 		sending.sent_by = usr
 		sending.sent_at = world.time
 
-		fax.receivefax(P)
+		fax.receivefax(sending)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")

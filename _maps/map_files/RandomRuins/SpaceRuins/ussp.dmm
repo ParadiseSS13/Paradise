@@ -1380,11 +1380,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/window/reinforced,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1788,11 +1785,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 30
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
@@ -3179,7 +3173,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iq" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/space/nearstation)
 "ir" = (
@@ -5153,7 +5147,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nM" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nN" = (
@@ -5350,7 +5344,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "on" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "op" = (
@@ -5621,11 +5615,8 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6141,11 +6132,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;

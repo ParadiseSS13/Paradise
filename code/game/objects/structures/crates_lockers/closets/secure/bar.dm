@@ -11,13 +11,5 @@
 	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/bar/populate_contents()
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/drinks/cans/beer(src)
+	for(var/i in 1 to 10)
+		new /obj/item/reagent_containers/drinks/bottle/beer(src)

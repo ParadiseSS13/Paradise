@@ -74,6 +74,7 @@
 	H.overlays = disguise.overlays
 	H.update_inv_r_hand()
 	H.update_inv_l_hand()
+	H.sec_hud_set_ID()
 	SEND_SIGNAL(H, COMSIG_CARBON_REGENERATE_ICONS)
 	to_chat(H, "<span class='notice'>You disguise yourself as [disguise.name].</span>")
 
@@ -84,4 +85,5 @@
 	var/mob/living/carbon/human/H = owner
 	H.name_override = null
 	H.overlays.Cut()
+	H.sec_hud_set_ID()
 	qdel(src)
