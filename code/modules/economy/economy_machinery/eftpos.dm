@@ -254,7 +254,7 @@
 	. = TRUE
 
 	user.visible_message("[capitalize(user.name)] starts disassembling [src] with a screwdriver!", \
-	 "<span class='notice'>You start using the screwdriver on [src].</span>")
+	"<span class='notice'>You start using the screwdriver on [src].</span>")
 
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return
