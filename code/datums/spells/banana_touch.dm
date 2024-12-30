@@ -31,7 +31,7 @@
 	if(is_apprentice_spell && iswizard(target) && target != user)
 		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
 		return
-	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
