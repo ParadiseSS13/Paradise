@@ -797,9 +797,11 @@
 	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
 	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.</span>"
 
-/obj/item/card/id/nct_data_chip/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/card/id/nct_data_chip/activate_self(mob/user)
+	if(..())
+		return
 	if(!trainee)
-		return ..()
+		return
 
 	var/response = tgui_alert(user, "Would you like to remove [trainee] as your current active Trainee?", "Choose", list("Yes", "No"))
 	if(response == "Yes")
@@ -807,20 +809,21 @@
 		icon_state = "nct_chip"
 		access = list()
 
-/obj/item/card/id/nct_data_chip/afterattack__legacy__attackchain(obj/item/O, mob/user, proximity)
-	if(!proximity)
+/obj/item/card/id/nct_data_chip/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/card/id))
 		return
-	if(!istype(O, /obj/item/card/id))
-		return
-	var/obj/item/card/id/I = O
 	if(!(isliving(user) && user.mind))
 		return
+
 	if(user.mind.current != registered_user)
 		to_chat(user, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
 		return
-	if(istype(O, /obj/item/card/id/ert))
+
+	if(istype(target, /obj/item/card/id/ert))
 		to_chat(user, "<span class='warning'>The chip's screen blinks red as you attempt scanning this ID.</span>")
 		return
+
+	var/obj/item/card/id/I = target
 	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
 	access = I.access
 	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
