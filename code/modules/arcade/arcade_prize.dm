@@ -8,7 +8,13 @@
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "prizeball_1"
 	var/opening = 0
-	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
+	var/possible_contents = list(
+		/obj/effect/spawner/random/toy/carp_plushie,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/toy/action_figure,
+		/obj/item/toy/eight_ball,
+		/obj/item/stack/tickets,
+	)
 
 /obj/item/toy/prizeball/Initialize(mapload)
 	. = ..()
@@ -34,27 +40,37 @@
 /obj/item/toy/prizeball/mech
 	name = "mecha figure capsule"
 	desc = "Contains one collectible mecha figure!"
-	possible_contents = list(/obj/random/mech)
+	possible_contents = list(
+		/obj/effect/spawner/random/toy/mech_figure,
+	)
 
 /obj/item/toy/prizeball/carp_plushie
 	name = "carp plushie capsule"
 	desc = "Contains one space carp plushie!"
-	possible_contents = list(/obj/random/carp_plushie)
+	possible_contents = list(
+		/obj/effect/spawner/random/toy/carp_plushie,
+	)
 
 /obj/item/toy/prizeball/plushie
 	name = "plushie capsule"
 	desc = "Contains one cuddly plushie!"
-	possible_contents = list(/obj/random/plushie)
+	possible_contents = list(
+		/obj/effect/spawner/random/plushies,
+	)
 
-/obj/item/toy/prizeball/figure
+/obj/item/toy/prizeball/action_figure
 	name = "action figure capsule"
 	desc = "Contains one action figure!"
-	possible_contents = list(/obj/random/figure)
+	possible_contents = list(
+		/obj/effect/spawner/random/toy/action_figure,
+	)
 
 /obj/item/toy/prizeball/therapy
 	name = "therapy doll capsule"
 	desc = "Contains one squishy therapy doll."
-	possible_contents = list(/obj/random/therapy)
+	possible_contents = list(
+		/obj/effect/spawner/random/toy/therapy_doll,
+	)
 
 /obj/item/stack/tickets
 	name = "prize ticket"
