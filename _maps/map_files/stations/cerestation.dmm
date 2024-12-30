@@ -3904,6 +3904,11 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
+/obj/machinery/door_control{
+	id = "pet_shop";
+	name = "Storefront Shutters";
+	pixel_x = 24
+	},
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "aJc" = (
@@ -56442,10 +56447,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Command Asteroid Hall 7";
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -84027,6 +84028,15 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"sAJ" = (
+/obj/machinery/door/poddoor/shutters{
+	name = s;
+	id_tag = "pet_shop";
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel,
+/area/station/public/pet_store)
 "sAQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -139375,7 +139385,7 @@ vuY
 oFY
 ugQ
 oBw
-rtu
+sAJ
 aJa
 pEh
 aji
