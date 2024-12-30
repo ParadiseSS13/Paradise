@@ -58,33 +58,33 @@
 	desc = "The hunger..."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/consume_resin/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/consume_resin/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You stop trying to consume resin.</span>")
-		..()
 		return
-	if(!proximity || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+	var/mob/living/carbon/C = user
 	if(istype(target, /obj/structure/alien/weeds))
 		qdel(target)
 		if(istype(target, /obj/structure/alien/weeds/node))
-			user.add_plasma(50)
-		user.visible_message("<span class='alertalien'>[user] rips and tears into [target] with their teeth!</span>", "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
+			C.add_plasma(50)
+		C.visible_message("<span class='alertalien'>[C] rips and tears into [target] with their teeth!</span>", "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
 		return
-	if(!plasma_check(10, user))
-		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+	if(!plasma_check(10, C))
+		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
 	for(var/resin_type in resin_objects)
 		if(!istype(target, resin_type))
 			continue
-		user.visible_message("<span class='alertalien'>[user] rips and tears into [target] with their teeth!</span>")
-		if(!do_after(user, 3 SECONDS, target = target))
+		C.visible_message("<span class='alertalien'>[C] rips and tears into [target] with their teeth!</span>")
+		if(!do_after(C, 3 SECONDS, target = target))
 			return
-		to_chat(user, "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
-		user.add_plasma(-10)
+		to_chat(C, "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
+		C.add_plasma(-10)
 		qdel(target)
-		..()
 
 #undef RESIN_WALL
 #undef RESIN_NEST

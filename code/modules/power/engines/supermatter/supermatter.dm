@@ -25,6 +25,12 @@
 #define POWERLOSS_INHIBITION_MOLE_THRESHOLD 20        //Higher == More moles of the gas are needed before the charge inertia chain reaction effect starts.        //Scales powerloss inhibition down until this amount of moles is reached
 #define POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD 500  //bonus powerloss inhibition boost if this amount of moles is reached
 
+#define O2_CRUNCH 1.5
+#define CO2_CRUNCH 1
+#define N2_CRUNCH 0.55
+#define N2O_CRUNCH 0.55
+#define PLASMA_CRUNCH 4
+
 #define MOLE_CRUNCH_THRESHOLD 1700           //Above this value we can get lord singulo and
 #define MOLE_PENALTY_THRESHOLD 1800           //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
 #define MOLE_HEAT_PENALTY 350                 //Heat damage scales around this. Too hot setups with this amount of moles do regular damage, anything above and below is scaled
@@ -134,8 +140,10 @@
 	var/explosion_power = 35
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	///Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
+	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
 	var/power = 0
+	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
+	var/gas_coefficient
 	///Determines the rate of positve change in gas comp values
 	var/gas_change_rate = 0.05
 
@@ -549,13 +557,11 @@
 		if(power_changes)
 			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
+		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
+
+		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * crush_ratio ** 0.5) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
 		if(prob(50))
-			var/mole_crunch_bonus = 0
-			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				mole_crunch_bonus = 7000 //This adds 7000 EER worth of power to the SM. This should make mole crunch potentially worthy as a SM setup, if not risky. More stable than the anomalies, but very easy to push over the edge. Don't forget, a high EER setup can harvest power through zaps
-				if(!has_been_powered) // Nice try, no free no risk power
-					enable_for_the_first_time()
-			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + mole_crunch_bonus)
+			radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -568,9 +574,7 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.set_temperature(removed.temperature() + (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))
-		//We can only emit so much heat, that being 57500
-		removed.set_temperature(max(0, min(removed.temperature(), 2500 * dynamic_heat_modifier)))
+		removed.set_temperature(removed.temperature() + max(0, min((2500 * dynamic_heat_modifier) - removed.temperature(), (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
@@ -598,7 +602,7 @@
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
-	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point || combined_gas > MOLE_CRUNCH_THRESHOLD) //If the power is above 5000, if the damage is above 550, or mole crushing
+	if((power * gas_coefficient) > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000, if the damage is above 550, or mole crushing
 		var/range = 4
 		zap_cutoff = 1500
 		if(removed && removed.return_pressure() > 0 && removed.temperature() > 0)
@@ -637,9 +641,9 @@
 
 		if(prob(5))
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
-		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1) || combined_gas > MOLE_CRUNCH_THRESHOLD && prob(5))
+		if((power * gas_coefficient) > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
-		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD) || combined_gas > MOLE_CRUNCH_THRESHOLD && prob(2))
+		if(((power * gas_coefficient) > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && (power * gas_coefficient) > POWER_PENALTY_THRESHOLD))
 			supermatter_anomaly_gen(src, BLUESPACE_ANOMALY, rand(5, 10))
 
 	if(prob(15))
@@ -844,7 +848,7 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
 
-/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
 	..()
 	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 		Bumped(A)
@@ -1308,3 +1312,8 @@
 #undef SUPERMATTER_TESLA_COLOUR
 #undef SUPERMATTER_SINGULARITY_RAYS_COLOUR
 #undef SUPERMATTER_SINGULARITY_LIGHT_COLOUR
+#undef O2_CRUNCH
+#undef CO2_CRUNCH
+#undef N2_CRUNCH
+#undef N2O_CRUNCH
+#undef PLASMA_CRUNCH
