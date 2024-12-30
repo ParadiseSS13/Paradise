@@ -59,7 +59,7 @@
 			user.drop_item()
 			O.loc = src
 			eftpos_sindy_key = O
-			user.show_message("<span class='notice'>You insert the hacking key in the terminal.</span>")
+			user.show_message("<span class='notice'>You insert the hacking key into the terminal.</span>")
 		else
 			user.show_message("<span class='notice'>One hacking key is already in the terminal.</span>")
 
@@ -170,7 +170,7 @@
 	// Allows agent to copy acesses from key and print reports
 	if(istype(C, /obj/item/card/id/syndicate) && eftpos_sindy_key)
 		eftpos_sindy_key.read_agent_card(C, user)
-		if(tgui_alert(user, "Agent, do you wish to print stolen data?", "Print slolen data?", list("Yes", "No")) == "Yes")
+		if(tgui_alert(user, "Agent, do you wish to print the stolen data?", "Print stolen data?", list("Yes", "No")) == "Yes")
 			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 			var/obj/item/paper/R = new(loc)
 			R.name = "Reference: [machine_name]"

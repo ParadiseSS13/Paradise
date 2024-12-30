@@ -1,13 +1,13 @@
 /obj/item/eftpos_hack_key
 	name = "EFTPOS Hacking Key"
-	desc = "A small key insetred in EFTPOS diveses for hacing them. Allows to steal cleints personal information"
+	desc = "A small key inserted into EFTPOS devices for hacking purposes. Allows agents to steal clients' personal information."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=2;bluespace=1" // TODO
 
-	// trucks who was the higest target for print output
+	// Tracks who was the highest target for print output
 	var/highest_stolen_rank
 	var/list/access = list()
 	var/list/stolen_data = list()
@@ -27,10 +27,10 @@
 	if(istype(card, /obj/item/card/id/syndicate))
 		var/obj/item/card/id/syndicate/agent_card = card
 		if(isliving(user) && user?.mind?.special_role)
-			to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it throw terminal, adding access.</span>")
+			to_chat(usr, "<span class='notice'>The card's microsensors activate as you pass it through the terminal, adding access permissions.</span>")
 			agent_card.access |= access
 
-// Called when we readt to make a report. Contains all slolen data and fun coments
+// Called when we are ready to generate a report. Contains all stolen data and fun comments.
 /obj/item/eftpos_hack_key/proc/generate_print_text()
 
 	var/victim_number = length(stolen_data)
@@ -41,9 +41,9 @@
 		if(1 to 3)      victim_text = "Ok, it's working, now you can start doing your job!"
 		if(4 to 9)    	victim_text = "Good start, agent"
 		if(10 to 20) 	victim_text = "Keep up the good work"
-		if(21 to 50) 	victim_text = "Maybe...maybe you are usfull after all"
-		if(50 to 100) 	victim_text = "You did not forget, you have actial job to do?"
-		if(101 to 150) 	victim_text = "At this point, i just don't beleave you"
+		if(21 to 50) victim_text = "Maybe... maybe you are useful after all."
+		if(50 to 100) victim_text = "You didn’t forget that you have an actual job to do, right?"
+		if(101 to 150) victim_text = "At this point, I just don’t believe you."
 		else       		victim_text = "AGENT, STOP BRAKING MY STUF!!!"
 
 	var/text_to_print = {"
@@ -63,7 +63,7 @@
 	for(var/i = 1, length(stolen_data) >= i, i++)
 		text_to_print += "[stolen_data[i]]<BR>"
 
-	text_to_print+="Do not forget to tell you agent friends how useful my gadget is!"
+	text_to_print += "Do not forget to tell your agent friends how useful my gadget is!"
 
 	return text_to_print
 
