@@ -43,8 +43,6 @@
 	..()
 
 /datum/middle_click_override/shock_implant
-	// COOLDOWN_DECLARE(last_shocked)
-	// var/shock_delay = 3 SECONDS
 
 /datum/middle_click_override/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
 	if(user.incapacitated() || A == user)
