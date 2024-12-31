@@ -8,10 +8,8 @@
 	var/image/override_image
 
 /datum/hallucination_manager/stealing_traitor/Destroy(force, ...)
-	. = ..()
-	if(!QDELETED(owner))
-		owner.client?.images -= override_image
-	qdel(override_image)
+	owner.client?.images -= override_image
+	return ..()
 
 /datum/hallucination_manager/stealing_traitor/spawn_hallucination()
 	for(var/id in shuffle(GLOB.high_risk_items))
