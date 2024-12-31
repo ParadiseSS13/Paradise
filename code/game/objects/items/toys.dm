@@ -478,15 +478,6 @@
 	playsound(user, 'sound/items/squeaktoy.ogg', 20, TRUE)
 	cooldown = world.time
 
-/obj/random/therapy
-	name = "Random Therapy Doll"
-	desc = "This is a random therapy doll."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "therapyred"
-
-/obj/random/therapy/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
-
 /obj/item/toy/therapy/red
 	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
@@ -541,15 +532,6 @@
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	poof_sound = list('sound/weapons/bite.ogg' = 1)
 
-
-/obj/random/carp_plushie
-	name = "Random Carp Plushie"
-	desc = "This is a random plushie."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "carpplushie"
-
-/obj/random/carp_plushie/item_to_spawn()
-	return pick(typesof(/obj/item/toy/plushie/carpplushie)) //can pick any carp plushie, even the original.
 
 /obj/item/toy/plushie/carpplushie/ice
 	icon_state = "icecarp"
@@ -690,28 +672,6 @@
 		break
 	cursed_plushie_victim = null
 	qdel(src)
-
-/obj/random/plushie
-	name = "Random Plushie"
-	desc = "This is a random plushie."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "redfox"
-
-/obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
-
-/obj/random/plushie/explosive
-	var/explosive_chance = 1 // 1% to spawn a blahbomb!
-
-/obj/random/plushie/explosive/spawn_item()
-	var/obj/item/toy/plushie/plushie = ..()
-	if(!prob(explosive_chance))
-		return plushie
-	var/obj/item/I = new /obj/item/grenade/syndieminibomb
-	plushie.has_stuffing = FALSE
-	plushie.grenade = I
-	I.forceMove(plushie)
-	return plushie
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -1181,7 +1141,7 @@
 
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
-	desc = "A freindly plasma-being in plush form. WARNING: KEEP AWAY FROM OPEN FLAME!"
+	desc = "A friendly plasma-being in plush form. WARNING: KEEP AWAY FROM OPEN FLAME!"
 	icon_state = "plushie_plasma"
 	rare_hug_sound = 'sound/voice/plas_rattle.ogg'
 	rare_hug_word = "Rattle!"
@@ -1689,16 +1649,6 @@
  */
 
 
-/obj/random/figure
-	name = "Random Action Figure"
-	desc = "This is a random toy action figure."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "nuketoy"
-
-/obj/random/figure/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure/crew))
-
-
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
@@ -2014,15 +1964,6 @@
 /obj/item/toy/figure/mech/activate(mob/user)
 	to_chat(user, "<span class='notice'>You play with [src].</span>")
 	playsound(src, 'sound/mecha/mechstep.ogg', 20, TRUE)
-
-/obj/random/mech
-	name = "Random Mech Prize"
-	desc = "This is a random prize."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "ripleytoy"
-
-/obj/random/mech/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure/mech)) //exclude the base type.
 
 /obj/item/toy/figure/mech/ripley
 	name = "toy Ripley"

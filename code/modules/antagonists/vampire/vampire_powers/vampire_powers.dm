@@ -13,7 +13,6 @@
 	return TRUE
 
 /datum/spell/vampire
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
@@ -287,7 +286,6 @@
 /datum/spell/vampire/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
-	school = "transmutation"
 	base_cooldown = 100
 	clothes_req = FALSE
 	human_req = TRUE
