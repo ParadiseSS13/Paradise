@@ -43,8 +43,8 @@
 	..()
 
 /datum/middle_click_override/shock_implant
-	COOLDOWN_DECLARE(last_shocked)
-	var/shock_delay = 3 SECONDS
+	// COOLDOWN_DECLARE(last_shocked)
+	// var/shock_delay = 3 SECONDS
 
 /datum/middle_click_override/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
 	if(user.incapacitated() || A == user)
@@ -52,7 +52,7 @@
 	var/obj/item/bio_chip/shock/P = locate() in user
 	if(!P)
 		return
-	if(!COOLDOWN_FINISHED(src, last_shocked))
+	if(!COOLDOWN_FINISHED(P, last_shocked))
 		to_chat(user, "<span class='warning'>The powerchip is still recharging.</span>")
 		return FALSE
 	var/turf/T = get_turf(user)
@@ -110,7 +110,7 @@
 		A = target_atom
 		next_shocked.Cut()
 
-	COOLDOWN_START(src, last_shocked, shock_delay)
+	COOLDOWN_START(P, last_shocked, P.shock_delay)
 	return TRUE
 
 /**
