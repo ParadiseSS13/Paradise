@@ -825,7 +825,7 @@
 
 	var/obj/item/card/id/I = target
 	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
-	access = I.access
+	access = I.access.Copy()
 	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
 						ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,
 						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
