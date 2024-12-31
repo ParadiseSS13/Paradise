@@ -2,8 +2,11 @@
 //Keep this sorted alphabetically
 
 #ifdef GAME_TESTS
+#include "_game_test_puppeteer.dm"
 #include "_game_test.dm"
 #include "atmos\test_ventcrawl.dm"
+#include "attack_chain\test_attack_chain_cult_dagger.dm"
+#include "attack_chain\test_attack_chain_vehicles.dm"
 #include "games\test_cards.dm"
 #include "jobs\test_job_globals.dm"
 #include "test_aicard_icons.dm"

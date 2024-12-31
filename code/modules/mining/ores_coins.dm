@@ -17,8 +17,8 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 
@@ -349,14 +349,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/cooldown = 0
 	var/credits = 10
 
-/obj/item/coin/New()
-	..()
+/obj/item/coin/Initialize(mapload)
+	. = ..()
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
-
-/obj/item/coin/Initialize(mapload)
-	. = ..()
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/coin/gold
