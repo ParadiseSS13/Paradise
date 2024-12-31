@@ -197,7 +197,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
 //Special Roles
