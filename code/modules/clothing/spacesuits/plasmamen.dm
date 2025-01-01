@@ -359,3 +359,9 @@
 	if(!H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	return TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/trainer
+	name = "\improper NT Career Trainer envirosuit helmet"
+	desc = "A plasmaman envirohelm designed for the nanotrasen career trainer."
+	icon_state = "trainer_envirohelm"
+	item_state = "trainer_envirohelm"
