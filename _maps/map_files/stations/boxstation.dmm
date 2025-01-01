@@ -39798,9 +39798,7 @@
 /area/station/engineering/break_room)
 "cMX" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/t_scanner,
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cNb" = (
@@ -39993,7 +39991,8 @@
 /area/station/engineering/break_room)
 "cNP" = (
 /obj/structure/table,
-/obj/item/folder/yellow,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cNS" = (
@@ -64446,7 +64445,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
