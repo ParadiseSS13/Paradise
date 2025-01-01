@@ -531,6 +531,8 @@ SLIME SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
+	/// Whether the report lists each gas mix separately or their sum
+	var/sum_report = TRUE
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -593,6 +595,11 @@ SLIME SCANNER
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(ping)), cooldown_time)
 
+/obj/item/analyzer/AltShiftClick(mob/user)
+	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
+		sum_report = !sum_report
+		to_chat(user,"<span class='info'>The analyzer will now give a [sum_report ? "summarized" : "detailed"] report</span>")
+
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
 		var/mob/living/L = loc
@@ -616,15 +623,15 @@ SLIME SCANNER
 	if(!can_see(user, target, 1))
 		return
 	if(target.return_analyzable_air())
-		atmos_scan(user, target)
+		atmos_scan(user, target, detailed = !sum_report)
 	else
-		atmos_scan(user, get_turf(target))
+		atmos_scan(user, get_turf(target), detailed = !sum_report)
 
 /**
  * Outputs a message to the user describing the target's gasmixes.
  * Used in chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE , detailed = FALSE)
 	var/mixture
 	var/list/milla = null
 	if(milla_turf_details)
@@ -647,63 +654,97 @@ SLIME SCANNER
 		return TRUE
 
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
+
+	var/total_moles = 0
+	var/pressure = 0
+	var/volume = 0
+	var/heat_capacity = 0
+	var/thermal_energy = 0
+	var/mix_name = capitalize(lowertext(target.name))
+	var/o2
+	var/n2
+	var/co2
+	var/tox
+	var/n2o
+	var/agent_b
+
 	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(length(air) > 1) //not a unary gas mixture
-			var/mix_number = airs.Find(air)
-			message += "<span class='boldnotice'>Node [mix_number]</span>"
-			mix_name += " - Node [mix_number]"
+		if(detailed)
+			total_moles = air.total_moles()
+			pressure = air.return_pressure()
+			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+			heat_capacity = air.heat_capacity()
+			thermal_energy = air.thermal_energy()
+			o2 = air.oxygen()
+			n2 = air.nitrogen()
+			co2 = air.carbon_dioxide()
+			tox = air.toxins()
+			n2o = air.sleeping_agent()
+			agent_b = air.agent_b()
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
-
-		if(total_moles)
-			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-			if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-				message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
-			if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-				message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
-			if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
-			if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-				message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-			message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
 		else
-			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+			total_moles += air.total_moles()
+			pressure += air.return_pressure()
+			volume += air.return_volume()
+			heat_capacity += air.heat_capacity()
+			thermal_energy += air.thermal_energy()
+			o2 += air.oxygen()
+			n2 += air.nitrogen()
+			co2 += air.carbon_dioxide()
+			tox += air.toxins()
+			n2o += air.sleeping_agent()
+			agent_b += air.agent_b()
 
-		if(milla)
-			// Values from milla/src/lib.rs, +1 due to array indexing difference.
-			message += "<span class='notice'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
-			switch(milla[MILLA_INDEX_ATMOS_MODE])
-				// These are enum values, so they don't get increased.
-				if(0)
-					message += "<span class='notice'>Atmos Mode: Space</span>"
-				if(1)
-					message += "<span class='notice'>Atmos Mode: Sealed</span>"
-				if(2)
-					message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
-				else
-					message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
-			message += "<span class='notice'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
-			message += "<span class='notice'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
-			message += "<span class='notice'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
-			message += "<span class='notice'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
-			message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+		if(detailed || airs.Find(air) == length(airs))
+			if(length(airs) > 1 && detailed) //not a unary gas mixture
+				var/mix_number = airs.Find(air)
+				message += "<span class='boldnotice'>Node [mix_number]</span>"
+				mix_name += " - Node [mix_number]"
+
+			if(total_moles)
+				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+				if(o2 && (milla_turf_details || o2 / total_moles > 0.01))
+					message += "  <span class='oxygen'>Oxygen: [round(o2, 0.01)] moles ([round(o2 / total_moles * 100, 0.01)] %)</span>"
+				if(n2 && (milla_turf_details || n2 / total_moles > 0.01))
+					message += "  <span class='nitrogen'>Nitrogen: [round(n2, 0.01)] moles ([round(n2 / total_moles * 100, 0.01)] %)</span>"
+				if(co2 && (milla_turf_details || co2 / total_moles > 0.01))
+					message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(co2, 0.01)] moles ([round(co2 / total_moles * 100, 0.01)] %)</span>"
+				if(tox && (milla_turf_details || tox / total_moles > 0.01))
+					message += "  <span class='plasma'>Plasma: [round(tox, 0.01)] moles ([round(tox / total_moles * 100, 0.01)] %)</span>"
+				if(n2o && (milla_turf_details || n2o / total_moles > 0.01))
+					message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(n2o, 0.01)] moles ([round(n2o / total_moles * 100, 0.01)] %)</span>"
+				if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
+					message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
+				message += "<span class='notice'>Temperature: [round(length(airs) > 1 ? (thermal_energy / heat_capacity) - T0C : air.temperature() - T0C)] &deg;C ([round(length(airs) > 1 ? thermal_energy / heat_capacity : air.temperature())] K)</span>"
+				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+				message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+				message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+			else
+				message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
+				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+
+			if(milla)
+				// Values from milla/src/lib.rs, +1 due to array indexing difference.
+				message += "<span class='notice'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
+				message += "<span class='notice'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
+				message += "<span class='notice'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
+				message += "<span class='notice'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
+				switch(milla[MILLA_INDEX_ATMOS_MODE])
+					// These are enum values, so they don't get increased.
+					if(0)
+						message += "<span class='notice'>Atmos Mode: Space</span>"
+					if(1)
+						message += "<span class='notice'>Atmos Mode: Sealed</span>"
+					if(2)
+						message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
+					else
+						message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
+				message += "<span class='notice'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
+				message += "<span class='notice'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
+				message += "<span class='notice'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
+				message += "<span class='notice'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
+				message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE
