@@ -5,7 +5,7 @@ RESTRICT_TYPE(/datum/antagonist/eventmisc)
 	job_rank = ROLE_EVENTMISC
 	special_role = SPECIAL_ROLE_EVENTMISC
 	give_objectives = FALSE
-	antag_hud_name = "hudeventmisc"
+	antag_hud_name = "hudevent"
 	antag_hud_type = ANTAG_HUD_EVENTMISC
 
 /datum/antagonist/eventmisc/add_owner_to_gamemode()
