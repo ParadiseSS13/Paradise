@@ -30,6 +30,9 @@
 /datum/antagonist/abductor/remove_owner_from_gamemode()
 	SSticker.mode.abductors -= owner
 
+/datum/antagonist/abductor/get_team()
+	return our_team
+
 /datum/antagonist/abductor/proc/equip_abductor()
 	var/mob/living/carbon/human/agent = owner.current
 	agent.equipOutfit(/datum/outfit/abductor/agent)
