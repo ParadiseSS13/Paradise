@@ -338,6 +338,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()
 	for(var/i=0;i<3;i++)

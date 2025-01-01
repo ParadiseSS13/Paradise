@@ -47,13 +47,15 @@
 	var/list/procs_tested
 
 	//usable vars
-	var/static/list/available_turfs
+	var/list/available_turfs
 
 	//internal shit
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
 	var/testing_area_name = "test_generic.dmm"
+	var/obj/effect/landmark/bottom_left
+	var/obj/effect/landmark/top_right
 
 /datum/game_test/New()
 	if(!length(available_turfs))
@@ -75,6 +77,12 @@
 	for(var/turf/T in get_area_turfs(/area/game_test))
 		for(var/atom/movable/AM in T)
 			qdel(AM)
+
+	// Gotta destroy these landmarks so the next test
+	// doesn't end up seeing them if it tries to load a new map
+	qdel(bottom_left)
+	qdel(top_right)
+
 	return ..()
 
 /datum/game_test/proc/Run()
@@ -90,8 +98,6 @@
 
 /datum/game_test/proc/get_test_turfs()
 	var/list/result = list()
-	var/obj/effect/landmark/bottom_left
-	var/obj/effect/landmark/top_right
 	for(var/obj/effect/landmark in GLOB.landmarks_list)
 		if(istype(landmark, /obj/effect/landmark/game_test/bottom_left_corner))
 			bottom_left = landmark

@@ -393,6 +393,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(flags & NODECONSTRUCT)
