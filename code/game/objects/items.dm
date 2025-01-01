@@ -184,6 +184,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 

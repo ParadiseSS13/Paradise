@@ -149,9 +149,12 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
-	. = ..()
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+	..()
+	scatter_atom()
+
+/obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)
+	pixel_x = rand(-4,0) + offset_x
+	pixel_y = rand(-4,0) + offset_y
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"

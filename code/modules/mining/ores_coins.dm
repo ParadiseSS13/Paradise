@@ -18,9 +18,12 @@
 	var/refined_type = null //What this ore defaults to being refined into
 
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	pixel_x = rand(0, 16) - 8
-	pixel_y = rand(0, 8) - 8
+	..()
+	scatter_atom()
+
+/obj/item/stack/ore/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-8, 8) + x_offset
+	pixel_y = rand(-8, 0) + y_offset
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
