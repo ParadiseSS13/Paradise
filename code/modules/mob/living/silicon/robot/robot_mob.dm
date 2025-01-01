@@ -27,9 +27,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
-	/// The item the borg is currently "holding" (This isn't a very good var name but changing every use of it is too much of a pain.)
-	var/module_active = null
-	/// The list of up to 3 items the borg can have "equipped". The contents will either bet CYBORG_EMPTY_MODULE for nothing, or the item selected
+	/// The item the borg currently has selected, or null if nothing is selected
+	var/selected_item = null
+	/// The list of up to 3 items the borg can have "equipped". The contents will either be CYBORG_EMPTY_MODULE for nothing, or the item selected
 	var/list/all_active_items = list(CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE)
 
 	var/obj/item/radio/borg/radio = null
@@ -1640,7 +1640,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
 		base_icon = icon_state
-	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+	if(selected_item && istype(selected_item, /obj/item/borg/destroyer/mobility))
 		icon_state = "[base_icon]-roll"
 	else
 		icon_state = base_icon

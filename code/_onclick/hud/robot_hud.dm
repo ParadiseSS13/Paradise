@@ -31,6 +31,8 @@
 	var/deactivated_icon_string
 	/// Where the string for the activated icon state is stored
 	var/activated_icon_string
+	/// If it should have a green background
+	var/active = FALSE
 
 /atom/movable/screen/robot/active_module/Initialize(mapload, slot_number)
 	. = ..()
@@ -39,6 +41,17 @@
 	icon_state = icon_state + "[module_number]"
 	deactivated_icon_string = icon_state
 	activated_icon_string = icon_state + " +a"
+
+/// Updates the background of the module to be active
+/atom/movable/screen/robot/active_module/proc/activate()
+	icon_state = activated_icon_string
+	active = TRUE
+	
+/// Updates the background of the module to be inactive
+/atom/movable/screen/robot/active_module/proc/deactivate()
+	icon_state = deactivated_icon_string
+	active = FALSE
+	return
 
 /atom/movable/screen/robot/active_module/Click()
 	if(..() || !module_number)
@@ -130,12 +143,10 @@
 
 //Module select
 	for(var/i in 1 to CYBORG_MAX_MODULES)
-		using = new /atom/movable/screen/robot/active_module(i)
+		using = new /atom/movable/screen/robot/active_module(src, i)
 		using.screen_loc = CYBORG_HUD_LOCATIONS[i]
 		static_inventory += using
 		mymobR.inventory_screens += using
-
-//End of module select
 
 //Sec/Med HUDs
 	using = new /atom/movable/screen/ai/sensors()

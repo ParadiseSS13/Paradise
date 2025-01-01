@@ -3,7 +3,7 @@
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
 /mob/living/silicon/robot/get_active_hand()
-	return module_active
+	return selected_item
 
 /mob/living/silicon/robot/get_all_slots()
 	return all_active_items
@@ -28,6 +28,7 @@
 			var/datum/action/A = X
 			A.Remove(src)
 	all_active_items[index] = CYBORG_EMPTY_MODULE
+	selected_item = null
 	var/atom/movable/screen/robot/active_module/screen = inventory_screens[index]
 	screen.icon_state = screen.deactivated_icon_string
 
@@ -62,6 +63,10 @@
 		return
 	O.mouse_opacity = initial(O.mouse_opacity)
 	all_active_items[slot] = O
+	deactivate_all()
+	var/atom/movable/screen/robot/active_module/to_activate = inventory_screens[slot]
+	to_activate.activate()
+	selected_item = O
 	O.layer = ABOVE_HUD_LAYER
 	O.plane = ABOVE_HUD_PLANE
 	O.screen_loc = CYBORG_HUD_LOCATIONS[slot]
@@ -77,11 +82,15 @@
 		A.Grant(src)
 
 /mob/living/silicon/robot/proc/uneq_active()
-	uneq_module(module_active)
+	uneq_module(selected_item)
 
 /mob/living/silicon/robot/proc/uneq_all()
 	for(var/obj/item/O in all_active_items)
 		uneq_module(O)
+
+/mob/living/silicon/robot/proc/deactivate_all()
+	for(var/atom/movable/screen/robot/active_module/to_deactivate)
+		to_deactivate.deactivate()
 
 /mob/living/silicon/robot/proc/uneq_numbered(module)
 	if(module < 1 || module > 3)
@@ -104,27 +113,41 @@
 /mob/living/silicon/robot/proc/module_selected(index) //Index is 1-3
 	return index == get_selected_module()
 
-//is_module_active(module) - Checks whether there is a module active in the slot specified by "module".
+//is_module_active(module) - Checks whether there is a item active in the slot specified by "index".
 /mob/living/silicon/robot/proc/is_module_active(index) //Index is 1-3
 	return all_active_items[index]
 
-//get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
+//get_selected_module() - Returns the slot number of the currently selected item.  Returns 0 if no items are selected.
 /mob/living/silicon/robot/proc/get_selected_module()
-	return all_active_items.Find(module_active)
+	if(!selected_item)
+		return 0
+	return all_active_items.Find(selected_item)
+
+/*
+* Returns a list of the slots of a cyborg's hotbar that have an item in it, or false if all are empty
+*/
+/mob/living/silicon/robot/proc/get_filled_modules()
+	var/list/indicies = list()
+	for(var/i in 1 to length(all_active_items))
+		if(!all_active_items[i])
+			continue
+		indicies += i
+	if(!length(indicies))
+		return FALSE
+	return indicies
 
 //select_module(module) - Selects the module slot specified by "module"
 /mob/living/silicon/robot/proc/select_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
-	if(!is_module_active(module))
-		return
+	selected_item = null
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		var/atom/movable/screen/robot/active_module/inventory = inventory_screens[i]
 		if(module == i)
-			inventory.icon_state = inventory.activated_icon_string
-			module_active = all_active_items[module]
+			inventory.activate()
+			selected_item = all_active_items[module]
 		else
-			inventory.icon_state = inventory.deactivated_icon_string
+			inventory.deactivate()
 	update_icons()
 	return
 
@@ -132,51 +155,47 @@
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
-	module_active = null
+	selected_item = null
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		var/atom/movable/screen/robot/active_module/inventory = inventory_screens[i]
-		inventory.icon_state = inventory.deactivated_icon_string
+		inventory.deactivate()
 	update_icons()
 	return
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
-	if(module < 1 || module > 3) return
-
+	if(module < 1 || module > 3)
+		return
 	if(module_selected(module))
 		deselect_module(module)
-	else
-		if(is_module_active(module))
-			select_module(module)
-		else
-			deselect_module(get_selected_module()) //If we can't do select anything, at least deselect the current module.
-	return
+		return
+	select_module(module)
 
-//cycle_modules() - Cycles through the list of selected modules.
+//cycle_modules() - Cycles through the cyborg's modules, or selects the first module if none are selected.
 /mob/living/silicon/robot/proc/cycle_modules()
-	var/slot_start = get_selected_module()
-	if(slot_start) deselect_module(slot_start) //Only deselect if we have a selected slot.
+	var/active_slot = 0
+	for(var/atom/movable/screen/robot/active_module/item in inventory_screens)
+		if(item.active)
+			active_slot = item.module_number
+	var/next_slot = (active_slot % CYBORG_MAX_MODULES) + 1
+	select_module(next_slot)
 
-	var/slot_num
-	if(slot_start == 0)
-		slot_num = 0
-		slot_start = 3
-	else
-		slot_num = slot_start
-
-	do
-		slot_num++
-		if(slot_num > 3) slot_num = 1 //Wrap around.
-		if(is_module_active(slot_num))
-			select_module(slot_num)
-			return
-	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
-	return
 
 /mob/living/silicon/robot/unEquip(obj/item/I, force, silent = FALSE)
-	if(I == module_active)
+	if(I == selected_item)
 		uneq_active(I)
 	return ..()
+
+/*
+* Tries to find and return the module number/index of an item in a borg's inventory using a path
+* to_find - ther path of an item that you want to check if it is in any of the borg's 3 active slots
+* Returns the index, or FALSE if it's not active
+*/
+/mob/living/silicon/robot/proc/get_module_by_item(obj/item/to_check)
+	for(var/i in 1 to CYBORG_MAX_MODULES)
+		if(istype(all_active_items[i], to_check.type))
+			return i
+	return FALSE
 
 /mob/living/silicon/robot/proc/update_module_icon()
 	if(!hands)
