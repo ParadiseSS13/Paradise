@@ -71,10 +71,10 @@
 	return
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
-/mob/living/Bump(atom/A, yes)
+/mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if(buckled || !yes || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(ismob(A))
 		if(MobBump(A))
@@ -1056,9 +1056,9 @@
 		else
 			registered_z = null
 
-/mob/living/onTransitZ(old_z,new_z)
+/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 
 /mob/living/rad_act(amount)
 	. = ..()
@@ -1180,12 +1180,30 @@
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
 
-/mob/living/Crossed(atom/movable/mover)
-	if(istype(mover, /obj/singularity/energy_ball))
-		dust()
-	return ..()
-
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE
 
+/mob/living/proc/plushify(plushie_override, curse_time = 10 MINUTES)
+	var/mob/living/simple_animal/shade/sword/generic_item/plushvictim = new(get_turf(src))
+	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
+	if(plushie_override)
+		plush_type = plushie_override
+	var/obj/item/toy/plushie/plush_outcome = new plush_type(get_turf(src))
+	plushvictim.forceMove(plush_outcome)
+	plushvictim.key = key
+	plushvictim.RegisterSignal(plush_outcome, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/generic_item, handle_item_deletion))
+	plushvictim.name = name
+	plush_outcome.name = "[name] plushie"
+	if(curse_time == -1)
+		qdel(src)
+	else
+		plush_outcome.cursed_plushie_victim = src
+		forceMove(plush_outcome)
+		notransform = TRUE
+		status_flags |= GODMODE
+		addtimer(CALLBACK(plush_outcome, TYPE_PROC_REF(/obj/item/toy/plushie, un_plushify)), curse_time)
+	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
+
+/mob/living/proc/sec_hud_set_ID()
+	return
