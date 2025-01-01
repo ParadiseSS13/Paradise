@@ -29845,9 +29845,9 @@
 /area/station/maintenance/fore2)
 "ezn" = (
 /obj/machinery/camera{
-	c_tag = "AI Satellite Service Bay";
 	dir = 8;
-	network = list("SS13","MiniSat")
+	network = list("Engineering","SS13");
+	c_tag = "Power Transmission Laser"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{

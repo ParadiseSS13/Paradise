@@ -79648,8 +79648,9 @@
 "uJG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
-	c_tag = "AI Satellite Antechamber South";
-	dir = 4
+	dir = 4;
+	c_tag = "Power Transmission Laser";
+	network = list("Engineering","SS13")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8

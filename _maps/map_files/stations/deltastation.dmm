@@ -76090,9 +76090,9 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Research Lobby";
+	c_tag = "Power Transmission Laser";
 	dir = 1;
-	network = list("Research","SS13")
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
