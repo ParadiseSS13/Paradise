@@ -252,7 +252,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 
-
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
