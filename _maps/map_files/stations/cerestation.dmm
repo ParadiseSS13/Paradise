@@ -97055,10 +97055,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/locker)
-"vKy" = (
-/obj/item/t_scanner,
-/turf/space,
-/area/space)
 "vKE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -110221,7 +110217,7 @@ rNK
 rNK
 rNK
 rNK
-vKy
+rNK
 rNK
 rNK
 rNK
