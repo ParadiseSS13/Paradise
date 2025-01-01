@@ -107,6 +107,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					- vampire
 					- changelings
 					- revolutionaries/headrevs
+					- event
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
