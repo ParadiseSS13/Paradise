@@ -265,7 +265,7 @@
 	job_department_flags = DEP_FLAG_LEGAL
 	transfer_allowed = FALSE
 	minimal_player_age = 30
-	exp_map = list(EXP_TYPE_SECURITY = 100 HOURS) // 100 hours baby
+	exp_map = list(EXP_TYPE_SECURITY = 100 HOURS)
 	access = list(
 		ACCESS_BRIG,
 		ACCESS_COURT,
