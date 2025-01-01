@@ -747,8 +747,15 @@ SUBSYSTEM_DEF(air)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	log_debug(err)
-	SSair.on_milla_tick_finished()
+	var/msg = "MILLA has crashed. SSair will stop running, and all atmospherics will stop functioning. Every turf will report as full of breathable air, and all fires will be extinguished. Shuttle call highly recommended."
+	to_chat(GLOB.admins, "<span class='boldannounceooc'>[msg]</span>")
+	log_world(msg)
 
+	// Disable firing.
+	SSair.flags |= SS_NO_FIRE
+	// Disable fire, too.
+	for(var/turf/simulated/S in SSair.hotspots)
+		QDEL_NULL(S.active_hotspot)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
