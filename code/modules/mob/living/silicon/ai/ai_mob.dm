@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/eye/ai/eyeobj = null
+	var/mob/camera/eye/ai/eyeobj
 	var/fast_holograms = TRUE
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 

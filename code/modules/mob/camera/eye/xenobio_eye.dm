@@ -2,7 +2,7 @@
 	name = "Xenobiology Console Camera Eye"
 	visible_icon = TRUE
 	ai_detector_visible = FALSE
-	var/allowed_area = null
+	var/allowed_area
 
 /mob/camera/eye/xenobio/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	. = ..()

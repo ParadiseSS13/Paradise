@@ -3,7 +3,7 @@
 	ai_detector_visible = FALSE
 	acceleration = FALSE
 	relay_speech = TRUE
-	var/obj/machinery/hologram/holopad/holopad = null
+	var/obj/machinery/hologram/holopad/holopad
 
 /mob/camera/eye/hologram/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	..()

@@ -6,16 +6,16 @@
 	invisibility = SEE_INVISIBLE_OBSERVER
 
 	var/list/visibleCameraChunks = list()
-	var/mob/living/user = null
-	var/user_previous_remote_control = null
-	var/origin = null
+	var/mob/living/user
+	var/user_previous_remote_control
+	var/origin
 	var/relay_speech = FALSE
 	var/static_visibility_range = 16
 	// Decides if it is shown by AI Detector or not
 	var/ai_detector_visible = TRUE
 	var/visible_icon = FALSE
 	var/list/networks = list("SS13")
-	var/image/user_image = null
+	var/image/user_image
 
 	// Camera acceleration settings
 	// Initially, the camera moves one turf per move. If there is no movement for

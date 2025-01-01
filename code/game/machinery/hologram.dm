@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	/// Whether or not the user is currently selecting where to send their call.
 	var/dialling_input = FALSE
-	var/mob/camera/eye/hologram/eye = null
+	var/mob/camera/eye/hologram/eye
 
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
