@@ -1380,11 +1380,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/window/reinforced,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1788,11 +1785,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 30
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
@@ -3179,7 +3173,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iq" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/space/nearstation)
 "ir" = (
@@ -5153,7 +5147,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nM" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nN" = (
@@ -5350,7 +5344,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "on" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "op" = (
@@ -5621,11 +5615,8 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6141,11 +6132,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7100,14 +7088,16 @@ ac
 ac
 ac
 ac
-iu
-iu
-iu
-iu
-iu
-iu
-iu
-iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -7151,6 +7141,101 @@ ac
 ac
 "}
 (2,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+iu
+iu
+iu
+iu
+iu
+iu
+iu
+iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(3,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7241,8 +7326,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7333,8 +7420,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7425,100 +7514,104 @@ ac
 ac
 ac
 ac
-"}
-(5,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ag
-ag
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-iu
-iu
-jl
-iu
-iu
-jl
-iu
-iu
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (6,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ag
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+iu
+iu
+jl
+iu
+iu
+jl
+iu
+iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(7,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7609,8 +7702,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7701,8 +7796,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7793,8 +7890,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7885,8 +7984,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7977,8 +8078,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8069,8 +8172,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8161,8 +8266,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8253,8 +8360,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8345,8 +8454,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8437,8 +8548,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8529,8 +8642,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8621,8 +8736,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8713,8 +8830,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8805,8 +8924,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8897,8 +9018,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8989,8 +9112,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9081,8 +9206,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9173,8 +9300,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9265,8 +9394,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9357,8 +9488,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+ac
 ac
 ad
 ac
@@ -9449,8 +9582,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9541,8 +9676,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9633,8 +9770,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+ac
 ac
 ab
 ac
@@ -9725,8 +9864,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9817,8 +9958,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9909,8 +10052,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10001,8 +10146,10 @@ ac
 ag
 ac
 ac
+ac
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+ac
 ac
 af
 ac
@@ -10093,8 +10240,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10185,8 +10334,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10277,8 +10428,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10369,8 +10522,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10461,8 +10616,10 @@ ac
 hs
 hs
 ac
+ac
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+ac
 ac
 ae
 af
@@ -10553,8 +10710,10 @@ jx
 sj
 ss
 lH
+ac
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+ac
 ac
 ac
 af
@@ -10645,8 +10804,10 @@ ac
 ac
 ls
 st
+ac
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10737,8 +10898,10 @@ jx
 sk
 su
 lH
+ac
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10829,8 +10992,10 @@ ac
 hr
 hr
 ac
+ac
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+ac
 ac
 ac
 ag
@@ -10921,8 +11086,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11013,8 +11180,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11105,8 +11274,10 @@ ac
 ad
 ac
 ag
+ac
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11197,8 +11368,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11289,8 +11462,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+ac
 ab
 ac
 ac
@@ -11381,8 +11556,10 @@ ac
 ai
 ac
 ac
+ac
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11473,8 +11650,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11565,8 +11744,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11657,8 +11838,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11749,8 +11932,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11841,8 +12026,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11933,8 +12120,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12025,8 +12214,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12117,8 +12308,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12209,8 +12402,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12301,8 +12496,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12393,8 +12590,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12485,8 +12684,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(60,1,1) = {"
+(61,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12577,8 +12778,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(61,1,1) = {"
+(62,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12669,8 +12872,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(62,1,1) = {"
+(63,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12761,8 +12966,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12853,8 +13060,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(64,1,1) = {"
+(65,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12945,8 +13154,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(65,1,1) = {"
+(66,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13037,8 +13248,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(66,1,1) = {"
+(67,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13129,8 +13342,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(67,1,1) = {"
+(68,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13221,8 +13436,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(68,1,1) = {"
+(69,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13313,8 +13530,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(69,1,1) = {"
+(70,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13405,8 +13624,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(70,1,1) = {"
+(71,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13497,8 +13718,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(71,1,1) = {"
+(72,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13589,100 +13812,104 @@ ac
 ac
 ac
 ac
-"}
-(72,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-bm
-lo
-bm
-lo
-bm
-ag
-ag
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (73,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+bm
+lo
+bm
+lo
+bm
+ag
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(74,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13773,8 +14000,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(74,1,1) = {"
+(75,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13865,8 +14094,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(75,1,1) = {"
+(76,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13957,8 +14188,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(76,1,1) = {"
+(77,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14049,97 +14282,6 @@ ac
 ac
 ac
 ac
-"}
-(77,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-jO
-ac
-jO
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (78,1,1) = {"
@@ -14180,21 +14322,23 @@ ac
 ac
 ac
 ac
-hs
-hs
-hs
-hs
-hs
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 jO
 ac
 jO
 ac
-hs
-hs
-hs
-hs
-hs
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -14235,6 +14379,101 @@ ac
 ac
 "}
 (79,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+hs
+hs
+hs
+hs
+hs
+ac
+jO
+ac
+jO
+ac
+hs
+hs
+hs
+hs
+hs
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(80,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14325,97 +14564,6 @@ ac
 ac
 ac
 ac
-"}
-(80,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-hr
-hr
-hr
-hr
-hr
-ac
-jO
-ac
-jO
-ac
-hr
-hr
-hr
-hr
-hr
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (81,1,1) = {"
@@ -14457,19 +14605,21 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
+hr
+hr
+hr
+hr
+hr
 ac
 jO
 ac
 jO
 ac
-ac
-ac
-ac
-ac
+hr
+hr
+hr
+hr
+hr
 ac
 ac
 ac
@@ -14553,6 +14703,101 @@ ac
 ac
 ac
 ac
+ac
+ac
+jO
+ac
+jO
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(83,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 gZ
 jP
 ac
@@ -14601,8 +14846,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(83,1,1) = {"
+(84,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14693,8 +14940,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(84,1,1) = {"
+(85,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14779,6 +15028,101 @@ ac
 ac
 ac
 pd
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(86,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac

@@ -144,8 +144,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Kayani Station"
 	trader_species = /mob/living/carbon/human
 	trader_outfit = /datum/outfit/admin/trader/sol
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/federation_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/federation_major
+	trader_minor_special = /obj/effect/spawner/random/traders/federation_minor
+	trader_major_special = /obj/effect/spawner/random/traders/federation_major
 
 /datum/traders/cyber
 	trader_type = "Cybersun Industries"
@@ -153,8 +153,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "an undercover robotics factory"
 	trader_species = /mob/living/carbon/human
 	trader_outfit = /datum/outfit/admin/trader/cyber
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/cybersun_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/cybersun_major
+	trader_minor_special = /obj/effect/spawner/random/traders/cybersun_minor
+	trader_major_special = /obj/effect/spawner/random/traders/cybersun_major
 
 /datum/traders/commie
 	trader_type = "USSP"
@@ -162,8 +162,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Belastrav Station"
 	trader_species = /mob/living/carbon/human
 	trader_outfit = /datum/outfit/admin/trader/commie
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/ussp_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/ussp_major
+	trader_minor_special = /obj/effect/spawner/random/traders/ussp_minor
+	trader_major_special = /obj/effect/spawner/random/traders/ussp_major
 
 /datum/traders/unathi
 	trader_type = "Glint Scales"
@@ -171,8 +171,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "a Glint-Scale outpost"
 	trader_species = /mob/living/carbon/human/unathi
 	trader_outfit = /datum/outfit/admin/trader/unathi
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/glintscale_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/glintscale_major
+	trader_minor_special = /obj/effect/spawner/random/traders/glintscale_minor
+	trader_major_special = /obj/effect/spawner/random/traders/glintscale_major
 
 /datum/traders/vulp
 	trader_type = "Steadfast Trading Co."
@@ -180,8 +180,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "the MV Steadfast Platinum"
 	trader_species = /mob/living/carbon/human/vulpkanin
 	trader_outfit = /datum/outfit/admin/trader/vulp
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/steadfast_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/steadfast_major
+	trader_minor_special = /obj/effect/spawner/random/traders/steadfast_minor
+	trader_major_special = /obj/effect/spawner/random/traders/steadfast_major
 
 /datum/traders/ipc
 	trader_type = "Synthetic Union"
@@ -189,8 +189,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Cadraenov Station"
 	trader_species = /mob/living/carbon/human/machine
 	trader_outfit = /datum/outfit/admin/trader/ipc
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/syntheticunion_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/syntheticunion_major
+	trader_minor_special = /obj/effect/spawner/random/traders/syntheticunion_minor
+	trader_major_special = /obj/effect/spawner/random/traders/syntheticunion_major
 
 /datum/traders/vox
 	trader_type = "Skipjack"
@@ -198,8 +198,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "a trading skipjack"
 	trader_species = /mob/living/carbon/human/vox
 	trader_outfit = /datum/outfit/admin/trader/vox
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/skipjack_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/skipjack_major
+	trader_minor_special = /obj/effect/spawner/random/traders/skipjack_minor
+	trader_major_special = /obj/effect/spawner/random/traders/skipjack_major
 
 /datum/traders/skrell
 	trader_type = "Skrellian Central Authority"
@@ -207,8 +207,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Crown Station"
 	trader_species = /mob/living/carbon/human/skrell
 	trader_outfit = /datum/outfit/admin/trader/skrell
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/solarcentral_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/solarcentral_major
+	trader_minor_special = /obj/effect/spawner/random/traders/solarcentral_minor
+	trader_major_special = /obj/effect/spawner/random/traders/solarcentral_major
 
 /datum/traders/grey
 	trader_type = "Technocracy"
@@ -216,8 +216,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Orbital Commerce Outpost 58"
 	trader_species = /mob/living/carbon/human/grey
 	trader_outfit = /datum/outfit/admin/trader/grey
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/technocracy_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/technocracy_major
+	trader_minor_special = /obj/effect/spawner/random/traders/technocracy_minor
+	trader_major_special = /obj/effect/spawner/random/traders/technocracy_major
 
 /datum/traders/nian
 	trader_type = "Merchant Guild"
@@ -225,5 +225,5 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	dock_site = "Guild Subsidiary Station 'Gilded Comet'"
 	trader_species = /mob/living/carbon/human/moth
 	trader_outfit = /datum/outfit/admin/trader/nian
-	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/merchantguild_minor
-	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/merchantguild_major
+	trader_minor_special = /obj/effect/spawner/random/traders/merchantguild_minor
+	trader_major_special = /obj/effect/spawner/random/traders/merchantguild_major

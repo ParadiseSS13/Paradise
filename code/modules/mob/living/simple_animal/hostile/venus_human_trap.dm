@@ -37,11 +37,10 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	desc = "A thick vine, painful to the touch."
 
-
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
-	if(!isliving(AM))
+/obj/effect/ebeam/vine/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(entered))
 		return
-	var/mob/living/L = AM
+	var/mob/living/L = entered
 	if(!("vines" in L.faction))
 		L.adjustBruteLoss(5)
 		to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")

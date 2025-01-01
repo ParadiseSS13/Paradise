@@ -109,8 +109,8 @@
 	playsound(src, 'sound/effects/meteorimpact.ogg', 25, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A, yes)
-	if(charging && yes)
+/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A)
+	if(charging)
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")

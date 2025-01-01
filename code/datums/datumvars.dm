@@ -781,17 +781,15 @@
 		if(!check_rights(R_SERVER | R_EVENT))
 			return
 
-		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		var/mob/living/carbon/human/C = locateUID(href_list["hallucinate"])
 		if(!istype(C))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager))
 		if(!haltype)
 			return
-		C.Hallucinate(20 SECONDS)
-		var/datum/status_effect/transient/hallucination/H = C.has_status_effect(STATUS_EFFECT_HALLUCINATION)
-		H.hallucinate(haltype)
+		C.invoke_hallucination(haltype)
 		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
 		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
 		href_list["datumrefresh"] = href_list["hallucinate"]
@@ -1157,8 +1155,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
-		if(!new_organ) return
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.", "Organ", subtypesof(/obj/item/organ))
+		if(!new_organ)
+			return
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1180,7 +1179,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
