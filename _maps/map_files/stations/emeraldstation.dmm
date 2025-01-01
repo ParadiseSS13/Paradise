@@ -7298,7 +7298,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/item/solar_assembly,
+/obj/machinery/power/tracker,
 /turf/space,
 /area/station/engineering/solar/fore_port)
 "bwP" = (
@@ -13549,6 +13549,20 @@
 "cHG" = (
 /turf/simulated/wall,
 /area/station/medical/patients_rooms_secondary)
+"cHH" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/station/engineering/solar/fore_port)
 "cHI" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -19151,6 +19165,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -19842,40 +19859,6 @@
 	},
 /area/station/medical/break_room)
 "dXx" = (
-/obj/structure/closet/crate,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/tracker_electronics,
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -4
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "dXC" = (
@@ -31413,11 +31396,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "gjA" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -31444,7 +31427,7 @@
 /area/station/service/hydroponics)
 "gkj" = (
 /obj/machinery/power/solar{
-	name = "Starboard Solar Array"
+	name = "Fore-Starboard Solar Array"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -35298,15 +35281,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"gYN" = (
-/obj/item/solar_assembly,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/fore_port)
 "gYO" = (
 /obj/structure/chair{
 	dir = 4
@@ -39450,10 +39424,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "hMY" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable,
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -43153,11 +43127,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "iAv" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -43933,32 +43907,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
-"iHX" = (
-/obj/structure/closet/crate,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/circuitboard/solar_control,
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/fore_port)
 "iHY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/table,
@@ -53231,51 +53179,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kyS" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Aft Starboard Solar Access"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/door/airlock/engineering{
+	name = "Aft Port Solar Access"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
-"kyY" = (
-/obj/structure/closet/crate,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/fore_port)
 "kzl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -61648,6 +61560,9 @@
 /area/station/maintenance/aft2)
 "mlB" = (
 /obj/structure/cable,
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -62834,11 +62749,11 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "mxT" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -69310,11 +69225,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "nLU" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -72343,6 +72258,9 @@
 "onQ" = (
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -76277,6 +76195,9 @@
 "pay" = (
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -86631,11 +86552,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_starboard)
 "rfz" = (
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -103390,16 +103311,6 @@
 	},
 /area/station/service/theatre)
 "usw" = (
-/obj/structure/table,
-/obj/item/stack/cable_coil{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -4
-	},
 /obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -106959,7 +106870,7 @@
 /area/station/engineering/atmos)
 "vcm" = (
 /obj/machinery/power/solar{
-	name = "Starboard Solar Array"
+	name = "Fore-Starboard Solar Array"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -116135,15 +116046,6 @@
 	icon_state = "white"
 	},
 /area/station/science/research)
-"wUg" = (
-/obj/item/solar_assembly,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/fore_port)
 "wUh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -120510,15 +120412,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/processing)
-"xOh" = (
-/obj/item/solar_assembly,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/fore_port)
 "xOk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -142431,7 +142324,7 @@ jnP
 aZS
 jnP
 aZS
-gYN
+dOB
 aZS
 jnP
 wXf
@@ -144478,7 +144371,7 @@ jnP
 jnP
 wXf
 jnP
-wUg
+pay
 jSB
 jSB
 raE
@@ -144745,7 +144638,7 @@ oCR
 onQ
 onQ
 onQ
-xOh
+onQ
 onQ
 aZS
 aZS
@@ -145765,12 +145658,12 @@ wXf
 aZS
 aZS
 onQ
-xOh
+onQ
 onQ
 onQ
 onQ
 knb
-onQ
+cHH
 onQ
 onQ
 onQ
@@ -147570,7 +147463,7 @@ dGi
 uTg
 uVV
 fXb
-kyY
+dXx
 oJh
 vWJ
 muu
@@ -147827,7 +147720,7 @@ dGi
 usw
 pOM
 pTR
-iHX
+dXx
 dGi
 lfn
 mQF
