@@ -210,7 +210,7 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_COMMAND = 50 HOURS) // 50 hours baby
+	exp_map = list(EXP_TYPE_COMMAND = 50 HOURS)
 	access = list(
 		ACCESS_BLUESHIELD,
 		ACCESS_CARGO,
