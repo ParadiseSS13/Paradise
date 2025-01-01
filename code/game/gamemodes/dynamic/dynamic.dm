@@ -16,8 +16,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		if(ruleset.ruleset_weight <= 0)
 			continue
 		possible_rulesets |= ruleset.name
-		if(ruleset.implied_ruleset)
-			possible_rulesets |= ruleset.implied_ruleset.name
+		if(ruleset.implied_ruleset_type)
+			possible_rulesets |= ruleset.implied_ruleset_type.name
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
 /datum/game_mode/dynamic/proc/allocate_ruleset_budget()
@@ -67,15 +67,15 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			log_dynamic("Failed [ruleset.name] ruleset: [failure_reason]")
 			return
 		log_dynamic("Rolled ruleset: [ruleset.name]")
-	rulesets[ruleset] = ruleset.weight
+	rulesets[ruleset] = ruleset.antag_weight
 	. = ruleset.ruleset_cost // return the ruleset cost to be subtracted from the gamemode budget
-	if(!ruleset.implied_ruleset)
+	if(!ruleset.implied_ruleset_type)
 		return
 
-	var/datum/ruleset/implied/implied = locate(ruleset.implied_ruleset) in implied_rulesets
+	var/datum/ruleset/implied/implied = locate(ruleset.implied_ruleset_type) in implied_rulesets
 	if(!implied)
-		log_dynamic("Adding implied ruleset: [ruleset.implied_ruleset.name]")
-		implied = new ruleset.implied_ruleset
+		log_dynamic("Adding implied ruleset: [ruleset.implied_ruleset_type.name]")
+		implied = new ruleset.implied_ruleset_type
 		implied_rulesets += implied
 	implied.RegisterSignal(ruleset, implied.target_signal, TYPE_PROC_REF(/datum/ruleset/implied, on_implied))
 
@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 	for(var/datum/ruleset/ruleset in rulesets)
 		ruleset.antag_amount = 1
-		budget -= ruleset.cost
+		budget -= ruleset.antag_cost
 		log_dynamic("Automatic deduction: +1 [ruleset.name]. Remaining budget: [budget].")
 
 	log_dynamic("Rulesets in play: [english_list((rulesets + implied_rulesets))]")
@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			temp_rulesets -= ruleset
 			continue
 		ruleset.antag_amount++
-		budget -= ruleset.cost
+		budget -= ruleset.antag_cost
 		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [budget].")
 	log_dynamic("No more antagonist budget remaining.")
 
