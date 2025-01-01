@@ -18,7 +18,7 @@
 	var/refined_type = null //What this ore defaults to being refined into
 
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
-	..()
+	. = ..()
 	scatter_atom()
 
 /obj/item/stack/ore/scatter_atom(x_offset, y_offset)

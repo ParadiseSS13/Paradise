@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
-	..()
+	. = ..()
 	scatter_atom()
 
 /obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)

@@ -18,7 +18,7 @@
 	scatter_distance = 3
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge)
-	..()
+	. = ..()
 	scatter_atom()
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
