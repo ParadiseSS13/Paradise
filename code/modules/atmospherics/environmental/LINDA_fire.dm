@@ -100,7 +100,7 @@
 
 /// Largely for the fireflash procs below
 /obj/effect/hotspot/fake
-	var/burn_time = 30
+	var/burn_time = 3 SECONDS
 
 /obj/effect/hotspot/fake/New()
 	..()
