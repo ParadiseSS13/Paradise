@@ -302,6 +302,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
+/// Prevents stripping this equipment or seeing it in the strip menu
+#define TRAIT_NO_STRIP "no_strip"
+
+/// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
+#define TRAIT_SKIP_EXAMINE "skip_examine"
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
