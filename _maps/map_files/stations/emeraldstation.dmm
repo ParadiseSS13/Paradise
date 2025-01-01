@@ -46236,7 +46236,7 @@
 	known_by = list("captain")
 	},
 /obj/item/reagent_containers/drinks/bottle/absinthe/premium,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/crew/captain,

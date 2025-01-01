@@ -57248,6 +57248,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"etC" = (
+/obj/structure/safe/floor{
+	known_by = list("captain")
+	},
+/obj/item/toy/russian_revolver,
+/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
+/obj/item/lighter/zippo/nt_rep,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/toy/figure/crew/captain,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+	dir = 8
+	},
+/obj/machinery/door/window{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain/bedroom)
 "etR" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -74026,26 +74048,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
-"nYv" = (
-/obj/machinery/door/window{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 8
-	},
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
-/obj/item/gun/projectile/revolver/russian,
-/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
-/obj/item/lighter/zippo/nt_rep,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/toy/figure/crew/captain,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain/bedroom)
 "nYw" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
@@ -136619,7 +136621,7 @@ bYD
 bYD
 bYD
 car
-nYv
+etC
 cdY
 bYD
 chy

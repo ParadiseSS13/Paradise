@@ -2733,10 +2733,11 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
+/obj/item/toy/russian_revolver,
+/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
-/obj/item/toy/figure/crew/captain,
-/obj/item/gun/projectile/revolver/russian,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/toy/figure/crew/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
@@ -39074,6 +39075,17 @@
 	icon_state = "floorgrime"
 	},
 /area/station/security/permabrig)
+"hhl" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/toy/russian_revolver,
+/obj/effect/landmark/spawner/rev,
+/turf/simulated/floor/wood,
+/area/station/maintenance/gambling_den)
 "hhs" = (
 /obj/structure/fence{
 	dir = 4
@@ -82799,15 +82811,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/east)
-"sls" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/gun/projectile/revolver/russian,
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/wood,
-/area/station/maintenance/gambling_den)
 "slw" = (
 /obj/structure/gunrack,
 /obj/item/gun/projectile/shotgun/riot{
@@ -130203,7 +130206,7 @@ dgP
 dgP
 dgP
 jyM
-sls
+hhl
 nmx
 eMb
 hUU
