@@ -8,6 +8,3 @@
 
 /mob/camera/eye/syndicate/rename_camera(new_name)
 	name = "Syndicate Researcher Camera Eye ([new_name])"
-	
-/mob/camera/eye/syndicate/update_visibility()
-	return FALSE
