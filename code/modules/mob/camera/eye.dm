@@ -23,12 +23,20 @@
 	// Every move otherwise increases sprint by acceleration_rate, until sprint
 	// exceeds sprint_threshold, and the movement rate increases by one per move.
 	// The movement rate is 1 + round(sprint / sprint_threshold).
+
+	/// The maximum sprint value - this caps acceleration
 	var/max_sprint = 50
+	/// The minimum sprint needed to increase base velocity
 	var/sprint_threshold = 20
+	/// The amount that sprint is increased per move
 	var/acceleration_rate = 0.5
+	/// Keeps track of acceleration - movement rate is 1 + round(sprint / sprint_threshold)
 	var/sprint = 10
+	/// The absolute time that sprint will reset to its initial value
 	var/cooldown = 0
+	/// The time after which sprint should be reset to its initial state, if no movements are made
 	var/cooldown_rate = 5
+	/// Toggles camera acceleration on or off.
 	var/acceleration = 1
 
 /mob/camera/eye/Initialize(mapload, owner_name, camera_origin, mob/living/user)
