@@ -1488,14 +1488,14 @@
 	else if(href_list["abductor"])
 		switch(href_list["abductor"])
 			if("clear")
-				to_chat(usr, "Not implemented yet. Sorry!")
-				//ticker.mode.update_abductor_icons_removed(src)
+				to_chat(usr, "<span class='userdanger'>This will probably never be implemented. Sorry!</span>")
 			if("abductor")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into an abductor.")
+				message_admins("[key_name_admin(usr)] turned [key_name_admin(current)] into an abductor.")
 				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 
 	else if(href_list["silicon"])

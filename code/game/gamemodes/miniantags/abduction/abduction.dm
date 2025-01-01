@@ -22,11 +22,20 @@
 	abductor_teams = max(1, min(min(max_teams, round(num_players() / 15)), round(length(possible_abductors) / 2)))
 
 	for(var/i in 1 to abductor_teams)
-		var/mind_1 = pick_n_take(possible_abductors)
-		var/mind_2 = pick_n_take(possible_abductors)
+		var/datum/mind/mind_1 = pick_n_take(possible_abductors)
+		var/datum/mind/mind_2 = pick_n_take(possible_abductors)
 		if(!mind_1 || !mind_2)
 			break
 		new /datum/team/abductor(list(mind_1, mind_2))
+
+		// Add a special role so they dont pick up any other antagonist stuff
+		mind_1.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+		mind_1.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+		mind_1.offstation_role = TRUE
+
+		mind_2.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+		mind_2.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+		mind_2.offstation_role = TRUE
 	..()
 	return TRUE
 
