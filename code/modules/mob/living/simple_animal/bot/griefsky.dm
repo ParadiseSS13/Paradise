@@ -23,7 +23,7 @@
 /// A toy version of general griefsky!
 /mob/living/simple_animal/bot/secbot/griefsky/toy
 	name = "Genewul Giftskee"
-	desc = "An adorable looking secbot with four toy swords taped to its arms"
+	desc = "An adorable looking secbot with four toy swords taped to its arms."
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
@@ -42,16 +42,15 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
-	playsound(loc, 'sound/weapons/saberoff.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
 
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
-	..()
-	if(ismob(AM) && AM == target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/griefsky/on_atom_entered(datum/source, atom/movable/entered)
+	if(iscarbon(entered) && entered == target)
+		var/mob/living/carbon/C = entered
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
 		C.KnockDown(4 SECONDS)
 
@@ -74,13 +73,13 @@
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
 	do_attack_animation(C)
-	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	addtimer(CALLBACK(src, PROC_REF(do_sword_attack), C), 2)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
@@ -119,7 +118,7 @@
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
 			icon_state = spin_icon
-			playsound(loc,'sound/effects/spinsabre.ogg',50,1,-1)
+			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
 				walk_to(src,0)
 				set_path(null)
@@ -207,18 +206,7 @@
 
 //this section is blocking attack
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
-	retaliate(P.firer)
-	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[src] deflects [P] with its energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
-	else
-		..()
-
-/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
-	return
-
-/mob/living/simple_animal/bot/secbot/griefsky/special_retaliate_after_attack(mob/user)
+/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))
@@ -233,7 +221,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
+/mob/living/simple_animal/bot/secbot/griefsky/attackby__legacy__attackchain(obj/item/W, mob/user, params) //cant touch or attack him while spinning
 	if(src.icon_state == spin_icon)
 		if(prob(block_chance_melee))
 			user.changeNext_move(CLICK_CD_MELEE)

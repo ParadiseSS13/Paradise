@@ -57,7 +57,7 @@
 	create_beam(origin, target)
 	apply_bounce_effect(origin, target, energy, user)
 	add_attack_logs(user, target, "Bounce spell '[src]' bounced on")
-	playsound(get_turf(target), bounce_hit_sound, 50, 1, -1)
+	playsound(get_turf(target), bounce_hit_sound, 50, TRUE, -1)
 
 	if(bounces >= 1)
 		var/list/possible_targets = list()

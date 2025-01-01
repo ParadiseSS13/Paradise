@@ -2,7 +2,7 @@
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
-	desc = "A weak, improvised incendiary device."
+	desc = "A sketchy improvised incendiary device."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
@@ -10,11 +10,16 @@
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	active = FALSE
 	det_time = 5 SECONDS
 	display_timer = FALSE
+	modifiable_timer = FALSE
 	var/list/times
+
+/obj/item/grenade/iedcasing/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>You have no idea how long the fuze will last for until it explodes!</span>"
 
 /obj/item/grenade/iedcasing/Initialize(mapload)
 	. = ..()
@@ -37,7 +42,7 @@
 		underlays += can_underlay
 
 
-/obj/item/grenade/iedcasing/attack_self(mob/user) //
+/obj/item/grenade/iedcasing/attack_self__legacy__attackchain(mob/user) //
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You light [src]!</span>")
@@ -60,7 +65,3 @@
 	update_mob()
 	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
 	qdel(src)
-
-/obj/item/grenade/iedcasing/examine(mob/user)
-	. = ..()
-	. += "You can't tell when it will explode!"

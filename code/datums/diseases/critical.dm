@@ -5,6 +5,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = MINOR
 	disease_flags = CURABLE
+	visibility_flags = HIDDEN_PANDEMIC
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 

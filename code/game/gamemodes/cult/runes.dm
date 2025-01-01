@@ -26,7 +26,7 @@ To draw a rune, use a ritual dagger.
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // So that runes aren't so hard to click
 	var/visibility = 0
 	var/view_range = 7
-	invisibility = 25
+	invisibility = INVISIBILITY_RUNES
 	layer = SIGIL_LAYER
 	color = COLOR_BLOOD_BASE
 
@@ -57,8 +57,8 @@ To draw a rune, use a ritual dagger.
 	/// The color of the rune. (Based on species blood color)
 	var/rune_blood_color = COLOR_BLOOD_BASE
 
-/obj/effect/rune/New(loc, set_keyword)
-	..()
+/obj/effect/rune/Initialize(mapload, set_keyword)
+	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
 	var/image/blood = image(loc = src)
@@ -75,16 +75,11 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
-/obj/effect/rune/attackby(obj/I, mob/user, params)
+/obj/effect/rune/attackby__legacy__attackchain(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
-		// Telerunes with portals open
-		if(istype(src, /obj/effect/rune/teleport))
-			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
-			if(T.inner_portal || T.outer_portal)
-				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
-				return
+		if(!can_dagger_erase_rune(user))
+			return
 
-		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
@@ -101,6 +96,9 @@ To draw a rune, use a ritual dagger.
 		qdel(src)
 		return
 	return ..()
+
+/obj/effect/rune/proc/can_dagger_erase_rune(mob/user)
+	return TRUE
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
@@ -354,13 +352,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 				for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 					crit.cure()
 
-		H.uncuff()
+		H.clear_restraints()
 		H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 		if(H.reagents?.has_reagent("holywater"))
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting
 
 		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-		if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
+		if(H.equip_to_slot_if_possible(D, ITEM_SLOT_IN_BACKPACK, FALSE, TRUE))
 			to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
 		else
 			to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
@@ -402,7 +400,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				to_chat(M, "<span class='cultitalic'>You are now able to construct mirror shields inside the daemon forge.</span>")
 				SSticker.mode.cult_team.mirror_shields_active = TRUE
 		else
-			if(ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
+			if((ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(offering, TRAIT_XENOBIO_SPAWNED_HUMAN)) //If you try it on a ghost role, or an envolved caterpillar/nymph, you get nothing
 				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
 				worthless = TRUE
 			else if(ishuman(offering) || isrobot(offering))
@@ -440,8 +438,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/obj/effect/temp_visual/cult/rune_spawn/rune2/outer_portal
 	var/listkey
 
-/obj/effect/rune/teleport/New(loc, set_keyword)
-	..()
+/obj/effect/rune/teleport/Initialize(mapload, set_keyword)
+	. = ..()
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
@@ -452,6 +450,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	QDEL_NULL(inner_portal)
 	QDEL_NULL(outer_portal)
 	return ..()
+
+/obj/effect/rune/teleport/can_dagger_erase_rune(mob/user)
+	// Can't erase telerunes if they have a portal open
+	if(inner_portal || outer_portal)
+		to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+		return FALSE
+	return TRUE
 
 /obj/effect/rune/teleport/invoke(list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
@@ -494,6 +499,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
 	for(var/atom/movable/A in T)
+		if(SEND_SIGNAL(A, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+			continue
 		if(ishuman(A))
 			if(A != user) // Teleporting someone else
 				INVOKE_ASYNC(src, PROC_REF(teleport_effect), A, T, target)
@@ -585,7 +592,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
-		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
+		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic'> [SOULS_TO_REVIVE]</span>"
 
 /obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
 	target.visible_message("<span class='warning'>Dark magic begins to surround [target], regenerating their body.</span>")
@@ -775,6 +782,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
+	if(SEND_SIGNAL(cultist_to_summon, COMSIG_MOVABLE_TELEPORTING, get_turf(src)) & COMPONENT_BLOCK_TELEPORT)
+		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is anchored in bluespace!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - anchored in bluespace")
+		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									"<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
@@ -940,6 +952,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			continue
 		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) || QDELETED(src) || QDELETED(O))
 			continue
+		if(!O.mind)
+			continue
 		if(O.mind.current && HAS_TRAIT(O.mind.current, SCRYING))
 			continue
 		ghosts_on_rune += O
@@ -1043,8 +1057,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	scribe_damage = 10 //how much damage you take doing it
 	var/used = FALSE
 
-/obj/effect/rune/narsie/New()
-	..()
+/obj/effect/rune/narsie/Initialize(mapload)
+	. = ..()
 	cultist_name = "Summon [GET_CULT_DATA(entity_name, "your god")]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [GET_CULT_DATA(entity_title3, "your god")]."
 
@@ -1084,7 +1098,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/attackby__legacy__attackchain(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")

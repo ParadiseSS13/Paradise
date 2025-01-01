@@ -88,6 +88,8 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list("<span class='notice'>You're struggling to make out any details...</span>")
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -114,7 +116,9 @@
 		skipface |= wear_mask.flags_inv & HIDEFACE
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
-	var/msg = "<span class='info'>This is "
+	var/msg = "<span class='notice'>This is "
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		msg = "<span class='notice'>This is the <span class='warning'>shambling corpse</span> of "
 
 	msg += "<em>[name]</em>"
 
@@ -206,7 +210,7 @@
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/obj/item/clothing/glasses/E = get_item_by_slot(SLOT_HUD_GLASSES)
+		var/obj/item/clothing/glasses/E = get_item_by_slot(ITEM_SLOT_EYES)
 		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair) //Are we in a chair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
@@ -219,13 +223,7 @@
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				var/foundghost = FALSE
-				if(mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.mind == mind && G.can_reenter_corpse)
-							foundghost = TRUE
-							break
-				if(!foundghost)
+				if(!get_ghost())
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 

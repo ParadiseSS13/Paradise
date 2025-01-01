@@ -15,7 +15,7 @@ import {
   Divider,
   Input,
   LabeledList,
-  NumberInput,
+  Slider,
   Section,
   Stack,
   Tabs,
@@ -33,12 +33,8 @@ import {
   updateHighlightSetting,
 } from './actions';
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import {
-  selectActiveTab,
-  selectSettings,
-  selectHighlightSettings,
-  selectHighlightSettingById,
-} from './selectors';
+import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
+import { SettingsStatPanel } from './SettingsStatPanel';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
@@ -70,16 +66,14 @@ export const SettingsPanel = (props, context) => {
         {activeTab === 'general' && <SettingsGeneral />}
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
+        {activeTab === 'statPanel' && <SettingsStatPanel />}
       </Stack.Item>
     </Stack>
   );
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
+  const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
@@ -105,7 +99,7 @@ export const SettingsGeneral = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Font style">
             <Stack.Item>
-              {(!freeFont && (
+              {!freeFont ? (
                 <Collapsible
                   title={fontFamily}
                   width={'100%'}
@@ -137,7 +131,7 @@ export const SettingsGeneral = (props, context) => {
                     />
                   ))}
                 </Collapsible>
-              )) || (
+              ) : (
                 <Stack>
                   <Input
                     width={'100%'}
@@ -164,13 +158,12 @@ export const SettingsGeneral = (props, context) => {
             </Stack.Item>
           </LabeledList.Item>
           <LabeledList.Item label="Font size">
-            <NumberInput
-              width="4.2em"
+            <Slider
               step={1}
-              stepPixelSize={10}
+              stepPixelSize={17.5}
               minValue={8}
-              maxValue={32}
               value={fontSize}
+              maxValue={32}
               unit="px"
               format={(value) => toFixed(value)}
               onChange={(e, value) =>
@@ -183,13 +176,11 @@ export const SettingsGeneral = (props, context) => {
             />
           </LabeledList.Item>
           <LabeledList.Item label="Line height">
-            <NumberInput
-              width="4.2em"
+            <Slider
               step={0.01}
-              stepPixelSize={2}
               minValue={0.8}
-              maxValue={5}
               value={lineHeight}
+              maxValue={5}
               format={(value) => toFixed(value, 2)}
               onDrag={(e, value) =>
                 dispatch(
@@ -234,11 +225,7 @@ const TextHighlightSettings = (props, context) => {
       <Section>
         <Stack vertical>
           {highlightSettings.map((id, i) => (
-            <TextHighlightSetting
-              key={i}
-              id={id}
-              mb={i + 1 === highlightSettings.length ? 0 : '10px'}
-            />
+            <TextHighlightSetting key={i} id={id} mb={i + 1 === highlightSettings.length ? 0 : '10px'} />
           ))}
           {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
             <Stack.Item>
@@ -271,13 +258,7 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const {
-    highlightColor,
-    highlightText,
-    highlightWholeMessage,
-    matchWord,
-    matchCase,
-  } = highlightSettingById[id];
+  const { highlightColor, highlightText, highlightWholeMessage, matchWord, matchCase } = highlightSettingById[id];
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">

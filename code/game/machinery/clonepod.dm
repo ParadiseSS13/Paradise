@@ -2,12 +2,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
 /// Meats that can be used as biomass for the cloner.
-#define VALID_BIOMASSABLES list(/obj/item/food/snacks/meat, \
-								/obj/item/food/snacks/monstermeat, \
-								/obj/item/food/snacks/carpmeat, \
-								/obj/item/food/snacks/salmonmeat, \
-								/obj/item/food/snacks/catfishmeat, \
-								/obj/item/food/snacks/tofurkey)
+#define VALID_BIOMASSABLES list(/obj/item/food/meat, \
+								/obj/item/food/monstermeat, \
+								/obj/item/food/carpmeat, \
+								/obj/item/food/salmonmeat, \
+								/obj/item/food/catfishmeat, \
+								/obj/item/food/tofurkey)
 
 /// Internal organs the cloner will *never* accept for insertion.
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
@@ -57,11 +57,11 @@
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	desc = "A pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-
+	req_access = list(ACCESS_MEDICAL)
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
 	/// The linked cloning console.
@@ -80,9 +80,6 @@
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 	/// The countdown.
 	var/obj/effect/countdown/clonepod/countdown
-	/// Whether or not the interface is locked.
-	var/locked = TRUE
-	req_access = list(ACCESS_MEDICAL)
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -90,6 +87,8 @@
 	var/price_modifier = 1.1
 	/// Our storage modifier, which is used in calculating organ and biomass storage.
 	var/storage_modifier = 1
+	/// How resistant the cloner is to being emp'd. Equal to the average level of all the stock parts
+	var/emp_resistance = 1
 
 	/// The cloner's biomass count.
 	var/biomass = 0
@@ -165,18 +164,21 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[desc_flavor]</span>"
-	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	speed_modifier = 0 // Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	emp_resistance = 0
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+		if(istype(SP, /obj/item/stock_parts/matter_bin)) // Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
 			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
-
+			emp_resistance += SP.rating
+	emp_resistance /= 4 // 4 stock parts, this brings us to a value between 1 to 4. Decimals can happen and are fine.
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
 			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
@@ -243,7 +245,7 @@
 					create_clone()
 					return
 
-				if(clone.cloneloss >= 25)
+				if(clone.getCloneLoss() >= 25)
 					clone.adjustCloneLoss(-2)
 					return
 
@@ -317,7 +319,7 @@
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
-	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
+	clone.change_dna(patient_data.genetic_info, FALSE)
 
 	for(var/obj/item/organ/external/limb in clone.bodyparts)
 		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital
@@ -371,7 +373,7 @@
 		reset_cloning()
 		return TRUE
 
-	if(!clone.cloneloss)
+	if(!clone.getCloneLoss())
 		clone.forceMove(loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
@@ -559,10 +561,7 @@
 	return FALSE
 
 //Attackby and x_acts
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
+/obj/machinery/clonepod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_open_container())
 		return
 
@@ -571,13 +570,11 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 
-		switch(tgui_alert(user, "Change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access", "Emergency ejection")))
-			if("Change access")
-				locked = !locked
-				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-			if("Emergency ejection")
+		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
+			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
+				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
@@ -632,23 +629,38 @@
 
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
-	eject_clone(TRUE)
+	malfunction()
 	return TRUE
 
 /obj/machinery/clonepod/emp_act(severity)
-	if(prob(50))
-		eject_clone(TRUE)
+	if(prob(100 / (severity * emp_resistance)))
+		malfunction()
 	return ..()
+
+/obj/machinery/clonepod/proc/malfunction()
+	if(clone)
+		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+		if(istype(patient_mind, /datum/mind))
+			patient_mind.transfer_to(clone)
+			clone.grab_ghost()
+			to_chat(clone, "<span class='warning'><b>Agony blazes across your consciousness as your body is torn apart.</b>\
+			<br><i>Is this what dying is like? Yes it is.</i></span>")
+			SEND_SOUND(clone, sound('sound/hallucinations/veryfar_noise.ogg', 0, TRUE, 50))
+		sleep(40)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+		qdel(clone)
+		reset_cloning()
+
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
+	update_icon()
+
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!allowed(user) && locked && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -678,7 +690,7 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!istype(O)) //This shouldn't happen
+			if(!istype(O) || !O.in_contents_of(src)) //This shouldn't happen BUT JUST IN CASE
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)

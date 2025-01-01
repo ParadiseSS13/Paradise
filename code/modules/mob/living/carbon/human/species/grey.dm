@@ -30,6 +30,8 @@
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
+	plushie_type = /obj/item/toy/plushie/greyplushie
+
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	H.dna.SetSEState(GLOB.remotetalkblock, !remove, TRUE)
@@ -87,8 +89,3 @@
 		return TRUE
 	return ..()
 
-/datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	if(E)
-		return E.eye_color
-	return flesh_color

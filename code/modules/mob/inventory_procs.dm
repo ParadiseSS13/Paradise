@@ -32,6 +32,13 @@
 /mob/proc/is_holding(obj/item/I)
 	return istype(I) && (I == r_hand || I == l_hand)
 
+//Checks if we're holding an item of type: typepath
+/mob/proc/is_holding_item_of_type(typepath)
+	. = FALSE
+	if(istype(l_hand, typepath))
+		return l_hand
+	if(istype(r_hand, typepath))
+		return r_hand
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -54,9 +61,9 @@
 
 /mob/proc/put_in_hand(obj/item/I, slot)
 	switch(slot)
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return put_in_l_hand(I)
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return put_in_r_hand(I)
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
@@ -68,7 +75,7 @@
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
 		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
-		W.equipped(src, SLOT_HUD_LEFT_HAND)
+		W.equipped(src, ITEM_SLOT_LEFT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_l_hand()
@@ -84,7 +91,7 @@
 		r_hand = W
 		W.layer = ABOVE_HUD_LAYER
 		W.plane = ABOVE_HUD_PLANE
-		W.equipped(src,SLOT_HUD_RIGHT_HAND)
+		W.equipped(src,ITEM_SLOT_RIGHT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_r_hand()
@@ -93,6 +100,8 @@
 
 /mob/proc/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
 	if(!istype(W) || QDELETED(W))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_ABSTRACT_HANDS) && !(W.flags & ABSTRACT))
 		return FALSE
 	return TRUE
 
@@ -177,7 +186,11 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(drop_location())
+		var/turf/drop_loc = drop_location()
+		if(drop_loc)
+			I.forceMove(drop_loc)
+		else
+			I.moveToNullspace()
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)
@@ -222,6 +235,8 @@
 		items += glasses
 	if(gloves)
 		items += gloves
+	if(neck)
+		items += neck
 	if(shoes)
 		items += shoes
 	if(wear_id)
@@ -252,6 +267,10 @@
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
+	if(flags & NODROP)
+		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
+		return FALSE
+
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
 			M.update_inv_l_hand()
@@ -268,17 +287,17 @@
 		S.handle_item_insertion(src, M)
 		return TRUE
 
-	S = M.get_item_by_slot(SLOT_HUD_WEAR_ID)
+	S = M.get_item_by_slot(ITEM_SLOT_ID)
 	if(istype(S) && S.can_be_inserted(src, TRUE))		//else we put in a wallet
 		S.handle_item_insertion(src, M)
 		return TRUE
 
-	S = M.get_item_by_slot(SLOT_HUD_BELT)
+	S = M.get_item_by_slot(ITEM_SLOT_BELT)
 	if(istype(S) && S.can_be_inserted(src, TRUE))		//else we put in belt
 		S.handle_item_insertion(src, M)
 		return TRUE
 
-	var/obj/item/O = M.get_item_by_slot(SLOT_HUD_BACK)	//else we put in backpack
+	var/obj/item/O = M.get_item_by_slot(ITEM_SLOT_BACK)	//else we put in backpack
 	if(istype(O, /obj/item/storage))
 		S = O
 		if(S.can_be_inserted(src, TRUE))
@@ -306,14 +325,29 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return r_hand
+	return null
+
+/mob/proc/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	if(looking_for == l_hand)
+		return ITEM_SLOT_LEFT_HAND
+
+	if(looking_for == r_hand)
+		return ITEM_SLOT_RIGHT_HAND
+
 	return null
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it.

@@ -7,9 +7,9 @@
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatible wall.</span>"
+	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
 
-/obj/item/inflatable/attack_self(mob/user)
+/obj/item/inflatable/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
@@ -33,25 +33,25 @@
 	. = ..()
 	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
-/obj/structure/inflatable/Initialize(location)
-	..()
-	air_update_turf(TRUE)
+/obj/structure/inflatable/Initialize(mapload, location)
+	. = ..()
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/CanPass(atom/movable/mover, border_dir)
 	return
 
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/inflatable/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
 		user.do_attack_animation(src, used_item = I)
 		deconstruct(FALSE)
@@ -88,7 +88,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door"
 
-/obj/item/inflatable/door/attack_self(mob/user)
+/obj/item/inflatable/door/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
@@ -116,12 +116,12 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
@@ -151,7 +151,7 @@
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/door/update_icon_state()
 	if(state_open)
@@ -165,7 +165,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall_torn"
 
-/obj/item/inflatable/torn/attack_self(mob/user)
+/obj/item/inflatable/torn/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
 	add_fingerprint(user)
 
@@ -175,7 +175,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door_torn"
 
-/obj/item/inflatable/door/torn/attack_self(mob/user)
+/obj/item/inflatable/door/torn/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
 	add_fingerprint(user)
 

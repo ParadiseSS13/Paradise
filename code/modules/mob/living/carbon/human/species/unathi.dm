@@ -62,6 +62,8 @@
 		)
 	autohiss_exempt = list("Sinta'unathi")
 
+	plushie_type = /obj/item/toy/plushie/lizardplushie
+
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/unathi_ignite/fire = new()
@@ -75,8 +77,8 @@
 /datum/action/innate/unathi_ignite
 	name = "Ignite"
 	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
-	icon_icon = 'icons/obj/cigarettes.dmi'
-	button_icon_state = "match_unathi"
+	button_overlay_icon = 'icons/obj/cigarettes.dmi'
+	button_overlay_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 20 SECONDS
 	var/welding_fuel_used = 3 //one sip, with less strict timing
@@ -121,15 +123,16 @@
 	species_traits = list(LIPS, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 
-	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		)
+	// same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
+	has_organ = list(
+		"heart"		= /obj/item/organ/internal/heart/unathi,
+		"lungs"		= /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver"		= /obj/item/organ/internal/liver/unathi,
+		"kidneys"	= /obj/item/organ/internal/kidneys/unathi,
+		"brain"		= /obj/item/organ/internal/brain/unathi,
+		"appendix"	= /obj/item/organ/internal/appendix,
+		"eyes"		= /obj/item/organ/internal/eyes/unathi
+	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()

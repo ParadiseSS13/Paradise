@@ -6,7 +6,7 @@ import { byondMessages } from './timers';
 import { dragStartHandler } from 'tgui/drag';
 import { windowOpen, windowClose, windowSet } from './helpers';
 import { BooleanLike } from 'common/react';
-import { KEY } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 type ByondOpen = {
   channel: Channel;
@@ -95,8 +95,7 @@ export class TguiSay extends Component<{}, State> {
         this.setValue(prevMessage);
       }
     } else {
-      const nextMessage =
-        this.chatHistory.getNewerMessage() || this.chatHistory.getTemp() || '';
+      const nextMessage = this.chatHistory.getNewerMessage() || this.chatHistory.getTemp() || '';
 
       const buttonContent = this.chatHistory.isAtLatest()
         ? this.channelIterator.current()
@@ -118,11 +117,7 @@ export class TguiSay extends Component<{}, State> {
         buttonContent: this.currentPrefix ?? this.channelIterator.current(),
       });
       // Empty input, resets the channel
-    } else if (
-      !!this.currentPrefix &&
-      this.channelIterator.isSay() &&
-      typed?.length === 0
-    ) {
+    } else if (!!this.currentPrefix && this.channelIterator.isSay() && typed?.length === 0) {
       this.currentPrefix = null;
       this.setState({ buttonContent: this.channelIterator.current() });
     } else if (
@@ -169,10 +164,7 @@ export class TguiSay extends Component<{}, State> {
 
   handleIncrementChannel() {
     // Binary talk is a special case, tell byond to show thinking indicators
-    if (
-      this.channelIterator.isSay() &&
-      this.currentPrefix === (':b ' || '.b ' || '#b ')
-    ) {
+    if (this.channelIterator.isSay() && this.currentPrefix === (':b ' || '.b ' || '#b ')) {
       this.messages.channelIncrementMsg(true);
     }
 
@@ -202,10 +194,7 @@ export class TguiSay extends Component<{}, State> {
     const typed = this.innerRef.current?.value;
 
     // If we're typing, send the message
-    if (
-      this.channelIterator.isVisible() &&
-      this.currentPrefix !== (':b ' || '.b ' || '#b ')
-    ) {
+    if (this.channelIterator.isVisible() && this.currentPrefix !== (':b ' || '.b ' || '#b ')) {
       this.messages.typingMsg(this.channelIterator.isMe());
     }
 
@@ -230,9 +219,7 @@ export class TguiSay extends Component<{}, State> {
     }
 
     // Is it a valid prefix?
-    const prefix = typed
-      .slice(0, 3)
-      ?.toLowerCase() as keyof typeof RADIO_PREFIXES;
+    const prefix = typed.slice(0, 3)?.toLowerCase() as keyof typeof RADIO_PREFIXES;
     if (!RADIO_PREFIXES[prefix] || prefix === this.currentPrefix) {
       return;
     }
@@ -271,9 +258,10 @@ export class TguiSay extends Component<{}, State> {
         this.handleIncrementChannel();
         break;
 
-      case KEY.Escape:
-        this.handleClose();
-        break;
+      default:
+        if (isEscape(event.key)) {
+          this.handleClose();
+        }
     }
   }
 
@@ -337,10 +325,7 @@ export class TguiSay extends Component<{}, State> {
       this.channelIterator.current();
 
     return (
-      <div
-        className={`window window-${theme} window-${this.state.size}`}
-        $HasKeyedChildren
-      >
+      <div className={`window window-${theme} window-${this.state.size}`} $HasKeyedChildren>
         <Dragzone position="top" theme={theme} />
         <div className="center" $HasKeyedChildren>
           <Dragzone position="left" theme={theme} />
@@ -348,10 +333,7 @@ export class TguiSay extends Component<{}, State> {
             <button
               className={`button button-${theme}`}
               onClick={() =>
-                this.handleButtonClick(
-                  this.innerRef.current.selectionStart,
-                  this.innerRef.current.selectionEnd
-                )
+                this.handleButtonClick(this.innerRef.current.selectionStart, this.innerRef.current.selectionEnd)
               }
               type="button"
             >
@@ -378,13 +360,9 @@ export class TguiSay extends Component<{}, State> {
 
 const Dragzone = ({ theme, position }: { theme: string; position: string }) => {
   // Horizontal or vertical?
-  const location =
-    position === 'left' || position === 'right' ? 'vertical' : 'horizontal';
+  const location = position === 'left' || position === 'right' ? 'vertical' : 'horizontal';
 
   return (
-    <div
-      className={`dragzone-${location} dragzone-${position} dragzone-${theme}`}
-      onmousedown={dragStartHandler}
-    />
+    <div className={`dragzone-${location} dragzone-${position} dragzone-${theme}`} onmousedown={dragStartHandler} />
   );
 };

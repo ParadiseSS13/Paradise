@@ -35,7 +35,8 @@
 		var/mob/living/user = loc
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	loc.assume_air(air_contents)
+	var/turf/T = get_turf(src)
+	T.blind_release_air(air_contents)
 
 /obj/item/latexballon/ex_act(severity)
 	burst()
@@ -56,7 +57,7 @@
 	if(temperature > T0C+100)
 		burst()
 
-/obj/item/latexballon/attackby(obj/item/W, mob/user, params)
+/obj/item/latexballon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		var/obj/item/tank/T = W
 		blow(T, user)

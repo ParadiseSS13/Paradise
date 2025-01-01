@@ -104,6 +104,10 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_devsay(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		rustg_log_write(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_ghostsay(text, mob/speaker)
 	if(GLOB.configuration.logging.say_logging)
 		rustg_log_write(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")

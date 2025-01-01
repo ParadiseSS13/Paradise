@@ -96,7 +96,7 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(L.flying)
+			if(HAS_TRAIT(L, TRAIT_FLYING))
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
@@ -119,7 +119,7 @@
 				L.IgniteMob()
 
 
-/turf/simulated/floor/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
+/turf/simulated/floor/lava/attackby__legacy__attackchain(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
 	if(istype(C, /obj/item/stack/rods/lava))
 		var/obj/item/stack/rods/lava/R = C
 		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
@@ -160,10 +160,11 @@
 	return
 
 /turf/simulated/floor/lava/lava_land_surface
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
-	planetary_atmos = TRUE
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/lava/lava_land_surface/plasma
@@ -180,9 +181,9 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+	. += "<span class='notice'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/lava_land_surface/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!I.is_open_container())
 		return ..()
 	if(!I.reagents.add_reagent("plasma", 10))
@@ -220,7 +221,7 @@
 			continue
 		. = TRUE
 		var/mob/living/burn_living = thing
-		if(burn_living.flying)
+		if(HAS_TRAIT(burn_living, TRAIT_FLYING))
 			continue	//YOU'RE FLYING OVER IT
 		var/buckle_check = burn_living.buckling
 		if(!buckle_check)
@@ -256,11 +257,38 @@
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
-	planetary_atmos = TRUE
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/lava/mapping_lava/normal_air
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
+
+// special turf for the asteroid core on EmeraldStation
+/turf/simulated/floor/lava/plasma/fuming
+	name = "liquid plasma"
+	desc = "A swirling pit of liquid plasma. It bubbles ominously."
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	icon_state = "liquidplasma-255"
+	base_icon_state = "liquidplasma"
+	baseturf = /turf/simulated/floor/lava/plasma/fuming
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+	// Hot Ass Plasma lava
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	light_range = 3
+	light_power = 0.75
+	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()

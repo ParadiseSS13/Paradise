@@ -51,7 +51,7 @@
 			var/obj/item/stamp = S
 			. += "paperplane_[initial(stamp.icon_state)]"
 
-/obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
+/obj/item/paperplane/attack_self__legacy__attackchain(mob/user) // Unfold the paper plane
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")
 	if(internal_paper)
 		internal_paper.forceMove(get_turf(src))
@@ -59,7 +59,7 @@
 		internal_paper = null
 		qdel(src)
 
-/obj/item/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/paperplane/attackby__legacy__attackchain(obj/item/P, mob/living/carbon/human/user, params)
 	..()
 
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
@@ -67,7 +67,7 @@
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
-		internal_paper.attackby(P, user) //spoofed attack to update internal paper.
+		internal_paper.attackby__legacy__attackchain(P, user) //spoofed attack to update internal paper.
 		update_icon()
 
 	else if(P.get_heat())

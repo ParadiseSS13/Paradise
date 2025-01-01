@@ -143,7 +143,7 @@
 /obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
+/obj/machinery/satellite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 	else
@@ -151,7 +151,7 @@
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"
-	desc = "Meteor Point Defense Satellite"
+	desc = "Meteor Point Defense Satellite."
 	mode = "M-SHIELD"
 	speed_process = TRUE
 	var/kill_range = 14
@@ -173,7 +173,7 @@
 		if(!emagged && space_los(M))
 			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 			if(istype(M, /obj/effect/space_dust/meaty))
-				new /obj/item/food/snacks/meatsteak(get_turf(M))
+				new /obj/item/food/meatsteak(get_turf(M))
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

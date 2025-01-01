@@ -1,6 +1,7 @@
 //temporary visual effects(/obj/effect/temp_visual) used by cult stuff
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = null
 	randomdir = FALSE
 	duration = 10
 
@@ -51,6 +52,7 @@
 	icon_state = "space"
 	duration = 600
 	layer = ABOVE_OBJ_LAYER
+	invisibility = INVISIBILITY_RUNES
 
 /obj/effect/temp_visual/emp/cult
 	name = "cult emp sparks"
@@ -65,6 +67,7 @@
 	icon_state = "runeouter"
 	alpha = 0
 	var/turnedness = 179 //179 turns counterclockwise, 181 turns clockwise
+	invisibility = INVISIBILITY_RUNES
 
 /obj/effect/temp_visual/cult/rune_spawn/Initialize(mapload, set_duration, set_color)
 	if(isnum(set_duration))

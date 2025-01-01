@@ -53,8 +53,6 @@
 	var/pressure_difference = 0
 	/// The direction movables should travel when affected by pressure. Set to the biggest difference in atmos by turf neighbors
 	var/pressure_direction = 0
-	/// The neighbors of the turf.
-	var/list/atmos_adjacent_turfs = list()
 	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
 	var/atmos_superconductivity = 0
 
@@ -76,6 +74,13 @@
 	var/tmp/list/datum/lighting_corner/corners
 	/// Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 	var/tmp/has_opaque_atom = FALSE
+
+	/// The general behavior of atmos on this tile.
+	var/atmos_mode = ATMOS_MODE_SEALED
+	/// The external environment that this tile is exposed to for ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	var/atmos_environment
+
+	var/datum/gas_mixture/bound_to_turf/bound_air
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -115,6 +120,8 @@
 	if(opacity)
 		has_opaque_atom = TRUE
 
+	initialize_milla()
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
@@ -130,13 +137,10 @@
 			qdel(A)
 		return
 	REMOVE_FROM_SMOOTH_QUEUE(src)
-	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/simulated/T in atmos_adjacent_turfs)
-		SSair.add_to_active(T)
-	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
+	bound_air = null
 	..()
 
 /turf/attack_hand(mob/user as mob)
@@ -184,45 +188,33 @@
 	..()
 	return FALSE
 
-/turf/Enter(atom/movable/mover as mob|obj, atom/forget)
-	if(!mover)
-		return TRUE
+//There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
+/turf/Enter(atom/movable/mover)
+	// Do not call ..()
+	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
+	// By default byond will call Bump() on the first dense object in contents
+	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
+	var/atom/first_bump
+	var/can_pass_self = CanPass(mover, get_dir(src, mover))
 
-	// First, make sure it can leave its square
-	if(isturf(mover.loc))
-		// Nothing but border objects stop you from leaving a tile, only one loop is needed
-		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
-				mover.Bump(obstacle, TRUE)
-				return FALSE
-
-	var/list/large_dense = list()
-	//Next, check objects to block entry that are on the border
-	for(var/atom/movable/border_obstacle in src)
-		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && (forget != border_obstacle))
-				mover.Bump(border_obstacle, TRUE)
-				return FALSE
-		else
-			large_dense += border_obstacle
-
-	//Then, check the turf itself
-	if(!src.CanPass(mover, src))
-		mover.Bump(src, TRUE)
+	if(can_pass_self)
+		var/atom/mover_loc = mover.loc
+		for(var/atom/movable/thing as anything in contents)
+			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
+				continue
+			if(!thing.Cross(mover))
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen)
+					return FALSE
+				if(!first_bump || (thing.layer > first_bump.layer))
+					first_bump = thing
+	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
-
-	//Finally, check objects/mobs to block entry that are not on the border
-	var/atom/movable/tompost_bump
-	var/top_layer = FALSE
-	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			if(obstacle.layer > top_layer)
-				tompost_bump = obstacle
-				top_layer = obstacle.layer
-	if(tompost_bump)
-		mover.Bump(tompost_bump, TRUE)
+	if(!can_pass_self) //Even if mover is unstoppable they need to bump us.
+		first_bump = src
+	if(first_bump)
+		mover.Bump(first_bump)
 		return FALSE
-	return TRUE //Nothing found to block so return success!
+	return TRUE
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()
@@ -281,7 +273,15 @@
 	var/old_baseturf = baseturf
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
+	var/list/old_comp_lookup = comp_lookup?.Copy()
+	var/list/old_signal_procs = signal_procs?.Copy()
+
 	var/turf/W = new path(src)
+	if(old_comp_lookup)
+		LAZYOR(W.comp_lookup, old_comp_lookup)
+	if(old_signal_procs)
+		LAZYOR(W.signal_procs, old_signal_procs)
+
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
 
@@ -321,10 +321,8 @@
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
-	CalculateAdjacentTurfs()
-
-	if(!ignore_air)
-		SSair.add_to_active(src)
+	initialize_milla()
+	recalculate_atmos_connectivity()
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -346,45 +344,34 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
-		Assimilate_Air()
+		var/datum/milla_safe/turf_assimilate_air/milla = new()
+		milla.invoke_async(src)
 
-//////Assimilate Air//////
-/turf/simulated/proc/Assimilate_Air()
-	if(air)
-		var/aoxy = 0 //Holders to assimilate air from nearby turfs
-		var/anitro = 0
-		var/aco = 0
-		var/atox = 0
-		var/asleep = 0
-		var/ab = 0
-		var/atemp = 0
+/datum/milla_safe/turf_assimilate_air
 
-		var/turf_count = 0
+/datum/milla_safe/turf_assimilate_air/on_run(turf/self)
+	if(isnull(self))
+		return
 
-		for(var/turf/T in atmos_adjacent_turfs)
-			if(isspaceturf(T))//Counted as no air
-				turf_count++//Considered a valid turf for air calcs
-				continue
-			else if(isfloorturf(T))
-				var/turf/simulated/S = T
-				if(S.air)//Add the air's contents to the holders
-					aoxy += S.air.oxygen
-					anitro += S.air.nitrogen
-					aco += S.air.carbon_dioxide
-					atox += S.air.toxins
-					asleep += S.air.sleeping_agent
-					ab += S.air.agent_b
-					atemp += S.air.temperature
-				turf_count++
-		air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-		air.nitrogen = (anitro / max(turf_count, 1))
-		air.carbon_dioxide = (aco / max(turf_count, 1))
-		air.toxins = (atox / max(turf_count, 1))
-		air.sleeping_agent = (asleep / max(turf_count, 1))
-		air.agent_b = (ab / max(turf_count, 1))
-		air.temperature = (atemp / max(turf_count, 1))
-		if(SSair)
-			SSair.add_to_active(src)
+	var/datum/gas_mixture/merged = new()
+	var/turf_count = 0
+	for(var/turf/T in self.GetAtmosAdjacentTurfs())
+		if(isspaceturf(T))
+			turf_count += 1
+			continue
+		if(T.blocks_air)
+			continue
+		merged.merge(get_turf_air(T))
+		turf_count += 1
+	if(turf_count > 0)
+		// Average the contents of the turfs.
+		merged.set_oxygen(merged.oxygen() / turf_count)
+		merged.set_nitrogen(merged.nitrogen() / turf_count)
+		merged.set_carbon_dioxide(merged.carbon_dioxide() / turf_count)
+		merged.set_toxins(merged.toxins() / turf_count)
+		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
+		merged.set_agent_b(merged.agent_b() / turf_count)
+	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf, keep_icon = FALSE)
@@ -403,7 +390,7 @@
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
-	flags |= NOJAUNT
+	flags |= BLESSED_TILE
 
 /turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
@@ -428,7 +415,7 @@
 
 /// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
 /turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
-	var/list/L = new()
+	var/list/L = list()
 	var/turf/T
 	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
 	for(var/dir in directions)
@@ -484,13 +471,13 @@
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
-/turf/attackby(obj/item/I, mob/user, params)
+/turf/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(can_lay_cable())
 		if(istype(I, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = I
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby(C, user)
+					LC.attackby__legacy__attackchain(C, user)
 					return
 			C.place_turf(src, user)
 			return TRUE
@@ -499,7 +486,7 @@
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby(R, user)
+						LC.attackby__legacy__attackchain(R, user)
 						return
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
@@ -574,10 +561,6 @@
 
 	T0.ChangeTurf(turf_type)
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
-
 /turf/AllowDrop()
 	return TRUE
 
@@ -608,3 +591,68 @@
 	else
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
+
+/// Returns a list of all attached /datum/element/decal/ for this turf
+/turf/proc/get_decals()
+	var/list/datum/element/decals = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_GET_DECALS, decals)
+
+	return decals
+
+/turf/proc/initialize_milla()
+	var/datum/milla_safe/initialize_turf/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/initialize_turf
+
+/datum/milla_safe/initialize_turf/on_run(turf/T)
+	if(!isnull(T))
+		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+
+/// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
+/turf/proc/private_unsafe_get_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(isnull(bound_air))
+		SSair.bind_turf(src)
+	return bound_air
+
+/// Gets a read-only version of this tile's air. Do not use if you intend to modify the air later, implement /datum/milla_safe instead.
+/turf/proc/get_readonly_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(src, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+		air.synchronized = FALSE
+	return air.get_readonly()
+
+/// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_release_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_release/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_release
+
+/datum/milla_safe/turf_blind_release/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).merge(air)
+
+// Blindly sets the air in this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_set_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_set/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_set
+
+/datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).copy_from(air)
+
+/turf/return_analyzable_air()
+	return get_readonly_air()
+
+/turf/_clear_signal_refs()
+	return

@@ -33,12 +33,7 @@ export const LoginScreen = (_properties, context) => {
       <Flex height="100%" align="center" justify="center">
         <Flex.Item textAlign="center" mt="-2rem">
           <Box fontSize="1.5rem" bold>
-            <Icon
-              name="user-circle"
-              verticalAlign="middle"
-              size={3}
-              mr="1rem"
-            />
+            <Icon name="user-circle" verticalAlign="middle" size={3} mr="1rem" />
             Guest
           </Box>
           <Box color="label" my="1rem">

@@ -1,6 +1,6 @@
 /obj/machinery/abductor/pad
 	name = "Alien Telepad"
-	desc = "Use this to transport to and from human habitat"
+	desc = "Use this to transport to and from human habitat."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien-pad-idle"
 	anchored = TRUE
@@ -51,6 +51,6 @@
 	icon_state = "teleport"
 	duration = 80
 
-/obj/effect/temp_visual/teleport_abductor/New()
+/obj/effect/temp_visual/teleport_abductor/Initialize(mapload)
+	. = ..()
 	do_sparks(10, 0, loc)
-	..()

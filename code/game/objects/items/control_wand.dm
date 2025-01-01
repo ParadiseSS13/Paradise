@@ -28,7 +28,7 @@
 	QDEL_NULL(ID)
 	return ..()
 
-/obj/item/door_remote/attack_self(mob/user)
+/obj/item/door_remote/attack_self__legacy__attackchain(mob/user)
 	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
 									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
 									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
@@ -49,7 +49,7 @@
 	. = ..()
 	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
-/obj/item/door_remote/afterattack(obj/target, mob/user)
+/obj/item/door_remote/afterattack__legacy__attackchain(obj/target, mob/user)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
 	if(istype(target, /obj/machinery/door/window))
@@ -181,10 +181,15 @@
 	item_state = "hacktool"
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
+	/// How far can we use this. Leave `null` for infinite range
+	var/range
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
+/obj/item/door_remote/omni/access_tuner/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user)
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
+	if(!isnull(range) && get_dist(src, D) > range)
+		return
+
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
 		return
@@ -195,6 +200,11 @@
 		. = ..()
 	busy = FALSE
 	icon_state = "hacktool"
+
+/obj/item/door_remote/omni/access_tuner/flayer
+	name = "integrated access tuner"
+	hack_speed = 5 SECONDS
+	range = 10
 
 /// How long before you can "jangle" your keyring again (to prevent spam)
 #define JANGLE_COOLDOWN 10 SECONDS
@@ -210,20 +220,22 @@
 	var/cooldown = 0
 	/// How fast does the keyring open an airlock. It is not set here so that it can be set via the user's role.
 	var/hack_speed
+	/// Stores the last airlock opened, opens faster on repeated use
+	var/last_airlock_uid
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
-/obj/item/door_remote/janikeyring/attack_self(mob/user)
+/obj/item/door_remote/janikeyring/attack_self__legacy__attackchain(mob/user)
 	if(cooldown > world.time)
 		return
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
-/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/D, mob/user, proximity)
+/obj/item/door_remote/janikeyring/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
@@ -232,16 +244,20 @@
 		to_chat(user, "<span class='warning'>You are already using [src] on the [D]'s access panel!</span>")
 		return
 	busy = TRUE
-	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D]...</span>")
-	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
-
 	var/mob/living/carbon/human/H = user
-	if(H.mind.assigned_role != "Janitor")
-		hack_speed = rand(30, 60) SECONDS
+	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == D.UID())
+		to_chat(user, "<span class='notice'>You recognize [D] and look for the key you used...</span>")
+		hack_speed = 5 SECONDS
 	else
-		hack_speed = rand(5, 20) SECONDS
-
+		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open [D]...</span>")
+		if(H.mind.assigned_role != "Janitor")
+			hack_speed = rand(30, 60) SECONDS
+		else
+			hack_speed = rand(5, 20) SECONDS
+	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 	if(do_after(user, hack_speed, target = D, progress = 0))
+		if(D.check_access(ID))
+			last_airlock_uid = D.UID()
 		. = ..()
 	busy = FALSE
 

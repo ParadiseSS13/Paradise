@@ -86,7 +86,7 @@
 	if(cell)
 		install_cell(cell)
 	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(mod, COMSIG_CLICK_CTRL, PROC_REF(on_ctrl_click))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
 		on_wearer_set(mod, mod.wearer)
@@ -94,7 +94,7 @@
 /obj/item/mod/core/standard/uninstall()
 	if(!QDELETED(cell))
 		cell.forceMove(drop_location())
-	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_MOD_WEARER_SET))
+	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_CLICK_CTRL, COMSIG_MOD_WEARER_SET))
 	if(mod.wearer)
 		on_wearer_unset(mod, mod.wearer)
 	return ..()
@@ -153,10 +153,12 @@
 	cell = new_cell
 	cell.forceMove(src)
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
+	RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/item/mod/core/standard/proc/uninstall_cell()
 	if(!cell)
 		return
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_EXITED)
 
@@ -167,15 +169,20 @@
 		return
 	uninstall_cell()
 
+/obj/item/mod/core/standard/proc/remove_cell()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = null
+
 /obj/item/mod/core/standard/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
 	if(!mod.open)
 		return
-	examine_text += cell ? "You could remove the cell with an empty hand." : "You could use a cell on it to install one."
+	examine_text += cell ? "You could remove the cell while in hand or being worn with <b>Ctrl-Click</b>." : "You could use a <b>cell</b> on it to install one."
 
-/obj/item/mod/core/standard/proc/on_attack_hand(datum/source, mob/living/user)
-	SIGNAL_HANDLER
+/obj/item/mod/core/standard/proc/on_ctrl_click(datum/source, mob/living/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_CTRL
 
 	if(mod.seconds_electrified && charge_amount() && mod.shock(user))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -206,13 +213,13 @@
 		if(cell)
 			to_chat(user, "<span class='warning'>Cell already installed!</span>")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return COMPONENT_NO_AFTERATTACK
+			return COMPONENT_SKIP_AFTERATTACK
 		user.drop_item()
 		install_cell(attacking_item)
 		to_chat(user, "<span class='notice'>You install the cell.</span>")
 		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		mod.update_charge_alert()
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 	return NONE
 
 /obj/item/mod/core/standard/proc/on_wearer_set(datum/source, mob/user)
@@ -245,7 +252,7 @@
 	/// Associated list of charge sources, only stacks allowed.
 	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
-/obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/mod/core/plasma/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
 	if(charge_plasma(attacking_item, user))
 		return TRUE
 	return ..()

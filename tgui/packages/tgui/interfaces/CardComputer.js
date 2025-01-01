@@ -1,14 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Section,
-  Table,
-  Tabs,
-  Stack,
-  Icon,
-} from '../components';
+import { Button, LabeledList, Box, Section, Table, Tabs, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 import { COLORS } from '../constants';
@@ -18,14 +9,7 @@ const deptCols = COLORS.department;
 export const CardComputerLoginWarning = () => (
   <Section fill title="Warning">
     <Stack fill>
-      <Stack.Item
-        bold
-        grow
-        textAlign="center"
-        fontSize={1.75}
-        align="center"
-        color="label"
-      >
+      <Stack.Item bold grow textAlign="center" fontSize={1.75} align="center" color="label">
         <Icon.Stack>
           <Icon name="user" size={5} color="gray" />
           <Icon name="slash" size={5} color="red" />
@@ -40,14 +24,7 @@ export const CardComputerLoginWarning = () => (
 export const CardComputerNoCard = () => (
   <Section fill title="Card Missing">
     <Stack fill>
-      <Stack.Item
-        bold
-        grow
-        textAlign="center"
-        fontSize={1.75}
-        align="center"
-        color="label"
-      >
+      <Stack.Item bold grow textAlign="center" fontSize={1.75} align="center" color="label">
         <Icon.Stack>
           <Icon name="id-card" size={5} color="gray" />
           <Icon name="slash" size={5} color="red" />
@@ -62,14 +39,7 @@ export const CardComputerNoCard = () => (
 export const CardComputerNoRecords = () => (
   <Section fill title="Records">
     <Stack fill>
-      <Stack.Item
-        bold
-        grow
-        textAlign="center"
-        fontSize={1.75}
-        align="center"
-        color="label"
-      >
+      <Stack.Item bold grow textAlign="center" fontSize={1.75} align="center" color="label">
         <Icon.Stack>
           <Icon name="scroll" size={5} color="gray" />
           <Icon name="slash" size={5} color="red" />
@@ -86,41 +56,21 @@ export const CardComputer = (props, context) => {
 
   let menuBlock = (
     <Tabs>
-      <Tabs.Tab
-        icon="id-card"
-        selected={data.mode === 0}
-        onClick={() => act('mode', { mode: 0 })}
-      >
+      <Tabs.Tab icon="id-card" selected={data.mode === 0} onClick={() => act('mode', { mode: 0 })}>
         Job Transfers
       </Tabs.Tab>
       {!data.target_dept && (
-        <Tabs.Tab
-          icon="id-card"
-          selected={data.mode === 2}
-          onClick={() => act('mode', { mode: 2 })}
-        >
+        <Tabs.Tab icon="id-card" selected={data.mode === 2} onClick={() => act('mode', { mode: 2 })}>
           Access Modification
         </Tabs.Tab>
       )}
-      <Tabs.Tab
-        icon="folder-open"
-        selected={data.mode === 1}
-        onClick={() => act('mode', { mode: 1 })}
-      >
+      <Tabs.Tab icon="folder-open" selected={data.mode === 1} onClick={() => act('mode', { mode: 1 })}>
         Job Management
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="scroll"
-        selected={data.mode === 3}
-        onClick={() => act('mode', { mode: 3 })}
-      >
+      <Tabs.Tab icon="scroll" selected={data.mode === 3} onClick={() => act('mode', { mode: 3 })}>
         Records
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="users"
-        selected={data.mode === 4}
-        onClick={() => act('mode', { mode: 4 })}
-      >
+      <Tabs.Tab icon="users" selected={data.mode === 4} onClick={() => act('mode', { mode: 4 })}>
         Department
       </Tabs.Tab>
     </Tabs>
@@ -141,9 +91,7 @@ export const CardComputer = (props, context) => {
           <Button
             icon={data.modify_name ? 'eject' : 'id-card'}
             selected={data.modify_name}
-            content={
-              data.modify_name ? 'Remove Card: ' + data.modify_name : '-----'
-            }
+            content={data.modify_name ? 'Remove Card: ' + data.modify_name : '-----'}
             onClick={() => act('modify')}
           />
         </LabeledList.Item>
@@ -168,9 +116,7 @@ export const CardComputer = (props, context) => {
                   <LabeledList.Item label="Registered Name">
                     <Button
                       icon={
-                        !data.modify_owner || data.modify_owner === 'Unknown'
-                          ? 'exclamation-triangle'
-                          : 'pencil-alt'
+                        !data.modify_owner || data.modify_owner === 'Unknown' ? 'exclamation-triangle' : 'pencil-alt'
                       }
                       selected={data.modify_name}
                       content={data.modify_owner}
@@ -179,29 +125,17 @@ export const CardComputer = (props, context) => {
                   </LabeledList.Item>
                   <LabeledList.Item label="Account Number">
                     <Button
-                      icon={
-                        data.account_number
-                          ? 'pencil-alt'
-                          : 'exclamation-triangle'
-                      }
+                      icon={data.account_number ? 'pencil-alt' : 'exclamation-triangle'}
                       selected={data.account_number}
-                      content={
-                        data.account_number ? data.account_number : 'None'
-                      }
+                      content={data.account_number ? data.account_number : 'None'}
                       onClick={() => act('account')}
                     />
                   </LabeledList.Item>
                 </>
               )}
-              <LabeledList.Item label="Latest Transfer">
-                {data.modify_lastlog || '---'}
-              </LabeledList.Item>
+              <LabeledList.Item label="Latest Transfer">{data.modify_lastlog || '---'}</LabeledList.Item>
             </Section>
-            <Section
-              title={
-                data.target_dept ? 'Department Job Transfer' : 'Job Transfer'
-              }
-            >
+            <Section title={data.target_dept ? 'Department Job Transfer' : 'Job Transfer'}>
               <LabeledList>
                 {data.target_dept ? (
                   <LabeledList.Item label="Department">
@@ -228,10 +162,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Engineering"
-                      labelColor={deptCols.engineering}
-                    >
+                    <LabeledList.Item label="Engineering" labelColor={deptCols.engineering}>
                       {data.jobs_engineering.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -242,10 +173,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Medical"
-                      labelColor={deptCols.medical}
-                    >
+                    <LabeledList.Item label="Medical" labelColor={deptCols.medical}>
                       {data.jobs_medical.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -256,10 +184,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Science"
-                      labelColor={deptCols.science}
-                    >
+                    <LabeledList.Item label="Science" labelColor={deptCols.science}>
                       {data.jobs_science.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -270,10 +195,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Security"
-                      labelColor={deptCols.security}
-                    >
+                    <LabeledList.Item label="Security" labelColor={deptCols.security}>
                       {data.jobs_security.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -284,10 +206,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Service"
-                      labelColor={deptCols.service}
-                    >
+                    <LabeledList.Item label="Service" labelColor={deptCols.service}>
                       {data.jobs_service.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -298,10 +217,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Supply"
-                      labelColor={deptCols.supply}
-                    >
+                    <LabeledList.Item label="Supply" labelColor={deptCols.supply}>
                       {data.jobs_supply.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -326,18 +242,13 @@ export const CardComputer = (props, context) => {
                   ))}
                 </LabeledList.Item>
                 {!!data.iscentcom && (
-                  <LabeledList.Item
-                    label="CentCom"
-                    labelColor={deptCols.centcom}
-                  >
+                  <LabeledList.Item label="CentCom" labelColor={deptCols.centcom}>
                     {data.jobs_centcom.map((v) => (
                       <Button
                         selected={data.modify_rank === v}
                         key={v}
                         content={v}
-                        color={
-                          data.jobFormats[v] ? data.jobFormats[v] : 'purple'
-                        }
+                        color={data.jobFormats[v] ? data.jobFormats[v] : 'purple'}
                         onClick={() => act('assign', { assign_target: v })}
                       />
                     ))}
@@ -345,10 +256,7 @@ export const CardComputer = (props, context) => {
                 )}
                 <LabeledList.Item label="Demotion">
                   <Button
-                    disabled={
-                      data.modify_assignment === 'Demoted' ||
-                      data.modify_assignment === 'Terminated'
-                    }
+                    disabled={data.modify_assignment === 'Demoted' || data.modify_assignment === 'Terminated'}
                     key="Demoted"
                     content="Demoted"
                     tooltip="Assistant access, 'demoted' title."
@@ -437,66 +345,40 @@ export const CardComputer = (props, context) => {
                   </Table.Cell>
                 </Table.Row>
                 {data.job_slots.map((slotData) => (
-                  <Table.Row
-                    key={slotData.title}
-                    height={2}
-                    className="candystripe"
-                  >
+                  <Table.Row key={slotData.title} height={2} className="candystripe">
                     <Table.Cell textAlign="center">
-                      <Box color={slotData.is_priority ? 'green' : ''}>
-                        {slotData.title}
-                      </Box>
+                      <Box color={slotData.is_priority ? 'green' : ''}>{slotData.title}</Box>
                     </Table.Cell>
+                    <Table.Cell textAlign="center">{slotData.current_positions}</Table.Cell>
+                    <Table.Cell textAlign="center">{slotData.total_positions}</Table.Cell>
                     <Table.Cell textAlign="center">
-                      {slotData.current_positions}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {slotData.total_positions}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {(slotData.total_positions >
-                        slotData.current_positions && (
-                        <Box color="green">
-                          {slotData.total_positions -
-                            slotData.current_positions}
-                        </Box>
+                      {(slotData.total_positions > slotData.current_positions && (
+                        <Box color="green">{slotData.total_positions - slotData.current_positions}</Box>
                       )) || <Box color="red">0</Box>}
                     </Table.Cell>
                     <Table.Cell textAlign="center">
                       <Button
                         content="-"
                         disabled={data.cooldown_time || !slotData.can_close}
-                        onClick={() =>
-                          act('make_job_unavailable', { job: slotData.title })
-                        }
+                        onClick={() => act('make_job_unavailable', { job: slotData.title })}
                       />
                     </Table.Cell>
                     <Table.Cell textAlign="center">
                       <Button
                         content="+"
                         disabled={data.cooldown_time || !slotData.can_open}
-                        onClick={() =>
-                          act('make_job_available', { job: slotData.title })
-                        }
+                        onClick={() => act('make_job_available', { job: slotData.title })}
                       />
                     </Table.Cell>
                     <Table.Cell textAlign="center">
                       {(data.target_dept && (
-                        <Box color="green">
-                          {data.priority_jobs.indexOf(slotData.title) > -1
-                            ? 'Yes'
-                            : ''}
-                        </Box>
+                        <Box color="green">{data.priority_jobs.indexOf(slotData.title) > -1 ? 'Yes' : ''}</Box>
                       )) || (
                         <Button
                           content={slotData.is_priority ? 'Yes' : 'No'}
                           selected={slotData.is_priority}
-                          disabled={
-                            data.cooldown_time || !slotData.can_prioritize
-                          }
-                          onClick={() =>
-                            act('prioritize_job', { job: slotData.title })
-                          }
+                          disabled={data.cooldown_time || !slotData.can_prioritize}
+                          onClick={() => act('prioritize_job', { job: slotData.title })}
                         />
                       )}
                     </Table.Cell>
@@ -554,11 +436,7 @@ export const CardComputer = (props, context) => {
               <Button
                 icon="times"
                 content="Delete All Records"
-                disabled={
-                  !data.authenticated ||
-                  data.records.length === 0 ||
-                  data.target_dept
-                }
+                disabled={!data.authenticated || data.records.length === 0 || data.target_dept}
                 onClick={() => act('wipe_all_logs')}
               />
             }
@@ -581,9 +459,7 @@ export const CardComputer = (props, context) => {
                   <Table.Cell>{record.whodidit}</Table.Cell>
                   <Table.Cell>{record.timestamp}</Table.Cell>
                   <Table.Cell>{record.reason}</Table.Cell>
-                  {!!data.iscentcom && (
-                    <Table.Cell>{record.deletedby}</Table.Cell>
-                  )}
+                  {!!data.iscentcom && <Table.Cell>{record.deletedby}</Table.Cell>}
                 </Table.Row>
               ))}
             </Table>
@@ -624,9 +500,7 @@ export const CardComputer = (props, context) => {
                     <Button
                       content={record.buttontext}
                       disabled={!record.demotable}
-                      onClick={() =>
-                        act('remote_demote', { remote_demote: record.name })
-                      }
+                      onClick={() => act('remote_demote', { remote_demote: record.name })}
                     />
                   </Table.Cell>
                 </Table.Row>

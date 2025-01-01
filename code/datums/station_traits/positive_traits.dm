@@ -184,7 +184,7 @@
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/hos = /obj/item/organ/internal/cyberimp/brain/anti_stam, //not giving them thermals
 		/datum/job/janitor = /obj/item/organ/internal/cyberimp/eyes/hud/jani,
-		/datum/job/lawyer = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/iaa = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/mime = /obj/item/organ/internal/cyberimp/brain/anti_stam, //...
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
@@ -200,7 +200,8 @@
 		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/nanotrasentrainer = /obj/item/organ/internal/heart/cybernetic/upgraded
 	)
 
 /datum/station_trait/cybernetic_revolution/New()

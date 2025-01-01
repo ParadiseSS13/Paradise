@@ -37,16 +37,19 @@
 	RemoveActions()
 	eyeobj.release_control()
 	current_user = null
-	user.unset_machine()
+	remove_eye(user)
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
-/obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated())
-		user.unset_machine()
+/obj/machinery/computer/camera_advanced/process()
+	if(!current_user)
+		return
+
+	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(current_user) && !current_user.has_unlimited_silicon_privilege) || !current_user.has_vision() || current_user.incapacitated())
+		remove_eye(current_user)
 
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)
-		current_user.unset_machine()
+		remove_eye(current_user)
 	QDEL_NULL(eyeobj)
 	QDEL_LIST_CONTENTS(actions)
 	return ..()
@@ -78,7 +81,7 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	button_icon_state = "camera_off"
+	button_overlay_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
 	if(!target || !iscarbon(target))
@@ -90,7 +93,7 @@
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	button_icon_state = "camera_jump"
+	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
 	if(!target || !iscarbon(target))

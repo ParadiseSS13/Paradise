@@ -68,7 +68,7 @@
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
 						"<span class='userdanger'>You get stuck in [src]!</span>")
 
-/obj/effect/hallucination/tripper/spider_web/attackby(obj/item/I, mob/user, params)
+/obj/effect/hallucination/tripper/spider_web/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(user != target)
 		return
 
@@ -302,11 +302,11 @@
 	if(prob(80))
 		new_name = "Unknown"
 		hallucination_icon = 'icons/mob/simple_human.dmi'
-		hallucination_icon_state = pick("arctic_skeleton", "templar", "skeleton", "russianmelee", "piratemelee", "plasma_miner_tool", "cat_butcher", "syndicate_space_sword", "syndicate_stormtrooper_sword", "zombie", "scary_clown")
+		hallucination_icon_state = pick("arctic_skeleton", "templar", "skeleton", "sovietmelee", "piratemelee", "plasma_miner_tool", "cat_butcher", "syndicate_space_sword", "syndicate_stormtrooper_sword", "zombie", "scary_clown")
 
 		// Adjust the attack verb and sound depending on the "mob"
 		switch(hallucination_icon_state)
-			if("arctic_skeleton", "templar", "russianmelee", "plasma_miner_tool")
+			if("arctic_skeleton", "templar", "sovietmelee", "plasma_miner_tool")
 				attack_verb = "slashed"
 				attack_sound = 'sound/weapons/bladeslice.ogg'
 			if("cat_butcher")

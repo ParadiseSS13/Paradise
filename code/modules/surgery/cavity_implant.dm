@@ -135,8 +135,8 @@
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(20)
@@ -151,6 +151,12 @@
 		/obj/item/stack/rods = 60
 	)
 
+	preop_sound = list(
+		TOOL_DRILL = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/pen = 'sound/surgery/organ2.ogg',
+		/obj/item/stack/rods = 'sound/surgery/organ2.ogg'
+	)
 	time = 5.4 SECONDS
 
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -166,8 +172,8 @@
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
-		"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
+		"<span class='notice'>[user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
+		"<span class='notice'>You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -183,6 +189,9 @@
 		TOOL_WELDER = 30
 	)
 
+	preop_sound = 'sound/surgery/cautery1.ogg'
+	success_sound = 'sound/surgery/cautery2.ogg'
+	failure_sound = 'sound/items/welder.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -198,8 +207,8 @@
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
-		"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
+		"<span class='notice'>[user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
+		"<span class='notice'>You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -232,13 +241,7 @@
 	var/obj/item/extracting
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	for(var/obj/item/I in affected.contents)
-		if(!istype(I, /obj/item/organ))
-			extracting = I
-			break
-
-	if(!extracting && affected.hidden)
-		extracting = affected.hidden
+	extracting = get_item_inside(affected)
 
 	if(!extracting)
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
@@ -249,7 +252,8 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	user.put_in_hands(extracting)
-	affected.hidden = null
+	if(extracting == affected.hidden)
+		affected.hidden = null
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/cavity/remove_item/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

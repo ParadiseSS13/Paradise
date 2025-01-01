@@ -44,14 +44,14 @@
 	The most common are:
 	* mob/UnarmedAttack(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
 	* atom/attackby(item,user) - used only when adjacent
-	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
+	* item/afterattack__legacy__attackchain(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
 	if(QDELETED(A))
 		return
 
-	if(client.click_intercept)
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
@@ -109,7 +109,6 @@
 		return M.click_action(A, src, params)
 
 	if(restrained())
-		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 
@@ -124,7 +123,10 @@
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)
-		W.attack_self(src)
+		if(W.new_attack_chain)
+			W.activate_self(src)
+		else
+			W.attack_self__legacy__attackchain(src)
 		if(hand)
 			update_inv_l_hand()
 		else
@@ -151,10 +153,12 @@
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
-
 	else
 		if(W)
-			W.afterattack(A, src, 0, params) // 0: not Adjacent
+			if(W.new_attack_chain)
+				A.base_ranged_item_interaction(src, W, params)
+			else
+				W.afterattack__legacy__attackchain(A, src, 0, params) // 0: not Adjacent
 		else
 			RangedAttack(A, params)
 
@@ -274,9 +278,11 @@
 /mob/proc/RangedAttack(atom/A, params)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	if(SEND_SIGNAL(A, COMSIG_ATOM_RANGED_ATTACKED, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
 /*
 	Restrained ClickOn
-
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */
@@ -501,10 +507,10 @@
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
-		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
-		params += "&catcher=1"
-		if(T)
-			T.Click(location, control, params)
+		var/turf/click_turf = parse_caught_click_modifiers(modifiers, get_turf(usr.client ? usr.client.eye : usr), usr.client)
+		if(click_turf)
+			modifiers["catcher"] = TRUE
+			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES

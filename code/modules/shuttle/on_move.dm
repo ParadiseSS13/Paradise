@@ -2,7 +2,7 @@
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
+		on_changed_z_level(oldT, newT)
 	if(light)
 		update_light()
 	if(rotation)
@@ -27,8 +27,6 @@
 	for(var/obj/machinery/door/airlock/D in orange(1, src))
 		INVOKE_ASYNC(D, PROC_REF(close), 0, 1)
 
-/obj/machinery/door/airlock/onShuttleMove()
-	. = ..()
 	if(id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, PROC_REF(lock))
 

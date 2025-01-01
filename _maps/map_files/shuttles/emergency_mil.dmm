@@ -164,11 +164,7 @@
 	},
 /area/shuttle/escape)
 "aT" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	dir = 4;

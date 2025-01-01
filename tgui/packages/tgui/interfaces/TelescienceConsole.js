@@ -1,12 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  NumberInput,
-  Button,
-  Icon,
-  LabeledList,
-  Section,
-} from '../components';
+import { Box, NumberInput, Button, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const TelescienceConsole = (properties, context) => {
@@ -25,11 +18,7 @@ export const TelescienceConsole = (properties, context) => {
     working,
     max_z,
   } = data;
-  const [dummyRot, setDummyRot] = useLocalState(
-    context,
-    'dummyrot',
-    current_bearing
-  );
+  const [dummyRot, setDummyRot] = useLocalState(context, 'dummyrot', current_bearing);
 
   return (
     <Window width={400} height={500}>
@@ -102,28 +91,12 @@ export const TelescienceConsole = (properties, context) => {
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Telepad Actions">
-                <Button
-                  content="Send"
-                  disabled={working}
-                  onClick={() => act('pad_send')}
-                />
-                <Button
-                  content="Receive"
-                  disabled={working}
-                  onClick={() => act('pad_receive')}
-                />
+                <Button content="Send" disabled={working} onClick={() => act('pad_send')} />
+                <Button content="Receive" disabled={working} onClick={() => act('pad_receive')} />
               </LabeledList.Item>
               <LabeledList.Item label="Crystal Maintenance">
-                <Button
-                  content="Recalibrate Crystals"
-                  disabled={working}
-                  onClick={() => act('recal_crystals')}
-                />
-                <Button
-                  content="Eject Crystals"
-                  disabled={working}
-                  onClick={() => act('eject_crystals')}
-                />
+                <Button content="Recalibrate Crystals" disabled={working} onClick={() => act('recal_crystals')} />
+                <Button content="Eject Crystals" disabled={working} onClick={() => act('eject_crystals')} />
               </LabeledList.Item>
             </LabeledList>
           ) : (
@@ -133,11 +106,7 @@ export const TelescienceConsole = (properties, context) => {
         <Section title="GPS Actions">
           {held_gps === 1 ? (
             <>
-              <Button
-                disabled={held_gps === 0 || working}
-                content="Eject GPS"
-                onClick={() => act('eject_gps')}
-              />
+              <Button disabled={held_gps === 0 || working} content="Eject GPS" onClick={() => act('eject_gps')} />
               <Button
                 disabled={held_gps === 0 || working}
                 content="Store Coordinates"

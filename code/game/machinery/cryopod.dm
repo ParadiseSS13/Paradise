@@ -24,6 +24,7 @@
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
+	flags_2 = NO_MALF_EFFECT_2
 	var/mode = null
 	icon_screen = "cellconsole_on"
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -183,6 +184,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
+	flags_2 = NO_MALF_EFFECT_2
 	dir = WEST
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
@@ -219,7 +221,7 @@
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/suit/armor,
 		/obj/item/defibrillator/compact,
-		/obj/item/reagent_containers/hypospray/CMO,
+		/obj/item/reagent_containers/hypospray/cmo,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/nullrod,
@@ -231,8 +233,8 @@
 		/obj/item/mod/control,
 		/obj/item/stamp,
 		/obj/item/melee/knuckleduster/nanotrasen,
-		/obj/item/melee/rapier,
-		/obj/item/storage/belt/rapier,
+		/obj/item/melee/saber,
+		/obj/item/storage/belt/sheath/saber,
 		/obj/item/nuke_core,
 		/obj/item/nuke_core_container,
 		/obj/item/documents,
@@ -341,6 +343,8 @@
 	items -= occupant // Don't delete the occupant
 	items -= announce // or the autosay radio.
 
+	ADD_TRAIT(occupant, TRAIT_CRYO_DESPAWNING, TRAIT_GENERIC)
+
 	for(var/obj/item/I in items)
 		if(istype(I, /obj/item/pda))
 			var/obj/item/pda/P = I
@@ -402,7 +406,7 @@
 		if(G.fields["name"] == occupant.real_name)
 			announce_rank = G.fields["rank"]
 			qdel(G)
-
+	GLOB.crew_list -= occupant.real_name
 	icon_state = base_icon_state
 
 	//Make an announcement and log the person entering storage + their rank
@@ -449,7 +453,7 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cryopod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 
@@ -499,6 +503,7 @@
 
 			icon_state = occupied_icon_state
 
+			M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 
@@ -583,6 +588,7 @@
 	icon_state = occupied_icon_state
 	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
 	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	E.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
 	occupant = E
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
@@ -604,6 +610,7 @@
 		return
 
 	occupant.forceMove(get_turf(src))
+	occupant.clear_alert("cryopod")
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
@@ -625,7 +632,7 @@
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
-	desc = "An interface between crew and the robotic storage systems"
+	desc = "An interface between crew and the robotic storage systems."
 	icon = 'icons/obj/robot_storage.dmi'
 	icon_state = "console"
 	circuit = /obj/item/circuitboard/robotstoragecontrol

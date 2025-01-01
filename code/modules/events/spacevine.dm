@@ -87,7 +87,7 @@
 
 //All of this shit is useless for vines
 
-/turf/simulated/floor/vines/attackby()
+/turf/simulated/floor/vines/attackby__legacy__attackchain()
 	return
 
 /turf/simulated/floor/vines/burn_tile()
@@ -103,7 +103,7 @@
 	return
 
 /turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
@@ -209,7 +209,7 @@
 	nofun = TRUE
 
 /datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/structure/spacevine/holder)
-	if(explosion_severity < 3)
+	if(explosion_severity < EXPLODE_LIGHT)
 		qdel(holder)
 	else
 		addtimer(CALLBACK(holder, TYPE_PROC_REF(/obj/structure/spacevine, wither)), 5)
@@ -306,10 +306,11 @@
 	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
+	. = expected_damage
+	if(!I)
+		return
 	if(!I.sharp)
-		. = expected_damage * 0.5
-	else
-		. = expected_damage
+		return expected_damage * 0.5
 
 /datum/spacevine_mutation/flowering
 	name = "flowering"
@@ -404,6 +405,10 @@
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	color = "#ffffff"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -476,7 +481,7 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/spacevine/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I
@@ -511,15 +516,15 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(!isliving(crosser))
+/obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/movable)
+	if(!isliving(movable))
 		return
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		SM.on_cross(src, crosser)
+		SM.on_cross(src, movable)
 
 	if(prob(30 * energy))
-		entangle(crosser)
+		entangle(movable)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)
@@ -537,6 +542,7 @@
 	var/spread_multiplier = 5
 	var/spread_cap = 30
 	var/mutativeness = 1
+	var/list/protected_areas = list(/area/shuttle/arrival/station)
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
@@ -679,7 +685,7 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!isspaceturf(stepturf) && stepturf.Enter(src))
+			if(!isspaceturf(stepturf) && !is_type_in_list(get_area(stepturf), master.protected_areas) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
@@ -703,7 +709,7 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/spacevine/CanPass(atom/movable/mover, border_dir)
 	if(isvineimmune(mover))
 		. = TRUE
 	else

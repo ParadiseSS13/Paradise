@@ -1,14 +1,12 @@
 /// Ion trails for jetpacks, ion thrusters and other space-flying things
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
-	icon_state = "ion_trails"
+	icon_state = "ion_fade"
 
 /obj/effect/particle_effect/ion_trails/Initialize(mapload, targetdir)
 	. = ..()
 	dir = targetdir
-	flick("ion_fade", src)
-	icon_state = null
-	QDEL_IN(src, 2 SECONDS)
+	QDEL_IN(src, 0.6 SECONDS)
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion

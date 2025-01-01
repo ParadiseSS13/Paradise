@@ -6,7 +6,7 @@
 	icon_state = "seed-kudzu"
 	species = "kudzu"
 	plantname = "Kudzu"
-	product = /obj/item/food/snacks/grown/kudzupod
+	product = /obj/item/food/grown/kudzupod
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	lifespan = 20
 	endurance = 10
@@ -36,14 +36,14 @@
 	user.drop_item()
 	qdel(src)
 
-/obj/item/seeds/kudzu/attack_self(mob/user)
+/obj/item/seeds/kudzu/attack_self__legacy__attackchain(mob/user)
 	plant(user)
 	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
 	var/text_string = ""
-	for(var/datum/spacevine_mutation/SM in mutations)
+	for(var/datum/spacevine_mutation/SM as anything in mutations)
 		text_string += "[(text_string == "") ? "" : ", "][initial(SM.name)]"
 	text += "\n- Plant Mutations: [(text_string == "") ? "None" : text_string]"
 	return text
@@ -52,7 +52,7 @@
 	var/list/temp_mut_list = list()
 
 	if(S.has_reagent("sterilizine", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))
@@ -60,7 +60,7 @@
 		temp_mut_list.Cut()
 
 	if(S.has_reagent("fuel", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_POSITIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))
@@ -68,7 +68,7 @@
 		temp_mut_list.Cut()
 
 	if(S.has_reagent("phenol", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_MINOR_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))
@@ -88,7 +88,7 @@
 		adjust_potency(rand(15, -5))
 
 
-/obj/item/food/snacks/grown/kudzupod
+/obj/item/food/grown/kudzupod
 	seed = /obj/item/seeds/kudzu
 	name = "kudzu pod"
 	desc = "<I>Pueraria Virallis</I>: An invasive species with vines that rapidly creep and wrap around whatever they contact."

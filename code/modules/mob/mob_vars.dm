@@ -1,13 +1,14 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	/// Is this mob alive, unconscious or dead?
+	var/stat = CONSCIOUS // TODO: Move to /mob/living
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
@@ -27,13 +28,14 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
+	var/list/attack_log_old = list()
 	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
@@ -61,7 +63,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -73,8 +74,6 @@
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null //Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living

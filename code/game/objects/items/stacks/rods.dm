@@ -39,12 +39,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
-
-
 /obj/item/stack/rods/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
-
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_storage/energy/rods
@@ -63,10 +60,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/New(loc, amount=null)
-	..()
+/obj/item/stack/rods/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.rod_recipes
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
@@ -76,9 +72,11 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	if(get_amount() < 2)
 		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
 		return
+
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+
 	var/obj/item/stack/sheet/metal/new_item = new(drop_location())
 	if(new_item.get_amount() <= 0)
 		// stack was moved into another one on the pile
@@ -97,8 +95,6 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	name = "heat resistant rod"
 	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
 	singular_name = "heat resistant rod"
-	icon_state = "rods"
-	item_state = "rods"
 	color = "#5286b9ff"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL

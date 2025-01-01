@@ -44,7 +44,10 @@
 	var/abstract = FALSE
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
-
+	/// Whether the surgery was started with drapes.
+	var/started_with_drapes = FALSE
+	/// How likely it should be for the surgery to cause infection: 0-1
+	var/germ_prevention_quality = 0
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -194,6 +197,12 @@
 	var/silicons_ignore_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
+	/// Sound played when the step is started. Lists or single value can be used for this var as well as tool defines
+	var/preop_sound
+	/// Sound played if the step succeeded. Single value only
+	var/success_sound
+	/// Sound played if the step fails. Single value only
+	var/failure_sound
 
 	// evil infection stuff that will make everyone hate me
 
@@ -214,9 +223,7 @@
 
 	var/success = FALSE
 	if(accept_hand)
-		if(!tool)
-			success = TRUE
-		if(isrobot(user) && istype(tool, /obj/item/gripper/medical))
+		if(!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND))
 			success = TRUE
 
 	if(accept_any_item)
@@ -330,6 +337,8 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
+	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
+
 	if(tool)
 		speed_mod = tool.toolspeed
 
@@ -385,8 +394,10 @@
 
 	surgery.step_in_progress = FALSE
 	if(advance)
+		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
 	else
+		INVOKE_ASYNC(src, PROC_REF(play_failure_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_FAILURE
 
 /**
@@ -440,16 +451,21 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(can_infect && affected)
+		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
 			spread_germs_to_organ(affected, user, tool)
 	if(ishuman(user) && !isalien(target) && prob(60))
 		var/mob/living/carbon/human/H = user
+
+		var/blood_spread = SEND_SIGNAL(surgery, COMSIG_SURGERY_BLOOD_SPLASH, user, target, target_zone, tool)
+		if(blood_spread == COMPONENT_BLOOD_SPLASH_HANDLED)
+			return
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
-				H.bloody_hands(target, 0)
+				target.visible_message("<span class='notice'>Blood splashes onto [user]'s hands.</span>")
+				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color(), 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
+				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
 				H.bloody_body(target)
-	return
 
 /**
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.
@@ -484,7 +500,7 @@
  * * user - The user who's manipulating the organ.
  * * tool - The tool the user is using to mess with the organ.
  */
-/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool, datum/surgery/surgery)
 	if(!istype(user) || !istype(target_organ) || target_organ.is_robotic() || target_organ.sterile)
 		return
 
@@ -494,7 +510,7 @@
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	target_organ.germ_level = max(germ_level, target_organ.germ_level)
-	spread_germs_by_incision(target_organ, tool) //germ spread from environement to patient
+	INVOKE_ASYNC(src, PROC_REF(spread_germs_by_incision), target_organ, tool) //germ spread from environement to patient
 
 /**
  * Spread germs directly from a tool.
@@ -502,7 +518,7 @@
  * * E - An external organ being operated on.
  * * tool - The tool performing the operation.
  */
-/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool, datum/surgery/surgery)
 	if(!is_external_organ(E))
 		return
 	if(!E.owner)
@@ -547,3 +563,26 @@
 		for(var/reagent in chems_needed)
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
+
+/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!preop_sound || (islist(preop_sound) && !length(preop_sound)) || ismachineperson(target))
+		return
+	var/sound_file_use
+	if(islist(preop_sound))
+		for(var/typepath in preop_sound)
+			if((ispath(typepath) && istype(tool, typepath)) || ((typepath in GLOB.surgery_tool_behaviors) && istype(tool) && tool.tool_behaviour == typepath))
+				sound_file_use = preop_sound[typepath]
+				break
+	else
+		sound_file_use = preop_sound
+	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
+
+/datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!success_sound || ismachineperson(target))
+		return
+	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)
+
+/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!failure_sound || ismachineperson(target))
+		return
+	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1, channel = CHANNEL_SURGERY_SOUNDS)

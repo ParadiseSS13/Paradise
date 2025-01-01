@@ -8,6 +8,8 @@
 	anchored = TRUE
 	flags = ON_BORDER
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.5
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -35,6 +37,8 @@
 	var/mutable_appearance/edge_overlay
 	/// Minimum environment smash level (found on simple animals) to break through this instantly
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
+	/// How well this window resists superconductivity.
+	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -75,7 +79,13 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	air_update_turf(TRUE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+	recalculate_atmos_connectivity()
 
 /obj/structure/window/proc/toggle_polarization()
 	if(opacity)
@@ -105,12 +115,12 @@
 	else
 		..(FULLTILE_WINDOW_DIR)
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/window/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(dir == FULLTILE_WINDOW_DIR)
 		return 0	//full tile window, you can't move into it!
-	if(get_dir(loc, target) & dir)
+	if(border_dir & dir)
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -124,22 +134,28 @@
 		return FALSE
 	return 1
 
-/obj/structure/window/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return TRUE
+/obj/structure/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+	if(leaving == src)
+		return
 	if(dir == FULLTILE_WINDOW_DIR)
-		return TRUE
-	if(get_dir(O.loc, target) & dir)
-		return FALSE
-	return TRUE
+		return
+	if(direction & dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return
+
+/obj/structure/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if((dir == FULLTILE_WINDOW_DIR) || (dir & to_dir) || fulltile)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -182,7 +198,7 @@
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
-/obj/structure/window/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
 
@@ -266,7 +282,7 @@
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
-			air_update_turf(TRUE)
+			recalculate_atmos_connectivity()
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -276,7 +292,7 @@
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
@@ -335,7 +351,7 @@
 	if(!fulltile)
 		if(get_dir(user, src) & dir)
 			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
+				if(!O.CanPass(user, get_dir(src, user)))
 					return 0
 	return 1
 
@@ -398,7 +414,7 @@
 
 /obj/structure/window/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_nearby_icons()
 	return ..()
 
@@ -413,10 +429,15 @@
 	anchored = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(direction)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || (dir & get_dir(loc, T)))
+	return !(FULLTILE_WINDOW_DIR == dir || (dir & direction))
+
+/obj/structure/window/get_superconductivity(direction)
+	if(dir == FULLTILE_WINDOW_DIR || dir & direction)
+		return superconductivity
+	return ..()
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
@@ -481,7 +502,7 @@
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		C.throw_at(locateUID(throwingdatum.initial_target_uid), throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
@@ -619,9 +640,7 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
-
-/obj/structure/window/plasmabasic/BlockSuperconductivity()
-	return 1
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -638,12 +657,10 @@
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/plasmareinforced/BlockSuperconductivity()
-	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
 /obj/structure/window/full
 	glass_amount = 2
@@ -679,9 +696,7 @@
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
-
-/obj/structure/window/full/plasmabasic/BlockSuperconductivity()
-	return TRUE
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -700,12 +715,10 @@
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
-	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
@@ -751,6 +764,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // shuttle windows should probably be a bit stronger, too
+	// Mostly for the mining shuttle.
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
@@ -773,6 +788,8 @@
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS //used in shuttles, same reason as above
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

@@ -50,6 +50,12 @@
 	} while(FALSE)
 
 
+// Generic listoflist safe add and removal macros:
+///If value is a list, wrap it in a list so it can be used with list add/remove operations
+#define LIST_VALUE_WRAP_LISTS(value) (islist(value) ? list(value) : value)
+///Add an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
+
 //Returns a list in plain english as a string
 /proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = length(input)
@@ -173,7 +179,7 @@
 /proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
-	var/list/result = new
+	var/list/result = list()
 	if(skiprep)
 		for(var/e in first)
 			if(!(e in result) && !(e in second))
@@ -191,7 +197,7 @@
 /proc/uniquemergelist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
-	var/list/result = new
+	var/list/result = list()
 	if(skiprep)
 		result = difflist(first, second, skiprep)+difflist(second, first, skiprep)
 	else
@@ -297,7 +303,7 @@
 /proc/mergeKey(list/client/L, list/client/R, order = 1)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/client/rL = L[Li]
 		var/client/rR = R[Ri]
@@ -323,7 +329,7 @@
 	if(!L || !R) return 0
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/atom/rL = L[Li]
 		var/atom/rR = R[Ri]
@@ -352,7 +358,7 @@
 /proc/mergeRecordLists(list/datum/data/record/L, list/datum/data/record/R, field = "name", order = 1)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	if(!isnull(L) && !isnull(R))
 		while(Li <= length(L) && Ri <= length(R))
 			var/datum/data/record/rL = L[Li]
@@ -385,7 +391,7 @@
 /proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li], R[Ri]) < 1)
 			result += R[Ri++]
@@ -407,7 +413,7 @@
 /proc/mergeKeyedLists(list/L, list/R, key)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li][key], R[Ri][key]) < 1)
 			// Works around list += list2 merging lists; it's not pretty but it works
@@ -432,7 +438,7 @@
 /proc/mergeAssoc(list/L, list/R)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li], R[Ri]) < 1)
 			result += R&R[Ri++]
@@ -519,7 +525,7 @@
 /proc/dd_mergeObjectList(list/L, list/R, list/cache)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/LLi = L[Li]
 		var/RRi = R[Ri]
@@ -569,7 +575,7 @@
 	// This works by going to the half-point of the list, seeing if the node in question is higher or lower cost,
 	// then going halfway up or down the list and checking again.
 	// This is a very fast way to sort an item into a list.
-	var/list/sorted_text = new()
+	var/list/sorted_text = list()
 	var/low_index
 	var/high_index
 	var/insert_index
@@ -643,33 +649,54 @@
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
+///Initialize the lazylist
 #define LAZYINITLIST(L) if(!L) { L = list() }
-
+///If the provided list is empty, set it to null
 #define UNSETEMPTY(L) if(L && !length(L)) L = null
+///If the provided key -> list is empty, remove it from the list
+#define ASSOC_UNSETEMPTY(L, K) if(!length(L[K])) L -= K;
+///Like LAZYCOPY - copies an input list if the list has entries, If it doesn't the assigned list is nulled
+#define LAZYLISTDUPLICATE(L) (L ? L.Copy() : null )
+///Remove an item from the list, set the list to null if empty
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!length(L)) { L = null; } }
+///Add an item to the list, if the list is null it will initialize it
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
-/// Add an item to the list if not already present, if the list is null it will initialize it
+///Add an item to the list if not already present, if the list is null it will initialize it
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
-/// Adds I to L, initializing L if necessary, if I is not already in L
+///Adds I to L, initializing L if necessary, if I is not already in L
 #define LAZYDISTINCTADD(L, I) if(!L) { L = list(); } L |= I;
+///returns L[I] if L exists and I is a valid index of L, runtimes if L is not a list
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
+///Returns the length of L
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
+///Sets a list to null
+#define LAZYNULL(L) L = null
+///Removes all elements from the list
 #define LAZYCLEARLIST(L) if(L) L.Cut()
-
-// LAZYING PT 2: THE LAZENING
+//Clears a list and then re-initializes it
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
-
-// Lazying Episode 3
-#define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
-
-#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+///Use LAZYLISTDUPLICATE instead if you want it to null with no entries
+#define LAZYCOPY(L) (L ? L.Copy() : list() )
+///Sets the item K to the value V, if the list is null it will initialize it
+#define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
+///Sets the length of a lazylist
+#define LAZYSETLEN(L, V) if(!L) { L = list(); } L.len = V;
+///Adds to the item K the value V, if the list is null it will initialize it
+#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
+///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
+#define LAZYADDASSOCLIST(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+///Removes the value V from the item K, if the item K is empty will remove it from the list, if the list is empty will set the list to null
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
-
-/// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
-#define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
+///Accesses an associative list, returns null if nothing is found
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
+///Qdel every item in the list before setting the list to null
+#define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))
-/// Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
+///Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
+#define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
+
+///Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
 #define LAZYORASSOCLIST(lazy_list, key, value) \
 	LAZYINITLIST(lazy_list); \
 	LAZYINITLIST(lazy_list[key]); \
@@ -849,3 +876,54 @@
 	else
 		used_key_list[input_key] = 1
 	return input_key
+
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
+	for(var/key in input)
+		UNTYPED_LIST_ADD(keys, key)
+	return keys
+
+/**
+ * Given a list, return a copy where values without defined weights are given weight 1.
+ * For example, fill_with_ones(list(A, B=2, C)) = list(A=1, B=2, C=1)
+ * Useful for weighted random choices (loot tables, syllables in languages, etc.)
+ */
+/proc/fill_with_ones(list/list_to_pad)
+	if(!islist(list_to_pad))
+		return list_to_pad
+
+	var/list/final_list = list()
+
+	for(var/key in list_to_pad)
+		if(list_to_pad[key])
+			final_list[key] = list_to_pad[key]
+		else
+			final_list[key] = 1
+
+	return final_list
+
+/**
+ * Like pick_weight, but allowing for nested lists.
+ *
+ * For example, given the following list:
+ * list(A = 1, list(B = 1, C = 1))
+ * A would have a 50% chance of being picked,
+ * and list(B, C) would have a 50% chance of being picked.
+ * If list(B, C) was picked, B and C would then each have a 50% chance of being picked.
+ * So the final probabilities would be 50% for A, 25% for B, and 25% for C.
+ *
+ * Weights should be integers. Entries without weights are assigned weight 1 (so unweighted lists can be used as well)
+ */
+/proc/pick_weight_recursive(list/list_to_pick)
+	var/result = pickweight(fill_with_ones(list_to_pick))
+	while(islist(result))
+		result = pickweight(fill_with_ones(result))
+	return result
+
+/**
+ * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.
+ */
+/proc/lists_equal_unordered(list/list_one, list/list_two)
+	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
+	return !length(list_one ^ list_two)

@@ -73,20 +73,18 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "an" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
+/turf/simulated/mineral/random/volcanic/labormineral,
 /area/lavaland/surface/outdoors)
 "ao" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ap" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "aq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -132,6 +130,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"ay" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "aD" = (
 /obj/structure/chair{
 	dir = 8
@@ -147,11 +154,7 @@
 /area/mine/laborcamp)
 "aI" = (
 /obj/structure/chair/sofa/bench/left,
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -163,7 +166,7 @@
 /area/mine/laborcamp)
 "aL" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "aN" = (
@@ -171,11 +174,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -213,8 +212,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -296,7 +293,6 @@
 "bq" = (
 /obj/machinery/iv_drip,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
@@ -311,12 +307,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -345,16 +336,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/orange{
@@ -369,17 +355,8 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "bv" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 5;
-	name = "Quartermaster Requests Console";
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/north,
+/obj/machinery/requests_console/directional/east,
 /obj/structure/closet/secure_closet/quartermaster/lavaland,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -412,18 +389,13 @@
 /area/mine/outpost/storage)
 "bF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "bG" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -442,8 +414,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
@@ -454,7 +424,7 @@
 /area/mine/outpost/hallway/west)
 "bJ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "bK" = (
@@ -509,7 +479,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "bU" = (
@@ -517,8 +487,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -577,12 +545,10 @@
 /obj/machinery/access_button{
 	autolink_id = "labor_btn_ext";
 	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = -21
+	pixel_y = -21;
+	req_access = list(2)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -597,9 +563,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -619,30 +583,29 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ch" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/shuttle/mining)
+/area/shuttle/siberia)
+"ci" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "cj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump,
@@ -652,12 +615,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -668,11 +626,7 @@
 	},
 /area/mine/outpost/engineering)
 "ck" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -684,7 +638,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/food/snacks/fortunecookie{
+/obj/item/food/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -697,8 +651,6 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cn" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -723,8 +675,6 @@
 /area/mine/outpost/hallway/west)
 "cq" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -760,13 +710,8 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"cv" = (
-/obj/structure/ore_box,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cw" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/storage)
 "cx" = (
@@ -789,8 +734,6 @@
 /area/mine/laborcamp/security)
 "cz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
@@ -856,7 +799,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /turf/simulated/floor/plasteel/dark,
@@ -872,13 +815,13 @@
 	},
 /area/mine/outpost/hallway/east)
 "cM" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/spawner/random/fungus/maybe,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cN" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
 "cO" = (
@@ -952,7 +895,7 @@
 /area/mine/outpost/medbay)
 "cU" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "cV" = (
@@ -1011,11 +954,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -1037,7 +978,7 @@
 "de" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -1049,14 +990,14 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
 "dg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "dh" = (
@@ -1072,8 +1013,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1107,8 +1046,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -1188,10 +1125,10 @@
 /obj/effect/turf_decal/delivery/hollow/right,
 /obj/machinery/door_control{
 	id = "mining_mechbay";
-	req_access_txt = "54";
 	name = "Mech Bay Shutters";
 	pixel_x = 24;
-	pixel_y = 5
+	pixel_y = 5;
+	req_access = list(54)
 	},
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -1208,8 +1145,6 @@
 /area/mine/outpost/mechbay)
 "du" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1228,8 +1163,6 @@
 /area/mine/outpost/hallway/west)
 "dv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1257,11 +1190,7 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -1290,18 +1219,14 @@
 /area/mine/outpost/hallway/west)
 "dA" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/storage)
 "dB" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "dC" = (
@@ -1313,7 +1238,7 @@
 /area/mine/outpost/production)
 "dD" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -1330,7 +1255,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1376,8 +1301,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -1404,8 +1327,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1413,14 +1334,9 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dM" = (
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /obj/effect/decal/cleanable/glass,
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "dN" = (
@@ -1442,8 +1358,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1467,7 +1381,9 @@
 	},
 /area/mine/outpost/medbay)
 "dR" = (
-/turf/simulated/mineral/ancient,
+/turf/simulated/mineral/ancient{
+	temperature = 293.15
+	},
 /area/mine/outpost/engineering)
 "dS" = (
 /obj/machinery/hologram/holopad,
@@ -1480,8 +1396,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment/corner{
@@ -1502,13 +1416,11 @@
 /area/mine/outpost/hallway/west)
 "dU" = (
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "dV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1519,7 +1431,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "dW" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "dX" = (
@@ -1575,8 +1487,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1614,14 +1524,8 @@
 "ei" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -1639,6 +1543,12 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
+"ek" = (
+/obj/structure/sign/nanotrasen{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "el" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -1669,7 +1579,7 @@
 "eo" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "ep" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -1678,9 +1588,7 @@
 	id = "mining qm"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
@@ -1744,13 +1652,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
@@ -1765,7 +1669,7 @@
 "ex" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1773,18 +1677,12 @@
 /area/mine/outpost/storage)
 "ey" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1798,8 +1696,6 @@
 /area/mine/outpost/engineering)
 "ez" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1833,13 +1729,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "4-9"
 	},
 /obj/effect/baseturf_helper/lava_land,
@@ -1854,13 +1746,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1891,22 +1779,22 @@
 /area/mine/outpost/medbay)
 "eJ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
@@ -1928,7 +1816,7 @@
 /area/mine/outpost/mechbay)
 "eL" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/vending_refill/wallmed,
 /obj/item/vending_refill/cigarette,
 /turf/simulated/floor/plating,
@@ -1950,16 +1838,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2024,8 +1908,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -2041,8 +1923,6 @@
 "eU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2078,31 +1958,29 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "fa" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "fb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "fc" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
@@ -2136,8 +2014,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment/corner{
@@ -2151,8 +2027,6 @@
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2176,8 +2050,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
@@ -2221,8 +2093,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2261,7 +2131,7 @@
 /area/lavaland/surface/outdoors)
 "fu" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -2299,8 +2169,6 @@
 "fy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
@@ -2395,12 +2263,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "fG" = (
 /obj/effect/turf_decal/caution,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -2424,8 +2292,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2439,8 +2305,6 @@
 "fK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -2457,11 +2321,9 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "fN" = (
@@ -2473,8 +2335,8 @@
 /area/mine/laborcamp)
 "fO" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "fP" = (
@@ -2491,14 +2353,10 @@
 "fQ" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"fS" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "fU" = (
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	req_access_txt = "48"
+	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
@@ -2556,10 +2414,7 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -2592,8 +2447,6 @@
 /area/mine/outpost/mechbay)
 "gf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2660,13 +2513,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2678,8 +2527,6 @@
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2699,8 +2546,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -2743,12 +2588,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "gu" = (
@@ -2815,6 +2658,13 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"gD" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "gE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -2878,11 +2728,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2903,8 +2749,6 @@
 "gN" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2960,7 +2804,7 @@
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
 	pixel_y = -26;
-	req_access_txt = "1"
+	req_access = list(1)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
@@ -2989,9 +2833,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "hl" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = -10;
 	dir = 1
 	},
@@ -3103,10 +2945,7 @@
 	dir = 4;
 	pixel_x = -28
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -3142,8 +2981,8 @@
 	id = "Labor";
 	name = "Labor Camp Lockdown";
 	pixel_y = -22;
-	req_access_txt = "2";
-	pixel_x = -7
+	pixel_x = -7;
+	req_access = list(2)
 	},
 /obj/machinery/flasher_button{
 	id = "laborairlock";
@@ -3193,10 +3032,14 @@
 /obj/item/clothing/shoes/orange,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ig" = (
+/obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ih" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -3294,6 +3137,9 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"iF" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/targetable)
 "iK" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -3372,8 +3218,6 @@
 "ji" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel,
@@ -3381,12 +3225,12 @@
 "jj" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "jk" = (
@@ -3489,9 +3333,7 @@
 /area/lavaland/surface/outdoors)
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/wallmed{
-	pixel_y = 32
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -3553,10 +3395,9 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"ka" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored)
+"jZ" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "kb" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
@@ -3567,7 +3408,7 @@
 /area/mine/laborcamp)
 "kf" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "kg" = (
@@ -3613,10 +3454,6 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"kw" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/high_chance/volcanic,
-/area/lavaland/surface/outdoors)
 "ky" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -3674,8 +3511,6 @@
 /area/lavaland/surface/outdoors)
 "kX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -3702,7 +3537,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lf" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "lg" = (
@@ -3713,11 +3548,6 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"lh" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ash/rock/style_random,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lj" = (
@@ -3740,26 +3570,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ln" = (
+/obj/structure/glowshroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "lo" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/glowshroom,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"lp" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "lq" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/block/cracked{
@@ -3843,8 +3663,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
@@ -3881,10 +3699,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "lZ" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -3897,15 +3712,6 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"md" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -3950,12 +3756,12 @@
 /obj/machinery/flasher_button{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
-	req_access_txt = "1"
+	req_access = list(1)
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "mp" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/mechbay)
 "mq" = (
@@ -4075,6 +3881,9 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"mE" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/lavaland/surface/outdoors/targetable)
 "mF" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile{
@@ -4338,6 +4147,9 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"nu" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "nv" = (
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
@@ -4357,8 +4169,6 @@
 "nw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4421,16 +4231,12 @@
 /area/mine/laborcamp)
 "nO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/sign/directions/engineering{
@@ -4459,8 +4265,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -4469,7 +4273,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/trash/can,
 /obj/item/trash/pistachios,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
@@ -4487,8 +4291,6 @@
 /area/mine/outpost/hallway/east)
 "nY" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -4546,12 +4348,10 @@
 /obj/machinery/access_button{
 	autolink_id = "labor_btn_int";
 	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = -21
+	pixel_y = -21;
+	req_access = list(2)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4563,9 +4363,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4574,8 +4372,6 @@
 /area/mine/laborcamp)
 "oi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -4625,13 +4421,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4658,8 +4450,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -4674,6 +4464,13 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"oI" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "oW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Security"
@@ -4685,24 +4482,16 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "pa" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/machinery/firealarm/directional/south,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
 	dir = 8
@@ -4741,8 +4530,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -4759,7 +4546,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "pn" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -4786,8 +4573,6 @@
 /area/mine/laborcamp)
 "pz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4820,6 +4605,11 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"pG" = (
+/obj/structure/ore_box,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "pH" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -4941,8 +4731,6 @@
 "qH" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5006,6 +4794,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"rf" = (
+/obj/structure/flora/ash/stem_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "ri" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -5015,7 +4807,7 @@
 	},
 /area/mine/laborcamp/security)
 "rk" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/lockers)
 "rm" = (
@@ -5034,7 +4826,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "ru" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
@@ -5059,8 +4851,6 @@
 /area/mine/laborcamp)
 "rz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5113,8 +4903,6 @@
 /area/lavaland/surface/outdoors)
 "rR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5124,11 +4912,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
-"rW" = (
-/obj/structure/stone_tile/slab,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "sg" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -5151,7 +4934,7 @@
 /area/mine/laborcamp)
 "sk" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "sr" = (
@@ -5162,8 +4945,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
@@ -5178,7 +4959,7 @@
 "ss" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5190,10 +4971,14 @@
 	icon_state = "yellowfull"
 	},
 /area/mine/laborcamp)
+"sA" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors/targetable)
 "sD" = (
 /obj/structure/lavaland_billboard,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "sF" = (
 /obj/structure/bookcase{
 	name = "bookcase (Fiction)"
@@ -5217,7 +5002,7 @@
 /obj/item/flashlight/flare/glowstick/random,
 /obj/item/flashlight/flare/glowstick/random,
 /obj/item/flashlight/flare/glowstick/random,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "sP" = (
@@ -5278,7 +5063,7 @@
 /area/lavaland/surface/outdoors)
 "te" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
@@ -5306,11 +5091,7 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "tt" = (
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding"
@@ -5374,7 +5155,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "tX" = (
@@ -5383,11 +5164,9 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "tY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "tZ" = (
@@ -5402,7 +5181,7 @@
 	},
 /area/mine/laborcamp)
 "um" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "uo" = (
@@ -5433,7 +5212,7 @@
 "uu" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "uB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -5447,6 +5226,10 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"uM" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "uO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Airlock Maintence"
@@ -5454,8 +5237,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -5517,7 +5298,7 @@
 /obj/structure/marker_beacon/dock_marker/collision,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "va" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
@@ -5558,7 +5339,6 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "vl" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -5580,8 +5360,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5616,8 +5394,6 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
@@ -5632,11 +5408,10 @@
 "vx" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "vy" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -5665,20 +5440,21 @@
 /area/mine/outpost/hallway/west)
 "vB" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
+"vK" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "vM" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/closet/crate/internals,
@@ -5701,7 +5477,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -5784,11 +5560,7 @@
 "we" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -5814,14 +5586,14 @@
 /area/mine/laborcamp)
 "wi" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "wm" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
-/obj/item/food/snacks/tofu,
+/obj/item/food/tofu,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in";
 	dir = 4
@@ -5844,7 +5616,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp)
 "wy" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
@@ -5870,28 +5642,24 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/east)
 "wP" = (
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
 "xa" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
+"xb" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors/targetable)
 "xg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -5936,25 +5704,16 @@
 	},
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"xy" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "xA" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5994,6 +5753,10 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/hallway/west)
+"xH" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/boss,
+/area/lavaland/surface/outdoors)
 "xJ" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -6019,10 +5782,6 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
-"xN" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "xP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -6047,21 +5806,16 @@
 /obj/machinery/computer/arcade{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ya" = (
-/obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/structure/table/glass,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/stack/medical/splint{
 	pixel_x = 5
 	},
@@ -6087,8 +5841,8 @@
 /obj/machinery/access_button{
 	autolink_id = "labor_btn_ext";
 	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = 21
+	pixel_y = 21;
+	req_access = list(2)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
@@ -6133,8 +5887,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6153,6 +5905,7 @@
 	},
 /area/mine/outpost/engineering)
 "ys" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/boss,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "yw" = (
@@ -6164,8 +5917,8 @@
 /obj/machinery/access_button{
 	autolink_id = "labor_btn_int";
 	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = 21
+	pixel_y = 21;
+	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
@@ -6207,6 +5960,9 @@
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"yG" = (
+/turf/simulated/mineral/random/volcanic/labormineral,
+/area/lavaland/surface/outdoors/targetable)
 "yH" = (
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -6233,8 +5989,6 @@
 	name = "Construction Site"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/cap/hidden/supply{
@@ -6243,11 +5997,15 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "yR" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"yS" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "yU" = (
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
@@ -6311,8 +6069,6 @@
 /area/mine/laborcamp)
 "zh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -6328,7 +6084,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
@@ -6357,8 +6113,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
@@ -6378,8 +6132,6 @@
 /area/mine/outpost/cafeteria)
 "zv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -6406,6 +6158,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
+"zI" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "zM" = (
 /obj/structure/chair,
 /obj/item/cigbutt,
@@ -6464,10 +6220,6 @@
 	dir = 5
 	},
 /area/mine/laborcamp)
-"Ad" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "Ag" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
@@ -6510,10 +6262,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "Ao" = (
@@ -6549,7 +6298,7 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "At" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
 	icon_state = "1-10"
 	},
@@ -6569,8 +6318,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mining,
@@ -6611,7 +6358,7 @@
 	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "AE" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -6632,6 +6379,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"AS" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
 "AW" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/block{
@@ -6640,14 +6391,8 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"AY" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Ba" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -6722,7 +6467,7 @@
 /area/mine/laborcamp)
 "Bs" = (
 /obj/structure/window/reinforced,
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -6762,13 +6507,9 @@
 	},
 /area/mine/outpost/lockers)
 "BH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
-"BI" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
 "BL" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -6803,10 +6544,6 @@
 /obj/structure/flora/ash/cacti,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"BX" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/boss,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "BY" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/marker_beacon/dock_marker,
@@ -6860,15 +6597,11 @@
 /area/mine/outpost/cafeteria)
 "Cn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /obj/structure/sign/custodian{
 	pixel_x = -32
@@ -6887,7 +6620,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "Cp" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp/security)
 "Cu" = (
@@ -6898,11 +6631,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Cw" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6922,8 +6651,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7014,7 +6741,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Dc" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/maintenance/south)
 "De" = (
@@ -7085,14 +6812,12 @@
 /turf/simulated/wall,
 /area/mine/outpost/airlock)
 "DA" = (
-/obj/effect/spawner/random_spawners/grille_often,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/barrier/grille_often,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "DB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7122,8 +6847,6 @@
 "DP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -7157,8 +6880,6 @@
 /area/mine/laborcamp)
 "Ea" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
@@ -7177,8 +6898,6 @@
 	name = "Cafeteria"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7214,23 +6933,19 @@
 "El" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "Em" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7327,7 +7042,7 @@
 "EO" = (
 /obj/item/toy/figure/crew/miner,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "EP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -7346,8 +7061,8 @@
 "Fa" = (
 /obj/structure/table,
 /obj/item/lighter/random,
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Fd" = (
@@ -7365,8 +7080,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7399,7 +7112,7 @@
 /area/mine/laborcamp)
 "Fl" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -7413,8 +7126,6 @@
 /area/lavaland/surface/outdoors)
 "Fw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7432,7 +7143,7 @@
 /obj/structure/marker_beacon/dock_marker/collision,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "FE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -7452,7 +7163,7 @@
 /area/lavaland/surface/outdoors)
 "FH" = (
 /obj/structure/cable,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
@@ -7468,8 +7179,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/fans/tiny,
@@ -7526,8 +7235,6 @@
 /area/mine/outpost/storage)
 "Go" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7537,8 +7244,22 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
+"Gq" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Gs" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
@@ -7568,13 +7289,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7603,6 +7320,10 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"GL" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "GM" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/structure/sign/poster/official/random{
@@ -7714,6 +7435,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
+"HB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
 "HC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -7732,8 +7457,6 @@
 /area/lavaland/surface/outdoors)
 "HH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7758,8 +7481,6 @@
 /area/mine/laborcamp)
 "HS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7772,7 +7493,7 @@
 	},
 /area/mine/outpost/medbay)
 "HT" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -7801,8 +7522,12 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"Is" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "Iv" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/mine/laborcamp)
 "Iw" = (
@@ -7819,13 +7544,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -7854,8 +7575,6 @@
 /area/mine/laborcamp)
 "IK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7877,16 +7596,13 @@
 /area/lavaland/surface/outdoors)
 "IR" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
 "IT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7918,11 +7634,9 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7941,11 +7655,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "Jk" = (
@@ -7969,7 +7679,7 @@
 /area/mine/outpost/mechbay)
 "Jn" = (
 /obj/structure/lattice/catwalk/mining,
-/mob/living/simple_animal/cockroach/Brad,
+/mob/living/simple_animal/cockroach/brad,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Jv" = (
@@ -7985,8 +7695,6 @@
 	name = "Box Storage"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -7998,6 +7706,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"JA" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
 "JB" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/mapping_helpers/no_lava,
@@ -8007,7 +7719,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "JD" = (
 /obj/structure/grille/broken,
 /obj/structure/grille/broken,
@@ -8021,7 +7733,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "JF" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
@@ -8077,13 +7789,10 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/disposalpipe/segment/corner,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/power/apc/directional/east,
@@ -8131,8 +7840,6 @@
 /area/mine/laborcamp)
 "Kz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8165,11 +7872,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "KD" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "KH" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "KI" = (
@@ -8212,8 +7919,6 @@
 /area/lavaland/surface/outdoors)
 "KR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8230,7 +7935,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "KU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -8242,8 +7947,6 @@
 /area/mine/laborcamp)
 "KV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table,
@@ -8262,8 +7965,6 @@
 /area/mine/laborcamp)
 "KW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/flasher{
@@ -8284,6 +7985,10 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"Lb" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "Lh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -8302,8 +8007,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8316,10 +8019,6 @@
 /obj/structure/railing/corner,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"Ly" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Lz" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -8357,8 +8056,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -8380,8 +8077,6 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "LU" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8399,8 +8094,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/junction,
@@ -8424,14 +8117,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8445,8 +8133,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment/corner{
@@ -8457,14 +8143,8 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
-"Mv" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/lavaland/surface/outdoors)
 "My" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
@@ -8510,8 +8190,6 @@
 /area/mine/laborcamp)
 "Nb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -8527,10 +8205,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -8544,8 +8219,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -8571,7 +8244,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "Nw" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -8580,8 +8253,6 @@
 	name = "Custodial Storage"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
@@ -8602,6 +8273,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
+"NC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "NF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8616,8 +8292,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8625,20 +8299,19 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
-"NI" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "NK" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "NP" = (
 /obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
+"NR" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/targetable)
 "NT" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall,
@@ -8665,8 +8338,6 @@
 /area/shuttle/mining)
 "NZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8732,7 +8403,7 @@
 "Ow" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -8810,7 +8481,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "OX" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
@@ -8847,7 +8518,7 @@
 /obj/structure/sign/securearea{
 	name = "\improper KEEP CLEAR: DOCKING AREA"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ph" = (
@@ -8895,8 +8566,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8905,6 +8574,9 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"Pw" = (
+/turf/simulated/wall/boss,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "PD" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -8922,14 +8594,13 @@
 "PG" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "PI" = (
@@ -8945,10 +8616,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "PJ" = (
-/obj/machinery/requests_console{
-	department = "Labor Camp";
-	pixel_y = 32
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/arrows/red{
 	dir = 1
 	},
@@ -9006,15 +8674,13 @@
 /area/lavaland/surface/outdoors)
 "Qa" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/marker_beacon/ten,
 /obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Qb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -9038,13 +8704,9 @@
 "Qd" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall/mineral/iron,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "Qf" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -9061,7 +8723,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Qv" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/spawner/random/cobweb/right/rare,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
@@ -9076,6 +8738,12 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
+"Qw" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "Qz" = (
 /obj/machinery/light{
 	dir = 4
@@ -9089,22 +8757,17 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "QE" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "QF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -9116,7 +8779,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "QG" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
 "QO" = (
@@ -9125,8 +8788,6 @@
 /area/lavaland/surface/outdoors/unexplored/danger)
 "QR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -9145,8 +8806,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table,
@@ -9172,20 +8831,12 @@
 /area/mine/laborcamp)
 "Rj" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"Rl" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/boss,
-/area/lavaland/surface/outdoors)
 "Rs" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/trash/liquidfood,
@@ -9203,13 +8854,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"Rz" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "RJ" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/stone_tile/slab,
@@ -9241,8 +8885,6 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc/directional/north,
@@ -9254,10 +8896,6 @@
 "Sb" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
@@ -9286,8 +8924,8 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Sh" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "Sk" = (
@@ -9347,10 +8985,6 @@
 	},
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"SH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/lavaland/surface/outdoors)
 "SJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -9363,8 +8997,6 @@
 	pixel_x = -27
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -9390,7 +9022,7 @@
 	},
 /area/mine/outpost/mechbay)
 "SQ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/cafeteria)
 "SR" = (
@@ -9421,8 +9053,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -9475,10 +9105,14 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
+"Ts" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/lavaland/surface/outdoors)
 "Tt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -9507,6 +9141,12 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"TJ" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "TL" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -9519,19 +9159,22 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/engineering)
+"TM" = (
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "TN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
@@ -9583,7 +9226,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "Ur" = (
@@ -9596,14 +9239,10 @@
 /area/lavaland/surface/outdoors)
 "Ut" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -9639,6 +9278,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"UC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "UI" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/marker_beacon/dock_marker,
@@ -9668,14 +9312,12 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "UQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9702,8 +9344,6 @@
 "Ve" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -9713,8 +9353,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9724,8 +9362,6 @@
 /area/mine/outpost/hallway/east)
 "Vg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9779,6 +9415,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Vy" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/targetable)
 "Vz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -9832,7 +9471,7 @@
 	},
 /area/mine/outpost/engineering)
 "VG" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/east)
 "VK" = (
@@ -9840,7 +9479,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "VN" = (
@@ -9879,20 +9518,13 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "VU" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/targetable)
 "VV" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/item/kirbyplants,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -9932,8 +9564,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/baseturf_helper/lava_land,
@@ -9998,10 +9628,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"WH" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors)
 "WJ" = (
 /obj/machinery/flasher{
 	id = "labor";
@@ -10020,8 +9646,6 @@
 /area/mine/laborcamp)
 "WL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10039,8 +9663,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -10066,7 +9688,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "WV" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/gps/ruin{
 	pixel_x = 32;
 	gpstag = "Nanotrasen Mining Outpost"
@@ -10173,10 +9795,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -10205,13 +9824,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "XF" = (
-/obj/machinery/economy/vending/wallmed{
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10263,14 +9880,12 @@
 /area/mine/outpost/mechbay)
 "XZ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ya" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10294,7 +9909,7 @@
 	},
 /area/mine/laborcamp)
 "Yk" = (
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/decal/cleanable/dirt,
@@ -10328,17 +9943,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Yr" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/maintenance/south)
 "Ys" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/trash/chips,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -10373,7 +9986,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/targetable)
 "YA" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -10391,8 +10004,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10423,8 +10034,6 @@
 /area/mine/laborcamp)
 "YE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10457,7 +10066,7 @@
 /area/lavaland/surface/outdoors)
 "YP" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -10498,17 +10107,16 @@
 	},
 /area/mine/outpost/hallway/west)
 "Zh" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
 "Zj" = (
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Zm" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Zn" = (
@@ -12613,7 +12221,7 @@ kI
 Wd
 kA
 pq
-IR
+ch
 xD
 ab
 ai
@@ -15437,7 +15045,7 @@ wK
 SJ
 bk
 Qf
-Iv
+OG
 jM
 SR
 WL
@@ -16217,34 +15825,34 @@ hb
 ar
 vW
 OG
-ai
-ai
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ad
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ad
-ad
-Aw
-Aw
+Vy
+Vy
+iF
+iF
+iF
+iF
+iF
+iF
+mE
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+mE
+mE
+iF
+iF
 Aw
 Aw
 Aw
@@ -16476,32 +16084,32 @@ OG
 OG
 OG
 Iv
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -16733,32 +16341,32 @@ UA
 nd
 EP
 Iv
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ai
-ad
-ai
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+Vy
+mE
+Vy
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -16990,32 +16598,32 @@ gz
 aU
 pd
 Iv
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -17247,32 +16855,32 @@ wx
 hD
 gZ
 OG
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ai
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+Vy
 rp
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -17504,32 +17112,32 @@ aK
 np
 Zn
 OG
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -17761,32 +17369,32 @@ gz
 aU
 tZ
 OG
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-YL
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+rf
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -18018,32 +17626,32 @@ vN
 PM
 tZ
 OG
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-OA
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+uM
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -18275,32 +17883,32 @@ OG
 OG
 OG
 ZM
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-ai
-Aw
-Aw
-Aw
-Aw
-Aw
-ai
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+Vy
+iF
+iF
+iF
+iF
+iF
+Vy
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -18527,16 +18135,16 @@ OG
 OG
 Iv
 Iv
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 bt
 dO
 dO
@@ -18547,17 +18155,17 @@ dO
 dO
 gl
 ef
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-ab
-ab
-Aw
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+jZ
+jZ
+iF
 Aw
 Aw
 Aw
@@ -18781,18 +18389,18 @@ OG
 OG
 OG
 OG
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 GJ
 eC
 Iw
@@ -18805,16 +18413,16 @@ BY
 eh
 WR
 ef
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ai
-ab
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+Vy
+jZ
 Aw
 Aw
 Aw
@@ -19029,27 +18637,27 @@ an
 an
 an
 an
-an
-ab
-ab
-ab
+yG
+jZ
+jZ
+jZ
 xr
 uu
 uu
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 hC
 UO
 pg
@@ -19062,16 +18670,16 @@ xo
 LM
 vZ
 dx
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -19286,27 +18894,27 @@ an
 an
 an
 an
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
 hC
 cR
 xC
@@ -19319,16 +18927,16 @@ xC
 CX
 Hm
 dx
-Aw
-ab
-ad
-ai
+iF
+jZ
+mE
+Vy
 eo
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -19543,26 +19151,26 @@ an
 an
 an
 an
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-ab
-Aw
-Aw
-Aw
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+jZ
+iF
+iF
+iF
 sD
 hC
 vj
@@ -19576,22 +19184,22 @@ xC
 CX
 Hm
 dx
-Aw
-ai
-ai
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+Vy
+Vy
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (36,1,1) = {"
 aa
@@ -19800,27 +19408,27 @@ an
 an
 an
 an
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+nu
+iF
+iF
+iF
+iF
+iF
+jZ
 hC
 bo
 xC
@@ -19833,22 +19441,22 @@ xC
 CX
 vZ
 bH
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (37,1,1) = {"
 aa
@@ -20057,27 +19665,27 @@ an
 an
 an
 an
-an
-an
+yG
+yG
 vx
 vx
-an
-an
-ab
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-AE
-Aw
-Aw
-ab
+yG
+yG
+jZ
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+nu
+nu
+iF
+iF
+jZ
 VA
 cH
 WD
@@ -20085,27 +19693,27 @@ xC
 tb
 fU
 tb
-ch
+fc
 xo
 LM
 vZ
 dx
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (38,1,1) = {"
 aa
@@ -20314,27 +19922,27 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-AE
-Aw
-Aw
+yG
+yG
+yG
+yG
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+nu
+nu
+iF
+iF
 ZT
 vZ
 Ry
@@ -20347,22 +19955,22 @@ WZ
 vz
 XI
 Bo
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (39,1,1) = {"
 aa
@@ -20571,27 +20179,27 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-Aw
-Aw
-Aw
-Aw
-uE
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-AE
-ab
-Aw
+yG
+yG
+yG
+yG
+yG
+yG
+yG
+iF
+iF
+iF
+iF
+GL
+iF
+iF
+iF
+iF
+iF
+jZ
+nu
+jZ
+iF
 hC
 vZ
 KA
@@ -20603,23 +20211,23 @@ cm
 By
 Lw
 Cu
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (40,1,1) = {"
 aa
@@ -20828,22 +20436,22 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+yG
+yG
+yG
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 bt
 tF
 gl
@@ -20861,22 +20469,22 @@ tX
 Qp
 CZ
 CZ
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (41,1,1) = {"
 aa
@@ -21085,22 +20693,22 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-Aw
+yG
+yG
+yG
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+nu
+iF
 ra
 dJ
 jj
@@ -21119,21 +20727,21 @@ gi
 gi
 gi
 NT
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (42,1,1) = {"
 aa
@@ -21342,22 +20950,22 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-Aw
-Aw
-Aw
-AE
-Aw
-ab
-AE
-Aw
-Aw
-ab
+yG
+yG
+yG
+yG
+yG
+yG
+iF
+iF
+iF
+nu
+iF
+jZ
+nu
+iF
+iF
+jZ
 ra
 dJ
 yE
@@ -21376,21 +20984,21 @@ tI
 BD
 gH
 sk
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (43,1,1) = {"
 aa
@@ -21599,22 +21207,22 @@ an
 an
 an
 an
-an
-an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-AE
-AE
-AE
-AE
-AE
+yG
+yG
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+iF
+nu
+nu
+nu
+nu
+nu
+nu
 Vw
 dJ
 oa
@@ -21633,21 +21241,21 @@ AO
 Fe
 bC
 sk
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+iF
+iF
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (44,1,1) = {"
 aa
@@ -21856,21 +21464,21 @@ an
 an
 an
 an
-an
-an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-AE
-AE
-AE
-AE
-AE
-AE
+yG
+yG
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+nu
+nu
+nu
+nu
+nu
+nu
 Rs
 ec
 dJ
@@ -21890,21 +21498,21 @@ bG
 Wf
 rB
 rk
-AE
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (45,1,1) = {"
 aa
@@ -22113,16 +21721,16 @@ an
 an
 an
 an
-an
-an
-an
-an
-Aw
-Aw
-Aw
-Aw
-Aw
-ab
+yG
+yG
+yG
+yG
+iF
+iF
+iF
+iF
+iF
+jZ
 cO
 cO
 cO
@@ -22147,21 +21755,21 @@ IK
 Lr
 bC
 sk
-AE
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (46,1,1) = {"
 aa
@@ -22370,16 +21978,16 @@ Aw
 ab
 an
 an
-an
-an
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-AE
+yG
+yG
+jZ
+iF
+iF
+iF
+iF
+iF
+nu
+nu
 cO
 Am
 fB
@@ -22404,21 +22012,21 @@ em
 WX
 EB
 sk
-Aw
-Aw
+iF
+iF
 EO
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+nu
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (47,1,1) = {"
 aa
@@ -22627,16 +22235,16 @@ Aw
 Aw
 Aw
 Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+nu
 cO
 cQ
 SX
@@ -22661,21 +22269,21 @@ gi
 gi
 gi
 rk
-Dx
-Aw
-Aw
-ab
-ab
-Aw
-OA
-Aw
-AE
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
+TJ
+iF
+iF
+jZ
+jZ
+iF
+uM
+iF
+nu
+jZ
+iF
+iF
+iF
+iF
+iF
 "}
 (48,1,1) = {"
 aa
@@ -22884,16 +22492,16 @@ Aw
 Aw
 Aw
 Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-AE
-AE
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+nu
+nu
 cO
 cO
 cK
@@ -22916,23 +22524,23 @@ fA
 XZ
 XK
 bH
-Yc
-Aw
-Aw
-Aw
-AE
-AE
-Aw
-AE
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
+ln
+iF
+iF
+iF
+nu
+nu
+iF
+nu
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
 "}
 (49,1,1) = {"
 aa
@@ -23141,17 +22749,17 @@ Aw
 Aw
 Aw
 Aw
-Aw
-ai
-ai
-ai
-Aw
-Aw
-AE
-Aw
-ab
-AE
-AE
+iF
+Vy
+Vy
+Vy
+iF
+iF
+nu
+iF
+jZ
+nu
+nu
 tS
 rJ
 fX
@@ -23173,23 +22781,23 @@ Pd
 XZ
 Jn
 Kc
-Aw
-ab
-OA
-AE
-AE
-AE
-ab
-AE
-AE
-rH
-Aw
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+jZ
+uM
+nu
+nu
+nu
+jZ
+nu
+nu
+ek
+iF
+nu
+iF
+iF
+iF
+iF
+iF
 "}
 (50,1,1) = {"
 aa
@@ -23398,22 +23006,22 @@ ai
 ai
 ai
 ai
-ai
-am
-WH
-Ly
-BI
-BI
-BI
-AY
-AY
-AY
-AE
+Vy
+Vy
+NR
+zI
+VU
+VU
+VU
+Is
+Is
+Is
+nu
 ec
 eQ
 gq
-AE
-AE
+nu
+nu
 cM
 fo
 cj
@@ -23430,11 +23038,11 @@ aI
 XZ
 cl
 xQ
-ab
-ab
-AE
-AE
-AE
+jZ
+jZ
+nu
+nu
+nu
 Oq
 dB
 dB
@@ -23442,11 +23050,11 @@ Oq
 Oq
 dB
 dB
-OA
-Aw
-ab
-Aw
-Aw
+uM
+iF
+jZ
+iF
+iF
 "}
 (51,1,1) = {"
 aa
@@ -23655,22 +23263,22 @@ am
 am
 am
 am
-am
-ai
-Ly
-BI
-BI
-BI
-AY
-BI
-AY
-AY
-AE
+Vy
+Vy
+zI
+VU
+VU
+VU
+Is
+VU
+Is
+Is
+nu
 ec
-AE
-AE
-AE
-Aw
+nu
+nu
+nu
+iF
 SQ
 dy
 dy
@@ -23689,9 +23297,9 @@ eM
 eM
 Zh
 Zh
-AE
-AE
-AE
+nu
+nu
+nu
 Oq
 Yk
 We
@@ -23699,11 +23307,11 @@ oq
 Ow
 dN
 Sh
-ab
-Aw
-Aw
-Aw
-Aw
+jZ
+iF
+iF
+iF
+iF
 "}
 (52,1,1) = {"
 aa
@@ -23912,22 +23520,22 @@ am
 am
 am
 am
-am
-ai
-Ly
-BI
-Ly
-AY
-BI
-AY
-AY
-AY
-AE
+Vy
+Vy
+zI
+VU
+zI
+Is
+VU
+Is
+Is
+Is
+nu
 cx
-AE
-Aw
-Aw
-ab
+nu
+iF
+iF
+jZ
 dy
 EL
 jJ
@@ -23956,11 +23564,11 @@ aY
 Fw
 cX
 Oq
-AE
-Aw
-ab
-Aw
-Aw
+nu
+iF
+jZ
+iF
+iF
 "}
 (53,1,1) = {"
 aa
@@ -24169,21 +23777,21 @@ am
 am
 am
 am
-am
-ai
-Ly
-BI
-BI
+Vy
+Vy
+zI
+VU
+VU
 FC
-AY
-AY
-AY
+Is
+Is
+Is
 JB
 Qd
 Bh
-Aw
-Aw
-nP
+iF
+iF
+Qw
 dy
 dy
 Bq
@@ -24213,11 +23821,11 @@ yp
 Bs
 eX
 Oq
-AE
-ab
-Aw
-Aw
-Aw
+nu
+jZ
+iF
+iF
+iF
 "}
 (54,1,1) = {"
 aa
@@ -24426,21 +24034,21 @@ am
 am
 am
 am
-am
-ai
-BI
-BI
-BI
-BI
-BI
-BI
+Vy
+Vy
+VU
+VU
+VU
+VU
+VU
+VU
 FC
-Ly
-Aw
+zI
+iF
 Ej
-Aw
-Aw
-ab
+iF
+iF
+jZ
 bJ
 PI
 Xk
@@ -24470,11 +24078,11 @@ fP
 en
 VK
 dB
-AE
-ab
-Aw
-ab
-Aw
+nu
+jZ
+iF
+jZ
+iF
 "}
 (55,1,1) = {"
 aa
@@ -24683,21 +24291,21 @@ am
 am
 am
 am
-am
-am
-WH
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
+Vy
+Vy
+NR
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
 Ej
-Aw
-Aw
-Aw
+iF
+iF
+iF
 bJ
 eW
 bN
@@ -24727,11 +24335,11 @@ dn
 eN
 fn
 dB
-AE
-AE
-ab
-Aw
-Aw
+nu
+nu
+jZ
+iF
+iF
 "}
 (56,1,1) = {"
 aa
@@ -24940,21 +24548,21 @@ am
 am
 am
 am
-am
-am
-WH
-BI
-BI
-Ly
-BI
-BI
-BI
-BI
-Aw
+Vy
+Vy
+NR
+VU
+VU
+zI
+VU
+VU
+VU
+VU
+iF
 Ej
-ab
-Aw
-Aw
+jZ
+iF
+iF
 bJ
 cE
 bN
@@ -24984,11 +24592,11 @@ Oq
 Oq
 dB
 dB
-AE
-AE
-Aw
-Aw
-Aw
+nu
+nu
+iF
+iF
+iF
 "}
 (57,1,1) = {"
 aa
@@ -25197,21 +24805,21 @@ am
 am
 am
 am
-am
-am
-ka
-Ly
-BI
-BI
-Ly
+Vy
+Vy
+NR
+zI
+VU
+VU
+zI
 FC
-BI
-BI
-Aw
+VU
+VU
+iF
 lB
-ab
-Aw
-Aw
+jZ
+iF
+iF
 dy
 Nc
 Jv
@@ -25236,16 +24844,16 @@ KH
 eM
 Fa
 Zh
-AE
-AE
-AE
-AE
-AE
-ab
-Aw
-AE
-Aw
-ab
+nu
+nu
+nu
+nu
+nu
+jZ
+iF
+nu
+iF
+jZ
 "}
 (58,1,1) = {"
 aa
@@ -25454,21 +25062,21 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-BI
-BI
-AY
-AY
-lh
-BI
-Aw
+Vy
+Vy
+NR
+NR
+VU
+VU
+Is
+Is
+NC
+VU
+iF
 Ej
-Aw
+iF
 eo
-Aw
+iF
 bJ
 Ff
 Av
@@ -25493,16 +25101,16 @@ uT
 Fl
 Nw
 Zh
-AE
-AE
-AE
-AE
-OA
-ab
-Aw
-Aw
-Aw
-Aw
+nu
+nu
+nu
+nu
+uM
+jZ
+iF
+iF
+iF
+iF
 "}
 (59,1,1) = {"
 aa
@@ -25711,21 +25319,21 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-ka
-BI
-BI
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
 uZ
-BI
-BI
-Aw
+VU
+VU
+iF
 FA
-Aw
-Aw
-ab
+iF
+iF
+jZ
 wi
 eW
 zu
@@ -25750,16 +25358,16 @@ Np
 eM
 wy
 Zh
-AE
-AE
-ab
-ab
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
+nu
+nu
+jZ
+jZ
+iF
+iF
+jZ
+iF
+iF
+iF
 "}
 (60,1,1) = {"
 aa
@@ -25968,21 +25576,21 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-BI
-BI
-BI
-BI
-BI
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
+VU
+VU
+VU
 SD
 Zz
 LS
-Aw
-Aw
+iF
+iF
 bJ
 cE
 bN
@@ -26007,16 +25615,16 @@ uT
 eM
 Gt
 Gs
-AE
-ab
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+jZ
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (61,1,1) = {"
 aa
@@ -26225,15 +25833,15 @@ am
 am
 am
 am
-am
-am
-ka
-WH
-BI
-BI
-BI
-BI
-BI
+Vy
+Vy
+NR
+NR
+VU
+VU
+VU
+VU
+VU
 cr
 cr
 bp
@@ -26263,17 +25871,17 @@ mT
 Dc
 eM
 FZ
-Aw
-OA
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+uM
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (62,1,1) = {"
 aa
@@ -26482,15 +26090,15 @@ am
 am
 am
 am
-am
-am
-ka
-WH
-BI
-BI
-BI
-BI
-BI
+Vy
+Vy
+NR
+NR
+VU
+VU
+VU
+VU
+VU
 cU
 dH
 HT
@@ -26520,17 +26128,17 @@ Yr
 uT
 lf
 dx
-OA
-Aw
-Aw
-Aw
-Aw
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
+uM
+iF
+iF
+iF
+iF
+jZ
+iF
+iF
+iF
+iF
+iF
 "}
 (63,1,1) = {"
 aa
@@ -26739,15 +26347,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-BI
-BI
-BI
-Ly
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
+VU
+zI
 cU
 jP
 bE
@@ -26777,17 +26385,17 @@ hh
 RR
 lf
 dx
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (64,1,1) = {"
 aa
@@ -26996,15 +26604,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-ka
-Ly
-Ly
-BI
-Rz
+Vy
+Vy
+NR
+NR
+NR
+zI
+zI
+VU
+gD
 cr
 bY
 bW
@@ -27034,17 +26642,17 @@ eM
 lf
 lf
 dx
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (65,1,1) = {"
 aa
@@ -27253,15 +26861,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-Ly
-BI
-BI
-AY
+Vy
+Vy
+NR
+NR
+NR
+zI
+VU
+VU
+Is
 cU
 jP
 bV
@@ -27291,17 +26899,17 @@ Ty
 YA
 Jg
 Bo
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (66,1,1) = {"
 aa
@@ -27510,15 +27118,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-BI
-BI
-BI
-AY
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
+VU
+Is
 cU
 yY
 bQ
@@ -27543,22 +27151,22 @@ Nq
 fO
 nX
 Hp
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (67,1,1) = {"
 aa
@@ -27767,15 +27375,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-BI
-BI
-BI
-Mv
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
+VU
+sA
 cr
 cr
 fs
@@ -27798,24 +27406,24 @@ vh
 IC
 BH
 IC
-AE
-AE
-ab
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+nu
+jZ
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (68,1,1) = {"
 aa
@@ -28024,15 +27632,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-BI
-BI
-AY
-Mv
+Vy
+Vy
+NR
+NR
+NR
+VU
+VU
+Is
+sA
 cr
 ex
 Ib
@@ -28053,26 +27661,26 @@ cN
 vh
 vh
 AE
-AE
-AE
-SH
-AE
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+nu
+nu
+xb
+nu
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (69,1,1) = {"
 aa
@@ -28281,15 +27889,15 @@ am
 am
 am
 am
-am
-am
-ka
-ka
-WH
-Ly
-AY
-AY
-AY
+Vy
+Vy
+NR
+NR
+NR
+zI
+Is
+Is
+Is
 cr
 eS
 dY
@@ -28302,34 +27910,34 @@ Jk
 ds
 dE
 kf
-AY
+Is
 Yz
-Ly
-AY
-AY
-AY
+zI
+Is
+Is
+Is
 KS
-AY
-AY
-Ly
+Is
+Is
+zI
 pl
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+zI
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (70,1,1) = {"
 aa
@@ -28538,15 +28146,15 @@ am
 am
 am
 am
-am
-am
-ka
-WH
-Ly
-Ly
-AY
-AY
-AY
+Vy
+Vy
+NR
+NR
+zI
+zI
+Is
+Is
+Is
 cr
 ss
 dY
@@ -28559,34 +28167,34 @@ cD
 fG
 vT
 kf
-Ly
-Ly
-Ly
-Ly
-AY
-AY
-AY
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+zI
+zI
+zI
+zI
+Is
+Is
+Is
+zI
+zI
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (71,1,1) = {"
 aa
@@ -28795,15 +28403,15 @@ am
 am
 am
 am
-am
-am
-WH
-Ly
-Ly
-Ly
-AY
-AY
-AY
+Vy
+Vy
+NR
+zI
+zI
+zI
+Is
+Is
+Is
 cr
 cU
 cU
@@ -28816,34 +28424,34 @@ Dz
 Yv
 iN
 Dz
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-Ly
-BI
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+zI
+VU
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (72,1,1) = {"
 aa
@@ -29052,55 +28660,55 @@ ai
 ai
 am
 am
-am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-AY
-AY
-xy
-Ly
-Ly
-AY
-AY
+Vy
+NR
+zI
+zI
+zI
+zI
+zI
+Is
+Is
+TM
+zI
+zI
+Is
+Is
 KS
-AY
-AY
-AY
-Ly
-Ly
+Is
+Is
+Is
+zI
+zI
 AD
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 "}
 (73,1,1) = {"
 aa
@@ -29309,54 +28917,54 @@ ab
 ab
 ai
 ai
-am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-AY
-AY
-Ly
-Ly
-Ly
-AY
-AY
-AY
-AY
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+Vy
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+Is
+Is
+zI
+zI
+zI
+Is
+Is
+Is
+Is
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+VU
+VU
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 "}
 (74,1,1) = {"
@@ -29566,53 +29174,53 @@ ab
 ab
 ai
 ab
-ai
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+Vy
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 "}
@@ -29823,52 +29431,52 @@ ab
 ab
 ab
 ab
-ab
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-Ly
-BI
-BI
-BI
-Aw
-Aw
-Aw
-Aw
-Aw
-Aw
+jZ
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+VU
+zI
+VU
+VU
+VU
+iF
+iF
+iF
+iF
+iF
+iF
 Aw
 Aw
 Aw
@@ -30080,46 +29688,46 @@ ab
 ab
 ab
 ab
-ab
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-Ly
-BI
-BI
-BI
-BI
+jZ
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+zI
+VU
+VU
+VU
+VU
 Aw
 Aw
 Aw
@@ -30337,46 +29945,46 @@ ai
 ab
 ab
 ab
-ab
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-BI
-BI
-BI
-BI
+jZ
+NR
+NR
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+NR
+NR
+NR
+NR
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+VU
+VU
+VU
+HB
 Aw
 Aw
 Aw
@@ -30594,46 +30202,46 @@ ai
 ab
 ab
 ab
-ab
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-WH
-BI
-BI
-BI
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-WH
-BI
-BI
-BI
-BI
+jZ
+zI
+NR
+NR
+zI
+zI
+zI
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+NR
+VU
+VU
+VU
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+zI
+NR
+VU
+VU
+HB
+HB
 Aw
 Aw
 Aw
@@ -30851,46 +30459,46 @@ ab
 ab
 ab
 ab
-ab
-Ly
-Ly
-Ly
-NI
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-ka
-BI
-Ly
-Ly
-BI
+jZ
+zI
+zI
+zI
+UC
+zI
+zI
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+VU
+HB
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+AS
+HB
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -31108,46 +30716,46 @@ ai
 ab
 ab
 ab
-ab
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-Ly
-BI
-BI
+jZ
+zI
+zI
+zI
+zI
+zI
+zI
+NR
+NR
+NR
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+zI
+VU
+VU
+VU
+VU
+VU
+VU
+HB
+HB
+HB
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -31366,45 +30974,45 @@ ab
 ab
 ab
 ab
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-BI
-BI
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -31623,45 +31231,45 @@ ai
 ai
 ab
 ab
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-Ly
-WH
-WH
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+ci
+JA
+JA
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+ci
+ci
 Aw
 Aw
 Aw
@@ -31880,45 +31488,45 @@ am
 am
 ai
 ab
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-WH
-Ly
-BI
-BI
-BI
-BI
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-BI
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+JA
+ci
+HB
+HB
+HB
+HB
+ci
+ci
+ci
+JA
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -32137,45 +31745,45 @@ am
 am
 ai
 ab
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-BI
-BI
-BI
-Ly
-WH
-WH
-WH
-WH
-Ly
-Ly
-Ly
-WH
-ka
-ka
-WH
-BI
-BI
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+HB
+HB
+HB
+ci
+JA
+JA
+JA
+JA
+ci
+ci
+ci
+JA
+AS
+AS
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -32394,45 +32002,45 @@ am
 ai
 ab
 ab
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-WH
-BI
-BI
-Ly
-WH
-ka
-ka
-WH
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+JA
+HB
+HB
+ci
+JA
+AS
+AS
+JA
 cu
-Ly
-Ly
-Ly
-WH
-ka
-ka
-WH
-BI
-BI
+ci
+ci
+ci
+JA
+AS
+AS
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -32651,45 +32259,45 @@ am
 ai
 ab
 ab
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-WH
-BI
-WH
-WH
-ka
-ka
-ka
-WH
-cv
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-WH
-BI
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+JA
+HB
+JA
+JA
+AS
+AS
+AS
+JA
+pG
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -32908,45 +32516,45 @@ am
 am
 ai
 ab
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-WH
-ka
-WH
-WH
-WH
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-kw
-ka
-ka
-ka
-ka
-WH
-BI
+ci
+ci
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+ci
+ci
+ci
+JA
+AS
+JA
+JA
+JA
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+Ts
+AS
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -33165,45 +32773,45 @@ am
 am
 am
 ai
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-ka
-WH
-WH
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
-ka
-ka
-ka
-ka
-WH
-Ly
-BI
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+AS
+JA
+JA
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
+AS
+AS
+AS
+AS
+JA
+ci
+HB
 ab
 Aw
 Aw
@@ -33422,45 +33030,45 @@ am
 am
 am
 am
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
 Aw
 Aw
 Aw
@@ -33679,45 +33287,45 @@ am
 am
 am
 ai
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-BI
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+HB
 Aw
 Aw
 Aw
@@ -33936,45 +33544,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-BI
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -34193,45 +33801,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-BI
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -34450,45 +34058,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-BI
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+HB
 Aw
 Aw
 Aw
@@ -34707,45 +34315,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
 Aw
 Aw
 Aw
@@ -34964,45 +34572,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
 ab
 Aw
 Aw
@@ -35221,45 +34829,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
+JA
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
 Aw
 ab
 Aw
@@ -35478,45 +35086,45 @@ am
 am
 am
 ai
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
 Aw
 Aw
 Aw
@@ -35735,45 +35343,45 @@ am
 am
 am
 ai
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
 ab
 Aw
 Aw
@@ -35992,45 +35600,45 @@ am
 am
 am
 ai
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-WH
-WH
-WH
-WH
-Ly
-Ly
-WH
-WH
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+JA
+JA
+JA
+JA
+ci
+ci
+JA
+JA
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
 Aw
 Aw
 Aw
@@ -36249,45 +35857,45 @@ am
 am
 am
 ai
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-WH
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+JA
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+JA
 Aw
 Aw
 Aw
@@ -36355,17 +35963,17 @@ ak
 ZY
 ZY
 ZY
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
 ZY
 ZY
 ZY
@@ -36506,45 +36114,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-WH
-ka
-ka
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-ka
-ka
-WH
-ka
-ka
-ka
-WH
-Ly
-WH
-WH
-ka
-ka
-ka
-ka
-WH
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+JA
+AS
+AS
+JA
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+AS
+AS
+JA
+AS
+AS
+AS
+JA
+ci
+JA
+JA
+AS
+AS
+AS
+AS
+JA
 Aw
 Aw
 Aw
@@ -36610,21 +36218,21 @@ ZY
 ZY
 ZY
 ZY
-BX
-BX
-BX
-BI
-BX
-BX
-BI
-BI
-BI
-BX
-BX
-BI
-BX
-BX
-BX
+ys
+ys
+ys
+HB
+ys
+ys
+HB
+HB
+HB
+ys
+ys
+HB
+ys
+ys
+ys
 ZY
 ZY
 ZY
@@ -36763,45 +36371,45 @@ am
 am
 am
 am
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-WH
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-WH
-WH
-Ly
-WH
-ka
-WH
-Ly
-Ly
-Ly
-WH
-Ly
-WH
-WH
-WH
-WH
+AS
+JA
+ci
+ci
+ci
+ci
+JA
+AS
+JA
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+JA
+JA
+ci
+JA
+AS
+JA
+ci
+ci
+ci
+JA
+ci
+JA
+JA
+JA
+JA
 Aw
 Aw
 Aw
@@ -36865,25 +36473,25 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BX
-BI
-BX
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BX
-BI
-BX
-BX
-BX
+ys
+ys
+ys
+HB
+ys
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+ys
+HB
+ys
+ys
+ys
 ZY
 ak
 ak
@@ -37020,45 +36628,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-WH
-Ly
-WH
-Ly
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+JA
+ci
+JA
+ci
+JA
+ci
 Aw
 Aw
 Aw
@@ -37122,25 +36730,25 @@ ak
 ZY
 ZY
 ZY
-BX
-BX
-BI
+ys
+ys
+HB
 pT
 Ur
-BX
-BX
-BI
-BI
-BI
-BI
-BI
-BX
-BX
+ys
+ys
+HB
+HB
+HB
+HB
+HB
+ys
+ys
 qo
 il
-BI
-BX
-BX
+HB
+ys
+ys
 ZY
 ZY
 ZY
@@ -37277,45 +36885,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -37378,27 +36986,27 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BI
+ys
+ys
+HB
 NA
-BI
+HB
 pP
-BI
-Ly
+HB
+ci
 qk
-Ly
-Ly
-Ly
-rW
-Ly
-BI
+ci
+ci
+ci
+Zj
+ci
+HB
 RK
-BI
+HB
 pn
-BI
-BX
-BX
+HB
+ys
+ys
 ZY
 ak
 ak
@@ -37534,45 +37142,45 @@ am
 am
 am
 am
-ka
-WH
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-ka
-WH
-WH
-WH
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-Ly
-Ly
+AS
+JA
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+AS
+JA
+JA
+JA
+ci
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+ci
+ci
 Aw
 Aw
 Aw
@@ -37635,27 +37243,27 @@ ak
 ZY
 ZY
 ZY
-BX
-BI
+ys
+HB
 il
-BI
+HB
 NA
 rP
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
-Ly
+ci
+ci
+ci
 IZ
-Ly
-Ly
+ci
+ci
 Vq
 pn
-BI
+HB
 pT
-BI
-BX
+HB
+ys
 ZY
 ZY
 ZY
@@ -37791,45 +37399,45 @@ am
 am
 am
 am
-WH
-Ly
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
-Ly
-Ly
-WH
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+JA
+ci
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
+ci
+ci
+JA
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -37891,29 +37499,29 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BX
+ys
+ys
+ys
 xJ
 Pl
-VU
+oI
 nr
-Ly
-Ly
+ci
+ci
 Vq
-Ly
-Ly
-Ly
+ci
+ci
+ci
 rP
-Ly
-Ly
+ci
+ci
 nB
 sW
 Pl
 dr
-BX
-BX
-BX
+ys
+ys
+ys
 ZY
 ak
 ak
@@ -38048,45 +37656,45 @@ am
 am
 am
 am
-ka
-WH
-Ly
-WH
-fS
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+JA
+ci
+JA
+Lb
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -38148,29 +37756,29 @@ ak
 ak
 ak
 ZY
-BX
-BI
-BI
-BX
-BI
-Ly
-Ly
+ys
+HB
+HB
+ys
+HB
+ci
+ci
 nr
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 nB
-Ly
-Ly
-BI
-BX
-BI
-BI
-BX
+ci
+ci
+HB
+ys
+HB
+HB
+ys
 ZY
 ak
 ak
@@ -38305,45 +37913,45 @@ am
 am
 am
 am
-ka
-ka
-WH
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+JA
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 ab
 Aw
@@ -38405,29 +38013,29 @@ ak
 ak
 ak
 ZY
-BX
-Rl
-BI
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
-BI
-BX
-BX
+ys
+xH
+HB
+ys
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
+HB
+ys
+ys
 ZY
 ak
 ak
@@ -38562,45 +38170,45 @@ am
 am
 am
 am
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -38662,29 +38270,29 @@ ak
 ak
 ak
 ZY
-BX
-Rl
-Ly
-Ly
-rW
+ys
+xH
+ci
+ci
+Zj
 GC
 Vq
-Ly
-Ly
+ci
+ci
 Xc
-Ly
-Ly
-Ly
+ci
+ci
+ci
 hF
-Ly
-Ly
+ci
+ci
 rP
 GC
 PF
-Ly
-Ly
-BX
-BX
+ci
+ci
+ys
+ys
 ZY
 ak
 ak
@@ -38839,25 +38447,25 @@ am
 am
 am
 am
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 ab
@@ -38919,29 +38527,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-VU
+ys
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+oI
 IZ
-Ly
+ci
 ft
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -39096,25 +38704,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -39176,13 +38784,13 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+ci
+ci
+ci
 Zs
 GC
 GC
@@ -39192,13 +38800,13 @@ GC
 GC
 GC
 rb
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -39353,25 +38961,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -39433,29 +39041,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 GC
 GC
 zZ
 jC
 jC
 jC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 jC
 jC
 jC
 zZ
 GC
 GC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -39610,25 +39218,25 @@ am
 am
 am
 am
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -39690,29 +39298,29 @@ ak
 ak
 ak
 ZY
-BX
+ys
 GO
 jC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 GC
 Vq
-Ly
+ci
 Vq
-Ly
+ci
 rP
 GC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 jC
 KB
-BX
+ys
 ZY
 ak
 ak
@@ -39867,25 +39475,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -39947,29 +39555,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-rW
-Ly
+ys
+ci
+ci
+Zj
+ci
 sW
-Ly
-Ly
+ci
+ci
 IZ
-Ly
+ci
 ft
 sW
 IZ
-Ly
+ci
 ft
-Ly
-Ly
-VU
-Ly
-rW
-Ly
-Ly
-BX
+ci
+ci
+oI
+ci
+Zj
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -40124,25 +39732,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -40204,29 +39812,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
+ys
+ci
 rP
-Ly
-Ly
-Ly
+ci
+ci
+ci
 FL
 GC
 Ti
-Ly
+ci
 ft
-VU
+oI
 IZ
-Ly
+ci
 or
 GC
 Ci
-Ly
-Ly
-Ly
+ci
+ci
+ci
 Vq
-Ly
-BX
+ci
+ys
 ZY
 ak
 ak
@@ -40381,25 +39989,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -40461,29 +40069,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
-VU
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+oI
+ci
+ci
+ci
+ci
+ci
 ft
 sW
 IZ
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 sW
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -40638,25 +40246,25 @@ am
 am
 am
 am
-ka
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -40718,29 +40326,29 @@ ak
 ak
 ak
 ZY
-BX
+ys
 sW
 GC
-Ly
+ci
 ft
-Ly
+ci
 SS
 ft
 sW
-Ly
+ci
 ft
-VU
+oI
 IZ
-Ly
-VU
+ci
+oI
 IZ
 SS
-Ly
+ci
 IZ
-Ly
+ci
 GC
-VU
-BX
+oI
+ys
 ZY
 ak
 ak
@@ -40895,25 +40503,25 @@ ak
 am
 am
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -40975,29 +40583,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 jC
 Vq
 FL
-Ly
-Ly
+ci
+ci
 IZ
-Ly
-Ly
+ci
+ci
 sW
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
+ci
+ci
 Ci
 rP
 jC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -41152,25 +40760,25 @@ ak
 ak
 am
 am
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 ab
 Aw
 Aw
@@ -41232,29 +40840,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
 MS
-Ly
+ci
 jC
 GC
 Vq
-Ly
-VU
-Ly
+ci
+oI
+ci
 sW
-Ly
+ci
 rP
 GC
 jC
-Ly
+ci
 AW
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -41409,25 +41017,25 @@ ak
 ak
 ak
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 ab
@@ -41489,29 +41097,29 @@ ak
 ak
 ZY
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 jC
-Ly
-Ly
-Ly
+ci
+ci
+ci
 ft
-Ly
+ci
 IQ
-Ly
+ci
 SS
-Ly
+ci
 td
-Ly
+ci
 IZ
-Ly
-Ly
-Ly
+ci
+ci
+ci
 jC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ZY
 ZY
@@ -41666,25 +41274,25 @@ ak
 ak
 ak
 am
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -41746,29 +41354,29 @@ ak
 ak
 ZY
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+ci
+ci
+ci
 IZ
-Ly
-Ly
+ci
+ci
 IZ
-Ly
+ci
 ft
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -41923,25 +41531,25 @@ ak
 ak
 ak
 am
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -42003,29 +41611,29 @@ ak
 ZY
 ZY
 ZY
-BX
-Ly
+ys
+ci
 sW
-Ly
+ci
 GC
 GC
-Ly
+ci
 Ci
-VU
+oI
 rP
-Ly
-Ly
-Ly
+ci
+ci
+ci
 Vq
 sW
 hF
-Ly
+ci
 GC
 GC
-Ly
-VU
-Ly
-BX
+ci
+oI
+ci
+ys
 ZY
 ZY
 ak
@@ -42180,25 +41788,25 @@ ak
 ak
 ak
 am
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -42221,15 +41829,15 @@ aa
 aa
 aa
 aa
-Ad
+ya
 gG
 pP
 kg
 RK
 gr
 hH
-Ly
-Ly
+ci
+ci
 Aw
 ly
 Aw
@@ -42245,44 +41853,44 @@ sW
 wr
 xE
 Gb
-xN
+yS
 Gb
 Vq
-Ly
+ci
 XE
-Ly
-Ly
+ci
+ci
 sW
-Ly
-Ly
+ci
+ci
 mN
 Gb
 QO
+Pw
+Pw
 ys
-ys
-BX
 GC
 GC
 jC
-Ly
+ci
 nB
 Vq
 rP
-Ly
-VU
-Ly
+ci
+oI
+ci
 SS
-Ly
+ci
 sW
-Ly
+ci
 Vq
 rP
 nr
-Ly
+ci
 jC
 GC
 GC
-BX
+ys
 ZY
 ZY
 ak
@@ -42437,25 +42045,25 @@ ak
 ak
 ak
 am
-ka
-ka
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -42485,8 +42093,8 @@ pH
 Ol
 ag
 le
-Ad
-Ad
+ya
+ya
 ls
 Aw
 Aw
@@ -42498,48 +42106,48 @@ Aw
 Aw
 Aw
 lI
-Ad
-Ad
+ya
+ya
 wr
-Ly
-Ly
-VU
-Ly
+ci
+ci
+oI
+ci
 sW
-Ly
+ci
 Vq
-Ly
+ci
 XE
-Ly
-Ly
-Ly
+ci
+ci
+ci
 mO
-Ly
+ci
 rP
-rW
+Zj
 FF
 FF
 FF
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+ci
 Fv
 Zs
 GC
 rb
 vo
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -42694,25 +42302,25 @@ ak
 ak
 ak
 am
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -42742,8 +42350,8 @@ gr
 gr
 gr
 gs
-ya
-lp
+vK
+Gq
 Eq
 Pa
 Eq
@@ -42756,24 +42364,24 @@ XU
 KO
 KO
 Eq
-Ad
+ya
 hF
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
 XE
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 wr
-Ly
-Ly
-Ly
-Ly
-rW
+ci
+ci
+ci
+ci
+Zj
 FF
 FF
 FF
@@ -42782,21 +42390,21 @@ Fv
 Zs
 vo
 rP
-Ly
+ci
 Zs
 Ti
-Ly
+ci
 or
 rb
-Ly
+ci
 Vq
 Xl
 rb
 vo
 rP
-Ly
+ci
 sW
-BX
+ys
 ZY
 ZY
 ZY
@@ -42951,25 +42559,25 @@ ak
 ak
 ak
 am
-ka
-WH
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+JA
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -42999,8 +42607,8 @@ kj
 HE
 HE
 lg
-Zj
-md
+ig
+ay
 lu
 lq
 Yo
@@ -43015,45 +42623,45 @@ mk
 mn
 PF
 mF
-Ly
+ci
 mG
-Ly
-VU
-Ly
+ci
+oI
+ci
 sW
-Ly
-Ly
+ci
+ci
 XE
-Ly
-Ly
+ci
+ci
 Vq
 wd
 rP
-Ly
-rW
+ci
+Zj
 FF
 FF
 FF
-Ly
+ci
 Zs
 PF
 Ti
-Ly
+ci
 SS
 ft
-Ly
+ci
 hB
-Ly
+ci
 IZ
 SS
-Ly
+ci
 or
 PF
 rb
-Ly
-Ly
-rW
-BX
+ci
+ci
+Zj
+ys
 ZY
 ZY
 ZY
@@ -43208,25 +42816,25 @@ ak
 ak
 ak
 am
-ka
-ka
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+AS
+AS
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 Aw
 Aw
 Aw
@@ -43256,7 +42864,7 @@ ah
 gG
 gs
 gy
-ya
+vK
 lr
 hx
 hx
@@ -43270,47 +42878,47 @@ pS
 bc
 Qr
 bc
-Ad
+ya
 IZ
-Ly
-Ly
+ci
+ci
 sW
 wd
-Ly
-Ly
-Ly
+ci
+ci
+ci
 mL
 Gb
 Gu
-Ly
-Ly
+ci
+ci
 rP
-Ly
-Ly
-rW
+ci
+ci
+Zj
 FF
 FF
 FF
-VU
+oI
 Xc
 Ti
 hF
 sW
-Ly
+ci
 or
 rb
-Ly
+ci
 Zs
 Ti
-Ly
-VU
+ci
+oI
 Ci
 or
 hF
 sW
-Ly
+ci
 rP
-BX
+ys
 ZY
 ZY
 ZY
@@ -43465,25 +43073,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 ab
 ab
 Aw
@@ -43513,8 +43121,8 @@ Pl
 hk
 gr
 hH
-Ad
-Ad
+ya
+ya
 lw
 Aw
 Aw
@@ -43526,48 +43134,48 @@ Aw
 Aw
 lw
 Aw
-Ad
-Ad
+ya
+ya
 Vq
-Ly
-Ly
-Ly
+ci
+ci
+ci
 rP
-Ly
+ci
 mI
-Ly
-Ly
+ci
+ci
 Gb
 Gb
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
 rP
-rW
+Zj
 FF
 FF
 FF
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+ci
 Xc
 or
 jC
 Ti
 hF
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -43722,25 +43330,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -43763,15 +43371,15 @@ aa
 aa
 aa
 aa
-Ad
+ya
 gr
 pP
 kl
 RK
 gG
 lj
-Ly
-Ly
+ci
+ci
 Aw
 Aw
 mv
@@ -43788,43 +43396,43 @@ Vq
 wr
 sW
 wr
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+ci
 wd
-xN
+yS
 wr
 XE
-Ly
-Ly
+ci
+ci
+Pw
+Pw
 ys
-ys
-BX
 jC
 jC
 GC
-Ly
+ci
 EQ
-VU
+oI
 sW
-Ly
+ci
 Vq
-Ly
+ci
 SS
-Ly
+ci
 rP
-Ly
-VU
+ci
+oI
 sW
 kT
-Ly
+ci
 GC
 jC
 jC
-BX
+ys
 ZY
 ZY
 ak
@@ -43979,25 +43587,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-ka
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+AS
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -44059,29 +43667,29 @@ ab
 mP
 ZY
 ZY
-BX
-Ly
+ys
+ci
 rP
-Ly
+ci
 jC
 jC
-Ly
+ci
 Fv
 Vq
 sW
-Ly
-Ly
-Ly
-VU
+ci
+ci
+ci
+oI
 rP
 vo
-Ly
+ci
 jC
 jC
-Ly
+ci
 Vq
-Ly
-BX
+ci
+ys
 ZY
 ZY
 ak
@@ -44236,25 +43844,25 @@ ak
 ak
 ak
 ak
-xN
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+yS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -44282,7 +43890,7 @@ gr
 gr
 gr
 jm
-rW
+Zj
 ab
 ab
 ab
@@ -44316,29 +43924,29 @@ al
 ZY
 ZY
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+ci
+ci
+ci
 IZ
-Ly
-Ly
+ci
+ci
 IZ
-Ly
+ci
 ft
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -44493,25 +44101,25 @@ ak
 ak
 ak
 ak
-xN
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+yS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -44573,29 +44181,29 @@ ak
 ak
 ZY
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 GC
-Ly
-Ly
-Ly
+ci
+ci
+ci
 ft
-Ly
+ci
 MS
-Ly
+ci
 SS
-Ly
+ci
 AW
-Ly
+ci
 IZ
-Ly
-Ly
-Ly
+ci
+ci
+ci
 GC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ZY
 ZY
@@ -44750,25 +44358,25 @@ ak
 ak
 ak
 ak
-xN
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+yS
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 Aw
 Aw
 Aw
@@ -44830,29 +44438,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
 IQ
-Ly
+ci
 GC
 jC
-VU
-Ly
+oI
+ci
 Vq
-Ly
+ci
 rP
-Ly
+ci
 sW
 jC
 GC
-Ly
+ci
 td
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ys
 ZY
 ZY
 ak
@@ -45007,25 +44615,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-ka
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
+AS
+AS
+AS
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
 ab
 Aw
 Aw
@@ -45087,29 +44695,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 GC
-VU
+oI
 yW
-Ly
-Ly
+ci
+ci
 IZ
-Ly
-Ly
+ci
+ci
 rP
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
+ci
+ci
 Xl
 sW
 GC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -45264,25 +44872,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-WH
-Ly
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+JA
+ci
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -45344,29 +44952,29 @@ ak
 ak
 ak
 ZY
-BX
+ys
 rP
 jC
-Ly
+ci
 ft
-Ly
+ci
 SS
 ft
 rP
-Ly
+ci
 ft
-VU
+oI
 IZ
-Ly
+ci
 Vq
 IZ
 SS
-Ly
+ci
 IZ
-Ly
+ci
 jC
 Vq
-BX
+ys
 ZY
 ak
 ak
@@ -45521,25 +45129,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-WH
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+JA
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -45601,29 +45209,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
 Vq
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 ft
 sW
 IZ
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 rP
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -45778,25 +45386,25 @@ ak
 ak
 ak
 ak
-ka
-ka
-ka
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BI
-BI
+AS
+AS
+AS
+JA
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -45858,29 +45466,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
+ys
+ci
 sW
-Ly
-Ly
-Ly
+ci
+ci
+ci
 vo
 jC
 rb
-Ly
+ci
 ft
-VU
+oI
 IZ
-Ly
+ci
 Zs
 jC
 Xl
-Ly
-Ly
-Ly
-VU
-Ly
-BX
+ci
+ci
+ci
+oI
+ci
+ys
 ZY
 ak
 ak
@@ -46035,25 +45643,25 @@ ak
 ak
 ak
 ak
-xN
-ka
-ka
-ka
-ka
-WH
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-BI
-BI
+yS
+AS
+AS
+AS
+AS
+JA
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -46115,29 +45723,29 @@ ak
 ak
 ak
 ZY
-BX
+ys
 rb
-Ly
-rW
-Ly
+ci
+Zj
+ci
 rP
-Ly
-Ly
+ci
+ci
 IZ
-Ly
+ci
 ft
 sW
 IZ
-Ly
+ci
 ft
-Ly
-Ly
+ci
+ci
 Vq
-Ly
-rW
-Ly
-Ly
-BX
+ci
+Zj
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -46292,25 +45900,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-ka
-ka
-ka
-WH
-Ly
-WH
-Ly
-WH
-Ly
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-BI
-BI
+yS
+yS
+AS
+AS
+AS
+JA
+ci
+JA
+ci
+JA
+ci
+ci
+ci
+ci
+ci
+JA
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -46372,29 +45980,29 @@ ak
 ak
 ak
 ZY
-BX
+ys
 uR
 GC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 jC
-VU
-Ly
-VU
-Ly
+oI
+ci
+oI
+ci
 sW
 jC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 GC
 Vm
-BX
+ys
 ZY
 ak
 ak
@@ -46549,25 +46157,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-ka
-ka
-ka
-ka
-WH
-WH
-Ly
-WH
-WH
-Ly
-Ly
-Ly
-Ly
-WH
-WH
-BI
-BI
+yS
+yS
+AS
+AS
+AS
+AS
+JA
+JA
+ci
+JA
+JA
+ci
+ci
+ci
+ci
+JA
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -46629,29 +46237,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
+ys
+ci
+ci
 jC
 jC
 HE
 GC
 GC
 GC
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
 GC
 GC
 GC
 HE
 jC
 jC
-Ly
-Ly
-BX
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -46806,25 +46414,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-xN
-xN
-ka
-ka
-ka
-ka
-WH
-ka
-WH
-Ly
-WH
-Ly
-Ly
-Ly
-WH
-BI
-BI
+yS
+yS
+yS
+yS
+AS
+AS
+AS
+AS
+JA
+AS
+JA
+ci
+JA
+ci
+ci
+ci
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -46886,13 +46494,13 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+ci
+ci
+ci
 or
 jC
 jC
@@ -46902,13 +46510,13 @@ jC
 jC
 jC
 Ti
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -47063,25 +46671,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-xN
-xN
-xN
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-ka
-WH
-WH
-Ly
-Ly
-BI
-BI
+yS
+yS
+yS
+yS
+yS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+AS
+JA
+JA
+ci
+ci
+HB
+HB
 Aw
 Aw
 Aw
@@ -47143,29 +46751,29 @@ ak
 ak
 ak
 ZY
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ys
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 IZ
-Ly
+ci
 ft
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
 ZY
 ak
 ak
@@ -47320,25 +46928,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-WH
-WH
-BI
-BI
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+JA
+JA
+HB
+HB
 Aw
 Aw
 Aw
@@ -47400,29 +47008,29 @@ ak
 ak
 ak
 ZY
-BX
-BX
-Ly
-Ly
+ys
+ys
+ci
+ci
 qk
 jC
-VU
-Ly
-Ly
+oI
+ci
+ci
 Fv
-Ly
-Ly
-Ly
+ci
+ci
+ci
 vo
-Ly
-Ly
+ci
+ci
 sW
 jC
 wA
-Ly
-Ly
-BX
-BX
+ci
+ci
+ys
+ys
 ZY
 ak
 ak
@@ -47577,25 +47185,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-ka
-ka
-ka
-ka
-ka
-ka
-ka
-BI
-BI
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+AS
+AS
+AS
+AS
+AS
+AS
+AS
+HB
+HB
 Aw
 Aw
 Aw
@@ -47657,29 +47265,29 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BI
-BX
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-BX
-BI
-BX
-BX
+ys
+ys
+HB
+ys
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ci
+ys
+HB
+ys
+ys
 ZY
 ak
 ak
@@ -47834,25 +47442,25 @@ ak
 ak
 ak
 ak
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-xN
-ka
-ka
-ka
-BI
-BI
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+AS
+AS
+AS
+HB
+HB
 Aw
 Aw
 Aw
@@ -47914,29 +47522,29 @@ ak
 ak
 ak
 ZY
-BX
-BI
-BI
-BX
-BI
-Ly
-Ly
+ys
+HB
+HB
+ys
+HB
+ci
+ci
 kT
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
-Ly
+ci
+ci
+ci
+ci
+ci
+ci
+ci
 nr
-Ly
-Ly
-BI
-BX
-BI
-BI
-BX
+ci
+ci
+HB
+ys
+HB
+HB
+ys
 ZY
 ak
 ak
@@ -48171,29 +47779,29 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BX
+ys
+ys
+ys
 ta
 pH
 Vq
 kT
-Ly
-Ly
-VU
-Ly
-Ly
-Ly
+ci
+ci
+oI
+ci
+ci
+ci
 sW
-Ly
-Ly
+ci
+ci
 nr
 rP
 pH
 Sd
-BX
-BX
-BX
+ys
+ys
+ys
 ZY
 ak
 ak
@@ -48429,27 +48037,27 @@ ak
 ZY
 ZY
 ZY
-BX
-BI
+ys
+HB
 il
-BI
+HB
 BL
 sW
-Ly
-Ly
+ci
+ci
 ft
-Ly
-Ly
-Ly
+ci
+ci
+ci
 IZ
-Ly
-Ly
-VU
+ci
+ci
+oI
 NA
-BI
+HB
 zW
-BI
-BX
+HB
+ys
 ZY
 ZY
 ZY
@@ -48686,27 +48294,27 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BI
+ys
+ys
+HB
 BL
-BI
+HB
 pP
-BI
-Ly
+HB
+ci
 PF
-Ly
-Ly
-Ly
+ci
+ci
+ci
 qk
-Ly
-BI
+ci
+HB
 RK
-BI
+HB
 UU
-BI
-BX
-BX
+HB
+ys
+ys
 ZY
 ak
 ak
@@ -48944,25 +48552,25 @@ ak
 ZY
 ZY
 ZY
-BX
-BX
-BI
+ys
+ys
+HB
 RJ
 jD
-BX
-BX
-BI
-BI
-BI
-BI
-BI
-BX
-BX
+ys
+ys
+HB
+HB
+HB
+HB
+HB
+ys
+ys
 sg
 hm
-BI
-BX
-BX
+HB
+ys
+ys
 ZY
 ZY
 ZY
@@ -49201,25 +48809,25 @@ ak
 ak
 ak
 ZY
-BX
-BX
-BX
-BI
-BX
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BX
-BI
-BX
-BX
-BX
+ys
+ys
+ys
+HB
+ys
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+ys
+HB
+ys
+ys
+ys
 ZY
 ak
 ak
@@ -49460,21 +49068,21 @@ ak
 ZY
 ZY
 ZY
-BX
-BX
-BX
-BI
-BX
-BX
-BI
-BI
-BI
-BX
-BX
-BI
-BX
-BX
-BX
+ys
+ys
+ys
+HB
+ys
+ys
+HB
+HB
+HB
+ys
+ys
+HB
+ys
+ys
+ys
 ZY
 ZY
 ZY
@@ -49719,17 +49327,17 @@ ak
 ZY
 ZY
 ZY
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
+ys
 ZY
 ZY
 ZY

@@ -107,7 +107,3 @@
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
 			user.forceMove(get_turf(com.target))
-
-/obj/effect/portal/attack_ghost(mob/user as mob)
-	if(target)
-		user.forceMove(get_turf(target))

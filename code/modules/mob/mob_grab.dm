@@ -247,7 +247,7 @@
 	adjust_position()
 
 
-/obj/item/grab/attack_self(mob/user)
+/obj/item/grab/attack_self__legacy__attackchain(mob/user)
 	s_click(hud)
 
 //Updating pixelshift, position and direction
@@ -370,7 +370,7 @@
 	return 1
 
 
-/obj/item/grab/attack(mob/living/M, mob/living/carbon/user)
+/obj/item/grab/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
 	if(!affecting)
 		return
 
@@ -402,7 +402,7 @@
 						if(istype(hat))
 							damage += hat.force * 3
 						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, MELEE))
-						playsound(assailant.loc, "swing_hit", 25, 1, -1)
+						playsound(assailant.loc, "swing_hit", 25, TRUE, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return
 

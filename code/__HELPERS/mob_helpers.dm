@@ -189,6 +189,10 @@
 		return min(max(. + rand(-25, 25), -185), 34)
 	else if(species == "Vox")
 		. = rand(1, 6)
+	else if(species == "Nian")
+		. = rand(1, 4)
+	else
+		. = 1
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
@@ -384,7 +388,7 @@
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -433,7 +437,7 @@
 			. = FALSE
 			break
 
-		if(Tloc && (!target || Tloc != target.loc))
+		if(!allow_moving_target && Tloc && (!target || Tloc != target.loc))
 			. = FALSE
 			break
 
@@ -488,19 +492,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/mob/living/carbon/human/H = A
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
-
-/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
-	var/turf/T = get_turf(target)
-	if(!T)
-		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
-
-	var/list/new_args = list(T)
-	if(extra_args)
-		new_args += extra_args
-
-	for(var/j in 1 to amount)
-		var/atom/X = new spawn_type(arglist(new_args))
-		X.admin_spawned = admin_spawn
 
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))

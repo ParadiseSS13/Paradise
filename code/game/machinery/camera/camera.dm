@@ -40,6 +40,9 @@
 	var/detectTime = 0
 	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
+	var/datum/proximity_monitor/proximity_monitor
+	/// If this camera doesnt add to camera chunks. Used by camera bugs.
+	var/non_chunking_camera = FALSE
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
@@ -62,6 +65,12 @@
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
+	create_prox_monitor()
+
+/obj/machinery/camera/proc/create_prox_monitor()
+	if(!proximity_monitor)
+		proximity_monitor = new(src, 1)
+		RegisterSignal(proximity_monitor, COMSIG_PARENT_QDELETING, PROC_REF(proximity_deleted))
 
 /obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -72,6 +81,7 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
 	var/area/our_area = get_area(src)
 	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
@@ -118,6 +128,10 @@
 		return
 	..()
 
+/obj/machinery/camera/proc/proximity_deleted()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	proximity_monitor = null
+
 /obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, 0)
@@ -127,7 +141,7 @@
 		toggle_cam(null, 0)
 	..()
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/camera/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 

@@ -102,7 +102,7 @@
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH)))
+	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -187,6 +187,10 @@
 	if(ismachineperson(src))
 		holder = hud_list[DIAG_STAT_HUD]
 
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		holder.icon_state = "hudflatline"
+		return
+
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable_state = "dead"
@@ -196,14 +200,8 @@
 			revivable_state = "flatline"
 		else if(!mind)
 			revivable_state = "dead"
-		else
-			var/foundghost = FALSE
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				if(G.mind.current == src)
-					foundghost = (G.can_reenter_corpse && G.client)
-					break
-			if(foundghost || key)
-				revivable_state = "hassoul"
+		else if(get_ghost() || key)
+			revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
 
@@ -224,10 +222,10 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 

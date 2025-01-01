@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(spacedrift)
 		var/old_dir = AM.dir
 		var/old_loc = AM.loc
 		AM.inertia_moving = TRUE
-		step(AM, AM.inertia_dir)
+		AM.Move(get_step(AM, AM.inertia_dir), AM.inertia_dir, AM.inertia_move_delay)
 		AM.inertia_moving = FALSE
 		AM.inertia_next_move = world.time + AM.inertia_move_delay
 		if(AM.loc == old_loc)

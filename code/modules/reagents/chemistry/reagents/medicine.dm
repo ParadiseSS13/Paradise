@@ -73,25 +73,62 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	var/is_robot = (process_flags & SYNTHETIC) > 0
 	if(severity == 1)
-		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-			M.fakevomit(no_text = 1)
-		else if(effect <= 3)
-			M.emote(pick("groan","moan"))
-		if(effect <= 8)
-			update_flags |= M.adjustToxLoss(1, FALSE)
-	else if(severity == 2)
-		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-			M.fakevomit(no_text = 1)
-		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
-			M.Dizzy(16 SECONDS)
-			M.Weaken(8 SECONDS)
-		if(effect <= 15)
-			update_flags |= M.adjustToxLoss(1, FALSE)
+		if(!is_robot)
+			if(effect <= 1)
+				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.fakevomit(no_text = TRUE)
+			else if(effect <= 3)
+				M.emote(pick("groan", "moan"))
+			if(effect <= 8)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+		else
+			if(effect <= 1)
+				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.AdjustJitter(2 SECONDS)
+			else if(effect <= 3)
+				M.emote("shudder")
+			if(effect <= 8)
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+		return list(effect, update_flags)
+
+	if(severity == 2)
+		if(!is_robot)
+			if(effect <= 2)
+				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.fakevomit(no_text = TRUE)
+			else if(effect <= 5)
+				M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
+				M.Dizzy(16 SECONDS)
+				M.Weaken(8 SECONDS)
+			if(effect <= 15)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+		else
+			if(effect <= 2)
+				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.AdjustJitter(2 SECONDS)
+			else if(effect <= 5)
+				M.visible_message("<span class='warning'>[M] staggers and seizes up!</span>")
+				M.Dizzy(16 SECONDS)
+				M.Weaken(8 SECONDS)
+			if(effect <= 15)
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
 	return list(effect, update_flags)
+
+/datum/reagent/medicine/synaptizine/recal
+	name = "Recal"
+	id = "recal"
+	description = "An oily insulating liquid that passively regulates electrical activity on sensitive electronic components, allowing them to recover from decalibrating events faster. \
+	Overdosing will cause under-voltage errors and hamper component heat dissipation, potentially causing heat damage."
+	reagent_state = LIQUID
+	color = "#85845d"
+	overdose_threshold = 40
+	harmless = FALSE
+	taste_description = "mineral oil and toothpaste"
+	process_flags = SYNTHETIC
 
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
@@ -129,18 +166,19 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	data = list()
 
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(iscarbon(M))
+		data["method"] = method
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
-			data = "Ingested"
 			if(show_message)
 				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
 	..()
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO && data != "Ingested")
+	if(M.bodytemperature < TCRYO && data["method"] == REAGENT_TOUCH)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -245,6 +283,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply
+	data = list()
 
 /datum/reagent/medicine/heal_on_apply/proc/heal_external_limb(obj/item/organ/external/organ, volume)
 	return
@@ -277,8 +316,10 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(ishuman(M) && volume >= 20 && method == REAGENT_TOUCH)
-		var/applied_volume = splash_human(M, volume)
+	data["method"] = method
+	if(ishuman(M) && volume > 20 && method == REAGENT_TOUCH)
+		heal_overall_damage(M, 20)
+		var/applied_volume = splash_human(M, volume - 20)
 		return ..(M, method, applied_volume, show_message)
 
 	if(method == REAGENT_TOUCH)
@@ -295,6 +336,13 @@
 	penetrates_skin = TRUE
 	taste_description = "blood"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/medicine/heal_on_apply/synthflesh/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
@@ -318,7 +366,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
@@ -333,7 +381,8 @@
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/heal_external_limb(obj/item/organ/external/organ, volume)
@@ -367,7 +416,8 @@
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data["method"] == REAGENT_TOUCH || volume > 1)
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_external_limb(obj/item/organ/external/organ, volume)
@@ -419,14 +469,15 @@
 	harmless = FALSE
 	taste_description = "health"
 
-/datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/human/H)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	var/is_robot = ((process_flags & SYNTHETIC) > 0)
+	update_flags |= H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
+	update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
 	if(prob(50))
-		M.AdjustLoseBreath(-2 SECONDS)
+		H.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
@@ -473,6 +524,13 @@
 	addiction_chance = 0
 	addiction_chance_additional = 100
 	addiction_threshold = 0
+
+// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
+/datum/reagent/medicine/omnizine/no_addict/synthetic
+	name = "Smart Metal"
+	id = "synthetic_omnizine_no_addiction"
+	description = "An exotic liquid metal alloy that flows into cracks, fractures, and other surface imperfections before solidifying to patch up damaged components."
+	process_flags = SYNTHETIC
 
 /datum/reagent/medicine/calomel
 	name = "Calomel"
@@ -722,7 +780,7 @@
 				H.vomit(20)
 		else if(effect <= 10)
 			M.visible_message(
-				"<span class'warning'>[M] seems to be itching themselves incessantly!</span>",
+				"<span class='warning'>[M] seems to be itching themselves incessantly!</span>",
 				"<span class='danger'>You feel bugs crawling under your skin!</span>"
 			)
 			M.emote("scream")
@@ -912,7 +970,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(IS_CHANGELING(M))
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 						return
 					M.delayed_gib(TRUE)
 					return
@@ -933,7 +991,7 @@
 						H.decaylevel = 0
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
-							// 15% * H.decaylevel (1 to 4) 
+							// 15% * H.decaylevel (1 to 4)
 							// Min of 0%, Max of 60%
 							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
 								// side effects may include: Organ failure
@@ -1177,6 +1235,36 @@
 
 /datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
 	return
+
+// IPC Stimulative Agent, for the Supercharge Biochip.
+/datum/reagent/medicine/stimulative_agent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
+	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiancy gains."
+	reagent_state = LIQUID
+	color = "#28b581"
+	process_flags = SYNTHETIC
+	taste_description = "silicon"
+
+/datum/reagent/medicine/stimulative_agent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= ..()
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like the world is moving in slow motion.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!" // "GOTTAGOFAST" in binary.
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	return ..() | update_flags
+
+/datum/reagent/medicine/stimulative_agent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(33))
+		M.Stuttering(5 SECONDS)
+		to_chat(M, pick("<span class='warning'>Your circuits overheat!</span>", "<span class='warning'>Electrical arcs discharge inside you!</span>"))
+		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 5 to compensate for no breathloss. Not like anyone will ever OD on this anyway.
+	return list(0, update_flags)
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
@@ -1564,8 +1652,11 @@
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/datum/disease/zombie/zomb in H.viruses)
+						zomb.cure() // experimental B). Won't save you from the dead organs.
 					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
 						O.germ_level = 0
+					update_flags |= M.adjustCloneLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 60 clone one-use heal for 10 TC seems fair
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1598,4 +1689,49 @@
 	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+// First level, prevents scratches from infecting you and cures stage 1 zombie infections.
+/datum/reagent/zombie_cure
+	name = "Anti-Plague Sequence Alpha"
+	id = "zombiecure1"
+	description = "The first step towards a cure for zombies. Prevents simple infections from scratches."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	color = "#003602"
+	var/cure_level = 1
+
+// Weakens a zombie's claws when in their system. Cures stage 1-3 infections.
+/datum/reagent/zombie_cure/second
+	name = "Anti-Plague Sequence Beta"
+	id = "zombiecure2"
+	description = "Cures low-level infections. Weakens zombies when in their system."
+	color = "#006238"
+	cure_level = 2
+
+// Significantly weakens a zombie's healing ability. Cures 1-5 infections and significantly slows the advance of the stage 6 infection
+/datum/reagent/zombie_cure/third
+	name = "Anti-Plague Sequence Gamma"
+	id = "zombiecure3"
+	description = "Prevents zombies from reviving, but not from healing. Removes moderate infections."
+	color = "#029779"
+	cure_level = 3
+
+// Final cure, completely cures being a zombie. Revives all rotten limbs.
+/datum/reagent/zombie_cure/fourth
+	name = "Anti-Plague Sequence Omega"
+	id = "zombiecure4"
+	description = "Cures all cases of the Necrotizing Plague. Stops zombies from reviving."
+	color = "#001d4d"
+	cure_level = 4
+
+/datum/reagent/zombie_cure/fourth/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && prob(20))
+		for(var/obj/item/organ/limb as anything in H.bodyparts)
+			if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+				limb.status &= ~ORGAN_DEAD
+				H.update_body()
+				break
 	return ..() | update_flags

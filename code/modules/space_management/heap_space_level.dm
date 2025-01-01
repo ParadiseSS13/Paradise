@@ -45,7 +45,7 @@
 	if(C.zpos != zpos)
 		return
 	C.set_occupied(FALSE)
-	for(var/turf/T in block(locate(C.x, C.y, C.zpos), locate(C.x+C.width-1, C.y+C.height-1, C.zpos)))
+	for(var/turf/T in block(C.x, C.y, C.zpos, C.x + C.width - 1, C.y + C.height - 1, C.zpos))
 		for(var/atom/movable/M in T)
 			if(isobserver(M))
 				continue

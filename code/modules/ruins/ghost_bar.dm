@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	flavour_text = "You are a ghost bar occupant. You've gotten sick of being dead and decided to meet up with some of your fellow haunting brothers. Take a seat, grab a beer, and chat it out."
 	assignedrole = "Ghost Bar Occupant"
 	death_cooldown = 1 MINUTES
+	restrict_antagban = FALSE
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
@@ -38,28 +39,30 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 
 	save_to_load.copy_to(H)
 	if(!H.back)
-		equip_item(H, /obj/item/storage/backpack, SLOT_HUD_BACK)
-	equip_item(H, /obj/item/radio/headset/deadsay, SLOT_HUD_LEFT_EAR)
+		equip_item(H, /obj/item/storage/backpack, ITEM_SLOT_BACK)
+	equip_item(H, /obj/item/radio/headset/deadsay, ITEM_SLOT_LEFT_EAR)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
 	var/obj/item/bio_chip/dust/I = new
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
+		if(isnull(G))
+			continue
 		if(G.allowed_roles) // Fix due to shitty HUD code
 			continue
 		if(G.slot)
-			if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
+			if(H.equip_to_slot_or_del(G.spawn_item(H, save_to_load.get_gear_metadata(G)), G.slot, TRUE))
 				to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 		else
-			H.equip_or_collect(G.spawn_item(null, save_to_load.loadout_gear[G.display_name]))
+			H.equip_or_collect(G.spawn_item(null, save_to_load.get_gear_metadata(G)))
 	if(!H.w_uniform)
-		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
+		equip_item(H, /obj/item/clothing/under/color/random, ITEM_SLOT_JUMPSUIT)
 	if(!H.shoes)
-		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_STORE)
+		equip_item(H, /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES)
+	equip_item(H, /obj/item/stack/spacecash/c1000, ITEM_SLOT_LEFT_POCKET)
 
-	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
+	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, ITEM_SLOT_ID)
 	our_id.assignment = assignedrole
 	our_id.registered_name = H.real_name
 	our_id.sex = capitalize(H.gender)

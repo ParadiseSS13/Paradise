@@ -9,7 +9,7 @@
 	anchored = TRUE
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
-	var/obj/item/radio/beacon/Beacon
+	var/obj/item/beacon/Beacon
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
 
@@ -19,7 +19,7 @@
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
 	var/turf/T = loc
-	Beacon = new /obj/item/radio/beacon
+	Beacon = new /obj/item/beacon
 	Beacon.invisibility = INVISIBILITY_MAXIMUM
 	Beacon.loc = T
 	Beacon.syndicate = syndicate

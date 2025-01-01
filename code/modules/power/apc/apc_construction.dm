@@ -42,7 +42,7 @@
 						return
 					else if(malfhack) // AI hacks board, not APC's frame
 						user.visible_message(\
-							"[user.name] has discarded strangely the programmed APC electronics from [name]!",
+							"[user.name] has discarded the strangely programmed APC electronics from [name]!",
 							"<span class='notice'>You discarded the strangely programmed board.</span>")
 						malfai = null
 						malfhack = FALSE

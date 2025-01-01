@@ -10,8 +10,15 @@
 #define SOUND_DISCO         (1<<8)
 #define SOUND_AI_VOICE      (1<<9)
 #define SOUND_PRAYERNOTIFY  (1<<10)
+#define SOUND_MUTE_END_OF_ROUND  (1<<11)
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
+
+#define LIGHT_NEW_LIGHTING	(1<<0)
+#define LIGHT_EXPOSURE		(1<<1)
+#define LIGHT_GLARE			(1<<2)
+
+#define LIGHT_DEFAULT		(LIGHT_NEW_LIGHTING|LIGHT_EXPOSURE|LIGHT_GLARE)
 
 #define PREFTOGGLE_CHAT_OOC					(1<<0)
 #define PREFTOGGLE_CHAT_DEAD				(1<<1)
@@ -32,7 +39,7 @@
 #define PREFTOGGLE_CHAT_NO_TICKETLOGS 		(1<<16)
 // #define PREFTOGGLE_UI_DARKMODE 				(1<<17) // Defunct as of 2024-01-29
 // #define PREFTOGGLE_DISABLE_KARMA 			(1<<18)	// Defunct as of 2023-03-12
-#define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS  (1<<19) 
+#define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS  (1<<19)
 // #define PREFTOGGLE_TYPING_ONCE 				(1<<20) // Defunct as of 2024-01-29
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		(1<<21)
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
@@ -54,7 +61,7 @@
 // #define PREFTOGGLE_2_EMOTE_BUBBLE				(1<<8) // 256 - Defunct as of 2024-01-29
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE					(1<<9) // 512
-#define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT			(1<<10) // 1024
+// #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT		(1<<10) // 1024 Defunct as of 2024-08-03 with runechat color preferences
 // #define PREFTOGGLE_2_SIMPLE_STAT_PANEL			(1<<11) // 2048 Defunct as of 2024-02-14 with browser stat panels
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES 				(1<<12) // 4096
 #define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  			(1<<13) // 8192
@@ -67,18 +74,32 @@
 #define PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE		(1<<20) // 1048576
 #define PREFTOGGLE_2_SWAP_INPUT_BUTTONS				(1<<21) // 2097152
 #define PREFTOGGLE_2_LARGE_INPUT_BUTTONS			(1<<22) // 4194304
+#define PREFTOGGLE_2_BIG_STRIP_MENU					(1<<23) // 8388608
 
-#define TOGGLES_2_TOTAL 							8388607 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 							16776191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_THOUGHT_BUBBLE|PREFTOGGLE_2_DANCE_DISCO|PREFTOGGLE_2_MOD_ACTIVATION_METHOD|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
+
+// toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
+#define TOGGLES_3_TOTAL 							1023 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+
+// When you add a toggle here, inform AA on merge so the column can be zeroed out. This needs to exist to avoid the compiler freaking out
+// Also update the above value to the actual total
+#define TOGGLES_3_DEFAULT (1)
+
 // Sanity checks
+// I should really convert these to a JSON list at some point hnnnnnng
 #if TOGGLES_TOTAL > 16777215
 #error toggles bitflag over 16777215. Please use toggles_2.
 #endif
 
 #if TOGGLES_2_TOTAL > 16777215
-#error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
+#error toggles_2 bitflag over 16777215. Please use toggles_3.
+#endif
+
+#if TOGGLES_3_TOTAL > 16777215
+#error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
 // This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
@@ -92,10 +113,12 @@
 #define PREFTOGGLE_SPECIAL		0
 /// Interacts with the sound bitflag
 #define PREFTOGGLE_SOUND		1
+/// Interacts with the light bitflag
+#define PREFTOGGLE_LIGHT		2
 /// Interacts with the toggles bitflag
-#define PREFTOGGLE_TOGGLE1		2
+#define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
-#define PREFTOGGLE_TOGGLE2		3
+#define PREFTOGGLE_TOGGLE2		4
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
@@ -120,6 +143,12 @@
 #define EXP_TYPE_SERVICE		"Service"
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
+
+// Defines for the glow level preference for the lighting.
+#define GLOW_HIGH    0
+#define GLOW_MED     1 // Default.
+#define GLOW_LOW     2
+#define GLOW_DISABLE 3
 
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active
@@ -146,9 +175,8 @@
 #define TAB_CHAR 	0
 #define TAB_GAME 	1
 #define TAB_ANTAG 	2
-#define TAB_GEAR 	3
-#define TAB_KEYS 	4
-#define TAB_TOGGLES 5
+#define TAB_KEYS 	3
+#define TAB_TOGGLES 4
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
 	/**
@@ -32,10 +32,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/completed = FALSE
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
-
+	/// List of jobs that the objective will target if possible, any crew if not.
+	var/list/target_jobs = list()
+	/// The department that'll be targeted by this objective. If set, fills target_jobs with jobs from that department.
+	var/target_department
+	/// If set, steal targets will be pulled from this list
+	var/list/steal_list = list()
+	/// Contains the flags needed to meet the conditions of a valid target, such as mindshielded or syndicate agent.
+	var/flags_target
 	var/datum/objective_holder/holder
 
-/datum/objective/New(text, datum/team/team_to_join)
+	/// What is the text we show when our objective is delayed?
+	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+
+/datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.all_objectives += src
@@ -43,6 +53,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(target_department)
+		target_jobs = setup_target_jobs()
+	if(_owner)
+		owner = _owner
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
@@ -95,6 +109,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+	if(HAS_TRAIT(possible_target.current, TRAIT_CRYO_DESPAWNING))
+		return TARGET_CRYOING
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -117,9 +133,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-
+		if((flags_target & MINDSHIELDED_TARGET) && !ismindshielded(possible_target.current))
+			continue
+		if((flags_target & UNMINDSHIELDED_TARGET) && ismindshielded(possible_target.current))
+			continue
+		if((flags_target & SYNDICATE_TARGET) && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+			continue
+		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
+			continue
 		possible_targets += possible_target
 
+	if(!length(possible_targets)) // If we can't find anyone, try with less restrictions
+		for(var/datum/mind/possible_target in SSticker.minds)
+			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+				continue
+			possible_targets += possible_target
 
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
@@ -139,9 +167,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	target = null
 	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
 
-/**
-  * Called a tick after when the objective's target goes to cryo.
-  */
 /datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
 	if(!target)
@@ -157,9 +182,31 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
 
+// Setup and return the objective target jobs list based on target department
+/datum/objective/proc/setup_target_jobs()
+	if(!target_department)
+		return
+	. = list()
+	switch(target_department)
+		if(DEPARTMENT_COMMAND)
+			. = GLOB.command_head_positions.Copy()
+		if(DEPARTMENT_MEDICAL)
+			. = GLOB.medical_positions.Copy()
+		if(DEPARTMENT_ENGINEERING)
+			. = GLOB.engineering_positions.Copy()
+		if(DEPARTMENT_SCIENCE)
+			. = GLOB.science_positions.Copy()
+		if(DEPARTMENT_SECURITY)
+			. = GLOB.active_security_positions.Copy()
+		if(DEPARTMENT_SUPPLY)
+			. = GLOB.supply_positions.Copy()
+		if(DEPARTMENT_SERVICE)
+			. = GLOB.service_positions.Copy()
+
 /datum/objective/assassinate
 	name = "Assassinate"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
 
 /datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
@@ -181,6 +228,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinateonce
 	name = "Assassinate once"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
 	var/won = FALSE
 
 /datum/objective/assassinateonce/update_explanation_text()
@@ -204,7 +252,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(won)
 		return
 	return ..()
-
 
 /datum/objective/mutiny
 	name = "Mutiny"
@@ -244,6 +291,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon
 	name = "Maroon"
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
 	if(target?.current)
@@ -265,11 +313,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return TRUE
 
-
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -385,8 +433,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block
 	name = "Silicon hijack"
-	explanation_text = "Hijack the shuttle with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
+	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
+	Crew and agents can be on the shuttle when you do this, and may try to wipe you! \
 	Using the doomsday device successfully is also an option."
 	martyr_compatible = FALSE
 	needs_target = FALSE
@@ -396,6 +444,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!M.current || !issilicon(M.current))
 			return FALSE
 	if(SSticker.mode.station_was_nuked)
+		return TRUE
+	if(SSshuttle.emergency.aihacked)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
@@ -431,15 +481,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	return TRUE
 
-
 /datum/objective/escape/escape_with_identity
-	name = null
+	name = "Escape With Identity"
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
 	/// If the objective has an assassinate objective tied to it.
 	var/has_assassinate_objective = FALSE
 
-/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/mind/_owner, datum/objective/assassinate/assassinate)
 	..()
 	if(!assassinate)
 		return
@@ -473,7 +522,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER
 	if(new_target)
-		target_real_name = new_target.current.real_name
+		target = new_target
+		update_explanation_text()
 		return
 	// The assassinate objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
 	find_target()
@@ -524,9 +574,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
+	var/datum/theft_objective/steal_target
 
 /datum/objective/steal/found_target()
 	return steal_target
@@ -535,7 +586,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target(list/target_blacklist)
-	var/potential = GLOB.potential_theft_objectives.Copy()
+	var/potential
+	if(length(steal_list))
+		potential = steal_list.Copy()
+	else
+		potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		if(locate(thefttype) in target_blacklist)
@@ -550,7 +605,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(!O.check_objective_conditions())
 			continue
-		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+		if(O.flags & THEFT_FLAG_UNIQUE)
 			continue
 
 		steal_target = O
@@ -561,7 +616,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Free Objective."
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom" + "random"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target)
 		return
@@ -580,17 +635,24 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target_theft_objective.name = theft_objective_name
 		steal_target = target_theft_objective
 		explanation_text = "Steal [theft_objective_name]."
-	else
-		steal_target = new new_target
-		update_explanation_text()
-		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+		return steal_target
+	else if(new_target == "random")
+		return TRUE
+
+	steal_target = new new_target
+	update_explanation_text()
+	if(steal_target.special_equipment) // We have to do it with a callback because mind/Topic creates the objective without an owner
+		addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
 	return steal_target
+
+/datum/objective/steal/proc/hand_out_equipment()
+	give_kit(steal_target?.special_equipment)
 
 /datum/objective/steal/update_explanation_text()
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
-		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]."
+		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
+	explanation_text += steal_target.extra_information
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
@@ -611,23 +673,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/obj/item/item_to_give = new item_path
 	var/static/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+		"left hand" = ITEM_SLOT_LEFT_HAND,
+		"right hand" = ITEM_SLOT_RIGHT_HAND,
 	)
 
 	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
 		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
 		if(!kit_receiver)
 			continue
-
 		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
 		if(!where)
 			continue
 
-		to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+		to_chat(kit_receiver, "<br><br><span class='notice'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
 		for(var/datum/mind/objective_owner as anything in objective_owners)
 			if(kit_receiver_mind == objective_owner || !objective_owner.current)
 				continue
@@ -645,7 +706,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
 		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
-
 
 /datum/objective/absorb
 	name = "Absorb DNA"
@@ -688,6 +748,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
 
 /datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
@@ -771,7 +832,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
-	name = "Spread blood"
+	name = "Drink blood"
 	needs_target = FALSE
 
 /datum/objective/blood/New()
@@ -795,6 +856,32 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+#define SWARM_GOAL_LOWER_BOUND	130
+#define SWARM_GOAL_UPPER_BOUND	400
+
+/datum/objective/swarms
+	name = "Gain swarms"
+	needs_target = FALSE
+
+/datum/objective/swarms/New()
+	gen_amount_goal()
+	return ..()
+
+/datum/objective/swarms/proc/gen_amount_goal(low = SWARM_GOAL_LOWER_BOUND, high = SWARM_GOAL_UPPER_BOUND)
+	target_amount = round(rand(low, high), 5)
+	update_explanation_text()
+	return target_amount
+
+/datum/objective/swarms/update_explanation_text()
+	explanation_text = "Accumulate at least [target_amount] worth of swarms."
+
+/datum/objective/swarms/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/mindflayer/flayer = M.has_antag_datum(/datum/antagonist/mindflayer)
+		return flayer?.total_swarms_gathered >= target_amount
+
+#undef SWARM_GOAL_LOWER_BOUND
+#undef SWARM_GOAL_UPPER_BOUND
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
@@ -815,3 +902,45 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
 	completed = TRUE
+
+/datum/objective/zombie
+	explanation_text = "Hunger grows within us, we need to feast on the brains of the uninfected. Scratch, bite, and spread the plague."
+	needs_target = FALSE
+	completed = TRUE
+
+// Placeholder objectives that will replace themselves
+
+/datum/objective/delayed
+	needs_target = FALSE
+	var/datum/objective/objective_to_replace_with
+
+/datum/objective/delayed/New(datum/objective/delayed_objective)
+	..()
+	if(!ispath(delayed_objective))
+		stack_trace("A delayed objective has been given a non-path. Given was instead [delayed_objective]")
+		return
+	objective_to_replace_with = delayed_objective
+	explanation_text = initial(delayed_objective.delayed_objective_text)
+
+/datum/objective/delayed/update_explanation_text()
+	return
+
+/datum/objective/delayed/proc/reveal_objective()
+	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner), target_department, steal_list)
+
+// A warning objective for that an agent is after you and knows you are an agent (or that you are paranoid)
+/datum/objective/potentially_backstabbed
+	name = "Potentially Backstabbed"
+	explanation_text = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
+		Remain vigilant, they know who you are and what you can do."
+	needs_target = FALSE
+
+/datum/objective/potentially_backstabbed/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
+		for(var/datum/objective/our_objective in T.get_antag_objectives(FALSE))
+			if(istype(our_objective, /datum/objective/potentially_backstabbed))
+				continue
+			if(!our_objective.check_completion())
+				return FALSE
+	return TRUE

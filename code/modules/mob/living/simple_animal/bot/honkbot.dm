@@ -36,6 +36,10 @@
 	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
@@ -112,7 +116,7 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
@@ -127,12 +131,12 @@
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
-		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
+		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
 /mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	if(locked || !open)
 		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
 		return FALSE
@@ -147,6 +151,7 @@
 		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
+	return TRUE
 
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()
@@ -270,7 +275,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
 				walk_to(src, 0)
-				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, 1, -1)
+				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
 
@@ -330,7 +335,7 @@
 			if(emagged) // actually emagged
 				bike_horn()
 			else
-				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
+				if((C in view(4, src)) && !spam_flag) //keep the range short for patrolling
 					bike_horn()
 			continue
 
@@ -372,10 +377,10 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && on) //only if its online
+/mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = AM
+			var/mob/living/carbon/C = entered
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
@@ -386,9 +391,7 @@
 							"[C] topples over [src]!", \
 							"[C] leaps out of [src]'s way!")]</span>")
 			C.KnockDown(10 SECONDS)
-			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
+			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 			if(!client)
 				speak("Honk!")
 			sensor_blink()
-			return
-	..()

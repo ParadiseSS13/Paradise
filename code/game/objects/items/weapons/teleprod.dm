@@ -7,7 +7,7 @@
 	base_icon = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
+/obj/item/melee/baton/cattleprod/teleprod/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()
 	if(!turned_on)
 		return
@@ -16,5 +16,5 @@
 			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		deductcharge(hitcost)
 		do_teleport(user, get_turf(user), 50)//honk honk
-	else if(iscarbon(M) && !M.anchored)
+	else if(isliving(M) && !M.anchored)
 		do_teleport(M, get_turf(M), 15)

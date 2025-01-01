@@ -13,7 +13,7 @@
 	var/plural = count > 1
 	. += "There [plural ? "are" : "is"] [count] use[plural ? "s" : ""] left."
 
-/obj/item/whiteship_port_generator/attack_self(mob/living/user)
+/obj/item/whiteship_port_generator/attack_self__legacy__attackchain(mob/living/user)
 	if(is_station_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock in the station's sector at [COORD(user)].")
 		to_chat(user, "<span class='notice'>New docking areas cannot be designated within the station's sector!</span>")
@@ -37,6 +37,7 @@
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 	var/dir_choice = tgui_input_list(user, "Select the new docking area orientation.", "Dock Orientation", dir_choices)
 	if(!dir_choice)
+		to_chat(user, "<span class='notice'>Docking placement cancelled.</span>")
 		return
 
 	var/dest_dir = dir_choices[dir_choice]
@@ -76,17 +77,22 @@
 		qdel(port, force = TRUE)
 		return
 
-	placed_docks += port
-	var/dock_count = length(placed_docks)
-
-	var/basename = "Custom Dock #[dock_count]"
+	var/basename = "Docking Port #[length(placed_docks) + 1]"
 	var/name = tgui_input_text(user,
 		message = "Select the new docking area name.",
 		title = "New Dock Name",
 		default = basename,
 		max_length = 20
 	)
-	port.name = name ? name : basename
+	if(!name)
+		to_chat(user, "<span class='notice'>Docking placement cancelled.</span>")
+		qdel(port, force = TRUE)
+		return
+
+	placed_docks += port
+	var/dock_count = length(placed_docks)
+
+	port.name = name
 	port.id = "whiteship_custom_[dock_count]"
 	port.register()
 
@@ -97,7 +103,7 @@
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 
 	if(dock_count < max_docks)
-		to_chat(user, "<span class='info'>Landing zone set.</span>")
+		to_chat(user, "<span class='notice'>Landing zone set.</span>")
 	else
-		to_chat(user, "<span class='info'>Landing zone set. The signaller vanishes!</span>")
+		to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
 		qdel(src)

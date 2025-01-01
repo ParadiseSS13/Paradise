@@ -9,6 +9,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
 
@@ -74,7 +75,7 @@
 	icon_state = "beret_hos_black"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
@@ -84,7 +85,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
-/obj/item/clothing/head/beret/sec/warden
+/obj/item/clothing/head/beret/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
@@ -177,10 +178,30 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 		)
 
+//NT Career Trainer
+/obj/item/clothing/head/beret/nct/black
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is black!"
+	icon_state = "beret_trainerblack"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/nct/green
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is green!"
+	icon_state = "beret_trainergreen"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+	)
 
 //Special Roles
-/obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+/obj/item/clothing/head/beret/solgov
+	name = "\improper TSF Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "beret_solgovc"
 	item_color = "solgovc"
@@ -188,9 +209,9 @@
 	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
 
-/obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+/obj/item/clothing/head/beret/solgov/elite
+	name = "\improper MARSOC Lieutenant's beret"
+	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"

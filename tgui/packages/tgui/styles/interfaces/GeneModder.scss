@@ -1,0 +1,20 @@
+@use '../base.scss';
+
+$background-color: rgba(0, 0, 0, 0.33) !default;
+
+.GeneModder__left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: base.em(490px);
+}
+
+.GeneModder__right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: base.em(490px);
+  right: 0;
+  background-color: $background-color;
+}

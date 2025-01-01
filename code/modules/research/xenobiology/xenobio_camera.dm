@@ -149,8 +149,8 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/food/snacks/monkeycube))
+/obj/machinery/computer/camera_advanced/xenobio/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/food/monkeycube))
 		if(user.drop_item())
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
@@ -165,7 +165,7 @@
 	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/food/snacks/monkeycube/MC in P.contents)
+		for(var/obj/item/food/monkeycube/MC in P.contents)
 			loaded = 1
 			monkeys++
 			P.remove_from_storage(MC)
@@ -190,7 +190,7 @@
 // === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place
 	name = "Place Slimes"
-	button_icon_state = "slime_down"
+	button_overlay_icon_state = "slime_down"
 
 /datum/action/innate/slime_place/Activate()
 	if(!target || !ishuman(owner))
@@ -210,7 +210,7 @@
 
 /datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
-	button_icon_state = "slime_up"
+	button_overlay_icon_state = "slime_up"
 
 /datum/action/innate/slime_pick_up/Activate()
 	if(!target || !ishuman(owner))
@@ -232,7 +232,7 @@
 
 /datum/action/innate/feed_slime
 	name = "Feed Slimes"
-	button_icon_state = "monkey_down"
+	button_overlay_icon_state = "monkey_down"
 
 /datum/action/innate/feed_slime/Activate()
 	if(!target || !ishuman(owner))
@@ -240,6 +240,7 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/eye/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
@@ -252,7 +253,20 @@
 			to_chat(owner, "[X] doesn't have monkeys.")
 			return
 		else if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			var/mob/living/carbon/human/monkey/food
+			switch(recycler.cube_type)
+				if(/obj/item/food/monkeycube) 										// Regular monkey
+					food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+				if(/obj/item/food/monkeycube/nian_wormecube) 						// Worme
+					food = new /mob/living/carbon/human/nian_worme(remote_eye.loc)
+				if(/obj/item/food/monkeycube/farwacube) 								// Farwa
+					food = new /mob/living/carbon/human/farwa(remote_eye.loc)
+				if(/obj/item/food/monkeycube/stokcube) 								// Stok
+					food = new /mob/living/carbon/human/stok(remote_eye.loc)
+				if(/obj/item/food/monkeycube/neaeracube) 							// Neara
+					food = new /mob/living/carbon/human/neara(remote_eye.loc)
+				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
+					food = new /mob/living/carbon/human/wolpin(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys --
@@ -262,7 +276,7 @@
 
 /datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
-	button_icon_state = "monkey_up"
+	button_overlay_icon_state = "monkey_up"
 
 /datum/action/innate/monkey_recycle/Activate()
 	if(!target || !ishuman(owner))
@@ -287,7 +301,7 @@
 
 /datum/action/innate/slime_scan
 	name = "Scan Slime"
-	button_icon_state = "slime_scan"
+	button_overlay_icon_state = "slime_scan"
 
 /datum/action/innate/slime_scan/Activate()
 	if(!target || !isliving(owner))
@@ -303,7 +317,7 @@
 
 /datum/action/innate/feed_potion
 	name = "Apply Potion"
-	button_icon_state = "slime_potion"
+	button_overlay_icon_state = "slime_potion"
 
 /datum/action/innate/feed_potion/Activate()
 	if(!target || !ishuman(owner))
@@ -319,14 +333,14 @@
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
-			X.current_potion.attack(S, C)
+			X.current_potion.attack__legacy__attackchain(S, C)
 			break
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/hotkey_help
 	name = "Hotkey Help"
-	button_icon_state = "hotkey_help"
+	button_overlay_icon_state = "hotkey_help"
 
 /datum/action/innate/hotkey_help/Activate()
 	if(!target || !isliving(owner))
@@ -397,7 +411,7 @@
 		to_chat(C, "<span class='warning'>No potion loaded.</span>")
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		X.current_potion.attack(S, C)
+		X.current_potion.attack__legacy__attackchain(S, C)
 
 //Picks up slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)
@@ -444,13 +458,27 @@
 	var/mob/living/C = user
 	var/mob/camera/eye/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	var/area/turfarea = get_area(T)
 	if(iswallturf(T))
 		to_chat(user, "You can't place monkey here.")
 		return
 	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
+			var/mob/living/carbon/human/monkey/food
+			switch(recycler.cube_type)
+				if(/obj/item/food/monkeycube) 										// Regular monkey
+					food = new /mob/living/carbon/human/monkey(T)
+				if(/obj/item/food/monkeycube/nian_wormecube) 						// Worme
+					food = new /mob/living/carbon/human/nian_worme(T)
+				if(/obj/item/food/monkeycube/farwacube) 								// Farwa
+					food = new /mob/living/carbon/human/farwa(T)
+				if(/obj/item/food/monkeycube/stokcube) 								// Stok
+					food = new /mob/living/carbon/human/stok(T)
+				if(/obj/item/food/monkeycube/neaeracube) 							// Neara
+					food = new /mob/living/carbon/human/neara(T)
+				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
+					food = new /mob/living/carbon/human/wolpin(T)
 			food.LAssailant = C
 			X.monkeys--
 			X.monkeys = round(X.monkeys, 0.1)

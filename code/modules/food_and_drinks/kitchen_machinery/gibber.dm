@@ -40,12 +40,12 @@
 
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to empty it.</span>"
 
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message("<span class='danger'><b>[user] climbs into [src] and turns it on!</b></span>")
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -93,7 +93,7 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
+/obj/machinery/gibber/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/grab))
 		var/obj/item/grab/G = P
 		if(G.state < 2)
@@ -106,14 +106,12 @@
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		return
 
-	if(exchange_parts(user, P))
-		return
-
 	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
 		return
 
 	if(default_deconstruction_crowbar(user, P))
 		return
+
 	return ..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
@@ -233,6 +231,10 @@
 		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
 		return
 
+	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
+		visible_message("<span class='warning'>[src] jams up as [occupant]'s corpse rapidly grows in size...</span>")
+		return
+
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
@@ -243,13 +245,13 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 6
-	var/slab_type = /obj/item/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
+	var/slab_type = /obj/item/food/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
 	for(var/i=1 to slab_count)
-		var/obj/item/food/snacks/meat/new_meat = new slab_type(src)
+		var/obj/item/food/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
 
@@ -279,18 +281,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
-			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
-			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET))
+			var/obj/item/ls = H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
-			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET))
+			var/obj/item/rs = H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null

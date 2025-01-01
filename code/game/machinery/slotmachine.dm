@@ -165,7 +165,7 @@
 
 	// No cheesing with buckling ourselves, this spinning is too fast for seatbelts
 	if(user.buckled)
-		user.buckled.unbuckle_mob(user, force = TRUE)
+		user.unbuckle(force = TRUE)
 
 	// Check if the machine and the user are still next to each other
 	if(!do_after(user, delay = 1.2 SECONDS, target = src, use_default_checks = FALSE))

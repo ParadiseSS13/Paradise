@@ -1,14 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  Stack,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-} from '../components';
+import { AnimatedNumber, Box, Button, Stack, Icon, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -69,20 +60,14 @@ const CryoContent = (props, context) => {
           fill
           scrollable
           buttons={
-            <Button
-              icon="user-slash"
-              onClick={() => act('ejectOccupant')}
-              disabled={!hasOccupant}
-            >
+            <Button icon="user-slash" onClick={() => act('ejectOccupant')} disabled={!hasOccupant}>
               Eject
             </Button>
           }
         >
           {hasOccupant ? (
             <LabeledList>
-              <LabeledList.Item label="Occupant">
-                {occupant.name || 'Unknown'}
-              </LabeledList.Item>
+              <LabeledList.Item label="Occupant">{occupant.name || 'Unknown'}</LabeledList.Item>
               <LabeledList.Item label="Health">
                 <ProgressBar
                   min={occupant.health}
@@ -93,10 +78,7 @@ const CryoContent = (props, context) => {
                   <AnimatedNumber value={Math.round(occupant.health)} />
                 </ProgressBar>
               </LabeledList.Item>
-              <LabeledList.Item
-                label="Status"
-                color={statNames[occupant.stat][0]}
-              >
+              <LabeledList.Item label="Status" color={statNames[occupant.stat][0]}>
                 {statNames[occupant.stat][1]}
               </LabeledList.Item>
               <LabeledList.Item label="Temperature">
@@ -106,13 +88,8 @@ const CryoContent = (props, context) => {
               <LabeledList.Divider />
               {damageTypes.map((damageType) => (
                 <LabeledList.Item key={damageType.id} label={damageType.label}>
-                  <ProgressBar
-                    value={occupant[damageType.type] / 100}
-                    ranges={{ bad: [0.01, Infinity] }}
-                  >
-                    <AnimatedNumber
-                      value={Math.round(occupant[damageType.type])}
-                    />
+                  <ProgressBar value={occupant[damageType.type] / 100} ranges={{ bad: [0.01, Infinity] }}>
+                    <AnimatedNumber value={Math.round(occupant[damageType.type])} />
                   </ProgressBar>
                 </LabeledList.Item>
               ))}
@@ -132,11 +109,7 @@ const CryoContent = (props, context) => {
         <Section
           title="Cell"
           buttons={
-            <Button
-              icon="eject"
-              onClick={() => act('ejectBeaker')}
-              disabled={!isBeakerLoaded}
-            >
+            <Button icon="eject" onClick={() => act('ejectBeaker')} disabled={!isBeakerLoaded}>
               Eject Beaker
             </Button>
           }
@@ -174,13 +147,7 @@ const CryoContent = (props, context) => {
               <Button
                 icon={auto_eject_healthy ? 'toggle-on' : 'toggle-off'}
                 selected={auto_eject_healthy}
-                onClick={() =>
-                  act(
-                    auto_eject_healthy
-                      ? 'auto_eject_healthy_off'
-                      : 'auto_eject_healthy_on'
-                  )
-                }
+                onClick={() => act(auto_eject_healthy ? 'auto_eject_healthy_off' : 'auto_eject_healthy_on')}
               >
                 {auto_eject_healthy ? 'On' : 'Off'}
               </Button>
@@ -189,13 +156,7 @@ const CryoContent = (props, context) => {
               <Button
                 icon={auto_eject_dead ? 'toggle-on' : 'toggle-off'}
                 selected={auto_eject_dead}
-                onClick={() =>
-                  act(
-                    auto_eject_dead
-                      ? 'auto_eject_dead_off'
-                      : 'auto_eject_dead_on'
-                  )
-                }
+                onClick={() => act(auto_eject_dead ? 'auto_eject_dead_off' : 'auto_eject_dead_on')}
               >
                 {auto_eject_dead ? 'On' : 'Off'}
               </Button>
@@ -218,10 +179,7 @@ const CryoBeaker = (props, context) => {
         </Box>
         <Box inline color={!beakerVolume && 'bad'} ml={1}>
           {beakerVolume ? (
-            <AnimatedNumber
-              value={beakerVolume}
-              format={(v) => Math.round(v) + ' units remaining'}
-            />
+            <AnimatedNumber value={beakerVolume} format={(v) => Math.round(v) + ' units remaining'} />
           ) : (
             'Beaker is empty'
           )}

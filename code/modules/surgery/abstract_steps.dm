@@ -97,7 +97,7 @@
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
 
-		if(!tool && first_step.accept_hand)
+		if((!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND)) && first_step.accept_hand)
 			if(SURGERY_TOOL_HAND in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow an empty hand.")
 			next_surgery = S  // if there's no tool, just proceed forward.
@@ -113,7 +113,7 @@
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
-			if(allowed in starting_tools && !(allowed in overriding_tools))
+			if((allowed in starting_tools) && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
 			else
 				starting_tools.Add(allowed)
@@ -141,7 +141,7 @@
 		if((SURGERY_TOOL_ANY in starting_tools) && next_surgery_step.accept_any_item)
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
 
-		if(!tool && next_surgery_step.accept_hand && !(SURGERY_TOOL_HAND in starting_tools))
+		if((!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND)) && next_surgery_step.accept_hand && !(SURGERY_TOOL_HAND in starting_tools))
 			next_surgery = surgery
 
 		for(var/allowed in next_surgery_step.allowed_tools)

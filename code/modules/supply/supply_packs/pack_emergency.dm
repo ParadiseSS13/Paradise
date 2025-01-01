@@ -27,6 +27,36 @@
 	containername = "emergency crate"
 	group = SUPPLY_EMERGENCY
 
+/datum/supply_packs/emergency/glowstick/emergency
+	name = "Emergency Glowstick Crate"
+	contains = list(/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency)
+	cost = 100
+	containertype = /obj/structure/closet/crate
+	containername = "emergency glowstick crate"
+
+/datum/supply_packs/emergency/glowstick/premium
+	name = "Premium Glowstick Crate"
+	contains = list(/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium)
+	cost = 200
+	containertype = /obj/structure/closet/crate
+	containername = "premium glowstick crate"
+
+/datum/supply_packs/emergency/flares
+	name = "Emergency Flare Crate"
+	contains = list(/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares,
+					/obj/item/storage/box/flares)
+	cost = 150
+	containertype = /obj/structure/closet/crate
+	containername = "emergency flare crate"
+
 /datum/supply_packs/emergency/internals
 	name = "Internals Crate"
 	contains = list(/obj/item/clothing/mask/gas,

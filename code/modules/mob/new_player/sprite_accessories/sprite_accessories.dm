@@ -370,6 +370,10 @@
 	name = "Corgi Shirt"
 	icon_state = "shirt_corgi"
 
+/datum/sprite_accessory/undershirt/shirt_en
+	name = "Borgi Shirt" // E-N!
+	icon_state = "shirt_borgi"
+
 /datum/sprite_accessory/undershirt/shirt_clown
 	name = "Clown Shirt"
 	icon_state = "shirt_clown"
@@ -433,6 +437,35 @@
 /datum/sprite_accessory/undershirt/brightblue_striped
 	name = "Striped Bright Blue Shirt"
 	icon_state = "shirt_brightbluestripe"
+
+/datum/sprite_accessory/undershirt/shirt_trans
+	name = "Transgender Shirt"
+	icon_state = "shirt_trans"
+
+/datum/sprite_accessory/undershirt/shirt_nonbinary
+	name = "Nonbinary Shirt"
+	icon_state = "shirt_nonbinary"
+
+/datum/sprite_accessory/undershirt/shirt_bisexual
+	name = "Bisexual Shirt"
+	icon_state = "shirt_bisexual"
+
+/datum/sprite_accessory/undershirt/shirt_pansexual
+	name = "Pansexual Shirt"
+	icon_state = "shirt_pansexual"
+
+/datum/sprite_accessory/undershirt/shirt_asexual
+	name = "Asexual Shirt"
+	icon_state = "shirt_asexual"
+
+/datum/sprite_accessory/undershirt/shirt_rainbow
+	name = "Rainbow Shirt"
+	icon_state = "shirt_rainbow"
+
+/datum/sprite_accessory/undershirt/shirt_wave
+	name = "Great Wave Shirt"
+	icon_state = "shirt_wave"
+
 //end graphic shirts
 
 //short sleeved

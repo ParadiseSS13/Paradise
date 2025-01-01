@@ -14,7 +14,7 @@
 	to_chat(imp_in, "You feel a faint click.")
 	if(iscarbon(imp_in))
 		var/mob/living/carbon/C_imp_in = imp_in
-		C_imp_in.uncuff()
+		C_imp_in.clear_restraints()
 		for(var/obj/item/grab/G in C_imp_in.grabbed_by)
 			var/mob/living/carbon/M = G.assailant
 			C_imp_in.visible_message("<span class='warning'>[C_imp_in] suddenly shocks [M] from their wrists and slips out of their grab!</span>")

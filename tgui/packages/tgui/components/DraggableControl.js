@@ -79,8 +79,7 @@ export class DraggableControl extends Component {
       if (disabled) {
         return;
       }
-      const defaultStepPixelSize =
-        this.ref.offsetWidth / ((maxValue - minValue) / step);
+      const defaultStepPixelSize = this.ref.offsetWidth / ((maxValue - minValue) / step);
       let stepPixelSize = this.props.stepPixelSize ?? defaultStepPixelSize;
       if (typeof stepPixelSize === 'function') {
         stepPixelSize = stepPixelSize(defaultStepPixelSize);
@@ -92,8 +91,7 @@ export class DraggableControl extends Component {
         if (prevState.dragging) {
           const stepDifference = Math.trunc(offset / stepPixelSize);
           state.value = clamp(
-            Math.floor(state.originalValue / step) * step +
-              stepDifference * step,
+            Math.floor(state.originalValue / step) * step + stepDifference * step,
             minValue,
             maxValue
           );
@@ -140,12 +138,7 @@ export class DraggableControl extends Component {
   }
 
   render() {
-    const {
-      dragging,
-      editing,
-      value: intermediateValue,
-      suppressingFlicker,
-    } = this.state;
+    const { dragging, editing, value: intermediateValue, suppressingFlicker } = this.state;
     const {
       animated,
       value,

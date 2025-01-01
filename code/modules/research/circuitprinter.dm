@@ -74,16 +74,18 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/r_n_d/circuit_imprinter/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 		return
+
 	if(O.is_open_container())
 		return FALSE
-	else
-		return ..()
+
+	return ..()
 
 /obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)

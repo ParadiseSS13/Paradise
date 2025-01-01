@@ -50,7 +50,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -171,21 +171,26 @@
 			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
-/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/decal/cleanable/vomit/Bump(atom/A)
 	. = ..()
 	if(A.density)
 		splat(A)
 
-/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+/obj/effect/decal/cleanable/vomit/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!gravity_check)
-		splat(AM)
-	..()
+		splat(entered)
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(gravity_check)
 		return
 	var/turf/T = get_turf(A)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T)
@@ -232,7 +237,7 @@
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
-	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
+	if(severity == EXPLODE_DEVASTATE) //so shreds created during an explosion aren't deleted by the explosion.
 		qdel(src)
 
 /obj/effect/decal/cleanable/shreds/Initialize(mapload)

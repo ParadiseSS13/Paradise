@@ -36,9 +36,6 @@
 /obj/structure/flora/tree/dead/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/largetransparency, 0, 1, 0, 0)
-
-/obj/structure/flora/tree/dead/Initialize(mapload)
-	. = ..()
 	icon_state = "tree_[rand(1, 6)]"
 
 /obj/structure/flora/tree/palm
@@ -48,7 +45,6 @@
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
 	icon_state = pick("palm1","palm2")
-	pixel_x = 0
 
 /obj/structure/flora/tree/jungle
 	name = "tree"
@@ -275,6 +271,7 @@
 		icon_state = "plant-eye"
 	if(icon_state == "random_plant")
 		icon_state = "plant-[rand(1, 34)]"
+	update_appearance(UPDATE_ICON_STATE)
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/kirbyplants/Destroy()
@@ -296,13 +293,20 @@
 	RegisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS, PROC_REF(reapply_hide))
 	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
 	user.add_overlay(mob_overlay)
-	user.alpha = 0
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.set_alpha_tracking(0, src)
+	else
+		user.alpha = 0
 
 /// User has either dropped the plant, or plant is being destroyed, restore user to normal.
 /obj/item/kirbyplants/proc/unhide_user(mob/living/carbon/user)
 	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
 	user.cut_overlay(mob_overlay)
 	user.alpha = initial(user.alpha)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.set_alpha_tracking(ALPHA_VISIBLE, src)
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.
@@ -511,7 +515,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby(obj/I as obj, mob/user as mob, params)
+/obj/structure/bush/attackby__legacy__attackchain(obj/I as obj, mob/user as mob, params)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)

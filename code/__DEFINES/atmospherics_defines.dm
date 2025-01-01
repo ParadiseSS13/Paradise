@@ -43,11 +43,14 @@
 
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
-//Should not exceed 0.4 else strange heat flow occur
-#define FLOOR_HEAT_TRANSFER_COEFFICIENT		0.15
+//Capped at OPEN_HEAT_TRANSFER_COEFFICIENT, both here and in Rust.
 #define WALL_HEAT_TRANSFER_COEFFICIENT		0.0
+#define DOOR_HEAT_TRANSFER_COEFFICIENT		0.001
 #define OPEN_HEAT_TRANSFER_COEFFICIENT		0.4
-#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.1		//a hack for now
+#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.001
+// This looks silly, but it's for clarity when reading elsewhere.
+#define ZERO_HEAT_TRANSFER_COEFFICIENT		0.0
+
 #define HEAT_CAPACITY_VACUUM				700000	//a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
@@ -148,3 +151,27 @@
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
+/// The coefficient a for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_A 1.376651173e10
+/// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition rate close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
+// From milla/src/model.rs, line 126
+#define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
+#define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
+#define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2		//! Tile is exposed to the environment, ex: lavaland
+#define ATMOS_MODE_NO_DECAY 3					//! Prevents hot tiles from automatically decaying towards T20C.
+
+/// Lavaland environment: hot, low pressure.
+#define ENVIRONMENT_LAVALAND "lavaland"
+/// Temperate environment: Normal atmosphere, 20 C.
+#define ENVIRONMENT_TEMPERATE "temperate"
+/// Cold environment: Normal atmosphere, -93 C.
+#define ENVIRONMENT_COLD "cold"
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2

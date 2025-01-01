@@ -35,7 +35,7 @@
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -52,10 +52,10 @@
 
 /obj/structure/falsewall/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T)
+/obj/structure/falsewall/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)
@@ -84,7 +84,7 @@
 		density = TRUE
 		set_opacity(TRUE)
 		icon_state = "fwall_closing"
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon()
 
@@ -112,7 +112,7 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
@@ -124,7 +124,7 @@
 	. = ..()
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		to_chat(M, "<span class='info'>You smash through the wall.</span>")
+		to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
@@ -166,6 +166,11 @@
 			for(var/i in 1 to mineral_amount)
 				new mineral(loc)
 	qdel(src)
+
+/obj/structure/falsewall/set_smoothed_icon_state(new_junction)
+	if(opening || !density)
+		return
+	return ..()
 
 /*
  * False R-Walls
@@ -212,7 +217,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/falsewall/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -283,7 +288,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat() > 300)
 		var/turf/T = locate(user)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")

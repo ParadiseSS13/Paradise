@@ -34,7 +34,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
+/turf/simulated/floor/mineral/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
@@ -79,6 +79,13 @@
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
@@ -167,7 +174,7 @@
 		if(istype(M))
 			squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
+/turf/simulated/floor/mineral/bananium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	.=..()
 	if(!.)
 		honk()
@@ -204,6 +211,13 @@
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
@@ -236,7 +250,7 @@
 		if(istype(AM))
 			radiate()
 
-/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
+/turf/simulated/floor/mineral/uranium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	.=..()
 	if(!.)
 		radiate()
@@ -287,6 +301,8 @@
 	return //unburnable
 
 /turf/simulated/floor/plating/abductor/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

@@ -5,7 +5,7 @@
 	icon_state = "wrench"
 	belt_icon = "wrench"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
@@ -60,7 +60,7 @@
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
-	usesound = 'sound/items/drill_use.ogg'
+	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	force = 8
@@ -69,7 +69,7 @@
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/wrench/power/attack_self(mob/user)
+/obj/item/wrench/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
@@ -88,6 +88,7 @@
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
 	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
+	toolspeed = 0.75
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -107,7 +108,7 @@
 
 	// Immobilize stops them from wandering off and dropping the wrench
 	user.Immobilize(10 SECONDS)
-	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/pray.ogg', 50, TRUE, -1)
 
 	// Let the sound effect finish playing
 	sleep(20)

@@ -41,7 +41,6 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(linda_flags, moles_of_gas)
-		target_turf.air_update_turf()
 
 /mob/living/simple_animal/hostile/guardian/gaseous/ToggleMode()
 	var/picked_gas = tgui_input_list(src, "Select a gas to expel.", "Gas Producer", possible_gases)
@@ -68,9 +67,8 @@
 		if("Agent B")
 			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
 
-/mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta)
-	. = ..()
-	return FALSE
+/mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/hostile/guardian/gaseous/death(gibbed)
 	if(summoner)

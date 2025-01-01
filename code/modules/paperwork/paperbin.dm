@@ -73,10 +73,20 @@
 			P = papers[length(papers)]
 			papers.Remove(P)
 		else
-			if(letterhead_type && alert("Choose a style", null,"Letterhead","Blank")=="Letterhead")
-				P = new letterhead_type
-			else
-				P = new /obj/item/paper
+			var/choice = letterhead_type ? tgui_alert(user, "Choose a style", "Paperbin", list("Letterhead", "Blank", "Cancel")) : "Blank"
+			if(isnull(choice) || !Adjacent(user))
+				return
+			switch(choice)
+				if("Letterhead")
+					P = new letterhead_type
+				if("Blank")
+					P = new /obj/item/paper
+				if("Cancel")
+					return
+
+			if(isnull(P))
+				return
+
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
@@ -96,7 +106,7 @@
 	return
 
 
-/obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
+/obj/item/paper_bin/attackby__legacy__attackchain(obj/item/paper/i as obj, mob/user as mob, params)
 	if(istype(i))
 		user.drop_item()
 		i.loc = src

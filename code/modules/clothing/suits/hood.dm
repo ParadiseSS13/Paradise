@@ -21,15 +21,19 @@
 		W.suit = src
 		hood = W
 
+/obj/item/clothing/suit/hooded/clean_blood(radiation_clean)
+	. = ..()
+	hood.clean_blood()
+
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_OUTER_SUIT)
 		return 1
 
 /obj/item/clothing/suit/hooded/equipped(mob/user, slot)
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != ITEM_SLOT_OUTER_SUIT)
 		RemoveHood()
 	..()
 
@@ -61,7 +65,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood, SLOT_HUD_HEAD, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(hood, ITEM_SLOT_HEAD, FALSE, FALSE))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
@@ -90,7 +94,7 @@
 
 /obj/item/clothing/head/hooded/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_HEAD)
+	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHood()
 		else

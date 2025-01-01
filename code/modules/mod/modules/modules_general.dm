@@ -16,9 +16,16 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
-/obj/item/mod/module/storage/Initialize()
+/obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	var/obj/item/storage/backpack/modstorage/S = new(src)
+	bag = S
+	bag.max_w_class = max_w_class
+	bag.max_combined_w_class = max_combined_w_class
+	bag.storage_slots = max_items
+	bag.source = src
+	bag.forceMove(src)
 
 /obj/item/mod/module/storage/serialize()
 	var/list/data = ..()
@@ -30,16 +37,6 @@
 	qdel(bag)
 	bag = list_to_object(data["bag"], src)
 	bag.source = src
-
-/obj/item/mod/module/storage/Initialize(mapload)
-	. = ..()
-	var/obj/item/storage/backpack/modstorage/S = new(src)
-	bag = S
-	bag.max_w_class = max_w_class
-	bag.max_combined_w_class = max_combined_w_class
-	bag.storage_slots = max_items
-	bag.source = src
-	bag.forceMove(src)
 
 /obj/item/mod/module/storage/Destroy()
 	QDEL_NULL(bag)
@@ -112,6 +109,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/storage/backpack/modstorage/add_blood(list/blood_dna, b_color)
+	return
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
@@ -252,8 +251,8 @@
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = input(usr, "Pick new light color", "Flashlight Color") as color|null
-			if(!value)
+			value = tgui_input_color(usr, "Pick new light color", "Flashlight Color", light_color)
+			if(isnull(value))
 				return
 			if(is_color_dark(value, 50))
 				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))
@@ -287,7 +286,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/food/snacks/burger/cheese
+	var/dispense_type = /obj/item/food/burger/cheese
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 

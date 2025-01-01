@@ -83,30 +83,11 @@
 #define ui_alert4 "EAST-1:28,CENTER+2:21"
 #define ui_alert5 "EAST-1:28,CENTER+1:19"
 
-
-//Gun buttons
-#define ui_gun1 "EAST-2:26,SOUTH+2:7"
-#define ui_gun2 "EAST-1:28,SOUTH+3:7"
-#define ui_gun3 "EAST-2:26,SOUTH+3:7"
-#define ui_gun_select "EAST-1:28,SOUTH+2:7"
-
-//Upper-middle right (damage indicators)
-#define ui_toxin "EAST-1:28,CENTER+5:27"
-#define ui_fire "EAST-1:28,CENTER+4:25"
-#define ui_oxygen "EAST-1:28,CENTER+3:23"
-#define ui_pressure "EAST-1:28,CENTER+2:21"
-
-#define ui_alien_toxin "EAST-1:28,CENTER+5:25"
-#define ui_alien_fire "EAST-1:28,CENTER+4:25"
-#define ui_alien_oxygen "EAST-1:28,CENTER+3:25"
-#define ui_alien_nightvision "EAST-1:28,CENTER+2:25"
-
 //Middle right (status indicators)
-#define ui_nutrition "EAST-1:28,CENTER-3:11"
-#define ui_temp "EAST-1:28,CENTER-2:13"
-#define ui_healthdoll "EAST-1:28,CENTER-1:15"
-#define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
+#define ui_health "EAST-1:28,CENTER:17"
+#define ui_healthdoll "EAST-1:28,CENTER-1:15"
+#define ui_nutrition "EAST-2:32,CENTER-1:13"
 #define ui_stamina "EAST-1:28,CENTER-2:15"
 
 //borgs
@@ -130,30 +111,34 @@
 #define ui_gloves "WEST+2:10,SOUTH+1:7"
 
 
-#define ui_glasses "WEST:6,SOUTH+2:9"
+#define ui_glasses "WEST:6,SOUTH+3:11"
 #define ui_mask "WEST+1:8,SOUTH+2:9"
 #define ui_l_ear "WEST+2:10,SOUTH+2:9"
 #define ui_r_ear "WEST+2:10,SOUTH+3:11"
+
+#define ui_neck "WEST:6,SOUTH+2:9"
 
 #define ui_head "WEST+1:8,SOUTH+3:11"
 
 // AI
 
-#define ui_ai_core "SOUTH:6,WEST"
-#define ui_ai_camera_list "SOUTH:6,WEST+1"
-#define ui_ai_track_with_camera "SOUTH:6,WEST+2"
-#define ui_ai_camera_light "SOUTH:6,WEST+3"
-#define ui_ai_crew_monitor "SOUTH:6,WEST+4"
-#define ui_ai_crew_manifest "SOUTH:6,WEST+5"
-#define ui_ai_alerts "SOUTH:6,WEST+6"
-#define ui_ai_announcement "SOUTH:6,WEST+7"
-#define ui_ai_shuttle "SOUTH:6,WEST+8"
-#define ui_ai_state_laws "SOUTH:6,WEST+9"
-#define ui_ai_pda_send "SOUTH:6,WEST+10"
-#define ui_ai_pda_log "SOUTH:6,WEST+11"
-#define ui_ai_take_picture "SOUTH:6,WEST+12"
-#define ui_ai_view_images "SOUTH:6,WEST+13"
-#define ui_ai_sensor "SOUTH:6,WEST+14"
+#define ui_ai_view_images "BOTTOM+1:6,LEFT"
+#define ui_ai_take_picture "BOTTOM+1:6,LEFT+1"
+#define ui_ai_camera_list "BOTTOM:6,LEFT"
+#define ui_ai_camera_light "BOTTOM:6,LEFT+1"
+#define ui_ai_track_with_camera "BOTTOM:6,LEFT+2"
+
+#define ui_ai_crew_monitor "BOTTOM:6,CENTER-3"
+#define ui_ai_crew_manifest "BOTTOM:6,CENTER-2"
+#define ui_ai_alerts "BOTTOM:6,CENTER-1"
+#define ui_ai_announcement "BOTTOM:6,CENTER"
+#define ui_ai_shuttle "BOTTOM:6,CENTER+1"
+#define ui_ai_pda_log "BOTTOM:6,CENTER+2"
+#define ui_ai_pda_send "BOTTOM:6,CENTER+3"
+
+#define ui_ai_state_laws "SOUTH:6,RIGHT-2"
+#define ui_ai_core "SOUTH:6,RIGHT-1"
+#define ui_ai_sensor "SOUTH:6,RIGHT"
 
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"

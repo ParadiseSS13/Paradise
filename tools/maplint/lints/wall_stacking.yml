@@ -4,3 +4,5 @@
   - /obj/structure/window/full
   - /obj/effect/spawner/window
   - /obj/machinery/door/airlock
+  - /obj/effect/decal
+  - /obj/machinery/light

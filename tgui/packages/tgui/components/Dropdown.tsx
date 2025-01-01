@@ -1,8 +1,10 @@
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
-import { Component, findDOMfromVNode, InfernoNode, render } from 'inferno';
+import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
 import { Box, BoxProps } from './Box';
+import { Button } from './Button';
 import { Icon } from './Icon';
+import { Stack } from './Stack';
 
 export interface DropdownEntry {
   displayText: string | number | InfernoNode;
@@ -24,6 +26,7 @@ type DropdownUniqueProps = {
   // you freaks really are just doing anything with this shit
   selected?: any;
   onSelected?: (selected: any) => void;
+  buttons?: boolean;
 };
 
 export type DropdownProps = BoxProps & DropdownUniqueProps;
@@ -62,8 +65,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () =>
-      Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
   constructor(props: DropdownProps) {
@@ -82,7 +84,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   };
 
   getDOMNode() {
-    return findDOMfromVNode(this.$LI, true);
+    return findDOMFromVNode(this.$LI, true);
   }
 
   componentDidMount() {
@@ -167,10 +169,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       return (
         <div
           key={value}
-          className={classes([
-            'Dropdown__menuentry',
-            this.state.selected === value && 'selected',
-          ])}
+          className={classes(['Dropdown__menuentry', this.state.selected === value && 'selected'])}
           onClick={() => {
             this.setSelected(value);
           }}
@@ -188,14 +187,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       () => {
         let singletonPopper = Dropdown.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(
-            Dropdown.virtualElement,
-            renderedMenu!,
-            {
-              ...DEFAULT_OPTIONS,
-              placement: 'bottom-start',
-            }
-          );
+          singletonPopper = createPopper(Dropdown.virtualElement, renderedMenu!, {
+            ...DEFAULT_OPTIONS,
+            placement: 'bottom-start',
+          });
 
           Dropdown.singletonPopper = singletonPopper;
         } else {
@@ -238,6 +233,57 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     }
   }
 
+  getOptionValue(option): string {
+    return typeof option === 'string' ? option : option.value;
+  }
+
+  getSelectedIndex(): number {
+    const selected = this.state.selected || this.props.selected;
+    const { options = [] } = this.props;
+
+    return options.findIndex((option) => {
+      return this.getOptionValue(option) === selected;
+    });
+  }
+
+  toPrevious(): void {
+    if (this.props.options.length < 1) {
+      return;
+    }
+
+    let selectedIndex = this.getSelectedIndex();
+    const startIndex = 0;
+    const endIndex = this.props.options.length - 1;
+
+    const hasSelected = selectedIndex >= 0;
+    if (!hasSelected) {
+      selectedIndex = startIndex;
+    }
+
+    const previousIndex = selectedIndex === startIndex ? endIndex : selectedIndex - 1;
+
+    this.setSelected(this.getOptionValue(this.props.options[previousIndex]));
+  }
+
+  toNext(): void {
+    if (this.props.options.length < 1) {
+      return;
+    }
+
+    let selectedIndex = this.getSelectedIndex();
+    const startIndex = 0;
+    const endIndex = this.props.options.length - 1;
+
+    const hasSelected = selectedIndex >= 0;
+    if (!hasSelected) {
+      selectedIndex = endIndex;
+    }
+
+    const nextIndex = selectedIndex === endIndex ? startIndex : selectedIndex + 1;
+
+    this.setSelected(this.getOptionValue(this.props.options[nextIndex]));
+  }
+
   render() {
     const { props } = this;
     const {
@@ -255,6 +301,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       selected,
       disabled,
       displayText,
+      buttons,
       ...boxProps
     } = props;
     const { className, ...rest } = boxProps;
@@ -262,43 +309,77 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     const adjustedOpen = over ? !this.state.open : this.state.open;
 
     return (
-      <Box
-        width={width}
-        className={classes([
-          'Dropdown__control',
-          'Button',
-          'Button--color--' + color,
-          disabled && 'Button--disabled',
-          className,
-        ])}
-        onClick={(event) => {
-          if (disabled && !this.state.open) {
-            return;
-          }
-          this.setOpen(!this.state.open);
-          if (onClick) {
-            onClick(event);
-          }
-        }}
-        {...rest}
-      >
-        {icon && (
-          <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />
+      <Stack inline fill width={width}>
+        <Stack.Item grow>
+          <Box
+            width={'100%'}
+            className={classes([
+              'Dropdown__control',
+              'Button',
+              'Button--color--' + color,
+              disabled && 'Button--disabled',
+              className,
+            ])}
+            onClick={(event) => {
+              if (disabled && !this.state.open) {
+                return;
+              }
+              this.setOpen(!this.state.open);
+              if (onClick) {
+                onClick(event);
+              }
+            }}
+            {...rest}
+          >
+            {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />}
+            <span
+              className="Dropdown__selected-text"
+              style={{
+                overflow: clipSelectedText ? 'hidden' : 'visible',
+              }}
+            >
+              {displayText || this.state.selected}
+            </span>
+            {nochevron || (
+              <span className="Dropdown__arrow-button">
+                <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
+              </span>
+            )}
+          </Box>
+        </Stack.Item>
+        {buttons && (
+          <>
+            <Stack.Item height={'100%'}>
+              <Button
+                height={'100%'}
+                icon="chevron-left"
+                disabled={disabled}
+                onClick={() => {
+                  if (disabled) {
+                    return;
+                  }
+
+                  this.toPrevious();
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item height={'100%'}>
+              <Button
+                height={'100%'}
+                icon="chevron-right"
+                disabled={disabled}
+                onClick={() => {
+                  if (disabled) {
+                    return;
+                  }
+
+                  this.toNext();
+                }}
+              />
+            </Stack.Item>
+          </>
         )}
-        <span
-          className="Dropdown__selected-text"
-          style={{
-            overflow: clipSelectedText ? 'hidden' : 'visible',
-          }}
-        >
-          {displayText || this.state.selected}
-        </span>
-        {nochevron || (
-          <span className="Dropdown__arrow-button">
-            <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
-          </span>
-        )}
-      </Box>
+      </Stack>
     );
   }
 }

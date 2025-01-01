@@ -53,6 +53,7 @@
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
+	fragile = TRUE
 
 /obj/item/organ/external/arm/emp_act(severity)
 	..()
@@ -85,6 +86,7 @@
 	amputation_point = "left hip"
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
+	fragile = TRUE
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -123,6 +125,7 @@
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+	fragile = TRUE
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -164,6 +167,7 @@
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+	fragile = TRUE
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -187,7 +191,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/hand/necrotize(update_sprite)
+/obj/item/organ/external/hand/necrotize(update_sprite, ignore_vital_death = FALSE)
 	. = ..()
 	update_hand_missing()
 
@@ -229,6 +233,7 @@
 	amputation_point = "neck"
 	gendered_icon = TRUE
 	encased = "skull"
+	fragile = TRUE
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
 
@@ -259,6 +264,10 @@
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
 
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
+	return ..(clean, disintegrate, ignore_children, nodamage)
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
@@ -278,6 +287,7 @@
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
+	get_icon()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()

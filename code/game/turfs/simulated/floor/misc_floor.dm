@@ -4,10 +4,11 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
-	planetary_atmos = TRUE
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/wall/vault
@@ -117,7 +118,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/AM, direction)
 	. = ..()
 	if(!linkedcontroller)
 		return
@@ -139,7 +140,7 @@
 /turf/simulated/floor/noslip/get_broken_states()
 	return list("noslip-damaged1", "noslip-damaged2", "noslip-damaged3")
 
-/turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
+/turf/simulated/floor/noslip/get_burnt_states()
 	return list("noslip-scorched1", "noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
@@ -149,7 +150,8 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
@@ -165,6 +167,13 @@
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
+
+/turf/simulated/floor/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
@@ -236,9 +245,11 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
 	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"
@@ -246,7 +257,6 @@
 	icon = 'icons/turf/floors/catwalk_floor.dmi'
 	icon_state = "catwalk"
 	base_icon_state = "catwalk"
-	baseturf = /turf/simulated/floor/plating
 	floor_tile = /obj/item/stack/tile/catwalk
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)

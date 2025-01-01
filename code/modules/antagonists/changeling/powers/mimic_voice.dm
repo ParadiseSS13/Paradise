@@ -2,7 +2,7 @@
 	name = "Mimic Voice"
 	desc = "We shape our vocal glands to sound like a desired voice."
 	helptext = "Will turn your voice into the name that you enter."
-	button_icon_state = "mimic_voice"
+	button_overlay_icon_state = "mimic_voice"
 	chemical_cost = 0
 	dna_cost = 2
 	req_human = TRUE
@@ -12,8 +12,8 @@
 
 // Fake Voice
 /datum/action/changeling/mimicvoice/sting_action(mob/user)
-	if(cling.mimicing)
-		cling.mimicing = ""
+	if(cling.mimicking)
+		cling.mimicking = ""
 		to_chat(user, "<span class='notice'>We return our vocal glands to their original position.</span>")
 		return FALSE
 
@@ -21,7 +21,7 @@
 	if(!mimic_voice)
 		return FALSE
 
-	cling.mimicing = mimic_voice
+	cling.mimicking = mimic_voice
 	to_chat(user, "<span class='notice'>We shape our glands to take the voice of <b>[mimic_voice]</b>.</span>")
 	to_chat(user, "<span class='notice'>Use this power again to return to our original voice.</span>")
 

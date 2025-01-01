@@ -120,7 +120,7 @@
 
 			// On both tiles
 			for(var/obj/structure/window/reinforced/mazeglass/W in T3)
-				if(W.dir == reverse_direction(text2num(D)))
+				if(W.dir == REVERSE_DIR(text2num(D)))
 					qdel(W)
 
 			// Mark as visited
@@ -162,7 +162,6 @@
 		// Gather the windows. If a spot has 3 windows on it, its a dead end
 		var/windowcount = 0
 		for(var/obj/structure/window/reinforced/mazeglass/W in T)
-			pass(W) // Stops DM whining about unused vars
 			windowcount++
 			CHECK_TICK
 

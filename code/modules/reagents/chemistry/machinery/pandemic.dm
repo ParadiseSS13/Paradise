@@ -81,7 +81,7 @@
 
 /obj/machinery/computer/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
-	B.icon_state = "round_bottle"
+	B.icon_state = "bottle"
 	B.pixel_x = rand(-3, 3)
 	B.pixel_y = rand(-3, 3)
 	replicator_cooldown(cooldown)
@@ -315,6 +315,8 @@
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE)
+		if(!reason)
+			return
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
 		for(var/I in D.symptoms)
@@ -382,7 +384,7 @@
 /obj/machinery/computer/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/pandemic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return
@@ -398,7 +400,6 @@
 		beaker =  I
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
-		updateUsrDialog()
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
 	else

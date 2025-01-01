@@ -1,13 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  ProgressBar,
-  NoticeBox,
-  Section,
-  Tabs,
-} from '../components';
+import { Box, Button, LabeledList, ProgressBar, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props, context) => {
@@ -47,9 +39,7 @@ const Cyborgs = (props, context) => {
     detonateText += ' (' + data.detonate_cooldown + 's)';
   }
   if (!cyborgs.length) {
-    return (
-      <NoticeBox>No cyborg units detected within access parameters.</NoticeBox>
-    );
+    return <NoticeBox>No cyborg units detected within access parameters.</NoticeBox>;
   }
   return cyborgs.map((cyborg) => {
     return (
@@ -97,39 +87,23 @@ const Cyborgs = (props, context) => {
       >
         <LabeledList>
           <LabeledList.Item label="Status">
-            <Box
-              color={
-                cyborg.status ? 'bad' : cyborg.locked_down ? 'average' : 'good'
-              }
-            >
-              {cyborg.status
-                ? 'Not Responding'
-                : cyborg.locked_down
-                  ? 'Locked Down'
-                  : 'Nominal'}
+            <Box color={cyborg.status ? 'bad' : cyborg.locked_down ? 'average' : 'good'}>
+              {cyborg.status ? 'Not Responding' : cyborg.locked_down ? 'Locked Down' : 'Nominal'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Location">
             <Box>{cyborg.locstring}</Box>
           </LabeledList.Item>
           <LabeledList.Item label="Integrity">
-            <ProgressBar
-              color={cyborg.health > 50 ? 'good' : 'bad'}
-              value={cyborg.health / 100}
-            />
+            <ProgressBar color={cyborg.health > 50 ? 'good' : 'bad'} value={cyborg.health / 100} />
           </LabeledList.Item>
           {(typeof cyborg.charge === 'number' && (
             <>
               <LabeledList.Item label="Cell Charge">
-                <ProgressBar
-                  color={cyborg.charge > 30 ? 'good' : 'bad'}
-                  value={cyborg.charge / 100}
-                />
+                <ProgressBar color={cyborg.charge > 30 ? 'good' : 'bad'} value={cyborg.charge / 100} />
               </LabeledList.Item>
               <LabeledList.Item label="Cell Capacity">
-                <Box color={cyborg.cell_capacity < 30000 ? 'average' : 'good'}>
-                  {cyborg.cell_capacity}
-                </Box>
+                <Box color={cyborg.cell_capacity < 30000 ? 'average' : 'good'}>{cyborg.cell_capacity}</Box>
               </LabeledList.Item>
             </>
           )) || (
@@ -144,9 +118,7 @@ const Cyborgs = (props, context) => {
           )}
           <LabeledList.Item label="Module">{cyborg.module}</LabeledList.Item>
           <LabeledList.Item label="Master AI">
-            <Box color={cyborg.synchronization ? 'default' : 'average'}>
-              {cyborg.synchronization || 'None'}
-            </Box>
+            <Box color={cyborg.synchronization ? 'default' : 'average'}>{cyborg.synchronization || 'None'}</Box>
           </LabeledList.Item>
         </LabeledList>
       </Section>

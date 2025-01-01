@@ -22,7 +22,9 @@
 		playsound(get_turf(user), sound1, 50, TRUE)
 
 	for(var/mob/living/target in targets)
-		var/list/turfs = new/list()
+		if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+			continue
+		var/list/turfs = list()
 		for(var/turf/T in range(target,outer_tele_radius))
 			if(T in range(target,inner_tele_radius)) continue
 			if(isspaceturf(T) && !include_space) continue

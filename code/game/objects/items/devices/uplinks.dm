@@ -26,19 +26,18 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
+	/// Whether or not the uplink has generated its stock and discounts
+	var/items_generated = FALSE
 
 /obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/proc/update_uplink_type(new_uplink_type)
 	uplink_type = new_uplink_type
-	uplink_items = get_uplink_items(src)
 
 /obj/item/uplink/New()
 	..()
 	uses = 100
-	uplink_items = get_uplink_items(src)
-
 	GLOB.world_uplinks += src
 
 /obj/item/uplink/Destroy()
@@ -58,6 +57,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		job = user.mind.assigned_role
 	if(!species)
 		species = user.dna.species.name
+	if(!items_generated)
+		uplink_items = get_uplink_items(src, user)
+		items_generated = TRUE
 
 	var/list/cats = list()
 
@@ -129,20 +131,31 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
-	if(I) // Make sure there's actually something in the hand before even bothering to check
-		for(var/category in uplink_items)
-			for(var/item in uplink_items[category])
-				var/datum/uplink_item/UI = item
-				var/path = UI.refund_path || UI.item
-				var/cost = UI.refund_amount || UI.cost
-				if(I.type == path && UI.refundable && I.check_uplink_validity())
-					uses += cost
-					used_TC -= cost
-					to_chat(user, "<span class='notice'>[I] refunded.</span>")
-					qdel(I)
-					return
-		// If we are here, we didnt refund
+	if(!I) // Make sure there's actually something in the hand before even bothering to check
 		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+		return
+
+	for(var/category in uplink_items)
+		for(var/item in uplink_items[category])
+			var/datum/uplink_item/UI = item
+			var/path = UI.refund_path || UI.item
+			var/cost = UI.refund_amount || UI.cost
+
+			if(ispath(I.type, path) && UI.refundable && I.check_uplink_validity())
+				var/refund_amount = cost
+				if(istype(I, /obj/item/guardiancreator/tech))
+					var/obj/item/guardiancreator/tech/holopara = I
+					if(holopara.is_discounted && cost != holopara.refund_cost) // This has to be done because the normal holopara uplink datum precedes the discounted uplink datum
+						continue
+					refund_amount = holopara.refund_cost
+				uses += refund_amount
+				used_TC -= refund_amount
+				to_chat(user, "<span class='notice'>[I] refunded.</span>")
+				qdel(I)
+				return
+
+	// If we are here, we didnt refund
+	to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -414,7 +427,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/show_examine_hotkeys()
 	return list()
 
-/obj/item/radio/uplink/attack_self(mob/user as mob)
+/obj/item/radio/uplink/attack_self__legacy__attackchain(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
@@ -443,7 +456,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	hidden_uplink = new(src)
 
-/obj/item/multitool/uplink/attack_self(mob/user as mob)
+/obj/item/multitool/uplink/attack_self__legacy__attackchain(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 

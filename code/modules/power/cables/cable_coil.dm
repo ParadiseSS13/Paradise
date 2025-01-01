@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil_red"
+	item_state = "coil"
 	belt_icon = "cable_coil"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
@@ -23,19 +23,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	throw_range = 5
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	item_state = "coil"
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
-/obj/item/stack/cable_coil/New(location, length = MAXCOIL, paramcolor = null)
+/obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
 	if(paramcolor)
 		color = paramcolor
-
-/obj/item/stack/cable_coil/Initialize(mapload)
-	. = ..()
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
@@ -78,11 +74,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		. += "A coil of power cables."
 
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/M, mob/user)
+/obj/item/stack/cable_coil/attack__legacy__attackchain(mob/M, mob/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
+
+	if(!S && ismachineperson(M) && user.a_intent == INTENT_HELP)
+		to_chat(user, "<span class='notice'>[M.p_they(TRUE)] [M.p_are()] missing that limb!</span>")
+		return
 
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
-/obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
+/obj/item/stack/cable_coil/attackby__legacy__attackchain(obj/item/W, mob/user)
 	. = ..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+		cable_color(C.dye_color)
 
 ///////////////////////////////////////////////
 // Cable laying procedures
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
@@ -348,8 +348,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
-/obj/item/stack/cable_coil/five/New(loc, new_amount = 5, merge = TRUE, paramcolor = null)
-	..()
+/obj/item/stack/cable_coil/five
+	amount = 5
+
+/obj/item/stack/cable_coil/ten
+	amount = 10
 
 /obj/item/stack/cable_coil/yellow
 	color = COLOR_YELLOW
@@ -372,9 +375,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
-	..()
 
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"
@@ -392,7 +395,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/cyborg/update_icon_state()
 	return // icon_state should always be a full cable
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
+/obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	color = cablecolor
 	update_icon()

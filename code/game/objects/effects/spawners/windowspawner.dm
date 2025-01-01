@@ -32,7 +32,7 @@
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
-	air_update_turf(TRUE) //atmos can pass otherwise
+	recalculate_atmos_connectivity() //atmos can pass otherwise
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/window/grilled
@@ -114,6 +114,12 @@
 	name = "pod window spawner"
 	icon_state = "podwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod
+	useGrille = TRUE
+
+/obj/effect/spawner/window/shuttle/survival_pod/tinted
+	name = "tinted pod window spawner"
+	icon_state = "podwindow_spawner"
+	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod/tinted
 	useGrille = TRUE
 
 /obj/effect/spawner/window/plastitanium

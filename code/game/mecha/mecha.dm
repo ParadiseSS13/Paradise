@@ -2,8 +2,9 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
+
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -15,7 +16,6 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	/// Time it takes to enter the mech
@@ -37,8 +37,11 @@
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
-	var/lights = 0
+	var/lights = FALSE
 	var/lights_power = 6
+	var/lights_range = 6
+	var/lights_power_ambient = LIGHTING_MINIMUM_POWER
+	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
@@ -63,7 +66,7 @@
 
 	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
-	var/list/equipment = new
+	var/list/equipment = list()
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
 	var/turf/crashing = null
@@ -80,6 +83,9 @@
 	var/starting_voice = /obj/item/mecha_modkit/voice
 	var/activated = FALSE
 	var/power_warned = FALSE
+
+	/// DMI containing greyscale emissive overlays, responsible for what parts of the mech glow in the dark
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
 
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
@@ -102,8 +108,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
-
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	/// How much speed the mech loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -118,8 +126,11 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/list/select_actions = list()
 
-/obj/mecha/Initialize()
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()
@@ -146,6 +157,14 @@
 	V.install(src)
 	qdel(V)
 
+	set_light(lights_range_ambient, lights_power_ambient)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/mecha/update_overlays()
+	. = ..()
+	underlays.Cut()
+	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
+
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
@@ -166,10 +185,10 @@
 
 /obj/mecha/proc/add_cabin()
 	cabin_air = new
-	cabin_air.temperature = T20C
+	cabin_air.set_temperature(T20C)
 	cabin_air.volume = 200
-	cabin_air.oxygen = O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
-	cabin_air.nitrogen = N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
+	cabin_air.set_oxygen(O2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature()))
+	cabin_air.set_nitrogen(N2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature()))
 	return cabin_air
 
 /obj/mecha/proc/add_radio()
@@ -264,7 +283,7 @@
 
 
 //////////////////////////////////
-////////  MARK: Movement procs  
+////////  MARK: Movement procs
 //////////////////////////////////
 
 /obj/mecha/Process_Spacemove(movement_dir = 0)
@@ -281,7 +300,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -385,7 +404,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = FALSE
 		if(istype(obstacle, /obj/structure/window))
@@ -408,7 +427,7 @@
 			breakthrough = TRUE
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+			obstacle.ex_act(EXPLODE_DEVASTATE)
 
 		else if(isliving(obstacle))
 			var/mob/living/L = obstacle
@@ -420,7 +439,7 @@
 				L.buckled = 0
 			L.Weaken(10 SECONDS)
 			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
+			playsound(src, pick(hit_sound), 50, FALSE, 0)
 			breakthrough = TRUE
 
 		else
@@ -440,15 +459,14 @@
 					throw_at(crashing, 50, throw_speed)
 
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
+		if(..())
+			return
+		if(isobj(obstacle))
+			var/obj/O = obstacle
+			if(!O.anchored)
 				step(obstacle, dir)
+		else if(ismob(obstacle))
+			step(obstacle, dir)
 
 
 ///////////////////////////////////
@@ -554,7 +572,7 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
 	log_message("Attack by hand/paw. Attacker - [user].")
 
@@ -657,9 +675,9 @@
 	QDEL_NULL(internal_tank)
 	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
-	if(loc)
-		loc.assume_air(cabin_air)
-		air_update_turf()
+	var/turf/T = get_turf(src)
+	if(T)
+		T.blind_release_air(cabin_air)
 	else
 		qdel(cabin_air)
 	cabin_air = null
@@ -692,7 +710,7 @@
 ////// MARK: AttackBy
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
@@ -819,7 +837,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && pilot_is_mmi()))
+	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -830,11 +848,17 @@
 	else if(state == MECHA_OPEN_HATCH)
 		state = MECHA_BOLTS_UP
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
+		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
@@ -981,7 +1005,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
@@ -1011,6 +1035,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	icon_state = reset_icon(icon_state)
+	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1031,40 +1056,16 @@
 ////////  MARK: Atmospheric stuff
 /////////////////////////////////////
 
-/obj/mecha/proc/get_turf_air()
-	var/turf/T = get_turf(src)
-	if(T)
-		. = T.return_air()
-
-/obj/mecha/remove_air(amount)
-	if(use_internal_tank)
-		return cabin_air.remove(amount)
-	else
-		var/turf/T = get_turf(src)
-		if(T)
-			return T.remove_air(amount)
-
-/obj/mecha/return_air()
+/obj/mecha/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
-	return get_turf_air()
+	return null
 
 /obj/mecha/return_analyzable_air()
 	if(use_internal_tank)
 		return cabin_air
 	return null
-
-/obj/mecha/proc/return_pressure()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		. = t_air.return_pressure()
-
-//skytodo: //No idea what you want me to do here, mate.
-/obj/mecha/proc/return_temperature()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		. = t_air.return_temperature()
 
 /obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
@@ -1099,14 +1100,14 @@
 	return TRUE
 
 /obj/mecha/portableConnectorReturnAir()
-	return internal_tank.return_air()
+	return internal_tank.return_obj_air()
 
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
-		set_light(light_range + lights_power)
+		set_light(lights_range, lights_power)
 	else
-		set_light(light_range - lights_power)
+		set_light(lights_range_ambient, lights_power_ambient)
 	if(show_message)
 		occupant_message("Toggled lights [lights ? "on" : "off"].")
 		log_message("Toggled lights [lights ? "on" : "off"].")
@@ -1193,6 +1194,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	else
 		return FALSE
@@ -1248,6 +1250,7 @@
 		Move(loc)
 		icon_state = reset_icon()
 		dir = dir_in
+		update_icon(UPDATE_OVERLAYS)
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1268,10 +1271,11 @@
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
+/obj/mecha/Exited(atom/movable/M, direction)
+	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
-			go_out(1, newloc)
+			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
@@ -1341,9 +1345,22 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
+
+// Called when a shuttle lands on top of the mech. Prevents the mech from just dropping the pilot unharmed inside the shuttle when destroyed.
+/obj/mecha/proc/get_out_and_die()
+	var/mob/living/pilot = occupant
+	pilot.visible_message(
+		"<span class='warning'>[src] is hit by a hyperspace ripple!</span>",
+		"<span class='userdanger'>You feel an immense crushing pressure as the space around you ripples.</span>"
+	)
+	go_out(TRUE)
+	if(iscarbon(pilot))
+		pilot.gib()
+	qdel(src)
 
 /////////////////////////
 ////// MARK: Access stuff
@@ -1461,25 +1478,25 @@
 		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && prob(5))
 			clearInternalDamage(MECHA_INT_FIRE)
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
 				setInternalDamage(MECHA_INT_TANK_BREACH)
 
 			if(int_tank_air && int_tank_air.return_volume() > 0)
-				int_tank_air.temperature = min(6000 + T0C, cabin_air.return_temperature() + rand(10, 15))
+				int_tank_air.set_temperature(min(6000 + T0C, cabin_air.temperature() + rand(10, 15)))
 
-			if(cabin_air && cabin_air.return_volume()>0)
-				cabin_air.temperature = min(6000+T0C, cabin_air.return_temperature()+rand(10,15))
-				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(4/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
+			if(cabin_air && cabin_air.return_volume() > 0)
+				cabin_air.set_temperature(min(6000 + T0C, cabin_air.temperature() + rand(10, 15)))
+				if(cabin_air.temperature() > max_temperature / 2)
+					take_damage(4 / round(max_temperature / cabin_air.temperature(), 0.1), BURN, 0, 0)
 
 	if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(0.10)
-			if(loc)
-				loc.assume_air(leaked_gas)
-				air_update_turf()
+			var/turf/T = get_turf(src)
+			if(T)
+				T.blind_release_air(leaked_gas)
 			else
 				qdel(leaked_gas)
 
@@ -1489,41 +1506,51 @@
 			cell.charge -= min(20,cell.charge)
 			cell.maxcharge -= min(20,cell.maxcharge)
 
+/obj/mecha/proc/release_gas(datum/gas_mixture/environment, datum/gas_mixture/leaked_gas)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	environment.merge(leaked_gas)
+
 /obj/mecha/proc/regulate_temp()
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)
 		return
 
 	if(cabin_air && cabin_air.return_volume() > 0)
-		var/delta = cabin_air.temperature - T20C
-		cabin_air.temperature -= max(-10, min(10, round(delta / 4, 0.1)))
+		var/delta = cabin_air.temperature() - T20C
+		cabin_air.set_temperature(cabin_air.temperature() - max(-10, min(10, round(delta / 4, 0.1))))
 
 /obj/mecha/proc/give_air()
 	if(!internal_tank)
 		return
 
-	var/datum/gas_mixture/tank_air = internal_tank.return_air()
+	var/datum/gas_mixture/tank_air = internal_tank.return_obj_air()
 
 	var/release_pressure = internal_tank_valve
 	var/cabin_pressure = cabin_air.return_pressure()
 	var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
 	var/transfer_moles = 0
 	if(pressure_delta > 0) //cabin pressure lower than release pressure
-		if(tank_air.return_temperature() > 0)
-			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+		if(tank_air.temperature() > 0)
+			transfer_moles = pressure_delta*cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
 			cabin_air.merge(removed)
 	else if(pressure_delta < 0) //cabin pressure higher than release pressure
-		var/datum/gas_mixture/t_air = return_air()
+		var/datum/gas_mixture/active_tank_air = return_obj_air()
 		pressure_delta = cabin_pressure - release_pressure
-		if(t_air)
-			pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
+		if(active_tank_air)
+			pressure_delta = min(cabin_pressure - active_tank_air.return_pressure(), pressure_delta)
 		if(pressure_delta > 0) //if location pressure is lower than cabin pressure
-			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+			transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-			if(t_air)
-				t_air.merge(removed)
-			else //just delete the cabin gas, we're in space or some shit
-				qdel(removed)
+			if(active_tank_air)
+				active_tank_air.merge(removed)
+			else
+				var/turf/T = get_turf(src)
+				if(T)
+					T.blind_release_air(removed)
+				else
+					qdel(removed)
 
 /obj/mecha/proc/update_huds()
 	diag_hud_set_mechhealth()

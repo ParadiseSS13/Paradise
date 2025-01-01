@@ -12,7 +12,6 @@
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4
-#define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 8
@@ -33,6 +32,7 @@
 #define INFECTION_LEVEL_ONE		100
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_FOUR	1500
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
@@ -94,6 +94,7 @@
 #define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
 #define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
 #define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_SHUTTLE_HACK		4 //Malfunctioning AI hijacking shuttle
 
 //singularity defines
 #define STAGE_ONE 1
@@ -103,6 +104,15 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define STAGE_TWO_THRESHOLD 200
+#define STAGE_THREE_THRESHOLD 500
+#define STAGE_FOUR_THRESHOLD 1000
+#define STAGE_FIVE_THRESHOLD 2000
+#define STAGE_SIX_THRESHOLD 3000
+
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 2
+
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -110,18 +120,17 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
-	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          CENTER.z, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
-
+	(CENTER.y + RADIUS < world.maxy ? 	block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS, world.maxy), 	CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS, 1), 				CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS, 1), 			CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? 	block(min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list())
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -167,54 +176,71 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define METAL_FOAM_ALUMINUM 	1
+#define METAL_FOAM_IRON 		2
+
+// Defines for foam
+
+/// The chemicals in the foam (if any) will never react.
+#define FOAM_REACT_NEVER			(1<<0)
+/// Chemicals in the foam will only react when the foam dissipates.
+#define FOAM_REACT_ON_DISSIPATE		(1<<1)
+/// Chemicals in the foam will react while the foam is still processing.
+#define FOAM_REACT_DURING_SPREAD	(1<<2)
+/// Chemicals in the foam will react when the foam first reaches a tile.
+#define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		43
-#define WING_LAYER				42
-#define WING_UNDERLIMBS_LAYER	41
-#define MUTANTRACE_LAYER		40
-#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
-#define LIMBS_LAYER				38
-#define MARKINGS_LAYER			37
-#define INTORGAN_LAYER			36
-#define UNDERWEAR_LAYER			35
-#define MUTATIONS_LAYER			34
-#define H_DAMAGE_LAYER			33
-#define UNIFORM_LAYER			32
-#define ID_LAYER				31
-#define HANDS_LAYER				30	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				29
-#define GLOVES_LAYER			28
-#define EARS_LAYER				27
+#define EYES_OVERLAY_LAYER		49
+#define MISC_LAYER				48 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
+#define WING_LAYER				47
+#define WING_UNDERLIMBS_LAYER	46
+#define MUTANTRACE_LAYER		45
+#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
+#define LIMBS_LAYER				43
+#define MARKINGS_LAYER			42
+#define INTORGAN_LAYER			41
+#define UNDERWEAR_LAYER			40
+#define MUTATIONS_LAYER			39
+#define H_DAMAGE_LAYER			38
+#define UNIFORM_LAYER			37
+#define ID_LAYER				36
+#define HANDS_LAYER				35	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				34
+#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
+#define GLOVES_LAYER			31
+#define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
+#define R_HAND_BLOOD_LAYER		29	// Blood overlay separation Right-Hand
+#define LEFT_EAR_LAYER			28
+#define RIGHT_EAR_LAYER			27
 #define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
 #define SUIT_LAYER				25
 #define SPECIAL_BELT_LAYER		24
-#define SUIT_STORE_LAYER		23
-#define BACK_LAYER				22
-#define HEAD_ACCESSORY_LAYER	21
-#define FHAIR_LAYER				20
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				18	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			13
-#define OVER_MASK_LAYER			12	//Select-layer rendering.
-#define HEAD_LAYER				11
-#define COLLAR_LAYER			10
-#define HANDCUFF_LAYER			9
-#define LEGCUFF_LAYER			8
-#define L_HAND_LAYER			7
-#define R_HAND_LAYER			6
-#define TARGETED_LAYER			5	//BS12: Layer for the target overlay from weapon targeting system
-#define HALO_LAYER				4	//blood cult ascended halo, because there's currently no better solution for adding/removing
-#define FIRE_LAYER				3	//If you're on fire
-#define MISC_LAYER				2
+#define NECK_LAYER				23
+#define SUIT_STORE_LAYER		22
+#define BACK_LAYER				21
+#define HEAD_ACCESSORY_LAYER	20
+#define FHAIR_LAYER				19
+#define GLASSES_LAYER			18
+#define HAIR_LAYER				17	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
+#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			12
+#define OVER_MASK_LAYER			11	//Select-layer rendering.
+#define HEAD_LAYER				10
+#define COLLAR_LAYER			9
+#define HANDCUFF_LAYER			8
+#define LEGCUFF_LAYER			7
+#define L_HAND_LAYER			6
+#define R_HAND_LAYER			5
+#define TARGETED_LAYER			4	//BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER				3	//blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER				2	//If you're on fire
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			43
+#define TOTAL_LAYERS			49
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -404,7 +430,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 56
+#define SQL_VERSION 63
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -446,14 +472,6 @@
 #define PLACE_SAME_Z "same"
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
-
-//Cleaning tool strength
-// 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
-#define CLEAN_MEDIUM		3 // Acceptable tools
-#define CLEAN_STRONG		4 // Industrial strength
-#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
-#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
 
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
@@ -517,11 +535,10 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 
-// Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
 #define MAPROTATION_MODE_FULL_RANDOM "Random"
-
+#define MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES "FPTP"
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
@@ -540,6 +557,7 @@
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
 #define RUNECHAT_SYMBOL_LOOC 2
+#define RUNECHAT_SYMBOL_DEAD 3
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
@@ -573,19 +591,14 @@
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
 
-// Lavaland cave design defines
-
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"
-
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
-#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
+#define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
 /**
  * Reading books can help with brain damage!
@@ -608,11 +621,17 @@
 #define ROUND_END_CREW_TRANSFER 2
 #define ROUND_END_FORCED 3
 
-#define TS_INFESTATION_GREEN_SPIDER 1
-#define TS_INFESTATION_PRINCE_SPIDER 2
-#define TS_INFESTATION_WHITE_SPIDER 3
-#define TS_INFESTATION_PRINCESS_SPIDER 4
-#define TS_INFESTATION_QUEEN_SPIDER 5
+// These used to be integer values but they were never used numerically or even
+// stored in SSblackbox using their numeric values, and constantly converting
+// them to the actual terror name was redundant and annoying
+#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
+#define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
+#define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
+#define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
+#define TS_INFESTATION_QUEEN_SPIDER		"Queen Terrors"
+
+#define BIOHAZARD_BLOB	"Blob"
+#define BIOHAZARD_XENO	"Xenomorphs"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 
@@ -708,3 +727,7 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define LAVALAND_TENDRIL_COLLAPSE_RANGE 2 //! The radius of the chasm created by killed tendrils.
+
+#define ALPHA_VISIBLE 255 // the max alpha

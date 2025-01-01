@@ -22,6 +22,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/gamemode_configuration/gamemode
 	/// Holder for the general configuration datum
 	var/datum/configuration_section/general_configuration/general
+	/// Holder for the lighting effects configuration datum
+	var/datum/configuration_section/lighting_effects_configuration/lighting_effects
 	/// Holder for the IPIntel configuration datum
 	var/datum/configuration_section/ipintel_configuration/ipintel
 	/// Holder for the job configuration datum
@@ -82,6 +84,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	event = new()
 	gamemode = new()
 	general = new()
+	lighting_effects = new()
 	ipintel = new()
 	jobs = new()
 	logging = new()
@@ -120,6 +123,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(event, "event_configuration")
 	safe_load(gamemode, "gamemode_configuration")
 	safe_load(general, "general_configuration")
+	safe_load(lighting_effects, "lighting_effects_configuration")
 	safe_load(ipintel, "ipintel_configuration")
 	safe_load(jobs, "job_configuration")
 	safe_load(logging, "logging_configuration")

@@ -55,7 +55,7 @@
 	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	if(!is_alien)
 		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
@@ -69,14 +69,14 @@
 	var/turf/T = get_turf(src)
 	playsound(loc, 'sound/effects/alien_resin_break2.ogg', 100, TRUE)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
 	..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -96,8 +96,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return TRUE
+/obj/structure/alien/resin/wall/get_superconductivity(direction)
+	return FALSE
 
 /*
  *Resin-Door - Borrows its code from Mineral-Door, not a subtype due to needing many overrides if so
@@ -135,7 +135,7 @@
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/alien/resin/door/Move()
@@ -153,7 +153,7 @@
 	if(user.can_advanced_admin_interact())
 		operate()
 
-/obj/structure/alien/resin/door/CanAtmosPass(turf/T)
+/obj/structure/alien/resin/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/door/proc/try_to_operate(mob/user, bumped_open = FALSE)
@@ -197,7 +197,7 @@
 	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
 /obj/structure/alien/resin/door/proc/operate_update(bumped_open)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -251,7 +251,7 @@
 	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
-	..()
+	. = ..()
 	linked_node = node
 	if(isspaceturf(loc))
 		qdel(src)
@@ -433,9 +433,9 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/Initialize()
+/obj/structure/alien/weeds/node/Initialize(mapload)
 	add_overlay("weednode")
-	..(loc, src)
+	return ..(loc, src)
 
 #undef NODERANGE
 
@@ -468,6 +468,7 @@
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
 	**/
 	var/status = GROWING
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -485,7 +486,7 @@
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -516,7 +517,7 @@
 /obj/structure/alien/egg/proc/grow()
 	icon_state = "egg"
 	status = GROWN
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/burst(kill)
@@ -524,7 +525,7 @@
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
-		qdel(GetComponent(/datum/component/proximity_monitor))
+		QDEL_NULL(proximity_monitor)
 		addtimer(CALLBACK(src, PROC_REF(hatch)), 1.5 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()

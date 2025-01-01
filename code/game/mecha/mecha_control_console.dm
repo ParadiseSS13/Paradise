@@ -100,7 +100,7 @@
 	else
 		answer["cell"] = 0
 	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
-	answer["airtank"] = M.return_pressure()
+	answer["airtank"] = M.internal_tank.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
 	answer["location"] = "[sanitize(area.name)||"Unknown"]"
@@ -121,7 +121,7 @@
 	var/answer = {"<b>Name:</b> [M.name]
 						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
-						<b>Airtank:</b> [M.return_pressure()]kPa
+						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
 						<b>Location:</b> [sanitize(A.name)||"Unknown"]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
@@ -145,7 +145,7 @@
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
 		data["cellMaxCharge"] = M.cell.maxcharge
-	data["airtank"] = M.return_pressure()
+	data["airtank"] = M.internal_tank.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
 	data["active"] = M.selected

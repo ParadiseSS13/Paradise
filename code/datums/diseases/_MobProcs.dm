@@ -8,7 +8,7 @@
 
 
 /mob/proc/CanContractDisease(datum/disease/D)
-	if(stat == DEAD)
+	if(stat == DEAD && !D.allow_dead)
 		return FALSE
 
 	if(D.GetDiseaseID() in resistances)
@@ -30,6 +30,7 @@
 	if(!CanContractDisease(D))
 		return 0
 	AddDisease(D)
+	return TRUE
 
 
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
@@ -101,8 +102,8 @@
 				if(isobj(H.wear_suit))
 					Cl = H.wear_suit
 					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(SLOT_HUD_JUMPSUIT))
-					Cl = SLOT_HUD_JUMPSUIT
+				if(passed && isobj(H.w_uniform))
+					Cl = H.w_uniform
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 			if(3)
 				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
@@ -127,6 +128,7 @@
 
 	if(passed)
 		AddDisease(D)
+	return passed
 
 
 /**

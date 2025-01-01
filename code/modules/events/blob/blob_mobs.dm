@@ -67,14 +67,14 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()
@@ -204,11 +204,13 @@
 	. = ..()
 	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new
 	overmind_chat.Grant(src)
+	if(name == "blobbernaut")
+		name = "blobbernaut ([rand(1, 1000)])"
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
-	icon_icon = 'icons/mob/guardian.dmi'
-	button_icon_state = "communicate"
+	button_overlay_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon_state = "communicate"
 
 /datum/action/innate/communicate_overmind_blob/Activate()
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner
@@ -228,11 +230,6 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
-	. = ..()
-	if(name == "blobbernaut")
-		name = "blobbernaut ([rand(1, 1000)])"
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
@@ -247,6 +244,6 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
-			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
+			rendered = "<span class='blob'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span>"
 			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/blob/blobbernaut))
 				M.show_message(rendered, EMOTE_AUDIBLE)

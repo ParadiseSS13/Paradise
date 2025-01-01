@@ -11,7 +11,7 @@
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
@@ -22,14 +22,14 @@
 	if(force)
 		return ..()
 
-/obj/item/slapper/attack_self(mob/user)
+/obj/item/slapper/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(!isliving(user))
 		return
 	var/mob/living/L = user
 	L.emote("highfive", intentional = TRUE)
 
-/obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
+/obj/item/slapper/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(!istype(O, /obj/structure/table))
 		return ..()
 
@@ -62,14 +62,26 @@
 /obj/item/slapper/parry
 	desc = "This is how real men win fights."
 	force = 5
+	flags = DROPDEL | ABSTRACT | NODROP
 	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
 	table_smacks_left = 10 //Much more smackitude
 
 /obj/item/slapper/parry/Initialize(mapload)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) //75% uptime
+	if(isliving(loc))
+		var/mob/owner = loc
+		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, TYPE_PROC_REF(/datum, signal_qdel), override = TRUE)
+		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, TYPE_PROC_REF(/datum, signal_qdel), override = TRUE)
 	return ..()
 
-/obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/parry/Destroy()
+	if(isliving(loc))
+		var/mob/owner = loc
+		UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
+		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
+	return ..()
+
+/obj/item/slapper/parry/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
 	if(isliving(M))
 		var/mob/living/creature = M
 		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))

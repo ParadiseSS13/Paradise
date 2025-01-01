@@ -23,6 +23,7 @@
 	assemblytype = /obj/structure/firelock_frame
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -123,7 +124,7 @@
 			"<span class='notice'>You open [src].</span>")
 		open(auto_close = FALSE)
 
-/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 
 	if(operating)
@@ -289,7 +290,7 @@
 		F.update_icon()
 	qdel(src)
 
-/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, border_dir)
 	if(..())
 		return TRUE
 	if(isliving(mover) && !locked)
@@ -302,32 +303,47 @@
 	flags = ON_BORDER
 	can_crush = FALSE
 
+/obj/machinery/door/firedoor/border_only/Initialize(mapload)
+	. = ..()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
 
-/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	else
 		return 1
 
-/obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/firedoor/border_only/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+
+	if(direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
-	else
-		return 1
+	return TRUE
+
+/obj/machinery/door/firedoor/border_only/get_superconductivity(direction)
+	if(direction == dir && density)
+		return FALSE
+	return ..()
 
 /obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -382,7 +398,7 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
+/obj/structure/firelock_frame/attackby__legacy__attackchain(obj/item/C, mob/user)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(istype(C, /obj/item/stack/sheet/plasteel))

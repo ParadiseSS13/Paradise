@@ -3,6 +3,7 @@
 		list("[p_are()] holding", l_hand, "in", "left hand"),
 		list("[p_are()] holding", r_hand, "in", "right hand"),
 		list("[p_are()] wearing", head, "on", "head"),
+		list("[p_are()] wearing", neck, "around", "neck"),
 		list("[p_are()] wearing", !skip_jumpsuit && w_uniform, null, null, length(w_uniform?.accessories) && "[english_accessory_list(w_uniform)]"),
 		list("[p_are()] wearing", wear_suit, null, null),
 		list("[p_are()] carrying", !skip_suit_storage && s_store, "on", wear_suit && wear_suit.name),
@@ -137,7 +138,7 @@
 			if(E.is_robotic())
 				msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
 			else
-				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] [E.open != ORGAN_ORGANIC_VIOLENT_OPEN ? "has an open incision" : "has been violently split open"]!</b>\n"
 
 		for(var/obj/item/I in E.embedded_objects)
 			// we cant just use \a here, as we want it to appear before the bicon

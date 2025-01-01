@@ -32,21 +32,21 @@
 	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 
-	/// amount of power used in the last cycle for lighting channel
+	/// amount of power used in the last cycle for lighting channel (Watts)
 	var/last_used_lighting = 0
-	/// amount of power used in the last cycle for equipment channel
+	/// amount of power used in the last cycle for equipment channel (Watts)
 	var/last_used_equipment = 0
-	/// amount of power used in the last cycle for environment channel
+	/// amount of power used in the last cycle for environment channel (Watts)
 	var/last_used_environment = 0
-	/// amount of power used in the last cycle in total
+	/// amount of power used in the last cycle in total (Watts)
 	var/last_used_total = 0
 
 	/*** APC Cell Vars ***/
-	/// the cell type stored in this APC
+	/// the cell type stored in this APC. APC uses cell energy capacity (kilojoules)
 	var/obj/item/stock_parts/cell/cell
 	/// the percentage charge the internal battery will start with
 	var/start_charge = 90
-	/// Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
+	/// Base cell has a 2500 kJ capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty edited APCs
 	var/cell_type = 2500
 
 	/*** APC Status Vars ***/
@@ -100,6 +100,9 @@
 	/// Being hijacked by a pulse demon?
 	var/being_hijacked = FALSE
 
+	/// Are we immune to EMPS?
+	var/emp_proof = FALSE
+
 	/*** APC Malf AI Vars ****/
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -107,6 +110,9 @@
 	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
 	var/constructed = FALSE
 	var/overload = 1 //used for the Blackout malf module
+
+	/// Are we hacked by a ruins malf AI? If so, it will act like a malf AI hacked APC, but silicons and malf AI's will not be able to interface with it.
+	var/hacked_by_ruin_AI = FALSE
 
 	/*** APC Overlay Vars ***/
 	var/update_state = -1
@@ -125,7 +131,6 @@
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
-	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
 
@@ -173,6 +178,7 @@
 		A.powernet.powernet_apc = src
 
 	if(!mapload)
+		GLOB.apcs = sortAtom(GLOB.apcs)
 		return
 
 	electronics_state = APC_ELECTRONICS_SECURED
@@ -232,7 +238,7 @@
 		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/apc/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 
 	if(issilicon(user) && get_dist(src, user) > 1)
 		return attack_hand(user)
@@ -485,12 +491,14 @@
 		return TRUE
 
 	autoflag = 5 //why the hell is this being set to 5, fucking malf code -sirryan
-	if(issilicon(user))
-		var/mob/living/silicon/ai/AI = user
-		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
+	if(issilicon(user) || ispulsedemon(user))
+		if(hacked_by_ruin_AI)
+			to_chat(user, "<span class='danger'>The APC interface program has been completely corrupted, you are unable to interface with it!</span>")
+			return FALSE
+		var/mob/living/L = user
+		if(!L.can_remote_apc_interface(src))
 			if(!loud)
-				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
+				to_chat(user, "<span class='danger'>[src] has AI control disabled!</span>")
 			return FALSE
 	else
 		if((!in_range(src, user) || !isturf(loc)))
@@ -903,7 +911,6 @@
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE, play_sound = FALSE)
-		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()
 	locked = TRUE
@@ -947,6 +954,8 @@
 ///    *************
 
 /obj/machinery/power/apc/emp_act(severity)
+	if(emp_proof)
+		return
 	if(cell)
 		cell.emp_act(severity)
 	if(occupier)

@@ -1,11 +1,12 @@
 //Regular syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate
 	name = "red space helmet"
-	desc = "Top secret Spess Helmet."
+	desc = "A suspicious-looking space helmet. It is reinforced with a layer of armour."
 	icon_state = "syndicate"
 	item_state = "syndicate"
-	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_SYNDICATE_HELMET
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -18,8 +19,10 @@
 	name = "red space suit"
 	icon_state = "syndicate"
 	item_state = "space_suit_syndicate"
-	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
+	desc = "A suspicious-looking space suit. The fabric is reinforced with a blend of nomex and kevlar for added protection."
 	w_class = WEIGHT_CLASS_NORMAL
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_SYNDICATE_SUIT
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	sprite_sheets = list(
@@ -89,6 +92,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/space/syndicate/black
 	name = "black space suit"
@@ -101,6 +105,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
@@ -162,6 +167,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/space/syndicate/black/red
 	name = "black and red space suit"
@@ -174,6 +180,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 
 //Black with yellow/red engineering syndicate space suit
@@ -189,14 +196,14 @@
 
 /obj/item/clothing/head/helmet/space/syndicate/contractor
 	name = "contractor helmet"
-	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. It is made of an exotic military-grade fabric for added protection, and can be ultra-compressed into even the tightest of spaces."
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-helm-contractor"
 	item_state = "syndicate-helm-contractor"
 
 /obj/item/clothing/suit/space/syndicate/contractor
 	name = "contractor space suit"
-	desc = "A specialised black and gold space suit that's quicker, and more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	desc = "A specialised black and gold space suit that's easier to move around in than its standard Syndicate counterpart. It is made of an exotic military-grade fabric for added protection, and can be ultra-compressed into even the tightest of spaces."
 	slowdown = 1
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-contractor"

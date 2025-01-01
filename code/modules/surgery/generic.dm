@@ -23,13 +23,16 @@
 		/obj/item/butcher_chainsaw = 1
 	)
 
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/scalpel2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 1.6 SECONDS
 
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts the incision on [target]'s [affected.name] with \the [tool].",
-		"You start the incision on [target]'s [affected.name] with \the [tool].",
+		"[user] starts the incision on [target]'s [affected.name] with [tool].",
+		"You start the incision on [target]'s [affected.name] with [tool].",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("You feel a horrible pain as if from a sharp knife in your [affected.name]!")
@@ -38,8 +41,8 @@
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has made an incision on [target]'s [affected.name] with [tool].</span>",
+		"<span class='notice'>You have made an incision on [target]'s [affected.name] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -49,8 +52,8 @@
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
+		"<span class='warning'>Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(10)
@@ -67,6 +70,7 @@
 		/obj/item/assembly/mousetrap = 25
 	)
 
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 2.4 SECONDS
 
 
@@ -83,8 +87,8 @@
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] clamps bleeders in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	spread_germs_to_organ(affected, user, tool)
@@ -93,8 +97,8 @@
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(10)
@@ -111,6 +115,9 @@
 		/obj/item/kitchen/utensil/fork = 60
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/retract_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -129,14 +136,14 @@
 
 /datum/surgery_step/generic/retract_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [affected.name] with \the [tool].</span>"
-	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [affected.name] with \the [tool].</span>"
+	var/msg = "<span class='notice'>[user] keeps the incision open on [target]'s [affected.name] with \the [tool].</span>"
+	var/self_msg = "<span class='notice'>You keep the incision open on [target]'s [affected.name] with \the [tool].</span>"
 	if(target_zone == BODY_ZONE_CHEST)
-		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with \the [tool].</span>"
-		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with \the [tool]."
+		msg = "<span class='notice'>[user] keeps the ribcage open on [target]'s torso with \the [tool].</span>"
+		self_msg = "<span class='notice'>You keep the ribcage open on [target]'s torso with \the [tool]."
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
-		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with \the [tool].</span>"
-		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
+		msg = "<span class='notice'>[user] keeps the incision open on [target]'s lower abdomen with \the [tool].</span>"
+		self_msg = "<span class='notice'>You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 	return SURGERY_STEP_CONTINUE
@@ -144,13 +151,13 @@
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/msg = "<span class='warning'>[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
-	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
+	var/self_msg = "<span class='warning'>Your hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
 	if(target_zone == BODY_ZONE_CHEST)
 		msg = "<span class='warning'>[user]'s hand slips, damaging several organs [target]'s torso with \the [tool]!</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with \the [tool]!</span>"
+		self_msg = "<span class='warning'>Your hand slips, damaging several organs [target]'s torso with \the [tool]!</span>"
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "<span class='warning'>[user]'s hand slips, damaging several organs [target]'s lower abdomen with \the [tool]</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
+		self_msg = "<span class='warning'>Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
 	return SURGERY_STEP_RETRY
@@ -168,6 +175,9 @@
 		/obj/item/flamethrower = 1 // You make do with what ya got...
 	)
 
+	preop_sound = 'sound/surgery/cautery1.ogg'
+	success_sound = 'sound/surgery/cautery2.ogg'
+	failure_sound = 'sound/items/welder.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/cauterize/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -188,7 +198,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_CLOSED
-	affected.germ_level = 0
+	affected.germ_level = max(affected.germ_level - 50, 0)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -226,6 +236,15 @@
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
 		/obj/item/screwdriver = 20
 	)
+
+	preop_sound = list(
+		TOOL_DRILL = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/pickaxe/drill = 'sound/weapons/drill.ogg',
+		/obj/item/mecha_parts/mecha_equipment/drill = 'sound/weapons/drill.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+	)
+
 	time = 3 SECONDS
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -264,6 +283,13 @@
 		/obj/item/melee/energy = 75
 	)
 
+	preop_sound = list(
+		TOOL_SAW = 'sound/surgery/saw.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg'
+	)
+
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 10 SECONDS
 
 /datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -279,8 +305,8 @@
 /datum/surgery_step/generic/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>",
-		"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>",
+		"<span class='notice'>You amputate [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -299,8 +325,8 @@
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(30)

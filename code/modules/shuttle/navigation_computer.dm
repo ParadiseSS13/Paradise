@@ -22,7 +22,7 @@
 	var/designate_time = 0
 	var/turf/designating_target_loc
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
+/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize(mapload)
 	. = ..()
 	GLOB.navigation_computers += src
 	if(access_station)
@@ -256,8 +256,8 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_icon_state = "mech_cycle_equip_off"
+	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_overlay_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -269,8 +269,8 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_icon_state = "mech_zoom_off"
+	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_overlay_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -282,7 +282,7 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
-	button_icon_state = "camera_jump"
+	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))

@@ -62,24 +62,21 @@
 	else
 		stat |= NOPOWER
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
-	if(isrobot(user))
-		return
-
+/obj/machinery/chem_heater/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
 			return
 
-		if(user.drop_item())
-			beaker = I
-			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-			icon_state = "mixer1b"
-			SStgui.update_uis(src)
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 
-	if(exchange_parts(user, I))
+		beaker = I
+		I.forceMove(src)
+		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+		icon_state = "mixer1b"
+		SStgui.update_uis(src)
 		return
 
 	return ..()

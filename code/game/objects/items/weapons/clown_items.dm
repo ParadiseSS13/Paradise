@@ -23,7 +23,7 @@
 	throw_range = 15
 	attack_verb = list("HONKED")
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
@@ -41,11 +41,11 @@
 	item_state = "gold_horn"
 	var/cooldown = 0
 
-/obj/item/bikehorn/golden/attack(mob/M, mob/user)
+/obj/item/bikehorn/golden/attack__legacy__attackchain(mob/M, mob/user)
 	flip_mobs(user)
 	return ..()
 
-/obj/item/bikehorn/golden/attack_self(mob/user)
+/obj/item/bikehorn/golden/attack_self__legacy__attackchain(mob/user)
 	flip_mobs(user)
 	..()
 
@@ -72,7 +72,7 @@
 	icon_state = "clown_recorder"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
 	throwforce = 0
@@ -81,7 +81,7 @@
 	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown = 0
 
-/obj/item/clown_recorder/attack_self(mob/user)
+/obj/item/clown_recorder/attack_self__legacy__attackchain(mob/user)
 	if(cooldown > world.time)
 		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
 		return
@@ -95,6 +95,8 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		return TRUE
+	return FALSE
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG

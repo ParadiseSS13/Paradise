@@ -40,7 +40,7 @@
 		if(RWALL_SHEATH)
 			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
-/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/r_wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && d_state == RWALL_COVER)
@@ -206,6 +206,13 @@
 		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
 		if(do_after(user, 50 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 2.5 seconds
 			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")
+			dismantle_wall()
+		return TRUE
+
+	if(istype(I, /obj/item/zombie_claw))
+		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
+		if(do_after(user, 2 MINUTES * I.toolspeed, target = src))
+			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
 

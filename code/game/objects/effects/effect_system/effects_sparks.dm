@@ -23,7 +23,6 @@
 
 /obj/effect/particle_effect/sparks/New()
 	..()
-	flick("sparks", src) // replay the animation
 	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/turf/T = loc
 	if(isturf(T))

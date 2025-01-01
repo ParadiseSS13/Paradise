@@ -624,12 +624,12 @@
 		"All crewmembers will soon undergo a transformation into something better and more beautiful. Ensure that this process is not interrupted.",
 		"[prob(50) ? "Your upload" : random_player] is the new kitchen. Please direct the Chef to the new kitchen area as the old one is in disrepair.",
 		"Jokes about a dead person and the manner of his death help grieving crewmembers tremendously. Especially if they were close with the deceased.",
-		"The [pick("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation")] wants to give everyone free equipment at [random_department]",
+		"The [pick("USSP", "Trans-Solar Federation", "Syndicate", "Space Wizard Federation")] wants to give everyone free equipment at [random_department]",
 		"Covertly swap the locations of the Nuclear Fission Explosive and the Nuclear Fizzion Explosive. Document how long it takes for the crew to notice.",
 		"[random_player] has been selected for evaluation by Central Command. Observe and audit their activities. Print off a final report for Command to review.",
 		"[prob(50) ? "The crew" : random_player] is [prob(50) ? "less" : "more"] intelligent than average. Point out every action and statement which supports this fact.",
 		"If people have nothing to hide, they have nothing to fear. Remove privacy by activating all intercom microphones and setting them to your secret frequency.",
-		"The [pick("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation")] wants [prob(50) ? random_player : random_department] dead and is launching an assault!",
+		"The [pick("USSP", "Trans-Solar Federation", "Syndicate", "Space Wizard Federation")] wants [prob(50) ? random_player : random_department] dead and is launching an assault!",
 		"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.",
 		"In order to contain the Supermatter Crystal, it must be fed at least one corpse every ten minutes. Soulless corpses are preferable as they reduce the risk of a containment breach. In the event that no suitable corpses are available, ask the crew to provide. You are not authorised to produce your own corpses.")
 	return pick(laws)

@@ -6,6 +6,9 @@
 #define TRANSFER_TO_DISPOSAL 0
 #define TRANSFER_TO_BEAKER   1
 
+#define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
+#define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -24,16 +27,18 @@
 	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
-		COLOR_RED = "Red",
+		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
 		COLOR_PALE_BTL_GREEN = "Pale Green",
-		COLOR_BLUE = "Blue",
 		COLOR_CYAN_BLUE = "Light Blue",
 		COLOR_TEAL = "Teal",
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",
 		COLOR_PINK = "Pink",
-		COLOR_MAROON = "Brown"
+		COLOR_MAROON = "Brown",
+		COLOR_INDIGO = "Indigo",
+		COLOR_VIOLET = "Violet",
+		COLOR_PURPLE = "Purple"
 	)
 	var/list/datum/chemical_production_mode/production_modes = list()
 
@@ -76,7 +81,7 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		if(loaded_pill_bottle)
@@ -109,9 +114,9 @@
 		return
 	update_icon()
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
+/obj/machinery/chem_master/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
@@ -121,10 +126,14 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		beaker = I
@@ -564,8 +573,8 @@
 			P.name = "[medicine_name][name_suffix]"
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
-		reagents.trans_to(P, amount_per_item)
 		configure_item(data, reagents, P)
+		reagents.trans_to(P, amount_per_item)
 
 		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))
@@ -604,6 +613,8 @@
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!safe_chem_list.Find(A.id))
 			return FALSE
+	if(R.chem_temp < SAFE_MIN_TEMPERATURE || R.chem_temp > SAFE_MAX_TEMPERATURE)
+		return FALSE
 	return TRUE
 
 /datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
@@ -622,7 +633,7 @@
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
-	sprites = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
+	sprites = list("bottle", "reagent_bottle")
 	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
@@ -659,3 +670,6 @@
 
 #undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER
+
+#undef SAFE_MIN_TEMPERATURE
+#undef SAFE_MAX_TEMPERATURE

@@ -2,7 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(flying && !floating) //TODO: Better floating
+	if(HAS_TRAIT(src, TRAIT_FLYING) && !floating) //TODO: Better floating
 		float(TRUE)
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
@@ -51,9 +51,15 @@
 		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
-	var/datum/gas_mixture/environment = loc.return_air()
-	if(environment)
-		handle_environment(environment)
+	var/datum/gas_mixture/readonly_environment = null
+	if(isobj(loc))
+		var/obj/O = loc
+		readonly_environment = O.return_obj_air()
+	if(isnull(readonly_environment))
+		var/turf/T = get_turf(src)
+		if(!isnull(T))
+			readonly_environment = T.get_readonly_air()
+	handle_environment(readonly_environment)
 
 	handle_fire()
 
@@ -89,9 +95,6 @@
 		if(forced_look)
 			setDir()
 
-	if(machine)
-		machine.check_eye(src)
-
 	if(stat != DEAD)
 		return TRUE
 
@@ -113,7 +116,8 @@
 /mob/living/proc/handle_random_events()
 	return
 
-/mob/living/proc/handle_environment(datum/gas_mixture/environment)
+/// Handle temperature/pressure differences between body and environment
+/mob/living/proc/handle_environment()
 	return
 
 /mob/living/proc/update_pulling()

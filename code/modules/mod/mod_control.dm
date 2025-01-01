@@ -8,12 +8,11 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
-	icon_state = "standard-control"
-	icon_state = "mod_control"
+	icon_state = null
 	item_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
@@ -91,7 +90,7 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
-	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
+	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
 
@@ -149,6 +148,7 @@
 		part.max_heat_protection_temperature = theme.max_heat_protection_temperature
 		part.min_cold_protection_temperature = theme.min_cold_protection_temperature
 		part.siemens_coefficient = theme.siemens_coefficient
+		part.flags_2 = theme.flag_2_flags
 	for(var/obj/item/part as anything in mod_parts)
 		RegisterSignal(part, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_part_destruction)) //look into
 		RegisterSignal(part, COMSIG_PARENT_QDELETING, PROC_REF(on_part_deletion))
@@ -231,20 +231,20 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
 
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
 	if(!jetpack_active || !isturf(user.loc))
 		return
-	var/turf/T = get_step(src, reverse_direction(direction))
+	var/turf/T = get_step(src, REVERSE_DIR(direction))
 	if(!has_gravity(T))
 		new /obj/effect/particle_effect/ion_trails(T, direction)
 
@@ -253,6 +253,7 @@
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return
 	clean_up()
+	bag?.update_viewers()
 
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -297,7 +298,6 @@
 			return TRUE
 		if(!core)
 			return TRUE
-		wrench.play_tool_sound(src, 100)
 		core.forceMove(drop_location())
 		update_charge_alert()
 		return TRUE
@@ -315,7 +315,6 @@
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		screwdriver.play_tool_sound(src, 100)
 		to_chat(user, "<span class='notice'>Cover [open ? "closed" : "opened"]</span>")
 		open = !open
 	return TRUE
@@ -353,7 +352,7 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
 			to_chat(user, "<span class='warning'>Open the cover first!</span>")
@@ -400,7 +399,7 @@
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
 	else if(bag && istype(attacking_item))
-		bag.attackby(attacking_item, user, params)
+		bag.attackby__legacy__attackchain(attacking_item, user, params)
 
 	return ..()
 
@@ -456,7 +455,7 @@
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	to_chat(wearer, "<span class='warning'>[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!")
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
@@ -777,7 +776,3 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
-
-/obj/item/mod/control/Moved(atom/oldloc, dir, forced = FALSE)
-	. = ..()
-	bag?.update_viewers()

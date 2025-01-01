@@ -181,6 +181,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.admin_only) // No admin positions either.
 			continue
 
+		if(job.mentor_only) // Neither for mentor positions
+			continue
+
 		if(jobban_isbanned(player, job.title))
 			Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
@@ -510,6 +513,8 @@ SUBSYSTEM_DEF(jobs)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
+			if(drunken_spawning && sloc.name == "AI")
+				continue
 			S = sloc
 			break
 		if(!S)
@@ -548,7 +553,7 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), SLOT_HUD_GLASSES)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)

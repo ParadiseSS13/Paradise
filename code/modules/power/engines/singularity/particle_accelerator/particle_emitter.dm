@@ -2,7 +2,7 @@
 	name = "EM Containment Grid"
 	desc_holder = "This part launches the Alpha particles. You might not want to stand near this end."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	icon_state = "none"
+	icon_state = null
 	var/fire_delay = 50
 	var/last_shot = 0
 

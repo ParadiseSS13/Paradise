@@ -48,7 +48,7 @@
 	if(unfastened)
 		. += "<span class='warning'>It has been unfastened.</span>"
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 
@@ -170,9 +170,11 @@
 	name = "plating"
 
 /turf/simulated/floor/plating/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
@@ -206,17 +208,16 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
-	if(!C || !user)
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
+	if(!user)
 		return
-	if(istype(C, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(!istype(src, /turf/simulated/floor/engine))
-				return
-			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+	if(W.use_tool(src, user, 3 SECONDS, 0, 50))
+		if(!istype(src, /turf/simulated/floor/engine))
+			return
+		new /obj/item/stack/rods(src, 2)
+		ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
@@ -255,9 +256,11 @@
 	return
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
 	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //air filled floors; used in atmos pressure chambers
 
@@ -304,13 +307,23 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/airless/nodecay
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+/turf/simulated/floor/engine/asteroid
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
 				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
@@ -366,27 +379,28 @@
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
-	var/metal = MFOAM_ALUMINUM
+	/// which kind of metal this will turn into
+	var/metal_kind = METAL_FOAM_ALUMINUM
 
 /turf/simulated/floor/plating/metalfoam/iron
 	icon_state = "ironfoam"
-	metal = MFOAM_IRON
+	metal_kind = METAL_FOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/update_icon_state()
-	switch(metal)
-		if(MFOAM_ALUMINUM)
+	switch(metal_kind)
+		if(METAL_FOAM_ALUMINUM)
 			icon_state = "metalfoam"
-		if(MFOAM_IRON)
+		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		var/smash_prob = max(0, C.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
 			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
@@ -400,7 +414,7 @@
 		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
 	else
 		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
+			playsound(loc, M.attack_sound, 50, TRUE, 1)
 		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
 		smash(src)
 

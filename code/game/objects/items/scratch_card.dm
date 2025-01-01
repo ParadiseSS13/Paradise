@@ -11,7 +11,7 @@
 	/// Is this the winner card?
 	var/winner = FALSE
 
-/obj/item/scratch/attackby(obj/item/I, mob/user, params)
+/obj/item/scratch/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(scratched)
 		return
@@ -27,9 +27,9 @@
 		icon_state = "scard_loser"
 	playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
 	scratched = TRUE
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/scratch/attack_obj(obj/O, mob/living/user, params)
+/obj/item/scratch/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(winner && istype(O, /obj/machinery/economy/atm))
 		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
 		O.atom_say("Congratulations for winning the lottery!")

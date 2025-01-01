@@ -71,3 +71,10 @@ $RECYCLE.BIN
 
 # VIM swap files.
 *.swp
+
+# Rust output.
+/rust/target/*
+rustlibs_panic.txt
+
+# mkdocs output.
+site

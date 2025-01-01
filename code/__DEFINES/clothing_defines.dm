@@ -1,3 +1,37 @@
+//Item inventory slots bitmasks
+#define ITEM_SLOT_BACK 			(1<<0) // back
+#define ITEM_SLOT_MASK 			(1<<1) // mask
+#define ITEM_SLOT_HANDCUFFED 	(1<<2) // handcuffs
+#define ITEM_SLOT_LEFT_HAND 	(1<<3) // l_hand
+#define ITEM_SLOT_RIGHT_HAND 	(1<<4) // r_hand
+#define ITEM_SLOT_BOTH_HANDS	(ITEM_SLOT_LEFT_HAND | ITEM_SLOT_RIGHT_HAND)
+#define ITEM_SLOT_BELT 			(1<<5) // belt
+#define ITEM_SLOT_ID 			(1<<6) // id
+#define ITEM_SLOT_LEFT_EAR 		(1<<7) // l_ear
+#define ITEM_SLOT_RIGHT_EAR 	(1<<8) // r_ear
+#define ITEM_SLOT_BOTH_EARS		(ITEM_SLOT_LEFT_EAR | ITEM_SLOT_RIGHT_EAR)
+#define ITEM_SLOT_EYES 			(1<<9) // eyes
+#define ITEM_SLOT_GLOVES 		(1<<10) // gloves
+#define ITEM_SLOT_HEAD 			(1<<11) // head
+#define ITEM_SLOT_SHOES 		(1<<12) // shoes
+#define ITEM_SLOT_OUTER_SUIT 	(1<<13) // wear_suit
+#define ITEM_SLOT_JUMPSUIT	 	(1<<14) // w_uniform
+#define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store
+#define ITEM_SLOT_RIGHT_POCKET 	(1<<16) // r_store
+#define ITEM_SLOT_BOTH_POCKETS	(ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET)
+#define ITEM_SLOT_SUIT_STORE 	(1<<17) // suit_storage
+#define ITEM_SLOT_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
+#define ITEM_SLOT_LEGCUFFED 	(1<<19) // legcuffs
+#define ITEM_SLOT_PDA 			(1<<20) // pda
+#define ITEM_SLOT_ACCESSORY 	(1<<21) // accessories
+#define ITEM_SLOT_COLLAR 		(1<<22) // pet collar
+#define ITEM_SLOT_NECK			(1<<23) // neck
+#define ITEM_SLOT_AMOUNT_FLAG	(1<<(ITEM_SLOT_AMOUNT-1))
+#define ITEM_SLOT_AMOUNT 		24 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
+
+/// Translates an ITEM_SLOT back to an index that can be looked up in inv_slots. e.g. (1<<19) becomes 19.
+#define ITEM_SLOT_2_INDEX(slot) (log(2, slot) + 1)
+
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
 #define HIDEGLOVES		(1<<0)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDESUITSTORAGE	(1<<1)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
@@ -10,41 +44,14 @@
 #define HIDEEYES	(1<<2)	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
 #define HIDEFACE	(1<<3)	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
-// Slot defines for var/list/inv_slots, some of these dont really show up on the HUD,
-// but still function like it in other ways. I know thats weird, and I hate it too.
-#define SLOT_HUD_BACK 1
-#define SLOT_HUD_WEAR_MASK 2
-#define SLOT_HUD_HANDCUFFED 3
-#define SLOT_HUD_LEFT_HAND 4 // l_hand
-#define SLOT_HUD_RIGHT_HAND 5 // r_hand
-#define SLOT_HUD_BELT 6
-#define SLOT_HUD_WEAR_ID 7
-#define SLOT_HUD_LEFT_EAR 8 // l_ear
-#define SLOT_HUD_GLASSES 9
-#define SLOT_HUD_GLOVES 10
-#define SLOT_HUD_HEAD 11
-#define SLOT_HUD_SHOES 12
-#define SLOT_HUD_OUTER_SUIT 13 // wear_suit
-#define SLOT_HUD_JUMPSUIT 14 // w_uniform
-#define SLOT_HUD_LEFT_STORE 15 // l_store
-#define SLOT_HUD_RIGHT_STORE 16 // r_store
-#define SLOT_HUD_SUIT_STORE 17
-#define SLOT_HUD_IN_BACKPACK 18 // this just puts stuff a backpack if you have one
-#define SLOT_HUD_LEGCUFFED 19
-#define SLOT_HUD_RIGHT_EAR 20 // r_ear
-#define SLOT_HUD_WEAR_PDA 21
-#define SLOT_HUD_TIE 22
-#define SLOT_HUD_COLLAR 23
-#define SLOT_HUD_AMOUNT 23
-
 // Boolean defines for hands
 #define HAND_BOOL_RIGHT 0
 #define HAND_BOOL_LEFT 1
 
 // accessory slots
-#define ACCESSORY_SLOT_DECOR 1
-#define ACCESSORY_SLOT_UTILITY 2
-#define ACCESSORY_SLOT_ARMBAND 3
+#define ACCESSORY_SLOT_DECOR    (1<<0)
+#define ACCESSORY_SLOT_UTILITY  (1<<1)
+#define ACCESSORY_SLOT_ARMBAND  (1<<2)
 
 ///max number of accessories that can be equiped to one piece of clothing
 #define MAX_EQUIPABLE_ACCESSORIES 5
@@ -104,3 +111,4 @@
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
+

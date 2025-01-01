@@ -9,6 +9,18 @@
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
+		MiddleShiftControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"])
+		MiddleShiftClickOn(A)
+		return
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(A)
+		return
+	if(modifiers["shift"] && modifiers["alt"])
+		AltShiftClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
@@ -61,7 +73,7 @@
 				if(30 to 70)
 					to_chat(src, "<span class='revennotice'>[target] will yield an average amount of essence.</span>")
 				if(70 to 90)
-					to_chat(src, "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>")
+					to_chat(src, "<span class='revennotice bold'>Such a feast! [target] will yield much essence to you.</span>")
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
 			if(do_after(src, 20, 0, target = target)) //how about now
@@ -83,7 +95,7 @@
 					if(essence_drained > 90)
 						essence_regen_cap += 25
 						perfectsouls += 1
-						to_chat(src, "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
+						to_chat(src, "<span class='revennotice bold'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
 					to_chat(src, "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>")
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
 										"<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
@@ -366,12 +378,12 @@
 	possessed_object.escape_chance = 100 // We cannot be contained
 	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
 
-	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
-/datum/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+/datum/spell/aoe/revenant/haunt_object/proc/attack__legacy__attackchain(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
 		for(var/mob/living/carbon/potential_victim in turf_to_search)
@@ -441,7 +453,7 @@
 	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
@@ -456,7 +468,7 @@
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(usr)
 	else if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
 	..(cause_emp = FALSE)
@@ -472,11 +484,11 @@
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /turf/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/wall/defile()
@@ -519,13 +531,13 @@
 		make_plating(1)
 
 /turf/simulated/floor/plating/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/floor/engine/cult/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /obj/machinery/light/defile()

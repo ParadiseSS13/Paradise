@@ -10,7 +10,6 @@
 		for(var/obj/machinery/camera/M in src)
 			if(M.isMotion())
 				motioncameras.Add(M)
-				M.AddComponent(/datum/component/proximity_monitor)
 				M.set_area_motion(src)
 
 /area/station/ai_monitored/Entered(atom/movable/O)
@@ -21,7 +20,7 @@
 			cam.newTarget(O)
 			return
 
-/area/station/ai_monitored/Exited(atom/movable/O)
+/area/station/ai_monitored/Exited(atom/movable/O, direction)
 	..()
 	if(ismob(O) && length(motioncameras))
 		for(var/X in motioncameras)
@@ -33,7 +32,4 @@
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambientsounds = HIGHSEC_SOUNDS
-
-/area/station/ai_monitored/storage/secure
-	name = "Secure Storage"
-	icon_state = "storage"
+	request_console_name = "EVA"

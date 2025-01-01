@@ -346,8 +346,8 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] [ADMIN_OBS(M, "OBS")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
@@ -452,6 +452,9 @@
 		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
 
+		if(length(SSticker.mode.mindflayers))
+			dat += check_role_table("Mindflayers", SSticker.mode.mindflayers)
+
 		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
@@ -469,6 +472,12 @@
 
 		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
+
+		if(length(SSticker.mode.zombies))
+			dat += check_role_table("Zombies", SSticker.mode.zombies)
+
+		if(length(SSticker.mode.zombie_infected))
+			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
 
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
@@ -528,4 +537,11 @@
 		"}
 
 	txt += "</tr>"
+	return txt
+
+/datum/admins/proc/check_role_table_mob(name, list/members, show_objectives=1)
+	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	for(var/mob/M in members)
+		txt += check_role_table_row(M, show_objectives)
+	txt += "</table>"
 	return txt

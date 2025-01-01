@@ -235,6 +235,19 @@
 		update_body()
 	return TRUE
 
+/mob/living/carbon/human/get_runechat_color()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.chat_color
+
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000")
+	if(!dna)
+		return
+	if(colour == dna.chat_color)
+		return
+	dna.chat_color = colour
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -348,7 +361,7 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
 /mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
-	var/list/valid_species = new()
+	var/list/valid_species = list()
 	for(var/current_species_name in GLOB.all_species)
 		if(check_whitelist && !check_rights(R_ADMIN, FALSE, src)) //If we're using the whitelist, make sure to check it!
 			if(length(whitelist) && !(current_species_name in whitelist))
@@ -363,7 +376,7 @@
 	return sortTim(valid_species, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
-	var/list/valid_hairstyles = new()
+	var/list/valid_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -389,7 +402,7 @@
 	return sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
-	var/list/valid_facial_hairstyles = new()
+	var/list/valid_facial_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -416,7 +429,7 @@
 	return sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
-	var/list/valid_head_accessories = new()
+	var/list/valid_head_accessories = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no head accessory.
@@ -431,7 +444,7 @@
 	return sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_markings(location = "body")
-	var/list/valid_markings = new()
+	var/list/valid_markings = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
 		return //No head, no head markings.
@@ -498,3 +511,10 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+
+/mob/living/carbon/human/proc/get_blood_color()
+	var/bloodcolor = "#A10808"
+	var/list/b_data = get_blood_data(get_blood_id())
+	if(b_data)
+		bloodcolor = b_data["blood_color"]
+	return bloodcolor

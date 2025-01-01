@@ -1,4 +1,4 @@
-/obj/structure/AIcore
+/obj/structure/ai_core
 	density = TRUE
 	anchored = FALSE
 	name = "AI core"
@@ -10,13 +10,13 @@
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
-/obj/structure/AIcore/Destroy()
+/obj/structure/ai_core/Destroy()
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
 	QDEL_NULL(brain)
 	return ..()
 
-/obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
+/obj/structure/ai_core/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))
@@ -28,6 +28,7 @@
 				state = CIRCUIT_CORE
 				P.forceMove(src)
 				circuit = P
+				update_icon(UPDATE_ICON_STATE)
 				return
 		if(SCREWED_CORE)
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -56,13 +57,13 @@
 					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
 				return
 
-			if(istype(P, /obj/item/aiModule/purge))
+			if(istype(P, /obj/item/ai_module/purge))
 				laws.clear_inherent_laws()
 				to_chat(usr, "<span class='notice'>Law module applied.</span>")
 				return
 
-			if(istype(P, /obj/item/aiModule/freeform))
-				var/obj/item/aiModule/freeform/M = P
+			if(istype(P, /obj/item/ai_module/freeform))
+				var/obj/item/ai_module/freeform/M = P
 				if(!M.newFreeFormLaw)
 					to_chat(usr, "No law detected on module, please create one.")
 					return
@@ -70,8 +71,8 @@
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
 				return
 
-			if(istype(P, /obj/item/aiModule/syndicate))
-				var/obj/item/aiModule/syndicate/M = P
+			if(istype(P, /obj/item/ai_module/syndicate))
+				var/obj/item/ai_module/syndicate/M = P
 				if(!M.newFreeFormLaw)
 					to_chat(usr, "No law detected on module, please create one.")
 					return
@@ -79,8 +80,8 @@
 				to_chat(usr, "<span class='notice'>Added a hacked law.</span>")
 				return
 
-			if(istype(P, /obj/item/aiModule))
-				var/obj/item/aiModule/M = P
+			if(istype(P, /obj/item/ai_module))
+				var/obj/item/ai_module/M = P
 				if(!M.laws)
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
@@ -124,7 +125,7 @@
 
 	return ..()
 
-/obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/crowbar_act(mob/living/user, obj/item/I)
 	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
 	. = TRUE
@@ -136,11 +137,13 @@
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(GLASS_CORE)
 			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(CABLED_CORE)
 			if(brain)
@@ -149,7 +152,7 @@
 				brain = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/screwdriver_act(mob/living/user, obj/item/I)
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
 		return
 	. = TRUE
@@ -169,7 +172,7 @@
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
 				var/open_for_latejoin = tgui_alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", list("Yes", "No")) == "Yes"
-				var/obj/structure/AIcore/deactivated/D = new(loc)
+				var/obj/structure/ai_core/deactivated/D = new(loc)
 				if(open_for_latejoin)
 					GLOB.empty_playable_ai_cores += D
 			else
@@ -178,6 +181,8 @@
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
+				// Stop holding onto the laws so we don't qdel them and make the AI randomly lose its laws when GC gives up and hard deletes them.
+				laws = null
 				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
 					A.rename_self("AI", 1)
 			SSblackbox.record_feedback("amount", "ais_created", 1)
@@ -188,7 +193,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/wirecutter_act(mob/living/user, obj/item/I)
 	if(state != CABLED_CORE)
 		return
 	. = TRUE
@@ -203,11 +208,11 @@
 		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 		A.amount = 5
 
-/obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 20)
 
-/obj/structure/AIcore/update_icon_state()
+/obj/structure/ai_core/update_icon_state()
 	switch(state)
 		if(EMPTY_CORE)
 			icon_state = "0"
@@ -225,7 +230,7 @@
 		if(AI_READY_CORE)
 			icon_state = "ai-empty"
 
-/obj/structure/AIcore/deconstruct(disassembled = TRUE)
+/obj/structure/ai_core/deconstruct(disassembled = TRUE)
 	if(state == GLASS_CORE)
 		new /obj/item/stack/sheet/rglass(loc, 2)
 	if(state >= CABLED_CORE)
@@ -236,7 +241,7 @@
 	new /obj/item/stack/sheet/plasteel(loc, 4)
 	qdel(src)
 
-/obj/structure/AIcore/welder_act(mob/user, obj/item/I)
+/obj/structure/ai_core/welder_act(mob/user, obj/item/I)
 	if(state)
 		return
 	. = TRUE
@@ -248,17 +253,17 @@
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)
 		qdel(src)
 
-/obj/structure/AIcore/deactivated
+/obj/structure/ai_core/deactivated
 	name = "inactive AI"
 	icon_state = "ai-empty"
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/Initialize(mapload)
+/obj/structure/ai_core/deactivated/Initialize(mapload)
 	. = ..()
 	circuit = new(src)
 
-/obj/structure/AIcore/deactivated/Destroy()
+/obj/structure/ai_core/deactivated/Destroy()
 	if(src in GLOB.empty_playable_ai_cores)
 		GLOB.empty_playable_ai_cores -= src
 	return ..()
@@ -268,7 +273,7 @@
 	set category = "Admin"
 
 	var/list/cores = list()
-	for(var/obj/structure/AIcore/deactivated/D in world)
+	for(var/obj/structure/ai_core/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
 	if(!length(cores))
@@ -277,7 +282,7 @@
 	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
 	if(!id) return
 
-	var/obj/structure/AIcore/deactivated/D = cores[id]
+	var/obj/structure/ai_core/deactivated/D = cores[id]
 	if(!D) return
 
 	if(D in GLOB.empty_playable_ai_cores)
@@ -304,7 +309,7 @@ That prevents a few funky behaviors.
 	return 1
 
 
-/obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
+/obj/structure/ai_core/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(state != AI_READY_CORE || !..())
 		return
  //Transferring a carded AI to a core.

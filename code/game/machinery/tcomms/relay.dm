@@ -54,6 +54,11 @@
   */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
+
+	// It's also possible the relay's APC's Initialize was called after this one.
+	// Take the opportunity here to re-check the equipment channel.
+	power_change()
+
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == autolink_id)
 			AddLink(C)
@@ -65,7 +70,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
   */
-/obj/machinery/tcomms/relay/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/relay/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(linked_core)
 		linked_core.refresh_zlevels()

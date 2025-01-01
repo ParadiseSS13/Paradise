@@ -13,7 +13,6 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "," = 'sound/vox_fem/,.ogg',
 "." = 'sound/vox_fem/..ogg',
 "a" = 'sound/vox_fem/a.ogg',
-"abortions" = 'sound/vox_fem/abortions.ogg',
 "abduction" = 'sound/vox_fem/abduction.ogg',
 "accelerating" = 'sound/vox_fem/accelerating.ogg',
 "accelerator" = 'sound/vox_fem/accelerator.ogg',

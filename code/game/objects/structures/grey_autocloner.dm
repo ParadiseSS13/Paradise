@@ -15,23 +15,23 @@
 /obj/machinery/grey_autocloner/Initialize(mapload)
 	. = ..()
 	air_contents = new()
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_oxygen(MOLES_O2STANDARD * 2)
+	air_contents.set_nitrogen(MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 /obj/machinery/grey_autocloner/Destroy() //These will only be not null if deleted with someone in it
 	occupant = null
 	clonemind = null
 	return ..()
 
-/obj/machinery/grey_autocloner/attackby(obj/item/bio_chip_implanter/implant, mob/user, params)
+/obj/machinery/grey_autocloner/attackby__legacy__attackchain(obj/item/bio_chip_implanter/implant, mob/user, params)
 	if(!istype(implant) || !(istype(implant.imp, /obj/item/bio_chip/grey_autocloner)))
 		return ..()
 	var/obj/item/bio_chip/grey_autocloner/autoclone = implant.imp
 	autoclone.linked = src
 	atom_say("Link confirmed!")
 
-/obj/machinery/grey_autocloner/proc/growclone(datum/dna2/record/R)
+/obj/machinery/grey_autocloner/proc/growclone(datum/dna2_record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
 		return FALSE
 	clonemind = locateUID(R.mind)

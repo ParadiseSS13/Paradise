@@ -54,25 +54,25 @@
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
-	button_icon_state = "legionnaire_charge"
+	button_overlay_icon_state = "legionnaire_charge"
 	chosen_message = "<span class='boldwarning'>You will attempt to grab your opponent and throw them.</span>"
 	chosen_attack_num = LEGIONNAIRE_CHARGE
 
 /datum/action/innate/elite_attack/head_detach
 	name = "Release Head"
-	button_icon_state = "head_detach"
+	button_overlay_icon_state = "head_detach"
 	chosen_message = "<span class='boldwarning'>You will now detach your head or kill it if it is already released.</span>"
 	chosen_attack_num = HEAD_DETACH
 
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Bonfire Teleport"
-	button_icon_state = "bonfire_teleport"
+	button_overlay_icon_state = "bonfire_teleport"
 	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/spew_smoke
 	name = "Spew Smoke"
-	button_icon_state = "spew_smoke"
+	button_overlay_icon_state = "spew_smoke"
 	chosen_message = "<span class='boldwarning'>Your head will spew smoke in an area, wherever it may be.</span>"
 	chosen_attack_num = SPEW_SMOKE
 
@@ -281,7 +281,7 @@
 //The legionnaire's bonfire, which can be swapped positions with.  Also sets flammable living beings on fire when they walk over it.
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
-	desc = "A pile of bones which seems to occasionally move a little.  It's probably a good idea to smash them."
+	desc = "A pile of bones which seems to occasionally move a little. It's probably a good idea to smash them."
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
@@ -292,12 +292,19 @@
 	light_color = LIGHT_COLOR_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
-/obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(source))
-		var/obj/object = source
+/obj/structure/legionnaire_bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/legionnaire_bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isobj(entered))
+		var/obj/object = entered
 		object.fire_act(1000, 500)
-	if(isliving(source))
-		var/mob/living/fire_walker = source
+	if(isliving(entered))
+		var/mob/living/fire_walker = entered
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
@@ -337,7 +344,7 @@
 	A.friends += user
 	A.faction = user.faction.Copy()
 
-/obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
+/obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/LivingUser = user

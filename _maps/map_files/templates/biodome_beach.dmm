@@ -352,7 +352,7 @@
 /turf/simulated/floor/beach/water,
 /area/ruin/powered/beach)
 "bM" = (
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/plasteel/stairs,
 /area/ruin/powered/beach)
 "bN" = (
 /obj/structure/flora/ausbushes/reedbush,
@@ -363,7 +363,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (
@@ -427,11 +427,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/pod/light{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "lM" = (
 /obj/structure/dresser,
@@ -473,7 +469,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "uA" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "uP" = (
@@ -547,11 +543,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "TW" = (
 /obj/structure/table/reinforced,

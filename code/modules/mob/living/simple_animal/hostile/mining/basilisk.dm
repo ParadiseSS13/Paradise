@@ -28,7 +28,6 @@
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	vision_range = 2
 	aggro_vision_range = 9
 	turns_per_move = 5
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -43,6 +42,12 @@
 	nodamage = TRUE
 	flag = ENERGY
 	temperature = 50
+
+/obj/item/projectile/temp/basilisk/on_hit(atom/target, blocked)
+	..()
+	if(isrobot(target))
+		var/mob/living/silicon/robot/cyborg = target
+		cyborg.apply_damage(35, STAMINA)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
@@ -76,11 +81,11 @@
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = UNCONSCIOUS
-	flying = TRUE
 	robust_searching = TRUE
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

@@ -67,7 +67,7 @@
 
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
-	desc = "Your food will be taste-tested.  All of it."
+	desc = "Your food will be taste-tested. All of it."
 
 
 /datum/dog_fashion/head/captain
@@ -252,7 +252,7 @@
 
 /datum/dog_fashion/head/not_ian
 	name = "Definitely Not REAL_NAME"
-	desc = "That's Definitely Not Dogname"
+	desc = "That's Definitely Not Dogname."
 
 /datum/dog_fashion/head/not_ian/New(mob/M)
 	..()
@@ -262,21 +262,11 @@
 	name = "REAL_NAME"
 	desc = "Omnicone's Chosen Champion."
 
-/datum/dog_fashion/back/hardsuit
-	name = "Space Explorer REAL_NAME"
-	desc = "That's one small step for a corgi. One giant yap for corgikind."
-
-/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
-	..()
-	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
-	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	D.minbodytemp = 0
-
 /datum/dog_fashion/head/fried_vox_empty
 	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
 
-/datum/dog_fashion/head/HoS
+/datum/dog_fashion/head/hos
 	name = "Head of Security REAL_NAME"
 	desc = "Probably better than the last HoS."
 

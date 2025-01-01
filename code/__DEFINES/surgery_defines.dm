@@ -26,11 +26,13 @@
 #define ORGAN_ORGANIC_OPEN 1
 /// An organ that's encased, probably with bone, where that casing has been cut through.
 #define ORGAN_ORGANIC_ENCASED_OPEN 2
+/// An organ that has been violently opened, likely via damage.
+#define ORGAN_ORGANIC_VIOLENT_OPEN 3
 
 /// Synthetic organ that's been unscrewed.
-#define ORGAN_SYNTHETIC_LOOSENED 3
+#define ORGAN_SYNTHETIC_LOOSENED 4
 /// Synthetic organ that's had its panel opened.
-#define ORGAN_SYNTHETIC_OPEN 4
+#define ORGAN_SYNTHETIC_OPEN 5
 
 // Return defines for surgery steps
 

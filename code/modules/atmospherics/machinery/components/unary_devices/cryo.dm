@@ -40,7 +40,7 @@
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -108,10 +108,10 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
@@ -182,10 +182,10 @@
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
 
 
@@ -240,11 +240,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -298,15 +298,17 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/attackby__legacy__attackchain(obj/item/G, mob/user, params)
 	if(istype(G, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
+
 		if(!user.drop_item())
-			to_chat(user, "[B] is stuck to you!")
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 			return
+
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
@@ -314,23 +316,24 @@
 		SStgui.update_uis(src)
 		return
 
-	if(exchange_parts(user, G))
-		return
-
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 			return
+
 		if(!ismob(GG.affecting))
 			return
+
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
 			return
+
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
 		return
+
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
@@ -379,14 +382,14 @@
 		occupant.bodytemperature = T0C
 		return
 
-	occupant.bodytemperature += 2 * (air_contents.temperature - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
-	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+	occupant.bodytemperature += 2 * (air_contents.temperature() - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature()) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 
 	if(occupant.bodytemperature < T0C)
 		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
 		occupant.Sleeping(stun_time)
 
-		var/heal_mod = air_contents.oxygen < 2 ? 0.2 : 1
+		var/heal_mod = air_contents.oxygen() < 2 ? 0.2 : 1
 		occupant.adjustOxyLoss(-6 * heal_mod)
 
 	if(beaker && world.time >= last_injection + injection_cooldown)
@@ -403,8 +406,8 @@
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
 	if(combined_heat_capacity > 0)
-		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+		var/combined_energy = T20C * current_heat_capacity + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)

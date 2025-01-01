@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -72,7 +72,7 @@
 		user.put_in_hands(src)
 		add_fingerprint(user)
 
-/obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
+/obj/item/clothing/accessory/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
 	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
@@ -97,7 +97,7 @@
 	return
 
 //default attackby behaviour
-/obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 
 //default attack_hand behaviour
@@ -151,7 +151,7 @@
 	icon_state = "stethoscope"
 	item_color = "stethoscope"
 
-/obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/accessory/stethoscope/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!ishuman(M) || !isliving(user))
 		return ..(M, user)
 
@@ -220,7 +220,7 @@
 	if(channel)
 		. += "<span class='notice'>The tiny radio inside seems to be [try_announce ? "active" : "inactive"].</span>"
 
-/obj/item/clothing/accessory/medal/attack_self(mob/user)
+/obj/item/clothing/accessory/medal/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(channel)
 		try_announce = !try_announce
@@ -251,7 +251,7 @@
 
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
@@ -413,7 +413,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_ACCESSORY
 
 	var/stored_name = null
 
@@ -421,7 +421,7 @@
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"
 
-/obj/item/clothing/accessory/holobadge/attack_self(mob/user)
+/obj/item/clothing/accessory/holobadge/attack_self__legacy__attackchain(mob/user)
 	if(!stored_name)
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
@@ -429,7 +429,7 @@
 		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
 		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
-/obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/holobadge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 
 		var/obj/item/card/id/id_card = null
@@ -440,7 +440,7 @@
 			var/obj/item/pda/pda = I
 			id_card = pda.id
 
-		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+		if((ACCESS_SEC_DOORS in id_card.access) || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
@@ -458,40 +458,55 @@
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 		return TRUE
 
-/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
-	if(isliving(user))
+/obj/item/clothing/accessory/holobadge/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/user)
+	if(H != user)
 		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are THE LAW!</span>")
+		return
+	..()
 
 //////////////
 //OBJECTION!//
 //////////////
 
-/obj/item/clothing/accessory/lawyers_badge
-	name = "attorney's badge"
-	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
-	icon_state = "lawyerbadge"
-	item_state = "lawyerbadge"
-	item_color = "lawyerbadge"
+/obj/item/clothing/accessory/legal_badge
+	name = "magistrate's badge"
+	desc = "Fills you with the conviction of JUSTICE. Display your mastery of Space Law to the world."
+	icon_state = "legal_badge"
+	item_state = "legal_badge"
+	item_color = "legal_badge"
 	var/cached_bubble_icon = null
+	var/what_you_are = "THE LAW"
 
-/obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
+/obj/item/clothing/accessory/legal_badge/attack_self__legacy__attackchain(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
+	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
 
-/obj/item/clothing/accessory/lawyers_badge/on_attached(obj/item/clothing/under/S, mob/user)
+/obj/item/clothing/accessory/legal_badge/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/user)
+	if(H != user)
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are [what_you_are]!</span>")
+		return
+	..()
+
+/obj/item/clothing/accessory/legal_badge/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		cached_bubble_icon = M.bubble_icon
-		M.bubble_icon = "lawyer"
+		M.bubble_icon = "legal"
 
-/obj/item/clothing/accessory/lawyers_badge/on_removed(mob/user)
+/obj/item/clothing/accessory/legal_badge/on_removed(mob/user)
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		M.bubble_icon = cached_bubble_icon
 	..()
+
+/obj/item/clothing/accessory/legal_badge/iaa
+	name = "internal affairs badge"
+	desc = "Marks you as an expert of Standard Operating Procedure, and as a soul-crushing paper pusher."
+	what_you_are = "HUMAN RESOURCES"
 
 ///////////
 //SCARVES//
@@ -586,7 +601,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /obj/item/clothing/accessory/necklace/long
 	name = "large necklace"
@@ -627,7 +642,7 @@
 	icon_state = "locketgold"
 	item_state = "locketgold"
 	item_color = "locketgold"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.
@@ -637,7 +652,7 @@
 	return ..()
 
 
-/obj/item/clothing/accessory/necklace/locket/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/necklace/locket/attack_self__legacy__attackchain(mob/user as mob)
 	if(!base_icon)
 		base_icon = icon_state
 
@@ -656,7 +671,7 @@
 	else
 		icon_state = "[base_icon]"
 
-/obj/item/clothing/accessory/necklace/locket/attackby(obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/accessory/necklace/locket/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob)
 	if(!open)
 		to_chat(user, "You have to open it first.")
 		return
@@ -813,6 +828,56 @@
 	icon_state = "corset_blue"
 	item_state = "corset_blue"
 	item_color = "corset_blue"
+
+//Pins
+/obj/item/clothing/accessory/pin
+	name = "nanotrasen pin"
+	desc = "It's a standard pin to wear so you can show your loyalty to Nanotrasen!"
+	icon_state = "nt_pin"
+	item_state = "nt_pin"
+	item_color = "nt_pin"
+
+/obj/item/clothing/accessory/pin/pride
+	name = "pride pin"
+	desc = "It's a standard pin, wear it with pride. You can change which flag is used from a button on the back."
+	icon_state = "pride_pin"
+	item_state = "pride_pin"
+	item_color = "pride_pin"
+
+	///List of all pride flags to icon state
+	var/static/list/flag_types = list(
+		"Pride" = "pride_pin",
+		"Bisexual Pride" = "bi_pin",
+		"Pansexual Pride" = "pan_pin",
+		"Asexual Pride" = "ace_pin",
+		"Non-binary Pride" = "enby_pin",
+		"Transgender Pride" = "trans_pin")
+
+	///List of all pride flags to icon image, for the radial
+	var/static/list/flag_icons = list()
+
+/obj/item/clothing/accessory/pin/pride/Initialize(mapload)
+	. = ..()
+	if(length(flag_icons)) //Only generate it once
+		return
+
+	for(var/current_pin in flag_types) //generate the flag icons
+		var/image/pin_icon = image(icon, icon_state = flag_types[current_pin])
+		flag_icons[current_pin] = pin_icon
+
+/obj/item/clothing/accessory/pin/pride/attack_self__legacy__attackchain(mob/user)
+	. = ..()
+	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
+	if(!chosen_pin)
+		to_chat(user, "<span class='notice'>You decide not to change [src].</span>")
+		return
+	var/pin_icon_state = flag_types[chosen_pin]
+	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
+
+	icon_state = pin_icon_state
+	item_state = pin_icon_state
+	item_color = pin_icon_state
+	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !length(U.accessories))

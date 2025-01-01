@@ -26,6 +26,8 @@
 	var/list/start_showpieces = list()
 	/// A flavor message to show with this item.
 	var/trophy_message = ""
+	/// Do we want to force alarms even if off station?
+	var/force_alarm = FALSE
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
@@ -36,7 +38,7 @@
 			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
-		showpiece = new start_showpiece_type (src)
+		showpiece = new start_showpiece_type(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/Destroy()
@@ -107,7 +109,7 @@
 
 /obj/structure/displaycase/proc/trigger_alarm()
 	set waitfor = FALSE
-	if(alert && is_station_contact(z))
+	if(alert && (is_station_contact(z) || force_alarm))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
@@ -128,7 +130,7 @@
 	if(!open && !broken)
 		. += "glassbox_closed"
 
-/obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.GetID())
 		if(!openable)
 			to_chat(user, "<span class='warning'>There is no ID scanner, looks like this one is sealed shut.</span>")
@@ -230,7 +232,7 @@
 	icon_state = "glassbox_chassis"
 	var/obj/item/airlock_electronics/electronics
 
-/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase_chassis/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(loc, I.usesound, 50, TRUE)

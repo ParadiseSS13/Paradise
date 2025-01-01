@@ -21,7 +21,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -43,9 +43,15 @@
 	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
+	var/flipped_table_icon_base = "table"
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	if(flipped)
 		update_icon()
 
@@ -54,9 +60,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += "<span class='info'><b>Alt-Shift-Click</b> to right the table again.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to right the table again.</span>"
 		else
-			. += "<span class='info'><b>Alt-Shift-Click</b> to flip over the table.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to flip over the table.</span>"
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
@@ -78,19 +84,7 @@
 				type++
 				if(type == 1)
 					subtype = direction == turn(dir,90) ? "-" : "+"
-		var/base = "table"
-		if(istype(src, /obj/structure/table/wood))
-			base = "wood"
-		if(istype(src, /obj/structure/table/reinforced))
-			base = "rtable"
-		if(istype(src, /obj/structure/table/wood/poker))
-			base = "poker"
-		if(istype(src, /obj/structure/table/wood/fancy))
-			base = "fancy"
-		if(istype(src, /obj/structure/table/wood/fancy/black))
-			base = "fancyblack"
-
-		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
+		icon_state = "[flipped_table_icon_base]flip[type][type == 1 ? subtype : ""]"
 
 /obj/structure/table/proc/update_smoothing()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
@@ -100,19 +94,30 @@
 	if(flipped)
 		clear_smooth_overlays()
 
+// Need to override this to allow flipped tables to be mapped in without the smoothing subsystem resetting the icon_state
+/obj/structure/table/set_smoothed_icon_state(new_junction)
+	if(flipped)
+		return
+	..()
+
+/obj/structure/table/flipped
+	icon_state = "tableflip0"
+	flipped = TRUE
+
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/do_climb(mob/living/user)
+/obj/structure/table/start_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
 
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
-	if(climber)
-		climber.Weaken(4 SECONDS)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
+	if(length(climbers))
+		for(var/mob/living/climber as anything in climbers)
+			climber.Weaken(4 SECONDS)
+			climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
@@ -126,15 +131,13 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/table/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover,/obj/item/projectile))
-		return (check_cover(mover,target))
-	if(ismob(mover))
-		var/mob/living/M = mover
-		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
-			return TRUE
+		return check_cover(mover, border_dir)
+
+	var/mob/living/living_mover = mover
+	if(istype(living_mover) && (HAS_TRAIT(living_mover, TRAIT_FLYING) || (IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
@@ -144,17 +147,16 @@
 		if(!T.flipped)
 			return TRUE
 	if(flipped)
-		if(get_dir(loc, target) == dir)
+		if(border_dir == dir)
 			return !density
 		else
 			return TRUE
 	return FALSE
 
-/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/table/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSTABLE
 
 /**
  * Determines whether a projectile crossing our turf should be stopped.
@@ -162,30 +164,28 @@
  *
  * Arguments:
  * * P - The projectile trying to cross.
- * * from - Where the projectile is located.
+ * * proj_dir - The incoming direction of the projectile.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P, turf/from)
+/obj/structure/table/proc/check_cover(obj/item/projectile/P, proj_dir)
 	. = TRUE
 	if(!flipped)
 		return
 	if(get_dist(P.starting, loc) <= 1) // Tables won't help you if people are THIS close
 		return
-	var/proj_dir = get_dir(from, loc)
-	var/block_dir = get_dir(get_step(loc, dir), loc)
-	if(proj_dir != block_dir) // Back/side shots may pass
+	if(proj_dir != dir) // Back/side shots may pass
 		return
 	if(prob(40))
 		return FALSE // Blocked
 
-/obj/structure/table/CheckExit(atom/movable/O, turf/target)
-	if(istype(O) && O.checkpass(PASSTABLE))
-		return 1
+/obj/structure/table/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSTABLE))
+		return
+
 	if(flipped)
-		if(get_dir(loc, target) == dir)
-			return !density
-		else
-			return 1
-	return 1
+		if(direction == dir && density)
+			return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	if(..())
@@ -227,7 +227,7 @@
 		return TRUE
 	qdel(G)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
@@ -248,7 +248,7 @@
 			if(slippery)
 				step_away(I, user)
 				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
-				playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
 	else
@@ -329,41 +329,74 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
+	var/flip_speed = get_flip_speed(user)
+
 	if(!flipped)
+
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'>[user] starts trying to flip [src]!</span>", "<span class='warning'>You start trying to flip [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""].</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'>[user] gives up on trying to flip [src].</span>")
+				return
 		if(!flip(get_cardinal_dir(user, src)))
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
 			return
 
-		user.visible_message("<span class='warning'>[user] flips \the [src]!</span>")
+
+		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
 
 		if(climbable)
 			structure_shaken()
 	else
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'>[user] starts trying to right [src]!</span>", "<span class='warning'>You start trying to right [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'>[user] gives up on trying to right [src].</span>")
+				return
 		if(!unflip())
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
+		user.visible_message("<span class='warning'>[user] rights [src]!</span>")
+
+/obj/structure/table/proc/get_flip_speed(mob/living/flipper)
+	if(!istype(flipper))
+		return 0 SECONDS // sure
+	if(!issimple_animal(flipper))
+		return 0 SECONDS
+	if(istype(flipper, /mob/living/simple_animal/revenant))
+		return 0 SECONDS  // funny ghost table
+	switch(flipper.mob_size)
+		if(MOB_SIZE_TINY)
+			return 30 SECONDS  // you can do it but you gotta *really* work for it
+		if(MOB_SIZE_SMALL)
+			return 5 SECONDS  // not gonna terrorize anything
+		else
+			return 0 SECONDS
+
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
 		return 0
 
-	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
-		return 0
+	if(!straight_table_check(turn(direction, 90)) || !straight_table_check(turn(direction, -90)))
+		return FALSE
 
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
-	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
+
+	var/list/targets = list(get_step(src, dir), get_step(src, turn(dir, 45)), get_step(src, turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
+		if(isobserver(A))
+			continue
 		if(!A.anchored)
-			spawn(0)
-				A.throw_at(pick(targets),1,1)
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable/, throw_at), pick(targets), 1, 1)
 
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
-		if(locate(/obj/structure/table,get_step(src,D)))
-			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
+		if(locate(/obj/structure/table, get_step(src, D)))
+			var/obj/structure/table/T = locate(/obj/structure/table, get_step(src, D))
 			T.flip(direction)
 	update_icon()
 
@@ -371,7 +404,7 @@
 	if(isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
-	return 1
+	return TRUE
 
 /obj/structure/table/proc/unflip()
 	if(!flipped)
@@ -432,27 +465,32 @@
 	. = ..()
 	debris += new frame
 	debris += new shardtype
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/table/glass/Destroy()
 	for(var/i in debris)
 		qdel(i)
 	. = ..()
 
-/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
-	. = ..()
+/obj/structure/table/glass/proc/on_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(flags & NODECONSTRUCT)
 		return
-	if(!isliving(AM))
+	if(!isliving(entered))
 		return
-	var/mob/living/L = AM
-	if(L.incorporeal_move || L.flying || L.floating)
+	var/mob/living/L = entered
+	if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
 		return
 
 	// Don't break if they're just flying past
-	if(AM.throwing)
-		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
+	if(entered.throwing)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), entered), 5)
 	else
-		check_break(AM)
+		check_break(entered)
 
 /obj/structure/table/glass/proc/throw_check(mob/living/M)
 	if(M.loc == get_turf(src))
@@ -460,6 +498,8 @@
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
+		if(M.buckled && HAS_TRAIT(M.buckled, TRAIT_NO_BREAK_GLASS_TABLES))
+			return
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction)
@@ -609,6 +649,7 @@
 	icon = 'icons/obj/smooth_structures/tables/wood_table.dmi'
 	icon_state = "wood_table-0"
 	base_icon_state = "wood_table"
+	flipped_table_icon_base = "wood"
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
@@ -628,6 +669,7 @@
 	icon = 'icons/obj/smooth_structures/tables/poker_table.dmi'
 	icon_state = "poker_table-0"
 	base_icon_state = "poker_table"
+	flipped_table_icon_base = "poker"
 	buildstack = /obj/item/stack/tile/carpet
 
 /obj/structure/table/wood/poker/narsie_act()
@@ -643,6 +685,7 @@
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table.dmi'
 	icon_state = "fancy_table-0"
 	base_icon_state = "fancy_table"
+	flipped_table_icon_base = "fancy"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
@@ -652,13 +695,14 @@
 /obj/structure/table/wood/fancy/flip(direction)
 	return FALSE
 
-/obj/structure/table/wood/fancy/Initialize()
+/obj/structure/table/wood/fancy/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH(src)
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black-0"
 	base_icon_state = "fancy_table_black"
+	flipped_table_icon_base = "fancyblack"
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table_black.dmi'
 
@@ -721,6 +765,7 @@
 	icon = 'icons/obj/smooth_structures/tables/reinforced_table.dmi'
 	icon_state = "reinforced_table-0"
 	base_icon_state = "reinforced_table"
+	flipped_table_icon_base = "rtables"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
@@ -787,7 +832,7 @@
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
-/obj/structure/table/tray/Initialize()
+/obj/structure/table/tray/Initialize(mapload)
 	. = ..()
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
@@ -804,7 +849,7 @@
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
 		return
 
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 	var/atom/movable/held
 	for(var/held_uid in held_items)
@@ -862,16 +907,14 @@
 	layer = TABLE_LAYER
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+/obj/structure/rack/CanPass(atom/movable/mover, border_dir)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover))
@@ -885,11 +928,10 @@
 	else
 		return 0
 
-/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/rack/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSTABLE
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
 	if((!isitem(O) || user.get_active_hand() != O))
@@ -902,7 +944,7 @@
 		step(O, get_dir(O, src))
 		return TRUE
 
-/obj/structure/rack/attackby(obj/item/W, mob/user, params)
+/obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -983,7 +1025,7 @@
 	new /obj/item/stack/sheet/metal(user.loc)
 	qdel(src)
 
-/obj/item/rack_parts/attack_self(mob/user)
+/obj/item/rack_parts/attack_self__legacy__attackchain(mob/user)
 	if(building)
 		return
 	building = TRUE

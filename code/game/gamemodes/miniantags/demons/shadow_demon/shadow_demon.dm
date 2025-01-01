@@ -1,11 +1,12 @@
 /mob/living/simple_animal/demon/shadow
 	name = "shadow demon"
-	desc = "A creature that's barely tangible, you can feel its gaze piercing you"
+	desc = "A creature that's barely tangible, you can feel its gaze piercing you."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
+	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
@@ -150,8 +151,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_icon_state = "shadow_whisper"
-	whisper_action.background_icon_state = "shadow_demon_bg"
+	whisper_action.button_overlay_icon_state = "shadow_whisper"
+	whisper_action.button_background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -229,7 +230,7 @@
 	desc = "It still beats furiously, emitting an aura of fear."
 	color = COLOR_BLACK
 
-/obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/shadow/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

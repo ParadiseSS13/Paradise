@@ -20,6 +20,8 @@
 /datum/camerachunk/proc/add_camera(obj/machinery/camera/cam)
 	if(active_cameras[cam] || inactive_cameras[cam])
 		return
+	if(cam.non_chunking_camera)
+		return
 	// Register all even though it is active/inactive. Won't get called incorrectly
 	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera), TRUE)
 	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera), TRUE)
@@ -154,7 +156,7 @@
 	for(var/obj/machinery/camera/c in urange(half_chunk + CAMERA_VIEW_DISTANCE, locate(x + half_chunk, y + half_chunk, z)))
 		add_camera(c)
 
-	for(var/turf/t in block(locate(max(x, 1), max(y, 1), max(z, 1)), locate(min(x + CAMERA_CHUNK_SIZE - 1, world.maxx), min(y + CAMERA_CHUNK_SIZE - 1, world.maxy), z)))
+	for(var/turf/t in block(max(x, 1), max(y, 1), max(z, 1), min(x + CAMERA_CHUNK_SIZE - 1, world.maxx), min(y + CAMERA_CHUNK_SIZE - 1, world.maxy), z))
 		turfs[t] = t
 
 	for(var/obj/machinery/camera/c as anything in active_cameras)

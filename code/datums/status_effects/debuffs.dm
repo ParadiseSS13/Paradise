@@ -146,7 +146,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, 1, -1)
+		playsound(T, "desceration", 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -239,11 +239,10 @@
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
-	if(!ishuman(owner))
+	if(!isliving(owner))
 		return
 	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	var/mob/living/carbon/human/H = owner
-	H.add_overlay(overlay)
+	owner.add_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/on_remove()
 	owner.cut_overlay(overlay)
@@ -524,6 +523,7 @@
 	id = "cult_slurring"
 
 /datum/status_effect/incapacitating
+	id = "incapacitating"
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
@@ -655,10 +655,16 @@
 	var/mob/living/carbon/dreamer = owner
 
 	if(dreamer.mind?.has_antag_datum(/datum/antagonist/vampire))
-		if(istype(dreamer.loc, /obj/structure/closet/coffin))
-			dreamer.adjustBruteLoss(-1, FALSE)
-			dreamer.adjustFireLoss(-1, FALSE)
-			dreamer.adjustToxLoss(-1)
+		var/mob/living/carbon/human/V = owner
+		if(istype(V.loc, /obj/structure/closet/coffin))
+			V.adjustBruteLoss(-1)
+			V.adjustFireLoss(-1)
+			V.adjustToxLoss(-1)
+			V.adjustOxyLoss(-1)
+			V.adjustCloneLoss(-0.5)
+			if(V.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in V.viruses)
+					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
@@ -746,7 +752,7 @@
 
 #define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
 #define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
-/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
+/// This is multiplied with [/datum/status_effect/transient/var/strength] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
 #define HALLUCINATE_CHANCE 80
@@ -1125,7 +1131,7 @@
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse
 	name = "I SEE YOU"
-	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
+	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE."
 	icon_state = "bubblegumjumpscare"
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
@@ -1336,15 +1342,128 @@
 
 /obj/effect/bubblegum_warning
 	name = "bloody rift"
-	desc = "You feel like even being *near* this is a bad idea"
+	desc = "You feel like even being *near* this is a bad idea."
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	color = "red"
 
-/obj/effect/bubblegum_warning/Initialize()
+/obj/effect/bubblegum_warning/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
 
 /obj/effect/bubblegum_warning/proc/slap_someone()
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
+
+/datum/status_effect/c_foamed
+	id = "c_foamed up"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 10 SECONDS
+	var/foam_level = 1
+	var/mutable_appearance/foam_overlay
+
+/datum/status_effect/c_foamed/on_apply()
+	. = ..()
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_1")
+	owner.add_overlay(foam_overlay)
+	owner.next_move_modifier *= 1.5
+	owner.Slowed(10 SECONDS, 1.5)
+
+/datum/status_effect/c_foamed/Destroy()
+	if(owner)
+		owner.cut_overlay(foam_overlay)
+		owner.next_move_modifier /= 1.5
+
+	QDEL_NULL(foam_overlay)
+	return ..()
+
+/datum/status_effect/c_foamed/tick()
+	. = ..()
+	if(--foam_level <= 0)
+		qdel(src)
+	refresh_overlay()
+
+/datum/status_effect/c_foamed/refresh()
+	. = ..()
+	// Our max slow is 50 seconds
+	foam_level = min(foam_level + 1, 5)
+
+	refresh_overlay()
+
+	if(foam_level == 5)
+		owner.Paralyse(4 SECONDS)
+
+/datum/status_effect/c_foamed/proc/refresh_overlay()
+	// Refresh overlay
+	owner.cut_overlay(foam_overlay)
+	QDEL_NULL(foam_overlay)
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_[foam_level]")
+	owner.add_overlay(foam_overlay)
+
+/datum/status_effect/judo_armbar
+	id = "armbar"
+	duration = 5 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE
+
+/// This is the threshold where the attack will stun on the last hit. Why? Because it is cool, that's why.
+#define FINISHER_THRESHOLD 7
+
+/datum/status_effect/temporal_slash
+	id = "temporal_slash"
+	duration = 3 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	/// How many times the user has been cut. Each cut adds a damage value below
+	var/cuts = 1
+	/// How much damage the blade will do each slice
+	var/damage_per_cut = 20
+
+/datum/status_effect/temporal_slash/on_creation(mob/living/new_owner, cut_damage = 20)
+	. = ..()
+	damage_per_cut = cut_damage
+
+/datum/status_effect/temporal_slash/refresh()
+	cuts++
+	return ..()
+
+/datum/status_effect/temporal_slash/on_remove()
+	owner.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH_FINISHER, cuts, damage_per_cut) //We apply this to a new status effect, to avoid refreshing while on_remove happens.
+
+/datum/status_effect/temporal_slash_finisher
+	id = "temporal_slash_finisher"
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	tick_interval = 0.25 SECONDS
+	/// How many times the user has been cut. Each cut adds a damage value below
+	var/cuts = 1
+	/// How much damage the blade will do each slice
+	var/damage_per_cut = 20
+	/// Have we done enough damage to trigger the finisher?
+	var/finishing_cuts = FALSE
+
+/datum/status_effect/temporal_slash_finisher/on_creation(mob/living/new_owner, final_cuts = 1, cut_damage = 20)
+	. = ..()
+	cuts = final_cuts
+	damage_per_cut = cut_damage
+	if(ismegafauna(owner))
+		damage_per_cut *= 4 //This will deal 40 damage bonus per cut on megafauna as a miner, and 80 as a wizard. To kill a megafauna, you need to hit it 48 times. You don't get the buffs of a crusher though. Also you already killed bubblegum, so, you know.
+	if(cuts >= FINISHER_THRESHOLD)
+		finishing_cuts = TRUE
+	new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
+
+/datum/status_effect/temporal_slash_finisher/tick()
+	. = ..()
+	owner.visible_message("<span class='danger'>[owner] gets slashed by a cut through spacetime!</span>", "<span class='userdanger'>You get slashed by a cut through spacetime!</span>")
+	playsound(owner, 'sound/weapons/rapierhit.ogg', 50, TRUE)
+	owner.apply_damage(damage_per_cut, BRUTE, pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG), 0, TRUE, null, FALSE)
+	cuts--
+	if(cuts <= 0)
+		if(finishing_cuts)
+			owner.Weaken(7 SECONDS)
+		qdel(src)
+	else
+		new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
+
+#undef FINISHER_THRESHOLD

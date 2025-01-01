@@ -118,7 +118,7 @@
 
 		else if(istype(player, /mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
-			if((flags & HIVEMIND) && (flags & HIVEMIND_RUNECHAT))
+			if((flags & HIVEMIND) && (flags & HIVEMIND_RUNECHAT) && player?.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				player.create_chat_message(player, "[speaker_mask], [format_message(message)]")
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
@@ -138,7 +138,7 @@
 // Noise "language", for audible emotes.
 /datum/language/noise
 	name = "Noise"
-	desc = "Noises"
+	desc = "Noises."
 	key = ""
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
@@ -413,7 +413,7 @@
 
 /datum/language/common
 	name = "Galactic Common"
-	desc = "The common galactic tongue."
+	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
@@ -424,22 +424,23 @@
 
 /datum/language/human
 	name = "Sol Common"
-	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
+	desc = "An artifical language designed by the Trans-Solar Federation for ease of use and concise communication."
 	speech_verb = "says"
-	exclaim_verbs = list("exclaims", "shouts", "yells")
+	exclaim_verbs = list("snaps", "shouts", "barks")
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
+	space_chance = 70
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
-	english_names = 1
+	syllables = list("ba","da","ka","ki","to","ta","sa","so","a","e","i","o","u","am","on","na","in",
+					"ko",)
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
 	name = "Tradeband"
 	desc = "Maintained by the various trading cartels in major systems, this elegant, structured language is used for bartering and bargaining."
 	speech_verb = "enunciates"
-	colour = "say_quote"
+	colour = "tradeband"
 	key = "2"
 	space_chance = 100
 	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
@@ -471,25 +472,22 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-/datum/language/com_srus
-	name = "Neo-Russkiya"
-	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+/datum/language/com_zvezhan
+	name = "Zvezhan"
+	desc = "The language of revolution across the stars, initially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia."
 	speech_verb = "articulates"
-	whisper_verb = "mutters"
-	exclaim_verbs = list("exaggerates")
-	colour = "com_srus"
+	whisper_verb = "murmurs"
+	exclaim_verbs = list("proclaims", "boasts", "accentuates")
+	colour = "com_zvezhan"
 	key = "?"
-	space_chance = 65
-	english_names = 1
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	space_chance = 50
+	syllables = list("ai","bai","bian","che","chuang","e","fan","gan","huo","jian","jiao","ka","man","mu","nang","nuo","o","pang","pi",
+					"pou","qian","qiu","rao","re","sa","sai","sheng","song","sui","tui","tu","wai","xi","xiu","xu","yan","yi","yuan","zao",
+					"zei","zhang","zu","zun","a","be","ve","ge","de","ye","ka","el","em","pe","er","te","oo","kha","tse","sha","ă","â","ê",
+					"ô","ơ","u","ư","th","tr","nh","yoo","eu","ya","pra","pre","pri","pro","pru","cla","cle","clo","bre","bru","ri","ca","ce",
+					"po","kać","sza","sze","szo","dza","dze","dzo","tą","tę","cieć","sz","sia","sie","sio","siu","zna","zne","zno","lya","lyo",
+					"lyu","lye","vna","vne","vno","ayat'","shcha","shche","mne","mno","mni","kam","tam","lam","kap","kop","sup","rip","kong",
+					"tong","aan","aay","aam","klon","chorn")
 
 /datum/language/xenocommon
 	name = "Xenomorph"
@@ -605,6 +603,9 @@
 	if(!message)
 		return
 
+	if(HAS_TRAIT(speaker, TRAIT_MUTE))
+		return
+
 	var/log_message = "(ROBOT) [message]"
 	log_say(log_message, speaker)
 	speaker.create_log(SAY_LOG, log_message)
@@ -667,25 +668,32 @@
 	syllables = list ("beep", "boop")
 
 // Language handling.
-/mob/proc/add_language(language)
+/mob/proc/add_language(language, force)
 	var/datum/language/new_language = GLOB.all_languages[language]
 
 	if(!istype(new_language) || (new_language in languages))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_LANGUAGE_LOCKED) && !force)
+		return FALSE
+
 	languages |= new_language
 	return TRUE
 
-/mob/proc/remove_language(rem_language)
+/mob/proc/remove_language(rem_language, force)
+	if(HAS_TRAIT(src, TRAIT_LANGUAGE_LOCKED) && !force)
+		return FALSE
 	var/datum/language/L = GLOB.all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
 
 /mob/living/remove_language(rem_language)
+	. = ..()
+	if(!.)
+		return
 	var/datum/language/L = GLOB.all_languages[rem_language]
 	if(default_language == L)
 		default_language = null
-	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
@@ -721,6 +729,8 @@
 	popup.open()
 
 /mob/living/Topic(href, href_list)
+	if(..())
+		return TRUE
 	if(href_list["default_lang"])
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
@@ -730,8 +740,6 @@
 				set_default_language(L)
 		check_languages()
 		return TRUE
-	else
-		return ..()
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
@@ -767,5 +775,30 @@
 		if(new_language.flags & NOBABEL)
 			continue
 		languages |= new_language
+
+/datum/language/zombie
+	name = "Zombie"
+	desc = "Flesh... Brains... We hunger..."
+	speech_verb = "groans"
+	ask_verb = "groans"
+	exclaim_verbs = list("yells")
+	colour = "zombie"
+	key = "zz" //doesn't matter, this is their default and only language
+	flags = RESTRICTED | NOLIBRARIAN
+	syllables = list("Brains", "Brainssss", "Flesh", "Grrr", "Hnng", "Braaaains", "Braaiiiins")
+	english_names = TRUE
+
+/datum/language/zombie/scramble(input)
+	var/terminator = "..."
+	if(!length(input))
+		return "[pick(syllables)][terminator]"
+
+	var/last_letter = copytext(input, length(input))
+	if(last_letter in list("?", "!"))
+		terminator = last_letter
+
+	if(prob(90) || !length(input))
+		return "[pick(syllables)][terminator]"
+	return "[copytext_char(input, 1, min(7, length(input)))][terminator]"
 
 #undef SCRAMBLE_CACHE_LEN

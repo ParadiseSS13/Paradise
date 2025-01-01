@@ -20,13 +20,7 @@ export const DestinationTagger = (props, context) => {
               {selected_destination.name ?? 'None'}
             </Box>
             <Box mt={1.5}>
-              <Stack
-                overflowY="auto"
-                wrap="wrap"
-                align="center"
-                justify="space-evenly"
-                direction="row"
-              >
+              <Stack overflowY="auto" wrap="wrap" align="center" justify="space-evenly" direction="row">
                 {destinations.map((destination, index) => (
                   <Stack.Item key={index} m="2px">
                     <Button

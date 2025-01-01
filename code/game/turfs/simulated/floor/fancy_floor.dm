@@ -53,9 +53,15 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
 	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/wood/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
 // Grass
 /turf/simulated/floor/grass
@@ -77,7 +83,7 @@
 /turf/simulated/floor/grass/get_broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/grass/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
@@ -212,6 +218,18 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
+
+/turf/simulated/floor/carpet/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/carpet/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 //End of carpets
 
 // Bamboo mats

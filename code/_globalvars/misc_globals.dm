@@ -45,8 +45,6 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 
-GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
-
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 
@@ -60,3 +58,7 @@ GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height"
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks
 GLOBAL_VAR_INIT(sparks_active, 0)
+
+#define GLOBAL_SMOKE_LIMIT 200
+///Counter for the current amount of smoke
+GLOBAL_VAR_INIT(smokes_active, 0)

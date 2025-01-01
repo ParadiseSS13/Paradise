@@ -39,6 +39,7 @@
 	var/ranged = FALSE
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
+	var/auto_wrench_toggle = TRUE
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -114,6 +115,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -125,6 +127,7 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
@@ -140,6 +143,7 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -189,9 +193,25 @@
 	QDEL_NULL(P)
 	activate_rpd()
 
+/**
+ * Automatically wrenches down an atmos device/pipe if the auto_wrench_toggle is TRUE.
+ * Arguments:
+ * * user - the user of the RPD.
+ * * target - the pipe/device/tube being placed by the RPD.
+ */
+/obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target)
+	if(!auto_wrench_toggle)
+		return
+	if(mode == RPD_TRANSIT_MODE)
+		if(target.screwdriver_act(user, src) & RPD_TOOL_SUCCESS)
+			playsound(src, 'sound/items/impactwrench.ogg', 50, TRUE)
+			return
+	if(target.wrench_act(user, src) & RPD_TOOL_SUCCESS)
+		playsound(src, 'sound/items/impactwrench.ogg', 50, TRUE)
+		return
 // TGUI stuff
 
-/obj/item/rpd/attack_self(mob/user)
+/obj/item/rpd/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/rpd/ui_state(mob/user)
@@ -222,6 +242,7 @@
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
 	data["whatttube"] = whatttube
+	data["auto_wrench_toggle"] = auto_wrench_toggle
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -243,6 +264,8 @@
 			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("auto_wrench_toggle")
+			auto_wrench_toggle = !auto_wrench_toggle
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
@@ -281,7 +304,7 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rpd/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(isstorage(target))
 		var/obj/item/storage/S = target
@@ -319,17 +342,20 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.maxview() + 2))\
-			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-		else
+		if(get_dist(src, T) >= (user.client.maxview() + 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
 
+		if(!(user in viewers(12, T))) // Checks if the user can see the target turf
+			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
+			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
+			return
+		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	T.rpd_act(user, src)
 
-/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+/obj/item/rpd/attack_obj__legacy__attackchain(obj/O, mob/living/user)
 	if(user.a_intent != INTENT_HARM)
 		if(istype(O, /obj/machinery/atmospherics/pipe))
 			return

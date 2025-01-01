@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) ((check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
+#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -56,10 +56,11 @@
 	. = ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
-	if(user.can_admin_interact())
-		return COMM_AUTHENTICATION_AGHOST
-	if(ADMIN_CHECK(user))
-		return COMM_AUTHENTICATION_CENTCOM
+	if(check_rights_all(R_ADMIN|R_EVENT, FALSE, user))
+		if(user.can_admin_interact())
+			return COMM_AUTHENTICATION_AGHOST
+		if(authenticated == COMM_AUTHENTICATION_CENTCOM)
+			return COMM_AUTHENTICATION_CENTCOM
 	if(authenticated == COMM_AUTHENTICATION_CAPT)
 		return COMM_AUTHENTICATION_CAPT
 	if(authenticated)
@@ -351,7 +352,7 @@
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
 				return
-			if(!text2bool(params["classified"]))
+			if(params["classified"] != 1) // this uses 1/0 on the js side instead of "true" or "false"
 				GLOB.major_announcement.Announce(
 					params["text"],
 					new_title = "Central Command Report",

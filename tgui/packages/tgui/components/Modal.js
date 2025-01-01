@@ -20,10 +20,7 @@ export const Modal = (props) => {
   }
   return (
     <Dimmer onKeyDown={handleKeyDown}>
-      <div
-        className={classes(['Modal', className, computeBoxClassName(rest)])}
-        {...computeBoxProps(rest)}
-      >
+      <div className={classes(['Modal', className, computeBoxClassName(rest)])} {...computeBoxProps(rest)}>
         {children}
       </div>
     </Dimmer>

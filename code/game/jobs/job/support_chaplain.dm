@@ -9,7 +9,12 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_CHAPEL_OFFICE,
+		ACCESS_CREMATORIUM,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MORGUE
+	)
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain

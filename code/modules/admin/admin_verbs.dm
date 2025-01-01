@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_antagonists2,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
@@ -43,6 +44,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_dev_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
@@ -50,6 +52,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
+	/client/proc/view_devsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -64,7 +68,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
-	/client/proc/debugstatpanel
+	/client/proc/debugstatpanel,
+	/client/proc/create_rnd_restore_disk
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -157,7 +162,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
-	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
@@ -172,8 +176,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code,
-	/client/proc/debug_atom_init
+	/client/proc/debug_atom_init,
+	/client/proc/debug_bloom
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -210,7 +218,8 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
 	/client/proc/admin_observe_target,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
@@ -242,16 +251,18 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code
 ))
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES AND/OR DEV, then give them the default admin verbs
+		if(holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM))
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -294,6 +305,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(holder.rights & R_DEV_TEAM)
+			add_verb(src, /client/proc/cmd_dev_say)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -308,6 +321,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		/client/proc/togglebuildmodeself,
 		/client/proc/stealth,
 		/client/proc/readmin,
+		/client/proc/cmd_dev_say,
 		/client/proc/export_current_character,
 		GLOB.admin_verbs_default,
 		GLOB.admin_verbs_admin,
@@ -559,6 +573,19 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	holder.check_antagonists()
 	log_admin("[key_name(usr)] checked antagonists")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/proc/check_antagonists2()
+	set name = "TGUI - Antagonists"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/ban_panel()
@@ -1090,8 +1117,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
+			var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector")
+			if(isnull(message_color))
 				return
 
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
@@ -1117,3 +1144,138 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()
+
+/client/proc/raw_gas_scan()
+	set name = "Raw Gas Scan"
+	set category = "Debug"
+	set desc = "Scans your current tile, including LINDA data not normally displayed."
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
+
+/client/proc/teleport_interesting_turf()
+	set name = "Interesting Turf"
+	set category = "Debug"
+	set desc = "Teleports you to a random Interesting Turf from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
+		return
+
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.ManualFollow(T)
+
+/client/proc/visualize_interesting_turfs()
+	set name = "Visualize Interesting Turfs"
+	set category = "Debug"
+	set desc = "Shows all the Interesting Turfs from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		var/confirm = alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "I am sure", "Nope")
+		if(confirm != "I am sure")
+			return
+
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
+
+	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+
+	var/list/coords = get_interesting_atmos_tiles()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	while(length(coords))
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
+
+
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
+
+	var/z_to_view = input(usr, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(usr, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)
+
+
+/client/proc/create_rnd_restore_disk()
+	set name = "Create RnD Backup Restore Disk"
+	set category = "Event" // Im putting this in event because the name is long and will offset everything
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/list/targets = list()
+
+	for(var/rnc_uid in SSresearch.backups)
+		var/datum/rnd_backup/B = SSresearch.backups[rnc_uid]
+
+		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
+
+	var/choice = input(src, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	if(!choice || !(choice in targets))
+		return
+
+	var/actual_target = targets[choice]
+	if(!(actual_target in SSresearch.backups))
+		return
+
+	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
+	var/confirmation = alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", "Yes", "No")
+
+	if(confirmation != "Yes")
+		return
+
+	B.to_backup_disk(get_turf(usr))
+

@@ -1,11 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  NoticeBox,
-  LabeledList,
-  Collapsible,
-} from '../components';
+import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 
@@ -17,8 +11,7 @@ export const CryopodConsole = (props, context) => {
     <Window title="Cryopod Console" width={400} height={480}>
       <Window.Content>
         <Section title={`Hello, ${account_name || '[REDACTED]'}!`}>
-          This automated cryogenic freezing unit will safely store your
-          corporeal form until your next assignment.
+          This automated cryogenic freezing unit will safely store your corporeal form until your next assignment.
         </Section>
         <CrewList />
         {!!allow_items && <ItemList />}
@@ -86,11 +79,7 @@ const ItemList = (props, context) => {
               ))}
             </LabeledList>
           </Section>
-          <Button
-            content="Drop All Items"
-            color="red"
-            onClick={() => act('all_items')}
-          />
+          <Button content="Drop All Items" color="red" onClick={() => act('all_items')} />
         </>
       )}
     </Collapsible>

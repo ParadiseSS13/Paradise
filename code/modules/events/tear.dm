@@ -18,6 +18,8 @@
 	impact_area = findEventArea()
 
 /datum/event/tear/start()
+	if(isnull(impact_area))
+		log_debug("No valid event areas could be generated for dimensional tear.")
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
@@ -26,7 +28,7 @@
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
-		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
+		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, PROC_REF(spawn_tear), T), 4 SECONDS)
 
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
@@ -45,6 +47,9 @@
 	if(!target_area)
 		if(false_alarm)
 			target_area = findEventArea()
+			if(isnull(target_area))
+				log_debug("Tried to announce a false-alarm tear without a valid area!")
+				kill()
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()

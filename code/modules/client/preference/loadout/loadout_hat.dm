@@ -13,7 +13,7 @@
 
 /datum/gear/hat
 	main_typepath = /datum/gear/hat
-	slot = SLOT_HUD_HEAD
+	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
@@ -44,7 +44,7 @@
 	path = /obj/item/clothing/head/wizard/marisa/fake
 
 /datum/gear/hat/piratecaphat
-	display_name = "Pirate captian hat"
+	display_name = "Pirate captain hat"
 	path = /obj/item/clothing/head/pirate
 
 /datum/gear/hat/fez
@@ -185,7 +185,17 @@
 /datum/gear/hat/beret_job/sec
 	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
+
+/datum/gear/hat/beret_job/warden
+	display_name = "Beret, warden"
+	path = /obj/item/clothing/head/beret/warden
+	allowed_roles = list("Warden")
+
+/datum/gear/hat/beret_job/hos
+	display_name = "Beret, head of security"
+	path = /obj/item/clothing/head/beret/hos
+	allowed_roles = list("Head of Security")
 
 /datum/gear/hat/beret_job/jani
 	display_name = "Beret, janitor"
@@ -200,7 +210,7 @@
 /datum/gear/hat/beret_job/cargo
 	display_name = "Beret, cargo"
 	path = /obj/item/clothing/head/beret/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician")
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
@@ -210,7 +220,7 @@
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist")
 
 /datum/gear/hat/beret_job/robowhite
 	display_name = "Beret, robotics"
@@ -225,7 +235,7 @@
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"

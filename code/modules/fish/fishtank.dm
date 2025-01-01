@@ -35,8 +35,7 @@
 	icon_state = "bowl1"
 	density = FALSE				// Small enough to not block stuff
 	anchored = FALSE			// Small enough to move even when filled
-	pass_flags = PASSTABLE | LETPASSTHROW // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
-
+	pass_flags = PASSTABLE // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
 	max_fish = 1				// What a lonely fish
@@ -52,7 +51,7 @@
 	icon_state = "tank1"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags = null
 
 	tank_type = "tank"
 	water_capacity = 200		// Decent sized, holds almost 2 full buckets
@@ -161,7 +160,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T)
+/obj/machinery/fishtank/wall/CanAtmosPass(direction)
 	return FALSE
 
 /obj/machinery/fishtank/process()
@@ -519,8 +518,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += "<span class='notice'>[examine_message]</span>"
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
-	. += "<span class='info'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
 
 //////////////////////////////
 //		ATTACK PROCS		//
@@ -537,7 +536,7 @@
 					M.visible_message("<span class='warning'>[M.name] leaps up onto [src] and attempts to fish through the opening!</span>", "<span class='notice'>You jump up onto [src] and begin fishing through the opening!</span>")
 					if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 						M.visible_message("<span class='notice'>[M.name] slipped and got soaked!</span>", "<span class='notice'>You slipped and got soaked!</span>")
-						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
+						if(istype(M, /mob/living/simple_animal/pet/cat/syndi))
 							do_sparks(3, 1, src)
 					else								//No water or didn't slip, get that fish!
 						M.visible_message("<span class='warning'>[M.name] catches and devours a live fish!</span>", "<span class='notice'>You catch and devour a live fish, yum!</span>")
@@ -605,7 +604,7 @@
 		new /obj/item/stack/sheet/glass(get_turf(src), shard_count + 1)		//Produce the appropriate number of glass sheets, in a single stack
 	qdel(src)
 
-/obj/machinery/fishtank/attackby(obj/item/O, mob/user)
+/obj/machinery/fishtank/attackby__legacy__attackchain(obj/item/O, mob/user)
 	//Open reagent containers add and remove water
 	if(O.is_drainable())
 		//Containers with any reagents will get dumped in

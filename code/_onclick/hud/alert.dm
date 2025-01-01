@@ -100,7 +100,7 @@
 	icon = 'icons/mob/screen_alert.dmi'
 	icon_state = "default"
 	name = "Alert"
-	desc = "Something seems to have gone wrong with this alert, so report this bug please"
+	desc = "Something seems to have gone wrong with this alert, so report this bug please."
 	mouse_opacity = MOUSE_OPACITY_ICON
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
@@ -141,7 +141,7 @@
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='notice'>[desc]</span>")
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
@@ -615,9 +615,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/ghost
 	name = "Ghost"
-	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	desc = "Would you like to ghost?"
 	icon_state = "template"
-	timeout = 5 MINUTES // longer than any infection should be
+	timeout = 5 MINUTES
 
 /atom/movable/screen/alert/ghost/Initialize(mapload)
 	. = ..()
@@ -626,7 +626,21 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
+/atom/movable/screen/alert/ghost/proc/handle_ghosting(mob/living/carbon/human/target)
+	target.ghost()
+
 /atom/movable/screen/alert/ghost/Click()
+	if(!..())
+		return
+	handle_ghosting(usr)
+
+/atom/movable/screen/alert/ghost/cryo
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+
+/atom/movable/screen/alert/ghost/xeno
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+
+/atom/movable/screen/alert/ghost/xeno/Click()
 	if(!..())
 		return
 	var/mob/living/carbon/human/infected_user = usr
@@ -870,3 +884,58 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(usr))
 		return
 	living_owner.do_succumb(TRUE)
+
+/atom/movable/screen/alert/changeling_defib_revive
+	name = "Your heart is being defibrillated."
+	desc = "Click this status to be revived from fake death."
+	icon_state = "template"
+	timeout = 10 SECONDS
+	var/do_we_revive = FALSE
+	var/image/toggle_overlay
+
+/atom/movable/screen/alert/changeling_defib_revive/Initialize(mapload, parent_unit)
+	. = ..()
+	var/image/defib_appearance = image(parent_unit)
+	defib_appearance.layer = FLOAT_LAYER
+	defib_appearance.plane = FLOAT_PLANE
+	overlays += defib_appearance
+
+/atom/movable/screen/alert/changeling_defib_revive/attach_owner(mob/new_owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
+
+/atom/movable/screen/alert/changeling_defib_revive/Destroy()
+	if(owner)
+		UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+	if(toggle_overlay)
+		overlays -= toggle_overlay
+		qdel(toggle_overlay)
+	return ..()
+
+/atom/movable/screen/alert/changeling_defib_revive/Click()
+	if(!..())
+		return
+	do_we_revive = !do_we_revive
+	if(!toggle_overlay)
+		toggle_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		toggle_overlay.layer = FLOAT_LAYER
+		toggle_overlay.plane = FLOAT_PLANE + 2
+	if(do_we_revive)
+		overlays |= toggle_overlay
+	else
+		overlays -= toggle_overlay
+
+/atom/movable/screen/alert/changeling_defib_revive/proc/on_defib_revive()
+	. = COMPONENT_DEFIB_FAKEDEATH_DENIED
+	if(do_we_revive)
+		var/datum/antagonist/changeling/cling = owner.mind.has_antag_datum(/datum/antagonist/changeling)
+		cling.remove_specific_power(/datum/action/changeling/revive)
+		cling.regenerating = FALSE
+		var/heart_name = "heart"
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			var/datum/organ/heart/heart = C.get_int_organ_datum(ORGAN_DATUM_HEART)
+			heart_name = heart.linked_organ.name
+		to_chat(owner, "<span class='danger'>Electricity flows through our [heart_name]! We have been brought back to life and have stopped our regeneration.</span>")
+		. = COMPONENT_DEFIB_FAKEDEATH_ACCEPTED
+	owner.clear_alert("cling_defib")

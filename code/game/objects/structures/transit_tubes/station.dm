@@ -50,7 +50,7 @@
 			tube_dirs = list(NORTH, SOUTH)
 		if(WEST)
 			tube_dirs = list(NORTH, SOUTH)
-	boarding_dir = reverse_direction(dir)
+	boarding_dir = REVERSE_DIR(dir)
 
 /obj/structure/transit_tube/station/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
 	for(var/atom/atom in pod.contents)
@@ -104,7 +104,7 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/station/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
@@ -209,7 +209,7 @@
 
 /obj/structure/transit_tube/station/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
-	boarding_dir = reverse_direction(dir)
+	boarding_dir = REVERSE_DIR(dir)
 
 /obj/structure/transit_tube/station/reverse/flipped
 	icon_state = "closed_terminus1"
@@ -285,7 +285,7 @@
 
 /obj/structure/transit_tube/station/dispenser/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
-	boarding_dir = reverse_direction(dir)
+	boarding_dir = REVERSE_DIR(dir)
 
 /obj/structure/transit_tube/station/dispenser/reverse/flipped
 	icon_state = "open_terminusdispenser1"

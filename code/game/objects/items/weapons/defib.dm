@@ -6,7 +6,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -97,7 +97,7 @@
 	if(ishuman(user) && Adjacent(user))
 		toggle_paddles(user)
 
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
@@ -163,12 +163,12 @@
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_BACK)
+	if(slot != ITEM_SLOT_BACK)
 		remove_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
@@ -206,7 +206,7 @@
 	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	origin_tech = "biotech=5"
 
@@ -216,7 +216,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		return TRUE
 
 /obj/item/defibrillator/compact/combat
@@ -236,17 +236,33 @@
 
 /obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
-	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
+	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. The casing is EMP-shielded and heavily reinforced, making it immune to most sources of damage."
 	icon_state = "defibnt"
 	item_state = "defibnt"
 	paddle_type = /obj/item/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	hardened = TRUE // emp-proof (on the component), but not emag-proof.
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
+	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
 	heart_attack_probability = 10
+	origin_tech = null
+	/// To prevent spam from the emagging message on the advanced defibrillator.
+	var/next_emp_message
 
-	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
+/obj/item/defibrillator/compact/advanced/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.</span>"
+	. += "<span class='notice'>The advanced paddles can be used to defibrillate through space suits.</span>"
+
+/obj/item/defibrillator/compact/advanced/examine_more(mob/user)
+	. = ..()
+	. += "The Advanced Compact Defibrillator is Nanotrasen Medical's greatest refinement of electroshock revival technology. Featuring heavy electromagnetic shielding and a reinforced plastitanium chassis, \
+	it is both lightweight and extremely resistant to abuse, easily able to handle the most hostile of environments."
+	. += ""
+	. += "The two standout features of the ACD are the experimental self-charging power source - which gives it an effectively unlimited endurance - and the special breakdown paddles, \
+	capable of transmitting a therapeutic shock through even thick hardsuit plating, allowing casualties to be revived without having to strip their equipment."
+	. += ""
+	. += "Whilst the ACD is currently too expensive for mass-market deployment, Nanotrasen hopes that later developments in its manufacturing capabilities will enable it to economically launch this product commercially."
 
 /obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
 	return // The cell is too strong roundstart and we dont want the adv defib to become useless
@@ -255,7 +271,7 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
 	update_icon(UPDATE_OVERLAYS)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
@@ -269,8 +285,8 @@
 	name = "defibrillator paddles"
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
-	icon_state = "defibpaddles"
-	item_state = "defibpaddles"
+	icon_state = "defibpaddles0"
+	item_state = "defibpaddles0"
 	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -345,7 +361,7 @@
 /obj/item/shockpaddles/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	defib.deductcharge(revivecost)
-	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
 
 /obj/item/shockpaddles/dropped(mob/user)

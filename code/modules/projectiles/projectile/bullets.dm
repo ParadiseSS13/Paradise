@@ -137,6 +137,11 @@
 	icon_state = "peashooter_bullet"
 	damage = 25
 
+/obj/item/projectile/bullet/midbullet3/overgrown/prehit(atom/target)
+	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+		damage += 10
+	return ..()
+
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
@@ -159,7 +164,9 @@
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
@@ -217,7 +224,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	var/piercing = FALSE
+	var/penetrate_thick = FALSE
 
 /obj/item/projectile/bullet/dart/New()
 	..()
@@ -228,7 +235,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != INFINITY)
-			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null, FALSE, hit_zone, penetrate_thick)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 
 				reagents.reaction(M, REAGENT_INGEST, 0.1)
@@ -261,7 +268,7 @@
 	damage = 20
 
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore
-	piercing = TRUE
+	penetrate_thick = TRUE
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 
@@ -287,8 +294,6 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
-	if(isrobot(target))
-		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/anti_alien_toxin

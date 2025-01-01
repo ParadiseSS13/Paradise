@@ -74,6 +74,8 @@
 	/// What do we call the mutagen tank?
 	var/mutagen_tank_name = "Mutagen tank"
 
+	var/is_soil = FALSE
+
 /obj/machinery/hydroponics/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
@@ -121,8 +123,8 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
+/obj/machinery/hydroponics/constructable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
 		return
 	return ..()
 
@@ -303,7 +305,7 @@
 /obj/machinery/hydroponics/proc/update_state()
 	//Refreshes the icon and sets the luminosity
 	if(self_sustaining)
-		if(istype(src, /obj/machinery/hydroponics/soil))
+		if(is_soil)
 			color = rgb(255, 175, 0)
 		set_light(3)
 	else
@@ -322,7 +324,7 @@
 
 /obj/machinery/hydroponics/update_overlays()
 	. = ..()
-	if(self_sustaining && !istype(src, /obj/machinery/hydroponics/soil))
+	if(self_sustaining && !is_soil)
 		. += "gaia_blessing"
 
 	if(lid_closed)
@@ -374,26 +376,26 @@
 	. = ..()
 	if(myseed)
 		if(myseed.variant)
-			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
 		else
-			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if(dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if(harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
+			. += "<span class='notice'>It's ready to harvest.</span>"
 		else if(plant_health <= (myseed.endurance / 2))
 			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		. += "<span class='info'>[src] is empty.</span>"
+		. += "<span class='notice'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
+		. += "<span class='notice'>Water: [waterlevel]/[maxwater]</span>"
+		. += "<span class='notice'>Nutrient: [nutrilevel]/[maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += "<span class='notice'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+		. += "<span class='notice'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"
@@ -768,7 +770,7 @@
 	to_chat(user, message.Join(""))
 	doping_chem = new_chem
 
-/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
 	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
 		var/obj/item/reagent_containers/reagent_source = O
@@ -857,7 +859,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
 		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, user, TRUE)
@@ -988,10 +990,7 @@
 	update_state()
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
-	if(height==0)
-		return 1
-
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, border_dir) //So nymphs can climb over top of trays.
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
@@ -1022,6 +1021,7 @@
 	power_state = NO_POWER_USE
 	wrenchable = FALSE
 	mutagen_tank_name = "Mutagen pool"
+	is_soil = TRUE
 
 /obj/machinery/hydroponics/soil/update_icon_state()
 	return // Has no hoses
@@ -1029,7 +1029,7 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/soil/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)

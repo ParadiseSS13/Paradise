@@ -22,7 +22,7 @@
 	copyright = TRUE
 	protected = FALSE //No reason players shouldn't write in regular manuals
 	name = "Book Manual"
-	desc = "Please make a report on the github if you somehow get ahold of one of these in-game"
+	desc = "Please make a report on the github if you somehow get ahold of one of these in-game."
 	summary = "This is a manual procured by Nanotrasen, it contains important information!"
 	//Pages has to be a list of strings, it will break the book otherwise
 	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not
@@ -423,6 +423,152 @@
 				</html>
 				"})
 
+/obj/item/book/manual/zombie_manual
+	name = "Plague and You: Curing the Apocalypse"
+	desc = "A guide covering the basics of curing zombies."
+	icon_state = "bookCloning"
+	author = "Cleanses-The-Plague"
+	title = "Plague and You: Curing the Apocalypse"
+
+	pages = list({"<html><meta charset='utf-8'>
+				<head>
+				<style>
+				</style>
+				</head>
+				<body>
+
+				For years, we've seen "zombies" on the news and in movies, but have you ever thought how would would be cured?
+				Each strain of the "Advanced Resurection Virus" or simply "Necrotizing Plague" has its own unique bio-signature.
+				Therefore, each strain has a unique step of anti-virals, that each have progressively stronger effects on the plague.
+
+				<ol>
+					<li><a href='#1'>Preparation</a></li>
+					<li><a href='#2'>Containing a test subject</a></li>
+					<li><a href='#3'>Creating Cures</a></li>
+					<li><a href='#4'>Cure Effects</a></li>
+					<li><a href='#5'>Known Recipes</a></li>
+				</ol>
+
+				<a name='1' /><h4>Step 1: Preparation</h4>
+				First step is knowledge. The necrotizing plague can only be spread through direct fluid contact with an infected individual. \
+				Therefore, you should do your best to stay away from the claws and or teeth of zombies. Their claws are covered in a slimy fluid \
+				that has a chance of transmitting the disease. Their bites are much more dangerous however, guaranteeing an infection of the plague. \
+				Biohazard suits, riot gear, or other thick material are well suited for blocking these infectious attacks, but do not guaratee \
+				complete immunity. <br>
+
+				To begin, we will need to gather a blood sample from a zombifed individual. To do this, first make sure the \
+				zombie is dead and severely damaged. Damaged zombies will slowly heal, and re-awaken once they are healed. \
+				Then use a syringe to extract a blood sample, and return to your virology lab. <br>
+
+				<a name='2' /><h4>Step 2: Containing a test subject</h4>
+				With your new blood sample of the plague, place a monkey in a solitary pen, and infect it with the virus. This test subject \
+				will provide us with a steady source of plague blood to experiment with. Lower-sapience creatures are normally not advanced enough to \
+				actively seek out the flesh of living creatures, and are safe in captivity. Containing an active zombie is much harder and will require \
+				a cell of pure walls or doors. Otherwise, the zombie will be able to break out of it's cell using its claws.
+
+				<a name='3' /><h4>Step 3: Creating Cures</h4>
+				Now that a steady source of infected blood is available, we can begin making cures. There are 4 tiers of "cures" for the plague, \
+				these are referred to as "Anti-Plague Sequences". By combining chemicals with the plague and viral symptoms, more advanced sequences \
+				can be created. These sequences are M-RNA that alters protein synthesis of plague-infected individuals and alter B-lymphocytes to induce\
+				specific anti-bodies, countering the effects of the virus. \
+				There sequences are classified into 4 categories: Alpha, Beta, Gamma, and Omega. Alpha is the simplest, but weakest. \
+				Omega is the most difficult to make as it requires all previous sequences and advanced chemicals. <br>
+				Since each of zombie strains are unique, there is no known recipe for these, and will require experimentation. \
+				However, several researchers have compiled chemicals that are commonly found in these cures in the "Known Recipes" section below.
+
+				<a name='4' /><h4>Step 5: Cure Effects</h4>
+				Anti-Plague Sequence Alpha is the simplest anti-viral, but it still is the first step against the plague. \
+				This cure prevents infection from scratches while in system of the user, and can cure stage 1 infections. <br>
+
+				Anti-Plague Sequence Beta is the second anti-viral, and is more complex to make. This sequence has been shown to cure \
+				infections that are stage 3 or below. This sequence is sometimes able to cure bites from infected individuals. <br>
+
+				Anti-Plague Sequence Gamma is the third anti-viral. This sequence is difficult to manufacture, but is rewarding. \
+				It cures all infections that are stage 5 and below, and stops the effects of stage 6 infections, but will not cure \
+				stage 6 infections. This helps prevent the rotting of living people into the rotting and shambling corpses of zombies. <br>
+
+				Anti-Plague Sequence Omega is the full cure for the zombie plague. This advanced mix of viral symptoms and chemicals is \
+				the final cure for any Advanced Resurection Virus. This cure prevents zombies from reviving when in their system, and will \
+				slowly return their body to normal, non-infected state. <br>
+
+				<a name='5' /><h4>Step 6: Known Recipes</h4>
+				<b>Anti-Plague Sequence Alpha</b>
+				<ul>
+					<li>1 unit of blood containing any zombie plague</li>
+					<li>1 unit of Diphenhydramine</a></li>
+				</ul>
+
+				<b>Anti-Plague Sequence Beta</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Alpha</li>
+					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Saline-Glucose Solution</li>
+							<li>Toxin</li>
+							<li>Atropine</li>
+							<li>Lye</li>
+							<li>Soda Water</li>
+							<li>Happiness</li>
+							<li>Morphine</li>
+							<li>Teporone</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Gamma</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Beta</li>
+					<li>1 unit of blood containing an advanced virus with the <b>"Necrotizing Fasciitis"</b> symptom</li>
+					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Yellow Vomit</li>
+							<li>Jenkem</li>
+							<li>Charcoal</li>
+							<li>Egg</li>
+							<li>Sulphuric acid</li>
+							<li>Fluorosulfuric Acid</li>
+							<li>Surge</li>
+							<li>Ultra-Lube</li>
+							<li>Mitocholide</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Omega</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Gamma</li>
+					<li>1 unit of blood containing an advanced virus with the <b>"Anti-Bodies Metabolism"</b> symptom</li>
+					<li>2 of the chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Colorful Reagent</li>
+							<li>Bacchus' Blessing</li>
+							<li>Pentetic Acid</li>
+							<li>Glyphosate</li>
+							<li>Lazarus Reagent</li>
+							<li>Omnizine</li>
+							<li>Sarin</li>
+							<li>Ants</li>
+							<li>Chlorine Trifluoride</li>
+							<li>Sorium</li>
+							<li>"????" Reagent</li>
+							<li>Aranesp</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Duplication</b>
+				<ul>
+					<li>1 unit of any Anti-Plague Sequence</li>
+					<li>1 unit of Sulfonal</li>
+					<li>1 unit of Sugar</li>
+				</ul>
+
+
+				<p>Congratulations! You are now qualitifed in creating Anti-Plague Sequences for combatting Class-C resurrecting un-dead beings. \
+				Please direct any further questions you have to your Chief Medical Officer.</p>
+				</body>
+				</html>"})
+
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	desc = "A guide from a little-known corporation on how to operate a heavy lifter mech. It's filled with disclaimers and pre-signed waivers."
@@ -520,19 +666,19 @@
 				<h1>Science For Dummies</h1>
 				So you want to further SCIENCE? Good man/woman/thing! However, SCIENCE is a complicated process even though it's quite easy. For the most part, it's a three step process:
 				<ol>
-					<li> 1) Deconstruct items in the Destructive Analyzer to advance technology or improve the design.</li>
+					<li> 1) Deconstruct items in the Scientific Analyzer to advance technology or improve the design.</li>
 					<li> 2) Build unlocked designs in the Protolathe and Circuit Imprinter</li>
 					<li> 3) Repeat!</li>
 				</ol>
 
-				Those are the basic steps to furthing science. What do you do science with, however? Well, you have four major tools: R&D Console, the Destructive Analyzer, the Protolathe, and the Circuit Imprinter.
+				Those are the basic steps to furthing science. What do you do science with, however? Well, you have four major tools: R&D Console, the Scientific Analyzer, the Protolathe, and the Circuit Imprinter.
 
 				<h2>The R&D Console</h2>
-				The R&D console is the cornerstone of any research lab. It is the central system from which the Destructive Analyzer, Protolathe, and Circuit Imprinter (your R&D systems) are controled. More on those systems in their own sections. On its own, the R&D console acts as a database for all your technological gains and new devices you discover. So long as the R&D console remains intact, you'll retain all that SCIENCE you've discovered. Protect it though, because if it gets damaged, you'll lose your data! In addition to this important purpose, the R&D console has a disk menu that lets you transfer data from the database onto disk or from the disk into the database. It also has a settings menu that lets you re-sync with nearby R&D devices (if they've become disconnected), lock the console from the unworthy, upload the data to all other R&D consoles in the network (all R&D consoles are networked by default), connect/disconnect from the network, and purge all data from the database.
+				The R&D console is the cornerstone of any research lab. It is the central system from which the Scientific Analyzer, Protolathe, and Circuit Imprinter (your R&D systems) are controled. More on those systems in their own sections. On its own, the R&D console acts as a database for all your technological gains and new devices you discover. So long as the R&D console remains intact, you'll retain all that SCIENCE you've discovered. Protect it though, because if it gets damaged, you'll lose your data! In addition to this important purpose, the R&D console has a disk menu that lets you transfer data from the database onto disk or from the disk into the database. It also has a settings menu that lets you re-sync with nearby R&D devices (if they've become disconnected), lock the console from the unworthy, upload the data to all other R&D consoles in the network (all R&D consoles are networked by default), connect/disconnect from the network, and purge all data from the database.
 				<b>NOTE:</b> The technology list screen, circuit imprinter, and protolathe menus are accessible by non-scientists. This is intended to allow 'public' systems for the plebians to utilize some new devices.
 
-				<h2>Destructive Analyzer</h2>
-				This is the source of all technology. Whenever you put a handheld object in it, it analyzes it and determines what sort of technological advancements you can discover from it. If the technology of the object is equal or higher then your current knowledge, you can destroy the object to further those sciences. Some devices (notably, some devices made from the protolathe and circuit imprinter) aren't 100% reliable when you first discover them. If these devices break down, you can put them into the Destructive Analyzer and improve their reliability rather then futher science. If their reliability is high enough ,it'll also advance their related technologies.
+				<h2>Scientific Analyzer</h2>
+				This is the source of all technology. Whenever you put a handheld object in it, it analyzes it and determines what sort of technological advancements you can discover from it. If the technology of the object is equal or higher then your current knowledge, you can destroy the object to further those sciences. Some devices (notably, some devices made from the protolathe and circuit imprinter) aren't 100% reliable when you first discover them. If these devices break down, you can put them into the Scientific Analyzer and improve their reliability rather then futher science. If their reliability is high enough ,it'll also advance their related technologies.
 
 				<h2>Circuit Imprinter</h2>
 				This machine, along with the Protolathe, is used to actually produce new devices. The Circuit Imprinter takes glass and various chemicals (depends on the design) to produce new circuit boards to build new machines or computers. It can even be used to print AI modules.
@@ -541,7 +687,7 @@
 				This machine is an advanced form of the Autolathe that produce non-circuit designs. Unlike the Autolathe, it can use processed metal, glass, solid plasma, silver, gold, and diamonds along with a variety of chemicals to produce devices. The downside is that, again, not all devices you make are 100% reliable when you first discover them.
 
 				<h1>Reliability and You</h1>
-				As it has been stated, many devices when they're first discovered do not have a 100% reliablity when you first discover them. Instead, the reliablity of the device is dependent upon a base reliability value, whatever improvements to the design you've discovered through the Destructive Analyzer, and any advancements you've made with the device's source technologies. To be able to improve the reliability of a device, you have to use the device until it breaks beyond repair. Once that happens, you can analyze it in a Destructive Analyzer. Once the device reachs a certain minimum reliability, you'll gain tech advancements from it.
+				As it has been stated, many devices when they're first discovered do not have a 100% reliablity when you first discover them. Instead, the reliablity of the device is dependent upon a base reliability value, whatever improvements to the design you've discovered through the Scientific Analyzer, and any advancements you've made with the device's source technologies. To be able to improve the reliability of a device, you have to use the device until it breaks beyond repair. Once that happens, you can analyze it in a Scientific Analyzer. Once the device reachs a certain minimum reliability, you'll gain tech advancements from it.
 
 				<h1>Building a Better Machine</h1>
 				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results! Be warned, however: Tier 3 and higher stock parts don't have 100% reliability and their low reliability may affect the reliability of the end machine.
@@ -678,7 +824,7 @@
 
 /obj/item/book/manual/wiki
 	name = "Wiki Book Manual"
-	desc = "This REALLY shouldn't exist in-game, please contact a coder"
+	desc = "This REALLY shouldn't exist in-game, please contact a coder."
 	copyright = TRUE
 	protected = TRUE //We absolutely do not want players editing these books, it might fuck up the iframes in them :)
 	pages = null //we don't want people opening this book until it fully initializes
@@ -688,7 +834,7 @@
 	///The Article title of the wiki page being opened in the <iframe>, must use underscores '_' and not whitespace for spaces in title
 	var/wiki_article_title = "Space_Law"
 
-/obj/item/book/manual/wiki/Initialize()
+/obj/item/book/manual/wiki/Initialize(mapload)
 	. = ..()
 	pages = list({"
 		<html><meta charset='utf-8'><head></head><body bgcolor='[book_bgcolor]'>
@@ -721,14 +867,6 @@
 	title = "Cyborgs for Dummies"
 	wiki_article_title = "Guide_to_Robotics"
 
-/obj/item/book/manual/wiki/experimentor
-	name = "Mentoring your Experiments"
-	desc = "A madman's ramblings on how to experiment with the E.X.P.E.R.I-MENTOR."
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	wiki_article_title = "Guide_to_the_E.X.P.E.R.I-MENTOR"
-
 /obj/item/book/manual/wiki/chef_recipes
 	name = "Chef Recipes"
 	desc = "Knives, Ovens, and You: A guide to cooking."
@@ -752,6 +890,22 @@
 	author = "Nanotrasen"
 	title = "Faxes and You!"
 	wiki_article_title = "Guide_to_Faxes"
+
+/obj/item/book/manual/wiki/hydroponics
+	name = "General Hydroponics"
+	desc = "A guide outlining the principles of hydroponics."
+	icon_state ="bookHydroponicsGeneral"
+	author = "Nanotrasen"
+	title = "General Hydroponics"
+	wiki_article_title = "Guide_to_Hydroponics"
+
+/obj/item/book/manual/wiki/botanist
+	name = "The Station Botanist Handbook"
+	desc = "A handbook with instructions and tips for station botanists."
+	icon_state ="bookHydroponicsBotanist"
+	author = "Nanotrasen"
+	title = "The Station Botanist Handbook"
+	wiki_article_title = "Botanist"
 
  //* STANDARD OPERATING PROCEDURE MANUALS *// (and space Law)
 
@@ -842,13 +996,46 @@
 	title = "Science Standard Operating Procedures"
 	wiki_article_title = "Standard_Operating_Procedure_(Science)"
 
+/obj/item/book/manual/sop_ntinstructor
+	name = "Career Trainer SOP"
+	desc = "A set of guidelines for Instructors."
+	icon_state = "sop_legal"
+	author = "Nanotrasen"
+	title = "Instructor SOP"
+	pages = list({"
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+
+
+				</style>
+				</head>
+				<body>
+				<h1><U><B>Instructor SOP</B></U></h1><BR>
+				<p>
+				<ol>
+				<li>NT Career Trainers are to wear their company-provided uniform and <b>jacket OR their issued beret/hat</b> at all times while on duty. They are free to choose a beret that best matches their primary field of knowledge if they so desire. Additionally, Identifying equipment SHOULD not be distributed to crew members. </li>
+				<li>NT Career Trainers are to be available to all Crewmembers, regardless of Department. You may not only assist a singular Department. </li>
+				<li>NT Career Trainers are not to do a Trainee's work for them. </li>
+				<li>NT Career Trainers are to use NCT Data Chips only to acquire the access necessary for providing training. They are not to use said access for other purposes. </li>
+				<li>In the event of a lost or stolen NCT Data Chip, the NT Career Trainer is to report the incident to their local Nanotrasen Representative or Station Captain. </li>
+				<li>NT Career Trainers are permitted to carry a flash for self-defense.</li>
+				</ol>
+				</body>
+				</html>
+		"})
+
  //* MANUAL SPAWNERS *// (and space Law)
 
 /obj/item/book/manual/random
 	icon_state = "random_book"
 	var/static/list/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 
-/obj/item/book/manual/random/Initialize()
+/obj/item/book/manual/random/Initialize(mapload)
 	..()
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)

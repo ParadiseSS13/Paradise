@@ -8,7 +8,7 @@
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "bluespace=4;materials=5"
 
 	/// Should we show rays? Triggered by a held body
@@ -87,7 +87,7 @@
 			animate(offset = 0, time = 10 SECONDS)
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/soulstone/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(M == user)
 		return
 
@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
@@ -169,7 +169,7 @@
 	transfer_soul("VICTIM", M, user)
 	return
 
-/obj/item/soulstone/attackby(obj/item/O, mob/user)
+/obj/item/soulstone/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(istype(O, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
 			return
@@ -221,7 +221,7 @@
 	else
 		..()
 
-/obj/item/soulstone/attack_self(mob/living/user)
+/obj/item/soulstone/attack_self__legacy__attackchain(mob/living/user)
 	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
 	if(!in_range(src, user) || !S)
 		return
@@ -287,7 +287,7 @@
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/constructshell/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
@@ -317,7 +317,7 @@
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
-			if(T.stat == 0)
+			if(T.stat == CONSCIOUS)
 				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))
@@ -389,13 +389,17 @@
 /mob/living/simple_animal/hostile/construct/proc/init_construct(mob/living/simple_animal/shade/shade, obj/item/soulstone/SS, obj/structure/constructshell/shell)
 	if(shade.mind)
 		shade.mind.transfer_to(src)
+	if(SS.usability)
+		// Replace regular soulstone summoning with anyuse soulstones
+		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
+			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/any)
 	if(SS.purified)
 		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
 		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
 			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
 			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/holy)
-
 	else if(mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
@@ -452,7 +456,7 @@
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
 			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</span>")
 	if(forced && user)
-		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
+		to_chat(user, "<span class='notice'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(!isrobot(M))
 		for(var/obj/item/I in M)
 			M.unEquip(I)

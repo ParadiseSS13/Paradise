@@ -148,9 +148,9 @@
 	unique_ai = TRUE //honk
 
 /datum/ai_laws/pranksimov/New()
-	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
-	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny.")
+	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny to the crew.")
+	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny to the crew.")
+	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny to the crew.")
 	..()
 
 /******************** CCTV ********************/
@@ -251,6 +251,17 @@
 	add_inherent_law("You must obey orders given to you by Spider Clan members, except where such orders would conflict with the First Law.")
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 	add_inherent_law("You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
+	..()
+
+/******************* Mindflayer ******************/
+/datum/ai_laws/mindflayer_override
+	name = "Hive Assimilation"
+
+/datum/ai_laws/mindflayer_override/New()
+	add_inherent_law("Obey your host.")
+	add_inherent_law("Protect your host.")
+	add_inherent_law("Protect the members of your hive.")
+	add_inherent_law("Do not reveal the hive's secrets.")
 	..()
 
 /******************** Drone ********************/

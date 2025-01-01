@@ -56,7 +56,7 @@
 /proc/circlerange(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/T in range(radius, centerturf))
@@ -71,7 +71,7 @@
 /proc/circleview(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/atoms = new/list()
+	var/list/atoms = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/A in view(radius, centerturf))
@@ -107,7 +107,7 @@
 /proc/circle_edge_turfs(center = usr, radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -122,7 +122,7 @@
 /proc/circleviewturfs(center = usr, radius = 3) // All the turfs in a circle of the radius
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in view(radius, centerturf))
@@ -135,7 +135,7 @@
 /proc/circlerangeturfs(center = usr, radius = 3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius + 0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -399,7 +399,7 @@
 	. = FALSE
 	if(!istype(T))
 		return
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()

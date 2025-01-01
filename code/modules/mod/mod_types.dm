@@ -80,6 +80,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 
@@ -92,10 +93,12 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/firefighting_tank
 	)
 
 /obj/item/mod/control/pre_equipped/loader
@@ -159,6 +162,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/monitor,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
@@ -211,6 +215,18 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/praetorian
+	theme = /datum/mod_theme/praetorian
+	applied_cell = /obj/item/stock_parts/cell/super
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/monitor,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+	)
+
 /obj/item/mod/control/pre_equipped/magnate
 	theme = /datum/mod_theme/magnate
 	applied_cell = /obj/item/stock_parts/cell/hyper
@@ -225,7 +241,7 @@
 
 /obj/item/mod/control/pre_equipped/magnate/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
@@ -292,6 +308,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/nuclear/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -308,6 +328,10 @@
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
+
+/obj/item/mod/control/pre_equipped/elite/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype
@@ -462,7 +486,8 @@
 /obj/item/mod/control/pre_equipped/debug
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list( //one of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
+	/// One of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
+	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,

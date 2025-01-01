@@ -96,7 +96,7 @@
 //Offensive
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /datum/spell/genetic/blind
+	spell_type = /datum/spell/blind
 	category = "Offensive"
 	cost = 1
 
@@ -150,6 +150,11 @@
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /datum/spell/touch/flesh_to_stone
+	category = "Offensive"
+
+/datum/spellbook_entry/plushify
+	name = "Plushify"
+	spell_type = /datum/spell/touch/plushify
 	category = "Offensive"
 
 /datum/spellbook_entry/mutate
@@ -424,7 +429,7 @@
 
 /datum/spellbook_entry/item/scryingorb
 	name = "Scrying Orb"
-	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
+	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision. It will also work as an excellent throwing weapon, and will return to your hand after throwing."
 	item_path = /obj/item/scrying
 	category = "Artefacts"
 
@@ -520,7 +525,7 @@
 
 /datum/spellbook_entry/item/spell_blade
 	name = "Spellblade"
-	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half."
+	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half. Spacetime: will slice faster but weaker and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
 	item_path = /obj/item/melee/spellblade
 	category = "Weapons and Armors"
 
@@ -622,7 +627,7 @@
 
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
-	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim. It is *heavily* advised not to summon it in maintenance areas."
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Summons"
 	limit = 3
@@ -734,7 +739,7 @@
 	..()
 	initialize()
 
-/obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/spellbook/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))
 		var/obj/item/contract/contract = O
 		if(contract.used)
@@ -850,7 +855,7 @@
 	dat += {"[content]</body></html>"}
 	return dat
 
-/obj/item/spellbook/attack_self(mob/user as mob)
+/obj/item/spellbook/attack_self__legacy__attackchain(mob/user as mob)
 	if(!owner)
 		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
 		owner = user
@@ -953,7 +958,7 @@
 				tab = loadout_categories[1]
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
-	attack_self(H)
+	attack_self__legacy__attackchain(H)
 	return 1
 
 //Single Use Spellbooks
@@ -972,7 +977,7 @@
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
 
-/obj/item/spellbook/oneuse/attack_self(mob/user)
+/obj/item/spellbook/oneuse/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
@@ -998,7 +1003,7 @@
 	used = TRUE
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
-/obj/item/spellbook/oneuse/attackby()
+/obj/item/spellbook/oneuse/attackby__legacy__attackchain()
 	return
 
 /obj/item/spellbook/oneuse/fireball
@@ -1024,7 +1029,7 @@
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
-	spell = /datum/spell/genetic/blind
+	spell = /datum/spell/blind
 	spellname = "blind"
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
@@ -1107,7 +1112,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
+		user.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, TRUE, TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

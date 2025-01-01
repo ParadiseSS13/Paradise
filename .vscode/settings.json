@@ -8,7 +8,8 @@
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"search.exclude": {
 		"**/.yarn": true,
-		"**/.pnp.*": true
+		"**/.pnp.*": true,
+		"tgui/public/**/*": true
 	},
 	"eslint.format.enable": true,
 	"eslint.rules.customizations": [
@@ -20,27 +21,27 @@
 	],
 
 	"[javascript]": {
-		"editor.rulers": [80],
+		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
 	"[javascriptreact]": {
-		"editor.rulers": [80],
+		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
 	"[typescript]": {
-		"editor.rulers": [80],
+		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
 	"[typescriptreact]": {
-		"editor.rulers": [80],
+		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
 	"[scss]": {
-		"editor.rulers": [80],
+		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},

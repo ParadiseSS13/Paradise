@@ -87,7 +87,7 @@
 	radiate()
 	..()
 
-/turf/simulated/wall/mineral/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
+/turf/simulated/wall/mineral/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -106,7 +106,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
-/turf/simulated/wall/mineral/plasma/attackby(obj/item/W, mob/user)
+/turf/simulated/wall/mineral/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
@@ -171,7 +171,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
-/turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
+/turf/simulated/wall/mineral/wood/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.sharp && W.force)
 		var/duration = (48 / W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
@@ -220,7 +220,7 @@
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	explosion_block = 3
-	flags_2 = CHECK_RICOCHET_2
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
@@ -278,40 +278,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/survival/pod
-
-//undeconstructable type for derelict
-//these walls are undeconstructable/unthermitable
-/turf/simulated/wall/mineral/titanium/nodecon
-	name = "russian wall"
-	desc = "Like regular titanium, but able to deflect capitalist aggressors."
-	can_dismantle_with_welder = FALSE
-
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend
-	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
-
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
-
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth
-	icon_state = "plastinum_wall"
-	smoothing_flags = NONE
-
-//properties for derelict sub-type to prevent said deconstruction/thermiting
-/turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/burn_down()
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/welder_act()
-	return
-
-/turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
-	return
 
 /////////////////////Plastitanium walls/////////////////////
 

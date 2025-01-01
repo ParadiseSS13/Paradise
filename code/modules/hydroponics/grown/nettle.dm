@@ -32,10 +32,9 @@
 /obj/item/grown/nettle
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15
@@ -70,7 +69,7 @@
 
 
 
-/obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/nettle/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
 	if(force > 0)
@@ -106,7 +105,7 @@
 			user.Weaken(10 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
-/obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
+/obj/item/grown/nettle/death/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	..()
 	if(!isliving(M))
 		return

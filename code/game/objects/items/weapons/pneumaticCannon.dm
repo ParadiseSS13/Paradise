@@ -40,13 +40,13 @@
 		if(tank)
 			. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 		for(var/obj/item/I in loaded_items)
-			. += "<span class='info'>[bicon(I)] It has [I] loaded.</span>"
+			. += "<span class='notice'>[bicon(I)] It has [I] loaded.</span>"
 
 /**
 * Arguments:
 * * I - item to load into the cannon
 * * user - the person loading the item in
-* Returns:
+* * Returns:
 * * True if item was loaded, false if it failed
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
@@ -59,7 +59,6 @@
 	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
@@ -76,7 +75,7 @@
 		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
+/obj/item/pneumatic_cannon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/tank/internals) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
@@ -93,7 +92,7 @@
 	remove_tank(user)
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, flag, params)
 	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/rack)) //So you can store it on racks

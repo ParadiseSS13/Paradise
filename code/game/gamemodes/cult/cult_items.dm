@@ -6,9 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
-	..()
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -23,17 +23,21 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	new_attack_chain = TRUE
 
-/obj/item/melee/cultblade/New()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	..()
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.</span>"
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
@@ -44,12 +48,17 @@
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
-		return
+
+		return FINISH_ATTACK
+
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!IS_CULTIST(target))
 		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 		if(S)
 			S.trigger()
-	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
@@ -75,6 +84,7 @@
 	if(thrower && !IS_CULTIST(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
+		return
 	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -205,7 +215,7 @@
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == SLOT_HUD_OUTER_SUIT)
+	else if(slot == ITEM_SLOT_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
@@ -240,7 +250,7 @@
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
-/obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/cult/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(used)
 		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
@@ -280,7 +290,7 @@
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
-/obj/item/shuttle_curse/attack_self(mob/living/user)
+/obj/item/shuttle_curse/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
 		user.unEquip(src, 1)
 		user.Weaken(10 SECONDS)
@@ -323,11 +333,13 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
+		if(SEND_SIGNAL(pulled, COMSIG_MOVABLE_TELEPORTING, turf_behind) & COMPONENT_BLOCK_TELEPORT)
+			return FALSE
 		if(!pulled.anchored) //Item may have been anchored while pulling, and pulling state isn't updated until you move away, so we double check.
 			pulled.forceMove(turf_behind)
 			. = pulled
 
-/obj/item/cult_shift/attack_self(mob/user)
+/obj/item/cult_shift/attack_self__legacy__attackchain(mob/user)
 
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
@@ -337,6 +349,8 @@
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(user)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	if(user.holy_check())
 		return
 	var/outer_tele_radius = 9
@@ -567,7 +581,7 @@
 
 /obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime.
 	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/cult_spear/Destroy()
@@ -620,7 +634,7 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
@@ -629,11 +643,11 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
-	button_icon_state = "bloodspear"
+	button_background_icon_state = "bg_cult"
+	button_overlay_icon_state = "bloodspear"
+	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
-	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
@@ -666,7 +680,7 @@
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	flags = NOBLUDGEON | DROPDEL
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(user.holy_check())
 		return
 	..()
@@ -717,7 +731,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 
-/obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
+/obj/item/portal_amulet/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
 	. = ..()
 	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
@@ -797,7 +811,7 @@
 	if(target)
 		exit = new /obj/effect/cult_portal_exit(target)
 
-/obj/effect/portal/cult/attackby(obj/I, mob/user, params)
+/obj/effect/portal/cult/attackby__legacy__attackchain(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)

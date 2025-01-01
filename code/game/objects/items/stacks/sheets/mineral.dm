@@ -148,8 +148,8 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throwforce = 5
 	throw_speed = 3
 
-/obj/item/stack/sheet/mineral/New()
-	..()
+/obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
+	. = ..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4
 
@@ -167,8 +167,8 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 /obj/item/stack/sheet/mineral/sandstone/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/sandstone/New()
-	..()
+/obj/item/stack/sheet/mineral/sandstone/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sandstone_recipes
 
 /*
@@ -177,6 +177,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/sandbags
 	name = "sandbags"
+	desc = "Cloth bags full of sand. They can be used to construct robust defensive emplacements that block movement and provide protection from gunfire."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sandbags"
 	singular_name = "sandbag"
@@ -187,18 +188,18 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	new /datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/sandbags/New()
+/obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sandbag_recipes
-	..()
 
 /obj/item/emptysandbag
 	name = "empty sandbag"
-	desc = "A bag to be filled with sand."
+	desc = "A cloth bag to be filled with sand."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
+/obj/item/emptysandbag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/glass))
 		var/obj/item/stack/ore/glass/G = I
 		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
@@ -212,6 +213,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
+	desc = "Sparkles like a twinkling star."
 	icon_state = "sheet-diamond"
 	item_state = "sheet-diamond"
 	singular_name = "diamond"
@@ -221,8 +223,15 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_DIAMOND = MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
 
-/obj/item/stack/sheet/mineral/diamond/New()
-	..()
+/obj/item/stack/sheet/mineral/diamond/examine_more(mob/user)
+	. = ..()
+	. += "Diamond is the hardest known material, made of elemental carbon arranged in a tightly packed cubic crystal structure. \
+	It has excellent thermal conductivity, a high refractive index, and is widely seen as very pretty to look at."
+	. += ""
+	. += "Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."
+
+/obj/item/stack/sheet/mineral/diamond/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.diamond_recipes
 
 /obj/item/stack/sheet/mineral/diamond/fifty
@@ -230,6 +239,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
+	desc = "Don't keep this stuff in your pocket for too long. Hell, don't keep it anywhere near your person for too long."
 	icon_state = "sheet-uranium"
 	item_state = "sheet-uranium"
 	singular_name = "uranium sheet"
@@ -239,15 +249,22 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_URANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/uranium/examine_more(mob/user)
+	. = ..()
+	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
+	. += ""
+	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/uranium/New()
-	..()
+/obj/item/stack/sheet/mineral/uranium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.uranium_recipes
 
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
+	desc = "Beautiful pure purple crystals, ready to ignite if a naked flame touches them..."
 	icon_state = "sheet-plasma"
 	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
@@ -259,8 +276,20 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	max_integrity = 100
 	point_value = 20
 
-/obj/item/stack/sheet/mineral/plasma/New()
-	..()
+/obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
+	. = ..()
+	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today."
+	. += ""
+	. += "Plasma is a metastable exotic matter, capable of existing in all 3 basic states of matter across a wide range of tempratures and pressures. It is widely used as starship fuel for both conventional engines and \
+	Faster-Than-Light drives. It is also used in the creation of several classes of high-performance supermaterials and other advanced technologies. New uses for this wonder material are constantly being researched."
+	. += ""
+	. += "Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."
+	. += ""
+	. += "Despite its flammability, plasma-enhanced materials such as plasteel or plasma glass generally possess extreme fire resistance, ultra-low thermal conductivity, and a high emissivity. \
+	This allows, for example, a relatively thin pane of plasma glass to be cool to the touch even when a massive inferno is burning on the other side."
+
+/obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/fifty
@@ -271,7 +300,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 		log_and_set_aflame(user, I)
 	return TRUE
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/stack/sheet/mineral/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.get_heat())
 		log_and_set_aflame(user, I)
 	else
@@ -292,6 +321,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
+	desc = "GOLD!"
 	icon_state = "sheet-gold"
 	item_state = "sheet-gold"
 	singular_name = "gold bar"
@@ -301,15 +331,23 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_GOLD = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/gold/examine_more(mob/user)
+	. = ..()
+	. += "A dense, soft, yellow precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
+	It has an exceptionally low reactivity and excellent corrosion resistance, being the most noble of the metallic elements."
+	. += ""
+	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
+
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/gold/New()
-	..()
+/obj/item/stack/sheet/mineral/gold/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.gold_recipes
 
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
+	desc = "Shiny as a mirror. Allegedly repels werewolves and other mythical creatures."
 	icon_state = "sheet-silver"
 	item_state = "sheet-silver"
 	singular_name = "silver bar"
@@ -319,15 +357,23 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
+	. = ..()
+	. += "A shiny grey precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
+	It has very high thermal and electrical conductivity, and exhibits antimicrobial properties."
+	. += ""
+	. += "It is widely used in the production of advanced electronics, chemical catalysts, medicines, and some high performance materials."
+
 /obj/item/stack/sheet/mineral/silver/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/silver/New()
-	..()
+/obj/item/stack/sheet/mineral/silver/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.silver_recipes
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
+	desc = "It looks, smells, and tastes like real bananas. You'll break your teeth if you try to bite down on it, though."
 	icon_state = "sheet-bananium"
 	item_state = "sheet-clown"
 	singular_name = "bananium sheet"
@@ -337,18 +383,26 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_BANANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 50
 
+/obj/item/stack/sheet/mineral/bananium/examine_more(mob/user)
+	. = ..()
+	. += "Bananium. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+	It makes a squeaking sound when something compresses it."
+	. += ""
+	. += "It is sought after by clowns all across the known galaxy and is used in the creation of many clownish contraptions."
+
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
 
 /obj/item/stack/sheet/mineral/bananium/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/bananium/New(loc, amount=null)
-	..()
+/obj/item/stack/sheet/mineral/bananium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.bananium_recipes
 
 /obj/item/stack/sheet/mineral/tranquillite
 	name = "tranquillite"
+	desc = "..."
 	icon_state = "sheet-tranquillite"
 	item_state = "sheet-mime"
 	singular_name = "beret"
@@ -359,14 +413,22 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	wall_allowed = FALSE	//no tranquilite walls in code
 	point_value = 50
 
+/obj/item/stack/sheet/mineral/tranquillite/examine_more(mob/user)
+	..()
+	. += "Tranquilite. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+	Uniquely, it makes no sounds when bent, broken, smashed, or otherwise manipulated in any way, remaining deathly silent at all times. \
+	It also dampens sounds around it, and can become completely transparent when properly manipulated."
+	. += ""
+	. += "It is sought after by mimes all across the known galaxy and is used in the creation of many of their mysterious contraptions. Various other groups also express an interest in its unusual properites."
+
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
 
 /obj/item/stack/sheet/mineral/tranquillite/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
-	..()
+/obj/item/stack/sheet/mineral/tranquillite/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.tranquillite_recipes
 
 /*
@@ -374,6 +436,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
  */
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
+	desc = "It feels much lighter than it looks."
 	icon_state = "sheet-titanium"
 	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
@@ -387,6 +450,13 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/titanium/examine_more(mob/user)
+	. = ..()
+	. += "A strong, lightweight metal. Titanium has a strength similar to most steel alloys despite being about 45% less dense, whilst also exhibiting superior corrosion resistance. \
+	It is also very good at reflecting energy weapon attacks. Careful where you fire that laser gun!"
+	. += ""
+	. += "It is widely used in robotics, aerospace applications, and in starship construction thanks to its excellent strength-to-weight ratio. Notably, it is also extensively used in space station construction by the USSP."
+
 GLOBAL_LIST_INIT(titanium_recipes, list(
 	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -394,9 +464,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	new /datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/titanium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.titanium_recipes
-	..()
 
 /obj/item/stack/sheet/mineral/titanium/fifty
 	amount = 50
@@ -407,6 +477,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
  */
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
+	desc = "Just as light as normal titanium, but you can <i>feel</i> an aura of extra robustness about it."
 	icon_state = "sheet-plastitanium"
 	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
@@ -420,6 +491,12 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	point_value = 45
 
+/obj/item/stack/sheet/mineral/plastitanium/examine_more(mob/user)
+	. = ..()
+	. += "A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal and corrosion resistance."
+	. += ""
+	. += "It is used in the construction of military-grade starship hulls, top-of-the-line personal armour, and melee weaponry."
+
 /obj/item/stack/sheet/mineral/plastitanium/fifty
 	amount = 50
 
@@ -430,14 +507,15 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("reinforced wheelchair", /obj/structure/chair/wheelchair/plastitanium, 15, time = 7 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/plastitanium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plastitanium_recipes
-	..()
 
 
 //Alien Alloy
 /obj/item/stack/sheet/mineral/abductor
 	name = "alien alloy"
+	desc = "The dizzying colours change constantly depending on how the light hits it."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
@@ -452,12 +530,16 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/abductor
 	table_type = /obj/structure/table/abductor
 
+/obj/item/stack/sheet/mineral/abductor/examine_more(mob/user)
+	. = ..()
+	. += "An out-of-this-world material used in the construction of exceptionally advanced technologies. Known to be associated strongly with abductors."
+
 /obj/item/stack/sheet/mineral/abductor/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/abductor/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/abductor/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.abductor_recipes
-	..()
 
 /obj/item/stack/sheet/mineral/adamantine
 	name = "adamantine"
@@ -469,9 +551,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
 
-/obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
+/obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.adamantine_recipes
-	..()
 
 
 /obj/item/stack/sheet/mineral/adamantine/fifty
@@ -489,6 +571,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow
 
-/obj/item/stack/sheet/mineral/snow/New(loc, amount = null)
+/obj/item/stack/sheet/mineral/snow/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.snow_recipes
-	..()

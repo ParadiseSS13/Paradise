@@ -14,7 +14,7 @@
 	..()
 	create_reagents(100)
 
-/obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/mixing_bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(dirty)
 		if(istype(I, /obj/item/soap))
 			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
@@ -58,30 +58,30 @@
 		I.forceMove(src)
 		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
-/obj/item/mixing_bowl/attack_self(mob/user)
+/obj/item/mixing_bowl/attack_self__legacy__attackchain(mob/user)
 	var/dat = ""
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
-		var/list/items_counts = new
-		var/list/items_measures = new
-		var/list/items_measures_p = new
+		var/list/items_counts = list()
+		var/list/items_measures = list()
+		var/list/items_measures_p = list()
 		for(var/obj/O in contents)
 			var/display_name = O.name
-			if(istype(O,/obj/item/food/snacks/egg))
+			if(istype(O,/obj/item/food/egg))
 				items_measures[display_name] = "egg"
 				items_measures_p[display_name] = "eggs"
-			if(istype(O,/obj/item/food/snacks/tofu))
+			if(istype(O,/obj/item/food/tofu))
 				items_measures[display_name] = "tofu chunk"
 				items_measures_p[display_name] = "tofu chunks"
-			if(istype(O,/obj/item/food/snacks/meat)) //any meat
+			if(istype(O,/obj/item/food/meat)) //any meat
 				items_measures[display_name] = "slab of meat"
 				items_measures_p[display_name] = "slabs of meat"
-			if(istype(O,/obj/item/food/snacks/donkpocket))
+			if(istype(O,/obj/item/food/donkpocket))
 				display_name = "Turnovers"
 				items_measures[display_name] = "turnover"
 				items_measures_p[display_name] = "turnovers"
-			if(istype(O,/obj/item/food/snacks/carpmeat))
+			if(istype(O,/obj/item/food/carpmeat))
 				items_measures[display_name] = "fillet of meat"
 				items_measures_p[display_name] = "fillets of meat"
 			items_counts[display_name]++
@@ -165,7 +165,7 @@
 		if(id)
 			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	var/obj/item/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
+	var/obj/item/food/badrecipe/mysteryfood = new(get_turf(source))
 	mysteryfood.reagents.add_reagent("carbon", amount)
 	mysteryfood.reagents.add_reagent("????", amount / 10)
 	make_dirty(75)

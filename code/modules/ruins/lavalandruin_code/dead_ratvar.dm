@@ -34,9 +34,6 @@
 /obj/effect/clockwork/overlay/singularity_act()
 	return
 
-/obj/effect/clockwork/overlay/singularity_pull()
-	return
-
 /obj/effect/clockwork/overlay/singularity_pull(S, current_size)
 	return
 
@@ -44,23 +41,6 @@
 	if(linked)
 		linked = null
 	. = ..()
-
-/obj/effect/clockwork/overlay/wall
-	name = "clockwork wall"
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
-	smoothing_flags = SMOOTH_CORNERS
-	layer = CLOSED_TURF_LAYER
-
-/obj/effect/clockwork/overlay/wall/Initialize(mapload)
-	. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
-
-/obj/effect/clockwork/overlay/wall/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
 
 /obj/effect/clockwork/overlay/floor
 	icon = 'icons/turf/floors.dmi'
@@ -88,7 +68,7 @@
 /obj/structure/clockwork/wall_gear/displaced
 	anchored = FALSE
 
-/obj/structure/clockwork/wall_gear/Initialize()
+/obj/structure/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 
@@ -113,7 +93,7 @@
 		return
 	default_unfasten_wrench(user, I, 10)
 
-/obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
@@ -166,11 +146,11 @@
 	var/randomspritemax = 2
 	var/sprite_shift = 9
 
-/obj/item/clockwork/alloy_shards/Initialize()
+/obj/item/clockwork/alloy_shards/Initialize(mapload)
 	. = ..()
 	if(randomsinglesprite)
 		replace_name_desc()
-		icon_state = "[icon_state][rand(1, randomspritemax)]"
+		icon_state = "[base_icon_state][rand(1, randomspritemax)]"
 		pixel_x = rand(-sprite_shift, sprite_shift)
 		pixel_y = rand(-sprite_shift, sprite_shift)
 
@@ -188,17 +168,20 @@
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
 	icon_state = "shard_large"
+	base_icon_state = "shard_large"
 	sprite_shift = 9
 
 /obj/item/clockwork/alloy_shards/medium
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
 	icon_state = "shard_medium"
+	base_icon_state = "shard_medium"
 	sprite_shift = 10
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit
 	randomspritemax = 4
-	icon_state = "gear_bit"
+	icon_state = "gear_bit1"
+	base_icon_state = "gear_bit"
 	sprite_shift = 12
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/replace_name_desc()
@@ -217,6 +200,7 @@
 	randomsinglesprite = TRUE
 	randomspritemax = 3
 	icon_state = "shard_small"
+	base_icon_state = "shard_small"
 	sprite_shift = 12
 
 /obj/item/clockwork/alloy_shards/pinion_lock

@@ -125,10 +125,11 @@
 		Gives traitors more opportunities to sabotage the generator or allows enterprising engineers to build additional
 		cooling in order to get more power out.
 	*/
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure() / ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		lower_limit += ambient * ratio
 		upper_limit += ambient * ratio
 
@@ -154,10 +155,11 @@
 
 /obj/machinery/power/port_gen/pacman/handle_inactive()
 	var/cooling_temperature = 20
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		cooling_temperature += ambient*ratio
 
 	if(temperature > cooling_temperature)
@@ -189,22 +191,20 @@
 		emagged = TRUE
 		return TRUE
 
-/obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>[src] is full!</span>")
 			return
+
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
 		return
-	if(!active)
-		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
-			exchange_parts(user, O)
-		return
+
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)

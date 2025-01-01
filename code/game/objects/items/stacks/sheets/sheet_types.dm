@@ -3,6 +3,7 @@
  * Metal
  * Plasteel
  * Wood
+ * Bamboo
  * Cloth
  * Durathread
  * Cardboard
@@ -14,9 +15,9 @@
  * Saltpetre Crystal
  */
 
-/*
- * Metal
- */
+//////////////////////////////
+// MARK: METAL
+//////////////////////////////
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
@@ -75,11 +76,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("machine frame", /obj/structure/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("storage shelf", /obj/structure/shelf, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("gun rack", /obj/structure/gunrack, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -109,6 +112,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 	new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1),
+	new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3),
 	null,
 	new /datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2),
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
@@ -121,7 +125,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal
 	name = "metal"
-	desc = "Sheets made out of metal."
+	desc = "Sheets made out of steel."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
@@ -137,6 +141,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
+/obj/item/stack/sheet/metal/examine_more(mob/user)
+	. = ..()
+	. += "At its core, steel is an alloy of iron and carbon. The addition of a wide range of other elements and the use of various metallurgical processes allows control over nearly every property of the resulting alloy, \
+	from hardness and ductility to corrosion resistance."
+	. += ""
+	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used within all areas of construction, as well as the manufacture of almost any device that one can care to imagine."
+
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_storage/material/metal
 	is_cyborg = TRUE
@@ -146,10 +157,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	var/mob/living/silicon/robot/robot = user
 	if(!istype(robot.module, /obj/item/robot_module/drone))
-		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption Machine, or by picking it up from the ground.</span>"
 
 /obj/item/stack/sheet/metal/cyborg/drone
 	energy_type = /datum/robot_storage/energy/metal
+
+/obj/item/stack/sheet/metal/ten
+	amount = 10
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -158,15 +172,15 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/metal/New(loc, amount=null)
+/obj/item/stack/sheet/metal/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.metal_recipes
-	return ..()
 
-/*
- * Plasteel
- */
+//////////////////////////////
+// MARK: PLASTEEL
+//////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
-	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("AI core", /obj/structure/ai_core, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
@@ -195,20 +209,34 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
 
+/obj/item/stack/sheet/plasteel/examine_more(mob/user)
+	. = ..()
+	. += "A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, \
+	pulling them in and bonding with them extremely strongly. It is exceptionally tough, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel."
+	. += ""
+	. += "It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, \
+	although it is sometimes incorporated into the armour of critical areas. Its high density also makes it an excellent material for radiation shielding."
+
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
+
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasteel/New(loc, amount=null)
+/obj/item/stack/sheet/plasteel/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plasteel_recipes
-	return ..()
 
 /obj/item/stack/sheet/wood/cyborg
 	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
-/*
- * Wood
- */
+//////////////////////////////
+// MARK: WOOD
+//////////////////////////////
 GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
 	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
@@ -263,13 +291,13 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	sheettype = "wood"
 	table_type = /obj/structure/table/wood
 
-/obj/item/stack/sheet/wood/New(loc, amount=null)
+/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.wood_recipes
-	return ..()
 
-/*
- * Bamboo
- */
+//////////////////////////////
+// MARK: BAMBOO
+//////////////////////////////
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS),
@@ -302,16 +330,16 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	sheettype = "bamboo"
 	merge_type = /obj/item/stack/sheet/bamboo
 
-/obj/item/stack/sheet/bamboo/New(loc, amount=null)
+/obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.bamboo_recipes
-	return ..()
 
 /obj/item/stack/sheet/bamboo/fifty
 	amount = 50
 
-/*
- * Cloth
- */
+//////////////////////////////
+// MARK: CLOTH
+//////////////////////////////
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
@@ -343,6 +371,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
+	new /datum/stack_recipe("imrovised drapes", /obj/item/surgical_drapes/improvised, 1),
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
@@ -366,22 +395,23 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/cloth/New(loc, amount=null)
+/obj/item/stack/sheet/cloth/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.cloth_recipes
-	..()
 
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
-/*
- * Durathread
- */
+//////////////////////////////
+// MARK: DURATHREAD
+//////////////////////////////
 
 GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, 1, time = 2.5 SECONDS),
+	new /datum/stack_recipe("surgical drapes", /obj/item/surgical_drapes, 1, time = 3 SECONDS)
 	))
 
 /obj/item/stack/sheet/durathread
@@ -425,9 +455,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
 
-/*
- * Cardboard
- */
+//////////////////////////////
+// MARK: CARDBOARD
+//////////////////////////////
 GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
@@ -460,11 +490,11 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		)),
 ))
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
+			playsound(I, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
@@ -482,13 +512,13 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/New(loc, amt = null)
+/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.cardboard_recipes
-	return ..()
 
-/*
- * soil
- */
+//////////////////////////////
+// MARK: SOIL
+//////////////////////////////
 GLOBAL_LIST_INIT(soil_recipes, list (
 	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
@@ -504,13 +534,13 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
-/obj/item/stack/sheet/soil/Initialize(loc, amt)
+/obj/item/stack/sheet/soil/Initialize(mapload, loc, amt)
 	recipes = GLOB.soil_recipes
 	return ..()
 
-/*
- * Runed Metal
- */
+//////////////////////////////
+// MARK: RUNED METAL
+//////////////////////////////
 
 GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -529,14 +559,20 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
-	recipe_width = 700
 
-/obj/item/stack/sheet/runed_metal/New()
+/obj/item/stack/sheet/runed_metal/examine_more(mob/user)
+	. = ..()
+	. += "There are things lurking in the darkness beyond our comprehension, sealed away by terrible writs. They scheme and plot amongst themselves and with the fools and unwilling converts that serve them in our world."
+	. += ""
+	. += "Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."
+
+/obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge)
 	. = ..()
 	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
+	recipes = GLOB.cult_recipes
 
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
+/obj/item/stack/sheet/runed_metal/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
@@ -564,13 +600,9 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
-/obj/item/stack/sheet/runed_metal/New(loc, amount=null)
-	recipes = GLOB.cult_recipes
-	return ..()
-
-/*
- * Brass
- */
+//////////////////////////////
+// MARK: BRASS
+//////////////////////////////
 GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -579,7 +611,18 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe_list("pews", list(
+		new /datum/stack_recipe("brass pew (middle)", /obj/structure/chair/sofa/pew/clockwork, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brass pew (left)", /obj/structure/chair/sofa/pew/clockwork/left, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brass pew (right)", /obj/structure/chair/sofa/pew/clockwork/right, 5, one_per_turf = TRUE, on_floor = TRUE)
+		)),
+	new /datum/stack_recipe("pinion airlock assembly", /obj/structure/door_assembly/door_assembly_clockwork, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass storage shelf", /obj/structure/shelf/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass gun rack", /obj/structure/gunrack/clockwork, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork, 2, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("small brass light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/small, 1, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe("brass floor light fixture frame", /obj/item/mounted/frame/light_fixture/clockwork/floor, 3, time = 0 SECONDS, one_per_turf = FALSE, on_floor = FALSE),
 	))
 
 /obj/item/stack/tile/brass
@@ -598,22 +641,31 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	table_type = /obj/structure/table/reinforced/brass
 	dynamic_icon_state = TRUE
 
+/obj/item/stack/tile/brass/examine_more(mob/user)
+	. = ..()
+	. += "Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
+	It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance."
+	. += ""
+	. += "It is used for ornamental and fashion applications (sometimes as a cheap substitute for gold), musical instruments, some specialised electronics, and spark-free tooling."
+	. += ""
+	. += "Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His followers use it extensively in their works and creations, although it has been a long time since anyone has seen them..."
+
 /obj/item/stack/tile/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/tile/brass/New(loc, amount=null)
-	recipes = GLOB.brass_recipes
+/obj/item/stack/tile/brass/Initialize(mapload, new_amount, merge)
 	. = ..()
+	recipes = GLOB.brass_recipes
 	pixel_x = 0
 	pixel_y = 0
 
 /obj/item/stack/tile/brass/fifty
 	amount = 50
 
-/*
- * Bones
- */
+//////////////////////////////
+// MARK: BONES
+//////////////////////////////
 /obj/item/stack/sheet/bone
 	name = "bones"
 	icon = 'icons/obj/stacks/organic.dmi'
@@ -628,9 +680,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
-/*
- * Plastic
- */
+//////////////////////////////
+// MARK: PLASTIC
+//////////////////////////////
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),
@@ -646,6 +698,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("toxin first aid kit", /obj/item/storage/firstaid/toxin, 4),
 		new /datum/stack_recipe("oxygen deprivation first aid kit", /obj/item/storage/firstaid/o2, 4),
 		new /datum/stack_recipe("advanced first-aid kit", /obj/item/storage/firstaid/adv, 4),
+		new /datum/stack_recipe("machine repair kit", /obj/item/storage/firstaid/machine, 4),
+		new /datum/stack_recipe("aquatic starter kit", /obj/item/storage/firstaid/aquatic_kit, 4),
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
@@ -684,9 +738,18 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
 
-/obj/item/stack/sheet/plastic/New()
-	recipes = GLOB.plastic_recipes
+/obj/item/stack/sheet/plastic/examine_more(mob/user)
 	. = ..()
+	. += "Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, \
+	but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
+	They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle."
+	. += ""
+	. += "Despite the extensive uses of plastics, they are not as ubiquitous as other materials (especially steel). This is due to a combination of environmental regulations, \
+	established market patterns, and the operational requirements for many space-based installations to employ easily recycled materials to conserve limited supplies."
+
+/obj/item/stack/sheet/plastic/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.plastic_recipes
 
 /obj/item/stack/sheet/plastic/fifty
 	amount = 50

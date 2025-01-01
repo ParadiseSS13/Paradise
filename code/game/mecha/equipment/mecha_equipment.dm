@@ -32,13 +32,13 @@
 	if(chassis)
 		chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
 		chassis.log_append_to_last("[src] is destroyed.",1)
-		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
-			SEND_SOUND(chassis.occupant, sound(chassis.weapdestrsound, volume = 50))
-		else
-			SEND_SOUND(chassis.occupant, sound(chassis.critdestrsound, volume = 50))
+		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
 	return ..()
 
+
+/obj/item/mecha_parts/mecha_equipment/proc/get_destroy_sound()
+	return chassis.critdestrsound
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
 	if(!chassis)
@@ -111,6 +111,15 @@
 	if(!M.selected)
 		M.selected = src
 	update_chassis_page()
+	if(M.occupant)
+		give_targeted_action()
+
+/obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
+	if(!selectable)
+		return
+	var/datum/action/innate/mecha/select_module/select_action = new()
+	select_action.Grant(chassis.occupant, chassis, src)
+	chassis.select_actions[src] = select_action
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	moveto = moveto || get_turf(chassis)
@@ -119,12 +128,23 @@
 		if(chassis.selected == src)
 			chassis.selected = null
 		update_chassis_page()
+		remove_targeted_action()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		set_ready_state(1)
 
+/obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
+	if(!selectable)
+		return
+	if(chassis.select_actions[src])
+		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[src]
+		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
+	if(!chassis)
+		return TRUE
+	if(usr != chassis.occupant)
+		return TRUE
 	if(href_list["detach"])
 		detach()
 

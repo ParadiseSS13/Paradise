@@ -38,7 +38,7 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self__legacy__attackchain()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -99,6 +99,10 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"
@@ -111,10 +115,24 @@
 	icon_regular_floor = "podfloor_light"
 	floor_tile = /obj/item/stack/tile/pod/light
 
+/turf/simulated/floor/pod/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/pod/dark
 	icon_state = "podfloor_dark"
 	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
+
+/turf/simulated/floor/pod/dark/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Door
 /obj/machinery/door/airlock/survival_pod
@@ -176,6 +194,8 @@
 	products = list(/obj/item/stack/medical/splint = 2)
 	contraband = list()
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
+
 //Computer
 /obj/item/gps/computer
 	name = "pod computer"
@@ -185,18 +205,19 @@
 	density = TRUE
 	pixel_y = -32
 
-/obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
-						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/gps(loc)
-			qdel(src)
-			return ..()
+/obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
+		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+				"<span class='notice'>You disassemble [src].</span>", "You hear clanking and banging noises.")
+	new /obj/item/gps(loc)
+	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bed
 /obj/structure/bed/pod
@@ -224,7 +245,7 @@
 		return
 
 	for(var/i in 1 to 5)
-		var/obj/item/food/snacks/warmdonkpocket_weak/W = new(src)
+		var/obj/item/food/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/storage/bag/dice/D = new(src)
@@ -262,16 +283,16 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/fans/Destroy()
 	arbitraryatmosblockingvar = 0
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
-/obj/structure/fans/CanAtmosPass(turf/T)
+/obj/structure/fans/CanAtmosPass(direction)
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
@@ -280,14 +301,15 @@
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-/obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			deconstruct()
-			return ..()
+/obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
+		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+						"<span class='notice'>You disassemble [src].</span>", "You hear something fall on the floor.")
+	deconstruct()
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
@@ -297,6 +319,10 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
+/obj/structure/fans/tiny/get_superconductivity(direction)
+	// Mostly for stuff on Lavaland.
+	return ZERO_HEAT_TRANSFER_COEFFICIENT
+
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -305,13 +331,12 @@
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
+	layer = TABLE_LAYER // scuffed but it works
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
 //Fluff
@@ -323,15 +348,14 @@
 	layer = MOB_LAYER - 0.2
 	density = FALSE
 
-/obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/stack/rods(loc)
-			qdel(src)
-			return ..()
+/obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!W.use_tool(src, user, 2 SECONDS, volume = 50))
+		return
+	new /obj/item/stack/rods(loc)
+	qdel(src)
 
 /obj/item/fakeartefact
 	name = "expensive forgery"
@@ -353,7 +377,7 @@
 						/obj/item/stack/telecrystal/twenty,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)
@@ -361,3 +385,7 @@
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
 	item_state = initial(I.item_state)
+	lefthand_file = initial(I.lefthand_file)
+	righthand_file = initial(I.righthand_file)
+	slot_flags = initial(I.slot_flags)
+	w_class = initial(I.w_class)
