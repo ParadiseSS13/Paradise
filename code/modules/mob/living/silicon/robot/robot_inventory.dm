@@ -28,6 +28,7 @@
 			var/datum/action/A = X
 			A.Remove(src)
 	all_active_items[index] = CYBORG_EMPTY_MODULE
+	SEND_SIGNAL(O, COMSIG_CYBORG_ITEM_DEACTIVATED, src)
 	selected_item = null
 	var/atom/movable/screen/robot/active_module/screen = inventory_screens[index]
 	screen.icon_state = screen.deactivated_icon_string
@@ -44,7 +45,7 @@
 			return i
 	return FALSE
 
-/mob/living/silicon/robot/proc/activate_module(obj/item/O)
+/mob/living/silicon/robot/proc/activate_item(obj/item/O)
 	if(!(locate(O) in module.modules) && !(O in module.emag_modules))
 		return
 	if(activated(O))
@@ -61,6 +62,7 @@
 	if(!slot)
 		to_chat(src, "You need to disable a module first!")
 		return
+	SEND_SIGNAL(O, COMSIG_CYBORG_ITEM_ACTIVATED, src)
 	O.mouse_opacity = initial(O.mouse_opacity)
 	all_active_items[slot] = O
 	deactivate_all()
@@ -88,15 +90,17 @@
 	for(var/obj/item/O in all_active_items)
 		uneq_module(O)
 
+/// Deactivate all the screen objects, removing the green background from all of them
 /mob/living/silicon/robot/proc/deactivate_all()
 	for(var/atom/movable/screen/robot/active_module/to_deactivate)
 		to_deactivate.deactivate()
 
-/mob/living/silicon/robot/proc/uneq_numbered(module)
+/mob/living/silicon/robot/proc/uneq_numbered(index)
 	if(module < 1 || module > 3)
 		return
-	uneq_module(all_active_items[module])
+	uneq_module(all_active_items[index])
 
+/// Returns true if O is in the cyborg's hotbar, false otherwise
 /mob/living/silicon/robot/proc/activated(obj/item/O)
 	return (O in all_active_items)
 

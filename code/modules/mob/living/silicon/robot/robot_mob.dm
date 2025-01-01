@@ -1309,7 +1309,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
 			return TRUE
 
-		activate_module(O)
+		activate_item(O)
 
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
