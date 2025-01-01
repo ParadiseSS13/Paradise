@@ -4087,6 +4087,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"xM" = (
+/obj/machinery/economy/arcade/claw/syndi,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "xO" = (
 /obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
@@ -10117,7 +10123,7 @@ xn
 xn
 xn
 xn
-xQ
+xM
 xQ
 xQ
 My
@@ -10190,7 +10196,7 @@ kE
 kE
 kE
 xn
-xQ
+xM
 xQ
 vR
 nW
