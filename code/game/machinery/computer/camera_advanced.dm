@@ -54,7 +54,7 @@
 	QDEL_LIST_CONTENTS(actions)
 	return ..()
 
-/obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
+/obj/machinery/computer/camera_advanced/proc/remove_eye(mob/M)
 	if(istype(M) && M == current_user)
 		remove_eye_control(M)
 
@@ -66,7 +66,6 @@
 		return
 	if(..())
 		return
-	user.set_machine(src)
 	current_user = user
 
 	if(!eyeobj)
