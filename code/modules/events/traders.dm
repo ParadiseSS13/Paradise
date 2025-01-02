@@ -36,16 +36,17 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(!station) // If there are no unused stations, just no.
 		return
 
-	var/datum/traders/T = pick(/datum/traders/sol,
-								/datum/traders/cyber,
+	var/datum/traders/T = pick(//datum/traders/sol,
+								//datum/traders/cyber,
 								/datum/traders/commie,
-								/datum/traders/unathi,
-								/datum/traders/vulp,
-								/datum/traders/ipc,
-								/datum/traders/vox,
-								/datum/traders/skrell,
-								/datum/traders/grey,
-								/datum/traders/nian)
+								//datum/traders/unathi,
+								//datum/traders/vulp,
+								//datum/traders/ipc,
+								//datum/traders/vox,
+								//datum/traders/skrell,
+								//datum/traders/grey,
+								//datum/traders/nian)
+	)
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused", 'sound/AI/traderdeny.ogg')
@@ -85,8 +86,6 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			for(var/datum/objective/O in trader_objectives)
 				M.mind.objective_holder.add_objective(O) // traders dont have a team, so we manually have to add this objective to all of their minds, without setting an owner
 			M.mind.offstation_role = TRUE
-
-			M.add_language(T.additional_language)
 
 			//Get the list of spawn locations for company specific items, spawn gear
 			for(var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
@@ -139,8 +138,6 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/trader_minor_special
 	/// What big ticket faction gear do they start with
 	var/trader_major_special
-	/// Additional known language
-	var/additional_language
 
 /datum/traders/sol
 	trader_type = "Trans-Solar Federation"
@@ -168,7 +165,6 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_outfit = /datum/outfit/admin/trader/commie
 	trader_minor_special = /obj/effect/spawner/random/traders/ussp_minor
 	trader_major_special = /obj/effect/spawner/random/traders/ussp_major
-	additional_language = "Zvezhan"
 
 /datum/traders/unathi
 	trader_type = "Glint Scales"
