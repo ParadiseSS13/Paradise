@@ -923,7 +923,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/NT_mantis
 	name = "'Scylla' mantis blade implant"
-	desc = "Mantis blade reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
+	desc = "A reverse-engineered mantis blade design produced by Nanotrasen. While still quite deadly, the loss of the monomolecular blade has drastically reduced its armor penetration capability."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
 	contents = newlist(/obj/item/melee/mantis_blade/NT)
 	icon_state = "mantis"
