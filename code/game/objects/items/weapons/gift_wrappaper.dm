@@ -54,7 +54,12 @@
 	qdel(src)
 
 /obj/item/a_gift/attack_self__legacy__attackchain(mob/M as mob)
-	var/gift_type = pick(/obj/item/sord,
+	var/gift_type = pick(
+		/obj/effect/spawner/random/toy/carp_plushie,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/toy/action_figure,
+		/obj/effect/spawner/random/toy/mech_figure,
+		/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
 		/obj/item/storage/box/snappops,
@@ -76,7 +81,6 @@
 		/obj/item/gun/projectile/shotgun/toy/crossbow,
 		/obj/item/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
-		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
 		/obj/item/food/grown/ambrosia/deus,
@@ -85,10 +89,7 @@
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
 		/obj/item/storage/belt/utility/full,
-		/obj/item/clothing/accessory/horrible,
-		/obj/random/carp_plushie,
-		/obj/random/plushie,
-		/obj/random/figure,
+		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
 		/obj/item/deck/unum,
