@@ -38,10 +38,10 @@
 	TEST_ASSERT(istype(get_turf(mineral_wall), /turf/simulated/floor/plating/asteroid), "Did not find mineral wall dug with resonator")
 	qdel(resonator)
 
-	var/obj/abductor_soap = player.spawn_obj_in_hand(/obj/item/soap/syndie/abductor)
+	var/obj/item/soap/soap = player.spawn_obj_in_hand(/obj/item/soap)
+	soap.cleanspeed = 0
 	var/turf/T = get_turf(player.puppet)
 	new/obj/effect/spawner/themed_mess/bloody(T)
 	TEST_ASSERT(locate(/obj/effect/decal/cleanable) in T, "Did not find any mess decal on turf")
 	player.click_on(T)
-	sleep(2 SECONDS)
 	TEST_ASSERT_NOT(locate(/obj/effect/decal/cleanable) in T, "Mess decal remained on turf after soap use")
