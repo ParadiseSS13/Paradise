@@ -401,7 +401,7 @@
 	category = list("Weapons")
 
 /datum/design/NT_mantis
-	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
+	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
 	id = "mantis_blade_NT"
 	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
