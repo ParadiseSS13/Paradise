@@ -47,6 +47,9 @@
 	return FALSE
 
 /mob/living/carbon/human/GetVoice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
+
 	var/has_changer = HasVoiceChanger()
 
 	if(has_changer)

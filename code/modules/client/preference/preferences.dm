@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 

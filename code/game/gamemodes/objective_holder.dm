@@ -123,3 +123,10 @@
 	on_remove_callback?.Invoke(objective_owner, Objective)
 	if(!QDELETED(Objective))
 		qdel(Objective)
+
+/**
+ * Returns `objective_owner`
+ */
+/datum/objective_holder/proc/get_holder_owner()
+	RETURN_TYPE(/datum)
+	return objective_owner
