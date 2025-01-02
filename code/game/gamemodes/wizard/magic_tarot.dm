@@ -740,7 +740,7 @@
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
 	for(var/mob/living/L in oview(9, target))
 		if(L.can_block_magic(antimagic_flags))
-			to_chat(L, "<span class='notice'>You feel calm for a second, but it quickly passes.</span></span>")
+			to_chat(L, "<span class='notice'>You feel calm for a second, but it quickly passes.</span>")
 			continue
 		L.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
