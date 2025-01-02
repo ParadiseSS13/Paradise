@@ -157,9 +157,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, color)
 	qdel(src)
 
 /* ===POWERNET PROCS=== */
