@@ -1485,6 +1485,7 @@
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullets_left = 0
 	var/max_shots = 6
+	var/cursed_shot = FALSE
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -1537,6 +1538,11 @@
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
+		if(cursed_shot)
+			var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
+			SS.transfer_soul("FORCE", user)
+			user.death(FALSE)
+			user.visible_message("<span class='danger'>[user.name]'s soul is captured by [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
@@ -1547,66 +1553,10 @@
 		to_chat(user, "<span class='warning'>[src] needs to be reloaded.</span>")
 		return FALSE
 
-/obj/item/toy/russian_revolver/trick_revolver
-	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
-	icon_state = "revolver"
-	max_shots = 1
-	var/fake_bullets = 0
-
-/obj/item/toy/russian_revolver/trick_revolver/New()
-	..()
-	fake_bullets = rand(2, 7)
-
-/obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
-	. = ..()
-	. += "<span class='notice'>Use a pen on it to rename it.</span>"
-	. += "Has [fake_bullets] round\s remaining."
-	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
-	. += "[fake_bullets] of those are live rounds."
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
-
-/obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
-	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
-
-/obj/item/toy/russian_revolver/trick_revolver/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-		return
-
-	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
-	shoot_gun(user)
-
-/obj/item/toy/russian_revolver/trick_revolver/activate_self(mob/user)
-	if(..())
-		return
-	if(!bullets_left) //You can re-arm the trap...
-		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
-		spin_cylinder()
-	else //But if you try to spin it to see if it was fake...
-		user.visible_message("<span class='warning'>[user] tries to empty [src], but it goes off in their face!</span>")
-		shoot_gun(user)
-
-/obj/item/toy/russian_revolver/trick_revolver/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return FINISH_ATTACK
-	if(is_pen(attacking))
-		to_chat(user, "<span class='warning'>You go to write on [src].. and it goes off in your face!</span>")
-		shoot_gun(user)
-	if(istype(attacking, /obj/item/ammo_casing/a357))
-		to_chat(user, "<span class='warning'>You go to load a bullet into [src].. and it goes off in your face!</span>")
-		shoot_gun(user)
-	if(istype(attacking, /obj/item/ammo_box/a357))
-		to_chat(user, "<span class='warning'>You go to speedload [src].. and it goes off in your face!</span>")
-		shoot_gun(user)
-
-/obj/item/toy/russian_revolver/trick_revolver/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
-	if(target_atom != src)
-		pointer_mob.visible_message("<span class='danger'>[pointer_mob] points [src] at- and [src] goes off in their hand!</span>")
-		shoot_gun(pointer_mob)
-		return TRUE
-	return ..()
-
+/obj/item/toy/russian_revolver/soul
+	name = "cursed russian revolver"
+	desc = "To play with this revolver requires wagering your very soul."
+	cursed_shot = TRUE
 /*
  * Rubber Chainsaw
  */

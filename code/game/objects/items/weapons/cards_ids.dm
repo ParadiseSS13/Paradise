@@ -11,6 +11,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_ID
+
 	new_attack_chain = TRUE
 	var/associated_account_number = 0
 
@@ -29,6 +31,7 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag
 	desc = "It's a card with a magnetic strip attached to some circuitry."
@@ -38,6 +41,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -71,6 +75,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/cmag/Initialize(mapload)
 	. = ..()
@@ -95,7 +100,6 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -825,7 +829,7 @@
 
 	var/obj/item/card/id/I = target
 	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
-	access = I.access
+	access = I.access.Copy()
 	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
 						ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,
 						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
