@@ -110,6 +110,7 @@
 	var/runechat_color = "#FFFFFF"
 	/// The ringtone their PDA should start with
 	var/pda_ringtone
+	/// A list of strings with the names of the user's selected quirks. Used for TGUI purposes.
 	var/list/quirks = list()
 
 // Fuckery to prevent null characters
