@@ -510,7 +510,7 @@
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
-	desc = "A storage unit that moves and stores through the fourth dimension."
+	desc = "An experimental storage unit which defies several conventional laws of physics."
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
