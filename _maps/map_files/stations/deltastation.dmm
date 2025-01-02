@@ -60366,6 +60366,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/test_chamber)
+"geq" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "get" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel,
@@ -72240,6 +72246,13 @@
 	icon_state = "vault"
 	},
 /area/station/command/bridge)
+"mXh" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "mXA" = (
 /turf/simulated/wall,
 /area/station/medical/sleeper)
@@ -82625,6 +82638,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"svR" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "svX" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -85188,6 +85208,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
+"tOx" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/research)
 "tOF" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -125104,7 +125128,7 @@ hdu
 hnH
 ojf
 lSc
-cPn
+mXh
 cRd
 cZt
 hHk
@@ -127150,7 +127174,7 @@ fBk
 fBk
 fBk
 fBk
-dau
+svR
 yid
 cPn
 dFm
@@ -129460,7 +129484,7 @@ tQM
 cSm
 cZt
 cTU
-cMm
+tOx
 cXb
 cZt
 dZb
@@ -130246,7 +130270,7 @@ cSt
 cSt
 dIi
 dsu
-cSt
+geq
 cSt
 cSt
 dvj
