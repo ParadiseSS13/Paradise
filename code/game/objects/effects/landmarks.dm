@@ -422,6 +422,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Warden"
 	icon_state = "Warden"
 
+/obj/effect/landmark/start/nanotrasen_career_trainer
+	name ="Nanotrasen Career Trainer"
+	icon_state = "NCT"
+
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
 

@@ -147,6 +147,9 @@
 		if("Assistant")
 			O = new /datum/outfit/plasmaman/assistant
 
+		if("Nanotrasen Career Trainer")
+			O = new /datum/outfit/plasmaman/trainer
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
 	H.update_action_buttons_icon()

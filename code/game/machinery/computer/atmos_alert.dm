@@ -12,8 +12,9 @@
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
 	alarm_cache = list()
-	alarm_cache["minor"] = list()
 	alarm_cache["priority"] = list()
+	alarm_cache["minor"] = list()
+	alarm_cache["mode"] = list()
 	var/area/machine_area = get_area(src)
 	parent_area_type = machine_area.get_top_parent_type()
 
@@ -34,6 +35,10 @@
 			else
 				alarm_cache["priority"] -= air_alarm.alarm_area.name
 				alarm_cache["minor"] -= air_alarm.alarm_area.name
+		if(air_alarm.mode == AALARM_MODE_FILTERING)
+			alarm_cache["mode"] -= air_alarm.alarm_area.name
+		else
+			alarm_cache["mode"][air_alarm.alarm_area.name] = GLOB.aalarm_modes["[air_alarm.mode]"]
 
 	update_icon()
 
