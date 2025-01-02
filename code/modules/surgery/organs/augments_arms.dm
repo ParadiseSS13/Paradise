@@ -889,7 +889,7 @@
 	secondblade.attack(target, user, params, second_attack)
 
 /obj/item/melee/mantis_blade/syndicate
-	name = "G.O.R.L.E.X. mantis blade"
+	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
 	force = 20
