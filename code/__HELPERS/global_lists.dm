@@ -116,6 +116,21 @@
 
 		GLOB.gear_datums[gear_type] = gear
 
+	for(var/quirk_path in subtypesof(/datum/quirk))
+		var/datum/quirk/quirk = quirk_path
+		if(!quirk || !quirk.name) // Filter out quirks without names so we don't show basetypes
+			continue
+		quirk = new quirk_path
+		var/list/data = list(
+			"name" = quirk.name,
+			"desc" = quirk.desc,
+			"cost" = quirk.cost,
+			"type" = quirk.quirk_type,
+			"path" = quirk.type
+		)
+		GLOB.quirk_datums += quirk
+		GLOB.quirk_tgui_info += list(data)
+
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()
 	for(var/limb_type in typesof(/datum/robolimb))

@@ -675,6 +675,11 @@
 					loadout.ui_interact(user)
 					return FALSE
 
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
+					return FALSE
+
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)

@@ -1,16 +1,13 @@
-GLOBAL_LIST_EMPTY(all_quirks)
-
+GLOBAL_LIST_EMPTY(quirk_datums)
 /datum/quirk
-	var/name = "basetype"
-	var/desc = "You shouldn't see this"
+	var/name
+	var/desc = "Uh oh sisters! No description!"
+	var/quirk_type = QUIRK_NEUTRAL
+	var/cost = 0
 	var/mob/living/carbon/human/owner
 	/// If only organic characters can have it
 	var/organic_only = FALSE
 	/// If having this bars you from rolling sec/command
-	var/blacklisted
+	var/blacklisted = FALSE
 
-/datum/quirk/randomize_allergy()
-	var/list/possible_allergens = list("charcoal", "teporone", "salbutamol", "potass_iodide", "spaceacillin", "salglu_solution",
-									"sal_acid", "cryoxadone", "hydrocodone", "mitocholide",
-									"sanguine_reagent", "ephedrine", "bicaridine", "kelotane")
 

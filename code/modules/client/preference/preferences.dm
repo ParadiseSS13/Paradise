@@ -396,6 +396,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=quirks;task=input'>Open Quirk Menu</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -751,6 +752,10 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 /datum/preferences/proc/get_quirk_balance()
 	var/point_total = 0
+	var/list/quirk_cache = active_character.quirks.Copy()
+	for(var/datum/quirk/chosen in quirk_cache)
+		point_total += chosen.cost
+	return point_total
 
 /datum/preferences/proc/init_keybindings(overrides, raw)
 	if(raw)
