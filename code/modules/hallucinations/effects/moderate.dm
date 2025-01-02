@@ -507,7 +507,8 @@
 
 /obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
-	appearance = target.appearance
-
-/obj/effect/hallucination/chaser/you/add_icon()
-	return
+	var/image/I = new
+	I.appearance = target.appearance
+	I.loc = src
+	I.override = TRUE
+	add_icon(I)
