@@ -911,7 +911,7 @@
 //  Mantis blades implants
 
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis
-	name = "G.O.R.L.E.X. mantis blade implants"
+	name = "'Naginata' mantis blade implants"
 	desc = "Modernized mantis blade designed and coined by Tiger operatives. Energy actuators makes the blade a much deadlier weapon."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
 	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
