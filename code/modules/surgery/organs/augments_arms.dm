@@ -838,10 +838,6 @@
 		return
 	muscle_implant.emp_act(severity, owner)
 
-////////////////////////////////////////
-// MARK: Mantis Blades
-////////////////////////////////////////
-
 /obj/item/melee/mantis_blade
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
@@ -856,7 +852,7 @@
 	usesound = 'sound/items/crowbar.ogg'
 	new_attack_chain = TRUE
 	var/double_attack = TRUE
-	var/double_attack_cd = (3 / 2) // so every second attack
+	var/double_attack_cd = 1.5 // seconds, so every second attack
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "lacerated", "ripped", "diced", "cut")
