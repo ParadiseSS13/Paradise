@@ -364,24 +364,24 @@ const AirAlarmModesView = (props, context) => {
   return (
     <>
       <Section title="System Mode">
-        <Table>
-          {modes.map(
-            (m) =>
-              (!m.emagonly || (m.emagonly && !!emagged)) && (
-                <Table.Row key={m.name}>
-                  <Table.Cell textAlign="right" width={1}>
-                    <Button
-                      content={m.name}
-                      icon="cog"
-                      selected={m.id === mode}
-                      onClick={() => act('mode', { mode: m.id })}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>{m.desc}</Table.Cell>
-                </Table.Row>
-              )
-          )}
-        </Table>
+        {Object.keys(modes).map((key) => {
+          let m = modes[key];
+          if (!m.emagonly || !!emagged) {
+            return (
+              <Table.Row key={m.name}>
+                <Table.Cell textAlign="right" width={1}>
+                  <Button
+                    content={m.name}
+                    icon="cog"
+                    selected={m.id === mode}
+                    onClick={() => act('mode', { mode: m.id })}
+                  />
+                </Table.Cell>
+                <Table.Cell>{m.desc}</Table.Cell>
+              </Table.Row>
+            );
+          }
+        })}
       </Section>
       <Section title="System Presets">
         <Box italic>After making a selection, the system will automatically cycle in order to remove contaminants.</Box>

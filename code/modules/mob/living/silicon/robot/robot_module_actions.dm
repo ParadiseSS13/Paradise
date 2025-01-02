@@ -40,6 +40,7 @@
 #define MODE_MESON "meson"
 #define MODE_TRAY "t-ray"
 #define MODE_RAD "radiation"
+#define MODE_PRESSURE "pressure"
 #define RAD_RANGE 5
 
 /datum/action/innate/robot_sight/engineering_scanner
@@ -47,7 +48,7 @@
 	sight_mode = BORGMESON
 	button_overlay_icon = 'icons/obj/clothing/glasses.dmi'
 	button_overlay_icon_state = "trayson-meson"
-	var/list/mode_list = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
+	var/list/mode_list = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_PRESSURE, MODE_PRESSURE = MODE_NONE)
 	var/mode = MODE_NONE
 
 /datum/action/innate/robot_sight/engineering_scanner/Activate()
@@ -67,8 +68,13 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
+	if(mode == MODE_PRESSURE)
+		ADD_TRAIT(R, TRAIT_PRESSURE_VISION, "borgsight")
+	else
+		REMOVE_TRAIT(R, TRAIT_PRESSURE_VISION, "borgsight")
+
 /datum/action/innate/robot_sight/engineering_scanner/Deactivate()
-	return
+	REMOVE_TRAIT(owner, TRAIT_PRESSURE_VISION, "borgsight")
 
 /datum/action/innate/robot_sight/engineering_scanner/process()
 	var/mob/living/silicon/robot/user = owner
@@ -84,6 +90,7 @@
 #undef MODE_MESON
 #undef MODE_TRAY
 #undef MODE_RAD
+#undef MODE_PRESSURE
 #undef RAD_RANGE
 
 /datum/action/innate/robot_magpulse
