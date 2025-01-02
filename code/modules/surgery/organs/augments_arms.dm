@@ -877,14 +877,16 @@
 
 	double_attack = FALSE
 	src.attack(target, user, params, FALSE)
-	sleep(2) // not instant second attack
-	secondblade.attack(target, user, params, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(second_attack), secondblade, target, user, params, TRUE), 0.2 SECONDS) // not instant second attack
 	user.changeNext_move(CLICK_CD_MELEE)
 	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
 	return FINISH_ATTACK
 
 /obj/item/melee/mantis_blade/proc/reset_double_attack()
 	double_attack = TRUE
+
+/obj/item/melee/mantis_blade/proc/second_attack(obj/item/melee/mantis_blade/secondblade, mob/living/target, mob/living/user, params, second_attack)
+	secondblade.attack(target, user, params, second_attack)
 
 /obj/item/melee/mantis_blade/syndicate
 	name = "G.O.R.L.E.X. mantis blade"
@@ -929,4 +931,3 @@
 
 /obj/item/organ/internal/cyberimp/arm/NT_mantis/l
 	parent_organ = "l_arm"
-
