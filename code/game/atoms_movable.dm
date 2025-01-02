@@ -44,7 +44,7 @@
 
 	// Atmos
 	var/pressure_resistance = 10
-	var/last_high_pressure_movement_air_cycle = 0
+	var/last_high_pressure_movement_time = 0
 
 	/// UID for the atom which the current atom is orbiting
 	var/orbiting_uid = null
@@ -457,7 +457,7 @@
 	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
 
 	if(destination)
-		if(pulledby)
+		if(pulledby && !HAS_TRAIT(src, TRAIT_CURRENTLY_Z_MOVING))
 			pulledby.stop_pulling()
 
 		var/same_loc = oldloc == destination

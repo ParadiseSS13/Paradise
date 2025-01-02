@@ -27,6 +27,7 @@
 #define DIAG_AIRLOCK_HUD 	"22" // Airlock shock overlay
 #define GLAND_HUD 			"23"//Gland indicators for abductors
 #define JANI_HUD			"24" // Sign overlay over cleanable decals
+#define PRESSURE_HUD		"25" // Pressure coloring for tiles
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -42,22 +43,23 @@
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC				7
 #define DATA_HUD_JANITOR				8
+#define DATA_HUD_PRESSURE				9
 //antag HUD defines
-#define ANTAG_HUD_CULT					9
-#define ANTAG_HUD_REV					10
-#define ANTAG_HUD_OPS					11
-#define ANTAG_HUD_WIZ					12
-#define ANTAG_HUD_SHADOW    			13
-#define ANTAG_HUD_TRAITOR 				14
-#define ANTAG_HUD_NINJA 				15
-#define ANTAG_HUD_CHANGELING 			16
-#define ANTAG_HUD_VAMPIRE 				17
-#define ANTAG_HUD_ABDUCTOR 				18
-#define DATA_HUD_ABDUCTOR				19
-#define ANTAG_HUD_EVENTMISC 			20
-#define ANTAG_HUD_BLOB 					21
-#define ANTAG_HUD_ZOMBIE 				22
-#define ANTAG_HUD_MIND_FLAYER 			23
+#define ANTAG_HUD_CULT					10
+#define ANTAG_HUD_REV					11
+#define ANTAG_HUD_OPS					12
+#define ANTAG_HUD_WIZ					13
+#define ANTAG_HUD_SHADOW    			14
+#define ANTAG_HUD_TRAITOR 				15
+#define ANTAG_HUD_NINJA 				16
+#define ANTAG_HUD_CHANGELING 			17
+#define ANTAG_HUD_VAMPIRE 				18
+#define ANTAG_HUD_ABDUCTOR 				19
+#define DATA_HUD_ABDUCTOR				20
+#define ANTAG_HUD_EVENTMISC 			21
+#define ANTAG_HUD_BLOB 					22
+#define ANTAG_HUD_ZOMBIE 				23
+#define ANTAG_HUD_MIND_FLAYER 			24
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

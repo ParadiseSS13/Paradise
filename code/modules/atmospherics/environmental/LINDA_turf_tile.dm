@@ -26,6 +26,7 @@
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
 	QDEL_NULL(wet_overlay)
+	QDEL_NULL(wind_effect)
 	return ..()
 
 /turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
@@ -82,43 +83,79 @@
 	return null
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
-	var/atom/movable/M
-	for(var/thing in src)
-		M = thing
+	for(var/atom/movable/M in src)
 		if(QDELETED(M))
 			continue
 		if(M.anchored)
 			continue
 		if(M.pulledby)
 			continue
-		if(M.last_high_pressure_movement_air_cycle < SSair.times_fired)
-			M.experience_pressure_difference(flow_x, flow_y)
+		M.experience_pressure_difference(flow_x, flow_y)
 
-/atom/movable/proc/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
-	var/const/PROBABILITY_OFFSET = 25
-	var/const/PROBABILITY_BASE_PRECENT = 75
+/proc/wind_direction(flow_x, flow_y)
+	var/direction = 0
+	if(flow_x > 0.5)
+		direction |= EAST
+	if(flow_x < -0.5)
+		direction |= WEST
+	if(flow_y > 0.5)
+		direction |= NORTH
+	if(flow_y < -0.5)
+		direction |= SOUTH
 
-	var/pressure_difference = sqrt(flow_x ** 2 + flow_y ** 2)
-	var/max_force = sqrt(pressure_difference) * (MOVE_FORCE_DEFAULT / 5)
-	set waitfor = 0
-	var/move_prob = 100
-	if(pressure_resistance > 0)
-		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET
-	move_prob += pressure_resistance_prob_delta
-	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		var/direction = 0
-		if(flow_x > 0.5)
-			direction |= EAST
-		if(flow_x < -0.5)
-			direction |= WEST
-		if(flow_y > 0.5)
-			direction |= NORTH
-		if(flow_y < -0.5)
-			direction |= SOUTH
-		step(src, direction)
-		last_high_pressure_movement_air_cycle = SSair.times_fired
+	return direction
 
-	return pressure_difference
+/atom/movable/proc/experience_pressure_difference(flow_x, flow_y)
+	if(move_resist == INFINITY)
+		return
+
+	var/force_needed = max(move_resist, 1)
+	if(anchored)
+		force_needed *= MOVE_FORCE_FORCEPUSH_RATIO
+	else
+		force_needed *= MOVE_FORCE_PUSH_RATIO
+
+	var/turf/my_turf = get_turf(src)
+	var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
+
+	var/air = my_air.total_moles() / MOLES_CELLSTANDARD
+	var/wind = sqrt(flow_x ** 2 + flow_y ** 2)
+	var/force = wind * air * (MOVE_FORCE_DEFAULT / 5)
+
+	if(force < force_needed)
+		return
+
+	var/direction = wind_direction(flow_x, flow_y)
+	if(direction == 0)
+		return
+
+	if(last_high_pressure_movement_time >= SSair.times_fired - 3)
+		return
+	last_high_pressure_movement_time = SSair.times_fired
+
+	air_push(direction, (force - force_needed) / force_needed)
+
+/atom/movable/proc/air_push(direction, strength)
+	step(src, direction)
+
+/mob/living/air_push(direction, strength)
+	if(HAS_TRAIT(src, TRAIT_MAGPULSE))
+		return
+
+	apply_status_effect(STATUS_EFFECT_UNBALANCED)
+	apply_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW, 1 SECONDS, REVERSE_DIR(direction), min(10, strength * 5))
+
+	if(client?.input_data?.desired_move_dir)
+		return
+	if(!pulling)
+		return ..()
+
+	// Make sure we don't let go of something just because the wind pushed us into it.
+	var/atom/movable/was_pulling = pulling
+	. = ..()
+	// We were just pulling it, so we can skip all the other stuff in start_pulling and just re-establish the pull.
+	pulling = was_pulling
+	was_pulling.pulledby = src
 
 /turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
@@ -197,6 +234,14 @@
 	set_tile_airtight(T, atmos_airtight)
 	reset_superconductivity(T)
 	reduce_superconductivity(T, superconductivity)
+
+/obj/effect/wind
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	icon = 'icons/effects/tile_effects.dmi'
+	icon_state = "wind"
+	layer = MASSIVE_OBJ_LAYER
+	blend_mode = BLEND_OVERLAY
 
 #undef INDEX_NORTH
 #undef INDEX_EAST

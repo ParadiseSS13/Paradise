@@ -65,7 +65,7 @@
 	if(get_dist(T, target_turf) > P.shock_range)
 		to_chat(user, "<span class='warning'>The target is too far away.</span>")
 		return FALSE
-	target_turf.hotspot_expose(2000, 400)
+	target_turf.hotspot_expose(2000, 1)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 
 	var/atom/beam_from = user
