@@ -841,8 +841,6 @@
 /obj/item/melee/mantis_blade
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
-	icon_state = "mantis"
-	item_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
@@ -877,16 +875,20 @@
 
 	double_attack = FALSE
 	src.attack(target, user, params, FALSE)
-	addtimer(CALLBACK(src, PROC_REF(second_attack), secondblade, target, user, params, TRUE), 0.2 SECONDS) // not instant second attack
+	addtimer(CALLBACK(src, PROC_REF(second_attack), target, user, params, secondblade), 0.2 SECONDS) // not instant second attack
 	user.changeNext_move(CLICK_CD_MELEE)
 	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
 	return FINISH_ATTACK
 
 /obj/item/melee/mantis_blade/proc/reset_double_attack()
+	if(QDELETED(src))
+		return
 	double_attack = TRUE
 
-/obj/item/melee/mantis_blade/proc/second_attack(obj/item/melee/mantis_blade/secondblade, mob/living/target, mob/living/user, params, second_attack)
-	secondblade.attack(target, user, params, second_attack)
+/obj/item/melee/mantis_blade/proc/second_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
+	if(QDELETED(src) || QDELETED(secondblade))
+		return
+	secondblade.attack(target, user, params, TRUE)
 
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
@@ -902,6 +904,7 @@
 /obj/item/melee/mantis_blade/NT
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
+	item_state = "mantis"
 	force = 18
 
 /obj/item/melee/mantis_blade/NT/Initialize(mapload)
