@@ -949,7 +949,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/cyber_implants/mantis_kit
-	name = "G.O.R.L.E.X. Mantis Blades Kit"
+	name = "'Naginata' Mantis Blades Kit"
 	desc = "A pair of devastating 'Naginata' concealable mantis blades, which retract into the arms of the user. \
 	Their monomolecular edges will easily tear through flesh and armor alike, and can even pry open airlocks when used together. \
 	Can be used to parry incoming melee attacks."
