@@ -912,7 +912,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis
 	name = "'Naginata' mantis blade implants"
-	desc = "Modernized mantis blade designed and coined by Tiger operatives. Energy actuators makes the blade a much deadlier weapon."
+	desc = "A powerful and concealable mantis blade with a monomolecular edge, produced by Cybersun Industries. Cuts through flesh and armor alike with ease."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
 	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
 	icon_state = "syndie_mantis"
