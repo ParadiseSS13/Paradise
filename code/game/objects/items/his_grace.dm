@@ -78,7 +78,7 @@
 		return ..()
 
 /obj/item/his_grace/attack_obj(obj/attacked_obj, mob/living/user, params)
-	if(awakened && isstructure(attacked_obj) || ismachinery(attacked_obj))
+	if(awakened && (isstructure(attacked_obj) || ismachinery(attacked_obj)))
 		var/mob/living/carbon/human/H = user
 		H.changeNext_move(CLICK_CD_MELEE)
 		H.do_attack_animation(attacked_obj)
