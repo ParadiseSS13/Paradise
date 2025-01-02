@@ -423,7 +423,7 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/food/breadslice/food = new(get_turf(M))
+	var/obj/item/food/slice/bread/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null

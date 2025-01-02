@@ -4,6 +4,7 @@
 
 #define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 
+//MARK: FOOD
 /obj/item/food
 	name = "snack"
 	desc = "yummy!"
@@ -40,13 +41,13 @@
 	var/goal_difficulty = FOOD_GOAL_SKIP
 
 	var/bitecount = 0
-	var/trash = null
+	var/trash
 	var/slice_path
 	var/slices_num
-	var/dried_type = null
+	var/dried_type
 	var/dry = FALSE
 	var/cooktype[0]
-	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
+	var/cooked_type  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
@@ -274,8 +275,24 @@
 			W.taste(reagents)
 			W.consume(src)
 
+//MARK: SLICE
+/obj/item/food/slice
+	var/test = 3
+
+/obj/item/food/slice/Initialize(mapload, var/list/parent_reagents)
+	if(!parent_reagents)
+		log_debug("Slice was created with no parent! Name: [src], UID:[src.UID()], loc:[src.loc]")
+	list_reagents = parent_reagents
+	return ..()
+
+//MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
+
+/obj/item/food/sliceable/Initialize(mapload)
+	if(!istype(slice_path, /obj/item/food/slice))
+		CRASH("Invalid type assigned to slice_path: [slice_path]")
+	return ..()
 
 /obj/item/food/sliceable/examine(mob/user)
 	. = ..()
@@ -334,8 +351,10 @@
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
-		var/obj/slice = new slice_path (loc)
-		reagents.trans_to(slice,reagents_per_slice)
+		if(!istype(slice_path, /obj/item/food/slice))
+			CRASH("Invalid type assigned to slice_path: [slice_path]")
+			return
+		var/obj/item/food/slice/slice = new slice_path (loc,reagents_per_slice)
 		slice.pixel_x = rand(-7, 7)
 		slice.pixel_y = rand(-7, 7)
 	qdel(src)
@@ -354,8 +373,7 @@
 	cooktype["grilled"] = TRUE
 	cooktype["deep fried"] = TRUE
 
-// MISC
-
+//MARK: MISC
 /obj/item/food/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."

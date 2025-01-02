@@ -70,7 +70,7 @@
 		/obj/item/food/grown/citrus/orange = list("orangejuice" = 0),
 		/obj/item/food/grown/citrus/lime = list("limejuice" = 0),
 		/obj/item/food/grown/watermelon = list("watermelonjuice" = 0),
-		/obj/item/food/watermelonslice = list("watermelonjuice" = 0),
+		/obj/item/food/slice/watermelon = list("watermelonjuice" = 0),
 		/obj/item/food/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/food/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0), // Order is important here as blumpkin is a subtype of pumpkin, if switched blumpkins will produce pumpkin juice
 		/obj/item/food/grown/pumpkin = list("pumpkinjuice" = 0),

@@ -105,7 +105,7 @@
 	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/food/doughslice
+	input = /obj/item/food/slice/dough
 	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni

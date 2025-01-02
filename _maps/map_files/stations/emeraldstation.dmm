@@ -38943,7 +38943,7 @@
 /obj/item/food/grown/pumpkin{
 	pixel_y = 14
 	},
-/obj/item/food/pumpkinpieslice,
+/obj/item/food/slice/pumpkinpie,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hGX" = (
