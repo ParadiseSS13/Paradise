@@ -922,7 +922,7 @@
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/NT_mantis
-	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
+	name = "'Scylla' mantis blade implant"
 	desc = "Mantis blade reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
 	contents = newlist(/obj/item/melee/mantis_blade/NT)
