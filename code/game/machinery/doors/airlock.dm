@@ -1216,7 +1216,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(istype(I, /obj/item/melee/mantis_blade))
 		var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
 		if(!istype(secondblade, /obj/item/melee/mantis_blade))
-			to_chat(user, "<span class='warning'>You need a second [I] to pry open doors!")
+			to_chat(user, "<span class='warning'>You need a second [I] to pry open doors!</span>")
 			return
 	if(isElectrified())
 		shock(user, 100)//it's like sticking a forck in a power socket
