@@ -22492,6 +22492,19 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/break_room)
+"ezi" = (
+/obj/structure/table/glass,
+/obj/item/clothing/neck/stethoscope{
+	pixel_y = 6
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/newscaster/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/sleeper)
 "ezp" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -37492,8 +37505,8 @@
 	layer = 2.9
 	},
 /obj/structure/rack,
-/obj/item/clothing/accessory/stripedbluescarf,
-/obj/item/clothing/accessory/blue,
+/obj/item/clothing/neck/scarf/stripedblue,
+/obj/item/clothing/neck/tie/blue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "huB" = (
@@ -65771,7 +65784,7 @@
 /area/station/maintenance/fpmaint)
 "ndK" = (
 /obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
 /obj/machinery/light/small{
@@ -66541,7 +66554,7 @@
 /obj/structure/table/glass,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "nlH" = (
@@ -67215,7 +67228,7 @@
 /area/station/maintenance/fsmaint2)
 "nrE" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -76586,7 +76599,7 @@
 /area/station/command/office/ntrep)
 "peo" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/crowbar,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
@@ -77089,7 +77102,7 @@
 "pio" = (
 /obj/structure/table,
 /obj/item/soap/deluxe,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/defibrillator_mount{
 	pixel_y = 32
@@ -77110,11 +77123,11 @@
 /area/station/maintenance/aft)
 "piB" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 3
 	},
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
 /obj/item/radio/intercom{
@@ -101616,7 +101629,7 @@
 /area/station/medical/storage)
 "tZN" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -113291,19 +113304,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"woS" = (
-/obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 6
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/newscaster/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/station/medical/sleeper)
 "woU" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/structure/cable{
@@ -166805,7 +166805,7 @@ peJ
 oXT
 wxB
 vDJ
-woS
+ezi
 ggt
 fYp
 jbE
