@@ -92,7 +92,7 @@
 
 /// Deactivate all the screen objects, removing the green background from all of them
 /mob/living/silicon/robot/proc/deactivate_all()
-	for(var/atom/movable/screen/robot/active_module/to_deactivate)
+	for(var/atom/movable/screen/robot/active_module/to_deactivate in inventory_screens)
 		to_deactivate.deactivate()
 
 /mob/living/silicon/robot/proc/uneq_numbered(index)
