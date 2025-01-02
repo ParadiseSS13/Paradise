@@ -683,11 +683,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 			examining_worn_item = TRUE
 
-	var/can_see_str = span_subtle("\The [src] looks at [examined].")
+	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
 	if(examining_worn_item)
-		can_see_str = span_subtle("\The [src] looks [loc_str]")
+		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
-	var/cannot_see_str = span_subtle("\The [src] looks [loc_str]")
+	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
 	var/list/can_see_target = viewers(examined)
 	for(var/mob/M as anything in viewers(2, src))
