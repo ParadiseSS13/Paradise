@@ -361,11 +361,11 @@
 		return FINISH_ATTACK
 
 	if(try_wallmount(attacking, user, params))
-		return FINISH_ATTACK
+		return CONTINUE_ATTACK
 
 	// The cyborg gripper does a separate attackby, so bail from this one
 	if(istype(attacking, /obj/item/gripper))
-		return FINISH_ATTACK
+		return CONTINUE_ATTACK
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -165,7 +165,4 @@
 /turf/simulated/proc/is_shielded()
 	return
 
-/turf/simulated/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-
 #undef WATER_WEAKEN_TIME
