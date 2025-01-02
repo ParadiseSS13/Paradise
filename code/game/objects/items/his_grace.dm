@@ -86,8 +86,6 @@
 	H.visible_message("<span class='danger'>[H] has hit [attacked_obj] with [src]!</span>", "<span class='danger'>You hit [attacked_obj] with [src]!</span>")
 	var/damage = force
 	attacked_obj.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, user), 30) // yoinked from breaching cleaver
-	// else
-	// 	return ..()
 
 /obj/item/his_grace/can_be_pulled(user, grab_state, force, show_message = FALSE) //you can't pull his grace
 	return FALSE
