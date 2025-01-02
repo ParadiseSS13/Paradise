@@ -402,7 +402,7 @@
 
 /datum/design/NT_mantis
 	name = "H.E.P.H.A.E.S.T.U.S. mantis blade implant"
-	desc = "Mantis blades reverse engineered by NT engineers. Energy actuators makes the blade a much deadlier weapon."
+	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
 	id = "mantis_blade_NT"
 	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
 	build_type = PROTOLATHE | MECHFAB
