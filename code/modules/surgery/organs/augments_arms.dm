@@ -900,7 +900,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, non projectile
 
 /obj/item/melee/mantis_blade/NT
-	name = "H.E.P.H.A.E.S.T.U.S. mantis blade"
+	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
 	force = 18
 
