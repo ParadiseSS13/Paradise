@@ -332,6 +332,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/slot in GLOB.slot_equipment_priority)
 		if(isstorage(W) && slot == ITEM_SLOT_HEAD) // Storage items should be put on the belt before the head
 			continue
+		if(W.prefered_slot_flags && !(W.prefered_slot_flags & slot)) //If there's a prefered slot flags list, make sure this slot is in it
+			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
 
