@@ -32,10 +32,13 @@ The core of the attack chain commences:
    `COMSIG_INTERACT_USER`. If any listeners request it (usually by returning a
    non-null value), the attack chain may end here.
 5. If the target implements `item_interaction()`, it is called here, and can
-   return one of the `ITEM_INTERACT_` flags to end the attack chain.
+   either return `ITEM_INTERACT_COMPLETE` to end the attack chain, or
+   `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` to skip all phases of the attack chain
+   except for after-attack.
 6. If the item being used on the target implements `interact_with_atom()`, it is
-   called here, and can return one of the `ITEM_INTERACT_` flags to end the
-   attack chain.
+   called here, and can either return `ITEM_INTERACT_COMPLETE` to end the attack
+   chain, or `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` to skip all phases of the
+   attack chain except for after-attack.
 
 The above steps can generally be considered the "item interaction phase", when
 the action is not meant to cause in-game harm to the target. If the attack chain
@@ -89,12 +92,16 @@ into the attack chain.
 
 ### ITEM_INTERACT flags
 
-One may also ask why there are several `ITEM_INTERACT_` flags if returning any
-of them always results in the end of the attack chain. This is for two reasons:
+One may also ask why the `ITEM_INTERACT_SKIP_TO_AFTER_ATTACK` flag is necessary.
+Pre-migration, a common pattern was for an object to skip certain items in its
+`attackby`, and let those items handle the interaction in their `afterattack`.
+Some examples of this include:
 
-1. To make it clear at the call site what the intent of the code is, and
-2. So that in the future, if we do wish to separate the behavior of these flags,
-   we do not need to refactor all of the call sites.
+- Mountable frames being "ignored" in `/turf/attackby`, in order to let
+  `/obj/item/mounted/frame/afterattack` handle its specific behavior.
+- Reagent containers being "ignored" in various machines' `attackby`, in order
+  to let the container's `afterattack` handle reagent transfer or other specific
+  behavior.
 
 ## Attack Chain Refactor
 
@@ -154,6 +161,11 @@ have already been performed.
 `attackby` is used in cases when an item needs to respond to another item being
 used on it. These can be fairly straightforward if the type tree is shallow and
 the number of interactions is small.
+
+Something to note is that `attackby`, despite its name, rarely has behavior that
+is designed to respond to combat attacks. Most `attackby` methods you will find
+are simple item interactions; specific behavior the objects want to intercept
+before allowing the attack phase to begin.
 
 Our example migration is `/obj/vehicle`. This type tree only requires migrating:
 
@@ -230,45 +242,78 @@ return control to the parent for installing the VTEC. If there's a bag and the
 user is clicking on it with anything else with help intent, attempt to put it in
 the bag. Otherwise, return control to the parent.
 
-Most of this logic will work just fine as is, with the exception that we will
-need to return `FINISH_ATTACK` in the appropriate places when we want the attack
-chain to stop.
+Most of this logic will work just fine as is. However, none of this is
+combat-related, so we should pull it out of `attack_by` and substitute in
+`item_interaction`. This ensures that all the code involving specific behavior
+when clicking on the janicart will run before the attack phase, and not get
+in its way.
 
-We also need to refactor the code regarding VTEC installation: because one
-subtype does something different in reaction to the installation, we will pull
-that into its own proc, rather than try to rely on a back-and-forth between
-parent and child `attack_by`.
+Note that while `item_interaction` does not require a parent call, in this case
+it is useful to us because we want to handle the janicart-specific interactions
+before handling the vehicle-specific interactions.
 
-At the end of `/obj/vehicle/attack_by`:
+We change all the return statements to return one of the `ITEM_INTERACT_` flags
+at each junction whenever we have handled the item interaction.
 
 ```diff
-						to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
-				return
--		if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
--			vehicle_move_delay = 1
--			qdel(I)
--			to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
+-/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
++/obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+ 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+
+ 	if(istype(I, /obj/item/storage/bag/trash))
+ 		if(mybag)
+ 			to_chat(user, fail_msg)
 -			return
--		return ..()
-+		if(istype(I, /obj/item/borg/upgrade/vtec) && install_vtec(I, user))
-+			return FINISH_ATTACK
++			return ITEM_INTERACT_COMPLETE
+ 		if(!user.drop_item())
+-			return
++			return ITEM_INTERACT_COMPLETE
+ 		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+ 		I.forceMove(src)
+ 		mybag = I
+ 		update_icon(UPDATE_OVERLAYS)
+-		return
++		return ITEM_INTERACT_COMPLETE
++
+ 	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
+ 		if(buffer_installed)
+ 			to_chat(user, fail_msg)
+-			return
++			return ITEM_INTERACT_COMPLETE
+ 		buffer_installed = TRUE
+ 		qdel(I)
+ 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+ 		update_icon(UPDATE_OVERLAYS)
+-		return
+-	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
++		return ITEM_INTERACT_COMPLETE
++
++	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
++		mybag.attackby__legacy__attackchain(I, user)
++		return ITEM_INTERACT_COMPLETE
++
++	return ..()
 ```
 
-And then:
+We also refactor the code regarding VTEC installation: because one subtype does
+something different in reaction to the installation, we will pull that into its
+own proc, so that the parent interaction can handle that behavior.
 
 ```diff
-+/obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-+	if(vehicle_move_delay > 1)
-+		vehicle_move_delay = 1
-+		qdel(vtec)
-+		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
++/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
++	if(..() && floorbuffer)
+ 		floorbuffer = FALSE
+ 		vehicle_move_delay -= buffer_delay
+-		return ..() //VTEC installation is handled in parent attackby, so we're returning to it early
+-	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
+-		mybag.attackby(I, user)
+-	else
+-		return ..()
 +
-+		return TRUE
++	return TRUE
 ```
 
-Now, since we know the parent `attack_by` will get called first, we don't need
-to check for an attempted VTEC installation in the janicart at all. We just need
-to react to it properly:
+This allows us to keep the VTEC-specific behavior separate.
 
 ```diff
 +/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
@@ -279,20 +324,22 @@ to react to it properly:
 +	return TRUE
 ```
 
-That is: if the VTEC installation was successful, we remove the floorbuffer and
+That is: if the VTEC installation was successful, we disable the floorbuffer and
 its delay. We want to return `TRUE` at the end no matter what, because this is
 the indication not that the VTEC installation was succesful, but that it was
 attempted, and thus the rest of the attack chain is not necessary.
 
-We make sure to include:
+We'll take the opportunity to rename the passed in argument from `I` to `used`
+to make the code clearer, as well:
 
 ```diff
-+	if(..())
-+		return FINISH_ATTACK
+-/obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/I, list/modifiers)
++/obj/vehicle/janicart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+
+// etc...
 ```
 
-At the top of each `attack_by` proc, and set `new_attack_chain = TRUE` on
-`/obj/vehicle.`
+Finally, set `new_attack_chain = TRUE` on `/obj/vehicle.`
 
 > [!NOTE]
 >
@@ -613,8 +660,8 @@ chain from running.
 For `attack_by` prevention, this proc is [/datum/proc/signal_cancel_attack_by][]. For
 `activate_self` prevention, this proc is [/datum/proc/signal_cancel_activate_self][].
 
-[/datum/proc/signal/cancel_attack_by]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_attack_by
-[/datum/proc/signal/cancel_activate_self]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_activate_self
+[/datum/proc/signal_cancel_attack_by]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_attack_by
+[/datum/proc/signal_cancel_activate_self]: https://codedocs.paradisestation.org/datum.html#proc/signal_cancel_activate_self
 
 For example, when we migrated the airlock electronics above, we neglected to
 handle the `/destroyed` subtype, which prevents any interaction via

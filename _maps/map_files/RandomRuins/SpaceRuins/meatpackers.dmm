@@ -19,11 +19,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/delta)
 "af" = (
-/obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun;
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/delta)
 "ag" = (
@@ -1827,12 +1823,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/bmp_ship/aft)
 "go" = (
-/obj/machinery/porta_turret{
-	check_synth = 1;
-	installation = /obj/item/gun/energy/gun;
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/fore)
 "gp" = (
@@ -1964,7 +1955,7 @@
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -2118,12 +2109,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/aft)
 "hp" = (
-/obj/machinery/porta_turret{
-	check_synth = 1;
-	installation = /obj/item/gun/energy/gun;
-	lethal = 1;
-	name = "ship defense turret"
-	},
+/obj/machinery/porta_turret/meatpacker_ship,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/aft)
 "hq" = (

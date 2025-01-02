@@ -60,6 +60,14 @@
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
 
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/add_hud_to(mob/user)
+	..()
+	SSair.add_pressure_hud(user)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -222,10 +230,10 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 

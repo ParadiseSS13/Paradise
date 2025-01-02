@@ -55,6 +55,12 @@
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	recalculate_atmos_connectivity()
 
 /obj/structure/windoor_assembly/Destroy()
@@ -72,10 +78,10 @@
 /obj/structure/windoor_assembly/update_icon_state()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target)
+/obj/structure/windoor_assembly/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -95,13 +101,13 @@
 	else
 		return TRUE
 
-/obj/structure/windoor_assembly/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/structure/windoor_assembly/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+	if(direction == dir && density)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/windoor_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
