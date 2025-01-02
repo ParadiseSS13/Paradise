@@ -134,5 +134,9 @@
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+
+/// Called on the atom being hit, from /datum/component/anti_magic/on_attack() : (obj/item/weapon, mob/user, antimagic_flags)
+#define COMSIG_ATOM_HOLY_ATTACK "atom_holyattacked"
 /// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
 #define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"
+

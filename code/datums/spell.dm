@@ -134,6 +134,13 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/static/list/spell_handlers = list()
 	/// handles a given spells cooldowns. tracks the time until its off cooldown,
 	var/datum/spell_cooldown/cooldown_handler
+	/// Flag for certain states that the spell requires the user be in to cast.
+	var/spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	/// This determines what type of antimagic is needed to block the spell.
+	/// (MAGIC_RESISTANCE, MAGIC_RESISTANCE_MIND, MAGIC_RESISTANCE_HOLY)
+	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
+	/// The spell cannot be cast if the caster has any of the antimagic flags set.
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
@@ -466,6 +473,12 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		var/turf/T = get_turf(user)
 		if(T && is_admin_level(T.z))
 			return FALSE
+
+	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
+	// that corresponds with the spell's antimagic, then they can't actually cast the spell
+	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>")
+		return FALSE
 
 	if(!holy_area_cancast && user.holy_check())
 		return FALSE
