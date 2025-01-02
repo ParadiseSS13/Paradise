@@ -580,7 +580,7 @@
 
 /obj/item/storage/box/syndie_kit/syndie_mantis
 	name = "\improper Mantis Blades kit"
-	desc = "A box labeled with the letters G.O.R.L.E.X."
+	desc = "A sleek box marked with a Cybersun logo. The label says it contains a pair of CX-12 'Naginata' mantis blades and accompanying autosurgeons."
 
 /obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
 	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
