@@ -50,6 +50,10 @@
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -263,7 +267,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
-	baton.attack(C, src)
+	baton.attack__legacy__attackchain(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
@@ -458,9 +462,9 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && target)
+		var/mob/living/carbon/C = entered
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \
@@ -472,7 +476,6 @@
 						"[C] leaps out of [src]'s way!")]</span>")
 		C.KnockDown(4 SECONDS)
 		return
-	..()
 
 #undef BATON_COOLDOWN
 #undef BOT_REBATON_THRESHOLD

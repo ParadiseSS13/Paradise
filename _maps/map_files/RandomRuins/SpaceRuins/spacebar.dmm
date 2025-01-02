@@ -1,8 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/powered)
 "ab" = (
 /turf/simulated/mineral,
 /area/space/nearstation)
@@ -11,7 +15,7 @@
 /area/space/nearstation)
 "ad" = (
 /turf/template_noop,
-/area/space)
+/area/template_noop)
 "ae" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -115,8 +119,6 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "aD" = (
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "aE" = (
@@ -154,6 +156,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aM" = (
+/obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/space/powered)
 "aN" = (
@@ -228,9 +231,10 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aZ" = (
-/mob/living/simple_animal/hostile/carp,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice,
 /turf/template_noop,
-/area/space)
+/area/space/nearstation)
 "ba" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1
@@ -319,7 +323,7 @@
 /area/ruin/space/powered/bar)
 "bn" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bo" = (
@@ -333,6 +337,8 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "br" = (
+/obj/structure/marker_beacon/dock_marker,
+/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "bt" = (
@@ -369,7 +375,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
@@ -401,13 +407,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "gM" = (
-/obj/structure/marker_beacon/dock_marker/collision,
 /obj/structure/lattice,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /turf/template_noop,
-/area/ruin/space/powered)
+/area/space/nearstation)
 "iM" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
@@ -437,9 +439,13 @@
 	},
 /area/ruin/space/powered/bar)
 "jR" = (
-/obj/structure/lattice,
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_bar";
+	name = "Space Bar"
+	},
 /turf/template_noop,
-/area/ruin/space/powered)
+/area/template_noop)
 "lh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
@@ -478,7 +484,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "pb" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/machinery/door_control{
 	id = "SpaceBar";
 	name = "Public Shutters";
@@ -512,19 +518,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "sq" = (
-/obj/structure/lattice,
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
-/area/ruin/space/powered)
+/area/space/nearstation)
 "st" = (
-/obj/structure/lattice,
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /turf/template_noop,
 /area/ruin/space/powered)
 "tu" = (
@@ -549,7 +546,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (
@@ -738,7 +735,7 @@
 /area/space/nearstation)
 "Gz" = (
 /turf/simulated/wall/mineral/iron,
-/area/space)
+/area/template_noop)
 "HX" = (
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes,
@@ -824,13 +821,13 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "LQ" = (
-/obj/docking_port/stationary/whiteship{
-	dir = 8;
-	id = "whiteship_bar";
-	name = "Space Bar"
+/obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/template_noop,
-/area/space)
+/area/ruin/space/powered)
 "LU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
@@ -886,10 +883,9 @@
 	},
 /area/ruin/space/powered/bar)
 "PA" = (
-/obj/structure/marker_beacon/dock_marker,
-/obj/structure/lattice,
+/mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "QG" = (
 /obj/item/stack/ore/glass,
 /obj/machinery/light{
@@ -899,7 +895,7 @@
 /area/ruin/space/powered)
 "QU" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -909,9 +905,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered/bar)
 "Rc" = (
-/mob/living/simple_animal/hostile/carp,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/powered)
 "RL" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -949,7 +949,7 @@
 	},
 /area/ruin/space/powered/bar)
 "VR" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "VU" = (
@@ -1005,11 +1005,6 @@ ad
 ad
 ad
 ad
-ab
-ad
-ad
-ad
-ab
 ad
 ad
 ad
@@ -1026,10 +1021,17 @@ ad
 ad
 ad
 ad
-ab
-ac
-ac
-ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -1055,33 +1057,35 @@ ad
 ad
 ad
 ad
-ab
-ab
-ab
-ab
-ad
-ab
-ab
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 ad
 ad
 ad
 ab
+ad
+ad
+ad
 ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ab
+ac
+ac
 ab
-ab
+ad
 ad
 ad
 ad
@@ -1102,18 +1106,18 @@ ad
 "}
 (3,1,1) = {"
 ad
-ab
 ad
 ad
 ad
-ab
-ab
-ac
-ab
+ad
+ad
+ad
 ab
 ab
 ab
 ab
+ad
+ab
 ab
 ad
 ad
@@ -1128,14 +1132,16 @@ ad
 ad
 ad
 ad
-ac
-ac
-ab
-ac
-ab
-ac
+ad
 ad
 ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
 ad
 ad
 ad
@@ -1153,6 +1159,61 @@ ad
 ad
 "}
 (4,1,1) = {"
+ad
+ad
+ab
+ad
+ad
+ad
+ab
+ab
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ab
+ac
+ab
+ac
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(5,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1203,8 +1264,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1255,8 +1318,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1307,8 +1372,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1345,7 +1412,8 @@ ad
 ad
 ad
 ad
-aZ
+PA
+ad
 ad
 ad
 ad
@@ -1360,7 +1428,8 @@ ad
 ad
 ad
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1411,8 +1480,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1446,10 +1517,11 @@ JK
 RX
 au
 aP
-aa
-PA
-aa
-PA
+gM
+br
+gM
+br
+ad
 ad
 ad
 ad
@@ -1464,7 +1536,8 @@ ad
 ad
 ad
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1498,11 +1571,12 @@ JK
 bt
 au
 bo
-br
-br
-br
-br
-aZ
+aD
+aD
+aD
+aD
+PA
+ad
 ad
 ad
 ad
@@ -1516,7 +1590,8 @@ ad
 ad
 ad
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+ad
 ad
 ad
 ab
@@ -1550,10 +1625,11 @@ JK
 bt
 au
 bo
-br
-br
-Rc
-br
+aD
+aD
+sq
+aD
+ad
 ad
 ad
 ad
@@ -1568,7 +1644,8 @@ ad
 ad
 ad
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1602,11 +1679,12 @@ JK
 bt
 au
 bo
-br
-br
-br
-br
-aZ
+aD
+aD
+aD
+aD
+PA
+ad
 ad
 ad
 ad
@@ -1620,7 +1698,8 @@ ad
 ad
 ad
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1654,10 +1733,11 @@ JK
 RX
 au
 aP
-aa
-PA
-aa
-PA
+gM
+br
+gM
+br
+ad
 ad
 ad
 ad
@@ -1672,7 +1752,8 @@ ad
 ad
 ad
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1723,8 +1804,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1761,7 +1844,8 @@ ad
 ad
 ad
 ad
-aZ
+PA
+ad
 ad
 ad
 ad
@@ -1776,7 +1860,8 @@ ad
 ad
 ad
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1827,60 +1912,64 @@ ad
 ad
 ad
 ad
-"}
-(17,1,1) = {"
-ad
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-JK
-ai
-ai
-ai
-ai
-ai
-ai
-ab
-ab
-ab
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 ad
 "}
 (18,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ab
+ai
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+ai
+ai
+ai
+ai
+ai
+ai
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(19,1,1) = {"
+ad
 ad
 ad
 ad
@@ -1931,8 +2020,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+ad
 ad
 ab
 ad
@@ -1983,8 +2074,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+ad
 ad
 ad
 ab
@@ -2035,8 +2128,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2087,8 +2182,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2139,8 +2236,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2191,8 +2290,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2243,8 +2344,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2295,8 +2398,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2347,8 +2452,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2399,8 +2506,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2451,8 +2560,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+ad
 ad
 ad
 ab
@@ -2503,8 +2614,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2555,8 +2668,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2607,8 +2722,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+ad
 ad
 ad
 ab
@@ -2659,8 +2776,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2711,8 +2830,10 @@ ad
 ad
 ad
 ad
+ad
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+ad
 ad
 ad
 ad
@@ -2763,96 +2884,47 @@ ad
 ad
 ad
 ad
-"}
-(35,1,1) = {"
-aD
-aa
-aa
-aa
-aD
-aa
-aa
-aa
-vE
-aM
-XS
-aM
-sq
-aM
-aM
-sq
-aM
-aM
-aM
-aM
-sq
-aM
-aM
-sq
-aM
-Do
-aM
-vE
-aa
-aa
-aa
-aD
-aa
-aa
-aa
-aD
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 ad
 "}
 (36,1,1) = {"
-br
-br
-br
-br
-br
-br
-br
-br
-aM
-aM
+ad
+aZ
+gM
+gM
+gM
+aZ
+gM
+gM
+gM
+vE
+st
 XS
-aM
-jR
-aM
-aM
-jR
-aM
-aM
-aM
-aM
-jR
-aM
-aM
-jR
-aM
+st
+aa
+st
+st
+aa
+st
+st
+st
+st
+aa
+st
+st
+aa
+st
 Do
-aM
-aM
-br
-br
-br
-br
-br
-br
-br
-br
+st
+vE
+gM
+gM
+gM
+aZ
+gM
+gM
+gM
+aZ
+ad
 ad
 ad
 ad
@@ -2869,42 +2941,44 @@ ad
 ad
 "}
 (37,1,1) = {"
-br
-br
-br
-br
-br
-br
-br
-br
-aM
-aM
+ad
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+st
+st
 XS
+st
 aM
-jR
+st
+st
 aM
+st
+st
+st
+st
 aM
-jR
+st
+st
 aM
-aM
-aM
-aM
-jR
-aM
-aM
-jR
-aM
+st
 Do
-aM
-aM
-br
-br
-br
-br
-br
-br
-br
-br
+st
+st
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+ad
 ad
 ad
 ad
@@ -2921,42 +2995,44 @@ ad
 ad
 "}
 (38,1,1) = {"
-br
-br
-br
-br
-br
-br
-br
-br
-aM
-aM
+ad
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+st
+st
 XS
+st
 aM
-jR
+st
+st
 aM
+st
+st
+st
+st
 aM
-jR
+st
+st
 aM
-aM
-aM
-aM
-jR
-aM
-aM
-jR
-aM
+st
 Do
-aM
-aM
-br
-br
-br
-br
-br
-br
-br
-br
+st
+st
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+aD
+ad
 ad
 ad
 ad
@@ -2973,42 +3049,44 @@ ad
 ad
 "}
 (39,1,1) = {"
+ad
 aD
-aa
-aa
-aa
 aD
-aa
-aa
-aa
+aD
+aD
+aD
+aD
+aD
+aD
 st
-aM
+st
 XS
-aM
 st
 aM
-aM
+st
 st
 aM
-aM
-aM
-aM
+st
+st
+st
 st
 aM
-aM
+st
 st
 aM
+st
 Do
-aM
-gM
-aa
-aa
-aa
+st
+st
 aD
-aa
-aa
-aa
 aD
+aD
+aD
+aD
+aD
+aD
+aD
+ad
 ad
 ad
 ad
@@ -3025,6 +3103,61 @@ ad
 ad
 "}
 (40,1,1) = {"
+ad
+aZ
+gM
+gM
+gM
+aZ
+gM
+gM
+gM
+LQ
+st
+XS
+st
+LQ
+st
+st
+LQ
+st
+st
+st
+st
+LQ
+st
+st
+LQ
+st
+Do
+st
+Rc
+gM
+gM
+gM
+aZ
+gM
+gM
+gM
+aZ
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(41,1,1) = {"
+ad
 ad
 ad
 ad
@@ -3074,58 +3207,7 @@ ad
 ad
 ad
 ad
-LQ
-"}
-(41,1,1) = {"
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ac
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ac
-ac
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ad
-ad
-ad
-ab
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+jR
 ad
 "}
 (42,1,1) = {"
@@ -3133,35 +3215,37 @@ ad
 ad
 ad
 ad
+ab
+ab
+ab
+ab
+ab
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
 ad
 ab
-ab
-ab
-ab
-ab
-ac
-ac
-ac
-ab
-ab
-ab
-ab
-ab
-ab
-ac
-ac
-ab
-ab
-ab
-ab
-ab
-ab
-ac
-ac
-ab
-ab
-ad
-ad
 ad
 ad
 ad
@@ -3185,34 +3269,36 @@ ad
 ad
 ad
 ad
-ab
-ab
-ab
-ab
-ab
-ac
-ac
-ac
-ab
-ac
-ab
-ab
-ab
-ab
-ab
-ab
-ac
-ac
-ab
-ab
-ab
-ac
-ac
-ac
-ac
-ac
+ad
 ad
 ab
+ab
+ab
+ab
+ab
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ad
+ad
 ad
 ad
 ad
@@ -3238,32 +3324,34 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
-ac
-ac
 ab
 ab
-ab
-ab
-ab
-ad
-ad
 ab
 ab
 ab
 ac
 ac
-ab
-ab
-ab
+ac
 ab
 ac
 ab
 ab
 ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ac
+ac
+ac
+ac
+ac
 ad
+ab
 ad
 ad
 ad
@@ -3291,6 +3379,61 @@ ad
 ad
 ad
 ad
+ad
+ad
+ad
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ac
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(46,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ab
 ad
 ad
@@ -3314,6 +3457,61 @@ ad
 ac
 ad
 ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(47,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad

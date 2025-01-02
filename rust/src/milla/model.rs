@@ -3,6 +3,8 @@ use atomic_float::AtomicF32;
 use bitflags::bitflags;
 use byondapi::map::{byond_locatexyz, ByondXYZ};
 use byondapi::prelude::*;
+use std::collections::HashSet;
+use std::ops::Add;
 use std::sync::{atomic::AtomicBool, atomic::Ordering::Relaxed, RwLock};
 
 /// Represents a collection of gases, with amounts in moles.
@@ -69,7 +71,7 @@ impl GasSet {
     pub(crate) fn set_dirty(&mut self) {
         self.dirty.store(true, Relaxed);
     }
-    fn recalculate(&self) {
+    pub(crate) fn recalculate(&self) {
         let mut moles = 0.0;
         let mut heat_capacity = 0.0;
         for i in 0..GAS_COUNT {
@@ -99,7 +101,7 @@ impl GasSet {
     pub(crate) fn copy_from(&mut self, other: &GasSet) {
         for i in 0..GAS_COUNT {
             self.values[i] = other.values[i];
-            let dirty = self.dirty.load(Relaxed);
+            let dirty = other.dirty.load(Relaxed);
             if dirty {
                 self.dirty.store(true, Relaxed);
             } else {
@@ -109,6 +111,17 @@ impl GasSet {
                     .store(other.moles_cache.load(Relaxed), Relaxed);
                 self.dirty.store(false, Relaxed);
             }
+        }
+    }
+    pub(crate) fn add_gases(&mut self, other: &Self) {
+        for i in 0..GAS_COUNT {
+            self.values[i] += other.values[i];
+        }
+    }
+    #[allow(dead_code)]
+    pub(crate) fn clear(&mut self) {
+        for i in 0..GAS_COUNT {
+            self.values[i] = 0.0;
         }
     }
 }
@@ -121,6 +134,16 @@ impl Clone for GasSet {
     }
 }
 
+impl Add for GasSet {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        let mut result = self.clone();
+        result.add_gases(&other);
+        result
+    }
+}
+
 /// Determines the general behavior of a tile.
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub(crate) enum AtmosMode {
@@ -130,8 +153,8 @@ pub(crate) enum AtmosMode {
     Sealed,
     /// Tile is exposed to the given environment.
     ExposedTo { environment_id: u8 },
-	/// Prevents hot tiles from automatically decaying towards T20C
-	NoDecay,
+    /// Prevents hot tiles from automatically decaying towards T20C
+    NoDecay,
 }
 
 impl From<AtmosMode> for ByondValue {
@@ -140,7 +163,7 @@ impl From<AtmosMode> for ByondValue {
             AtmosMode::Space => ByondValue::from(0.0),
             AtmosMode::Sealed => ByondValue::from(1.0),
             AtmosMode::ExposedTo { .. } => ByondValue::from(2.0),
-			AtmosMode::NoDecay => ByondValue::from(3.0),
+            AtmosMode::NoDecay => ByondValue::from(3.0),
         }
     }
 }
@@ -198,6 +221,17 @@ pub(crate) struct Tile {
     pub(crate) superconductivity: Superconductivity,
     /// How much heat capacity the tile itself has, in joules per kelvin.
     pub(crate) innate_heat_capacity: f32,
+    /// How hot the tile's hotspot is. A hotspot is a sub-tile reagion that's caught fire.
+    pub(crate) hotspot_temperature: f32,
+    /// How much of the tile the hotspot covers. 1.0 would be the entire tile.
+    pub(crate) hotspot_volume: f32,
+    /// How strongly the air in this tile is flowing towards +axis.
+    pub(crate) wind: [f32; AXES.len()],
+    /// Is there a wall in this direction?
+    pub(crate) wall: [bool; AXES.len()],
+    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
+    /// How much fuel was burnt this tick?
+    pub(crate) fuel_burnt: f32,
 }
 
 impl Tile {
@@ -209,6 +243,12 @@ impl Tile {
             mode: AtmosMode::Space,
             superconductivity: Superconductivity::new(),
             innate_heat_capacity: 0.0,
+            hotspot_temperature: 0.0,
+            hotspot_volume: 0.0,
+            wind: [0.0, 0.0],
+            wall: [false, false],
+            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
+            fuel_burnt: 0.0,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
@@ -224,8 +264,7 @@ impl Tile {
             self.thermal_energy / heat_capacity
         }
     }
-    // Calculates the pressure of a tile.
-    #[allow(clippy::needless_range_loop)]
+    /// Calculates the pressure of a tile.
     pub(crate) fn pressure(&self) -> f32 {
         if let AtmosMode::Space = self.mode {
             return 0.0;
@@ -233,12 +272,27 @@ impl Tile {
         let mut heat_capacity = self.gases.heat_capacity();
         heat_capacity += self.innate_heat_capacity;
         if heat_capacity <= 0.0 {
-            0.0
-        } else {
-            let temperature = self.thermal_energy / heat_capacity;
-            self.gases.moles() * temperature * R_IDEAL_GAS_EQUATION / TILE_VOLUME
+            return 0.0;
         }
+        let temperature = self.thermal_energy / heat_capacity;
+        self.gases.moles()
+            * temperature.max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
+            * R_IDEAL_GAS_EQUATION
+            / TILE_VOLUME
     }
+    /// Calculates the partial pressure of a gas in a tile.
+    pub(crate) fn partial_pressure(&self, gas: usize) -> f32 {
+        if self.gases.values[gas] <= 0.0 {
+            return 0.0;
+        }
+
+        self.gases.values[gas]
+            * self.temperature().max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
+            * R_IDEAL_GAS_EQUATION
+            / TILE_VOLUME
+    }
+
+    #[allow(clippy::needless_range_loop)]
     pub(crate) fn copy_from(&mut self, other: &Tile) {
         self.airtight_directions = other.airtight_directions;
         self.gases.copy_from(&other.gases);
@@ -246,6 +300,17 @@ impl Tile {
         self.mode = other.mode;
         self.superconductivity.copy_from(&other.superconductivity);
         self.innate_heat_capacity = other.innate_heat_capacity;
+        self.hotspot_temperature = other.hotspot_temperature;
+        self.hotspot_volume = other.hotspot_volume;
+        for axis in 0..AXES.len() {
+            self.wind[axis] = other.wind[axis];
+            self.wall[axis] = other.wall[axis];
+            for gas in 0..GAS_COUNT {
+                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
+                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
+            }
+        }
+        self.fuel_burnt = other.fuel_burnt;
     }
 }
 
@@ -276,6 +341,11 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.superconductivity.west),
             ByondValue::from(value.innate_heat_capacity),
             ByondValue::from(value.temperature()),
+            ByondValue::from(value.hotspot_temperature),
+            ByondValue::from(value.hotspot_volume),
+            ByondValue::from(value.wind[AXIS_X]),
+            ByondValue::from(value.wind[AXIS_Y]),
+            ByondValue::from(value.fuel_burnt),
         ]
     }
 }
@@ -298,12 +368,12 @@ pub(crate) struct InterestingTile {
     pub(crate) coords: ByondXYZ,
     /// A bitmask of reasons this tile is interesting, values are REASON_*.
     pub(crate) reasons: ReasonFlags,
-    /// These represent the net force generated by air flowing out of the tile along each axis.
+    /// These represent the net force generated by air winding out of the tile along each axis.
     /// For a tile losing air equally in all directions, they will be zero.
-    /// For a tile losing air towards positive X only, flow_x will be the air pressure moved.
-    pub(crate) flow_x: f32,
-    /// See flow_x.
-    pub(crate) flow_y: f32,
+    /// For a tile losing air towards positive X only, wind_x will be the air pressure moved.
+    pub(crate) wind_x: f32,
+    /// See wind_x.
+    pub(crate) wind_y: f32,
 }
 
 /// Convert an InterestingTile into a flat vector of ByondValues.
@@ -319,8 +389,8 @@ impl From<&InterestingTile> for Vec<ByondValue> {
         ret.extend(vec![
             byond_locatexyz(value.coords).unwrap(),
             ByondValue::from(value.reasons.bits() as f32),
-            ByondValue::from(value.flow_x),
-            ByondValue::from(value.flow_y),
+            ByondValue::from(value.wind_x),
+            ByondValue::from(value.wind_y),
         ]);
 
         ret
@@ -328,7 +398,10 @@ impl From<&InterestingTile> for Vec<ByondValue> {
 }
 
 /// A single Z level in the atmos model.
-pub(crate) struct ZLevel(Box<[Tile; MAP_SIZE * MAP_SIZE]>);
+pub(crate) struct ZLevel {
+    tiles: Box<[Tile; MAP_SIZE * MAP_SIZE]>,
+    pub(crate) active_pressure_chunks: HashSet<(u8, u8)>,
+}
 
 impl ZLevel {
     pub(crate) fn new() -> Self {
@@ -336,7 +409,10 @@ impl ZLevel {
         for _ in 0..MAP_SIZE * MAP_SIZE {
             unbuilt.push(Tile::new());
         }
-        ZLevel(unbuilt.into_boxed_slice().try_into().unwrap())
+        ZLevel {
+            tiles: unbuilt.into_boxed_slice().try_into().unwrap(),
+            active_pressure_chunks: HashSet::new(),
+        }
     }
 
     pub(crate) fn maybe_get_index(x: i32, y: i32) -> Option<usize> {
@@ -348,21 +424,22 @@ impl ZLevel {
     }
 
     pub(crate) fn get_tile(&self, index: usize) -> &Tile {
-        &self.0[index]
+        &self.tiles[index]
     }
 
+    #[allow(dead_code)]
     pub(crate) fn maybe_get_tile(&self, x: i32, y: i32) -> Option<&Tile> {
-        Some(&self.0[ZLevel::maybe_get_index(x, y)?])
+        Some(&self.tiles[ZLevel::maybe_get_index(x, y)?])
     }
 
     pub(crate) fn get_tile_mut(&mut self, index: usize) -> &mut Tile {
-        &mut self.0[index]
+        &mut self.tiles[index]
     }
 
     pub(crate) fn get_pair_mut(&mut self, index1: usize, index2: usize) -> (&mut Tile, &mut Tile) {
         // Split borrow to get two mutable tiles at the same time.
         // Ref: https://doc.rust-lang.org/nomicon/borrow-splitting.html
-        let ptr = self.0.as_mut_ptr();
+        let ptr = self.tiles.as_mut_ptr();
         unsafe {
             assert!(index1 != index2);
 
@@ -374,9 +451,10 @@ impl ZLevel {
     }
 
     pub(crate) fn copy_from(&mut self, other: &ZLevel) {
-        for i in 0..self.0.len() {
-            self.0[i].copy_from(&other.0[i]);
+        for i in 0..self.tiles.len() {
+            self.tiles[i].copy_from(&other.tiles[i]);
         }
+        self.active_pressure_chunks = other.active_pressure_chunks.clone();
     }
 }
 
@@ -455,9 +533,11 @@ impl Buffers {
     }
 
     /// Create an environment for ExposedTo.
-    pub(crate) fn create_environment(&self, tile: Tile) -> u8 {
+    pub(crate) fn create_environment(&self, mut tile: Tile) -> u8 {
         let mut environments = self.environments.write().unwrap();
         let id = environments.len() as u8;
+        tile.mode = AtmosMode::ExposedTo { environment_id: id };
+        tile.gases.recalculate();
         environments.push(tile);
         id
     }
