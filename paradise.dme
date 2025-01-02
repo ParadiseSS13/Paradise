@@ -1549,6 +1549,7 @@
 #include "code\modules\antagonists\changeling\powers\transform.dm"
 #include "code\modules\antagonists\cult\datum_cultist.dm"
 #include "code\modules\antagonists\cult\team_cult.dm"
+#include "code\modules\antagonists\event\datum_eventmisc.dm"
 #include "code\modules\antagonists\mind_flayer\flayer_datum.dm"
 #include "code\modules\antagonists\mind_flayer\flayer_power.dm"
 #include "code\modules\antagonists\mind_flayer\mindflayer_gamemode.dm"
