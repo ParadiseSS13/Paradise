@@ -95,7 +95,7 @@
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
 		if(L.can_block_magic(MAGIC_RESISTANCE))
-			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span></span>")
+			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
 			continue
 		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
