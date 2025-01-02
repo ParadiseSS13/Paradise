@@ -33756,6 +33756,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "ckQ" = (
