@@ -82,6 +82,9 @@
 
 	var/datum/gas_mixture/bound_to_turf/bound_air
 
+	/// The effect used to render a pressure overlay from this tile.
+	var/obj/effect/pressure_overlay/pressure_overlay
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -651,8 +654,98 @@
 /datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
 	get_turf_air(T).copy_from(air)
 
+/turf/simulated/proc/update_hotspot()
+	var/datum/gas_mixture/air = get_readonly_air()
+	if(air.fuel_burnt() < 0.001)
+		if(isnull(active_hotspot))
+			return FALSE
+
+		// If it's old, delete it.
+		if(active_hotspot.death_timer < SSair.times_fired)
+			QDEL_NULL(active_hotspot)
+			return FALSE
+		else
+			return TRUE
+
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+
+	active_hotspot.death_timer = SSair.times_fired + 4
+	if(air.hotspot_volume() > 0)
+		active_hotspot.temperature = air.hotspot_temperature()
+		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+	else
+		active_hotspot.temperature = air.temperature()
+		active_hotspot.volume = CELL_VOLUME
+
+	active_hotspot.update_visuals()
+	return TRUE
+
+/turf/simulated/proc/update_wind()
+	if(wind_tick != SSair.times_fired)
+		QDEL_NULL(wind_effect)
+		wind_tick = null
+		return FALSE
+
+	if(isnull(wind_effect))
+		wind_effect = new(src)
+
+	wind_effect.dir = wind_direction(wind_x, wind_y)
+
+	var/datum/gas_mixture/air = get_readonly_air()
+	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
+	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
+	wind_effect.alpha = min(255, 5 + wind_strength * 25)
+	return TRUE
+
 /turf/return_analyzable_air()
 	return get_readonly_air()
+
+/obj/effect/pressure_overlay
+	icon_state = "nothing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
+	simulated = FALSE
+	// Please do not splat the visual effect with a shuttle.
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
+
+	var/image/overlay
+
+/obj/effect/pressure_overlay/Initialize(mapload)
+	. = ..()
+	overlay = new(icon, src, "white")
+	overlay.alpha = 0
+	overlay.plane = ABOVE_LIGHTING_PLANE
+	overlay.blend_mode = BLEND_OVERLAY
+	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/obj/effect/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	// No, I don't think I will.
+	return FALSE
+
+/obj/effect/pressure_overlay/singularity_pull()
+	// I am not a physical object, you have no control over me!
+	return FALSE
+
+/obj/effect/pressure_overlay/singularity_act()
+	// I don't taste good, either!
+	return FALSE
+
+/turf/proc/ensure_pressure_overlay()
+	if(isnull(pressure_overlay))
+		for(var/obj/effect/pressure_overlay/found_overlay in src)
+			pressure_overlay = found_overlay
+	if(isnull(pressure_overlay))
+		pressure_overlay = new(src)
+
+	if(isnull(pressure_overlay.loc))
+		// Not sure how exactly this happens, but I've seen it happen, so fix it.
+		pressure_overlay.forceMove(src)
+
+	if(isnull(pressure_overlay.overlay))
+		pressure_overlay.Initialize()
+
+	return pressure_overlay
 
 /turf/_clear_signal_refs()
 	return
