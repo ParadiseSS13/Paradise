@@ -3,6 +3,7 @@
 	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
+	var/list/clothing_traits
 	/// Only these species can wear this kit.
 	var/list/species_restricted
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
@@ -50,6 +51,63 @@
 	/// Done as such to not break chameleon gear since you can't rely on initial states
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
+
+/obj/item/clothing/equipped(mob/user, slot)
+	. = ..()
+	if(slot_flags & slot) //Was equipped to a valid slot for this item?
+		for(var/trait in clothing_traits)
+			ADD_CLOTHING_TRAIT(user, trait)
+
+/obj/item/clothing/dropped(mob/user)
+	. = ..()
+	for(var/trait in clothing_traits)
+		REMOVE_CLOTHING_TRAIT(user, trait)
+
+/**
+ * Inserts a trait (or multiple traits) into the clothing traits list
+ *
+ * If worn, then we will also give the wearer the trait as if equipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYOR(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
+		for(var/new_trait in trait_or_traits)
+			ADD_CLOTHING_TRAIT(wearer, new_trait)
+
+/**
+ * Removes a trait (or multiple traits) from the clothing traits list
+ *
+ * If worn, then we will also remove the trait from the wearer as if unequipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYREMOVE(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer))
+		for(var/new_trait in trait_or_traits)
+			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
+
+/obj/item/clothing/proc/refit_for_species(target_species)
+	//Set icon
+	if(sprite_sheets && (target_species in sprite_sheets))
+		icon_override = sprite_sheets[target_species]
+	else
+		icon_override = initial(icon_override)
+
+	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
+		icon = sprite_sheets_obj[target_species]
+	else
+		icon = initial(icon)
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -117,18 +175,6 @@
 				return FALSE
 
 	return TRUE
-
-/obj/item/clothing/proc/refit_for_species(target_species)
-	//Set icon
-	if(sprite_sheets && (target_species in sprite_sheets))
-		icon_override = sprite_sheets[target_species]
-	else
-		icon_override = initial(icon_override)
-
-	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
-		icon = sprite_sheets_obj[target_species]
-	else
-		icon = initial(icon)
 
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
@@ -637,6 +683,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 	)
+	new_attack_chain = TRUE
 
 	var/chained = FALSE
 	var/can_cut_open = FALSE
@@ -649,62 +696,47 @@
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 
-/obj/item/clothing/shoes/equipped(mob/user, slot)
-	. = ..()
-	if(!no_slip || slot != ITEM_SLOT_SHOES)
-		return
-	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-
-/obj/item/clothing/shoes/dropped(mob/user)
-	..()
-	if(!no_slip)
-		return
-	var/mob/living/carbon/human/H = user
-	if(!user)
-		return
-	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
-		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
-
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
-		var/obj/item/match/M = I
-		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
-			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [M] on the bottom of [src] to light it.</span>")
-			M.matchignite()
+/obj/item/clothing/shoes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/match) && src.loc == user)
+		var/obj/item/match/match = used
+		if(!match.lit && !match.burnt) // Match isn't lit, but isn't burnt.
+			user.visible_message("<span class='warning'>[user] strikes a [match] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [match] on the bottom of [src] to light it.</span>")
+			match.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-			return
-		if(M.lit && !M.burnt)
-			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
-			M.dropped()
+			return ITEM_INTERACT_SUCCESS
+		if(match.lit && !match.burnt)
+			user.visible_message("<span class='warning'>[user] crushes [match] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [match] into the bottom of [src], extinguishing it.</span>")
+			match.dropped()
 		return
 
-	if(istype(I, /obj/item/wirecutters))
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
-				cut_open = TRUE
-				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-			else
-				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-		return
-
-	if(istype(I, /obj/item/kitchen/knife/combat))
+	if(istype(used, /obj/item/kitchen/knife/combat))
 		if(!knife_slot)
-			to_chat(user, "<span class='notice'>There is no place to put [I] in [src]!</span>")
+			to_chat(user, "<span class='notice'>There is no place to put [used] in [src]!</span>")
 			return
 		if(hidden_blade)
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.unEquip(used))
 			return
-		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
-			"<span class='notice'>You place [I] into the side of your [name]!</span>")
-		I.forceMove(src)
-		hidden_blade = I
-		return
-
+		user.visible_message("<span class='notice'>[user] places [used] into their [name]!</span>", \
+			"<span class='notice'>You place [used] into the side of your [name]!</span>")
+		used.forceMove(src)
+		hidden_blade = used
+		return ITEM_INTERACT_SUCCESS
 	return ..()
+
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	if(can_cut_open)
+		if(cut_open)
+			to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
+			return
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
+		cut_open = TRUE
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		return TRUE
+	return
 
 /obj/item/clothing/shoes/update_name()
 	. = ..()
