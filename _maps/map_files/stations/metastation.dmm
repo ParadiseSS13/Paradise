@@ -70849,13 +70849,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory)
-"qKL" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "qKY" = (
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
@@ -125390,7 +125383,7 @@ cSx
 cFJ
 xwJ
 xwJ
-qKL
+xwJ
 aaa
 aaa
 aaa
