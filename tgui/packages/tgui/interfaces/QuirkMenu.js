@@ -1,5 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Section, Stack, Tabs, Input } from '../components';
+import { Window } from '../layouts';
 import { ButtonCheckbox } from '../components/Button';
 
 
@@ -23,11 +24,18 @@ const Quirks = ({context}) => {
     return (selected_quirks && selected_quirks.includes(quirk.name))
   };
 
+  const RenderBalance = () => {
+    return  (
+      <Stack.Item>
+        {parseInt(quirk_balance, 10)}
+      </Stack.Item>
+    );
+  };
+
   const RenderQuirk = (quirk) => {
-    const alreadyChosen = HasChosenQuirk(quirk);
+    let alreadyChosen = HasChosenQuirk(quirk);
     return (
     <Stack.Item textAlign='center' key = {quirk.quirk_type}>
-      {quirk.name}: {quirk.cost} balance cost
       <ButtonCheckbox checked = {alreadyChosen}
       onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {path: quirk.type})}/>
       <Box>
@@ -39,11 +47,7 @@ const Quirks = ({context}) => {
 
   return (
     <Stack>
-      Quirk balance: {quirk_balance}
-    {
-    all_quirks.map((quirk) => {
-      RenderQuirk(quirk)})
-    }
+      {RenderBalance()}
     </Stack>
   );
 };
