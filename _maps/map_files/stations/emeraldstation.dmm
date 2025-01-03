@@ -27514,7 +27514,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/station/hallway/primary/central/nw)
+/area/station/hallway/primary/central/sw)
 "fvK" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
 /turf/simulated/floor/plasteel,
@@ -37343,7 +37343,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/nw)
+/area/station/hallway/primary/central/sw)
 "hsN" = (
 /obj/structure/chair{
 	dir = 4
@@ -54037,7 +54037,7 @@
 	name = "Central Access"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/nw)
+/area/station/hallway/primary/central/sw)
 "kJn" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
