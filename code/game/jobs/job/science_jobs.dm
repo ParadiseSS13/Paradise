@@ -36,7 +36,7 @@
 	)
 	minimal_player_age = 21
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
-	exp_map = list(EXP_TYPE_SCIENCE = 1200)
+	exp_map = list(EXP_TYPE_SCIENCE = 40 HOURS)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research
