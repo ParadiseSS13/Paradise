@@ -154,7 +154,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "ge" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -229,9 +230,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/catwalk,
-/area/shuttle/escape)
-"jR" = (
-/turf/simulated/floor/engine/o2,
 /area/shuttle/escape)
 "kx" = (
 /obj/structure/chair/comfy/shuttle,
@@ -354,7 +352,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "pi" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -565,7 +564,8 @@
 	},
 /area/shuttle/escape)
 "zj" = (
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "zs" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -639,7 +639,8 @@
 /area/template_noop)
 "CD" = (
 /obj/machinery/igniter/shadow,
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "CK" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -680,7 +681,8 @@
 /area/shuttle/escape)
 "DY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "DZ" = (
 /obj/effect/turf_decal/stripes/red/corner{
@@ -739,7 +741,8 @@
 	dir = 4;
 	invisibility = 99
 	},
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Gx" = (
 /obj/structure/extinguisher_cabinet{
@@ -1151,7 +1154,8 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/meter,
-/turf/simulated/floor/engine/plasma,
+/obj/structure/plasmafire_generator/shadow,
+/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Xp" = (
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -1357,9 +1361,9 @@ Lv
 OL
 Bu
 tb
-jR
+zj
 CD
-jR
+zj
 cX
 wF
 cH
