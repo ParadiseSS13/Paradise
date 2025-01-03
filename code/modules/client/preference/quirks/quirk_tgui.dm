@@ -33,12 +33,15 @@ GLOBAL_LIST_EMPTY(quirk_tgui_info)
 
 	var/mob/user = usr
 	var/datum/character_save/active_character = user.client.prefs.active_character
-	var/quirk_name = params["name"]
+	var/quirk_path = text2path(params["path"])
+	var/datum/quirk/quirk = new quirk_path
 	switch(action)
 		if("add_quirk")
-			log_debug("Add [quirk_name]")
+			log_debug("Add [quirk.name]")
+			active_character.quirks += "[quirk.name]"
 		if("remove_quirk")
-			log_debug("Remove [quirk_name]")
+			log_debug("Remove [quirk.name]")
+			active_character.quirks.Remove("[quirk.name]")
 
 
 

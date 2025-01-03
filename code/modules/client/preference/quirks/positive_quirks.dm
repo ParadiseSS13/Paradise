@@ -1,4 +1,5 @@
 /datum/quirk/positive
+	quirk_type = QUIRK_POSITIVE
 
 /datum/quirk/positive/skittish
 	name = "Skittish"
@@ -33,7 +34,4 @@
 	name = "Meal Prepper"
 	desc = "You thought ahead and pre-packed a meal for the day."
 	cost = 1
-
-/datum/quirk/positive/trained_surgeon
-
 

@@ -4,6 +4,18 @@ import { ButtonCheckbox } from '../components/Button';
 
 
 export const QuirkMenu = (props, context) => {
+  return(
+    <Window>
+      <Window.Content>
+        <Stack fill vertical>
+          <Quirks context={context}/>
+        </Stack>
+      </Window.Content>
+    </Window>
+  );
+};
+
+const Quirks = ({context}) => {
   const {act, data} = useBackend(context);
   const {quirk_balance, selected_quirks, all_quirks} = data;
 
@@ -13,11 +25,11 @@ export const QuirkMenu = (props, context) => {
 
   const RenderQuirk = (quirk) => {
     const alreadyChosen = HasChosenQuirk(quirk);
-    return(
-    <Stack.Item textAlign='center'>
+    return (
+    <Stack.Item textAlign='center' key = {quirk.quirk_type}>
       {quirk.name}: {quirk.cost} balance cost
       <ButtonCheckbox checked = {alreadyChosen}
-      onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {name: quirk.name})}/>
+      onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {path: quirk.type})}/>
       <Box>
         {quirk.desc}
       </Box>
@@ -25,15 +37,14 @@ export const QuirkMenu = (props, context) => {
     );
   };
 
-  return(
-    <Section title='Quirks'>
-      <Stack vertical>
-        Quirk Balance: {quirk_balance}
-        {
-          all_quirks.map((quirk) => {
-            RenderQuirk(quirk)
-        })}
-      </Stack>
-    </Section>
+  return (
+    <Stack>
+      Quirk balance: {quirk_balance}
+    {
+    all_quirks.map((quirk) => {
+      RenderQuirk(quirk)})
+    }
+    </Stack>
   );
-}
+};
+
