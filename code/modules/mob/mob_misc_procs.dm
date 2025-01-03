@@ -186,6 +186,7 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
 		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
 		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
 		M.key = theghost.key
