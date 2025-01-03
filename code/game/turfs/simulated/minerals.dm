@@ -62,24 +62,32 @@
 /turf/simulated/mineral/shuttleRotate(rotation)
 	QUEUE_SMOOTH(src)
 
-/turf/simulated/mineral/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	// TODO: Just sticking this here for now because attack chain refactor is coming later
-	// No point in threading this through everything right now
-	if(SEND_SIGNAL(src, COMSIG_ATTACK_BY, I, user, params) & COMPONENT_SKIP_AFTERATTACK)
-		return
+/turf/simulated/mineral/proc/invalid_tool(mob/user, obj/item/pickaxe/axe)
+	if(!istype(axe))
+		return TRUE
+
+	return FALSE
+
+/turf/simulated/mineral/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
+		return FINISH_ATTACK
 
-	if(istype(I, /obj/item/pickaxe))
-		var/obj/item/pickaxe/P = I
+	if(istype(attacking, /obj/item/pickaxe))
+		var/obj/item/pickaxe/P = attacking
+		if(invalid_tool(user, P))
+			return FINISH_ATTACK
+
 		var/turf/T = user.loc
 		if(!isturf(T))
-			return
+			return FINISH_ATTACK
 
 		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
-			return
+			return FINISH_ATTACK
+
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
@@ -89,6 +97,8 @@
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+
+		return FINISH_ATTACK
 	else
 		return attack_hand(user)
 
@@ -126,15 +136,15 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
-			attackby__legacy__attackchain(H.l_hand,H)
+			attack_by(H.l_hand, H)
 		else if((istype(H.r_hand,/obj/item/pickaxe)) && H.hand)
-			attackby__legacy__attackchain(H.r_hand,H)
+			attack_by(H.r_hand, H)
 		return
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		if(istype(R.module_active, /obj/item/pickaxe))
-			attackby__legacy__attackchain(R.module_active, R)
+			attack_by(R.module_active, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM
@@ -192,31 +202,6 @@
 	should_reset_color = FALSE
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
-/turf/simulated/mineral/ancient/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
-
-	if(istype(I, /obj/item/pickaxe))
-		var/obj/item/pickaxe/P = I
-		var/turf/T = user.loc
-		if(!isturf(T))
-			return
-
-		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
-		P.playDigSound()
-
-		if(do_after(user, mine_time * P.toolspeed, target = src))
-			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
-	else
-		return attack_hand(user)
-
 /turf/simulated/mineral/ancient/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		blob_destruction()
@@ -250,11 +235,13 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/outer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
-		return
-	return ..()
+/turf/simulated/mineral/ancient/outer/invalid_tool(mob/user, obj/item/pickaxe/axe)
+	if(..())
+		return TRUE
+
+	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		return TRUE
 
 /turf/simulated/mineral/ancient/lava_land_surface_hard
 	name = "hardened volcanic rock"
@@ -278,11 +265,13 @@
 			/obj/item/pickaxe/drill/diamonddrill,
 			))
 
-/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
-		return
-	return ..()
+/turf/simulated/mineral/ancient/lava_land_surface_hard/invalid_tool(mob/user, obj/item/pickaxe/axe)
+	if(..())
+		return TRUE
+
+	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		return TRUE
 
 /turf/simulated/mineral/random/high_chance
 	color = COLOR_YELLOW

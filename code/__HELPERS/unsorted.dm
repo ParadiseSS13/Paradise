@@ -1013,7 +1013,28 @@ Returns 1 if the chain up to the area contains the given typepath
 					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+						if(!(V in list(
+							"ckey",
+							"comp_lookup",
+							"contents",
+							"destination_x",
+							"destination_y",
+							"destination_z",
+							"group",
+							"key",
+							"loc",
+							"locs",
+							"luminosity",
+							"parent_type",
+							"parent",
+							"signal_procs",
+							"type",
+							"vars",
+							"verbs",
+							"x",
+							"y",
+							"z",
+						)))
 							X.vars[V] = T.vars[V]
 
 					to_update += X

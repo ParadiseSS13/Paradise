@@ -40,37 +40,38 @@
 		if(RWALL_SHEATH)
 			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
-/turf/simulated/wall/r_wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))
+/turf/simulated/wall/r_wall/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(d_state == RWALL_COVER && istype(attacking, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && d_state == RWALL_COVER)
+		if(attacking.use_tool(src, user, 40, volume = attacking.tool_volume) && d_state == RWALL_COVER)
 			d_state = RWALL_CUT_COVER
 			update_icon()
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
-		return
-	else if(d_state == RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
+		return FINISH_ATTACK
+	else if(d_state == RWALL_SUPPORT_RODS && istype(attacking, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
-		if(I.use_tool(src, user, 70, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+		if(attacking.use_tool(src, user, 70, volume = attacking.tool_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
 			update_icon()
-		return
+		return FINISH_ATTACK
 
 	else if(d_state)
 		// Repairing
-		if(istype(I, /obj/item/stack/sheet/metal))
-			var/obj/item/stack/sheet/metal/MS = I
+		if(istype(attacking, /obj/item/stack/sheet/metal))
+			var/obj/item/stack/sheet/metal/MS = attacking
 			to_chat(user, "<span class='notice'>You begin patching-up the wall with [MS]...</span>")
 			if(do_after(user, max(20 * d_state, 100) * MS.toolspeed, target = src) && d_state)
 				if(!MS.use(1))
 					to_chat(user, "<span class='warning'>You don't have enough [MS.name] for that!</span>")
-					return
+					return FINISH_ATTACK
 				d_state = RWALL_INTACT
 				update_icon()
 				QUEUE_SMOOTH_NEIGHBORS(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
-			return
-	else
-		return ..()
+			return FINISH_ATTACK
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))

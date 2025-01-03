@@ -57,7 +57,7 @@
 		if(1)
 			getDug()
 
-/turf/simulated/floor/plating/asteroid/proc/attempt_ore_pickup(obj/item/storage/bag/ore/S, mob/user, params)
+/turf/simulated/floor/plating/asteroid/proc/attempt_ore_pickup(obj/item/storage/bag/ore/S, mob/user)
 	if(!istype(S))
 		return
 
@@ -66,12 +66,11 @@
 			O.attackby__legacy__attackchain(S, user)
 			return
 
-/turf/simulated/floor/plating/asteroid/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	//note that this proc does not call ..()
-	if(!I|| !user)
-		return FALSE
+/turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(QDELETED(user)|| QDELETED(used))
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+	if((istype(used, /obj/item/shovel) || istype(used, /obj/item/pickaxe)))
 		if(!can_dig(user))
 			return TRUE
 
@@ -81,19 +80,19 @@
 
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
-		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		playsound(src, used.usesound, 50, TRUE)
+		if(do_after(user, 40 * used.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			getDug()
 			return TRUE
 
-	else if(istype(I, /obj/item/storage/bag/ore))
-		attempt_ore_pickup(I, user, params)
+	else if(istype(used, /obj/item/storage/bag/ore))
+		attempt_ore_pickup(used, user)
 
-	else if(istype(I, /obj/item/stack/tile))
-		var/obj/item/stack/tile/Z = I
+	else if(istype(used, /obj/item/stack/tile))
+		var/obj/item/stack/tile/Z = used
 		if(!Z.use(1))
 			return
 		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
