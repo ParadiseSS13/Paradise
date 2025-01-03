@@ -50,6 +50,10 @@
 	/// All of the minds that we will make into our antagonist type
 	var/list/datum/mind/pre_antags = list()
 
+/datum/ruleset/Destroy(force, ...)
+	stack_trace("[src] ([type]) was destroyed.")
+	return ..()
+
 /datum/ruleset/proc/ruleset_possible(ruleset_budget, rulesets)
 	if(ruleset_budget < ruleset_cost)
 		return "Not enough budget"
@@ -73,7 +77,8 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		banned_jobs += protected_jobs
 
-	for(var/datum/mind/antag as anything in shuffle_inplace(possible_antags))
+	shuffle_inplace(possible_antags)
+	for(var/datum/mind/antag as anything in possible_antags)
 		if(antag_amount <= 0)
 			break
 		if(!can_apply(antag))
