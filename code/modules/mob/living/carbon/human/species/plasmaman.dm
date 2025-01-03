@@ -51,6 +51,8 @@
 			"s" = list("ss", "sss", "ssss")
 		)
 
+	plushie_type = /obj/item/toy/plushie/plasmamanplushie
+
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/current_job = J.title
 	var/datum/outfit/plasmaman/O = new /datum/outfit/plasmaman
@@ -144,6 +146,9 @@
 
 		if("Assistant")
 			O = new /datum/outfit/plasmaman/assistant
+
+		if("Nanotrasen Career Trainer")
+			O = new /datum/outfit/plasmaman/trainer
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand

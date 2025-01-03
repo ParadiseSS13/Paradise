@@ -57,6 +57,15 @@
 			qdel(C, FALSE, TRUE)
 		dc.Cut()
 
+	_clear_signal_refs()
+	//END: ECS SHIT
+
+	return QDEL_HINT_QUEUE
+
+/// Do not override this. This proc exists solely to be overriden by /turf. This
+/// allows it to ignore clearing out signals which refer to it, in order to keep
+/// those signals valid after the turf has been changed.
+/datum/proc/_clear_signal_refs()
 	var/list/lookup = comp_lookup
 	if(lookup)
 		for(var/sig in lookup)
@@ -72,10 +81,6 @@
 
 	for(var/target in signal_procs)
 		UnregisterSignal(target, signal_procs[target])
-	//END: ECS SHIT
-
-	return QDEL_HINT_QUEUE
-
 
 /datum/nothing
 	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.
