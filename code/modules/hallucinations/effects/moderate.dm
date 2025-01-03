@@ -476,3 +476,48 @@
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
 	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+
+// Doppelganger hallucination
+// Spawns a copy of the player that briefly follows them around
+/obj/effect/hallucination/doppelganger
+	duration = 10 SECONDS
+	var/obj/effect/hallucination/chaser/you/fake_you
+
+/obj/effect/hallucination/doppelganger/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		if(!is_blocked_turf(T))
+			locs += T
+	if(!length(locs))
+		qdel(src)
+		return
+
+	var/turf/T = pick(locs)
+	fake_you = new(T, target)
+
+/obj/effect/hallucination/doppelganger/Destroy()
+	QDEL_NULL(fake_you)
+	return ..()
+
+/obj/effect/hallucination/chaser/you
+	duration = 10 SECONDS
+	min_distance = 2
+	var/image/I = new
+
+/obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	name = "???"
+	I.appearance = target.appearance
+	I.loc = src
+	I.override = TRUE
+	add_icon(I)
+
+/obj/effect/hallucination/chaser/you/chase()
+	..()
+	I.dir = get_dir(src, target)
+
+/obj/effect/hallucination/chaser/you/Destroy()
+	QDEL_NULL(I)
+	return ..()
