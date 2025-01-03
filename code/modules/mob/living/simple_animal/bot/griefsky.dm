@@ -115,7 +115,7 @@
 			if(find_new_target())
 				return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
 			icon_state = spin_icon
 			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
@@ -176,7 +176,7 @@
 		visible_message("[src] ignites his energy swords!")
 		icon_state = "griefsky-c"
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE

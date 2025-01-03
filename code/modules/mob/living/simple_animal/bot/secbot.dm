@@ -189,7 +189,7 @@
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
@@ -245,7 +245,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
@@ -320,7 +320,7 @@
 			if(find_new_target())	// see if any criminals are in range
 				return
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
@@ -341,7 +341,7 @@
 
 			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 				stun_attack(target)
-				mode = BOT_PREP_ARREST
+				set_mode(BOT_PREP_ARREST)
 				anchored = TRUE
 				target_lastloc = target.loc
 				return
@@ -380,7 +380,7 @@
 				back_to_hunt()
 				return
 			//Try arresting again if the target escapes.
-			mode = BOT_PREP_ARREST
+			set_mode(BOT_PREP_ARREST)
 			anchored = FALSE
 
 		if(BOT_START_PATROL)
@@ -397,7 +397,7 @@
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -406,7 +406,7 @@
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 // look for a criminal in view of the bot
 
@@ -429,7 +429,7 @@
 		speak("Level [threatlevel] infraction alert!")
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -460,7 +460,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/secbot/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(ismob(entered) && target)

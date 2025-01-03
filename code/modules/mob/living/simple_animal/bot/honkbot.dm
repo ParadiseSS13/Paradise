@@ -108,7 +108,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
@@ -209,20 +209,20 @@
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 	if(!do_after(src, 6 SECONDS, target = C) || !on)
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
 		C.update_handcuffed()
 	C.SetDeaf(0)
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(spam_flag)
@@ -270,7 +270,7 @@
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
@@ -308,7 +308,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -317,7 +317,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/find_new_target()
@@ -352,7 +352,7 @@
 		else
 			speak("Honk!")
 			visible_message("<b>[src]</b> starts chasing [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -375,7 +375,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(ismob(entered) && on) //only if its online
