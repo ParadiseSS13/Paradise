@@ -30060,9 +30060,6 @@
 	},
 /area/station/medical/virology)
 "cmJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "1-2"
